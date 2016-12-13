@@ -3,19 +3,23 @@ import ListErrors from './ListErrors';
 import React from 'react';
 import agent from '../agent';
 import { connect } from 'react-redux';
+import * as Actions from '../actions';
 
-const mapStateToProps = state => ({ ...state.auth });
-
-const mapDispatchToProps = dispatch => ({
-  onChangeEmail: value =>
-    dispatch({ type: 'UPDATE_FIELD_AUTH', key: 'email', value }),
-  onChangePassword: value =>
-    dispatch({ type: 'UPDATE_FIELD_AUTH', key: 'password', value }),
-  onSubmit: (email, password) =>
-    dispatch({ type: 'LOGIN', payload: agent.Auth.login(email, password) }),
-  onUnload: () =>
-    dispatch({ type: 'LOGIN_PAGE_UNLOADED' })
+const mapStateToProps = state => ({ 
+  ...state.auth,
+  authenticationError: state.auth.error
 });
+
+// const mapDispatchToProps = dispatch => ({
+//   onChangeEmail: value =>
+//     dispatch({ type: 'UPDATE_FIELD_AUTH', key: 'email', value }),
+//   onChangePassword: value =>
+//     dispatch({ type: 'UPDATE_FIELD_AUTH', key: 'password', value }),
+//   onSubmit: (email, password) =>
+//     dispatch({ type: 'LOGIN', payload: agent.Auth.login(email, password) }),
+//   onUnload: () =>
+//     dispatch({ type: 'LOGIN_PAGE_UNLOADED' })
+// });
 
 class Login extends React.Component {
   constructor() {
@@ -23,8 +27,10 @@ class Login extends React.Component {
     this.changeEmail = ev => this.props.onChangeEmail(ev.target.value);
     this.changePassword = ev => this.props.onChangePassword(ev.target.value);
     this.submitForm = (email, password) => ev => {
+      // this.submitForm = (email, password) => {
       ev.preventDefault();
-      this.props.onSubmit(email, password);
+      // this.props.onSubmit(email, password);
+      this.props.signInUser(email, password);
     };
   }
 
@@ -89,4 +95,5 @@ class Login extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+// export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, Actions)(Login);

@@ -7,6 +7,7 @@ import React from 'react';
 import agent from '../../agent';
 import { connect } from 'react-redux';
 import marked from 'marked';
+import Firebase from 'firebase'
 
 const mapStateToProps = state => ({
   ...state.article,
@@ -18,6 +19,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch({ type: 'ARTICLE_PAGE_LOADED', payload }),
   onUnload: () =>
     dispatch({ type: 'ARTICLE_PAGE_UNLOADED' })
+    // fetchArticle: payload =>
+    //   dispatch({ type: 'FETCH_ARTICLE', payload }),
 });
 
 class Article extends React.Component {

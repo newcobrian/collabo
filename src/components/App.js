@@ -41,8 +41,8 @@ class App extends React.Component {
 
     Firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        console.log('user = ' + JSON.stringify(user));
-        console.log('app.js: agent auth current = ' + JSON.stringify(agent.Auth.current()));
+        // console.log('user = ' + JSON.stringify(user));
+        // console.log('app.js: agent auth current = ' + JSON.stringify(agent.Auth.current()));
         this.props.onLoad(user, true);
       } else {
         this.props.onLoad(null, false);

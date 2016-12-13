@@ -25,6 +25,10 @@ export default (state = {}, action) => {
         ...state,
         comments: state.comments.filter(comment => comment.id !== commentId)
       };
+    // case 'FETCH_ARTICLE':
+    //   return {
+    //     action.payload
+    //   };
   }
 
   return state;

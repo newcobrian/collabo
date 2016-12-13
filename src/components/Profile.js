@@ -5,6 +5,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import agent from '../agent';
 import { connect } from 'react-redux';
+import Firebase from 'firebase';
 
 const EditProfileSettings = props => {
   if (props.isUser) {
@@ -68,15 +69,18 @@ const mapDispatchToProps = dispatch => ({
     type: 'UNFOLLOW_USER',
     payload: agent.Profile.unfollow(username)
   }),
-  onUnload: () => dispatch({ type: 'PROFILE_PAGE_UNLOADED' })
+  onUnload: () => dispatch({ type: 'PROFILE_PAGE_UNLOADED' }),
+  onGetUser: (userid, payload) => dispatch({ type: 'GET_USER', userid, payload })
 });
 
 class Profile extends React.Component {
   componentWillMount() {
-    this.props.onLoad(Promise.all([
-      agent.Profile.get(this.props.params.username),
-      agent.Articles.byAuthor(this.props.params.username)
-    ]));
+    // this.props.onLoad(Promise.all([
+    //   agent.Profile.get(this.props.params.username),
+    //   agent.Articles.byAuthor(this.props.params.username)
+    // ]));
+    console.log('hohohoh ' + agent.Profile.getUser('-KYaN0OFGMym9Vu6i-us'));
+    console.log('this.props = ' + JSON.stringify(this.props));
   }
 
   componentWillUnmount() {

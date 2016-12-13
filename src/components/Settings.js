@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import agent from '../agent';
 import { connect } from 'react-redux';
 import store from '../store';
+import * as Actions from '../actions';
 
 class SettingsForm extends React.Component {
   constructor() {
@@ -44,6 +45,10 @@ class SettingsForm extends React.Component {
         email: this.props.currentUser.email
       });
     }
+  }
+
+  componentWillUnmount() {
+    this.props.onUnload();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -126,12 +131,12 @@ const mapStateToProps = state => ({
   currentUser: state.common.currentUser
 });
 
-const mapDispatchToProps = dispatch => ({
-  onClickLogout: () => dispatch({ type: 'LOGOUT' }),
-  onSubmitForm: user =>
-    dispatch({ type: 'SETTINGS_SAVED', payload: agent.Auth.save(user) }),
-  onUnload: () => dispatch({ type: 'SETTINGS_PAGE_UNLOADED' })
-});
+// const mapDispatchToProps = dispatch => ({
+//   onClickLogout: () => dispatch({ type: 'LOGOUT' }),
+//   onSubmitForm: user =>
+//     dispatch({ type: 'SETTINGS_SAVED', payload: agent.Auth.save(user) }),
+//   onUnload: () => dispatch({ type: 'SETTINGS_PAGE_UNLOADED' })
+// });
 
 class Settings extends React.Component {
   render() {
@@ -147,13 +152,13 @@ class Settings extends React.Component {
 
               <SettingsForm
                 currentUser={this.props.currentUser}
-                onSubmitForm={this.props.onSubmitForm} />
+                onSubmitForm={this.props.saveSettings} />
 
               <hr />
 
               <button
                 className="btn btn-outline-danger"
-                onClick={this.props.onClickLogout}>
+                onClick={this.props.signOutUser}>
                 Or click here to logout.
               </button>
 
@@ -165,4 +170,5 @@ class Settings extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Settings);
+// export default connect(mapStateToProps, mapDispatchToProps)(Settings);
+export default connect(mapStateToProps, Actions)(Settings);

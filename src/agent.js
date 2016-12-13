@@ -3,9 +3,7 @@
 import superagentPromise from 'superagent-promise';
 import _superagent from 'superagent';
 import Firebase from 'firebase';
-
-import { firebase, helpers } from 'react-redux-firebase'
-const { isLoaded, isEmpty, pathToJS, dataToJS } = helpers
+import { connect } from 'react-redux';
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
@@ -64,8 +62,13 @@ const Auth = {
     // requests.post('/users/login', { user: { email, password } }),
     Firebase.auth().signInWithEmailAndPassword(email, password),
   register: (username, email, password) =>
-    // requests.post('/users', { user: { username, email, password } }),
     Firebase.auth().createUserWithEmailAndPassword(email, password),
+    // requests.post('/users', { user: { username, email, password } }),
+  //   dispatch({ type: 'CREATE_USER', payload: Firebase.database().ref('/users/').push({
+  //     username: username,
+  //     email: email
+  //   })
+  // })
   save: user =>
     requests.put('/user', { user })
 };
@@ -84,6 +87,10 @@ const Profile = {
     requests.post(`/profiles/${username}/follow`),
   get: username =>
     requests.get(`/profiles/${username}`),
+  getUser: uid =>
+    Firebase.database().ref('/users/' + uid + '/').on('value', snap => {
+      return snap.val();
+    }),
   unfollow: username =>
     requests.del(`/profiles/${username}/follow`)
 };

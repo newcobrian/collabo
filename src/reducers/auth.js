@@ -1,8 +1,9 @@
+import { AUTH_USER, SIGN_OUT_USER, AUTH_ERROR } from '../actions';
+
 export default (state = {}, action) => {
   switch (action.type) {
     case 'LOGIN':
     case 'REGISTER':
-    console.log('auth.js payload = + ' + JSON.stringify(action.payload));
       return {
         ...state,
         authenticated: true,
@@ -20,6 +21,24 @@ export default (state = {}, action) => {
       break;
     case 'UPDATE_FIELD_AUTH':
       return { ...state, [action.key]: action.value };
+    case AUTH_USER:
+      return {
+        ...state,
+        authenticated: true,
+        inProgress: false,
+        error: null
+      };
+    case AUTH_ERROR:
+      return {
+        ...state,
+        error: action.payload.message
+      };
+    case SIGN_OUT_USER:
+      return {
+        ...state,
+        authenticated: false,
+        error: null
+      };
   }
 
   return state;

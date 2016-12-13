@@ -1,3 +1,5 @@
+import { AUTH_USER, SIGN_OUT_USER, AUTH_ERROR } from '../actions';
+
 const defaultState = {
   appName: 'Trippy',
   authenticated: false,
@@ -38,14 +40,22 @@ export default (state = defaultState, action) => {
         // currentUser: action.error ? null : action.payload.user
         currentUser: action.error ? null : action.payload
       };
-    case 'AUTH_USER':
+    case 'DELETE_ARTICLE':
+      return { ...state, redirectTo: '/' };
+    case AUTH_USER:
       return {
         ...state,
         authenticated: true,
+        redirectTo: action.error ? null : '/',
         error: null
       };
-    case 'DELETE_ARTICLE':
-      return { ...state, redirectTo: '/' };
+    case SIGN_OUT_USER:
+      return {
+        ...state,
+        authenticated: false,
+        error: null,
+        redirectTo: action.error ? null : '/'
+      };
   }
   return state;
 };
