@@ -14,7 +14,6 @@ export default (state = {}, action) => {
         ...action.payload.profile
       };
     case 'GET_USER':
-      console.log('get_user profile reducer = ' + action.payload);
       return action.payload;
   }
 

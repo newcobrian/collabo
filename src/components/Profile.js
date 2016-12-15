@@ -6,6 +6,8 @@ import { Link } from 'react-router';
 import agent from '../agent';
 import { connect } from 'react-redux';
 import Firebase from 'firebase';
+import * as Actions from '../actions';
+import * as Constants from '../constants';
 
 const EditProfileSettings = props => {
   if (props.isUser) {
@@ -58,20 +60,20 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-const mapDispatchToProps = dispatch => ({
-  onFollow: username => dispatch({
-    type: 'FOLLOW_USER',
-    payload: agent.Profile.follow(username)
-  }),
-  onLoad: payload => dispatch({ type: 'PROFILE_PAGE_LOADED', payload }),
-  onSetPage: (page, payload) => dispatch({ type: 'SET_PAGE', page, payload }),
-  onUnfollow: username => dispatch({
-    type: 'UNFOLLOW_USER',
-    payload: agent.Profile.unfollow(username)
-  }),
-  onUnload: () => dispatch({ type: 'PROFILE_PAGE_UNLOADED' }),
-  onGetUser: (userid, payload) => dispatch({ type: 'GET_USER', userid, payload })
-});
+// const mapDispatchToProps = dispatch => ({
+//   onFollow: username => dispatch({
+//     type: 'FOLLOW_USER',
+//     payload: agent.Profile.follow(username)
+//   }),
+//   onLoad: payload => dispatch({ type: 'PROFILE_PAGE_LOADED', payload }),
+//   onSetPage: (page, payload) => dispatch({ type: 'SET_PAGE', page, payload }),
+//   onUnfollow: username => dispatch({
+//     type: 'UNFOLLOW_USER',
+//     payload: agent.Profile.unfollow(username)
+//   }),
+//   onUnload: () => dispatch({ type: 'PROFILE_PAGE_UNLOADED' }),
+//   onGetUser: (userid, payload) => dispatch({ type: 'GET_USER', userid, payload })
+// });
 
 class Profile extends React.Component {
   componentWillMount() {
@@ -79,8 +81,12 @@ class Profile extends React.Component {
     //   agent.Profile.get(this.props.params.username),
     //   agent.Articles.byAuthor(this.props.params.username)
     // ]));
-    console.log('hohohoh ' + agent.Profile.getUser('-KYaN0OFGMym9Vu6i-us'));
-    console.log('this.props = ' + JSON.stringify(this.props));
+
+    // look up userID from username and load profile
+    Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + this.props.params.username + '/').once('value', snapshot => {
+      this.props.getUser(snapshot.val().userid);
+    });
+    // this.props.getUser(userId);
   }
 
   componentWillUnmount() {
@@ -172,5 +178,6 @@ class Profile extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+// export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps, Actions)(Profile);
 export { Profile as Profile, mapStateToProps as mapStateToProps };
