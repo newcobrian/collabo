@@ -29,6 +29,7 @@ const FollowUserButton = props => {
 
   let classes = 'btn btn-sm action-btn';
   if (props.user.following) {
+  // if (props.isFollowing) {
     classes += ' btn-secondary';
   } else {
     classes += ' btn-outline-secondary';
@@ -37,9 +38,11 @@ const FollowUserButton = props => {
   const handleClick = ev => {
     ev.preventDefault();
     if (props.user.following) {
-      props.unfollow(props.user.username)
+      // props.unfollow(props.user.username)
+      props.unfollow(props.user.userId);
     } else {
-      props.follow(props.user.username)
+      // props.follow(props.user.username)
+      props.follow(props.user.userId);
     }
   };
 
@@ -84,7 +87,9 @@ class Profile extends React.Component {
 
     // look up userID from username and load profile
     Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + this.props.params.username + '/').once('value', snapshot => {
-      this.props.getUser(snapshot.val().userid);
+      let userId = snapshot.val().userid;
+      this.props.getUser(userId);
+      // this.props.isFollowing(userId);
     });
     // this.props.getUser(userId);
   }
@@ -125,9 +130,11 @@ class Profile extends React.Component {
     if (!profile) {
       return null;
     }
+    // const isUser = this.props.currentUser &&
+    //   this.props.profile.username === this.props.currentUser.username;
 
     const isUser = this.props.currentUser &&
-      this.props.profile.username === this.props.currentUser.username;
+      this.props.profile.userId === this.props.currentUser.uid;
 
     return (
       <div className="profile-page">
@@ -145,8 +152,10 @@ class Profile extends React.Component {
                 <FollowUserButton
                   isUser={isUser}
                   user={profile}
-                  follow={this.props.onFollow}
+                  follow={this.props.followUser}
                   unfollow={this.props.onUnfollow}
+                  profileUserId={this.props.profile.userId}
+                  isFollowing={this.props.isFollowing}
                   />
 
               </div>

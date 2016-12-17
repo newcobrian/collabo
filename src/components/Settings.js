@@ -47,9 +47,9 @@ class SettingsForm extends React.Component {
     }
   }
 
-  componentWillUnmount() {
-    this.props.onUnload();
-  }
+  // componentWillUnmount() {
+  //   this.props.onUnload();
+  // }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.currentUser) {
@@ -139,6 +139,14 @@ const mapStateToProps = state => ({
 // });
 
 class Settings extends React.Component {
+  componentWillMount() {
+    this.props.getUser(this.props.currentUser.uid);
+  }
+
+  componentWillUnmount() {
+    this.props.unloadSettings();
+  }
+
   render() {
     return (
       <div className="settings-page">
@@ -151,7 +159,7 @@ class Settings extends React.Component {
               <ListErrors errors={this.props.errors}></ListErrors>
 
               <SettingsForm
-                currentUser={this.props.currentUser}
+                currentUser={this.props.firebaseUser}
                 onSubmitForm={this.props.saveSettings} />
 
               <hr />

@@ -6,6 +6,9 @@ export const AUTH_USER = 'AUTH_USER';
 export const SIGN_OUT_USER = 'SIGN_OUT_USER';
 export const GET_USER = 'GET_USER';
 export const LOOKUP_USERID = 'LOOKUP_USERID';
+export const IS_FOLLOWING = 'IS_FOLLOWING';
+export const SETTINGS_SAVED = 'SETTINGS_SAVED';
+export const SETTINGS_UNLOADED = 'SETTINGS_UNLOADED';
 
 export function signUpUser(username, email, password) {
   return function(dispatch) {
@@ -75,12 +78,36 @@ export function signOutUser() {
   }
 }
 
-export function saveSettings() {
+// export const saveSettings = user = dispatch => {
+//     const uid = Firebase.auth().currentUser.uid;
+//     Firebase.database().ref(Constants.USERS_PATH + '/' + uid + '/').update(user)
+//       .then(() => {
+//         dispatch(settingsSaved());
+//       })
+// }
 
+export function saveSettings(user) {
+  return dispatch => {
+    let uid = Firebase.auth().currentUser.uid;
+
+    // need to also update usernames-to-userids
+
+    dispatch({
+      type: SETTINGS_SAVED,
+      payload:
+        Firebase.database().ref(Constants.USERS_PATH + '/' + uid + '/').update(user)
+    });
+  }
 }
 
 export function unloadSettings() {
-
+  return dispatch => {
+    let uid = Firebase.auth().currentUser.uid;
+    dispatch({
+      type: SETTINGS_UNLOADED,
+      payload: Firebase.database().ref(Constants.USERS_PATH + '/' + uid + '/').off()
+    });
+  }
 }
 
 // export function verifyAuth() {
@@ -100,10 +127,45 @@ export function getUser(userId) {
     Firebase.database().ref(Constants.USERS_PATH + '/' + userId + '/').on('value', snapshot => {
       dispatch({
         type: GET_USER,
-        payload: snapshot.val()
+        payload: snapshot.val(),
+        userId
       });
     });
   };
+}
+
+export function isFollowing(profile) {
+  const current = Firebase.auth().currentUser.uid;
+  return dispatch => {
+    Firebase.database().ref(Constants.FOLLOWINGS_PATH + '/' + current + '/' + profile).on('value', snapshot => {
+      dispatch({
+        type: IS_FOLLOWING,
+        isFollowing: true
+      });
+    });
+  };
+}
+
+export function followUser(follower) {
+    const following = Firebase.auth().currentUser.uid;
+    const updates = {};
+    if (following && follower) {
+      updates[`/${Constants.FOLLOWERS_PATH}/${follower}/${following}`] = true;
+      updates[`/${Constants.FOLLOWINGS_PATH}/${following}/${follower}`] = true;
+      // updates[`/${Constants.FOLLOWERS_PATH}/${follower}/`] = following;
+      // updates[`/${Constants.FOLLOWINGS_PATH}/${following}/`] = follower;
+    }
+    return dispatch => Firebase.database().ref().update(updates);
+}
+
+export function unfollowUser(following) {
+    const follower = Firebase.auth().currentUser.uid;
+    const updates = {};
+    if (following && follower) {
+      updates[`/${Constants.FOLLOWERS_PATH}/${follower}/${following}`] = null;
+      updates[`/${Constants.FOLLOWINGS_PATH}/${following}/${follower}`] = null;
+    }
+    return dispatch => Firebase.database().ref().update(updates);
 }
 
 export function authUser() {

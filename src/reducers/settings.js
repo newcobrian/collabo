@@ -11,6 +11,12 @@ export default (state = {}, action) => {
         ...state,
         inProgress: true
       };
+    case 'GET_USER':
+      return {
+        firebaseUser: action.payload
+      };
+    case 'SETTINGS_UNLOADED':
+      return {};
   }
 
   return state;

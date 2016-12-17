@@ -14,7 +14,10 @@ export default (state = {}, action) => {
         ...action.payload.profile
       };
     case 'GET_USER':
-      return action.payload;
+      return {
+        ...action.payload,
+        userId: action.userId
+      };
   }
 
   return state;

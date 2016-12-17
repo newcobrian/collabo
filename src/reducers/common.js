@@ -1,7 +1,7 @@
 import { AUTH_USER, SIGN_OUT_USER, AUTH_ERROR } from '../actions';
 
 const defaultState = {
-  appName: 'Trippy',
+  appName: 'Whatsgood',
   authenticated: false,
   token: null
 };
@@ -27,7 +27,7 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         redirectTo: action.error ? null : '/',
-        currentUser: action.error ? null : action.payload.user
+        // currentUser: action.error ? null : action.payload.user
       };
     case 'LOGIN':
     case 'REGISTER':
