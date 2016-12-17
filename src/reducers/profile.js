@@ -15,9 +15,15 @@ export default (state = {}, action) => {
       };
     case 'GET_USER':
       return {
+        ...state,
         ...action.payload,
         userId: action.userId
       };
+    case 'IS_FOLLOWING':
+      return {
+        ...state,
+        isFollowing: action.payload
+      }
   }
 
   return state;

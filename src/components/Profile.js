@@ -26,10 +26,9 @@ const FollowUserButton = props => {
   if (props.isUser) {
     return null;
   }
-
   let classes = 'btn btn-sm action-btn';
-  if (props.user.following) {
-  // if (props.isFollowing) {
+  // if (props.user.following) {
+  if (props.user.isFollowing) {
     classes += ' btn-secondary';
   } else {
     classes += ' btn-outline-secondary';
@@ -37,7 +36,8 @@ const FollowUserButton = props => {
 
   const handleClick = ev => {
     ev.preventDefault();
-    if (props.user.following) {
+    // if (props.user.following) {
+    if (props.user.isFollowing) {
       // props.unfollow(props.user.username)
       props.unfollow(props.user.userId);
     } else {
@@ -52,7 +52,7 @@ const FollowUserButton = props => {
       onClick={handleClick}>
       <i className="ion-plus-round"></i>
       &nbsp;
-      {props.user.following ? 'Unfollow' : 'Follow'} {props.user.username}
+      {props.user.isFollowing ? 'Unfollow' : 'Follow'} {props.user.username}
     </button>
   );
 };
@@ -89,13 +89,14 @@ class Profile extends React.Component {
     Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + this.props.params.username + '/').once('value', snapshot => {
       let userId = snapshot.val().userid;
       this.props.getUser(userId);
-      // this.props.isFollowing(userId);
+      this.props.checkFollowing(userId);
     });
     // this.props.getUser(userId);
   }
 
   componentWillUnmount() {
-    this.props.onUnload();
+    this.props.unloadProfileUser(this.props.profile.userId);
+    this.props.unloadProfileFollowing(this.props.profile.userId);
   }
 
   onSetPage(page) {
@@ -153,9 +154,9 @@ class Profile extends React.Component {
                   isUser={isUser}
                   user={profile}
                   follow={this.props.followUser}
-                  unfollow={this.props.onUnfollow}
+                  unfollow={this.props.unfollowUser}
                   profileUserId={this.props.profile.userId}
-                  isFollowing={this.props.isFollowing}
+                  isFollowing={this.props.profile.isFollowing}
                   />
 
               </div>
