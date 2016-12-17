@@ -17,6 +17,11 @@ export default (state = {}, action) => {
       };
     case 'SETTINGS_UNLOADED':
       return {};
+    case 'SETTINGS_SAVED_ERROR':
+      return {
+        ...state,
+        errors: [action.error]
+      }
   }
 
   return state;

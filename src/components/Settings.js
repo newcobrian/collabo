@@ -32,7 +32,7 @@ class SettingsForm extends React.Component {
         delete user.password;
       }
 
-      this.props.onSubmitForm(user);
+      this.props.onSubmitForm(user, this.props.currentUser.username);
     };
   }
 

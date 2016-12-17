@@ -11,6 +11,7 @@ export const SETTINGS_SAVED = 'SETTINGS_SAVED';
 export const SETTINGS_UNLOADED = 'SETTINGS_UNLOADED';
 export const PROFILE_USER_UNLOADED = 'PROFILE_UNLOADED';
 export const PROFILE_FOLLOWING_UNLOADED = 'PROFILE_FOLLOWING_UNLOADED';
+export const SETTINGS_SAVED_ERROR = 'SETTINGS_SAVED_ERROR';
 
 export function signUpUser(username, email, password) {
   return function(dispatch) {
@@ -80,25 +81,44 @@ export function signOutUser() {
   }
 }
 
-// export const saveSettings = user = dispatch => {
-//     const uid = Firebase.auth().currentUser.uid;
-//     Firebase.database().ref(Constants.USERS_PATH + '/' + uid + '/').update(user)
-//       .then(() => {
-//         dispatch(settingsSaved());
-//       })
-// }
+export function updateUsername(oldName, newName, userid) {
+  Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + newName + '/').update({
+    userid: userid
+  })
 
-export function saveSettings(user) {
+  Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + oldName).remove();
+}
+
+export function saveSettings(user, currentUsername) {
+  const uid = Firebase.auth().currentUser.uid;
   return dispatch => {
-    let uid = Firebase.auth().currentUser.uid;
+    if (user.username !== currentUsername) {
+      Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + user.username).once('value', snapshot => {
+        if (snapshot.exists()) {
+          dispatch({
+            type: SETTINGS_SAVED_ERROR,
+            error: 'username is already taken'
+          })
+        }
+        else {
+          // need to also update usernames-to-userids
+          const uid = Firebase.auth().currentUser.uid;
+          updateUsername(currentUsername, user.username, uid);
 
-    // need to also update usernames-to-userids
-
-    dispatch({
-      type: SETTINGS_SAVED,
-      payload:
-        Firebase.database().ref(Constants.USERS_PATH + '/' + uid + '/').update(user)
-    });
+          dispatch({
+            type: SETTINGS_SAVED,
+            payload:
+              Firebase.database().ref(Constants.USERS_PATH + '/' + uid + '/').update(user)
+          });  
+        }
+      });
+    } else {
+        dispatch({
+          type: SETTINGS_SAVED,
+          payload:
+            Firebase.database().ref(Constants.USERS_PATH + '/' + uid + '/').update(user)
+        });  
+    }
   }
 }
 
