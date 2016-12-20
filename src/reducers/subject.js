@@ -1,5 +1,7 @@
 'use strict';
 
+import { GET_SUBJECT, SUBJECT_UNLOADED } from '../actions'
+
 export default (state = {}, action) => {
   switch (action.type) {
     case 'ARTICLE_PAGE_LOADED':
@@ -9,8 +11,6 @@ export default (state = {}, action) => {
         comments: action.payload[1].comments
       };
       break;
-    case 'ARTICLE_PAGE_UNLOADED':
-      return {};
     case 'ADD_COMMENT':
       return {
         ...state,
@@ -25,10 +25,13 @@ export default (state = {}, action) => {
         ...state,
         comments: state.comments.filter(comment => comment.id !== commentId)
       };
-    // case 'FETCH_ARTICLE':
-    //   return {
-    //     action.payload
-    //   };
+    case GET_SUBJECT:
+      return {
+        ...state,
+        subject: action.payload
+      };
+    case SUBJECT_UNLOADED:
+      return {};
   }
 
   return state;

@@ -1,4 +1,4 @@
-import { AUTH_USER, SIGN_OUT_USER, AUTH_ERROR } from '../actions';
+import { AUTH_USER, SIGN_OUT_USER, AUTH_ERROR, REVIEW_SUBMITTED } from '../actions';
 
 const defaultState = {
   appName: 'Whatsgood',
@@ -20,7 +20,7 @@ export default (state = defaultState, action) => {
       return { ...state, redirectTo: null };
     case 'LOGOUT':
       return { ...state, authenticated: false, redirectTo: '/', token: null, currentUser: null };
-    case 'REVIEW_SUBMITTED':
+    case REVIEW_SUBMITTED:
       // const redirectUrl = `article/${action.payload.article.slug}`;
       const redirectUrl = `subject/${action.subjectId}`;
       return { ...state, redirectTo: redirectUrl };

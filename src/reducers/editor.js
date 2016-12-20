@@ -1,6 +1,8 @@
+import { REVIEW_SUBMITTED, UPDATE_FIELD_EDITOR, EDITOR_PAGE_LOADED } from '../actions'
+
 export default (state = {}, action) => {
   switch (action.type) {
-    case 'EDITOR_PAGE_LOADED':
+    case EDITOR_PAGE_LOADED:
       return {
         ...state,
         articleSlug: action.payload ? action.payload.article.slug : '',
@@ -14,7 +16,7 @@ export default (state = {}, action) => {
       };
     case 'EDITOR_PAGE_UNLOADED':
       return {};
-    case 'REVIEW_SUBMITTED':
+    case REVIEW_SUBMITTED:
       return {
         ...state,
         inProgress: null,
@@ -36,7 +38,7 @@ export default (state = {}, action) => {
         ...state,
         tagList: state.tagList.filter(tag => tag !== action.tag)
       };
-    case 'UPDATE_FIELD_EDITOR':
+    case UPDATE_FIELD_EDITOR:
       return { ...state, [action.key]: action.value };
   }
 

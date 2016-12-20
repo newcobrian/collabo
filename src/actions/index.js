@@ -13,6 +13,11 @@ export const PROFILE_USER_UNLOADED = 'PROFILE_UNLOADED';
 export const PROFILE_FOLLOWING_UNLOADED = 'PROFILE_FOLLOWING_UNLOADED';
 export const SETTINGS_SAVED_ERROR = 'SETTINGS_SAVED_ERROR';
 export const REGISTER_USERNAME_ERROR = 'REGISTER_USERNAME_ERROR';
+export const GET_SUBJECT = 'GET_SUBJECT';
+export const REVIEW_SUBMITTED = 'REVIEW_SUBMITTED';
+export const UPDATE_FIELD_EDITOR = 'UPDATE_FIELD_EDITOR';
+export const EDITOR_PAGE_LOADED = 'EDITOR_PAGE_LOADED';
+export const SUBJECT_UNLOADED = 'SUBJECT_UNLOADED';
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -289,7 +294,7 @@ export function logout() {
 export function onEditorLoad() {
   return dispatch => {
     dispatch({
-      type: 'EDITOR_PAGE_LOADED'
+      type: EDITOR_PAGE_LOADED
     })
   }
 }
@@ -297,7 +302,7 @@ export function onEditorLoad() {
 export function onUpdateField(key, value) {
   return dispatch => {
     dispatch({
-      type: 'UPDATE_FIELD_EDITOR',
+      type: UPDATE_FIELD_EDITOR,
       key,
       value
     })
@@ -322,12 +327,32 @@ export function onReviewSubmit(subject, review) {
     Firebase.database().ref().update(updates)
       .then(response => {
         dispatch({
-          type: 'REVIEW_SUBMITTED',
+          type: REVIEW_SUBMITTED,
           subjectId: subjectId
         })
       })
       .catch(error => {
         console.log(error);
       });
+  }
+}
+
+export function getSubject(subjectId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId).on('value', snapshot => {
+      dispatch({
+        type: GET_SUBJECT,
+        payload: snapshot.val()
+      });
+    });
+  };
+}
+
+export function unloadSubject(subjectId) {
+  return dispatch => {
+    dispatch({
+      type: SUBJECT_UNLOADED,
+      payload: Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId).off()
+    });
   }
 }

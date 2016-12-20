@@ -192,5 +192,4 @@ class Editor extends React.Component {
   }
 }
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Editor);
 export default connect(mapStateToProps, Actions)(Editor);
