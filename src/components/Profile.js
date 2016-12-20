@@ -87,7 +87,7 @@ class Profile extends React.Component {
 
     // look up userID from username and load profile
     Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + this.props.params.username + '/').once('value', snapshot => {
-      let userId = snapshot.val().userid;
+      let userId = snapshot.val().userId;
       this.props.getUser(userId);
       this.props.checkFollowing(userId);
     });

@@ -38,6 +38,7 @@ class Register extends React.Component {
     this.submitForm = (username, email, password) => ev => {
       ev.preventDefault();
       // this.props.onSubmit(username, email, password);
+
       this.props.signUpUser(username, email, password);
     }
   }

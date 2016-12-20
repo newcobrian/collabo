@@ -12,31 +12,84 @@ export const SETTINGS_UNLOADED = 'SETTINGS_UNLOADED';
 export const PROFILE_USER_UNLOADED = 'PROFILE_UNLOADED';
 export const PROFILE_FOLLOWING_UNLOADED = 'PROFILE_FOLLOWING_UNLOADED';
 export const SETTINGS_SAVED_ERROR = 'SETTINGS_SAVED_ERROR';
+export const REGISTER_USERNAME_ERROR = 'REGISTER_USERNAME_ERROR';
+
+// export function signUpUser(username, email, password) {
+//   return dispatch => {
+//     Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + username).once('value', snapshot => {
+//       console.log('asdfasdfasdfasdf');
+//       if (snapshot.exists()) {
+//         console.log('got in sanap exists');
+//           dispatch(registerUsernameError());
+//       } else {
+//         console.log('got in else');
+//         Firebase.auth().createUserWithEmailAndPassword(email, password)
+//           .then(response => {
+//             let userId = response.uid;
+
+//             // need to save users profile info
+//             Firebase.database().ref(Constants.USERS_PATH + '/' + userId + '/').update({
+//               username: username,
+//               email: email
+//             })
+
+//             // save userId lookup from username
+//             Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + username + '/').update({
+//               userid: userId
+//             })
+
+//             dispatch(authUser());
+//           })
+//           .catch(error => {
+//             console.log(error);
+//             dispatch(authError(error));
+//           });
+//       }
+//     });
+//   }
+// }
+
+// export function onRegisterSubmit(username, email, password) {
+//   return dispatch => {
+//     console.log('called register submit');
+//     // Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + username).once('value', snapshot => {
+//       Firebase.database().ref(Constants.USERS_PATH + '/').once('value', snapshot => {
+// console.log('in firebase call' + snapshot.val());
+//       if (snapshot.exists()) {
+//         console.log('got in sanap exists');
+//           dispatch(registerUsernameError());
+//       } else {
+//         console.log('in else');
+//         // return signUpUser(username, email, password);
+//       }
+//     });
+//   }
+// }
 
 export function signUpUser(username, email, password) {
-  return function(dispatch) {
-    Firebase.auth().createUserWithEmailAndPassword(email, password)
+  return dispatch => {
+      Firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(response => {
-        let userId = response.uid;
+          let userId = response.uid;
 
-        // need to save users profile info
-        Firebase.database().ref(Constants.USERS_PATH + '/' + userId + '/').update({
-          username: username,
-          email: email
+          // need to save users profile info
+          Firebase.database().ref(Constants.USERS_PATH + '/' + userId + '/').update({
+            username: username,
+            email: email
+          })
+
+          // save userId lookup from username
+          Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + username + '/').update({
+            userId: userId
+          })
+
+          dispatch(authUser());
         })
-
-        // save userId lookup from username
-        Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + username + '/').update({
-          userid: userId
-        })
-
-        dispatch(authUser());
-      })
-      .catch(error => {
-        console.log(error);
-        dispatch(authError(error));
-      });
-  }
+        .catch(error => {
+          console.log(error);
+          dispatch(authError(error));
+        });
+      }
 }
 
 export function signInUser(email, password) {
@@ -83,7 +136,7 @@ export function signOutUser() {
 
 export function updateUsername(oldName, newName, userid) {
   Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + newName + '/').update({
-    userid: userid
+    userId: userid
   })
 
   Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + oldName).remove();
@@ -101,7 +154,7 @@ export function saveSettings(user, currentUsername) {
           })
         }
         else {
-          // need to also update usernames-to-userids
+          // need to also update usernames_to_userids
           const uid = Firebase.auth().currentUser.uid;
           updateUsername(currentUsername, user.username, uid);
 
@@ -230,5 +283,51 @@ export function authError(error) {
 export function logout() {
   return {
     type: SIGN_OUT_USER
+  }
+}
+
+export function onEditorLoad() {
+  return dispatch => {
+    dispatch({
+      type: 'EDITOR_PAGE_LOADED'
+    })
+  }
+}
+
+export function onUpdateField(key, value) {
+  return dispatch => {
+    dispatch({
+      type: 'UPDATE_FIELD_EDITOR',
+      key,
+      value
+    })
+  }
+}
+
+export function onReviewSubmit(subject, review) {
+  return dispatch => {
+    const updates = {};
+    const subjectId = Firebase.database().ref(Constants.SUBJECTS_PATH).push().key;
+    const reviewId = Firebase.database().ref(Constants.REVIEWS_PATH).push().key;
+
+    const reviewObj = {
+        userId: Firebase.auth().currentUser.uid,
+        subjectId: subjectId,
+        lastModified: Firebase.database.ServerValue.TIMESTAMP
+    }
+
+    updates[`/${Constants.SUBJECTS_PATH}/${subjectId}/`] = subject;
+    updates[`/${Constants.REVIEWS_PATH}/${reviewId}/`] = Object.assign(reviewObj, review);
+
+    Firebase.database().ref().update(updates)
+      .then(response => {
+        dispatch({
+          type: 'REVIEW_SUBMITTED',
+          subjectId: subjectId
+        })
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 }
