@@ -21,6 +21,8 @@ export const SUBJECT_UNLOADED = 'SUBJECT_UNLOADED';
 export const GET_REVIEW = 'GET_REVIEW';
 export const REVIEW_UNLOADED = 'REVIEW_UNLOADED';
 export const ADD_COMMENT = 'ADD_COMMENT';
+export const GET_COMMENTS = 'GET_COMMENTS';
+export const COMMENTS_UNLOADED = 'COMMENTS_UNLOADED';
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -363,6 +365,24 @@ export function getReview(reviewId) {
   }
 }
 
+export function getComments(reviewId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewId).orderByChild('timestamp').on('value', snapshot => {
+      const comments = [];
+      snapshot.forEach(function(childSnapshot) {
+        let key = { id: childSnapshot.key };
+        let comment = Object.assign(childSnapshot.val(), key);
+        comments.unshift(comment);
+      });
+
+      dispatch({
+        type: GET_COMMENTS,
+        payload: comments
+      });
+    });
+  }
+}
+
 export function unloadSubject(subjectId) {
   return dispatch => {
     dispatch({
@@ -381,15 +401,25 @@ export function unloadReview(reviewId) {
   }
 }
 
+export function unloadComments(reviewId) {
+  return dispatch => {
+    dispatch({
+      type: COMMENTS_UNLOADED,
+      payload: Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewId).off()
+    });
+  }
+}
+
 export function onCommentSubmit(reviewId, body) {
   return dispatch => {
     const userId = Firebase.auth().currentUser.uid;
     const comment = {
       userId: userId,
-      body: body
+      body: body,
+      timestamp: Firebase.database.ServerValue.TIMESTAMP
     }
 
-    Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewId + Constants.COMMENTS_PATH + '/').update(comment)
+    Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewId).push(comment)
       .then(response => {
         dispatch({
           type: ADD_COMMENT,

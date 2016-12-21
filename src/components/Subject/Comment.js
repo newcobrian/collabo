@@ -5,7 +5,7 @@ import React from 'react';
 const Comment = props => {
   const comment = props.comment;
   const show = props.currentUser &&
-    props.currentUser.username === comment.author.username;
+    props.currentUser.uid === comment.userId;
   return (
     <div className="card">
       <div className="card-block">
@@ -13,20 +13,20 @@ const Comment = props => {
       </div>
       <div className="card-footer">
         <Link
-          to={`@${comment.author.username}`}
+          to={`@${comment.userId}`}
           className="comment-author">
-          <img src={comment.author.image} className="comment-author-img" />
+          <img src={comment.image} className="comment-author-img" />
         </Link>
         &nbsp;
         <Link
-          to={`@${comment.author.username}`}
+          to={`@${comment.userId}`}
           className="comment-author">
-          {comment.author.username}
+          {comment.userId}
         </Link>
         <span className="date-posted">
-          {new Date(comment.createdAt).toDateString()}
+          {new Date(comment.timestamp).toLocaleString()}
         </span>
-        <DeleteButton show={show} slug={props.slug} commentId={comment.id} />
+        <DeleteButton show={show} reviewId={props.reviewId} commentId={comment.id} />
       </div>
     </div>
   );

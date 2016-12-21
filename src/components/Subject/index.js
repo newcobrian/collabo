@@ -32,11 +32,13 @@ class Subject extends React.Component {
     // ]));
     this.props.getSubject(this.props.params.sid);
     this.props.getReview(this.props.params.rid);
+    this.props.getComments(this.props.params.rid);
   }
 
   componentWillUnmount() {
     this.props.unloadSubject(this.props.params.sid);
     this.props.unloadReview(this.props.params.rid);
+    this.props.unloadComments(this.props.params.rid);
   }
 
   render() {
