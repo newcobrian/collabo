@@ -362,10 +362,16 @@ export function getSubject(subjectId) {
 export function getReview(reviewId) {
   return dispatch => {
     Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewId).on('value', snapshot => {
-      dispatch({
-        type: GET_REVIEW,
-        payload: snapshot.val()
-      });
+      const review = snapshot.val();
+      review.rater = {};
+      Firebase.database().ref(Constants.USERS_PATH + '/' + review.userId).once('value', userSnapshot => {
+        const userMeta = { username: userSnapshot.val().username, image: userSnapshot.val().image };
+        Object.assign(review.rater, userMeta);
+          dispatch({
+            type: GET_REVIEW,
+            payload: review
+          });
+      })
     });
   }
 }
@@ -375,8 +381,9 @@ export function getComments(reviewId) {
     Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewId).orderByChild('timestamp').on('value', snapshot => {
       const comments = [];
       snapshot.forEach(function(childSnapshot) {
-        let key = { id: childSnapshot.key };
-        let comment = Object.assign(childSnapshot.val(), key);
+        // Firebase.database().ref(Constants.USERS_PATH)
+        const key = { id: childSnapshot.key };
+        const comment = Object.assign(childSnapshot.val(), key);
         comments.unshift(comment);
       });
 

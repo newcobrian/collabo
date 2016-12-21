@@ -33,10 +33,6 @@ class SettingsForm extends React.Component {
       if(this.state.bio) Object.assign(user, this.state.bio);
       if(this.state.email) Object.assign(user, this.state.email);
       if(this.state.password) Object.assign(user, this.state.password);
-      // Object.assign({}, this.state);
-      // if (!user.password) {
-      //   delete user.password;
-      // }
 
       this.props.onSubmitForm(user, this.props.currentUser.username);
     };

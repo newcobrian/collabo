@@ -72,17 +72,14 @@ class Subject extends React.Component {
           <div className="row article-content">
 
           <div className="article-meta">
-     {/*   <img src={this.review.userId} /> */}
+        <img src={this.props.review.rater.image} />
+        <Link to={`@${this.props.review.rater.username}`} className="author"> 
+          <div>Reviewer: {this.props.review.rater.username}</div>
+        </Link>
+        <div>Timestamp: {new Date(this.props.review.lastModified).toLocaleString()} </div>
+        <div>Rating: {this.props.review.rating}</div>
+        <div>Caption: {this.props.review.caption}</div>
 
-      <div className="info">
-        {/* <Link to={`@${this.review.userId}`} className="author"> 
-          {this.review.caption}
-        </Link> */}
-          Rating: {this.props.review.rating}
-      </div>
-      <div className="col-xs-12">
-          Caption: {this.props.review.caption}
-      </div>
 
       {/*      <div className="col-xs-12">
 
