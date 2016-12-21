@@ -1,6 +1,6 @@
 'use strict';
 
-import { GET_SUBJECT, GET_REVIEW, SUBJECT_UNLOADED, REVIEW_UNLOADED, GET_COMMENTS, COMMENTS_UNLOADED } from '../actions'
+import { GET_SUBJECT, GET_REVIEW, SUBJECT_UNLOADED, REVIEW_UNLOADED, GET_COMMENTS, COMMENTS_UNLOADED, ADD_COMMENT } from '../actions'
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -11,13 +11,10 @@ export default (state = {}, action) => {
         comments: action.payload[1].comments
       };
       break;
-    case 'ADD_COMMENT':
+    case ADD_COMMENT:
       return {
         ...state,
-        commentErrors: action.error ? action.payload.errors : null,
-        comments: action.error ?
-          null :
-          (state.comments || []).concat([action.payload.comment])
+        commentErrors: action.error ? action.error : null
       };
     case 'DELETE_COMMENT':
       const commentId = action.commentId

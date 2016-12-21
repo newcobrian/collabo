@@ -422,12 +422,15 @@ export function onCommentSubmit(reviewId, body) {
     Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewId).push(comment)
       .then(response => {
         dispatch({
-          type: ADD_COMMENT,
-          payload: response
+          type: ADD_COMMENT
         })
       })
       .catch(error => {
         console.log(error);
+        dispatch({
+          type: ADD_COMMENT,
+          payload: error
+        })
       });
   }
 }
