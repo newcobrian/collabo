@@ -20,6 +20,7 @@ export const EDITOR_PAGE_LOADED = 'EDITOR_PAGE_LOADED';
 export const SUBJECT_UNLOADED = 'SUBJECT_UNLOADED';
 export const GET_REVIEW = 'GET_REVIEW';
 export const REVIEW_UNLOADED = 'REVIEW_UNLOADED';
+export const ADD_COMMENT = 'ADD_COMMENT';
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -377,5 +378,26 @@ export function unloadReview(reviewId) {
       type: REVIEW_UNLOADED,
       payload: Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewId).off()
     });
+  }
+}
+
+export function onCommentSubmit(reviewId, body) {
+  return dispatch => {
+    const userId = Firebase.auth().currentUser.uid;
+    const comment = {
+      userId: userId,
+      body: body
+    }
+
+    Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewId + Constants.COMMENTS_PATH + '/').update(comment)
+      .then(response => {
+        dispatch({
+          type: ADD_COMMENT,
+          payload: response
+        })
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 }

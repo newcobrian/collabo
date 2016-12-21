@@ -10,12 +10,12 @@ const CommentContainer = props => {
 			<div className="col-xs-12 col-md-8 offset-md-2">
 		        <div>
 		          <ListErrors errors={props.errors}></ListErrors>
-		          <CommentInput slug={props.slug} currentUser={props.currentUser} />
+		          <CommentInput reviewId={props.reviewId} currentUser={props.currentUser} />
 		        </div>
 
 		        <CommentList
 		          comments={props.comments}
-		          slug={props.slug}
+		          reviewId={props.reviewId}
 		          currentUser={props.currentUser} />
 		     </div>
 		);
@@ -31,7 +31,7 @@ const CommentContainer = props => {
 
 				<CommentList
 					comments={props.comments}
-					slug={props.slug}
+					reviewId={props.reviewId}
 					currentUser={props.currentUser} />
 			</div>
 		);

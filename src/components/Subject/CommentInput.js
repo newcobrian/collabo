@@ -1,11 +1,12 @@
 import React from 'react';
 import agent from '../../agent';
 import { connect } from 'react-redux';
+import * as Actions from '../../actions';
 
-const mapDispatchToProps = dispatch => ({
-  onSubmit: payload =>
-    dispatch({ type: 'ADD_COMMENT', payload })
-});
+// const mapDispatchToProps = dispatch => ({
+//   onSubmit: payload =>
+//     dispatch({ type: 'ADD_COMMENT', payload })
+// });
 
 class CommentInput extends React.Component {
   constructor() {
@@ -20,10 +21,11 @@ class CommentInput extends React.Component {
 
     this.createComment = ev => {
       ev.preventDefault();
-      const payload = agent.Comments.create(this.props.slug,
-        { body: this.state.body });
+      // const payload = agent.Comments.create(this.props.reviewId,
+      //   { body: this.state.body });
+      const commentBody = ''.concat(this.state.body);
       this.setState({ body: '' });
-      this.props.onSubmit(payload);
+      this.props.onCommentSubmit(this.props.reviewId, commentBody);
     };
   }
 
@@ -53,4 +55,4 @@ class CommentInput extends React.Component {
   }
 }
 
-export default connect(() => ({}), mapDispatchToProps)(CommentInput);
+export default connect(() => ({}), Actions)(CommentInput);

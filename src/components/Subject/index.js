@@ -112,7 +112,7 @@ class Subject extends React.Component {
             <CommentContainer
                 comments={this.props.comments || []}
                 errors={this.props.commentErrors}
-                slug={this.props.params.id}
+                reviewId={this.props.params.rid}
                 currentUser={this.props.currentUser} />
           </div>
         </div>
