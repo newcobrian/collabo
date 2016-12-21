@@ -18,6 +18,8 @@ export const REVIEW_SUBMITTED = 'REVIEW_SUBMITTED';
 export const UPDATE_FIELD_EDITOR = 'UPDATE_FIELD_EDITOR';
 export const EDITOR_PAGE_LOADED = 'EDITOR_PAGE_LOADED';
 export const SUBJECT_UNLOADED = 'SUBJECT_UNLOADED';
+export const GET_REVIEW = 'GET_REVIEW';
+export const REVIEW_UNLOADED = 'REVIEW_UNLOADED';
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -328,7 +330,8 @@ export function onReviewSubmit(subject, review) {
       .then(response => {
         dispatch({
           type: REVIEW_SUBMITTED,
-          subjectId: subjectId
+          subjectId: subjectId,
+          reviewId: reviewId
         })
       })
       .catch(error => {
@@ -348,11 +351,31 @@ export function getSubject(subjectId) {
   };
 }
 
+export function getReview(reviewId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewId).on('value', snapshot => {
+      dispatch({
+        type: GET_REVIEW,
+        payload: snapshot.val()
+      });
+    });
+  }
+}
+
 export function unloadSubject(subjectId) {
   return dispatch => {
     dispatch({
       type: SUBJECT_UNLOADED,
       payload: Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId).off()
+    });
+  }
+}
+
+export function unloadReview(reviewId) {
+  return dispatch => {
+    dispatch({
+      type: REVIEW_UNLOADED,
+      payload: Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewId).off()
     });
   }
 }

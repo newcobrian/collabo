@@ -31,15 +31,19 @@ class Subject extends React.Component {
     //   agent.Comments.forArticle(this.props.params.id)
     // ]));
     this.props.getSubject(this.props.params.sid);
+    this.props.getReview(this.props.params.rid);
   }
 
   componentWillUnmount() {
     this.props.unloadSubject(this.props.params.sid);
+    this.props.unloadReview(this.props.params.rid);
   }
 
   render() {
-    console.log(JSON.stringify(this.props.subject));
     if (!this.props.subject) {
+      return null;
+    }
+    if (!this.props.review) {
       return null;
     }
 
@@ -64,11 +68,25 @@ class Subject extends React.Component {
         <div className="container page">
 
           <div className="row article-content">
-            <div className="col-xs-12">
 
-              <div>{this.props.subject.description}></div>
+          <div className="article-meta">
+     {/*   <img src={this.review.userId} /> */}
 
-          {/*}    <ul className="tag-list">
+      <div className="info">
+        {/* <Link to={`@${this.review.userId}`} className="author"> 
+          {this.review.caption}
+        </Link> */}
+          Rating: {this.props.review.rating}
+      </div>
+      <div className="col-xs-12">
+          Caption: {this.props.review.caption}
+      </div>
+
+      {/*      <div className="col-xs-12">
+
+              <div>{this.props.review.description}></div>
+
+              <ul className="tag-list">
                 {
                   this.props.subject.tagList.map(tag => {
                     return (

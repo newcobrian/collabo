@@ -1,6 +1,6 @@
 'use strict';
 
-import { GET_SUBJECT, SUBJECT_UNLOADED } from '../actions'
+import { GET_SUBJECT, GET_REVIEW, SUBJECT_UNLOADED, REVIEW_UNLOADED } from '../actions'
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -30,7 +30,13 @@ export default (state = {}, action) => {
         ...state,
         subject: action.payload
       };
+    case GET_REVIEW:
+      return {
+        ...state,
+        review: action.payload
+      };
     case SUBJECT_UNLOADED:
+    case REVIEW_UNLOADED:
       return {};
   }
 

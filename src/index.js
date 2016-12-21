@@ -22,7 +22,7 @@ ReactDOM.render((
         <Route path="login" component={Login} />
         <Route path="register" component={Register} />
         <Route path="settings" component={Settings} />
-        <Route path="subject/:sid" component={Subject} />
+        <Route path="subject/:sid(/:rid)" component={Subject} />
         <Route path="@:username" component={Profile} />
         <Route path="@:username/favorites" component={ProfileFavorites} />
         <Route path="editor" component={Editor} />
