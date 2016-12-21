@@ -317,17 +317,22 @@ export function onUpdateField(key, value) {
 export function onReviewSubmit(subject, review) {
   return dispatch => {
     const updates = {};
+    const uid = Firebase.auth().currentUser.uid;
     const subjectId = Firebase.database().ref(Constants.SUBJECTS_PATH).push().key;
     const reviewId = Firebase.database().ref(Constants.REVIEWS_PATH).push().key;
 
-    const reviewObj = {
+    const reviewMeta = {
         userId: Firebase.auth().currentUser.uid,
         subjectId: subjectId,
         lastModified: Firebase.database.ServerValue.TIMESTAMP
     }
 
+    const reviewObject = Object.assign(reviewMeta, review);
+
     updates[`/${Constants.SUBJECTS_PATH}/${subjectId}/`] = subject;
-    updates[`/${Constants.REVIEWS_PATH}/${reviewId}/`] = Object.assign(reviewObj, review);
+    updates[`/${Constants.REVIEWS_PATH}/${reviewId}/`] = reviewObject;
+    updates[`/${Constants.REVIEWS_BY_USER_PATH}/${uid}/`] = { reviewId: reviewId, subjectId: subjectId };
+    updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${subjectId}/`] = { reviewId: reviewId, userId: uid };
 
     Firebase.database().ref().update(updates)
       .then(response => {
