@@ -29,12 +29,12 @@ const GlobalFeedTab = props => {
     props.onTabClick('all', agent.Articles.all());
   };
   return (
-    <li className="nav-item">
+    <li className="page-title">
       <a
         href=""
         className={ props.tab === 'all' ? 'nav-link active' : 'nav-link' }
         onClick={clickHandler}>
-        Global Feed
+        Recent
       </a>
     </li>
   );
@@ -71,7 +71,7 @@ const mapDispatchToProps = dispatch => ({
 const MainView = props => {
   const onSetPage = page => props.onSetPage(props.tab, page);
   return (
-    <div className="col-md-9">
+    <div className="col-md-12">
       <div className="feed-toggle">
         <ul className="nav nav-pills outline-active">
 

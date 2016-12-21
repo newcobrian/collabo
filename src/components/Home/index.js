@@ -44,22 +44,12 @@ class Home extends React.Component {
     return (
       <div className="home-page">
 
-        <Banner token={this.props.token} appName={this.props.appName} />
 
         <div className="container page">
-          <div className="row">
+          <div className="reviews-wrapper row">
             <MainView />
 
-            <div className="col-md-3">
-              <div className="sidebar">
-
-                <p>Popular Tags</p>
-                <Tags
-                  tags={this.props.tags}
-                  onClickTag={this.props.onClickTag} />
-
-              </div>
-            </div>
+            
           </div>
         </div>
 

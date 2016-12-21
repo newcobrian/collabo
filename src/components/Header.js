@@ -10,13 +10,13 @@ const LoggedOutView = props => {
 
         <li className="nav-item">
           <Link to="/" className="nav-link">
-            Home
+            Feed
           </Link>
         </li>
 
         <li className="nav-item">
           <Link to="login" className="nav-link">
-            Sign in
+            Sign-in
           </Link>
         </li>
 
@@ -35,36 +35,39 @@ const LoggedOutView = props => {
 const LoggedInView = props => {
   if (props.currentUser) {
     return (
-      <ul className="nav navbar-nav pull-xs-right">
+      <div className="navigation-bar">
 
-        <li className="nav-item">
+        <div className="nav-module">
           <Link to="" className="nav-link">
             Home
           </Link>
-        </li>
-
-        <li className="nav-item">
-          <Link to="editor" className="nav-link">
-            <i className="ion-compose"></i>&nbsp;New Post
+        </div>
+        <div className="nav-module">
+          <Link to="" className="nav-link">
+            Saved
           </Link>
-        </li>
-
-        <li className="nav-item">
+        </div>
+        <div className="nav-module">
           <Link to="settings" className="nav-link">
-            <i className="ion-gear-a"></i>&nbsp;Settings
+            My Reviews
           </Link>
-        </li>
+        </div>
+        <div className="nav-module create-review">
+          <Link to="editor" className="nav-link">
+            <i className="ion-plus"></i>&nbsp;New Review
+          </Link>
+        </div>
 
-        <li className="nav-item">
+        <div className="nav-module nav-user-image">
           <Link
             to={`@${props.currentUser.username}`}
             className="nav-link">
             <img src={props.currentUser.image} className="user-pic" />
             {props.currentUser.username}
           </Link>
-        </li>
+        </div>
 
-      </ul>
+      </div>
     );
   }
 
@@ -74,10 +77,9 @@ const LoggedInView = props => {
 class Header extends React.Component {
   render() {
     return (
-      <nav className="navbar navbar-light">
         <div className="container">
 
-          <Link to="/" className="navbar-brand">
+          <Link to="/" className="logo-module">
             {this.props.appName.toLowerCase()}
           </Link>
 
@@ -85,7 +87,6 @@ class Header extends React.Component {
 
           <LoggedInView currentUser={this.props.currentUser} />
         </div>
-      </nav>
     );
   }
 }

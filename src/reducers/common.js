@@ -1,7 +1,7 @@
 import { AUTH_USER, SIGN_OUT_USER, AUTH_ERROR, REVIEW_SUBMITTED } from '../actions';
 
 const defaultState = {
-  appName: 'Whatsgood',
+  appName: 'sogood',
   authenticated: false,
   token: null
 };
