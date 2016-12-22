@@ -155,7 +155,7 @@ export function updateUsername(oldName, newName, userid) {
 export function saveSettings(user, currentUsername) {
   const uid = Firebase.auth().currentUser.uid;
   return dispatch => {
-    if (user.username !== currentUsername) {
+    if (user.username && user.username !== currentUsername) {
       Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + user.username).once('value', snapshot => {
         if (snapshot.exists()) {
           dispatch({
@@ -327,7 +327,8 @@ export function onReviewSubmit(subject, review) {
         lastModified: Firebase.database.ServerValue.TIMESTAMP
     }
 
-    const reviewObject = Object.assign(reviewMeta, review);
+    const reviewObject = {};
+    Object.assign(reviewObject, reviewMeta, review);
 
     updates[`/${Constants.SUBJECTS_PATH}/${subjectId}/`] = subject;
     updates[`/${Constants.REVIEWS_PATH}/${reviewId}/`] = reviewObject;
@@ -383,7 +384,8 @@ export function getComments(reviewId) {
       snapshot.forEach(function(childSnapshot) {
         // Firebase.database().ref(Constants.USERS_PATH)
         const key = { id: childSnapshot.key };
-        const comment = Object.assign(childSnapshot.val(), key);
+        const comment = {};
+        Object.assign(comment, childSnapshot.val(), key);
         comments.unshift(comment);
       });
 

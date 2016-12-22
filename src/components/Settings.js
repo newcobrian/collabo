@@ -28,11 +28,11 @@ class SettingsForm extends React.Component {
       ev.preventDefault();
 
       const user = {};
-      if(this.state.image) Object.assign(user, this.state.image);
-      if(this.state.username) Object.assign(user, this.state.username);
-      if(this.state.bio) Object.assign(user, this.state.bio);
-      if(this.state.email) Object.assign(user, this.state.email);
-      if(this.state.password) Object.assign(user, this.state.password);
+      if(this.state.image) user.image = this.state.image;
+      if(this.state.username) user.username = this.state.username;
+      if(this.state.bio) user.bio = this.state.bio;
+      if(this.state.email) user.email = this.state.email;
+      if(this.state.password) user.password = this.state.password;
 
       this.props.onSubmitForm(user, this.props.currentUser.username);
     };
