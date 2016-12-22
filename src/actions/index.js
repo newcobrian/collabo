@@ -382,11 +382,12 @@ export function getComments(reviewId) {
     Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewId).orderByChild('timestamp').on('value', snapshot => {
       const comments = [];
       snapshot.forEach(function(childSnapshot) {
-        // Firebase.database().ref(Constants.USERS_PATH)
-        const key = { id: childSnapshot.key };
-        const comment = {};
-        Object.assign(comment, childSnapshot.val(), key);
-        comments.unshift(comment);
+        Firebase.database().ref(Constants.USERS_PATH + '/' + childSnapshot.val().userId).once('value', userSnapshot => {
+          const key = { id: childSnapshot.key };
+          const comment = { username: userSnapshot.val().username, image: userSnapshot.val().image };
+          Object.assign(comment, childSnapshot.val(), key);
+          comments.unshift(comment);
+        })
       });
 
       dispatch({

@@ -13,15 +13,15 @@ const Comment = props => {
       </div>
       <div className="card-footer">
         <Link
-          to={`@${comment.userId}`}
+          to={`@${comment.username}`}
           className="comment-author">
           <img src={comment.image} className="comment-author-img" />
         </Link>
         &nbsp;
         <Link
-          to={`@${comment.userId}`}
+          to={`@${comment.username}`}
           className="comment-author">
-          {comment.userId}
+          {comment.username}
         </Link>
         <span className="date-posted">
           {new Date(comment.timestamp).toLocaleString()}
