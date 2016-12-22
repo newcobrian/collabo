@@ -1,16 +1,17 @@
 import React from 'react';
 import agent from '../../agent';
 import { connect } from 'react-redux';
+import * as Actions from '../../actions';
 
-const mapDispatchToProps = dispatch => ({
-  onClick: (payload, commentId) =>
-    dispatch({ type: 'DELETE_COMMENT', payload, commentId })
-});
+// const mapDispatchToProps = dispatch => ({
+//   onClick: (payload, commentId) =>
+//     dispatch({ type: 'DELETE_COMMENT', payload, commentId })
+// });
 
 const DeleteButton = props => {
   const del = () => {
-    const payload = agent.Comments.delete(props.slug, props.commentId);
-    props.onClick(payload, props.commentId);
+    // const payload = agent.Comments.delete(props.slug, props.commentId);
+    props.onDeleteComment(props.reviewId, props.commentId);
   };
 
   if (props.show) {
@@ -23,4 +24,4 @@ const DeleteButton = props => {
   return null;
 };
 
-export default connect(() => ({}), mapDispatchToProps)(DeleteButton);
+export default connect(() => ({}), Actions)(DeleteButton);

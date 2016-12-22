@@ -23,6 +23,7 @@ export const REVIEW_UNLOADED = 'REVIEW_UNLOADED';
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const GET_COMMENTS = 'GET_COMMENTS';
 export const COMMENTS_UNLOADED = 'COMMENTS_UNLOADED';
+export const DELETE_COMMENT = 'COMMENTS_UNLOADED';
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -365,7 +366,7 @@ export function getReview(reviewId) {
     Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewId).on('value', snapshot => {
       const review = snapshot.val();
       review.rater = {};
-      Firebase.database().ref(Constants.USERS_PATH + '/' + review.userId).once('value', userSnapshot => {
+      Firebase.database().ref(Constants.USERS_PATH + '/' + review.userId).on('value', userSnapshot => {
         const userMeta = { username: userSnapshot.val().username, image: userSnapshot.val().image };
         Object.assign(review.rater, userMeta);
           dispatch({
@@ -382,9 +383,10 @@ export function getComments(reviewId) {
     Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewId).orderByChild('timestamp').on('value', snapshot => {
       const comments = [];
       snapshot.forEach(function(childSnapshot) {
-        Firebase.database().ref(Constants.USERS_PATH + '/' + childSnapshot.val().userId).once('value', userSnapshot => {
+        Firebase.database().ref(Constants.USERS_PATH + '/' + childSnapshot.val().userId).on('value', userSnapshot => {
           const key = { id: childSnapshot.key };
           const comment = { username: userSnapshot.val().username, image: userSnapshot.val().image };
+          // const comment = {};
           Object.assign(comment, childSnapshot.val(), key);
           comments.unshift(comment);
         })
@@ -409,6 +411,9 @@ export function unloadSubject(subjectId) {
 
 export function unloadReview(reviewId) {
   return dispatch => {
+    Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewId).once('value', snapshot => {
+      Firebase.database().ref(Constants.USERS_PATH + '/' + snapshot.val().userId).off();
+    });
     dispatch({
       type: REVIEW_UNLOADED,
       payload: Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewId).off()
@@ -418,6 +423,11 @@ export function unloadReview(reviewId) {
 
 export function unloadComments(reviewId) {
   return dispatch => {
+    Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewId).once('value', snapshot => {
+      snapshot.forEach(function(childSnapshot) {
+        Firebase.database().ref(Constants.USERS_PATH + '/' + childSnapshot.val().userId).off();
+      })
+    });
     dispatch({
       type: COMMENTS_UNLOADED,
       payload: Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewId).off()
@@ -449,3 +459,12 @@ export function onCommentSubmit(reviewId, body) {
       });
   }
 }
+
+export function onDeleteComment(reviewId, commentId) {
+  return dispatch => {    
+      dispatch({
+        type: DELETE_COMMENT,
+        payload: Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewId + '/' + commentId).remove()
+      });
+    };
+  }
