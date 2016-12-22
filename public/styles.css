@@ -1,41 +1,52 @@
 body {
-	font-family: 'Roboto', sans-serif;
+	font-family: Helvetica, 'Roboto', sans-serif;
+  color: black;
+}
+h1 {
+  font-weight: 500;
 }
 
+
+/****** Header ******/
 .logo-module {
-	position: fixed;
-	left: 0;
- 	top: 0;
-   	padding: 0 10px;
-	height: 60px;
-	width: 200px;
-    color: black;
-    font-weight: 700;
-    margin: 0px;
-    font-size: 32px;
-	display: -webkit-flex;
-   display: flex;
-      -webkit-flex-direction: row;
-   flex-direction: row;
-   -webkit-align-items: center;
-   align-items: center;
-   -webkit-justify-content: flex-start;
-   justify-content: flex-start;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding: 0 10px;
+  height: 60px;
+  width: 200px;
+  color: black;
+  font-weight: 700;
+  margin: 0px;
+  font-size: 32px;
+  background-color:white;
+  z-index: 2;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+
 }
 .navigation-bar {
-    position: fixed;
-    right: 0;
-    top: 0;
-    left: 200px;
-    height: 60px;
-   display: -webkit-flex;
-   display: flex;
-      -webkit-flex-direction: row;
-   flex-direction: row;
-   -webkit-align-items: center;
-   align-items: center;
-   -webkit-justify-content: flex-end;
-   justify-content: flex-end;
+  position: fixed;
+  right: 0;
+  top: 0;
+  left: 200px;
+  height: 60px;
+  background-color:white;
+  z-index: 2;
+  display: -webkit-flex;
+  display: flex;
+    -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
 }
 .navigation-bar .nav-module {
 	margin: 20px 5px;
@@ -63,6 +74,9 @@ body {
 }
 
 
+
+
+/****** General Layout ******/
 .container.page {
     margin-top: 60px;
 }
@@ -75,6 +89,108 @@ body {
 .home-page .feed-toggle {
 	display: none;
 }
+
+
+
+/****** Article Page ******/
+.subject-container {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+   -webkit-align-items: top;
+   align-items: top;
+   -webkit-justify-content: center;
+   justify-content: center;
+}
+.subject-name-wrapper {
+    text-align: center;
+    width: 100%;
+    margin: 10px 0;
+}
+.subject-container > div {
+  margin: 20px;
+}
+.subject-global-wrapper {
+    width: 400px;
+    height: auto;
+    background: white;
+}
+  .subject-image {
+    width: 100%;
+  }
+  .subject-image img {
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+  }
+.subject-info-wrapper {
+  width: 500px;
+}
+.subject-info-wrapper .info {
+  margin-top: 10px;
+}
+.subject-info-wrapper .info > div{
+  margin: 20px 0 0;
+}
+.subject-caption {
+    font-size: 28px;
+    font-weight: 100;
+}
+.star-graphic {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+}
+.star {
+  width: 40px;
+  height: 40px;
+  background: black;
+  border-radius: 100px;
+  margin-right: 10px;
+}
+.review-timestamp {
+  font-size: 13px;
+  opacity: .5;
+  margin: 0;
+}
+.reviewer-wrapper {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+}
+.reviewer-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
+  overflow: hidden;
+  margin-right: 20px;
+}
+.reviewer-image img {
+  /*object-fit: none;  Do not scale the image */
+  object-position: center; /* Center the image within the element */
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+}
+.reviewer-name {
+  color: black;
+}
+
+
+
+
+
 
 
 
@@ -94,6 +210,12 @@ body {
 .nav-module.nav-user-image {
 	position: fixed;
 	top: 0px; right: 0px;
+}
+.subject-container {
+  display: block;
+}
+.subject-container > div {
+  margin: 10px 0;
 }
 
 

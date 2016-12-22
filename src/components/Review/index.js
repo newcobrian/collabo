@@ -55,65 +55,71 @@ class Review extends React.Component {
       // this.props.currentUser.username === this.props.article.author.username;
     return (
       <div className="article-page">
-
-        <div className="banner">
-          <div className="container">
-
-            <h1>{this.props.subject.title}</h1>
-            <SubjectMeta
-              subject={this.props.subject}
-              canModify={canModify} /> 
-
-          </div>
+        <div className="subject-name-wrapper">
+              <h1>{this.props.subject.title}</h1>
         </div>
+          <div className="subject-container">
 
-        <div className="container page">
+            <div className="subject-global-wrapper">
 
-          <div className="row article-content">
-
-          <div className="article-meta">
-        <img src={this.props.review.rater.image} />
-        <Link to={`@${this.props.review.rater.username}`} className="author"> 
-          <div>Reviewer: {this.props.review.rater.username}</div>
-        </Link>
-        <div>Timestamp: {new Date(this.props.review.lastModified).toLocaleString([], {year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute:'2-digit'})} </div>
-        <div>Rating: {this.props.review.rating}</div>
-        <div>Caption: {this.props.review.caption}</div>
+              <SubjectMeta
+              subject={this.props.subject}
+              canModify={canModify} />
 
 
-      {/*      <div className="col-xs-12">
 
-              <div>{this.props.review.description}></div>
-
-              <ul className="tag-list">
-                {
-                  this.props.subject.tagList.map(tag => {
-                    return (
-                      <li
-                        className="tag-default tag-pill tag-outline"
-                        key={tag}>
-                        {tag}
-                      </li>
-                    );
-                  })
-                }
-              </ul> */}
 
             </div>
-          </div>
+            <div className="subject-info-wrapper">
+            <Link to={`@${this.props.review.rater.username}`} className="author"> 
+                <div className="reviewer-wrapper">
+                  <div className="reviewer-image"><img src={this.props.review.rater.image} /></div>
+                  <div className="reviewer-name">
+                    {this.props.review.rater.username} says...
+                  </div>
+                </div>
+                </Link>
 
-          <hr />
+              <div className="info">
+                
 
-          <div className="article-actions">
-          </div>
+                {/* <Link to={`@${this.review.userId}`} className="author"> 
+                {this.review.caption}
+                </Link> */}
 
-          <div className="row">
-            <CommentContainer
+                
+
+                <div className="star-graphic">
+                  <div className="star"></div>
+                  <div className="star"></div>
+                  <div className="star"></div>
+                  <div className="star"></div>
+                  <div className="star"></div>
+                  <div className="star"></div>
+                  <div className="star-{this.props.review.rating}"></div>
+                  {this.props.review.rating}
+                  </div>
+                
+                <div className="subject-caption">
+                  {this.props.review.caption}
+                </div>
+              
+                <div className="review-timestamp">
+                  {new Date(this.props.review.lastModified).toLocaleString([], {year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute:'2-digit'})}
+                </div>
+
+                <CommentContainer
                 comments={this.props.comments || []}
                 errors={this.props.commentErrors}
                 reviewId={this.props.params.rid}
                 currentUser={this.props.currentUser} />
-          </div>
+                
+              </div>
+            </div>
+
+
+
+            
         </div>
       </div>
     );

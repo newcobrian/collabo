@@ -6,27 +6,26 @@ import React from 'react';
 const LoggedOutView = props => {
   if (!props.currentUser) {
     return (
-      <ul className="nav navbar-nav pull-xs-right">
-
-        <li className="nav-item">
+      <div className="navigation-bar">
+        <div className="nav-module">
           <Link to="/" className="nav-link">
             Feed
           </Link>
-        </li>
+        </div>
 
-        <li className="nav-item">
+        <div className="nav-module">
           <Link to="login" className="nav-link">
             Sign-in
           </Link>
-        </li>
+        </div>
 
-        <li className="nav-item">
+        <div className="nav-module">
           <Link to="register" className="nav-link">
             Sign up
           </Link>
-        </li>
+        </div>
 
-      </ul>
+      </div>
     );
   }
   return null;

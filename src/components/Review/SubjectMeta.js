@@ -5,16 +5,13 @@ import React from 'react';
 const SubjectMeta = props => {
   const subject = props.subject;
   return (
-    <div className="article-meta">
+    <div className="subject-image">
         <img src={subject.image} />
 
       <div className="info">
         {/* <Link to={`@${subject.description}`} className="author"> 
           {subject.description}
         </Link> */}
-        <span className="date">
-          {subject.description}
-        </span> 
       </div>
 
       <SubjectActions canModify={props.canModify} subject={subject} />
