@@ -43,13 +43,13 @@ const LoggedInView = props => {
           </Link>
         </div>
         <div className="nav-module">
-          <Link to="" className="nav-link">
+          <Link to={`@${props.currentUser.username}`} className="nav-link">
             Saved
           </Link>
         </div>
         <div className="nav-module">
           <Link to="settings" className="nav-link">
-            My Reviews
+            My Profile
           </Link>
         </div>
         <div className="nav-module create-review">

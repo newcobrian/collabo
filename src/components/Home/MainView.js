@@ -1,4 +1,4 @@
-import ArticleList from '../ArticleList';
+import ReviewList from '../ReviewList';
 import React from 'react';
 import agent from '../../agent';
 import { connect } from 'react-redux';
@@ -55,7 +55,7 @@ const TagFilterTab = props => {
 };
 
 const mapStateToProps = state => ({
-  ...state.articleList,
+  ...state.reviewList,
   token: state.common.token
 });
 
@@ -87,9 +87,9 @@ const MainView = props => {
         </ul>
       </div>
 
-      <ArticleList
-        articles={props.articles}
-        articlesCount={props.articlesCount}
+      <ReviewList
+        reviews={props.reviews}
+        reviewsCount={props.reviewsCount}
         currentPage={props.currentPage}
         onSetPage={onSetPage} />
     </div>

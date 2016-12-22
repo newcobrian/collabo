@@ -1,39 +1,39 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-const ArticlePreview = props => {
-  const article = props.article;
+const ReviewPreview = props => {
+  const review = props.review;
 
   return (
     <div className="article-preview">
       <div className="article-meta">
-        <Link to={`@${article.author.username}`}>
-          <img src={article.author.image} />
+        <Link to={`@${review.author.username}`}>
+          <img src={review.author.image} />
         </Link>
 
         <div className="info">
-          <Link className="author" to={`@${article.author.username}`}>
-            {article.author.username}
+          <Link className="author" to={`@${review.author.username}`}>
+            {review.author.username}
           </Link>
           <span className="date">
-            {new Date(article.createdAt).toDateString()}
+            {new Date(review.createdAt).toDateString()}
           </span>
         </div>
 
         <div className="pull-xs-right">
           <button className="btn btn-sm btn-outline-primary">
-            <i className="ion-heart"></i> {article.favoritesCount}
+            <i className="ion-heart"></i> {review.favoritesCount}
           </button>
         </div>
       </div>
 
-      <Link to={`article/${article.slug}`} className="preview-link">
-        <h1>{article.title}</h1>
-        <p>{article.description}</p>
+      <Link to={`subject/${review.id}`} className="preview-link">
+        <h1>{review.title}</h1>
+        <p>{review.description}</p>
         <span>Read more...</span>
         <ul className="tag-list">
           {
-            article.tagList.map(tag => {
+            review.tagList.map(tag => {
               return (
                 <li className="tag-default tag-pill tag-outline" key={tag}>
                   {tag}
@@ -47,4 +47,4 @@ const ArticlePreview = props => {
   );
 }
 
-export default ArticlePreview;
+export default ReviewPreview;

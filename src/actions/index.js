@@ -468,3 +468,9 @@ export function onDeleteComment(reviewId, commentId) {
       });
     };
   }
+
+  export function getReviewsByUser(userId) {
+    return dispatch => {
+
+    }
+  }

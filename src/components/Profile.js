@@ -1,6 +1,6 @@
 'use strict';
 
-import ArticleList from './ArticleList';
+import ReviewList from './ReviewList';
 import React from 'react';
 import { Link } from 'react-router';
 import agent from '../agent';
@@ -90,6 +90,7 @@ class Profile extends React.Component {
       let userId = snapshot.val().userId;
       this.props.getUser(userId);
       this.props.checkFollowing(userId);
+      // this.props.getReviewsByUser(userId);
     });
     // this.props.getUser(userId);
   }
@@ -173,9 +174,9 @@ class Profile extends React.Component {
                 {this.renderTabs()}
               </div>
 
-              <ArticleList
-                articles={this.props.articles} 
-                articlesCount={this.props.articlesCount}
+              <ReviewList
+                reviews={this.props.reviews} 
+                reviewsCount={this.props.reviewsCount}
                 currentPage={this.props.currentPage}
                 onSetPage={this.onSetPage} />
             </div>
