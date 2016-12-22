@@ -22,7 +22,7 @@ export default (state = defaultState, action) => {
       return { ...state, authenticated: false, redirectTo: '/', token: null, currentUser: null };
     case REVIEW_SUBMITTED:
       // const redirectUrl = `article/${action.payload.article.slug}`;
-      const redirectUrl = `subject/${action.subjectId}/${action.reviewId}`;
+      const redirectUrl = `review/${action.subjectId}/${action.reviewId}`;
       return { ...state, redirectTo: redirectUrl };
     case 'SETTINGS_SAVED':
       return {

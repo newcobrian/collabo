@@ -11,7 +11,7 @@ import Firebase from 'firebase'
 import * as Actions from '../../actions';
 
 const mapStateToProps = state => ({
-  ...state.subject,
+  ...state.review,
   currentUser: state.common.currentUser
 });
 
@@ -24,7 +24,7 @@ const mapStateToProps = state => ({
     //   dispatch({ type: 'FETCH_ARTICLE', payload }),
 });*/
 
-class Subject extends React.Component {
+class Review extends React.Component {
   componentWillMount() {
     // this.props.onLoad(Promise.all([
     //   agent.Articles.get(this.props.params.id),
@@ -120,4 +120,4 @@ class Subject extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, Actions)(Subject);
+export default connect(mapStateToProps, Actions)(Review);

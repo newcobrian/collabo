@@ -2,7 +2,7 @@ import { applyMiddleware, createStore, combineReducers, compose } from 'redux';
 import reduxThunk from 'redux-thunk';
 // import { promiseMiddleware, localStorageMiddleware } from './middleware';
 // import {reduxReactFirebase, firebaseStateReducer} from 'redux-react-firebase'
-import subject from './reducers/subject';
+import review from './reducers/review';
 import articleList from './reducers/articleList';
 import auth from './reducers/auth';
 import common from './reducers/common';
@@ -14,7 +14,7 @@ import Firebase from 'firebase';
 import * as Actions from './actions';
 
 const reducer = combineReducers({
-  subject,
+  review,
   articleList,
   auth,
   common,

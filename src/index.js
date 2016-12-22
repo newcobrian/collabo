@@ -4,7 +4,7 @@ import React from 'react';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 
 import App from './components/App';
-import Subject from './components/Subject';
+import Review from './components/Review';
 import Home from './components/Home';
 import Login from './components/Login';
 import Profile from './components/Profile';
@@ -22,7 +22,7 @@ ReactDOM.render((
         <Route path="login" component={Login} />
         <Route path="register" component={Register} />
         <Route path="settings" component={Settings} />
-        <Route path="subject/:sid(/:rid)" component={Subject} />
+        <Route path="review/:sid(/:rid)" component={Review} />
         <Route path="@:username" component={Profile} />
         <Route path="@:username/favorites" component={ProfileFavorites} />
         <Route path="editor" component={Editor} />
