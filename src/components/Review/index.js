@@ -58,7 +58,7 @@ class Review extends React.Component {
         <div className="subject-name-wrapper">
               <h1>{this.props.subject.title}</h1>
         </div>
-          <div className="subject-container">
+          <div className="roow subject-container">
 
             <div className="subject-global-wrapper">
 
@@ -67,60 +67,48 @@ class Review extends React.Component {
               canModify={canModify} />
 
 
-
-
             </div>
-            <div className="subject-info-wrapper">
-            <Link to={`@${this.props.review.rater.username}`} className="author"> 
-                <div className="reviewer-wrapper">
-                  <div className="reviewer-image"><img src={this.props.review.rater.image} /></div>
-                  <div className="reviewer-name">
-                    {this.props.review.rater.username} says...
-                  </div>
-                </div>
+
+            <div className="subject-info-wrapper roow roow-col roow-left">
+              <div className="subject-info-box roow roow-col roow-left">
+                <Link to={`@${this.props.review.rater.username}`} className="author"> 
+                    <div className="reviewer-wrapper">
+                      <div className="reviewer-name">
+                        {this.props.review.rater.username}
+                      </div>
+                    </div>
+
                 </Link>
-
-              <div className="info">
-                
-
-                {/* <Link to={`@${this.review.userId}`} className="author"> 
-                {this.review.caption}
-                </Link> */}
-
-                
-
-                <div className="star-graphic">
-                  <div className="star"></div>
-                  <div className="star"></div>
-                  <div className="star"></div>
-                  <div className="star"></div>
-                  <div className="star"></div>
-                  <div className="star"></div>
-                  <div className="star-{this.props.review.rating}"></div>
-                  {this.props.review.rating}
+                <div className="roow">
+                    <div className="reviewer-image"><img src={this.props.review.rater.image} /></div>
+                    <div className="star-graphic roow">
+                        <div className="star">{this.props.review.rating}</div>
+                    </div>
+                </div>
+                <div className="info">
+                  <div className="subject-caption">
+                    {this.props.review.caption}
                   </div>
                 
-                <div className="subject-caption">
-                  {this.props.review.caption}
-                </div>
-              
-                <div className="review-timestamp">
-                  {new Date(this.props.review.lastModified).toLocaleString([], {year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute:'2-digit'})}
-                </div>
+                  <div className="review-timestamp">
+                    {new Date(this.props.review.lastModified).toLocaleString([], {year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute:'2-digit'})}
+                  </div>
 
-                <CommentContainer
+                  
+                </div>
+              </div>
+              <div className="cta-box">
+              </div>
+          </div>{/**** E N D subject-info-box ***/}
+        </div>
+
+<div className="roow roow-comments">
+             <CommentContainer
                 comments={this.props.comments || []}
                 errors={this.props.commentErrors}
                 reviewId={this.props.params.rid}
                 currentUser={this.props.currentUser} />
-                
-              </div>
-            </div>
-
-
-
-            
-        </div>
+</div>
       </div>
     );
   }

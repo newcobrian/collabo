@@ -1,12 +1,42 @@
 body {
-	font-family: Helvetica, 'Roboto', sans-serif;
+	font-family: 'Roboto', sans-serif;
   color: black;
 }
 h1 {
-  font-weight: 500;
+  font-weight: 700;
 }
 
-
+.roow {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+}
+.roow.roow-col {
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+.roow.roow-row {
+  -webkit-flex-direction: row;
+  flex-direction: row;
+}
+.roow.roow-left {
+     -webkit-align-items: flex-start;
+   align-items: flex-start;
+}
+.roow.roow-comments {
+    -webkit-justify-content: center;
+  justify-content: center;
+  padding: 20px;
+}
+.comments-container {
+      width: 100%;
+    max-width: 820px;
+}
 /****** Header ******/
 .logo-module {
   position: fixed;
@@ -94,101 +124,96 @@ h1 {
 
 /****** Article Page ******/
 .subject-container {
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-direction: row;
-  flex-direction: row;
-   -webkit-align-items: top;
-   align-items: top;
+   -webkit-align-items: flex-start;
+   align-items: flex-start;
    -webkit-justify-content: center;
    justify-content: center;
+   padding: 20px 40px;
 }
 .subject-name-wrapper {
     text-align: center;
     width: 100%;
-    margin: 10px 0;
+    margin: 100px 0 0;
 }
 .subject-container > div {
-  margin: 20px;
 }
-.subject-global-wrapper {
-    width: 400px;
+
+  .subject-image {
+        width: auto;
     height: auto;
     background: white;
-}
-  .subject-image {
-    width: 100%;
   }
   .subject-image img {
-    width: 400px;
-    height: 400px;
+    width: 320px;
+    height: 320px;
     object-fit: cover;
   }
-.subject-info-wrapper {
-  width: 500px;
+  .subject-info-wrapper {
+    padding: 0;
+  }
+.subject-info-box {
+  min-width: 320px;
+  border: 1px solid #ccc;
+  padding: 20px;
 }
-.subject-info-wrapper .info {
+.subject-info-box .info {
   margin-top: 10px;
 }
-.subject-info-wrapper .info > div{
-  margin: 20px 0 0;
-}
-.subject-caption {
-    font-size: 28px;
-    font-weight: 100;
-}
-.star-graphic {
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-direction: row;
-  flex-direction: row;
-  -webkit-align-items: center;
-  align-items: center;
-  -webkit-justify-content: flex-start;
-  justify-content: flex-start;
-}
-.star {
-  width: 40px;
-  height: 40px;
-  background: black;
-  border-radius: 100px;
-  margin-right: 10px;
-}
-.review-timestamp {
-  font-size: 13px;
-  opacity: .5;
+.subject-info-box .info > div{
   margin: 0;
 }
-.reviewer-wrapper {
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-direction: row;
-  flex-direction: row;
-  -webkit-align-items: center;
-  align-items: center;
-  -webkit-justify-content: flex-start;
-  justify-content: flex-start;
-}
-.reviewer-image {
+                .subject-caption {
+                    font-size: 18px;
+                    font-weight: 100;
+                    margin-bottom: 10px;
+                }
+                .star-graphic {
+                }
+                .star {
+                width: 60px;
+                    height: 60px;
+                    background: red;
+                    border-radius: 100px;
+                    margin-right: 10px;
+                    border: 20px solid red;
+                    color:white;
+                    text-align: center;
+                }
+                .review-timestamp {
+                  font-size: 10px;
+                  opacity: .4;
+                  margin: 0;
+                }
+                .reviewer-wrapper {
+                  margin-bottom: 10px;
+                }
+                .reviewer-image {
+                  width: 60px;
+                  height: 60px;
+                  border-radius: 100px;
+                  overflow: hidden;
+                  margin-right: 20px;
+                }
+                .reviewer-image img {
+                  /*object-fit: none;  Do not scale the image */
+                  object-position: center; /* Center the image within the element */
+                  height: 60px;
+                  width: 60px;
+                  object-fit: cover;
+                }
+                .reviewer-name {
+                    color: black;
+                    font-size: 16px;
+                    font-weight: 700;
+                }
+
+
+.cta-box {
+  padding: 20px;
   width: 100px;
-  height: 100px;
-  border-radius: 100px;
-  overflow: hidden;
-  margin-right: 20px;
+  border: 1px solid #ccc;
+  margin-top: -1px;
 }
-.reviewer-image img {
-  /*object-fit: none;  Do not scale the image */
-  object-position: center; /* Center the image within the element */
-  height: 100px;
-  width: 100px;
-  object-fit: cover;
-}
-.reviewer-name {
-  color: black;
-}
-
-
-
 
 
 
