@@ -7,7 +7,7 @@ import ListErrors from '../ListErrors';
 const CommentContainer = props => {
 	if (props.currentUser) {
 		return (
-			<div className="comments-container">
+			<div className="comments-module">
 		        <div>
 		          <ListErrors errors={props.errors}></ListErrors>
 		          <CommentInput reviewId={props.reviewId} currentUser={props.currentUser} />

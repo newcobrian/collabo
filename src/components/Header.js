@@ -6,7 +6,7 @@ import React from 'react';
 const LoggedOutView = props => {
   if (!props.currentUser) {
     return (
-      <div className="navigation-bar">
+      <div className="navigation-bar roow roow-row-right">
         <div className="nav-module">
           <Link to="/" className="nav-link">
             Feed
@@ -34,7 +34,7 @@ const LoggedOutView = props => {
 const LoggedInView = props => {
   if (props.currentUser) {
     return (
-      <div className="navigation-bar">
+      <div className="navigation-bar roow roow-row-right">
 
         <div className="nav-module">
           <Link to="" className="nav-link">
@@ -78,7 +78,7 @@ class Header extends React.Component {
     return (
         <div className="container">
 
-          <Link to="/" className="logo-module">
+          <Link to="/" className="logo-module roow">
             {this.props.appName.toLowerCase()}
           </Link>
 
