@@ -97,31 +97,32 @@ class Home extends React.Component {
 
             <div className="reviews-wrapper roow roow-left roow-col-left">
             <div className="subject-name-container">
-                <div className="text-subject-name">Wind-up Bird Chronicles by Haruki Murakami</div>
-                <div className="text-category shift-up-5">Book</div>
+                <div className="text-subject-name">Meiji Probiotic Yogurt R-1</div>
+                <div className="text-category shift-up-5">Food</div>
             </div>
             <div className="review-container roow roow-center roow-row-top">
               <div className="review-image-wrapper">
                 <div className="subject-image">
-                  <img src="http://2.bp.blogspot.com/-qKqiE5uJIvA/UZBNAvG2-kI/AAAAAAAAJQg/D3KGsQu96jo/s1600/093.JPG"/>
+                  <img src="http://slism.com/wpsystem/wp-content/uploads/probiotic-yogurt-boost-immunity-01.jpg"/>
                 </div>
               </div>
               <div className="review-data-container roow roow-col-right">
                 <div className="review-data-module gray-border roow roow-col-left">
                   <div className="reviewer-name-container">
                     <div className="reviewer-name">
-                      Kiko Mizuhara
+                      Anthony Bourdain
                     </div>
                   </div>
                   <div className="photo-rating-module roow">
-                      <div className="reviewer-photo"><img src="http://www.kpopmusic.com/wp-content/uploads/2014/12/tumblr_mk9ghdPCaW1rexlpko1_1280.jpg"/></div>
+                      <div className="reviewer-photo">
+                        <img src="http://www.travelchannel.com/content/dam/images/travel/fullset/2015/01/20/no-reservations-layover-anthony-bourdain.jpg.rend.tccom.616.462.jpeg"/></div>
                       <div className="rating-container roow">
                           <div className="rating-graphic">0</div>
                       </div>
                   </div>
                   <div className="info">
                     <div className="subject-caption">
-                      my fav murakami so far. a lot of buddhist allegories mixed in.
+                      taste like sour gummy icecream and will help you poop immediately!
                     </div>
                     <div className="review-timestamp">
                       3 days ago

@@ -139,40 +139,88 @@ class Profile extends React.Component {
       this.props.profile.userId === this.props.currentUser.uid;
 
     return (
-      <div className="profile-page">
+      <div className="roow roow-col-left page-common profile-page">
 
-        <div className="user-info">
-          <div className="container">
-            <div className="row">
-              <div className="col-xs-12 col-md-10 offset-md-1">
+        <div className="user-info roow roow-row-left">
+            <div className="profile-info roow roow-row-left">
 
                 <img src={profile.image} className="user-img" />
-                <h4>{profile.username}</h4>
-                <p>{profile.bio}</p>
+                <div className="user-data roow roow-col-left">
+                  <div className="user-name">{profile.username}</div>
+                  <div className="user-bio">{profile.bio}</div>
+                  <div className="user-action">
+                    <EditProfileSettings isUser={isUser} />
+                    <FollowUserButton
+                    isUser={isUser}
+                    user={profile}
+                    follow={this.props.followUser}
+                    unfollow={this.props.unfollowUser}
+                    profileUserId={this.props.profile.userId}
+                    isFollowing={this.props.profile.isFollowing}
+                    />
+                  </div>
+                </div>
 
-                <EditProfileSettings isUser={isUser} />
-                <FollowUserButton
-                  isUser={isUser}
-                  user={profile}
-                  follow={this.props.followUser}
-                  unfollow={this.props.unfollowUser}
-                  profileUserId={this.props.profile.userId}
-                  isFollowing={this.props.profile.isFollowing}
-                  />
+               
 
-              </div>
             </div>
-          </div>
         </div>
 
-        <div className="container">
-          <div className="row">
+        <div className="roow roow-col-left">
 
-            <div className="col-xs-12 col-md-10 offset-md-1">
-
-              <div className="articles-toggle">
-                {this.renderTabs()}
+              <div className="page-title-wrapper">
+                <div className="text-page-title">
+                  {this.renderTabs()}
+                </div>
               </div>
+
+
+
+            <div className="reviews-wrapper roow roow-left roow-col-left">
+            <div className="subject-name-container">
+                <div className="text-subject-name">Wind-up Bird Chronicles by Haruki Murakami</div>
+                <div className="text-category shift-up-5">Book</div>
+            </div>
+            <div className="review-container roow roow-center roow-row-top">
+              <div className="review-image-wrapper">
+                <div className="subject-image">
+                  <img src="http://2.bp.blogspot.com/-qKqiE5uJIvA/UZBNAvG2-kI/AAAAAAAAJQg/D3KGsQu96jo/s1600/093.JPG"/>
+                </div>
+              </div>
+              <div className="review-data-container roow roow-col-right">
+                <div className="review-data-module gray-border roow roow-col-left">
+                  <div className="reviewer-name-container">
+                    <div className="reviewer-name">
+                      Kiko Mizuhara
+                    </div>
+                  </div>
+                  <div className="photo-rating-module roow">
+                      <div className="reviewer-photo"><img src="http://www.kpopmusic.com/wp-content/uploads/2014/12/tumblr_mk9ghdPCaW1rexlpko1_1280.jpg"/></div>
+                      <div className="rating-container roow">
+                          <div className="rating-graphic">0</div>
+                      </div>
+                  </div>
+                  <div className="info">
+                    <div className="subject-caption">
+                      my fav murakami so far. a lot of buddhist allegories mixed in.
+                    </div>
+                    <div className="review-timestamp">
+                      3 days ago
+                    </div>
+                  </div>
+                </div>
+                <div className="cta-box roow gray-border">
+                  <i className="icoon ion-heart"></i>
+                  <i className="icoon ion-android-bookmark"></i>
+                  <i className="icoon ion-android-share"></i>
+                </div>
+            </div>{/**** E N D subject-info-box ***/}
+
+             </div>
+        </div>
+
+
+
 
               <ReviewList
                 reviews={this.props.reviews} 
@@ -180,10 +228,6 @@ class Profile extends React.Component {
                 currentPage={this.props.currentPage}
                 onSetPage={this.onSetPage} />
             </div>
-
-          </div>
-        </div>
-
       </div>
     );
   }

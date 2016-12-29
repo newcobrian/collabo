@@ -99,10 +99,12 @@ class Editor extends React.Component {
 
   render() {
     return (
-      <div className="editor-page">
-        <div className="container page">
-          <div className="row">
-            <div className="col-md-10 offset-md-1 col-xs-12">
+      <div className="roow roow-col-left page-common editor-page">
+            <div className="page-title-wrapper roow">
+              <div className="text-page-title">New Reccoon</div>
+            </div>
+
+            <div className="form-wrapper roow roow-col-left">
 
               <ListErrors errors={this.props.errors}></ListErrors>
 
@@ -111,7 +113,7 @@ class Editor extends React.Component {
 
                   <fieldset className="form-group">
                     <input
-                      className="form-control form-control-lg"
+                      className="form-control"
                       type="text"
                       placeholder="Item Title"
                       value={this.props.title}
@@ -185,8 +187,7 @@ class Editor extends React.Component {
               </form>
 
             </div>
-          </div>
-        </div>
+
       </div>
     );
   }

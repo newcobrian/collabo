@@ -151,12 +151,13 @@ class Settings extends React.Component {
 
   render() {
     return (
-      <div className="settings-page">
-        <div className="container page">
-          <div className="row">
-            <div className="col-md-6 offset-md-3 col-xs-12">
+      <div className="roow roow-col-left page-common settings-page">
+       
+            <div className="settings-wrapper roow roow-col-left">
 
-              <h1 className="text-xs-center">Your Settings</h1>
+              <div className="page-title-wrapper roow">
+                <div className="text-page-title">New Reccoon</div>
+              </div>
 
               <ListErrors errors={this.props.errors}></ListErrors>
 
@@ -173,8 +174,7 @@ class Settings extends React.Component {
               </button>
 
             </div>
-          </div>
-        </div>
+
       </div>
     );
   }
