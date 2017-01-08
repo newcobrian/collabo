@@ -1,3 +1,5 @@
+import { GET_REVIEWS_BY_USER } from '../actions';
+
 export default (state = {}, action) => {
   switch (action.type) {
     case 'PROFILE_PAGE_LOADED':
@@ -23,6 +25,11 @@ export default (state = {}, action) => {
       return {
         ...state,
         isFollowing: action.payload
+      }
+    case GET_REVIEWS_BY_USER:
+      return {
+        ...state,
+        reviews: action.payload
       }
   }
 

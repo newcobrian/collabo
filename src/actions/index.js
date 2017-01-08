@@ -24,6 +24,7 @@ export const ADD_COMMENT = 'ADD_COMMENT';
 export const GET_COMMENTS = 'GET_COMMENTS';
 export const COMMENTS_UNLOADED = 'COMMENTS_UNLOADED';
 export const DELETE_COMMENT = 'COMMENTS_UNLOADED';
+export const GET_REVIEWS_BY_USER = 'GET_REVIEWS_BY_USER';
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -321,11 +322,11 @@ export function onReviewSubmit(subject, review) {
     const uid = Firebase.auth().currentUser.uid;
     const subjectId = Firebase.database().ref(Constants.SUBJECTS_PATH).push().key;
     const reviewId = Firebase.database().ref(Constants.REVIEWS_PATH).push().key;
-
+    const lastModified = Firebase.database.ServerValue.TIMESTAMP;
     const reviewMeta = {
         userId: Firebase.auth().currentUser.uid,
         subjectId: subjectId,
-        lastModified: Firebase.database.ServerValue.TIMESTAMP
+        lastModified: lastModified
     }
 
     const reviewObject = {};
@@ -333,8 +334,21 @@ export function onReviewSubmit(subject, review) {
 
     updates[`/${Constants.SUBJECTS_PATH}/${subjectId}/`] = subject;
     updates[`/${Constants.REVIEWS_PATH}/${reviewId}/`] = reviewObject;
-    updates[`/${Constants.REVIEWS_BY_USER_PATH}/${uid}/`] = { reviewId: reviewId, subjectId: subjectId };
-    updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${subjectId}/`] = { reviewId: reviewId, userId: uid };
+    updates[`/${Constants.REVIEWS_BY_USER_PATH}/${uid}/${reviewId}`] = { 
+      subjectId: subjectId,
+      rating: review.rating,
+      caption: review.caption,
+      lastModified: lastModified,
+      title: subject.title,
+      description: subject.description,
+      image: subject.image
+    };
+    updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${subjectId}/${reviewId}`] = {
+      userId: uid,
+      rating: review.rating,
+      caption: review.caption,
+      lastModified: lastModified
+    };
 
     Firebase.database().ref().update(updates)
       .then(response => {
@@ -471,6 +485,22 @@ export function onDeleteComment(reviewId, commentId) {
 
   export function getReviewsByUser(userId) {
     return dispatch => {
-
+      const reviews = [];
+      Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + userId).orderByChild('lastModified').on('value', snapshot => {
+        snapshot.forEach(function(childSnapshot) {
+            const review = {};
+            const key = { id: childSnapshot.key };
+            Object.assign(review, childSnapshot.val(), key);
+            reviews.unshift(review);
+        });
+        dispatch({
+          type: GET_REVIEWS_BY_USER,
+          payload: reviews
+        })
+      })
+      // dispatch({
+      //     type: GET_REVIEWS_BY_USER,
+      //     payload: reviews
+      // })
     }
   }

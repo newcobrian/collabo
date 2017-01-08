@@ -24,7 +24,8 @@ const ReviewList = props => {
       {
         props.reviews.map(review => {
           return (
-            <ArticlePreview article={review} key={review.id} />
+            <ReviewPreview review={review} key={review.id} />
+
           );
         })
       }
