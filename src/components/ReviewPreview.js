@@ -3,18 +3,23 @@ import { Link } from 'react-router';
 
 const ReviewPreview = props => {
   const review = props.review;
+  console.log('props are = ' + JSON.stringify(props));
 
   return (
       <div className="reviews-wrapper roow roow-left roow-col-left">
         <div className="subject-name-container">
-            <div className="text-subject-name">{review.title}</div>
-            <div className="text-category shift-up-5">Book</div>
+            <Link to={`review/${review.subjectId}/${review.id}`}>
+              <div className="text-subject-name">{review.title}</div>
+              <div className="text-category shift-up-5">Book</div>
+            </Link>
         </div>
         <div className="review-container roow roow-center roow-row-top">
           <div className="review-image-wrapper">
-            <div className="subject-image">
-              <img src={review.image}/>
-            </div>
+            <Link to={`review/${review.subjectId}/${review.id}`}>
+              <div className="subject-image">
+                <img src={review.image}/>
+              </div>
+            </Link>
           </div>
           <div className="review-data-container roow roow-col-right">
             <div className="review-data-module gray-border roow roow-col-left">
