@@ -395,20 +395,19 @@ export function getReview(reviewId) {
 export function getComments(reviewId) {
   return dispatch => {
     Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewId).orderByChild('timestamp').on('value', snapshot => {
-      const comments = [];
+      let comments = [];
       snapshot.forEach(function(childSnapshot) {
         Firebase.database().ref(Constants.USERS_PATH + '/' + childSnapshot.val().userId).on('value', userSnapshot => {
           const key = { id: childSnapshot.key };
           const comment = { username: userSnapshot.val().username, image: userSnapshot.val().image };
-          // const comment = {};
           Object.assign(comment, childSnapshot.val(), key);
-          comments.unshift(comment);
-        })
-      });
+          comments = [comment].concat(comments);
 
-      dispatch({
-        type: GET_COMMENTS,
-        payload: comments
+          dispatch({
+            type: GET_COMMENTS,
+            payload: comments
+          });
+        })
       });
     });
   }
