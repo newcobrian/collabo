@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 
 const ReviewPreview = props => {
   const review = props.review;
-  console.log('props are = ' + JSON.stringify(props));
+  const reviewer = props.reviewer;
 
   return (
       <div className="reviews-wrapper roow roow-left roow-col-left">
@@ -24,16 +24,20 @@ const ReviewPreview = props => {
           <div className="review-data-container roow roow-col-right">
             <div className="review-data-module gray-border roow roow-col-left">
               <div className="reviewer-name-container">
-                <div className="reviewer-name">
-                  Kiko Mizuhara
-                </div>
-              </div>
-              <div className="photo-rating-module roow">
-                <div className="reviewer-photo"><img src="http://www.kpopmusic.com/wp-content/uploads/2014/12/tumblr_mk9ghdPCaW1rexlpko1_1280.jpg"/></div>
-                  <div className="rating-container roow">
-                      <div className="rating-graphic">0</div>
+                <Link to={`@${reviewer.username}`}>
+                  <div className="reviewer-name">
+                    {reviewer.username}
                   </div>
+                </Link>
               </div>
+              <Link to={`@${reviewer.username}`}>
+                <div className="photo-rating-module roow">
+                  <div className="reviewer-photo"><img src={reviewer.image}/></div>
+                    <div className="rating-container roow">
+                        <div className="rating-graphic">0</div>
+                    </div>
+                </div>
+              </Link>
               <div className="info">
                 <div className="subject-caption">
                   {review.caption}

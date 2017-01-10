@@ -484,14 +484,15 @@ export function onDeleteComment(reviewId, commentId) {
 
   export function getReviewsByUser(userId) {
     return dispatch => {
-      const reviews = [];
+      let reviews = [];
       Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + userId).orderByChild('lastModified').on('value', snapshot => {
         snapshot.forEach(function(childSnapshot) {
             const review = {};
             const key = { id: childSnapshot.key };
             Object.assign(review, childSnapshot.val(), key);
-            reviews.unshift(review);
+            reviews = [review].concat(reviews);
         });
+        
         dispatch({
           type: GET_REVIEWS_BY_USER,
           payload: reviews
