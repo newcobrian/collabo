@@ -38,12 +38,22 @@ const LoggedInView = props => {
 
         <div className="nav-module">
           <Link to="" className="nav-link">
-            Home
+            Feed
+          </Link>
+        </div>
+        <div className="nav-module">
+          <Link to="" className="nav-link">
+            Inbox
           </Link>
         </div>
         <div className="nav-module">
           <Link to={`@${props.currentUser.username}`} className="nav-link">
-            {props.currentUser.username} Saved
+            {props.currentUser.username} Bookmarks
+          </Link>
+        </div>
+        <div className="nav-module">
+          <Link to={`@${props.currentUser.username}`} className="nav-link">
+            {props.currentUser.username} Profile
           </Link>
         </div>
         <div className="nav-module create-review">
