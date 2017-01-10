@@ -25,6 +25,7 @@ export const GET_COMMENTS = 'GET_COMMENTS';
 export const COMMENTS_UNLOADED = 'COMMENTS_UNLOADED';
 export const DELETE_COMMENT = 'COMMENTS_UNLOADED';
 export const GET_REVIEWS_BY_USER = 'GET_REVIEWS_BY_USER';
+export const REVIEWS_BY_USER_UNLOADED = 'REVIEWS_BY_USER_UNLOADED';
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -482,25 +483,31 @@ export function onDeleteComment(reviewId, commentId) {
     };
   }
 
-  export function getReviewsByUser(userId) {
-    return dispatch => {
-      let reviews = [];
-      Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + userId).orderByChild('lastModified').on('value', snapshot => {
-        snapshot.forEach(function(childSnapshot) {
-            const review = {};
-            const key = { id: childSnapshot.key };
-            Object.assign(review, childSnapshot.val(), key);
-            reviews = [review].concat(reviews);
-        });
-        
-        dispatch({
-          type: GET_REVIEWS_BY_USER,
-          payload: reviews
-        })
+export function getReviewsByUser(userId) {
+  return dispatch => {
+    let reviews = [];
+    Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + userId).orderByChild('lastModified').on('value', snapshot => {
+      snapshot.forEach(function(childSnapshot) {
+          const review = {};
+          const key = { id: childSnapshot.key };
+          Object.assign(review, childSnapshot.val(), key);
+          reviews = [review].concat(reviews);
+      });
+      
+      dispatch({
+        type: GET_REVIEWS_BY_USER,
+        payload: reviews
       })
-      // dispatch({
-      //     type: GET_REVIEWS_BY_USER,
-      //     payload: reviews
-      // })
-    }
+    })
   }
+}
+
+export function unloadReviewsByUser(userId) {
+  return dispatch => {
+    dispatch({
+      type: REVIEWS_BY_USER_UNLOADED,
+      payload: Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + userId).off()
+    });
+  }
+}
+

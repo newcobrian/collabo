@@ -9,6 +9,7 @@ export default (state = {}, action) => {
       };
     case 'PROFILE_PAGE_UNLOADED':
     case 'PROFILE_FAVORITES_PAGE_UNLOADED':
+    case 'REVIEWS_BY_USER_UNLOADED':
       return {};
     case 'FOLLOW_USER':
     case 'UNFOLLOW_USER':
