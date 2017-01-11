@@ -54,7 +54,7 @@ class Login extends React.Component {
                 </Link>
               </p>
 
-              <ListErrors errors={this.props.errors} />
+              <ListErrors errors={this.props.error} />
 
               <form onSubmit={this.submitForm(email, password)}>
                 <fieldset>

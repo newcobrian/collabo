@@ -38,8 +38,7 @@ class Register extends React.Component {
     this.submitForm = (username, email, password) => ev => {
       ev.preventDefault();
       // this.props.onSubmit(username, email, password);
-
-      this.props.signUpUser(username, email, password);
+      this.props.signUpUser(username.toLowerCase(), email, password);
     }
   }
 
@@ -65,7 +64,7 @@ class Register extends React.Component {
                 </Link>
               </p>
 
-              <ListErrors errors={this.props.errors} />
+              <ListErrors errors={this.props.error} />
 
               <form onSubmit={this.submitForm(username, email, password)}>
                 <fieldset>

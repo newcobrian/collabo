@@ -29,7 +29,7 @@ class SettingsForm extends React.Component {
 
       const user = {};
       if(this.state.image) user.image = this.state.image;
-      if(this.state.username) user.username = this.state.username;
+      if(this.state.username) user.username = (this.state.username).toLowerCase();
       if(this.state.bio) user.bio = this.state.bio;
       if(this.state.email) user.email = this.state.email;
       if(this.state.password) user.password = this.state.password;

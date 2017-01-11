@@ -31,7 +31,7 @@ export default (state = {}, action) => {
     case AUTH_ERROR:
       return {
         ...state,
-        error: action.payload.message
+        error: [action.payload.message]
       };
     case SIGN_OUT_USER:
       return {
