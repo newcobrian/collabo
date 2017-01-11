@@ -33,23 +33,22 @@ class Home extends React.Component {
     //   agent.Articles.all();
 
     // this.props.onLoad(tab, Promise.all([agent.Tags.getAll(), articlesPromise]));
-    this.props.getUserFeed();
+    this.props.getUserFeed(this.props.authenticated);
   }
 
   componentWillUnmount() {
-    this.props.unloadUserFeed();
+    this.props.unloadUserFeed(this.props.authenticated);
     // this.props.onUnload();
   }
 
   render() {
-    console.log('wooloomooloo ' + JSON.stringify(this.props.userFeed))
     return (
       <div className="home-page">
 
 
         <div className="container page">
           <div className="row">
-            <MainView authenticated={this.props.authenticated} 
+            <MainView 
               userFeed={this.props.userFeed}/>
           </div>
         </div>

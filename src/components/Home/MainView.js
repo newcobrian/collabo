@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import * as Actions from '../../actions';
 
 const YourFeedTab = props => {
-  console.log('user feed = ' + JSON.stringify(props.userFeed))
   if (props.authenticated) {
     const clickHandler = ev => {
       ev.preventDefault();
@@ -59,7 +58,8 @@ const TagFilterTab = props => {
 
 const mapStateToProps = state => ({
   ...state.reviewList,
-  token: state.common.token
+  // token: state.common.token
+  authenticated: state.common.authenticated
 });
 
 // const mapDispatchToProps = dispatch => ({

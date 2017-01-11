@@ -43,7 +43,7 @@ class App extends React.Component {
       if (user) {
         // console.log('user = ' + JSON.stringify(user));
         // console.log('app.js: agent auth current = ' + JSON.stringify(agent.Auth.current()));
-        this.props.onLoad(user, true);
+        this.props.onLoad(user, user.uid);
       } else {
         this.props.onLoad(null, false);
       }

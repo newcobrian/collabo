@@ -526,9 +526,8 @@ export function userFeedCompare(a, b) {
   return 0;
 }
 
-export function getUserFeed() {
+export function getUserFeed(uid) {
   return dispatch => {
-    const uid = Firebase.auth().currentUser.uid;
     let feedArray = [];
     Firebase.database().ref(Constants.FOLLOWINGS_PATH + '/' + uid).on('value', followedSnapshot => {
       followedSnapshot.forEach(function(followedUser) {
@@ -554,9 +553,8 @@ export function getUserFeed() {
   }
 }
 
-export function unloadUserFeed() {
+export function unloadUserFeed(uid) {
   return dispatch => {
-    const uid = Firebase.auth().currentUser.uid;
     Firebase.database().ref(Constants.FOLLOWINGS_PATH + '/' + uid).once('value', followedSnapshot => {
       followedSnapshot.forEach(function(followedUser) {
         Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + followedUser.key).off();
