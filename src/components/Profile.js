@@ -181,8 +181,7 @@ class Profile extends React.Component {
             reviews={profile.reviews} 
             reviewsCount={this.props.reviewsCount}
             currentPage={this.props.currentPage}
-            onSetPage={this.onSetPage} 
-            reviewer={this.props.profile} />
+            onSetPage={this.onSetPage} />
         </div>
       </div>
     );
