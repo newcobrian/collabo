@@ -3,7 +3,7 @@ import reduxThunk from 'redux-thunk';
 // import { promiseMiddleware, localStorageMiddleware } from './middleware';
 // import {reduxReactFirebase, firebaseStateReducer} from 'redux-react-firebase'
 import review from './reducers/review';
-import articleList from './reducers/articleList';
+import reviewList from './reducers/reviewList';
 import auth from './reducers/auth';
 import common from './reducers/common';
 import home from './reducers/home';
@@ -15,7 +15,7 @@ import * as Actions from './actions';
 
 const reducer = combineReducers({
   review,
-  articleList,
+  reviewList,
   auth,
   common,
   home,

@@ -98,6 +98,7 @@ class Profile extends React.Component {
   componentWillUnmount() {
     this.props.unloadProfileUser(this.props.profile.userId);
     this.props.unloadProfileFollowing(this.props.profile.userId);
+    this.props.unloadReviewsByUser(this.props.profile.userId);
   }
 
   onSetPage(page) {

@@ -26,6 +26,7 @@ export const COMMENTS_UNLOADED = 'COMMENTS_UNLOADED';
 export const DELETE_COMMENT = 'COMMENTS_UNLOADED';
 export const GET_REVIEWS_BY_USER = 'GET_REVIEWS_BY_USER';
 export const REVIEWS_BY_USER_UNLOADED = 'REVIEWS_BY_USER_UNLOADED';
+export const GET_USER_FEED = 'GET_USER_FEED';
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -488,10 +489,10 @@ export function getReviewsByUser(userId) {
     let reviews = [];
     Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + userId).orderByChild('lastModified').on('value', snapshot => {
       snapshot.forEach(function(childSnapshot) {
-          const review = {};
-          const key = { id: childSnapshot.key };
-          Object.assign(review, childSnapshot.val(), key);
-          reviews = [review].concat(reviews);
+        const review = {};
+        const key = { id: childSnapshot.key };
+        Object.assign(review, childSnapshot.val(), key);
+        reviews = [review].concat(reviews);
       });
       
       dispatch({
@@ -511,3 +512,44 @@ export function unloadReviewsByUser(userId) {
   }
 }
 
+export function userFeedCompare(a, b) {
+  if (a.lastModified < b.lastModified)
+    return -1;
+  if (a.lastModified > b.lastModified)
+    return 1;
+  return 0;
+}
+
+export function getUserFeed() {
+  return dispatch => {
+    const uid = Firebase.auth().currentUser.uid;
+    let feedArray = [];
+    Firebase.database().ref(Constants.FOLLOWINGS_PATH + '/' + uid).on('value', followedSnapshot => {
+      followedSnapshot.forEach(function(followedUser) {
+        Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + followedUser.key).orderByChild('lastModified').on('value', reviewsSnapshot => {
+          reviewsSnapshot.forEach(function(review) {
+            Firebase.database().ref(Constants.USERS_PATH + '/' + followedUser.key).on('value', userSnapshot => {
+              let reviewObject = {};
+              let key = { id: review.key };
+              let reviewer = { reviewer: userSnapshot.val() };
+              Object.assign(reviewObject, key, reviewer, review.val());
+              feedArray = [reviewObject].concat(feedArray);
+              feedArray.sort(userFeedCompare);
+
+              dispatch({
+                type: GET_USER_FEED,
+                payload: feedArray
+              })
+            })
+          });
+        })
+      });
+    })
+  }
+}
+
+export function onMainViewTabClick (tab, payload) {
+  return dispatch => {
+    dispatch({ type: 'CHANGE_TAB', tab, payload })
+  }
+}

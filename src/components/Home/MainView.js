@@ -2,12 +2,15 @@ import ReviewList from '../ReviewList';
 import React from 'react';
 import agent from '../../agent';
 import { connect } from 'react-redux';
+import * as Actions from '../../actions';
 
 const YourFeedTab = props => {
-  if (props.token) {
+  console.log('user feed = ' + JSON.stringify(props.userFeed))
+  if (props.authenticated) {
     const clickHandler = ev => {
       ev.preventDefault();
-      props.onTabClick('feed', agent.Articles.feed());
+      // props.onTabClick('feed', agent.Articles.feed());
+      props.onTabClick('feed', props.userFeed);
     }
 
     return (
@@ -59,14 +62,14 @@ const mapStateToProps = state => ({
   token: state.common.token
 });
 
-const mapDispatchToProps = dispatch => ({
-  onSetPage: (tab, p) => dispatch({
-    type: 'SET_PAGE',
-    page: p,
-    payload: tab === 'feed' ? agent.Articles.feed(p) : agent.Articles.all(p)
-  }),
-  onTabClick: (tab, payload) => dispatch({ type: 'CHANGE_TAB', tab, payload })
-});
+// const mapDispatchToProps = dispatch => ({
+//   onSetPage: (tab, p) => dispatch({
+//     type: 'SET_PAGE',
+//     page: p,
+//     payload: tab === 'feed' ? agent.Articles.feed(p) : agent.Articles.all(p)
+//   }),
+//   onTabClick: (tab, payload) => dispatch({ type: 'CHANGE_TAB', tab, payload })
+// });
 
 const MainView = props => {
   const onSetPage = page => props.onSetPage(props.tab, page);
@@ -76,9 +79,9 @@ const MainView = props => {
         <ul className="nav nav-pills outline-active">
 
           <YourFeedTab
-            token={props.token}
+            authenticated={props.authenticated}
             tab={props.tab}
-            onTabClick={props.onTabClick} />
+            onTabClick={props.onMainViewTabClick} />
 
           <GlobalFeedTab tab={props.tab} onTabClick={props.onTabClick} />
 
@@ -88,7 +91,7 @@ const MainView = props => {
       </div>
 
       <ReviewList
-        reviews={props.reviews}
+        reviews={props.userFeed}
         reviewsCount={props.reviewsCount}
         currentPage={props.currentPage}
         onSetPage={onSetPage} />
@@ -96,4 +99,4 @@ const MainView = props => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainView);
+export default connect(mapStateToProps, Actions)(MainView);

@@ -1,9 +1,12 @@
+import { GET_USER_FEED } from '../actions';
+
 export default (state = {}, action) => {
   switch (action.type) {
-    case 'HOME_PAGE_LOADED':
+    case GET_USER_FEED:
       return {
         ...state,
-        tags: action.payload[0].tags
+        userFeed: action.payload
+        // tags: action.payload[0].tags
       };
     case 'HOME_PAGE_UNLOADED':
       return {};

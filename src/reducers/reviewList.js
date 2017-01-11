@@ -1,14 +1,15 @@
 'use strict';
+import { GET_USER_FEED } from '../actions';
 
 export default (state = {}, action) => {
   switch (action.type) {
-    case 'HOME_PAGE_LOADED':
+    case GET_USER_FEED:
       return {
         ...state,
-        articles: action.payload[1].articles,
-        articlesCount: action.payload[1].articlesCount,
-        tab: action.tab,
-        currentPage: 0
+        // articles: action.payload[1].articles,
+        // articlesCount: action.payload[1].articlesCount,
+        // tab: action.tab,
+        // currentPage: 0
       };
     case 'HOME_PAGE_UNLOADED':
       return {};
