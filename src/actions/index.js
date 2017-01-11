@@ -27,6 +27,7 @@ export const DELETE_COMMENT = 'COMMENTS_UNLOADED';
 export const GET_REVIEWS_BY_USER = 'GET_REVIEWS_BY_USER';
 export const REVIEWS_BY_USER_UNLOADED = 'REVIEWS_BY_USER_UNLOADED';
 export const GET_USER_FEED = 'GET_USER_FEED';
+export const USER_FEED_UNLOADED = 'USER_FEED_UNLOADED';
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -545,6 +546,23 @@ export function getUserFeed() {
         })
       });
     })
+  }
+}
+
+export function unloadUserFeed() {
+  return dispatch => {
+    const uid = Firebase.auth().currentUser.uid;
+    Firebase.database().ref(Constants.FOLLOWINGS_PATH + '/' + uid).once('value', followedSnapshot => {
+      followedSnapshot.forEach(function(followedUser) {
+        Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + followedUser.key).off();
+        Firebase.database().ref(Constants.USERS_PATH + '/' + followedUser.key).off();
+      })
+    })
+    Firebase.database().ref(Constants.FOLLOWINGS_PATH + '/' + uid).off();
+
+    dispatch({
+      type: USER_FEED_UNLOADED
+    });
   }
 }
 

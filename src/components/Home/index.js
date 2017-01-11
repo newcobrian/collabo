@@ -37,6 +37,7 @@ class Home extends React.Component {
   }
 
   componentWillUnmount() {
+    this.props.unloadUserFeed();
     // this.props.onUnload();
   }
 

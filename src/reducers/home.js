@@ -1,4 +1,4 @@
-import { GET_USER_FEED } from '../actions';
+import { GET_USER_FEED, USER_FEED_UNLOADED } from '../actions';
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -8,7 +8,7 @@ export default (state = {}, action) => {
         userFeed: action.payload
         // tags: action.payload[0].tags
       };
-    case 'HOME_PAGE_UNLOADED':
+    case USER_FEED_UNLOADED:
       return {};
   }
 
