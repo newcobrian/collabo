@@ -31,6 +31,8 @@ export const USER_FEED_UNLOADED = 'USER_FEED_UNLOADED';
 export const HOME_PAGE_LOADED = 'HOME_PAGE_LOADED';
 export const GET_GLOBAL_FEED = 'GET_GLOBAL_FEED';
 export const APP_USER_LOADED = 'APP_USER_LOADED';
+export const GET_FOLLOWING_COUNT = 'GET_FOLLOWING_COUNT';
+export const GET_FOLLOWER_COUNT = 'GET_FOLLOWER_COUNT';
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -289,6 +291,28 @@ export function checkFollowing(profile) {
       });
     });
   };
+}
+
+export function getFollowingCount(userId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.FOLLOWINGS_PATH + '/' + userId).once('value', snapshot => {
+      dispatch({
+        type: GET_FOLLOWING_COUNT,
+        payload: snapshot.numChildren()
+      })
+    })
+  }
+}
+
+export function getFollowerCount(userId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.FOLLOWERS_PATH + '/' + userId).once('value', snapshot => {
+      dispatch({
+        type: GET_FOLLOWER_COUNT,
+        payload: snapshot.numChildren()
+      })
+    })
+  }
 }
 
 export function followUser(follower) {

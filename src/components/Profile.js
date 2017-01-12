@@ -91,6 +91,8 @@ class Profile extends React.Component {
       this.props.getProfileUser(userId);
       this.props.checkFollowing(userId);
       this.props.getReviewsByUser(userId);
+      this.props.getFollowingCount(userId);
+      this.props.getFollowerCount(userId);
     });
     // this.props.getUser(userId);
   }
@@ -141,6 +143,9 @@ class Profile extends React.Component {
             <div className="user-data roow roow-col-left">
               <div className="user-name">{profile.username}</div>
               <div className="user-bio">{profile.bio}</div>
+              <div>{profile.followerCount} followers</div>
+              <div>{profile.followingCount} following</div>
+              <div>Link to Likes</div>
               <div className="user-action">
                 <EditProfileSettings isUser={isUser} />
                 <FollowUserButton
