@@ -29,6 +29,7 @@ export const REVIEWS_BY_USER_UNLOADED = 'REVIEWS_BY_USER_UNLOADED';
 export const GET_USER_FEED = 'GET_USER_FEED';
 export const USER_FEED_UNLOADED = 'USER_FEED_UNLOADED';
 export const HOME_PAGE_LOADED = 'HOME_PAGE_LOADED';
+export const GET_GLOBAL_FEED = 'GET_GLOBAL_FEED';
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -579,5 +580,31 @@ export function onMainViewTabClick (tab, payload) {
 export function onHomePageLoad(tab) {
   return dispatch => {
     dispatch({ type: HOME_PAGE_LOADED, payload: tab })
+  }
+}
+
+export function getGlobalFeed(uid) {
+  return dispatch => {
+    let feedArray = [];
+    Firebase.database().ref(Constants.REVIEWS_PATH + '/').orderByChild('lastModified').on('value', reviewsSnapshot => {
+      reviewsSnapshot.forEach(function(review) {
+        let reviewerId = review.val().userId;
+        Firebase.database().ref(Constants.USERS_PATH + '/' + reviewerId).on('value', userSnapshot => {
+          if (reviewerId !== uid) {
+            let reviewObject = {};
+            let key = { id: review.key };
+            let reviewer = { reviewer: userSnapshot.val() };
+            Object.assign(reviewObject, key, reviewer, review.val());
+            feedArray = [reviewObject].concat(feedArray);
+            feedArray.sort(userFeedCompare);
+
+            dispatch({
+              type: GET_GLOBAL_FEED,
+              payload: feedArray
+            })
+          }
+        })
+      });
+    })
   }
 }

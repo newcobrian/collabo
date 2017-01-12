@@ -27,8 +27,9 @@ const YourFeedTab = props => {
 
 const GlobalFeedTab = props => {
   const clickHandler = ev => {
+    console.log('click happened global')
     ev.preventDefault();
-    props.onTabClick('all', []);
+    props.onTabClick('all', props.globalFeed);
   };
   return (
     <li className="page-title">
@@ -59,8 +60,8 @@ const TagFilterTab = props => {
 const mapStateToProps = state => ({
   ...state.reviewList,
   authenticated: state.common.authenticated,
-  tab: state.home.tab,
-  userFeed: state.home.userFeed
+  userFeed: state.home.userFeed,
+  globalFeed: state.home.globalFeed
 });
 
 // const mapDispatchToProps = dispatch => ({

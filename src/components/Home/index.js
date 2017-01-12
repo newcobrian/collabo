@@ -35,11 +35,11 @@ class Home extends React.Component {
     // this.props.onLoad(tab, Promise.all([agent.Tags.getAll(), articlesPromise]));
     this.props.onHomePageLoad(tab);
     this.props.getUserFeed(this.props.authenticated);
+    // this.props.getGlobalFeed(this.props.authenticated);
   }
 
   componentWillUnmount() {
     this.props.unloadUserFeed(this.props.authenticated);
-    // this.props.onUnload();
   }
 
   render() {
