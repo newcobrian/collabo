@@ -35,39 +35,37 @@ const LoggedInView = props => {
   if (props.currentUser) {
     return (
       <div className="navigation-bar roow roow-row-right">
-
+        <Link to="" className="nav-link">
         <div className="nav-module">
-          <Link to="" className="nav-link">
+            <div className="nav-icon"><img src="../img/icon32_nav-feed.png"/></div>
             Feed
-          </Link>
         </div>
+        </Link>
+        
+        <Link to="" className="nav-link">
         <div className="nav-module">
-          <Link to="" className="nav-link">
+            <div className="nav-icon"><img src="../img/icon32_nav-inbox.png"/></div>
             Inbox
-          </Link>
         </div>
+        </Link>
+        <Link to={`@${props.currentUser.username}`} className="nav-link">        
         <div className="nav-module">
-          <Link to={`@${props.currentUser.username}`} className="nav-link">
-            {props.currentUser.username} Bookmarks
-          </Link>
+            <div className="nav-icon"><img src="../img/icon32_nav-saved.png"/></div>
+            {props.currentUser.username} Saved
         </div>
+        </Link>
+        <Link to={`@${props.currentUser.username}`} className="nav-link">
         <div className="nav-module">
-          <Link to={`@${props.currentUser.username}`} className="nav-link">
+            <div className="nav-icon"><img src="../img/placeholder_kiko.png"/></div>
             {props.currentUser.username} Profile
-          </Link>
         </div>
-        <div className="nav-module create-review">
-          <Link to="editor" className="nav-link">
-            <i className="ion-plus"></i>&nbsp;New Review
-          </Link>
+        </Link>
+        <Link to="editor" className="nav-link create-review">  
+        <div className="nav-module create-review roow roow-row-center">
+            <div className="icon-wrapper new"><img src="../img/icon32_add.png"/></div>&nbsp;New Review
         </div>
+        </Link>
 
-        <div className="nav-module nav-user-image">
-          <Link to="settings" className="nav-link">
-            <img src={props.currentUser.image} className="user-pic" />
-            {props.currentUser.username}
-          </Link>
-        </div>
 
       </div>
     );
@@ -79,10 +77,19 @@ const LoggedInView = props => {
 class Header extends React.Component {
   render() {
     return (
-        <div className="container">
+        <div className="roow">
 
-          <Link to="/" className="logo-module roow">
-            {this.props.appName.toLowerCase()}
+          <Link to="/" className="logo-module roow roow-col-left">
+            <div className="logo-main">
+              recc
+              <div className="logo-circle"></div>
+              <div className="logo-circle"></div>
+              <div className="logo-circle"></div>
+              <div className="logo-circle"></div>
+              <div className="logo-circle"></div>
+              n
+            </div>
+            <div className="logo-tagline">Reviews by people you trust</div>
           </Link>
 
           <LoggedOutView currentUser={this.props.currentUser} />

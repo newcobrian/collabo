@@ -21,7 +21,7 @@ const ReviewPreview = props => {
               </div>
             </Link>
           </div>
-          <div className="review-data-container roow roow-col-right">
+          <div className="review-data-container roow roow-col-left">
             <div className="review-data-module gray-border roow roow-col-left">
               <div className="reviewer-name-container">
                 <Link to={`@${reviewer.username}`}>
