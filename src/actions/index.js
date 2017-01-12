@@ -28,6 +28,7 @@ export const GET_REVIEWS_BY_USER = 'GET_REVIEWS_BY_USER';
 export const REVIEWS_BY_USER_UNLOADED = 'REVIEWS_BY_USER_UNLOADED';
 export const GET_USER_FEED = 'GET_USER_FEED';
 export const USER_FEED_UNLOADED = 'USER_FEED_UNLOADED';
+export const HOME_PAGE_LOADED = 'HOME_PAGE_LOADED';
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -572,5 +573,11 @@ export function unloadUserFeed(uid) {
 export function onMainViewTabClick (tab, payload) {
   return dispatch => {
     dispatch({ type: 'CHANGE_TAB', tab, payload })
+  }
+}
+
+export function onHomePageLoad(tab) {
+  return dispatch => {
+    dispatch({ type: HOME_PAGE_LOADED, payload: tab })
   }
 }

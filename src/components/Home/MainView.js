@@ -28,7 +28,7 @@ const YourFeedTab = props => {
 const GlobalFeedTab = props => {
   const clickHandler = ev => {
     ev.preventDefault();
-    props.onTabClick('all', agent.Articles.all());
+    props.onTabClick('all', []);
   };
   return (
     <li className="page-title">
@@ -58,8 +58,9 @@ const TagFilterTab = props => {
 
 const mapStateToProps = state => ({
   ...state.reviewList,
-  // token: state.common.token
-  authenticated: state.common.authenticated
+  authenticated: state.common.authenticated,
+  tab: state.home.tab,
+  userFeed: state.home.userFeed
 });
 
 // const mapDispatchToProps = dispatch => ({
@@ -83,7 +84,7 @@ const MainView = props => {
             tab={props.tab}
             onTabClick={props.onMainViewTabClick} />
 
-          <GlobalFeedTab tab={props.tab} onTabClick={props.onTabClick} />
+          <GlobalFeedTab tab={props.tab} onTabClick={props.onMainViewTabClick} />
 
           <TagFilterTab tag={props.tag} />
 

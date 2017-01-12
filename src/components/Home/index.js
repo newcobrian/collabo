@@ -27,12 +27,13 @@ const mapStateToProps = state => ({
 
 class Home extends React.Component {
   componentWillMount() {
-    // const tab = this.props.token ? 'feed' : 'all';
+    const tab = this.props.authenticated ? 'feed' : 'all';
     // const articlesPromise = this.props.token ?
     //   agent.Articles.feed() :
     //   agent.Articles.all();
 
     // this.props.onLoad(tab, Promise.all([agent.Tags.getAll(), articlesPromise]));
+    this.props.onHomePageLoad(tab);
     this.props.getUserFeed(this.props.authenticated);
   }
 
@@ -48,8 +49,7 @@ class Home extends React.Component {
 
         <div className="container page">
           <div className="row">
-            <MainView 
-              userFeed={this.props.userFeed}/>
+            <MainView />
           </div>
         </div>
 

@@ -16,8 +16,9 @@ export default (state = {}, action) => {
     case 'CHANGE_TAB':
       return {
         ...state,
-        articles: action.payload.articles,
-        articlesCount: action.payload.articlesCount,
+        // articles: action.payload.articles,
+        feed: action.payload,
+        // articlesCount: action.payload.articlesCount,
         tab: action.tab,
         tag: null,
         currentPage: 0
