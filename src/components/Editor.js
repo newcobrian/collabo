@@ -75,7 +75,7 @@ class Editor extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.params.slug !== nextProps.params.slug) {
       if (nextProps.params.slug) {
-        this.props.onUnload();
+        this.props.onEditorUnload();
         return this.props.onEditorLoad();
         // return this.props.onLoad(agent.Articles.get(this.props.params.slug));
       }
@@ -94,7 +94,7 @@ class Editor extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.onUnload();
+    this.props.onEditorUnload();
   }
 
   render() {

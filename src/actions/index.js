@@ -17,6 +17,7 @@ export const GET_SUBJECT = 'GET_SUBJECT';
 export const REVIEW_SUBMITTED = 'REVIEW_SUBMITTED';
 export const UPDATE_FIELD_EDITOR = 'UPDATE_FIELD_EDITOR';
 export const EDITOR_PAGE_LOADED = 'EDITOR_PAGE_LOADED';
+export const EDITOR_PAGE_UNLOADED = 'EDITOR_PAGE_UNLOADED';
 export const SUBJECT_UNLOADED = 'SUBJECT_UNLOADED';
 export const GET_REVIEW = 'GET_REVIEW';
 export const REVIEW_UNLOADED = 'REVIEW_UNLOADED';
@@ -361,6 +362,14 @@ export function onEditorLoad() {
   return dispatch => {
     dispatch({
       type: EDITOR_PAGE_LOADED
+    })
+  }
+}
+
+export function onEditorUnload() {
+  return dispatch => {
+    dispatch({
+      type: EDITOR_PAGE_UNLOADED
     })
   }
 }

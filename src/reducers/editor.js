@@ -1,4 +1,4 @@
-import { REVIEW_SUBMITTED, UPDATE_FIELD_EDITOR, EDITOR_PAGE_LOADED } from '../actions'
+import { REVIEW_SUBMITTED, UPDATE_FIELD_EDITOR, EDITOR_PAGE_LOADED, EDITOR_PAGE_UNLOADED } from '../actions'
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -14,7 +14,7 @@ export default (state = {}, action) => {
         tagInput: '',
         tagList: action.payload ? action.payload.article.tagList : []
       };
-    case 'EDITOR_PAGE_UNLOADED':
+    case EDITOR_PAGE_UNLOADED:
       return {};
     case REVIEW_SUBMITTED:
       return {
