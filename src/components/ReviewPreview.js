@@ -33,8 +33,12 @@ const ReviewPreview = props => {
               <Link to={`@${reviewer.username}`}>
                 <div className="photo-rating-module roow">
                   <div className="reviewer-photo"><img src={reviewer.image}/></div>
-                    <div className="rating-container roow">
-                        <div className="rating-graphic">0</div>
+                    <div className="rating-container roow roow-row-center">
+                        <div className="rating-graphic rating--2"></div>
+                        <div className="rating-graphic rating--1"></div>
+                        <div className="rating-graphic rating-0"></div>
+                        <div className="rating-graphic rating-1"></div>
+                        <div className="rating-graphic rating-2 on"></div>
                     </div>
                 </div>
               </Link>

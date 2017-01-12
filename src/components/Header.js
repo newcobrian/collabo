@@ -61,7 +61,7 @@ const LoggedInView = props => {
         </div>
         </Link>
         <Link to="editor" className="nav-link create-review">  
-        <div className="nav-module create-review roow roow-row-center">
+        <div className="nav-module create-review bttn-style roow roow-row-center">
             <div className="icon-wrapper new"><img src="../img/icon32_add.png"/></div>&nbsp;New Review
         </div>
         </Link>

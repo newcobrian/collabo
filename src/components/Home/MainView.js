@@ -32,12 +32,12 @@ const GlobalFeedTab = props => {
     props.onTabClick('all', props.globalFeed);
   };
   return (
-    <li className="page-title">
+    <li className="nav-item">
       <a
         href=""
         className={ props.tab === 'all' ? 'nav-link active' : 'nav-link' }
         onClick={clickHandler}>
-        Recent
+        Discover New Stuff
       </a>
     </li>
   );
@@ -76,9 +76,9 @@ const mapStateToProps = state => ({
 const MainView = props => {
   const onSetPage = page => props.onSetPage(props.tab, page);
   return (
-    <div className="col-md-12">
-      <div className="feed-toggle">
-        <ul className="nav nav-pills outline-active">
+    <div className="feed-wrapper">
+      <div className="feed-toggle roow roow-row-center">
+        <ul className="nav nav-pills outline-active roow roow-row-left">
 
           <YourFeedTab
             authenticated={props.authenticated}

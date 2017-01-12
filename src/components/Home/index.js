@@ -48,9 +48,7 @@ class Home extends React.Component {
 
 
         <div className="roow">
-          <div className="row">
             <MainView />
-          </div>
         </div>
 
       </div>

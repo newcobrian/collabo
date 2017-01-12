@@ -139,7 +139,7 @@ form {
   left: 0;
   top: 0;
   padding: 10px 10px 0 40px;
-  height: 60px;
+  height: 90px;
   width: 320px;
   color: black;
   font-weight: 700;
@@ -148,7 +148,8 @@ form {
   z-index: 2;
 }
 a.logo-module:hover,
-a.logo-module:active {
+a.logo-module:active,
+a.logo-module:focus {
   color: black;
   text-decoration: none;
   opacity: .7;
@@ -175,10 +176,10 @@ a.logo-module:active {
   right: 0;
   top: 0;
   left: 320px;
-  height: 60px;
+  height: 90px;
   background-color:white;
   z-index: 2;
-  padding: 40px 40px 0 0;
+  padding: 2px 40px 0 0;
 }
 .navigation-bar .nav-module {
 	margin: 20px;
@@ -205,7 +206,11 @@ a.logo-module:active {
     width: 28px;
 }
 .nav-module.create-review {
-	   background: white;
+
+}
+.bttn-style,
+.bttn-style.bttn-primary {
+    background: white;
     border-radius: 10px;
     border: 1px solid black;
     height: 50px;
@@ -251,9 +256,32 @@ a.logo-module:active {
   width: 100%;
 }
 .home-page .feed-toggle {
-  
+    position: fixed;
+    top: 90px;
+    left: 0;
+    right: 0;
+    background: white;
+    background: #FDFDFD;
+    /*border-bottom: 1px solid rgba(0,0,0,.1);*/
+    z-index: 10;
+    padding: 0 40px 0 40px;
+    height: 44px;
+}
+.nav-pills .nav-link {
+  font-size: 14px;
+  font-weight: 100;
+  padding: 0.5em 2em .5em 0;
+}
+.nav-pills.outline-active .nav-link {
 }
 
+
+
+
+
+.feed-wrapper {
+  margin-top: 70px;
+}
 .comments-container {
   padding: 20px;
 }
@@ -315,18 +343,44 @@ a.logo-module:active {
                 .rating-container {
                 }
                 .rating-graphic {
-                  width: 60px;
-                  height: 60px;
+                  width: 42px;
+                  height: 42px;
                   background: black;
                   border-radius: 100px;
                   margin-right: 10px;
-                  border: 15px solid black;
                   color: white;
                   text-align: center;
                   line-height: 32px;
                   font-weight: 100;
                   font-size: 22px;
+                  opacity: .1;
                 }
+                .rating-graphic.on {
+                  opacity: 1;
+                }
+                .rating-graphic.rating--2 {
+                  background-color: #E96141;
+                }
+                .rating-graphic.rating--1 {
+                  background-color: #BAB9A5;
+                  width: 36px;
+                  height: 36px;
+                }
+                .rating-graphic.rating-0 {
+                  background-color: #96A6B6;
+                  width: 24px;
+                  height: 24px;
+                }
+                .rating-graphic.rating-1 {
+                  background-color: #5ADAF3;
+                  width: 36px;
+                  height: 36px;                
+                }                
+                .rating-graphic.rating-2 {
+                  background-color: #51EBB7;
+                }
+
+
                 .review-timestamp {
                   font-size: 10px;
                   opacity: .4;
@@ -429,10 +483,10 @@ a.logo-module:active {
   padding: 0px 0 40px;
 }
 .nav-pills.outline-active .nav-link.active {
-    background: #fff !important;
-  border-bottom: none !important;
+    border-bottom: none !important;
     color: black !important;
     opacity: 1;
+    background-color: transparent !important;
 }
 .profile-page .nav-pills.outline-active .nav-link {
 
@@ -460,7 +514,7 @@ a.logo-module:active {
   right: 0;
   width: 100%;
   padding: 0px 10px 0px 15px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid rgba(0,0,0,.2);
   height: 76px;
 }
 .navigation-bar.roow {
@@ -469,7 +523,7 @@ a.logo-module:active {
 	left: 0;
   -webkit-justify-content: center;
   justify-content: center;
-  border-top: 1px solid black;
+  border-top: 1px solid rgba(0,0,0,.2);
   padding: 0;
   background: white;
     -webkit-align-items: center;
@@ -525,11 +579,17 @@ a.logo-module:active {
 }
 .home-page .subject-image img {
   width: 100%;
-  height: 160px;
+  height: 280px;
 }
 
 .subject-name-container {
-  text-indent: 20px;
+}
+.review-data-module {
+  width: 100%;
+}
+
+.home-page .feed-toggle {
+  top: 76px;
 }
 
 
