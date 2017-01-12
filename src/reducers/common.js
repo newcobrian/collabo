@@ -1,4 +1,4 @@
-import { AUTH_USER, SIGN_OUT_USER, AUTH_ERROR, REVIEW_SUBMITTED } from '../actions';
+import { AUTH_USER, SIGN_OUT_USER, AUTH_ERROR, REVIEW_SUBMITTED, APP_USER_LOADED } from '../actions';
 
 const defaultState = {
   appName: 'Reccoon',
@@ -14,8 +14,13 @@ export default (state = defaultState, action) => {
         authenticated: action.authenticated,
         // token: action.token || null,
         appLoaded: true,
-        currentUser: action.payload ? action.payload : null
+        currentUser: action.currentUser ? action.currentUser : null,
       };
+    case APP_USER_LOADED:
+      return {
+        ...state,
+        userInfo: action.payload ? action.payload : null
+      }
     case 'REDIRECT':
       return { ...state, redirectTo: null };
     case 'LOGOUT':
@@ -29,17 +34,6 @@ export default (state = defaultState, action) => {
         ...state,
         redirectTo: action.error ? null : '/',
         // currentUser: action.error ? null : action.payload.user
-      };
-    case 'LOGIN':
-    case 'REGISTER':
-      return {
-        ...state,
-        authenticated: true,
-        redirectTo: action.error ? null : '/',
-        // token: action.error ? null : action.payload.user.token,
-        // token: action.error ? null : action.payload.token,
-        // currentUser: action.error ? null : action.payload.user
-        currentUser: action.error ? null : action.payload
       };
     case 'DELETE_ARTICLE':
       return { ...state, redirectTo: '/' };

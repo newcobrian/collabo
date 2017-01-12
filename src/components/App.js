@@ -4,20 +4,22 @@ import React from 'react';
 import agent from '../agent';
 import { connect } from 'react-redux';
 import Firebase from 'firebase';
+import * as Actions from '../actions';
 
 const mapStateToProps = state => ({
   appLoaded: state.common.appLoaded,
   appName: state.common.appName,
   currentUser: state.common.currentUser,
+  userInfo: state.common.userInfo,
   redirectTo: state.common.redirectTo
 });
 
-const mapDispatchToProps = dispatch => ({
-  onLoad: (payload, authenticated) =>
-    dispatch({ type: 'APP_LOAD', payload, authenticated }),
-  onRedirect: () =>
-    dispatch({ type: 'REDIRECT' })
-});
+// const mapDispatchToProps = dispatch => ({
+//   onLoad: (payload, authenticated) =>
+//     dispatch({ type: 'APP_LOAD', payload, authenticated }),
+//   onRedirect: () =>
+//     dispatch({ type: 'REDIRECT' })
+// });
 
 
 // const verifyAuth = () => {
@@ -44,6 +46,7 @@ class App extends React.Component {
         // console.log('user = ' + JSON.stringify(user));
         // console.log('app.js: agent auth current = ' + JSON.stringify(agent.Auth.current()));
         this.props.onLoad(user, user.uid);
+        this.props.getAppUser(user.uid);
       } else {
         this.props.onLoad(null, false);
       }
@@ -64,7 +67,8 @@ class App extends React.Component {
         <div>
           <Header
             appName={this.props.appName}
-            currentUser={this.props.currentUser} />
+            currentUser={this.props.currentUser}
+            userInfo={this.props.userInfo} />
           {this.props.children}
         </div>
       );
@@ -73,7 +77,8 @@ class App extends React.Component {
       <div>
         <Header
           appName={this.props.appName}
-          currentUser={this.props.currentUser} />
+          currentUser={this.props.currentUser}
+          userInfo={this.props.userInfo} />
       </div>
     );
   }
@@ -83,4 +88,4 @@ App.contextTypes = {
   router: React.PropTypes.object.isRequired
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, Actions)(App);

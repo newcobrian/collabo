@@ -32,7 +32,7 @@ const LoggedOutView = props => {
 };
 
 const LoggedInView = props => {
-  if (props.currentUser) {
+  if (props.currentUser && props.userInfo) {
     return (
       <div className="navigation-bar roow roow-row-right">
         <Link to="" className="nav-link">
@@ -48,16 +48,16 @@ const LoggedInView = props => {
             Inbox
         </div>
         </Link>
-        <Link to={`@${props.currentUser.username}`} className="nav-link">        
+        <Link to={`@${props.userInfo.username}`} className="nav-link">        
         <div className="nav-module">
             <div className="nav-icon"><img src="../img/icon32_nav-saved.png"/></div>
-            {props.currentUser.username} Saved
+            Saved
         </div>
         </Link>
-        <Link to={`@${props.currentUser.username}`} className="nav-link">
+        <Link to={`@${props.userInfo.username}`} className="nav-link">
         <div className="nav-module">
-            <div className="nav-icon"><img src="../img/placeholder_kiko.png"/></div>
-            {props.currentUser.username} Profile
+            <div className="nav-icon"><img src={props.userInfo.image}/></div>
+            Profile
         </div>
         </Link>
         <Link to="editor" className="nav-link create-review">  
@@ -94,7 +94,7 @@ class Header extends React.Component {
 
           <LoggedOutView currentUser={this.props.currentUser} />
 
-          <LoggedInView currentUser={this.props.currentUser} />
+          <LoggedInView currentUser={this.props.currentUser} userInfo={this.props.userInfo} />
         </div>
     );
   }

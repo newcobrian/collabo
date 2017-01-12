@@ -30,6 +30,7 @@ export const GET_USER_FEED = 'GET_USER_FEED';
 export const USER_FEED_UNLOADED = 'USER_FEED_UNLOADED';
 export const HOME_PAGE_LOADED = 'HOME_PAGE_LOADED';
 export const GET_GLOBAL_FEED = 'GET_GLOBAL_FEED';
+export const APP_USER_LOADED = 'APP_USER_LOADED';
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -82,6 +83,35 @@ export const GET_GLOBAL_FEED = 'GET_GLOBAL_FEED';
 //     });
 //   }
 // }
+
+export function onLoad(currentUser, authenticated) {
+  return dispatch => {
+    dispatch({ 
+      type: 'APP_LOAD', 
+      currentUser: currentUser,
+      authenticated: authenticated 
+    })
+  }
+}
+
+export function getAppUser(userId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.USERS_PATH + '/' + userId).on('value', snapshot => {
+      dispatch({
+        type: APP_USER_LOADED,
+        payload: snapshot.val(),
+      })
+    })
+  }
+}
+
+export function onRedirect() {
+  return dispatch => {
+    dispatch({
+      type: 'REDIRECT'
+    })
+  }
+}
 
 export function signUpUser(username, email, password) {
   return dispatch => {
@@ -233,7 +263,7 @@ export function unloadProfileFollowing(uid) {
 //   }
 // }
 
-export function getUser(userId) {
+export function getProfileUser(userId) {
   return dispatch => {
     Firebase.database().ref(Constants.USERS_PATH + '/' + userId + '/').on('value', snapshot => {
       dispatch({
