@@ -32,13 +32,13 @@ const ReviewPreview = props => {
               </div>
               <Link to={`@${reviewer.username}`}>
                 <div className="photo-rating-module roow">
-                  <div className="reviewer-photo"><img src={reviewer.image}/></div>
-                    <div className="rating-container roow roow-row-center">
+                  <div className="reviewer-photo center-img"><img src={reviewer.image}/></div>
+                    <div className={'rating-container roow roow-row-center rating-wrapper-' + review.rating}>
                         <div className="rating-graphic rating--2"></div>
                         <div className="rating-graphic rating--1"></div>
                         <div className="rating-graphic rating-0"></div>
                         <div className="rating-graphic rating-1"></div>
-                        <div className="rating-graphic rating-2 on"></div>
+                        <div className="rating-graphic rating-2"></div>
                     </div>
                 </div>
               </Link>
@@ -51,10 +51,19 @@ const ReviewPreview = props => {
                 </div>
               </div>
             </div>
-            <div className="cta-box roow gray-border">
-              <i className="icoon ion-heart"></i>
-              <i className="icoon ion-android-bookmark"></i>
-              <i className="icoon ion-android-share"></i>
+            <div className="cta-box roow roow-row-space gray-border">
+              <div className="cta-wrapper roow roow-col">
+                <i className="icoon ion-heart"></i>
+                12 Likes
+              </div>
+              <div className="cta-wrapper roow roow-col">
+                <i className="icoon ion-android-bookmark"></i>
+                12 Saves
+              </div>
+              <div className="cta-wrapper roow roow-col">
+                <i className="icoon ion-android-share"></i>
+                Share
+              </div>
             </div>
           </div>
         </div> 

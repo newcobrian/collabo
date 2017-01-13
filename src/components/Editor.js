@@ -142,8 +142,8 @@ class Editor extends React.Component {
                     <input
                       className="form-control"
                       type="number"
-                      min="-3"
-                      max="3"
+                      min="-2"
+                      max="2"
                       placeholder="Your Rating"
                       value={this.props.rating}
                       onChange={this.changeRating} />

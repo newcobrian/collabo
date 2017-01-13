@@ -28,6 +28,11 @@ form {
   opacity: .3;
 }
 
+.center-img {
+  object-position: center; /* Center the image within the element */
+  object-fit: cover;
+}
+
 
 
 .shift-up-10 {
@@ -355,7 +360,14 @@ a.logo-module:focus {
                   font-size: 22px;
                   opacity: .1;
                 }
-                .rating-graphic.on {
+                .rating-wrapper--3 .rating-graphic.rating--2,
+                .rating-wrapper--2 .rating-graphic.rating--2,
+                .rating-wrapper--1 .rating-graphic.rating--1,
+                .rating-wrapper-0 .rating-graphic.rating-0,
+                .rating-wrapper-1 .rating-graphic.rating-1,
+                .rating-wrapper-2 .rating-graphic.rating-2,
+                .rating-wrapper-3 .rating-graphic.rating-2
+                 {
                   opacity: 1;
                 }
                 .rating-graphic.rating--2 {
@@ -415,7 +427,16 @@ a.logo-module:focus {
 }
 .cta-box .icoon {
   font-size: 32px;
-  margin: 10px 30px;
+  margin: 10px 30px 0;
+}
+.cta-wrapper {
+  font-size: 11px;
+  padding: 0 10px 10px;
+}
+.cta-wrapper img {
+  height: 32px;
+  width: 32px;
+  margin: 10px 0;
 }
 
 
@@ -455,8 +476,13 @@ a.logo-module:focus {
 
 
 
-
-
+/** Profile Page **/
+.profile-page {
+  margin: 80px 40px;
+}
+.profile-data-module {
+  margin: 10px 20px 10px 0;
+}
 .profile-page .user-info {
   width: 100%;
   background: white;
@@ -571,15 +597,22 @@ a.logo-module:focus {
 .review-data-container {
   width: 100% !important;
 }
-
+.cta-box {
+  width: 100%;
+}
 
 /** Home Page **/
 .home-page {
   margin: 100px 10px;
 }
-.home-page .subject-image img {
+.profile-page {
+  margin: 80px 10px;
+}
+.home-page .subject-image img,
+.profile-page .subject-image img {
   width: 100%;
   height: 280px;
+  padding: 0px;
 }
 
 .subject-name-container {

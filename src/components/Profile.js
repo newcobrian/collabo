@@ -143,9 +143,10 @@ class Profile extends React.Component {
             <div className="user-data roow roow-col-left">
               <div className="user-name">{profile.username}</div>
               <div className="user-bio">{profile.bio}</div>
-              <div>{profile.followerCount} followers</div>
-              <div>{profile.followingCount} following</div>
-              <div>Link to Likes</div>
+              <div className="roow roow-row-left profile-followers-wrapper">
+                <div className="profile-data-module">{profile.followerCount} followers</div>
+                <div className="profile-data-module">{profile.followingCount} following</div>
+              </div>
               <div className="user-action">
                 <EditProfileSettings isUser={isUser} />
                 <FollowUserButton
