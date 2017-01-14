@@ -236,7 +236,7 @@ a.logo-module:focus {
   opacity: .8;
 }
 .bttn-style.bttn-clickme {
-  background: #51EBB7;
+  background: #3D6BDD;
   color: white;
 }
 .bttn-mini {
@@ -248,14 +248,32 @@ a.logo-module:focus {
   text-align: center;
 }
 .nav-module.create-review .icon-wrapper.new{
-  background: #51EBB7;
+  background: #3D6BDD;
   display: inline-block;
   border-radius: 32px;
   width: 32px;
   height: 32px;
   margin-right: 10px;
+  animation: colorchange 40s;
+-webkit-animation: colorchange 40s;
 }
+@keyframes colorchange
+    {
+      0%   {background: #51EBB7;}
+      25%  {background: #E96141;}
+      50%  {background: #BAB9A5;}
+      75%  {background: #96A6B6;}
+      100% {background: #5ADAF3;}
+    }
 
+    @-webkit-keyframes colorchange /* Safari and Chrome - necessary duplicate */
+    {
+      0%   {background: #51EBB7;}
+      25%  {background: #E96141;}
+      50%  {background: #BAB9A5;}
+      75%  {background: #96A6B6;}
+      100% {background: #5ADAF3;}
+    }
 .nav-module.create-review a {
 	color: black;
 }
@@ -513,7 +531,7 @@ a.logo-module:focus {
 
 /**** HOME PAGE ****/
 .home-page {
-  margin: 140px 40px;
+  margin: 150px 40px;
 }
 .home-page .review-data-container,
 .profile-page .review-data-container {
