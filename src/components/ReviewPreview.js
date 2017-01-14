@@ -83,7 +83,7 @@ const ReviewPreview = props => {
                   {review.caption}
                 </div>
                 <div className="review-timestamp">
-                  {review.timestamp}
+                  {(new Date(review.lastModified)).toLocaleString()}
                 </div>
               </div>
             </div>
