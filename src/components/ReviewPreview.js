@@ -105,7 +105,13 @@ const ReviewPreview = props => {
                 Share
               </div>
             </div>
-            <div>Some comments bleep bloop</div>
+            <div className="comments-preview-wrapper roow roow-col-left gray-border">
+              <div className="roow roow-row-col">
+                <div className="commenter-pic"><img src="../../img/placeholder_kiko.png"/></div>
+                <div className="comment-single">hahahaha so i rike it <div className="comment-counter">+ 10 Comments</div></div>
+              </div>
+
+            </div>
           </div>
         </div> 
       </div>

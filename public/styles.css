@@ -467,6 +467,7 @@ a.logo-module:focus {
                   border-radius: 100px;
                   overflow: hidden;
                   margin-right: 20px;
+                  box-shadow: 0 3px 5px 4px rgba(0,0,0,.1);
                 }
                 .reviewer-photo img {
                   /*object-fit: none;  Do not scale the image */
@@ -525,6 +526,37 @@ a.logo-module:focus {
 .cta-wrapper:hover .cta-icon.cta-share {
   background-image: url(img/icon32_share.png);
 }
+
+.comments-preview-wrapper {
+  padding: 10px 20px;
+  font-weight: 100;
+  margin-top: -1px;
+  font-size: 14px;
+}
+.commenter-pic {
+  border-radius: 50px;
+  width: 32px;
+  height: 32px; 
+  overflow: hidden;
+  margin-right: 10px;
+}
+.commenter-pic img {
+    object-fit: cover;
+    width: 32px;
+    height: 32px;
+}
+.comment-counter {
+  font-size: 11px;
+  font-weight: 400;
+  text-align: left; 
+  margin-left: 20px;
+  display: inline-block;
+  /*border-top: 1px solid #EBEBEB;*/
+}
+
+
+
+
 
 
 
@@ -689,6 +721,12 @@ a.logo-module:focus {
 .cta-box {
   width: 100%;
 }
+.comments-preview-wrapper {
+  width: 100%;
+}
+
+
+
 
 /** Home Page **/
 .page-common {
