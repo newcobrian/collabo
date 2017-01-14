@@ -6,10 +6,10 @@ const LikeReviewButton = props => {
   let classes = '';
   if (props.isLiked) {
     // classes += ' btn-secondary';
-    classes += 'i coon ion-heart-broken';
+    classes += 'cta-icon cta-liked';
   } else {
     // classes += ' btn-outline-secondary';
-    classes += 'i coon ion-heart';
+    classes += 'cta-icon cta-like';
   }
 
   let likeText = ' Likes';
@@ -27,14 +27,13 @@ const LikeReviewButton = props => {
   };
 
   return (
-    <button
-      className={classes}
+    <div
+      className="cta-wrapper roow roow-col"
       onClick={handleClick}>
-      <div className="cta-wrapper roow roow-col">
-        {/***<i className="icoon ion-heart"></i> ***/}
-        {props.likesCount} {likeText}
+      <div className={classes}>
       </div>
-    </button>
+      {props.likesCount} {likeText}
+    </div>
   );
 };
 
@@ -88,6 +87,7 @@ const ReviewPreview = props => {
               </div>
             </div>
             <div className="cta-box roow roow-row-space gray-border">
+              
               <LikeReviewButton
                 userId={props.userId}
                 isLiked={props.review.isLiked}

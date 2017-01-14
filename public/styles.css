@@ -492,6 +492,9 @@ a.logo-module:focus {
 .cta-wrapper:hover .cta-icon.cta-like {
   background-image: url(img/icon32_like.png);
 }
+.cta-wrapper .cta-icon.cta-liked {
+  background-image: url(img/icon32_like.png);
+}
 .cta-wrapper .cta-icon.cta-save {
   background-image: url(img/icon32_save_off.png);
 }
