@@ -2,7 +2,7 @@
 
 import ReviewList from './ReviewList';
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import agent from '../agent';
 import { connect } from 'react-redux';
 import Firebase from 'firebase';
@@ -88,20 +88,24 @@ class Profile extends React.Component {
 
     // look up userID from username and load profile
     Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + this.props.params.username + '/').once('value', snapshot => {
-      let userId = snapshot.val().userId;
-      this.props.getProfileUser(userId);
-      this.props.checkFollowing(userId);
-      this.props.getReviewsByUser(this.props.authenticated, userId);
-      this.props.getFollowingCount(userId);
-      this.props.getFollowerCount(userId);
+      if (snapshot.exists()) {
+        let userId = snapshot.val().userId;
+        this.props.getProfileUser(userId);
+        this.props.checkFollowing(userId);
+        this.props.getReviewsByUser(this.props.authenticated, userId);
+        this.props.getFollowingCount(userId);
+        this.props.getFollowerCount(userId);
+      }
     });
     // this.props.getUser(userId);
   }
 
   componentWillUnmount() {
-    this.props.unloadProfileUser(this.props.profile.userId);
-    this.props.unloadProfileFollowing(this.props.profile.userId);
-    this.props.unloadReviewsByUser(this.props.profile.userId);
+    if (this.props.profile) {
+      this.props.unloadProfileUser(this.props.profile.userId);
+      this.props.unloadProfileFollowing(this.props.profile.userId);
+      this.props.unloadReviewsByUser(this.props.profile.userId);
+    }
   }
 
   onSetPage(page) {
@@ -125,11 +129,11 @@ class Profile extends React.Component {
 
   render() {
     const profile = this.props.profile;
-    if (!profile) {
-      return null;
+    if (!profile.userId) {
+      return (
+        <div> User does not exist </div>
+      );
     }
-    // const isUser = this.props.currentUser &&
-    //   this.props.profile.username === this.props.currentUser.username;
 
     const isUser = this.props.currentUser &&
       this.props.profile.userId === this.props.currentUser.uid;
