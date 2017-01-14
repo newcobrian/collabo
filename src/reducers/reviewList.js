@@ -1,5 +1,5 @@
 'use strict';
-import { GET_USER_FEED, HOME_PAGE_LOADED } from '../actions';
+import { GET_USER_FEED, HOME_PAGE_LOADED, REVIEW_LIKED, REVIEW_UNLIKED } from '../actions';
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -35,6 +35,11 @@ export default (state = {}, action) => {
         articlesCount: action.payload.articlesCount,
         currentPage: action.page
       };
+    case REVIEW_LIKED:
+    case REVIEW_UNLIKED:
+      return {
+        ...state
+      }
     case 'APPLY_TAG_FILTER':
       return {
         ...state,

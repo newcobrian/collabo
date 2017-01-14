@@ -58,8 +58,9 @@ const FollowUserButton = props => {
 };
 
 const mapStateToProps = state => ({
-  ...state.articleList,
+  ...state.reviewList,
   currentUser: state.common.currentUser,
+  authenticated: state.common.authenticated,
   profile: state.profile
 });
 
@@ -90,7 +91,7 @@ class Profile extends React.Component {
       let userId = snapshot.val().userId;
       this.props.getProfileUser(userId);
       this.props.checkFollowing(userId);
-      this.props.getReviewsByUser(userId);
+      this.props.getReviewsByUser(this.props.authenticated, userId);
       this.props.getFollowingCount(userId);
       this.props.getFollowerCount(userId);
     });
@@ -178,6 +179,9 @@ class Profile extends React.Component {
           <ReviewList
             reviews={profile.reviews} 
             reviewsCount={this.props.reviewsCount}
+            userId={this.props.authenticated} 
+            like={this.props.likeReview} 
+            unLike={this.props.unLikeReview}
             currentPage={this.props.currentPage}
             onSetPage={this.onSetPage} />
         </div>
@@ -186,6 +190,5 @@ class Profile extends React.Component {
   }
 }
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Profile);
 export default connect(mapStateToProps, Actions)(Profile);
 export { Profile as Profile, mapStateToProps as mapStateToProps };

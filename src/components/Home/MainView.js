@@ -27,7 +27,6 @@ const YourFeedTab = props => {
 
 const GlobalFeedTab = props => {
   const clickHandler = ev => {
-    console.log('click happened global')
     ev.preventDefault();
     props.onTabClick('all', props.globalFeed);
   };
@@ -96,7 +95,10 @@ const MainView = props => {
         reviews={props.userFeed}
         reviewsCount={props.reviewsCount}
         currentPage={props.currentPage}
-        onSetPage={onSetPage} />
+        onSetPage={onSetPage} 
+        userId={props.authenticated} 
+        like={props.likeReview} 
+        unLike={props.unLikeReview} />
     </div>
   );
 };

@@ -142,7 +142,7 @@ const mapStateToProps = state => ({
 
 class Settings extends React.Component {
   componentWillMount() {
-    this.props.getUser(this.props.currentUser.uid);
+    this.props.getProfileUser(this.props.currentUser.uid);
   }
 
   componentWillUnmount() {

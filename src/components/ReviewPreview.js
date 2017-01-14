@@ -1,10 +1,46 @@
 import React from 'react';
 import { Link } from 'react-router';
 
+const LikeReviewButton = props => {
+  // let classes = 'btn btn-sm action-btn';
+  let classes = '';
+  if (props.isLiked) {
+    // classes += ' btn-secondary';
+    classes += 'i coon ion-heart-broken';
+  } else {
+    // classes += ' btn-outline-secondary';
+    classes += 'i coon ion-heart';
+  }
+
+  let likeText = ' Likes';
+  if (props.likesCount === 1) {
+    likeText = ' Like'
+  }
+
+  const handleClick = ev => {
+    ev.preventDefault();
+    if (props.isLiked) {
+      props.unLike(props.userId, props.reviewId);
+    } else {
+      props.like(props.userId, props.reviewId);
+    }
+  };
+
+  return (
+    <button
+      className={classes}
+      onClick={handleClick}>
+      <div className="cta-wrapper roow roow-col">
+        {/***<i className="icoon ion-heart"></i> ***/}
+        {props.likesCount} {likeText}
+      </div>
+    </button>
+  );
+};
+
 const ReviewPreview = props => {
   const review = props.review;
   const reviewer = props.reviewer;
-
   return (
       <div className="reviews-wrapper roow roow-left roow-col-left">
         <div className="subject-name-container">
@@ -52,10 +88,14 @@ const ReviewPreview = props => {
               </div>
             </div>
             <div className="cta-box roow roow-row-space gray-border">
-              <div className="cta-wrapper roow roow-col">
-                <div className="cta-icon cta-like"></div>
-                12 Likes
-              </div>
+              <LikeReviewButton
+                userId={props.userId}
+                isLiked={props.review.isLiked}
+                likesCount={props.review.likesCount}
+                unLike={props.unLike}
+                like={props.like} 
+                reviewId={review.id} />
+
               <div className="cta-wrapper roow roow-col">
                 <div className="cta-icon cta-save"></div>
                 12 Saves
@@ -65,13 +105,10 @@ const ReviewPreview = props => {
                 Share
               </div>
             </div>
+            <div>Some comments bleep bloop</div>
           </div>
         </div> 
       </div>
-
-
-
-
   );
 }
 
