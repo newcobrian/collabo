@@ -2,9 +2,11 @@
   "name": "trippy",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://newcobrian.github.io/whatsgood",
   "devDependencies": {
     "eslint": "^3.13.1",
     "eslint-config-google": "^0.7.1",
+    "gh-pages": "^0.12.0",
     "react-scripts": "0.7.0",
     "redux-devtools": "^3.3.1"
   },
@@ -26,6 +28,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages -d build"
   }
 }
