@@ -14,7 +14,7 @@ const EditProfileSettings = props => {
     return (
       <Link
         to="settings"
-        className="btn btn-sm btn-outline-secondary action-btn">
+        className="bttn-style bttn-mini">
         <i className="ion-gear-a"></i> Edit Profile Settings
       </Link>
     );

@@ -17,7 +17,14 @@ body {
 .text-page-title {
   font-size: 24px;
   font-weight: 700;
-  margin-right: 40px;
+  width: 100%;
+}
+.text-page-subtitle {
+  font-size: 14px;
+  font-weight: 100;
+  opacity: .5;
+  width: 100%;
+  max-width: 600px;
 }
 
 form {
@@ -216,12 +223,12 @@ a.logo-module:focus {
 .bttn-style,
 .bttn-style.bttn-primary {
     background: white;
-    border-radius: 10px;
+    border-radius: 4px;
     border: 1px solid rgba(0,0,0,.2);
     height: 50px;
     color: black;
     box-shadow: 0 0 8px 1px rgba(0,0,0,.1);
-    padding: 5px 10px;
+    padding: 5px 20px;
     text-align: center;
     font-weight: 100;
 }
@@ -231,6 +238,14 @@ a.logo-module:focus {
 .bttn-style.bttn-clickme {
   background: #51EBB7;
   color: white;
+}
+.bttn-mini {
+  padding: 5px 10px;
+  font-size: 14px;
+}
+.bttn-submit {
+  width: 100%;
+  text-align: center;
 }
 .nav-module.create-review .icon-wrapper.new{
   background: #51EBB7;
@@ -262,7 +277,7 @@ a.logo-module:focus {
 	margin-top: 60px;
 }
 .page-common {
-  margin: 40px;
+  margin: 80px 40px;
 }
 .reviews-wrapper {
   margin: 0 0 30px;
@@ -271,6 +286,9 @@ a.logo-module:focus {
 .page-title-wrapper {
   padding: 40px 0;
   width: 100%;
+}
+.center-text {
+  text-align: center !important;
 }
 .home-page .feed-toggle {
     position: fixed;
@@ -297,7 +315,6 @@ a.logo-module:focus {
 
 
 .feed-wrapper {
-  margin-top: 70px;
 }
 .comments-container {
   padding: 20px;
@@ -310,7 +327,8 @@ a.logo-module:focus {
   border: 1px solid #EBEBEB;
 }
 .form-wrapper {
-  width: 100%;
+    width: 600px;
+    margin: 0 auto;
 }
 
 
@@ -426,8 +444,8 @@ a.logo-module:focus {
                   margin-bottom: 10px;
                 }
                 .reviewer-photo {
-                  width: 60px;
-                  height: 60px;
+                  width: 80px;
+                  height: 80px;
                   border-radius: 100px;
                   overflow: hidden;
                   margin-right: 20px;
@@ -435,8 +453,8 @@ a.logo-module:focus {
                 .reviewer-photo img {
                   /*object-fit: none;  Do not scale the image */
                   object-position: center; /* Center the image within the element */
-                  height: 60px;
-                  width: 60px;
+                  height: 80px;
+                  width: 80px;
                   object-fit: cover;
                 }
                 .reviewer-name {
@@ -492,7 +510,7 @@ a.logo-module:focus {
 
 /**** HOME PAGE ****/
 .home-page {
-  margin: 100px 40px;
+  margin: 140px 40px;
 }
 .home-page .review-data-container,
 .profile-page .review-data-container {
@@ -547,7 +565,7 @@ a.logo-module:focus {
   padding: 20px 40px;
 }
     .user-name {
-      font-size: 24px;
+      font-size: 16px;
       font-weight: 700;
     }
     .user-bio {
@@ -584,7 +602,8 @@ a.logo-module:focus {
 
 
 
-@media (max-width: 736px) and (min-width: 214px) {
+@media (max-width: 1000px) and (min-width: 214px) {
+
 .logo-module {
   right: 0;
   width: 100%;
@@ -651,12 +670,23 @@ a.logo-module:focus {
 }
 
 /** Home Page **/
-.home-page {
-  margin: 100px 10px;
+.page-common {
+  margin: 80px 10px;
 }
+.home-page {
+    margin: 130px auto;
+    padding: 0 10px;
+    max-width: 480px;
+  }
 .profile-page {
   margin: 80px 10px;
 }
+
+.form-wrapper {
+  width: 100%;
+}
+
+
 .home-page .subject-image img,
 .profile-page .subject-image img {
   width: 100%;

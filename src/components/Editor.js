@@ -99,9 +99,10 @@ class Editor extends React.Component {
 
   render() {
     return (
-      <div className="roow roow-col-left page-common editor-page">
-            <div className="page-title-wrapper roow">
-              <div className="text-page-title">New Reccoon</div>
+      <div className="roow roow-col roow-center-all page-common editor-page">
+            <div className="page-title-wrapper roow roow-col center-text">
+              <div className="text-page-title">Post New Reccoon</div>
+              <div className="text-page-subtitle">Recommend something cool to your friends. Or warn the world against something bad! Pass on the knowledge.</div>
             </div>
 
             <div className="form-wrapper roow roow-col-left">
@@ -176,11 +177,11 @@ class Editor extends React.Component {
                   </fieldset>   */ }
 
                   <button
-                    className="pull-xs-right bttn-style bttn-clickme roow roow-row-center"
+                    className="bttn-style bttn-clickme bttn-submit"
                     type="button"
                     disabled={this.props.inProgress}
                     onClick={this.submitForm}>
-                    Submit Review
+                    Teach Them
                   </button>
 
                 </fieldset>
