@@ -602,9 +602,9 @@ export function unloadReviewsByUser(userId) {
 }
 
 export function userFeedCompare(a, b) {
-  if (a.lastModified < b.lastModified)
-    return -1;
   if (a.lastModified > b.lastModified)
+    return -1;
+  if (a.lastModified < b.lastModified)
     return 1;
   return 0;
 }
