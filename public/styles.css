@@ -217,9 +217,20 @@ a.logo-module:focus {
 .bttn-style.bttn-primary {
     background: white;
     border-radius: 10px;
-    border: 1px solid black;
+    border: 1px solid rgba(0,0,0,.2);
     height: 50px;
     color: black;
+    box-shadow: 0 0 8px 1px rgba(0,0,0,.1);
+    padding: 5px 10px;
+    text-align: center;
+    font-weight: 100;
+}
+.bttn-style:hover {
+  opacity: .8;
+}
+.bttn-style.bttn-clickme {
+  background: #51EBB7;
+  color: white;
 }
 .nav-module.create-review .icon-wrapper.new{
   background: #51EBB7;
@@ -254,6 +265,7 @@ a.logo-module:focus {
   margin: 40px;
 }
 .reviews-wrapper {
+  margin: 0 0 30px;
 
 }
 .page-title-wrapper {
@@ -358,7 +370,13 @@ a.logo-module:focus {
                   line-height: 32px;
                   font-weight: 100;
                   font-size: 22px;
-                  opacity: .1;
+                  opacity: .15;
+                  filter: grayscale(100%);
+                  background: radial-gradient(circle at 100px 100px, #5cabff, #000);
+                  background-size: cover;
+                  background-repeat: no-repeat;
+                  background-image:(img/graphic42_face_wtf.png);
+                  box-shadow: 0 3px 5px 4px rgba(0,0,0,.1);
                 }
                 .rating-wrapper--3 .rating-graphic.rating--2,
                 .rating-wrapper--2 .rating-graphic.rating--2,
@@ -369,26 +387,32 @@ a.logo-module:focus {
                 .rating-wrapper-3 .rating-graphic.rating-2
                  {
                   opacity: 1;
+                  filter: grayscale(0%);
                 }
                 .rating-graphic.rating--2 {
+                  background-image:url(img/graphic42_face_wtf.png);
                   background-color: #E96141;
                 }
                 .rating-graphic.rating--1 {
+                  background-image:url(img/graphic42_face_weak.png);
                   background-color: #BAB9A5;
                   width: 36px;
                   height: 36px;
                 }
                 .rating-graphic.rating-0 {
+                  background-image:url(img/graphic42_face_meh.png);
                   background-color: #96A6B6;
-                  width: 24px;
-                  height: 24px;
+                  width: 28px;
+                  height: 28px;
                 }
                 .rating-graphic.rating-1 {
+                  background-image:url(img/graphic42_face_coo.png);
                   background-color: #5ADAF3;
                   width: 36px;
                   height: 36px;                
                 }                
                 .rating-graphic.rating-2 {
+                  background-image:url(img/graphic42_face_LIT.png);
                   background-color: #51EBB7;
                 }
 
@@ -433,11 +457,36 @@ a.logo-module:focus {
   font-size: 11px;
   padding: 0 10px 10px;
 }
-.cta-wrapper img {
+.cta-wrapper .cta-icon {
   height: 32px;
   width: 32px;
-  margin: 10px 0;
+  margin: 20px;
+  background: url(img/icon32_like_off.png);
+  background-size: cover;
+  background-repeat: no-repeat;
 }
+.cta-wrapper:hover {
+  cursor: pointer;
+}
+.cta-wrapper .cta-icon.cta-like {
+  background-image: url(img/icon32_like_off.png);
+}
+.cta-wrapper:hover .cta-icon.cta-like {
+  background-image: url(img/icon32_like.png);
+}
+.cta-wrapper .cta-icon.cta-save {
+  background-image: url(img/icon32_save_off.png);
+}
+.cta-wrapper:hover .cta-icon.cta-save {
+  background-image: url(img/icon32_save.png);
+}
+.cta-wrapper .cta-icon.cta-share {
+  background-image: url(img/icon32_share_off.png);
+}
+.cta-wrapper:hover .cta-icon.cta-share {
+  background-image: url(img/icon32_share.png);
+}
+
 
 
 

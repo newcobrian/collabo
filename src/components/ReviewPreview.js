@@ -53,15 +53,15 @@ const ReviewPreview = props => {
             </div>
             <div className="cta-box roow roow-row-space gray-border">
               <div className="cta-wrapper roow roow-col">
-                <i className="icoon ion-heart"></i>
+                <div className="cta-icon cta-like"></div>
                 12 Likes
               </div>
               <div className="cta-wrapper roow roow-col">
-                <i className="icoon ion-android-bookmark"></i>
+                <div className="cta-icon cta-save"></div>
                 12 Saves
               </div>
               <div className="cta-wrapper roow roow-col">
-                <i className="icoon ion-android-share"></i>
+                <div className="cta-icon cta-share"></div>
                 Share
               </div>
             </div>
