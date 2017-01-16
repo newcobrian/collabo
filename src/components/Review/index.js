@@ -1,12 +1,8 @@
-'use strict';
-
 import SubjectMeta from './SubjectMeta';
 import CommentContainer from './CommentContainer';
 import { Link } from 'react-router';
 import React from 'react';
-import agent from '../../agent';
 import { connect } from 'react-redux';
-import marked from 'marked';
 import Firebase from 'firebase'
 import * as Actions from '../../actions';
 

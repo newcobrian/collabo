@@ -36,6 +36,8 @@ export const GET_FOLLOWING_COUNT = 'GET_FOLLOWING_COUNT';
 export const GET_FOLLOWER_COUNT = 'GET_FOLLOWER_COUNT';
 export const REVIEW_LIKED = 'REVIEW_LIKED';
 export const REVIEW_UNLIKED = 'REVIEW_UNLIKED';
+export const GET_FOLLOWERS = 'GET_FOLLOWERS';
+export const GET_FOLLOWINGS = 'GET_FOLLOWINGS';
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -732,6 +734,28 @@ export function getGlobalFeed(uid) {
           }
         })
       });
+    })
+  }
+}
+
+export function getFollowers(userId) {
+  return dispatch => {
+    let followerArray = [];
+    Firebase.database().ref(Constants.FOLLOWERS_PATH + '/' + userId).on('value', followersSnapshot => {
+      followersSnapshot.forEach(function(follower) {
+        let followerId = follower.key;
+        Firebase.database().ref(Constants.USERS_PATH + '/' + followerId).on('value', userSnapshot => {
+          let userObject = {};
+          let key = { id: followerId };
+          Object.assign(userObject, key, userSnapshot.val());
+          followerArray = followerArray.concat(userObject);
+
+          dispatch({
+            type: GET_FOLLOWERS,
+            payload: followerArray
+          })
+        })
+      })
     })
   }
 }

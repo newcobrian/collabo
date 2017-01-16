@@ -12,6 +12,7 @@ import ProfileFavorites from './components/ProfileFavorites';
 import Register from './components/Register';
 import Settings from './components/Settings';
 import Editor from './components/Editor';
+import Followers from './components/Followers';
 import store from './store';
 
 ReactDOM.render((
@@ -23,6 +24,7 @@ ReactDOM.render((
         <Route path="register" component={Register} />
         <Route path="settings" component={Settings} />
         <Route path="review/:sid(/:rid)" component={Review} />
+        <Route path="followers/:username" component={Followers} />
         <Route path="@:username" component={Profile} />
         <Route path="@:username/favorites" component={ProfileFavorites} />
         <Route path="editor" component={Editor} />

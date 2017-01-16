@@ -10,8 +10,8 @@ import home from './reducers/home';
 import profile from './reducers/profile';
 import settings from './reducers/settings';
 import editor from './reducers/editor';
+import followers from './reducers/followers';
 import Firebase from 'firebase';
-import * as Actions from './actions';
 
 const reducer = combineReducers({
   review,
@@ -21,7 +21,8 @@ const reducer = combineReducers({
   home,
   profile,
   settings,
-  editor
+  editor,
+  followers
   // firebase: firebaseStateReducer
 });
 
