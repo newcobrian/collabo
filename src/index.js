@@ -8,7 +8,7 @@ import Review from './components/Review';
 import Home from './components/Home';
 import Login from './components/Login';
 import Profile from './components/Profile';
-import ProfileFavorites from './components/ProfileFavorites';
+import ProfileLikes from './components/ProfileLikes';
 import Register from './components/Register';
 import Settings from './components/Settings';
 import Editor from './components/Editor';
@@ -28,7 +28,7 @@ ReactDOM.render((
         <Route path="followers/:username" component={Followers} />
         <Route path="followings/:username" component={Followings} />
         <Route path="@:username" component={Profile} />
-        <Route path="@:username/favorites" component={ProfileFavorites} />
+        <Route path="@:username/likes" component={ProfileLikes} />
         <Route path="editor" component={Editor} />
         <Route path="editor/:slug" component={Editor} />
       </Route>

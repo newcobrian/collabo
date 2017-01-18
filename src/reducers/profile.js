@@ -1,4 +1,4 @@
-import { GET_REVIEWS_BY_USER, GET_FOLLOWING_COUNT, GET_FOLLOWER_COUNT } from '../actions';
+import { GET_REVIEWS_BY_USER, GET_FOLLOWING_COUNT, GET_FOLLOWER_COUNT, GET_LIKES_BY_USER } from '../actions';
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -38,6 +38,11 @@ export default (state = {}, action) => {
         followerCount: action.payload
       }
     case GET_REVIEWS_BY_USER:
+      return {
+        ...state,
+        reviews: action.payload
+      }
+    case GET_LIKES_BY_USER:
       return {
         ...state,
         reviews: action.payload

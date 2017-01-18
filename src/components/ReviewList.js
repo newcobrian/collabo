@@ -26,7 +26,6 @@ const ReviewList = props => {
           return (
             <ReviewPreview review={review} 
               key={review.id} 
-              reviewer={review.reviewer} 
               userId={props.userId} 
               like={props.like} 
               unLike={props.unLike} />

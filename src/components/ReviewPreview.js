@@ -20,9 +20,9 @@ const LikeReviewButton = props => {
   const handleClick = ev => {
     ev.preventDefault();
     if (props.isLiked) {
-      props.unLike(props.userId, props.reviewId);
+      props.unLike(props.userId, props.review);
     } else {
-      props.like(props.userId, props.reviewId);
+      props.like(props.userId, props.review);
     }
   };
 
@@ -39,7 +39,6 @@ const LikeReviewButton = props => {
 
 const ReviewPreview = props => {
   const review = props.review;
-  const reviewer = props.reviewer;
   return (
       <div className="reviews-wrapper roow roow-left roow-col-left">
         <div className="subject-name-container">
@@ -59,15 +58,15 @@ const ReviewPreview = props => {
           <div className="review-data-container roow roow-col-left">
             <div className="review-data-module gray-border roow roow-col-left">
               <div className="reviewer-name-container">
-                <Link to={`@${reviewer.username}`}>
+                <Link to={`@${review.reviewer.username}`}>
                   <div className="reviewer-name">
-                    {reviewer.username}
+                    {review.reviewer.username}
                   </div>
                 </Link>
               </div>
-              <Link to={`@${reviewer.username}`}>
+              <Link to={`@${review.reviewer.username}`}>
                 <div className="photo-rating-module roow">
-                  <div className="reviewer-photo center-img"><img src={reviewer.image}/></div>
+                  <div className="reviewer-photo center-img"><img src={review.reviewer.image}/></div>
                     <div className={'rating-container roow roow-row-center rating-wrapper-' + review.rating}>
                         <div className="rating-graphic rating--2"></div>
                         <div className="rating-graphic rating--1"></div>
@@ -94,7 +93,7 @@ const ReviewPreview = props => {
                 likesCount={props.review.likesCount}
                 unLike={props.unLike}
                 like={props.like} 
-                reviewId={review.id} />
+                review={review} />
 
               <div className="cta-wrapper roow roow-col">
                 <div className="cta-icon cta-save"></div>
