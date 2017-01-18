@@ -748,6 +748,14 @@ export function getGlobalFeed(uid) {
 //   return -1;
 // }
 
+export function followerFeedCompare(a, b) {
+  if (a.username < b.username)
+    return -1;
+  if (a.username > b.username)
+    return 1;
+  return 0;
+}
+
 export function getFollowers(userId, followPath) {
   return dispatch => {
     let followerArray = [];
@@ -766,6 +774,7 @@ export function getFollowers(userId, followPath) {
             Object.assign(userObject, key, userSnapshot.val(), followingObject);
 
             followerArray = [userObject].concat(followerArray);
+            followerArray.sort(followerFeedCompare);
 
             // let indexFound = searchFeedArray(key.userId, followerArray);
             // if (indexFound > -1) {
