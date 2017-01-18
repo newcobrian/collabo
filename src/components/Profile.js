@@ -79,26 +79,28 @@ class Profile extends React.Component {
     this.props.onSetPage(page, promise);
   }
 
-  renderTabs() {
-    return (
-      <ul className="nav nav-pills outline-active">
-        <li className="nav-item">
-          <Link
-            className="nav-link active"
-            to={`@${this.props.profile.username}`}>
-            My Posts
-          </Link>
-        </li>
+  renderTabs(isUser) {
+    if (isUser) {
+      return (
+        <ul className="nav nav-pills outline-active">
+          <li className="nav-item">
+            <Link
+              className="nav-link active"
+              to={`@${this.props.profile.username}`}>
+              My Posts
+            </Link>
+          </li>
 
-        <li className="nav-item">
-          <Link
-            className="nav-link"
-            to={`@${this.props.profile.username}/likes`}>
-            My Likes
-          </Link>
-        </li>
-      </ul>
-    );
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              to={`@${this.props.profile.username}/likes`}>
+              My Likes
+            </Link>
+          </li>
+        </ul>
+      );
+    }
   }
 
   render() {
@@ -148,7 +150,7 @@ class Profile extends React.Component {
 
           <div className="page-title-wrapper">
             <div className="text-page-title">
-              {this.renderTabs()}
+              {this.renderTabs(isUser)}
             </div>
           </div>
 
