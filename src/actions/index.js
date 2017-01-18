@@ -38,6 +38,7 @@ export const REVIEW_LIKED = 'REVIEW_LIKED';
 export const REVIEW_UNLIKED = 'REVIEW_UNLIKED';
 export const GET_FOLLOWERS = 'GET_FOLLOWERS';
 export const GET_FOLLOWINGS = 'GET_FOLLOWINGS';
+export const UNLOAD_FOLLOWERS = 'UNLOAD_FOLLOWERS';
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -747,11 +748,11 @@ export function getGlobalFeed(uid) {
 //   return -1;
 // }
 
-export function getFollowers(userId) {
+export function getFollowers(userId, followPath) {
   return dispatch => {
     let followerArray = [];
     const current = Firebase.auth().currentUser.uid;
-    Firebase.database().ref(Constants.FOLLOWERS_PATH + '/' + userId).on('value', followersSnapshot => {
+    Firebase.database().ref(followPath + '/' + userId).on('value', followersSnapshot => {
       followersSnapshot.forEach(function(follower) {
         let followerId = follower.key;
         Firebase.database().ref(Constants.USERS_PATH + '/' + followerId).on('value', userSnapshot => {
@@ -779,6 +780,24 @@ export function getFollowers(userId) {
           })
         })
       })
+    })
+  }
+}
+
+export function unloadFollowers(userId, followPath) {
+  return dispatch => {
+    const current = Firebase.auth().currentUser.uid;
+    Firebase.database().ref(followPath + '/' + userId).on('value', followersSnapshot => {
+      followersSnapshot.forEach(function(follower) {
+        let followerId = follower.key;
+        Firebase.database().ref(Constants.USERS_PATH + '/' + followerId).off();
+        Firebase.database().ref(Constants.FOLLOWINGS_PATH + '/' + current + '/' + followerId).off();
+      })
+    })
+    Firebase.database().ref(followPath + '/' + userId).off();
+
+    dispatch({
+      type: UNLOAD_FOLLOWERS
     })
   }
 }

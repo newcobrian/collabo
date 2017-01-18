@@ -118,7 +118,7 @@ class Profile extends React.Component {
                 <Link to={`followers/${profile.username}`}>
                   <div className="profile-data-module">{profile.followerCount} followers</div>
                 </Link>
-                <Link to={`followers/${profile.username}`}>
+                <Link to={`followings/${profile.username}`}>
                   <div className="profile-data-module">{profile.followingCount} following</div>
                 </Link>
               </div>

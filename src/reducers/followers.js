@@ -1,4 +1,4 @@
-import { GET_FOLLOWERS, GET_FOLLOWINGS } from '../actions';
+import { GET_FOLLOWERS, GET_FOLLOWINGS, UNLOAD_FOLLOWERS } from '../actions';
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -7,6 +7,8 @@ export default (state = {}, action) => {
         ...state,
         followers: action.payload
       }
+    case UNLOAD_FOLLOWERS:
+      return {}
   }
 
   return state;

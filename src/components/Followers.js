@@ -11,18 +11,23 @@ const mapStateToProps = state => ({
 	currentUser: state.common.currentUser
 });
 
-class Follow extends React.Component {
+class Followers extends React.Component {
 	componentWillMount() {
 		Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + this.props.params.username + '/').once('value', snapshot => {
 	      if (snapshot.exists()) {
 	        let userId = snapshot.val().userId;
-	        this.props.getFollowers(userId);
-	        // this.props.getUserFeed(userId);
+	        this.props.getFollowers(userId, Constants.FOLLOWERS_PATH);
 	      }
 	    });
 	}
 
 	componentWillUnmount() {
+		Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + this.props.params.username + '/').once('value', snapshot => {
+	      if (snapshot.exists()) {
+	        let userId = snapshot.val().userId;
+	        this.props.unloadFollowers(userId, Constants.FOLLOWINGS_PATH);
+	      }
+	    });
 	}
 
 	render() {
@@ -72,4 +77,5 @@ class Follow extends React.Component {
 	}
 }
 
-export default connect(mapStateToProps, Actions)(Follow);
+export default connect(mapStateToProps, Actions)(Followers);
+export { Followers as Followers, mapStateToProps as mapStateToProps };
