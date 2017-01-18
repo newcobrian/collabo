@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import Firebase from 'firebase';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
+import FollowUserButton from './FollowUserButton'
 
 const EditProfileSettings = props => {
   if (props.isUser) {
@@ -20,41 +21,6 @@ const EditProfileSettings = props => {
     );
   }
   return null;
-};
-
-const FollowUserButton = props => {
-  if (props.isUser) {
-    return null;
-  }
-  let classes = 'btn btn-sm action-btn';
-  // if (props.user.following) {
-  if (props.user.isFollowing) {
-    classes += ' btn-secondary';
-  } else {
-    classes += ' btn-outline-secondary';
-  }
-
-  const handleClick = ev => {
-    ev.preventDefault();
-    // if (props.user.following) {
-    if (props.user.isFollowing) {
-      // props.unfollow(props.user.username)
-      props.unfollow(props.user.userId);
-    } else {
-      // props.follow(props.user.username)
-      props.follow(props.user.userId);
-    }
-  };
-
-  return (
-    <button
-      className={classes}
-      onClick={handleClick}>
-      <i className="ion-plus-round"></i>
-      &nbsp;
-      {props.user.isFollowing ? 'Unfollow' : 'Follow'} {props.user.username}
-    </button>
-  );
 };
 
 const mapStateToProps = state => ({
@@ -163,7 +129,6 @@ class Profile extends React.Component {
                 user={profile}
                 follow={this.props.followUser}
                 unfollow={this.props.unfollowUser}
-                profileUserId={this.props.profile.userId}
                 isFollowing={this.props.profile.isFollowing}
                 />
               </div>

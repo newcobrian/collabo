@@ -738,24 +738,49 @@ export function getGlobalFeed(uid) {
   }
 }
 
+// export function searchFeedArray(key, arr) {
+//   for (var i = 0; i < arr.length; i++) {
+//     if (arr[i].userId === key) {
+//       return i;
+//     }
+//   }
+//   return -1;
+// }
+
 export function getFollowers(userId) {
   return dispatch => {
     let followerArray = [];
+    const current = Firebase.auth().currentUser.uid;
     Firebase.database().ref(Constants.FOLLOWERS_PATH + '/' + userId).on('value', followersSnapshot => {
       followersSnapshot.forEach(function(follower) {
         let followerId = follower.key;
         Firebase.database().ref(Constants.USERS_PATH + '/' + followerId).on('value', userSnapshot => {
-          let userObject = {};
-          let key = { id: followerId };
-          Object.assign(userObject, key, userSnapshot.val());
-          followerArray = followerArray.concat(userObject);
+          Firebase.database().ref(Constants.FOLLOWINGS_PATH + '/' + current + '/' + followerId).on('value', isFollowingSnapshot => {
+            let userObject = {};
+            let key = { userId: followerId };
+            let followingObject = { isFollowing: false };
+            if (isFollowingSnapshot.exists()) {
+              followingObject.isFollowing = true;
+            }
+            Object.assign(userObject, key, userSnapshot.val(), followingObject);
 
-          dispatch({
-            type: GET_FOLLOWERS,
-            payload: followerArray
+            followerArray = [userObject].concat(followerArray);
+
+            // let indexFound = searchFeedArray(key.userId, followerArray);
+            // if (indexFound > -1) {
+            //   followerArray[indexFound] = userObject;
+            // }
+            // else followerArray = followerArray.concat(userObject);
+
+            dispatch({
+              type: GET_FOLLOWERS,
+              payload: followerArray
+            })
           })
         })
       })
     })
   }
 }
+
+

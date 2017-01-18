@@ -4,9 +4,11 @@ import { connect } from 'react-redux';
 import Firebase from 'firebase';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
+import FollowUserButton from './FollowUserButton';
 
 const mapStateToProps = state => ({
-	...state.followers
+	...state.followers,
+	currentUser: state.common.currentUser
 });
 
 class Follow extends React.Component {
@@ -15,6 +17,7 @@ class Follow extends React.Component {
 	      if (snapshot.exists()) {
 	        let userId = snapshot.val().userId;
 	        this.props.getFollowers(userId);
+	        // this.props.getUserFeed(userId);
 	      }
 	    });
 	}
@@ -33,8 +36,10 @@ class Follow extends React.Component {
 	    	<div>
 		      {
 		        this.props.followers.map(follower => {
+		        	const isUser = this.props.currentUser &&
+      					follower.userId === this.props.currentUser.uid;
 		          	return (
-		          		<div>
+		          		<div key={follower.userId}>
 				          	<div>
 				          		<Link
 						          to={`@${follower.username}`}
@@ -49,6 +54,15 @@ class Follow extends React.Component {
 						          {follower.username}
 						        </Link>
 						    </div>
+						    <div>
+						    	<FollowUserButton
+				                isUser={isUser}
+				                user={follower}
+				                follow={this.props.followUser}
+				                unfollow={this.props.unfollowUser}
+				                isFollowing={follower.isFollowing}
+				                />
+				            </div>
 						</div>
           			)
 		      	})
