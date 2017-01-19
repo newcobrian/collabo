@@ -40,6 +40,7 @@ export const REVIEW_UNLIKED = 'REVIEW_UNLIKED';
 export const GET_FOLLOWERS = 'GET_FOLLOWERS';
 export const GET_FOLLOWINGS = 'GET_FOLLOWINGS';
 export const UNLOAD_FOLLOWERS = 'UNLOAD_FOLLOWERS';
+export const UNLOAD_LIKES_BY_USER = 'UNLOAD_LIKES_BY_USER';
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -650,6 +651,23 @@ export function unloadReviewsByUser(userId) {
     });
   }
 }
+
+export function unloadLikesByUser(userId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).orderByChild('lastModified').once('value', reviewsSnapshot => {
+      reviewsSnapshot.forEach(function(review) {
+        Firebase.database().ref(Constants.USERS_PATH + '/' + review.val().reviewerId).off();
+        Firebase.database().ref(Constants.LIKES_PATH + '/' + review.key).off();
+      })
+    })
+    Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).orderByChild('lastModified').off();
+
+    dispatch({
+      type: UNLOAD_LIKES_BY_USER
+    })
+  }
+}
+
 
 export function userFeedCompare(a, b) {
   if (a.lastModified > b.lastModified)
