@@ -38,36 +38,41 @@ class Followers extends React.Component {
 		  }
 
 	    return (
-	    	<div>
+	    	<div className="roow roow-col-left page-common follow-page">
+		      <div className="text-page-title">Following</div>
 		      {
 		        this.props.followers.map(follower => {
 		        	const isUser = this.props.currentUser &&
       					follower.userId === this.props.currentUser.uid;
 		          	return (
-		          		<div key={follower.userId}>
-				          	<div>
+		          		<div className="roow roow-row list-row" key={follower.userId}>
+				          	<div className="">
 				          		<Link
 						          to={`@${follower.username}`}
 						          className="comment-author">
-						          <img src={follower.image} className="comment-author-img" />
+						          	<div className="reviewer-photo center-img">
+						          		<img src={follower.image} className="comment-author-img" />
+						        	</div>
 						        </Link>
 						    </div>
-						    <div>
-							   	<Link
-						          to={`@${follower.username}`}
-						          className="comment-author">
-						          {follower.username}
-						        </Link>
-						    </div>
-						    <div>
-						    	<FollowUserButton
-				                isUser={isUser}
-				                user={follower}
-				                follow={this.props.followUser}
-				                unfollow={this.props.unfollowUser}
-				                isFollowing={follower.isFollowing}
-				                />
-				            </div>
+						    <div className="roow roow-col-left">
+							    <div>
+								   	<Link
+							          to={`@${follower.username}`}
+							          className="comment-author">
+							          {follower.username}
+							        </Link>
+							    </div>
+							    <div>
+							    	<FollowUserButton
+					                isUser={isUser}
+					                user={follower}
+					                follow={this.props.followUser}
+					                unfollow={this.props.unfollowUser}
+					                isFollowing={follower.isFollowing}
+					                />
+					            </div>
+					        </div>
 						</div>
           			)
 		      	})

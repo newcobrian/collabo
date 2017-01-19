@@ -44,10 +44,12 @@ const ReviewPreview = props => {
         <div className="subject-name-container">
             <Link to={`review/${review.subjectId}/${review.id}`}>
               <div className="text-subject-name">{review.title}</div>
-              <div className="text-category shift-up-5">Book</div>
             </Link>
+              <div className="text-category shift-up-5">Book, Movie, Restaurant, Cool</div>
+
         </div>
         <div className="review-container roow roow-center roow-row-top">
+
           <div className="review-image-wrapper">
             <Link to={`review/${review.subjectId}/${review.id}`}>
               <div className="subject-image">
@@ -56,14 +58,8 @@ const ReviewPreview = props => {
             </Link>
           </div>
           <div className="review-data-container roow roow-col-left">
-            <div className="review-data-module gray-border roow roow-col-left">
-              <div className="reviewer-name-container">
-                <Link to={`@${review.reviewer.username}`}>
-                  <div className="reviewer-name">
-                    {review.reviewer.username}
-                  </div>
-                </Link>
-              </div>
+            <div className="review-data-module gray-border roow roow-col-left box-shadow">
+              
               <Link to={`@${review.reviewer.username}`}>
                 <div className="photo-rating-module roow">
                   <div className="reviewer-photo center-img"><img src={review.reviewer.image}/></div>
@@ -80,11 +76,19 @@ const ReviewPreview = props => {
                 <div className="subject-caption">
                   {review.caption}
                 </div>
+                <div className="reviewer-name-container">
+                <Link to={`@${review.reviewer.username}`}>
+                  <div className="reviewer-name">
+                    <span className="dash">-</span>{review.reviewer.username}
+                  </div>
+                </Link>
+              </div>
                 <div className="review-timestamp">
                   {(new Date(review.lastModified)).toLocaleString()}
                 </div>
               </div>
             </div>
+<div className="roow roow-row flex-wrap">
             <div className="cta-box roow roow-row-space gray-border">
               
               <LikeReviewButton
@@ -98,19 +102,28 @@ const ReviewPreview = props => {
               <div className="cta-wrapper roow roow-col">
                 <div className="cta-icon cta-save"></div>
                 12 Saves
-              </div>
-              <div className="cta-wrapper roow roow-col">
-                <div className="cta-icon cta-share"></div>
-                Share
-              </div>
-            </div>
-            <div className="comments-preview-wrapper roow roow-col-left gray-border">
-              <div className="roow roow-row-col">
-                <div className="commenter-pic"><img src="../../img/placeholder_kiko.png"/></div>
-                <div className="comment-single">hahahaha so i rike it <div className="comment-counter">+ 10 Comments</div></div>
-              </div>
 
+                </div>
+                <div className="cta-wrapper roow roow-col">
+                  <div className="cta-icon cta-share"></div>
+                  Share
+                </div>
+              </div>
+              
+              <div className="comments-preview-wrapper roow roow-col-left">
+                <div className="roow roow-row-col">
+                  <div className="commenter-pic"><img src="../../img/placeholder_kiko.png"/></div>
+                  <div className="comment-single">hahahaha so i rike it</div>
+                </div>
+                <div className="comment-counter">10 Comments</div>
+              </div>
             </div>
+
+
+
+
+
+
           </div>
         </div> 
       </div>

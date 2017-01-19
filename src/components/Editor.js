@@ -177,7 +177,7 @@ class Editor extends React.Component {
                   </fieldset>   */ }
 
                   <button
-                    className="bttn-style bttn-clickme bttn-submit"
+                    className="bttn-style bttn-submit"
                     type="button"
                     disabled={this.props.inProgress}
                     onClick={this.submitForm}>

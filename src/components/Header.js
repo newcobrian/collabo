@@ -35,6 +35,14 @@ const LoggedInView = props => {
   if (props.currentUser && props.userInfo) {
     return (
       <div className="navigation-bar roow roow-row-right">
+        
+        <Link to="editor" className="nav-link create-review">  
+        <div className="nav-module">
+            <div className="nav-icon"><img src="../img/icon32_add.png"/></div>
+            New
+        </div>
+        </Link>
+
         <Link to="" className="nav-link">
         <div className="nav-module">
             <div className="nav-icon"><img src="../img/icon32_nav-feed.png"/></div>
@@ -60,11 +68,6 @@ const LoggedInView = props => {
             Profile
         </div>
         </Link>
-        <Link to="editor" className="nav-link create-review">  
-        <div className="nav-module create-review bttn-style roow roow-row-center">
-            <div className="icon-wrapper new"><img src="../img/icon32_add.png"/></div>&nbsp;New Review
-        </div>
-        </Link>
 
 
       </div>
@@ -81,13 +84,10 @@ class Header extends React.Component {
 
           <Link to="/" className="logo-module roow roow-col-left">
             <div className="logo-main">
-              recc
+              WHATSG
               <div className="logo-circle"></div>
               <div className="logo-circle"></div>
-              <div className="logo-circle"></div>
-              <div className="logo-circle"></div>
-              <div className="logo-circle"></div>
-              n
+              D
             </div>
             <div className="logo-tagline">Reviews by people you trust</div>
           </Link>
