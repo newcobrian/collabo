@@ -124,41 +124,44 @@
   background-position: center;
   display: block;    
 
-  -ms-transform: rotate(7deg); /* IE 9 */
-    -webkit-transform: rotate(7deg); /* Chrome, Safari, Opera */
-    transform: rotate(7deg);
+  -ms-transform: rotate(-16deg); /* IE 9 */
+    -webkit-transform: rotate(-16deg); /* Chrome, Safari, Opera */
+    transform: rotate(-16deg);
 
   box-shadow: inset 1px 2px 16px 3px rgba(255,255,255,.7), -5px 6px 12px rgba(0,0,0,0.1);             
+  box-shadow: -5px 6px 12px rgba(0,0,0,0.1);             
   margin-top: -8px;
+  width: 50px;
+  height: 50px;
 }
 .rating-graphic.rating--2 {
   background-image:url(img/graphic42_face_wtf.png);
-  background-color: #FF8871;
+  background-color: #F69983;
 }
 .rating-graphic.rating--1 {
   background-image:url(img/graphic42_face_weak.png);
-  background-color: #F8CA71;
+  background-color: #E0BA92;
 /*                  width: 42px;
   height: 42px;
   background-size: 42px;*/
 }
 .rating-graphic.rating-0 {
   background-image:url(img/graphic42_face_meh.png);
-  background-color: #F8F373;
+  background-color: #F8DF61;
 /*                  width: 32px;
   height: 32px;
   background-size: 32px;*/
 }
 .rating-graphic.rating-1 {
   background-image:url(img/graphic42_face_coo.png);
-  background-color: #B4F88E;
+  background-color: #A3EE3D;
 /*                  width: 42px;
   height: 42px; 
   background-size: 42px;   */            
 }                
 .rating-graphic.rating-2 {
   background-image:url(img/graphic42_face_LIT.png);
-  background-color: #00FF85;
+  background-color: #00D770;
 }
 
 

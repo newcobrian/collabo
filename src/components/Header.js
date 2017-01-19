@@ -36,37 +36,27 @@ const LoggedInView = props => {
     return (
       <div className="navigation-bar roow roow-row-right">
         
-        <Link to="editor" className="nav-link create-review">  
-        <div className="nav-module">
+        <Link to="editor" className="nav-module nav-editor">  
             <div className="nav-icon"><img src="../img/icon32_add.png"/></div>
             New
-        </div>
         </Link>
 
-        <Link to="" className="nav-link">
-        <div className="nav-module">
-            <div className="nav-icon"><img src="../img/icon32_nav-feed.png"/></div>
+        <Link to="" className="nav-module">
+            <div className="nav-icon"><img src="../img/icon32_feed.png"/></div>
             Feed
-        </div>
         </Link>
         
-        <Link to="" className="nav-link">
-        <div className="nav-module">
-            <div className="nav-icon"><img src="../img/icon32_nav-inbox.png"/></div>
+        <Link to="" className="nav-module">
+            <div className="nav-icon"><img src="../img/icon32_inbox.png"/></div>
             Inbox
-        </div>
         </Link>
-        <Link to={`@${props.userInfo.username}`} className="nav-link">        
-        <div className="nav-module">
-            <div className="nav-icon"><img src="../img/icon32_nav-saved.png"/></div>
+        <Link to={`@${props.userInfo.username}`} className="nav-module">        
+            <div className="nav-icon"><img src="../img/icon32_saved.png"/></div>
             Saved
-        </div>
         </Link>
-        <Link to={`@${props.userInfo.username}`} className="nav-link">
-        <div className="nav-module">
+        <Link to={`@${props.userInfo.username}`} className="nav-module">
             <div className="nav-icon"><img className="center-img" src={props.userInfo.image}/></div>
             Profile
-        </div>
         </Link>
 
 
@@ -84,10 +74,7 @@ class Header extends React.Component {
 
           <Link to="/" className="logo-module roow roow-col-left">
             <div className="logo-main">
-              WHATSG
-              <div className="logo-circle"></div>
-              <div className="logo-circle"></div>
-              D
+              whatsgood?
             </div>
             <div className="logo-tagline">Reviews by people you trust</div>
           </Link>

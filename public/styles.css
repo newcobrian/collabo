@@ -1,6 +1,6 @@
 body {
-	font-family: 'Roboto', sans-serif;
-  color: black;
+	font-family: 'Nunito', sans-serif;
+  color: #161F34;
   letter-spacing:1px;
 }
 
@@ -79,7 +79,9 @@ form {
 .dash {
   opacity: .3;
 }
-
+.DN {
+  display: none !important;
+}
 
 
 
@@ -91,24 +93,19 @@ form {
 .bttn-style,
 .bttn-style.bttn-primary {
     background: white;
-    background: #1944BC;
-    background: white;
-    border-radius: 10px;
-    border: 1px solid #2C73D9;
+    background: #2E5DD2;
+    border: 0px solid #2C73D9;
     height: 50px;
-    color: #2C73D9;
+    color: white;
     /*box-shadow: 0 0 8px 1px rgba(0,0,0,.1);*/
     padding: 5px 20px;
     text-align: center;
-    font-weight: 300 !important;
+    font-weight: 100 !important;
 }
 .bttn-style:hover {
-  opacity: .8;
+  background-color: #0366E7;
 }
-.bttn-style.bttn-clickme {
-  background: #3D6BDD;
-  color: white;
-}
+
 .bttn-mini {
   padding: 5px 10px;
   font-size: 14px;
@@ -117,17 +114,7 @@ form {
   width: 100%;
   text-align: center;
 }
-.nav-module.create-review .icon-wrapper.new{
-  background: #3D6BDD;
-  background: rgba(0,0,0,.3);
-  display: inline-block;
-  border-radius: 32px;
-  width: 32px;
-  height: 32px;
-  margin-right: 5px;
-/*  animation: colorchange 40s;
--webkit-animation: colorchange 40s;*/
-}
+
 @keyframes colorchange
     {
       0%   {background: #51EBB7;}
@@ -147,7 +134,7 @@ form {
     }
 
 .nav-module.create-review a {
-  color: black;
+
 }
 
 
@@ -167,17 +154,16 @@ form {
   padding: 15px 10px 0 40px;
   height: 90px;
   width: 320px;
-  color: black;
+  color: white;
   font-weight: 700;
   margin: 0px;
-  background-color:white;
+  background-color:#161F34;
   z-index: 2;
   border-bottom: 1px solid rgba(0,0,0,.1);
 }
 a.logo-module:hover,
 a.logo-module:active,
 a.logo-module:focus {
-  color: black;
   text-decoration: none;
   opacity: 1;
 }
@@ -185,7 +171,7 @@ a.logo-module:focus {
     font-size: 27px;
     height: 34px;
     letter-spacing: 2px;
-    font-weight: 700;
+    font-weight: 400;
 }
 .logo-tagline {
     font-size: 14px;
@@ -206,33 +192,47 @@ a.logo-module:focus {
   top: 0;
   left: 320px;
   height: 90px;
-  background-color:white;
+  background-color:#161F34;
   z-index: 2;
-  padding: 2px 40px 0 0;
+  padding: 0px 40px 0 0;
+  color: white;
   border-bottom: 1px solid rgba(0,0,0,.1);
 }
 .navigation-bar .nav-module {
-	margin: 20px;
-	padding: 5px 10px;
-  text-align: center;
-  font-weight: 100;
+text-align: center;
+    font-weight: 100;
+    width: 80px;
+    height: 90px;
+    display: inline-block;
+    color: #fff;
+    font-weight: 100;
+    margin: 0px 0px;
+    padding: 10px 0;
 }
-.navigation-bar a.nav-link.create-review {
-  color: blue;
+.navigation-bar .nav-module:hover {
+  background-color: rgba(255,255,255,.1);
 }
-.navigation-bar a.nav-link {
-	color: #ccc;
+.navigation-bar .nav-module.nav-editor {
+  background-color: #2E5DD2;
 }
-.navigation-bar a.nav-link:hover {
-	color: #999;
+.navigation-bar .nav-module.nav-editor:hover {
+  background-color: #2A67FF;
+  opacity: 1;
 }
+.navigation-bar .create-review .nav-module {
+/*  animation: colorchange 40s;
+-webkit-animation: colorchange 40s;*/
+}
+
 .navigation-bar .nav-icon {
   width: 32px;
   height: 32px;
-  background: white;
-  margin: 0 auto;
+  background: transparent;
   text-align: center;
+  margin: 5px 10px;
+  display: inline-block;
 }
+
 .navigation-bar .nav-icon img {
     height: 28px;
     border-radius: 50px;
@@ -273,11 +273,10 @@ a.logo-module:focus {
     left: 0;
     right: 0;
     background: white;
-    background: #FDFDFD;
+    /*background: #FDFDFD;*/
     border-bottom: 1px solid rgba(0,0,0,.1);
     z-index: 10;
-    padding: 0 40px 0 40px;
-    height: 32px;
+    padding: 5px 40px 5px 40px;
 
 }
 
@@ -289,7 +288,7 @@ a.logo-module:focus {
 ******
 ******/
 .home-page {
-  margin: 140px 40px;
+  margin: 150px 40px;
 }
 
 
@@ -352,7 +351,7 @@ a.logo-module:focus {
 
 /******
 ******
-************************************ 3. FOLLOWER
+************************************ 3. FOLLOWER PAGE
 ******
 ******/
 
@@ -367,9 +366,39 @@ a.logo-module:focus {
 
 
 
-
-
-
+/******
+******
+************************************ 4. Article
+******
+******/
+.article-page {
+  margin: 120px 40px;
+}
+.article-page .subject-image img {
+    width: 320px;
+    height: 320px;
+}
+.article-page .subject-name-container {
+  text-align: center;
+}
+.article-page .text-subject-name {
+    font-size: 34px;
+    text-align: center;
+}
+.article-page .review-data-container {
+  margin-left: 0;
+  margin-top: -110px;
+}
+.comment-wrapper {
+  border-radius: 0;
+}
+.comment-input {
+      display: block;
+    font-size: 20px;
+    line-height: 26px;
+    font-weight: 100;
+    width: 100%;
+}
 
 
 

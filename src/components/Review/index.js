@@ -50,56 +50,110 @@ class Review extends React.Component {
     // const canModify = this.props.currentUser &&
       // this.props.currentUser.username === this.props.article.author.username;
     return (
-      <div className="article-page">
-        <div className="subject-name-container">
-            <div className="text-subject-name">{this.props.subject.title}</div>
-            <div className="text-category shift-up-10">Book</div>
-        </div>
-        <div className="review-container roow roow-center roow-row-top">
-          <div className="review-image-wrapper">
-            <SubjectMeta
-            subject={this.props.subject}
-            canModify={canModify} />
+
+
+    <div className="page-common article-page">
+
+
+
+      <div className="reviews-wrapper roow roow-col">
+          
+          <div className="subject-name-container">
+                <div className="text-subject-name">{this.props.subject.title}</div>
+                <div className="text-category shift-up-5">Book, Movie, Restaurant, Cool</div>
           </div>
-          <div className="review-data-container roow roow-col-left">
-            <div className="review-data-module gray-border roow roow-col-left">
-              <Link to={`@${this.props.review.rater.username}`} className="author"> 
-              <div className="reviewer-name-container">
-                <div className="reviewer-name">
-                  {this.props.review.rater.username}
+
+
+<div className="roow roow-row-top flex-wrap">
+          <div className="review-container roow roow-col">
+            
+            <div className="review-image-wrapper">
+              <SubjectMeta
+              subject={this.props.subject}
+              canModify={canModify} />
+            </div>
+
+            <div className="review-data-container roow roow-col-left">
+              <div className="review-data-module gray-border roow roow-col-left box-shadow">
+                <Link to={`@${this.props.review.rater.username}`} className="author">
+                <div className="photo-rating-module roow">
+                  <div className="reviewer-photo center-img"><img src={this.props.review.rater.image} /></div>
+                    <div className={'rating-container roow roow-row-center rating-wrapper-' + this.props.review.rating}>
+                        <div className="rating-graphic rating--2"></div>
+                        <div className="rating-graphic rating--1"></div>
+                        <div className="rating-graphic rating-0"></div>
+                        <div className="rating-graphic rating-1"></div>
+                        <div className="rating-graphic rating-2"></div>
+                    </div>
                 </div>
-              </div>
-              </Link>
-              <div className="photo-rating-module roow">
-                  <div className="reviewer-photo"><img src={this.props.review.rater.image} /></div>
-                  <div className="rating-container roow">
-                      <div className="rating-graphic">{this.props.review.rating}</div>
+                </Link>
+                <div className="info">
+                  <div className="subject-caption">
+                    {this.props.review.caption}
                   </div>
-              </div>
-              <div className="info">
-                <div className="subject-caption">
-                  {this.props.review.caption}
+                  <div className="reviewer-name-container">
+                  <Link to={`@${this.props.review.rater.username}`}>
+                  <div className="reviewer-name">
+                    <span className="dash">-</span>{this.props.review.rater.username}
+                  </div>
+                  </Link>
                 </div>
                 <div className="review-timestamp">
                   {new Date(this.props.review.lastModified).toLocaleString([], {year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute:'2-digit'})}
                 </div>
               </div>
+              </div>
+              
+              <div className="roow roow-row flex-wrap">
+                <div className="cta-box roow roow-row-space gray-border">
+                  <div className="cta-wrapper roow roow-col">
+                          <div className="cta-icon cta-save"></div>
+                          12 Saves
+                  </div>
+                  <div className="cta-wrapper roow roow-col">
+                        <div className="cta-icon cta-share"></div>
+                          Share
+                  </div>
+                </div>   
             </div>
-            <div className="cta-box roow gray-border">
-              <i className="icoon ion-heart"></i>
-              <i className="icoon ion-android-bookmark"></i>
-              <i className="icoon ion-android-share"></i>
-            </div>
-        </div>{/**** E N D subject-info-box ***/}
-      </div>
-      <div className="roow roow-center comments-container">
+          
+          </div>
+          
+        </div>
+        <div className="roow roow-center comments-container">
          <CommentContainer
             comments={this.props.comments || []}
             errors={this.props.commentErrors}
             reviewId={this.props.params.rid}
             currentUser={this.props.currentUser} />
+        </div>
       </div>
-    </div>
+       
+
+
+
+
+
+
+
+</div>
+
+
+
+
+    </div>/* END - PAGE-WRAPPER */
+
+       
+
+
+
+
+
+
+
+
+
+      
     );
   }
 }

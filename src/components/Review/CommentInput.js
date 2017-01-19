@@ -31,21 +31,21 @@ class CommentInput extends React.Component {
 
   render() {
     return (
-      <form className="card comment-form" onSubmit={this.createComment}>
+      <form className="comment-wrapper gray-border comment-form" onSubmit={this.createComment}>
         <div className="card-block">
-          <textarea className="form-control"
+          <textarea className="comment-input"
             placeholder="Write a comment..."
             value={this.state.body}
             onChange={this.setBody}
             rows="3">
           </textarea>
         </div>
-        <div className="card-footer">
+        <div className="">
           <img
             src={this.props.currentUser.image}
             className="comment-author-img" />
           <button
-            className="btn btn-sm btn-primary"
+            className="bttn-style bttn-submit"
             type="submit">
             Post Comment
           </button>
