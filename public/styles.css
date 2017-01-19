@@ -1,5 +1,5 @@
 body {
-	font-family: 'Nunito', sans-serif;
+	font-family: 'Muli', sans-serif;
   color: #161F34;
   letter-spacing:1px;
 }
@@ -108,7 +108,7 @@ form {
 
 .bttn-mini {
   padding: 5px 10px;
-  font-size: 14px;
+  font-size: 12px;
 }
 .bttn-submit {
   width: 100%;
@@ -200,7 +200,6 @@ a.logo-module:focus {
 }
 .navigation-bar .nav-module {
 text-align: center;
-    font-weight: 100;
     width: 80px;
     height: 90px;
     display: inline-block;
@@ -208,6 +207,7 @@ text-align: center;
     font-weight: 100;
     margin: 0px 0px;
     padding: 10px 0;
+    font-size: 12px;
 }
 .navigation-bar .nav-module:hover {
   background-color: rgba(255,255,255,.1);

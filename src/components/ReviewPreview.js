@@ -88,35 +88,35 @@ const ReviewPreview = props => {
                 </div>
               </div>
             </div>
-<div className="roow roow-row flex-wrap">
-            <div className="cta-box roow roow-row-space gray-border">
-              
-              <LikeReviewButton
-                userId={props.userId}
-                isLiked={props.review.isLiked}
-                likesCount={props.review.likesCount}
-                unLike={props.unLike}
-                like={props.like} 
-                review={review} />
+            <div className="roow roow-row flex-wrap">
+              <div className="cta-box roow roow-row-space gray-border">
+                
+                <LikeReviewButton
+                  userId={props.userId}
+                  isLiked={props.review.isLiked}
+                  likesCount={props.review.likesCount}
+                  unLike={props.unLike}
+                  like={props.like} 
+                  review={review} />
 
-              <div className="cta-wrapper roow roow-col">
-                <div className="cta-icon cta-save"></div>
-                12 Saves
-
-                </div>
                 <div className="cta-wrapper roow roow-col">
-                  <div className="cta-icon cta-share"></div>
-                  Share
+                  <div className="cta-icon cta-save"></div>
+                  12 Saves
+
+                  </div>
+                  <div className="cta-wrapper roow roow-col">
+                    <div className="cta-icon cta-share"></div>
+                    Share
+                  </div>
                 </div>
-              </div>
-              
-              <div className="comments-preview-wrapper roow roow-col-left">
-                <div className="roow roow-row-col">
-                  <div className="commenter-pic"><img src="../../img/placeholder_kiko.png"/></div>
-                  <div className="comment-single">hahahaha so i rike it</div>
+                
+                <div className="comments-preview-wrapper roow roow-col-left">
+                  <div className="roow roow-row-col">
+                    <div className="commenter-pic"><img src="../../img/placeholder_kiko.png"/></div>
+                    <div className="comment-single">hahahaha so i rike it</div>
+                  </div>
+                  <div className="comment-counter">10 Comments</div>
                 </div>
-                <div className="comment-counter">10 Comments</div>
-              </div>
             </div>
 
 
