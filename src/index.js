@@ -6,6 +6,7 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import App from './components/App';
 import Review from './components/Review';
 import Home from './components/Home';
+import GlobalFeed from './components/Home/GlobalFeed';
 import Login from './components/Login';
 import Profile from './components/Profile';
 import ProfileLikes from './components/ProfileLikes';
@@ -21,6 +22,7 @@ ReactDOM.render((
     <Router history={hashHistory}>
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
+        <Route path="global" component={GlobalFeed} />
         <Route path="login" component={Login} />
         <Route path="register" component={Register} />
         <Route path="settings" component={Settings} />

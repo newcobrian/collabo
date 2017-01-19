@@ -5,6 +5,7 @@ import Tags from './Tags';
 import { connect } from 'react-redux';
 import Firebase from 'firebase';
 import * as Actions from '../../actions';
+import { Link } from 'react-router';
 
 const AUTH_ERROR = 'AUTH_ERROR';
 const AUTH_USER = 'AUTH_USER';
@@ -32,7 +33,6 @@ class Home extends React.Component {
     //   agent.Articles.all();
 
     // this.props.onLoad(tab, Promise.all([agent.Tags.getAll(), articlesPromise]));
-    this.props.onHomePageLoad(tab);
     this.props.getUserFeed(this.props.authenticated);
     // this.props.getGlobalFeed(this.props.authenticated);
   }
@@ -41,15 +41,41 @@ class Home extends React.Component {
     this.props.unloadUserFeed(this.props.authenticated);
   }
 
+  renderTabs() {
+    return (
+      <ul className="nav nav-pills outline-active">
+        <li className="nav-item">
+          <Link
+            className="nav-link active"
+            to={``}>
+            My Feed
+          </Link>
+        </li>
+
+        <li className="nav-item">
+          <Link
+            className="nav-link"
+            to={`global`}>
+            Global Feed
+          </Link>
+        </li>
+      </ul>
+    );
+  }
+
   render() {
     return (
       <div className="home-page">
+            <div className="roow">
+              <div className="feed-wrapper">
+                <div className="feed-toggle roow roow-row-center">
+                  {this.renderTabs()}
+                </div>
+                
+                <MainView />
+              </div>
 
-
-        <div className="roow">
-            <MainView />
-        </div>
-
+            </div>
       </div>
 
 
@@ -58,3 +84,4 @@ class Home extends React.Component {
 }
 
 export default connect(mapStateToProps, Actions)(Home);
+export { Home as Home, mapStateToProps as mapStateToProps };
