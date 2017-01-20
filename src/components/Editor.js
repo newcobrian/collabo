@@ -1,6 +1,5 @@
 import ListErrors from './ListErrors';
 import React from 'react';
-import agent from '../agent';
 import { connect } from 'react-redux';
 import * as Actions from '../actions'
 
@@ -32,9 +31,14 @@ class Editor extends React.Component {
     this.changeTitle = updateFieldEvent('title');
     this.changeDescription = updateFieldEvent('description');
     this.changeImage = updateFieldEvent('image');
-    this.changeRating = updateFieldEvent('rating');
+    // this.changeRating = updateFieldEvent('rating');
     this.changeCaption = updateFieldEvent('caption');
     this.changeTagInput = updateFieldEvent('tagInput');
+
+    this.onRatingsChange = rating => ev => {
+      ev.preventDefault();
+      this.props.onUpdateField('rating', rating);
+    }
 
     this.watchForEnter = ev => {
       if (ev.keyCode === 13) {
@@ -139,15 +143,16 @@ class Editor extends React.Component {
                       onChange={this.changeImage} />
                   </fieldset>
 
+                  <div>Your Rating</div>
+
                   <fieldset className="form-group">
-                    <input
-                      className="form-control"
-                      type="number"
-                      min="-2"
-                      max="2"
-                      placeholder="Your Rating"
-                      value={this.props.rating}
-                      onChange={this.changeRating} />
+                    <div className={'rating-container roow roow-row-center rating-wrapper-' + this.props.rating}>
+                        <button className="rating-graphic rating--2" onClick={this.onRatingsChange(-2)}></button>
+                        <button className="rating-graphic rating--1" onClick={this.onRatingsChange(-1)}></button>
+                        <button className="rating-graphic rating-0" onClick={this.onRatingsChange(0)}></button>
+                        <button className="rating-graphic rating-1" onClick={this.onRatingsChange(1)}></button>
+                        <button className="rating-graphic rating-2" onClick={this.onRatingsChange(2)}></button>
+                    </div>
                   </fieldset>
 
                   <fieldset className="form-group">
