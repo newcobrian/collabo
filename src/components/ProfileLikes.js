@@ -41,7 +41,7 @@ class ProfileLikes extends Profile {
     if (this.props.profile) {
       this.props.unloadProfileUser(this.props.profile.userId);
       this.props.unloadProfileFollowing(this.props.profile.userId);
-      this.props.unloadReviewsByUser(this.props.profile.userId);
+      this.props.unloadLikesByUser(this.props.profile.userId);
     }
   }
 
