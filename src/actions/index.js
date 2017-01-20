@@ -1,5 +1,6 @@
 import Firebase from 'firebase';
 import * as Constants from '../constants'
+import { sendInboxMessage } from '../helpers'
 
 export const AUTH_ERROR = 'AUTH_ERROR';
 export const AUTH_USER = 'AUTH_USER';
@@ -42,6 +43,7 @@ export const GET_FOLLOWINGS = 'GET_FOLLOWINGS';
 export const UNLOAD_FOLLOWERS = 'UNLOAD_FOLLOWERS';
 export const UNLOAD_LIKES_BY_USER = 'UNLOAD_LIKES_BY_USER';
 export const RATING_UPDATED = 'RATING_UPDATED';
+export const INBOX_MESSAGE_SENT = 'INBOX_MESSAGE_SENT';
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -549,6 +551,8 @@ export function onCommentSubmit(reviewId, body) {
   }
 }
 
+
+
 export function onDeleteComment(reviewId, commentId) {
   return dispatch => {    
     dispatch({
@@ -780,18 +784,23 @@ export function getUserFeed(uid) {
 
 export function likeReview(userId, review) {
   const updates = {};
+  const updateInfo = {};
+
+  if (review.subjectId) updateInfo.subjectId = review.subjectId;
+  if (review.rating) updateInfo.rating = review.rating;
+  if (review.caption) updateInfo.caption = review.caption;
+  if (review.lastModified) updateInfo.lastModified = review.lastModified;
+  if (review.title) updateInfo.title = review.title;
+  if (review.description) updateInfo.description = review.description;
+  if (review.image) updateInfo.image = review.image;
+  if (review.reviewer.reviewerId) updateInfo.reviewerId = review.subjectId.reviewer.reviewerId;
+
   updates[`/${Constants.LIKES_PATH}/${review.id}/${userId}`] = true;
-  updates[`/${Constants.LIKES_BY_USER_PATH}/${userId}/${review.id}`] = { 
-      subjectId: review.subjectId,
-      rating: review.rating,
-      caption: review.caption,
-      lastModified: review.lastModified,
-      title: review.title,
-      description: review.description,
-      image: review.image,
-      reviewerId: review.reviewer.userId
-    };
+  updates[`/${Constants.LIKES_BY_USER_PATH}/${userId}/${review.id}`] = updateInfo;
   Firebase.database().ref().update(updates);
+
+  sendInboxMessage(userId, [review.reviewer.userId], Constants.LIKE_MESSAGE, review);
+
   return dispatch => {
     dispatch({
       type: REVIEW_LIKED

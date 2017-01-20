@@ -1,5 +1,3 @@
-'use strict';
-
 import { Link } from 'react-router';
 import React from 'react';
 
@@ -46,7 +44,7 @@ const LoggedInView = props => {
             Feed
         </Link>
         
-        <Link to="" className="nav-module">
+        <Link to="inbox" className="nav-module">
             <div className="nav-icon"><img src="../img/icon32_inbox.png"/></div>
             Inbox
         </Link>

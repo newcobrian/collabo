@@ -2,8 +2,7 @@
 
 import ReviewList from './ReviewList';
 import React from 'react';
-import { Link, browserHistory } from 'react-router';
-import agent from '../agent';
+import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import Firebase from 'firebase';
 import * as Actions from '../actions';
@@ -74,10 +73,10 @@ class Profile extends React.Component {
     }
   }
 
-  onSetPage(page) {
-    const promise = agent.Articles.byAuthor(this.props.profile.username, page);
-    this.props.onSetPage(page, promise);
-  }
+  // onSetPage(page) {
+  //   // const promise = agent.Articles.byAuthor(this.props.profile.username, page);
+  //   this.props.onSetPage(page, promise);
+  // }
 
   renderTabs(isUser) {
     if (isUser) {

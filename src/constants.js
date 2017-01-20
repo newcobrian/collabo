@@ -11,3 +11,6 @@ export const SAVES_PATH = '/saves'
 export const SAVES_BY_USER_PATH = '/saves-by-user'
 export const LIKES_PATH = '/likes'
 export const LIKES_BY_USER_PATH = '/likes-by-user'
+export const INBOX_PATH = '/inbox'
+
+export const LIKE_MESSAGE = 'LIKE_MESSAGE'

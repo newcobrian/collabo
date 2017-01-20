@@ -1,4 +1,4 @@
-import { AUTH_USER, SIGN_OUT_USER, AUTH_ERROR, REVIEW_SUBMITTED, APP_USER_LOADED } from '../actions';
+import { AUTH_USER, SIGN_OUT_USER, AUTH_ERROR, REVIEW_SUBMITTED, APP_USER_LOADED, INBOX_MESSAGE_SENT } from '../actions';
 
 const defaultState = {
   appName: 'Reccoon',
@@ -37,6 +37,9 @@ export default (state = defaultState, action) => {
       };
     case 'DELETE_ARTICLE':
       return { ...state, redirectTo: '/' };
+      return {
+        ...state
+      }
     case AUTH_USER:
       return {
         ...state,

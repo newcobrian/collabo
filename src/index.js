@@ -15,6 +15,7 @@ import Settings from './components/Settings';
 import Editor from './components/Editor';
 import Followers from './components/Followers';
 import Followings from './components/Followings';
+import Inbox from './components/Inbox';
 import store from './store';
 
 ReactDOM.render((
@@ -33,6 +34,7 @@ ReactDOM.render((
         <Route path="@:username/likes" component={ProfileLikes} />
         <Route path="editor" component={Editor} />
         <Route path="editor/:slug" component={Editor} />
+        <Route path="inbox" component={Inbox} />
       </Route>
     </Router>
   </Provider>
