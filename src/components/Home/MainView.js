@@ -29,7 +29,8 @@ const MainView = props => {
         onSetPage={onSetPage} 
         userId={props.authenticated} 
         like={props.likeReview} 
-        unLike={props.unLikeReview} />
+        unLike={props.unLikeReview} 
+        updateRating={props.onUpdateRating} />
     </div>
   );
 };

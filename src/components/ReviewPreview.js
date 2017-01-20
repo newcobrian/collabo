@@ -37,6 +37,36 @@ const LikeReviewButton = props => {
   );
 };
 
+const RatingsButtons = props => {
+  const handleClick = rating => ev => {
+    ev.preventDefault();
+    props.updateRating(props.userId, props.review.id, props.review.subjectId, rating);
+  };
+
+  if (props.userId === props.review.reviewer.userId) {
+    return (
+      <div className={'rating-container roow roow-row-center rating-wrapper-' + props.review.rating}>
+        <button className="rating-graphic rating--2" onClick={handleClick(-2)}></button>
+        <button className="rating-graphic rating--1" onClick={handleClick(-1)}></button>
+        <button className="rating-graphic rating--0" onClick={handleClick(0)}></button>
+        <button className="rating-graphic rating--1" onClick={handleClick(1)}></button>
+        <button className="rating-graphic rating--2" onClick={handleClick(2)}></button>
+      </div>
+    )
+  }
+  else {
+    return (
+      <div className={'rating-container roow roow-row-center rating-wrapper-' + props.review.rating}>
+        <div className="rating-graphic rating--2"></div>
+        <div className="rating-graphic rating--1"></div>
+        <div className="rating-graphic rating-0"></div>
+        <div className="rating-graphic rating-1"></div>
+        <div className="rating-graphic rating-2"></div>
+      </div>
+    )
+  }
+}
+
 const CommentPreview = props => {
   if (props.comments) {
     return (
@@ -80,13 +110,7 @@ const ReviewPreview = props => {
               <Link to={`@${review.reviewer.username}`}>
                 <div className="photo-rating-module roow">
                   <div className="reviewer-photo center-img"><img src={review.reviewer.image}/></div>
-                    <div className={'rating-container roow roow-row-center rating-wrapper-' + review.rating}>
-                        <div className="rating-graphic rating--2"></div>
-                        <div className="rating-graphic rating--1"></div>
-                        <div className="rating-graphic rating-0"></div>
-                        <div className="rating-graphic rating-1"></div>
-                        <div className="rating-graphic rating-2"></div>
-                    </div>
+                    <RatingsButtons review={review} userId={props.userId} updateRating={props.updateRating} />
                 </div>
               </Link>
               <div className="info">

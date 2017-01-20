@@ -28,7 +28,8 @@ const ReviewList = props => {
               key={review.id} 
               userId={props.userId} 
               like={props.like} 
-              unLike={props.unLike} />
+              unLike={props.unLike}
+              updateRating={props.updateRating} />
 
           );
         })

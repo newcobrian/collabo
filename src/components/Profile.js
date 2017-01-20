@@ -166,6 +166,7 @@ class Profile extends React.Component {
             like={this.props.likeReview} 
             unLike={this.props.unLikeReview}
             currentPage={this.props.currentPage}
+            updateRating={this.props.onUpdateRating}
             onSetPage={this.onSetPage} />
         </div>
       </div>

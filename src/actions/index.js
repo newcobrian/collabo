@@ -41,6 +41,7 @@ export const GET_FOLLOWERS = 'GET_FOLLOWERS';
 export const GET_FOLLOWINGS = 'GET_FOLLOWINGS';
 export const UNLOAD_FOLLOWERS = 'UNLOAD_FOLLOWERS';
 export const UNLOAD_LIKES_BY_USER = 'UNLOAD_LIKES_BY_USER';
+export const RATING_UPDATED = 'RATING_UPDATED';
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -550,12 +551,27 @@ export function onCommentSubmit(reviewId, body) {
 
 export function onDeleteComment(reviewId, commentId) {
   return dispatch => {    
-      dispatch({
-        type: DELETE_COMMENT,
-        payload: Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewId + '/' + commentId).remove()
-      });
-    };
+    dispatch({
+      type: DELETE_COMMENT,
+      payload: Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewId + '/' + commentId).remove()
+    });
+  };
+}
+
+export function onUpdateRating(userId, reviewId, subjectId, rating) {
+  return dispatch => {
+    const updates = {};
+    console.log('userid = ' + userId + ' reviewid = ' + reviewId + ' rating = ' + rating)
+    updates[Constants.REVIEWS_PATH +'/' + reviewId + '/rating'] = rating;
+    updates[Constants.REVIEWS_BY_SUBJECT_PATH +'/' + subjectId + '/' + reviewId + '/rating'] = rating;
+    updates[Constants.REVIEWS_BY_USER_PATH +'/' + userId + '/' + reviewId +'/rating'] = rating;
+    Firebase.database().ref().update(updates);
+
+    dispatch({
+      type: RATING_UPDATED
+    })
   }
+}
 
 export function getReviewsByUser(appUserId, userId) {
   return dispatch => {
