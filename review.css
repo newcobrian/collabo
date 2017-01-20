@@ -1,0 +1,298 @@
+/****** 
+******
+************************************ REVIEW CONTAINER
+******
+******/
+.review-container {
+   padding: 20px 40px;
+}
+.subject-name-container {
+    text-align: center;
+    width: 100%;
+    margin: 100px auto 0;
+    max-width: 760px;
+}
+.reviews-wrapper {
+  margin: 0 0 30px;
+
+}
+.review-data-container {
+  width: 500px;
+}
+.subject-name-container {
+    text-align: left;
+    margin: 0;
+    padding: 0;
+}
+.text-subject-name {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+.text-category {
+  font-size: 12px;
+}
+.review-container {
+  padding: 0 0 10px;
+}
+.subject-image img {
+  width: 240px;
+  height: 240px;
+  object-fit: cover;
+}
+
+.review-container > div {
+}
+.subject-image {
+  width: auto;
+  height: auto;
+  background: white;
+}
+
+.review-data-container {
+  padding: 0;
+  margin-left: -40px;
+  margin-top: 20px;
+}
+.review-data-module {
+  /*min-width: 320px;*/
+  padding: 20px;
+}
+
+.subject-info-box .info {
+  margin-top: 10px;
+}
+.subject-info-box .info > div{
+}
+
+.subject-caption {
+  font-size: 24px;
+  font-weight: 100;
+  margin-bottom: 0px;
+  line-height: 30px;
+}
+.photo-rating-module {
+  margin: 0 0 10px 0px;
+}
+
+
+
+/****** 
+******
+************************************ RATING FACES
+******
+******/
+.rating-container {
+  margin-left: 0px;
+  /*background-image:url(img/graphic70_meter-bg.png);*/
+  background-size: 112px 70px;
+  background-repeat: no-repeat;
+  margin-left: 10px;
+}
+.rating-graphic {
+  width: 40px;
+  height: 40px;
+  background: black;
+  border-radius: 100px;
+  margin-right: 0px;
+  color: white;
+  text-align: center;
+  line-height: 32px;
+  font-weight: 100;
+  font-size: 22px;
+  opacity: .1;
+  /*filter: grayscale(100%);*/
+  background-repeat: no-repeat;
+  /*border: 1px solid rgba(0,0,0,.4);*/
+  /*box-shadow: 0 3px 5px 4px rgba(0,0,0,.1);*/
+  background-size: 32px;
+  background-position: -9999px -9999px;
+  /*box-shadow: 0 0 0px 3px white, 0 0px 9px 9px rgba(0,0,0,.1);*/
+  background-color: black;
+  margin-right: 10px;
+}
+.rating-wrapper--3 .rating-graphic.rating--2,
+.rating-wrapper--2 .rating-graphic.rating--2,
+.rating-wrapper--1 .rating-graphic.rating--1,
+.rating-wrapper-0 .rating-graphic.rating-0,
+.rating-wrapper-1 .rating-graphic.rating-1,
+.rating-wrapper-2 .rating-graphic.rating-2,
+.rating-wrapper-3 .rating-graphic.rating-2
+ {
+  opacity: 1;
+  filter: grayscale(0%);
+  background-position: center;
+  display: block;    
+
+  -ms-transform: rotate(-16deg); /* IE 9 */
+    -webkit-transform: rotate(-16deg); /* Chrome, Safari, Opera */
+    transform: rotate(-16deg);
+
+  box-shadow: inset 1px 2px 16px 3px rgba(255,255,255,.7), -5px 6px 12px rgba(0,0,0,0.1);             
+  box-shadow: -5px 6px 12px rgba(0,0,0,0.1);             
+  margin-top: -8px;
+  width: 50px;
+  height: 50px;
+}
+.rating-graphic.rating--2 {
+  background-image:url(img/graphic42_face_wtf.png);
+  background-color: #F69983;
+}
+.rating-graphic.rating--1 {
+  background-image:url(img/graphic42_face_weak.png);
+  background-color: #E0BA92;
+/*                  width: 42px;
+  height: 42px;
+  background-size: 42px;*/
+}
+.rating-graphic.rating-0 {
+  background-image:url(img/graphic42_face_meh.png);
+  background-color: #F8DF61;
+/*                  width: 32px;
+  height: 32px;
+  background-size: 32px;*/
+}
+.rating-graphic.rating-1 {
+  background-image:url(img/graphic42_face_coo.png);
+  background-color: #A3EE3D;
+/*                  width: 42px;
+  height: 42px; 
+  background-size: 42px;   */            
+}                
+.rating-graphic.rating-2 {
+  background-image:url(img/graphic42_face_LIT.png);
+  background-color: #00D770;
+}
+
+
+
+
+
+
+
+
+
+.review-timestamp {
+  font-size: 10px;
+  opacity: .4;
+  margin: 0;
+}
+.reviewer-name-container {
+  margin: 5px 0;
+}
+.reviewer-photo {
+  width: 70px;
+  height: 70px;
+  border-radius: 100px;
+  overflow: hidden;
+  margin-right: 0px;
+  /*box-shadow: 0 3px 5px 4px rgba(0,0,0,.1);*/
+  /*border: 7px solid white;*/
+}
+.reviewer-photo img {
+  /*object-fit: none;  Do not scale the image */
+  object-position: center; /* Center the image within the element */
+  height: 70px;
+  width: 70px;
+  object-fit: cover;
+}
+.reviewer-name {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+
+
+
+
+/****** 
+******
+************************************ CTA
+******
+******/
+
+.cta-box {
+  margin-top: -1px;
+}
+.cta-box .icoon {
+  font-size: 32px;
+  margin: 10px 30px 0;
+}
+.cta-wrapper {
+  font-size: 11px;
+  padding: 0 10px 10px;
+}
+.cta-wrapper .cta-icon {
+  height: 32px;
+  width: 32px;
+  margin: 10px;
+  background: url(img/icon32_like_off.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.cta-wrapper:hover {
+  cursor: pointer;
+}
+.cta-wrapper .cta-icon.cta-like {
+  background-image: url(img/icon32_like_off.png);
+}
+.cta-wrapper:hover .cta-icon.cta-like {
+  background-image: url(img/icon32_like.png);
+}
+.cta-wrapper .cta-icon.cta-liked {
+  background-image: url(img/icon32_like.png);
+}
+.cta-wrapper .cta-icon.cta-save {
+  background-image: url(img/icon32_save_off.png);
+}
+.cta-wrapper:hover .cta-icon.cta-save {
+  background-image: url(img/icon32_save.png);
+}
+.cta-wrapper .cta-icon.cta-share {
+  background-image: url(img/icon32_share_off.png);
+}
+.cta-wrapper:hover .cta-icon.cta-share {
+  background-image: url(img/icon32_share.png);
+}
+
+.comments-preview-wrapper {
+  padding: 10px 20px;
+  font-weight: 100;
+  margin-top: -1px;
+  font-size: 14px;
+}
+.commenter-pic {
+  border-radius: 50px;
+  width: 32px;
+  height: 32px; 
+  overflow: hidden;
+  margin: 0px 10px 0 0;
+}
+.commenter-pic img {
+    object-fit: cover;
+    width: 32px;
+    height: 32px;
+}
+.comment-counter {
+  font-size: 11px;
+  font-weight: 400;
+  text-align: left; 
+  margin-top: 12px;
+  display: inline-block;
+  /*border-top: 1px solid #EBEBEB;*/
+}
+
+
+
+/******
+******
+************************************************ COMMENTS 
+******
+******/
+.comments-container {
+  padding: 20px;
+}
+.comments-module {
+  width: 100%;
+  max-width: 820px;
+}
