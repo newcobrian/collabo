@@ -570,26 +570,37 @@ export function getReviewsByUser(appUserId, userId) {
       Firebase.database().ref(Constants.USERS_PATH + '/' + userId).on('value', userSnapshot => {
         reviewsSnapshot.forEach(function(review) {
           Firebase.database().ref(Constants.LIKES_PATH + '/' + review.key).on('value', likesSnapshot => {
-            const reviewObject = {};
-            const key = { id: review.key };
-            const reviewer = { reviewer: userSnapshot.val() };
-            reviewer.reviewer.userId = userId
-            let isLiked = false;
-            if (likesSnapshot.val()) {
-              isLiked = searchLikes(appUserId, likesSnapshot.val());
-            }
-            let likes = { 
-              likesCount: likesSnapshot.numChildren(), 
-              isLiked: isLiked
-            }
-            Object.assign(reviewObject, review.val(), key, reviewer, likes);
-            feedArray = [reviewObject].concat(feedArray);
-            feedArray.sort(userFeedCompare);
-
-            dispatch({
-              type: GET_REVIEWS_BY_USER,
-              payload: feedArray
-            })
+            Firebase.database().ref(Constants.COMMENTS_PATH + '/' + review.key).on('value', commentCountSnapshot => {
+              const reviewObject = {};
+              const key = { id: review.key };
+              const reviewer = { reviewer: userSnapshot.val() };
+              reviewer.reviewer.userId = userId
+              let isLiked = false;
+              if (likesSnapshot.val()) {
+                isLiked = searchLikes(appUserId, likesSnapshot.val());
+              }
+              let likes = { 
+                likesCount: likesSnapshot.numChildren(), 
+                isLiked: isLiked
+              }
+              let commentObject = {};
+              if (commentCountSnapshot.exists()) {
+                commentObject.comments = {
+                      commentsCount: commentCountSnapshot.numChildren(),
+                      lastComment: '',
+                      commentorImage: '',
+                      username: ''                  
+                }
+              }
+              
+              Object.assign(reviewObject, review.val(), key, reviewer, likes, commentObject);
+              feedArray = [reviewObject].concat(feedArray);
+              feedArray.sort(userFeedCompare);
+              dispatch({
+                type: GET_REVIEWS_BY_USER,
+                payload: feedArray
+              })
+            })        
           })
         });
       })
@@ -610,24 +621,36 @@ export function getLikesByUser(appUserId, userId) {
       reviewsSnapshot.forEach(function(review) {
         Firebase.database().ref(Constants.USERS_PATH + '/' + review.val().reviewerId).on('value', userSnapshot => {
           Firebase.database().ref(Constants.LIKES_PATH + '/' + review.key).on('value', likesSnapshot => {
-            const reviewObject = {};
-            const key = { id: review.key };
-            const reviewer = { reviewer: userSnapshot.val() };
-            let isLiked = false;
-            if (likesSnapshot.val()) {
-              isLiked = searchLikes(appUserId, likesSnapshot.val());
-            }
-            let likes = { 
-              likesCount: likesSnapshot.numChildren(), 
-              isLiked: isLiked
-            }
-            Object.assign(reviewObject, review.val(), key, reviewer, likes);
-            feedArray = [reviewObject].concat(feedArray);
-            feedArray.sort(userFeedCompare);
+            Firebase.database().ref(Constants.COMMENTS_PATH + '/' + review.key).on('value', commentCountSnapshot => {
+              const reviewObject = {};
+              const key = { id: review.key };
+              const reviewer = { reviewer: userSnapshot.val() };
+              let isLiked = false;
+              if (likesSnapshot.val()) {
+                isLiked = searchLikes(appUserId, likesSnapshot.val());
+              }
+              let likes = { 
+                likesCount: likesSnapshot.numChildren(), 
+                isLiked: isLiked
+              }
+              let commentObject = {};
+              if (commentCountSnapshot.exists()) {
+                commentObject.comments = {
+                      commentsCount: commentCountSnapshot.numChildren(),
+                      lastComment: '',
+                      commentorImage: '',
+                      username: ''                  
+                }
+              }
 
-            dispatch({
-              type: GET_LIKES_BY_USER,
-              payload: feedArray
+              Object.assign(reviewObject, review.val(), key, reviewer, likes, commentObject);
+              feedArray = [reviewObject].concat(feedArray);
+              feedArray.sort(userFeedCompare);
+
+              dispatch({
+                type: GET_LIKES_BY_USER,
+                payload: feedArray
+              })
             })
           })
         });
@@ -641,6 +664,7 @@ export function unloadReviewsByUser(userId) {
     Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + userId).orderByChild('lastModified').once('value', reviewsSnapshot => {
       reviewsSnapshot.forEach(function(review) {
         Firebase.database().ref(Constants.LIKES_PATH + '/' + review.key).off();
+        Firebase.database().ref(Constants.COMMENTS_PATH + '/' + review.key).off();
       })
     })
     Firebase.database().ref(Constants.USERS_PATH + '/' + userId).off();
@@ -658,6 +682,7 @@ export function unloadLikesByUser(userId) {
       reviewsSnapshot.forEach(function(review) {
         Firebase.database().ref(Constants.USERS_PATH + '/' + review.val().reviewerId).off();
         Firebase.database().ref(Constants.LIKES_PATH + '/' + review.key).off();
+        Firebase.database().ref(Constants.COMMENTS_PATH + '/' + review.key).off();
       })
     })
     Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).orderByChild('lastModified').off();
@@ -695,25 +720,38 @@ export function getUserFeed(uid) {
           reviewsSnapshot.forEach(function(review) {
             Firebase.database().ref(Constants.USERS_PATH + '/' + followedUser.key).on('value', userSnapshot => {
               Firebase.database().ref(Constants.LIKES_PATH + '/' + review.key).on('value', likesSnapshot => {
-                let reviewObject = {};
-                let key = { id: review.key };
-                let reviewer = { reviewer: userSnapshot.val() };
-                reviewer.reviewer.userId = followedUser.key
-                let isLiked = false;
-                if (likesSnapshot.val()) {
-                  isLiked = searchLikes(uid, likesSnapshot.val());
-                }
-                let likes = { 
-                  likesCount: likesSnapshot.numChildren(), 
-                  isLiked: isLiked
-                }
-                Object.assign(reviewObject, key, reviewer, review.val(), likes);
-                feedArray = [reviewObject].concat(feedArray);
-                feedArray.sort(userFeedCompare);
+                Firebase.database().ref(Constants.COMMENTS_PATH + '/' + review.key).on('value', commentCountSnapshot => {
+                  let reviewObject = {};
+                  let key = { id: review.key };
+                  let reviewer = { reviewer: userSnapshot.val() };
+                  reviewer.reviewer.userId = followedUser.key
+                  let isLiked = false;
+                  if (likesSnapshot.val()) {
+                    isLiked = searchLikes(uid, likesSnapshot.val());
+                  }
+                  let likes = { 
+                    likesCount: likesSnapshot.numChildren(), 
+                    isLiked: isLiked
+                  }
 
-                dispatch({
-                  type: GET_USER_FEED,
-                  payload: feedArray
+                  let commentObject = {};
+                  if (commentCountSnapshot.exists()) {
+                    commentObject.comments = {
+                          commentsCount: commentCountSnapshot.numChildren(),
+                          lastComment: '',
+                          commentorImage: '',
+                          username: ''                  
+                    }
+                  }
+
+                  Object.assign(reviewObject, key, reviewer, review.val(), likes, commentObject);
+                  feedArray = [reviewObject].concat(feedArray);
+                  feedArray.sort(userFeedCompare);
+
+                  dispatch({
+                    type: GET_USER_FEED,
+                    payload: feedArray
+                  })
                 })
               })
             })
@@ -765,6 +803,7 @@ export function unloadUserFeed(uid) {
         Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + followedUser.key).once('value', userReviewsSnapshot => {
           userReviewsSnapshot.forEach(function(review) {
             Firebase.database().ref(Constants.LIKES_PATH + '/' + review.key).off();
+            Firebase.database().ref(Constants.COMMENTS_PATH + '/' + review.key).off();
           })
         })
         Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + followedUser.key).off();
@@ -792,27 +831,39 @@ export function getGlobalFeed(uid) {
         let reviewerId = review.val().userId;
         Firebase.database().ref(Constants.USERS_PATH + '/' + reviewerId).on('value', userSnapshot => {
           Firebase.database().ref(Constants.LIKES_PATH + '/' + review.key).on('value', likesSnapshot => {
-            if (reviewerId !== uid) {
-              let reviewObject = {};
-              let key = { id: review.key };
-              let reviewer = { reviewer: userSnapshot.val() };
-              let isLiked = false;
-              if (likesSnapshot.exists()) {
-                isLiked = searchLikes(uid, likesSnapshot.val());
-              }
-              let likes = { 
-                likesCount: likesSnapshot.numChildren(), 
-                isLiked: isLiked
-              }
-              Object.assign(reviewObject, key, reviewer, review.val(), likes);
-              feedArray = [reviewObject].concat(feedArray);
-              feedArray.sort(userFeedCompare);
+            Firebase.database().ref(Constants.COMMENTS_PATH + '/' + review.key).on('value', commentCountSnapshot => {
+              if (reviewerId !== uid) {
+                let reviewObject = {};
+                let key = { id: review.key };
+                let reviewer = { reviewer: userSnapshot.val() };
+                let isLiked = false;
+                if (likesSnapshot.exists()) {
+                  isLiked = searchLikes(uid, likesSnapshot.val());
+                }
+                let likes = { 
+                  likesCount: likesSnapshot.numChildren(), 
+                  isLiked: isLiked
+                }
+                let commentObject = {};
+                if (commentCountSnapshot.exists()) {
+                  commentObject.comments = {
+                        commentsCount: commentCountSnapshot.numChildren(),
+                        lastComment: '',
+                        commentorImage: '',
+                        username: ''                  
+                  }
+                }
 
-              dispatch({
-                type: GET_GLOBAL_FEED,
-                payload: feedArray
-              })
-            }
+                Object.assign(reviewObject, key, reviewer, review.val(), likes, commentObject);
+                feedArray = [reviewObject].concat(feedArray);
+                feedArray.sort(userFeedCompare);
+
+                dispatch({
+                  type: GET_GLOBAL_FEED,
+                  payload: feedArray
+                })
+              }
+            })
           })
         })
       });
@@ -826,6 +877,7 @@ export function unloadGlobalFeed(uid) {
       reviewsSnapshot.forEach(function(review) {
         Firebase.database().ref(Constants.USERS_PATH + '/' + review.val().userId).off();
         Firebase.database().ref(Constants.LIKES_PATH + '/' + review.key).off();
+        Firebase.database().ref(Constants.COMMENTS_PATH + '/' + review.key).off();
       })
     })
     Firebase.database().ref(Constants.REVIEWS_PATH + '/').orderByChild('lastModified').off();

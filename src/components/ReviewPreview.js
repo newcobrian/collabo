@@ -37,6 +37,23 @@ const LikeReviewButton = props => {
   );
 };
 
+const CommentPreview = props => {
+  if (props.comments) {
+    return (
+    <div className="comments-preview-wrapper roow roow-col-left">
+      <Link to={`review/${props.review.subjectId}/${props.review.id}`}>
+        <div className="roow roow-row-col">
+          <div className="commenter-pic"><img src={props.comments.image}/></div>
+          <div className="comment-single">{props.comments.body}</div>
+        </div>
+        <div className="comment-counter">{props.comments.commentsCount} Comments</div>
+      </Link>
+    </div>
+    )
+  }
+  return null;
+}
+
 const ReviewPreview = props => {
   const review = props.review;
   return (
@@ -110,13 +127,7 @@ const ReviewPreview = props => {
                   </div>
                 </div>
                 
-                <div className="comments-preview-wrapper roow roow-col-left">
-                  <div className="roow roow-row-col">
-                    <div className="commenter-pic"><img src="../../img/placeholder_kiko.png"/></div>
-                    <div className="comment-single">hahahaha so i rike it</div>
-                  </div>
-                  <div className="comment-counter">10 Comments</div>
-                </div>
+                <CommentPreview comments={props.review.comments} review={props.review} />
             </div>
 
 
