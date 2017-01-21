@@ -4,7 +4,10 @@ import * as Constants from './constants'
 export function sendInboxMessage(senderId, recipientIds, messageType, review) {
 	const inboxObject = {
 		reviewId: review.id,
-		senderId: senderId
+		reviewImage: review.image,
+		reviewTitle: review.title,
+		senderId: senderId,
+		lastModified: Firebase.database.ServerValue.TIMESTAMP
 	};
 
 	switch(messageType) {

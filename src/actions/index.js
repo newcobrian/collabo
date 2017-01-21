@@ -44,6 +44,7 @@ export const UNLOAD_FOLLOWERS = 'UNLOAD_FOLLOWERS';
 export const UNLOAD_LIKES_BY_USER = 'UNLOAD_LIKES_BY_USER';
 export const RATING_UPDATED = 'RATING_UPDATED';
 export const INBOX_MESSAGE_SENT = 'INBOX_MESSAGE_SENT';
+export const GET_INBOX = 'GET_INBOX';
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -472,7 +473,7 @@ export function getReview(reviewId) {
 
 export function getComments(reviewId) {
   return dispatch => {
-    Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewId).orderByChild('timestamp').on('value', snapshot => {
+    Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewId).orderByChild('lastModified').on('value', snapshot => {
       let comments = [];
       snapshot.forEach(function(childSnapshot) {
         Firebase.database().ref(Constants.USERS_PATH + '/' + childSnapshot.val().userId).on('value', userSnapshot => {
@@ -532,7 +533,7 @@ export function onCommentSubmit(reviewId, body) {
     const comment = {
       userId: userId,
       body: body,
-      timestamp: Firebase.database.ServerValue.TIMESTAMP
+      lastModified: Firebase.database.ServerValue.TIMESTAMP
     }
 
     Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewId).push(comment)
@@ -972,6 +973,37 @@ export function unloadFollowers(userId, followPath) {
 
     dispatch({
       type: UNLOAD_FOLLOWERS
+    })
+  }
+}
+
+export function getInbox(userId) {
+  return dispatch => {
+    let inboxArray = [];
+    Firebase.database().ref(Constants.INBOX_PATH + '/' + userId).on('value', inboxSnapshot => {
+      if (!inboxSnapshot.exists()) {
+        dispatch({
+          type: GET_INBOX,
+          payload: []
+        })
+      }
+
+      inboxSnapshot.forEach(function(inboxChild) {
+        Firebase.database().ref(Constants.USERS_PATH + '/' + inboxChild.val().senderId).on('value', senderSnapshot => {
+          let inboxObject = inboxChild.val();
+          inboxObject.key = inboxChild.key;
+          inboxObject.senderUsername = senderSnapshot.val().username;
+          inboxObject.senderImage = senderSnapshot.val().image;
+
+          inboxArray = [inboxObject].concat(inboxArray);
+          inboxArray.sort(userFeedCompare);
+
+          dispatch({
+            type: GET_INBOX,
+            payload: inboxArray
+          })
+        })
+      })
     })
   }
 }
