@@ -10,12 +10,12 @@ const CommentContainer = props => {
 			<div className="comments-module">
 		        <div>
 		          <ListErrors errors={props.errors}></ListErrors>
-		          <CommentInput reviewId={props.reviewId} currentUser={props.currentUser} />
+		          <CommentInput review={props.review} currentUser={props.currentUser} />
 		        </div>
 
 		        <CommentList
 		          comments={props.comments}
-		          reviewId={props.reviewId}
+		          review={props.review}
 		          currentUser={props.currentUser} />
 		     </div>
 		);
@@ -31,7 +31,7 @@ const CommentContainer = props => {
 
 				<CommentList
 					comments={props.comments}
-					reviewId={props.reviewId}
+					review={props.review}
 					currentUser={props.currentUser} />
 			</div>
 		);

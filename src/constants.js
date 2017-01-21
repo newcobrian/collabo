@@ -14,3 +14,5 @@ export const LIKES_BY_USER_PATH = '/likes-by-user'
 export const INBOX_PATH = '/inbox'
 
 export const LIKE_MESSAGE = 'LIKE_MESSAGE'
+export const COMMENT_ON_COMMENT_MESSAGE = 'COMMENT_COMMENT_MESSAGE'
+export const COMMENT_ON_REVIEW_MESSAGE = 'COMMENT_REVIEW_MESSAGE'

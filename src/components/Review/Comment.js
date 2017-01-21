@@ -24,7 +24,7 @@ const Comment = props => {
           {comment.username}
         </Link>
         <span className="date-posted">
-          {new Date(comment.timestamp).toLocaleString([], {year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute:'2-digit'})}
+          {new Date(comment.lastModified).toLocaleString([], {year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute:'2-digit'})}
         </span>
         <DeleteButton show={show} reviewId={props.reviewId} commentId={comment.id} />
       </div>

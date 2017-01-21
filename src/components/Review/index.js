@@ -26,21 +26,16 @@ class Review extends React.Component {
     //   agent.Articles.get(this.props.params.id),
     //   agent.Comments.forArticle(this.props.params.id)
     // ]));
-    this.props.getSubject(this.props.params.sid);
     this.props.getReview(this.props.params.rid);
     this.props.getComments(this.props.params.rid);
   }
 
   componentWillUnmount() {
-    this.props.unloadSubject(this.props.params.sid);
     this.props.unloadReview(this.props.params.rid);
     this.props.unloadComments(this.props.params.rid);
   }
 
   render() {
-    if (!this.props.subject) {
-      return null;
-    }
     if (!this.props.review) {
       return null;
     }
@@ -59,7 +54,7 @@ class Review extends React.Component {
       <div className="reviews-wrapper roow roow-col">
           
           <div className="subject-name-container">
-                <div className="text-subject-name">{this.props.subject.title}</div>
+                <div className="text-subject-name">{this.props.review.subject.title}</div>
                 <div className="text-category shift-up-5">Book, Movie, Restaurant, Cool</div>
           </div>
 
@@ -69,7 +64,7 @@ class Review extends React.Component {
             
             <div className="review-image-wrapper">
               <SubjectMeta
-              subject={this.props.subject}
+              subject={this.props.review.subject}
               canModify={canModify} />
             </div>
 
@@ -124,7 +119,7 @@ class Review extends React.Component {
          <CommentContainer
             comments={this.props.comments || []}
             errors={this.props.commentErrors}
-            reviewId={this.props.params.rid}
+            review={this.props.review}
             currentUser={this.props.currentUser} />
         </div>
       </div>

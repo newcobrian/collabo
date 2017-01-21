@@ -458,14 +458,18 @@ export function getReview(reviewId) {
   return dispatch => {
     Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewId).on('value', snapshot => {
       const review = snapshot.val();
+      review.id = snapshot.key;
       review.rater = {};
       Firebase.database().ref(Constants.USERS_PATH + '/' + review.userId).on('value', userSnapshot => {
-        const userMeta = { username: userSnapshot.val().username, image: userSnapshot.val().image };
-        Object.assign(review.rater, userMeta);
-          dispatch({
-            type: GET_REVIEW,
-            payload: review
-          });
+        Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + review.subjectId).on('value', subjectSnapshot => {
+          const userMeta = { username: userSnapshot.val().username, image: userSnapshot.val().image };
+          Object.assign(review.rater, userMeta);
+          review.subject = subjectSnapshot.val();
+            dispatch({
+              type: GET_REVIEW,
+              payload: review
+            });
+        })
       })
     });
   }
@@ -501,10 +505,11 @@ export function unloadSubject(subjectId) {
   }
 }
 
-export function unloadReview(reviewId) {
+export function unloadReview(reviewId, subjectId) {
   return dispatch => {
     Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewId).once('value', snapshot => {
       Firebase.database().ref(Constants.USERS_PATH + '/' + snapshot.val().userId).off();
+      Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId).off();
     });
     dispatch({
       type: REVIEW_UNLOADED,
@@ -527,7 +532,7 @@ export function unloadComments(reviewId) {
   }
 }
 
-export function onCommentSubmit(reviewId, body) {
+export function onCommentSubmit(review, body) {
   return dispatch => {
     const userId = Firebase.auth().currentUser.uid;
     const comment = {
@@ -536,19 +541,26 @@ export function onCommentSubmit(reviewId, body) {
       lastModified: Firebase.database.ServerValue.TIMESTAMP
     }
 
-    Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewId).push(comment)
-      .then(response => {
-        dispatch({
-          type: ADD_COMMENT
-        })
+    Firebase.database().ref(Constants.COMMENTS_PATH + '/' + review.id).push(comment);
+
+    // send message to original review poster
+    sendInboxMessage(userId, review.userId, Constants.COMMENT_ON_REVIEW_MESSAGE, review);
+    const sentArray = [review.userId];
+
+    Firebase.database().ref(Constants.COMMENTS_PATH + '/' + review.id).once('value', commentsSnapshot => {
+      commentsSnapshot.forEach(function(comment) {
+        let commenterId = comment.val().userId;
+        // if not commentor or in sent array, then send a message
+        if (commenterId !== userId && (sentArray.indexOf(commenterId) === -1)) {
+          sendInboxMessage(userId, commenterId, Constants.COMMENT_ON_COMMENT_MESSAGE, review);
+          sentArray.push(commenterId);
+        }
       })
-      .catch(error => {
-        console.log(error);
-        dispatch({
-          type: ADD_COMMENT,
-          payload: error
-        })
-      });
+    })
+
+    dispatch({
+      type: ADD_COMMENT
+    })
   }
 }
 
@@ -800,7 +812,7 @@ export function likeReview(userId, review) {
   updates[`/${Constants.LIKES_BY_USER_PATH}/${userId}/${review.id}`] = updateInfo;
   Firebase.database().ref().update(updates);
 
-  sendInboxMessage(userId, [review.reviewer.userId], Constants.LIKE_MESSAGE, review);
+  sendInboxMessage(userId, review.reviewer.userId, Constants.LIKE_MESSAGE, review);
 
   return dispatch => {
     dispatch({

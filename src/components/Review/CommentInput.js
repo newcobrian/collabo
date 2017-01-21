@@ -25,7 +25,7 @@ class CommentInput extends React.Component {
       //   { body: this.state.body });
       const commentBody = ''.concat(this.state.body);
       this.setState({ body: '' });
-      this.props.onCommentSubmit(this.props.reviewId, commentBody);
+      this.props.onCommentSubmit(this.props.review, commentBody);
     };
   }
 

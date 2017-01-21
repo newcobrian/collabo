@@ -10,7 +10,7 @@ const CommentList = props => {
             <Comment
               comment={comment}
               currentUser={props.currentUser}
-              reviewId={props.reviewId}
+              review={props.review}
               key={comment.id} />
           );
         })
