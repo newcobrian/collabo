@@ -42,7 +42,7 @@ class Login extends React.Component {
     const email = this.props.email;
     const password = this.props.password;
     return (
-      <div className="auth-page">
+      <div className="page-common auth-page">
         <div className="container page">
           <div className="row">
 
@@ -78,7 +78,7 @@ class Login extends React.Component {
                   </fieldset>
 
                   <button
-                    className="btn btn-lg btn-primary pull-xs-right"
+                    className="bttn-style bttn-wider pull-xs-right"
                     type="submit"
                     disabled={this.props.inProgress}>
                     Sign in

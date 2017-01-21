@@ -97,7 +97,7 @@ class Register extends React.Component {
                   </fieldset>
 
                   <button
-                    className="btn btn-lg btn-primary pull-xs-right"
+                    className="bttn-style bttn-wide pull-xs-right"
                     type="submit"
                     disabled={this.props.inProgress}>
                     Sign in

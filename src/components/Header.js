@@ -4,24 +4,14 @@ import React from 'react';
 const LoggedOutView = props => {
   if (!props.currentUser) {
     return (
-      <div className="navigation-bar roow roow-row-right">
-        <div className="nav-module">
-          <Link to="/" className="nav-link">
-            Feed
-          </Link>
-        </div>
-
-        <div className="nav-module">
-          <Link to="login" className="nav-link">
+      <div className="navigation-bar no-icons roow roow-row-right">
+          <Link to="login" className="nav-module">
             Sign-in
           </Link>
-        </div>
 
-        <div className="nav-module">
-          <Link to="register" className="nav-link">
+          <Link to="register" className="nav-module">
             Sign up
           </Link>
-        </div>
 
       </div>
     );
@@ -36,25 +26,25 @@ const LoggedInView = props => {
         
         <Link to="editor" className="nav-module nav-editor">  
             <div className="nav-icon"><img src="../img/icon32_add.png"/></div>
-            New
+            <div className="nav-text">New</div>
         </Link>
 
         <Link to="" className="nav-module">
             <div className="nav-icon"><img src="../img/icon32_feed.png"/></div>
-            Feed
+            <div className="nav-text">Feed</div>
         </Link>
         
         <Link to="inbox" className="nav-module">
             <div className="nav-icon"><img src="../img/icon32_inbox.png"/></div>
-            Inbox
+            <div className="nav-text">Inbox</div>
         </Link>
         <Link to={`@${props.userInfo.username}`} className="nav-module">        
             <div className="nav-icon"><img src="../img/icon32_saved.png"/></div>
-            Saved
+            <div className="nav-text">Saved</div>
         </Link>
         <Link to={`@${props.userInfo.username}`} className="nav-module">
             <div className="nav-icon"><img className="center-img" src={props.userInfo.image}/></div>
-            Profile
+            <div className="nav-text">Profile</div>
         </Link>
 
 

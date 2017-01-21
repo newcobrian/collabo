@@ -105,7 +105,7 @@ class Editor extends React.Component {
     return (
       <div className="roow roow-col roow-center-all page-common editor-page">
             <div className="page-title-wrapper roow roow-col center-text">
-              <div className="text-page-title">Post New Reccoon</div>
+              <div className="text-page-title">What's Good?</div>
               <div className="text-page-subtitle">Recommend something cool to your friends. Or warn the world against something bad! Pass on the knowledge.</div>
             </div>
 
@@ -116,20 +116,58 @@ class Editor extends React.Component {
               <form>
                 <fieldset>
 
-                  <fieldset className="form-group">
+                  <fieldset className="form-group no-margin">
                     <input
                       className="form-control"
                       type="text"
-                      placeholder="Item Title"
+                      placeholder="Product Name"
                       value={this.props.title}
                       onChange={this.changeTitle} />
                   </fieldset>
 
+
+                  <fieldset className="form-group no-margin">
+                    <div className={'rating-container rating-wrapper-' + this.props.rating}>
+                        <div className="roow roow-row-space-around">
+                          <button className="rating-graphic rating--2" onClick={this.onRatingsChange(-2)}></button>
+                          <button className="rating-graphic rating--1" onClick={this.onRatingsChange(-1)}></button>
+                          <button className="rating-graphic rating-0" onClick={this.onRatingsChange(0)}></button>
+                          <button className="rating-graphic rating-1" onClick={this.onRatingsChange(1)}></button>
+                          <button className="rating-graphic rating-2" onClick={this.onRatingsChange(2)}></button>
+                        </div>
+                        <div className="roow roow-row-space-around">
+                          <div className="rating-description">WTF</div>
+                          <div className="rating-description">Weak</div>
+                          <div className="rating-description">Meh</div>
+                          <div className="rating-description">Coo</div>
+                          <div className="rating-description">Lit as Fuck</div>
+                        </div>
+                    </div>
+                  </fieldset>
+
+                  <fieldset className="form-group">
+                    <textarea
+                      className="form-control caption"
+                      rows="3"
+                      placeholder="Write something about it..."
+                      value={this.props.caption}
+                      onChange={this.changeCaption}>
+                    </textarea>
+                  </fieldset>
                   <fieldset className="form-group">
                     <input
                       className="form-control"
                       type="text"
-                      placeholder="Item description"
+                      placeholder="URL of item picture"
+                      value={this.props.image}
+                      onChange={this.changeImage} />
+                  </fieldset> 
+
+                  <fieldset className="form-group no-margin">
+                    <input
+                      className="form-control"
+                      type="text"
+                      placeholder="#tags"
                       value={this.props.description}
                       onChange={this.changeDescription} />
                   </fieldset>
@@ -138,48 +176,13 @@ class Editor extends React.Component {
                     <input
                       className="form-control"
                       type="text"
-                      placeholder="URL of item picture"
-                      value={this.props.image}
-                      onChange={this.changeImage} />
+                      placeholder="website link"
+                      value={this.props.description}
+                      onChange={this.changeDescription} />
                   </fieldset>
 
-                  <div>Your Rating</div>
 
-                  <fieldset className="form-group">
-                    <div className={'rating-container roow roow-row-center rating-wrapper-' + this.props.rating}>
-                        <button className="rating-graphic rating--2" onClick={this.onRatingsChange(-2)}></button>
-                        <button className="rating-graphic rating--1" onClick={this.onRatingsChange(-1)}></button>
-                        <button className="rating-graphic rating-0" onClick={this.onRatingsChange(0)}></button>
-                        <button className="rating-graphic rating-1" onClick={this.onRatingsChange(1)}></button>
-                        <button className="rating-graphic rating-2" onClick={this.onRatingsChange(2)}></button>
-                    </div>
-                  </fieldset>
 
-                  <fieldset className="form-group">
-                    <textarea
-                      className="form-control"
-                      rows="8"
-                      placeholder="Add a caption"
-                      value={this.props.caption}
-                      onChange={this.changeCaption}>
-                    </textarea>
-                  </fieldset>
-
-               {/*     <div className="tag-list">
-                      {
-                        (this.props.tagList || []).map(tag => {
-                          return (
-                            <span className="tag-default tag-pill" key={tag}>
-                              <i  className="ion-close-round"
-                                  onClick={this.removeTagHandler(tag)}>
-                              </i>
-                              {tag}
-                            </span>
-                          );
-                        })
-                      }
-                    </div>
-                  </fieldset>   */ }
 
                   <button
                     className="bttn-style bttn-submit"

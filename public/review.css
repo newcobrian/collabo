@@ -105,11 +105,16 @@
   background-repeat: no-repeat;
   /*border: 1px solid rgba(0,0,0,.4);*/
   /*box-shadow: 0 3px 5px 4px rgba(0,0,0,.1);*/
-  background-size: 32px;
+  background-size: 24px;
+  background-size: 42px;
   background-position: -9999px -9999px;
   /*box-shadow: 0 0 0px 3px white, 0 0px 9px 9px rgba(0,0,0,.1);*/
   background-color: black;
   margin-right: 10px;
+  border: none;
+}
+.rating-graphic:focus {
+  outline: 0 !important;
 }
 .rating-wrapper--3 .rating-graphic.rating--2,
 .rating-wrapper--2 .rating-graphic.rating--2,
@@ -123,16 +128,14 @@
   filter: grayscale(0%);
   background-position: center;
   display: block;    
-
-  -ms-transform: rotate(-16deg); /* IE 9 */
-    -webkit-transform: rotate(-16deg); /* Chrome, Safari, Opera */
-    transform: rotate(-16deg);
-
+  /*-ms-transform: rotate(-16deg);
+    -webkit-transform: rotate(-16deg);
+    transform: rotate(-16deg);*/
   box-shadow: inset 1px 2px 16px 3px rgba(255,255,255,.7), -5px 6px 12px rgba(0,0,0,0.1);             
-  box-shadow: -5px 6px 12px rgba(0,0,0,0.1);             
+  box-shadow: 0px 6px 12px rgba(0,0,0,0.1);             
   margin-top: -8px;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
 }
 .rating-graphic.rating--2 {
   background-image:url(img/graphic42_face_wtf.png);
@@ -141,7 +144,7 @@
 .rating-graphic.rating--1 {
   background-image:url(img/graphic42_face_weak.png);
   background-color: #E0BA92;
-/*                  width: 42px;
+/*width: 42px;
   height: 42px;
   background-size: 42px;*/
 }
@@ -162,6 +165,7 @@
 .rating-graphic.rating-2 {
   background-image:url(img/graphic42_face_LIT.png);
   background-color: #00D770;
+  background-color: #1ac98e;
 }
 
 
