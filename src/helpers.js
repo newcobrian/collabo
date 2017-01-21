@@ -2,7 +2,6 @@ import Firebase from 'firebase';
 import * as Constants from './constants'
 
 export function sendInboxMessage(senderId, recipientId, messageType, review) {
-	console.log('inboxmsg stuff sid = ' + senderId, + ' rip = ' + recipientId + ' msgtype = ' + messageType + ' review = ' + JSON.stringify(review))
 	const inboxObject = {
 		reviewId: review.id,
 		senderId: senderId,
