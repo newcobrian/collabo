@@ -644,45 +644,49 @@ export function getReviewsByUser(appUserId, userId) {
 export function getLikesByUser(appUserId, userId) {
   return dispatch => {
     let feedArray = [];
-    Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).orderByChild('lastModified').on('value', reviewsSnapshot => {
-      if (!reviewsSnapshot.exists()) {
+    Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).orderByChild('lastModified').on('value', likesByUserSnapshot => {
+      if (!likesByUserSnapshot.exists()) {
         dispatch({
           type: GET_LIKES_BY_USER,
           payload: []
         })
       }
-      reviewsSnapshot.forEach(function(review) {
-        Firebase.database().ref(Constants.USERS_PATH + '/' + review.val().reviewerId).on('value', userSnapshot => {
-          Firebase.database().ref(Constants.LIKES_PATH + '/' + review.key).on('value', likesSnapshot => {
-            Firebase.database().ref(Constants.COMMENTS_PATH + '/' + review.key).on('value', commentCountSnapshot => {
-              const reviewObject = {};
-              const key = { id: review.key };
-              const reviewer = { reviewer: userSnapshot.val() };
-              let isLiked = false;
-              if (likesSnapshot.val()) {
-                isLiked = searchLikes(appUserId, likesSnapshot.val());
-              }
-              let likes = { 
-                likesCount: likesSnapshot.numChildren(), 
-                isLiked: isLiked
-              }
-              let commentObject = {};
-              if (commentCountSnapshot.exists()) {
-                commentObject.comments = {
-                      commentsCount: commentCountSnapshot.numChildren(),
-                      lastComment: '',
-                      commentorImage: '',
-                      username: ''                  
-                }
-              }
+      likesByUserSnapshot.forEach(function(likeItem) {
+        Firebase.database().ref(Constants.REVIEWS_PATH + '/' + likeItem.key).on('value', reviewSnapshot => {
+          Firebase.database().ref(Constants.USERS_PATH + '/' + reviewSnapshot.val().userId).on('value', userSnapshot => {
+            Firebase.database().ref(Constants.LIKES_PATH + '/' + likeItem.key).on('value', likesSnapshot => {
+              Firebase.database().ref(Constants.COMMENTS_PATH + '/' + likeItem.key).on('value', commentCountSnapshot => {
+                Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + reviewSnapshot.val().subjectId).on('value', subjectSnapshot => {
+                  const reviewObject = {};
+                  const key = { id: likeItem.key };
+                  const reviewer = { reviewer: userSnapshot.val() };
+                  let isLiked = false;
+                  if (likesSnapshot.val()) {
+                    isLiked = searchLikes(appUserId, likesSnapshot.val());
+                  }
+                  let likes = { 
+                    likesCount: likesSnapshot.numChildren(), 
+                    isLiked: isLiked
+                  }
+                  let commentObject = {};
+                  if (commentCountSnapshot.exists()) {
+                    commentObject.comments = {
+                          commentsCount: commentCountSnapshot.numChildren(),
+                          lastComment: '',
+                          commentorImage: '',
+                          username: ''                  
+                    }
+                  }
 
-              Object.assign(reviewObject, review.val(), key, reviewer, likes, commentObject);
-              feedArray = [reviewObject].concat(feedArray);
-              feedArray.sort(userFeedCompare);
+                  Object.assign(reviewObject, reviewSnapshot.val(), key, reviewer, likes, commentObject, subjectSnapshot.val());
+                  feedArray = [reviewObject].concat(feedArray);
+                  feedArray.sort(userFeedCompare);
 
-              dispatch({
-                type: GET_LIKES_BY_USER,
-                payload: feedArray
+                  dispatch({
+                    type: GET_LIKES_BY_USER,
+                    payload: feedArray
+                  })
+                })
               })
             })
           })
@@ -799,17 +803,18 @@ export function likeReview(userId, review) {
   const updates = {};
   const updateInfo = {};
 
-  if (review.subjectId) updateInfo.subjectId = review.subjectId;
-  if (review.rating) updateInfo.rating = review.rating;
-  if (review.caption) updateInfo.caption = review.caption;
-  if (review.lastModified) updateInfo.lastModified = review.lastModified;
-  if (review.title) updateInfo.title = review.title;
-  if (review.description) updateInfo.description = review.description;
-  if (review.image) updateInfo.image = review.image;
-  if (review.reviewer.reviewerId) updateInfo.reviewerId = review.subjectId.reviewer.reviewerId;
+  // if (review.subjectId) updateInfo.subjectId = review.subjectId;
+  // if (review.rating) updateInfo.rating = review.rating;
+  // if (review.caption) updateInfo.caption = review.caption;
+  // if (review.lastModified) updateInfo.lastModified = review.lastModified;
+  // if (review.title) updateInfo.title = review.title;
+  // if (review.description) updateInfo.description = review.description;
+  // if (review.image) updateInfo.image = review.image;
+  // if (review.reviewer.reviewerId) updateInfo.reviewerId = review.reviewer.reviewerId;
 
   updates[`/${Constants.LIKES_PATH}/${review.id}/${userId}`] = true;
-  updates[`/${Constants.LIKES_BY_USER_PATH}/${userId}/${review.id}`] = updateInfo;
+  // updates[`/${Constants.LIKES_BY_USER_PATH}/${userId}/${review.id}`] = updateInfo;
+  updates[`/${Constants.LIKES_BY_USER_PATH}/${userId}/${review.id}`] = true;
   Firebase.database().ref().update(updates);
 
   sendInboxMessage(userId, review.reviewer.userId, Constants.LIKE_MESSAGE, review);
