@@ -11,6 +11,7 @@ const mapStateToProps = state => ({
   appName: state.common.appName,
   currentUser: state.common.currentUser,
   userInfo: state.common.userInfo,
+  unreadMessages: state.common.unreadMessages,
   redirectTo: state.common.redirectTo
 });
 
@@ -47,6 +48,7 @@ class App extends React.Component {
         // console.log('app.js: agent auth current = ' + JSON.stringify(agent.Auth.current()));
         this.props.onLoad(user, user.uid);
         this.props.getAppUser(user.uid);
+        this.props.getInboxCount(user.uid);
       } else {
         this.props.onLoad(null, false);
       }
@@ -68,7 +70,8 @@ class App extends React.Component {
           <Header
             appName={this.props.appName}
             currentUser={this.props.currentUser}
-            userInfo={this.props.userInfo} />
+            userInfo={this.props.userInfo} 
+            unreadMessages={this.props.unreadMessages} />
           {this.props.children}
         </div>
       );

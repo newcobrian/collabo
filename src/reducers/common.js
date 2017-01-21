@@ -1,4 +1,5 @@
-import { AUTH_USER, SIGN_OUT_USER, AUTH_ERROR, REVIEW_SUBMITTED, APP_USER_LOADED, INBOX_MESSAGE_SENT } from '../actions';
+import { AUTH_USER, SIGN_OUT_USER, AUTH_ERROR, REVIEW_SUBMITTED, APP_USER_LOADED, 
+  INBOX_MESSAGE_SENT, GET_INBOX_COUNT } from '../actions';
 
 const defaultState = {
   appName: 'Reccoon',
@@ -20,6 +21,11 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         userInfo: action.payload ? action.payload : null
+      }
+    case GET_INBOX_COUNT:
+      return {
+        ...state,
+        unreadMessages: action.payload
       }
     case 'REDIRECT':
       return { ...state, redirectTo: null };

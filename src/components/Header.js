@@ -1,6 +1,15 @@
 import { Link } from 'react-router';
 import React from 'react';
 
+const InboxCounter = props => {
+  if (props.unreadMessages > 0) {
+    return (
+      <div>{props.unreadMessages}</div>
+    );
+  }
+  return null;
+}
+
 const LoggedOutView = props => {
   if (!props.currentUser) {
     return (
@@ -36,7 +45,7 @@ const LoggedInView = props => {
         
         <Link to="inbox" className="nav-module">
             <div className="nav-icon"><img src="../img/icon32_inbox.png"/></div>
-            <div className="nav-text">Inbox</div>
+            <div className="nav-text">Inbox</div> <InboxCounter unreadMessages={props.unreadMessages} />
         </Link>
         <Link to={`@${props.userInfo.username}`} className="nav-module">        
             <div className="nav-icon"><img src="../img/icon32_saved.png"/></div>
@@ -69,7 +78,7 @@ class Header extends React.Component {
 
           <LoggedOutView currentUser={this.props.currentUser} />
 
-          <LoggedInView currentUser={this.props.currentUser} userInfo={this.props.userInfo} />
+          <LoggedInView currentUser={this.props.currentUser} userInfo={this.props.userInfo} unreadMessages={this.props.unreadMessages} />
         </div>
     );
   }

@@ -1,4 +1,4 @@
-import { GET_INBOX } from '../actions'
+import { GET_INBOX, INBOX_COUNT_UPDATED } from '../actions'
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -8,6 +8,10 @@ export default (state = {}, action) => {
         inbox: action.payload
       };
       break;
+    case INBOX_COUNT_UPDATED:
+      return {
+        ...state
+    }
   }
 
   return state;

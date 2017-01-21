@@ -12,7 +12,10 @@ export const SAVES_BY_USER_PATH = '/saves-by-user'
 export const LIKES_PATH = '/likes'
 export const LIKES_BY_USER_PATH = '/likes-by-user'
 export const INBOX_PATH = '/inbox'
+export const INBOX_COUNTER_PATH = '/counters/inbox'
 
+
+/*** Message Type Constants ***/
 export const LIKE_MESSAGE = 'LIKE_MESSAGE'
 export const COMMENT_ON_COMMENT_MESSAGE = 'COMMENT_COMMENT_MESSAGE'
 export const COMMENT_ON_REVIEW_MESSAGE = 'COMMENT_REVIEW_MESSAGE'

@@ -45,6 +45,8 @@ export const UNLOAD_LIKES_BY_USER = 'UNLOAD_LIKES_BY_USER';
 export const RATING_UPDATED = 'RATING_UPDATED';
 export const INBOX_MESSAGE_SENT = 'INBOX_MESSAGE_SENT';
 export const GET_INBOX = 'GET_INBOX';
+export const GET_INBOX_COUNT = 'GET_INBOX_COUNT';
+export const INBOX_COUNT_UPDATED = 'INBOX_COUNT_UPDATED';
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -1021,6 +1023,39 @@ export function getInbox(userId) {
           })
         })
       })
+    })
+  }
+}
+
+export function getInboxCount(userId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + userId).on('value', inboxSnapshot => {
+      if (inboxSnapshot.exists()) {
+        const messageCount = inboxSnapshot.val().messageCount ? inboxSnapshot.val().messageCount : 0;
+        const messagesRead = inboxSnapshot.val().messagesRead ? inboxSnapshot.val().messagesRead : 0;
+        dispatch({
+          type: GET_INBOX_COUNT,
+          payload: messageCount - messagesRead
+        })
+      }
+      else dispatch({
+        type: GET_INBOX_COUNT,
+        payload: 0
+      })
+    })
+  }
+}
+
+export function updateInboxCount(userId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + userId + '/messageCount').once('value', countSnapshot => {
+      if (countSnapshot.exists()) {
+        const update = { messagesRead: countSnapshot.val() };
+        Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + userId).update(update);
+        dispatch({
+          type: INBOX_COUNT_UPDATED
+        })
+      }
     })
   }
 }

@@ -25,5 +25,8 @@ export function sendInboxMessage(senderId, recipientId, messageType, review) {
 	}
 	if (senderId !== recipientId) {
 		Firebase.database().ref(Constants.INBOX_PATH + '/' + recipientId).push().set(inboxObject);
+		Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + recipientId + '/messageCount').transaction(function (current_count) {
+            return (current_count || 0) + 1;
+        })
 	}
 }
