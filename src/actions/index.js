@@ -47,6 +47,7 @@ export const INBOX_MESSAGE_SENT = 'INBOX_MESSAGE_SENT';
 export const GET_INBOX = 'GET_INBOX';
 export const GET_INBOX_COUNT = 'GET_INBOX_COUNT';
 export const INBOX_COUNT_UPDATED = 'INBOX_COUNT_UPDATED';
+export const INBOX_UNLOADED = 'INBOX_UNLOADED';
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -717,11 +718,14 @@ export function unloadReviewsByUser(userId) {
 
 export function unloadLikesByUser(userId) {
   return dispatch => {
-    Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).orderByChild('lastModified').once('value', reviewsSnapshot => {
-      reviewsSnapshot.forEach(function(review) {
-        Firebase.database().ref(Constants.USERS_PATH + '/' + review.val().reviewerId).off();
-        Firebase.database().ref(Constants.LIKES_PATH + '/' + review.key).off();
-        Firebase.database().ref(Constants.COMMENTS_PATH + '/' + review.key).off();
+    Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).orderByChild('lastModified').once('value', likesByUserSnapshot => {
+      likesByUserSnapshot.forEach(function(likeItem) {
+        Firebase.database().ref(Constants.REVIEWS_PATH + '/' + likeItem.key).once('value', reviewSnapshot => {
+          Firebase.database().ref(Constants.LIKES_PATH + '/' + likeItem.key).off();
+          Firebase.database().ref(Constants.COMMENTS_PATH + '/' + likeItem.key).off();
+          Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + reviewSnapshot.val().subjectId).off();
+        })
+        Firebase.database().ref(Constants.REVIEWS_PATH + '/' + likeItem.key).off();
       })
     })
     Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).orderByChild('lastModified').off();
@@ -1023,6 +1027,21 @@ export function getInbox(userId) {
           })
         })
       })
+    })
+  }
+}
+
+export function unloadInbox(userId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.INBOX_PATH + '/' + userId).once('value', inboxSnapshot => {
+      inboxSnapshot.forEach(function(inboxChild) {
+        Firebase.database().ref(Constants.USERS_PATH + '/' + inboxChild.val().senderId).off();
+      })
+    })
+    Firebase.database().ref(Constants.INBOX_PATH + '/' + userId).off();
+
+    dispatch({
+      type: INBOX_UNLOADED
     })
   }
 }
