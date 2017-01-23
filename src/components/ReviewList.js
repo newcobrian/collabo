@@ -1,6 +1,7 @@
 'use strict';
 
 import ReviewPreview from './ReviewPreview';
+import ReviewPreview2 from './ReviewPreview2';
 import ListPagination from './ListPagination';
 import React from 'react';
 
@@ -24,7 +25,7 @@ const ReviewList = props => {
       {
         props.reviews.map(review => {
           return (
-            <ReviewPreview review={review} 
+            <ReviewPreview2 review={review} 
               key={review.id} 
               userId={props.userId} 
               like={props.like} 
