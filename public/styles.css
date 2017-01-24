@@ -116,8 +116,11 @@ textarea {
   padding: 5px 60px;
 }
 .bttn-submit {
-  width: 100%;
-  text-align: center;
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+    height: 70px;
+    font-size: 20px;
 }
 
 @keyframes colorchange
@@ -251,6 +254,7 @@ a.logo-module:focus {
 }
 .navigation-bar .nav-editor:hover .nav-icon {
     box-shadow: 0 0 0px 2px #2E5DD2;
+    transition: box-shadow ease-in;
 }
 .navigation-bar .nav-text {
   width: 100%;
@@ -395,6 +399,7 @@ a.logo-module:focus {
 }
 .article-page .subject-name-container {
   text-align: center;
+  margin-bottom: 30px;
 }
 .article-page .text-subject-name {
     font-size: 34px;
@@ -402,18 +407,15 @@ a.logo-module:focus {
 }
 .article-page .review-data-container {
   margin-left: 0;
-  margin-top: -110px;
+  margin-top: 0px;
+}
+.article-page .comments-container {
+  width: 100%;
 }
 .comment-wrapper {
   border-radius: 0;
 }
-.comment-input {
-      display: block;
-    font-size: 20px;
-    line-height: 26px;
-    font-weight: 100;
-    width: 100%;
-}
+
 
 
 /******
@@ -427,6 +429,13 @@ a.logo-module:focus {
 
 
 
+
+
+/******
+******
+************************************ 6. Editor
+******
+******/
 .editor-page {
   
 }
@@ -453,6 +462,7 @@ a.logo-module:focus {
     border: #ccc 1px solid;
     margin-left: 0;
     margin-bottom: 0;
+    height: 100px;
 }
 .editor-page .rating-graphic {
   margin-right: 0;
@@ -460,8 +470,62 @@ a.logo-module:focus {
 .form-group.no-margin {
   margin-bottom: -1px !important; }
 .rating-description {
-  min-width: 100px;
+  min-width: 70px;
   margin-top: 10px;
   font-size: 11px;
   text-align: center;
+}
+.square-wrapper {
+  width: 40px;
+  height: 40px;
+}
+
+
+
+
+/******
+******
+************************************ 7. Comments
+******
+******/
+.comment-wrapper.card {
+  border: none;
+  margin-bottom: 0;
+}
+.comment-wrapper.card .card-footer {
+  background-color: white;
+  padding: 10px 20px 0;
+  border-top: none;
+  height: 42px;
+}
+.comment-wrapper.card .comment-author-img {
+  width: 32px;
+  height: 32px;
+}
+.comment-wrapper.card .comment-data {
+  margin-left: 10px;
+}
+.comment-wrapper.card .comment-author {
+  font-size: 14px;
+  font-weight: 700;
+}
+.comment-wrapper.card .date-posted {
+  font-size: 11px;
+  margin-left: 0;
+}
+.comment-wrapper .comment-block {
+  padding: 5px 20px;
+}
+.comments-module .comment-input-wrapper {
+  margin-top: 20px;
+  padding-bottom: 10xp;
+  border: 1px solid rgba(0,0,0,.1);
+}
+.comments-module .comment-input-wrapper .comment-input {
+    display: block;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 100;
+    width: 100%;
+    padding: 10px 20px!important;
 }

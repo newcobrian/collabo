@@ -59,8 +59,8 @@ class Review extends React.Component {
           </div>
 
 
-<div className="roow roow-row-top flex-wrap">
-          <div className="review-container roow roow-col">
+<div className="roow roow-col flex-wrap">
+          <div className="review-container roow roow-row">
             
             <div className="review-image-wrapper">
               <SubjectMeta
@@ -129,10 +129,13 @@ class Review extends React.Component {
 
 
 
-
-
 </div>
 
+    {/****
+
+     PUT OTHER PEOPLES' REVIEWS HERE 
+
+      ****/}
 
 
 

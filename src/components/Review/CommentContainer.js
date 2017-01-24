@@ -8,15 +8,14 @@ const CommentContainer = props => {
 	if (props.currentUser) {
 		return (
 			<div className="comments-module">
-		        <div>
-		          <ListErrors errors={props.errors}></ListErrors>
-		          <CommentInput review={props.review} currentUser={props.currentUser} />
-		        </div>
-
 		        <CommentList
 		          comments={props.comments}
 		          review={props.review}
 		          currentUser={props.currentUser} />
+		        <div className="comment-input-wrapper">
+		          <ListErrors errors={props.errors}></ListErrors>
+		          <CommentInput review={props.review} currentUser={props.currentUser} />
+		        </div>
 		     </div>
 		);
 	} else {

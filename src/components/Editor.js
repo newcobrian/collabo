@@ -129,11 +129,11 @@ class Editor extends React.Component {
                   <fieldset className="form-group no-margin">
                     <div className={'rating-container rating-wrapper-' + this.props.rating}>
                         <div className="roow roow-row-space-around">
-                          <button className="rating-graphic rating--2" onClick={this.onRatingsChange(-2)}></button>
-                          <button className="rating-graphic rating--1" onClick={this.onRatingsChange(-1)}></button>
-                          <button className="rating-graphic rating-0" onClick={this.onRatingsChange(0)}></button>
-                          <button className="rating-graphic rating-1" onClick={this.onRatingsChange(1)}></button>
-                          <button className="rating-graphic rating-2" onClick={this.onRatingsChange(2)}></button>
+                          <div className="square-wrapper"><button className="rating-graphic rating--2" onClick={this.onRatingsChange(-2)}></button></div>
+                          <div className="square-wrapper"><button className="rating-graphic rating--1" onClick={this.onRatingsChange(-1)}></button></div>
+                          <div className="square-wrapper"><button className="rating-graphic rating-0" onClick={this.onRatingsChange(0)}></button></div>
+                          <div className="square-wrapper"><button className="rating-graphic rating-1" onClick={this.onRatingsChange(1)}></button></div>
+                          <div className="square-wrapper"><button className="rating-graphic rating-2" onClick={this.onRatingsChange(2)}></button></div>
                         </div>
                         <div className="roow roow-row-space-around">
                           <div className="rating-description">WTF</div>
