@@ -52,23 +52,25 @@ class ProfileLikes extends Profile {
 
   renderTabs() {
     return (
-      <ul className="nav nav-pills outline-active">
-        <li className="nav-item">
-          <Link
-            className="nav-link"
-            to={`@${this.props.profile.username}`}>
-            My Posts
-          </Link>
-        </li>
+      <div className="feed-toggle roow roow-row-center">
+          <ul className="nav nav-pills outline-active">
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                to={`@${this.props.profile.username}`}>
+                My Posts
+              </Link>
+            </li>
 
-        <li className="nav-item">
-          <Link
-            className="nav-link active"
-            to={`@${this.props.profile.username}/favorites`}>
-            My Likes
-          </Link>
-        </li>
-      </ul>
+            <li className="nav-item">
+              <Link
+                className="nav-link active"
+                to={`@${this.props.profile.username}/favorites`}>
+                My Likes
+              </Link>
+            </li>
+          </ul>
+      </div>
     );
   }
 }

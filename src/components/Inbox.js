@@ -67,7 +67,7 @@ class Inbox extends React.Component {
                     <Link
                     to={inboxItem.link}
                     className="comment-author">
-                      <div className="reviewer-photo center-img">
+                      <div className="item-photo center-img">
                         <img src={inboxItem.reviewImage} className="comment-author-img" />
                       </div>
                     </Link>

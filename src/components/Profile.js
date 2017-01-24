@@ -81,23 +81,25 @@ class Profile extends React.Component {
   renderTabs(isUser) {
     if (isUser) {
       return (
-        <ul className="nav nav-pills outline-active">
-          <li className="nav-item">
-            <Link
-              className="nav-link active"
-              to={`@${this.props.profile.username}`}>
-              My Posts
-            </Link>
-          </li>
+        <div className="feed-toggle roow roow-row-center">
+          <ul className="nav nav-pills outline-active">
+            <li className="nav-item">
+              <Link
+                className="nav-link active"
+                to={`@${this.props.profile.username}`}>
+                My Posts
+              </Link>
+            </li>
 
-          <li className="nav-item">
-            <Link
-              className="nav-link"
-              to={`@${this.props.profile.username}/likes`}>
-              My Likes
-            </Link>
-          </li>
-        </ul>
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                to={`@${this.props.profile.username}/likes`}>
+                My Likes
+              </Link>
+            </li>
+          </ul>
+        </div>
       );
     }
   }
@@ -114,10 +116,11 @@ class Profile extends React.Component {
       this.props.profile.userId === this.props.currentUser.uid;
 
     return (
-      <div className="roow roow-col-left page-common profile-page">
+      <div className="roow roow-row-top page-common profile-page">
 
-        <div className="user-info roow roow-row-left">
-          <div className="profile-info roow roow-row-left">
+        <div className="user-info">
+
+          <div className="profile-info roow roow-col-left">
 
             <img src={profile.image} className="user-img" />
             <div className="user-data roow roow-col-left">
@@ -145,19 +148,11 @@ class Profile extends React.Component {
           </div>
         </div>
 
-        <div className="roow roow-col-left">
 
-          <div className="page-title-wrapper">
-            <div className="text-page-title">
-              {this.renderTabs(isUser)}
-            </div>
-          </div>
-
-
-
-
-
-
+        {this.renderTabs(isUser)}
+        
+        <div className="profile-feed">
+     
           <ReviewList
             reviews={profile.reviews} 
             reviewsCount={this.props.reviewsCount}
