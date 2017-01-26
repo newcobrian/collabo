@@ -487,7 +487,8 @@ export function getComments(reviewId) {
           const key = { id: childSnapshot.key };
           const comment = { username: userSnapshot.val().username, image: userSnapshot.val().image };
           Object.assign(comment, childSnapshot.val(), key);
-          comments = [comment].concat(comments);
+          comments = comments.concat(comment);
+          comments.sort(lastModifiedAsc);
 
           dispatch({
             type: GET_COMMENTS,
@@ -631,7 +632,7 @@ export function getReviewsByUser(appUserId, userId) {
               
               Object.assign(reviewObject, review.val(), key, reviewer, likes, commentObject);
               feedArray = [reviewObject].concat(feedArray);
-              feedArray.sort(userFeedCompare);
+              feedArray.sort(lastModifiedDesc);
               dispatch({
                 type: GET_REVIEWS_BY_USER,
                 payload: feedArray
@@ -683,7 +684,7 @@ export function getLikesByUser(appUserId, userId) {
 
                   Object.assign(reviewObject, reviewSnapshot.val(), key, reviewer, likes, commentObject, subjectSnapshot.val());
                   feedArray = [reviewObject].concat(feedArray);
-                  feedArray.sort(userFeedCompare);
+                  feedArray.sort(lastModifiedDesc);
 
                   dispatch({
                     type: GET_LIKES_BY_USER,
@@ -737,10 +738,18 @@ export function unloadLikesByUser(userId) {
 }
 
 
-export function userFeedCompare(a, b) {
+export function lastModifiedDesc(a, b) {
   if (a.lastModified > b.lastModified)
     return -1;
   if (a.lastModified < b.lastModified)
+    return 1;
+  return 0;
+}
+
+export function lastModifiedAsc(a, b) {
+  if (a.lastModified < b.lastModified)
+    return -1;
+  if (a.lastModified > b.lastModified)
     return 1;
   return 0;
 }
@@ -789,7 +798,7 @@ export function getUserFeed(uid) {
 
                   Object.assign(reviewObject, key, reviewer, review.val(), likes, commentObject);
                   feedArray = [reviewObject].concat(feedArray);
-                  feedArray.sort(userFeedCompare);
+                  feedArray.sort(lastModifiedDesc);
 
                   dispatch({
                     type: GET_USER_FEED,
@@ -905,7 +914,7 @@ export function getGlobalFeed(uid) {
 
                 Object.assign(reviewObject, key, reviewer, review.val(), likes, commentObject);
                 feedArray = [reviewObject].concat(feedArray);
-                feedArray.sort(userFeedCompare);
+                feedArray.sort(lastModifiedDesc);
 
                 dispatch({
                   type: GET_GLOBAL_FEED,
@@ -1019,7 +1028,7 @@ export function getInbox(userId) {
           inboxObject.senderImage = senderSnapshot.val().image;
 
           inboxArray = [inboxObject].concat(inboxArray);
-          inboxArray.sort(userFeedCompare);
+          inboxArray.sort(lastModifiedDesc);
 
           dispatch({
             type: GET_INBOX,
