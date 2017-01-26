@@ -17,6 +17,9 @@ import Followers from './components/Followers';
 import Followings from './components/Followings';
 import Inbox from './components/Inbox';
 import store from './store';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
+injectTapEventPlugin();
 
 ReactDOM.render((
   <Provider store={store}>

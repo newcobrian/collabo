@@ -1,7 +1,8 @@
 import ListErrors from './ListErrors';
 import React from 'react';
 import { connect } from 'react-redux';
-import * as Actions from '../actions'
+import * as Actions from '../actions';
+import FirebaseSearchInput from './FirebaseSearchInput'
 
 const mapStateToProps = state => ({
   ...state.editor
@@ -30,6 +31,7 @@ class Editor extends React.Component {
       key => ev => this.props.onUpdateField(key, ev.target.value);
     this.changeTitle = updateFieldEvent('title');
     this.changeDescription = updateFieldEvent('description');
+    this.changeURL = updateFieldEvent('url');
     this.changeImage = updateFieldEvent('image');
     // this.changeRating = updateFieldEvent('rating');
     this.changeCaption = updateFieldEvent('caption');
@@ -56,7 +58,8 @@ class Editor extends React.Component {
       const subject = {
         title: this.props.title,
         description: this.props.description,
-        image: this.props.image
+        image: this.props.image,
+        url: this.props.url
         // body: this.props.body,
         // tagList: this.props.tagList
       };
@@ -114,6 +117,9 @@ class Editor extends React.Component {
               <ListErrors errors={this.props.errors}></ListErrors>
 
               <form>
+{/***}                <fieldset className="form-group no-margin">
+                  <FirebaseSearchInput className="form-control" />
+                </fieldset>   ***/}
                 <fieldset>
 
                   <fieldset className="form-group no-margin">
@@ -149,7 +155,7 @@ class Editor extends React.Component {
                     <textarea
                       className="form-control caption"
                       rows="3"
-                      placeholder="Write something about it..."
+                      placeholder="Add a caption"
                       value={this.props.caption}
                       onChange={this.changeCaption}>
                     </textarea>
@@ -177,8 +183,8 @@ class Editor extends React.Component {
                       className="form-control"
                       type="text"
                       placeholder="website link"
-                      value={this.props.description}
-                      onChange={this.changeDescription} />
+                      value={this.props.url}
+                      onChange={this.changeURL} />
                   </fieldset>
 
 
@@ -189,7 +195,7 @@ class Editor extends React.Component {
                     type="button"
                     disabled={this.props.inProgress}
                     onClick={this.submitForm}>
-                    Teach Them
+                    Submit Review
                   </button>
 
                 </fieldset>
