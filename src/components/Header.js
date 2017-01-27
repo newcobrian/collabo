@@ -33,7 +33,7 @@ const LoggedInView = props => {
     return (
       <div className="navigation-bar roow roow-row-right">
         
-        <Link to="editor" className="nav-module nav-editor">  
+        <Link to="create" className="nav-module nav-editor">  
             <div className="nav-icon"><img src="../img/icon32_add.png"/></div>
             <div className="nav-text">New</div>
         </Link>

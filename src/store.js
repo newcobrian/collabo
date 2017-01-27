@@ -10,6 +10,7 @@ import home from './reducers/home';
 import profile from './reducers/profile';
 import settings from './reducers/settings';
 import editor from './reducers/editor';
+import create from './reducers/create';
 import followers from './reducers/followers';
 import inbox from './reducers/inbox';
 import Firebase from 'firebase';
@@ -23,6 +24,7 @@ const reducer = combineReducers({
   profile,
   settings,
   editor,
+  create,
   followers,
   inbox
   // firebase: firebaseStateReducer

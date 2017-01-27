@@ -69,7 +69,7 @@ class Editor extends React.Component {
         caption: this.props.caption
       }
 
-      this.props.onReviewSubmit(subject, review);
+      this.props.onReviewSubmit(null, subject, review);
       // const slug = { slug: this.props.articleSlug };
       // const promise = this.props.articleSlug ?
       //   agent.Articles.update(Object.assign(article, slug)) :
@@ -117,9 +117,7 @@ class Editor extends React.Component {
               <ListErrors errors={this.props.errors}></ListErrors>
 
               <form>
-{/***}                <fieldset className="form-group no-margin">
-                  <FirebaseSearchInput className="form-control" />
-                </fieldset>   ***/}
+              Product details:
                 <fieldset>
 
                   <fieldset className="form-group no-margin">
@@ -131,7 +129,33 @@ class Editor extends React.Component {
                       onChange={this.changeTitle} />
                   </fieldset>
 
+                  <fieldset className="form-group no-margin">
+                    <input
+                      className="form-control"
+                      type="text"
+                      placeholder="Description"
+                      value={this.props.description}
+                      onChange={this.changeDescription} />
+                  </fieldset>
 
+                  <fieldset className="form-group">
+                    <input
+                      className="form-control"
+                      type="text"
+                      placeholder="website link"
+                      value={this.props.url}
+                      onChange={this.changeURL} />
+                  </fieldset>
+                  <fieldset className="form-group">
+                    <input
+                      className="form-control"
+                      type="text"
+                      placeholder="URL of item picture"
+                      value={this.props.image}
+                      onChange={this.changeImage} />
+                  </fieldset> 
+
+                  Your Review:
                   <fieldset className="form-group no-margin">
                     <div className={'rating-container rating-wrapper-' + this.props.rating}>
                         <div className="roow roow-row-space-around">
@@ -155,39 +179,11 @@ class Editor extends React.Component {
                     <textarea
                       className="form-control caption"
                       rows="3"
-                      placeholder="Add a caption"
+                      placeholder="Add a comment"
                       value={this.props.caption}
                       onChange={this.changeCaption}>
                     </textarea>
                   </fieldset>
-                  <fieldset className="form-group">
-                    <input
-                      className="form-control"
-                      type="text"
-                      placeholder="URL of item picture"
-                      value={this.props.image}
-                      onChange={this.changeImage} />
-                  </fieldset> 
-
-                  <fieldset className="form-group no-margin">
-                    <input
-                      className="form-control"
-                      type="text"
-                      placeholder="#tags"
-                      value={this.props.description}
-                      onChange={this.changeDescription} />
-                  </fieldset>
-
-                  <fieldset className="form-group">
-                    <input
-                      className="form-control"
-                      type="text"
-                      placeholder="website link"
-                      value={this.props.url}
-                      onChange={this.changeURL} />
-                  </fieldset>
-
-
 
 
                   <button

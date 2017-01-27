@@ -48,6 +48,10 @@ export const GET_INBOX = 'GET_INBOX';
 export const GET_INBOX_COUNT = 'GET_INBOX_COUNT';
 export const INBOX_COUNT_UPDATED = 'INBOX_COUNT_UPDATED';
 export const INBOX_UNLOADED = 'INBOX_UNLOADED';
+export const CREATE_PAGE_LOADED = 'CREATE_PAGE_LOADED';
+export const CREATE_PAGE_UNLOADED = 'CREATE_PAGE_UNLOADED';
+export const CREATE_SUBJECT_LOADED = 'CREATE_SUBJECT_LOADED';
+export const UPDATE_FIELD_CREATE = 'UPDATE_FIELD_CREATE';
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -388,6 +392,55 @@ export function onEditorUnload() {
   }
 }
 
+export function onCreateLoad() {
+  return dispatch => {
+    dispatch({
+      type: CREATE_PAGE_LOADED
+    })
+  }
+}
+
+export function onCreateUnload() {
+  return dispatch => {
+    dispatch({
+      type: CREATE_PAGE_UNLOADED
+    })
+  }
+}
+
+export function loadCreateSubject(result) {
+  return dispatch => {
+    const subject = {};
+    if (result && result.id) {
+      subject.title = result.value;
+      if (result.url) subject.url = result.url;
+      if (result.description) subject.description = result.description;
+      if (result.image) subject.image = result.image;
+
+      dispatch({
+        type: CREATE_SUBJECT_LOADED,
+        payload: subject,
+        subjectId: result.id
+      })
+    }
+    else dispatch({
+      type: CREATE_SUBJECT_LOADED,
+      payload: null,
+      key: null
+    })
+  }
+}
+
+export function onUpdateCreateField(key, value) {
+  return dispatch => {
+    dispatch({
+      type: UPDATE_FIELD_CREATE,
+      key,
+      value
+    })
+  }
+}
+
 export function onUpdateField(key, value) {
   return dispatch => {
     dispatch({
@@ -398,11 +451,25 @@ export function onUpdateField(key, value) {
   }
 }
 
-export function onReviewSubmit(subject, review) {
+export function onReviewSubmit(key, subject, review) {
   return dispatch => {
     const updates = {};
     const uid = Firebase.auth().currentUser.uid;
-    const subjectId = Firebase.database().ref(Constants.SUBJECTS_PATH).push().key;
+    let subjectId = {};
+
+    if (key) {
+      subjectId = key;
+      Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + key).once('value', subjectSnapshot => {
+        if (!subjectSnapshot.exists()) {
+          Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + key).set(subject);
+        }
+      })
+    }
+    else {
+      subjectId = Firebase.database().ref(Constants.SUBJECTS_PATH).push().key;
+      updates[`/${Constants.SUBJECTS_PATH}/${subjectId}/`] = subject;
+    }
+
     const reviewId = Firebase.database().ref(Constants.REVIEWS_PATH).push().key;
     const lastModified = Firebase.database.ServerValue.TIMESTAMP;
     const reviewMeta = {
@@ -414,17 +481,19 @@ export function onReviewSubmit(subject, review) {
     const reviewObject = {};
     Object.assign(reviewObject, reviewMeta, review);
 
-    updates[`/${Constants.SUBJECTS_PATH}/${subjectId}/`] = subject;
     updates[`/${Constants.REVIEWS_PATH}/${reviewId}/`] = reviewObject;
-    updates[`/${Constants.REVIEWS_BY_USER_PATH}/${uid}/${reviewId}`] = { 
+
+    let reviewsByUserObject = {
       subjectId: subjectId,
       rating: review.rating,
       caption: review.caption,
       lastModified: lastModified,
       title: subject.title,
       description: subject.description,
-      image: subject.image
-    };
+    }
+    if (subject.image) reviewsByUserObject.image = subject.image;
+
+    updates[`/${Constants.REVIEWS_BY_USER_PATH}/${uid}/${reviewId}`] = reviewsByUserObject;
     updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${subjectId}/${reviewId}`] = {
       userId: uid,
       rating: review.rating,
@@ -582,7 +651,6 @@ export function onDeleteComment(reviewId, commentId) {
 export function onUpdateRating(userId, reviewId, subjectId, rating) {
   return dispatch => {
     const updates = {};
-    console.log('userid = ' + userId + ' reviewid = ' + reviewId + ' rating = ' + rating)
     updates[Constants.REVIEWS_PATH +'/' + reviewId + '/rating'] = rating;
     updates[Constants.REVIEWS_BY_SUBJECT_PATH +'/' + subjectId + '/' + reviewId + '/rating'] = rating;
     updates[Constants.REVIEWS_BY_USER_PATH +'/' + userId + '/' + reviewId +'/rating'] = rating;
