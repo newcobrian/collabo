@@ -90,7 +90,6 @@ class Create extends React.Component {
 	}
 
 	componentWillUnmount() {
-		console.log('unmount')
 		this.props.onCreateUnload();
 	}
 

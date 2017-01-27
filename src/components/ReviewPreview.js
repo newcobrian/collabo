@@ -1,41 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-
-const LikeReviewButton = props => {
-  // let classes = 'btn btn-sm action-btn';
-  let classes = '';
-  if (props.isLiked) {
-    // classes += ' btn-secondary';
-    classes += 'cta-icon cta-liked';
-  } else {
-    // classes += ' btn-outline-secondary';
-    classes += 'cta-icon cta-like';
-  }
-
-  let likeText = ' Likes';
-  if (props.likesCount === 1) {
-    likeText = ' Like'
-  }
-
-  const handleClick = ev => {
-    ev.preventDefault();
-    if (props.isLiked) {
-      props.unLike(props.userId, props.review);
-    } else {
-      props.like(props.userId, props.review);
-    }
-  };
-
-  return (
-    <div
-      className="cta-wrapper roow roow-col"
-      onClick={handleClick}>
-      <div className={classes}>
-      </div>
-      {props.likesCount} {likeText}
-    </div>
-  );
-};
+import LikeReviewButton from './LikeReviewButton';
 
 const RatingsButtons = props => {
   const handleClick = rating => ev => {
@@ -90,7 +55,7 @@ const ReviewPreview = props => {
       <div className="reviews-wrapper roow roow-left roow-col-left">
         <div className="subject-name-container">
             <Link to={`review/${review.subjectId}/${review.id}`}>
-              <div className="text-subject-name">{review.title}</div>
+              <div className="text-subject-name">{review.subject.title}</div>
             </Link>
               <div className="text-category shift-up-5">Book, Movie, Restaurant, Cool</div>
 
@@ -100,7 +65,7 @@ const ReviewPreview = props => {
           <div className="review-image-wrapper">
             <Link to={`review/${review.subjectId}/${review.id}`}>
               <div className="subject-image">
-                <img src={review.image}/>
+                <img src={review.subject.image}/>
               </div>
             </Link>
           </div>
