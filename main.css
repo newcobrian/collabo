@@ -1414,7 +1414,7 @@ pre {
   background-image: none;
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 0.25rem; }
+  border-radius: 0; }
   .form-control::-ms-expand {
     background-color: transparent;
     border: 0; }
@@ -1510,7 +1510,7 @@ input[type="month"].form-control {
 .input-group-lg > .input-group-btn > .btn {
   padding: 0.75rem 1.5rem;
   font-size: 1.25rem;
-  border-radius: 0.3rem; }
+  border-radius: 0rem; }
 
 .form-group {
   margin-bottom: 1rem; }
@@ -5055,8 +5055,8 @@ footer {
   background: #f3f3f3;
   padding: 2rem 0 1rem 0; }
   .profile-page .user-info .user-img {
-    width: 100px;
-    height: 100px;
+    width: 160px;
+    height: 160px;
     border-radius: 100px;
     margin-bottom: 1rem; }
   .profile-page .user-info h4 {

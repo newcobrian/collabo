@@ -56,6 +56,12 @@
    -webkit-justify-content: space-between;
    justify-content: space-between;
 }
+.roow.roow-row-space-around {
+   -webkit-flex-direction: row;
+   flex-direction: row;
+   -webkit-justify-content: space-around;
+   justify-content: space-around;
+}
 
 .roow.roow-center {
   -webkit-justify-content: center;
