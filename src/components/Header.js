@@ -4,7 +4,7 @@ import React from 'react';
 const InboxCounter = props => {
   if (props.unreadMessages > 0) {
     return (
-      <div>{props.unreadMessages}</div>
+      <div className="count-badge header-badge">{props.unreadMessages}</div>
     );
   }
   return null;

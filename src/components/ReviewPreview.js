@@ -13,9 +13,9 @@ const RatingsButtons = props => {
       <div className={'rating-container roow roow-row-center rating-wrapper-' + props.review.rating}>
         <button className="rating-graphic rating--2" onClick={handleClick(-2)}></button>
         <button className="rating-graphic rating--1" onClick={handleClick(-1)}></button>
-        <button className="rating-graphic rating--0" onClick={handleClick(0)}></button>
-        <button className="rating-graphic rating--1" onClick={handleClick(1)}></button>
-        <button className="rating-graphic rating--2" onClick={handleClick(2)}></button>
+        <button className="rating-graphic rating-0" onClick={handleClick(0)}></button>
+        <button className="rating-graphic rating-1" onClick={handleClick(1)}></button>
+        <button className="rating-graphic rating-2" onClick={handleClick(2)}></button>
       </div>
     )
   }

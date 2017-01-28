@@ -270,7 +270,19 @@ a.logo-module:focus {
     padding: 32px 0;
     font-size: 14px;
 }
-
+.count-badge {
+    background-color: #F36965;
+    padding: 0px 7px;
+    border-radius: 32px;
+    text-align: center;
+    display: inline-block;
+    box-shadow: 0 0 0 3px #0B101C;
+}
+.header-badge {
+    margin-top: -36px;
+    position: absolute;
+    margin-left: 7px;
+}
 
 
 
