@@ -1,3 +1,12 @@
+export const SUBJECT_SEARCH_URL = 'https://searchitall-156620.appspot.com/?q='
+
+/*** FourSquare API Keys ***/
+export const FOURSQUARE_CLIENT_ID = 'QXEK1PR4ELFYEMMRBSP4O3NJ20B5F34PXZD3VAXNPNUBX0PB'
+export const FOURSQUARE_CLIENT_SECRET = 'LAHBY4DND3VJL3YZQKXBJ4RY4TFKEZJC2O51P04YKXRUZXGA'
+export const FOURSQUARE_API_PATH = 'https://api.foursquare.com/v2/venues/'
+
+
+/*** Firebase Paths ***/
 export const USERS_PATH = '/users'
 export const USERNAMES_TO_USERIDS_PATH = '/usernames-to-userids'
 export const FOLLOWERS_PATH = '/followers'

@@ -1,6 +1,7 @@
 import Firebase from 'firebase';
 import * as Constants from '../constants'
 import { sendInboxMessage } from '../helpers'
+import 'whatwg-fetch';
 
 export const AUTH_ERROR = 'AUTH_ERROR';
 export const AUTH_USER = 'AUTH_USER';
@@ -417,11 +418,31 @@ export function loadCreateSubject(result) {
       if (result.description) subject.description = result.description;
       if (result.image) subject.image = result.image;
 
-      dispatch({
-        type: CREATE_SUBJECT_LOADED,
-        payload: subject,
-        subjectId: result.id
-      })
+      // fetch image from 4sq API
+      if (result._service === '4sq') {
+        const foursquareURL = Constants.FOURSQUARE_API_PATH + result.id.slice(4) + 
+          '?client_id=' + Constants.FOURSQUARE_CLIENT_ID + 
+          '&client_secret=' + Constants.FOURSQUARE_CLIENT_SECRET + '&v=20170101';
+        fetch(foursquareURL).then(response => response.json())
+        .then(json => {
+          const photoURL = json.response.venue.photos.groups[0].items[0].prefix + 'original' +
+            json.response.venue.photos.groups[0].items[0].suffix;
+          subject.image = photoURL;
+
+          dispatch({
+            type: CREATE_SUBJECT_LOADED,
+            payload: subject,
+            subjectId: result.id
+          })
+        })
+      }
+      else {
+        dispatch({
+          type: CREATE_SUBJECT_LOADED,
+          payload: subject,
+          subjectId: result.id
+        })
+      }
     }
     else dispatch({
       type: CREATE_SUBJECT_LOADED,

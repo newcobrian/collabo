@@ -2,9 +2,8 @@ import React, {Component} from 'react';
 import { AutoComplete } from 'material-ui';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import * as Constants from '../constants'
 import 'whatwg-fetch';
-
-const searchURL = 'https://searchitall-156620.appspot.com/?q=';
 
 class FirebaseSearchInput extends Component {
   constructor(props) {
@@ -32,7 +31,7 @@ class FirebaseSearchInput extends Component {
 
   performSearch() {
     const self = this,
-      url = searchURL + this.state.inputValue;
+      url = Constants.SUBJECT_SEARCH_URL + this.state.inputValue;
 
     if(this.state.inputValue !== '') {
       fetch(url).then(response => response.json())
@@ -46,6 +45,7 @@ class FirebaseSearchInput extends Component {
 
         retrievedSearchTerms = searchResults.map(function(result) {
           let searchObject = {};
+          searchObject._service = result._service;
           switch (result._service) {
             case '4sq':
               if (result.name && result.id) {
