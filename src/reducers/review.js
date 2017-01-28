@@ -1,7 +1,7 @@
 'use strict';
 
 import { GET_SUBJECT, GET_REVIEW, SUBJECT_UNLOADED, REVIEW_UNLOADED, GET_COMMENTS, 
-  COMMENTS_UNLOADED, ADD_COMMENT, DELETE_COMMENT, RATING_UPDATED } from '../actions'
+  COMMENTS_UNLOADED, ADD_COMMENT, DELETE_COMMENT, RATING_UPDATED, REVIEW_LIKED, REVIEW_UNLIKED } from '../actions'
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -40,6 +40,8 @@ export default (state = {}, action) => {
       };
     case DELETE_COMMENT:
     case RATING_UPDATED:
+    case REVIEW_LIKED:
+    case REVIEW_UNLIKED:
       return {
         ...state
       }

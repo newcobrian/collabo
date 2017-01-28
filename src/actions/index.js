@@ -547,21 +547,31 @@ export function getSubject(subjectId) {
   };
 }
 
-export function getReview(reviewId) {
+export function getReview(appUserId, reviewId) {
   return dispatch => {
-    Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewId).on('value', snapshot => {
-      const review = snapshot.val();
-      review.id = snapshot.key;
-      review.rater = {};
-      Firebase.database().ref(Constants.USERS_PATH + '/' + review.userId).on('value', userSnapshot => {
-        Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + review.subjectId).on('value', subjectSnapshot => {
-          const userMeta = { username: userSnapshot.val().username, image: userSnapshot.val().image };
-          Object.assign(review.rater, userMeta);
-          review.subject = subjectSnapshot.val();
-            dispatch({
-              type: GET_REVIEW,
-              payload: review
-            });
+    Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewId).on('value', reviewSnapshot => {
+      Firebase.database().ref(Constants.USERS_PATH + '/' + reviewSnapshot.val().userId).on('value', userSnapshot => {
+        Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + reviewSnapshot.val().subjectId).on('value', subjectSnapshot => {
+          Firebase.database().ref(Constants.LIKES_PATH + '/' + reviewId).on('value', likesSnapshot => {
+            let review = reviewSnapshot.val();
+            review.id = reviewSnapshot.key;
+            review.reviewer = {};
+            let userMeta = { username: userSnapshot.val().username, image: userSnapshot.val().image };
+
+            review.isLiked = false
+            review.likesCount = 0;
+            if (likesSnapshot.val()) {
+              review.isLiked = searchLikes(appUserId, likesSnapshot.val());
+              review.likesCount = likesSnapshot.numChildren()
+            }
+
+            Object.assign(review.reviewer, userMeta);
+            review.subject = subjectSnapshot.val();
+              dispatch({
+                type: GET_REVIEW,
+                payload: review
+              });
+          })
         })
       })
     });
@@ -919,7 +929,6 @@ export function likeReview(userId, review) {
   // if (review.reviewer.reviewerId) updateInfo.reviewerId = review.reviewer.reviewerId;
 
   updates[`/${Constants.LIKES_PATH}/${review.id}/${userId}`] = true;
-  // updates[`/${Constants.LIKES_BY_USER_PATH}/${userId}/${review.id}`] = updateInfo;
   updates[`/${Constants.LIKES_BY_USER_PATH}/${userId}/${review.id}`] = true;
   Firebase.database().ref().update(updates);
 

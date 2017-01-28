@@ -5,6 +5,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Firebase from 'firebase'
 import * as Actions from '../../actions';
+import LikeReviewButton from '../LikeReviewButton';
 
 const mapStateToProps = state => ({
   ...state.review,
@@ -26,7 +27,7 @@ class Review extends React.Component {
     //   agent.Articles.get(this.props.params.id),
     //   agent.Comments.forArticle(this.props.params.id)
     // ]));
-    this.props.getReview(this.props.params.rid);
+    this.props.getReview(this.props.currentUser.uid, this.props.params.rid);
     this.props.getComments(this.props.params.rid);
   }
 
@@ -70,9 +71,9 @@ class Review extends React.Component {
 
             <div className="review-data-container roow roow-col-left">
               <div className="review-data-module gray-border roow roow-col-left box-shadow">
-                <Link to={`@${this.props.review.rater.username}`} className="author">
+                <Link to={`@${this.props.review.reviewer.username}`} className="author">
                 <div className="photo-rating-module roow">
-                  <div className="reviewer-photo center-img"><img src={this.props.review.rater.image} /></div>
+                  <div className="reviewer-photo center-img"><img src={this.props.review.reviewer.image} /></div>
                     <div className={'rating-container roow roow-row-center rating-wrapper-' + this.props.review.rating}>
                         <div className="rating-graphic rating--2"></div>
                         <div className="rating-graphic rating--1"></div>
@@ -87,9 +88,9 @@ class Review extends React.Component {
                     {this.props.review.caption}
                   </div>
                   <div className="reviewer-name-container">
-                  <Link to={`@${this.props.review.rater.username}`}>
+                  <Link to={`@${this.props.review.reviewer.username}`}>
                   <div className="reviewer-name">
-                    <span className="dash">-</span>{this.props.review.rater.username}
+                    <span className="dash">-</span>{this.props.review.reviewer.username}
                   </div>
                   </Link>
                 </div>
@@ -101,6 +102,13 @@ class Review extends React.Component {
               
               <div className="roow roow-row flex-wrap">
                 <div className="cta-box roow roow-row-space gray-border">
+                    <LikeReviewButton
+                      userId={this.props.currentUser.uid}
+                      isLiked={this.props.review.isLiked}
+                      likesCount={this.props.review.likesCount}
+                      unLike={this.props.unLikeReview}
+                      like={this.props.likeReview} 
+                      review={this.props.review} />
                   <div className="cta-wrapper roow roow-col">
                           <div className="cta-icon cta-save"></div>
                           12 Saves
