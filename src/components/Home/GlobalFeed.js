@@ -1,16 +1,11 @@
 import { Home, mapStateToProps } from '/';
-import Banner from './Banner';
-import MainView from './MainView';
 import React from 'react';
-import Tags from './Tags';
 import { connect } from 'react-redux';
-import Firebase from 'firebase';
 import * as Actions from '../../actions';
 import { Link } from 'react-router';
 
 class GlobalFeed extends Home {
   componentWillMount() {
-    const tab = this.props.authenticated ? 'feed' : 'all';
     this.props.getGlobalFeed(this.props.authenticated);
   }
 

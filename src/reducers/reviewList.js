@@ -1,5 +1,4 @@
-'use strict';
-import { GET_USER_FEED, HOME_PAGE_LOADED, REVIEW_LIKED, REVIEW_UNLIKED } from '../actions';
+import { GET_USER_FEED, REVIEW_LIKED, REVIEW_UNLIKED } from '../actions';
 
 export default (state = {}, action) => {
   switch (action.type) {

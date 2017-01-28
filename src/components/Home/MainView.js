@@ -1,6 +1,5 @@
 import ReviewList from '../ReviewList';
 import React from 'react';
-import agent from '../../agent';
 import { connect } from 'react-redux';
 import * as Actions from '../../actions';
 

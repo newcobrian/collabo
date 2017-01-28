@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import Firebase from 'firebase';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
-import FollowUserButton from './FollowUserButton'
 
 // const mapDispatchToProps = dispatch => ({
 //   onFollow: username => dispatch({

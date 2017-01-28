@@ -45,7 +45,6 @@ class FirebaseSearchInput extends Component {
 
         retrievedSearchTerms = searchResults.map(function(result) {
           let searchObject = {};
-          searchObject._service = result._service;
           switch (result._service) {
             case '4sq':
               if (result.name && result.id) {
@@ -91,10 +90,18 @@ class FirebaseSearchInput extends Component {
               }
               break;
             case 'tmbd':
-              // console.log(JSON.stringify(result))
-              // if (result.name) {
-              //   return { text: result.name, value: 'boo' };
-              // }
+              if ((result.title || result.name) && result.id) {
+                searchObject.text = result.title ? result.title : result.name;
+                searchObject.value = result.title ? result.title : result.name;
+                searchObject.id = 'tmbd:' + result.id;
+                if (result.url) searchObject.url = result.url;
+                if (result.overview) searchObject.description = result.overview;
+                if (result.poster_path) {
+                  searchObject.image = Constants.TMDB_IMAGES_PATH + result.poster_path;
+                } else if (result.backdrop_path) {
+                  searchObject.image = Constants.TMDB_IMAGES_PATH + result.backdrop_path;
+                }
+              }
               break;
             case 'amazon':
               // if (result.title) {
@@ -102,7 +109,10 @@ class FirebaseSearchInput extends Component {
               // }
               break;
           }
-          if (searchObject) return searchObject;
+          if (searchObject) {
+            searchObject._service = result._service;
+            return searchObject;
+          }
         });
 
         self.setState({

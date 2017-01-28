@@ -3,7 +3,6 @@ import CommentContainer from './CommentContainer';
 import { Link } from 'react-router';
 import React from 'react';
 import { connect } from 'react-redux';
-import Firebase from 'firebase'
 import * as Actions from '../../actions';
 import LikeReviewButton from '../LikeReviewButton';
 

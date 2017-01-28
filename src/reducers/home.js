@@ -1,4 +1,4 @@
-import { GET_USER_FEED, USER_FEED_UNLOADED, HOME_PAGE_LOADED, GET_GLOBAL_FEED, GLOBAL_FEED_UNLOADED } from '../actions';
+import { GET_USER_FEED, USER_FEED_UNLOADED, GET_GLOBAL_FEED, GLOBAL_FEED_UNLOADED } from '../actions';
 
 export default (state = {}, action) => {
   switch (action.type) {

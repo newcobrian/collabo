@@ -1,5 +1,3 @@
-'use strict';
-
 import ReviewList from './ReviewList';
 import React from 'react';
 import { Link } from 'react-router';

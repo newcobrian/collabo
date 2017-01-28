@@ -1,14 +1,8 @@
-import Banner from './Banner';
 import MainView from './MainView';
 import React from 'react';
-import Tags from './Tags';
 import { connect } from 'react-redux';
-import Firebase from 'firebase';
 import * as Actions from '../../actions';
 import { Link } from 'react-router';
-
-const AUTH_ERROR = 'AUTH_ERROR';
-const AUTH_USER = 'AUTH_USER';
 
 const mapStateToProps = state => ({
   ...state.home,
@@ -27,7 +21,7 @@ const mapStateToProps = state => ({
 
 class Home extends React.Component {
   componentWillMount() {
-    const tab = this.props.authenticated ? 'feed' : 'all';
+    // const tab = this.props.authenticated ? 'feed' : 'all';
     // const articlesPromise = this.props.token ?
     //   agent.Articles.feed() :
     //   agent.Articles.all();

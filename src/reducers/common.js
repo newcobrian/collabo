@@ -1,5 +1,4 @@
-import { AUTH_USER, SIGN_OUT_USER, AUTH_ERROR, REVIEW_SUBMITTED, APP_USER_LOADED, 
-  INBOX_MESSAGE_SENT, GET_INBOX_COUNT } from '../actions';
+import { AUTH_USER, SIGN_OUT_USER, REVIEW_SUBMITTED, APP_USER_LOADED, GET_INBOX_COUNT } from '../actions';
 
 const defaultState = {
   appName: 'Reccoon',
