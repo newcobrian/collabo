@@ -5,6 +5,21 @@ import Firebase from 'firebase';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
 
+const RightPic = props => {
+  if (props.image) {
+    return (
+      <Link
+      to={props.link}
+      className="comment-author">
+        <div className="item-photo center-img">
+          <img src={props.image} className="comment-author-img" />
+        </div>
+      </Link>
+    )
+  }
+  else return null;
+}
+
 const mapStateToProps = state => ({
   ...state.inbox,
   authenticated: state.common.authenticated
@@ -64,13 +79,7 @@ class Inbox extends React.Component {
                     </div>
                   </div>
                   <div className="">
-                    <Link
-                    to={inboxItem.link}
-                    className="comment-author">
-                      <div className="item-photo center-img">
-                        <img src={inboxItem.reviewImage} className="comment-author-img" />
-                      </div>
-                    </Link>
+                    <RightPic link={inboxItem.link} image={inboxItem.reviewImage} />
                   </div>
                 </div>
               )

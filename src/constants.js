@@ -26,5 +26,6 @@ export const INBOX_COUNTER_PATH = '/counters/inbox'
 
 /*** Message Type Constants ***/
 export const LIKE_MESSAGE = 'LIKE_MESSAGE'
+export const FOLLOW_MESSAGE = 'FOLLOW_MESSAGE'
 export const COMMENT_ON_COMMENT_MESSAGE = 'COMMENT_COMMENT_MESSAGE'
 export const COMMENT_ON_REVIEW_MESSAGE = 'COMMENT_REVIEW_MESSAGE'

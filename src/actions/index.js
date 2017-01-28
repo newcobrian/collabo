@@ -344,6 +344,7 @@ export function followUser(follower) {
       // updates[`/${Constants.FOLLOWERS_PATH}/${follower}/`] = following;
       // updates[`/${Constants.FOLLOWINGS_PATH}/${following}/`] = follower;
     }
+    sendInboxMessage(following, follower, Constants.FOLLOW_MESSAGE, null);
     return dispatch => Firebase.database().ref().update(updates);
 }
 
