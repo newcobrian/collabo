@@ -171,7 +171,9 @@
   background-color: #00D770;
   background-color: #1ac98e;
 }
-
+.rating-container.cannot-rate .rating-graphic {
+  pointer-events: none;
+}
 
 
 

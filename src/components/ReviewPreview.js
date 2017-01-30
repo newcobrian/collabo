@@ -21,7 +21,7 @@ const RatingsButtons = props => {
   }
   else {
     return (
-      <div className={'rating-container roow roow-row-center rating-wrapper-' + props.review.rating}>
+      <div className={'rating-container cannot-rate roow roow-row-center rating-wrapper-' + props.review.rating}>
         <div className="rating-graphic rating--2"></div>
         <div className="rating-graphic rating--1"></div>
         <div className="rating-graphic rating-0"></div>
@@ -72,16 +72,22 @@ const ReviewPreview = props => {
           <div className="review-data-container roow roow-col-left">
             <div className="review-data-module gray-border roow roow-col-left box-shadow">
               
-              <Link to={`@${review.reviewer.username}`}>
+             
                 <div className="photo-rating-module roow">
-                  <div className="reviewer-photo center-img"><img src={review.reviewer.image}/></div>
+                  <Link to={`@${review.reviewer.username}`}>
+                    <div className="reviewer-photo center-img"><img src={review.reviewer.image}/></div>
+                  </Link>  
+                  <Link to={`review/${review.subjectId}/${review.id}`}> 
                     <RatingsButtons review={review} userId={props.userId} updateRating={props.updateRating} />
+                  </Link>
                 </div>
-              </Link>
+              
               <div className="info">
+                <Link to={`review/${review.subjectId}/${review.id}`}>
                 <div className="subject-caption">
                   {review.caption}
                 </div>
+                </Link>
                 <div className="reviewer-name-container">
                 <Link to={`@${review.reviewer.username}`}>
                   <div className="reviewer-name">
