@@ -559,27 +559,24 @@ export function getReview(appUserId, reviewId) {
   return dispatch => {
     Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewId).on('value', reviewSnapshot => {
       Firebase.database().ref(Constants.USERS_PATH + '/' + reviewSnapshot.val().userId).on('value', userSnapshot => {
-        Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + reviewSnapshot.val().subjectId).on('value', subjectSnapshot => {
-          Firebase.database().ref(Constants.LIKES_PATH + '/' + reviewId).on('value', likesSnapshot => {
-            let review = reviewSnapshot.val();
-            review.id = reviewSnapshot.key;
-            review.reviewer = {};
-            let userMeta = { username: userSnapshot.val().username, image: userSnapshot.val().image };
+        Firebase.database().ref(Constants.LIKES_PATH + '/' + reviewId).on('value', likesSnapshot => {
+          let review = reviewSnapshot.val();
+          review.id = reviewSnapshot.key;
+          review.reviewer = {};
+          let userMeta = { username: userSnapshot.val().username, image: userSnapshot.val().image };
 
-            review.isLiked = false
-            review.likesCount = 0;
-            if (likesSnapshot.val()) {
-              review.isLiked = searchLikes(appUserId, likesSnapshot.val());
-              review.likesCount = likesSnapshot.numChildren()
-            }
+          review.isLiked = false
+          review.likesCount = 0;
+          if (likesSnapshot.val()) {
+            review.isLiked = searchLikes(appUserId, likesSnapshot.val());
+            review.likesCount = likesSnapshot.numChildren()
+          }
 
-            Object.assign(review.reviewer, userMeta);
-            review.subject = subjectSnapshot.val();
-              dispatch({
-                type: GET_REVIEW,
-                payload: review
-              });
-          })
+          Object.assign(review.reviewer, userMeta);
+            dispatch({
+              type: GET_REVIEW,
+              payload: review
+            });
         })
       })
     });

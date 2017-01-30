@@ -26,11 +26,13 @@ class Review extends React.Component {
     //   agent.Articles.get(this.props.params.id),
     //   agent.Comments.forArticle(this.props.params.id)
     // ]));
+    this.props.getSubject(this.props.params.sid);
     this.props.getReview(this.props.currentUser.uid, this.props.params.rid);
     this.props.getComments(this.props.params.rid);
   }
 
   componentWillUnmount() {
+    this.props.unloadSubject(this.props.params.sid);
     this.props.unloadReview(this.props.params.rid);
     this.props.unloadComments(this.props.params.rid);
   }
@@ -54,7 +56,7 @@ class Review extends React.Component {
       <div className="reviews-wrapper roow roow-col">
           
           <div className="subject-name-container">
-                <div className="text-subject-name">{this.props.review.subject.title}</div>
+                <div className="text-subject-name">{this.props.subject.title}</div>
                 <div className="text-category shift-up-5">Book, Movie, Restaurant, Cool</div>
           </div>
 
@@ -64,7 +66,7 @@ class Review extends React.Component {
             
             <div className="review-image-wrapper">
               <SubjectMeta
-              subject={this.props.review.subject}
+              subject={this.props.subject}
               canModify={canModify} />
             </div>
 
