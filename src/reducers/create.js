@@ -9,6 +9,7 @@ export default (state = {}, action) => {
   		return {
   			...state,
   			subject: action.payload,
+        review: action.review,
   			subjectId: action.subjectId
   		}
   	case REVIEW_SUBMITTED:

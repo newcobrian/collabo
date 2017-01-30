@@ -410,40 +410,47 @@ export function onCreateUnload() {
   }
 }
 
-export function loadCreateSubject(result) {
+export function loadCreateSubject(userId, result) {
   return dispatch => {
     const subject = {};
+
     if (result && result.id) {
-      subject.title = result.value;
-      if (result.url) subject.url = result.url;
-      if (result.description) subject.description = result.description;
-      if (result.image) subject.image = result.image;
+      // get the user's review if they already reviewed it
+      Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + result.id + '/' + userId).once('value', reviewSnapshot => {
+        // put together subject info
+        subject.title = result.value;
+        if (result.url) subject.url = result.url;
+        if (result.description) subject.description = result.description;
+        if (result.image) subject.image = result.image;
 
-      // fetch image from 4sq API
-      if (result._service === '4sq') {
-        const foursquareURL = Constants.FOURSQUARE_API_PATH + result.id.slice(4) + 
-          '?client_id=' + Constants.FOURSQUARE_CLIENT_ID + 
-          '&client_secret=' + Constants.FOURSQUARE_CLIENT_SECRET + '&v=20170101';
-        fetch(foursquareURL).then(response => response.json())
-        .then(json => {
-          const photoURL = json.response.venue.photos.groups[0].items[0].prefix + 'original' +
-            json.response.venue.photos.groups[0].items[0].suffix;
-          subject.image = photoURL;
+        // fetch image from 4sq API
+        if (result._service === '4sq') {
+          const foursquareURL = Constants.FOURSQUARE_API_PATH + result.id.slice(4) + 
+            '?client_id=' + Constants.FOURSQUARE_CLIENT_ID + 
+            '&client_secret=' + Constants.FOURSQUARE_CLIENT_SECRET + '&v=20170101';
+          fetch(foursquareURL).then(response => response.json())
+          .then(json => {
+            const photoURL = json.response.venue.photos.groups[0].items[0].prefix + 'original' +
+              json.response.venue.photos.groups[0].items[0].suffix;
+            subject.image = photoURL;
 
+            dispatch({
+              type: CREATE_SUBJECT_LOADED,
+              payload: subject,
+              review: reviewSnapshot.val(),
+              subjectId: result.id
+            })
+          })
+        }
+        else {
           dispatch({
             type: CREATE_SUBJECT_LOADED,
             payload: subject,
+            review: reviewSnapshot.val(),
             subjectId: result.id
           })
-        })
-      }
-      else {
-        dispatch({
-          type: CREATE_SUBJECT_LOADED,
-          payload: subject,
-          subjectId: result.id
-        })
-      }
+        }
+      })
     }
     else dispatch({
       type: CREATE_SUBJECT_LOADED,
@@ -516,8 +523,8 @@ export function onReviewSubmit(key, subject, review) {
     reviewsByUserObject.subject = subjectObject;
 
     updates[`/${Constants.REVIEWS_BY_USER_PATH}/${uid}/${reviewId}`] = reviewsByUserObject;
-    updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${subjectId}/${reviewId}`] = {
-      userId: uid,
+    updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${subjectId}/${uid}`] = {
+      reviewId: reviewId,
       rating: review.rating,
       caption: review.caption,
       lastModified: lastModified

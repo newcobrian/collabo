@@ -39,7 +39,8 @@ const EditorLink = props => {
 }
 
 const mapStateToProps = state => ({
-  ...state.create
+  ...state.create,
+  authenticated: state.common.authenticated
 });
 
 class Create extends React.Component {
@@ -57,7 +58,7 @@ class Create extends React.Component {
 	    }
 
 		this.searchInputCallback = result => {
-			this.props.loadCreateSubject(result);
+			this.props.loadCreateSubject(this.props.authenticated, result);
 		}
 
 		this.submitForm = ev => {
@@ -93,8 +94,22 @@ class Create extends React.Component {
 		this.props.onCreateUnload();
 	}
 
-	renderRating(subject) {
-		if (subject)
+	renderRating(subject, review) {
+		if (subject && review) {
+			return (
+				<div>
+					<div className={'rating-container roow roow-row-center rating-wrapper-' + review.rating}>
+				        <div className="rating-graphic rating--2"></div>
+				        <div className="rating-graphic rating--1"></div>
+				        <div className="rating-graphic rating-0"></div>
+				        <div className="rating-graphic rating-1"></div>
+				        <div className="rating-graphic rating-2"></div>
+			        </div>
+			        <div> Your comment: {review.caption} </div>
+      			</div>
+			)
+		}
+		else if (subject) {
 			return (
 				<div>
 			      	<fieldset className="form-group no-margin">
@@ -136,6 +151,7 @@ class Create extends React.Component {
 			      </button>
 			    </div>
 		    )
+		}
 		else return null;
 	}
 
@@ -159,7 +175,7 @@ class Create extends React.Component {
 
 			    <SubjectInfo subject={this.props.subject} />
 
-			    {this.renderRating(this.props.subject)}
+			    {this.renderRating(this.props.subject, this.props.review)}
 
 		    </div>
 	    )
