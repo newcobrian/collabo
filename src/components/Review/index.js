@@ -5,10 +5,63 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../../actions';
 import LikeReviewButton from '../LikeReviewButton';
+import ReviewPreview from '../ReviewPreview';
+
+const DisplayAppUserReview = props => {
+  if (props.review) {
+    let review = props.review;
+    review.subject = props.subject;
+    review.reviewer = props.userInfo;
+    return (
+      <div>
+      Review from the app user is here...
+        <ReviewPreview review={review} 
+          userId={props.userId} 
+          like={props.like} 
+          unLike={props.unLike}
+          updateRating={props.updateRating} />
+      </div>
+    )
+  }
+  else {
+    return (
+      <div> Prompt user to enter view here.... </div>
+    )
+  }
+}
+
+const DisplayFollowingReviews = props => {
+  if (props.reviews) {
+    return (
+      <div>
+      Reviews from your friends...
+      {
+        props.reviews.map(review => {
+          review.subject = props.subject;
+          return (
+            <ReviewPreview review={review} 
+              key={review.id}
+              userId={props.userId} 
+              like={props.like} 
+              unLike={props.unLike}
+              updateRating={props.updateRating} />
+          )
+        })
+      }
+      </div>
+    )
+  }
+  else {
+    return (
+      <div> None of your friends have reviewed this yet... </div>
+    )
+  }
+}
 
 const mapStateToProps = state => ({
   ...state.review,
-  currentUser: state.common.currentUser
+  currentUser: state.common.currentUser,
+  userInfo: state.common.userInfo
 });
 
 /*const mapDispatchToProps = dispatch => ({
@@ -29,12 +82,16 @@ class Review extends React.Component {
     this.props.getSubject(this.props.params.sid);
     this.props.getReview(this.props.currentUser.uid, this.props.params.rid);
     this.props.getComments(this.props.params.rid);
+    this.props.getAppUserReview(this.props.currentUser.uid, this.props.userInfo, this.props.params.sid);
+    this.props.getFollowingReviews(this.props.currentUser.uid, this.props.params.sid, this.props.params.rid);
   }
 
   componentWillUnmount() {
     this.props.unloadSubject(this.props.params.sid);
     this.props.unloadReview(this.props.params.rid);
     this.props.unloadComments(this.props.params.rid);
+    this.props.unloadAppUserReview(this.props.currentUser.uid, this.props.params.sid);
+    this.props.unloadFollowingReviews(this.props.currentUser.uid, this.props.params.sid);
   }
 
   render() {
@@ -132,35 +189,33 @@ class Review extends React.Component {
             currentUser={this.props.currentUser} />
         </div>
       </div>
-       
-
-
-
-
-
 </div>
-
     {/****
 
      PUT OTHER PEOPLES' REVIEWS HERE 
 
       ****/}
 
+    <DisplayAppUserReview 
+      review={this.props.appUserReview}
+      subject={this.props.subject}
+      userId={this.props.currentUser.uid}
+      userInfo={this.props.userInfo}
+      like={this.props.likeReview} 
+      unLike={this.props.unLikeReview}
+      updateRating={this.props.onUpdateRating} />
 
+    <DisplayFollowingReviews
+      reviews={this.props.followingReviews}
+      subject={this.props.subject}
+      userId={this.props.currentUser.uid}
+      userInfo={this.props.userInfo}
+      like={this.props.likeReview} 
+      unLike={this.props.unLikeReview}
+      updateRating={this.props.onUpdateRating} />
 
-    </div>/* END - PAGE-WRAPPER */
-
-       
-
-
-
-
-
-
-
-
-
-      
+</div>/* END - PAGE-WRAPPER */
+    
     );
   }
 }

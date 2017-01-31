@@ -53,6 +53,10 @@ export const CREATE_PAGE_LOADED = 'CREATE_PAGE_LOADED';
 export const CREATE_PAGE_UNLOADED = 'CREATE_PAGE_UNLOADED';
 export const CREATE_SUBJECT_LOADED = 'CREATE_SUBJECT_LOADED';
 export const UPDATE_FIELD_CREATE = 'UPDATE_FIELD_CREATE';
+export const GET_APP_USER_REVIEW = 'GET_APP_USER_REVIEW';
+export const APP_USER_REVIEW_UNLOADED = 'APP_USER_REVIEW_UNLOADED';
+export const GET_FOLLOWING_REVIEWS = 'GET_FOLLOWING_REVIEWS';
+export const FOLLOWING_REVIEWS_UNLOADED = 'FOLLOWING_REVIEWS_UNLOADED';
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -268,7 +272,7 @@ export function unloadProfileFollowing(uid) {
     let current = Firebase.auth().currentUser.uid;
     dispatch({
       type: PROFILE_FOLLOWING_UNLOADED,
-      payload: Firebase.database().ref(Constants.FOLLOWINGS_PATH + '/' + current + '/' + uid).off()
+      payload: Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + current + '/' + uid).off()
     });
   }
 }
@@ -300,7 +304,7 @@ export function getProfileUser(userId) {
 export function checkFollowing(profile) {
   const current = Firebase.auth().currentUser.uid;
   return dispatch => {
-    Firebase.database().ref(Constants.FOLLOWINGS_PATH + '/' + current + '/' + profile).on('value', snapshot => {
+    Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + current + '/' + profile).on('value', snapshot => {
       let isFollowing = false;
       if (snapshot.exists()) {
         isFollowing = true;
@@ -315,7 +319,7 @@ export function checkFollowing(profile) {
 
 export function getFollowingCount(userId) {
   return dispatch => {
-    Firebase.database().ref(Constants.FOLLOWINGS_PATH + '/' + userId).once('value', snapshot => {
+    Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + userId).once('value', snapshot => {
       dispatch({
         type: GET_FOLLOWING_COUNT,
         payload: snapshot.numChildren()
@@ -326,7 +330,7 @@ export function getFollowingCount(userId) {
 
 export function getFollowerCount(userId) {
   return dispatch => {
-    Firebase.database().ref(Constants.FOLLOWERS_PATH + '/' + userId).once('value', snapshot => {
+    Firebase.database().ref(Constants.HAS_FOLLOWERS_PATH + '/' + userId).once('value', snapshot => {
       dispatch({
         type: GET_FOLLOWER_COUNT,
         payload: snapshot.numChildren()
@@ -339,10 +343,10 @@ export function followUser(follower) {
     const following = Firebase.auth().currentUser.uid;
     const updates = {};
     if (following && follower) {
-      updates[`/${Constants.FOLLOWERS_PATH}/${follower}/${following}`] = true;
-      updates[`/${Constants.FOLLOWINGS_PATH}/${following}/${follower}`] = true;
-      // updates[`/${Constants.FOLLOWERS_PATH}/${follower}/`] = following;
-      // updates[`/${Constants.FOLLOWINGS_PATH}/${following}/`] = follower;
+      updates[`/${Constants.HAS_FOLLOWERS_PATH}/${follower}/${following}`] = true;
+      updates[`/${Constants.IS_FOLLOWING_PATH}/${following}/${follower}`] = true;
+      // updates[`/${Constants.HAS_FOLLOWERS_PATH}/${follower}/`] = following;
+      // updates[`/${Constants.IS_FOLLOWING_PATH}/${following}/`] = follower;
     }
     sendInboxMessage(following, follower, Constants.FOLLOW_MESSAGE, null);
     return dispatch => Firebase.database().ref().update(updates);
@@ -353,8 +357,8 @@ export function unfollowUser(following) {
     const follower = Firebase.auth().currentUser.uid;
     const updates = {};
     if (following && follower) {
-      updates[`/${Constants.FOLLOWERS_PATH}/${following}/${follower}`] = null;
-      updates[`/${Constants.FOLLOWINGS_PATH}/${follower}/${following}`] = null;
+      updates[`/${Constants.HAS_FOLLOWERS_PATH}/${following}/${follower}`] = null;
+      updates[`/${Constants.IS_FOLLOWING_PATH}/${follower}/${following}`] = null;
     }
     return dispatch => Firebase.database().ref().update(updates);
 }
@@ -558,12 +562,53 @@ export function getSubject(subjectId) {
 export function getReview(appUserId, reviewId) {
   return dispatch => {
     Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewId).on('value', reviewSnapshot => {
-      Firebase.database().ref(Constants.USERS_PATH + '/' + reviewSnapshot.val().userId).on('value', userSnapshot => {
-        Firebase.database().ref(Constants.LIKES_PATH + '/' + reviewId).on('value', likesSnapshot => {
+      if (!reviewSnapshot.exists()) {
+        dispatch({
+          type: GET_REVIEW,
+          payload: null
+        })
+      }
+      else {
+        Firebase.database().ref(Constants.USERS_PATH + '/' + reviewSnapshot.val().userId).on('value', userSnapshot => {
+          Firebase.database().ref(Constants.LIKES_PATH + '/' + reviewId).on('value', likesSnapshot => {
+            let review = reviewSnapshot.val();
+            review.id = reviewSnapshot.key;
+            review.reviewer = {};
+            let userMeta = { username: userSnapshot.val().username, image: userSnapshot.val().image };
+            Object.assign(review.reviewer, userMeta);
+
+            review.isLiked = false
+            review.likesCount = 0;
+            if (likesSnapshot.val()) {
+              review.isLiked = searchLikes(appUserId, likesSnapshot.val());
+              review.likesCount = likesSnapshot.numChildren()
+            }
+
+            dispatch({
+              type: GET_REVIEW,
+              payload: review
+            });
+          })
+        })
+      }
+    });
+  }
+}
+
+export function getAppUserReview(appUserId, currentUserInfo, subjectId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + appUserId).on('value', reviewSnapshot => {
+      if (!reviewSnapshot.exists()) {
+        dispatch({
+          type: GET_REVIEW,
+          payload: null
+        })
+      }
+      else {
+        Firebase.database().ref(Constants.LIKES_PATH + '/' + reviewSnapshot.val().reviewId).on('value', likesSnapshot => {
           let review = reviewSnapshot.val();
           review.id = reviewSnapshot.key;
-          review.reviewer = {};
-          let userMeta = { username: userSnapshot.val().username, image: userSnapshot.val().image };
+          review.reviewer = currentUserInfo;
 
           review.isLiked = false
           review.likesCount = 0;
@@ -572,14 +617,83 @@ export function getReview(appUserId, reviewId) {
             review.likesCount = likesSnapshot.numChildren()
           }
 
-          Object.assign(review.reviewer, userMeta);
-            dispatch({
-              type: GET_REVIEW,
-              payload: review
-            });
+          dispatch({
+            type: GET_APP_USER_REVIEW,
+            payload: review
+          });
+        })
+      }
+    })
+  }
+}
+
+export function unloadAppUserReview(appUserId, subjectId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + appUserId).once('value', reviewSnapshot => {
+      Firebase.database().ref(Constants.LIKES_PATH + '/' + reviewSnapshot.val().reviewId).off();
+    })
+    Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + appUserId).off();
+    dispatch({
+      type: APP_USER_REVIEW_UNLOADED
+    })
+  }
+}
+
+export function getFollowingReviews(appUserId, subjectId, viewingReviewId) {
+  return dispatch => {
+    let reviewArray = [];
+    Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + appUserId).on('value', followingSnapshot => {
+      followingSnapshot.forEach(function(followingChild) {
+        Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + followingChild.key).on('value', reviewSnapshot => {
+          if (reviewSnapshot.exists() && viewingReviewId !== reviewSnapshot.val().reviewId) {
+            Firebase.database().ref(Constants.USERS_PATH + '/' + followingChild.key).once('value', userSnapshot => {
+              Firebase.database().ref(Constants.LIKES_PATH + '/' + reviewSnapshot.val().reviewId).on('value', likesSnapshot => {
+                let review = reviewSnapshot.val();
+                review.id = reviewSnapshot.val().reviewId;
+                review.reviewer = {};
+                let userMeta = { username: userSnapshot.val().username, image: userSnapshot.val().image };
+                Object.assign(review.reviewer, userMeta)
+
+                review.isLiked = false
+                review.likesCount = 0;
+                if (likesSnapshot.val()) {
+                  review.isLiked = searchLikes(appUserId, likesSnapshot.val());
+                  review.likesCount = likesSnapshot.numChildren()
+                }
+
+                reviewArray = [review].concat(reviewArray);
+                reviewArray.sort(lastModifiedDesc);
+
+                dispatch({
+                  type: GET_FOLLOWING_REVIEWS,
+                  payload: reviewArray
+                });
+              })
+            })
+          }
         })
       })
-    });
+    })
+  }
+}
+
+export function unloadFollowingReviews(appUserId, subjectId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + appUserId).once('value', followingSnapshot => {
+      followingSnapshot.forEach(function(followingChild) {
+        Firebase.database().ref(Constants.USERS_PATH + '/' + followingChild.key).off();
+        Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + followingChild.key).once('value', reviewSnapshot => {
+          if (reviewSnapshot.exists()) {
+            Firebase.database().ref(Constants.LIKES_PATH + '/' + reviewSnapshot.val().reviewId).off();
+          }
+        })
+        Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + followingChild.key).off();
+      })
+    })
+    Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + appUserId).off();
+    dispatch({
+      type: FOLLOWING_REVIEWS_UNLOADED
+    })
   }
 }
 
@@ -672,8 +786,6 @@ export function onCommentSubmit(review, body) {
     })
   }
 }
-
-
 
 export function onDeleteComment(reviewId, commentId) {
   return dispatch => {    
@@ -872,7 +984,7 @@ export function searchLikes(uid, likes) {
 export function getUserFeed(uid) {
   return dispatch => {
     let feedArray = [];
-    Firebase.database().ref(Constants.FOLLOWINGS_PATH + '/' + uid).on('value', followedSnapshot => {
+    Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + uid).on('value', followedSnapshot => {
       followedSnapshot.forEach(function(followedUser) {
         Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + followedUser.key).orderByChild('lastModified').on('value', reviewsSnapshot => {
           reviewsSnapshot.forEach(function(review) {
@@ -922,16 +1034,6 @@ export function getUserFeed(uid) {
 
 export function likeReview(userId, review) {
   const updates = {};
-  const updateInfo = {};
-
-  // if (review.subjectId) updateInfo.subjectId = review.subjectId;
-  // if (review.rating) updateInfo.rating = review.rating;
-  // if (review.caption) updateInfo.caption = review.caption;
-  // if (review.lastModified) updateInfo.lastModified = review.lastModified;
-  // if (review.title) updateInfo.title = review.title;
-  // if (review.description) updateInfo.description = review.description;
-  // if (review.image) updateInfo.image = review.image;
-  // if (review.reviewer.reviewerId) updateInfo.reviewerId = review.reviewer.reviewerId;
 
   updates[`/${Constants.LIKES_PATH}/${review.id}/${userId}`] = true;
   updates[`/${Constants.LIKES_BY_USER_PATH}/${userId}/${review.id}`] = true;
@@ -960,7 +1062,7 @@ export function unLikeReview(userId, review) {
 
 export function unloadUserFeed(uid) {
   return dispatch => {
-    Firebase.database().ref(Constants.FOLLOWINGS_PATH + '/' + uid).once('value', followedSnapshot => {
+    Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + uid).once('value', followedSnapshot => {
       followedSnapshot.forEach(function(followedUser) {
         Firebase.database().ref(Constants.USERS_PATH + '/' + followedUser.key).off();    
         Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + followedUser.key).once('value', userReviewsSnapshot => {
@@ -972,7 +1074,7 @@ export function unloadUserFeed(uid) {
         Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + followedUser.key).off();
       })
     })
-    Firebase.database().ref(Constants.FOLLOWINGS_PATH + '/' + uid).off();
+    Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + uid).off();
 
     dispatch({
       type: USER_FEED_UNLOADED
@@ -1072,7 +1174,7 @@ export function getFollowers(userId, followPath) {
       followersSnapshot.forEach(function(follower) {
         let followerId = follower.key;
         Firebase.database().ref(Constants.USERS_PATH + '/' + followerId).on('value', userSnapshot => {
-          Firebase.database().ref(Constants.FOLLOWINGS_PATH + '/' + current + '/' + followerId).on('value', isFollowingSnapshot => {
+          Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + current + '/' + followerId).on('value', isFollowingSnapshot => {
             let userObject = {};
             let key = { userId: followerId };
             let followingObject = { isFollowing: false };
@@ -1108,7 +1210,7 @@ export function unloadFollowers(userId, followPath) {
       followersSnapshot.forEach(function(follower) {
         let followerId = follower.key;
         Firebase.database().ref(Constants.USERS_PATH + '/' + followerId).off();
-        Firebase.database().ref(Constants.FOLLOWINGS_PATH + '/' + current + '/' + followerId).off();
+        Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + current + '/' + followerId).off();
       })
     })
     Firebase.database().ref(followPath + '/' + userId).off();
