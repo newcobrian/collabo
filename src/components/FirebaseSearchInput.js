@@ -12,16 +12,21 @@ class FirebaseSearchInput extends Component {
     this.onNewRequest = this.onNewRequest.bind(this);
     this.state = {
       dataSource : [],
-      inputValue : ''
+      inputValue : '',
+      searchTimer: undefined
     }
   }
 
   onUpdateInput(inputValue) {
+
     const self = this;
     this.setState({
       inputValue: inputValue
     }, function() {
-      self.performSearch();
+      clearTimeout(this.state.searchTimer);
+      this.state.searchTimer = setTimeout(function () { 
+        self.performSearch();
+      }, 200)
     })
   }
 
