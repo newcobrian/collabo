@@ -5004,7 +5004,9 @@ footer {
     text-align: left; }
 
 .article-page .comment-form .card-block {
-  padding: 0; }
+  padding: 0;
+      width: 100%;
+    height: 40px; }
   .article-page .comment-form .card-block textarea {
     border: 0px;
     padding: 1.25rem; }

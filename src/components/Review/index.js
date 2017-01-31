@@ -13,8 +13,8 @@ const DisplayAppUserReview = props => {
     review.subject = props.subject;
     review.reviewer = props.userInfo;
     return (
-      <div>
-      Review from the app user is here...
+      <div className="reviewpreview-wrapper your-review roow roow-col-center">
+
         <ReviewPreview review={review} 
           userId={props.userId} 
           like={props.like} 
@@ -25,7 +25,7 @@ const DisplayAppUserReview = props => {
   }
   else {
     return (
-      <div> Prompt user to enter view here.... </div>
+      <div> Prompt user to enter review here.... </div>
     )
   }
 }
@@ -33,8 +33,7 @@ const DisplayAppUserReview = props => {
 const DisplayFollowingReviews = props => {
   if (props.reviews) {
     return (
-      <div>
-      Reviews from your friends...
+      <div className="reviewpreview-wrapper other-review roow roow-col-center">
       {
         props.reviews.map(review => {
           review.subject = props.subject;
@@ -98,6 +97,8 @@ class Review extends React.Component {
     if (!this.props.review) {
       return null;
     }
+    let reviewObject = this.props.review;
+    reviewObject.subject = this.props.subject;
 
     // const markup = { __html: marked(this.props.article.body) };
     const canModify = false;
@@ -107,89 +108,25 @@ class Review extends React.Component {
 
 
     <div className="page-common article-page">
-
-
-
-      <div className="reviews-wrapper roow roow-col">
-          
-          <div className="subject-name-container">
-                <div className="text-subject-name">{this.props.subject.title}</div>
-                <div className="text-category shift-up-5">Book, Movie, Restaurant, Cool</div>
-          </div>
-
-
-<div className="roow roow-col flex-wrap">
-          <div className="review-container roow roow-row">
-            
-            <div className="review-image-wrapper">
-              <SubjectMeta
-              subject={this.props.subject}
-              canModify={canModify} />
-            </div>
-
-            <div className="review-data-container roow roow-col-left">
-              <div className="review-data-module gray-border roow roow-col-left box-shadow">
-                <Link to={`@${this.props.review.reviewer.username}`} className="author">
-                <div className="photo-rating-module roow">
-                  <div className="reviewer-photo center-img"><img src={this.props.review.reviewer.image} /></div>
-                    <div className={'rating-container roow roow-row-center rating-wrapper-' + this.props.review.rating}>
-                        <div className="rating-graphic rating--2"></div>
-                        <div className="rating-graphic rating--1"></div>
-                        <div className="rating-graphic rating-0"></div>
-                        <div className="rating-graphic rating-1"></div>
-                        <div className="rating-graphic rating-2"></div>
-                    </div>
-                </div>
-                </Link>
-                <div className="info">
-                  <div className="subject-caption">
-                    {this.props.review.caption}
-                  </div>
-                  <div className="reviewer-name-container">
-                  <Link to={`@${this.props.review.reviewer.username}`}>
-                  <div className="reviewer-name">
-                    <span className="dash">-</span>{this.props.review.reviewer.username}
-                  </div>
-                  </Link>
-                </div>
-                <div className="review-timestamp">
-                  {new Date(this.props.review.lastModified).toLocaleString([], {year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute:'2-digit'})}
-                </div>
-              </div>
-              </div>
-              
-              <div className="roow roow-row flex-wrap">
-                <div className="cta-box roow roow-row-space gray-border">
-                    <LikeReviewButton
-                      userId={this.props.currentUser.uid}
-                      isLiked={this.props.review.isLiked}
-                      likesCount={this.props.review.likesCount}
-                      unLike={this.props.unLikeReview}
-                      like={this.props.likeReview} 
-                      review={this.props.review} />
-                  <div className="cta-wrapper roow roow-col">
-                          <div className="cta-icon cta-save"></div>
-                          12 Saves
-                  </div>
-                  <div className="cta-wrapper roow roow-col">
-                        <div className="cta-icon cta-share"></div>
-                          Share
-                  </div>
-                </div>   
-            </div>
-          
-          </div>
-          
-        </div>
-        <div className="roow roow-center comments-container">
-         <CommentContainer
-            comments={this.props.comments || []}
-            errors={this.props.commentErrors}
-            review={this.props.review}
-            currentUser={this.props.currentUser} />
-        </div>
+    <div className="reviewpreview-wrapper main-review roow roow-col-center">
+      <ReviewPreview review={reviewObject} 
+              userId={this.props.currentUser.uid} 
+              like={this.props.likeReview} 
+              unLike={this.props.unLikeReview}
+              updateRating={this.props.onUpdateRating} />
+              <div className="roow roow-center comments-container">
+       <CommentContainer
+          comments={this.props.comments || []}
+          errors={this.props.commentErrors}
+          review={this.props.review}
+          currentUser={this.props.currentUser} />
       </div>
 </div>
+
+      
+        
+    
+    
     {/****
 
      PUT OTHER PEOPLES' REVIEWS HERE 

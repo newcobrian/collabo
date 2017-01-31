@@ -30,25 +30,27 @@ class CommentInput extends React.Component {
 
   render() {
     return (
-      <form className="comment-wrapper gray-border comment-form" onSubmit={this.createComment}>
+      <form className="comment-wrapper gray-border comment-form roow roow-row-center" onSubmit={this.createComment}>
+        <img
+            src={this.props.currentUser.image}
+            className="comment-author-img" />
+
+        <button
+          className="bttn-style bttn-submit bttn-subject-comment"
+          type="submit">
+          Post
+        </button>
+
         <div className="card-block">
           <textarea className="comment-input"
             placeholder="Write a comment..."
             value={this.state.body}
             onChange={this.setBody}
-            rows="3">
+            rows="1">
           </textarea>
         </div>
-        <div className="">
-          <img
-            src={this.props.currentUser.image}
-            className="comment-author-img" />
-          <button
-            className="bttn-style bttn-submit"
-            type="submit">
-            Post Comment
-          </button>
-        </div>
+
+        
       </form>
     );
   }

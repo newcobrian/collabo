@@ -35,18 +35,24 @@ const RatingsButtons = props => {
 const CommentPreview = props => {
   if (props.comments) {
     return (
-    <div className="comments-preview-wrapper roow roow-col-left">
       <Link to={`review/${props.review.subjectId}/${props.review.id}`}>
-        <div className="roow roow-row-col">
-          <div className="commenter-pic"><img src={props.comments.image}/></div>
-          <div className="comment-single">{props.comments.body}</div>
+        <div className="cta-wrapper roow roow-col">
+          <div className="cta-icon cta-comment comment-on"></div>
+          {props.comments.commentsCount} Comments
         </div>
-        <div className="comment-counter">{props.comments.commentsCount} Comments</div>
       </Link>
-    </div>
     )
   }
-  return null;
+  else {
+    return (
+      <Link to={`review/${props.review.subjectId}/${props.review.id}`}>
+        <div className="cta-wrapper roow roow-col">
+          <div className="cta-icon cta-comment"></div>
+          Comment
+        </div>
+      </Link>
+    )
+  }
 }
 
 const ReviewPreview = props => {
@@ -71,15 +77,23 @@ const ReviewPreview = props => {
           </div>
           <div className="review-data-container roow roow-col-left">
             <div className="review-data-module gray-border roow roow-col-left box-shadow">
-              
-             
                 <div className="photo-rating-module roow">
                   <Link to={`@${review.reviewer.username}`}>
                     <div className="reviewer-photo center-img"><img src={review.reviewer.image}/></div>
-                  </Link>  
-                  <Link to={`review/${review.subjectId}/${review.id}`}> 
-                    <RatingsButtons review={review} userId={props.userId} updateRating={props.updateRating} />
                   </Link>
+                  <div className="roow roow-col-left">
+                    <div className="reviewer-name-container">
+                      <Link to={`@${review.reviewer.username}`}>
+                        <div className="reviewer-name">
+                          <span className="dash"></span>{review.reviewer.username}
+                        </div>
+                      </Link>
+                    </div>
+                    <Link to={`review/${review.subjectId}/${review.id}`}> 
+                      <RatingsButtons review={review} userId={props.userId} updateRating={props.updateRating} />
+                    </Link>
+                  </div>
+
                 </div>
               
               <div className="info">
@@ -88,41 +102,35 @@ const ReviewPreview = props => {
                   {review.caption}
                 </div>
                 </Link>
-                <div className="reviewer-name-container">
-                <Link to={`@${review.reviewer.username}`}>
-                  <div className="reviewer-name">
-                    <span className="dash">-</span>{review.reviewer.username}
-                  </div>
-                </Link>
-              </div>
                 <div className="review-timestamp">
                   {(new Date(review.lastModified)).toLocaleString()}
                 </div>
               </div>
             </div>
             <div className="roow roow-row flex-wrap">
-              <div className="cta-box roow roow-row-space gray-border">
-                
-                <LikeReviewButton
-                  userId={props.userId}
-                  isLiked={props.review.isLiked}
-                  likesCount={props.review.likesCount}
-                  unLike={props.unLike}
-                  like={props.like} 
-                  review={review} />
-
-                <div className="cta-wrapper roow roow-col">
-                  <div className="cta-icon cta-save"></div>
-                  12 Saves
-
+              <div className="cta-box roow roow-row-space">
+                <CommentPreview comments={props.review.comments} review={props.review} />
+                <div className="roow roow-row flew-item-right">
+                  <div className="cta-wrapper disable roow roow-col">
+                    <div className="cta-icon cta-save"></div>
+                    Save
+                  </div>
+                  <LikeReviewButton
+                    userId={props.userId}
+                    isLiked={props.review.isLiked}
+                    likesCount={props.review.likesCount}
+                    unLike={props.unLike}
+                    like={props.like} 
+                    review={review} />
+                </div>
+                {/**}
                   </div>
                   <div className="cta-wrapper roow roow-col">
                     <div className="cta-icon cta-share"></div>
                     Share
-                  </div>
+                  </div>**/}
                 </div>
                 
-                <CommentPreview comments={props.review.comments} review={props.review} />
             </div>
 
 

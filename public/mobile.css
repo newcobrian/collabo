@@ -109,14 +109,31 @@
   top: 60px;
 }
 
-
+.reviews-wrapper {
+  margin-bottom: 0;
+}
 
 .article-page .review-data-container {
   margin-top: 100px;
 }
+.your-review .review-data-container,
+.other-review .review-data-container {
+  margin-top: 0px;
+}
 .article-page .comments-container {
   padding: 0px;
   width: 100%;
+  margin-left: 0px;
+  margin-top: 0px;
 }
+.article-page .text-subject-name {
+  font-size: 18px;
+}
+
+.your-review .review-image-wrapper,
+.other-review .review-image-wrapper {
+  display: none;
+}
+
 
 }

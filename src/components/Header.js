@@ -47,10 +47,6 @@ const LoggedInView = props => {
             <div className="nav-icon"><img src="../img/icon32_inbox.png"/></div>
             <div className="nav-text">Inbox</div> <InboxCounter unreadMessages={props.unreadMessages} />
         </Link>
-        <Link to={`@${props.userInfo.username}`} className="nav-module">        
-            <div className="nav-icon"><img src="../img/icon32_saved.png"/></div>
-            <div className="nav-text">Saved</div>
-        </Link>
         <Link to={`@${props.userInfo.username}`} className="nav-module">
             <div className="nav-icon"><img className="center-img" src={props.userInfo.image}/></div>
             <div className="nav-text">Profile</div>

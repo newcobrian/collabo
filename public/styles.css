@@ -84,7 +84,10 @@ textarea {
 .DN {
   display: none !important;
 }
-
+.disable {
+  opacity: .4;
+  pointer-events: none;
+}
 
 
 /****** 
@@ -122,7 +125,12 @@ textarea {
     height: 70px;
     font-size: 20px;
 }
-
+.bttn-submit.bttn-subject-comment {
+  width: 50px;
+  height: 50px;
+  font-size: 12px;
+  padding: 10px;
+}
 @keyframes colorchange
     {
       0%   {background: #51EBB7;}
@@ -433,11 +441,13 @@ a.logo-module:focus {
     text-align: center;
 }
 .article-page .review-data-container {
-  margin-left: 0;
+  margin-left: 10px;
   margin-top: 0px;
 }
 .article-page .comments-container {
-  width: 100%;
+    width: 300px;
+    margin-left: 290px;
+    margin-top: -110px;
 }
 .comment-wrapper {
   border-radius: 0;
@@ -517,35 +527,44 @@ a.logo-module:focus {
 ******/
 .comment-wrapper.card {
   border: none;
-  margin-bottom: 0;
+  margin: 5px 0 5px;
+  background-color: transparent;
 }
 .comment-wrapper.card .card-footer {
-  background-color: white;
-  padding: 10px 20px 0;
+  background-color: transparent;
+  padding: 0px 10px 0;
   border-top: none;
-  height: 42px;
+  height: auto;
 }
 .comment-wrapper.card .comment-author-img {
   width: 32px;
   height: 32px;
 }
 .comment-wrapper.card .comment-data {
-  margin-left: 10px;
 }
 .comment-wrapper.card .comment-author {
-  font-size: 14px;
-  font-weight: 700;
+    font-size: 14px;
+    font-weight: 700;
+    margin-right: 5px;
+    margin-top: -3px;
+}
+.comment-wrapper .card-text {
+  margin: 0;
+  margin-right: 20px;
 }
 .comment-wrapper.card .date-posted {
-  font-size: 11px;
+  font-size: 10px;
   margin-left: 0;
+  margin-top: 1px;
 }
 .comment-wrapper .comment-block {
   padding: 5px 20px;
 }
 .comments-module .comment-input-wrapper {
-  margin-top: 20px;
-  padding-bottom: 10xp;
+  margin: 10px 0;
+  outline: none;
+}
+.comments-module .comment-input-wrapper:focus {
   border: 1px solid rgba(0,0,0,.1);
 }
 .comments-module .comment-input-wrapper .comment-input {
@@ -554,9 +573,32 @@ a.logo-module:focus {
     line-height: 20px;
     font-weight: 100;
     width: 100%;
-    padding: 10px 20px!important;
+    padding: 10px !important;
 }
-
+.article-page .card.comment-wrapper .mod-options {
+    color: #333;
+    font-size: 1rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: none;
+}
+.article-page .card.comment-wrapper:hover .mod-options {
+  display: inline-block;
+}
+.article-page .comment-form .card-block {
+    padding: 5px;
+    width: 100%;
+    height: 50px;
+}
+.article-page .comment-form .card-block textarea:focus {
+  outline: -webkit-focus-ring-color auto 1px;
+  outline-offset: -2px;
+}
+.comment-row {
+  line-height: 16px;
+  font-size: 14px;
+}
 
 
 

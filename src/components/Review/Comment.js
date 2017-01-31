@@ -17,11 +17,14 @@ const Comment = props => {
           </Link>
           &nbsp;
           <div className="comment-data roow roow-col-left">
-            <Link
-              to={`@${comment.username}`}
-              className="comment-author">
-              {comment.username}
-            </Link>
+            <div className="comment-row">
+              <Link
+                to={`@${comment.username}`}
+                className="comment-author">
+                {comment.username}
+              </Link>
+              {comment.body}
+            </div>
             <span className="date-posted">
               {new Date(comment.lastModified).toLocaleString([], {year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute:'2-digit'})}
             </span>
@@ -29,9 +32,7 @@ const Comment = props => {
         </div>
         <DeleteButton show={show} reviewId={props.reviewId} commentId={comment.id} />
       </div>
-      <div className="card-block comment-block">
-        <p className="card-text">{comment.body}</p>
-      </div>
+     
       
     </div>
   );
