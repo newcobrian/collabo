@@ -59,6 +59,7 @@ class FirebaseSearchInput extends Component {
                 if (result.url) searchObject.url = result.url;
                 // if (result.categories && result.categories[0] && result.categories[0].icon) searchObject.image = result.categories[0].icon.prefix + result.categories[0].icon.suffix;
                 if (result.location && result.location.formattedAddress) searchObject.description = result.location.formattedAddress.join(' ');
+                if (result.location && result.location.address + result.location.city) searchObject.text += ' - ' + result.location.address + ', ' + result.location.city;
               }
               break;
             case 'spotify':
@@ -79,6 +80,7 @@ class FirebaseSearchInput extends Component {
                     case 'artist':
                       if (result.genres) searchObject.description = result.genres.join(', ');
                       if (result.images && result.images[0] && result.images[0].url) searchObject.image = result.images[0].url;
+                      searchObject.text += ' (Spotify artist)';
                       break;
                     case 'track':
                       if (result.album && result.album.images && result.album.images[0] && result.album.images[0].url) {
@@ -135,9 +137,9 @@ class FirebaseSearchInput extends Component {
         }}
         fullWidth={true}
         hintText='Search for a product'
-        dataSource = {this.state.dataSource}
-        onUpdateInput = {this.onUpdateInput} 
-        onNewRequest = {this.onNewRequest} />
+        dataSource={this.state.dataSource}
+        onUpdateInput={this.onUpdateInput} 
+        onNewRequest={this.onNewRequest} />
       </MuiThemeProvider>
   }
 }
