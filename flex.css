@@ -37,6 +37,14 @@
    -webkit-align-items: flex-start;
    align-items: flex-start;
 }
+.roow.roow-col-center {
+   -webkit-flex-direction: column; 
+   flex-direction: column;
+   -webkit-justify-content: center;
+   justify-content: center;
+}
+
+
 .roow.roow-row-left {
    -webkit-flex-direction: row; 
    flex-direction: row;
@@ -90,4 +98,7 @@
 }
 .flex-wrap {
   flex-wrap: wrap;
+}
+.flex-item-right {
+  margin-left: auto;
 }
