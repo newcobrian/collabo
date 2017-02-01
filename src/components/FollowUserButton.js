@@ -15,9 +15,9 @@ const FollowUserButton = props => {
   const handleClick = ev => {
     ev.preventDefault();
     if (props.user.isFollowing) {
-      props.unfollow(props.user.userId);
+      props.unfollow(props.authenticated, props.user.userId);
     } else {
-      props.follow(props.user.userId);
+      props.follow(props.authenticated, props.user.userId);
     }
   };
 

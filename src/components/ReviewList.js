@@ -27,7 +27,7 @@ const ReviewList = props => {
           return (
             <ReviewPreview review={review} 
               key={review.id} 
-              userId={props.userId} 
+              authenticated={props.authenticated} 
               like={props.like} 
               unLike={props.unLike}
               updateRating={props.updateRating} />

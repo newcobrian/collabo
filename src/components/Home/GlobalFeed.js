@@ -40,7 +40,19 @@ class GlobalFeed extends Home {
         </ul>
       );
     }
-    else return null;
+    else {
+      return (
+        <ul className="nav nav-pills outline-active">
+            <li className="nav-item">
+              <Link
+                className="nav-link active"
+                to={`global`}>
+                Global Feed
+              </Link>
+            </li>
+          </ul>
+      )
+    };
   }
 }
 

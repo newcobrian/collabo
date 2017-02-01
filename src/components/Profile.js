@@ -155,6 +155,7 @@ class Profile extends React.Component {
                   onLogoutClick={this.props.signOutUser}/>
                 
                 <FollowUserButton
+                authenticated={this.props.authenticated}
                 isUser={isUser}
                 user={profile}
                 follow={this.props.followUser}
@@ -174,7 +175,7 @@ class Profile extends React.Component {
           <ReviewList
             reviews={profile.reviews} 
             reviewsCount={this.props.reviewsCount}
-            userId={this.props.authenticated} 
+            authenticated={this.props.authenticated} 
             like={this.props.likeReview} 
             unLike={this.props.unLikeReview}
             currentPage={this.props.currentPage}

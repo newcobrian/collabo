@@ -8,7 +8,8 @@ import FollowUserButton from './FollowUserButton';
 
 const mapStateToProps = state => ({
 	...state.followers,
-	currentUser: state.common.currentUser
+	currentUser: state.common.currentUser,
+	authenticated: state.common.authenticated
 });
 
 class Followers extends React.Component {
@@ -65,6 +66,7 @@ class Followers extends React.Component {
 							    </div>
 							    <div>
 							    	<FollowUserButton
+							    	authenticated={this.props.authenticated}
 					                isUser={isUser}
 					                user={follower}
 					                follow={this.props.followUser}

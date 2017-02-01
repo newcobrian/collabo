@@ -8,7 +8,7 @@ import LikeReviewButton from '../LikeReviewButton';
 import ReviewPreview from '../ReviewPreview';
 
 const DisplayAppUserReview = props => {
-  if (props.review) {
+  if (props.review && props.authenticated) {
     let review = props.review;
     review.subject = props.subject;
     review.reviewer = props.userInfo;
@@ -16,7 +16,7 @@ const DisplayAppUserReview = props => {
       <div className="reviewpreview-wrapper your-review roow roow-col-center">
 
         <ReviewPreview review={review} 
-          userId={props.userId} 
+          authenticated={props.authenticated} 
           like={props.like} 
           unLike={props.unLike}
           updateRating={props.updateRating} />
@@ -40,7 +40,7 @@ const DisplayFollowingReviews = props => {
           return (
             <ReviewPreview review={review} 
               key={review.id}
-              userId={props.userId} 
+              authenticated={props.authenticated} 
               like={props.like} 
               unLike={props.unLike}
               updateRating={props.updateRating} />
@@ -60,6 +60,7 @@ const DisplayFollowingReviews = props => {
 const mapStateToProps = state => ({
   ...state.review,
   currentUser: state.common.currentUser,
+  authenticated: state.common.authenticated,
   userInfo: state.common.userInfo
 });
 
@@ -81,16 +82,18 @@ class Review extends React.Component {
     this.props.getSubject(this.props.params.sid);
     this.props.getReview(this.props.currentUser.uid, this.props.params.rid);
     this.props.getComments(this.props.params.rid);
-    this.props.getAppUserReview(this.props.currentUser.uid, this.props.userInfo, this.props.params.sid);
-    this.props.getFollowingReviews(this.props.currentUser.uid, this.props.params.sid, this.props.params.rid);
+    this.props.getAppUserReview(this.props.authenticated, this.props.userInfo, this.props.params.sid);
+    this.props.getFollowingReviews(this.props.authenticated, this.props.params.sid, this.props.params.rid);
   }
 
   componentWillUnmount() {
     this.props.unloadSubject(this.props.params.sid);
     this.props.unloadReview(this.props.params.rid);
     this.props.unloadComments(this.props.params.rid);
-    this.props.unloadAppUserReview(this.props.currentUser.uid, this.props.params.sid);
-    this.props.unloadFollowingReviews(this.props.currentUser.uid, this.props.params.sid);
+    if (this.props.authenticated) {
+      this.props.unloadAppUserReview(this.props.authenticated, this.props.params.sid);
+      this.props.unloadFollowingReviews(this.props.authenticated, this.props.params.sid);
+    }
   }
 
   render() {
@@ -110,12 +113,13 @@ class Review extends React.Component {
     <div className="page-common article-page">
     <div className="reviewpreview-wrapper main-review roow roow-col-center">
       <ReviewPreview review={reviewObject} 
-              userId={this.props.currentUser.uid} 
+              authenticated={this.props.authenticated} 
               like={this.props.likeReview} 
               unLike={this.props.unLikeReview}
               updateRating={this.props.onUpdateRating} />
               <div className="roow roow-center comments-container">
        <CommentContainer
+          authenticated={this.props.authenticated}
           comments={this.props.comments || []}
           errors={this.props.commentErrors}
           review={this.props.review}
@@ -136,7 +140,7 @@ class Review extends React.Component {
     <DisplayAppUserReview 
       review={this.props.appUserReview}
       subject={this.props.subject}
-      userId={this.props.currentUser.uid}
+      authenticated={this.props.authenticated}
       userInfo={this.props.userInfo}
       like={this.props.likeReview} 
       unLike={this.props.unLikeReview}
@@ -145,7 +149,7 @@ class Review extends React.Component {
     <DisplayFollowingReviews
       reviews={this.props.followingReviews}
       subject={this.props.subject}
-      userId={this.props.currentUser.uid}
+      authenticated={this.props.authenticated}
       userInfo={this.props.userInfo}
       like={this.props.likeReview} 
       unLike={this.props.unLikeReview}

@@ -73,21 +73,21 @@ class Create extends React.Component {
     	};
 	}
 
-	componentWillReceiveProps(nextProps) {
-	    if (this.props.id !== nextProps.id) {
-	      if (nextProps.id) {
-	        this.props.onCreateUnload();
-	        return this.props.onCreateLoad();
-	      }
-	      this.props.onEditorLoad();
-	    }
-	}
+	// componentWillReceiveProps(nextProps) {
+	//     if (this.props.id !== nextProps.id) {
+	//       if (nextProps.id) {
+	//         this.props.onCreateUnload();
+	//         return this.props.onCreateLoad();
+	//       }
+	//       this.props.onEditorLoad();
+	//     }
+	// }
 
 	componentWillMount() {
-    	if (this.props.id) {
-      		return this.props.onCreateLoad();
-    	}
-    	this.props.onCreateLoad(null);
+    	// if (this.props.id) {
+     //  		return this.props.onCreateLoad(this.props.authenticated);
+    	// }
+    	this.props.onCreateLoad(this.props.authenticated);
 	}
 
 	componentWillUnmount() {

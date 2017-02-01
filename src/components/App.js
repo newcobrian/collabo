@@ -45,11 +45,22 @@ class App extends React.Component {
       if (user) {
         // console.log('user = ' + JSON.stringify(user));
         // console.log('app.js: agent auth current = ' + JSON.stringify(agent.Auth.current()));
-        this.props.onLoad(user, user.uid);
+        if (user.isAnonymous) {
+          this.props.onLoad(user, false)
+        }
+        else {
+          this.props.onLoad(user, user.uid);
+        }
         this.props.getAppUser(user.uid);
         this.props.getInboxCount(user.uid);
-      } else {
-        this.props.onLoad(null, false);
+      } 
+      else {
+        Firebase.auth().signInAnonymously().catch(function(error) {
+          console.log('anonymous login failed with error.code = ' + error.code + ' and message ' + error.message);
+        })
+        // Firebase.auth().onAuthStateChanged(anonUser => {
+        //   this.props.onLoad(anonUser, false);
+        // })
       }
     });
     // this.props.onLoad(token ? agent.Auth.current() : null, token);

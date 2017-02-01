@@ -5,7 +5,7 @@ import CommentInput from './CommentInput';
 import ListErrors from '../ListErrors';
 
 const CommentContainer = props => {
-	if (props.currentUser) {
+	if (props.authenticated && props.currentUser) {
 		return (
 			<div className="comments-module">
 		        <CommentList
@@ -14,7 +14,7 @@ const CommentContainer = props => {
 		          currentUser={props.currentUser} />
 		        <div className="comment-input-wrapper">
 		          <ListErrors errors={props.errors}></ListErrors>
-		          <CommentInput review={props.review} currentUser={props.currentUser} />
+		          <CommentInput review={props.review} currentUser={props.currentUser} authenticated={props.authenticated} />
 		        </div>
 		     </div>
 		);

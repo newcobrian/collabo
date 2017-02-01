@@ -24,7 +24,7 @@ export default (state = {}, action) => {
     case AUTH_USER:
       return {
         ...state,
-        authenticated: true,
+        authenticated: action.payload,
         inProgress: false,
         error: null
       };

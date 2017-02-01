@@ -5,10 +5,10 @@ import LikeReviewButton from './LikeReviewButton';
 const RatingsButtons = props => {
   const handleClick = rating => ev => {
     ev.preventDefault();
-    props.updateRating(props.userId, props.review.id, props.review.subjectId, rating);
+    props.updateRating(props.authenticated, props.review.id, props.review.subjectId, rating);
   };
 
-  if (props.userId === props.review.reviewer.userId) {
+  if (props.authenticated && props.authenticated === props.review.reviewer.userId) {
     return (
       <div className={'rating-container roow roow-row-center rating-wrapper-' + props.review.rating}>
         <button className="rating-graphic rating--2" onClick={handleClick(-2)}></button>
@@ -90,7 +90,7 @@ const ReviewPreview = props => {
                       </Link>
                     </div>
                     <Link to={`review/${review.subjectId}/${review.id}`}> 
-                      <RatingsButtons review={review} userId={props.userId} updateRating={props.updateRating} />
+                      <RatingsButtons review={review} authenticated={props.authenticated} updateRating={props.updateRating} />
                     </Link>
                   </div>
 
@@ -116,7 +116,7 @@ const ReviewPreview = props => {
                     Save
                   </div>
                   <LikeReviewButton
-                    userId={props.userId}
+                    authenticated={props.authenticated}
                     isLiked={props.review.isLiked}
                     likesCount={props.review.likesCount}
                     unLike={props.unLike}

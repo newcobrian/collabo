@@ -11,7 +11,7 @@ const InboxCounter = props => {
 }
 
 const LoggedOutView = props => {
-  if (!props.currentUser) {
+  if (!props.currentUser || props.currentUser.isAnonymous) {
     return (
       <div className="navigation-bar no-icons roow roow-row-right">
           <Link to="login" className="nav-module">

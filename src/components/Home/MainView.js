@@ -26,7 +26,7 @@ const MainView = props => {
         reviewsCount={props.reviewsCount}
         currentPage={props.currentPage}
         onSetPage={onSetPage} 
-        userId={props.authenticated} 
+        authenticated={props.authenticated} 
         like={props.likeReview} 
         unLike={props.unLikeReview} 
         updateRating={props.onUpdateRating} />

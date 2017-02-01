@@ -34,7 +34,7 @@ class Login extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.onUnload();
+    // this.props.onUnload();
   }
 
   render() {

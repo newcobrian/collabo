@@ -1,4 +1,4 @@
-import { AUTH_USER, SIGN_OUT_USER, REVIEW_SUBMITTED, APP_USER_LOADED, GET_INBOX_COUNT, HOME_PAGE_NO_AUTH } from '../actions';
+import { AUTH_USER, SIGN_OUT_USER, REVIEW_SUBMITTED, APP_USER_LOADED, GET_INBOX_COUNT, HOME_PAGE_NO_AUTH, ASK_FOR_AUTH } from '../actions';
 
 const defaultState = {
   appName: 'Reccoon',
@@ -48,12 +48,17 @@ export default (state = defaultState, action) => {
     case HOME_PAGE_NO_AUTH:
       return {
         ...state,
+        redirectTo: 'global'
+      }
+    case ASK_FOR_AUTH:
+      return {
+        ...state,
         redirectTo: 'login'
       }
     case AUTH_USER:
       return {
         ...state,
-        authenticated: true,
+        authenticated: action.payload,
         redirectTo: action.error ? null : '/',
         error: null
       };
