@@ -1175,7 +1175,7 @@ export function getFollowers(userId, followPath) {
   return dispatch => {
     let followerArray = [];
     const current = Firebase.auth().currentUser.uid;
-    Firebase.database().ref(followPath + '/' + userId).on('value', followersSnapshot => {
+    Firebase.database().ref(followPath + '/' + userId).once('value', followersSnapshot => {
       followersSnapshot.forEach(function(follower) {
         let followerId = follower.key;
         Firebase.database().ref(Constants.USERS_PATH + '/' + followerId).on('value', userSnapshot => {

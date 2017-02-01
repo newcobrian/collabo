@@ -10,7 +10,7 @@ class Followings extends Followers {
   	Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + this.props.params.username + '/').once('value', snapshot => {
       if (snapshot.exists()) {
         let userId = snapshot.val().userId;
-        this.props.getFollowers(userId, Constants.FOLLOWINGS_PATH);
+        this.props.getFollowers(userId, Constants.IS_FOLLOWING_PATH);
       }
     });
   }
@@ -19,7 +19,7 @@ class Followings extends Followers {
     Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + this.props.params.username + '/').once('value', snapshot => {
       if (snapshot.exists()) {
         let userId = snapshot.val().userId;
-        this.props.unloadFollowers(userId, Constants.FOLLOWINGS_PATH);
+        this.props.unloadFollowers(userId, Constants.IS_FOLLOWING_PATH);
       }
     });
   }

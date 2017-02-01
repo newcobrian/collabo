@@ -16,7 +16,7 @@ class Followers extends React.Component {
 		Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + this.props.params.username + '/').once('value', snapshot => {
 	      if (snapshot.exists()) {
 	        let userId = snapshot.val().userId;
-	        this.props.getFollowers(userId, Constants.FOLLOWERS_PATH);
+	        this.props.getFollowers(userId, Constants.HAS_FOLLOWERS_PATH);
 	      }
 	    });
 	}
@@ -25,7 +25,7 @@ class Followers extends React.Component {
 		Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + this.props.params.username + '/').once('value', snapshot => {
 	      if (snapshot.exists()) {
 	        let userId = snapshot.val().userId;
-	        this.props.unloadFollowers(userId, Constants.FOLLOWINGS_PATH);
+	        this.props.unloadFollowers(userId, Constants.HAS_FOLLOWINGS_PATH);
 	      }
 	    });
 	}
