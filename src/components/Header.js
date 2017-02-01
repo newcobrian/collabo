@@ -63,11 +63,13 @@ const LoggedInView = props => {
 class Header extends React.Component {
   render() {
     return (
-        <div className="roow">
-
-          <Link to="/" className="logo-module roow roow-col-left">
+        <div className="roow header-wrapper">
+          <Link to="/" className="logo-module roow roow-row">
+            <div className="logo-graphic">  
+              <img className="center-img" src="../img/graphic46x32_logo_5dots.png"/>
+            </div>
             <div className="logo-main">
-              whatsgood?
+              whatsgood
             </div>
             <div className="logo-tagline">Reviews by people you trust</div>
           </Link>

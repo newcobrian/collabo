@@ -33,7 +33,7 @@ const EditorLink = props => {
 	if (props.subject) return null;
 	else {
 		return (
-			<Link to='Editor'>If you can't find a product, create it here...</Link>
+			<Link to='Editor' className="create-new-link flex-item-right">Can't find something? Create it here...</Link>
 		)
 	}
 }
@@ -158,20 +158,19 @@ class Create extends React.Component {
 	render() {
 		return (
 			<div className="roow roow-col roow-center-all page-common editor-page">
-	            <div className="page-title-wrapper roow roow-col center-text">
-	              <div className="text-page-title">What's Good?</div>
-	              <div className="text-page-subtitle">Recommend something cool to your friends. Or warn the world against something bad! Pass on the knowledge.</div>
+	            <div className="page-title-wrapper roow roow-row center-text">
+	              <div className="text-page-title">New Review</div>
+	              <EditorLink subject={this.props.subject} />
 	            </div>
 
 	            <div className="form-wrapper roow roow-col-left">
 		            <form>
-						<fieldset className="form-group no-margin">
-			                <FirebaseSearchInput className="form-control" callback={this.searchInputCallback} />
+						<fieldset className="form-group no-margin main-search-field">
+			                <FirebaseSearchInput className="form-control main-search-inner" callback={this.searchInputCallback} />
 			            </fieldset>
 			        </form>
 			    </div>
 
-			    <EditorLink subject={this.props.subject} />
 
 			    <SubjectInfo subject={this.props.subject} />
 

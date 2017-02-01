@@ -1,5 +1,15 @@
 @media (max-width: 1000px) and (min-width: 214px) {
 
+
+
+/******
+******
+************************************ 1. Header + Nav
+******
+******/
+.header-wrapper {
+  height: 60px;
+}
 .logo-module {
   right: 0;
   width: 100%;
@@ -56,6 +66,13 @@
 	position: fixed;
 	top: 0px; right: 0px;
 }
+
+
+/******
+******
+************************************ ReviewPreview
+******
+******/
 .review-container {
   display: block;
 }
@@ -115,6 +132,7 @@
 
 .article-page .review-data-container {
   margin-top: 100px;
+  margin-left: 0;
 }
 .your-review .review-data-container,
 .other-review .review-data-container {
@@ -133,6 +151,28 @@
 .your-review .review-image-wrapper,
 .other-review .review-image-wrapper {
   display: none;
+}
+.main-review .subject-name-container {
+  top: 60px;
+}
+
+
+/******
+******
+************************************ 6. Editor
+******
+******/
+.editor-page .text-page-title {
+    font-size: 32px;
+    width: 100%;
+    text-align: left;
+}
+.editor-page .page-title-wrapper {
+    padding: 40px 0 10px;
+    width: 100%;
+}
+.create-new-link {
+  margin-top: 10px;
 }
 
 

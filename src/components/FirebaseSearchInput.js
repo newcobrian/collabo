@@ -139,7 +139,11 @@ class FirebaseSearchInput extends Component {
         hintText='Search for a product'
         dataSource={this.state.dataSource}
         onUpdateInput={this.onUpdateInput} 
-        onNewRequest={this.onNewRequest} />
+        onNewRequest={this.onNewRequest}
+        style={{
+          backgroundColor: '#ffffff',
+        }}
+     />
       </MuiThemeProvider>
   }
 }

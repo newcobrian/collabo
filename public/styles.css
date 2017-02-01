@@ -114,6 +114,8 @@ textarea {
 .bttn-style.bttn-mini {
   padding: 5px 10px;
   font-size: 12px;
+  height: inherit;
+  margin: 10px 0;
 }
 .bttn-style.bttn-wider {
   padding: 5px 60px;
@@ -130,6 +132,26 @@ textarea {
   height: 50px;
   font-size: 12px;
   padding: 10px;
+}
+.bttn-style.bttn-subtle-blue {
+    background: transparent;
+    color: #2E5DD2;
+    border: 1px solid #2E5DD2;
+}
+.bttn-style.bttn-subtle-blue:hover {
+    background: #2E5DD2;
+    color: white;
+    border: 1px solid #2E5DD2;
+}
+.bttn-style.bttn-subtle-gray {
+    background: transparent;
+    color: #84878D;
+    border: 1px solid #84878D;
+}
+.bttn-style.bttn-subtle-gray:hover {
+    background: #84878D;
+    color: white;
+    border: 1px solid #84878D;
 }
 @keyframes colorchange
     {
@@ -161,17 +183,21 @@ textarea {
 ************************************ HEADER 
 ******
 ******/
+.header-wrapper {
+  background-color:#0B101C;
+  height: 90px;
+  width: 100%;
+}
 .logo-module {
   position: fixed;
   left: 0;
   top: 0;
-  padding: 15px 10px 0 40px;
+  padding: 0px 10px 0 40px;
   height: 90px;
   width: 320px;
   color: white;
   font-weight: 700;
   margin: 0px;
-  background-color:#161F34;
   background-color:#0B101C;
   z-index: 2;
   border-bottom: 1px solid rgba(0,0,0,.1);
@@ -183,15 +209,17 @@ a.logo-module:focus {
   opacity: 1;
 }
 .logo-main {
-    font-size: 27px;
-    height: 34px;
+    font-size: 24px;
+    height: 42px;
     letter-spacing: 2px;
     font-weight: 400;
+    margin-left: 23px;
 }
 .logo-tagline {
     font-size: 14px;
     font-weight: 100;
     opacity: .4;
+    display: none;
 }
 .logo-circle {
   display: inline-block;
@@ -241,6 +269,14 @@ a.logo-module:focus {
 -webkit-animation: colorchange 40s;*/
 }
 
+.logo-graphic {
+  width: 46px;
+  height: 36px;
+}
+.logo-graphic img {
+  width: 46px;
+  height: 32px;
+}
 .navigation-bar .nav-icon {
   width: 32px;
   height: 32px;
@@ -300,7 +336,7 @@ a.logo-module:focus {
 ******
 ******/
 .page-common {
-  margin: 100px 40px;
+  margin: 0px 40px;
 }
 .page-title-wrapper {
   padding: 40px 0;
@@ -327,7 +363,7 @@ a.logo-module:focus {
 ******
 ******/
 .home-page {
-  margin: 150px 40px;
+  margin: 70px 40px;
 }
 
 
@@ -338,7 +374,7 @@ a.logo-module:focus {
 ******
 ******/
 .profile-page {
-  margin: 80px 40px;
+  margin: 0px 40px;
 }
 .profile-data-module {
   margin: 10px 20px 10px 0;
@@ -516,7 +552,33 @@ a.logo-module:focus {
   width: 40px;
   height: 40px;
 }
-
+.main-search-field {
+  /* Rectangle: */
+  background: #FFFFFF;
+  border: 2px solid #2E5DD2;
+  box-shadow: 0 8px 24px 0 rgba(0,0,0,0.06);
+  border-radius: 2px;
+  padding: 4px 10px;
+  height: 62px;
+}
+.main-search-inner {
+  font-size: 24px;
+}
+.editor-page .text-page-title {
+    font-size: 32px;
+    font-weight: 700;
+    width: auto;
+    text-align: left;
+}
+.editor-page .page-title-wrapper {
+    padding: 80px 0 10px;
+    width: 600px;
+}
+.create-new-link {
+  font-size: 11px;
+  text-align: right;
+  margin-top: 20px;
+}
 
 
 

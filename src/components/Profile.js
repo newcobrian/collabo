@@ -12,7 +12,7 @@ const EditProfileSettings = props => {
     return (
       <Link
         to="settings"
-        className="bttn-style bttn-mini">
+        className="bttn-style bttn-mini bttn-subtle-gray">
         <i className="ion-gear-a"></i> Edit Profile Settings
       </Link>
     );
@@ -25,7 +25,7 @@ const LogoutButton = props => {
     return (
       <div>
         <button
-          className="btn btn-outline-danger"
+          className="bttn-style bttn-mini bttn-subtle-gray"
           onClick={props.onLogoutClick}>
           Logout
         </button>
