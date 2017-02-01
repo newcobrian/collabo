@@ -700,6 +700,12 @@ export function unloadFollowingReviews(appUserId, subjectId) {
 
 export function getComments(reviewId) {
   return dispatch => {
+    if (!reviewId) {
+      dispatch({
+        type: GET_COMMENTS,
+        payload: []
+      })
+    }
     Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewId).orderByChild('lastModified').on('value', snapshot => {
       let comments = [];
       snapshot.forEach(function(childSnapshot) {
