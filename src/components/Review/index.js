@@ -80,16 +80,20 @@ class Review extends React.Component {
     //   agent.Comments.forArticle(this.props.params.id)
     // ]));
     this.props.getSubject(this.props.params.sid);
-    this.props.getReview(this.props.currentUser.uid, this.props.params.rid);
-    this.props.getComments(this.props.params.rid);
-    this.props.getAppUserReview(this.props.authenticated, this.props.userInfo, this.props.params.sid);
-    this.props.getFollowingReviews(this.props.authenticated, this.props.params.sid, this.props.params.rid);
+    if (this.props.params.rid) {
+      this.props.getReview(this.props.authenticated, this.props.params.rid);
+      this.props.getComments(this.props.params.rid);
+      this.props.getAppUserReview(this.props.authenticated, this.props.userInfo, this.props.params.sid);
+      this.props.getFollowingReviews(this.props.authenticated, this.props.params.sid, this.props.params.rid);
+    }
   }
 
   componentWillUnmount() {
     this.props.unloadSubject(this.props.params.sid);
-    this.props.unloadReview(this.props.params.rid);
-    this.props.unloadComments(this.props.params.rid);
+    if (this.props.params.rid) {
+      this.props.unloadReview(this.props.authenticated, this.props.params.rid, this.props.params.sid);
+      this.props.unloadComments(this.props.params.rid);
+    }
     if (this.props.authenticated) {
       this.props.unloadAppUserReview(this.props.authenticated, this.props.params.sid);
       this.props.unloadFollowingReviews(this.props.authenticated, this.props.params.sid);
