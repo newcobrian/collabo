@@ -19,25 +19,28 @@ class GlobalFeed extends Home {
   // }
 
   renderTabs() {
-    return (
-      <ul className="nav nav-pills outline-active">
-        <li className="nav-item">
-          <Link
-            className="nav-link"
-            to={``}>
-            My Feed
-          </Link>
-        </li>
+    if (this.props.authenticated) {
+      return (
+        <ul className="nav nav-pills outline-active">
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              to={``}>
+              My Feed
+            </Link>
+          </li>
 
-        <li className="nav-item">
-          <Link
-            className="nav-link active"
-            to={`global`}>
-            Global Feed
-          </Link>
-        </li>
-      </ul>
-    );
+          <li className="nav-item">
+            <Link
+              className="nav-link active"
+              to={`global`}>
+              Global Feed
+            </Link>
+          </li>
+        </ul>
+      );
+    }
+    else return null;
   }
 }
 

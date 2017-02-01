@@ -57,6 +57,7 @@ export const GET_APP_USER_REVIEW = 'GET_APP_USER_REVIEW';
 export const APP_USER_REVIEW_UNLOADED = 'APP_USER_REVIEW_UNLOADED';
 export const GET_FOLLOWING_REVIEWS = 'GET_FOLLOWING_REVIEWS';
 export const FOLLOWING_REVIEWS_UNLOADED = 'FOLLOWING_REVIEWS_UNLOADED';
+export const HOME_PAGE_NO_AUTH = 'HOME_PAGE_NO_AUTH';
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -983,6 +984,11 @@ export function searchLikes(uid, likes) {
 
 export function getUserFeed(uid) {
   return dispatch => {
+    if (!uid) {
+      dispatch({
+        type: HOME_PAGE_NO_AUTH
+      })
+    }
     let feedArray = [];
     Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + uid).on('value', followedSnapshot => {
       followedSnapshot.forEach(function(followedUser) {
@@ -1121,7 +1127,6 @@ export function getGlobalFeed(uid) {
                   }
 
                   reviewObject.subject = subjectSnapshot.val();
-
                   Object.assign(reviewObject, key, reviewer, review.val(), likes, commentObject);
                   feedArray = [reviewObject].concat(feedArray);
                   feedArray.sort(lastModifiedDesc);

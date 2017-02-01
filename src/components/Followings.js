@@ -1,11 +1,9 @@
 import { Followers, mapStateToProps } from './Followers';
 import React from 'react';
-import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import Firebase from 'firebase';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
-import FollowUserButton from './FollowUserButton';
 
 class Followings extends Followers {
   componentWillMount() {

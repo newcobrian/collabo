@@ -80,7 +80,7 @@ class FirebaseSearchInput extends Component {
                     case 'artist':
                       if (result.genres) searchObject.description = result.genres.join(', ');
                       if (result.images && result.images[0] && result.images[0].url) searchObject.image = result.images[0].url;
-                      searchObject.text += ' (Spotify artist)';
+                      searchObject.text += ' (artist on Spotify)';
                       break;
                     case 'track':
                       if (result.album && result.album.images && result.album.images[0] && result.album.images[0].url) {
