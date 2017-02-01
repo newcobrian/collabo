@@ -57,6 +57,7 @@ export const GET_APP_USER_REVIEW = 'GET_APP_USER_REVIEW';
 export const APP_USER_REVIEW_UNLOADED = 'APP_USER_REVIEW_UNLOADED';
 export const GET_FOLLOWING_REVIEWS = 'GET_FOLLOWING_REVIEWS';
 export const FOLLOWING_REVIEWS_UNLOADED = 'FOLLOWING_REVIEWS_UNLOADED';
+export const ASK_FOR_AUTH = 'ASK_FOR_AUTH';
 export const HOME_PAGE_NO_AUTH = 'HOME_PAGE_NO_AUTH';
 
 // export function signUpUser(username, email, password) {
@@ -157,7 +158,10 @@ export function signUpUser(username, email, password) {
             userId: userId
           })
 
-          dispatch(authUser());
+          dispatch({
+            type: AUTH_USER,
+            payload: userId
+          })
         })
         .catch(error => {
           console.log(error);
@@ -170,7 +174,10 @@ export function signInUser(email, password) {
   return function(dispatch) {
     Firebase.auth().signInWithEmailAndPassword(email, password)
       .then(response => {
-        dispatch(authUser());
+        dispatch({
+          type: AUTH_USER,
+          payload: response.uid
+        });
       })
       .catch(error => {
         dispatch(authError(error));
@@ -340,7 +347,13 @@ export function getFollowerCount(userId) {
   }
 }
 
-export function followUser(follower) {
+export function followUser(authenticated, follower) {
+  return dispatch => {
+    if (!authenticated) {
+      dispatch({
+        type: ASK_FOR_AUTH
+      })
+    }
     const following = Firebase.auth().currentUser.uid;
     const updates = {};
     if (following && follower) {
@@ -350,23 +363,24 @@ export function followUser(follower) {
       // updates[`/${Constants.IS_FOLLOWING_PATH}/${following}/`] = follower;
     }
     sendInboxMessage(following, follower, Constants.FOLLOW_MESSAGE, null);
-    return dispatch => Firebase.database().ref().update(updates);
+    Firebase.database().ref().update(updates);
+  }
 }
 
-export function unfollowUser(following) {
-
+export function unfollowUser(authenticated, following) {
+  return dispatch => {
+    if (!authenticated) {
+      dispatch({
+        type: ASK_FOR_AUTH
+      })
+    }    
     const follower = Firebase.auth().currentUser.uid;
     const updates = {};
     if (following && follower) {
       updates[`/${Constants.HAS_FOLLOWERS_PATH}/${following}/${follower}`] = null;
       updates[`/${Constants.IS_FOLLOWING_PATH}/${follower}/${following}`] = null;
     }
-    return dispatch => Firebase.database().ref().update(updates);
-}
-
-export function authUser() {
-  return {
-    type: AUTH_USER
+    Firebase.database().ref().update(updates);
   }
 }
 
@@ -399,8 +413,13 @@ export function onEditorUnload() {
   }
 }
 
-export function onCreateLoad() {
+export function onCreateLoad(authenticated) {
   return dispatch => {
+    if(!authenticated) {
+      dispatch({
+        type: ASK_FOR_AUTH
+      })
+    }
     dispatch({
       type: CREATE_PAGE_LOADED
     })
@@ -560,7 +579,7 @@ export function getSubject(subjectId) {
   };
 }
 
-export function getReview(appUserId, reviewId) {
+export function getReview(authenticated, reviewId) {
   return dispatch => {
     Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewId).on('value', reviewSnapshot => {
       if (!reviewSnapshot.exists()) {
@@ -581,7 +600,7 @@ export function getReview(appUserId, reviewId) {
             review.isLiked = false
             review.likesCount = 0;
             if (likesSnapshot.val()) {
-              review.isLiked = searchLikes(appUserId, likesSnapshot.val());
+              review.isLiked = searchLikes(authenticated, likesSnapshot.val());
               review.likesCount = likesSnapshot.numChildren()
             }
 
@@ -596,9 +615,15 @@ export function getReview(appUserId, reviewId) {
   }
 }
 
-export function getAppUserReview(appUserId, currentUserInfo, subjectId) {
+export function getAppUserReview(authenticated, currentUserInfo, subjectId) {
   return dispatch => {
-    Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + appUserId).on('value', reviewSnapshot => {
+    if (!authenticated) {
+      dispatch({
+        type: GET_APP_USER_REVIEW,
+        payload: {}
+      })
+    }
+    Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + authenticated).on('value', reviewSnapshot => {
       if (!reviewSnapshot.exists()) {
         dispatch({
           type: GET_REVIEW,
@@ -614,7 +639,7 @@ export function getAppUserReview(appUserId, currentUserInfo, subjectId) {
           review.isLiked = false
           review.likesCount = 0;
           if (likesSnapshot.val()) {
-            review.isLiked = searchLikes(appUserId, likesSnapshot.val());
+            review.isLiked = searchLikes(authenticated, likesSnapshot.val());
             review.likesCount = likesSnapshot.numChildren()
           }
 
@@ -628,22 +653,28 @@ export function getAppUserReview(appUserId, currentUserInfo, subjectId) {
   }
 }
 
-export function unloadAppUserReview(appUserId, subjectId) {
+export function unloadAppUserReview(authenticated, subjectId) {
   return dispatch => {
-    Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + appUserId).once('value', reviewSnapshot => {
+    Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + authenticated).once('value', reviewSnapshot => {
       Firebase.database().ref(Constants.LIKES_PATH + '/' + reviewSnapshot.val().reviewId).off();
     })
-    Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + appUserId).off();
+    Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + authenticated).off();
     dispatch({
       type: APP_USER_REVIEW_UNLOADED
     })
   }
 }
 
-export function getFollowingReviews(appUserId, subjectId, viewingReviewId) {
+export function getFollowingReviews(authenticated, subjectId, viewingReviewId) {
   return dispatch => {
+    if (!authenticated) {
+      dispatch({
+        type: GET_APP_USER_REVIEW,
+        payload: []
+      })
+    }
     let reviewArray = [];
-    Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + appUserId).on('value', followingSnapshot => {
+    Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + authenticated).on('value', followingSnapshot => {
       followingSnapshot.forEach(function(followingChild) {
         Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + followingChild.key).on('value', reviewSnapshot => {
           if (reviewSnapshot.exists() && viewingReviewId !== reviewSnapshot.val().reviewId) {
@@ -658,7 +689,7 @@ export function getFollowingReviews(appUserId, subjectId, viewingReviewId) {
                 review.isLiked = false
                 review.likesCount = 0;
                 if (likesSnapshot.val()) {
-                  review.isLiked = searchLikes(appUserId, likesSnapshot.val());
+                  review.isLiked = searchLikes(authenticated, likesSnapshot.val());
                   review.likesCount = likesSnapshot.numChildren()
                 }
 
@@ -678,9 +709,9 @@ export function getFollowingReviews(appUserId, subjectId, viewingReviewId) {
   }
 }
 
-export function unloadFollowingReviews(appUserId, subjectId) {
+export function unloadFollowingReviews(authenticated, subjectId) {
   return dispatch => {
-    Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + appUserId).once('value', followingSnapshot => {
+    Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + authenticated).once('value', followingSnapshot => {
       followingSnapshot.forEach(function(followingChild) {
         Firebase.database().ref(Constants.USERS_PATH + '/' + followingChild.key).off();
         Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + followingChild.key).once('value', reviewSnapshot => {
@@ -691,7 +722,7 @@ export function unloadFollowingReviews(appUserId, subjectId) {
         Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + followingChild.key).off();
       })
     })
-    Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + appUserId).off();
+    Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + authenticated).off();
     dispatch({
       type: FOLLOWING_REVIEWS_UNLOADED
     })
@@ -709,18 +740,20 @@ export function getComments(reviewId) {
     Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewId).orderByChild('lastModified').on('value', snapshot => {
       let comments = [];
       snapshot.forEach(function(childSnapshot) {
-        Firebase.database().ref(Constants.USERS_PATH + '/' + childSnapshot.val().userId).on('value', userSnapshot => {
-          const key = { id: childSnapshot.key };
-          const comment = { username: userSnapshot.val().username, image: userSnapshot.val().image };
-          Object.assign(comment, childSnapshot.val(), key);
-          comments = comments.concat(comment);
-          comments.sort(lastModifiedAsc);
+        if (childSnapshot.exists()) {
+          Firebase.database().ref(Constants.USERS_PATH + '/' + childSnapshot.val().userId).on('value', userSnapshot => {
+            const key = { id: childSnapshot.key };
+            const comment = { username: userSnapshot.val().username, image: userSnapshot.val().image };
+            Object.assign(comment, childSnapshot.val(), key);
+            comments = comments.concat(comment);
+            comments.sort(lastModifiedAsc);
 
-          dispatch({
-            type: GET_COMMENTS,
-            payload: comments
-          });
-        })
+            dispatch({
+              type: GET_COMMENTS,
+              payload: comments
+            });
+          })
+        }
       });
     });
   }
@@ -762,8 +795,13 @@ export function unloadComments(reviewId) {
   }
 }
 
-export function onCommentSubmit(review, body) {
+export function onCommentSubmit(authenticated, review, body) {
   return dispatch => {
+    if(!authenticated) {
+      dispatch({
+        type: ASK_FOR_AUTH
+      })
+    }
     const userId = Firebase.auth().currentUser.uid;
     const comment = {
       userId: userId,
@@ -1044,28 +1082,38 @@ export function getUserFeed(uid) {
   }
 }
 
-export function likeReview(userId, review) {
-  const updates = {};
-
-  updates[`/${Constants.LIKES_PATH}/${review.id}/${userId}`] = true;
-  updates[`/${Constants.LIKES_BY_USER_PATH}/${userId}/${review.id}`] = true;
-  Firebase.database().ref().update(updates);
-
-  sendInboxMessage(userId, review.reviewer.userId, Constants.LIKE_MESSAGE, review);
-
+export function likeReview(authenticated, review) {
   return dispatch => {
+    if (!authenticated) {
+      dispatch({
+        type: ASK_FOR_AUTH
+      })
+    }
+    const updates = {};
+    updates[`/${Constants.LIKES_PATH}/${review.id}/${authenticated}`] = true;
+    updates[`/${Constants.LIKES_BY_USER_PATH}/${authenticated}/${review.id}`] = true;
+    Firebase.database().ref().update(updates);
+
+    sendInboxMessage(authenticated, review.reviewer.userId, Constants.LIKE_MESSAGE, review);
+
     dispatch({
       type: REVIEW_LIKED
     })
   }
 }
 
-export function unLikeReview(userId, review) {
-  const updates = {};
-  updates[`/${Constants.LIKES_PATH}/${review.id}/${userId}`] = null;
-  updates[`/${Constants.LIKES_BY_USER_PATH}/${userId}/${review.id}`] = null;
-  Firebase.database().ref().update(updates);
+export function unLikeReview(authenticated, review) {
   return dispatch => {
+    if (!authenticated) {
+      dispatch({
+        type: ASK_FOR_AUTH
+      })
+    }
+    const updates = {};
+    updates[`/${Constants.LIKES_PATH}/${review.id}/${authenticated}`] = null;
+    updates[`/${Constants.LIKES_BY_USER_PATH}/${authenticated}/${review.id}`] = null;
+    Firebase.database().ref().update(updates);
+
     dispatch({
       type: REVIEW_UNLIKED
     })
@@ -1232,10 +1280,15 @@ export function unloadFollowers(userId, followPath) {
   }
 }
 
-export function getInbox(userId) {
+export function getInbox(authenticated) {
   return dispatch => {
+    if (!authenticated) {
+      dispatch({
+        type: ASK_FOR_AUTH
+      })
+    }
     let inboxArray = [];
-    Firebase.database().ref(Constants.INBOX_PATH + '/' + userId).on('value', inboxSnapshot => {
+    Firebase.database().ref(Constants.INBOX_PATH + '/' + authenticated).on('value', inboxSnapshot => {
       if (!inboxSnapshot.exists()) {
         dispatch({
           type: GET_INBOX,

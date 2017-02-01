@@ -42,12 +42,12 @@ class CommentInput extends React.Component {
         </button>
 
         <div className="card-block">
-          <textarea className="comment-input"
+          <input className="comment-input"
             placeholder="Write a comment..."
             value={this.state.body}
             onChange={this.setBody}
             rows="1">
-          </textarea>
+          </input>
         </div>
 
         
