@@ -20,6 +20,21 @@ const EditProfileSettings = props => {
   return null;
 };
 
+const LogoutButton = props => {
+  if (props.isUser && props.authenticated) {
+    return (
+      <div>
+        <button
+          className="btn btn-outline-danger"
+          onClick={props.onLogoutClick}>
+          Logout
+        </button>
+      </div>
+    )
+  }
+  return null;
+}
+
 const mapStateToProps = state => ({
   ...state.reviewList,
   currentUser: state.common.currentUser,
@@ -134,6 +149,11 @@ class Profile extends React.Component {
               </div>
               <div className="user-action">
                 <EditProfileSettings isUser={isUser} />
+                
+                <LogoutButton isUser={isUser} 
+                  authenticated={this.props.authenticated} 
+                  onLogoutClick={this.props.signOutUser}/>
+                
                 <FollowUserButton
                 isUser={isUser}
                 user={profile}
