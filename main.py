@@ -319,7 +319,7 @@ SERVICES = [search_4sq, search_spotify, search_amazon, search_tmdb_movie, search
 
 ###
 
-@app.route('/')
+@app.route('/search')
 def hello():
     q = request.args.get('q')
 

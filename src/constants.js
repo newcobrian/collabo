@@ -1,4 +1,4 @@
-export const SUBJECT_SEARCH_URL = 'https://searchitall-156620.appspot.com/?q='
+export const SUBJECT_SEARCH_URL = 'https://whatsgoooood.com/?q='
 
 /*** FourSquare API Keys ***/
 export const FOURSQUARE_CLIENT_ID = 'QXEK1PR4ELFYEMMRBSP4O3NJ20B5F34PXZD3VAXNPNUBX0PB'
