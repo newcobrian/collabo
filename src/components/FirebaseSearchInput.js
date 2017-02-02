@@ -53,7 +53,6 @@ class FirebaseSearchInput extends Component {
           let searchObject = {};
           switch (result._service) {
             case '4sq':
-              break;
               if (result.name && result.id) {
                 searchObject.text = result.name;
                 searchObject.value = result.name;
@@ -65,7 +64,6 @@ class FirebaseSearchInput extends Component {
               }
               break;
             case 'spotify':
-              break;
               if (result.name && result.id) {
                 searchObject.text = result.name;
                 searchObject.value = result.name;
