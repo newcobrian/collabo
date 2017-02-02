@@ -6,6 +6,10 @@ export const FOURSQUARE_CLIENT_SECRET = 'LAHBY4DND3VJL3YZQKXBJ4RY4TFKEZJC2O51P04
 export const FOURSQUARE_API_PATH = 'https://api.foursquare.com/v2/venues/'
 
 
+/*** IMDB PATHS ***/
+export const TMDB_IMAGES_PATH = 'http://image.tmdb.org/t/p/original/'
+
+
 /*** Firebase Paths ***/
 export const USERS_PATH = '/users'
 export const USERNAMES_TO_USERIDS_PATH = '/usernames-to-userids'

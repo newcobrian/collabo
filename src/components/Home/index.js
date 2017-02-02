@@ -42,7 +42,7 @@ class Home extends React.Component {
           <Link
             className="nav-link active"
             to={``}>
-            My Feed
+            Friends
           </Link>
         </li>
 
@@ -50,7 +50,7 @@ class Home extends React.Component {
           <Link
             className="nav-link"
             to={`global`}>
-            Global Feed
+            Everyone
           </Link>
         </li>
       </ul>

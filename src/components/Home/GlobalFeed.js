@@ -26,7 +26,7 @@ class GlobalFeed extends Home {
             <Link
               className="nav-link"
               to={``}>
-              My Feed
+              Friends
             </Link>
           </li>
 
@@ -34,7 +34,7 @@ class GlobalFeed extends Home {
             <Link
               className="nav-link active"
               to={`global`}>
-              Global Feed
+              Everyone
             </Link>
           </li>
         </ul>

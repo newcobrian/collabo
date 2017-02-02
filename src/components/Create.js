@@ -98,6 +98,7 @@ class Create extends React.Component {
 		if (subject && review) {
 			return (
 				<div>
+					<SubjectInfo subject={this.props.subject} />
 					<div className={'rating-container roow roow-row-center rating-wrapper-' + review.rating}>
 				        <div className="rating-graphic rating--2"></div>
 				        <div className="rating-graphic rating--1"></div>
@@ -112,6 +113,7 @@ class Create extends React.Component {
 		else if (subject) {
 			return (
 				<div>
+					<SubjectInfo subject={this.props.subject} />
 			      	<fieldset className="form-group no-margin">
 				        <div className={'rating-container rating-wrapper-' + this.props.rating}>
 				            <div className="roow roow-row-space-around">
@@ -171,10 +173,7 @@ class Create extends React.Component {
 			        </form>
 			    </div>
 
-
-			    <SubjectInfo subject={this.props.subject} />
-
-			    {this.renderRating(this.props.subject, this.props.review)}
+				{this.renderRating(this.props.subject, this.props.review)}
 
 		    </div>
 	    )

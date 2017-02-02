@@ -9,7 +9,7 @@ const Comment = props => {
   return (
     <div className="card comment-wrapper">
       <div className="card-footer">
-        <div className="roow roow-row">
+        <div className="roow roow-row-top">
           <Link
             to={`@${comment.username}`}
             className="comment-author">
@@ -24,7 +24,7 @@ const Comment = props => {
                 {comment.username}
               </Link>
               {comment.body}
-            </div>
+            </div>card-footer
             <span className="date-posted">
               {new Date(comment.lastModified).toLocaleString([], {year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute:'2-digit'})}
             </span>

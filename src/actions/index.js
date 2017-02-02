@@ -454,9 +454,13 @@ export function loadCreateSubject(userId, result) {
             '&client_secret=' + Constants.FOURSQUARE_CLIENT_SECRET + '&v=20170101';
           fetch(foursquareURL).then(response => response.json())
           .then(json => {
-            const photoURL = json.response.venue.photos.groups[0].items[0].prefix + 'original' +
-              json.response.venue.photos.groups[0].items[0].suffix;
-            subject.image = photoURL;
+            if (json.response.venue && json.response.venue.photos && json.response.venue.photos.groups && 
+              json.response.venue.photos.groups[0] && json.response.venue.photos.groups[0].items &&
+              json.response.venue.photos.groups[0].items[0]) {
+              const photoURL = json.response.venue.photos.groups[0].items[0].prefix + 'original' +
+                json.response.venue.photos.groups[0].items[0].suffix;
+              subject.image = photoURL;
+            }
 
             dispatch({
               type: CREATE_SUBJECT_LOADED,
