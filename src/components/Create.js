@@ -171,10 +171,11 @@ class Create extends React.Component {
 			        </form>
 			    </div>
 
+			    <div>
+				    <SubjectInfo subject={this.props.subject} />
 
-			    <SubjectInfo subject={this.props.subject} />
-
-			    {this.renderRating(this.props.subject, this.props.review)}
+				    {this.renderRating(this.props.subject, this.props.review)}
+			    </div>
 
 		    </div>
 	    )
