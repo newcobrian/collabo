@@ -13,7 +13,7 @@ const EditProfileSettings = props => {
       <Link
         to="settings"
         className="bttn-style bttn-mini bttn-subtle-gray">
-        <i className="ion-gear-a"></i> Edit Profile Settings
+         <i className="ion-gear-a"></i>&nbsp;Edit
       </Link>
     );
   }
@@ -131,7 +131,7 @@ class Profile extends React.Component {
     return (
       <div className="roow roow-row-top page-common profile-page">
 
-        <div className="user-info">
+        <div className="user-info bottom-divider">
 
           <div className="profile-info roow roow-col-left">
 
@@ -147,12 +147,9 @@ class Profile extends React.Component {
                   <div className="profile-data-module">{profile.followingCount} following</div>
                 </Link>
               </div>
-              <div className="user-action">
+              <div className="user-action roow roow-row-top">
                 <EditProfileSettings isUser={isUser} />
                 
-                <LogoutButton isUser={isUser} 
-                  authenticated={this.props.authenticated} 
-                  onLogoutClick={this.props.signOutUser}/>
                 
                 <FollowUserButton
                 authenticated={this.props.authenticated}

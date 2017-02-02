@@ -66,48 +66,53 @@ const ReviewPreview = props => {
               <div className="text-category shift-up-5">Book, Movie, Restaurant, Cool</div>
 
         </div>
-        <div className="review-container roow roow-center roow-row-top">
-
-          <div className="review-image-wrapper">
-            <Link to={`review/${review.subjectId}/${review.id}`}>
-              <div className="subject-image">
-                <img src={review.subject.image}/>
-              </div>
-            </Link>
-          </div>
-          <div className="review-data-container roow roow-col-left">
-            <div className="review-data-module gray-border roow roow-col-left box-shadow">
-                <div className="photo-rating-module roow">
-                  <Link to={`@${review.reviewer.username}`}>
-                    <div className="reviewer-photo center-img"><img src={review.reviewer.image}/></div>
-                  </Link>
-                  <div className="roow roow-col-left">
-                    <div className="reviewer-name-container">
-                      <Link to={`@${review.reviewer.username}`}>
-                        <div className="reviewer-name">
-                          <span className="dash"></span>{review.reviewer.username}
-                        </div>
+        <div className="review-container roow roow-center roow-col-left bottom-divider">
+          <div className="roow roow-row-top pic-and-review flex-wrap">
+            <div className="review-image-wrapper">
+              <Link to={`review/${review.subjectId}/${review.id}`}>
+                <div className="subject-image">
+                  <img src={review.subject.image}/>
+                </div>
+              </Link>
+            </div>
+            <div className="review-data-container roow roow-col-left">
+              <div className="review-data-module gray-border roow roow-col-left box-shadow">
+                  <div className="photo-rating-module roow">
+                    <Link to={`@${review.reviewer.username}`}>
+                      <div className="reviewer-photo center-img"><img src={review.reviewer.image}/></div>
+                    </Link>
+                    <div className="roow roow-col-left">
+                      <div className="reviewer-name-container">
+                        <Link to={`@${review.reviewer.username}`}>
+                          <div className="reviewer-name">
+                            <span className="dash"></span>{review.reviewer.username}
+                          </div>
+                        </Link>
+                      </div>
+                      <Link to={`review/${review.subjectId}/${review.id}`}> 
+                        <RatingsButtons review={review} authenticated={props.authenticated} updateRating={props.updateRating} />
                       </Link>
                     </div>
-                    <Link to={`review/${review.subjectId}/${review.id}`}> 
-                      <RatingsButtons review={review} authenticated={props.authenticated} updateRating={props.updateRating} />
-                    </Link>
-                  </div>
 
-                </div>
-              
-              <div className="info">
-                <Link to={`review/${review.subjectId}/${review.id}`}>
-                <div className="subject-caption">
-                  {review.caption}
-                </div>
-                </Link>
-                <div className="review-timestamp">
-                  {(new Date(review.lastModified)).toLocaleString()}
+                  </div>
+                
+                <div className="info">
+                  <Link to={`review/${review.subjectId}/${review.id}`}>
+                  <div className="subject-caption">
+                    {review.caption}
+                  </div>
+                  </Link>
+                  <div className="review-timestamp">
+                    {(new Date(review.lastModified)).toLocaleString()}
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="roow roow-row flex-wrap">
+
+
+          </div>
+
+          <div className="roow roow-row flex-wrap cta-container">
               <div className="cta-box roow roow-row-space">
                 <CommentPreview comments={props.review.comments} review={props.review} />
                 <div className="roow roow-row flew-item-right">
@@ -135,10 +140,6 @@ const ReviewPreview = props => {
 
 
 
-
-
-
-          </div>
         </div> 
       </div>
   );
