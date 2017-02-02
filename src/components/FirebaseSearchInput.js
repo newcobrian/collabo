@@ -137,9 +137,9 @@ class FirebaseSearchInput extends Component {
   render() {
     return <MuiThemeProvider name={this.props.name} muiTheme={getMuiTheme()}>
       <AutoComplete
-        // filter={function filter(searchText, key) {
-          // return key.toLowerCase().includes(searchText.toLowerCase());
-        // }}
+        filter={function filter(searchText, key) {
+          return key.toLowerCase().includes(searchText.toLowerCase());
+        }}
         fullWidth={true}
         hintText='Search for a product'
         dataSource={this.state.dataSource}
