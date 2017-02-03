@@ -349,7 +349,56 @@ def hello():
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp
 
-    return
+@app.route('/proxy/amazon/<item_id>')
+def proxy_amazon(item_id):
+    args = {
+        'Service': 'AWSECommerceService',
+        'Operation': 'ItemLookup',
+        'ResponseGroup': 'Images',
+        'IdType': 'ASIN',
+        'ItemId': item_id,
+        'AWSAccessKeyId': AMAZON_ACCESS_KEY_ID,
+        'AssociateTag': AMAZON_ASSOCIATE_TAG,
+        'Timestamp': datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%SZ'),
+    }
+
+    # signing cf. bottlenose API
+    quoted_strings = _quote_query(args)
+    data = "GET\n" + 'webservices.amazon.com' + "\n/onca/xml\n" + quoted_strings
+    digest = hmac.new(AMAZON_ACCESS_KEY_SECRET, data, hashlib.sha256).digest()
+    signature = urllib.quote(base64.b64encode(digest))
+
+    url = '%s?%s&Signature=%s' % (AMAZON_URL, urllib.urlencode(args), signature)
+    logging.info('fetching amazon detail %s' % url)
+    response = urlfetch.fetch(url, deadline=REMOTE_TIMEOUT)
+
+    # parse
+    NS = '{http://webservices.amazon.com/AWSECommerceService/2011-08-01}'
+
+    rc = {}
+    if response.status_code == 200:
+        root = lxml.etree.fromstring(response.content)
+        # christ
+        items = root.find(NS + 'Items')
+        items = [x for x in items if x.tag.endswith('Item')]
+        # there is afaict only one Item per ASIN search, extract the images from it
+        logging.info('amzn %d results' % len(items))
+        for i in items:
+            ASIN = i.find(NS + 'ASIN')
+            assert ASIN.text == item_id, (ASIN.text, item_id, 'mismatch')
+            rc['ASIN'] = ASIN.text
+            for k, v in (('SmallImage', 'small'), ('MediumImage', 'medium'), ('LargeImage', 'large')):
+                image_element = i.find(NS + k)
+                if image_element:
+                    rc[v] = image_element.find(NS + 'URL').text
+    else:
+        # err = json.loads(response.content)
+        # err['meta']['_service'] = '4sq'
+        # errors.append(err['meta'])
+        logging.error('amzn %s' % response.content)
+
+    return json.dumps(rc)
+
 
 
 @app.errorhandler(404)

@@ -20,6 +20,9 @@ handlers:
 - url: /search.*  # This regex directs all routes to main.app
   script: main.app
 
+- url: /proxy.*  # This regex directs all routes to main.app
+  script: main.app
+
 # App Engine serves and caches static files contained in the listed directories
 # (and subdirectories). Uncomment and set the directory as needed.
 - url: /
