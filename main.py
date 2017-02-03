@@ -207,7 +207,7 @@ def parse_amazon(rpc, results, errors):
                 attributes = i.find(NS + 'ItemAttributes')
                 for k in ATTRIBUTES:
                     attr = attributes.find(NS + k)
-                    if attr:
+                    if attr is not None:
                         res[k] = attr.text
                 res['ASIN'] = i.find(NS + 'ASIN').text
                 res['DetailPageURL'] = i.find(NS + 'DetailPageURL').text
@@ -316,6 +316,7 @@ def search_tmdb_tv(q):
 ###
 
 SERVICES = [search_4sq, search_spotify, search_amazon, search_tmdb_movie, search_tmdb_tv]
+#SERVICES = [search_amazon]
 
 ###
 
@@ -390,7 +391,8 @@ def proxy_amazon(item_id):
             for k, v in (('SmallImage', 'small'), ('MediumImage', 'medium'), ('LargeImage', 'large')):
                 image_element = i.find(NS + k)
                 if image_element:
-                    rc[v] = image_element.find(NS + 'URL').text
+                    rc.setdefault('images', {})
+                    rc['images'][v] = image_element.find(NS + 'URL').text
             # love XML
             for r in i.find(NS + 'EditorialReviews'):
                 rc.setdefault('reviews', {})
