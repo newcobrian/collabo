@@ -58,7 +58,6 @@ class FirebaseSearchInput extends Component {
                 searchObject.value = result.name;
                 searchObject.id = '4sq:' + result.id;
                 if (result.url) searchObject.url = result.url;
-                // if (result.categories && result.categories[0] && result.categories[0].icon) searchObject.image = result.categories[0].icon.prefix + result.categories[0].icon.suffix;
                 if (result.location && result.location.formattedAddress) searchObject.description = result.location.formattedAddress.join(' ');
                 if (result.location && result.location.address + result.location.city) searchObject.text += ' - ' + result.location.address + ', ' + result.location.city;
               }
@@ -123,7 +122,7 @@ class FirebaseSearchInput extends Component {
               }
               break;
           }
-          if (searchObject.text) {
+          if (searchObject.text && searchObject.id) {
             searchObject._service = result._service;
             retrievedSearchTerms.push(searchObject);
           }
