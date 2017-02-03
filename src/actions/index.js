@@ -60,6 +60,7 @@ export const GET_FOLLOWING_REVIEWS = 'GET_FOLLOWING_REVIEWS';
 export const FOLLOWING_REVIEWS_UNLOADED = 'FOLLOWING_REVIEWS_UNLOADED';
 export const ASK_FOR_AUTH = 'ASK_FOR_AUTH';
 export const HOME_PAGE_NO_AUTH = 'HOME_PAGE_NO_AUTH';
+export const CREATE_SUBJECT_CLEARED = 'CREATE_SUBJECT_CLEARED';
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -511,6 +512,12 @@ export function loadCreateSubject(userId, result) {
       payload: null,
       key: null
     })
+  }
+}
+
+export function clearCreateSubject() {
+  return dispatch => {
+    type: CREATE_SUBJECT_CLEARED
   }
 }
 

@@ -69,7 +69,13 @@ class Create extends React.Component {
 	      }
 
 	      this.props.onReviewSubmit(this.props.subjectId, this.props.subject, review);
-    	};
+    	}
+
+    	this.onCancelClick = ev => {
+    		ev.preventDefault();
+
+    		this.props.loadCreateSubject(this.props.authenticated, null);
+    	}
 	}
 
 	// componentWillReceiveProps(nextProps) {
@@ -131,9 +137,11 @@ class Create extends React.Component {
 						  </div>
 					    <div className="roow roow-row-right">
 							  <a href="#/create">
-							  <div className="bttn-style bttn-sm bttn-subtle-gray">
+							  <button className="bttn-style bttn-sm bttn-subtle-gray"
+							  	disabled={this.props.inProgress}
+							  	onClick={this.onCancelClick}>
 						        Cancel
-						       </div>
+						       </button>
 						       </a>
 						      <button
 						        className="bttn-style bttn-sm bttn-submit box-shadow"
@@ -184,9 +192,11 @@ class Create extends React.Component {
 						  </div>
 						  <div className="roow roow-row-right">
 							  <a href="#/create">
-							  <div className="bttn-style bttn-sm bttn-subtle-gray">
+							  	<button className="bttn-style bttn-sm bttn-subtle-gray"
+							  	disabled={this.props.inProgress}
+							  	onClick={this.onCancelClick}>
 						        Cancel
-						       </div>
+						       </button>
 						       </a>
 						      <button
 						        className="bttn-style bttn-sm bttn-submit box-shadow"

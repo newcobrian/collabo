@@ -1,4 +1,5 @@
-import { CREATE_PAGE_LOADED, CREATE_SUBJECT_LOADED, UPDATE_FIELD_CREATE, REVIEW_SUBMITTED, CREATE_PAGE_UNLOADED } from '../actions'
+import { CREATE_PAGE_LOADED, CREATE_SUBJECT_LOADED, UPDATE_FIELD_CREATE, REVIEW_SUBMITTED, 
+  CREATE_PAGE_UNLOADED, CREATE_SUBJECT_CLEARED } from '../actions'
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -12,6 +13,13 @@ export default (state = {}, action) => {
         review: action.review,
   			subjectId: action.subjectId
   		}
+    case CREATE_SUBJECT_CLEARED:
+      return {
+        ...state,
+        subject: null,
+        review: null,
+        subjectId: null
+      }
   	case REVIEW_SUBMITTED:
       return {
         ...state,
