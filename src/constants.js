@@ -6,6 +6,13 @@ export const FOURSQUARE_CLIENT_SECRET = 'LAHBY4DND3VJL3YZQKXBJ4RY4TFKEZJC2O51P04
 export const FOURSQUARE_API_PATH = 'https://api.foursquare.com/v2/venues/'
 
 
+/*** Amazon API Keys ***/
+export const AMAZON_URL = 'http://webservices.amazon.com/onca/xml'
+export const AMAZON_ACCESS_KEY_ID = 'AKIAJZJ45X2CXUQI42CA'
+export const AMAZON_ACCESS_KEY_SECRET = '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'
+export const AMAZON_ASSOCIATE_TAG = 'whatsgood03-20'
+
+
 /*** IMDB PATHS ***/
 export const TMDB_IMAGES_PATH = 'http://image.tmdb.org/t/p/original/'
 

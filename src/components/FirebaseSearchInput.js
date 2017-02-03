@@ -114,6 +114,19 @@ class FirebaseSearchInput extends Component {
               }
               break;
             case 'amazon':
+              break;
+              // const amazonURL = Constants.AMAZON_URL + 'Service=AWSECommerceService&Operation=ItemLookup' +
+              //   '&ResponseGroup=Images&IdType=ASIN&&ItemId=B004HO6I4M' + 
+              //   '&AWSAccessKeyId=' + Constants.AMAZON_ACCESS_KEY_ID + 
+              //   '&AssociateTag=' + Constants.AMAZON_ASSOCIATE_TAG + 
+              //   '&Timestamp=' + '2017-02-02 03:22:40';
+
+              // fetch(amazonURL).then(response => {
+              //   console.log(JSON.stringify(response))
+              // })
+
+              
+
               // if (result.title) {
               //   return { text: result.title, value: 'boo' };
               // }
