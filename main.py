@@ -354,7 +354,7 @@ def proxy_amazon(item_id):
     args = {
         'Service': 'AWSECommerceService',
         'Operation': 'ItemLookup',
-        'ResponseGroup': 'Images',
+        'ResponseGroup': 'Images,EditorialReview',
         'IdType': 'ASIN',
         'ItemId': item_id,
         'AWSAccessKeyId': AMAZON_ACCESS_KEY_ID,
@@ -391,13 +391,20 @@ def proxy_amazon(item_id):
                 image_element = i.find(NS + k)
                 if image_element:
                     rc[v] = image_element.find(NS + 'URL').text
+            # love XML
+            for r in i.find(NS + 'EditorialReviews'):
+                rc.setdefault('reviews', {})
+                rc['reviews'][r.find(NS + 'Source').text] = r.find(NS + 'Content').text
+
     else:
         # err = json.loads(response.content)
         # err['meta']['_service'] = '4sq'
         # errors.append(err['meta'])
         logging.error('amzn %s' % response.content)
 
-    return json.dumps(rc)
+    resp = Response(json.dumps(rc))
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
 
 
 
