@@ -128,9 +128,7 @@ class Profile extends React.Component {
   render() {
     const profile = this.props.profile;
     if (!profile.userId) {
-      return (
-        <div> User does not exist </div>
-      );
+      return null;
     }
 
     const isUser = this.props.currentUser &&
