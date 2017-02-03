@@ -308,6 +308,9 @@
 .cta-wrapper:hover .cta-icon.cta-save {
   background-image: url(img/icon32_save.png);
 }
+.cta-wrapper .cta-icon.cta-saved {
+  background-image: url(img/icon32_save.png);
+}
 .cta-wrapper .cta-icon.cta-share {
   background-image: url(img/icon32_share_off.png);
 }

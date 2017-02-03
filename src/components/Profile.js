@@ -111,6 +111,14 @@ class Profile extends React.Component {
                 My Likes
               </Link>
             </li>
+
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                to={`@${this.props.profile.username}/saves`}>
+                My Saves
+              </Link>
+            </li>
           </ul>
         </div>
       );
@@ -120,9 +128,7 @@ class Profile extends React.Component {
   render() {
     const profile = this.props.profile;
     if (!profile.userId) {
-      return (
-        <div> User does not exist </div>
-      );
+      return null;
     }
 
     const isUser = this.props.currentUser &&
@@ -175,6 +181,8 @@ class Profile extends React.Component {
             authenticated={this.props.authenticated} 
             like={this.props.likeReview} 
             unLike={this.props.unLikeReview}
+            save={this.props.saveReview} 
+            unSave={this.props.unSaveReview}
             currentPage={this.props.currentPage}
             updateRating={this.props.onUpdateRating}
             onSetPage={this.onSetPage} />

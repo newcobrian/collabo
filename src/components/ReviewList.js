@@ -30,6 +30,8 @@ const ReviewList = props => {
               authenticated={props.authenticated} 
               like={props.like} 
               unLike={props.unLike}
+              save={props.save}
+              unSave={props.unSave}
               updateRating={props.updateRating} />
 
           );

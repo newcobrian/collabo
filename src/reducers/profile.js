@@ -1,4 +1,4 @@
-import { GET_REVIEWS_BY_USER, GET_FOLLOWING_COUNT, GET_FOLLOWER_COUNT, GET_LIKES_BY_USER, UNLOAD_LIKES_BY_USER } from '../actions';
+import { GET_REVIEWS_BY_USER, GET_FOLLOWING_COUNT, GET_FOLLOWER_COUNT, GET_LIKES_OR_SAVES_BY_USER, UNLOAD_LIKES_OR_SAVES_BY_USER } from '../actions';
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -10,7 +10,7 @@ export default (state = {}, action) => {
     case 'PROFILE_PAGE_UNLOADED':
     case 'PROFILE_FAVORITES_PAGE_UNLOADED':
     case 'REVIEWS_BY_USER_UNLOADED':
-    case UNLOAD_LIKES_BY_USER:
+    case UNLOAD_LIKES_OR_SAVES_BY_USER:
       return {};
     case 'FOLLOW_USER':
     case 'UNFOLLOW_USER':
@@ -43,7 +43,7 @@ export default (state = {}, action) => {
         ...state,
         reviews: action.payload
       }
-    case GET_LIKES_BY_USER:
+    case GET_LIKES_OR_SAVES_BY_USER:
       return {
         ...state,
         reviews: action.payload

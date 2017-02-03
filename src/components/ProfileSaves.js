@@ -6,23 +6,7 @@ import Firebase from 'firebase';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
 
-// const mapDispatchToProps = dispatch => ({
-//   onFollow: username => dispatch({
-//     type: 'FOLLOW_USER',
-//     payload: agent.Profile.follow(username)
-//   }),
-//   onLoad: (payload) =>
-//     dispatch({ type: 'PROFILE_FAVORITES_PAGE_LOADED', payload }),
-//   onSetPage: (page, payload) => dispatch({ type: 'SET_PAGE', page, payload }),
-//   onUnfollow: username => dispatch({
-//     type: 'UNFOLLOW_USER',
-//     payload: agent.Profile.unfollow(username)
-//   }),
-//   onUnload: () =>
-//     dispatch({ type: 'PROFILE_FAVORITES_PAGE_UNLOADED' })
-// });
-
-class ProfileLikes extends Profile {
+class ProfileSaves extends Profile {
   componentWillMount() {
     Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + this.props.params.username + '/').once('value', snapshot => {
       if (snapshot.exists()) {
@@ -31,7 +15,7 @@ class ProfileLikes extends Profile {
         this.props.checkFollowing(userId);
         this.props.getFollowingCount(userId);
         this.props.getFollowerCount(userId);
-        this.props.getLikesOrSavesByUser(this.props.authenticated, userId, Constants.LIKES_BY_USER_PATH);
+        this.props.getLikesOrSavesByUser(this.props.authenticated, userId, Constants.SAVES_BY_USER_PATH);
       }
     });
   }
@@ -40,13 +24,8 @@ class ProfileLikes extends Profile {
     if (this.props.profile) {
       this.props.unloadProfileUser(this.props.profile.userId);
       this.props.unloadProfileFollowing(this.props.profile.userId);
-      this.props.unloadLikesOrSavesByUser(this.props.profile.userId, Constants.LIKES_BY_USER_PATH);
+      this.props.unloadLikesOrSavesByUser(this.props.profile.userId, Constants.SAVES_BY_USER_PATH);
     }
-  }
-
-  onSetPage(page) {
-  	// const promise = agent.Articles.favoritedBy(this.props.profile.username, page);
-  	// this.props.onSetPage(page, promise);
   }
 
   renderTabs() {
@@ -63,7 +42,7 @@ class ProfileLikes extends Profile {
 
             <li className="nav-item">
               <Link
-                className="nav-link active"
+                className="nav-link"
                 to={`@${this.props.profile.username}/likes`}>
                 My Likes
               </Link>
@@ -71,7 +50,7 @@ class ProfileLikes extends Profile {
 
             <li className="nav-item">
               <Link
-                className="nav-link"
+                className="nav-link active"
                 to={`@${this.props.profile.username}/saves`}>
                 My Saves
               </Link>
@@ -82,4 +61,4 @@ class ProfileLikes extends Profile {
   }
 }
 
-export default connect(mapStateToProps, Actions)(ProfileLikes);
+export default connect(mapStateToProps, Actions)(ProfileSaves);

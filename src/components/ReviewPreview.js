@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import LikeReviewButton from './LikeReviewButton';
+import SaveReviewButton from './SaveReviewButton';
 
 const RatingsButtons = props => {
   const handleClick = rating => ev => {
@@ -116,10 +117,12 @@ const ReviewPreview = props => {
               <div className="cta-box roow roow-row-space">
                 <CommentPreview comments={props.review.comments} review={props.review} />
                 <div className="roow roow-row flew-item-right">
-                  <div className="cta-wrapper disable roow roow-col">
-                    <div className="cta-icon cta-save"></div>
-                    Save
-                  </div>
+                  <SaveReviewButton 
+                    authenticated={props.authenticated}
+                    isSaved={props.review.isSaved}
+                    unSave={props.unSave}
+                    save={props.save} 
+                    review={review} />
                   <LikeReviewButton
                     authenticated={props.authenticated}
                     isLiked={props.review.isLiked}
