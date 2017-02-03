@@ -19,6 +19,8 @@ const DisplayAppUserReview = props => {
           authenticated={props.authenticated} 
           like={props.like} 
           unLike={props.unLike}
+          save={props.save}
+          unSave={props.unSave}
           updateRating={props.updateRating} />
       </div>
     )
@@ -43,6 +45,8 @@ const DisplayFollowingReviews = props => {
               authenticated={props.authenticated} 
               like={props.like} 
               unLike={props.unLike}
+              save={props.save}
+              unSave={props.unSave}
               updateRating={props.updateRating} />
           )
         })
@@ -120,6 +124,8 @@ class Review extends React.Component {
               authenticated={this.props.authenticated} 
               like={this.props.likeReview} 
               unLike={this.props.unLikeReview}
+              save={this.props.saveReview}
+              unSave={this.props.unSaveReview}
               updateRating={this.props.onUpdateRating} />
               <div className="roow roow-center comments-container">
        <CommentContainer
@@ -148,6 +154,8 @@ class Review extends React.Component {
       userInfo={this.props.userInfo}
       like={this.props.likeReview} 
       unLike={this.props.unLikeReview}
+      save={this.props.saveReview}
+      unSave={this.props.unSaveReview}
       updateRating={this.props.onUpdateRating} />
 
     <DisplayFollowingReviews
@@ -157,6 +165,8 @@ class Review extends React.Component {
       userInfo={this.props.userInfo}
       like={this.props.likeReview} 
       unLike={this.props.unLikeReview}
+      save={this.props.saveReview}
+      unSave={this.props.unSaveReview}
       updateRating={this.props.onUpdateRating} />
 
 </div>/* END - PAGE-WRAPPER */

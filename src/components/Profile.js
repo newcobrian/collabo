@@ -175,6 +175,8 @@ class Profile extends React.Component {
             authenticated={this.props.authenticated} 
             like={this.props.likeReview} 
             unLike={this.props.unLikeReview}
+            save={this.props.saveReview} 
+            unSave={this.props.unSaveReview}
             currentPage={this.props.currentPage}
             updateRating={this.props.onUpdateRating}
             onSetPage={this.onSetPage} />

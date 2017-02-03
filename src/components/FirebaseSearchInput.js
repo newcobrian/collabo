@@ -121,9 +121,10 @@ class FirebaseSearchInput extends Component {
               //   '&AssociateTag=' + Constants.AMAZON_ASSOCIATE_TAG + 
               //   '&Timestamp=' + '2017-02-02 03:22:40';
 
-              // fetch(amazonURL).then(response => {
-              //   console.log(JSON.stringify(response))
-              // })
+          //     fetch('http://whatsgoooood.com/proxy/amazon/B004HO6I4M').then(response => response.json())
+          // .then(json => {
+          //   console.log(JSON)
+          //     })
 
               
 

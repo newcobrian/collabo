@@ -29,6 +29,8 @@ const MainView = props => {
         authenticated={props.authenticated} 
         like={props.likeReview} 
         unLike={props.unLikeReview} 
+        save={props.saveReview} 
+        unSave={props.unSaveReview}
         updateRating={props.onUpdateRating} />
     </div>
   );
