@@ -114,23 +114,13 @@ class FirebaseSearchInput extends Component {
               }
               break;
             case 'amazon':
-              break;
-              // const amazonURL = Constants.AMAZON_URL + 'Service=AWSECommerceService&Operation=ItemLookup' +
-              //   '&ResponseGroup=Images&IdType=ASIN&&ItemId=B004HO6I4M' + 
-              //   '&AWSAccessKeyId=' + Constants.AMAZON_ACCESS_KEY_ID + 
-              //   '&AssociateTag=' + Constants.AMAZON_ASSOCIATE_TAG + 
-              //   '&Timestamp=' + '2017-02-02 03:22:40';
-
-          //     fetch('http://whatsgoooood.com/proxy/amazon/B004HO6I4M').then(response => response.json())
-          // .then(json => {
-          //   console.log(JSON)
-          //     })
-
-              
-
-              // if (result.title) {
-              //   return { text: result.title, value: 'boo' };
-              // }
+              if(result.ASIN && result.Title) {
+                searchObject.text = result.Title;
+                searchObject.value = result.Title;
+                searchObject.id = result.ASIN;
+                if (result.ProductGroup) searchObject.text += (' - ' + result.ProductGroup + ' on Amazon');
+                if (result.DetailPageURL) searchObject.url = result.DetailPageURL;
+              }
               break;
           }
           if (searchObject.text) {

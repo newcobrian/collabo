@@ -472,6 +472,31 @@ export function loadCreateSubject(userId, result) {
             })
           })
         }
+        else if (result._service === 'amazon') {
+          const amazonURL = Constants.AMAZON_SEARCH_URL + result.id;
+          fetch(amazonURL).then(response => response.json()).then(json => {
+            if (json.images) {
+              if (json.images.large) {
+                subject.image = json.images.large;
+              }
+              else if (json.images.medium) {
+                subject.image = json.images.medium;
+              }
+              else if (json.images.small) {
+                subject.image = json.images.small;
+              }
+            }
+            if (json.reviews) {
+              if (json.reviews.ProductDescription) subject.description = json.reviews.ProductDescription;
+            }
+            dispatch({
+              type: CREATE_SUBJECT_LOADED,
+              payload: subject,
+              review: reviewSnapshot.val(),
+              subjectId: result.id
+            })
+          })
+        }
         else {
           dispatch({
             type: CREATE_SUBJECT_LOADED,

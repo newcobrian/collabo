@@ -11,6 +11,7 @@ export const AMAZON_URL = 'http://webservices.amazon.com/onca/xml'
 export const AMAZON_ACCESS_KEY_ID = 'AKIAJZJ45X2CXUQI42CA'
 export const AMAZON_ACCESS_KEY_SECRET = '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'
 export const AMAZON_ASSOCIATE_TAG = 'whatsgood03-20'
+export const AMAZON_SEARCH_URL = 'http://whatsgoooood.com/proxy/amazon/'
 
 
 /*** IMDB PATHS ***/
