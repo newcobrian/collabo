@@ -48,42 +48,46 @@ class Inbox extends React.Component {
     }
 
     return (
-      <div className="roow roow-col-left page-common follow-page">
-        <div className="text-page-title">Inbox</div>
-        {
-          this.props.inbox.map(inboxItem => {
-            // const isUser = this.props.currentUser &&
-            //   follower.userId === this.props.currentUser.uid;
-              return (
-                <div className="roow roow-row list-row" key={inboxItem.key}>
-                  <div className="">
-                    <Link
-                    to={`@${inboxItem.senderUsername}`}
-                    className="comment-author">
-                      <div className="reviewer-photo center-img">
-                        <img src={inboxItem.senderImage} className="comment-author-img" />
-                      </div>
-                    </Link>
-                  </div>
-                  <div className="roow roow-col-left">
-                    <div>
+      <div className="page-common no-feed-toggle follow-page">
+        <div className="page-title-wrapper">
+          <div className="text-page-title">Inbox</div>
+         </div>
+          {
+            this.props.inbox.map(inboxItem => {
+              // const isUser = this.props.currentUser &&
+              //   follower.userId === this.props.currentUser.uid;
+                return (
+                  <div className="roow roow-row list-row" key={inboxItem.key}>
+                    <div className="">
                       <Link
-                          to={`@${inboxItem.senderUsername}`}
-                          className="comment-author">
-                          {inboxItem.senderUsername}
+                      to={`@${inboxItem.senderUsername}`}
+                      className="comment-author">
+                        <div className="reviewer-photo center-img">
+                          <img src={inboxItem.senderImage} className="comment-author-img" />
+                        </div>
                       </Link>
-
-                      {inboxItem.message} <Link to={inboxItem.link}>{inboxItem.reviewTitle}</Link>
                     </div>
+                    <div className="roow roow-col-left">
+                      <div>
+                        <Link
+                            to={`@${inboxItem.senderUsername}`}
+                            className="comment-author">
+                            {inboxItem.senderUsername}
+                        </Link>
+
+                        {inboxItem.message} <Link to={inboxItem.link}>{inboxItem.reviewTitle}</Link>
+                      </div>
+                    </div>
+                    <div className="flex-item-right">
+                      <RightPic link={inboxItem.link} image={inboxItem.reviewImage} />
+                    </div>
+                    
                   </div>
-                  <div className="">
-                    <RightPic link={inboxItem.link} image={inboxItem.reviewImage} />
-                  </div>
-                </div>
-              )
-          })
-        }
-      </div>
+                )
+            })
+          }
+        </div>
+
     );
   }
 }

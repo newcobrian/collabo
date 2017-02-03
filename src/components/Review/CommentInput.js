@@ -30,15 +30,15 @@ class CommentInput extends React.Component {
 
   render() {
     return (
-      <form className="comment-wrapper gray-border comment-form roow roow-row-center" onSubmit={this.createComment}>
+      <form className="comment-wrapper comment-form roow roow-row-center" onSubmit={this.createComment}>
         <img
             src={this.props.currentUser.image}
             className="comment-author-img" />
 
         <button
-          className="bttn-style bttn-submit bttn-subject-comment"
+          className="bttn-style bttn-submit bttn-subject-comment slim-version"
           type="submit">
-          Post
+          <i className="ion-plus"></i>
         </button>
 
         <div className="card-block">

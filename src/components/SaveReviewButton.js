@@ -2,7 +2,7 @@ import React from 'react';
 
 const SaveReviewButton = props => {
     let classes = '';
-  if (props.isLiked) {
+  if (props.isSaved) {
     classes += 'cta-icon cta-saved';
   } else {
     classes += 'cta-icon cta-save';

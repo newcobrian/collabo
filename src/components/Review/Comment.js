@@ -24,7 +24,7 @@ const Comment = props => {
                 {comment.username}
               </Link>
               {comment.body}
-            </div>card-footer
+            </div>
             <span className="date-posted">
               {new Date(comment.lastModified).toLocaleString([], {year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute:'2-digit'})}
             </span>

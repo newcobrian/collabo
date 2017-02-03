@@ -24,7 +24,9 @@ const DisplayAppUserReview = props => {
   }
   else {
     return (
-      <div> Prompt user to enter review here.... </div>
+      <div className="roow roow-col-center your-review empty-prompt">
+        <a className="review-prompt gray-border" href="">+ Add Your Review</a>
+      </div>
     )
   }
 }
@@ -53,7 +55,7 @@ const DisplayFollowingReviews = props => {
   }
   else {
     return (
-      <div> None of your friends have reviewed this yet... </div>
+      <div className="roow roow-col-center other-review empty-prompt"> None of your friends have reviewed this yet... </div>
     )
   }
 }

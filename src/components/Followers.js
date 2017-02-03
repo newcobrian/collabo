@@ -40,7 +40,9 @@ class Followers extends React.Component {
 
 	    return (
 	    	<div className="roow roow-col-left page-common follow-page">
-		      <div className="text-page-title">Following</div>
+		    	<div className="page-title-wrapper">
+			      <div className="text-page-title">Following</div>
+			    </div>
 		      {
 		        this.props.followers.map(follower => {
 		        	const isUser = this.props.currentUser &&
