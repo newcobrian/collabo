@@ -28,7 +28,7 @@ export const GET_COMMENTS = 'GET_COMMENTS';
 export const COMMENTS_UNLOADED = 'COMMENTS_UNLOADED';
 export const DELETE_COMMENT = 'COMMENTS_UNLOADED';
 export const GET_REVIEWS_BY_USER = 'GET_REVIEWS_BY_USER';
-export const GET_LIKES_BY_USER = 'GET_LIKES_BY_USER';
+export const GET_LIKES_OR_SAVES_BY_USER = 'GET_LIKES_BY_USER';
 export const REVIEWS_BY_USER_UNLOADED = 'REVIEWS_BY_USER_UNLOADED';
 export const GET_USER_FEED = 'GET_USER_FEED';
 export const USER_FEED_UNLOADED = 'USER_FEED_UNLOADED';
@@ -44,7 +44,7 @@ export const REVIEW_UNSAVED = 'REVIEW_UNSAVED';
 export const GET_FOLLOWERS = 'GET_FOLLOWERS';
 export const GET_FOLLOWINGS = 'GET_FOLLOWINGS';
 export const UNLOAD_FOLLOWERS = 'UNLOAD_FOLLOWERS';
-export const UNLOAD_LIKES_BY_USER = 'UNLOAD_LIKES_BY_USER';
+export const UNLOAD_LIKES_OR_SAVES_BY_USER = 'UNLOAD_LIKES_BY_USER';
 export const RATING_UPDATED = 'RATING_UPDATED';
 export const INBOX_MESSAGE_SENT = 'INBOX_MESSAGE_SENT';
 export const GET_INBOX = 'GET_INBOX';
@@ -940,13 +940,13 @@ export function getReviewsByUser(appUserId, userId) {
   }
 }
 
-export function getLikesByUser(appUserId, userId) {
+export function getLikesOrSavesByUser(appUserId, userId, path) {
   return dispatch => {
     let feedArray = [];
-    Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).orderByChild('lastModified').on('value', likesByUserSnapshot => {
+    Firebase.database().ref(path + '/' + userId).orderByChild('lastModified').on('value', likesByUserSnapshot => {
       if (!likesByUserSnapshot.exists()) {
         dispatch({
-          type: GET_LIKES_BY_USER,
+          type: GET_LIKES_OR_SAVES_BY_USER,
           payload: []
         })
       }
@@ -990,7 +990,7 @@ export function getLikesByUser(appUserId, userId) {
                     feedArray.sort(lastModifiedDesc);
 
                     dispatch({
-                      type: GET_LIKES_BY_USER,
+                      type: GET_LIKES_OR_SAVES_BY_USER,
                       payload: feedArray
                     })
                   })
@@ -1022,9 +1022,9 @@ export function unloadReviewsByUser(userId) {
   }
 }
 
-export function unloadLikesByUser(userId) {
+export function unloadLikesOrSavesByUser(userId, path) {
   return dispatch => {
-    Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).orderByChild('lastModified').once('value', likesByUserSnapshot => {
+    Firebase.database().ref(path + '/' + userId).orderByChild('lastModified').once('value', likesByUserSnapshot => {
       likesByUserSnapshot.forEach(function(likeItem) {
         Firebase.database().ref(Constants.REVIEWS_PATH + '/' + likeItem.key).once('value', reviewSnapshot => {
           Firebase.database().ref(Constants.LIKES_PATH + '/' + likeItem.key).off();
@@ -1038,11 +1038,10 @@ export function unloadLikesByUser(userId) {
     Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).orderByChild('lastModified').off();
 
     dispatch({
-      type: UNLOAD_LIKES_BY_USER
+      type: UNLOAD_LIKES_OR_SAVES_BY_USER
     })
   }
 }
-
 
 export function lastModifiedDesc(a, b) {
   if (a.lastModified > b.lastModified)

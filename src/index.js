@@ -10,6 +10,7 @@ import GlobalFeed from './components/Home/GlobalFeed';
 import Login from './components/Login';
 import Profile from './components/Profile';
 import ProfileLikes from './components/ProfileLikes';
+import ProfileSaves from './components/ProfileSaves';
 import Register from './components/Register';
 import Settings from './components/Settings';
 import Editor from './components/Editor';
@@ -36,6 +37,7 @@ ReactDOM.render((
         <Route path="followings/:username" component={Followings} />
         <Route path="@:username" component={Profile} />
         <Route path="@:username/likes" component={ProfileLikes} />
+        <Route path="@:username/saves" component={ProfileSaves} />
         <Route path="editor" component={Editor} />
         <Route path="editor/:slug" component={Editor} />
         <Route path="create" component={Create} />
