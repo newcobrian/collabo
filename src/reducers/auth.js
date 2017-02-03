@@ -39,7 +39,7 @@ export default (state = {}, action) => {
         authenticated: false,
         error: null
       };
+    default:
+      return state;
   }
-
-  return state;
 };

@@ -48,7 +48,7 @@ export default (state = {}, action) => {
         ...state,
         reviews: action.payload
       }
+    default:
+      return state;
   }
-
-  return state;
 };

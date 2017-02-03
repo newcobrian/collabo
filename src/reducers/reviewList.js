@@ -46,7 +46,7 @@ export default (state = {}, action) => {
     case 'PROFILE_PAGE_UNLOADED':
     case 'PROFILE_FAVORITES_PAGE_UNLOADED':
       return {};
+    default:
+      return state;
   }
-
-  return state;
 };

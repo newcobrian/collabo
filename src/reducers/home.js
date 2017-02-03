@@ -16,7 +16,7 @@ export default (state = {}, action) => {
     case USER_FEED_UNLOADED:
     case GLOBAL_FEED_UNLOADED:
       return {};
+    default:
+      return state;
   }
-
-  return state;
 };

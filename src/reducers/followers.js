@@ -1,4 +1,4 @@
-import { GET_FOLLOWERS, GET_FOLLOWINGS, UNLOAD_FOLLOWERS } from '../actions';
+import { GET_FOLLOWERS,  UNLOAD_FOLLOWERS } from '../actions';
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -9,7 +9,7 @@ export default (state = {}, action) => {
       }
     case UNLOAD_FOLLOWERS:
       return {}
+    default:
+      return state;
   }
-
-  return state;
 };

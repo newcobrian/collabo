@@ -10,7 +10,6 @@ export default (state = {}, action) => {
         article: action.payload[0].article,
         comments: action.payload[1].comments
       };
-      break;
     case ADD_COMMENT:
       return {
         ...state,
@@ -62,7 +61,7 @@ export default (state = {}, action) => {
     case APP_USER_REVIEW_UNLOADED:
     case FOLLOWING_REVIEWS_UNLOADED:
       return {};
+    default:
+      return state;
   }
-
-  return state;
 };

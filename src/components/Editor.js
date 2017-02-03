@@ -2,7 +2,6 @@ import ListErrors from './ListErrors';
 import React from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
-import FirebaseSearchInput from './FirebaseSearchInput'
 
 const mapStateToProps = state => ({
   ...state.editor

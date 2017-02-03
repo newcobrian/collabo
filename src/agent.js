@@ -1,9 +1,6 @@
-'use strict';
-
 import superagentPromise from 'superagent-promise';
 import _superagent from 'superagent';
 import Firebase from 'firebase';
-import { connect } from 'react-redux';
 
 const superagent = superagentPromise(_superagent, global.Promise);
 

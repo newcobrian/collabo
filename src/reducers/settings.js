@@ -22,7 +22,7 @@ export default (state = {}, action) => {
         ...state,
         errors: [action.error]
       }
+    default:
+      return state;
   }
-
-  return state;
 };

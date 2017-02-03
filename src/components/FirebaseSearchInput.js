@@ -92,6 +92,8 @@ class FirebaseSearchInput extends Component {
                       }
                       if (result.album && result.album.name) searchObject.description += ' from the album ' + result.album.name;
                       break;
+                    default:
+                      break;
                   }
                 }
               }
@@ -120,6 +122,8 @@ class FirebaseSearchInput extends Component {
                 if (result.ProductGroup) searchObject.text += (' - ' + result.ProductGroup + ' on Amazon');
                 if (result.DetailPageURL) searchObject.url = result.DetailPageURL;
               }
+              break;
+            default:
               break;
           }
           if (searchObject.text && searchObject.id) {

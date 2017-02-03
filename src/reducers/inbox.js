@@ -7,14 +7,13 @@ export default (state = {}, action) => {
         ...state,
         inbox: action.payload
       };
-      break;
     case INBOX_COUNT_UPDATED:
       return {
         ...state
     }
     case INBOX_UNLOADED:
     	return {}
+    default:
+      return state;
   }
-
-  return state;
 };

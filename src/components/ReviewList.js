@@ -1,7 +1,4 @@
-'use strict';
-
 import ReviewPreview from './ReviewPreview';
-import ReviewPreview2 from './ReviewPreview2';
 import ListPagination from './ListPagination';
 import React from 'react';
 

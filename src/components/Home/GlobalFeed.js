@@ -52,7 +52,7 @@ class GlobalFeed extends Home {
             </li>
           </ul>
       )
-    };
+    }
   }
 }
 

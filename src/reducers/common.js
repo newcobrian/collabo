@@ -42,9 +42,6 @@ export default (state = defaultState, action) => {
       };
     case 'DELETE_ARTICLE':
       return { ...state, redirectTo: '/' };
-      return {
-        ...state
-      }
     case HOME_PAGE_NO_AUTH:
       return {
         ...state,
@@ -69,6 +66,7 @@ export default (state = defaultState, action) => {
         error: null,
         redirectTo: action.error ? null : '/'
       };
+    default: 
+      return state;
   }
-  return state;
 };

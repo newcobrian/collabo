@@ -1,10 +1,7 @@
-import SubjectMeta from './SubjectMeta';
 import CommentContainer from './CommentContainer';
-import { Link } from 'react-router';
 import React from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../../actions';
-import LikeReviewButton from '../LikeReviewButton';
 import ReviewPreview from '../ReviewPreview';
 
 const DisplayAppUserReview = props => {
@@ -112,7 +109,7 @@ class Review extends React.Component {
     reviewObject.subject = this.props.subject;
 
     // const markup = { __html: marked(this.props.article.body) };
-    const canModify = false;
+    // const canModify = false;
     // const canModify = this.props.currentUser &&
       // this.props.currentUser.username === this.props.article.author.username;
     return (

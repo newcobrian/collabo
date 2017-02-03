@@ -1,5 +1,4 @@
 import { Followers, mapStateToProps } from './Followers';
-import React from 'react';
 import { connect } from 'react-redux';
 import Firebase from 'firebase';
 import * as Actions from '../actions';
