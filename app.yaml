@@ -10,6 +10,7 @@ skip_files:
 - node_modules/.*
 - public/.*
 - src/.*
+- .git/*
 
 # Handlers define how to route requests to your application.
 handlers:
