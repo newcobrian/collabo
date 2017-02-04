@@ -88,6 +88,7 @@ class SettingsForm extends React.Component {
             <textarea
               className="form-control form-control-lg"
               rows="8"
+              maxlength="88"
               placeholder="Short bio about you"
               value={this.state.bio}
               onChange={this.updateState('bio')}>

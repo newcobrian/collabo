@@ -128,7 +128,11 @@
 .cta-wrapper .cta-icon {
   margin: 5px;
 }
-
+.review-image-wrapper {
+  height: 120px;
+  background-color: #ccc;
+  display: inline-block;
+}
 
 
 
@@ -254,9 +258,9 @@
    align-items: flex-start;
 }
 .profile-page .user-info .user-img {
-    width: 70px;
-    height: 70px;
-    margin: 0;
+  width: 70px;
+  height: 70px;
+  margin: 0;
 }
 .profile-page .feed-toggle .nav {
   margin: 0 auto;
@@ -268,10 +272,16 @@
 .profile-page .user-info .user-data {
   margin-left: 10px;
 }
+.profile-page .profile-followers-wrapper {
+  font-size: 12px;
+  height: 30px;
+}
 .user-bio {
-  max-height: 100px;
+  max-height: 32px;
   overflow: auto;
-  font-size: 14px;
+  font-size: 12px;
+  line-height: 16px;
+  overflow: scroll;
 }
 .user-action {
   position: absolute;
@@ -279,9 +289,9 @@
   top: 0px;
 }
 .bttn-style.bttn-subtle-gray {
-    background: transparent;
-    color: #84878D;
-    border: 1px solid transparent;
+  background: transparent;
+  color: #84878D;
+  border: 1px solid transparent;
 }
 .bttn-style.bttn-subtle-gray:hover {
     background: #84878D;
