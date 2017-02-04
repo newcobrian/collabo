@@ -449,6 +449,19 @@ export function loadCreateSubject(userId, result) {
         if (result.description) subject.description = result.description;
         if (result.image) subject.image = result.image;
 
+        let dispatchObject = {
+          type: CREATE_SUBJECT_LOADED,
+          payload: subject,
+          review: reviewSnapshot.val(),
+          rating: null,
+          caption: null,
+          subjectId: result.id
+        };
+        if (reviewSnapshot.exists()) {
+          dispatchObject.rating = reviewSnapshot.val().rating;
+          dispatchObject.caption = reviewSnapshot.val().caption;
+        }
+
         // fetch image from 4sq API
         if (result._service === '4sq') {
           const foursquareURL = Constants.FOURSQUARE_API_PATH + result.id.slice(4) + 
@@ -464,12 +477,9 @@ export function loadCreateSubject(userId, result) {
               subject.image = photoURL;
             }
 
-            dispatch({
-              type: CREATE_SUBJECT_LOADED,
-              payload: subject,
-              review: reviewSnapshot.val(),
-              subjectId: result.id
-            })
+            dispatchObject.payload = subject;
+
+            dispatch(dispatchObject);
           })
         }
         else if (result._service === 'amazon') {
@@ -489,28 +499,22 @@ export function loadCreateSubject(userId, result) {
             if (json.reviews) {
               if (json.reviews.ProductDescription) subject.description = json.reviews.ProductDescription;
             }
-            dispatch({
-              type: CREATE_SUBJECT_LOADED,
-              payload: subject,
-              review: reviewSnapshot.val(),
-              subjectId: result.id
-            })
+
+            dispatchObject.payload = subject;
+            dispatch(dispatchObject);
           })
         }
         else {
-          dispatch({
-            type: CREATE_SUBJECT_LOADED,
-            payload: subject,
-            review: reviewSnapshot.val(),
-            subjectId: result.id
-          })
+          dispatch(dispatchObject);
         }
       })
     }
     else dispatch({
       type: CREATE_SUBJECT_LOADED,
       payload: null,
-      key: null
+      key: null,
+      rating: null,
+      caption: null
     })
   }
 }
@@ -541,7 +545,7 @@ export function onUpdateField(key, value) {
   }
 }
 
-export function onReviewSubmit(key, subject, review) {
+export function onReviewSubmit(key, subject, review, rid) {
   return dispatch => {
     const updates = {};
     const uid = Firebase.auth().currentUser.uid;
@@ -560,7 +564,7 @@ export function onReviewSubmit(key, subject, review) {
       updates[`/${Constants.SUBJECTS_PATH}/${subjectId}/`] = subject;
     }
 
-    const reviewId = Firebase.database().ref(Constants.REVIEWS_PATH).push().key;
+    let reviewId = rid ? rid : Firebase.database().ref(Constants.REVIEWS_PATH).push().key;
     const lastModified = Firebase.database.ServerValue.TIMESTAMP;
     const reviewMeta = {
         userId: Firebase.auth().currentUser.uid,

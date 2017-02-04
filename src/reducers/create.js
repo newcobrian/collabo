@@ -11,14 +11,20 @@ export default (state = {}, action) => {
   			...state,
   			subject: action.payload,
         review: action.review,
-  			subjectId: action.subjectId
+        reviewId: action.reviewId,
+  			subjectId: action.subjectId,
+        rating: action.rating,
+        caption: action.caption
   		}
     case CREATE_SUBJECT_CLEARED:
       return {
         ...state,
         subject: null,
         review: null,
-        subjectId: null
+        reviewId: null,
+        subjectId: null,
+        rating: null,
+        caption: null
       }
   	case REVIEW_SUBMITTED:
       return {

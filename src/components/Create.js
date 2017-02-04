@@ -63,12 +63,13 @@ class Create extends React.Component {
 		this.submitForm = ev => {
 	      ev.preventDefault();
 
-	      const review = {
+	      const ratingObject = {
 	        rating: this.props.rating,
 	        caption: this.props.caption
 	      }
 
-	      this.props.onReviewSubmit(this.props.subjectId, this.props.subject, review);
+	      let reviewId = this.props.review ? this.props.review.reviewId : null;
+	      this.props.onReviewSubmit(this.props.subjectId, this.props.subject, ratingObject, reviewId);
     	}
 
     	this.onCancelClick = ev => {
@@ -107,7 +108,7 @@ class Create extends React.Component {
 						<SubjectInfo subject={this.props.subject} />
 						<div className="box-shadow">
 					      	<fieldset className="form-group no-margin">
-						        <div className={'rating-container box-shadow rating-wrapper-' + review.rating}>
+						        <div className={'rating-container box-shadow rating-wrapper-' + this.props.rating}>
 						            <div className="roow roow-row-space-around">
 						              <div className="square-wrapper"><button className="rating-graphic rating--2" onClick={this.onRatingsChange(-2)}></button></div>
 						              <div className="square-wrapper"><button className="rating-graphic rating--1" onClick={this.onRatingsChange(-1)}></button></div>
@@ -130,7 +131,7 @@ class Create extends React.Component {
 						          className="form-control caption"
 						          rows="3"
 						          placeholder={review.caption}
-						          value={review.caption}
+						          value={this.props.caption}
 						          onChange={this.changeCaption}>
 						        </textarea>
 						      </fieldset>
