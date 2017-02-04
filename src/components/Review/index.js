@@ -6,21 +6,24 @@ import ReviewPreview from '../ReviewPreview';
 
 const DisplayAppUserReview = props => {
   if (props.review && props.authenticated) {
-    let review = props.review;
-    review.subject = props.subject;
-    review.reviewer = props.userInfo;
-    return (
-      <div className="reviewpreview-wrapper your-review roow roow-col-center">
+    if (props.currentReviewId !== props.review.reviewId) {
+      let review = props.review;
+      review.subject = props.subject;
+      review.reviewer = props.userInfo;
+      return (
+        <div className="reviewpreview-wrapper your-review roow roow-col-center">
 
-        <ReviewPreview review={review} 
-          authenticated={props.authenticated} 
-          like={props.like} 
-          unLike={props.unLike}
-          save={props.save}
-          unSave={props.unSave}
-          updateRating={props.updateRating} />
-      </div>
-    )
+          <ReviewPreview review={review} 
+            authenticated={props.authenticated} 
+            like={props.like} 
+            unLike={props.unLike}
+            save={props.save}
+            unSave={props.unSave}
+            updateRating={props.updateRating} />
+        </div>
+      )
+    }
+    else return null;
   }
   else {
     return (
@@ -147,6 +150,7 @@ class Review extends React.Component {
       ****/}
 
     <DisplayAppUserReview 
+      currentReviewId={this.props.params.rid}
       review={this.props.appUserReview}
       subject={this.props.subject}
       authenticated={this.props.authenticated}
