@@ -2,8 +2,11 @@ body {
 	font-family: 'Muli', sans-serif;
   color: #161F34;
   letter-spacing:1px;
-}
+  padding-top: 90px;
 
+}
+/*Reset Safari User Agent Styles*/
+* {-webkit-padding-start: 0px;}
 
 /****** 
 ******
@@ -216,8 +219,6 @@ textarea {
 ******/
 .header-wrapper {
   background-color:#0B101C;
-  height: 90px;
-  width: 100%;
 }
 .logo-module {
   position: fixed;
@@ -225,7 +226,7 @@ textarea {
   top: 0;
   padding: 0px 10px 0 40px;
   height: 90px;
-  width: 320px;
+  width: 100%;
   color: white;
   font-weight: 700;
   margin: 0px;
@@ -316,18 +317,22 @@ a.logo-module:focus {
 }
 
 .navigation-bar .nav-icon img {
-    height: 24px;
-    border-radius: 50px;
-    width: 24px;
+  height: 24px;
+  border-radius: 50px;
+  width: 24px;
 }
 .navigation-bar .nav-editor .nav-icon {
-    background: #2E5DD2;
-    border-radius: 32px;
-    padding-top: 4px;
+  background: #2E5DD2;
+  border-radius: 32px;
+  padding-top: 4px;
+  margin: 4px 0 6px;
 }
 .navigation-bar .nav-editor:hover .nav-icon {
-    box-shadow: 0 0 0px 2px #2E5DD2;
-    transition: box-shadow ease-in;
+  box-shadow: 0 0 0px 2px #2E5DD2;
+  transition: box-shadow ease-in;
+}
+.navigation-bar .nav-profile .nav-icon img {
+  box-shadow: 0 0 0 2px rgba(255,255,255,.5);
 }
 .navigation-bar .nav-text {
   width: 100%;
@@ -367,6 +372,7 @@ a.logo-module:focus {
 ******/
 .page-common {
   margin: 0px 40px;
+  background-color: white;
 }
 .page-title-wrapper {
   padding: 10px 0;
@@ -649,6 +655,9 @@ a.logo-module:focus {
 }
 .editor-page .text-page-subtitle {
   text-align: left;
+  text-align: left;
+  max-height: 200px;
+  overflow: auto;
 }
 .create-new-link {
   font-size: 11px;
@@ -671,6 +680,10 @@ a.logo-module:focus {
   width: 200px;
   height: 200px;
   margin: 0 20px 20px 0;
+  overflow: hidden;
+  min-width: 200px;
+  min-height: 200px;
+
 }
 .create-popup .text-subject-name {
   margin: 0 0 10px;

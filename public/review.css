@@ -133,11 +133,11 @@
     max-width: 568px;
 }
 .goto-link {
-  margin-left: 20px;
-  opacity: .4;
-  font-size: 20px;
-  margin-right: -20px;
-  margin-top: 3px;
+    margin-left: 10px;
+    opacity: .4;
+    font-size: 18px;
+    margin-right: -10px;
+    margin-top: 3px;
   display: none;
 }
 .article-page .goto-link {
@@ -212,7 +212,7 @@
   box-shadow: inset 1px 2px 16px 3px rgba(255,255,255,.7), -5px 6px 12px rgba(0,0,0,0.1);             
   box-shadow: 0px 6px 12px rgba(0,0,0,0.1);             
   margin: 0 0;
-  margin-top: -8px;
+  margin-top: -4px;
   width: 40px;
   height: 40px;
   transition: width .1s ease-in, opacity .1s ease-in;

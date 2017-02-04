@@ -7,6 +7,9 @@
 ************************************ 1. Header + Nav
 ******
 ******/
+body {
+  padding-top: 50px !important;
+}
 .header-wrapper {
   height: 50px;
 }
@@ -93,10 +96,10 @@
   font-size: 14px;
 }
 .text-subject-name {
-  font-size: 18px;
+  font-size: 16px;
 }
 .text-category {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 
@@ -149,7 +152,7 @@
     max-width: 480px;
   }
 .profile-page {
-  margin: 80px 10px;
+  margin: 60px 10px;
 }
 
 .form-wrapper {
@@ -169,7 +172,7 @@
 }
 .review-data-module {
   width: 100%;
-  padding: 10px;
+  padding: 15px;
 }
 .feed-toggle {
   padding: 0px 40px 0px 40px;
@@ -222,14 +225,20 @@
 }
 .reviewer-photo {
   box-shadow: 0 0 0 4px white;
+  width: 46px;
+  height: 46px;
 }
 .photo-rating-module {
-  margin-top: -46px;
-  margin-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 10px;
 }
 .reviewer-name-container {
-  margin-top: 40px;
+  margin-top: -1px;
   margin-bottom: 0;
+}
+.subject-caption {
+    font-size: 18px;
+    line-height: 24px;
 }
 /******
 ******
@@ -294,8 +303,8 @@
   border: 1px solid transparent;
 }
 .bttn-style.bttn-subtle-gray:hover {
-    background: #84878D;
-    color: white;
+  background: #84878D;
+  color: white;
 }
 /******
 ******
@@ -303,20 +312,76 @@
 ******
 ******/
 .editor-page.page-common {
-  margin-top: 0;
+  margin: 20px 10px;
 } 
 .editor-page .text-page-title {
-    font-size: 32px;
-    width: 100%;
-    text-align: left;
+  font-size: 32px;
+  width: 100%;
+  text-align: left;
 }
 .editor-page .page-title-wrapper {
-    padding: 40px 0 10px;
-    width: 100%;
+  padding: 40px 0 10px;
+  width: 100%;
 }
 .create-new-link {
   margin-top: 10px;
 }
+.create-popup .text-subject-name {
+  font-size: 16px;
+}
+.create-popup {
+    background-color: white;
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    position: absolute;
+    top: 20px;
+}
+.create-subject-image.subject-image img {
+  width: 160px!important;
+  height: 160px !important;
+}
+.create-subject-image.subject-image {
+    width: 160px;
+    height: 160px;
+    margin: 0 20px 20px 0;
+    overflow: hidden;
+    min-width: 160px;
+    min-height: 160px;
+}
+
+
+
+
+
+.rating-graphic {
+  width: 24px;
+  height: 24px;
+  background-size: 30px;
+}
+.rating-wrapper--3 .rating-graphic.rating--2,
+.rating-wrapper--2 .rating-graphic.rating--2,
+.rating-wrapper--1 .rating-graphic.rating--1,
+.rating-wrapper-0 .rating-graphic.rating-0,
+.rating-wrapper-1 .rating-graphic.rating-1,
+.rating-wrapper-2 .rating-graphic.rating-2,
+.rating-wrapper-3 .rating-graphic.rating-2,
+
+.rating-graphic.rating--2:hover,
+.rating-graphic.rating--2:hover,
+.rating-graphic.rating--1:hover,
+.rating-graphic.rating-0:hover,
+.rating-graphic.rating-1:hover,
+.rating-graphic.rating-2:hover,
+.rating-graphic.rating-2:hover
+ {
+    width: 28px;
+    height: 28px;
+ }
+.rating-container {
+  margin-top: 2px;
+}
+
 
 
 }

@@ -47,7 +47,7 @@ const LoggedInView = props => {
             <div className="nav-icon"><img src="../img/icon32_inbox.png"/></div>
             <div className="nav-text">Inbox</div> <InboxCounter unreadMessages={props.unreadMessages} />
         </Link>
-        <Link to={`@${props.userInfo.username}`} className="nav-module">
+        <Link to={`@${props.userInfo.username}`} className="nav-module nav-profile">
             <div className="nav-icon"><img className="center-img" src={props.userInfo.image}/></div>
             <div className="nav-text">Profile</div>
         </Link>
@@ -63,7 +63,7 @@ const LoggedInView = props => {
 class Header extends React.Component {
   render() {
     return (
-        <div className="roow header-wrapper">
+        <div className="roow">
           <Link to="/" className="logo-module roow roow-row">
             <div className="logo-graphic">  
               <img className="center-img" src="../img/graphic46x32_logo_5dots.png"/>

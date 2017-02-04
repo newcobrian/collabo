@@ -58,7 +58,7 @@ const DisplayFollowingReviews = props => {
   }
   else {
     return (
-      <div className="roow roow-col-center other-review empty-prompt"> None of your friends have reviewed this yet... </div>
+      <div className="roow roow-col-center other-review empty-prompt"> </div>
     )
   }
 }
