@@ -27,7 +27,7 @@ const DisplayAppUserReview = props => {
   }
   else {
     return (
-      <div className="roow roow-col-center your-review empty-prompt">
+      <div className="DN roow roow-col-center your-review empty-prompt">
         <a className="review-prompt gray-border" href="">+ Add Your Review</a>
       </div>
     )

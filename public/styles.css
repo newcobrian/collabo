@@ -33,6 +33,9 @@ body {
   width: 100%;
   max-width: 600px;
 }
+.text-section-header {
+  margin: 5px 0;
+}
 form {
   width: 100%;
 }
@@ -342,7 +345,7 @@ a.logo-module:focus {
 }
 .count-badge {
     background-color: #F36965;
-    padding: 0px 8px 2px;
+    padding: 1px 8px 0px;
     border-radius: 32px;
     text-align: center;
     display: inline-block;
@@ -382,9 +385,14 @@ a.logo-module:focus {
     border-bottom: 1px solid rgba(0,0,0,.1);
     z-index: 10;
     padding: 5px 40px 5px 40px;
-
 }
-
+.article-preview {
+  text-align: center;
+  width: 100%;
+}
+.feed-wrapper {
+  width: 100%;
+}
 
 
 /******
@@ -487,8 +495,9 @@ a.logo-module:focus {
     top: 70px;
 }
 .profile-feed {
+    width: 100%;
     margin-left: 270px;
-    margin-top: 80px;
+    margin-top: 60px;
 }
 /******
 ******
@@ -537,8 +546,17 @@ a.logo-module:focus {
     margin-left: 0;
     margin-top: 0;
 }
+.article-page .reviews-wrapper {
+  margin: 0 0 10px;
+}
 .comment-wrapper {
   border-radius: 0;
+}
+.article-page .text-subject-name {
+      -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
 }
 
 
@@ -563,6 +581,9 @@ a.logo-module:focus {
 ******/
 .editor-page {
   
+}
+.editor-page.create-page {
+  margin: 80px 0 0;
 }
 .editor-page .form-control {
     display: block;
@@ -623,8 +644,11 @@ a.logo-module:focus {
     text-align: left;
 }
 .editor-page .page-title-wrapper {
-    padding: 80px 0 10px;
+    padding: 20px 0 10px;
     width: 600px;
+}
+.editor-page .text-page-subtitle {
+  text-align: left;
 }
 .create-new-link {
   font-size: 11px;

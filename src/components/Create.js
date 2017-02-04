@@ -216,7 +216,7 @@ class Create extends React.Component {
 
 	render() {
 		return (
-			<div className="roow roow-col roow-center-all page-common editor-page">
+			<div className="roow roow-col roow-center-all page-common editor-page create-page">
 	            <div className="page-title-wrapper roow roow-row center-text">
 	              <div className="text-page-title">New Review</div>
 	              <EditorLink subject={this.props.subject} />

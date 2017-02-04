@@ -106,17 +106,25 @@ class Editor extends React.Component {
   render() {
     return (
       <div className="roow roow-col roow-center-all page-common editor-page">
-            <div className="page-title-wrapper roow roow-col center-text">
-              <div className="text-page-title">What's Good?</div>
-              <div className="text-page-subtitle">Recommend something cool to your friends. Or warn the world against something bad! Pass on the knowledge.</div>
-            </div>
+          <div className="page-title-wrapper roow roow-col-left center-text">
+            <div className="roow roow-col-left">
+              <a href="#/create"><div>&#8592; Back to Search</div></a>
+              <div className="text-page-title">Add Custom Product</div>
+            </div> 
+            <div className="text-page-subtitle">
+            We don't have everything in the world logged yet,
+            so add anything you can't find in search, add it here!
+            You'll be the first reviewer!</div>
+          </div>
 
             <div className="form-wrapper roow roow-col-left">
 
               <ListErrors errors={this.props.errors}></ListErrors>
 
               <form>
-              Product details:
+              <div className="text-section-header">
+                Product details:
+              </div>
                 <fieldset>
 
                   <fieldset className="form-group no-margin">
@@ -153,8 +161,9 @@ class Editor extends React.Component {
                       value={this.props.image}
                       onChange={this.changeImage} />
                   </fieldset> 
-
+                  <div className="text-section-header">
                   Your Review:
+                  </div>
                   <fieldset className="form-group no-margin">
                     <div className={'rating-container rating-wrapper-' + this.props.rating}>
                         <div className="roow roow-row-space-around">

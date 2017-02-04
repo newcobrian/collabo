@@ -39,7 +39,7 @@
    justify-content: space-around;
    font-size: 11px;
    height: 60px;
-   background-color: #3D414A;
+   background-color: #242833;
 }
 .navigation-bar .nav-module.create-review {
   background: white;
@@ -80,8 +80,26 @@
 .nav-module .header-badge {
   font-size: 13px;
   margin-top: -61px;
-  box-shadow: 0 0 0 2px #3D414A;
+  box-shadow: 0 0 0 2px #242833;
 }
+
+
+/******
+******
+************************************ Typography
+******
+******/
+.reviewer-name {
+  font-size: 14px;
+}
+.text-subject-name {
+  font-size: 18px;
+}
+.text-category {
+  font-size: 14px;
+}
+
+
 
 
 /******
@@ -102,13 +120,17 @@
 }
 .cta-box {
   width: 100%;
+  font-size: 10px;
 }
 .comments-preview-wrapper {
   width: 100%;
 }
-.text-subject-name {
-  font-size: 18px;
+.cta-wrapper .cta-icon {
+  margin: 5px;
 }
+
+
+
 
 /** Home Page **/
 .page-common {
@@ -162,6 +184,11 @@
 .reviews-wrapper {
 }
 
+
+
+.article-page.page-common {
+  margin: 65px 10px;
+}
 .article-page .review-data-container {
   margin-top: 0;
   margin-left: 0;
@@ -186,9 +213,20 @@
   display: none;
 }
 .main-review .subject-name-container {
-  top: 60px;
+  top: 50px;
+  padding: 5px 0 0;
 }
-
+.reviewer-photo {
+  box-shadow: 0 0 0 4px white;
+}
+.photo-rating-module {
+  margin-top: -46px;
+  margin-bottom: 0;
+}
+.reviewer-name-container {
+  margin-top: 40px;
+  margin-bottom: 0;
+}
 /******
 ******
 ************************************ PROFILE
@@ -254,6 +292,9 @@
 ************************************ 6. Editor
 ******
 ******/
+.editor-page.page-common {
+  margin-top: 0;
+} 
 .editor-page .text-page-title {
     font-size: 32px;
     width: 100%;

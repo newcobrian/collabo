@@ -61,10 +61,17 @@ const ReviewPreview = props => {
   return (
       <div className="reviews-wrapper roow roow-left roow-col-left">
         <div className="subject-name-container">
-            <Link to={`review/${review.subjectId}/${review.id}`}>
-              <div className="text-subject-name">{review.subject.title}</div>
-            </Link>
-              <div className="text-category shift-up-5">Book, Movie, Restaurant, Cool</div>
+              <div className="text-subject-name roow">
+                <Link to={`review/${review.subjectId}/${review.id}`}>
+                  {review.subject.title}
+                </Link>
+                <a title={'Open link: ' + review.subject.url} target="blank" href={review.subject.url}>
+                <div className="goto-link flex-">
+                  <i className="ion-android-arrow-forward"></i>
+                </div>
+                </a>
+              </div>
+              <div className="text-category shift-up-5">#hashtags #cominghere #soon</div>
 
         </div>
         <div className="review-container roow roow-center roow-col-left bottom-divider">
@@ -78,7 +85,7 @@ const ReviewPreview = props => {
             </div>
             <div className="review-data-container roow roow-col-left">
               <div className="review-data-module gray-border roow roow-col-left box-shadow">
-                  <div className="photo-rating-module roow">
+                  <div className="photo-rating-module roow roow-row-top">
                     <Link to={`@${review.reviewer.username}`}>
                       <div className="reviewer-photo center-img"><img src={review.reviewer.image}/></div>
                     </Link>
@@ -95,8 +102,9 @@ const ReviewPreview = props => {
                       </Link>
                     </div>
 
+
                   </div>
-                
+
                 <div className="info">
                   <Link to={`review/${review.subjectId}/${review.id}`}>
                   <div className="subject-caption">

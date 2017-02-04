@@ -132,7 +132,17 @@
     padding: 40px;
     max-width: 568px;
 }
-
+.goto-link {
+  margin-left: 20px;
+  opacity: .4;
+  font-size: 20px;
+  margin-right: -20px;
+  margin-top: 3px;
+  display: none;
+}
+.article-page .goto-link {
+  display: inline-block;
+}
 /****** 
 ******
 ************************************ RATING FACES

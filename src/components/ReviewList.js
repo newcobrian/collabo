@@ -5,13 +5,13 @@ import React from 'react';
 const ReviewList = props => {
   if (!props.reviews) {
     return (
-      <div className="article-preview">Loading...</div>
+      <div className="article-preview roow roow-center-all">Loading...</div>
     );
   }
 
   if (props.reviews.length === 0) {
     return (
-      <div className="article-preview">
+      <div className="article-preview roow roow-center-all">
         Follow some more interesting people!
       </div>
     );
