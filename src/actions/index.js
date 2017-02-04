@@ -454,7 +454,7 @@ export function loadCreateSubject(userId, result) {
           payload: subject,
           review: reviewSnapshot.val(),
           rating: null,
-          caption: null,
+          caption: '',
           subjectId: result.id
         };
         if (reviewSnapshot.exists()) {
@@ -514,7 +514,7 @@ export function loadCreateSubject(userId, result) {
       payload: null,
       key: null,
       rating: null,
-      caption: null
+      caption: ''
     })
   }
 }
