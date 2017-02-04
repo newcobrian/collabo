@@ -633,25 +633,36 @@ export function getReview(authenticated, reviewId) {
         Firebase.database().ref(Constants.USERS_PATH + '/' + reviewSnapshot.val().userId).on('value', userSnapshot => {
           Firebase.database().ref(Constants.LIKES_PATH + '/' + reviewId).on('value', likesSnapshot => {
             Firebase.database().ref(Constants.SAVES_BY_USER_PATH + '/' + authenticated + '/' + reviewId).on('value', savesSnapshot => {
-              let review = reviewSnapshot.val();
-              review.id = reviewSnapshot.key;
-              review.reviewer = {};
-              let userMeta = { username: userSnapshot.val().username, image: userSnapshot.val().image };
-              Object.assign(review.reviewer, userMeta);
+              Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewId).on('value', commentCountSnapshot => {
+                let review = reviewSnapshot.val();
+                review.id = reviewSnapshot.key;
+                review.reviewer = {};
+                let userMeta = { username: userSnapshot.val().username, image: userSnapshot.val().image };
+                Object.assign(review.reviewer, userMeta);
 
-              review.isLiked = false
-              review.likesCount = 0;
-              if (likesSnapshot.val()) {
-                review.isLiked = searchLikes(authenticated, likesSnapshot.val());
-                review.likesCount = likesSnapshot.numChildren()
-              }
+                review.isLiked = false
+                review.likesCount = 0;
+                if (likesSnapshot.val()) {
+                  review.isLiked = searchLikes(authenticated, likesSnapshot.val());
+                  review.likesCount = likesSnapshot.numChildren()
+                }
 
-              review.isSaved = savesSnapshot.exists();
+                review.isSaved = savesSnapshot.exists();
 
-              dispatch({
-                type: GET_REVIEW,
-                payload: review
-              });
+                if (commentCountSnapshot.exists()) {
+                  review.comments = {
+                    commentsCount: commentCountSnapshot.numChildren(),
+                    lastComment: '',
+                    commentorImage: '',
+                    username: ''                  
+                  }
+                }
+
+                dispatch({
+                  type: GET_REVIEW,
+                  payload: review
+                });
+              })
             })
           })
         })
@@ -832,6 +843,7 @@ export function unloadReview(authenticated, reviewId, subjectId) {
         Firebase.database().ref(Constants.USERS_PATH + '/' + snapshot.val().userId).off();
         Firebase.database().ref(Constants.LIKES_PATH + '/' + reviewId).off();
         Firebase.database().ref(Constants.SAVES_BY_USER_PATH + '/' + authenticated + '/' + reviewId).off();
+        Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewId).off();
       });
       dispatch({
         type: REVIEW_UNLOADED,
