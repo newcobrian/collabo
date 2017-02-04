@@ -1124,6 +1124,12 @@ export function getUserFeed(uid) {
     }
     let feedArray = [];
     Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + uid).on('value', followedSnapshot => {
+      if (!followedSnapshot.exists()) {
+        dispatch({
+          type: GET_USER_FEED,
+          payload: []
+        })
+      }
       followedSnapshot.forEach(function(followedUser) {
         Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + followedUser.key).orderByChild('lastModified').on('value', reviewsSnapshot => {
           reviewsSnapshot.forEach(function(review) {

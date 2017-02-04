@@ -12,7 +12,7 @@ const ReviewList = props => {
   if (props.reviews.length === 0) {
     return (
       <div className="article-preview">
-        No reviews are here... yet.
+        Follow some more interesting people!
       </div>
     );
   }
