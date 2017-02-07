@@ -609,6 +609,171 @@ export function onReviewSubmit(key, subject, review, rid) {
   }
 }
 
+// export function uploadFileToFirebase(authenticated, file) {
+//   return dispatch => {
+//     // Create the file metadata
+
+//     var storageRef = Firebase.storage().ref();
+
+//     var metadata = {
+//       contentType: 'image/jpeg'
+//     };
+
+//     // Upload file and metadata to the object 'images/mountains.jpg'
+//     var uploadTask = storageRef.child('images/' + file.name).put(file, metadata);
+
+//     // Listen for state changes, errors, and completion of the upload.
+//     uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+//       function(snapshot) {
+//         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+//         var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+//         console.log('Upload is ' + progress + '% done');
+//         switch (snapshot.state) {
+//           case Firebase.storage.TaskState.PAUSED: // or 'paused'
+//             console.log('Upload is paused');
+//             break;
+//           case Firebase.storage.TaskState.RUNNING: // or 'running'
+//             console.log('Upload is running');
+//             break;
+//         }
+//       }, function(error) {
+//         console.log(error.message)
+//     }, function() {
+//       // Upload completed successfully, now we can get the download URL
+//       var downloadURL = uploadTask.snapshot.downloadURL;
+//       console.log('dl url = ' + downloadURL);
+//     });
+//   }
+// }
+
+export function generateImageFileName()
+{
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < 15; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}
+
+export function onEditorSubmit(subject, imageFile, review) {
+  return dispatch => {
+    const updates = {};
+    const uid = Firebase.auth().currentUser.uid;
+
+    if (imageFile) {
+      const storageRef = Firebase.storage().ref();
+      const metadata = {
+        contentType: 'image/jpeg'
+      }
+      let fileName = generateImageFileName();
+      const uploadTask = storageRef.child('images/' + fileName).put(imageFile, metadata);
+      uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+      function(snapshot) {
+        }, function(error) {
+          console.log(error.message)
+      }, function() {
+        const downloadURL = uploadTask.snapshot.downloadURL;
+        if (downloadURL) subject.image = downloadURL;
+
+        let subjectId = Firebase.database().ref(Constants.SUBJECTS_PATH).push().key;
+        updates[`/${Constants.SUBJECTS_PATH}/${subjectId}/`] = subject;
+
+        let reviewId = Firebase.database().ref(Constants.REVIEWS_PATH).push().key;
+        const lastModified = Firebase.database.ServerValue.TIMESTAMP;
+        const reviewMeta = {
+            userId: Firebase.auth().currentUser.uid,
+            subjectId: subjectId,
+            lastModified: lastModified
+        }
+
+        const reviewObject = {};
+        Object.assign(reviewObject, reviewMeta, review);
+
+        updates[`/${Constants.REVIEWS_PATH}/${reviewId}/`] = reviewObject;
+
+        let reviewsByUserObject = {
+          rating: review.rating,
+          caption: review.caption,
+          lastModified: lastModified,
+        }
+
+        let subjectObject = subject;
+        reviewsByUserObject.subjectId = subjectId;
+        reviewsByUserObject.subject = subjectObject;
+
+        updates[`/${Constants.REVIEWS_BY_USER_PATH}/${uid}/${reviewId}`] = reviewsByUserObject;
+        updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${subjectId}/${uid}`] = {
+          reviewId: reviewId,
+          rating: review.rating,
+          caption: review.caption,
+          lastModified: lastModified
+        };
+
+        Firebase.database().ref().update(updates)
+          .then(response => {
+            dispatch({
+              type: REVIEW_SUBMITTED,
+              subjectId: subjectId,
+              reviewId: reviewId
+            })
+          })
+          .catch(error => {
+            console.log(error);
+          });
+        });
+    }
+    else {
+      let subjectId = Firebase.database().ref(Constants.SUBJECTS_PATH).push();
+      updates[`/${Constants.SUBJECTS_PATH}/${subjectId}/`] = subject;
+
+      let reviewId = Firebase.database().ref(Constants.REVIEWS_PATH).push();
+      const lastModified = Firebase.database.ServerValue.TIMESTAMP;
+      const reviewMeta = {
+          userId: Firebase.auth().currentUser.uid,
+          subjectId: subjectId,
+          lastModified: lastModified
+      }
+
+      const reviewObject = {};
+      Object.assign(reviewObject, reviewMeta, review);
+
+      updates[`/${Constants.REVIEWS_PATH}/${reviewId}/`] = reviewObject;
+
+      let reviewsByUserObject = {
+        rating: review.rating,
+        caption: review.caption,
+        lastModified: lastModified,
+      }
+
+      let subjectObject = subject;
+      reviewsByUserObject.subjectId = subjectId;
+      reviewsByUserObject.subject = subjectObject;
+
+      updates[`/${Constants.REVIEWS_BY_USER_PATH}/${uid}/${reviewId}`] = reviewsByUserObject;
+      updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${subjectId}/${uid}`] = {
+        reviewId: reviewId,
+        rating: review.rating,
+        caption: review.caption,
+        lastModified: lastModified
+      };
+
+      Firebase.database().ref().update(updates)
+        .then(response => {
+          dispatch({
+            type: REVIEW_SUBMITTED,
+            subjectId: subjectId,
+            reviewId: reviewId
+          })
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+  }
+}
+
 export function getSubject(subjectId) {
   return dispatch => {
     Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId).on('value', snapshot => {

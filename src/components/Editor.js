@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import * as Actions from '../actions';
 
 const mapStateToProps = state => ({
-  ...state.editor
+  ...state.editor,
+  authenticated: state.common.authenticated
 });
 
 // const mapDispatchToProps = dispatch => ({
@@ -31,7 +32,8 @@ class Editor extends React.Component {
     this.changeTitle = updateFieldEvent('title');
     this.changeDescription = updateFieldEvent('description');
     this.changeURL = updateFieldEvent('url');
-    this.changeImage = updateFieldEvent('image');
+    // this.changeImage = updateFieldEvent('image');
+    // this.changeImage = onUpdateField('image', ev.target.files[0]);
     // this.changeRating = updateFieldEvent('rating');
     this.changeCaption = updateFieldEvent('caption');
     this.changeTagInput = updateFieldEvent('tagInput');
@@ -39,6 +41,10 @@ class Editor extends React.Component {
     this.onRatingsChange = rating => ev => {
       ev.preventDefault();
       this.props.onUpdateField('rating', rating);
+    }
+
+    this.changeFile = ev => {
+      this.props.onUpdateField('image', ev.target.files[0]);
     }
 
     this.watchForEnter = ev => {
@@ -55,10 +61,9 @@ class Editor extends React.Component {
     this.submitForm = ev => {
       ev.preventDefault();
       const subject = {
-        title: this.props.title,
-        description: this.props.description,
-        image: this.props.image,
-        url: this.props.url
+        title: this.props.title
+        // description: this.props.description,
+        // url: this.props.url
         // body: this.props.body,
         // tagList: this.props.tagList
       };
@@ -68,7 +73,7 @@ class Editor extends React.Component {
         caption: this.props.caption
       }
 
-      this.props.onReviewSubmit(null, subject, review);
+      this.props.onEditorSubmit(subject, this.props.image, review);
       // const slug = { slug: this.props.articleSlug };
       // const promise = this.props.articleSlug ?
       //   agent.Articles.update(Object.assign(article, slug)) :
@@ -124,18 +129,19 @@ class Editor extends React.Component {
                         className="form-control"
                         type="text"
                         placeholder="Product Name"
+                        required
                         value={this.props.title}
                         onChange={this.changeTitle} />
                     </fieldset>
 
                     <fieldset className="form-group">
-                      <input
-                        className="form-control"
-                        type="text"
-                        placeholder="Upload Pic"
-                        value={this.props.image}
-                        onChange={this.changeImage} />
-                    </fieldset> 
+                    <input
+                      className="form-control"
+                      type="file"
+                      accept="image/*" 
+                      onChange={this.changeFile} />
+                  </fieldset>
+
                   </div>
                   <fieldset className="form-group no-margin">
                     <div className={'rating-container rating-wrapper-' + this.props.rating}>
