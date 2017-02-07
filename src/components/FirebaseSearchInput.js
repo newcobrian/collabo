@@ -3,7 +3,6 @@ import { AutoComplete } from 'material-ui';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import * as Constants from '../constants'
-import AutoCompleteStyleOverride from './AutoCompleteStyleOverride';
 import 'whatwg-fetch';
 
 class FirebaseSearchInput extends Component {
@@ -142,14 +141,23 @@ class FirebaseSearchInput extends Component {
 
   render() {
     return <MuiThemeProvider name={this.props.name} muiTheme={getMuiTheme()}>
-    <AutoCompleteStyleOverride
-      filter={function filter(searchText, key) {
+      <AutoComplete
+        filter={function filter(searchText, key) {
           return key.toLowerCase().includes(searchText.toLowerCase());
         }}
-      dataSource={this.state.dataSource}
-      onUpdateInput={this.onUpdateInput} 
-      onNewRequest={this.onNewRequest} />
-   
+        fullWidth={true}
+        hintText='Search for a product'
+        dataSource={this.state.dataSource}
+        onUpdateInput={this.onUpdateInput} 
+        onNewRequest={this.onNewRequest}
+        style={{
+          backgroundColor: '#ffffff',
+        }}
+        menuStyle={{
+          height: '400px',
+          overflow: 'scroll'
+        }}
+     />
       </MuiThemeProvider>
   }
 }
