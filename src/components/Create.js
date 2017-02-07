@@ -218,13 +218,13 @@ class Create extends React.Component {
 		return (
 			<div className="roow roow-col roow-center-all page-common editor-page create-page">
 	            <div className="page-title-wrapper roow roow-row center-text">
-	              <div className="text-page-title">New Review</div>
-	              <EditorLink subject={this.props.subject} />
+	              <div className="text-page-title">Search</div>
+	              <a className="text-page-title unselected" href="#/editor">Create New</a>
 	            </div>
 
 	            <div className="form-wrapper roow roow-col-left">
 		            <form>
-						<fieldset className="form-group no-margin main-search-field">
+						<fieldset className="form-group no-margin main-search-field gray-border">
 			                <FirebaseSearchInput className="form-control main-search-inner" callback={this.searchInputCallback} />
 			            </fieldset>
 			        </form>

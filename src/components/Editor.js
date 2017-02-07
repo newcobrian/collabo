@@ -106,63 +106,36 @@ class Editor extends React.Component {
   render() {
     return (
       <div className="roow roow-col roow-center-all page-common editor-page">
-          <div className="page-title-wrapper roow roow-col-left center-text">
-            <div className="roow roow-col-left">
-              <a href="#/create"><div>&#8592; Back to Search</div></a>
-              <div className="text-page-title">Add Custom Product</div>
-            </div> 
-            <div className="text-page-subtitle">
-            We don't have everything in the world logged yet,
-            so add anything you can't find in search, add it here!
-            You'll be the first reviewer!</div>
-          </div>
+            <div className="page-title-wrapper roow roow-row center-text">
+              <a className="text-page-title unselected" href="#/create">Search</a>
+              <div className="text-page-title">Create New</div>
+            </div>
 
             <div className="form-wrapper roow roow-col-left">
 
               <ListErrors errors={this.props.errors}></ListErrors>
 
               <form>
-              <div className="text-section-header">
-                Product details:
-              </div>
+              
                 <fieldset>
+                  <div className="roow roow-row-top">
+                    <fieldset className="form-group no-margin apple">
+                      <input
+                        className="form-control"
+                        type="text"
+                        placeholder="Product Name"
+                        value={this.props.title}
+                        onChange={this.changeTitle} />
+                    </fieldset>
 
-                  <fieldset className="form-group no-margin">
-                    <input
-                      className="form-control"
-                      type="text"
-                      placeholder="Product Name"
-                      value={this.props.title}
-                      onChange={this.changeTitle} />
-                  </fieldset>
-
-                  <fieldset className="form-group no-margin">
-                    <input
-                      className="form-control"
-                      type="text"
-                      placeholder="Description"
-                      value={this.props.description}
-                      onChange={this.changeDescription} />
-                  </fieldset>
-
-                  <fieldset className="form-group">
-                    <input
-                      className="form-control"
-                      type="text"
-                      placeholder="website link"
-                      value={this.props.url}
-                      onChange={this.changeURL} />
-                  </fieldset>
-                  <fieldset className="form-group">
-                    <input
-                      className="form-control"
-                      type="text"
-                      placeholder="URL of item picture"
-                      value={this.props.image}
-                      onChange={this.changeImage} />
-                  </fieldset> 
-                  <div className="text-section-header">
-                  Your Review:
+                    <fieldset className="form-group">
+                      <input
+                        className="form-control"
+                        type="text"
+                        placeholder="Upload Pic"
+                        value={this.props.image}
+                        onChange={this.changeImage} />
+                    </fieldset> 
                   </div>
                   <fieldset className="form-group no-margin">
                     <div className={'rating-container rating-wrapper-' + this.props.rating}>
@@ -184,13 +157,21 @@ class Editor extends React.Component {
                   </fieldset>
 
                   <fieldset className="form-group">
-                    <textarea
-                      className="form-control caption"
-                      rows="3"
-                      placeholder="Add a comment"
-                      value={this.props.caption}
-                      onChange={this.changeCaption}>
-                    </textarea>
+                    <div className="gray-border">
+                      <textarea
+                        className="form-control caption"
+                        rows="3"
+                        placeholder="Add a comment"
+                        value={this.props.caption}
+                        onChange={this.changeCaption}>
+                      </textarea>
+                      <input
+                        className="form-control subtle-input"
+                        type="text"
+                        placeholder="website link"
+                        value={this.props.url}
+                        onChange={this.changeURL} />
+                    </div>
                   </fieldset>
 
 

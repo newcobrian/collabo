@@ -340,7 +340,7 @@ a.logo-module:focus {
 .nav-module.nav-user-image {
     width: 40px;
     height: 40px;
-    background: #ccc;
+    background: #E6E7E8;
     border-radius: 100px;
 }
 
@@ -435,7 +435,7 @@ a.logo-module:focus {
     z-index: 100;
 }
 .profile-page .user-info .user-img {
-  background: #ccc;
+  background: #E6E7E8;
   margin: 20px 0;
   object-fit: cover;
   width: 190px;
@@ -589,29 +589,40 @@ a.logo-module:focus {
   
 }
 .editor-page.create-page {
-  margin: 80px 0 0;
+  margin: 0;
 }
 .editor-page .form-control {
     display: block;
     width: 100%;
     padding: 20px;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 1.25;
     color: #55595c;
     background-color: #fff;
     background-image: none;
     background-clip: padding-box;
-    border: #ccc 1px solid;
+    border: #E6E7E8 1px solid;
     border-radius: 0;
     font-weight: 100;
+    height: 100%;
+}
+.editor-page .form-control.no-border {
+  border: none;
+}
+.editor-page .form-control.subtle-input {
+  border: none;
+  font-size: 14px;
+}
+.editor-page .form-group.apple {
+  width: 600px;
 }
 .editor-page .form-control.caption {
-
+  border: none;
 }
 .editor-page .rating-container {
     width: 100%;
     padding: 20px;
-    border: #ccc 1px solid;
+    border: #E6E7E8 1px solid;
     margin-left: 0;
     margin-bottom: 0;
     height: 100px;
@@ -620,7 +631,15 @@ a.logo-module:focus {
   margin-right: 0;
 }
 .form-group.no-margin {
-  margin-bottom: -1px !important; }
+  margin-bottom: -1px !important;
+}
+
+
+
+
+
+
+
 .rating-description {
   min-width: 70px;
   margin-top: 10px;
@@ -634,20 +653,23 @@ a.logo-module:focus {
 .main-search-field {
   /* Rectangle: */
   background: #FFFFFF;
-  border: 2px solid #2E5DD2;
-  box-shadow: 0 8px 24px 0 rgba(0,0,0,0.06);
+  /*box-shadow: 0 8px 24px 0 rgba(0,0,0,0.06);*/
   border-radius: 2px;
-  padding: 4px 10px;
-  height: 62px;
+  padding: 4px 20px;
+  height: 65px;
 }
 .main-search-inner {
   font-size: 24px;
 }
 .editor-page .text-page-title {
-    font-size: 32px;
+    font-size: 20px;
     font-weight: 700;
-    width: auto;
-    text-align: left;
+    width: 100%;
+    text-align: center;
+}
+.editor-page .text-page-title.unselected {
+  font-weight: 400;
+  opacity: .7;
 }
 .editor-page .page-title-wrapper {
     padding: 20px 0 10px;
