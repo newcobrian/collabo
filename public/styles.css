@@ -617,7 +617,7 @@ a.logo-module:focus {
   width: 600px;
 }
 .editor-page .form-control.caption {
-  border: none;
+  border: none
 }
 .editor-page .rating-container {
     width: 100%;
@@ -649,6 +649,7 @@ a.logo-module:focus {
 .square-wrapper {
   width: 40px;
   height: 40px;
+  text-align: center;
 }
 .main-search-field {
   /* Rectangle: */
@@ -662,14 +663,17 @@ a.logo-module:focus {
   font-size: 24px;
 }
 .editor-page .text-page-title {
-    font-size: 20px;
+  font-size: 20px;
     font-weight: 700;
-    width: 100%;
+    width: auto;
     text-align: center;
+    border-bottom: 3px #161F34 solid;
+    margin: auto;
 }
 .editor-page .text-page-title.unselected {
   font-weight: 400;
   opacity: .7;
+  border-bottom-color: white;
 }
 .editor-page .page-title-wrapper {
     padding: 20px 0 10px;
@@ -687,16 +691,17 @@ a.logo-module:focus {
   margin-top: 20px;
 }
 .popup-overlay {
-  position: absolute;
+/*  position: absolute;
   top: 0; right: 0; left:0; bottom: 0;
   background-color: rgba(0,0,0,.8);
-  z-index: 10;
+  z-index: 10;*/
+  margin-top: 10px;
 }
 .create-popup {
   background-color: white;
   width: 600px;
   height: auto;
-  padding: 20px;
+  padding: 0 20px 20px;
 }
 .create-subject-image.subject-image {
   width: 200px;

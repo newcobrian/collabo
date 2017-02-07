@@ -316,7 +316,6 @@ body {
 } 
 .editor-page .text-page-title {
   font-size: 16px;
-  width: 100%;
 }
 .editor-page .page-title-wrapper {
   padding: 0 0 10px;
@@ -334,22 +333,30 @@ body {
     height: auto;
     padding: 10px;
     position: absolute;
-    top: 20px;
+    top: 50px;
+    z-index: 100;
+    bottom: 0;
+}
+.popup-overlay {
+  width: 100%;
 }
 .create-subject-image.subject-image img {
-  width: 160px!important;
-  height: 160px !important;
+    width: 100%;
+    height: auto;
+    padding: 0px;
 }
 .create-subject-image.subject-image {
-    width: 160px;
-    height: 160px;
-    margin: 0 20px 20px 0;
+    width: 80px;
+    height: 80px;
+    margin: 0 10px 10px 0;
     overflow: hidden;
-    min-width: 160px;
-    min-height: 160px;
+    min-width: 80px;
+    min-height: 80px;
 }
 
-
+.create-popup .text-page-subtitle {
+    max-height: 100px;
+}
 
 
 
@@ -376,6 +383,7 @@ body {
  {
     width: 28px;
     height: 28px;
+    margin: -4px auto 0;
  }
 .rating-container {
   margin-top: 2px;

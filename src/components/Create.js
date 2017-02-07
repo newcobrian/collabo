@@ -126,7 +126,7 @@ class Create extends React.Component {
 						        </div>
 						      </fieldset>
 
-						      <fieldset className="form-group">
+						      <fieldset className="form-group gray-border">
 						        <textarea
 						          className="form-control caption"
 						          rows="3"
@@ -181,7 +181,7 @@ class Create extends React.Component {
 						        </div>
 						      </fieldset>
 
-						      <fieldset className="form-group">
+						      <fieldset className="form-group gray-border">
 						        <textarea
 						          className="form-control caption"
 						          rows="3"

@@ -161,14 +161,14 @@ class Editor extends React.Component {
                       <textarea
                         className="form-control caption"
                         rows="3"
-                        placeholder="Add a comment"
+                        placeholder="Compose a quick comment..."
                         value={this.props.caption}
                         onChange={this.changeCaption}>
                       </textarea>
                       <input
                         className="form-control subtle-input"
                         type="text"
-                        placeholder="website link"
+                        placeholder="website link (optional)"
                         value={this.props.url}
                         onChange={this.changeURL} />
                     </div>
