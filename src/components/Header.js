@@ -69,7 +69,7 @@ class Header extends React.Component {
               <img className="center-img" src="../img/graphic46x32_logo_5dots.png"/>
             </div>
             <div className="logo-main">
-              whatsgood
+              whatsgoood
             </div>
             <div className="logo-tagline">Reviews by people you trust</div>
           </Link>
