@@ -68,6 +68,8 @@ class Editor extends React.Component {
         // tagList: this.props.tagList
       };
 
+      if (this.props.url) subject.url = this.props.url;
+
       const review = {
         rating: this.props.rating,
         caption: this.props.caption
