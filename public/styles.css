@@ -271,7 +271,6 @@ a.logo-module:focus {
   z-index: 2;
   padding: 0px 40px 0 0;
   color: white;
-  border-bottom: 1px solid rgba(0,0,0,.1);
 }
 .navigation-bar .nav-module {
   text-align: center;
@@ -283,6 +282,10 @@ a.logo-module:focus {
     margin: 0px 0px;
     padding: 10px 0;
     font-size: 12px;
+}
+.navigation-bar .nav-module.active,
+.navigation-bar .nav-module.nav-editor.active {
+  background-color: rgba(255,255,255,.1);
 }
 .navigation-bar .nav-module:hover {
   background-color: rgba(255,255,255,.1);

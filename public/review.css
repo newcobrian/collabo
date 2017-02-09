@@ -87,10 +87,11 @@
   width: auto;
   height: auto;
   background: white;
+  overflow: hidden;
 }
 
 .review-data-container {
-  width: 360px;
+  width: 600px;
   padding: 0;
   margin-left: -40px;
   margin-top: 20px;
@@ -98,7 +99,6 @@
     margin-top: 0px;
 }
 .review-data-module {
-  min-width: 360px;
   width: 100%;
   padding: 20px;
 }
@@ -110,10 +110,10 @@
 }
 
 .subject-caption {
-  font-size: 24px;
+  font-size: 16px;
   font-weight: 100;
   margin-bottom: 0px;
-  line-height: 30px;
+  line-height: 20px;
   color: #161F34;
 }
 .photo-rating-module {

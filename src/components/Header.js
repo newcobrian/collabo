@@ -33,21 +33,21 @@ const LoggedInView = props => {
     return (
       <div className="navigation-bar roow roow-row-right">
         
-        <Link to="create" className="nav-module nav-editor">  
+        <Link to="create" activeClassName="active" className="nav-module nav-editor">  
             <div className="nav-icon"><img src="../img/icon32_add.png"/></div>
             <div className="nav-text">New</div>
         </Link>
 
-        <Link to="" className="nav-module">
+        <Link to="/" activeClassName="active" className="nav-module">
             <div className="nav-icon"><img src="../img/icon32_feed.png"/></div>
             <div className="nav-text">Feed</div>
         </Link>
         
-        <Link to="inbox" className="nav-module">
+        <Link to="inbox" activeClassName="active" className="nav-module">
             <div className="nav-icon"><img src="../img/icon32_inbox.png"/></div>
             <div className="nav-text">Inbox</div> <InboxCounter unreadMessages={props.unreadMessages} />
         </Link>
-        <Link to={`@${props.userInfo.username}`} className="nav-module nav-profile">
+        <Link to={`@${props.userInfo.username}`} activeClassName="active" className="nav-module nav-profile">
             <div className="nav-icon"><img className="center-img" src={props.userInfo.image}/></div>
             <div className="nav-text">Profile</div>
         </Link>
