@@ -61,6 +61,7 @@ export const FOLLOWING_REVIEWS_UNLOADED = 'FOLLOWING_REVIEWS_UNLOADED';
 export const ASK_FOR_AUTH = 'ASK_FOR_AUTH';
 export const HOME_PAGE_NO_AUTH = 'HOME_PAGE_NO_AUTH';
 export const CREATE_SUBJECT_CLEARED = 'CREATE_SUBJECT_CLEARED';
+export const EDITOR_SUBMIT_ERROR = 'EDITOR_SUBMIT_ERROR';
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -771,6 +772,15 @@ export function onEditorSubmit(subject, imageFile, review) {
           console.log(error);
         });
     }
+  }
+}
+
+export function editorSubmitError(missingField) {
+  return dispatch => {
+    dispatch({
+      type: EDITOR_SUBMIT_ERROR,
+      error: 'Please add a ' + missingField
+    })
   }
 }
 

@@ -60,28 +60,37 @@ class Editor extends React.Component {
 
     this.submitForm = ev => {
       ev.preventDefault();
-      const subject = {
-        title: this.props.title
-        // description: this.props.description,
-        // url: this.props.url
-        // body: this.props.body,
-        // tagList: this.props.tagList
-      };
 
-      if (this.props.url) subject.url = this.props.url;
-
-      const review = {
-        rating: this.props.rating,
-        caption: this.props.caption
+      if (!this.props.title) {
+        this.props.editorSubmitError('product name');
       }
+      else if (!this.props.rating) {
+        this.props.editorSubmitError('rating');
+      }
+      else {
+        const subject = {
+          title: this.props.title
+          // description: this.props.description,
+          // url: this.props.url
+          // body: this.props.body,
+          // tagList: this.props.tagList
+        };
 
-      this.props.onEditorSubmit(subject, this.props.image, review);
-      // const slug = { slug: this.props.articleSlug };
-      // const promise = this.props.articleSlug ?
-      //   agent.Articles.update(Object.assign(article, slug)) :
-      //   agent.Articles.create(article);
+        if (this.props.url) subject.url = this.props.url;
 
-      // this.props.onSubmit(promise);
+        const review = {
+          rating: this.props.rating,
+          caption: this.props.caption
+        }
+
+        this.props.onEditorSubmit(subject, this.props.image, review);
+        // const slug = { slug: this.props.articleSlug };
+        // const promise = this.props.articleSlug ?
+        //   agent.Articles.update(Object.assign(article, slug)) :
+        //   agent.Articles.create(article);
+
+        // this.props.onSubmit(promise);
+      }
     };
   }
 
