@@ -122,16 +122,20 @@ def parse_4sq(rpc, results, errors):
     except Exception, e:
         errors.append({'service': '4sq', 'err': str(e)})
 
-def search_4sq(q):
+def search_4sq(q, ll=None, radius=None):
     rpc = urlfetch.create_rpc(deadline=REMOTE_TIMEOUT)
     args = {
         'client_id': FOURSQUARE_CLIENT_ID,
         'client_secret': FOURSQUARE_CLIENT_SECRET,
         'v': '20170101',
-        'near': 'San Francisco, CA',
         'intent': 'browse',
         'query': q
     }
+    if ll:
+        args['ll'] = ll
+        args['radius'] = radius or '30000'
+    else:
+        args['near'] = 'San Francisco, CA'
 
     url = '%s?%s' % (FOURSQUARE_URL, urllib.urlencode(args))
     logging.info('fetching 4sq %s' % url)
@@ -170,7 +174,7 @@ def parse_spotify(rpc, results, errors):
         logging.exception(e)
         errors.append({'service': '4sq', 'err': str(e)})
 
-def search_spotify(q):
+def search_spotify(q, **kwargs):
     rpc = urlfetch.create_rpc(deadline=REMOTE_TIMEOUT)
     args = {
         'type': 'album,artist,track',
@@ -236,7 +240,7 @@ def _quote_query(query):
             for k in sorted(query))
 
 
-def search_amazon(q):
+def search_amazon(q, **kwargs):
     '''http://webservices.amazon.com/onca/xml?
   Service=AWSECommerceService
   &Operation=ItemSearch
@@ -289,7 +293,7 @@ def parse_tmdb(rpc, results, errors):
     except Exception, e:
         errors.append({'service': 'tmdb', 'err': str(e)})
 
-def search_tmdb_movie(q):
+def search_tmdb_movie(q, **kwargs):
     rpc = urlfetch.create_rpc(deadline=REMOTE_TIMEOUT)
     args = {
         'api_key': TMDB_API_KEY,
@@ -301,7 +305,7 @@ def search_tmdb_movie(q):
     urlfetch.make_fetch_call(rpc, url)
     return {'rpc': rpc, 'parse': parse_tmdb}
 
-def search_tmdb_tv(q):
+def search_tmdb_tv(q, **kwargs):
     rpc = urlfetch.create_rpc(deadline=REMOTE_TIMEOUT)
     args = {
         'api_key': TMDB_API_KEY,
@@ -323,20 +327,23 @@ SERVICES = [search_4sq, search_spotify, search_amazon, search_tmdb_movie, search
 @app.route('/search')
 def hello():
     q = request.args.get('q')
+    ll = request.args.get('ll')
+    radius = request.args.get('radius')
+    cache_key = '-'.join((q.lower(), ll or 'none', radius or 'none'))
 
     results = []
     errors = []
     rpcs = []
 
-    rc = memcache.get(q.lower())
+    rc = memcache.get(cache_key)
     if rc and not request.args.get('nocache'):
         data = json.loads(zlib.decompress(rc))
         results = data['results']
-        logging.info('[cache] hit "%s"; %d results' % (q.lower(), len(results)))
+        logging.info('[cache] hit "%s"; %d results' % (cache_key, len(results)))
     else:
-        logging.info('[cache] miss "%s"' % q.lower())
+        logging.info('[cache] miss "%s"' % cache_key)
         for search in SERVICES:
-            rpcs.append(search(q))
+            rpcs.append(search(q, ll=ll, radius=radius))
 
         for r in rpcs:
             r['rpc'].wait()
