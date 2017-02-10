@@ -1459,41 +1459,39 @@ export function getGlobalFeed(uid) {
             Firebase.database().ref(Constants.SAVES_BY_USER_PATH + '/' + uid + '/' + review.key).on('value', savesSnapshot => {
               Firebase.database().ref(Constants.COMMENTS_PATH + '/' + review.key).on('value', commentCountSnapshot => {
                 Firebase.database().ref(Constants.SUBJECTS_PATH +'/' + review.val().subjectId).on('value', subjectSnapshot => {
-                  if (reviewerId !== uid) {
-                    let reviewObject = {};
-                    let key = { id: review.key };
-                    let reviewer = { reviewer: userSnapshot.val() };
-                    let isLiked = false;
-                    if (likesSnapshot.exists()) {
-                      isLiked = searchLikes(uid, likesSnapshot.val());
-                    }
-                    let likes = { 
-                      likesCount: likesSnapshot.numChildren(), 
-                      isLiked: isLiked
-                    }
-                    let saved = {
-                      isSaved: savesSnapshot.exists()
-                    }
-                    let commentObject = {};
-                    if (commentCountSnapshot.exists()) {
-                      commentObject.comments = {
-                            commentsCount: commentCountSnapshot.numChildren(),
-                            lastComment: '',
-                            commentorImage: '',
-                            username: ''                  
-                      }
-                    }
-
-                    reviewObject.subject = subjectSnapshot.val();
-                    Object.assign(reviewObject, key, reviewer, review.val(), likes, saved, commentObject);
-                    feedArray = [reviewObject].concat(feedArray);
-                    feedArray.sort(lastModifiedDesc);
-
-                    dispatch({
-                      type: GET_GLOBAL_FEED,
-                      payload: feedArray
-                    })
+                  let reviewObject = {};
+                  let key = { id: review.key };
+                  let reviewer = { reviewer: userSnapshot.val() };
+                  let isLiked = false;
+                  if (likesSnapshot.exists()) {
+                    isLiked = searchLikes(uid, likesSnapshot.val());
                   }
+                  let likes = { 
+                    likesCount: likesSnapshot.numChildren(), 
+                    isLiked: isLiked
+                  }
+                  let saved = {
+                    isSaved: savesSnapshot.exists()
+                  }
+                  let commentObject = {};
+                  if (commentCountSnapshot.exists()) {
+                    commentObject.comments = {
+                          commentsCount: commentCountSnapshot.numChildren(),
+                          lastComment: '',
+                          commentorImage: '',
+                          username: ''                  
+                    }
+                  }
+
+                  reviewObject.subject = subjectSnapshot.val();
+                  Object.assign(reviewObject, key, reviewer, review.val(), likes, saved, commentObject);
+                  feedArray = [reviewObject].concat(feedArray);
+                  feedArray.sort(lastModifiedDesc);
+
+                  dispatch({
+                    type: GET_GLOBAL_FEED,
+                    payload: feedArray
+                  })
                 })
               })
             })
