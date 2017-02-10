@@ -110,6 +110,7 @@ class Create extends React.Component {
 
 	componentWillUnmount() {
 		this.props.onCreateUnload();
+		navigator.geolocation.clearWatch();
 	}
 
 	renderRating(subject, review) {
