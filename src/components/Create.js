@@ -77,6 +77,12 @@ class Create extends React.Component {
 
     		this.props.loadCreateSubject(this.props.authenticated, null);
     	}
+
+    	this.getUserLocation= () => {
+    		if (navigator.geolocation) {
+		      navigator.geolocation.watchPosition(this.props.showPosition);
+		    }
+    	}
 	}
 
 	// componentWillReceiveProps(nextProps) {
@@ -93,7 +99,13 @@ class Create extends React.Component {
     	// if (this.props.id) {
      //  		return this.props.onCreateLoad(this.props.authenticated);
     	// }
-    	this.props.onCreateLoad(this.props.authenticated);
+    	if (!this.props.authenticated) {
+    		this.props.askForAuth();
+    	}
+    	else {
+	    	this.props.onCreateLoad(this.props.authenticated);
+	    	this.getUserLocation();
+    	}
 	}
 
 	componentWillUnmount() {
@@ -225,7 +237,8 @@ class Create extends React.Component {
 	            <div className="form-wrapper roow roow-col-left">
 		            <form>
 						<fieldset className="form-group no-margin main-search-field gray-border">
-			                <FirebaseSearchInput className="form-control main-search-inner" callback={this.searchInputCallback} />
+			                <FirebaseSearchInput className="form-control main-search-inner" callback={this.searchInputCallback}
+			                latitude={this.props.latitude} longitude={this.props.longitude} />
 			            </fieldset>
 			        </form>
 			    </div>

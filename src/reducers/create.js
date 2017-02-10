@@ -1,5 +1,5 @@
 import { CREATE_PAGE_LOADED, CREATE_SUBJECT_LOADED, UPDATE_FIELD_CREATE, REVIEW_SUBMITTED, 
-  CREATE_PAGE_UNLOADED, CREATE_SUBJECT_CLEARED } from '../actions'
+  CREATE_PAGE_UNLOADED, CREATE_SUBJECT_CLEARED, GET_USER_LOCATION } from '../actions'
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -25,6 +25,12 @@ export default (state = {}, action) => {
         subjectId: null,
         rating: null,
         caption: null
+      }
+    case GET_USER_LOCATION:
+      return {
+        ...state,
+        latitude: action.latitude,
+        longitude: action.longitude
       }
   	case REVIEW_SUBMITTED:
       return {

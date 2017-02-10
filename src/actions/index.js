@@ -62,6 +62,7 @@ export const ASK_FOR_AUTH = 'ASK_FOR_AUTH';
 export const HOME_PAGE_NO_AUTH = 'HOME_PAGE_NO_AUTH';
 export const CREATE_SUBJECT_CLEARED = 'CREATE_SUBJECT_CLEARED';
 export const EDITOR_SUBMIT_ERROR = 'EDITOR_SUBMIT_ERROR';
+export const GET_USER_LOCATION = 'GET_USER_LOCATION';
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -416,6 +417,24 @@ export function onEditorUnload() {
   }
 }
 
+export function askForAuth() {
+  return dispatch => {
+    dispatch({
+      type: ASK_FOR_AUTH
+    })
+  }
+}
+
+export function showPosition(position) {
+  return dispatch => {
+    dispatch({
+      type: GET_USER_LOCATION,
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude
+    })
+  }
+}
+
 export function onCreateLoad(authenticated) {
   return dispatch => {
     if(!authenticated) {
@@ -546,7 +565,7 @@ export function onUpdateField(key, value) {
   }
 }
 
-export function onReviewSubmit(key, subject, review, rid) {
+export function onReviewSubmit(key, subject, review, rid, location) {
   return dispatch => {
     const updates = {};
     const uid = Firebase.auth().currentUser.uid;
