@@ -63,6 +63,7 @@ export const HOME_PAGE_NO_AUTH = 'HOME_PAGE_NO_AUTH';
 export const CREATE_SUBJECT_CLEARED = 'CREATE_SUBJECT_CLEARED';
 export const EDITOR_SUBMIT_ERROR = 'EDITOR_SUBMIT_ERROR';
 export const GET_USER_LOCATION = 'GET_USER_LOCATION';
+export const SET_WATCH_ID = 'SET_WATCH_ID';
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -430,7 +431,17 @@ export function showPosition(position) {
     dispatch({
       type: GET_USER_LOCATION,
       latitude: position.coords.latitude,
-      longitude: position.coords.longitude
+      longitude: position.coords.longitude,
+
+    })
+  }
+}
+
+export function setWatchPositionId(id) {
+  return dispatch => {
+    dispatch({
+      type: SET_WATCH_ID,
+      payload: id
     })
   }
 }

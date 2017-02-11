@@ -80,7 +80,8 @@ class Create extends React.Component {
 
     	this.getUserLocation= () => {
     		if (navigator.geolocation) {
-		      navigator.geolocation.watchPosition(this.props.showPosition);
+		      let watchId = navigator.geolocation.watchPosition(this.props.showPosition);
+		      this.props.setWatchPositionId(watchId);
 		    }
     	}
 	}
@@ -110,7 +111,7 @@ class Create extends React.Component {
 
 	componentWillUnmount() {
 		this.props.onCreateUnload();
-		navigator.geolocation.clearWatch();
+		if (this.props.watchId) navigator.geolocation.clearWatch(this.props.watchId);
 	}
 
 	renderRating(subject, review) {
