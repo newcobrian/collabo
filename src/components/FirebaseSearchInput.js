@@ -43,7 +43,6 @@ class FirebaseSearchInput extends Component {
     if(this.state.inputValue !== '') {
       fetch(url).then(response => response.json())
         .then(json => {
-        
         let searchResults;
         let retrievedSearchTerms = [];
 
