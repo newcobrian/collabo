@@ -478,7 +478,7 @@ export function loadCreateSubject(userId, result) {
         subject.title = result.value;
         if (result.url) subject.url = result.url;
         if (result.description) subject.description = result.description;
-        if (result.image) subject.image = result.image;
+        if (result.image) subject.images = [result.image];
 
         let dispatchObject = {
           type: CREATE_SUBJECT_LOADED,
@@ -505,7 +505,7 @@ export function loadCreateSubject(userId, result) {
               json.response.venue.photos.groups[0].items[0]) {
               const photoURL = json.response.venue.photos.groups[0].items[0].prefix + 'original' +
                 json.response.venue.photos.groups[0].items[0].suffix;
-              subject.image = photoURL;
+              subject.images = [photoURL];
             }
 
             dispatchObject.payload = subject;
@@ -518,13 +518,13 @@ export function loadCreateSubject(userId, result) {
           fetch(amazonURL).then(response => response.json()).then(json => {
             if (json.images) {
               if (json.images.large) {
-                subject.image = json.images.large;
+                subject.images = [json.images.large];
               }
               else if (json.images.medium) {
-                subject.image = json.images.medium;
+                subject.images = [json.images.medium];
               }
               else if (json.images.small) {
-                subject.image = json.images.small;
+                subject.images = [json.images.small];
               }
             }
             if (json.reviews) {
@@ -706,7 +706,7 @@ export function onEditorSubmit(subject, imageFile, review) {
           console.log(error.message)
       }, function() {
         const downloadURL = uploadTask.snapshot.downloadURL;
-        if (downloadURL) subject.image = downloadURL;
+        if (downloadURL) subject.images = [downloadURL];
 
         let subjectId = Firebase.database().ref(Constants.SUBJECTS_PATH).push().key;
         updates[`/${Constants.SUBJECTS_PATH}/${subjectId}/`] = subject;
@@ -804,6 +804,20 @@ export function onEditorSubmit(subject, imageFile, review) {
     }
   }
 }
+
+// export function updateSubjectImages() {
+//   return dispatch => {
+//     Firebase.database().ref(Constants.SUBJECTS_PATH).once('value', snapshot => {
+//       snapshot.forEach(function(subjectChild) {
+//         if (subjectChild.val().image) {
+//           let imagePath = [subjectChild.val().image];
+//           Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectChild.key + '/images').update(imagePath);
+//           Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectChild.key + '/image').remove();
+//         }
+//       })
+//     })
+//   }
+// }
 
 export function editorSubmitError(missingField) {
   return dispatch => {
