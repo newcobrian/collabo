@@ -77,11 +77,11 @@ const ReviewPreview = props => {
         <div className="review-container roow roow-center roow-col-left bottom-divider">
           <div className="roow roow-row-top pic-and-review">
             <div className="review-image-wrapper">
-              <Link to={`review/${review.subjectId}/${review.id}`}>
+              <a href={review.subject.image}>
                 <div className="subject-image">
                   <img src={review.subject.image}/>
                 </div>
-              </Link>
+              </a>
             </div>
             <div className="review-data-container roow roow-col-left">
               <div className="review-data-module roow roow-col-left">
