@@ -77,9 +77,9 @@ const ReviewPreview = props => {
         <div className="review-container roow roow-center roow-col-left bottom-divider">
           <div className="roow roow-row-top pic-and-review">
             <div className="review-image-wrapper">
-              <a href={review.subject.images[0]}>
+              <a href={review.subject.images ? review.subject.images[0] : ""}>
                 <div className="subject-image">
-                  <img src={review.subject.images[0]}/>
+                  <img src={review.subject.images ? review.subject.images[0] : ""}/>
                 </div>
               </a>
             </div>
