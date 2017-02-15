@@ -20,6 +20,10 @@ app = Flask(__name__)
 import lxml.etree # !@#%! amazon
 
 from google.appengine.api import urlfetch, memcache
+from google.appengine.ext import deferred
+
+# Campaign Monitor/CreateSend
+from createsend import Transactional
 
 FOURSQUARE_URL = 'https://api.foursquare.com/v2/venues/search'
 FOURSQUARE_CLIENT_ID = 'QXEK1PR4ELFYEMMRBSP4O3NJ20B5F34PXZD3VAXNPNUBX0PB'
@@ -415,7 +419,37 @@ def proxy_amazon(item_id):
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp
 
+def _createsend_mail(smart_email_id, recipient, **kwargs):
+    tx_mailer = Transactional({'api_key': '9e09155a54c9127846e02f8077116f9cb9f60ad43f86d29f'})
 
+    # Send the message and save the response
+    try:
+        response = tx_mailer.smart_email_send(smart_email_id, recipient, data=kwargs)
+        print response
+    except Exception, e:
+        logging.exception(e)
+        raise deferred.PermanentTaskFailure
+
+@app.route('/mail/send', methods=['POST'])
+def send_mail():
+    '''arguments: template-id: abcdef, recipient: Joe User <joeuser@somewhere.com>, data: JSON.stringify({variable: value})'''
+    rc = {'ok': True}
+    try:
+        assert request.values.get('template-id'), 'missing template-id parameter'
+        assert request.values.get('recipient'), 'missing recipient parameter'
+        data = json.loads(request.values.get('data') or '{}')
+        
+        deferred.defer(_createsend_mail, 
+            request.values.get('template-id'),
+            request.values.get('recipient'),
+            **data)
+            
+    except Exception, e:
+        rc = {'ok': False, 'err': str(e)}
+
+    resp = Response(json.dumps(rc))
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
 
 @app.errorhandler(404)
 def page_not_found(e):

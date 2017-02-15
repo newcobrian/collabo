@@ -15,13 +15,15 @@ skip_files:
 # Handlers define how to route requests to your application.
 handlers:
 
-# This handler tells app engine how to route requests to a WSGI application.
-# The script value is in the format <path.to.module>.<wsgi_application>
-# where <wsgi_application> is a WSGI application object.
-- url: /search.*  # This regex directs all routes to main.app
+# each dynamic API path needs to be called out since .* goes to the react app, which is laregly static served
+- url: /search.*  # search api
   script: main.app
 
-- url: /proxy.*  # This regex directs all routes to main.app
+- url: /proxy.*  # amazon api proxy
+  script: main.app
+
+
+- url: /mail.*  # send mail
   script: main.app
 
 # App Engine serves and caches static files contained in the listed directories
@@ -43,6 +45,11 @@ handlers:
   static_files: build/\1
   upload: build/(.*)
 
+# deferred execution queue setup
+- url: /_ah/queue/deferred
+  script: google.appengine.ext.deferred.deferred.application
+  login: admin
+
 # Third party libraries that are included in the App Engine SDK must be listed
 # here if you want to use them.  See
 # https://developers.google.com/appengine/docs/python/tools/libraries27 for
@@ -53,3 +60,10 @@ handlers:
 libraries:
 - name: lxml
   version: latest
+
+- name: ssl
+  version: latest
+
+
+builtins:
+- deferred: on
