@@ -432,7 +432,20 @@ def _createsend_mail(smart_email_id, recipient, **kwargs):
 
 @app.route('/mail/send', methods=['POST'])
 def send_mail():
-    '''arguments: template-id: abcdef, recipient: Joe User <joeuser@somewhere.com>, data: JSON.stringify({variable: value})'''
+    '''
+        arguments: 
+            template-id: abcdef, 
+            recipient: Joe User <joeuser@somewhere.com>,
+            data: JSON.stringify({variable: value})
+    
+        test:
+            curl -v \
+                -X POST \
+                -F template-id=7691e888-4b30-40e2-9d78-df815d5b8453 \
+                -F recipient='David Young <dave@artichokelabs.com>' \
+                -F data='{"count": 5, "food_name": "ramen"}' \
+                'http://localhost:8080/mail/send'
+    '''
     rc = {'ok': True}
     try:
         assert request.values.get('template-id'), 'missing template-id parameter'
