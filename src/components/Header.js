@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link, IndexLink } from 'react-router';
 import React from 'react';
 
 const InboxCounter = props => {
@@ -38,10 +38,10 @@ const LoggedInView = props => {
             <div className="nav-text">New</div>
         </Link>
 
-        <Link to="/" activeClassName="active" className="nav-module">
+        <IndexLink to="/" activeClassName="active" className="nav-module">
             <div className="nav-icon"><img src="../img/icon32_feed.png"/></div>
             <div className="nav-text">Feed</div>
-        </Link>
+        </IndexLink>
         
         <Link to="inbox" activeClassName="active" className="nav-module">
             <div className="nav-icon"><img src="../img/icon32_inbox.png"/></div>
