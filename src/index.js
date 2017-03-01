@@ -18,6 +18,7 @@ import Create from './components/Create';
 import Followers from './components/Followers';
 import Followings from './components/Followings';
 import Inbox from './components/Inbox';
+import FriendSelector from './components/FriendSelector';
 import store from './store';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
@@ -42,6 +43,7 @@ ReactDOM.render((
         <Route path="editor/:slug" component={Editor} />
         <Route path="create" component={Create} />
         <Route path="inbox" component={Inbox} />
+        <Route path="select" component={FriendSelector} />
       </Route>
     </Router>
   </Provider>

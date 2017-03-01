@@ -64,6 +64,10 @@ export const CREATE_SUBJECT_CLEARED = 'CREATE_SUBJECT_CLEARED';
 export const EDITOR_SUBMIT_ERROR = 'EDITOR_SUBMIT_ERROR';
 export const GET_USER_LOCATION = 'GET_USER_LOCATION';
 export const SET_WATCH_ID = 'SET_WATCH_ID';
+export const GET_FRIENDS = 'GET_FRIENDS';
+export const UPDATE_FRIENDS_CHECKBOX = 'UPDATE_FRIENDS_CHECKBOX';
+export const FRIEND_SELECTOR_SUBMIT = 'FRIEND_SELECTOR_SUBMIT';
+export const EMPTY_FRIEND_SELECTOR = 'EMPTY_FRIEND_SELECTOR';
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -626,12 +630,13 @@ export function onReviewSubmit(key, subject, review, rid, location) {
       lastModified: lastModified
     };
 
+    reviewsByUserObject.id = reviewId;
+
     Firebase.database().ref().update(updates)
       .then(response => {
         dispatch({
           type: REVIEW_SUBMITTED,
-          subjectId: subjectId,
-          reviewId: reviewId
+          payload: reviewsByUserObject
         })
       })
       .catch(error => {
@@ -742,12 +747,14 @@ export function onEditorSubmit(subject, imageFile, review) {
           lastModified: lastModified
         };
 
+        reviewObject.id = reviewId;
+        reviewObject.subject = subjectObject;
+
         Firebase.database().ref().update(updates)
           .then(response => {
             dispatch({
               type: REVIEW_SUBMITTED,
-              subjectId: subjectId,
-              reviewId: reviewId
+              payload: reviewObject
             })
           })
           .catch(error => {
@@ -790,12 +797,14 @@ export function onEditorSubmit(subject, imageFile, review) {
         lastModified: lastModified
       };
 
+      reviewObject.id = reviewId;
+      reviewObject.subject = subjectObject;
+
       Firebase.database().ref().update(updates)
         .then(response => {
           dispatch({
             type: REVIEW_SUBMITTED,
-            subjectId: subjectId,
-            reviewId: reviewId
+            payload: reviewObject
           })
         })
         .catch(error => {
@@ -1634,6 +1643,68 @@ export function unloadFollowers(userId, followPath) {
 
     dispatch({
       type: UNLOAD_FOLLOWERS
+    })
+  }
+}
+
+export function emptyFriendSelector() {
+  return dispatch => {
+    dispatch({
+      type: EMPTY_FRIEND_SELECTOR
+    })
+  }
+}
+
+export function getFriends(userId) {
+  return dispatch => {
+    if (!userId) {
+      dispatch({
+        type: ASK_FOR_AUTH
+      })
+    }
+    else {
+      let friendArray = [];
+      Firebase.database().ref(Constants.HAS_FOLLOWERS_PATH + '/' + userId).once('value', snapshot => {
+        snapshot.forEach(function(friend) {
+          Firebase.database().ref(Constants.USERS_PATH + '/' + friend.key).once('value', userSnapshot => {
+            let userObject = {};
+            Object.assign(userObject, {id: friend.key}, userSnapshot.val());
+            friendArray = [userObject].concat(friendArray);
+            friendArray.sort(followerFeedCompare);
+
+            dispatch({
+              type: GET_FRIENDS,
+              payload: friendArray
+            })
+          })
+        })
+      })
+    }
+  }
+}
+
+export function onUpdateFriendsCheckbox(label, selectedFriends) {
+  return dispatch => {
+    if (selectedFriends.has(label)) {
+      selectedFriends.delete(label);
+    } else {
+      selectedFriends.add(label);
+    }
+    dispatch({
+      type: UPDATE_FRIENDS_CHECKBOX,
+      payload: selectedFriends
+    })
+  }
+}
+
+export function onFriendSelectorSubmit(authenticated, selectedFriends, review) {
+  return dispatch => {
+    for (const friendId of selectedFriends) {
+      // console.log(friendId, 'is selected.');
+      sendInboxMessage(authenticated, friendId, Constants.DIRECT_MESSAGE, review);
+    }
+    dispatch({
+      type: FRIEND_SELECTOR_SUBMIT
     })
   }
 }

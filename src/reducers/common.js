@@ -1,4 +1,5 @@
-import { AUTH_USER, SIGN_OUT_USER, REVIEW_SUBMITTED, APP_USER_LOADED, GET_INBOX_COUNT, HOME_PAGE_NO_AUTH, ASK_FOR_AUTH } from '../actions';
+import { AUTH_USER, SIGN_OUT_USER, REVIEW_SUBMITTED, APP_USER_LOADED, EMPTY_FRIEND_SELECTOR,
+  GET_INBOX_COUNT, HOME_PAGE_NO_AUTH, ASK_FOR_AUTH, FRIEND_SELECTOR_SUBMIT } from '../actions';
 
 const defaultState = {
   appName: 'Reccoon',
@@ -31,9 +32,13 @@ export default (state = defaultState, action) => {
     case 'LOGOUT':
       return { ...state, authenticated: false, redirectTo: '/', token: null, currentUser: null };
     case REVIEW_SUBMITTED:
-      // const redirectUrl = `article/${action.payload.article.slug}`;
-      const redirectUrl = `review/${action.subjectId}/${action.reviewId}`;
+      // const redirectUrl = `review/${action.subjectId}/${action.reviewId}`;
+      const redirectUrl = 'select';
       return { ...state, redirectTo: redirectUrl };
+    case FRIEND_SELECTOR_SUBMIT:
+      return { ...state, redirectTo: '/' };
+    case EMPTY_FRIEND_SELECTOR:
+      return { ...state, redirectTo: '/' };
     case 'SETTINGS_SAVED':
       return {
         ...state,

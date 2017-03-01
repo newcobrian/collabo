@@ -13,7 +13,7 @@ export function sendInboxMessage(senderId, recipientId, messageType, review) {
 		Firebase.database().ref(Constants.USERS_PATH + '/' + recipientId).once('value', recipientSnapshot => {
 			Firebase.database().ref(Constants.USERS_PATH + '/' + senderId).once('value', senderSnapshot => {
 				inboxObject.reviewId = review.id;
-				if (review.subject.image) inboxObject.reviewImage = review.subject.image;
+				if (review.subject.images) inboxObject.reviewImage = review.subject.images[0];
 				if (review.subject.title) inboxObject.reviewTitle = review.subject.title;
 
 				switch(messageType) {
@@ -41,6 +41,11 @@ export function sendInboxMessage(senderId, recipientId, messageType, review) {
 						emailMessage = senderSnapshot.val().username + 
 							' followed you. Click here to see their profile: https://whatsgoooood.com/' + inboxObject.link;
 						break;
+					case Constants.DIRECT_MESSAGE:
+						inboxObject.message = ' sent you a personal review.'
+						inboxObject.link = 'review/' + review.subjectId + '/' + review.id;
+						emailMessage = senderSnapshot.val().username + 
+							' sent you a personal review. Click here to see it: https://whatsgoooood.com/' + inboxObject.link;
 				}
 				if (senderId !== recipientId) {
 					Firebase.database().ref(Constants.INBOX_PATH + '/' + recipientId).push().set(inboxObject);

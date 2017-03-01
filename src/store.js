@@ -13,6 +13,7 @@ import editor from './reducers/editor';
 import create from './reducers/create';
 import followers from './reducers/followers';
 import inbox from './reducers/inbox';
+import friendSelector from './reducers/friendSelector'
 import Firebase from 'firebase';
 
 const reducer = combineReducers({
@@ -26,7 +27,8 @@ const reducer = combineReducers({
   editor,
   create,
   followers,
-  inbox
+  inbox,
+  friendSelector
   // firebase: firebaseStateReducer
 });
 
