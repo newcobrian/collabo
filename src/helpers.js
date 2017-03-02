@@ -19,33 +19,33 @@ export function sendInboxMessage(senderId, recipientId, messageType, review) {
 				switch(messageType) {
 					case Constants.LIKE_MESSAGE:
 						inboxObject.message = ' liked your review: ';
-						inboxObject.link = '#/review/' + review.subjectId + '/' + review.id;
+						inboxObject.link = 'review/' + review.subjectId + '/' + review.id;
 						emailMessage = senderSnapshot.val().username + 
-							' liked your review. Click here to check it out: https://whatsgoooood.com/' + inboxObject.link;
+							' liked your review. Click here to check it out: https://whatsgoooood.com/#/' + inboxObject.link;
 						break;
 					case Constants.COMMENT_ON_REVIEW_MESSAGE:
 						inboxObject.message = ' commented on your review: ';
-						inboxObject.link = '#/review/' + review.subjectId + '/' + review.id;
+						inboxObject.link = 'review/' + review.subjectId + '/' + review.id;
 						emailMessage = senderSnapshot.val().username + 
-							' commented on your review. Click here to check it out: https://whatsgoooood.com/' + inboxObject.link;
+							' commented on your review. Click here to check it out: https://whatsgoooood.com/#/' + inboxObject.link;
 						break;
 					case Constants.COMMENT_ON_COMMENT_MESSAGE:
 						inboxObject.message = ' also commented on the review: ';
-						inboxObject.link = '#/review/' + review.subjectId + '/' + review.id;
+						inboxObject.link = 'review/' + review.subjectId + '/' + review.id;
 						emailMessage = senderSnapshot.val().username + 
-							' also commented on a review you commented on. Click here to check it out: https://whatsgoooood.com/' + inboxObject.link;
+							' also commented on a review you commented on. Click here to check it out: https://whatsgoooood.com/#/' + inboxObject.link;
 						break;
 					case Constants.FOLLOW_MESSAGE:
 						inboxObject.message = ' started following you.';
-						inboxObject.link = '#/@' + senderSnapshot.val().username;
+						inboxObject.link = '@' + senderSnapshot.val().username;
 						emailMessage = senderSnapshot.val().username + 
-							' followed you. Click here to see their profile: https://whatsgoooood.com/' + inboxObject.link;
+							' followed you. Click here to see their profile: https://whatsgoooood.com/#/' + inboxObject.link;
 						break;
 					case Constants.DIRECT_MESSAGE:
 						inboxObject.message = ' sent you a personal review.'
-						inboxObject.link = '#/review/' + review.subjectId + '/' + review.id;
+						inboxObject.link = 'review/' + review.subjectId + '/' + review.id;
 						emailMessage = senderSnapshot.val().username + 
-							' sent you a personal review. Click here to see it: https://whatsgoooood.com/' + inboxObject.link;
+							' sent you a personal review. Click here to see it: https://whatsgoooood.com/#/' + inboxObject.link;
 						break;
 				}
 				if (senderId !== recipientId) {
