@@ -11,7 +11,8 @@ const CommentContainer = props => {
 		        <CommentList
 		          comments={props.comments}
 		          review={props.review}
-		          currentUser={props.currentUser} />
+		          currentUser={props.currentUser} 
+		          delete={props.delete} />
 		        <div className="comment-input-wrapper">
 		          <ListErrors errors={props.errors}></ListErrors>
 		          <CommentInput review={props.review} currentUser={props.currentUser} authenticated={props.authenticated} />
@@ -31,7 +32,8 @@ const CommentContainer = props => {
 				<CommentList
 					comments={props.comments}
 					review={props.review}
-					currentUser={props.currentUser} />
+					currentUser={props.currentUser} 
+					delete={props.delete} />
 			</div>
 		);
 	}

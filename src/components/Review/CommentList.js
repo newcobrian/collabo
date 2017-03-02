@@ -11,7 +11,8 @@ const CommentList = props => {
               comment={comment}
               currentUser={props.currentUser}
               review={props.review}
-              key={comment.id} />
+              key={comment.id}
+              delete={props.delete} />
           );
         })
       }

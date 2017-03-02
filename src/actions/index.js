@@ -1034,23 +1034,31 @@ export function getComments(reviewId) {
       })
     }
     Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewId).orderByChild('lastModified').on('value', snapshot => {
-      let comments = [];
-      snapshot.forEach(function(childSnapshot) {
-        if (childSnapshot.exists()) {
-          Firebase.database().ref(Constants.USERS_PATH + '/' + childSnapshot.val().userId).on('value', userSnapshot => {
-            const key = { id: childSnapshot.key };
-            const comment = { username: userSnapshot.val().username, image: userSnapshot.val().image };
-            Object.assign(comment, childSnapshot.val(), key);
-            comments = comments.concat(comment);
-            comments.sort(lastModifiedAsc);
+      if (!snapshot.exists()) {
+        dispatch({
+          type: GET_COMMENTS,
+          payload: []
+        })
+      }
+      else {
+        let comments = [];
+        snapshot.forEach(function(childSnapshot) {
+          if (childSnapshot.exists()) {
+            Firebase.database().ref(Constants.USERS_PATH + '/' + childSnapshot.val().userId).on('value', userSnapshot => {
+              const key = { id: childSnapshot.key };
+              const comment = { username: userSnapshot.val().username, image: userSnapshot.val().image };
+              Object.assign(comment, childSnapshot.val(), key);
+              comments = comments.concat(comment);
+              comments.sort(lastModifiedAsc);
 
-            dispatch({
-              type: GET_COMMENTS,
-              payload: comments
-            });
-          })
-        }
-      });
+              dispatch({
+                type: GET_COMMENTS,
+                payload: comments
+              });
+            })
+          }
+        });
+      }
     });
   }
 }
@@ -1135,7 +1143,7 @@ export function onCommentSubmit(authenticated, review, body) {
 }
 
 export function onDeleteComment(reviewId, commentId) {
-  return dispatch => {    
+  return dispatch => {
     dispatch({
       type: DELETE_COMMENT,
       payload: Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewId + '/' + commentId).remove()

@@ -30,7 +30,7 @@ const Comment = props => {
             </span>
           </div>
         </div>
-        <DeleteButton show={show} reviewId={props.reviewId} commentId={comment.id} />
+        <DeleteButton show={show} review={props.review} commentId={comment.id} delete={props.delete} />
       </div>
      
       

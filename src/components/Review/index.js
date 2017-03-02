@@ -135,7 +135,8 @@ class Review extends React.Component {
           comments={this.props.comments || []}
           errors={this.props.commentErrors}
           review={this.props.review}
-          currentUser={this.props.currentUser} />
+          currentUser={this.props.currentUser}
+          delete={this.props.onDeleteComment} />
       </div>
 </div>
 
