@@ -8,7 +8,7 @@ const SubjectInfo = props => {
 	const renderImage = image => {
 		if (image) {
 			return (
-				<img src={image}/>
+				<ProxyImage src={image}/>
 			)
 		}
 		else return null;

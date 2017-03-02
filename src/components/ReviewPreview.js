@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import LikeReviewButton from './LikeReviewButton';
 import SaveReviewButton from './SaveReviewButton';
+import ProxyImage from './ProxyImage';
 
 const RatingsButtons = props => {
   const handleClick = rating => ev => {
@@ -79,7 +80,7 @@ const ReviewPreview = props => {
             <div className="review-image-wrapper">
               <a href={review.subject.images ? review.subject.images[0] : ""}>
                 <div className="subject-image">
-                  <img src={review.subject.images ? review.subject.images[0] : ""}/>
+                  <ProxyImage src={review.subject.images ? review.subject.images[0] : ""}/>
                 </div>
               </a>
             </div>
@@ -87,7 +88,7 @@ const ReviewPreview = props => {
               <div className="review-data-module roow roow-col-left">
                   <div className="photo-rating-module roow roow-row-top">
                     <Link to={`@${review.reviewer.username}`}>
-                      <div className="reviewer-photo center-img"><img src={review.reviewer.image}/></div>
+                      <div className="reviewer-photo center-img"><ProxyImage src={review.reviewer.image}/></div>
                     </Link>
                     <div className="roow roow-col-left">
                       <div className="reviewer-name-container">

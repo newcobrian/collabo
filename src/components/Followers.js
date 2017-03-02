@@ -54,7 +54,7 @@ class Followers extends React.Component {
 						          to={`@${follower.username}`}
 						          className="comment-author">
 						          	<div className="reviewer-photo center-img">
-						          		<img src={follower.image} className="comment-author-img" />
+						          		<ProxyImage src={follower.image} className="comment-author-img" />
 						        	</div>
 						        </Link>
 						    </div>

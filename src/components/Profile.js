@@ -141,7 +141,7 @@ class Profile extends React.Component {
 
           <div className="profile-info roow roow-col-left">
 
-            <img src={profile.image} className="user-img" />
+            <ProxyImage src={profile.image} className="user-img" />
             <div className="user-data roow roow-col-left">
               <div className="user-name">{profile.username}</div>
               <div className="user-bio">{profile.bio}</div>

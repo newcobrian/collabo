@@ -10,7 +10,7 @@ const RightPic = props => {
       to={props.link}
       className="comment-author">
         <div className="item-photo center-img">
-          <img src={props.image} className="comment-author-img" />
+          <ProxyImage src={props.image} className="comment-author-img" />
         </div>
       </Link>
     )
@@ -63,7 +63,7 @@ class Inbox extends React.Component {
                       to={`@${inboxItem.senderUsername}`}
                       className="comment-author">
                         <div className="reviewer-photo center-img">
-                          <img src={inboxItem.senderImage} className="comment-author-img" />
+                          <ProxyImage src={inboxItem.senderImage} className="comment-author-img" />
                         </div>
                       </Link>
                     </div>

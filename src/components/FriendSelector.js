@@ -48,7 +48,7 @@ class FriendSelector extends React.Component {
 				          		<div className="roow roow-row list-row" key={friend.id}>
 						          	<div className="">
 							          	<div className="reviewer-photo center-img">
-							          		<img src={friend.image} className="comment-author-img" />
+							          		<ProxyImage src={friend.image} className="comment-author-img" />
 							        	</div>
 								    </div>
 								    <div className="roow roow-col-left">

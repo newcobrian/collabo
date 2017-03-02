@@ -6,7 +6,7 @@ const SubjectMeta = props => {
   const subject = props.subject;
   return (
     <div className="subject-image">
-        <img src={subject.image} />
+        <ProxyImage src={subject.image} />
 
       <div className="info">
         {/* <Link to={`@${subject.description}`} className="author"> 
