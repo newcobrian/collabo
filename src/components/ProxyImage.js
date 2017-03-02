@@ -9,7 +9,7 @@ const ProxyImage = props => {
   const imgSrc = props.src.indexOf('http://') == 0 ? ("https://images.weserv.nl/?url=" 
   	+  encodeURIComponent(props.src.replace(/^https?\:\/\//i, ""))) : props.src;
   return (
-    <img src={imgSrc} />
+    <img src={imgSrc} className={props.className} />
   );
 }
 
