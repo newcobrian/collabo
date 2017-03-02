@@ -866,7 +866,7 @@ export function getReview(authenticated, reviewId) {
                 review.id = reviewSnapshot.key;
                 review.reviewer = {};
                 let userMeta = { username: userSnapshot.val().username, image: userSnapshot.val().image };
-                Object.assign(review.reviewer, userMeta);
+                Object.assign(review.reviewer, userMeta, {userId: reviewSnapshot.val().userId});
 
                 review.isLiked = false
                 review.likesCount = 0;
