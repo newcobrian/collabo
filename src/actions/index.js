@@ -1043,20 +1043,18 @@ export function getComments(reviewId) {
       else {
         let comments = [];
         snapshot.forEach(function(childSnapshot) {
-          if (childSnapshot.exists()) {
-            Firebase.database().ref(Constants.USERS_PATH + '/' + childSnapshot.val().userId).on('value', userSnapshot => {
-              const key = { id: childSnapshot.key };
-              const comment = { username: userSnapshot.val().username, image: userSnapshot.val().image };
-              Object.assign(comment, childSnapshot.val(), key);
-              comments = comments.concat(comment);
-              comments.sort(lastModifiedAsc);
+          Firebase.database().ref(Constants.USERS_PATH + '/' + childSnapshot.val().userId).on('value', userSnapshot => {
+            const key = { id: childSnapshot.key };
+            const comment = { username: userSnapshot.val().username, image: userSnapshot.val().image };
+            Object.assign(comment, childSnapshot.val(), key);
+            comments = comments.concat(comment);
+            comments.sort(lastModifiedAsc);
 
-              dispatch({
-                type: GET_COMMENTS,
-                payload: comments
-              });
-            })
-          }
+            dispatch({
+              type: GET_COMMENTS,
+              payload: comments
+            });
+          })
         });
       }
     });
