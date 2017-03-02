@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import * as Actions from '../actions';
 import FirebaseSearchInput from './FirebaseSearchInput'
+import ProxyImage from './ProxyImage';
 
 const SubjectInfo = props => {
 	const renderImage = image => {

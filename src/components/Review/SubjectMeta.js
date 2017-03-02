@@ -1,6 +1,7 @@
 import SubjectActions from './SubjectActions';
 import { Link } from 'react-router';
 import React from 'react';
+import ProxyImage from './ProxyImage';
 
 const SubjectMeta = props => {
   const subject = props.subject;

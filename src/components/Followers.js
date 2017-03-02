@@ -5,6 +5,7 @@ import Firebase from 'firebase';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
 import FollowUserButton from './FollowUserButton';
+import ProxyImage from './ProxyImage';
 
 const mapStateToProps = state => ({
 	...state.followers,
