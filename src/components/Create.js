@@ -98,9 +98,6 @@ class Create extends React.Component {
 	// }
 
 	componentWillMount() {
-    	// if (this.props.id) {
-     //  		return this.props.onCreateLoad(this.props.authenticated);
-    	// }
     	if (!this.props.authenticated) {
     		this.props.askForAuth();
     	}
@@ -230,7 +227,6 @@ class Create extends React.Component {
 	}
 
 	render() {
-		console.log('rating = ' + this.props.rating);
 		return (
 			<div className="roow roow-col roow-center-all page-common editor-page create-page">
 	            <div className="page-title-wrapper roow roow-row center-text">

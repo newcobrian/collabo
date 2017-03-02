@@ -818,10 +818,15 @@ export function onEditorSubmit(subject, imageFile, review) {
 //   return dispatch => {
 //     Firebase.database().ref(Constants.SUBJECTS_PATH).once('value', snapshot => {
 //       snapshot.forEach(function(subjectChild) {
-//         if (subjectChild.val().image) {
-//           let imagePath = [subjectChild.val().image];
-//           Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectChild.key + '/images').update(imagePath);
-//           Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectChild.key + '/image').remove();
+//         if (subjectChild.val().images[0] && subjectChild.key === '-KZOlUe8RIMnWMkll8bQ') {
+//           console.log('hi ' + JSON.stringify(subjectChild.val().images))
+//           let image = {
+//             path: subjectChild.val().images[0],
+//             lastModified: Firebase.database.ServerValue.TIMESTAMP
+//           };
+          
+//           Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectChild.key + '/images').remove();
+//           Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectChild.key + '/images').push(image);
 //         }
 //       })
 //     })
