@@ -68,6 +68,7 @@ class FriendSelector extends React.Component {
 				      	})
 				      }
 				     	<button className="btn btn-default" type="submit">Send</button>
+				     	<Link to={'/'}> Cancel</Link>
 				    </form>
 		    </div>
 		);
