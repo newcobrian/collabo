@@ -31,7 +31,8 @@ const MainView = props => {
         unLike={props.unLikeReview} 
         save={props.saveReview} 
         unSave={props.unSaveReview}
-        updateRating={props.onUpdateRating} />
+        updateRating={props.onUpdateRating} 
+        deleteReview={props.onDeleteReview} />
     </div>
   );
 };

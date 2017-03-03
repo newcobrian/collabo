@@ -1,5 +1,5 @@
 import { AUTH_USER, SIGN_OUT_USER, REVIEW_SUBMITTED, APP_USER_LOADED, EMPTY_FRIEND_SELECTOR,
-  GET_INBOX_COUNT, HOME_PAGE_NO_AUTH, ASK_FOR_AUTH, FRIEND_SELECTOR_SUBMIT } from '../actions';
+  GET_INBOX_COUNT, HOME_PAGE_NO_AUTH, ASK_FOR_AUTH, FRIEND_SELECTOR_SUBMIT, REVIEW_DELETED } from '../actions';
 
 const defaultState = {
   appName: 'Reccoon',
@@ -45,8 +45,11 @@ export default (state = defaultState, action) => {
         redirectTo: action.error ? null : '/',
         // currentUser: action.error ? null : action.payload.user
       };
-    case 'DELETE_ARTICLE':
-      return { ...state, redirectTo: '/' };
+    case REVIEW_DELETED:
+      return { 
+        ...state,
+        redirectTo: action.redirect ? '/' : null
+      };
     case HOME_PAGE_NO_AUTH:
       return {
         ...state,

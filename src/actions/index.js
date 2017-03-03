@@ -68,6 +68,7 @@ export const GET_FRIENDS = 'GET_FRIENDS';
 export const UPDATE_FRIENDS_CHECKBOX = 'UPDATE_FRIENDS_CHECKBOX';
 export const FRIEND_SELECTOR_SUBMIT = 'FRIEND_SELECTOR_SUBMIT';
 export const EMPTY_FRIEND_SELECTOR = 'EMPTY_FRIEND_SELECTOR';
+export const REVIEW_DELETED = 'REVIEW_DELETED';
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -1154,6 +1155,31 @@ export function onDeleteComment(reviewId, commentId) {
   };
 }
 
+export function onDeleteReview(userId, reviewId, subjectId, reviewDetailPath) {
+  return dispatch => {
+    Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewId).remove();
+    Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + reviewId).remove();
+    Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + userId + '/' + reviewId).remove();
+    Firebase.database().ref(Constants.LIKES_PATH + '/' + reviewId).remove();
+    Firebase.database().ref(Constants.SAVES_PATH + '/' + reviewId).remove();
+    Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewId).remove();
+    Firebase.database().ref(Constants.LIKES_BY_USER_PATH).once('value', likesSnapshot => {
+      likesSnapshot.forEach(function(userChild) {
+        Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userChild.key + '/' + reviewId).remove();
+      })
+    })
+    Firebase.database().ref(Constants.SAVES_BY_USER_PATH).once('value', savesSnapshot => {
+      savesSnapshot.forEach(function(userChild) {
+        Firebase.database().ref(Constants.SAVES_BY_USER_PATH + '/' + userChild.key + '/' + reviewId).remove();
+      })
+    })
+    dispatch({
+      type: REVIEW_DELETED,
+      redirect: reviewDetailPath
+    })
+  }
+}
+
 export function onUpdateRating(userId, reviewId, subjectId, rating) {
   return dispatch => {
     const updates = {};
@@ -1170,7 +1196,6 @@ export function onUpdateRating(userId, reviewId, subjectId, rating) {
 
 export function getReviewsByUser(appUserId, userId) {
   return dispatch => {
-    let feedArray = [];
     Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + userId).orderByChild('lastModified').on('value', reviewsSnapshot => {
       if (!reviewsSnapshot.exists()) {
         dispatch({
@@ -1178,6 +1203,7 @@ export function getReviewsByUser(appUserId, userId) {
           payload: []
         })
       }
+      let feedArray = [];
       Firebase.database().ref(Constants.USERS_PATH + '/' + userId).on('value', userSnapshot => {
         reviewsSnapshot.forEach(function(review) {
           Firebase.database().ref(Constants.LIKES_PATH + '/' + review.key).on('value', likesSnapshot => {
@@ -1361,7 +1387,6 @@ export function getUserFeed(uid) {
         type: HOME_PAGE_NO_AUTH
       })
     }
-    let feedArray = [];
     Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + uid).on('value', followedSnapshot => {
       if (!followedSnapshot.exists()) {
         dispatch({
@@ -1369,6 +1394,7 @@ export function getUserFeed(uid) {
           payload: []
         })
       }
+      let feedArray = [];
       followedSnapshot.forEach(function(followedUser) {
         Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + followedUser.key).orderByChild('lastModified').on('value', reviewsSnapshot => {
           reviewsSnapshot.forEach(function(review) {
@@ -1517,8 +1543,7 @@ export function unloadUserFeed(uid) {
 }
 
 export function getGlobalFeed(uid) {
-  return dispatch => {
-    let feedArray = [];
+  return dispatch => {   
     Firebase.database().ref(Constants.REVIEWS_PATH + '/').orderByChild('lastModified').on('value', reviewsSnapshot => {
       if (!reviewsSnapshot.exists()) {
         dispatch({
@@ -1526,6 +1551,7 @@ export function getGlobalFeed(uid) {
           payload: []
         })
       }
+      let feedArray = [];
       reviewsSnapshot.forEach(function(review) {
         let reviewerId = review.val().userId;
         Firebase.database().ref(Constants.USERS_PATH + '/' + reviewerId).on('value', userSnapshot => {

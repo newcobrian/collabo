@@ -29,7 +29,8 @@ const ReviewList = props => {
               unLike={props.unLike}
               save={props.save}
               unSave={props.unSave}
-              updateRating={props.updateRating} />
+              updateRating={props.updateRating}
+              deleteReview={props.deleteReview} />
 
           );
         })

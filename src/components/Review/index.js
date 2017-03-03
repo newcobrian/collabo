@@ -112,7 +112,7 @@ class Review extends React.Component {
     }
     let reviewObject = this.props.review;
     reviewObject.subject = this.props.subject;
-
+console.log(this.constructor.displayName)
     // const markup = { __html: marked(this.props.article.body) };
     // const canModify = false;
     // const canModify = this.props.currentUser &&
@@ -128,7 +128,9 @@ class Review extends React.Component {
               unLike={this.props.unLikeReview}
               save={this.props.saveReview}
               unSave={this.props.unSaveReview}
-              updateRating={this.props.onUpdateRating} />
+              updateRating={this.props.onUpdateRating}
+              deleteReview={this.props.onDeleteReview}
+              reviewDetailPath={true} />
               <div className="roow roow-center comments-container">
        <CommentContainer
           authenticated={this.props.authenticated}

@@ -1,4 +1,4 @@
-import { GET_USER_FEED, REVIEW_LIKED, REVIEW_UNLIKED, REVIEW_SAVED, REVIEW_UNSAVED } from '../actions';
+import { GET_USER_FEED, REVIEW_LIKED, REVIEW_UNLIKED, REVIEW_SAVED, REVIEW_UNSAVED, REVIEW_DELETED } from '../actions';
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -23,6 +23,7 @@ export default (state = {}, action) => {
     case REVIEW_UNLIKED:
     case REVIEW_SAVED:
     case REVIEW_UNSAVED:
+    case REVIEW_DELETED:
       return {
         ...state
       }

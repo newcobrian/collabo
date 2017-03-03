@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import LikeReviewButton from './LikeReviewButton';
 import SaveReviewButton from './SaveReviewButton';
 import ProxyImage from './ProxyImage';
+import ReviewActions from './ReviewActions';
 
 const RatingsButtons = props => {
   const handleClick = rating => ev => {
@@ -59,6 +60,8 @@ const CommentPreview = props => {
 
 const ReviewPreview = props => {
   const review = props.review;
+  const canModify = props.authenticated &&
+      props.authenticated === props.review.reviewer.userId;
   return (
       <div className="reviews-wrapper roow roow-left roow-col-left">
         <div className="subject-name-container">
@@ -73,7 +76,10 @@ const ReviewPreview = props => {
                 </a>
               </div>
               <div className="text-category shift-up-5">#hashtags #cominghere #soon</div>
-
+              <div>
+                <ReviewActions review={review} authenticated={props.authenticated} 
+                canModify={canModify} deleteReview={props.deleteReview} reviewDetailPath={props.reviewDetailPath} />
+              </div>
         </div>
         <div className="review-container roow roow-center roow-col-left bottom-divider">
           <div className="roow roow-row-top pic-and-review">
