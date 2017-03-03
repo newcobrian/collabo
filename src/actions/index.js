@@ -1395,17 +1395,21 @@ export function getUserFeed(uid) {
         })
       }
       let feedArray = [];
+      let userList = [uid];
       followedSnapshot.forEach(function(followedUser) {
-        Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + followedUser.key).orderByChild('lastModified').on('value', reviewsSnapshot => {
+        userList.push(followedUser.key);
+      })
+      userList.forEach(function(followedId) {
+        Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + followedId).orderByChild('lastModified').on('value', reviewsSnapshot => {
           reviewsSnapshot.forEach(function(review) {
-            Firebase.database().ref(Constants.USERS_PATH + '/' + followedUser.key).on('value', userSnapshot => {
+            Firebase.database().ref(Constants.USERS_PATH + '/' + followedId).on('value', userSnapshot => {
               Firebase.database().ref(Constants.LIKES_PATH + '/' + review.key).on('value', likesSnapshot => {
                 Firebase.database().ref(Constants.SAVES_BY_USER_PATH + '/' + uid + '/' + review.key).on('value', savesSnapshot => {
                   Firebase.database().ref(Constants.COMMENTS_PATH + '/' + review.key).on('value', commentCountSnapshot => {
                     let reviewObject = {};
                     let key = { id: review.key };
                     let reviewer = { reviewer: userSnapshot.val() };
-                    reviewer.reviewer.userId = followedUser.key
+                    reviewer.reviewer.userId = followedId
                     let isLiked = false;
                     if (likesSnapshot.val()) {
                       isLiked = searchLikes(uid, likesSnapshot.val());
