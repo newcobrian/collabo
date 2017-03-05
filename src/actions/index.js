@@ -699,7 +699,52 @@ export function onEditorSubmit(subject, imageFile, review) {
     const updates = {};
     const uid = Firebase.auth().currentUser.uid;
 
+    // save the subject
+    let subjectId = Firebase.database().ref(Constants.SUBJECTS_PATH).push().key;
+    updates[`/${Constants.SUBJECTS_PATH}/${subjectId}/`] = subject;
+
+    // save the review
+    let reviewId = Firebase.database().ref(Constants.REVIEWS_PATH).push().key;
+    const lastModified = Firebase.database.ServerValue.TIMESTAMP;
+    const reviewMeta = {
+        userId: Firebase.auth().currentUser.uid,
+        subjectId: subjectId,
+        lastModified: lastModified
+    }
+
+    // create the reviewObject with the subject info for reviewsByUser and reviewsBySubject
+    const reviewObject = {};
+    Object.assign(reviewObject, reviewMeta, review);
+
+    updates[`/${Constants.REVIEWS_PATH}/${reviewId}/`] = reviewObject;
+
+    let reviewsByUserObject = {
+      rating: review.rating,
+      caption: review.caption,
+      lastModified: lastModified,
+    }
+
+    let subjectObject = subject;
+    reviewsByUserObject.subjectId = subjectId;
+    reviewsByUserObject.subject = subjectObject;
+
+    updates[`/${Constants.REVIEWS_BY_USER_PATH}/${uid}/${reviewId}`] = reviewsByUserObject;
+    updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${subjectId}/${uid}`] = {
+      reviewId: reviewId,
+      rating: review.rating,
+      caption: review.caption,
+      lastModified: lastModified
+    };
+
+    reviewObject.id = reviewId;
+    reviewObject.subject = subjectObject;
+
+    // save updates
+    Firebase.database().ref().update(updates);
+
+    // if user uploaded an image, save it
     if (imageFile) {
+      const imageUpdates = {};
       const storageRef = Firebase.storage().ref();
       const metadata = {
         contentType: 'image/jpeg'
@@ -712,106 +757,18 @@ export function onEditorSubmit(subject, imageFile, review) {
           console.log(error.message)
       }, function() {
         const downloadURL = uploadTask.snapshot.downloadURL;
-        if (downloadURL) subject.images = [downloadURL];
-
-        let subjectId = Firebase.database().ref(Constants.SUBJECTS_PATH).push().key;
-        updates[`/${Constants.SUBJECTS_PATH}/${subjectId}/`] = subject;
-
-        let reviewId = Firebase.database().ref(Constants.REVIEWS_PATH).push().key;
-        const lastModified = Firebase.database.ServerValue.TIMESTAMP;
-        const reviewMeta = {
-            userId: Firebase.auth().currentUser.uid,
-            subjectId: subjectId,
-            lastModified: lastModified
+        if (downloadURL) {
+          imageUpdates[`/${Constants.SUBJECTS_PATH}/${subjectId}/images`] = [downloadURL];
+          imageUpdates[`/${Constants.REVIEWS_BY_USER_PATH}/${uid}/${reviewId}/subject/images`] = [downloadURL];
+          Firebase.database().ref().update(imageUpdates);
         }
-
-        const reviewObject = {};
-        Object.assign(reviewObject, reviewMeta, review);
-
-        updates[`/${Constants.REVIEWS_PATH}/${reviewId}/`] = reviewObject;
-
-        let reviewsByUserObject = {
-          rating: review.rating,
-          caption: review.caption,
-          lastModified: lastModified,
-        }
-
-        let subjectObject = subject;
-        reviewsByUserObject.subjectId = subjectId;
-        reviewsByUserObject.subject = subjectObject;
-
-        updates[`/${Constants.REVIEWS_BY_USER_PATH}/${uid}/${reviewId}`] = reviewsByUserObject;
-        updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${subjectId}/${uid}`] = {
-          reviewId: reviewId,
-          rating: review.rating,
-          caption: review.caption,
-          lastModified: lastModified
-        };
-
-        reviewObject.id = reviewId;
-        reviewObject.subject = subjectObject;
-
-        Firebase.database().ref().update(updates)
-          .then(response => {
-            dispatch({
-              type: REVIEW_SUBMITTED,
-              payload: reviewObject
-            })
-          })
-          .catch(error => {
-            console.log(error);
-          });
-        });
+      })
     }
-    else {
-      let subjectId = Firebase.database().ref(Constants.SUBJECTS_PATH).push();
-      updates[`/${Constants.SUBJECTS_PATH}/${subjectId}/`] = subject;
 
-      let reviewId = Firebase.database().ref(Constants.REVIEWS_PATH).push();
-      const lastModified = Firebase.database.ServerValue.TIMESTAMP;
-      const reviewMeta = {
-          userId: Firebase.auth().currentUser.uid,
-          subjectId: subjectId,
-          lastModified: lastModified
-      }
-
-      const reviewObject = {};
-      Object.assign(reviewObject, reviewMeta, review);
-
-      updates[`/${Constants.REVIEWS_PATH}/${reviewId}/`] = reviewObject;
-
-      let reviewsByUserObject = {
-        rating: review.rating,
-        caption: review.caption,
-        lastModified: lastModified,
-      }
-
-      let subjectObject = subject;
-      reviewsByUserObject.subjectId = subjectId;
-      reviewsByUserObject.subject = subjectObject;
-
-      updates[`/${Constants.REVIEWS_BY_USER_PATH}/${uid}/${reviewId}`] = reviewsByUserObject;
-      updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${subjectId}/${uid}`] = {
-        reviewId: reviewId,
-        rating: review.rating,
-        caption: review.caption,
-        lastModified: lastModified
-      };
-
-      reviewObject.id = reviewId;
-      reviewObject.subject = subjectObject;
-
-      Firebase.database().ref().update(updates)
-        .then(response => {
-          dispatch({
-            type: REVIEW_SUBMITTED,
-            payload: reviewObject
-          })
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    }
+    dispatch({
+      type: REVIEW_SUBMITTED,
+      payload: reviewObject
+    })
   }
 }
 

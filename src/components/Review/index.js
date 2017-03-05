@@ -112,7 +112,7 @@ class Review extends React.Component {
     }
     let reviewObject = this.props.review;
     reviewObject.subject = this.props.subject;
-console.log(this.constructor.displayName)
+
     // const markup = { __html: marked(this.props.article.body) };
     // const canModify = false;
     // const canModify = this.props.currentUser &&
