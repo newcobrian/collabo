@@ -74,3 +74,10 @@ export function sendInboxMessage(senderId, recipientId, messageType, review) {
 		})
 	}
 }
+
+export function getImagePath(imagesObject) {
+  for (var key in imagesObject) {
+    if (!imagesObject.hasOwnProperty(key)) continue;
+    return imagesObject[key].url;
+  }
+}

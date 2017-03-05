@@ -1,6 +1,6 @@
 import Firebase from 'firebase';
 import * as Constants from '../constants'
-import { sendInboxMessage } from '../helpers'
+import { sendInboxMessage, getImagePath } from '../helpers'
 import 'whatwg-fetch';
 
 export const AUTH_ERROR = 'AUTH_ERROR';
@@ -758,8 +758,15 @@ export function onEditorSubmit(subject, imageFile, review) {
       }, function() {
         const downloadURL = uploadTask.snapshot.downloadURL;
         if (downloadURL) {
-          imageUpdates[`/${Constants.SUBJECTS_PATH}/${subjectId}/images`] = [downloadURL];
-          imageUpdates[`/${Constants.REVIEWS_BY_USER_PATH}/${uid}/${reviewId}/subject/images`] = [downloadURL];
+          let imageObject = {
+            url: downloadURL,
+            lastModified: Firebase.database.ServerValue.TIMESTAMP,
+            uploader: uid
+          }
+
+          let imageId = Firebase.database().ref(Constants.SUBJECTS_PATH + '/images').push().key;
+          imageUpdates[`/${Constants.SUBJECTS_PATH}/${subjectId}/images/${imageId}`] = imageObject;
+          imageUpdates[`/${Constants.REVIEWS_BY_USER_PATH}/${uid}/${reviewId}/subject/images/${imageId}`] = imageObject;
           Firebase.database().ref().update(imageUpdates);
         }
       })
@@ -776,16 +783,44 @@ export function onEditorSubmit(subject, imageFile, review) {
 //   return dispatch => {
 //     Firebase.database().ref(Constants.SUBJECTS_PATH).once('value', snapshot => {
 //       snapshot.forEach(function(subjectChild) {
-//         if (subjectChild.val().images[0] && subjectChild.key === '-KZOlUe8RIMnWMkll8bQ') {
-//           console.log('hi ' + JSON.stringify(subjectChild.val().images))
+//         // && subjectChild.key === '-KZOlUe8RIMnWMkll8bQ'
+//         // subjectChild.val().images && 
+//         if (subjectChild.val().images && subjectChild.val().images[0]) {
 //           let image = {
-//             path: subjectChild.val().images[0],
+//             url: subjectChild.val().images[0],
 //             lastModified: Firebase.database.ServerValue.TIMESTAMP
 //           };
           
-//           Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectChild.key + '/images').remove();
-//           Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectChild.key + '/images').push(image);
+//           Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectChild.key + '/images').remove().then(
+//             response => {
+//               Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectChild.key + '/images').push(image);  
+//             })          
 //         }
+//       })
+//     })
+//   }
+// }
+
+// export function updateReviewByUserImages() {
+//   return dispatch => {
+//     Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH).once('value', userSnap => {
+//       userSnap.forEach(function(user) {
+//         user.forEach(function(review) {
+//           let reviewSubject = review.val().subject;
+//           //review.key == '-KeGsFF9dqzzJja0dZI5' && 
+          
+//           if (reviewSubject.images && reviewSubject.images[0]) {
+//             let image = {
+//               url: reviewSubject.images[0],
+//               lastModified: Firebase.database.ServerValue.TIMESTAMP
+//             };
+            
+//             Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + user.key + '/' + review.key + '/subject/images').remove().then(
+//               response => {
+//                 Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + user.key + '/' + review.key + '/subject/images').push(image);  
+//               })          
+//           }
+//         })
 //       })
 //     })
 //   }
@@ -803,9 +838,11 @@ export function editorSubmitError(missingField) {
 export function getSubject(subjectId) {
   return dispatch => {
     Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId).on('value', snapshot => {
+      let subject = snapshot.val();
+      subject.image = subject.images ? getImagePath(subject.images) : '';
       dispatch({
         type: GET_SUBJECT,
-        payload: snapshot.val()
+        payload: subject
       });
     });
   };
@@ -1252,9 +1289,10 @@ export function getLikesOrSavesByUser(appUserId, userId, path) {
                       }
                     }
 
-                    reviewObject.subject = subjectSnapshot.val();
-
                     Object.assign(reviewObject, reviewSnapshot.val(), key, reviewer, likes, saved, commentObject);
+                    reviewObject.subject = subjectSnapshot.val();
+                    reviewObject.subject.image = reviewObject.subject.images ? getImagePath(reviewObject.subject.images) : '';
+
                     feedArray = [reviewObject].concat(feedArray);
                     feedArray.sort(lastModifiedDesc);
 
@@ -1366,7 +1404,7 @@ export function getUserFeed(uid) {
                     let reviewObject = {};
                     let key = { id: review.key };
                     let reviewer = { reviewer: userSnapshot.val() };
-                    reviewer.reviewer.userId = followedId
+                    reviewer.reviewer.userId = followedId;
                     let isLiked = false;
                     if (likesSnapshot.val()) {
                       isLiked = searchLikes(uid, likesSnapshot.val());
@@ -1375,7 +1413,6 @@ export function getUserFeed(uid) {
                       likesCount: likesSnapshot.numChildren(), 
                       isLiked: isLiked
                     }
-
                     let saved = {
                       isSaved: savesSnapshot.exists()
                     }
@@ -1390,7 +1427,10 @@ export function getUserFeed(uid) {
                       }
                     }
 
-                    Object.assign(reviewObject, key, reviewer, review.val(), likes, saved, commentObject);
+                    let reviewData = review.val();
+                    reviewData.subject.image = reviewData.subject.images ? getImagePath(reviewData.subject.images) : '';
+
+                    Object.assign(reviewObject, key, reviewer, reviewData, likes, saved, commentObject);
                     feedArray = [reviewObject].concat(feedArray);
                     feedArray.sort(lastModifiedDesc);
 
@@ -1544,8 +1584,10 @@ export function getGlobalFeed(uid) {
                     }
                   }
 
-                  reviewObject.subject = subjectSnapshot.val();
                   Object.assign(reviewObject, key, reviewer, review.val(), likes, saved, commentObject);
+                  reviewObject.subject = subjectSnapshot.val();
+                  reviewObject.subject.image = reviewObject.subject.images ? getImagePath(reviewObject.subject.images) : '';
+
                   feedArray = [reviewObject].concat(feedArray);
                   feedArray.sort(lastModifiedDesc);
 
