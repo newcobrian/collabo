@@ -19,8 +19,8 @@ const ReviewActions = props => {
         </Link>
       ***/}
 
-        <button className="btn btn-outline-danger btn-sm" onClick={del}>
-          <i className="ion-trash-a"></i>
+        <button className="bttn-style bttn-minimal" onClick={del}>
+          Delete Review
         </button>
 
       </span>

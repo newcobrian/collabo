@@ -70,14 +70,10 @@ const ReviewPreview = props => {
                   {review.subject.title}
                 </Link>
                 <a title={'Open link: ' + review.subject.url} target="blank" href={review.subject.url}>
-                <div className="goto-link flex-">
-                  <i className="ion-android-arrow-forward"></i>
-                </div>
+                  <div className="goto-link flex-">
+                    <i className="ion-android-arrow-forward"></i>
+                  </div>
                 </a>
-                <div>
-                  <ReviewActions review={review} authenticated={props.authenticated} 
-                canModify={canModify} deleteReview={props.deleteReview} reviewDetailPath={props.reviewDetailPath} />
-                </div>
               </div>
               <div className="text-category shift-up-5">#hashtags #cominghere #soon</div>
         </div>
@@ -120,6 +116,10 @@ const ReviewPreview = props => {
                   </Link>
                   <div className="review-timestamp">
                     {(new Date(review.lastModified)).toLocaleString()}
+                  </div>
+                  <div className="delete-button">
+                    <ReviewActions review={review} authenticated={props.authenticated} 
+                      canModify={canModify} deleteReview={props.deleteReview} reviewDetailPath={props.reviewDetailPath} />
                   </div>
                 </div>
               </div>

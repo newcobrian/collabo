@@ -163,23 +163,26 @@ class Editor extends React.Component {
                     </div>
                   </fieldset>
 
+                  <div className="gray-border">
                   <fieldset className="form-group">
-                    <div className="gray-border">
-                      <textarea
-                        className="form-control caption"
-                        rows="3"
-                        placeholder="Compose a quick comment..."
-                        value={this.props.caption}
-                        onChange={this.changeCaption}>
-                      </textarea>
-                      <input
-                        className="form-control subtle-input"
-                        type="text"
-                        placeholder="website link (optional)"
-                        value={this.props.url}
-                        onChange={this.changeURL} />
-                    </div>
+                    <textarea
+                      className="form-control caption"
+                      rows="3"
+                      placeholder="Compose a quick comment..."
+                      value={this.props.caption}
+                      onChange={this.changeCaption}>
+                    </textarea>
+                   </fieldset>
+                  <fieldset className="form-group">
+                    <input
+                      className="form-control subtle-input"
+                      type="text"
+                      placeholder="website link (optional)"
+                      value={this.props.url}
+                      onChange={this.changeURL} />
                   </fieldset>
+                  </div>
+
 
 
                   <button

@@ -125,6 +125,18 @@ textarea {
   height: inherit;
   margin: 10px 10px 10px 0;
 }
+.bttn-style.bttn-minimal {
+  padding: 2px 4px;
+  font-size: 11px;
+  height: inherit;
+  margin: 0 0 0 5px;
+  background: white;
+  opacity: .4;
+  color: red;
+}
+.bttn-style.bttn-minimal:hover {
+  opacity: 1;
+}
 .bttn-style.bttn-wider {
   padding: 5px 60px;
 }

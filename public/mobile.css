@@ -136,7 +136,10 @@ body {
   background-color: white;
   display: inline-block;
 }
-
+.reviewer-photo img {
+  width: 47px;
+  height: 47px;
+}
 
 
 /** Home Page **/
@@ -164,8 +167,8 @@ body {
   width: 80px;
 }
 .subject-image img {
-  width: 100% !important;
-  height: 160px !important;
+  width: 80px !important;
+  height: 80px !important;
   padding: 0px;
 }
 
