@@ -2,6 +2,13 @@ import Firebase from 'firebase';
 import * as Constants from './constants';
 import 'whatwg-fetch';
 
+export function getImagePath(imagesObject) {
+  for (var key in imagesObject) {
+    if (!imagesObject.hasOwnProperty(key)) continue;
+    return imagesObject[key].url;
+  }
+}
+
 export function sendInboxMessage(senderId, recipientId, messageType, review) {
 	const inboxObject = {
 		senderId: senderId,
@@ -13,7 +20,8 @@ export function sendInboxMessage(senderId, recipientId, messageType, review) {
 		Firebase.database().ref(Constants.USERS_PATH + '/' + recipientId).once('value', recipientSnapshot => {
 			Firebase.database().ref(Constants.USERS_PATH + '/' + senderId).once('value', senderSnapshot => {
 				inboxObject.reviewId = review.id;
-				if (review.subject.images) inboxObject.reviewImage = review.subject.images[0];
+				console.log('subject = ' + JSON.stringify(review))
+				if (review.subject.images) inboxObject.reviewImage = getImagePath(review.subject.images);
 				if (review.subject.title) inboxObject.reviewTitle = review.subject.title;
 
 				switch(messageType) {
@@ -73,11 +81,4 @@ export function sendInboxMessage(senderId, recipientId, messageType, review) {
 			})
 		})
 	}
-}
-
-export function getImagePath(imagesObject) {
-  for (var key in imagesObject) {
-    if (!imagesObject.hasOwnProperty(key)) continue;
-    return imagesObject[key].url;
-  }
 }

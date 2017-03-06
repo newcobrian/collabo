@@ -764,18 +764,29 @@ export function onEditorSubmit(subject, imageFile, review) {
             uploader: uid
           }
 
-          let imageId = Firebase.database().ref(Constants.SUBJECTS_PATH + '/images').push().key;
+          let imageId = Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId + '/images').push().key;
           imageUpdates[`/${Constants.SUBJECTS_PATH}/${subjectId}/images/${imageId}`] = imageObject;
           imageUpdates[`/${Constants.REVIEWS_BY_USER_PATH}/${uid}/${reviewId}/subject/images/${imageId}`] = imageObject;
-          Firebase.database().ref().update(imageUpdates);
+
+          reviewObject.subject.images = {
+            imageId: imageObject
+          }
+
+          Firebase.database().ref().update(imageUpdates).then(response => {
+            dispatch({
+              type: REVIEW_SUBMITTED,
+              payload: reviewObject
+            })
+          });
         }
       })
     }
-
-    dispatch({
-      type: REVIEW_SUBMITTED,
-      payload: reviewObject
-    })
+    else {
+      dispatch({
+        type: REVIEW_SUBMITTED,
+        payload: reviewObject
+      })
+    }
   }
 }
 
@@ -1389,11 +1400,11 @@ export function getUserFeed(uid) {
           payload: []
         })
       }
-      let feedArray = [];
       let userList = [uid];
       followedSnapshot.forEach(function(followedUser) {
         userList.push(followedUser.key);
       })
+      let feedArray = [];
       userList.forEach(function(followedId) {
         Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + followedId).orderByChild('lastModified').on('value', reviewsSnapshot => {
           reviewsSnapshot.forEach(function(review) {
