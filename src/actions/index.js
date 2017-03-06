@@ -1240,8 +1240,15 @@ export function getReviewsByUser(appUserId, userId) {
                         username: ''                  
                   }
                 }
+
+                let imagePath = {};
+                if (review.val().subject && review.val().subject.images) {
+                  imagePath = {
+                    subject: { image: getImagePath(review.val().subject.images) }
+                  }
+                }
                 
-                Object.assign(reviewObject, review.val(), key, reviewer, likes, saved, commentObject);
+                Object.assign(reviewObject, review.val(), imagePath, key, reviewer, likes, saved, commentObject);
                 feedArray = [reviewObject].concat(feedArray);
                 feedArray.sort(lastModifiedDesc);
                 dispatch({
@@ -1438,10 +1445,14 @@ export function getUserFeed(uid) {
                       }
                     }
 
-                    let reviewData = review.val();
-                    reviewData.subject.image = reviewData.subject.images ? getImagePath(reviewData.subject.images) : '';
+                    let imagePath = {};
+                    if (review.val().subject && review.val().subject.images) {
+                      imagePath = {
+                        subject: { image: getImagePath(review.val().subject.images) }
+                      }
+                    }
 
-                    Object.assign(reviewObject, key, reviewer, reviewData, likes, saved, commentObject);
+                    Object.assign(reviewObject, key, reviewer, review.val(), imagePath, likes, saved, commentObject);
                     feedArray = [reviewObject].concat(feedArray);
                     feedArray.sort(lastModifiedDesc);
 
