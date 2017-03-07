@@ -38,8 +38,8 @@ class FriendSelector extends React.Component {
 		  }
 
 	    return (
-	    	<div className="roow roow-col-left page-common follow-page">
-		    	<div className="page-title-wrapper">
+	    	<div className="roow roow-col-left page-common send-page">
+		    	<div className="page-title-wrapper roow roow-row">
 			      <div className="text-page-title">Review posted to feed. Send directly to any friends?</div>
 			    </div>
 			    	<form onSubmit={this.handleFormSubmit}>
@@ -67,9 +67,12 @@ class FriendSelector extends React.Component {
 		          			)
 				      	})
 				      }
-				     	<button className="btn btn-default" type="submit">Send</button>
-				     	<Link to={'/'}> Cancel</Link>
+
 				    </form>
+				    <div className="roow roow-row send-wrapper">
+			      		<button className="bttn-style bttn-primary mrgn-right" type="submit">Send & Post</button>
+				    	<Link className="" to={'/'}> Cancel</Link>
+			     	</div>
 		    </div>
 		);
 	}

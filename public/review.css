@@ -393,8 +393,9 @@
   max-width: 820px;
 }
 .delete-button {
-  display: none;
+    display: inline-block;
+    visibility: hidden;
 }
 .reviews-wrapper:hover .delete-button {
-  display: inline-block;
+      visibility: visible;
 }

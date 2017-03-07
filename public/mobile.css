@@ -395,4 +395,25 @@ body {
 
 
 
+/******
+******
+************************************ SEND PAGE
+******
+******/
+.page-common.send-page {
+    margin: 0 10px;
+}
+.send-wrapper {
+    bottom: 60px;
+    background: white;
+    right: 0px;
+    left: 0px;
+    width: 100%;
+    height: 50px;
+}
+.page-common.send-page .bttn-primary {
+    width: 70%;
+}
+
+
 }

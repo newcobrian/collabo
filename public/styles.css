@@ -415,6 +415,19 @@ a.logo-module:focus {
   width: 100%;
 }
 
+.mrgn-top {
+  margin-top: 20px;
+}
+.mrgn-right {
+  margin-right: 20px;
+}
+.mrgn-bottom {
+  margin-bottom: 20px;
+}
+.mrgn-left {
+  margin-left: 20px;
+}
+
 
 /******
 ******
@@ -847,4 +860,28 @@ a.logo-module:focus {
   height: 70px;
   width: 70px;
   object-fit: cover;
+}
+
+
+/******
+******
+************************************ 3. SEND PAGE
+******
+******/
+.page-common.send-page .page-title-wrapper {
+}
+.page-common.send-page form {
+}
+.page-common.send-page .bttn-primary {
+    width: 300px;
+
+}
+.send-wrapper {
+    position: fixed;
+    bottom: 0px;
+    background: white;
+    right: 40px;
+    left: 40px;
+    width: inherit;
+    height: 90px;
 }
