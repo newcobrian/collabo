@@ -67,12 +67,11 @@ class FriendSelector extends React.Component {
 		          			)
 				      	})
 				      }
-
-				    </form>
-				    <div className="roow roow-row send-wrapper">
+				      <div className="roow roow-row send-wrapper">
 			      		<button className="bttn-style bttn-primary mrgn-right" type="submit">Send & Post</button>
 				    	<Link className="" to={'/'}> Cancel</Link>
-			     	</div>
+			     	  </div>
+				    </form> 
 		    </div>
 		);
 	}
