@@ -78,7 +78,7 @@ class Editor extends React.Component {
           rating: this.props.rating,
           caption: this.props.caption
         }
-
+        this.props.setInProgress();
         this.props.onEditorSubmit(subject, this.props.image, review);
       }
     };

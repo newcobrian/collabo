@@ -69,6 +69,7 @@ export const UPDATE_FRIENDS_CHECKBOX = 'UPDATE_FRIENDS_CHECKBOX';
 export const FRIEND_SELECTOR_SUBMIT = 'FRIEND_SELECTOR_SUBMIT';
 export const EMPTY_FRIEND_SELECTOR = 'EMPTY_FRIEND_SELECTOR';
 export const REVIEW_DELETED = 'REVIEW_DELETED';
+export const SET_IN_PROGRESS = 'SET_IN_PROGRESS';
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -664,6 +665,14 @@ export function onReviewSubmit(key, subject, review, rid, imageURL) {
       .catch(error => {
         console.log(error);
       });
+  }
+}
+
+export function setInProgress() {
+  return dispatch => {
+    dispatch({
+      type: SET_IN_PROGRESS
+    })
   }
 }
 

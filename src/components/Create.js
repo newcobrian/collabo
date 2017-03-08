@@ -69,6 +69,8 @@ class Create extends React.Component {
 	        caption: this.props.caption
 	      }
 	      let reviewId = this.props.review ? this.props.review.reviewId : null;
+
+	      this.props.setInProgress();
 	      this.props.onReviewSubmit(this.props.subjectId, this.props.subject, ratingObject, reviewId, this.props.image);
     	}
 

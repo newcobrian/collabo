@@ -1,4 +1,5 @@
-import { REVIEW_SUBMITTED, UPDATE_FIELD_EDITOR, EDITOR_PAGE_LOADED, EDITOR_PAGE_UNLOADED, EDITOR_SUBMIT_ERROR } from '../actions'
+import { REVIEW_SUBMITTED, UPDATE_FIELD_EDITOR, EDITOR_PAGE_LOADED, EDITOR_PAGE_UNLOADED, 
+  EDITOR_SUBMIT_ERROR, SET_IN_PROGRESS } from '../actions'
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -27,6 +28,11 @@ export default (state = {}, action) => {
         inProgress: null,
         // errors: action.error ? action.payload.errors : null
       };
+    case SET_IN_PROGRESS:
+      return {
+        ...state,
+        inProgress: true
+      }
     case 'ASYNC_START':
       if (action.subtype === 'ARTICLE_SUBMITTED') {
         return { ...state, inProgress: true };
