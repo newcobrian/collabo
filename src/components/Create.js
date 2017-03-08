@@ -71,7 +71,7 @@ class Create extends React.Component {
 	      let reviewId = this.props.review ? this.props.review.reviewId : null;
 
 	      this.props.setInProgress();
-	      this.props.onReviewSubmit(this.props.subjectId, this.props.subject, ratingObject, reviewId, this.props.image);
+	      this.props.onCreateSubmit(this.props.subjectId, this.props.subject, ratingObject, reviewId, this.props.image);
     	}
 
     	this.onCancelClick = ev => {

@@ -581,7 +581,7 @@ export function onUpdateField(key, value) {
   }
 }
 
-export function onReviewSubmit(key, subject, review, rid, imageURL) {
+export function onCreateSubmit(key, subject, review, rid, imageURL) {
   return dispatch => {
     const updates = {};
     const uid = Firebase.auth().currentUser.uid;
@@ -641,17 +641,23 @@ export function onReviewSubmit(key, subject, review, rid, imageURL) {
       lastModified: lastModified,
     }
 
-    let subjectObject = subject;
     reviewsByUserObject.subjectId = subjectId;
-    reviewsByUserObject.subject = subjectObject;
+    reviewsByUserObject.subject = subject;
 
     updates[`/${Constants.REVIEWS_BY_USER_PATH}/${uid}/${reviewId}`] = reviewsByUserObject;
-    updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${subjectId}/${uid}`] = {
+
+    let reviewsBySubjectObject = {
       reviewId: reviewId,
       rating: review.rating,
       caption: review.caption,
-      lastModified: lastModified
-    };
+      lastModified: lastModified      
+    }
+    // if (imageId) {
+    //   reviewsBySubjectObject.images = {
+    //     imageId: imageObject
+    //   }
+    // }
+    updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${subjectId}/${uid}`] = reviewsBySubjectObject;
 
     reviewsByUserObject.id = reviewId;
 
