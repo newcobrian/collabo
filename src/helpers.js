@@ -20,7 +20,6 @@ export function sendInboxMessage(senderId, recipientId, messageType, review) {
 		Firebase.database().ref(Constants.USERS_PATH + '/' + recipientId).once('value', recipientSnapshot => {
 			Firebase.database().ref(Constants.USERS_PATH + '/' + senderId).once('value', senderSnapshot => {
 				inboxObject.reviewId = review.id;
-				console.log('subject = ' + JSON.stringify(review))
 				if (review.subject.images) inboxObject.reviewImage = getImagePath(review.subject.images);
 				if (review.subject.title) inboxObject.reviewTitle = review.subject.title;
 

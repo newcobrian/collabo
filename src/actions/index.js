@@ -483,7 +483,7 @@ export function loadCreateSubject(userId, result) {
         subject.title = result.value;
         if (result.url) subject.url = result.url;
         if (result.description) subject.description = result.description;
-        if (result.image) subject.images = [result.image];
+        
 
         let dispatchObject = {
           type: CREATE_SUBJECT_LOADED,
@@ -493,6 +493,9 @@ export function loadCreateSubject(userId, result) {
           caption: '',
           subjectId: result.id
         };
+
+        if (result.image) dispatchObject.image = result.image;
+
         if (reviewSnapshot.exists()) {
           dispatchObject.rating = reviewSnapshot.val().rating;
           dispatchObject.caption = reviewSnapshot.val().caption;
@@ -510,11 +513,8 @@ export function loadCreateSubject(userId, result) {
               json.response.venue.photos.groups[0].items[0]) {
               const photoURL = json.response.venue.photos.groups[0].items[0].prefix + 'original' +
                 json.response.venue.photos.groups[0].items[0].suffix;
-              subject.images = [photoURL];
+              dispatchObject.image = photoURL;
             }
-
-            dispatchObject.payload = subject;
-
             dispatch(dispatchObject);
           })
         }
@@ -523,20 +523,19 @@ export function loadCreateSubject(userId, result) {
           fetch(amazonURL).then(response => response.json()).then(json => {
             if (json.images) {
               if (json.images.large) {
-                subject.images = [json.images.large];
+                dispatchObject.image = json.images.large;
               }
               else if (json.images.medium) {
-                subject.images = [json.images.medium];
+                dispatchObject.image = json.images.medium;
               }
               else if (json.images.small) {
-                subject.images = [json.images.small];
+                dispatchObject.image = json.images.small;
               }
             }
             if (json.reviews) {
               if (json.reviews.ProductDescription) subject.description = json.reviews.ProductDescription;
             }
 
-            dispatchObject.payload = subject;
             dispatch(dispatchObject);
           })
         }
@@ -581,23 +580,45 @@ export function onUpdateField(key, value) {
   }
 }
 
-export function onReviewSubmit(key, subject, review, rid, location) {
+export function onReviewSubmit(key, subject, review, rid, imageURL) {
   return dispatch => {
     const updates = {};
     const uid = Firebase.auth().currentUser.uid;
-    let subjectId = {};
+    let subjectId = '',
+      imageId = '';
 
+    let imageObject = {
+      url: imageURL,
+      lastModified: Firebase.database.ServerValue.TIMESTAMP,
+    }
+
+    // if we found a subjectId
     if (key) {
       subjectId = key;
       Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + key).once('value', subjectSnapshot => {
+        // make sure subject is still there, otherwise save it
         if (!subjectSnapshot.exists()) {
           Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + key).set(subject);
+          if (imageURL) {
+            imageId = Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + key + '/images').push(imageObject).key;
+            subject.images = {
+              imageId: imageObject
+            };
+          }
         }
       })
     }
     else {
-      subjectId = Firebase.database().ref(Constants.SUBJECTS_PATH).push().key;
-      updates[`/${Constants.SUBJECTS_PATH}/${subjectId}/`] = subject;
+      // save the new subject
+      subjectId = Firebase.database().ref(Constants.SUBJECTS_PATH).push(subject).key;
+      // updates[`/${Constants.SUBJECTS_PATH}/${subjectId}/`] = subject;
+      if (imageURL) {
+        imageId = Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId + '/images').push(imageObject).key;
+        subject.images = {
+          imageId: imageObject
+        };
+        // updates[`/${Constants.SUBJECTS_PATH}/${subjectId}/images/${imageId}/`] = imageObject;
+      }
     }
 
     let reviewId = rid ? rid : Firebase.database().ref(Constants.REVIEWS_PATH).push().key;

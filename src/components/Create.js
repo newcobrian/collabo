@@ -19,7 +19,7 @@ const SubjectInfo = props => {
 			<div>
 				<div className="text-subject-name">{props.subject.title}</div>
 				<div className="roow roow-row-top">
-					<div className="subject-image create-subject-image">{renderImage(props.subject.image)}</div>
+					<div className="subject-image create-subject-image">{renderImage(props.image)}</div>
 					<div className="text-page-subtitle">{props.subject.description}</div>
 					<div className="text-page-subtitle DN">{props.subject.url}</div>
 				</div>
@@ -68,9 +68,8 @@ class Create extends React.Component {
 	        rating: this.props.rating,
 	        caption: this.props.caption
 	      }
-
 	      let reviewId = this.props.review ? this.props.review.reviewId : null;
-	      this.props.onReviewSubmit(this.props.subjectId, this.props.subject, ratingObject, reviewId);
+	      this.props.onReviewSubmit(this.props.subjectId, this.props.subject, ratingObject, reviewId, this.props.image);
     	}
 
     	this.onCancelClick = ev => {
@@ -117,7 +116,7 @@ class Create extends React.Component {
 			return (
 				<div className="popup-overlay roow roow-center-all">
 					<div className="create-popup">
-						<SubjectInfo subject={this.props.subject} />
+						<SubjectInfo subject={this.props.subject} image={this.props.image} />
 						<div className="box-shadow">
 					      	<fieldset className="form-group no-margin">
 						        <div className={'rating-container box-shadow rating-wrapper-' + this.props.rating}>
@@ -172,7 +171,7 @@ class Create extends React.Component {
 			return (
 				<div className="popup-overlay roow roow-center-all">
 					<div className="create-popup">
-						<SubjectInfo subject={this.props.subject} />
+						<SubjectInfo subject={this.props.subject} image={this.props.image} />
 						<div className="box-shadow">
 					      	<fieldset className="form-group no-margin">
 						        <div className={'rating-container box-shadow rating-wrapper-' + this.props.rating}>

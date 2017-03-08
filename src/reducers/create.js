@@ -14,7 +14,8 @@ export default (state = {}, action) => {
         reviewId: action.reviewId,
   			subjectId: action.subjectId,
         rating: action.rating,
-        caption: action.caption
+        caption: action.caption,
+        image: action.image
   		}
     case CREATE_SUBJECT_CLEARED:
       return {
@@ -24,7 +25,8 @@ export default (state = {}, action) => {
         reviewId: null,
         subjectId: null,
         rating: null,
-        caption: null
+        caption: null,
+        image: null
       }
     case GET_USER_LOCATION:
       return {
