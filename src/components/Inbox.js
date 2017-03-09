@@ -19,6 +19,36 @@ const RightPic = props => {
   else return null;
 }
 
+const LeftSenderPic = props => {
+  if (props.senderId) {
+    return (
+      <div className="">
+        <Link
+        to={`@${props.username}`}
+        className="comment-author">
+          <div className="reviewer-photo center-img">
+            <ProxyImage src={props.image} className="comment-author-img" />
+          </div>
+        </Link>
+      </div>
+    )
+  }
+  return null;
+}
+
+const RenderUsername = props => {
+  if (props.senderId) {
+    return (
+      <Link
+          to={`@${props.username}`}
+          className="comment-author">
+          {props.username}
+      </Link>
+    )
+  }
+  return null;
+}
+
 const mapStateToProps = state => ({
   ...state.inbox,
   authenticated: state.common.authenticated
@@ -59,22 +89,10 @@ class Inbox extends React.Component {
               //   follower.userId === this.props.currentUser.uid;
                 return (
                   <div className="roow roow-row list-row" key={inboxItem.key}>
-                    <div className="">
-                      <Link
-                      to={`@${inboxItem.senderUsername}`}
-                      className="comment-author">
-                        <div className="reviewer-photo center-img">
-                          <ProxyImage src={inboxItem.senderImage} className="comment-author-img" />
-                        </div>
-                      </Link>
-                    </div>
+                    <LeftSenderPic senderId={inboxItem.senderId} username={inboxItem.senderUsername} image={inboxItem.senderImage} />
                     <div className="roow roow-col-left">
                       <div>
-                        <Link
-                            to={`@${inboxItem.senderUsername}`}
-                            className="comment-author">
-                            {inboxItem.senderUsername}
-                        </Link>
+                        <RenderUsername senderId={inboxItem.senderId} username={inboxItem.senderUsername} />
 
                         {inboxItem.message} <Link to={inboxItem.link}>{inboxItem.reviewTitle}</Link>
                       </div>

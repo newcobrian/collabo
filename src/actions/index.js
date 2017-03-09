@@ -1281,15 +1281,13 @@ export function getReviewsByUser(appUserId, userId) {
                         username: ''                  
                   }
                 }
-
-                let imagePath = {};
-                if (review.val().subject && review.val().subject.images) {
-                  imagePath = {
-                    subject: { image: getImagePath(review.val().subject.images) }
-                  }
-                }
                 
-                Object.assign(reviewObject, review.val(), imagePath, key, reviewer, likes, saved, commentObject);
+                Object.assign(reviewObject, review.val(), key, reviewer, likes, saved, commentObject);
+
+                if (review.val().subject && review.val().subject.images) {
+                  reviewObject.subject.image = getImagePath(review.val().subject.images);
+                }
+
                 feedArray = [reviewObject].concat(feedArray);
                 feedArray.sort(lastModifiedDesc);
                 dispatch({
@@ -1486,14 +1484,12 @@ export function getUserFeed(uid) {
                       }
                     }
 
-                    let imagePath = {};
+                    Object.assign(reviewObject, key, reviewer, review.val(), likes, saved, commentObject);
+
                     if (review.val().subject && review.val().subject.images) {
-                      imagePath = {
-                        subject: { image: getImagePath(review.val().subject.images) }
-                      }
+                      reviewObject.subject.image = getImagePath(review.val().subject.images);
                     }
 
-                    Object.assign(reviewObject, key, reviewer, review.val(), imagePath, likes, saved, commentObject);
                     feedArray = [reviewObject].concat(feedArray);
                     feedArray.sort(lastModifiedDesc);
 
@@ -1560,6 +1556,8 @@ export function saveReview(authenticated, review) {
     const updates = {};
     updates[`/${Constants.SAVES_BY_USER_PATH}/${authenticated}/${review.id}`] = true;
     Firebase.database().ref().update(updates);
+
+    sendInboxMessage(authenticated, review.reviewer.userId, Constants.SAVE_MESSAGE, review);
 
     dispatch({
       type: REVIEW_SAVED
