@@ -742,15 +742,15 @@ export function onEditorSubmit(subject, imageFile, review) {
     // save the review
     let reviewId = Firebase.database().ref(Constants.REVIEWS_PATH).push().key;
     const lastModified = Firebase.database.ServerValue.TIMESTAMP;
-    const reviewMeta = {
+
+    // create the reviewObject with the subject info for reviewsByUser and reviewsBySubject
+    const reviewObject = {
         userId: Firebase.auth().currentUser.uid,
         subjectId: subjectId,
         lastModified: lastModified
     }
 
-    // create the reviewObject with the subject info for reviewsByUser and reviewsBySubject
-    const reviewObject = {};
-    Object.assign(reviewObject, reviewMeta, review);
+    Object.assign(reviewObject, review);
 
     updates[`/${Constants.REVIEWS_PATH}/${reviewId}/`] = reviewObject;
 
@@ -772,8 +772,11 @@ export function onEditorSubmit(subject, imageFile, review) {
       lastModified: lastModified
     };
 
-    reviewObject.id = reviewId;
-    reviewObject.subject = subjectObject;
+    // reviewObject.id = reviewId;
+    // reviewObject.subject = subjectObject;
+
+    const payloadObject = {};
+    Object.assign(payloadObject, reviewObject, {id: reviewId}, {subject: subjectObject});
 
     // save updates
     Firebase.database().ref().update(updates);
@@ -803,15 +806,17 @@ export function onEditorSubmit(subject, imageFile, review) {
           let imageId = Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId + '/images').push().key;
           imageUpdates[`/${Constants.SUBJECTS_PATH}/${subjectId}/images/${imageId}`] = imageObject;
           imageUpdates[`/${Constants.REVIEWS_BY_USER_PATH}/${uid}/${reviewId}/subject/images/${imageId}`] = imageObject;
+          // imageUpdates[`/${Constants.REVIEWS_PATH}/${reviewId}/images/${imageId}`] = imageObject;
+          // imageUpdates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${subjectId}/${uid}/images/${imageId}`] = imageObject;
 
-          reviewObject.subject.images = {
+          payloadObject.subject.images = {
             imageId: imageObject
           }
 
           Firebase.database().ref().update(imageUpdates).then(response => {
             dispatch({
               type: REVIEW_SUBMITTED,
-              payload: reviewObject
+              payload: payloadObject
             })
           });
         }
@@ -820,7 +825,7 @@ export function onEditorSubmit(subject, imageFile, review) {
     else {
       dispatch({
         type: REVIEW_SUBMITTED,
-        payload: reviewObject
+        payload: payloadObject
       })
     }
   }
