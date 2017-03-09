@@ -64,7 +64,7 @@ class Editor extends React.Component {
       if (!this.props.title) {
         this.props.editorSubmitError('product name');
       }
-      else if (!this.props.rating) {
+      else if (this.props.rating !== 0 && !this.props.rating) {
         this.props.editorSubmitError('rating');
       }
       else {
