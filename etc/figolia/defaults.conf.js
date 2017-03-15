@@ -40,7 +40,7 @@ var CONFIG = {
     // Field content must be UNIX timestamp (example Date.now() output).
     // WARNING: Without this field being correctly configured,
     // everything is re-indexed at rerun.
-    // timestampField: 'updatedAt',
+    // timestampField: 'lastModified',
     // Firebase datasets to index in Algolia
     schema: {
         subjects: {
@@ -76,12 +76,12 @@ var CONFIG = {
             // Note: this can be storage-consumming for long fields, use with
             //       caution ! (preferably on fields with enforced size)
             // ngrams: ['username']
-        },
-        reviewsBySubject: {
-            // Second example dataset to index
-            path: 'reviews-by-subject',
-            index: 'whatsgood-reviews'
         }
+        // , reviewsBySubject: {
+        //     // Second example dataset to index
+        //     path: 'reviews-by-subject',
+        //     index: 'whatsgood-reviews'
+        // }
     }
 };
 
