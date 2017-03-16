@@ -585,13 +585,17 @@ export function onCreateSubmit(key, subject, review, rid, imageURL) {
   return dispatch => {
     const updates = {};
     const uid = Firebase.auth().currentUser.uid;
+    const lastModified = Firebase.database.ServerValue.TIMESTAMP;
     let subjectId = '',
       imageId = '';
 
     let imageObject = {
       url: imageURL,
-      lastModified: Firebase.database.ServerValue.TIMESTAMP,
+      lastModified: lastModified,
     }
+
+    let saveSubject = {};
+    Object.assign(saveSubject, subject, {lastModified: lastModified});
 
     // if we found a subjectId
     if (key) {
@@ -599,7 +603,7 @@ export function onCreateSubmit(key, subject, review, rid, imageURL) {
       Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + key).once('value', subjectSnapshot => {
         // make sure subject is still there, otherwise save it
         if (!subjectSnapshot.exists()) {
-          Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + key).set(subject);
+          Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + key).set(saveSubject);
           if (imageURL) {
             imageId = Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + key + '/images').push(imageObject).key;
             subject.images = {
@@ -611,7 +615,7 @@ export function onCreateSubmit(key, subject, review, rid, imageURL) {
     }
     else {
       // save the new subject
-      subjectId = Firebase.database().ref(Constants.SUBJECTS_PATH).push(subject).key;
+      subjectId = Firebase.database().ref(Constants.SUBJECTS_PATH).push(saveSubject).key;
       // updates[`/${Constants.SUBJECTS_PATH}/${subjectId}/`] = subject;
       if (imageURL) {
         imageId = Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId + '/images').push(imageObject).key;
@@ -623,7 +627,6 @@ export function onCreateSubmit(key, subject, review, rid, imageURL) {
     }
 
     let reviewId = rid ? rid : Firebase.database().ref(Constants.REVIEWS_PATH).push().key;
-    const lastModified = Firebase.database.ServerValue.TIMESTAMP;
     const reviewMeta = {
         userId: Firebase.auth().currentUser.uid,
         subjectId: subjectId,
@@ -734,14 +737,17 @@ export function onEditorSubmit(subject, imageFile, review) {
   return dispatch => {
     const updates = {};
     const uid = Firebase.auth().currentUser.uid;
+    const lastModified = Firebase.database.ServerValue.TIMESTAMP;
 
     // save the subject
+    let saveSubject = {};
+    Object.assign(saveSubject, subject, {lastModified: lastModified});
     let subjectId = Firebase.database().ref(Constants.SUBJECTS_PATH).push().key;
-    updates[`/${Constants.SUBJECTS_PATH}/${subjectId}/`] = subject;
+    updates[`/${Constants.SUBJECTS_PATH}/${subjectId}/`] = saveSubject;
 
     // save the review
     let reviewId = Firebase.database().ref(Constants.REVIEWS_PATH).push().key;
-    const lastModified = Firebase.database.ServerValue.TIMESTAMP;
+    
 
     // create the reviewObject with the subject info for reviewsByUser and reviewsBySubject
     const reviewObject = {
