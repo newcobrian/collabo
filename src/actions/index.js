@@ -666,6 +666,12 @@ export function onCreateSubmit(key, subject, review, rid, imageURL) {
 
     Firebase.database().ref().update(updates)
       .then(response => {
+        // increment review count on the subject
+        var reviewCountRef = Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId + '/reviewsCount');
+        reviewCountRef.transaction(function (current_count) {
+          return (current_count || 0) + 1;
+        });
+
         dispatch({
           type: REVIEW_SUBMITTED,
           payload: reviewsByUserObject
@@ -786,6 +792,12 @@ export function onEditorSubmit(subject, imageFile, review) {
 
     // save updates
     Firebase.database().ref().update(updates);
+
+    // increment review count on the subject
+    var reviewCountRef = Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId + '/reviewsCount');
+    reviewCountRef.transaction(function (current_count) {
+      return (current_count || 0) + 1;
+    });
 
     // if user uploaded an image, save it
     if (imageFile) {
@@ -1225,6 +1237,11 @@ export function onDeleteReview(userId, reviewId, subjectId, reviewDetailPath) {
         Firebase.database().ref(Constants.SAVES_BY_USER_PATH + '/' + userChild.key + '/' + reviewId).remove();
       })
     })
+    var reviewCountRef = Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId + '/reviewsCount');
+    reviewCountRef.transaction(function (current_count) {
+      let count = (current_count || 0) - 1;
+      return count > 0 ? count : 0;
+    });
     dispatch({
       type: REVIEW_DELETED,
       redirect: reviewDetailPath
