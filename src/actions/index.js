@@ -1237,11 +1237,13 @@ export function onDeleteReview(userId, reviewId, subjectId, reviewDetailPath) {
         Firebase.database().ref(Constants.SAVES_BY_USER_PATH + '/' + userChild.key + '/' + reviewId).remove();
       })
     })
-    var reviewCountRef = Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId + '/reviewsCount');
-    reviewCountRef.transaction(function (current_count) {
+    Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId + '/reviewsCount').transaction(function (current_count) {
       let count = (current_count || 0) - 1;
       return count > 0 ? count : 0;
-    });
+    })
+
+    Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId).update({lastModified: Firebase.database.ServerValue.TIMESTAMP});
+
     dispatch({
       type: REVIEW_DELETED,
       redirect: reviewDetailPath
