@@ -36,6 +36,7 @@ export const LIKES_PATH = '/likes'
 export const LIKES_BY_USER_PATH = '/likes-by-user'
 export const INBOX_PATH = '/inbox'
 export const INBOX_COUNTER_PATH = '/counters/inbox'
+export const TAGS_PATH = '/tags'
 
 
 /*** Message Type Constants ***/
@@ -45,3 +46,7 @@ export const FOLLOW_MESSAGE = 'FOLLOW_MESSAGE'
 export const COMMENT_ON_COMMENT_MESSAGE = 'COMMENT_COMMENT_MESSAGE'
 export const COMMENT_ON_REVIEW_MESSAGE = 'COMMENT_REVIEW_MESSAGE'
 export const DIRECT_MESSAGE = 'DIRECT_MESSAGE'
+
+
+/*** Tag list ***/
+export const TAG_LIST = ['Place', 'Music', 'Movie', 'TV', 'Book', 'Food']

@@ -2,6 +2,8 @@ import ListErrors from './ListErrors';
 import React from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
+import SelectTag from './SelectTag';
+import * as Constants from '../constants';
 
 const mapStateToProps = state => ({
   ...state.editor,
@@ -36,7 +38,7 @@ class Editor extends React.Component {
     // this.changeImage = onUpdateField('image', ev.target.files[0]);
     // this.changeRating = updateFieldEvent('rating');
     this.changeCaption = updateFieldEvent('caption');
-    this.changeTagInput = updateFieldEvent('tagInput');
+    // this.changeTagInput = updateFieldEvent('tagInput');
 
     this.onRatingsChange = rating => ev => {
       ev.preventDefault();
@@ -53,6 +55,11 @@ class Editor extends React.Component {
         this.props.onAddTag();
       }
     };
+
+    this.changeTag = ev => {
+      ev.preventDefault();
+      this.props.onUpdateField('tagInput', ev.target.value);
+    }
 
     this.removeTagHandler = tag => () => {
       this.props.onRemoveTag(tag);
@@ -73,13 +80,18 @@ class Editor extends React.Component {
         };
 
         if (this.props.url) subject.url = this.props.url;
+        if (this.props.tagInput) {
+          subject.tags = {};
+          subject.tags[this.props.tagInput] = true;
+        }
 
         const review = {
           rating: this.props.rating,
           caption: this.props.caption
         }
+
         this.props.setInProgress();
-        this.props.onEditorSubmit(subject, this.props.image, review);
+        this.props.onEditorSubmit(subject, this.props.image, review, this.props.tagInput);
       }
     };
   }
@@ -144,6 +156,19 @@ class Editor extends React.Component {
                   </fieldset>
 
                   </div>
+                  <fieldset className="form-group no-margin">
+                    <div>
+                      <select className='react-textselect-input' onChange={this.changeTag} value={this.props.tagInput}>
+                        <option selected disabled>Choose a category</option>
+                        {Constants.TAG_LIST.map(item => {
+                          return (
+                                <option value={item} key={item}>{item}</option>
+                            );
+                        })}
+                      </select>
+                     {/***} <SelectTag options={Constants.TAG_LIST} handler={this.changeTag} value={this.props.tag} />  ***/}
+                    </div>
+                  </fieldset>
                   <fieldset className="form-group no-margin">
                     <div className={'rating-container rating-wrapper-' + this.props.rating}>
                         <div className="roow roow-row-space-around">

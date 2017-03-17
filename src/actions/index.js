@@ -739,17 +739,22 @@ export function generateImageFileName()
     return text;
 }
 
-export function onEditorSubmit(subject, imageFile, review) {
+export function onEditorSubmit(subject, imageFile, review, tag) {
   return dispatch => {
     const updates = {};
     const uid = Firebase.auth().currentUser.uid;
     const lastModified = Firebase.database.ServerValue.TIMESTAMP;
 
     // save the subject
+    let subjectId = Firebase.database().ref(Constants.SUBJECTS_PATH).push().key;
     let saveSubject = {};
     Object.assign(saveSubject, subject, {lastModified: lastModified});
-    let subjectId = Firebase.database().ref(Constants.SUBJECTS_PATH).push().key;
     updates[`/${Constants.SUBJECTS_PATH}/${subjectId}/`] = saveSubject;
+
+    // add the subject to the tags tree if there
+    if (tag) {
+      updates[`/${Constants.TAGS_PATH}/${tag}/${subjectId}/`] = true;
+    }
 
     // save the review
     let reviewId = Firebase.database().ref(Constants.REVIEWS_PATH).push().key;
