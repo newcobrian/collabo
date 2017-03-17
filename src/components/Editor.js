@@ -86,9 +86,9 @@ class Editor extends React.Component {
         }
 
         const review = {
-          rating: this.props.rating,
-          caption: this.props.caption
+          rating: this.props.rating
         }
+        if (this.props.caption) review.caption = this.props.caption;
 
         this.props.setInProgress();
         this.props.onEditorSubmit(subject, this.props.image, review, this.props.tagInput);

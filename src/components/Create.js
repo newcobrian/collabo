@@ -66,8 +66,9 @@ class Create extends React.Component {
 
 	      const ratingObject = {
 	        rating: this.props.rating,
-	        caption: this.props.caption
 	      }
+	      if (this.props.caption) ratingObject.caption = this.props.caption;
+
 	      let reviewId = this.props.review ? this.props.review.reviewId : null;
 
 	      this.props.setInProgress();
