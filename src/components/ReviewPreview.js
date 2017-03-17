@@ -58,6 +58,22 @@ const CommentPreview = props => {
   }
 }
 
+const Hashtags = props => {
+  if (props.tags) {
+    return (
+      <div>
+        {props.tags.map(tag => {
+          return (
+            <span key={tag}> #{tag} </span> 
+          )
+        })
+      }
+      </div>
+    )
+  }
+  return null;
+}
+
 const ReviewPreview = props => {
   const review = props.review;
   const canModify = props.authenticated &&
@@ -75,7 +91,7 @@ const ReviewPreview = props => {
                   </div>
                 </a>
               </div>
-              <div className="text-category shift-up-5">#hashtags #cominghere #soon</div>
+              <div className="text-category shift-up-5"><Hashtags tags={review.subject.tag}/></div>
         </div>
         <div className="review-container roow roow-center roow-col-left bottom-divider">
           <div className="roow roow-row-top pic-and-review">

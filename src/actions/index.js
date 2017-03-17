@@ -1,6 +1,6 @@
 import Firebase from 'firebase';
 import * as Constants from '../constants'
-import { sendInboxMessage, getImagePath } from '../helpers'
+import * as Helpers from '../helpers'
 import 'whatwg-fetch';
 
 export const AUTH_ERROR = 'AUTH_ERROR';
@@ -373,7 +373,7 @@ export function followUser(authenticated, follower) {
       // updates[`/${Constants.HAS_FOLLOWERS_PATH}/${follower}/`] = following;
       // updates[`/${Constants.IS_FOLLOWING_PATH}/${following}/`] = follower;
     }
-    sendInboxMessage(following, follower, Constants.FOLLOW_MESSAGE, null);
+    Helpers.sendInboxMessage(following, follower, Constants.FOLLOW_MESSAGE, null);
     Firebase.database().ref().update(updates);
   }
 }
@@ -914,7 +914,8 @@ export function getSubject(subjectId) {
   return dispatch => {
     Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId).on('value', snapshot => {
       let subject = snapshot.val();
-      subject.image = subject.images ? getImagePath(subject.images) : '';
+      subject.image = subject.images ? Helpers.getImagePath(subject.images) : '';
+      subject.tag = subject.tags ? Helpers.getTagsArray(subject.tags) : [];
       dispatch({
         type: GET_SUBJECT,
         payload: subject
@@ -1195,7 +1196,7 @@ export function onCommentSubmit(authenticated, review, body) {
     Firebase.database().ref(Constants.COMMENTS_PATH + '/' + review.id).push(comment);
 
     // send message to original review poster
-    sendInboxMessage(userId, review.userId, Constants.COMMENT_ON_REVIEW_MESSAGE, review);
+    Helpers.sendInboxMessage(userId, review.userId, Constants.COMMENT_ON_REVIEW_MESSAGE, review);
     const sentArray = [review.userId];
 
     Firebase.database().ref(Constants.COMMENTS_PATH + '/' + review.id).once('value', commentsSnapshot => {
@@ -1203,7 +1204,7 @@ export function onCommentSubmit(authenticated, review, body) {
         let commenterId = comment.val().userId;
         // if not commentor or in sent array, then send a message
         if (commenterId !== userId && (sentArray.indexOf(commenterId) === -1)) {
-          sendInboxMessage(userId, commenterId, Constants.COMMENT_ON_COMMENT_MESSAGE, review);
+          Helpers.sendInboxMessage(userId, commenterId, Constants.COMMENT_ON_COMMENT_MESSAGE, review);
           sentArray.push(commenterId);
         }
       })
@@ -1315,7 +1316,7 @@ export function getReviewsByUser(appUserId, userId) {
                 Object.assign(reviewObject, review.val(), key, reviewer, likes, saved, commentObject);
 
                 if (review.val().subject && review.val().subject.images) {
-                  reviewObject.subject.image = getImagePath(review.val().subject.images);
+                  reviewObject.subject.image = Helpers.getImagePath(review.val().subject.images);
                 }
 
                 feedArray = [reviewObject].concat(feedArray);
@@ -1378,7 +1379,7 @@ export function getLikesOrSavesByUser(appUserId, userId, path) {
 
                     Object.assign(reviewObject, reviewSnapshot.val(), key, reviewer, likes, saved, commentObject);
                     reviewObject.subject = subjectSnapshot.val();
-                    reviewObject.subject.image = reviewObject.subject.images ? getImagePath(reviewObject.subject.images) : '';
+                    reviewObject.subject.image = reviewObject.subject.images ? Helpers.getImagePath(reviewObject.subject.images) : '';
 
                     feedArray = [reviewObject].concat(feedArray);
                     feedArray.sort(lastModifiedDesc);
@@ -1516,8 +1517,14 @@ export function getUserFeed(uid) {
 
                     Object.assign(reviewObject, key, reviewer, review.val(), likes, saved, commentObject);
 
+                    // get subject's tags
+                    if (review.val().subject && review.val().subject.tags) {
+                      reviewObject.subject.tag = Helpers.getTagsArray(review.val().subject.tags);
+                    }
+
+                    // get subject images
                     if (review.val().subject && review.val().subject.images) {
-                      reviewObject.subject.image = getImagePath(review.val().subject.images);
+                      reviewObject.subject.image = Helpers.getImagePath(review.val().subject.images);
                     }
 
                     feedArray = [reviewObject].concat(feedArray);
@@ -1550,7 +1557,7 @@ export function likeReview(authenticated, review) {
     updates[`/${Constants.LIKES_BY_USER_PATH}/${authenticated}/${review.id}`] = true;
     Firebase.database().ref().update(updates);
 
-    sendInboxMessage(authenticated, review.reviewer.userId, Constants.LIKE_MESSAGE, review);
+    Helpers.sendInboxMessage(authenticated, review.reviewer.userId, Constants.LIKE_MESSAGE, review);
 
     dispatch({
       type: REVIEW_LIKED
@@ -1587,7 +1594,7 @@ export function saveReview(authenticated, review) {
     updates[`/${Constants.SAVES_BY_USER_PATH}/${authenticated}/${review.id}`] = true;
     Firebase.database().ref().update(updates);
 
-    sendInboxMessage(authenticated, review.reviewer.userId, Constants.SAVE_MESSAGE, review);
+    Helpers.sendInboxMessage(authenticated, review.reviewer.userId, Constants.SAVE_MESSAGE, review);
 
     dispatch({
       type: REVIEW_SAVED
@@ -1677,7 +1684,12 @@ export function getGlobalFeed(uid) {
 
                   Object.assign(reviewObject, key, reviewer, review.val(), likes, saved, commentObject);
                   reviewObject.subject = subjectSnapshot.val();
-                  reviewObject.subject.image = reviewObject.subject.images ? getImagePath(reviewObject.subject.images) : '';
+                  reviewObject.subject.image = reviewObject.subject.images ? Helpers.getImagePath(reviewObject.subject.images) : '';
+
+                   // get subject's tags
+                    if (reviewObject.subject.tags) {
+                      reviewObject.subject.tag = Helpers.getTagsArray(reviewObject.subject.tags);
+                    }
 
                   feedArray = [reviewObject].concat(feedArray);
                   feedArray.sort(lastModifiedDesc);
@@ -1832,7 +1844,7 @@ export function onFriendSelectorSubmit(authenticated, selectedFriends, review) {
   return dispatch => {
     for (const friendId of selectedFriends) {
       // console.log(friendId, 'is selected.');
-      sendInboxMessage(authenticated, friendId, Constants.DIRECT_MESSAGE, review);
+      Helpers.sendInboxMessage(authenticated, friendId, Constants.DIRECT_MESSAGE, review);
     }
     dispatch({
       type: FRIEND_SELECTOR_SUBMIT

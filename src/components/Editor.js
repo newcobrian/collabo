@@ -2,7 +2,6 @@ import ListErrors from './ListErrors';
 import React from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
-import SelectTag from './SelectTag';
 import * as Constants from '../constants';
 
 const mapStateToProps = state => ({

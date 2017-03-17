@@ -9,6 +9,15 @@ export function getImagePath(imagesObject) {
   }
 }
 
+export function getTagsArray(tagsSnap) {
+	let tagsArray = [];
+	for (var key in tagsSnap) {
+		if (!tagsSnap.hasOwnProperty(key)) continue;
+		tagsArray.push(key);
+	}
+	return tagsArray;
+}
+
 export function sendInboxMessage(senderId, recipientId, messageType, review) {
 	const inboxObject = {
 		lastModified: Firebase.database.ServerValue.TIMESTAMP
