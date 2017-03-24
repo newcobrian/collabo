@@ -955,17 +955,14 @@ export function getReview(authenticated, reviewId) {
                 Object.assign(review.reviewer, userMeta, {userId: reviewSnapshot.val().userId});
 
                 review.isLiked = false
-                review.likesCount = 0;
                 if (likesSnapshot.val()) {
                   review.isLiked = searchLikes(authenticated, likesSnapshot.val());
-                  review.likesCount = likesSnapshot.numChildren()
                 }
 
                 review.isSaved = savesSnapshot.exists();
 
                 if (commentCountSnapshot.exists()) {
                   review.comments = {
-                    commentsCount: commentCountSnapshot.numChildren(),
                     lastComment: '',
                     commentorImage: '',
                     username: ''                  
@@ -1008,10 +1005,8 @@ export function getAppUserReview(authenticated, currentUserInfo, subjectId) {
             review.reviewer = currentUserInfo;
 
             review.isLiked = false
-            review.likesCount = 0;
             if (likesSnapshot.val()) {
               review.isLiked = searchLikes(authenticated, likesSnapshot.val());
-              review.likesCount = likesSnapshot.numChildren()
             }
 
             review.isSaved = savesSnapshot.exists();
@@ -1065,10 +1060,8 @@ export function getFollowingReviews(authenticated, subjectId, viewingReviewId) {
                   Object.assign(review.reviewer, userMeta)
 
                   review.isLiked = false
-                  review.likesCount = 0;
                   if (likesSnapshot.val()) {
                     review.isLiked = searchLikes(authenticated, likesSnapshot.val());
-                    review.likesCount = likesSnapshot.numChildren()
                   }
 
                   review.isSaved = savesSnapshot.exists();
@@ -1315,8 +1308,7 @@ export function getReviewsByUser(appUserId, userId) {
                 if (likesSnapshot.val()) {
                   isLiked = searchLikes(appUserId, likesSnapshot.val());
                 }
-                let likes = { 
-                  likesCount: likesSnapshot.numChildren(), 
+                let likes = {
                   isLiked: isLiked
                 }
 
@@ -1327,7 +1319,6 @@ export function getReviewsByUser(appUserId, userId) {
                 let commentObject = {};
                 if (commentCountSnapshot.exists()) {
                   commentObject.comments = {
-                        commentsCount: commentCountSnapshot.numChildren(),
                         lastComment: '',
                         commentorImage: '',
                         username: ''                  
@@ -1380,7 +1371,6 @@ export function getLikesOrSavesByUser(appUserId, userId, path) {
                       isLiked = searchLikes(appUserId, likesSnapshot.val());
                     }
                     let likes = { 
-                      likesCount: likesSnapshot.numChildren(), 
                       isLiked: isLiked
                     }
 
@@ -1391,7 +1381,6 @@ export function getLikesOrSavesByUser(appUserId, userId, path) {
                     let commentObject = {};
                     if (commentCountSnapshot.exists()) {
                       commentObject.comments = {
-                            commentsCount: commentCountSnapshot.numChildren(),
                             lastComment: '',
                             commentorImage: '',
                             username: ''                  
@@ -1519,7 +1508,6 @@ export function getUserFeed(uid) {
                       isLiked = searchLikes(uid, likesSnapshot.val());
                     }
                     let likes = { 
-                      likesCount: likesSnapshot.numChildren(), 
                       isLiked: isLiked
                     }
                     let saved = {
@@ -1529,7 +1517,6 @@ export function getUserFeed(uid) {
                     let commentObject = {};
                     if (commentCountSnapshot.exists()) {
                       commentObject.comments = {
-                            commentsCount: commentCountSnapshot.numChildren(),
                             lastComment: '',
                             commentorImage: '',
                             username: ''                  
@@ -1707,7 +1694,6 @@ export function getGlobalFeed(uid) {
                     isLiked = searchLikes(uid, likesSnapshot.val());
                   }
                   let likes = { 
-                    likesCount: likesSnapshot.numChildren(), 
                     isLiked: isLiked
                   }
                   let saved = {
@@ -1716,7 +1702,6 @@ export function getGlobalFeed(uid) {
                   let commentObject = {};
                   if (commentCountSnapshot.exists()) {
                     commentObject.comments = {
-                          commentsCount: commentCountSnapshot.numChildren(),
                           lastComment: '',
                           commentorImage: '',
                           username: ''                  

@@ -41,7 +41,7 @@ const CommentPreview = props => {
       <Link to={`review/${props.review.subjectId}/${props.review.id}`}>
         <div className="cta-wrapper roow roow-col">
           <div className="cta-icon cta-comment comment-on"></div>
-          {props.comments.commentsCount} Comments
+          {props.review.commentsCount} Comments
         </div>
       </Link>
     )
