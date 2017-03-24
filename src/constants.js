@@ -39,6 +39,12 @@ export const INBOX_COUNTER_PATH = '/counters/inbox'
 export const TAGS_PATH = '/tags'
 
 
+/*** Counter Type Constants ***/
+export const LIKES_COUNT = 'likesCount'
+export const COMMENTS_COUNT = 'commentsCount'
+export const SAVES_COUNT = 'savesCount'
+
+
 /*** Message Type Constants ***/
 export const LIKE_MESSAGE = 'LIKE_MESSAGE'
 export const SAVE_MESSAGE = 'SAVE_MESSAGE'

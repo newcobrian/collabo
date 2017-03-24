@@ -59,7 +59,7 @@ class FirebaseSearchInput extends Component {
         content.hits.map(function(result) {
           let algoliaSearchObject = {};
           if (result.title && result.objectID) {
-            algoliaSearchObject.text = '**** ' + result.title;
+            algoliaSearchObject.text = result.title;
             algoliaSearchObject.value = result.title;
             algoliaSearchObject.id = result.objectID;
             if (result.description) algoliaSearchObject.description = result.description;

@@ -18,6 +18,50 @@ export function getTagsArray(tagsSnap) {
 	return tagsArray;
 }
 
+export function incrementCount(counterType, reviewId, subjectId, userId) {
+	// increment count on reviews
+	Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewId + '/' + counterType).transaction(function (current_count) {
+		return (current_count || 0) + 1;
+    });
+
+    // increment count on reviews by subject
+    Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + userId + '/' + counterType).transaction(function (current_count) {
+		return (current_count || 0) + 1;
+    });
+
+	// incrememt count on reviews by user
+	Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + userId + '/' + reviewId + '/' + counterType).transaction(function (current_count) {
+		return (current_count || 0) + 1;
+    });
+
+	// increment count on subject
+	Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId + '/' + counterType).transaction(function (current_count) {
+		return (current_count || 0) + 1;
+    });
+}
+
+export function decrementCount(counterType, reviewId, subjectId, userId) {
+	// decrement count on reviews
+	Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewId + '/' + counterType).transaction(function (current_count) {
+		return (current_count - 1 > 0) ? (current_count - 1) : 0;
+    });
+
+    // decrement count on reviews by subject
+    Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + userId + '/' + counterType).transaction(function (current_count) {
+		return (current_count - 1 > 0) ? (current_count - 1) : 0;
+    });
+
+	// decrement count on reviews by user
+	Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + userId + '/' + reviewId + '/' + counterType).transaction(function (current_count) {
+		return (current_count - 1 > 0) ? (current_count - 1) : 0;
+    });
+
+	// decrement count on subject
+	Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId + '/' + counterType).transaction(function (current_count) {
+		return (current_count - 1 > 0) ? (current_count - 1) : 0;
+    });
+}
+
 export function sendInboxMessage(senderId, recipientId, messageType, review) {
 	const inboxObject = {
 		lastModified: Firebase.database.ServerValue.TIMESTAMP

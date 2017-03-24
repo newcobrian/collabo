@@ -1203,36 +1203,47 @@ export function onCommentSubmit(authenticated, review, body) {
       lastModified: Firebase.database.ServerValue.TIMESTAMP
     }
 
-    Firebase.database().ref(Constants.COMMENTS_PATH + '/' + review.id).push(comment);
+    Firebase.database().ref(Constants.COMMENTS_PATH + '/' + review.id).push(comment).then(response => {
+      Helpers.incrementCount(Constants.COMMENTS_COUNT, review.id, review.subjectId, review.reviewer.userId);
 
-    // send message to original review poster
-    Helpers.sendInboxMessage(userId, review.userId, Constants.COMMENT_ON_REVIEW_MESSAGE, review);
-    const sentArray = [review.userId];
+      // send message to original review poster
+      Helpers.sendInboxMessage(userId, review.userId, Constants.COMMENT_ON_REVIEW_MESSAGE, review);
+      const sentArray = [review.userId];
 
-    Firebase.database().ref(Constants.COMMENTS_PATH + '/' + review.id).once('value', commentsSnapshot => {
-      commentsSnapshot.forEach(function(comment) {
-        let commenterId = comment.val().userId;
-        // if not commentor or in sent array, then send a message
-        if (commenterId !== userId && (sentArray.indexOf(commenterId) === -1)) {
-          Helpers.sendInboxMessage(userId, commenterId, Constants.COMMENT_ON_COMMENT_MESSAGE, review);
-          sentArray.push(commenterId);
-        }
+      Firebase.database().ref(Constants.COMMENTS_PATH + '/' + review.id).once('value', commentsSnapshot => {
+        commentsSnapshot.forEach(function(comment) {
+          let commenterId = comment.val().userId;
+          // if not commentor or in sent array, then send a message
+          if (commenterId !== userId && (sentArray.indexOf(commenterId) === -1)) {
+            Helpers.sendInboxMessage(userId, commenterId, Constants.COMMENT_ON_COMMENT_MESSAGE, review);
+            sentArray.push(commenterId);
+          }
+        })
+      })
+
+      dispatch({
+        type: ADD_COMMENT
       })
     })
-
-    dispatch({
-      type: ADD_COMMENT
+    .catch(error => {
+      console.log(error);
     })
   }
 }
 
-export function onDeleteComment(reviewId, commentId) {
+export function onDeleteComment(review, commentId) {
   return dispatch => {
-    dispatch({
-      type: DELETE_COMMENT,
-      payload: Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewId + '/' + commentId).remove()
-    });
-  };
+    Firebase.database().ref(Constants.COMMENTS_PATH + '/' + review.id + '/' + commentId).remove().then(response => {
+      Helpers.decrementCount(Constants.COMMENTS_COUNT, review.id, review.subjectId, review.reviewer.userId);
+
+      dispatch({
+        type: DELETE_COMMENT
+      })
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  }
 }
 
 export function onDeleteReview(userId, reviewId, subjectId, reviewDetailPath) {
@@ -1565,12 +1576,16 @@ export function likeReview(authenticated, review) {
     const updates = {};
     updates[`/${Constants.LIKES_PATH}/${review.id}/${authenticated}`] = true;
     updates[`/${Constants.LIKES_BY_USER_PATH}/${authenticated}/${review.id}`] = true;
-    Firebase.database().ref().update(updates);
+    Firebase.database().ref().update(updates).then(response => {
+      Helpers.incrementCount(Constants.LIKES_COUNT, review.id, review.subjectId, review.reviewer.userId);
+      Helpers.sendInboxMessage(authenticated, review.reviewer.userId, Constants.LIKE_MESSAGE, review);
 
-    Helpers.sendInboxMessage(authenticated, review.reviewer.userId, Constants.LIKE_MESSAGE, review);
-
-    dispatch({
-      type: REVIEW_LIKED
+      dispatch({
+        type: REVIEW_LIKED
+      })
+    })
+    .catch(error => {
+      console.log(error);
     })
   }
 }
@@ -1585,10 +1600,14 @@ export function unLikeReview(authenticated, review) {
     const updates = {};
     updates[`/${Constants.LIKES_PATH}/${review.id}/${authenticated}`] = null;
     updates[`/${Constants.LIKES_BY_USER_PATH}/${authenticated}/${review.id}`] = null;
-    Firebase.database().ref().update(updates);
-
-    dispatch({
-      type: REVIEW_UNLIKED
+    Firebase.database().ref().update(updates).then(response => {
+      Helpers.decrementCount(Constants.LIKES_COUNT, review.id, review.subjectId, review.reviewer.userId);
+      dispatch({
+        type: REVIEW_UNLIKED
+      })
+    })
+    .catch(error => {
+      console.log(error);
     })
   }
 }
@@ -1600,15 +1619,21 @@ export function saveReview(authenticated, review) {
         type: ASK_FOR_AUTH
       })
     }
-    const updates = {};
-    updates[`/${Constants.SAVES_BY_USER_PATH}/${authenticated}/${review.id}`] = true;
-    Firebase.database().ref().update(updates);
+    else {
+      const updates = {};
+      updates[`/${Constants.SAVES_BY_USER_PATH}/${authenticated}/${review.id}`] = true;
+      Firebase.database().ref().update(updates).then(response => {
+        Helpers.incrementCount(Constants.SAVES_COUNT, review.id, review.subjectId, review.reviewer.userId);
+        Helpers.sendInboxMessage(authenticated, review.reviewer.userId, Constants.SAVE_MESSAGE, review);
 
-    Helpers.sendInboxMessage(authenticated, review.reviewer.userId, Constants.SAVE_MESSAGE, review);
-
-    dispatch({
-      type: REVIEW_SAVED
-    })
+        dispatch({
+          type: REVIEW_SAVED
+        })
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    }
   }
 }
 export function unSaveReview(authenticated, review) {
@@ -1618,13 +1643,19 @@ export function unSaveReview(authenticated, review) {
         type: ASK_FOR_AUTH
       })
     }
-    const updates = {};
-    updates[`/${Constants.SAVES_BY_USER_PATH}/${authenticated}/${review.id}`] = null;
-    Firebase.database().ref().update(updates);
-
-    dispatch({
-      type: REVIEW_UNSAVED
-    })
+    else {
+      const updates = {};
+      updates[`/${Constants.SAVES_BY_USER_PATH}/${authenticated}/${review.id}`] = null;
+      Firebase.database().ref().update(updates).then(response => {
+        Helpers.decrementCount(Constants.SAVES_COUNT, review.id, review.subjectId, review.reviewer.userId);
+        dispatch({
+          type: REVIEW_UNSAVED
+        })
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    }
   }
 }
 
