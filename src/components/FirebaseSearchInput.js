@@ -5,6 +5,11 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import * as Constants from '../constants'
 import 'whatwg-fetch';
 
+var algoliasearch = require('algoliasearch');
+var client = algoliasearch('2OEMW8KEZS', '9a89d783d977beba72ed562e15033279');
+
+var index = client.initIndex('whatsgood-subjects');
+
 class FirebaseSearchInput extends Component {
   constructor(props) {
     super(props);
@@ -40,11 +45,35 @@ class FirebaseSearchInput extends Component {
       
     console.log(url)
 
+
+    // index.search(this.state.inputValue, function(err, content) {
+    //   console.log(JSON.stringify(content.hits));
+    // });
+    // return;
+
     if(this.state.inputValue !== '') {
+      let retrievedSearchTerms = [];
+
+      // search Firebase
+      index.search(this.state.inputValue, function(err, content) {
+        content.hits.map(function(result) {
+          let algoliaSearchObject = {};
+          if (result.title && result.objectID) {
+            algoliaSearchObject.text = '**** ' + result.title;
+            algoliaSearchObject.value = result.title;
+            algoliaSearchObject.id = result.objectID;
+            if (result.description) algoliaSearchObject.description = result.description;
+
+            retrievedSearchTerms.push(algoliaSearchObject);
+          }          
+        })
+      });
+
+      // then use the search API
       fetch(url).then(response => response.json())
         .then(json => {
         let searchResults;
-        let retrievedSearchTerms = [];
+        // console.log('HIIIIII = ' + JSON.stringify(retrievedSearchTerms))
 
         if(json.error) return json.error;
 

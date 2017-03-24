@@ -475,74 +475,84 @@ export function onCreateUnload() {
 
 export function loadCreateSubject(userId, result) {
   return dispatch => {
-    const subject = {};
+    let subject = {};
 
     if (result && result.id) {
-      // get the user's review if they already reviewed it
       Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + result.id + '/' + userId).once('value', reviewSnapshot => {
-        // put together subject info
-        subject.title = result.value;
-        if (result.url) subject.url = result.url;
-        if (result.description) subject.description = result.description;
-        
+        Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + result.id).once('value', subjectSnapshot => {
+          // put together subject info
+          if (subjectSnapshot.exists()) {
+            subject = subjectSnapshot.val();
+          }
+          else {
+            subject.title = result.value;
+            if (result.URL) subject.url = result.url;
+            if (result.description) subject.description = result.description;
+          }
 
-        let dispatchObject = {
-          type: CREATE_SUBJECT_LOADED,
-          payload: subject,
-          review: reviewSnapshot.val(),
-          rating: null,
-          caption: '',
-          subjectId: result.id
-        };
+          let dispatchObject = {
+            type: CREATE_SUBJECT_LOADED,
+            payload: subject,
+            review: reviewSnapshot.val(),
+            rating: null,
+            caption: '',
+            subjectId: result.id
+          };
 
-        if (result.image) dispatchObject.image = result.image;
+          // get image
+          if (subjectSnapshot.exists()) {
+            dispatchObject.image = Helpers.getImagePath(subjectSnapshot.val().images);
+          }
+          else if (result.image) dispatchObject.image = result.image;
 
-        if (reviewSnapshot.exists()) {
-          dispatchObject.rating = reviewSnapshot.val().rating;
-          dispatchObject.caption = reviewSnapshot.val().caption;
-        }
+          // get the user's review if they already reviewed it
+          if (reviewSnapshot.exists()) {
+            dispatchObject.rating = reviewSnapshot.val().rating;
+            dispatchObject.caption = reviewSnapshot.val().caption;
+          }
 
-        // fetch image from 4sq API
-        if (result._service === '4sq') {
-          const foursquareURL = Constants.FOURSQUARE_API_PATH + result.id.slice(4) + 
-            '?client_id=' + Constants.FOURSQUARE_CLIENT_ID + 
-            '&client_secret=' + Constants.FOURSQUARE_CLIENT_SECRET + '&v=20170101';
-          fetch(foursquareURL).then(response => response.json())
-          .then(json => {
-            if (json.response.venue && json.response.venue.photos && json.response.venue.photos.groups && 
-              json.response.venue.photos.groups[0] && json.response.venue.photos.groups[0].items &&
-              json.response.venue.photos.groups[0].items[0]) {
-              const photoURL = json.response.venue.photos.groups[0].items[0].prefix + 'original' +
-                json.response.venue.photos.groups[0].items[0].suffix;
-              dispatchObject.image = photoURL;
-            }
+          // fetch image from 4sq API
+          if (result._service === '4sq') {
+            const foursquareURL = Constants.FOURSQUARE_API_PATH + result.id.slice(4) + 
+              '?client_id=' + Constants.FOURSQUARE_CLIENT_ID + 
+              '&client_secret=' + Constants.FOURSQUARE_CLIENT_SECRET + '&v=20170101';
+            fetch(foursquareURL).then(response => response.json())
+            .then(json => {
+              if (json.response.venue && json.response.venue.photos && json.response.venue.photos.groups && 
+                json.response.venue.photos.groups[0] && json.response.venue.photos.groups[0].items &&
+                json.response.venue.photos.groups[0].items[0]) {
+                const photoURL = json.response.venue.photos.groups[0].items[0].prefix + 'original' +
+                  json.response.venue.photos.groups[0].items[0].suffix;
+                dispatchObject.image = photoURL;
+              }
+              dispatch(dispatchObject);
+            })
+          }
+          else if (result._service === 'amazon') {
+            const amazonURL = Constants.AMAZON_SEARCH_URL + result.id;
+            fetch(amazonURL).then(response => response.json()).then(json => {
+              if (json.images) {
+                if (json.images.large) {
+                  dispatchObject.image = json.images.large;
+                }
+                else if (json.images.medium) {
+                  dispatchObject.image = json.images.medium;
+                }
+                else if (json.images.small) {
+                  dispatchObject.image = json.images.small;
+                }
+              }
+              if (json.reviews) {
+                if (json.reviews.ProductDescription) subject.description = json.reviews.ProductDescription;
+              }
+
+              dispatch(dispatchObject);
+            })
+          }
+          else {
             dispatch(dispatchObject);
-          })
-        }
-        else if (result._service === 'amazon') {
-          const amazonURL = Constants.AMAZON_SEARCH_URL + result.id;
-          fetch(amazonURL).then(response => response.json()).then(json => {
-            if (json.images) {
-              if (json.images.large) {
-                dispatchObject.image = json.images.large;
-              }
-              else if (json.images.medium) {
-                dispatchObject.image = json.images.medium;
-              }
-              else if (json.images.small) {
-                dispatchObject.image = json.images.small;
-              }
-            }
-            if (json.reviews) {
-              if (json.reviews.ProductDescription) subject.description = json.reviews.ProductDescription;
-            }
-
-            dispatch(dispatchObject);
-          })
-        }
-        else {
-          dispatch(dispatchObject);
-        }
+          }
+        })
       })
     }
     else dispatch({

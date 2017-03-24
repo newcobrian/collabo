@@ -17,6 +17,7 @@
     "webpack-dev-server": "^2.3.0"
   },
   "dependencies": {
+    "algoliasearch": "^3.22.1",
     "firebase": "^3.6.9",
     "immutable": "^3.8.1",
     "marked": "^0.3.6",
