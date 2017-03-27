@@ -6,7 +6,7 @@ import * as Constants from '../constants'
 import 'whatwg-fetch';
 
 var algoliasearch = require('algoliasearch');
-var client = algoliasearch('2OEMW8KEZS', '9a89d783d977beba72ed562e15033279');
+var client = algoliasearch('2OEMW8KEZS', '62e17a3113351343399fad062d3cbca5', {protocol:'https:'});
 
 var index = client.initIndex('whatsgood-subjects');
 
