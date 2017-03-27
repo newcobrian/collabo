@@ -38,6 +38,9 @@ export function incrementCount(counterType, reviewId, subjectId, userId) {
 	Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId + '/' + counterType).transaction(function (current_count) {
 		return (current_count || 0) + 1;
     });
+
+	// update subject timestamp
+    Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId).update({ lastModified: Firebase.database.ServerValue.TIMESTAMP })
 }
 
 export function decrementCount(counterType, reviewId, subjectId, userId) {
@@ -60,6 +63,9 @@ export function decrementCount(counterType, reviewId, subjectId, userId) {
 	Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId + '/' + counterType).transaction(function (current_count) {
 		return (current_count - 1 > 0) ? (current_count - 1) : 0;
     });
+
+	// update subject timestamp
+    Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId).update({ lastModified: Firebase.database.ServerValue.TIMESTAMP })
 }
 
 export function sendInboxMessage(senderId, recipientId, messageType, review) {
