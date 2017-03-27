@@ -621,6 +621,10 @@ export function onCreateSubmit(key, subject, review, rid, imageURL) {
             };
           }
         }
+        // if subject exists, just update lastModified
+        else {
+          Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + key).update({lastModified: lastModified});
+        }
       })
     }
     else {
