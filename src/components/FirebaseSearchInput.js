@@ -15,6 +15,7 @@ class FirebaseSearchInput extends Component {
     super(props);
     this.onUpdateInput = this.onUpdateInput.bind(this);
     this.onNewRequest = this.onNewRequest.bind(this);
+    this.updateAlgoliaIndex = this.updateAlgoliaIndex.bind(this);
     this.state = {
       dataSource : [],
       inputValue : '',
@@ -23,7 +24,6 @@ class FirebaseSearchInput extends Component {
   }
 
   onUpdateInput(inputValue) {
-
     const self = this;
     this.setState({
       inputValue: inputValue
@@ -35,7 +35,24 @@ class FirebaseSearchInput extends Component {
     })
   }
 
+  updateAlgoliaIndex(request) {
+    if (request._service !== 'algolia') {
+      index.saveObject({
+        name: request.value,
+        description: request.description,
+        objectID: request.id
+      }, function(err, content) {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        console.log(content);
+      });
+    }
+  }
+
   onNewRequest(chosenRequest) {
+    this.updateAlgoliaIndex(chosenRequest);
     this.props.callback(chosenRequest);
   }
 
@@ -56,9 +73,14 @@ class FirebaseSearchInput extends Component {
 
       // search Firebase
       index.search(this.state.inputValue, function(err, content) {
+        if (err) {
+          console.error(err);
+          return;
+        }
         content.hits.map(function(result) {
           let algoliaSearchObject = {};
           if (result.title && result.objectID) {
+            algoliaSearchObject._service = 'algolia';
             algoliaSearchObject.text = result.title;
             algoliaSearchObject.value = result.title;
             algoliaSearchObject.id = result.objectID;
