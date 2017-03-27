@@ -46,7 +46,6 @@ class FirebaseSearchInput extends Component {
           console.error(err);
           return;
         }
-        console.log(content);
       });
     }
   }

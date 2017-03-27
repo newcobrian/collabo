@@ -261,7 +261,7 @@ def search_amazon(q, **kwargs):
         'Service': 'AWSECommerceService',
         'Operation': 'ItemSearch',
         'ResponseGroup': 'Small',
-        'SearchIndex': 'Books',
+        'SearchIndex': 'Blended',
         'Title': q,
         'AWSAccessKeyId': AMAZON_ACCESS_KEY_ID,
         'AssociateTag': AMAZON_ASSOCIATE_TAG,
