@@ -37,6 +37,7 @@ export const GLOBAL_FEED_UNLOADED = 'GLOBAL_FEED_UNLOADED';
 export const APP_USER_LOADED = 'APP_USER_LOADED';
 export const GET_FOLLOWING_COUNT = 'GET_FOLLOWING_COUNT';
 export const GET_FOLLOWER_COUNT = 'GET_FOLLOWER_COUNT';
+export const FOLLOWED_USER = 'FOLLOWED_USER';
 export const REVIEW_LIKED = 'REVIEW_LIKED';
 export const REVIEW_UNLIKED = 'REVIEW_UNLIKED';
 export const REVIEW_SAVED = 'REVIEW_SAVED';
@@ -128,7 +129,12 @@ export function onLoad(currentUser, authenticated) {
     dispatch({ 
       type: 'APP_LOAD', 
       currentUser: currentUser,
-      authenticated: authenticated 
+      authenticated: authenticated,
+      meta: {
+        mixpanel: {
+          event: 'App loaded'
+        }
+      }
     })
   }
 }
@@ -171,7 +177,12 @@ export function signUpUser(username, email, password) {
 
           dispatch({
             type: AUTH_USER,
-            payload: userId
+            payload: userId,
+            meta: {
+              mixpanel: {
+                event: 'Sign up'
+              }
+            }
           })
         })
         .catch(error => {
@@ -187,7 +198,12 @@ export function signInUser(email, password) {
       .then(response => {
         dispatch({
           type: AUTH_USER,
-          payload: response.uid
+          payload: response.uid,
+          meta: {
+            mixpanel: {
+              event: 'Sign in'
+            }
+          }
         });
       })
       .catch(error => {
@@ -253,7 +269,12 @@ export function saveSettings(user, currentUsername) {
           dispatch({
             type: SETTINGS_SAVED,
             payload:
-              Firebase.database().ref(Constants.USERS_PATH + '/' + uid + '/').update(user)
+              Firebase.database().ref(Constants.USERS_PATH + '/' + uid + '/').update(user),
+            meta: {
+              mixpanel: {
+                event: 'Settings saved'
+              }
+            }
           });  
         }
       });
@@ -375,6 +396,18 @@ export function followUser(authenticated, follower) {
     }
     Helpers.sendInboxMessage(following, follower, Constants.FOLLOW_MESSAGE, null);
     Firebase.database().ref().update(updates);
+
+    dispatch({
+      type: FOLLOWED_USER,
+      meta: {
+        mixpanel: {
+          event: 'Followed user',
+          props: {
+            userId: follower
+          }
+        }
+      }
+    })
   }
 }
 
@@ -496,7 +529,17 @@ export function loadCreateSubject(userId, result) {
             review: reviewSnapshot.val(),
             rating: null,
             caption: '',
-            subjectId: result.id
+            subjectId: result.id,
+            meta: {
+              mixpanel: {
+                event: 'Subject loaded from search',
+                props: {
+                  subjectId: result.id,
+                  title: subject.title,
+                  service: result._service
+                }
+              }
+            }
           };
 
           // get image
@@ -688,7 +731,17 @@ export function onCreateSubmit(key, subject, review, rid, imageURL) {
 
         dispatch({
           type: REVIEW_SUBMITTED,
-          payload: reviewsByUserObject
+          payload: reviewsByUserObject,
+          meta: {
+            mixpanel: {
+              event: 'Review submitted',
+              props: {
+                rating: review.rating,
+                subjectId: subjectId,
+                location: 'Create page'
+              }
+            }
+          }
         })
       })
       .catch(error => {
@@ -853,7 +906,17 @@ export function onEditorSubmit(subject, imageFile, review, tag) {
           Firebase.database().ref().update(imageUpdates).then(response => {
             dispatch({
               type: REVIEW_SUBMITTED,
-              payload: payloadObject
+              payload: payloadObject,
+              meta: {
+                mixpanel: {
+                  event: 'Review submitted',
+                  props: {
+                    rating: review.rating,
+                    subjectId: subjectId,
+                    location: 'Editor page'
+                  }
+                }
+              }
             })
           });
         }
@@ -1219,7 +1282,15 @@ export function onCommentSubmit(authenticated, review, body) {
       })
 
       dispatch({
-        type: ADD_COMMENT
+        type: ADD_COMMENT,
+        meta: {
+          mixpanel: {
+            event: 'Comment added',
+            props: {
+              subjectId: review.subjectId
+            }
+          }
+        }
       })
     })
     .catch(error => {
@@ -1572,7 +1643,15 @@ export function likeReview(authenticated, review) {
       Helpers.sendInboxMessage(authenticated, review.reviewer.userId, Constants.LIKE_MESSAGE, review);
 
       dispatch({
-        type: REVIEW_LIKED
+        type: REVIEW_LIKED,
+        meta: {
+          mixpanel: {
+            event: 'Liked review',
+            props: {
+              subjectId: review.subjectId
+            }
+          }
+        }
       })
     })
     .catch(error => {
@@ -1618,7 +1697,15 @@ export function saveReview(authenticated, review) {
         Helpers.sendInboxMessage(authenticated, review.reviewer.userId, Constants.SAVE_MESSAGE, review);
 
         dispatch({
-          type: REVIEW_SAVED
+          type: REVIEW_SAVED,
+          meta: {
+            mixpanel: {
+              event: 'Saved review',
+              props: {
+                subjectId: review.subjectId
+              }
+            }
+          }
         })
       })
       .catch(error => {
@@ -1872,12 +1959,23 @@ export function onUpdateFriendsCheckbox(label, selectedFriends) {
 
 export function onFriendSelectorSubmit(authenticated, selectedFriends, review) {
   return dispatch => {
+    let recipientCount = 0;
     for (const friendId of selectedFriends) {
+      recipientCount++;
       // console.log(friendId, 'is selected.');
       Helpers.sendInboxMessage(authenticated, friendId, Constants.DIRECT_MESSAGE, review);
     }
     dispatch({
-      type: FRIEND_SELECTOR_SUBMIT
+      type: FRIEND_SELECTOR_SUBMIT,
+        meta: {
+          mixpanel: {
+            event: 'Direct send to friends',
+            props: {
+              recipients: recipientCount,
+              subjectId: review.subjectId
+            }
+          }
+        }
     })
   }
 }

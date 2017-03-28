@@ -13,8 +13,10 @@ import editor from './reducers/editor';
 import create from './reducers/create';
 import followers from './reducers/followers';
 import inbox from './reducers/inbox';
-import friendSelector from './reducers/friendSelector'
+import friendSelector from './reducers/friendSelector';
 import Firebase from 'firebase';
+import mixpanel from 'mixpanel-browser';
+import MixpanelMiddleware from 'redux-mixpanel-middleware';
 
 const reducer = combineReducers({
   review,
@@ -41,6 +43,10 @@ const config = {
 
 Firebase.initializeApp(config);
 
+// init mixpanel and pass mixpanel client to middleware 
+mixpanel.init('2e078e6260727e77045efb7648420277')
+const mixpanelMiddleware = new MixpanelMiddleware(mixpanel)
+
 // const createStoreWithFirebase = compose(
 //     reduxReactFirebase(config),
 // )(createStore)
@@ -55,7 +61,7 @@ const store = createStore(
   reducer,
   // initialState,
   compose (
-    applyMiddleware(reduxThunk),
+    applyMiddleware(reduxThunk, mixpanelMiddleware),
     window.devToolsExtension ? window.devToolsExtension() : f => f
   )
 );

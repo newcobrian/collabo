@@ -4,6 +4,7 @@ import agent from '../agent';
 import { connect } from 'react-redux';
 import Firebase from 'firebase';
 import * as Actions from '../actions';
+import mixpanel from 'mixpanel-browser';
 
 const mapStateToProps = state => ({
   appLoaded: state.common.appLoaded,
@@ -49,6 +50,7 @@ class App extends React.Component {
         // else {
         //   this.props.onLoad(user, user.uid);
         // }
+        mixpanel.identify(user.uid);
         this.props.onLoad(user, user.uid);
         this.props.getAppUser(user.uid);
         this.props.getInboxCount(user.uid);
