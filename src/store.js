@@ -44,7 +44,15 @@ const config = {
 Firebase.initializeApp(config);
 
 // init mixpanel and pass mixpanel client to middleware 
-mixpanel.init('2e078e6260727e77045efb7648420277')
+var productionHost = 'whatsgooood.com';
+var devToken = '82d2d072b1d3d0fab39554d00f242545';
+var prodToken = '2e078e6260727e77045efb7648420277';
+
+if (window.location.hostname.toLowerCase().search(productionHost) < 0) {
+    mixpanel.init(devToken);
+} else {
+    mixpanel.init(prodToken);
+}
 const mixpanelMiddleware = new MixpanelMiddleware(mixpanel)
 
 // const createStoreWithFirebase = compose(
