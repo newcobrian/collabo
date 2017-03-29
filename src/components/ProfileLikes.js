@@ -34,6 +34,7 @@ class ProfileLikes extends Profile {
         this.props.getLikesOrSavesByUser(this.props.authenticated, userId, Constants.LIKES_BY_USER_PATH);
       }
     });
+    this.props.sendMixpanelEvent('Likes page loaded');
   }
 
   componentWillUnmount() {

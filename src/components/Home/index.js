@@ -28,7 +28,7 @@ class Home extends React.Component {
 
     // this.props.onLoad(tab, Promise.all([agent.Tags.getAll(), articlesPromise]));
     this.props.getUserFeed(this.props.authenticated);
-    // this.props.getGlobalFeed(this.props.authenticated);
+    this.props.sendMixpanelEvent('Friend feed loaded');
   }
 
   componentWillUnmount() {

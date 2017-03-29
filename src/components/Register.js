@@ -41,6 +41,10 @@ class Register extends React.Component {
     }
   }
 
+  componentWillMount() {
+    this.props.sendMixpanelEvent('Register page loaded');
+  }
+
   componentWillUnmount() {
     // this.props.onUnload();
   }

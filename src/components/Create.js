@@ -107,6 +107,7 @@ class Create extends React.Component {
 	    	this.props.onCreateLoad(this.props.authenticated);
 	    	this.getUserLocation();
     	}
+    	this.props.sendMixpanelEvent('Create page loaded');
 	}
 
 	componentWillUnmount() {

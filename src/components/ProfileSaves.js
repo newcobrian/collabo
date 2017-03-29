@@ -18,6 +18,7 @@ class ProfileSaves extends Profile {
         this.props.getLikesOrSavesByUser(this.props.authenticated, userId, Constants.SAVES_BY_USER_PATH);
       }
     });
+    this.props.sendMixpanelEvent('Saves page loaded');
   }
 
   componentWillUnmount() {

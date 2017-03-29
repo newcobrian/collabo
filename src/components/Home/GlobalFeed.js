@@ -7,6 +7,7 @@ import { Link } from 'react-router';
 class GlobalFeed extends Home {
   componentWillMount() {
     this.props.getGlobalFeed(this.props.authenticated);
+    this.props.sendMixpanelEvent('Global feed loaded');
   }
 
   componentWillUnmount() {

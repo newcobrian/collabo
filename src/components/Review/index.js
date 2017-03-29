@@ -91,6 +91,7 @@ class Review extends React.Component {
       this.props.getComments(this.props.params.rid);
       this.props.getAppUserReview(this.props.authenticated, this.props.userInfo, this.props.params.sid);
       this.props.getFollowingReviews(this.props.authenticated, this.props.params.sid, this.props.params.rid);
+      this.props.sendMixpanelEvent('Review page loaded');
     }
   }
 

@@ -54,6 +54,7 @@ class App extends React.Component {
         this.props.onLoad(user, user.uid);
         this.props.getAppUser(user.uid);
         this.props.getInboxCount(user.uid);
+        this.props.sendMixpanelEvent('App loaded');
       } 
       else {
         // Firebase.auth().signInAnonymously().catch(function(error) {

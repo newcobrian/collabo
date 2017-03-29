@@ -12,6 +12,7 @@ class Followings extends Followers {
         this.props.getFollowers(userId, Constants.IS_FOLLOWING_PATH);
       }
     });
+    this.props.sendMixpanelEvent('Followings page loaded');
   }
 
   componentWillUnmount() {

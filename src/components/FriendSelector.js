@@ -16,6 +16,7 @@ class FriendSelector extends React.Component {
 			this.props.emptyFriendSelector();
 		}
 		this.props.getFriends(this.props.authenticated);
+		this.props.sendMixpanelEvent('Friend selector page loaded');
 	}
 
 	componentWillUnmount() {

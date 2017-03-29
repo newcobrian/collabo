@@ -74,6 +74,7 @@ class Profile extends React.Component {
         this.props.getReviewsByUser(this.props.authenticated, userId);
         this.props.getFollowingCount(userId);
         this.props.getFollowerCount(userId);
+        this.props.sendMixpanelEvent('Profile page loaded');
       }
     });
     // this.props.getUser(userId);

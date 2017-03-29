@@ -21,6 +21,7 @@ class Followers extends React.Component {
 	        this.props.getFollowers(userId, Constants.HAS_FOLLOWERS_PATH);
 	      }
 	    });
+	    this.props.sendMixpanelEvent('Followers page loaded');
 	}
 
 	componentWillUnmount() {

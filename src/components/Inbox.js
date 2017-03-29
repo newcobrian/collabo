@@ -57,6 +57,7 @@ const mapStateToProps = state => ({
 class Inbox extends React.Component {
   componentWillMount() {
     this.props.getInbox(this.props.authenticated);
+    this.props.sendMixpanelEvent('Inbox page loaded');
   }
 
   componentWillUnmount() {

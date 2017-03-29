@@ -43,6 +43,7 @@ class SettingsForm extends React.Component {
         bio: this.props.currentUser.bio,
         email: this.props.currentUser.email
       });
+      this.props.sendMixpanelEvent('Settings page loaded');
     }
   }
 

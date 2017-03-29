@@ -113,6 +113,7 @@ class Editor extends React.Component {
       // return this.props.onLoad(agent.Articles.get(this.props.params.slug));
     }
     this.props.onEditorLoad(null);
+    this.props.sendMixpanelEvent('Editor page loaded');
     // this.props.onLoad(null);
   }
 

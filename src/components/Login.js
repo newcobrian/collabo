@@ -33,6 +33,10 @@ class Login extends React.Component {
     };
   }
 
+  componentWillMount() {
+    this.props.sendMixpanelEvent('Login page loaded');
+  }
+
   componentWillUnmount() {
     // this.props.onUnload();
   }

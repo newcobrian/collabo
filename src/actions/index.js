@@ -71,6 +71,7 @@ export const FRIEND_SELECTOR_SUBMIT = 'FRIEND_SELECTOR_SUBMIT';
 export const EMPTY_FRIEND_SELECTOR = 'EMPTY_FRIEND_SELECTOR';
 export const REVIEW_DELETED = 'REVIEW_DELETED';
 export const SET_IN_PROGRESS = 'SET_IN_PROGRESS';
+export const MIXPANEL_EVENT = 'MIXPANEL_EVENT';
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -129,12 +130,7 @@ export function onLoad(currentUser, authenticated) {
     dispatch({ 
       type: 'APP_LOAD', 
       currentUser: currentUser,
-      authenticated: authenticated,
-      meta: {
-        mixpanel: {
-          event: 'App loaded'
-        }
-      }
+      authenticated: authenticated
     })
   }
 }
@@ -2059,6 +2055,20 @@ export function updateInboxCount(userId) {
         dispatch({
           type: INBOX_COUNT_UPDATED
         })
+      }
+    })
+  }
+}
+
+export function sendMixpanelEvent(eventName, params={}) {
+  return dispatch => {
+    dispatch({
+      type: MIXPANEL_EVENT,
+      meta: {
+        mixpanel: {
+          event: eventName,
+          props: Object.assign({}, params)
+        }
       }
     })
   }
