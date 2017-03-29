@@ -407,6 +407,9 @@ a.logo-module:focus {
     z-index: 10;
     padding: 5px 40px 5px 40px;
 }
+.feed-toggle.tags-toggle {
+  top: 131px;
+}
 .article-preview {
   text-align: center;
   width: 100%;
@@ -435,7 +438,7 @@ a.logo-module:focus {
 ******
 ******/
 .home-page {
-  margin: 70px 40px;
+  margin: 100px 40px;
 }
 
 
@@ -559,9 +562,10 @@ a.logo-module:focus {
   margin: 120px 40px;
 }
 .article-page .subject-image img {
-    width: 200px;
-    height: 200px;
+    width: 260px;
+    height: 260px;
     background: url(../img/graphic42_face_coo.png);
+    border-radius: 10px;
 }
 .article-page .subject-name-container {
   text-align: center;
@@ -770,7 +774,7 @@ a.logo-module:focus {
 .comment-wrapper.card .comment-data {
 }
 .comment-wrapper.card .comment-author {
-    font-size: 14px;
+    font-size: 1em;
     font-weight: 700;
     margin-right: 5px;
     margin-top: -3px;
@@ -841,8 +845,8 @@ a.logo-module:focus {
   outline-offset: -2px;
 }
 .comment-row {
-  line-height: 18px;
-  font-size: 14px;
+    line-height: 1.6em;
+    font-size: 1.2em;
 }
 
 

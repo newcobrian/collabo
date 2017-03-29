@@ -54,6 +54,7 @@ class Home extends React.Component {
           </Link>
         </li>
       </ul>
+
     );
   }
 
@@ -65,6 +66,67 @@ class Home extends React.Component {
                 <div className="feed-toggle roow roow-row-center">
                   {this.renderTabs()}
                 </div>
+                <div className="feed-toggle tags-toggle roow roow-row-center">
+                  <ul className="nav nav-pills outline-active">
+                    <li className="nav-item">
+                      <Link
+                        className="nav-link active"
+                        to={``}>
+                        All
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link
+                        className="nav-link"
+                        to={`global`}>
+                        Books
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link
+                        className="nav-link"
+                        to={`d`}>
+                        Movies
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link
+                        className="nav-link"
+                        to={`global`}>
+                        Places
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link
+                        className="nav-link"
+                        to={`d`}>
+                        Food
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link
+                        className="nav-link"
+                        to={`global`}>
+                        Music
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link
+                        className="nav-link"
+                        to={`d`}>
+                        Health
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link
+                        className="nav-link"
+                        to={`global`}>
+                        Electronics
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+
                 
                 <MainView />
               </div>

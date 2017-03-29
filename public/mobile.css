@@ -149,6 +149,7 @@ body {
 .page-common.no-feed-toggle {
   margin: 0px 10px;
 }
+
 .home-page {
     margin: 60px auto;
     padding: 0 10px;
@@ -184,6 +185,9 @@ body {
 }
 .home-page .feed-toggle {
   top: 50px;
+}
+.feed-toggle.tags-toggle {
+  top: 80px;
 }
 .home-page .feed-toggle .nav {
   margin: 0 auto;

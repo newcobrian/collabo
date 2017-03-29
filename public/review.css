@@ -27,7 +27,8 @@
   padding: 10px;
 }
 .main-review .text-subject-name {
-  font-size: 24px;
+    font-size: 1.8em;
+    line-height: 1.2em;
 }
 .your-review .subject-image img,
 .other-review .subject-image img {
@@ -38,6 +39,12 @@
 
 .your-review .review-image-wrapper,
 .other-review .review-image-wrapper {
+}
+.review-image-wrapper {
+  width: 220px;
+  height: 220px;
+  background: #161F34;
+  border-radius: 12px;
 }
 .subject-name-container {
     text-align: center;
@@ -59,7 +66,19 @@
     font-weight: 600;
 }
 .text-category {
-  font-size: 16px;
+    display: inline-block;
+    margin-bottom: 18px;
+    padding: 4px 12px 5px;
+    -webkit-align-self: center;
+    -ms-flex-item-align: center;
+    align-self: center;
+    border-radius: 3px;
+    background-color: #ebeff0;
+    color: #7d8390;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 10px 10px 10px 0;
+    opacity: 1;
 }
 .text-feed-section-title {
     width: 100%;
@@ -76,9 +95,10 @@
 
 }
 .subject-image img {
-  width: 200px;
-  height: 200px;
+  width: 220px;
+  height: 220px;
   object-fit: cover;
+  border-radius: 14px;
 }
 
 .review-container > div {
@@ -110,11 +130,11 @@
 }
 
 .subject-caption {
-  font-size: 16px;
-  font-weight: 100;
-  margin-bottom: 0px;
-  line-height: 20px;
-  color: #161F34;
+    font-weight: 100;
+    margin-bottom: 0px;
+    color: #161F34;
+    font-size: 20px;
+    line-height: 1.6em;
 }
 .photo-rating-module {
   margin: 0 0 10px 0px;
@@ -249,7 +269,7 @@
 
 
 .review-timestamp {
-  font-size: 10px;
+  font-size: 1em;
   opacity: .4;
   margin: 5px 0 0;
   display: inline-block;
@@ -263,6 +283,7 @@
   border-radius: 100px;
   overflow: hidden;
   margin-right: 0px;
+  background: #0B101C;
   /*box-shadow: 0 3px 5px 4px rgba(0,0,0,.1);*/
   /*border: 7px solid white;*/
 }
@@ -395,6 +416,7 @@
 .delete-button {
     display: inline-block;
     visibility: hidden;
+    font-size: 1em;
 }
 .reviews-wrapper:hover .delete-button {
       visibility: visible;
