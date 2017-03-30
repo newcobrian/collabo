@@ -1,5 +1,6 @@
 body {
 	font-family: 'Muli', sans-serif;
+  font-family: 'Roboto', sans-serif;
   color: #161F34;
   letter-spacing:1px;
   padding-top: 90px;
@@ -50,6 +51,41 @@ textarea {
     resize: none;
 }
 
+.v2-type-body1 {
+  /* “The almond milk ice: */
+  font-weight: 300;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  line-height: 22px;
+}
+.v2-type-h1 {
+  /* H1 - Ratings: */
+  font-weight: 700;
+  font-size: 68px;
+  color: #000000;
+  letter-spacing: 0;
+}
+.v2-type-h2 {
+  /* Saint Franks: */
+  font-weight: 700;
+  font-size: 28px;
+  letter-spacing: 0.5px;
+  line-height: 30px;
+}
+.v2-type-h3 {
+    /* -jma: */
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0;
+}
+.v2-type-h4 {
+  /* H4 - Categories: */
+  opacity: 0.7;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+}
+
 
 
 /****** 
@@ -57,6 +93,11 @@ textarea {
 ************************************ DOM STYLING SHARED
 ******
 ******/
+
+.default-card-white {
+  background: #FFFFFF;
+  border: 1px solid #E2E2E2;
+}
 
 .gray-border {
   border: 1px solid #E6E7E8;
@@ -418,18 +459,105 @@ a.logo-module:focus {
   width: 100%;
 }
 
-.mrgn-top {
+
+
+.mrgn-all-sm {
+  margin: 10px;
+}
+.mrgn-top-sm {
+  margin-top: 10px;
+}
+.mrgn-right-sm  {
+  margin-right: 10px;
+}
+.mrgn-bottom-sm  {
+  margin-bottom: 10px;
+}
+.mrgn-left-sm  {
+  margin-left: 10px;
+}
+
+.mrgn-all-md {
+  margin: 20px;
+}
+.mrgn-top-md {
   margin-top: 20px;
 }
-.mrgn-right {
+.mrgn-right-md {
   margin-right: 20px;
 }
-.mrgn-bottom {
+.mrgn-bottom-md {
   margin-bottom: 20px;
 }
-.mrgn-left {
+.mrgn-left-md {
   margin-left: 20px;
 }
+
+.mrgn-all-lg {
+  margin: 40px;
+}
+.mrgn-top-lg {
+  margin-top: 40px;
+}
+.mrgn-right-lg {
+  margin-right: 40px;
+}
+.mrgn-bottom-lg {
+  margin-bottom: 40px;
+}
+.mrgn-left-lg {
+  margin-left: 40px;
+}
+
+.pdding-all-sm {
+  margin: 10px;
+}
+.pdding-top-sm {
+  margin-top: 10px;
+}
+.pdding-right-sm  {
+  margin-right: 10px;
+}
+.pdding-bottom-sm  {
+  margin-bottom: 10px;
+}
+.pdding-left-sm  {
+  margin-left: 10px;
+}
+
+.pdding-all-md {
+  margin: 20px;
+}
+.pdding-top-md {
+  margin-top: 20px;
+}
+.pdding-right-md {
+  margin-right: 20px;
+}
+.pdding-bottom-md {
+  margin-bottom: 20px;
+}
+.pdding-left-md {
+  margin-left: 20px;
+}
+
+.pdding-all-lg {
+  margin: 40px;
+}
+.pdding-top-lg {
+  margin-top: 40px;
+}
+.pdding-right-lg {
+  margin-right: 40px;
+}
+.pdding-bottom-lg {
+  margin-bottom: 40px;
+}
+.pdding-left-lg {
+  margin-left: 40px;
+}
+
+
 
 
 /******
@@ -572,8 +700,6 @@ a.logo-module:focus {
   margin-bottom: 30px;
 }
 .article-page .text-subject-name {
-    font-size: 34px;
-    text-align: center;
 }
 .article-page .review-data-container {
   margin-left: 10px;

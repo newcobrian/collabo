@@ -64,7 +64,7 @@ const Hashtags = props => {
       <div>
         {props.tags.map(tag => {
           return (
-            <span key={tag}> #{tag} </span> 
+            <span key={tag}> {tag} </span> 
           )
         })
       }
@@ -80,65 +80,33 @@ const ReviewPreview = props => {
       props.authenticated === props.review.reviewer.userId;
   return (
       <div className="reviews-wrapper roow roow-left roow-col-left">
-        <div className="subject-name-container">
-              <div className="text-subject-name roow">
-                <Link to={`review/${review.subjectId}/${review.id}`}>
-                  {review.subject.title}
-                </Link>
-                <a title={'Open link: ' + review.subject.url} target="blank" href={review.subject.url}>
-                  <div className="goto-link flex-">
-                    <i className="ion-android-arrow-forward"></i>
-                  </div>
-                </a>
-              </div>
-              <div className="text-category shift-up-5"><Hashtags tags={review.subject.tag}/></div>
-        </div>
-        <div className="review-container roow roow-center roow-col-left bottom-divider">
-          <div className="roow roow-row-top pic-and-review">
-            <div className="review-image-wrapper">
-              <a href={review.subject.images ? review.subject.images[0] : ""}>
-                <div className="subject-image">
-                  <ProxyImage src={review.subject.image ? review.subject.image : ""}/>
-                </div>
-              </a>
+
+
+        <div className="review-container roow roow-center roow-col-left bottom-divider default-card-white mrgn-bottom-md">
+          <div className="subject-name-container center-text">
+            <div className="text-category v2-type-h4 mrgn-bottom-sm"><Hashtags tags={review.subject.tag}/></div>
+            <Link to={`review/${review.subjectId}/${review.id}`}>
+            <div className="text-subject-name v2-type-h2 center-text">
+              {review.subject.title}
             </div>
-            <div className="review-data-container roow roow-col-left">
-              <div className="review-data-module roow roow-col-left">
-                  <div className="photo-rating-module roow roow-row-top">
-                    <Link to={`@${review.reviewer.username}`}>
-                      <div className="reviewer-photo center-img"><ProxyImage src={review.reviewer.image}/></div>
-                    </Link>
-                    <div className="roow roow-col-left">
-                      <div className="reviewer-name-container">
-                        <Link to={`@${review.reviewer.username}`}>
-                          <div className="reviewer-name">
-                            <span className="dash"></span>{review.reviewer.username}
-                          </div>
-                        </Link>
-                      </div>
-                      <Link to={`review/${review.subjectId}/${review.id}`}> 
-                        <RatingsButtons review={review} authenticated={props.authenticated} updateRating={props.updateRating} />
-                      </Link>
-                    </div>
-
-
-                  </div>
-
-                <div className="info">
-                  <Link to={`review/${review.subjectId}/${review.id}`}>
-                  <div className="subject-caption">
-                    {review.caption}
-                  </div>
+            </Link>
+          </div>{/**END subject-name-container**/}
+          <div className="roow roow-row-top pic-and-review">
+            <div className="review-data-container roow roow-col-center mrgn-bottom-md">
+                <div className="roow">
+                  <Link to={`@${review.reviewer.username}`}>
+                      <div className="reviewer-photo center-img mrgn-right-lg"><ProxyImage src={review.reviewer.image}/></div>
                   </Link>
-                  <div className="review-timestamp">
-                    {(new Date(review.lastModified)).toLocaleString()}
-                  </div>
-                  <div className="delete-button">
-                    <ReviewActions review={review} authenticated={props.authenticated} 
-                      canModify={canModify} deleteReview={props.deleteReview} reviewDetailPath={props.reviewDetailPath} />
-                  </div>
+                  <div className="v2-type-h1 mrgn-left-lg">10</div>
                 </div>
-              </div>
+                <div className="subject-caption v2-type-body1 center-text pdding-bottom-sm pdding-top-sm">
+                  {review.caption}
+                </div>
+                <Link to={`@${review.reviewer.username}`}>
+                        <div className="reviewer-name v2-type-h3 center-text">
+                          <span className="dash"></span>{review.reviewer.username}
+                        </div>
+                </Link>
             </div>
 
 
@@ -146,14 +114,13 @@ const ReviewPreview = props => {
 
           <div className="roow roow-row flex-wrap cta-container">
               <div className="cta-box roow roow-row-space">
-                <CommentPreview comments={props.review.comments} review={props.review} />
-                <div className="roow roow-row flew-item-right">
-                  <SaveReviewButton 
-                    authenticated={props.authenticated}
-                    isSaved={props.review.isSaved}
-                    unSave={props.unSave}
-                    save={props.save} 
-                    review={review} />
+                <div className="roow roow-col-left">
+                  <div className="review-timestamp">
+                    {(new Date(review.lastModified)).toLocaleString()}
+                  </div>
+                  
+                </div>
+                <div className="roow roow-row flex-item-right">
                   <LikeReviewButton
                     authenticated={props.authenticated}
                     isLiked={props.review.isLiked}
@@ -161,13 +128,20 @@ const ReviewPreview = props => {
                     unLike={props.unLike}
                     like={props.like} 
                     review={review} />
+                  <SaveReviewButton 
+                    authenticated={props.authenticated}
+                    isSaved={props.review.isSaved}
+                    unSave={props.unSave}
+                    save={props.save} 
+                    review={review} />
                 </div>
-                {/**}
-                  </div>
+
+
                   <div className="cta-wrapper roow roow-col">
                     <div className="cta-icon cta-share"></div>
-                    Share
-                  </div>**/}
+                    Forward
+                  </div>
+
                 </div>
                 
             </div>

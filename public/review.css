@@ -27,8 +27,6 @@
   padding: 10px;
 }
 .main-review .text-subject-name {
-    font-size: 1.8em;
-    line-height: 1.2em;
 }
 .your-review .subject-image img,
 .other-review .subject-image img {
@@ -53,8 +51,8 @@
     max-width: 760px;
 }
 .reviews-wrapper {
-  margin: 0 0 20px;
-
+  margin: 0 auto;
+  width: 355px;
 }
 .subject-name-container {
     text-align: left;
@@ -62,23 +60,12 @@
     padding: 0;
 }
 .text-subject-name {
-    font-size: 20px;
-    font-weight: 600;
 }
 .text-category {
     display: inline-block;
-    margin-bottom: 18px;
-    padding: 4px 12px 5px;
     -webkit-align-self: center;
     -ms-flex-item-align: center;
     align-self: center;
-    border-radius: 3px;
-    background-color: #ebeff0;
-    color: #7d8390;
-    font-size: 14px;
-    font-weight: 500;
-    margin: 10px 10px 10px 0;
-    opacity: 1;
 }
 .text-feed-section-title {
     width: 100%;
@@ -89,10 +76,11 @@
     font-weight: 700;
 }
 .review-container {
-  padding-bottom: 10px;
+  padding: 20px;
+  width: 100%;
 }
 .pic-and-review {
-
+  width: 100%;
 }
 .subject-image img {
   width: 220px;
@@ -111,16 +99,11 @@
 }
 
 .review-data-container {
-  width: 600px;
-  padding: 0;
-  margin-left: -40px;
-  margin-top: 20px;
-  margin-left: 10px;
-    margin-top: 0px;
+  width: 100%;
 }
 .review-data-module {
   width: 100%;
-  padding: 20px;
+  padding: 0px;
 }
 
 .subject-info-box .info {
@@ -129,13 +112,6 @@
 .subject-info-box .info > div{
 }
 
-.subject-caption {
-    font-weight: 100;
-    margin-bottom: 0px;
-    color: #161F34;
-    font-size: 20px;
-    line-height: 1.6em;
-}
 .photo-rating-module {
   margin: 0 0 10px 0px;
 }
@@ -278,8 +254,8 @@
   margin: 5px 0 5px 12px;
 }
 .reviewer-photo {
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   border-radius: 100px;
   overflow: hidden;
   margin-right: 0px;
@@ -290,8 +266,8 @@
 .reviewer-photo img {
   /*object-fit: none;  Do not scale the image */
   object-position: center; /* Center the image within the element */
-  height: 70px;
-  width: 70px;
+  height: 80px;
+  width: 80px;
   object-fit: cover;
     background: url(../img/graphic42_face_coo.png) no-repeat center;
     background-color: #E6E7E8;

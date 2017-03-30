@@ -43,6 +43,12 @@
    -webkit-justify-content: center;
    justify-content: center;
 }
+.roow.roow-row-center {
+  -webkit-align-items: center;
+   align-items: center;
+   -webkit-justify-content: center;
+   justify-content: center;
+}
 
 
 .roow.roow-row-left {
