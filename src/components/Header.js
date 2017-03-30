@@ -63,13 +63,13 @@ const LoggedInView = props => {
 class Header extends React.Component {
   render() {
     return (
-        <div className="roow">
+      <div className="header-container">
+        <div className="header-wrapper">
           <Link to="/" className="logo-module roow roow-row">
             <div className="logo-graphic">  
               <img className="center-img" src="../img/graphic46x32_logo_5dots.png"/>
             </div>
             <div className="logo-main">
-              whatsgoood
             </div>
             <div className="logo-tagline">Reviews by people you trust</div>
           </Link>
@@ -78,6 +78,7 @@ class Header extends React.Component {
 
           <LoggedInView currentUser={this.props.currentUser} userInfo={this.props.userInfo} unreadMessages={this.props.unreadMessages} />
         </div>
+      </div>
     );
   }
 }

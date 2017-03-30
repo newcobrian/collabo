@@ -43,6 +43,7 @@ body {
    font-size: 11px;
    height: 60px;
    background-color: #242833;
+   position: fixed;
 }
 .navigation-bar .nav-module.create-review {
   background: white;

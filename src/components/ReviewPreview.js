@@ -97,7 +97,7 @@ const ReviewPreview = props => {
                   <Link to={`@${review.reviewer.username}`}>
                       <div className="reviewer-photo center-img mrgn-right-lg"><ProxyImage src={review.reviewer.image}/></div>
                   </Link>
-                  <div className="v2-type-h1 mrgn-left-lg">10</div>
+                  <div className="v2-type-h1 mrgn-left-lg">{props.review.rating}</div>
                 </div>
                 <div className="subject-caption v2-type-body1 center-text pdding-bottom-sm pdding-top-sm">
                   {review.caption}
@@ -145,6 +145,7 @@ const ReviewPreview = props => {
                 </div>
                 
             </div>
+
 
 
 

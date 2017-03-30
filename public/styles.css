@@ -56,7 +56,7 @@ textarea {
   font-weight: 300;
   font-size: 16px;
   letter-spacing: 0.5px;
-  line-height: 22px;
+  line-height: 26px;
 }
 .v2-type-h1 {
   /* H1 - Ratings: */
@@ -195,7 +195,7 @@ textarea {
     padding: 2px;
     background: #292929;
     border-radius: 70px;
-    margin: 0 8px;
+    margin: 0 8px 0 0;
     color: #2E5DD2;
 }
 .bttn-subject-comment.slim-version {
@@ -270,11 +270,28 @@ textarea {
 ************************************ HEADER 
 ******
 ******/
+.header-container {
+    position: fixed;
+    z-index: 100;
+    height: 90px;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    background-color:#0B101C;
+}
 .header-wrapper {
-  background-color:#0B101C;
+    position: absolute;
+    width: 100%;
+    height: auto;
+    top: 0;
+    right: 0;
+    left: 0;
+    max-width: 1110px;
+    margin: 0 auto;
 }
 .logo-module {
-  position: fixed;
+  position: absolute;
   left: 0;
   top: 0;
   padding: 0px 10px 0 40px;
@@ -315,10 +332,10 @@ a.logo-module:focus {
   margin: 0 2px 0 1px;
 }
 .navigation-bar {
-  position: fixed;
+  position: absolute;
   right: 0;
   top: 0;
-  left: 320px;
+  height: 90px;
   height: 90px;
   background-color:#0B101C;
   z-index: 2;
@@ -510,51 +527,51 @@ a.logo-module:focus {
 }
 
 .pdding-all-sm {
-  margin: 10px;
+  padding: 10px;
 }
 .pdding-top-sm {
-  margin-top: 10px;
+  padding-top: 10px;
 }
 .pdding-right-sm  {
-  margin-right: 10px;
+  padding-right: 10px;
 }
 .pdding-bottom-sm  {
-  margin-bottom: 10px;
+  padding-bottom: 10px;
 }
 .pdding-left-sm  {
-  margin-left: 10px;
+  padding-left: 10px;
 }
 
 .pdding-all-md {
-  margin: 20px;
+  padding: 20px;
 }
 .pdding-top-md {
-  margin-top: 20px;
+  padding-top: 20px;
 }
 .pdding-right-md {
-  margin-right: 20px;
+  padding-right: 20px;
 }
 .pdding-bottom-md {
-  margin-bottom: 20px;
+  padding-bottom: 20px;
 }
 .pdding-left-md {
-  margin-left: 20px;
+  padding-left: 20px;
 }
 
 .pdding-all-lg {
-  margin: 40px;
+  padding: 40px;
 }
 .pdding-top-lg {
-  margin-top: 40px;
+  padding-top: 40px;
 }
 .pdding-right-lg {
-  margin-right: 40px;
+  padding-right: 40px;
 }
 .pdding-bottom-lg {
-  margin-bottom: 40px;
+  padding-bottom: 40px;
 }
 .pdding-left-lg {
-  margin-left: 40px;
+  padding-left: 40px;
 }
 
 
@@ -706,12 +723,8 @@ a.logo-module:focus {
   margin-top: 0px;
 }
 .article-page .comments-container {
-    width: 565px;
-    margin-left: 0;
-    margin-top: 0;
 }
 .article-page .reviews-wrapper {
-  margin: 0 0 10px;
 }
 .comment-wrapper {
   border-radius: 0;
@@ -889,7 +902,7 @@ a.logo-module:focus {
 }
 .comment-wrapper.card .card-footer {
   background-color: transparent;
-  padding: 0px 10px 0;
+  padding: 0px;
   border-top: none;
   height: auto;
 }
