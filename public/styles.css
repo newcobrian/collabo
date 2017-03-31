@@ -67,8 +67,8 @@ textarea {
 }
 .v2-type-h2 {
   /* Saint Franks: */
-  font-weight: 700;
-  font-size: 28px;
+  font-weight: 300;
+  font-size: 26px;
   letter-spacing: 0.5px;
   line-height: 30px;
 }
@@ -273,12 +273,12 @@ textarea {
 .header-container {
     position: fixed;
     z-index: 100;
-    height: 90px;
+    height: 70px;
     top: 0;
     right: 0;
     left: 0;
     width: 100%;
-    background-color:#0B101C;
+    background-color:#23424D;
 }
 .header-wrapper {
     position: absolute;
@@ -295,12 +295,11 @@ textarea {
   left: 0;
   top: 0;
   padding: 0px 10px 0 40px;
-  height: 90px;
+  height: 70px;
   width: 100%;
   color: white;
   font-weight: 700;
   margin: 0px;
-  background-color:#0B101C;
   z-index: 2;
   border-bottom: 1px solid rgba(0,0,0,.1);
 }
@@ -335,37 +334,53 @@ a.logo-module:focus {
   position: absolute;
   right: 0;
   top: 0;
-  height: 90px;
-  height: 90px;
-  background-color:#0B101C;
+  height: 70px;
   z-index: 2;
   padding: 0px 40px 0 0;
   color: white;
 }
 .navigation-bar .nav-module {
-  text-align: center;
-    width: 80px;
-    height: 90px;
+    text-align: center;
+    width: 100%;
+    height: 70px;
     display: inline-block;
     color: #fff;
     font-weight: 100;
     margin: 0px 0px;
-    padding: 10px 0;
+    padding: 0;
     font-size: 12px;
+    min-width: 70px;
 }
+
+.nav-module.nav-editor {
+  order: 1;
+}
+.nav-module.nav-feed {
+  order: 2;
+}
+.nav-module.nav-inbox {
+  order: 3;
+}
+.nav-module.nav-saved {
+  order: 4;
+}
+.nav-module.nav-profile {
+  order: 5;
+}
+
+
 .navigation-bar .nav-module.active,
 .navigation-bar .nav-module.nav-editor.active {
-  background-color: rgba(255,255,255,.1);
+  border-bottom: 7px white solid;
+  opacity: 1;
 }
 .navigation-bar .nav-module:hover {
-  background-color: rgba(255,255,255,.1);
+  border-bottom: 7px solid rgba(255,255,255,.5);
 }
 .navigation-bar .nav-module.nav-editor {
-  background-color: transparent;
   /*background-color: rgba(43,93,210,.2);*/
 }
 .navigation-bar .nav-module.nav-editor:hover {
-  background-color: rgba(43,93,210,.2);
 }
 .navigation-bar .create-review .nav-module {
 /*  animation: colorchange 40s;
@@ -388,6 +403,9 @@ a.logo-module:focus {
   margin: 10px 10px 0;
   display: inline-block; 
 }
+svg {
+  fill: red;
+}
 
 .navigation-bar .nav-icon img {
   height: 24px;
@@ -395,14 +413,14 @@ a.logo-module:focus {
   width: 24px;
 }
 .navigation-bar .nav-editor .nav-icon {
-  background: #2E5DD2;
+  /*box-shadow: 0 0 0px 2px rgba(107,255,78,.2);*/
   border-radius: 32px;
   padding-top: 4px;
   margin: 4px 0 6px;
 }
 .navigation-bar .nav-editor:hover .nav-icon {
-  box-shadow: 0 0 0px 2px #2E5DD2;
-  transition: box-shadow ease-in;
+/*  box-shadow: 0 0 0px 2px rgba(107,255,78,.5);
+*/  transition: box-shadow ease-in;
 }
 .navigation-bar .nav-profile .nav-icon img {
   box-shadow: 0 0 0 2px rgba(255,255,255,.5);
@@ -456,7 +474,7 @@ a.logo-module:focus {
 }
 .feed-toggle {
     position: fixed;
-    top: 90px;
+    top: 70px;
     left: 0;
     right: 0;
     background: white;

@@ -84,7 +84,7 @@ const ReviewPreview = props => {
 
         <div className="review-container roow roow-center roow-col-left bottom-divider default-card-white mrgn-bottom-md">
           <div className="subject-name-container center-text">
-            <div className="text-category v2-type-h4 mrgn-bottom-sm"><Hashtags tags={review.subject.tag}/></div>
+            <div className="text-category v2-type-h4"><Hashtags tags={review.subject.tag}/></div>
             <Link to={`review/${review.subjectId}/${review.id}`}>
             <div className="text-subject-name v2-type-h2 center-text">
               {review.subject.title}
