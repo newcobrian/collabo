@@ -155,9 +155,9 @@
 }
 
 .rating-graphic {
-  width: 32px;
-  height: 32px;
-  background: black;
+  width: 42px;
+  height: 42px;
+  background-color: black;
   border-radius: 100px;
   margin-right: 0px;
   color: white;
@@ -171,13 +171,15 @@
   /*border: 1px solid rgba(0,0,0,.4);*/
   /*box-shadow: 0 3px 5px 4px rgba(0,0,0,.1);*/
   background-size: 24px;
-  background-size: 42px;
-  background-position: -9999px -9999px;
+  background-size: 52px;
+  /*background-position: -9999px -9999px;*/
   /*box-shadow: 0 0 0px 3px white, 0 0px 9px 9px rgba(0,0,0,.1);*/
   background-color: black;
   margin-right: 10px;
   border: none;
   margin: 0;
+  background-image: url(img/profile_temp.png);
+
 
 }
 .rating-graphic:focus {
@@ -200,8 +202,7 @@
 .rating-graphic.rating-2:hover,
 .rating-graphic.rating-2:hover
  {
-  opacity: 1;
-  filter: grayscale(0%);
+  opacity: 1 !important;
   background-position: center;
   display: block;    
   /*-ms-transform: rotate(-16deg);
@@ -210,9 +211,10 @@
   box-shadow: inset 1px 2px 16px 3px rgba(255,255,255,.7), -5px 6px 12px rgba(0,0,0,0.1);             
   box-shadow: 0px 6px 12px rgba(0,0,0,0.1);             
   margin: 0 0;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   transition: width .1s ease-in, opacity .1s ease-in;
+  background-image: url(img/profile_temp.png);
 }
 
 .rating-wrapper-1 .rating-graphic.rating-2,
@@ -227,6 +229,8 @@
 .rating-wrapper--2 .rating-graphic.rating--1
  {
   opacity: .1;
+    background-image: url(img/profile_temp.png);
+
 }
 
 .rating-graphic.rating--2 {
@@ -274,7 +278,6 @@
   background: #0B101C;
   /*box-shadow: 0 3px 5px 4px rgba(0,0,0,.1);*/
   /*border: 7px solid white;*/
-  display: none;
 }
 .reviewer-photo img {
   /*object-fit: none;  Do not scale the image */
@@ -406,7 +409,12 @@
     display: inline-block;
     visibility: hidden;
     font-size: 1em;
+    float: right;
+    opacity: .5;
+}
+.delete-button:hover {
+  opacity: .8;
 }
 .reviews-wrapper:hover .delete-button {
-      visibility: visible;
+    visibility: visible;
 }

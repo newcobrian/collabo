@@ -119,7 +119,7 @@ export function sendInboxMessage(senderId, recipientId, messageType, review) {
 						break;
 					case Constants.SAVE_MESSAGE:
 						inboxObject.senderId = '';
-						inboxObject.message = 'Can\'t tell you who, but somebody saved your review: ';
+						inboxObject.message = 'Can\'t tell you who, but somebody saved your review of ';
 						inboxObject.link = 'review/' + review.subjectId + '/' + review.id;
 						emailMessage = 'Somebody saved your review. Click here to go to your inbox: https://whatsgoooood.com/#/inbox';
 						break;

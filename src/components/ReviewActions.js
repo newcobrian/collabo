@@ -20,7 +20,7 @@ const ReviewActions = props => {
       ***/}
 
         <button className="bttn-style bttn-minimal" onClick={del}>
-          Delete Review
+          <img src="../img/icon32_x.svg"/>
         </button>
 
       </span>

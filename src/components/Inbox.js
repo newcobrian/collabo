@@ -33,6 +33,15 @@ const LeftSenderPic = props => {
       </div>
     )
   }
+  else {
+    return (
+      <div className="">
+       <div className="reviewer-photo center-img">
+        <img src="../img/someone_temp.png"/>
+       </div>
+      </div>
+    )
+  }
   return null;
 }
 
@@ -81,20 +90,19 @@ class Inbox extends React.Component {
 
     return (
       <div className="page-common no-feed-toggle follow-page">
-        <div className="page-title-wrapper">
-          <div className="text-page-title">Inbox</div>
+        <div className="page-title-wrapper center-text">
+          <div className="v2-type-h3">Inbox</div>
          </div>
           {
             this.props.inbox.map(inboxItem => {
               // const isUser = this.props.currentUser &&
               //   follower.userId === this.props.currentUser.uid;
                 return (
-                  <div className="roow roow-row list-row" key={inboxItem.key}>
+                  <div className="roow roow-row mrgn-bottom-sm pdding-all-sm list-row default-card-white bx-shadow" key={inboxItem.key}>
                     <LeftSenderPic senderId={inboxItem.senderId} username={inboxItem.senderUsername} image={inboxItem.senderImage} />
                     <div className="roow roow-col-left">
-                      <div>
+                      <div className="v2-type-body1">
                         <RenderUsername senderId={inboxItem.senderId} username={inboxItem.senderUsername} />
-
                         {inboxItem.message} <Link to={inboxItem.link}>{inboxItem.reviewTitle}</Link>
                       </div>
                     </div>

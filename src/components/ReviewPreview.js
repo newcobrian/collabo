@@ -88,6 +88,10 @@ const ReviewPreview = props => {
           </a>
         <div className="review-container roow roow-center roow-col-left bottom-divider default-card-white mrgn-bottom-lg">
           <div className="subject-name-container center-text">
+            <div className="delete-button">
+                <ReviewActions review={review} authenticated={props.authenticated} 
+                canModify={canModify} deleteReview={props.deleteReview} reviewDetailPath={props.reviewDetailPath} />
+            </div>
             <div className="text-category v2-type-h4"><Hashtags tags={review.subject.tag}/></div>
             <Link to={`review/${review.subjectId}/${review.id}`}>
             <div className="text-subject-name v2-type-h2 center-text">
@@ -104,7 +108,7 @@ const ReviewPreview = props => {
             <div className="review-data-container roow roow-col-center mrgn-bottom-md">
                 
                 <Link to={`@${review.reviewer.username}`}>
-                      <div className="reviewer-photo center-img mrgn-right-lg mrgn-top-sm"><ProxyImage src={review.reviewer.image}/></div>
+                      <div className="reviewer-photo DN center-img mrgn-right-lg mrgn-top-sm"><ProxyImage src={review.reviewer.image}/></div>
                   </Link>
 
                 <div className="roow">
@@ -117,7 +121,7 @@ const ReviewPreview = props => {
 
                   <div className="v2-type-h1 mrgn-left-lg">{props.review.rating}</div>
                 </div>
-                <div className="subject-caption v2-type-body1 center-text pdding-bottom-sm pdding-top-sm">
+                <div className="subject-caption v2-type-body2 center-text pdding-bottom-sm pdding-top-sm">
                   {review.caption}
                 </div>
                 <Link to={`@${review.reviewer.username}`}>

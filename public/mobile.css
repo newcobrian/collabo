@@ -211,12 +211,8 @@ body {
 }
 
 .subject-image {
-  height: 80px;
-  width: 80px;
 }
 .subject-image img {
-  width: 80px !important;
-  height: 80px !important;
   padding: 0px;
 }
 
@@ -252,8 +248,7 @@ body {
   margin: 65px 10px;
 }
 .article-page .review-data-container {
-  margin-top: 0;
-  margin-left: 0;
+width: 100%;
 }
 .your-review .review-data-container,
 .other-review .review-data-container {
@@ -267,7 +262,7 @@ body {
   max-width: 600px;
 }
 .article-page .text-subject-name {
-  font-size: 18px;
+  font-size: 22px;
 }
 
 .your-review .review-image-wrapper,
@@ -414,9 +409,7 @@ body {
 
 
 .rating-graphic {
-  width: 24px;
-  height: 24px;
-  background-size: 30px;
+
 }
 .rating-wrapper--3 .rating-graphic.rating--2,
 .rating-wrapper--2 .rating-graphic.rating--2,
@@ -434,12 +427,9 @@ body {
 .rating-graphic.rating-2:hover,
 .rating-graphic.rating-2:hover
  {
-    width: 28px;
-    height: 28px;
-    margin: -4px auto 0;
+
  }
 .rating-container {
-  margin-top: 2px;
 }
 
 
