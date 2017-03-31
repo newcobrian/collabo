@@ -81,8 +81,12 @@ const ReviewPreview = props => {
   return (
       <div className="reviews-wrapper roow roow-left roow-col-left">
 
-
-        <div className="review-container roow roow-center roow-col-left bottom-divider default-card-white mrgn-bottom-md">
+          <a href={review.subject.images ? review.subject.images[0] : ""}>
+            <div className="subject-image">
+              <ProxyImage src={review.subject.image ? review.subject.image : ""}/>
+            </div>
+          </a>
+        <div className="review-container roow roow-center roow-col-left bottom-divider default-card-white mrgn-bottom-lg">
           <div className="subject-name-container center-text">
             <div className="text-category v2-type-h4"><Hashtags tags={review.subject.tag}/></div>
             <Link to={`review/${review.subjectId}/${review.id}`}>
@@ -90,22 +94,36 @@ const ReviewPreview = props => {
               {review.subject.title}
             </div>
             </Link>
+              <div className="review-external-link">
+            <a title={'Open link: ' + review.subject.url} target="blank" href={review.subject.url}>
+                {review.subject.url}
+            </a>
+            </div>
           </div>{/**END subject-name-container**/}
           <div className="roow roow-row-top pic-and-review">
             <div className="review-data-container roow roow-col-center mrgn-bottom-md">
-                <div className="roow">
-                  <Link to={`@${review.reviewer.username}`}>
-                      <div className="reviewer-photo center-img mrgn-right-lg"><ProxyImage src={review.reviewer.image}/></div>
+                
+                <Link to={`@${review.reviewer.username}`}>
+                      <div className="reviewer-photo center-img mrgn-right-lg mrgn-top-sm"><ProxyImage src={review.reviewer.image}/></div>
                   </Link>
+
+                <div className="roow">
+
+                  <div className="roow roow-col-left">
+                    <Link to={`review/${review.subjectId}/${review.id}`}> 
+                      <RatingsButtons review={review} authenticated={props.authenticated} updateRating={props.updateRating} />
+                    </Link>
+                  </div>
+
                   <div className="v2-type-h1 mrgn-left-lg">{props.review.rating}</div>
                 </div>
                 <div className="subject-caption v2-type-body1 center-text pdding-bottom-sm pdding-top-sm">
                   {review.caption}
                 </div>
                 <Link to={`@${review.reviewer.username}`}>
-                        <div className="reviewer-name v2-type-h3 center-text">
-                          <span className="dash"></span>{review.reviewer.username}
-                        </div>
+                  <div className="reviewer-name v2-type-h3 center-text">
+                    <span className="dash"></span>{review.reviewer.username}
+                  </div>
                 </Link>
             </div>
 

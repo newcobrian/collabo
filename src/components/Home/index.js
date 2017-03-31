@@ -53,6 +53,8 @@ class Home extends React.Component {
             Everyone
           </Link>
         </li>
+        <li className="nav-divider">
+        </li>
         <li className="nav-item">
           <Link
             className="nav-link active"

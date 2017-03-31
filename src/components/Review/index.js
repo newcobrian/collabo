@@ -140,18 +140,13 @@ class Review extends React.Component {
           review={this.props.review}
           currentUser={this.props.currentUser}
           delete={this.props.onDeleteComment} />
-      </div>
+        </div>
       </div>
 
       
-        
-    
-    
-    {/****
-
-     PUT OTHER PEOPLES' REVIEWS HERE 
-
-      ****/}
+     <div className="review-now-wrapper">
+      Add Your Review Now <img src="../img/icon32_add.png" height="24" width="24"/>
+    </div> 
 
     <DisplayAppUserReview 
       currentReviewId={this.props.params.rid}

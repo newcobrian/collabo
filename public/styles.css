@@ -80,10 +80,10 @@ textarea {
 }
 .v2-type-h4 {
   /* H4 - Categories: */
-  opacity: 0.7;
-  font-size: 16px;
-  letter-spacing: 0.5px;
-  font-weight: 700;
+    opacity: .4;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    font-weight: 700;
 }
 
 
@@ -627,6 +627,7 @@ svg {
     height: 100%;
     border-right: 1px solid rgba(0,0,0,.1);
     z-index: 100;
+    top: 70px;
 }
 .profile-page .user-info .user-img {
   background: #E6E7E8;
@@ -667,6 +668,13 @@ svg {
 .nav-pills .nav-item {
   height: 30px;
 }
+li.nav-divider {
+    height: 30px;
+    border-right: 2px solid rgba(0,0,0,.1);
+    display: inline-block;
+    float: left;
+    margin-right: 20px;
+}
 
 
 
@@ -691,13 +699,12 @@ svg {
 .profile-page .feed-toggle {
     width: 100%;
     margin: 20px 0;
-    left: 270px;
-    top: 70px;
+    top: 50px;
 }
 .profile-feed {
     width: 100%;
-    margin-left: 270px;
-    margin-top: 60px;
+    margin-left: 0px;
+    margin-top: 50px;
 }
 /******
 ******
@@ -722,13 +729,11 @@ svg {
 ******
 ******/
 .article-page {
-  margin: 120px 40px;
+  margin: 110px 40px;
 }
 .article-page .subject-image img {
-    width: 260px;
-    height: 260px;
-    background: url(../img/graphic42_face_coo.png);
-    border-radius: 10px;
+    width: 355px;
+    height: 160px;
 }
 .article-page .subject-name-container {
   text-align: center;
@@ -753,7 +758,22 @@ svg {
     -webkit-justify-content: center;
     justify-content: center;
 }
-
+.review-now-wrapper {
+  border: 1px solid #5B9D3A;
+  background: white;
+  color: #5B9D3A;
+  font-weight: 400;
+  padding: 20px;
+  width: 100%;
+  max-width: 355px;
+  margin: 0 auto;
+  /*box-shadow: 0 0 0 4px rgba(107,255,78,.5);*/
+  text-align: center;
+  cursor: pointer;
+}
+.review-now-wrapper:hover {
+  background: rgba(107,255,78,.5);
+}
 
 
 /******
