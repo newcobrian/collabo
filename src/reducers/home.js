@@ -1,4 +1,4 @@
-import { GET_USER_FEED, USER_FEED_UNLOADED, GET_GLOBAL_FEED, GLOBAL_FEED_UNLOADED } from '../actions';
+import { GET_USER_FEED, USER_FEED_UNLOADED, GET_GLOBAL_FEED, GLOBAL_FEED_UNLOADED, APPLY_TAG } from '../actions';
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -12,6 +12,11 @@ export default (state = {}, action) => {
       return {
         ...state,
         feed: action.payload
+      }
+    case APPLY_TAG:
+      return {
+        ...state,
+        tag: action.payload
       }
     case USER_FEED_UNLOADED:
     case GLOBAL_FEED_UNLOADED:

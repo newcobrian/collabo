@@ -2,6 +2,7 @@ import MainView from './MainView';
 import React from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../../actions';
+import * as Constants from '../../constants';
 import { Link } from 'react-router';
 
 const mapStateToProps = state => ({
@@ -20,6 +21,15 @@ const mapStateToProps = state => ({
 // });
 
 class Home extends React.Component {
+  constructor() {
+    super();
+
+    this.selectTab = tag => ev => {
+      ev.preventDefault();
+      this.props.applyTag(tag);
+    }
+  }
+
   componentWillMount() {
     // const tab = this.props.authenticated ? 'feed' : 'all';
     // const articlesPromise = this.props.token ?
@@ -27,7 +37,7 @@ class Home extends React.Component {
     //   agent.Articles.all();
 
     // this.props.onLoad(tab, Promise.all([agent.Tags.getAll(), articlesPromise]));
-    this.props.getUserFeed(this.props.authenticated);
+    this.props.getUserFeed(this.props.authenticated, this.props.tag);
     this.props.sendMixpanelEvent('Friend feed loaded');
   }
 
@@ -56,64 +66,24 @@ class Home extends React.Component {
         <li className="nav-divider">
         </li>
         <li className="nav-item">
-          <Link
-            className="nav-link active"
-            to={``}>
+          <a href='#'
+            className={"nav-link " + (this.props.tag ? '' : 'active')}
+            onClick={this.selectTab(null)}>
             All
-          </Link>
+          </a>
         </li>
-        <li className="nav-item">
-          <Link
-            className="nav-link"
-            to={`global`}>
-            Books
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link
-            className="nav-link"
-            to={`d`}>
-            Movies
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link
-            className="nav-link"
-            to={`global`}>
-            Places
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link
-            className="nav-link"
-            to={`d`}>
-            Food
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link
-            className="nav-link"
-            to={`global`}>
-            Music
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link
-            className="nav-link"
-            to={`d`}>
-            Health
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link
-            className="nav-link"
-            to={`global`}>
-            Electronics
-          </Link>
-        </li>
+        {Constants.TAG_LIST.map(item => {
+          return (
+                <li className="nav-item">
+                  <a href='#'
+                    className={"nav-link " + (this.props.tag === item ? 'active' : '')}
+                    onClick={this.selectTab(item)}>
+                    {item}
+                  </a>
+                </li>
+            );
+        })}
       </ul>
-
-
     );
   }
 
@@ -125,8 +95,6 @@ class Home extends React.Component {
                 <div className="feed-toggle roow roow-row-center">
                   {this.renderTabs()}
                 </div>
-
-                
                 <MainView />
               </div>
 

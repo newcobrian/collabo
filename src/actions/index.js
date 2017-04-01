@@ -72,6 +72,7 @@ export const EMPTY_FRIEND_SELECTOR = 'EMPTY_FRIEND_SELECTOR';
 export const REVIEW_DELETED = 'REVIEW_DELETED';
 export const SET_IN_PROGRESS = 'SET_IN_PROGRESS';
 export const MIXPANEL_EVENT = 'MIXPANEL_EVENT';
+export const APPLY_TAG = 'APPLY_TAG';
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -1544,7 +1545,7 @@ export function searchLikes(uid, likes) {
   return false;
 }
 
-export function getUserFeed(uid) {
+export function getUserFeed(uid, tag) {
   return dispatch => {
     if (!uid) {
       dispatch({
@@ -1756,7 +1757,7 @@ export function unloadUserFeed(uid) {
   }
 }
 
-export function getGlobalFeed(uid) {
+export function getGlobalFeed(uid, tag) {
   return dispatch => {   
     Firebase.database().ref(Constants.REVIEWS_PATH + '/').orderByChild('lastModified').on('value', reviewsSnapshot => {
       if (!reviewsSnapshot.exists()) {
@@ -2074,4 +2075,12 @@ export function sendMixpanelEvent(eventName, params={}) {
   }
 }
 
+export function applyTag(tag) {
+  return dispatch => {
+    dispatch({
+      type: APPLY_TAG,
+      payload: tag
+    })
+  }
+}
 

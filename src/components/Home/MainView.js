@@ -23,6 +23,7 @@ const MainView = props => {
     <div>
       <ReviewList
         reviews={props.feed}
+        tag={props.tag}
         reviewsCount={props.reviewsCount}
         currentPage={props.currentPage}
         onSetPage={onSetPage} 

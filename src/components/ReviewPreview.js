@@ -78,6 +78,7 @@ const ReviewPreview = props => {
   const review = props.review;
   const canModify = props.authenticated &&
       props.authenticated === props.review.reviewer.userId;
+
   return (
       <div className="reviews-wrapper roow roow-left roow-col-left">
 

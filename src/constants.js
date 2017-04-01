@@ -55,4 +55,4 @@ export const DIRECT_MESSAGE = 'DIRECT_MESSAGE'
 
 
 /*** Tag list ***/
-export const TAG_LIST = ['Place', 'Music', 'Movie', 'TV', 'Book', 'Food', 'Electronics']
+export const TAG_LIST = ['Places', 'Music', 'Movies', 'TV', 'Books', 'Food', 'Electronics']

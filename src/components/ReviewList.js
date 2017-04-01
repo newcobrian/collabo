@@ -21,18 +21,21 @@ const ReviewList = props => {
     <div>
       {
         props.reviews.map(review => {
-          return (
-            <ReviewPreview review={review} 
-              key={review.id} 
-              authenticated={props.authenticated} 
-              like={props.like} 
-              unLike={props.unLike}
-              save={props.save}
-              unSave={props.unSave}
-              updateRating={props.updateRating}
-              deleteReview={props.deleteReview} />
+          if (!props.tag || (review.subject && review.subject.tag && review.subject.tag.includes(props.tag))) {
+            return (
+              <ReviewPreview review={review}
+                tag={props.tag}
+                key={review.id} 
+                authenticated={props.authenticated} 
+                like={props.like} 
+                unLike={props.unLike}
+                save={props.save}
+                unSave={props.unSave}
+                updateRating={props.updateRating}
+                deleteReview={props.deleteReview} />
 
-          );
+            );
+          }
         })
       }
 

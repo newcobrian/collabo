@@ -2,11 +2,12 @@ import { Home, mapStateToProps } from '/';
 import React from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../../actions';
+import * as Constants from '../../constants';
 import { Link } from 'react-router';
 
 class GlobalFeed extends Home {
   componentWillMount() {
-    this.props.getGlobalFeed(this.props.authenticated);
+    this.props.getGlobalFeed(this.props.authenticated, this.props.tag);
     this.props.sendMixpanelEvent('Global feed loaded');
   }
 
@@ -38,6 +39,24 @@ class GlobalFeed extends Home {
               Everyone
             </Link>
           </li>
+          <li className="nav-item">
+            <a href='#'
+              className={"nav-link " + (this.props.tag ? '' : 'active')}
+              onClick={this.selectTab(null)}>
+              All
+            </a>
+          </li>
+          {Constants.TAG_LIST.map(item => {
+            return (
+                  <li className="nav-item">
+                    <a href='#'
+                      className={"nav-link " + (this.props.tag === item ? 'active' : '')}
+                      onClick={this.selectTab(item)}>
+                      {item}
+                    </a>
+                  </li>
+              );
+          })}
         </ul>
       );
     }
