@@ -34,6 +34,15 @@ const RatingsButtons = props => {
     )
   }
 }
+const RatingsNumber= props => {
+  const handleClick = rating => ev => {
+    props.updateRatingNumber(props.authenticated, props.review.id, props.review.subjectId, rating);
+  };
+  return (
+ <div>{props.review.rating + 3}</div>
+ )
+}
+
 
 const CommentPreview = props => {
   if (props.comments) {
@@ -89,11 +98,14 @@ const ReviewPreview = props => {
           </a>
         <div className="review-container roow roow-center roow-col-left bottom-divider default-card-white mrgn-bottom-lg">
           <div className="subject-name-container center-text">
-            <div className="delete-button">
-                <ReviewActions review={review} authenticated={props.authenticated} 
-                canModify={canModify} deleteReview={props.deleteReview} reviewDetailPath={props.reviewDetailPath} />
+            <div className="delete-wrapper">
+              <div className="delete-button">
+                  <ReviewActions review={review} authenticated={props.authenticated} 
+                  canModify={canModify} deleteReview={props.deleteReview} reviewDetailPath={props.reviewDetailPath} />
+              </div>
             </div>
             <div className="text-category v2-type-h4"><Hashtags tags={review.subject.tag}/></div>
+            
             <Link to={`review/${review.subjectId}/${review.id}`}>
             <div className="text-subject-name v2-type-h2 center-text">
               {review.subject.title}
@@ -113,14 +125,16 @@ const ReviewPreview = props => {
                   </Link>
 
                 <div className="roow">
-
+                  {/* Rating Stars */}
                   <div className="roow roow-col-left">
                     <Link to={`review/${review.subjectId}/${review.id}`}> 
                       <RatingsButtons review={review} authenticated={props.authenticated} updateRating={props.updateRating} />
                     </Link>
                   </div>
-
-                  <div className="v2-type-h1 mrgn-left-lg">{props.review.rating}</div>
+                  {/* Rating Number  */}
+                  <div className="v2-type-h1 mrgn-left-sm mrgn-right-sm">
+                      <RatingsNumber review={review} authenticated={props.authenticated} updateRatingNumber={props.updateRating} />
+                  </div>
                 </div>
                 <div className="subject-caption v2-type-body2 center-text pdding-bottom-sm pdding-top-sm">
                   {review.caption}

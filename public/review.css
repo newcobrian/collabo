@@ -83,7 +83,7 @@
 }
 .subject-image img {
     width: 355px;
-    height: 80px;
+    height: 160px;
     object-fit: cover;
     object-position: center;
     box-shadow: 0 0 0 -1 rgba(0,0,0,.1) inset;
@@ -404,6 +404,10 @@
 .comments-module {
   width: 100%;
   max-width: 820px;
+}
+.delete-wrapper {
+  position: absolute;
+  width: auto;
 }
 .delete-button {
     display: inline-block;
