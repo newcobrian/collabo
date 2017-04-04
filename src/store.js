@@ -44,7 +44,7 @@ const config = {
 Firebase.initializeApp(config);
 
 // init mixpanel and pass mixpanel client to middleware 
-var productionHost = 'whatsgooood.com';
+var productionHost = 'whatsgoooood.com';
 var devToken = '82d2d072b1d3d0fab39554d00f242545';
 var prodToken = '2e078e6260727e77045efb7648420277';
 
