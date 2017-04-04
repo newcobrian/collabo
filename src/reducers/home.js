@@ -1,4 +1,5 @@
-import { GET_USER_FEED, USER_FEED_UNLOADED, GET_GLOBAL_FEED, GLOBAL_FEED_UNLOADED, APPLY_TAG } from '../actions';
+import { GET_USER_FEED, USER_FEED_UNLOADED, GET_GLOBAL_FEED, GLOBAL_FEED_UNLOADED, APPLY_TAG,
+GET_LIKES_OR_SAVES_BY_USER } from '../actions';
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -9,6 +10,11 @@ export default (state = {}, action) => {
         // tags: action.payload[0].tags
       };
     case GET_GLOBAL_FEED:
+      return {
+        ...state,
+        feed: action.payload
+      }
+    case GET_LIKES_OR_SAVES_BY_USER:
       return {
         ...state,
         feed: action.payload

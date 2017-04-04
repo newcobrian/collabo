@@ -50,10 +50,10 @@ const LoggedInView = props => {
             <div className="nav-text">New</div>
         </Link>
 
-        <IndexLink to="saved" activeClassName="active" className="nav-module nav-saved">
+        <Link to="saved" activeClassName="active" className="nav-module nav-saved">
             <div className="nav-icon"><img src="../img/icon32_saved.png"/></div>
             <div className="nav-text">Saved</div>
-        </IndexLink>
+        </Link>
         
         <Link to={`@${props.userInfo.username}`} activeClassName="active" className="nav-module nav-profile">
             <div className="nav-icon"><img className="center-img" src={props.userInfo.image}/></div>
