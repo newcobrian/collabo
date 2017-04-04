@@ -48,12 +48,9 @@ var productionHost = 'whatsgoooood.com';
 var devToken = '82d2d072b1d3d0fab39554d00f242545';
 var prodToken = '2e078e6260727e77045efb7648420277';
 
-console.log(window.location.hostname.toLowerCase());
 if (window.location.hostname.toLowerCase().search(productionHost) < 0) {
-    console.log('dev')
     mixpanel.init(devToken);
 } else {
-    console.log('prod')
     mixpanel.init(prodToken);
 }
 const mixpanelMiddleware = new MixpanelMiddleware(mixpanel)
