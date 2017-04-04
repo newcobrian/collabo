@@ -18,6 +18,10 @@ class SavesFeed extends Home {
   renderTabs() {
     if (this.props.authenticated) {
       return (
+        <div>
+        <div className="page-title-wrapper center-text">
+          <div className="v2-type-h2 subtitle">Keep track of reviews for later</div>
+        </div>
         <ul className="nav nav-pills outline-active">
           <li className="nav-item">
             <a href='#'
@@ -38,6 +42,9 @@ class SavesFeed extends Home {
               );
           })}
         </ul>
+        </div>
+         
+
       );
     }
     else {

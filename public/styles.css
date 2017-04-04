@@ -3,7 +3,7 @@ body {
   font-family: 'Roboto', sans-serif;
   color: #161F34;
   letter-spacing:1px;
-  padding-top: 90px;
+  padding-top: 0px;
 
 }
 
@@ -126,6 +126,15 @@ textarea {
   font-size: 26px;
   letter-spacing: 0.5px;
   line-height: 30px;
+}
+.v2-type-h2.subtitle {
+  /* Saint Franks: */
+  font-weight: 200;
+  /* H2s - Subtle title: */
+  opacity: 0.4;
+  font-size: 26px;
+  color: #405B65;
+  letter-spacing: 0.5px;
 }
 .v2-type-h3 {
     /* -jma: */
@@ -518,7 +527,8 @@ svg {
 ******
 ******/
 .page-common {
-  margin: 0px 40px;
+  padding-top: 70px;
+  margin: 110px 0px;
   background-color: white;
 }
 .page-title-wrapper {
@@ -548,6 +558,7 @@ svg {
 }
 .feed-wrapper {
   width: 100%;
+  margin-top: 180px;
 }
 
 
@@ -657,7 +668,6 @@ svg {
 ******
 ******/
 .home-page {
-  margin: 70px 40px;
 }
 
 
@@ -1110,7 +1120,19 @@ li.nav-divider {
   object-fit: cover;
 }
 
+/******
+******
+************************************ 2. PROFILE
+******
+******/
 
+
+.page-common.inbox-page {
+  margin: 0;
+}
+.page-common.inbox-page .page-title-wrapper {
+    padding: 20px 0;
+}
 /******
 ******
 ************************************ 3. SEND PAGE

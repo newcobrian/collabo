@@ -21,6 +21,8 @@ const MainView = props => {
   const onSetPage = page => props.onSetPage(props.tab, page);
   return (
     <div>
+    
+
       <ReviewList
         reviews={props.feed}
         tag={props.tag}

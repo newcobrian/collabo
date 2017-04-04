@@ -47,43 +47,49 @@ class Home extends React.Component {
 
   renderTabs() {
     return (
-      <ul className="nav nav-pills outline-active">
-        <li className="nav-item">
-          <Link
-            className="nav-link active"
-            to={``}>
-            Friends
-          </Link>
-        </li>
+      <div>
+        <div className="page-title-wrapper center-text">
+          <div className="v2-type-h2 subtitle">The latest reviews from around the globe</div>
+        </div>
 
-        <li className="nav-item">
-          <Link
-            className="nav-link"
-            to={`global`}>
-            Everyone
-          </Link>
-        </li>
-        <li className="nav-divider">
-        </li>
-        <li className="nav-item">
-          <a href='#'
-            className={"nav-link " + (this.props.tag ? '' : 'active')}
-            onClick={this.selectTab(null)}>
-            All
-          </a>
-        </li>
-        {Constants.TAG_LIST.map(item => {
-          return (
-                <li className="nav-item">
-                  <a href='#'
-                    className={"nav-link " + (this.props.tag === item ? 'active' : '')}
-                    onClick={this.selectTab(item)}>
-                    {item}
-                  </a>
-                </li>
-            );
-        })}
-      </ul>
+        <ul className="nav nav-pills outline-active">
+          <li className="nav-item">
+            <Link
+              className="nav-link active"
+              to={``}>
+              Friends
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              to={`global`}>
+              Everyone
+            </Link>
+          </li>
+          <li className="nav-divider">
+          </li>
+          <li className="nav-item">
+            <a href='#'
+              className={"nav-link " + (this.props.tag ? '' : 'active')}
+              onClick={this.selectTab(null)}>
+              All
+            </a>
+          </li>
+          {Constants.TAG_LIST.map(item => {
+            return (
+                  <li className="nav-item">
+                    <a href='#'
+                      className={"nav-link " + (this.props.tag === item ? 'active' : '')}
+                      onClick={this.selectTab(item)}>
+                      {item}
+                    </a>
+                  </li>
+              );
+          })}
+        </ul>
+      </div>
     );
   }
 
