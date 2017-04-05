@@ -16,7 +16,8 @@ export default (state = {}, action) => {
   			subjectId: action.subjectId,
         rating: action.rating,
         caption: action.caption,
-        image: action.image
+        image: action.image,
+        inProgress: null
   		}
     case CREATE_SUBJECT_CLEARED:
       return {
@@ -27,12 +28,14 @@ export default (state = {}, action) => {
         subjectId: null,
         rating: null,
         caption: null,
-        image: null
+        image: null,
+        inProgress: null
       }
     case CREATE_SUBMIT_ERROR:
       return {
         ...state,
-        errors: [action.error]
+        errors: [action.error],
+        inProgress: null
       }
     case SET_IN_PROGRESS:
       return {

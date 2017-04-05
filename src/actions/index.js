@@ -632,122 +632,6 @@ export function onUpdateField(key, value) {
   }
 }
 
-export function oldCreateSubmit(key, subject, review, rid, imageURL) {
-  return dispatch => {
-    const updates = {};
-    const uid = Firebase.auth().currentUser.uid;
-    const lastModified = Firebase.database.ServerValue.TIMESTAMP;
-    let subjectId = '',
-      imageId = '';
-
-    let imageObject = {
-      url: imageURL,
-      lastModified: lastModified,
-    }
-
-    let saveSubject = {};
-    Object.assign(saveSubject, subject, {lastModified: lastModified});
-
-    // if we found a subjectId
-    if (key) {
-      subjectId = key;
-      Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + key).once('value', subjectSnapshot => {
-        // make sure subject is still there, otherwise save it
-        if (!subjectSnapshot.exists()) {
-          Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + key).set(saveSubject);
-          if (imageURL) {
-            imageId = Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + key + '/images').push(imageObject).key;
-            subject.images = {
-              imageId: imageObject
-            };
-          }
-        }
-        // if subject exists, just update lastModified
-        else {
-          Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + key).update({lastModified: lastModified});
-        }
-      })
-    }
-    else {
-      // save the new subject
-      subjectId = Firebase.database().ref(Constants.SUBJECTS_PATH).push(saveSubject).key;
-      // updates[`/${Constants.SUBJECTS_PATH}/${subjectId}/`] = subject;
-      if (imageURL) {
-        imageId = Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId + '/images').push(imageObject).key;
-        subject.images = {
-          imageId: imageObject
-        };
-        // updates[`/${Constants.SUBJECTS_PATH}/${subjectId}/images/${imageId}/`] = imageObject;
-      }
-    }
-
-    let reviewId = rid ? rid : Firebase.database().ref(Constants.REVIEWS_PATH).push().key;
-    const reviewMeta = {
-        userId: Firebase.auth().currentUser.uid,
-        subjectId: subjectId,
-        lastModified: lastModified
-    }
-
-    const reviewObject = {};
-    Object.assign(reviewObject, reviewMeta, review);
-
-    updates[`/${Constants.REVIEWS_PATH}/${reviewId}/`] = reviewObject;
-
-    let reviewsByUserObject = {
-      rating: review.rating,
-      caption: review.caption,
-      lastModified: lastModified,
-    }
-
-    reviewsByUserObject.subjectId = subjectId;
-    reviewsByUserObject.subject = subject;
-
-    updates[`/${Constants.REVIEWS_BY_USER_PATH}/${uid}/${reviewId}`] = reviewsByUserObject;
-
-    let reviewsBySubjectObject = {
-      reviewId: reviewId,
-      rating: review.rating,
-      caption: review.caption,
-      lastModified: lastModified      
-    }
-    // if (imageId) {
-    //   reviewsBySubjectObject.images = {
-    //     imageId: imageObject
-    //   }
-    // }
-    updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${subjectId}/${uid}`] = reviewsBySubjectObject;
-
-    reviewsByUserObject.id = reviewId;
-
-    Firebase.database().ref().update(updates)
-      .then(response => {
-        // increment review count on the subject
-        var reviewCountRef = Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId + '/reviewsCount');
-        reviewCountRef.transaction(function (current_count) {
-          return (current_count || 0) + 1;
-        });
-
-        dispatch({
-          type: REVIEW_SUBMITTED,
-          payload: reviewsByUserObject,
-          meta: {
-            mixpanel: {
-              event: 'Review submitted',
-              props: {
-                rating: review.rating,
-                subjectId: subjectId,
-                location: 'Create page'
-              }
-            }
-          }
-        })
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
-}
-
 export function onCreateSubmit(key, subject, review, rid, imageURL, imageFile, tag) {
   return dispatch => {
     const updates = {};
@@ -764,18 +648,21 @@ export function onCreateSubmit(key, subject, review, rid, imageURL, imageFile, t
     let saveSubject = {};
     Object.assign(saveSubject, subject, {lastModified: lastModified});
 
+    let reviewId = rid ? rid : Firebase.database().ref(Constants.REVIEWS_PATH).push().key;
+
     // if subject already exists or we get an objectID from a partner API to use as subjectId
     if (key) {
       subjectId = key;
       Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + key).once('value', subjectSnapshot => {
         // make sure subject is still there, otherwise save it
         if (!subjectSnapshot.exists()) {
-          Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + key).update(saveSubject);
           if (imageURL) {
+            Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + key).update(saveSubject);
             imageId = Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + key + '/images').push(imageObject).key;
             subject.images = {
               imageId: imageObject
             };
+            Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + uid + '/' + reviewId + '/subject/images/' + imageId).update(imageObject);
           }
         }
         // if subject exists, just update lastModified
@@ -787,12 +674,6 @@ export function onCreateSubmit(key, subject, review, rid, imageURL, imageFile, t
     else {
       // user created a new subject, save it
       subjectId = Firebase.database().ref(Constants.SUBJECTS_PATH).push(saveSubject).key;
-      if (imageURL) {
-        imageId = Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId + '/images').push(imageObject).key;
-        subject.images = {
-          imageId: imageObject
-        };
-      }
     }
 
     // add the subject to the tags tree if there
@@ -800,8 +681,7 @@ export function onCreateSubmit(key, subject, review, rid, imageURL, imageFile, t
       updates[`/${Constants.TAGS_PATH}/${tag}/${subjectId}/`] = true;
     }
 
-    // save review to all places
-    let reviewId = rid ? rid : Firebase.database().ref(Constants.REVIEWS_PATH).push().key;
+    // save review
     const reviewMeta = {
         userId: Firebase.auth().currentUser.uid,
         subjectId: subjectId,
@@ -813,6 +693,7 @@ export function onCreateSubmit(key, subject, review, rid, imageURL, imageFile, t
 
     updates[`/${Constants.REVIEWS_PATH}/${reviewId}/`] = reviewObject;
 
+    // save reviewByUser
     let reviewsByUserObject = {
       rating: review.rating,
       caption: review.caption,
@@ -824,6 +705,7 @@ export function onCreateSubmit(key, subject, review, rid, imageURL, imageFile, t
 
     updates[`/${Constants.REVIEWS_BY_USER_PATH}/${uid}/${reviewId}`] = reviewsByUserObject;
 
+    // save reviewBySubject
     let reviewsBySubjectObject = {
       reviewId: reviewId,
       rating: review.rating,
@@ -891,36 +773,6 @@ export function onCreateSubmit(key, subject, review, rid, imageURL, imageFile, t
             }
           })
         }
-        // or if subject image is pulled in from an API
-        // else if (imageURL) {
-        //   let imageUpdates = {};
-        //   imageId = Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId + '/images').push().key;
-        //   let imageObject = {
-        //     url: imageURL,
-        //     lastModified: lastModified
-        //   };
-        //   imageUpdates[`/${Constants.SUBJECTS_PATH}/${subjectId}/images/${imageId}/`] = imageObject;
-        //   imageUpdates[`/${Constants.REVIEWS_BY_USER_PATH}/${uid}/${reviewId}/subject/images/${imageId}`] = imageObject;
-
-        //   payloadObject.subject.images = imageObject;
-
-        //   Firebase.database().ref().update(imageUpdates);
-
-        //   dispatch({
-        //     type: REVIEW_SUBMITTED,
-        //     payload: payloadObject,
-        //     meta: {
-        //       mixpanel: {
-        //         event: 'Review submitted',
-        //         props: {
-        //           rating: review.rating,
-        //           subjectId: subjectId,
-        //           location: 'Create page'
-        //         }
-        //       }
-        //     }
-        //   })
-        // }
         // no image
         else {
           dispatch({
