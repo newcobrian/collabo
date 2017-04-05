@@ -52,7 +52,7 @@ class Home extends React.Component {
           <div className="v2-type-h2 subtitle">The latest reviews from around the globe</div>
         </div>
 
-        <ul className="nav nav-pills outline-active">
+        <ul className="nav nav-pills outline-active tag-bar">
           <li className="nav-item">
             <Link
               className="nav-link active"

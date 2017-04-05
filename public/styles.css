@@ -510,7 +510,7 @@ svg {
     border-radius: 32px;
     text-align: center;
     display: inline-block;
-    box-shadow: 0 0 0 3px #0B101C;
+    box-shadow: 0 0 10px 0px rgba(0,0,0,.3);
 }
 .header-badge {
     margin-top: -36px;
@@ -544,7 +544,6 @@ svg {
     left: 0;
     right: 0;
     background: white;
-    /*background: #FDFDFD;*/
     border-bottom: 1px solid rgba(0,0,0,.1);
     z-index: 10;
     padding: 5px 40px 5px 40px;
@@ -557,8 +556,14 @@ svg {
   width: 100%;
 }
 .feed-wrapper {
-  width: 100%;
-  margin-top: 180px;
+    width: auto;
+    margin-top: 180px;
+    overflow: hidden;
+    margin: 0 auto;
+    padding: 10px 0 0;
+}
+.tag-bar {
+  overflow: scroll;
 }
 
 
@@ -937,6 +942,53 @@ li.nav-divider {
 .editor-page .upload-image-button {
 
 }
+label {
+   cursor: pointer;
+   /* Style as you please, it will become the visible UI component. */
+}
+
+.upload-image-button {
+/*   opacity: 0;
+   position: absolute;
+   z-index: -1;*/
+}
+.upload-wrapper {
+    background: transparent;
+    position: relative;
+    padding: 0px;
+}
+.upload-overlay {
+position: absolute;
+    left: 0;
+    right: 2px;
+    bottom: 0;
+    top: 0;
+    background: white;
+    pointer-events: none;
+    text-align: center;
+    color: #2B3538;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 20px;
+    height: auto;
+}
+
+.react-textselect-input {
+    border: 1px solid #ccc;
+    padding: 20px !important;
+    height: 50px;
+    width: 100%;
+    border-radius: 0 !important;
+    background: white;
+    font-family: 'Roboto', sans-serif;
+    color: #161F34;
+
+}
+
+
+
+
+
 
 
 .rating-description {
@@ -1104,6 +1156,7 @@ li.nav-divider {
     line-height: 1.6em;
     font-size: 1.2em;
 }
+
 
 
 

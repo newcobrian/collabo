@@ -201,7 +201,10 @@ body {
     margin: 60px auto;
     padding: 0 10px;
     max-width: 480px;
-  }
+}
+.feed-wrapper {
+  margin-top: 50px;
+}
 .profile-page {
   margin: 60px 10px;
 }
