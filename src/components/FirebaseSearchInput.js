@@ -205,7 +205,7 @@ class FirebaseSearchInput extends Component {
           return key.toLowerCase().includes(searchText.toLowerCase());
         }}
         fullWidth={true}
-        hintText='Search for something to rate'
+        hintText='What is it?'
         dataSource={this.state.dataSource}
         onUpdateInput={this.onUpdateInput} 
         onNewRequest={this.onNewRequest}

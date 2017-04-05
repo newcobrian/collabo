@@ -19,11 +19,8 @@ const SubjectInfo = props => {
 	if (props.subject) {
 		return (
 			<div>
-				<div className="text-subject-name">{props.subject.title}</div>
 				<div className="roow roow-row-top">
 					<div className="subject-image create-subject-image">{renderImage(props.image)}</div>
-					<div className="text-page-subtitle">{props.subject.description}</div>
-					<div className="text-page-subtitle DN">{props.subject.url}</div>
 				</div>
 			</div>
 		)
@@ -149,27 +146,20 @@ class Create extends React.Component {
 				<div className="popup-overlay roow roow-center-all">
 					<div className="create-popup">
 						<SubjectInfo subject={this.props.subject} image={this.props.image} />
-						<div className="box-shadow">
+						<div className="">
 					      	<fieldset className="form-group no-margin">
-						        <div className={'rating-container box-shadow rating-wrapper-' + this.props.rating}>
-						            <div className="roow roow-row-space-around">
+						        <div className={'rating-container rating-wrapper-' + this.props.rating}>
+						            <div className="roow roow-row">
 						              <div className="square-wrapper"><button className="rating-graphic rating--2" onClick={this.onRatingsChange(-2)}></button></div>
 						              <div className="square-wrapper"><button className="rating-graphic rating--1" onClick={this.onRatingsChange(-1)}></button></div>
 						              <div className="square-wrapper"><button className="rating-graphic rating-0" onClick={this.onRatingsChange(0)}></button></div>
 						              <div className="square-wrapper"><button className="rating-graphic rating-1" onClick={this.onRatingsChange(1)}></button></div>
 						              <div className="square-wrapper"><button className="rating-graphic rating-2" onClick={this.onRatingsChange(2)}></button></div>
 						            </div>
-						            <div className="roow roow-row-space-around">
-						              <div className="rating-description">Worst</div>
-						              <div className="rating-description">Weak</div>
-						              <div className="rating-description">Meh</div>
-						              <div className="rating-description">Good</div>
-						              <div className="rating-description">Amazing</div>
-						            </div>
 						        </div>
 						      </fieldset>
 
-						      <fieldset className="form-group gray-border">
+						      <fieldset className="form-group">
 						        <textarea
 						          className="form-control caption"
 						          rows="3"
@@ -204,9 +194,9 @@ class Create extends React.Component {
 				<div className="popup-overlay roow roow-center-all">
 					<div className="create-popup">
 						<SubjectInfo subject={this.props.subject} image={this.props.image} />
-						<div className="box-shadow">
+						<div className="">
 					      	<fieldset className="form-group no-margin">
-						        <div className={'rating-container box-shadow rating-wrapper-' + this.props.rating}>
+						        <div className={'rating-container rating-wrapper-' + this.props.rating}>
 						            <div className="roow roow-row-space-around">
 						              <div className="square-wrapper"><button className="rating-graphic rating--2" onClick={this.onRatingsChange(-2)}></button></div>
 						              <div className="square-wrapper"><button className="rating-graphic rating--1" onClick={this.onRatingsChange(-1)}></button></div>
@@ -214,17 +204,10 @@ class Create extends React.Component {
 						              <div className="square-wrapper"><button className="rating-graphic rating-1" onClick={this.onRatingsChange(1)}></button></div>
 						              <div className="square-wrapper"><button className="rating-graphic rating-2" onClick={this.onRatingsChange(2)}></button></div>
 						            </div>
-						            <div className="roow roow-row-space-around">
-						              <div className="rating-description">Worst</div>
-						              <div className="rating-description">Weak</div>
-						              <div className="rating-description">Meh</div>
-						              <div className="rating-description">Good</div>
-						              <div className="rating-description">Amazing</div>
-						            </div>
 						        </div>
 						      </fieldset>
 
-						      <fieldset className="form-group gray-border">
+						      <fieldset className="form-group">
 						        <textarea
 						          className="form-control caption"
 						          rows="3"
@@ -255,22 +238,25 @@ class Create extends React.Component {
 		    )
 		}
 		else return (
-			<div className="form-wrapper roow roow-col-left">
+			<div className="form-wrapper roow roow-col-left v2-form">
               <form>
                 <fieldset>
                   <div className="roow roow-row-top">
 
                     <fieldset className="form-group">
-                    <input
-                      className="form-control"
+                    <div className="fileUpload">
+                    	<input
+                      className="form-control upload-image-button"
                       type="file"
                       accept="image/*" 
                       onChange={this.changeFile} />
+                      </div>
+
                   </fieldset>
 
                   </div>
                   <fieldset className="form-group no-margin">
-                    <div>
+                    <div className="pdding-all-md">
                       <select className='react-textselect-input' onChange={this.changeTag} value={this.props.tagInput}>
                         <option selected disabled>Choose a category</option>
                         {Constants.TAG_LIST.map(item => {
@@ -284,24 +270,21 @@ class Create extends React.Component {
                   </fieldset>
                   <fieldset className="form-group no-margin">
                     <div className={'rating-container rating-wrapper-' + this.props.rating}>
-                        <div className="roow roow-row-space-around">
-                          <div className="square-wrapper"><button className="rating-graphic rating--2" onClick={this.onRatingsChange(-2)}></button></div>
-                          <div className="square-wrapper"><button className="rating-graphic rating--1" onClick={this.onRatingsChange(-1)}></button></div>
-                          <div className="square-wrapper"><button className="rating-graphic rating-0" onClick={this.onRatingsChange(0)}></button></div>
-                          <div className="square-wrapper"><button className="rating-graphic rating-1" onClick={this.onRatingsChange(1)}></button></div>
-                          <div className="square-wrapper"><button className="rating-graphic rating-2" onClick={this.onRatingsChange(2)}></button></div>
-                        </div>
-                        <div className="roow roow-row-space-around">
-                          <div className="rating-description">WTF</div>
-                          <div className="rating-description">Weak</div>
-                          <div className="rating-description">Meh</div>
-                          <div className="rating-description">Coo</div>
-                          <div className="rating-description">Lit as Fuck</div>
+                        <div className="roow roow-row">
+                          <button className="rating-graphic rating--2" onClick={this.onRatingsChange(-2)}></button>
+                          <div className="rating-divider"></div> 
+                          <button className="rating-graphic rating--1" onClick={this.onRatingsChange(-1)}></button>
+                          <div className="rating-divider"></div> 
+                          <button className="rating-graphic rating-0" onClick={this.onRatingsChange(0)}></button>
+                          <div className="rating-divider"></div> 
+							<button className="rating-graphic rating-1" onClick={this.onRatingsChange(1)}></button>
+                          <div className="rating-divider"></div> 
+							<button className="rating-graphic rating-2" onClick={this.onRatingsChange(2)}></button>
                         </div>
                     </div>
                   </fieldset>
 
-                  <div className="gray-border">
+                  <div className="">
                   <fieldset className="form-group">
                     <textarea
                       className="form-control caption"
@@ -341,18 +324,22 @@ class Create extends React.Component {
 	render() {
 		return (
 			<div className="roow roow-col roow-center-all page-common editor-page create-page">
-				<ListErrors errors={this.props.errors}></ListErrors>
-	            <div className="form-wrapper roow roow-col-left">
-		            <form>
-						<fieldset className="form-group no-margin main-search-field gray-border">
-			                <FirebaseSearchInput value={this.props.title} className="form-control main-search-inner" callback={this.searchInputCallback}
-			                latitude={this.props.latitude} longitude={this.props.longitude} />
-			            </fieldset>
-			        </form>
-			    </div>
+				<div className="page-title-wrapper center-text">
+				  <div className="v2-type-h2 subtitle">Review something real quick</div>
+				</div>
+				<div className="bx-shadow default-card-white roow roow-col roow-center-all create-wrapper mrgn-top-sm">
+					<ListErrors errors={this.props.errors}></ListErrors>
+		            <div className="form-wrapper roow roow-col-left">
+			            <form>
+							<fieldset className="form-group no-margin main-search-field">
+				                <FirebaseSearchInput value={this.props.title} className="form-control main-search-inner" callback={this.searchInputCallback}
+				                latitude={this.props.latitude} longitude={this.props.longitude} />
+				            </fieldset>
+				        </form>
+				    </div>
 
-				{this.renderRating(this.props.subject, this.props.review)}
-
+					{this.renderRating(this.props.subject, this.props.review)}
+				</div>
 		    </div>
 	    )
 	}
