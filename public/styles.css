@@ -176,8 +176,8 @@ textarea {
 }
 .bx-shadow,
 .box-shadow {
-  box-shadow: -5px 11px 24px rgba(0,0,0,0.1);
-  -webkit-box-shadow: -5px 11px 24px rgba(0,0,0,0.1);
+  box-shadow: 0px 11px 24px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 0px 11px 24px rgba(0,0,0,0.1);
 }
 .center-img {
   object-position: center; /* Center the image within the element */
@@ -564,99 +564,99 @@ svg {
 
 
 .mrgn-all-sm {
-  margin: 10px;
+  margin: 10px !important;
 }
 .mrgn-top-sm {
-  margin-top: 10px;
+  margin-top: 10px !important;
 }
 .mrgn-right-sm  {
-  margin-right: 10px;
+  margin-right: 10px !important;
 }
 .mrgn-bottom-sm  {
-  margin-bottom: 10px;
+  margin-bottom: 10px !important;
 }
 .mrgn-left-sm  {
-  margin-left: 10px;
+  margin-left: 10px !important;
 }
 
 .mrgn-all-md {
-  margin: 20px;
+  margin: 20px !important;
 }
 .mrgn-top-md {
-  margin-top: 20px;
+  margin-top: 20px !important;
 }
 .mrgn-right-md {
-  margin-right: 20px;
+  margin-right: 20px !important;
 }
 .mrgn-bottom-md {
-  margin-bottom: 20px;
+  margin-bottom: 20px !important;
 }
 .mrgn-left-md {
-  margin-left: 20px;
+  margin-left: 20px !important;
 }
 
 .mrgn-all-lg {
-  margin: 40px;
+  margin: 40px !important;
 }
 .mrgn-top-lg {
-  margin-top: 40px;
+  margin-top: 40px !important;
 }
 .mrgn-right-lg {
-  margin-right: 40px;
+  margin-right: 40px !important;
 }
 .mrgn-bottom-lg {
-  margin-bottom: 40px;
+  margin-bottom: 40px !important;
 }
 .mrgn-left-lg {
-  margin-left: 40px;
+  margin-left: 40px !important;
 }
 
 .pdding-all-sm {
-  padding: 10px;
+  padding: 10px !important;
 }
 .pdding-top-sm {
-  padding-top: 10px;
+  padding-top: 10px !important;
 }
 .pdding-right-sm  {
-  padding-right: 10px;
+  padding-right: 10px !important;
 }
 .pdding-bottom-sm  {
-  padding-bottom: 10px;
+  padding-bottom: 10px !important;
 }
 .pdding-left-sm  {
-  padding-left: 10px;
+  padding-left: 10px !important;
 }
 
 .pdding-all-md {
-  padding: 20px;
+  padding: 20px !important;
 }
 .pdding-top-md {
-  padding-top: 20px;
+  padding-top: 20px !important;
 }
 .pdding-right-md {
-  padding-right: 20px;
+  padding-right: 20px !important;
 }
 .pdding-bottom-md {
-  padding-bottom: 20px;
+  padding-bottom: 20px !important;
 }
 .pdding-left-md {
-  padding-left: 20px;
+  padding-left: 20px !important;
 }
 
 .pdding-all-lg {
-  padding: 40px;
+  padding: 40px !important;
 }
 .pdding-top-lg {
-  padding-top: 40px;
+  padding-top: 40px !important;
 }
 .pdding-right-lg {
-  padding-right: 40px;
+  padding-right: 40px !important;
 }
 .pdding-bottom-lg {
-  padding-bottom: 40px;
+  padding-bottom: 40px !important;
 }
 .pdding-left-lg {
-  padding-left: 40px;
+  padding-left: 40px !important;
 }
 
 
@@ -670,7 +670,9 @@ svg {
 .home-page {
 }
 
-
+.feed-toggle {
+  background-color: rgba(255,255,255,.95);
+}
 
 /******
 ******
@@ -724,8 +726,11 @@ svg {
 .nav-pills.outline-active .nav-link {
   padding: 5px 0px;
   margin-right: 20px;
+  color: #526166;
+  opacity: .5;
 }
-.nav-pills.outline-active .nav-link.active {
+.nav-pills.outline-active .nav-link.active,
+.nav-pills.outline-active .nav-link:hover {
     border-bottom-color: #242833 !important;
     color: #0C111D !important;
     opacity: 1;
@@ -806,7 +811,7 @@ li.nav-divider {
 ******
 ******/
 .article-page {
-  margin: 110px 40px;
+  margin: 120px 40px;
 }
 .article-page .subject-image img {
     width: 355px;
@@ -825,6 +830,7 @@ li.nav-divider {
 .article-page .comments-container {
 }
 .article-page .reviews-wrapper {
+    margin-bottom: 0 !important;
 }
 .comment-wrapper {
   border-radius: 0;

@@ -132,7 +132,7 @@ class Review extends React.Component {
               updateRating={this.props.onUpdateRating}
               deleteReview={this.props.onDeleteReview}
               reviewDetailPath={true} />
-      <div className="roow roow-center comments-container default-card-white pdding-all-sm">
+      <div className="roow roow-center comments-container default-card-white pdding-all-sm bx-shadow">
        <CommentContainer
           authenticated={this.props.authenticated}
           comments={this.props.comments || []}

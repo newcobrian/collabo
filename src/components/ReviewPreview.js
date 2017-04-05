@@ -15,9 +15,13 @@ const RatingsButtons = props => {
     return (
       <div className={'rating-container roow roow-row-center rating-wrapper-' + props.review.rating}>
         <button className="rating-graphic rating--2" onClick={handleClick(-2)}><ProxyImage src={props.review.reviewer.image}/></button>
+        <div className="rating-divider"></div>
         <button className="rating-graphic rating--1" onClick={handleClick(-1)}><ProxyImage src={props.review.reviewer.image}/></button>
+        <div className="rating-divider"></div>
         <button className="rating-graphic rating-0" onClick={handleClick(0)}><ProxyImage src={props.review.reviewer.image}/></button>
+        <div className="rating-divider"></div>
         <button className="rating-graphic rating-1" onClick={handleClick(1)}><ProxyImage src={props.review.reviewer.image}/></button>
+        <div className="rating-divider"></div>
         <button className="rating-graphic rating-2" onClick={handleClick(2)}><ProxyImage src={props.review.reviewer.image}/></button>
       </div>
     )
@@ -26,9 +30,13 @@ const RatingsButtons = props => {
     return (
       <div className={'rating-container cannot-rate roow roow-row-center rating-wrapper-' + props.review.rating}>
         <div className="rating-graphic rating--2"><ProxyImage src={props.review.reviewer.image}/></div>
+        <div className="rating-divider"></div>
         <div className="rating-graphic rating--1"><ProxyImage src={props.review.reviewer.image}/></div>
+        <div className="rating-divider"></div>
         <div className="rating-graphic rating-0"><ProxyImage src={props.review.reviewer.image}/></div>
+        <div className="rating-divider"></div>        
         <div className="rating-graphic rating-1"><ProxyImage src={props.review.reviewer.image}/></div>
+        <div className="rating-divider"></div>        
         <div className="rating-graphic rating-2"><ProxyImage src={props.review.reviewer.image}/></div>
       </div>
     )
@@ -89,14 +97,14 @@ const ReviewPreview = props => {
       props.authenticated === props.review.reviewer.userId;
 
   return (
-      <div className="reviews-wrapper roow roow-left roow-col-left">
+      <div className="reviews-wrapper roow roow-left roow-col-left mrgn-bottom-lg bx-shadow">
 
           <a href={review.subject.image ? review.subject.image[0] : ""}>
             <div className="subject-image">
               <ProxyImage className="gray-border" src={review.subject.image ? review.subject.image : ""}/>
             </div>
           </a>
-        <div className="review-container roow roow-center roow-col-left bottom-divider default-card-white mrgn-bottom-lg">
+        <div className="review-container roow roow-center roow-col-left bottom-divider default-card-white">
           <div className="subject-name-container center-text">
             <div className="delete-wrapper">
               <div className="delete-button">
