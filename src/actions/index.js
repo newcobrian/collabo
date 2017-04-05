@@ -674,6 +674,21 @@ export function onCreateSubmit(key, subject, review, rid, imageURL, imageFile, t
     else {
       // user created a new subject, save it
       subjectId = Firebase.database().ref(Constants.SUBJECTS_PATH).push(saveSubject).key;
+
+      //update Algolia index
+      var algoliasearch = require('algoliasearch');
+      var client = algoliasearch('2OEMW8KEZS', '62e17a3113351343399fad062d3cbca5', {protocol:'https:'});
+      var index = client.initIndex('whatsgood-subjects');
+      index.saveObject({
+        name: subject.title,
+        description: subject.description,
+        objectID: subjectId
+      }, function(err, content) {
+        if (err) {
+          console.error(err);
+          return;
+        }
+      });
     }
 
     // add the subject to the tags tree if there

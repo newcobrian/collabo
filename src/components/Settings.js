@@ -43,7 +43,6 @@ class SettingsForm extends React.Component {
         bio: this.props.currentUser.bio,
         email: this.props.currentUser.email
       });
-      this.props.sendMixpanelEvent('Settings page loaded');
     }
   }
 
@@ -129,19 +128,14 @@ class SettingsForm extends React.Component {
 
 const mapStateToProps = state => ({
   ...state.settings,
-  currentUser: state.common.currentUser
+  currentUser: state.common.currentUser,
+  authenticated: state.common.authenticated
 });
-
-// const mapDispatchToProps = dispatch => ({
-//   onClickLogout: () => dispatch({ type: 'LOGOUT' }),
-//   onSubmitForm: user =>
-//     dispatch({ type: 'SETTINGS_SAVED', payload: agent.Auth.save(user) }),
-//   onUnload: () => dispatch({ type: 'SETTINGS_PAGE_UNLOADED' })
-// });
 
 class Settings extends React.Component {
   componentWillMount() {
-    this.props.getProfileUser(this.props.currentUser.uid);
+    this.props.getProfileUser(this.props.authenticated);
+    this.props.sendMixpanelEvent('Settings page loaded');
   }
 
   componentWillUnmount() {
