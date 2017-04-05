@@ -57,7 +57,7 @@ const CommentPreview = props => {
     return (
       <Link to={`review/${props.review.subjectId}/${props.review.id}`}>
         <div className="cta-wrapper roow roow-col">
-          <div className="cta-icon cta-comment comment-on"></div>
+          <div className="cta-icon cta-comment"></div>
           {props.review.commentsCount} Comments
         </div>
       </Link>
@@ -152,6 +152,9 @@ const ReviewPreview = props => {
                     <span className="dash"></span>{review.reviewer.username}
                   </div>
                 </Link>
+                <div className="review-timestamp">
+                  {(new Date(review.lastModified)).toLocaleString()}
+                </div>  
             </div>
 
 
@@ -160,11 +163,9 @@ const ReviewPreview = props => {
           <div className="roow roow-row flex-wrap cta-container">
               <div className="cta-box roow roow-row-space">
                 <div className="roow roow-col-left">
-                  <div className="review-timestamp">
-                    {(new Date(review.lastModified)).toLocaleString()}
-                  </div>
-                  
+                
                 </div>
+                <CommentPreview comments={props.review.comments} review={props.review} />
                 <div className="roow roow-row flex-item-right">
                   <LikeReviewButton
                     authenticated={props.authenticated}

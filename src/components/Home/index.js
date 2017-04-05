@@ -47,7 +47,7 @@ class Home extends React.Component {
 
   renderTabs() {
     return (
-      <div>
+      <div className="page-title-container">
         <div className="page-title-wrapper center-text">
           <div className="v2-type-h2 subtitle">The latest reviews from around the globe</div>
         </div>
@@ -97,10 +97,10 @@ class Home extends React.Component {
     return (
       <div className="home-page">
             <div className="roow">
+              <div className="feed-toggle roow roow-row-center">
+                {this.renderTabs()}
+              </div>
               <div className="feed-wrapper">
-                <div className="feed-toggle roow roow-row-center">
-                  {this.renderTabs()}
-                </div>
                 <MainView />
               </div>
 

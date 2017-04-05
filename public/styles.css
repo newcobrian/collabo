@@ -531,6 +531,9 @@ svg {
   margin: 110px 0px;
   background-color: white;
 }
+.page-title-container {
+  width: 100%;
+}
 .page-title-wrapper {
   padding: 10px 0;
   width: 100%;
@@ -546,7 +549,7 @@ svg {
     background: white;
     border-bottom: 1px solid rgba(0,0,0,.1);
     z-index: 10;
-    padding: 5px 40px 5px 40px;
+    padding: 0;
 }
 .feed-toggle.tags-toggle {
   top: 131px;
@@ -557,13 +560,16 @@ svg {
 }
 .feed-wrapper {
     width: auto;
-    margin-top: 180px;
     overflow: hidden;
     margin: 0 auto;
     padding: 10px 0 0;
 }
 .tag-bar {
   overflow: scroll;
+  margin: 0 auto;
+  white-space: nowrap;
+  height: 52px;
+  padding: 0 20px;
 }
 
 
@@ -664,6 +670,11 @@ svg {
   padding-left: 40px !important;
 }
 
+::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+/* optional: show position indicator in red */
 
 
 
@@ -673,6 +684,7 @@ svg {
 ******
 ******/
 .home-page {
+    margin-top: 180px;
 }
 
 .feed-toggle {
@@ -747,6 +759,7 @@ svg {
     width: auto;
     white-space: normal;
     float: none;
+    font-size: 14px;
 }
 li.nav-divider {
     height: 10px;
@@ -816,7 +829,7 @@ li.nav-divider {
 ******
 ******/
 .article-page {
-  margin: 120px 40px;
+  margin: 100px 40px;
 }
 .article-page .subject-image img {
     width: 355px;
@@ -841,26 +854,31 @@ li.nav-divider {
   border-radius: 0;
 }
 .article-page .text-subject-name {
-      -webkit-align-items: center;
-    align-items: center;
-    -webkit-justify-content: center;
-    justify-content: center;
+    -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
 }
 .review-now-wrapper {
-  border: 1px solid #5B9D3A;
+  border: 1px solid #E2E2E2;
   background: white;
-  color: #5B9D3A;
+  color: #48BC23;
   font-weight: 400;
-  padding: 20px;
+  padding: 10px;
   width: 100%;
   max-width: 355px;
-  margin: 0 auto;
-  /*box-shadow: 0 0 0 4px rgba(107,255,78,.5);*/
+  margin: 20px auto;
+  /* box-shadow: 0 0 0 4px rgba(107,255,78,.5); */
   text-align: center;
   cursor: pointer;
+  vertical-align: middle;
+    font-size: 14px;
 }
 .review-now-wrapper:hover {
   background: rgba(107,255,78,.5);
+}
+.review-now-wrapper img {
+  margin-top: -3px;
 }
 
 
@@ -1193,6 +1211,7 @@ position: absolute;
 ************************************ 3. SEND PAGE
 ******
 ******/
+
 .page-common.send-page .page-title-wrapper {
 }
 .page-common.send-page form {

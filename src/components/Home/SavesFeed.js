@@ -19,29 +19,29 @@ class SavesFeed extends Home {
     if (this.props.authenticated) {
       return (
         <div>
-        <div className="page-title-wrapper center-text">
-          <div className="v2-type-h2 subtitle">Keep track of reviews for later</div>
-        </div>
-        <ul className="nav nav-pills outline-active">
-          <li className="nav-item">
-            <a href='#'
-              className={"nav-link " + (this.props.tag ? '' : 'active')}
-              onClick={this.selectTab(null)}>
-              All
-            </a>
-          </li>
-          {Constants.TAG_LIST.map(item => {
-            return (
-                  <li className="nav-item">
-                    <a href='#'
-                      className={"nav-link " + (this.props.tag === item ? 'active' : '')}
-                      onClick={this.selectTab(item)}>
-                      {item}
-                    </a>
-                  </li>
-              );
-          })}
-        </ul>
+          <div className="page-title-wrapper center-text">
+            <div className="v2-type-h2 subtitle">Keep track of reviews for later</div>
+          </div>
+          <ul className="nav nav-pills outline-active tag-bar">
+            <li className="nav-item">
+              <a href='#'
+                className={"nav-link " + (this.props.tag ? '' : 'active')}
+                onClick={this.selectTab(null)}>
+                All
+              </a>
+            </li>
+            {Constants.TAG_LIST.map(item => {
+              return (
+                    <li className="nav-item">
+                      <a href='#'
+                        className={"nav-link " + (this.props.tag === item ? 'active' : '')}
+                        onClick={this.selectTab(item)}>
+                        {item}
+                      </a>
+                    </li>
+                );
+            })}
+          </ul>
         </div>
          
 

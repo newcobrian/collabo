@@ -286,7 +286,7 @@
 
 
 .review-timestamp {
-  font-size: 1em;
+  font-size: 10px;
   opacity: .4;
   margin: 5px 0 0;
   display: inline-block;
@@ -332,9 +332,12 @@
 ******
 ******/
 .cta-container {
-  font-size: 11px;
+  font-size: 9px;
   padding: 0;
   width: 100%;
+}
+.cta-wrapper {
+  padding: 0 5px;
 }
 .cta-box {
   margin-top: -1px;

@@ -123,6 +123,11 @@ class Review extends React.Component {
 
     <div className="page-common article-page">
     <div className="reviewpreview-wrapper main-review roow roow-col-center">
+      
+       <div className="review-now-wrapper">
+        <img src="../img/icon32_add.png" height="24" width="24"/> Add Your Review Now
+      </div> 
+
       <ReviewPreview review={reviewObject} 
               authenticated={this.props.authenticated} 
               like={this.props.likeReview} 
@@ -144,9 +149,7 @@ class Review extends React.Component {
       </div>
 
       
-     <div className="review-now-wrapper">
-      Add Your Review Now <img src="../img/icon32_add.png" height="24" width="24"/>
-    </div> 
+
 
     <DisplayAppUserReview 
       currentReviewId={this.props.params.rid}
