@@ -1687,6 +1687,7 @@ export function getUserFeed(uid, tag) {
 
 export function likeReview(authenticated, review) {
   return dispatch => {
+    console.log('in like = ' + authenticated)
     if (!authenticated) {
       dispatch({
         type: ASK_FOR_AUTH
@@ -1719,6 +1720,7 @@ export function likeReview(authenticated, review) {
 
 export function unLikeReview(authenticated, review) {
   return dispatch => {
+    console.log('unlike = ' + authenticated)
     if (!authenticated) {
       dispatch({
         type: ASK_FOR_AUTH
@@ -1837,6 +1839,7 @@ export function getGlobalFeed(uid, tag) {
                   let reviewObject = {};
                   let key = { id: review.key };
                   let reviewer = { reviewer: userSnapshot.val() };
+                  reviewer.reviewer.userId = reviewerId;
                   let isLiked = false;
                   if (likesSnapshot.exists()) {
                     isLiked = searchLikes(uid, likesSnapshot.val());
