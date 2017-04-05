@@ -4,6 +4,8 @@ import { Link } from 'react-router';
 import * as Actions from '../actions';
 import FirebaseSearchInput from './FirebaseSearchInput'
 import ProxyImage from './ProxyImage';
+import ListErrors from './ListErrors';
+import * as Constants from '../constants';
 
 const SubjectInfo = props => {
 	const renderImage = image => {
@@ -51,6 +53,10 @@ class Create extends React.Component {
 	      key => ev => this.props.onUpdateCreateField(key, ev.target.value);
 	    this.changeCaption = updateFieldEvent('caption');
 	    this.changeTagInput = updateFieldEvent('tagInput');
+	    // from editor
+	    this.changeTitle = updateFieldEvent('title');
+	    this.changeDescription = updateFieldEvent('description');
+	    this.changeURL = updateFieldEvent('url');
 
 	    this.onRatingsChange = rating => ev => {
 	      ev.preventDefault();
@@ -64,15 +70,36 @@ class Create extends React.Component {
 		this.submitForm = ev => {
 	      ev.preventDefault();
 
-	      const ratingObject = {
-	        rating: this.props.rating,
+	      if (!this.props.subjectId && !this.props.title) {
+	        this.props.createSubmitError('product name');
 	      }
-	      if (this.props.caption) ratingObject.caption = this.props.caption;
+	      else if (this.props.rating !== 0 && !this.props.rating) {
+	        this.props.createSubmitError('rating');
+	      }
+	      else {
+		    const ratingObject = {
+		      rating: this.props.rating,
+		    }
+		    if (this.props.caption) ratingObject.caption = this.props.caption;
 
-	      let reviewId = this.props.review ? this.props.review.reviewId : null;
+		    let reviewId = this.props.review ? this.props.review.reviewId : null;
 
-	      this.props.setInProgress();
-	      this.props.onCreateSubmit(this.props.subjectId, this.props.subject, ratingObject, reviewId, this.props.image);
+		   	let subject = {};
+		   	if (this.props.subject) {
+		   		subject = this.props.subject;
+		    }
+		    else {
+		    	// if this is a new subject the user is entering in the form
+		    	subject.title = this.props.title;
+		    	if (this.props.url) subject.url = this.props.url;
+		   		if (this.props.tagInput) {
+		          subject.tags = {};
+		          subject.tags[this.props.tagInput] = true;
+		        }
+		   	}
+		    this.props.setInProgress();
+		    this.props.onCreateSubmit(this.props.subjectId, subject, ratingObject, reviewId, this.props.image, this.props.imageFile, this.props.tag);
+		  }
     	}
 
     	this.onCancelClick = ev => {
@@ -87,17 +114,18 @@ class Create extends React.Component {
 		      this.props.setWatchPositionId(watchId);
 		    }
     	}
-	}
 
-	// componentWillReceiveProps(nextProps) {
-	//     if (this.props.id !== nextProps.id) {
-	//       if (nextProps.id) {
-	//         this.props.onCreateUnload();
-	//         return this.props.onCreateLoad();
-	//       }
-	//       this.props.onEditorLoad();
-	//     }
-	// }
+    	// more from Editor
+    	this.changeFile = ev => {
+	      this.props.onUpdateCreateField('imageFile', ev.target.files[0]);
+	    }
+
+	    this.changeTag = ev => {
+	      ev.preventDefault();
+	      this.props.onUpdateCreateField('tagInput', ev.target.value);
+	    }
+
+	}
 
 	componentWillMount() {
     	if (!this.props.authenticated) {
@@ -132,11 +160,11 @@ class Create extends React.Component {
 						              <div className="square-wrapper"><button className="rating-graphic rating-2" onClick={this.onRatingsChange(2)}></button></div>
 						            </div>
 						            <div className="roow roow-row-space-around">
-						              <div className="rating-description">WTF</div>
+						              <div className="rating-description">Worst</div>
 						              <div className="rating-description">Weak</div>
 						              <div className="rating-description">Meh</div>
-						              <div className="rating-description">Coo</div>
-						              <div className="rating-description">Lit as Fuck</div>
+						              <div className="rating-description">Good</div>
+						              <div className="rating-description">Amazing</div>
 						            </div>
 						        </div>
 						      </fieldset>
@@ -187,11 +215,11 @@ class Create extends React.Component {
 						              <div className="square-wrapper"><button className="rating-graphic rating-2" onClick={this.onRatingsChange(2)}></button></div>
 						            </div>
 						            <div className="roow roow-row-space-around">
-						              <div className="rating-description">WTF</div>
+						              <div className="rating-description">Worst</div>
 						              <div className="rating-description">Weak</div>
 						              <div className="rating-description">Meh</div>
-						              <div className="rating-description">Coo</div>
-						              <div className="rating-description">Lit as Fuck</div>
+						              <div className="rating-description">Good</div>
+						              <div className="rating-description">Amazing</div>
 						            </div>
 						        </div>
 						      </fieldset>
@@ -226,21 +254,98 @@ class Create extends React.Component {
 		    	</div>
 		    )
 		}
-		else return null;
+		else return (
+			<div className="form-wrapper roow roow-col-left">
+              <form>
+                <fieldset>
+                  <div className="roow roow-row-top">
+
+                    <fieldset className="form-group">
+                    <input
+                      className="form-control"
+                      type="file"
+                      accept="image/*" 
+                      onChange={this.changeFile} />
+                  </fieldset>
+
+                  </div>
+                  <fieldset className="form-group no-margin">
+                    <div>
+                      <select className='react-textselect-input' onChange={this.changeTag} value={this.props.tagInput}>
+                        <option selected disabled>Choose a category</option>
+                        {Constants.TAG_LIST.map(item => {
+                          return (
+                                <option value={item} key={item}>{item}</option>
+                            );
+                        })}
+                      </select>
+                     {/***} <SelectTag options={Constants.TAG_LIST} handler={this.changeTag} value={this.props.tag} />  ***/}
+                    </div>
+                  </fieldset>
+                  <fieldset className="form-group no-margin">
+                    <div className={'rating-container rating-wrapper-' + this.props.rating}>
+                        <div className="roow roow-row-space-around">
+                          <div className="square-wrapper"><button className="rating-graphic rating--2" onClick={this.onRatingsChange(-2)}></button></div>
+                          <div className="square-wrapper"><button className="rating-graphic rating--1" onClick={this.onRatingsChange(-1)}></button></div>
+                          <div className="square-wrapper"><button className="rating-graphic rating-0" onClick={this.onRatingsChange(0)}></button></div>
+                          <div className="square-wrapper"><button className="rating-graphic rating-1" onClick={this.onRatingsChange(1)}></button></div>
+                          <div className="square-wrapper"><button className="rating-graphic rating-2" onClick={this.onRatingsChange(2)}></button></div>
+                        </div>
+                        <div className="roow roow-row-space-around">
+                          <div className="rating-description">WTF</div>
+                          <div className="rating-description">Weak</div>
+                          <div className="rating-description">Meh</div>
+                          <div className="rating-description">Coo</div>
+                          <div className="rating-description">Lit as Fuck</div>
+                        </div>
+                    </div>
+                  </fieldset>
+
+                  <div className="gray-border">
+                  <fieldset className="form-group">
+                    <textarea
+                      className="form-control caption"
+                      rows="3"
+                      placeholder="Compose a quick comment..."
+                      value={this.props.caption}
+                      onChange={this.changeCaption}>
+                    </textarea>
+                   </fieldset>
+                  <fieldset className="form-group">
+                    <input
+                      className="form-control subtle-input"
+                      type="text"
+                      placeholder="website link (optional)"
+                      value={this.props.url}
+                      onChange={this.changeURL} />
+                  </fieldset>
+                  </div>
+
+
+
+                  <button
+                    className="bttn-style bttn-submit"
+                    type="button"
+                    disabled={this.props.inProgress}
+                    onClick={this.submitForm}>
+                    Submit Review
+                  </button>
+
+                </fieldset>
+              </form>
+
+            </div>
+		);
 	}
 
 	render() {
 		return (
 			<div className="roow roow-col roow-center-all page-common editor-page create-page">
-	            <div className="page-title-wrapper roow roow-row center-text">
-	              <div className="text-page-title">Search</div>
-	              <a className="text-page-title unselected" href="#/editor">Create New</a>
-	            </div>
-
+				<ListErrors errors={this.props.errors}></ListErrors>
 	            <div className="form-wrapper roow roow-col-left">
 		            <form>
 						<fieldset className="form-group no-margin main-search-field gray-border">
-			                <FirebaseSearchInput className="form-control main-search-inner" callback={this.searchInputCallback}
+			                <FirebaseSearchInput value={this.props.title} className="form-control main-search-inner" callback={this.searchInputCallback}
 			                latitude={this.props.latitude} longitude={this.props.longitude} />
 			            </fieldset>
 			        </form>

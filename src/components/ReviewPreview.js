@@ -91,7 +91,7 @@ const ReviewPreview = props => {
   return (
       <div className="reviews-wrapper roow roow-left roow-col-left">
 
-          <a href={review.subject.images ? review.subject.images[0] : ""}>
+          <a href={review.subject.image ? review.subject.image[0] : ""}>
             <div className="subject-image">
               <ProxyImage className="gray-border" src={review.subject.image ? review.subject.image : ""}/>
             </div>

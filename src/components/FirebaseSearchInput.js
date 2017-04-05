@@ -1,14 +1,21 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import { AutoComplete } from 'material-ui';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import * as Constants from '../constants'
+import * as Constants from '../constants';
+import * as Actions from '../actions';
 import 'whatwg-fetch';
 
 var algoliasearch = require('algoliasearch');
 var client = algoliasearch('2OEMW8KEZS', '62e17a3113351343399fad062d3cbca5', {protocol:'https:'});
 
 var index = client.initIndex('whatsgood-subjects');
+
+const mapStateToProps = state => ({
+  ...state.create,
+  authenticated: state.common.authenticated
+});
 
 class FirebaseSearchInput extends Component {
   constructor(props) {
@@ -25,6 +32,7 @@ class FirebaseSearchInput extends Component {
 
   onUpdateInput(inputValue) {
     const self = this;
+    this.props.onUpdateCreateField('title', inputValue)
     this.setState({
       inputValue: inputValue
     }, function() {
@@ -59,7 +67,7 @@ class FirebaseSearchInput extends Component {
     const self = this,
       url = Constants.SUBJECT_SEARCH_URL + this.state.inputValue + '&ll=' + this.props.latitude + ',' + this.props.longitude;
       
-    console.log(url)
+    // console.log(url)
 
 
     // index.search(this.state.inputValue, function(err, content) {
@@ -197,7 +205,7 @@ class FirebaseSearchInput extends Component {
           return key.toLowerCase().includes(searchText.toLowerCase());
         }}
         fullWidth={true}
-        hintText='Search for a product'
+        hintText='Search for something to rate'
         dataSource={this.state.dataSource}
         onUpdateInput={this.onUpdateInput} 
         onNewRequest={this.onNewRequest}
@@ -213,4 +221,5 @@ class FirebaseSearchInput extends Component {
   }
 }
 
-export default FirebaseSearchInput;
+export default connect(mapStateToProps, Actions)(FirebaseSearchInput);
+// export default FirebaseSearchInput;

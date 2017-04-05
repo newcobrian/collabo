@@ -1,5 +1,6 @@
 import { CREATE_PAGE_LOADED, CREATE_SUBJECT_LOADED, UPDATE_FIELD_CREATE, REVIEW_SUBMITTED, 
-  CREATE_PAGE_UNLOADED, CREATE_SUBJECT_CLEARED, GET_USER_LOCATION, SET_WATCH_ID, SET_IN_PROGRESS } from '../actions'
+  CREATE_PAGE_UNLOADED, CREATE_SUBJECT_CLEARED, GET_USER_LOCATION, SET_WATCH_ID, SET_IN_PROGRESS,
+  CREATE_SUBMIT_ERROR } from '../actions'
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -27,6 +28,11 @@ export default (state = {}, action) => {
         rating: null,
         caption: null,
         image: null
+      }
+    case CREATE_SUBMIT_ERROR:
+      return {
+        ...state,
+        errors: [action.error]
       }
     case SET_IN_PROGRESS:
       return {
