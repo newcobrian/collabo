@@ -519,6 +519,7 @@ export function loadCreateSubject(userId, result) {
             subject.title = result.value;
             if (result.URL) subject.url = result.url;
             if (result.description) subject.description = result.description;
+            if (result.tags) subject.tags = result.tags;
           }
 
           let dispatchObject = {
@@ -632,7 +633,7 @@ export function onUpdateField(key, value) {
   }
 }
 
-export function onCreateSubmit(key, subject, review, rid, imageURL, imageFile, tag) {
+export function onCreateSubmit(key, subject, review, rid, imageURL, imageFile) {
   return dispatch => {
     const updates = {};
     const uid = Firebase.auth().currentUser.uid;
@@ -692,8 +693,11 @@ export function onCreateSubmit(key, subject, review, rid, imageURL, imageFile, t
     }
 
     // add the subject to the tags tree if there
-    if (tag) {
-      updates[`/${Constants.TAGS_PATH}/${tag}/${subjectId}/`] = true;
+    if (subject.tags) {
+      for (var key in subject.tags) {
+        if (!subject.tags.hasOwnProperty(key)) continue;
+        updates[`/${Constants.TAGS_PATH}/${key}/${subjectId}/`] = true;  
+      }
     }
 
     // save review

@@ -61,6 +61,7 @@ class Create extends React.Component {
 	    }
 
 		this.searchInputCallback = result => {
+			console.log(JSON.stringify(result))
 			this.props.loadCreateSubject(this.props.authenticated, result);
 		}
 
@@ -95,7 +96,7 @@ class Create extends React.Component {
 		        }
 		   	}
 		    this.props.setInProgress();
-		    this.props.onCreateSubmit(this.props.subjectId, subject, ratingObject, reviewId, this.props.image, this.props.imageFile, this.props.tag);
+		    this.props.onCreateSubmit(this.props.subjectId, subject, ratingObject, reviewId, this.props.image, this.props.imageFile);
 		  }
     	}
 
