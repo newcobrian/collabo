@@ -17,7 +17,7 @@ export const SETTINGS_SAVED_ERROR = 'SETTINGS_SAVED_ERROR';
 export const REGISTER_USERNAME_ERROR = 'REGISTER_USERNAME_ERROR';
 export const GET_SUBJECT = 'GET_SUBJECT';
 export const REVIEW_SUBMITTED = 'REVIEW_SUBMITTED';
-export const UPDATE_FIELD_EDITOR = 'UPDATE_FIELD_EDITOR';
+export const UPDATE_FIELD = 'UPDATE_FIELD';
 export const EDITOR_PAGE_LOADED = 'EDITOR_PAGE_LOADED';
 export const EDITOR_PAGE_UNLOADED = 'EDITOR_PAGE_UNLOADED';
 export const SUBJECT_UNLOADED = 'SUBJECT_UNLOADED';
@@ -248,7 +248,7 @@ export function updateUsername(oldName, newName, userid) {
   Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + oldName).remove();
 }
 
-export function saveSettings(user, currentUsername) {
+export function saveSettings(user, currentUsername, imageFile) {
   const uid = Firebase.auth().currentUser.uid;
   return dispatch => {
     if (user.username && user.username !== currentUsername) {
@@ -264,6 +264,38 @@ export function saveSettings(user, currentUsername) {
           const uid = Firebase.auth().currentUser.uid;
           updateUsername(currentUsername, user.username, uid);
 
+              // if user uploaded an image, save it
+          if (imageFile) {
+            const storageRef = Firebase.storage().ref();
+            const metadata = {
+              contentType: 'image/jpeg'
+            }
+            let fileName = generateImageFileName();
+            const uploadTask = storageRef.child('images/' + fileName).put(imageFile, metadata);
+            uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+            function(snapshot) {
+              }, function(error) {
+                console.log(error.message)
+            }, function() {
+              const downloadURL = uploadTask.snapshot.downloadURL;
+              if (downloadURL) {
+                user.image = downloadURL;
+
+                dispatch({
+                  type: SETTINGS_SAVED,
+                  payload:
+                    Firebase.database().ref(Constants.USERS_PATH + '/' + uid + '/').update(user),
+                  meta: {
+                    mixpanel: {
+                      event: 'Settings saved'
+                    }
+                  }
+                });
+              }
+            })
+          }
+
+          // no new imageFile
           dispatch({
             type: SETTINGS_SAVED,
             payload:
@@ -277,11 +309,47 @@ export function saveSettings(user, currentUsername) {
         }
       });
     } else {
+      if (imageFile) {
+        const storageRef = Firebase.storage().ref();
+        const metadata = {
+          contentType: 'image/jpeg'
+        }
+        let fileName = generateImageFileName();
+        const uploadTask = storageRef.child('images/' + fileName).put(imageFile, metadata);
+        uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+        function(snapshot) {
+          }, function(error) {
+            console.log(error.message)
+        }, function() {
+          const downloadURL = uploadTask.snapshot.downloadURL;
+          if (downloadURL) {
+            user.image = downloadURL;
+
+            dispatch({
+              type: SETTINGS_SAVED,
+              payload:
+                Firebase.database().ref(Constants.USERS_PATH + '/' + uid + '/').update(user),
+              meta: {
+                mixpanel: {
+                  event: 'Settings saved'
+                }
+              }
+            });
+          }
+        })
+      }
+      else {
         dispatch({
           type: SETTINGS_SAVED,
           payload:
-            Firebase.database().ref(Constants.USERS_PATH + '/' + uid + '/').update(user)
-        });  
+            Firebase.database().ref(Constants.USERS_PATH + '/' + uid + '/').update(user),
+          meta: {
+            mixpanel: {
+              event: 'Settings saved'
+            }
+          }
+        });
+      }
     }
   }
 }
@@ -626,7 +694,7 @@ export function onUpdateCreateField(key, value) {
 export function onUpdateField(key, value) {
   return dispatch => {
     dispatch({
-      type: UPDATE_FIELD_EDITOR,
+      type: UPDATE_FIELD,
       key,
       value
     })

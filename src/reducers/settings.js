@@ -1,5 +1,9 @@
+import { UPDATE_FIELD } from '../actions'
+
 export default (state = {}, action) => {
   switch (action.type) {
+    case UPDATE_FIELD:
+      return { ...state, [action.key]: action.value };
     case 'SETTINGS_SAVED':
       return {
         ...state,

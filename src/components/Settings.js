@@ -2,6 +2,7 @@ import ListErrors from './ListErrors';
 import React from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
+import ProxyImage from './ProxyImage';
 
 class SettingsForm extends React.Component {
   constructor() {
@@ -21,6 +22,10 @@ class SettingsForm extends React.Component {
       this.setState(newState);
     };
 
+    this.changeFile = ev => {
+      this.setState( {['imageFile']: ev.target.files[0] });
+    }
+
     this.submitForm = ev => {
       ev.preventDefault();
 
@@ -31,7 +36,7 @@ class SettingsForm extends React.Component {
       if(this.state.email) user.email = this.state.email;
       if(this.state.password) user.password = this.state.password;
 
-      this.props.onSubmitForm(user, this.props.currentUser.username);
+      this.props.onSubmitForm(user, this.props.currentUser.username, this.state.imageFile);
     };
   }
 
@@ -65,14 +70,25 @@ class SettingsForm extends React.Component {
     return (
       <form onSubmit={this.submitForm}>
         <fieldset>
-
+          <ProxyImage src={this.state.image ? this.state.image : ''} className="user-img" />
           <fieldset className="form-group">
-            <input
+            <div className="upload-wrapper">
+                <div className="upload-overlay">Upload Image</div>
+                <div className="fileUpload">
+                  <input
+                  className="form-control upload-image-button"
+                  type="file"
+                  accept="image/*" 
+                  onChange={this.changeFile} />
+
+                  </div>
+            </div> 
+         {/***}   <input
               className="form-control"
               type="text"
               placeholder="URL of profile picture"
               value={this.state.image}
-              onChange={this.updateState('image')} />
+              onChange={this.updateState('image')} /> ***/}
           </fieldset>
 
           <fieldset className="form-group">
@@ -88,7 +104,7 @@ class SettingsForm extends React.Component {
             <textarea
               className="form-control form-control-lg"
               rows="8"
-              maxlength="88"
+              maxLength="88"
               placeholder="Short bio about you"
               value={this.state.bio}
               onChange={this.updateState('bio')}>

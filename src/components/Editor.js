@@ -122,6 +122,7 @@ class Editor extends React.Component {
   }
 
   render() {
+    console.log(this.props.image)
     return (
       <div className="roow roow-col roow-center-all page-common editor-page">
             <div className="page-title-wrapper roow roow-row center-text">
