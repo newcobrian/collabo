@@ -1,4 +1,4 @@
-import { REVIEW_SUBMITTED, UPDATE_FIELD_EDITOR, EDITOR_PAGE_LOADED, EDITOR_PAGE_UNLOADED, 
+import { REVIEW_SUBMITTED, UPDATE_FIELD, EDITOR_PAGE_LOADED, EDITOR_PAGE_UNLOADED, 
   EDITOR_SUBMIT_ERROR, SET_IN_PROGRESS } from '../actions'
 
 export default (state = {}, action) => {
@@ -49,7 +49,7 @@ export default (state = {}, action) => {
         ...state,
         tagList: state.tagList.filter(tag => tag !== action.tag)
       };
-    case UPDATE_FIELD_EDITOR:
+    case UPDATE_FIELD:
       return { ...state, [action.key]: action.value };
     default:
       return state;
