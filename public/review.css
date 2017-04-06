@@ -156,9 +156,7 @@
 ******/
 .rating-container {
   margin-left: 0px;
-  /*background-image:url(img/graphic70_meter-bg.png);*/
-  background-size: 112px 70px;
-  background-repeat: no-repeat;
+  /*direction: rtl;*/
 }
 .rating-divider {
   height: 2px;
@@ -232,6 +230,8 @@
   box-shadow: none;
     /*background-image: url(img/profile_temp.png);*/
 }
+
+
 
 .rating-graphic.rating--2 {
   width: 24px;

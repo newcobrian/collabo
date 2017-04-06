@@ -75,7 +75,7 @@ class Header extends React.Component {
         <div className="header-wrapper">
           <Link to="/" className="logo-module roow roow-row">
             <div className="logo-graphic">  
-              <img className="center-img" src="../img/graphic46x32_logo_5dots_white.png"/>
+              <img className="center-img" src="../img/logo_5dots.png"/>
             </div>
             <div className="logo-main">
             </div>
