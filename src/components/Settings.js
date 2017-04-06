@@ -130,7 +130,7 @@ class SettingsForm extends React.Component {
           </fieldset>
 
           <button
-            className="btn btn-lg btn-primary pull-xs-right"
+            className="bttn-style bttn-submit"
             type="submit"
             disabled={this.state.inProgress}>
             Update Settings
@@ -161,12 +161,10 @@ class Settings extends React.Component {
   render() {
     return (
       <div className="roow roow-col-left page-common settings-page">
-       
+            <div className="page-title-wrapper center-text">
+              <div className="v2-type-h2 subtitle">Profile Settings</div>
+            </div>
             <div className="settings-wrapper roow roow-col-left">
-
-              <div className="page-title-wrapper roow">
-                <div className="text-page-title">New Reccoon</div>
-              </div>
 
               <ListErrors errors={this.props.errors}></ListErrors>
 
@@ -174,10 +172,8 @@ class Settings extends React.Component {
                 currentUser={this.props.firebaseUser}
                 onSubmitForm={this.props.saveSettings} />
 
-              <hr />
-
               <button
-                className="btn btn-outline-danger"
+                className="bttn-style bttn-subtle-gray width-100"
                 onClick={this.props.signOutUser}>
                 Or click here to logout.
               </button>

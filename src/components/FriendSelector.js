@@ -40,10 +40,11 @@ class FriendSelector extends React.Component {
 
 	    return (
 	    	<div className="roow roow-col-left page-common send-page">
-		    	<div className="page-title-wrapper roow roow-row center-text">
-					<Link className="" to={'/'}> Cancel</Link>
-			      <div className="text-page-title">Review posted to feed. Send directly to any friends?</div>
-			    </div>
+		    	<div className="page-title-wrapper center-text">
+		    	  <div className="v2-type-h2 subtitle">Send directly to...</div>
+		    	  <Link className="caption-link-subtle" to={'/'}>No, thanks.</Link>
+		    	</div>
+
 			    	<form onSubmit={this.handleFormSubmit}>
 				      {
 				        this.props.friends.map(friend => {

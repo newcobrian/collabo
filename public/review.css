@@ -145,6 +145,10 @@
 .article-page .review-container {
   margin-bottom: 0 !important;
 }
+
+.article-page .cta-wrapper.cta-wrapper-comment {
+  display: none;
+}
 /****** 
 ******
 ************************************ RATING FACES
@@ -348,7 +352,9 @@
   margin: 10px 30px 0;
 }
 
-
+.article-page .cta-wrapper.cta-wrapper-comment {
+  display: none;
+}
 .cta-wrapper .cta-icon {
   height: 32px;
   width: 32px;

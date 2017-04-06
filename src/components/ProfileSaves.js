@@ -49,13 +49,6 @@ class ProfileSaves extends Profile {
               </Link>
             </li>
 
-            <li className="nav-item">
-              <Link
-                className="nav-link active"
-                to={`@${this.props.profile.username}/saves`}>
-                My Saves
-              </Link>
-            </li>
           </ul>
       </div>
     );

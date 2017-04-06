@@ -38,6 +38,7 @@ const ReviewList = props => {
           }
         })
       }
+            <div className="no-results-module">BEEP BOOP</div>
 
       <ListPagination reviewsCount={props.reviewsCount} currentPage={props.currentPage} onSetPage={props.onSetPage} />
     </div>

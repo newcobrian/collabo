@@ -124,8 +124,8 @@ class Review extends React.Component {
     <div className="page-common article-page">
     <div className="reviewpreview-wrapper main-review roow roow-col-center">
       
-       <div className="review-now-wrapper">
-        <img src="../img/icon32_add.png" height="24" width="24"/> Add Your Review Now
+       <div className="review-now-wrapper bx-shadow">
+        <i className="ion-plus"></i> Add Your Review Now
       </div> 
 
       <ReviewPreview review={reviewObject} 

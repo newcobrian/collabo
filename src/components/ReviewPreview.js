@@ -56,7 +56,7 @@ const CommentPreview = props => {
   if (props.comments) {
     return (
       <Link to={`review/${props.review.subjectId}/${props.review.id}`}>
-        <div className="cta-wrapper roow roow-col">
+        <div className="cta-wrapper cta-wrapper-comment roow roow-col">
           <div className="cta-icon cta-comment"></div>
           {props.review.commentsCount} Comments
         </div>
@@ -66,8 +66,8 @@ const CommentPreview = props => {
   else {
     return (
       <Link to={`review/${props.review.subjectId}/${props.review.id}`}>
-        <div className="cta-wrapper roow roow-col">
-          <div className="cta-icon cta-comment"></div>
+        <div className="cta-wrapper cta-wrapper-comment roow roow-col">
+          <div className="cta-icon cta-comment comment-on"></div>
           Comment
         </div>
       </Link>
@@ -121,12 +121,12 @@ const ReviewPreview = props => {
             </Link>
               <div className="review-external-link">
             <a title={'Open link: ' + review.subject.url} target="blank" href={review.subject.url}>
-                {review.subject.url}
+              {review.subject.url}
             </a>
             </div>
           </div>{/**END subject-name-container**/}
           <div className="roow roow-row-top pic-and-review">
-            <div className="review-data-container roow roow-col-center mrgn-bottom-md">
+            <div className="review-data-container roow roow-col-center">
                 
                 <Link to={`@${review.reviewer.username}`}>
                       <div className="reviewer-photo DN center-img mrgn-right-lg mrgn-top-sm"><ProxyImage src={review.reviewer.image}/></div>
@@ -144,6 +144,7 @@ const ReviewPreview = props => {
                       <RatingsNumber review={review} authenticated={props.authenticated} updateRatingNumber={props.updateRating} />
                   </div>
                 </div>
+
                 <div className="subject-caption v2-type-body2 center-text pdding-bottom-sm pdding-top-sm">
                   {review.caption}
                 </div>
@@ -155,6 +156,9 @@ const ReviewPreview = props => {
                 <div className="review-timestamp">
                   {(new Date(review.lastModified)).toLocaleString()}
                 </div>  
+                <div className="bttn-style bttn-review inside mrgn-top-md">
+                  <i className="ion-plus"></i> Add Your Review
+                </div>
             </div>
 
 
@@ -166,6 +170,7 @@ const ReviewPreview = props => {
                 
                 </div>
                 <CommentPreview comments={props.review.comments} review={props.review} />
+                
                 <div className="roow roow-row flex-item-right">
                   <LikeReviewButton
                     authenticated={props.authenticated}

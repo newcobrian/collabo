@@ -70,13 +70,7 @@ class ProfileLikes extends Profile {
               </Link>
             </li>
 
-            <li className="nav-item">
-              <Link
-                className="nav-link"
-                to={`@${this.props.profile.username}/saves`}>
-                My Saves
-              </Link>
-            </li>
+         
           </ul>
       </div>
     );
