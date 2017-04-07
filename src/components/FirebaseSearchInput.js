@@ -221,7 +221,7 @@ class FirebaseSearchInput extends Component {
             default:
               break;
           }
-          if (searchObject.text && searchObject.id && searchObject._service === 'amazon') {
+          if (searchObject.text && searchObject.id) {
             searchObject._service = result._service;
             retrievedSearchTerms.push(searchObject);
           }
