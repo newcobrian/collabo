@@ -5,6 +5,10 @@ import { CREATE_PAGE_LOADED, CREATE_SUBJECT_LOADED, UPDATE_FIELD_CREATE, REVIEW_
 export default (state = {}, action) => {
   switch (action.type) {
   	case CREATE_PAGE_LOADED:
+      return {
+        ...state,
+        image: action.image
+      }
   	case CREATE_PAGE_UNLOADED:
   		return {};
   	case CREATE_SUBJECT_LOADED:
