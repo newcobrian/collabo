@@ -25,9 +25,9 @@ class GlobalFeed extends Home {
       return (
         <div className="page-title-container">
           <div className="page-title-wrapper center-text">
-            <div className="v2-type-h2 subtitle">The latest reviews from around the globe</div>
+            <div className="v2-type-h2 subtitle">The latest reviews from around the 🌏</div>
           </div>
-          <ul className="nav nav-pills outline-active">
+          <ul className="nav nav-pills outline-active tag-bar">
             <li className="nav-item">
               <Link
                 className="nav-link"

@@ -132,7 +132,7 @@ body {
 .nav-module .header-badge {
   font-size: 13px;
   margin-top: -61px;
-  box-shadow: 0 0 0 2px #242833;
+  box-shadow: 0 0 0 2px #ffffff;
 }
 
 
@@ -242,7 +242,7 @@ body {
 
 
 .article-page.page-common {
-  margin: 5px 10px;
+  margin: 10px;
 }
 .article-page .review-data-container {
 width: 100%;
@@ -321,7 +321,7 @@ width: 100%;
 }
 .profile-feed {
   margin-left: 0;
-  margin-top: 90px;
+  margin-top: 30px;
 }
 .profile-page .user-info .user-data {
   margin-left: 10px;

@@ -1,10 +1,9 @@
 body {
-	font-family: 'Muli', sans-serif;
   font-family: 'Roboto', sans-serif;
   color: #161F34;
   letter-spacing:1px;
   padding-top: 0px;
-
+  background-color: #FAFAF8;
 }
 
 nput[type="checkbox"] {
@@ -142,9 +141,10 @@ textarea {
 }
 .v2-type-h3 {
     /* -jma: */
-  font-weight: 700;
-  font-size: 18px;
+  font-weight: 400;
+  font-size: 16px;
   letter-spacing: 0;
+  color: #405B65;
 }
 .v2-type-h4 {
   /* H4 - Categories: */
@@ -198,6 +198,7 @@ textarea {
 }
 .dash {
   opacity: .3;
+  color: #161F34;
 }
 .DN {
   display: none !important;
@@ -559,7 +560,7 @@ svg {
 .page-common {
   padding-top: 70px;
   margin: 110px 0px;
-  background-color: white;
+  background-color: #FAFAF8;
 }
 .page-title-container {
   width: 100%;

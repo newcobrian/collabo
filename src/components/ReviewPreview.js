@@ -101,11 +101,12 @@ const ReviewPreview = props => {
   return (
       <div className="reviews-wrapper roow roow-left roow-col-left mrgn-bottom-lg bx-shadow">
 
-          <a href={review.subject.image ? review.subject.image[0] : ""}>
+          <Link to={`review/${review.subjectId}/${review.id}`}>
             <div className="subject-image">
               <ProxyImage className="gray-border" src={review.subject.image ? review.subject.image : ""}/>
             </div>
-          </a>
+          </Link>
+
         <div className="review-container roow roow-center roow-col-left bottom-divider default-card-white">
           <div className="subject-name-container center-text">
             <div className="delete-wrapper">
@@ -147,12 +148,12 @@ const ReviewPreview = props => {
                   </div>
                 </div>
 
-                <div className="subject-caption v2-type-body2 center-text pdding-bottom-sm pdding-top-sm">
+                <div className="subject-caption v2-type-body2 center-text pdding-top-sm">
                   {review.caption}
                 </div>
                 <Link to={`@${review.reviewer.username}`}>
                   <div className="reviewer-name v2-type-h3 center-text">
-                    <span className="dash"></span>{review.reviewer.username}
+                    <span className="dash">-</span> {review.reviewer.username}
                   </div>
                 </Link>
                 <div className="review-timestamp">
