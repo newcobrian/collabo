@@ -117,6 +117,13 @@ export function sendInboxMessage(senderId, recipientId, messageType, review) {
 						emailMessage = senderSnapshot.val().username + 
 							' sent you a personal review. Click here to see it: https://whatsgoooood.com/#/' + inboxObject.link;
 						break;
+					case Constants.FORWARD_MESSAGE:
+						inboxObject.senderId = senderId;
+						inboxObject.message = ' forwared you a review.'
+						inboxObject.link = 'review/' + review.subjectId + '/' + review.id;
+						emailMessage = senderSnapshot.val().username + 
+							' forwarded you a review. Click here to see it: https://whatsgoooood.com/#/' + inboxObject.link;
+						break;
 					case Constants.SAVE_MESSAGE:
 						inboxObject.senderId = '';
 						inboxObject.message = 'Can\'t tell you who, but somebody saved your review of ';

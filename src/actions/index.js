@@ -2125,17 +2125,17 @@ export function onFriendSelectorSubmit(authenticated, selectedFriends, review, p
     // for (const friendId of selectedFriends) {
     for (var i = 0; i < selectedFriends.length; i++) {
       recipientCount++;
-      Helpers.sendInboxMessage(authenticated, selectedFriends[i], Constants.DIRECT_MESSAGE, review);
+      if (path === FORWARD_MODAL) Helpers.sendInboxMessage(authenticated, selectedFriends[i], Constants.FORWARD_MESSAGE, review);
+      else Helpers.sendInboxMessage(authenticated, selectedFriends[i], Constants.DIRECT_MESSAGE, review);
       // console.log(friendId, 'is selected.');
       // Helpers.sendInboxMessage(authenticated, friendId, Constants.DIRECT_MESSAGE, review);
     }
 
-    let redirect = path ? null : '/'
     dispatch({
       type: FRIEND_SELECTOR_SUBMIT,
       selectedFriends: [],
       // selectedFriends: selectedFriends ? selectedFriends.clear() : new Set()
-      redirect: redirect,
+      path: path,
       meta: {
         mixpanel: {
           event: 'Direct send to friends',
