@@ -68,6 +68,7 @@ body {
     padding: 0;
     height: 60px;
     font-size: 10px;
+    background-color: #23424D !important;
 }
 .navigation-bar .nav-icon {
   width: 32px;

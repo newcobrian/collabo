@@ -55,7 +55,7 @@ class Register extends React.Component {
     const username = this.props.username;
 
     return (
-      <div className="auth-page">
+      <div className="page-common auth-page">
         <div className="container page">
           <div className="row">
 

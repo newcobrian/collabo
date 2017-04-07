@@ -537,7 +537,7 @@ svg {
 }
 .count-badge {
     background-color: #F36965;
-    padding: 1px 8px 0px;
+    padding: 0px 6px 1px;
     border-radius: 32px;
     text-align: center;
     display: inline-block;
