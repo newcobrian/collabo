@@ -20,7 +20,7 @@ class SavesFeed extends Home {
       return (
         <div>
           <div className="page-title-wrapper center-text">
-            <div className="v2-type-h2 subtitle">Keep track of reviews for later</div>
+            <div className="v2-type-h2 subtitle">Keep track of reviews for later 🐿</div>
           </div>
           <ul className="nav nav-pills outline-active tag-bar">
             <li className="nav-item">

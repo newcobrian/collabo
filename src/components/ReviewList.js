@@ -41,9 +41,7 @@ const ReviewList = props => {
       }
             <div className="no-results-module">
               <div className="v2-type-body2 center-text">
-                <p>There's no {props.tag} reviews, yet!</p>
-                <p>Go create one, loser:</p>
-                <p>&darr;</p>
+                <a href="/create.html"><p>Got any good {props.tag} recommendations?</p></a>
               </div>
             </div>
 

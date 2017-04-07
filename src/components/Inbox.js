@@ -91,7 +91,7 @@ class Inbox extends React.Component {
     return (
       <div className="page-common no-feed-toggle inbox-page">
         <div className="page-title-wrapper center-text">
-          <div className="v2-type-h2 subtitle">Stuff people do to you is here</div>
+          <div className="v2-type-h2 subtitle">Stuff people do to you is here 👋</div>
          </div>
           {
             this.props.inbox.map(inboxItem => {

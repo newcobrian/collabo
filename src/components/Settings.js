@@ -70,7 +70,7 @@ class SettingsForm extends React.Component {
     return (
       <form onSubmit={this.submitForm}>
         <fieldset>
-          <ProxyImage src={this.state.image ? this.state.image : ''} className="user-img" />
+          <div className="profile-image"><ProxyImage src={this.state.image ? this.state.image : ''} className="user-img" /></div>
           <fieldset className="form-group">
             <div className="upload-wrapper">
                 <div className="upload-overlay">Upload Image</div>
@@ -130,7 +130,7 @@ class SettingsForm extends React.Component {
           </fieldset>
 
           <button
-            className="bttn-style bttn-submit"
+            className="bttn-style bttn-submit mrgn-bottom-sm"
             type="submit"
             disabled={this.state.inProgress}>
             Update Settings

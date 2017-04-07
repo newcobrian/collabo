@@ -201,7 +201,7 @@ body {
     max-width: 480px;
 }
 .feed-wrapper {
-  margin-top: 80px;
+  margin-top: 50px;
 }
 .profile-page {
   margin: 60px 10px;
@@ -240,10 +240,12 @@ body {
 .reviews-wrapper {
 }
 
-
+.count-badge {
+  padding: 2px 6px 1px 8px;
+}
 
 .article-page.page-common {
-  margin: 10px;
+  margin: 60px 10px;
 }
 .article-page .review-data-container {
 width: 100%;

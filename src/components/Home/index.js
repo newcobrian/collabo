@@ -97,7 +97,7 @@ class Home extends React.Component {
     return (
       <div className="home-page">
             <div className="roow">
-              <div className="feed-toggle roow roow-row-center">
+              <div className="feed-toggle">
                 {this.renderTabs()}
               </div>
               <div className="feed-wrapper">

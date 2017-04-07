@@ -2,7 +2,7 @@ body {
   font-family: 'Roboto', sans-serif;
   color: #161F34;
   letter-spacing:1px;
-  padding-top: 0px;
+  padding-top: 70px;
   background-color: #FAFAF8;
 }
 
@@ -532,16 +532,18 @@ svg {
 }
 
 .navigation-bar.no-icons .nav-module {
-    padding: 32px 0;
+    padding: 22px 0;
     font-size: 14px;
 }
 .count-badge {
     background-color: #F36965;
-    padding: 0px 6px 1px;
+    padding: 0px 6px 2px 8px;
     border-radius: 32px;
     text-align: center;
     display: inline-block;
     box-shadow: 0 0 10px 0px rgba(0,0,0,.3);
+    font-size: 12px;
+    line-height: 19px;
 }
 .header-badge {
     margin-top: -36px;
@@ -558,7 +560,7 @@ svg {
 ******
 ******/
 .page-common {
-  padding-top: 70px;
+  padding-top: 0px;
   margin: 110px 0px;
   background-color: #FAFAF8;
 }
@@ -566,7 +568,7 @@ svg {
   width: 100%;
 }
 .page-title-wrapper {
-  padding: 15px 0 5px;
+  padding: 15px 0;
   width: 100%;
 }
 .page-title-wrapper.with-feed-toggle {
@@ -603,7 +605,9 @@ svg {
   padding: 0 20px;
 }
 
-
+.opa-60 {
+  opacity: .6;
+}
 
 .mrgn-all-sm {
   margin: 10px !important;
@@ -715,7 +719,7 @@ svg {
 ******
 ******/
 .home-page {
-    margin-top: 180px;
+    margin-top: 120px;
 }
 
 .feed-toggle {
@@ -725,6 +729,7 @@ svg {
 .no-results-module {
   text-align: center;
   padding: 40px;
+  opacity: .7;
 }
 /******
 ******
@@ -823,6 +828,7 @@ li.nav-divider {
 }
 .page-common.settings-page {
   margin: 0;
+  padding: 0;
 }
 .settings-wrapper {
     width: 355px;
@@ -838,6 +844,16 @@ li.nav-divider {
     width: 100%;
     margin-left: 0px;
     margin-top: 50px;
+}
+.profile-image {
+  overflow: hidden;
+      border-radius: 222px;
+      margin: 0 auto 20px;
+      width: 200px;
+      height: 200px;
+}
+.profile-image img {
+  width: 100%;
 }
 /******
 ******
@@ -867,7 +883,7 @@ li.nav-divider {
 ******
 ******/
 .article-page {
-  margin: 100px 40px;
+  margin: 40px;
 }
 .article-page .subject-image img {
     width: 355px;
@@ -1245,6 +1261,7 @@ position: absolute;
 
 .page-common.inbox-page {
   margin: 0;
+  padding-top: 10px;
 }
 .page-common.inbox-page .page-title-wrapper {
     padding: 20px 0;
@@ -1256,7 +1273,7 @@ position: absolute;
 ******/
 .page-common.send-page {
   padding-top: 0;
-  margin: 100px 0px;
+  margin: 0px;
 }
 .page-common.send-page .page-title-wrapper {
 }
