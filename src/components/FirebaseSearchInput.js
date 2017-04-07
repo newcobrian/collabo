@@ -110,73 +110,73 @@ class FirebaseSearchInput extends Component {
         searchResults.map(function(result) {
           let searchObject = {};
           switch (result._service) {
-            // case '4sq':
-            //   if (result.name && result.id) {
-            //     searchObject.text = result.name;
-            //     searchObject.value = result.name;
-            //     searchObject.id = '4sq:' + result.id;
-            //     if (result.url) searchObject.url = result.url;
-            //     if (result.location && result.location.formattedAddress) searchObject.description = result.location.formattedAddress.join(' ');
-            //     if (result.location && result.location.address + result.location.city) searchObject.text += ' - ' + result.location.address + ', ' + result.location.city;
-            //     searchObject.tags = { Places: true };
-            //   }
-            //   break;
-            // case 'spotify':
-            //   if (result.name && result.id) {
-            //     searchObject.text = result.name;
-            //     searchObject.value = result.name;
-            //     searchObject.id = 'spotify:' + result.id;
-            //     searchObject.tags = { Music: true };
-            //     if (result.external_urls && result.external_urls.spotify) searchObject.url = result.external_urls.spotify;
-            //     if (result.type) {
-            //       switch (result.type) {
-            //         case 'album':
-            //           if (result.artists && result.artists[0] && result.artists[0].name) {
-            //             searchObject.text += ' - by ' + result.artists[0].name;
-            //             searchObject.description = 'Album by ' + result.artists[0].name;
-            //           }
-            //           if (result.images && result.images[0] && result.images[0].url) searchObject.image = result.images[0].url;
-            //           break;
-            //         case 'artist':
-            //           if (result.genres) searchObject.description = result.genres.join(', ');
-            //           if (result.images && result.images[0] && result.images[0].url) searchObject.image = result.images[0].url;
-            //           searchObject.text += ' (artist on Spotify)';
-            //           break;
-            //         case 'track':
-            //           if (result.album && result.album.images && result.album.images[0] && result.album.images[0].url) {
-            //             searchObject.image = result.album.images[0].url;
-            //           }
-            //           if (result.artists && result.artists[0] && result.artists[0].name) {
-            //             searchObject.description = 'by ' + result.artists[0].name;
-            //             searchObject.text += ' - by ' + result.artists[0].name;
-            //           }
-            //           if (result.album && result.album.name) searchObject.description += ' from the album ' + result.album.name;
-            //           break;
-            //         default:
-            //           break;
-            //       }
-            //     }
-            //   }
-            //   break;
-            // case 'tmdb':
-            //   if ((result.title || result.name) && result.id) {
-            //     searchObject.text = result.title ? result.title : result.name;
-            //     searchObject.text += ' (imdb)';
-            //     searchObject.value = result.title ? result.title : result.name;
-            //     searchObject.id = 'tmdb:' + result.id;
-            //     searchObject.tags = { Movies: true };
-            //     if (result.url) searchObject.url = result.url;
-            //     if (result.overview) searchObject.description = result.overview;
+            case '4sq':
+              if (result.name && result.id) {
+                searchObject.text = result.name;
+                searchObject.value = result.name;
+                searchObject.id = '4sq:' + result.id;
+                if (result.url) searchObject.url = result.url;
+                if (result.location && result.location.formattedAddress) searchObject.description = result.location.formattedAddress.join(' ');
+                if (result.location && result.location.address + result.location.city) searchObject.text += ' - ' + result.location.address + ', ' + result.location.city;
+                searchObject.tags = { Places: true };
+              }
+              break;
+            case 'spotify':
+              if (result.name && result.id) {
+                searchObject.text = result.name;
+                searchObject.value = result.name;
+                searchObject.id = 'spotify:' + result.id;
+                searchObject.tags = { Music: true };
+                if (result.external_urls && result.external_urls.spotify) searchObject.url = result.external_urls.spotify;
+                if (result.type) {
+                  switch (result.type) {
+                    case 'album':
+                      if (result.artists && result.artists[0] && result.artists[0].name) {
+                        searchObject.text += ' - by ' + result.artists[0].name;
+                        searchObject.description = 'Album by ' + result.artists[0].name;
+                      }
+                      if (result.images && result.images[0] && result.images[0].url) searchObject.image = result.images[0].url;
+                      break;
+                    case 'artist':
+                      if (result.genres) searchObject.description = result.genres.join(', ');
+                      if (result.images && result.images[0] && result.images[0].url) searchObject.image = result.images[0].url;
+                      searchObject.text += ' (artist on Spotify)';
+                      break;
+                    case 'track':
+                      if (result.album && result.album.images && result.album.images[0] && result.album.images[0].url) {
+                        searchObject.image = result.album.images[0].url;
+                      }
+                      if (result.artists && result.artists[0] && result.artists[0].name) {
+                        searchObject.description = 'by ' + result.artists[0].name;
+                        searchObject.text += ' - by ' + result.artists[0].name;
+                      }
+                      if (result.album && result.album.name) searchObject.description += ' from the album ' + result.album.name;
+                      break;
+                    default:
+                      break;
+                  }
+                }
+              }
+              break;
+            case 'tmdb':
+              if ((result.title || result.name) && result.id) {
+                searchObject.text = result.title ? result.title : result.name;
+                searchObject.text += ' (imdb)';
+                searchObject.value = result.title ? result.title : result.name;
+                searchObject.id = 'tmdb:' + result.id;
+                searchObject.tags = { Movies: true };
+                if (result.url) searchObject.url = result.url;
+                if (result.overview) searchObject.description = result.overview;
                 
-            //     if (result.poster_path) {
-            //       searchObject.image = Constants.TMDB_IMAGES_PATH + result.poster_path;
-            //     } else if (result.backdrop_path) {
-            //       searchObject.image = Constants.TMDB_IMAGES_PATH + result.backdrop_path;
-            //     }
-            //   }
-            //   break;
+                if (result.poster_path) {
+                  searchObject.image = Constants.TMDB_IMAGES_PATH + result.poster_path;
+                } else if (result.backdrop_path) {
+                  searchObject.image = Constants.TMDB_IMAGES_PATH + result.backdrop_path;
+                }
+              }
+              break;
             case 'amazon':
-              console.log(result.ProductGroup)
+              // console.log(result.ProductGroup)
               if(result.ASIN && result.Title) {
                 searchObject.text = result.Title;
                 searchObject.value = result.Title;
