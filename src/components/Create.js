@@ -198,13 +198,13 @@ class Create extends React.Component {
 						<div className="">
 					      	<fieldset className="form-group no-margin">
 						        <div className={'rating-container rating-wrapper-' + this.props.rating}>
-						            <div className="roow roow-row-space-around">
-						              <div className="square-wrapper"><button className="rating-graphic rating--2" onClick={this.onRatingsChange(-2)}>{/**<ProxyImage src={()}**/}</button></div>
-						              <div className="square-wrapper"><button className="rating-graphic rating--1" onClick={this.onRatingsChange(-1)}>{/**<ProxyImage src={()}**/}</button></div>
-						              <div className="square-wrapper"><button className="rating-graphic rating-0" onClick={this.onRatingsChange(0)}>{/**<ProxyImage src={()}**/}</button></div>
-						              <div className="square-wrapper"><button className="rating-graphic rating-1" onClick={this.onRatingsChange(1)}>{/**<ProxyImage src={()}**/}</button></div>
-						              <div className="square-wrapper"><button className="rating-graphic rating-2" onClick={this.onRatingsChange(2)}>{/**<ProxyImage src={()}**/}</button></div>
-						            </div>
+						          <div className="roow roow-row-space-around">
+										<button className="rating-graphic rating-2" onClick={this.onRatingsChange(2)}>{/**<ProxyImage src={()}**/}</button>
+										<button className="rating-graphic rating-1" onClick={this.onRatingsChange(1)}>{/**<ProxyImage src={()}**/}</button>
+										<button className="rating-graphic rating-0" onClick={this.onRatingsChange(0)}>{/**<ProxyImage src={()}**/}</button>
+										<button className="rating-graphic rating--1" onClick={this.onRatingsChange(-1)}>{/**<ProxyImage src={()}**/}</button>
+										<button className="rating-graphic rating--2" onClick={this.onRatingsChange(-2)}>{/**<ProxyImage src={()}**/}</button>
+						           </div>
 						        </div>
 						      </fieldset>
 
@@ -277,15 +277,15 @@ class Create extends React.Component {
                   <fieldset className="form-group no-margin">
                     <div className={'rating-container rating-wrapper-' + this.props.rating}>
                         <div className="roow roow-row">
-                          <button className="rating-graphic rating--2" onClick={this.onRatingsChange(-2)}>{/**<ProxyImage src={()}**/}</button>
+                          <button className="rating-graphic rating-2" onClick={this.onRatingsChange(2)}>{/**<ProxyImage src={()}**/}</button>
                           <div className="rating-divider"></div> 
-                          <button className="rating-graphic rating--1" onClick={this.onRatingsChange(-1)}>{/**<ProxyImage src={()}**/}</button>
+                          <button className="rating-graphic rating-1" onClick={this.onRatingsChange(1)}>{/**<ProxyImage src={()}**/}</button>
                           <div className="rating-divider"></div> 
                           <button className="rating-graphic rating-0" onClick={this.onRatingsChange(0)}>{/**<ProxyImage src={()}**/}</button>
                           <div className="rating-divider"></div> 
-							<button className="rating-graphic rating-1" onClick={this.onRatingsChange(1)}>{/**<ProxyImage src={()}**/}</button>
+							<button className="rating-graphic rating--1" onClick={this.onRatingsChange(-1)}>{/**<ProxyImage src={()}**/}</button>
                           <div className="rating-divider"></div> 
-							<button className="rating-graphic rating-2" onClick={this.onRatingsChange(2)}>{/**<ProxyImage src={()}**/}</button>
+							<button className="rating-graphic rating--2" onClick={this.onRatingsChange(-2)}>{/**<ProxyImage src={()}**/}</button>
                         </div>
                     </div>
                   </fieldset>

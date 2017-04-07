@@ -156,7 +156,7 @@
 ******/
 .rating-container {
   margin-left: 0px;
-  /*direction: rtl;*/
+  direction: rtl;
 }
 .rating-divider {
   height: 2px;
@@ -230,8 +230,17 @@
   box-shadow: none;
     /*background-image: url(img/profile_temp.png);*/
 }
-
-
+.rating-wrapper-undefined .rating-graphic {
+  opacity: .1 !important;
+}
+.rating-graphic:hover ~ .rating-graphic {
+  box-shadow: 0 0 4px red;
+  opacity: 1 !important;
+}
+.rating-graphic:hover {
+  box-shadow: 0 0 5px green !important;
+  opacity: 1 !important;
+}
 
 .rating-graphic.rating--2 {
   width: 24px;
@@ -273,7 +282,7 @@
 
 
 .rating-container.cannot-rate .rating-graphic {
-  pointer-events: none;
+
 }
 
 .rating-graphic img {
@@ -281,8 +290,8 @@
   height: 50px;
   object-position: center;
   object-fit: cover;
-    border-radius: 132px;
-    margin-top: -1px;
+  border-radius: 132px;
+  margin-top: -1px;
 }
 
 
