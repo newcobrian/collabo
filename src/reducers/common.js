@@ -36,7 +36,12 @@ export default (state = defaultState, action) => {
       const redirectUrl = 'select';
       return { ...state, redirectTo: redirectUrl };
     case FRIEND_SELECTOR_SUBMIT:
-      return { ...state, redirectTo: '/' };
+      if (action.redirect) {
+        return { ...state, redirectTo: action.redirect };
+      }
+      else return {
+        ...state
+      }
     case EMPTY_FRIEND_SELECTOR:
       return { ...state, redirectTo: '/' };
     case 'SETTINGS_SAVED':

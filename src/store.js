@@ -14,6 +14,7 @@ import create from './reducers/create';
 import followers from './reducers/followers';
 import inbox from './reducers/inbox';
 import friendSelector from './reducers/friendSelector';
+import modal from './reducers/modal';
 import Firebase from 'firebase';
 import mixpanel from 'mixpanel-browser';
 import MixpanelMiddleware from 'redux-mixpanel-middleware';
@@ -30,7 +31,8 @@ const reducer = combineReducers({
   create,
   followers,
   inbox,
-  friendSelector
+  friendSelector,
+  modal
   // firebase: firebaseStateReducer
 });
 

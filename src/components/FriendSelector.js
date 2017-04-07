@@ -20,6 +20,7 @@ class FriendSelector extends React.Component {
 	}
 
 	componentWillUnmount() {
+		this.props.unmountFriendSelector(this.props.selectedFriends);
 	}
 
 	toggleCheckbox = label => ev => {
@@ -28,16 +29,19 @@ class FriendSelector extends React.Component {
 
 	handleFormSubmit = formSubmitEvent => {
 	  formSubmitEvent.preventDefault();
-	  this.props.onFriendSelectorSubmit(this.props.authenticated, this.props.selectedFriends, this.props.review);
+	  this.props.onFriendSelectorSubmit(this.props.authenticated, this.props.selectedFriends, this.props.review, this.props.path);
 	}
 
 	render() {
+		// for (let i = 0; i < this.props.selectedFriends.length; i++) {
+		// 	console.log(this.props.selectedFriends.)
+		// }
+
 		if (!this.props.friends) {
 		    return (
 		      <div className="article-preview">Loading...</div>
 		    );
 		  }
-
 	    return (
 	    	<div className="roow roow-col-left page-common send-page">
 		    	<div className="page-title-wrapper center-text">

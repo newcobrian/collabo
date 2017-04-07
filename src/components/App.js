@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Firebase from 'firebase';
 import * as Actions from '../actions';
 import mixpanel from 'mixpanel-browser';
+import RootModal from './Modal';
 
 const mapStateToProps = state => ({
   appLoaded: state.common.appLoaded,
@@ -83,6 +84,7 @@ class App extends React.Component {
             userInfo={this.props.userInfo} 
             unreadMessages={this.props.unreadMessages} />
           {this.props.children}
+          <RootModal/>
         </div>
       );
     }

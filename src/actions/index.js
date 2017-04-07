@@ -74,6 +74,10 @@ export const REVIEW_DELETED = 'REVIEW_DELETED';
 export const SET_IN_PROGRESS = 'SET_IN_PROGRESS';
 export const MIXPANEL_EVENT = 'MIXPANEL_EVENT';
 export const APPLY_TAG = 'APPLY_TAG';
+export const SHOW_MODAL = 'SHOW_MODAL';
+export const HIDE_MODAL = 'HIDE_MODAL';
+export const UNMOUNT_FREIND_SELECTOR = 'UNMOUNT_FREIND_SELECTOR';
+export const FORWARD_MODAL = 'FORWARD_MODAL'
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -1807,7 +1811,6 @@ export function likeReview(authenticated, review) {
 
 export function unLikeReview(authenticated, review) {
   return dispatch => {
-    console.log('unlike = ' + authenticated)
     if (!authenticated) {
       dispatch({
         type: ASK_FOR_AUTH
@@ -2092,11 +2095,23 @@ export function getFriends(userId) {
 
 export function onUpdateFriendsCheckbox(label, selectedFriends) {
   return dispatch => {
-    if (selectedFriends.has(label)) {
-      selectedFriends.delete(label);
-    } else {
-      selectedFriends.add(label);
+    // if (selectedFriends.has(label)) {
+    //   selectedFriends.delete(label);
+    // } else {
+    //   selectedFriends.add(label);
+    // }
+    if (!selectedFriends) {
+      selectedFriends = [];
+      selectedFriends.push(label)
     }
+    else {
+      let index = selectedFriends.indexOf(label);
+      if (index > -1) {
+        selectedFriends.splice(index, 1);
+      }
+      else selectedFriends.push(label);
+    }
+
     dispatch({
       type: UPDATE_FRIENDS_CHECKBOX,
       payload: selectedFriends
@@ -2104,25 +2119,43 @@ export function onUpdateFriendsCheckbox(label, selectedFriends) {
   }
 }
 
-export function onFriendSelectorSubmit(authenticated, selectedFriends, review) {
+export function onFriendSelectorSubmit(authenticated, selectedFriends, review, path=null) {
   return dispatch => {
     let recipientCount = 0;
-    for (const friendId of selectedFriends) {
+    // for (const friendId of selectedFriends) {
+    for (var i = 0; i < selectedFriends.length; i++) {
       recipientCount++;
+      Helpers.sendInboxMessage(authenticated, selectedFriends[i], Constants.DIRECT_MESSAGE, review);
       // console.log(friendId, 'is selected.');
-      Helpers.sendInboxMessage(authenticated, friendId, Constants.DIRECT_MESSAGE, review);
+      // Helpers.sendInboxMessage(authenticated, friendId, Constants.DIRECT_MESSAGE, review);
     }
+
+    let redirect = path ? null : '/'
     dispatch({
       type: FRIEND_SELECTOR_SUBMIT,
-        meta: {
-          mixpanel: {
-            event: 'Direct send to friends',
-            props: {
-              recipients: recipientCount,
-              subjectId: review.subjectId
-            }
+      selectedFriends: [],
+      // selectedFriends: selectedFriends ? selectedFriends.clear() : new Set()
+      redirect: redirect,
+      meta: {
+        mixpanel: {
+          event: 'Direct send to friends',
+          props: {
+            recipients: recipientCount,
+            subjectId: review.subjectId,
+            source: (path === FORWARD_MODAL) ? FORWARD_MODAL : 'Create flow direct message'
           }
         }
+      }
+    })
+  }
+}
+
+export function unmountFriendSelector(selectedFriends) {
+  return dispatch => {
+    dispatch({
+      type: UNMOUNT_FREIND_SELECTOR,
+      // payload: selectedFriends ? selectedFriends.clear() : new Set()
+      payload: []
     })
   }
 }
@@ -2234,3 +2267,20 @@ export function applyTag(tag) {
   }
 }
 
+export function showModal(type, review) {
+  return dispatch => {
+    dispatch({
+      type: SHOW_MODAL,
+      modalType: type,
+      review: review
+    })
+  }
+}
+
+export function hideModal(type) {
+  return dispatch => {
+    dispatch({
+      type: HIDE_MODAL
+    })
+  }
+}

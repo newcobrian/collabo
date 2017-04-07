@@ -4,6 +4,8 @@ import LikeReviewButton from './LikeReviewButton';
 import SaveReviewButton from './SaveReviewButton';
 import ProxyImage from './ProxyImage';
 import ReviewActions from './ReviewActions';
+import FORWARD from '../constants';
+import { FORWARD_MODAL } from '../actions';
 
 const RatingsButtons = props => {
   const handleClick = rating => ev => {
@@ -98,6 +100,11 @@ const ReviewPreview = props => {
   const canModify = props.authenticated &&
       props.authenticated === props.review.reviewer.userId;
 
+  const handleForwardClick = ev => {
+    ev.preventDefault();
+    props.showModal(FORWARD_MODAL, props.review);
+  }
+
   return (
       <div className="reviews-wrapper roow roow-left roow-col-left mrgn-bottom-lg bx-shadow">
 
@@ -190,11 +197,10 @@ const ReviewPreview = props => {
                     review={review} />
                 </div>
 
-
-                  <div className="cta-wrapper roow roow-col">
+                <Link className="cta-wrapper roow roow-col" onClick={handleForwardClick}>
                     <div className="cta-icon cta-share"></div>
                     Forward
-                  </div>
+                  </Link>
 
                 </div>
                 

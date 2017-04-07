@@ -19,7 +19,8 @@ const DisplayAppUserReview = props => {
             unLike={props.unLike}
             save={props.save}
             unSave={props.unSave}
-            updateRating={props.updateRating} />
+            updateRating={props.updateRating}
+            showModal={props.showModal} />
         </div>
       )
     }
@@ -49,7 +50,8 @@ const DisplayFollowingReviews = props => {
               unLike={props.unLike}
               save={props.save}
               unSave={props.unSave}
-              updateRating={props.updateRating} />
+              updateRating={props.updateRating}
+              showModal={props.showModal} />
           )
         })
       }
@@ -136,7 +138,8 @@ class Review extends React.Component {
               unSave={this.props.unSaveReview}
               updateRating={this.props.onUpdateRating}
               deleteReview={this.props.onDeleteReview}
-              reviewDetailPath={true} />
+              reviewDetailPath={true}
+              showModal={this.props.showModal} />
       <div className="roow roow-center comments-container default-card-white pdding-all-sm bx-shadow">
        <CommentContainer
           authenticated={this.props.authenticated}
@@ -161,7 +164,8 @@ class Review extends React.Component {
       unLike={this.props.unLikeReview}
       save={this.props.saveReview}
       unSave={this.props.unSaveReview}
-      updateRating={this.props.onUpdateRating} />
+      updateRating={this.props.onUpdateRating}
+      showModal={this.props.showModal} />
 
     <DisplayFollowingReviews
       reviews={this.props.followingReviews}
@@ -172,7 +176,8 @@ class Review extends React.Component {
       unLike={this.props.unLikeReview}
       save={this.props.saveReview}
       unSave={this.props.unSaveReview}
-      updateRating={this.props.onUpdateRating} />
+      updateRating={this.props.onUpdateRating}
+      showModal={this.props.showModal} />
 
 </div>/* END - PAGE-WRAPPER */
     

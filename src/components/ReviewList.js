@@ -32,7 +32,8 @@ const ReviewList = props => {
                 save={props.save}
                 unSave={props.unSave}
                 updateRating={props.updateRating}
-                deleteReview={props.deleteReview} />
+                deleteReview={props.deleteReview}
+                showModal={props.showModal} />
 
             );
           }
