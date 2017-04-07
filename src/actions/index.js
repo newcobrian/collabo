@@ -707,6 +707,7 @@ export function onUpdateField(key, value) {
 
 export function onCreateSubmit(key, subject, review, rid, imageURL, imageFile) {
   return dispatch => {
+    console.log('on create submit = ' + imageURL)
     const updates = {};
     const uid = Firebase.auth().currentUser.uid;
     const lastModified = Firebase.database.ServerValue.TIMESTAMP;
@@ -747,6 +748,16 @@ export function onCreateSubmit(key, subject, review, rid, imageURL, imageFile) {
     else {
       // user created a new subject, save it
       subjectId = Firebase.database().ref(Constants.SUBJECTS_PATH).push(saveSubject).key;
+
+      // add the image if its there
+      if (imageURL) {
+        Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + key).update(saveSubject);
+        imageId = Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + key + '/images').push(imageObject).key;
+        subject.images = {
+          imageId: imageObject
+        };
+        Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + uid + '/' + reviewId + '/subject/images/' + imageId).update(imageObject);
+      }
 
       //update Algolia index
       var algoliasearch = require('algoliasearch');

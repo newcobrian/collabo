@@ -61,7 +61,6 @@ class Create extends React.Component {
 	    }
 
 		this.searchInputCallback = result => {
-			console.log(JSON.stringify(result))
 			this.props.loadCreateSubject(this.props.authenticated, result);
 		}
 
