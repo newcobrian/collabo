@@ -160,7 +160,7 @@ class Settings extends React.Component {
 
   render() {
     return (
-      <div className="roow roow-col-left page-common settings-page">
+      <div className="roow roow-col-left page-common settings-page page-no-push">
             <div className="page-title-wrapper center-text">
               <div className="v2-type-h2 subtitle">Profile Settings</div>
             </div>

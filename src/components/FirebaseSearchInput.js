@@ -246,8 +246,16 @@ class FirebaseSearchInput extends Component {
         onUpdateInput={this.onUpdateInput} 
         onNewRequest={this.onNewRequest}
         style={{
-          backgroundColor: '#ffffff',
+          backgroundColor: '',
         }}
+        underlineFocusStyle={{
+          borderColor: '#5B9D3A'
+        }}
+        textFieldStyle={{
+          height: '50px',
+          marginBottom: '40px'
+        }}
+        underlineStyle={{borderColor: '#5B9D3A'}}
         menuStyle={{
           height: '400px',
           overflow: 'scroll'

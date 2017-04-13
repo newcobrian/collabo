@@ -45,7 +45,7 @@ class FriendSelector extends React.Component {
 	    return (
 	    	<div className="roow roow-col-left page-common send-page">
 		    	<div className="page-title-wrapper center-text">
-		    	  <div className="v2-type-h2 subtitle">Send directly to...</div>
+		    	  <div className="v2-type-h2 subtitle">Select friends to send this review:</div>
 		    	  <Link className="caption-link-subtle" to={'/'}>No, thanks.</Link>
 		    	</div>
 

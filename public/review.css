@@ -413,6 +413,9 @@ box-shadow: none !important;
 .cta-wrapper:hover {
   cursor: pointer;
 }
+.cta-wrapper .cta-icon {
+  transition: background-image ease-in .1s;
+}
 .cta-wrapper .cta-icon.cta-like {
   background-image: url(img/icon32_like_off.png);
 }
@@ -437,6 +440,7 @@ box-shadow: none !important;
 }
 .cta-wrapper:hover .cta-icon.cta-share {
   background-image: url(img/icon32_share.png);
+  transition: background-image ease-in .1s;
 }
 .cta-wrapper .cta-icon.cta-comment {
   background-image: url(img/icon32_comments_off.png);

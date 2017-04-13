@@ -347,7 +347,7 @@ class Create extends React.Component {
 					<ListErrors errors={this.props.errors}></ListErrors>
 		            <div className="form-wrapper roow roow-col-left">
 			            <form>
-							<fieldset className="form-group no-margin main-search-field">
+							<fieldset className="form-group no-margin main-search-field mrgn-top-sm">
 				                <FirebaseSearchInput value={this.props.title} className="form-control main-search-inner" callback={this.searchInputCallback}
 				                latitude={this.props.latitude} longitude={this.props.longitude} />
 				            </fieldset>

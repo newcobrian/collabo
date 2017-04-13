@@ -9,6 +9,7 @@ import FlatButton from 'material-ui/FlatButton';
 import FriendSelector from '../FriendSelector';
 import { FORWARD_MODAL } from '../../actions';
 
+
 const mapStateToProps = state => ({
   ...state.modal,
   ...state.friendSelector,
@@ -24,19 +25,24 @@ class ForwardModal extends React.Component {
     const actions = [
       <FlatButton
         label="Cancel"
-        primary={true}
         onTouchTap={handleClose}
+        style={{
+            color:'#2B3538'
+          }}
       />
     ];
 
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <Dialog
-          title="Select friends"
           actions={actions}
           modal={false}
           open={(this.props.modalType === FORWARD_MODAL) ? true : false}
           autoScrollBodyContent={true}
+          className="dialog-wrapper"
+          style={{
+              
+            }}
         >
           <FriendSelector />
         </Dialog>

@@ -218,7 +218,9 @@ textarea {
 .bttn-style.bttn-primary {
     background: white;
     background: #2E5DD2;
-    border: 0px solid #2C73D9;
+    background: #5B9D3A;
+    border: none;
+    box-shadow: 0 0 0 3px rgba(107, 255, 78,.4);
     height: 50px;
     color: white;
     /*box-shadow: 0 0 8px 1px rgba(0,0,0,.1);*/
@@ -228,6 +230,10 @@ textarea {
 }
 .bttn-style:hover {
   background-color: #0366E7;
+  background-color: #64BE36;
+  box-shadow: 0 0 0 4px rgba(107, 255, 78,.6);
+  transition: background-color ease-in .3s;
+
 }
 
 .bttn-style.bttn-mini {
@@ -235,6 +241,7 @@ textarea {
   font-size: 12px;
   height: inherit;
   margin: 10px 10px 10px 0;
+  box-shadow: none;
 }
 .bttn-style.bttn-minimal {
   padding: 2px 4px;
@@ -244,6 +251,7 @@ textarea {
   background: white;
   opacity: .4;
   color: red;
+  box-shadow: none;
 }
 .bttn-style.bttn-minimal:hover {
   opacity: 1;
@@ -268,6 +276,7 @@ textarea {
     margin: 0 8px 0 0;
     color: #2E5DD2;
     color: #2D447A;
+    box-shadow: none;
 }
 .bttn-subject-comment.slim-version {
   background-color: transparent;
@@ -310,6 +319,7 @@ textarea {
   width: auto;
   padding: 10px 20px;
   line-height: 28px;
+  box-shadow: none;
 }
 .bttn-style.bttn-review {
   border-top: 1px solid #E2E2E2;
@@ -322,6 +332,7 @@ textarea {
     height: 34px;
     padding: 8px 20px;
     margin: 10px auto 0;
+    box-shadow: none;
 }
 .bttn-style.bttn-review:hover {
   background: rgba(107,255,78,.2);
@@ -564,6 +575,10 @@ svg {
   margin: 110px 0px;
   background-color: #FAFAF8;
 }
+.page-common.page-no-push {
+  margin: 0;
+  padding: 0;
+}
 .page-title-container {
   width: 100%;
 }
@@ -592,7 +607,7 @@ svg {
   width: 100%;
 }
 .feed-wrapper {
-    width: auto;
+    width: 355px;
     overflow: hidden;
     margin: 0 auto;
     padding: 10px 0 0;
@@ -1299,4 +1314,21 @@ position: absolute;
     text-align: center;
     left: 0;
     right: 0;
+}
+
+
+
+.error-messages {
+  color: #F59983;
+  font-weight: 300;
+  font-size: 12px;
+  margin-bottom: 0;
+  padding: 20px 0 0;
+}
+.error-messages li {
+  list-style: none;
+}
+
+
+.dialog-wrapper {
 }
