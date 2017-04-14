@@ -7,7 +7,7 @@ export default (state = {}, action) => {
   	case CREATE_PAGE_LOADED:
       return {
         ...state,
-        image: action.image
+        userImage: action.userImage
       }
   	case CREATE_PAGE_UNLOADED:
   		return {};

@@ -565,7 +565,7 @@ export function onCreateLoad(authenticated) {
     Firebase.database().ref(Constants.USERS_PATH + '/' + authenticated).once('value', userSnapshot => {
       dispatch({
         type: CREATE_PAGE_LOADED,
-        image: userSnapshot.val().image
+        userImage: userSnapshot.val().image
       })
     })
   }
