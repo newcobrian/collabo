@@ -181,7 +181,8 @@ class Profile extends React.Component {
             currentPage={this.props.currentPage}
             updateRating={this.props.onUpdateRating}
             onSetPage={this.onSetPage}
-            deleteReview={this.props.onDeleteReview} />
+            deleteReview={this.props.onDeleteReview}
+            showModal={this.props.showModal} />
         </div>
       </div>
     );

@@ -1,6 +1,6 @@
 import { CREATE_PAGE_LOADED, CREATE_SUBJECT_LOADED, UPDATE_FIELD_CREATE, REVIEW_SUBMITTED, 
   CREATE_PAGE_UNLOADED, CREATE_SUBJECT_CLEARED, GET_USER_LOCATION, SET_WATCH_ID, SET_IN_PROGRESS,
-  CREATE_SUBMIT_ERROR } from '../actions'
+  CREATE_SUBMIT_ERROR, SHOW_MODAL, REVIEW_MODAL } from '../actions'
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -23,6 +23,19 @@ export default (state = {}, action) => {
         image: action.image,
         inProgress: null
   		}
+    case SHOW_MODAL:
+      return {
+        ...state,
+        subject: action.subject,
+        review: action.review,
+        reviewId: action.reviewId,
+        subjectId: action.subjectId,
+        rating: action.rating,
+        caption: action.caption,
+        image: action.image,
+        inProgress: null,
+        path: REVIEW_MODAL
+      }
     case CREATE_SUBJECT_CLEARED:
       return {
         ...state,

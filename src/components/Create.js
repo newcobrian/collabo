@@ -95,7 +95,7 @@ class Create extends React.Component {
 		        }
 		   	}
 		    this.props.setInProgress();
-		    this.props.onCreateSubmit(this.props.subjectId, subject, ratingObject, reviewId, this.props.image, this.props.imageFile);
+		    this.props.onCreateSubmit(this.props.subjectId, subject, ratingObject, reviewId, this.props.image, this.props.imageFile, this.props.path);
 		  }
     	}
 
@@ -341,14 +341,14 @@ class Create extends React.Component {
 		return (
 			<div className="roow roow-col roow-center-all page-common editor-page create-page">
 				<div className="page-title-wrapper center-text">
-				  <div className="v2-type-h2 subtitle">Review something real quick</div>
+				  <div className="v2-type-h2 subtitle">Add your review</div>
 				</div>
 				<div className="bx-shadow default-card-white roow roow-col roow-center-all create-wrapper mrgn-top-sm">
 					<ListErrors errors={this.props.errors}></ListErrors>
 		            <div className="form-wrapper roow roow-col-left">
 			            <form>
 							<fieldset className="form-group no-margin main-search-field mrgn-top-sm">
-				                <FirebaseSearchInput value={this.props.title} className="form-control main-search-inner" callback={this.searchInputCallback}
+				                <FirebaseSearchInput value={this.props.subject.title} className="form-control main-search-inner" callback={this.searchInputCallback}
 				                latitude={this.props.latitude} longitude={this.props.longitude} />
 				            </fieldset>
 				        </form>

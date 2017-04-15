@@ -5,7 +5,7 @@ import SaveReviewButton from './SaveReviewButton';
 import ProxyImage from './ProxyImage';
 import ReviewActions from './ReviewActions';
 import FORWARD from '../constants';
-import { FORWARD_MODAL } from '../actions';
+import { FORWARD_MODAL, REVIEW_MODAL } from '../actions';
 
 const RatingsButtons = props => {
   const handleClick = rating => ev => {
@@ -105,6 +105,11 @@ const ReviewPreview = props => {
     props.showModal(FORWARD_MODAL, props.review);
   }
 
+  const handleReviewClick = ev => {
+    ev.preventDefault();
+    props.showModal(REVIEW_MODAL, props.review);
+  }
+
   return (
       <div className="reviews-wrapper roow roow-left roow-col-left mrgn-bottom-lg bx-shadow">
 
@@ -166,9 +171,9 @@ const ReviewPreview = props => {
                 <div className="review-timestamp">
                   {(new Date(review.lastModified)).toLocaleString()}
                 </div>  
-                <div className="bttn-style bttn-review inside mrgn-top-md">
+                <Link className="bttn-style bttn-review inside mrgn-top-md" onClick={handleReviewClick}>
                   <i className="ion-plus"></i> Add Your Review
-                </div>
+                </Link>
             </div>
 
 

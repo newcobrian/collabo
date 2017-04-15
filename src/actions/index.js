@@ -78,6 +78,7 @@ export const SHOW_MODAL = 'SHOW_MODAL';
 export const HIDE_MODAL = 'HIDE_MODAL';
 export const UNMOUNT_FREIND_SELECTOR = 'UNMOUNT_FREIND_SELECTOR';
 export const FORWARD_MODAL = 'FORWARD_MODAL'
+export const REVIEW_MODAL = 'REVIEW_MODAL'
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -708,9 +709,8 @@ export function onUpdateField(key, value) {
   }
 }
 
-export function onCreateSubmit(key, subject, review, rid, imageURL, imageFile) {
+export function onCreateSubmit(key, subject, review, rid, imageURL, imageFile, path=null) {
   return dispatch => {
-    console.log('on create submit = ' + imageURL)
     const updates = {};
     const uid = Firebase.auth().currentUser.uid;
     const lastModified = Firebase.database.ServerValue.TIMESTAMP;
@@ -864,13 +864,14 @@ export function onCreateSubmit(key, subject, review, rid, imageURL, imageFile) {
               dispatch({
                 type: REVIEW_SUBMITTED,
                 payload: payloadObject,
+                path: path,
                 meta: {
                   mixpanel: {
                     event: 'Review submitted',
                     props: {
                       rating: review.rating,
                       subjectId: subjectId,
-                      location: 'Create page'
+                      location: (path === REVIEW_MODAL) ? REVIEW_MODAL : 'Create page'
                     }
                   }
                 }
@@ -883,13 +884,14 @@ export function onCreateSubmit(key, subject, review, rid, imageURL, imageFile) {
           dispatch({
             type: REVIEW_SUBMITTED,
             payload: payloadObject,
+            path: path,
             meta: {
               mixpanel: {
                 event: 'Review submitted',
                 props: {
                   rating: review.rating,
                   subjectId: subjectId,
-                  location: 'Create page'
+                  location: (path === REVIEW_MODAL) ? REVIEW_MODAL : 'Create page'
                 }
               }
             }
@@ -1792,7 +1794,6 @@ export function getUserFeed(uid, tag) {
 
 export function likeReview(authenticated, review) {
   return dispatch => {
-    console.log('in like = ' + authenticated)
     if (!authenticated) {
       dispatch({
         type: ASK_FOR_AUTH
@@ -2282,12 +2283,49 @@ export function applyTag(tag) {
 }
 
 export function showModal(type, review) {
+  const uid = Firebase.auth().currentUser.uid;
   return dispatch => {
-    dispatch({
-      type: SHOW_MODAL,
-      modalType: type,
-      review: review
-    })
+    switch (type) {
+      case REVIEW_MODAL:
+        if (review) {
+          const subjectId = review.subjectId;
+          const subject = Object.assign({}, review.subject);
+
+          Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + uid).once('value', snapshot => {
+            if (snapshot.exists()) {
+              Firebase.database().ref(Constants.REVIEWS_PATH + '/' + snapshot.val().reviewId).once('value', reviewSnapshot => {
+                dispatch({
+                  type: SHOW_MODAL,
+                  modalType: type,
+                  subject: subject,
+                  review: reviewSnapshot.exists() ? reviewSnapshot.val() : null,
+                  reviewId: reviewSnapshot.exists() ? reviewSnapshot.key : null,
+                  subjectId: subjectId,
+                  rating: reviewSnapshot.exists() ? reviewSnapshot.val().rating : null,
+                  caption: reviewSnapshot.exists() ? reviewSnapshot.val().caption : null,
+                  image: Helpers.getImagePath(subject.images)
+                })
+              })
+            }
+            else {
+              dispatch({
+                type: SHOW_MODAL,
+                modalType: type,
+                subject: subject,
+                subjectId: subjectId,
+                image: Helpers.getImagePath(subject.images)
+              })
+            }
+          })
+        }
+        break;
+      default:
+        dispatch({
+          type: SHOW_MODAL,
+          modalType: type,
+          review: review
+        })
+    }
   }
 }
 

@@ -1,4 +1,4 @@
-import { SHOW_MODAL, HIDE_MODAL, FRIEND_SELECTOR_SUBMIT } from '../actions'
+import { SHOW_MODAL, HIDE_MODAL, FRIEND_SELECTOR_SUBMIT, REVIEW_SUBMITTED, FORWARD_MODAL } from '../actions'
 
 const initialState = {
   modalType: null,
@@ -9,6 +9,7 @@ export default (state = initialState, action) => {
   switch (action.type) {
   	case SHOW_MODAL:
   		return {
+        ...state,
   			modalType: action.modalType,
   			review: action.review
   		}
@@ -16,6 +17,12 @@ export default (state = initialState, action) => {
   		return initialState;
     case FRIEND_SELECTOR_SUBMIT:
       return initialState;
+    case REVIEW_SUBMITTED:
+      return {
+        ...state,
+        modalType: FORWARD_MODAL,
+        review: action.review
+      };
   	default:
   		return state
   	}
