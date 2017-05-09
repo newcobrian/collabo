@@ -25,7 +25,7 @@ class GlobalFeed extends Home {
       return (
         <div className="page-title-container">
           <div className="page-title-wrapper center-text">
-            <div className="v2-type-h2 subtitle">The latest reviews from around the 🌏</div>
+            <div className="v2-type-h2 subtitle">WELCOME TO TRIPOOPOO</div>
           </div>
           <ul className="nav nav-pills outline-active tag-bar">
             <li className="nav-item">
@@ -69,7 +69,7 @@ class GlobalFeed extends Home {
       return (
         <div className="page-title-container">
           <div className="page-title-wrapper center-text">
-            <div className="v2-type-h2 subtitle">The latest reviews from around the 🌏</div>
+            <div className="v2-type-h2 subtitle">WELCOME TO TRIPOOPOO</div>
             <div className="v2-type-body1 opa-60">Get solid reviews from dope people you trust.</div>
           </div>
         </div>

@@ -37,11 +37,13 @@ const reducer = combineReducers({
 });
 
 const config = {
-  apiKey: "AIzaSyC-BjmTeokMo8dARRmWi3IvyvMb9TrcCBA",
-    authDomain: "whatsgood-f1e9b.firebaseapp.com",
-    databaseURL: "https://whatsgood-f1e9b.firebaseio.com",
-    storageBucket: "whatsgood-f1e9b.appspot.com"
-}
+    apiKey: "AIzaSyDVRupOyUI_19kCWMbggJEcuJnKfRfoSis",
+    authDomain: "views-18a9f.firebaseapp.com",
+    databaseURL: "https://views-18a9f.firebaseio.com",
+    projectId: "views-18a9f",
+    storageBucket: "views-18a9f.appspot.com",
+    messagingSenderId: "750421710091"
+  };
 
 Firebase.initializeApp(config);
 
