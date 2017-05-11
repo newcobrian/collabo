@@ -56,5 +56,4 @@ export const FORWARD_MESSAGE = 'FORWARD_MESSAGE'
 
 
 /*** Tag list ***/
-export const TAG_LIST = ['Architecture', 'Art', 'Articles', 'Books', 'Electronics', 'Fashion', 
-'Food & Drinks', 'Games', 'Home', 'Movies', 'Music', 'Photography', 'Places', 'TV', 'Videos']
+export const TAG_LIST = []
