@@ -85,7 +85,7 @@ class Editor extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.onEditorUnload();
+    this.props.onEditorUnload(this.props.itineraryId);
   }
 
   render() {

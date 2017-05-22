@@ -82,6 +82,7 @@ export const REVIEW_MODAL = 'REVIEW_MODAL'
 export const ITINERARY_CREATED = 'ITINERARY_CREATED'
 export const ITINERARY_PAGE_LOADED = 'ITINERARY_PAGE_LOADED'
 export const ITINERARY_PAGE_UNLOADED = 'ITINERARY_PAGE_UNLOADED'
+export const ITINERARY_UPDATED = 'ITINERARY_UPDATED'
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -538,8 +539,16 @@ export function onEditorLoad(itineraryId) {
   }
 }
 
-export function onEditorUnload() {
+export function onEditorUnload(itineraryId) {
   return dispatch => {
+    Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).once('value', itinerarySnapshot => {
+      let itineraryObject = itinerarySnapshot.val();
+      for (let i = 0; i < itineraryObject.reviews.length; i++) {
+        Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + itineraryObject.reviews[i].subjectId).off();
+        Firebase.database().ref(Constants.REVIEWS_PATH + '/' + itineraryObject.reviews[i].reviewId).off();
+      }
+    })
+    Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).off();
     dispatch({
       type: EDITOR_PAGE_UNLOADED
     })
@@ -1051,6 +1060,11 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
         console.log("Error updating data:", error);
       }
     });
+
+    dispatch({
+      type: ITINERARY_UPDATED,
+      itineraryId: itineraryId
+    })
   }
 }
 
