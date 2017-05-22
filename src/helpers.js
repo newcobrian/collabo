@@ -18,6 +18,29 @@ export function getTagsArray(tagsSnap) {
 	return tagsArray;
 }
 
+export function makeSubject(review, lastModified) {
+	let subject = { title: review.title };
+	if (review.address) subject.address = review.address;
+	return Object.assign(subject, lastModified);
+}
+
+export function makeReview(review, subjectId, lastModified) {
+	let reviewObject = { subjectId: subjectId };
+	if (review.rating) reviewObject.rating = review.rating;
+	if (review.caption) reviewObject.caption = review.caption;
+	return Object.assign(reviewObject, lastModified);
+}
+
+export function makeItinerary(auth, itinerary, lastModified) {
+	let itineraryObject = { 
+		title: itinerary.title,
+		geo: itinerary.geo,
+		userId: auth
+	};
+	if (itinerary.description) itineraryObject.description = itinerary.description;
+	return Object.assign(itineraryObject, lastModified);
+}
+
 export function incrementCount(counterType, reviewId, subjectId, userId) {
 	// increment count on reviews
 	Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewId + '/' + counterType).transaction(function (current_count) {

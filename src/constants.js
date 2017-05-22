@@ -23,8 +23,8 @@ export const TMDB_IMAGES_PATH = 'http://image.tmdb.org/t/p/original/'
 /*** Firebase Paths ***/
 export const USERS_PATH = '/users'
 export const USERNAMES_TO_USERIDS_PATH = '/usernames-to-userids'
-export const HAS_FOLLOWERS_PATH = '/followers'
-export const IS_FOLLOWING_PATH = '/followings'
+export const HAS_FOLLOWERS_PATH = '/has-followers'
+export const IS_FOLLOWING_PATH = '/is-following'
 export const SUBJECTS_PATH = '/subjects'
 export const REVIEWS_PATH = '/reviews'
 export const COMMENTS_PATH = '/comments'
@@ -37,6 +37,18 @@ export const LIKES_BY_USER_PATH = '/likes-by-user'
 export const INBOX_PATH = '/inbox'
 export const INBOX_COUNTER_PATH = '/counters/inbox'
 export const TAGS_PATH = '/tags'
+export const ITINERARIES_PATH = '/itineraries'
+	// stored itinerary id -> itinerary object w geoId and userId
+export const ITINERARIES_BY_USER_PATH = '/itineraries-by-user'
+	// stored user id -> itinerary object w/ geoId
+export const ITINERARIES_BY_GEO_PATH = '/itineraries-by-geo'
+	// stored geo id -> user id -> itinerary object
+export const TIPS_PATH = '/tips'
+	// stored tip id -> tip object w subjectId and userId
+export const TIPS_BY_USER_PATH = '/tips-by-user'
+	// stored userId -> tip ojbect w/ subject id
+export const TIPS_BY_SUBJECT_PATH = '/tips-by-subject'
+	// stored subjectId -> userid -> tip object
 
 
 /*** Counter Type Constants ***/

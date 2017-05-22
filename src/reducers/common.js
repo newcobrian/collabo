@@ -1,6 +1,6 @@
 import { AUTH_USER, SIGN_OUT_USER, REVIEW_SUBMITTED, APP_USER_LOADED, EMPTY_FRIEND_SELECTOR,
   GET_INBOX_COUNT, HOME_PAGE_NO_AUTH, ASK_FOR_AUTH, FRIEND_SELECTOR_SUBMIT, REVIEW_DELETED,
-  FORWARD_MODAL, REVIEW_MODAL } from '../actions';
+  FORWARD_MODAL, REVIEW_MODAL, ITINERARY_CREATED } from '../actions';
 
 const defaultState = {
   appName: 'Reccoon',
@@ -40,6 +40,11 @@ export default (state = defaultState, action) => {
       else {
         const redirectUrl = 'select';
         return { ...state, redirectTo: redirectUrl };
+      }
+    case ITINERARY_CREATED:
+      return {
+        ...state,
+        redirectTo: 'editor/' + action.itineraryId
       }
     case FRIEND_SELECTOR_SUBMIT:
       if (action.path === FORWARD_MODAL) {

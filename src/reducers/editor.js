@@ -6,15 +6,9 @@ export default (state = {}, action) => {
     case EDITOR_PAGE_LOADED:
       return {
         ...state,
-        articleSlug: action.payload ? action.payload.article.slug : '',
-        title: action.payload ? action.payload.article.title : '',
-        description: action.payload ? action.payload.article.description : '',
-        image: action.payload ? action.payload.article.image : '',
-        rating: action.payload ? action.payload.article.rating : '',
-        comment: action.payload ? action.payload.article.comment : '',
-        tagInput: '',
-        tagList: action.payload ? action.payload.article.tagList : []
-      };
+        itineraryId: action.itineraryId,
+        data: action.data
+      }
     case EDITOR_PAGE_UNLOADED:
       return {};
     case EDITOR_SUBMIT_ERROR:
@@ -55,3 +49,5 @@ export default (state = {}, action) => {
       return state;
   }
 };
+
+export const load = data => ({type: EDITOR_PAGE_LOADED, data})

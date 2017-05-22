@@ -21,6 +21,7 @@ import Followings from './components/Followings';
 import Inbox from './components/Inbox';
 import FriendSelector from './components/FriendSelector';
 import RootModal from './components/Modal';
+import Itinerary from './components/Itinerary';
 import store from './store';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
@@ -42,11 +43,11 @@ ReactDOM.render((
         <Route path="@:username" component={Profile} />
         <Route path="@:username/likes" component={ProfileLikes} />
         <Route path="@:username/saves" component={ProfileSaves} />
-        <Route path="editor" component={Editor} />
-        <Route path="editor/:slug" component={Editor} />
+        <Route path="edit/:iid" component={Editor} />
         <Route path="create" component={Create} />
         <Route path="inbox" component={Inbox} />
         <Route path="select" component={FriendSelector} />
+        <Route path="itinerary/:iid" component={Itinerary} />
       </Route>
     </Router>
   </Provider>

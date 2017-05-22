@@ -28,15 +28,6 @@ const SubjectInfo = props => {
 	else return null;
 }
 
-const EditorLink = props => {
-	if (props.subject) return null;
-	else {
-		return (
-			<Link to='Editor' className="create-new-link flex-item-right">Can't find something? Create it here...</Link>
-		)
-	}
-}
-
 const mapStateToProps = state => ({
   ...state.create,
   authenticated: state.common.authenticated
@@ -48,61 +39,29 @@ class Create extends React.Component {
 
 	    const updateFieldEvent =
 	      key => ev => this.props.onUpdateCreateField(key, ev.target.value);
-	    this.changeCaption = updateFieldEvent('caption');
-	    this.changeTagInput = updateFieldEvent('tagInput');
-	    // from editor
+
 	    this.changeTitle = updateFieldEvent('title');
+	    this.changeGeo = updateFieldEvent('geo');
 	    this.changeDescription = updateFieldEvent('description');
-	    this.changeURL = updateFieldEvent('url');
-
-	    this.onRatingsChange = rating => ev => {
-	      ev.preventDefault();
-	      this.props.onUpdateCreateField('rating', rating);
-	    }
-
-		this.searchInputCallback = result => {
-			this.props.loadCreateSubject(this.props.authenticated, result);
-		}
 
 		this.submitForm = ev => {
 	      ev.preventDefault();
 
-	      if (!this.props.subjectId && !this.props.title) {
-	        this.props.createSubmitError('product name');
+	      if (!this.props.title) {
+	        this.props.createSubmitError('itinerary name');
 	      }
-	      else if (this.props.rating !== 0 && !this.props.rating) {
-	        this.props.createSubmitError('rating');
+	      else if (this.props.geo !== 0 && !this.props.geo) {
+	        this.props.createSubmitError('location');
 	      }
 	      else {
-		    const ratingObject = {
-		      rating: this.props.rating,
-		    }
-		    if (this.props.caption) ratingObject.caption = this.props.caption;
+		   	let itinerary = {};
+	    	itinerary.title = this.props.title;
+	    	itinerary.geo = this.props.geo;
+	    	if (this.props.description) itinerary.description = this.props.description;
 
-		    let reviewId = this.props.review ? this.props.review.reviewId : null;
-
-		   	let subject = {};
-		   	if (this.props.subject) {
-		   		subject = this.props.subject;
-		    }
-		    else {
-		    	// if this is a new subject the user is entering in the form
-		    	subject.title = this.props.title;
-		    	if (this.props.url) subject.url = this.props.url;
-		   		if (this.props.tagInput) {
-		          subject.tags = {};
-		          subject.tags[this.props.tagInput] = true;
-		        }
-		   	}
 		    this.props.setInProgress();
-		    this.props.onCreateSubmit(this.props.subjectId, subject, ratingObject, reviewId, this.props.image, this.props.imageFile, this.props.path);
+		    this.props.onCreateItinerary(this.props.authenticated, itinerary);
 		  }
-    	}
-
-    	this.onCancelClick = ev => {
-    		ev.preventDefault();
-
-    		this.props.loadCreateSubject(this.props.authenticated, null);
     	}
 
     	this.getUserLocation= () => {
@@ -111,17 +70,6 @@ class Create extends React.Component {
 		      this.props.setWatchPositionId(watchId);
 		    }
     	}
-
-    	// more from Editor
-    	this.changeFile = ev => {
-	      this.props.onUpdateCreateField('imageFile', ev.target.files[0]);
-	    }
-
-	    this.changeTag = ev => {
-	      ev.preventDefault();
-	      this.props.onUpdateCreateField('tagInput', ev.target.value);
-	    }
-
 	}
 
 	componentWillMount() {
@@ -129,10 +77,10 @@ class Create extends React.Component {
     		this.props.askForAuth();
     	}
     	else {
-	    	this.props.onCreateLoad(this.props.authenticated);
+	    	// this.props.onCreateLoad(this.props.authenticated);
 	    	this.getUserLocation();
     	}
-    	this.props.sendMixpanelEvent('Create page loaded');
+    	this.props.sendMixpanelEvent('Create itinerary page loaded');
 	}
 
 	componentWillUnmount() {
@@ -341,20 +289,49 @@ class Create extends React.Component {
 		return (
 			<div className="roow roow-col roow-center-all page-common editor-page create-page">
 				<div className="page-title-wrapper center-text">
-				  <div className="v2-type-h2 subtitle">Add your review</div>
+				  <div className="v2-type-h2 subtitle">Create Itinerary</div>
 				</div>
 				<div className="bx-shadow default-card-white roow roow-col roow-center-all create-wrapper mrgn-top-sm">
 					<ListErrors errors={this.props.errors}></ListErrors>
 		            <div className="form-wrapper roow roow-col-left">
 			            <form>
-							{/*** <fieldset className="form-group no-margin main-search-field mrgn-top-sm">
-				                <FirebaseSearchInput value={this.props.subject.title} className="form-control main-search-inner" callback={this.searchInputCallback}
-				                latitude={this.props.latitude} longitude={this.props.longitude} />
-				            </fieldset> ****/}
+							<fieldset className="form-group no-margin apple">
+		                      <input
+		                        className="form-control"
+		                        type="text"
+		                        placeholder="Title"
+		                        required
+		                        value={this.props.title}
+		                        onChange={this.changeTitle} />
+		                    </fieldset>
+		                    <fieldset className="form-group no-margin apple">
+		                      <input
+		                        className="form-control"
+		                        type="text"
+		                        placeholder="Location"
+		                        required
+		                        value={this.props.geo}
+		                        onChange={this.changeGeo} />
+		                    </fieldset>
+							<fieldset className="form-group no-margin apple">
+		                      <input
+		                        className="form-control"
+		                        type="text"
+		                        placeholder="Description"
+		                        required
+		                        value={this.props.description}
+		                        onChange={this.changeDescription} />
+		                    </fieldset>
+
+		                    <button
+		                    className="bttn-style bttn-submit"
+		                    type="button"
+		                    disabled={this.props.inProgress}
+		                    onClick={this.submitForm}>
+		                    Next
+		                  </button>
 				        </form>
 				    </div>
-
-					{this.renderRating(this.props.subject, this.props.review)}
 				</div>
 		    </div>
 	    )

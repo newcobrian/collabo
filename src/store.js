@@ -15,9 +15,11 @@ import followers from './reducers/followers';
 import inbox from './reducers/inbox';
 import friendSelector from './reducers/friendSelector';
 import modal from './reducers/modal';
+import itinerary from './reducers/itinerary';
 import Firebase from 'firebase';
 import mixpanel from 'mixpanel-browser';
 import MixpanelMiddleware from 'redux-mixpanel-middleware';
+import { reducer as formReducer } from 'redux-form'
 
 const reducer = combineReducers({
   review,
@@ -32,7 +34,9 @@ const reducer = combineReducers({
   followers,
   inbox,
   friendSelector,
-  modal
+  modal,
+  itinerary,
+  form: formReducer
   // firebase: firebaseStateReducer
 });
 
