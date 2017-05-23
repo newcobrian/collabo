@@ -12,7 +12,7 @@ const ReviewList = props => {
   if (props.reviews.length === 0) {
     return (
       <div className="article-preview roow roow-center-all">
-        Follow some more interesting people!
+        Empty itinerary.
       </div>
     );
   }
@@ -21,22 +21,20 @@ const ReviewList = props => {
     <div>
       {
         props.reviews.map(review => {
-          if (!props.tag || (review.subject && review.subject.tag && review.subject.tag.includes(props.tag))) {
-            return (
-              <ReviewPreview review={review}
-                tag={props.tag}
-                key={review.id} 
-                authenticated={props.authenticated} 
-                like={props.like} 
-                unLike={props.unLike}
-                save={props.save}
-                unSave={props.unSave}
-                updateRating={props.updateRating}
-                deleteReview={props.deleteReview}
-                showModal={props.showModal} />
+          return (
+            <ReviewPreview review={review}
+              key={review.reviewId} 
+              authenticated={props.authenticated} 
 
-            );
-          }
+              like={props.like} 
+              unLike={props.unLike}
+              save={props.save}
+              unSave={props.unSave}
+              updateRating={props.updateRating}
+              deleteReview={props.deleteReview}
+              showModal={props.showModal} />
+
+          );
         })
       }
             <div className="no-results-module">

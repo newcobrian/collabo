@@ -519,9 +519,7 @@ export function logout() {
 export function onEditorLoad(itineraryId) {
   return dispatch => {
     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).on('value', itinerarySnapshot => {
-    let itineraryObject = itinerarySnapshot.val();
-    let reviewsList = itinerarySnapshot.val().reviews;
-    let reviewArray = [];
+      let itineraryObject = itinerarySnapshot.val();
       for (let i = 0; i < itineraryObject.reviews.length; i++) {
         Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + itineraryObject.reviews[i].subjectId).on('value', subjectSnapshot => {
           Firebase.database().ref(Constants.REVIEWS_PATH + '/' + itineraryObject.reviews[i].reviewId).on('value', reviewSnapshot => {
@@ -551,6 +549,53 @@ export function onEditorUnload(itineraryId) {
     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).off();
     dispatch({
       type: EDITOR_PAGE_UNLOADED
+    })
+  }
+}
+
+export function onItineraryLoad(itineraryId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).on('value', itinerarySnapshot => {
+      Firebase.database().ref(Constants.USERS_PATH + '/' + itinerarySnapshot.val().userId).on('value', userSnapshot => {
+        let userInfo = { createdBy:
+          { username: userSnapshot.val().username, image: userSnapshot.val().image }
+        };
+        let itineraryObject = Object.assign({}, itinerarySnapshot.val(), userInfo);
+        let reviewArray = [];
+        for (let i = 0; i < itineraryObject.reviews.length; i++) {
+          let reviewObject = {};
+          Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + itineraryObject.reviews[i].subjectId).on('value', subjectSnapshot => {
+            Firebase.database().ref(Constants.REVIEWS_PATH + '/' + itineraryObject.reviews[i].reviewId).on('value', reviewSnapshot => {
+              Object.assign(reviewObject, subjectSnapshot.val(), reviewSnapshot.val(), { key: i });
+              reviewArray = [reviewObject].concat(reviewArray);
+              reviewArray.sort(byPriority);
+              dispatch({
+                type: ITINERARY_PAGE_LOADED,
+                itineraryId: itineraryId,
+                itinerary: itineraryObject,
+                reviews: reviewArray
+              })
+            })
+          })
+        }
+      })
+    })
+  }
+}
+
+export function onItineraryUnload(itineraryId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).once('value', itinerarySnapshot => {
+      Firebase.database().ref(Constants.USERS_PATH + '/' + itinerarySnapshot.val().userId).off();
+      let itineraryObject = itinerarySnapshot.val();
+      for (let i = 0; i < itineraryObject.reviews.length; i++) {
+        Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + itineraryObject.reviews[i].subjectId).off();
+        Firebase.database().ref(Constants.REVIEWS_PATH + '/' + itineraryObject.reviews[i].reviewId).off();
+      }
+    })
+    Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).off();
+    dispatch({
+      type: ITINERARY_PAGE_UNLOADED
     })
   }
 }
@@ -1793,6 +1838,14 @@ export function unloadLikesOrSavesByUser(userId, path) {
       type: UNLOAD_LIKES_OR_SAVES_BY_USER
     })
   }
+}
+
+export function byPriority(a, b) {
+  if (a.key < b.key)
+    return -1;
+  if (a.key > b.key)
+    return 1;
+  return 0;
 }
 
 export function lastModifiedDesc(a, b) {
