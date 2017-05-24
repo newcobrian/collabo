@@ -39,28 +39,30 @@ class Itinerary extends React.Component {
       return (
         <div className="roow roow-col roow-center-all page-common editor-page create-page">
           <div className="page-title-wrapper center-text">
-            <div className="v2-type-h2 subtitle">{this.props.itinerary.title}</div>
+            <div className="v2-type-h1 subtitle">{this.props.itinerary.title}</div>
+            <fieldset>
+              <div className="v2-type-body1">
+                {this.props.itinerary.geo}
+              </div>
+              <div className="v2-type-body1">
+                4 Tips by {this.props.itinerary.createdBy.username}
+              </div>
+              <div className="v2-type-time">
+                Updated 2 hrs ago
+              </div>
+              <div>
+                <Link to={`@${this.props.itinerary.createdBy.username}`}>
+                  <div className="reviewer-photo DN center-img mrgn-right-lg mrgn-top-sm"><ProxyImage src={this.props.itinerary.createdBy.image}/></div>
+                </Link>
+              </div>
+              <div className="v2-type-h6">
+                {this.props.itinerary.description}
+              </div>
+            </fieldset>
           </div>
           <div className="roow roow-col roow-center-all page-common editor-page">
-                <div className="form-wrapper roow roow-col-left">
-                  
-                  <fieldset>
-                    <div>
-                      Location: {this.props.itinerary.geo}
-                    </div>
-                    <div>
-                      Description: {this.props.itinerary.description}
-                    </div>
-                    <div>
-                      Created By: {this.props.itinerary.createdBy.username}
-                    </div>
-                    <div>
-                      <Link to={`@${this.props.itinerary.createdBy.username}`}>
-                        <div className="reviewer-photo DN center-img mrgn-right-lg mrgn-top-sm"><ProxyImage src={this.props.itinerary.createdBy.image}/></div>
-                      </Link>
-                    </div>
-                  </fieldset>
-                </div>
+
+
                 <div>
                   <TipList
                     reviews={this.props.reviews} 
