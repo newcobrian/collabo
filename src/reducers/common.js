@@ -1,6 +1,6 @@
 import { AUTH_USER, SIGN_OUT_USER, REVIEW_SUBMITTED, APP_USER_LOADED, EMPTY_FRIEND_SELECTOR,
   GET_INBOX_COUNT, HOME_PAGE_NO_AUTH, ASK_FOR_AUTH, FRIEND_SELECTOR_SUBMIT, REVIEW_DELETED,
-  FORWARD_MODAL, REVIEW_MODAL, ITINERARY_CREATED, ITINERARY_UPDATED } from '../actions';
+  FORWARD_MODAL, REVIEW_MODAL, ITINERARY_CREATED, ITINERARY_UPDATED, EDITOR_PAGE_NO_AUTH } from '../actions';
 
 const defaultState = {
   appName: 'Reccoon',
@@ -93,6 +93,11 @@ export default (state = defaultState, action) => {
         error: null,
         redirectTo: action.error ? null : '/'
       };
+    case EDITOR_PAGE_NO_AUTH:
+      return {
+        ...state,
+        redirectTo: 'itinerary/' + action.itineraryId
+      }
     default: 
       return state;
   }

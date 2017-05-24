@@ -79,7 +79,7 @@ class Editor extends React.Component {
 
   componentWillMount() {
     if (this.props.params.iid) {
-      return this.props.onEditorLoad(this.props.params.iid);
+      return this.props.onEditorLoad(this.props.authenticated, this.props.params.iid);
     }
     this.props.sendMixpanelEvent('Itinerary page loaded');
   }

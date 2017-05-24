@@ -65,7 +65,7 @@ class Itinerary extends React.Component {
                   <TipList
                     reviews={this.props.reviews} 
                     reviewsCount={this.props.itinerary.reviewsCount}
-                    authenticated={this.props.authenticated} 
+                    authenticated={this.props.authenticated}
 
                     like={this.props.likeReview} 
                     unLike={this.props.unLikeReview}
