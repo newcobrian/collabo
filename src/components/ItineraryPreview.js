@@ -5,6 +5,7 @@ import ProxyImage from './ProxyImage';
 import ReviewActions from './ReviewActions';
 import FORWARD from '../constants';
 import { FORWARD_MODAL, REVIEW_MODAL } from '../actions';
+import { ITINERARY_TYPE, REVIEW_TYPE } from '../constants';
 
 const CommentPreview = props => {
   if (props.comments) {
@@ -92,7 +93,7 @@ const ItineraryPreview = props => {
                   unLike={props.unLike}
                   like={props.like} 
                   likeObject={itinerary}
-                  type="itinerary" />
+                  type={ITINERARY_TYPE} />
 
 {/***}              <Link className="cta-wrapper roow roow-col" onClick={handleForwardClick}>
                   <div className="cta-icon cta-share"></div>
