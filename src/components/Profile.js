@@ -1,10 +1,10 @@
-import ReviewList from './ReviewList';
 import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import Firebase from 'firebase';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
+import ItineraryList from './ItineraryList';
 import FollowUserButton from './FollowUserButton'
 import ProxyImage from './ProxyImage';
 
@@ -66,7 +66,8 @@ class Profile extends React.Component {
         let userId = snapshot.val().userId;
         this.props.getProfileUser(userId);
         this.props.checkFollowing(userId);
-        this.props.getReviewsByUser(this.props.authenticated, userId);
+        // this.props.getReviewsByUser(this.props.authenticated, userId);
+        this.props.getItinerariesByUser(this.props.authenticated, userId);
         this.props.getFollowingCount(userId);
         this.props.getFollowerCount(userId);
         this.props.sendMixpanelEvent('Profile page loaded');
@@ -91,7 +92,7 @@ class Profile extends React.Component {
               <Link
                 className="nav-link active"
                 to={`${this.props.profile.username}`}>
-                My Posts
+                Itineraries
               </Link>
             </li>
 
@@ -175,8 +176,8 @@ class Profile extends React.Component {
         
         <div className="profile-feed">
      
-          <ReviewList
-            reviews={profile.reviews} 
+          <ItineraryList
+            itineraries={profile.itineraries} 
             reviewsCount={this.props.reviewsCount}
             authenticated={this.props.authenticated} 
             like={this.props.likeReview} 
