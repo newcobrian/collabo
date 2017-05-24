@@ -22,7 +22,7 @@ const TipList = props => {
         props.reviews.map(review => {
           return (
             <TipPreview review={review}
-              key={review.reviewId} 
+              key={review.key} 
               authenticated={props.authenticated}
             />
           );
