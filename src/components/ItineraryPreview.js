@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
 import LikeReviewButton from './LikeReviewButton';
-import SaveReviewButton from './SaveReviewButton';
 import ProxyImage from './ProxyImage';
 import ReviewActions from './ReviewActions';
 import FORWARD from '../constants';
@@ -10,17 +9,17 @@ import { FORWARD_MODAL, REVIEW_MODAL } from '../actions';
 const CommentPreview = props => {
   if (props.comments) {
     return (
-      <Link to={`review/${props.itinerary.subjectId}/${props.itinerary.id}`}>
+      <Link to={`itinerary/${props.itinerary.id}`}>
         <div className="cta-wrapper cta-wrapper-comment roow roow-col">
           <div className="cta-icon cta-comment"></div>
-          {props.review.commentsCount} Comments
+          {props.itinerary.commentsCount} Comments
         </div>
       </Link>
     )
   }
   else {
     return (
-      <Link to={`review/${props.itinerary.subjectId}/${props.itinerary.id}`}>
+      <Link to={`itinerary/${props.itinerary.id}`}>
         <div className="cta-wrapper cta-wrapper-comment roow roow-col">
           <div className="cta-icon cta-comment comment-on"></div>
           Comment
@@ -38,7 +37,7 @@ const ItineraryPreview = props => {
   return (
     <div className="reviews-wrapper roow roow-left roow-col-left mrgn-bottom-lg bx-shadow">
 
-        <Link to={`itinerary/${itinerary.subjectId}/${itinerary.id}`}>
+        <Link to={`itinerary/${itinerary.id}`}>
           <div className="subject-image">
             <ProxyImage className="gray-border" src={itinerary.subjectImage ? itinerary.subjectImage : ""}/>
           </div>
@@ -53,7 +52,7 @@ const ItineraryPreview = props => {
             </div>
           </div>
           
-          <Link to={`itinerary/${itinerary.subjectId}/${itinerary.id}`}>
+          <Link to={`itinerary/${itinerary.id}`}>
           <div className="text-subject-name v2-type-h2 center-text">
             {itinerary.title}
           </div>
@@ -78,38 +77,33 @@ const ItineraryPreview = props => {
 
         </div>
 
-{/***        <div className="roow roow-row flex-wrap cta-container">
+        <div className="roow roow-row flex-wrap cta-container">
             <div className="cta-box roow roow-row-space">
               <div className="roow roow-col-left">
               
               </div>
-              <CommentPreview comments={props.review.comments} review={props.review} />
+              <CommentPreview comments={props.itinerary.comments} itinerary={props.itinerary} />
               
               <div className="roow roow-row flex-item-right">
                 <LikeReviewButton
                   authenticated={props.authenticated}
-                  isLiked={props.review.isLiked}
-                  likesCount={props.review.likesCount}
+                  isLiked={props.itinerary.isLiked}
+                  likesCount={props.itinerary.likesCount}
                   unLike={props.unLike}
                   like={props.like} 
-                  review={review} />
-                <SaveReviewButton 
-                  authenticated={props.authenticated}
-                  isSaved={props.review.isSaved}
-                  unSave={props.unSave}
-                  save={props.save} 
-                  review={review} />
-              </div>
+                  likeObject={itinerary}
+                  type="itinerary" />
 
-              <Link className="cta-wrapper roow roow-col" onClick={handleForwardClick}>
+{/***}              <Link className="cta-wrapper roow roow-col" onClick={handleForwardClick}>
                   <div className="cta-icon cta-share"></div>
                   Forward
                 </Link>
-
-              </div>             
-          </div>
-
 **/}
+              </div>
+            </div>             
+        </div>
+
+
 
       </div> 
     </div>

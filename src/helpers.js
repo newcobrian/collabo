@@ -41,7 +41,24 @@ export function makeItinerary(auth, itinerary, lastModified) {
 	return Object.assign(itineraryObject, lastModified);
 }
 
-export function incrementCount(counterType, reviewId, subjectId, userId) {
+export function incrementItineraryCount(counterType, itineraryId, geo, userId) {
+	// increment count on reviews
+	Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId + '/' + counterType).transaction(function (current_count) {
+		return (current_count || 0) + 1;
+    });
+
+    // increment count on reviews by subject
+    Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH + '/' + geo + '/' + userId + '/' + itineraryId + '/' + counterType).transaction(function (current_count) {
+		return (current_count || 0) + 1;
+    });
+
+	// incrememt count on reviews by user
+	Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + userId + '/' + itineraryId + '/' + counterType).transaction(function (current_count) {
+		return (current_count || 0) + 1;
+    });
+}
+
+export function incrementReviewCount(counterType, reviewId, subjectId, userId) {
 	// increment count on reviews
 	Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewId + '/' + counterType).transaction(function (current_count) {
 		return (current_count || 0) + 1;
@@ -66,7 +83,7 @@ export function incrementCount(counterType, reviewId, subjectId, userId) {
     Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId).update({ lastModified: Firebase.database.ServerValue.TIMESTAMP })
 }
 
-export function decrementCount(counterType, reviewId, subjectId, userId) {
+export function decrementReviewCount(counterType, reviewId, subjectId, userId) {
 	// decrement count on reviews
 	Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewId + '/' + counterType).transaction(function (current_count) {
 		return (current_count - 1 > 0) ? (current_count - 1) : 0;
@@ -91,38 +108,62 @@ export function decrementCount(counterType, reviewId, subjectId, userId) {
     Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId).update({ lastModified: Firebase.database.ServerValue.TIMESTAMP })
 }
 
-export function sendInboxMessage(senderId, recipientId, messageType, review) {
+export function decrementItineraryCount(counterType, itineraryId, geo, userId) {
+	// decrement count on reviews
+	Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId + '/' + counterType).transaction(function (current_count) {
+		return (current_count - 1 > 0) ? (current_count - 1) : 0;
+    });
+
+    // decrement count on reviews by subject
+    Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH + '/' + geo + '/' + userId + '/' + itineraryId + '/' + counterType).transaction(function (current_count) {
+		return (current_count - 1 > 0) ? (current_count - 1) : 0;
+    });
+
+	// decrement count on reviews by user
+	Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + userId + '/' + itineraryId + '/' + counterType).transaction(function (current_count) {
+		return (current_count - 1 > 0) ? (current_count - 1) : 0;
+    });
+}
+
+export function sendInboxMessage(senderId, recipientId, messageType, sendObject) {
 	const inboxObject = {
 		lastModified: Firebase.database.ServerValue.TIMESTAMP
 	};
 	let emailMessage = '';
 
-	if (review) {
+	if (sendObject) {
 		Firebase.database().ref(Constants.USERS_PATH + '/' + recipientId).once('value', recipientSnapshot => {
 			Firebase.database().ref(Constants.USERS_PATH + '/' + senderId).once('value', senderSnapshot => {
-				inboxObject.reviewId = review.id;
-				if (review.subject.images) inboxObject.reviewImage = getImagePath(review.subject.images);
-				if (review.subject.title) inboxObject.reviewTitle = review.subject.title;
+				inboxObject.reviewId = sendObject.id;
+				if (sendObject.subject.images) inboxObject.reviewImage = getImagePath(sendObject.subject.images);
+				if (sendObject.subject.title) inboxObject.reviewTitle = sendObject.subject.title;
 
 				switch(messageType) {
 					case Constants.LIKE_MESSAGE:
 						inboxObject.senderId = senderId;
 						inboxObject.message = ' liked your review: ';
-						inboxObject.link = 'review/' + review.subjectId + '/' + review.id;
+						inboxObject.link = 'review/' + sendObject.subjectId + '/' + sendObject.id;
 						emailMessage = senderSnapshot.val().username + 
 							' liked your review. Click here to check it out: https://whatsgoooood.com/#/' + inboxObject.link;
+						break;
+					case Constants.LIKE_ITINERARY_MESSAGE:
+						inboxObject.senderId = senderId;
+						inboxObject.message = ' liked your itinerary: ';
+						inboxObject.link = 'itinerary/' + sendObject.id;
+						emailMessage = senderSnapshot.val().username + 
+							' liked your itinerary. Click here to check it out: https://whatsgoooood.com/#/' + inboxObject.link;
 						break;
 					case Constants.COMMENT_ON_REVIEW_MESSAGE:
 						inboxObject.senderId = senderId;
 						inboxObject.message = ' commented on your review: ';
-						inboxObject.link = 'review/' + review.subjectId + '/' + review.id;
+						inboxObject.link = 'review/' + sendObject.subjectId + '/' + sendObject.id;
 						emailMessage = senderSnapshot.val().username + 
 							' commented on your review. Click here to check it out: https://whatsgoooood.com/#/' + inboxObject.link;
 						break;
 					case Constants.COMMENT_ON_COMMENT_MESSAGE:
 						inboxObject.senderId = senderId;
 						inboxObject.message = ' also commented on the review: ';
-						inboxObject.link = 'review/' + review.subjectId + '/' + review.id;
+						inboxObject.link = 'review/' + sendObject.subjectId + '/' + sendObject.id;
 						emailMessage = senderSnapshot.val().username + 
 							' also commented on a review you commented on. Click here to check it out: https://whatsgoooood.com/#/' + inboxObject.link;
 						break;
@@ -136,21 +177,21 @@ export function sendInboxMessage(senderId, recipientId, messageType, review) {
 					case Constants.DIRECT_MESSAGE:
 						inboxObject.senderId = senderId;
 						inboxObject.message = ' sent you a personal review.'
-						inboxObject.link = 'review/' + review.subjectId + '/' + review.id;
+						inboxObject.link = 'review/' + sendObject.subjectId + '/' + sendObject.id;
 						emailMessage = senderSnapshot.val().username + 
 							' sent you a personal review. Click here to see it: https://whatsgoooood.com/#/' + inboxObject.link;
 						break;
 					case Constants.FORWARD_MESSAGE:
 						inboxObject.senderId = senderId;
 						inboxObject.message = ' forwared you a review.'
-						inboxObject.link = 'review/' + review.subjectId + '/' + review.id;
+						inboxObject.link = 'review/' + sendObject.subjectId + '/' + sendObject.id;
 						emailMessage = senderSnapshot.val().username + 
 							' forwarded you a review. Click here to see it: https://whatsgoooood.com/#/' + inboxObject.link;
 						break;
 					case Constants.SAVE_MESSAGE:
 						inboxObject.senderId = '';
 						inboxObject.message = 'Can\'t tell you who, but somebody saved your review of ';
-						inboxObject.link = 'review/' + review.subjectId + '/' + review.id;
+						inboxObject.link = 'review/' + sendObject.subjectId + '/' + sendObject.id;
 						emailMessage = 'Somebody saved your review. Click here to go to your inbox: https://whatsgoooood.com/#/inbox';
 						break;
 				}

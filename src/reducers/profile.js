@@ -1,4 +1,4 @@
-import { GET_REVIEWS_BY_USER, GET_FOLLOWING_COUNT, GET_FOLLOWER_COUNT, GET_LIKES_OR_SAVES_BY_USER, 
+import { GET_USER, GET_REVIEWS_BY_USER, GET_FOLLOWING_COUNT, GET_FOLLOWER_COUNT, GET_LIKES_OR_SAVES_BY_USER, 
   UNLOAD_LIKES_OR_SAVES_BY_USER, GET_ITINERARIES_BY_USER } from '../actions';
 
 export default (state = {}, action) => {
@@ -18,10 +18,10 @@ export default (state = {}, action) => {
       return {
         ...action.payload.profile
       };
-    case 'GET_USER':
+    case GET_USER:
       return {
         ...state,
-        ...action.payload,
+        profile: action.payload,
         userId: action.userId
       };
     case 'IS_FOLLOWING':

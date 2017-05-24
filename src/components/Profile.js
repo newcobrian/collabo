@@ -37,10 +37,11 @@ const LogoutButton = props => {
 }
 
 const mapStateToProps = state => ({
-  ...state.reviewList,
+  // ...state.reviewList,
+  ...state.profile,
   currentUser: state.common.currentUser,
   authenticated: state.common.authenticated,
-  profile: state.profile
+  // profile: state.profile
 });
 
 // const mapDispatchToProps = dispatch => ({
@@ -128,8 +129,14 @@ class Profile extends React.Component {
 
   render() {
     const profile = this.props.profile;
-    if (!profile.userId) {
+    if (!profile) {
       return null;
+    }
+    if (!this.props.itineraries) {
+      return null;
+    }
+    if (this.props.itineraries.length === 0) {
+      return 'No itineraries created.'
     }
 
     const isUser = this.props.currentUser &&
@@ -177,7 +184,7 @@ class Profile extends React.Component {
         <div className="profile-feed">
      
           <ItineraryList
-            itineraries={profile.itineraries} 
+            itineraries={this.props.itineraries} 
             reviewsCount={this.props.reviewsCount}
             authenticated={this.props.authenticated} 
             like={this.props.likeReview} 

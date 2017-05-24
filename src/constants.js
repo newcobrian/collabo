@@ -59,12 +59,17 @@ export const SAVES_COUNT = 'savesCount'
 
 /*** Message Type Constants ***/
 export const LIKE_MESSAGE = 'LIKE_MESSAGE'
+export const LIKE_ITINERARY_MESSAGE = 'LIKE_ITINERARY_MESSAGE'
 export const SAVE_MESSAGE = 'SAVE_MESSAGE'
 export const FOLLOW_MESSAGE = 'FOLLOW_MESSAGE'
 export const COMMENT_ON_COMMENT_MESSAGE = 'COMMENT_COMMENT_MESSAGE'
 export const COMMENT_ON_REVIEW_MESSAGE = 'COMMENT_REVIEW_MESSAGE'
 export const DIRECT_MESSAGE = 'DIRECT_MESSAGE'
 export const FORWARD_MESSAGE = 'FORWARD_MESSAGE'
+
+
+export const ITINERARY_TYPE = 'itinerary'
+export const REVIEW_TYPE = 'review'
 
 
 /*** Tag list ***/
