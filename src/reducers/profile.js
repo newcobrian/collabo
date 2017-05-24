@@ -1,5 +1,5 @@
 import { GET_REVIEWS_BY_USER, GET_FOLLOWING_COUNT, GET_FOLLOWER_COUNT, GET_LIKES_OR_SAVES_BY_USER, 
-  UNLOAD_LIKES_OR_SAVES_BY_USER } from '../actions';
+  UNLOAD_LIKES_OR_SAVES_BY_USER, GET_ITINERARIES_BY_USER } from '../actions';
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -48,6 +48,11 @@ export default (state = {}, action) => {
       return {
         ...state,
         reviews: action.payload
+      }
+    case GET_ITINERARIES_BY_USER:
+      return {
+        ...state,
+        itineraries: action.payload
       }
     default:
       return state;

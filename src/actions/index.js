@@ -84,6 +84,7 @@ export const ITINERARY_PAGE_LOADED = 'ITINERARY_PAGE_LOADED'
 export const ITINERARY_PAGE_UNLOADED = 'ITINERARY_PAGE_UNLOADED'
 export const ITINERARY_UPDATED = 'ITINERARY_UPDATED'
 export const EDITOR_PAGE_NO_AUTH = 'EDITOR_PAGE_NO_AUTH'
+export const GET_ITINERARIES_BY_USER = 'GET_ITINERARIES_BY_USER'
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -1134,7 +1135,7 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
       itineraryId = Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + auth).push(itineraryByUserObject).key;
     }
     else {
-      updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${auth}/`] = itineraryByUserObject;
+      updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}`] = itineraryByUserObject;
     }
     // update all itinerary tables
     updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}/`] = itineraryObject;
@@ -1717,7 +1718,63 @@ export function onUpdateRating(userId, reviewId, subjectId, rating) {
   }
 }
 
-export function getReviewsByUser(appUserId, userId) {
+export function getItinerariesByUser(appUserId, userId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + userId).on('value', itinerariesSnapshot => {
+      if (!itinerariesSnapshot.exists()) {
+        dispatch({
+          type: GET_ITINERARIES_BY_USER,
+          payload: []
+        })
+      }
+      let feedArray = [];
+      Firebase.database().ref(Constants.USERS_PATH + '/' + userId).on('value', userSnapshot => {
+        itinerariesSnapshot.forEach(function(itin) {
+          // Firebase.database().ref(Constants.LIKES_PATH + '/' + itin.key).on('value', likesSnapshot => {
+          //   Firebase.database().ref(Constants.COMMENTS_PATH + '/' + itin.key).on('value', commentCountSnapshot => {
+              const itineraryObject = {};
+              const key = { id: itin.key };
+              const createdBy = { createdBy: userSnapshot.val() };
+              createdBy.createdBy.userId = userId
+              let isLiked = false;
+              // if (likesSnapshot.val()) {
+              //   isLiked = searchLikes(appUserId, likesSnapshot.val());
+              // }
+              let likes = {
+                isLiked: isLiked
+              }
+
+              let commentObject = {};
+              // if (commentCountSnapshot.exists()) {
+              //   commentObject.comments = {
+              //         lastComment: '',
+              //         commentorImage: '',
+              //         username: ''                  
+              //   }
+              // }
+              
+              Object.assign(itineraryObject, itin.val(), key, createdBy, likes, commentObject);
+
+              // if (itin.val().subject && itin.val().subject.images) {
+              //   reviewObject.subject.image = Helpers.getImagePath(itin.val().subject.images);
+              // }
+
+              feedArray = [itineraryObject].concat(feedArray);
+              feedArray.sort(lastModifiedDesc);
+              // console.log('feed array = ' + JSON.stringify(feedArray))
+              dispatch({
+                type: GET_ITINERARIES_BY_USER,
+                payload: feedArray
+              })
+            })
+        //   })  
+        // });
+      })
+    })
+  }
+}
+
+export function getReviewsByUser2(appUserId, userId) {
   return dispatch => {
     Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + userId).orderByChild('lastModified').on('value', reviewsSnapshot => {
       if (!reviewsSnapshot.exists()) {

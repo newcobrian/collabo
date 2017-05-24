@@ -58,7 +58,7 @@ class ProfileLikes extends Profile {
               <Link
                 className="nav-link"
                 to={`@${this.props.profile.username}`}>
-                My Posts
+                Itineraries
               </Link>
             </li>
 
@@ -66,10 +66,25 @@ class ProfileLikes extends Profile {
               <Link
                 className="nav-link active"
                 to={`@${this.props.profile.username}/likes`}>
-                My Likes
+                Likes
               </Link>
             </li>
 
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                to={`@${this.props.profile.username}/likes`}>
+                Followers
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                to={`@${this.props.profile.username}/likes`}>
+                Is Following
+              </Link>
+            </li>
          
           </ul>
       </div>
