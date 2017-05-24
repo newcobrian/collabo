@@ -520,17 +520,26 @@ export function onEditorLoad(itineraryId) {
   return dispatch => {
     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).on('value', itinerarySnapshot => {
       let itineraryObject = itinerarySnapshot.val();
-      for (let i = 0; i < itineraryObject.reviews.length; i++) {
-        Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + itineraryObject.reviews[i].subjectId).on('value', subjectSnapshot => {
-          Firebase.database().ref(Constants.REVIEWS_PATH + '/' + itineraryObject.reviews[i].reviewId).on('value', reviewSnapshot => {
-            Object.assign(itineraryObject.reviews[i], subjectSnapshot.val(), reviewSnapshot.val());
-            
-            dispatch({
-              type: EDITOR_PAGE_LOADED,
-              itineraryId: itineraryId,
-              data: { itinerary: itineraryObject }
+      if (itineraryObject && itineraryObject.reviews) {
+        for (let i = 0; i < itineraryObject.reviews.length; i++) {
+          Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + itineraryObject.reviews[i].subjectId).on('value', subjectSnapshot => {
+            Firebase.database().ref(Constants.REVIEWS_PATH + '/' + itineraryObject.reviews[i].reviewId).on('value', reviewSnapshot => {
+              Object.assign(itineraryObject.reviews[i], subjectSnapshot.val(), reviewSnapshot.val());
+              
+              dispatch({
+                type: EDITOR_PAGE_LOADED,
+                itineraryId: itineraryId,
+                data: { itinerary: itineraryObject }
+              })
             })
           })
+        }
+      }
+      else {
+        dispatch({
+          type: EDITOR_PAGE_LOADED,
+          itineraryId: itineraryId,
+          data: { itinerary: itineraryObject }
         })
       }
     })
@@ -541,9 +550,11 @@ export function onEditorUnload(itineraryId) {
   return dispatch => {
     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).once('value', itinerarySnapshot => {
       let itineraryObject = itinerarySnapshot.val();
-      for (let i = 0; i < itineraryObject.reviews.length; i++) {
-        Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + itineraryObject.reviews[i].subjectId).off();
-        Firebase.database().ref(Constants.REVIEWS_PATH + '/' + itineraryObject.reviews[i].reviewId).off();
+      if (itineraryObject && itineraryObject.reviews) {
+        for (let i = 0; i < itineraryObject.reviews.length; i++) {
+          Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + itineraryObject.reviews[i].subjectId).off();
+          Firebase.database().ref(Constants.REVIEWS_PATH + '/' + itineraryObject.reviews[i].reviewId).off();
+        }
       }
     })
     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).off();

@@ -44,7 +44,7 @@ export default (state = defaultState, action) => {
     case ITINERARY_CREATED:
       return {
         ...state,
-        redirectTo: 'editor/' + action.itineraryId
+        redirectTo: 'edit/' + action.itineraryId
       }
     case ITINERARY_UPDATED:
       return {
