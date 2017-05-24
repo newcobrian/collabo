@@ -55,7 +55,7 @@ const LoggedInView = props => {
             <div className="nav-text">Saved</div>
         </Link>
         
-        <Link to={`@${props.userInfo.username}`} activeClassName="active" className="nav-module nav-profile">
+        <Link to={`${props.userInfo.username}`} activeClassName="active" className="nav-module nav-profile">
             <div className="nav-icon"><img className="center-img" src={props.userInfo.image}/></div>
             <div className="nav-text">Profile</div>
         </Link>

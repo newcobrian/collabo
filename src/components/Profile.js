@@ -60,11 +60,6 @@ const mapStateToProps = state => ({
 
 class Profile extends React.Component {
   componentWillMount() {
-    // this.props.onLoad(Promise.all([
-    //   agent.Profile.get(this.props.params.username),
-    //   agent.Articles.byAuthor(this.props.params.username)
-    // ]));
-
     // look up userID from username and load profile
     Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + this.props.params.username + '/').once('value', snapshot => {
       if (snapshot.exists()) {
@@ -77,7 +72,6 @@ class Profile extends React.Component {
         this.props.sendMixpanelEvent('Profile page loaded');
       }
     });
-    // this.props.getUser(userId);
   }
 
   componentWillUnmount() {
@@ -87,11 +81,6 @@ class Profile extends React.Component {
       this.props.unloadReviewsByUser(this.props.profile.userId);
     }
   }
-
-  // onSetPage(page) {
-  //   // const promise = agent.Articles.byAuthor(this.props.profile.username, page);
-  //   this.props.onSetPage(page, promise);
-  // }
 
   renderTabs(isUser) {
     if (isUser) {
@@ -110,7 +99,23 @@ class Profile extends React.Component {
               <Link
                 className="nav-link"
                 to={`@${this.props.profile.username}/likes`}>
-                My Likes
+                Likes
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                to={`@${this.props.profile.username}/likes`}>
+                Followers
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                to={`@${this.props.profile.username}/likes`}>
+                Is Following
               </Link>
             </li>
 
