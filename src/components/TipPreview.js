@@ -36,46 +36,66 @@ const TipPreview = props => {
       props.authenticated === props.review.userId;
 
   return (
-    <div className="reviews-wrapper roow roow-left roow-col-left mrgn-bottom-lg bx-shadow">
+    <div className="reviews-wrapper roow roow-row-left roow-row-top mrgn-bottom-lg">
 
-        <Link to={`review/${review.subjectId}/${review.id}`}>
-          <div className="subject-image">
-            <ProxyImage className="gray-border" src={review.subjectImage ? review.subjectImage : ""}/>
-          </div>
-        </Link>
+      <Link to={`review/${review.subjectId}/${review.id}`}>
+      <div className="subject-image">
+        <img className="center-img" src="../img/views.ramen.temp.png"/>
+      </div>
+      </Link>
 
-      <div className="review-container roow roow-center roow-col-left bottom-divider default-card-white">
+      <div className="review-container roow roow-center roow-col-left">
         <div className="subject-name-container center-text">
+          
+          { /** Hidden Delete Button **/ }
           <div className="delete-wrapper">
             <div className="delete-button">
-                <ReviewActions review={review} authenticated={props.authenticated} 
-                canModify={canModify} deleteReview={props.deleteReview} reviewDetailPath={props.reviewDetailPath} />
+              <ReviewActions review={review} authenticated={props.authenticated} 
+              canModify={canModify} deleteReview={props.deleteReview} reviewDetailPath={props.reviewDetailPath} />
             </div>
           </div>
           
-          <Link to={`review/${review.subjectId}/${review.id}`}>
-          <div className="text-subject-name v2-type-h2 center-text">
-            {review.title}
+
+          { /** Title and Add **/ }
+          <div className="roow roow-row-top">
+            <Link to={`review/${review.subjectId}/${review.id}`}>
+            <div className="v2-type-h2 ta-left">
+              {review.title}
+            </div>
+            </Link>
+            <div className="v-button v-button--add flex-item-right">
+              Add
+            </div>
           </div>
-          </Link>
+          <div className="v2-type-mono mono-sm ta-left">
+            {review.address}
+          </div>
+
+        { /** Rating and Like **/ }
+          <div className="roow roow-row">
+            <div className={'v2-type-rating ta-left v2-type-rating--' +  review.rating}>
+              {review.rating}<div className="v2-type-rating--total"> /10</div>
+            </div>
+            <div className="roow roow-row flex-item-right v2-type-body2">
+              0
+              <div className="cta-wrapper">
+                <div className="cta-icon cta-like"></div>
+              </div>
+            </div>
+          </div>
+
         </div>{/**END subject-name-container**/}
-        <div className="roow roow-row-top pic-and-review">
-          <div className="review-data-container roow roow-col-center">
-              
 
-              <div className="roow">
-
-              </div>
-
-              <div className="subject-caption v2-type-body2 center-text pdding-top-sm">
-                {review.caption}
-              </div>
-              <div className="review-timestamp">
-                {(new Date(review.lastModified)).toLocaleString()}
-              </div>  
+      { /** Caption **/ }
+        <div className="roow roow-row-top">
+          <div className="review-data-container roow roow-col-left">
+            <div className="subject-caption v2-type-body2 v2-type--italic ta-left pdding-top-sm">
+              {review.caption}
+            </div>
+            <div className="review-timestamp">
+              {(new Date(review.lastModified)).toLocaleString()}
+            </div> 
           </div>
-
-
         </div>
 
 {/***        <div className="roow roow-row flex-wrap cta-container">

@@ -4,6 +4,7 @@ body {
   letter-spacing:1px;
   padding-top: 70px;
   background-color: #FAFAF8;
+  background-color: #FFFFFF;
 }
 
 nput[type="checkbox"] {
@@ -101,27 +102,68 @@ form {
 textarea {
     resize: none;
 }
-
+.v2-type--italic {
+  font-style: italic;
+}
 .v2-type-body1 {
   /* “The almond milk ice: */
   font-weight: 300;
-  font-size: 16px;
+  font-size: 14px;
   letter-spacing: 0.5px;
   line-height: 26px;
+  font-family: 'Open Sans', sans-serif;
 }
 .v2-type-body2 {
   /* “The almond milk ice: */
   font-weight: 300;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  line-height: 28px;
+  font-family: 'Open Sans', sans-serif;
+}
+.v2-type-rating {
+  /* “The almond milk ice: */
+  font-weight: 100;
   font-size: 18px;
   letter-spacing: 0.5px;
   line-height: 26px;
+  font-family: 'Open Sans', sans-serif;
 }
-.v2-type-time {
+.v2-type-rating--1,
+.v2-type-rating--2,
+.v2-type-rating--3,
+.v2-type-rating--4 {
+  color: red;
+}
+.v2-type-rating--9,
+.v2-type-rating--10 {
+  color: #00CD8D;
+}
+.v2-type-rating--total {
+  color: black;
+  opacity: .3;
+  display: inline;
+}
+.v2-type-caption {
   /* “The almond milk ice: */
-  font-weight: 100;
+  font-weight: 300;
   font-size: 12px;
   letter-spacing: 0.5px;
   line-height: 26px;
+  font-family: 'Open Sans', sans-serif;
+  opacity:.5;
+}
+.v2-type-mono {
+  /* “The almond milk ice: */
+  font-weight: 100;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  line-height: 26px;
+  opacity: 1;
+  font-family: 'Inconsolata', monospace;
+}
+.v2-type-mono.mono-sm {
+  font-size: 13px;
   opacity: .5;
 }
 .v2-type-h1 {
@@ -134,9 +176,10 @@ textarea {
 .v2-type-h2 {
   /* Saint Franks: */
   font-weight: 300;
-  font-size: 26px;
+  font-size: 24px;
   letter-spacing: 0.5px;
   line-height: 30px;
+  color: black;
 }
 .v2-type-h2.subtitle {
   /* Saint Franks: */
@@ -160,17 +203,28 @@ textarea {
     font-size: 18px;
     letter-spacing: 0.5px;
     font-weight: 200;
+    width: 100%;
 }
 .v2-type-h6 {
   /* H4 - Categories: */
-    opacity: 1;
+    opacity: .8;
     font-size: 22px;
     letter-spacing: 0.5px;
+    line-height: 32px;
     font-weight: 100;
     font-style: italic;
+    font-family: 'Open Sans', sans-serif;
 }
 
-
+.ta-left {
+  text-align: left;
+}
+.ta-right {
+  text-align: right;
+}
+.ta-center {
+  text-align: center;
+}
 
 /****** 
 ******
@@ -230,6 +284,25 @@ textarea {
 ************************************ BUTTONS 
 ******
 ******/
+
+.v-button {
+    border: none;
+    box-shadow: 0 0 0 2px rgba(107, 255, 78,.4);
+    height: 32px;
+    color: white;
+    padding: 6px 16px;
+    text-align: center;
+    font-weight: 100 !important;
+    background-image: linear-gradient(-270deg, #2EC299 0%, #00ACED 100%);
+    border-radius: 7px;
+    font-size: 14px;
+}
+.v-button--light {
+  background: white;
+  color: blue;
+  border: none;
+  box-shadow: none;
+}
 .bttn-style,
 .bttn-style.bttn-primary {
     background: white;
@@ -402,6 +475,7 @@ textarea {
     left: 0;
     width: 100%;
     background-color:#fff;
+    border-bottom: 1px solid rgba(0,0,0,.1);
 }
 .header-wrapper {
     position: absolute;
@@ -417,14 +491,13 @@ textarea {
   position: absolute;
   left: 0;
   top: 0;
-  padding: 0px 10px 0 40px;
+  padding: 0px;
   height: 70px;
   width: 100%;
   color: black;
   font-weight: 700;
   margin: 0px;
   z-index: 2;
-  border-bottom: 1px solid rgba(0,0,0,.1);
 }
 a.logo-module:hover,
 a.logo-module:active,
@@ -459,7 +532,7 @@ a.logo-module:focus {
   top: 0;
   height: 70px;
   z-index: 2;
-  padding: 0px 40px 0 0;
+  padding: 0px;
   color: white;
 }
 .navigation-bar .nav-module {
@@ -587,6 +660,11 @@ svg {
   padding-top: 0px;
   margin: 0px 0px;
   background-color: #FAFAF8;
+  background-color: #FFFFFF;
+}
+.content-wrapper {
+  max-width: 1110px;
+  width: 100%;
 }
 .page-common.page-no-push {
   margin: 0;
@@ -1046,8 +1124,19 @@ li.nav-divider {
 .editor-page .upload-image-button {
 
 }
+input, button, select, textarea {
+    margin: 0 0 10px 0;
+    line-height: inherit;
+    border-radius: 2px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    width: 100%;
+}
+
 label {
    cursor: pointer;
+   font-size: 13px;
+   margin-bottom: 0;
    /* Style as you please, it will become the visible UI component. */
 }
 

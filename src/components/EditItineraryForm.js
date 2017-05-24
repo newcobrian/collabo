@@ -18,12 +18,14 @@ const renderReviews = ({fields, meta: {error, submitFailed}}) => (
   <ul>
     {fields.map((review, index) => (
       <li key={index}>
-        <button
+        <div className="roow roow-row">
+          <div className="v2-type-h6">Tip #{index + 1}</div>
+          <button
           type="button"
+          className="v-button v-button--light flex-item-right"
           title="Remove Review"
-          onClick={() => fields.remove(index)}
-        />
-        <h4>Tip #{index + 1}</h4>
+          onClick={() => fields.remove(index)}> Delete </button>
+        </div>
         <Field
           name={`${review}.title`}
           type="text"
@@ -57,6 +59,7 @@ const renderReviews = ({fields, meta: {error, submitFailed}}) => (
           component={renderField}
           label="Caption"
         />
+
       </li>
     ))}
     <li>
@@ -68,22 +71,32 @@ const renderReviews = ({fields, meta: {error, submitFailed}}) => (
 
 let EditItineraryForm = props => {
   const {handleSubmit, pristine, reset, submitting} = props
-  return (
+  return ( 
     <form onSubmit={handleSubmit}>
-      <div>
-          <Field name="itinerary.title" component={renderField} type="text" label="Itinerary Name" />
-        </div>
-        <div>
-          <Field name="itinerary.description" component={renderField} type="text" label="Description" />
-        </div>
-        <div>
-          <Field name="itinerary.geo" component={renderField} type="text" label="Location" />
+    <div className="roow roow-row page-common roow-center">
+      <div className="content-wrapper itinerary roow roow-row-top">
+
+        <div className="itinerary__summary ta-left">
+          <div>
+            <Field name="itinerary.title" component={renderField} type="text" label="Itinerary Name" />
+          </div>
+          <div>
+            <Field name="itinerary.description" component={renderField} type="text" label="Description" />
+          </div>
+          <div>
+            <Field name="itinerary.geo" component={renderField} type="text" label="Location" />
+          </div>
+          <div>
+            <button className="v-button" type="submit" disabled={submitting}>Save</button>
+          </div>
         </div>
 
-      <FieldArray name="itinerary.reviews" component={renderReviews} />
-      <div>
-        <button type="submit" disabled={submitting}>Submit</button>
+        <div className="roow roow-col itinerary__tips">
+          <FieldArray name="itinerary.reviews" component={renderReviews} />
+        </div>
+
       </div>
+    </div>
     </form>
   )
 }

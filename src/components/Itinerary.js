@@ -37,48 +37,63 @@ class Itinerary extends React.Component {
     }
     else {
       return (
-        <div className="roow roow-col roow-center-all page-common editor-page create-page">
-          <div className="page-title-wrapper center-text">
-            <div className="v2-type-h1 subtitle">{this.props.itinerary.title}</div>
-            <fieldset>
-              <div className="v2-type-body1">
-                {this.props.itinerary.geo}
-              </div>
-              <div className="v2-type-body1">
-                4 Tips by {this.props.itinerary.createdBy.username}
-              </div>
-              <div className="v2-type-time">
-                Updated 2 hrs ago
-              </div>
-              <div>
-                <Link to={`@${this.props.itinerary.createdBy.username}`}>
-                  <div className="reviewer-photo DN center-img mrgn-right-lg mrgn-top-sm"><ProxyImage src={this.props.itinerary.createdBy.image}/></div>
-                </Link>
-              </div>
-              <div className="v2-type-h6">
-                {this.props.itinerary.description}
-              </div>
-            </fieldset>
-          </div>
-          <div className="roow roow-col roow-center-all page-common editor-page">
+        <div className="roow roow-row page-common roow-center">
+          <div className="content-wrapper itinerary roow roow-row-top">
 
+            <div className="itinerary__summary ta-left">
 
-                <div>
-                  <TipList
-                    reviews={this.props.reviews} 
-                    reviewsCount={this.props.itinerary.reviewsCount}
-                    authenticated={this.props.authenticated}
-
-                    like={this.props.likeReview} 
-                    unLike={this.props.unLikeReview}
-                    save={this.props.saveReview} 
-                    unSave={this.props.unSaveReview}
-                    currentPage={this.props.currentPage}
-                    updateRating={this.props.onUpdateRating}
-                    onSetPage={this.onSetPage}
-                    deleteReview={this.props.onDeleteReview}
-                    showModal={this.props.showModal} />
+              <fieldset>
+                <div className="roow roow-row mrgn-bottom-sm">
+                  <div className="itinerary__summary__author-photo">
+                    <img className="center-img" src="../img/user.photo.temp.png"/>
+                  </div>
+                  <div className="ta-left">
+                    <div className="v2-type-mono">
+                      {this.props.itinerary.geo}
+                    </div>
+                    <div className="v2-type-body1">
+                      4 Tips by {this.props.itinerary.createdBy.username}
+                    </div>
+                    <div className="v2-type-caption">
+                      Updated 2 hrs ago
+                    </div>
+                    <div>
+                      <Link to={`@${this.props.itinerary.createdBy.username}`}>
+                        <div className="reviewer-photo DN center-img mrgn-right-lg mrgn-top-sm"><ProxyImage src={this.props.itinerary.createdBy.image}/></div>
+                      </Link>
+                    </div>
+                  </div>
                 </div>
+
+                <div className="v2-type-h1 subtitle">{this.props.itinerary.title}</div>
+
+                <div className="v2-type-h6 mrgn-top-sm">
+                  {this.props.itinerary.description}
+                </div>
+              </fieldset>
+
+            </div>
+
+            <div className="roow roow-col itinerary__tips">
+              <div>
+                <TipList
+                  reviews={this.props.reviews} 
+                  reviewsCount={this.props.itinerary.reviewsCount}
+                  authenticated={this.props.authenticated}
+
+                  like={this.props.likeReview} 
+                  unLike={this.props.unLikeReview}
+                  save={this.props.saveReview} 
+                  unSave={this.props.unSaveReview}
+                  currentPage={this.props.currentPage}
+                  updateRating={this.props.onUpdateRating}
+                  onSetPage={this.onSetPage}
+                  deleteReview={this.props.onDeleteReview}
+                  showModal={this.props.showModal} />
+              </div>
+            </div>
+
+
           </div>
         </div>
       )

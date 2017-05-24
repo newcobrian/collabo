@@ -131,7 +131,7 @@ const ReviewPreview = props => {
           
           <Link to={`review/${review.subjectId}/${review.id}`}>
           <div className="text-subject-name v2-type-h2 center-text">
-            {review.subject.title}
+            {review.subject.title}BUTT
           </div>
           </Link>
             <div className="review-external-link">

@@ -189,7 +189,7 @@ body {
 
 /** Home Page **/
 .page-common {
-  margin: 60px 10px;
+  margin: 10px;
 }
 .page-common.no-feed-toggle {
   padding-top: 0;

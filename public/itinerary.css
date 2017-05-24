@@ -1,0 +1,22 @@
+.itinerary {
+	margin: 40px auto;
+
+}
+.itinerary__summary {
+	width: 40%;
+	padding: 0px 50px 20px 0;
+}
+.itinerary__summary__author-photo {
+	max-width: 120px;
+	margin-right: 20px;
+}
+.itinerary__summary__author-photo img {
+	width: 100%;
+}
+.itinerary__tips {
+	width: 100%;
+}
+.itinerary__tips ul {
+	width: 100%;
+	list-style: none;
+}

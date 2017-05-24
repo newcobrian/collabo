@@ -36,28 +36,15 @@ const LoggedInView = props => {
         
 
         <IndexLink to="/" activeClassName="active" className="nav-module nav-feed">
-            <div className="nav-icon"><img src="../img/icon32_feed.png"/></div>
             <div className="nav-text">Feed</div>
         </IndexLink>
 
-        <Link to="inbox" activeClassName="active" className="nav-module nav-inbox">
-            <div className="nav-icon"><img src="../img/icon32_inbox.png"/></div>
-            <div className="nav-text">Inbox</div> <InboxCounter unreadMessages={props.unreadMessages} />
-        </Link>
-
         <Link to="create" activeClassName="active" className="nav-module nav-editor">  
-            <div className="nav-icon"><img src="../img/icon32_add.png"/></div>
-            <div className="nav-text">New</div>
+            <div className="nav-text">Create New Itinerary</div>
         </Link>
 
-        <Link to="saved" activeClassName="active" className="nav-module nav-saved">
-            <div className="nav-icon"><img src="../img/icon32_saved.png"/></div>
-            <div className="nav-text">Saved</div>
-        </Link>
-        
         <Link to={`@${props.userInfo.username}`} activeClassName="active" className="nav-module nav-profile">
             <div className="nav-icon"><img className="center-img" src={props.userInfo.image}/></div>
-            <div className="nav-text">Profile</div>
         </Link>
 
 
@@ -75,9 +62,10 @@ class Header extends React.Component {
         <div className="header-wrapper">
           <Link to="/" className="logo-module roow roow-row">
             <div className="logo-graphic">  
-              <img className="center-img" src="../img/logo_5dots.png"/>
+              <img className="center-img" src="../img/views.logo.temp.png"/>
             </div>
             <div className="logo-main">
+            VIEWS
             </div>
             <div className="logo-tagline">Reviews by people you trust</div>
           </Link>
