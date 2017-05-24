@@ -40,9 +40,9 @@ ReactDOM.render((
         <Route path="review/:sid(/:rid)" component={Review} />
         <Route path="followers/:username" component={Followers} />
         <Route path="followings/:username" component={Followings} />
-        <Route path=":@username" component={Profile} />
-        <Route path=":@username/likes" component={ProfileLikes} />
-        <Route path=":@username/saves" component={ProfileSaves} />
+        <Route path="@:username" component={Profile} />
+        <Route path="@:username/likes" component={ProfileLikes} />
+        <Route path="@:username/saves" component={ProfileSaves} />
         <Route path="edit/:iid" component={Editor} />
         <Route path="create" component={Create} />
         <Route path="inbox" component={Inbox} />
