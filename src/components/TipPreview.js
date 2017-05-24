@@ -79,7 +79,15 @@ const TipPreview = props => {
             <div className="roow roow-row flex-item-right v2-type-body2">
               0
               <div className="cta-wrapper">
-                <div className="cta-icon cta-like"></div>
+                <div className="cta-icon cta-like">
+                  <LikeReviewButton
+                    authenticated={props.authenticated}
+                    isLiked={props.review.isLiked}
+                    likesCount={props.review.likesCount}
+                    unLike={props.unLike}
+                    like={props.like} 
+                    review={review} />
+                </div>
               </div>
             </div>
           </div>
@@ -98,38 +106,25 @@ const TipPreview = props => {
           </div>
         </div>
 
-{/***        <div className="roow roow-row flex-wrap cta-container">
-            <div className="cta-box roow roow-row-space">
-              <div className="roow roow-col-left">
+        <div className="roow roow-row flex-wrap cta-container">
+          <div className="cta-box roow roow-row-space">
+            <div className="roow roow-col-left">
               
-              </div>
-              <CommentPreview comments={props.review.comments} review={props.review} />
+            </div>
+            <CommentPreview comments={props.review.comments} review={props.review} />
               
-              <div className="roow roow-row flex-item-right">
-                <LikeReviewButton
-                  authenticated={props.authenticated}
-                  isLiked={props.review.isLiked}
-                  likesCount={props.review.likesCount}
-                  unLike={props.unLike}
-                  like={props.like} 
-                  review={review} />
-                <SaveReviewButton 
-                  authenticated={props.authenticated}
-                  isSaved={props.review.isSaved}
-                  unSave={props.unSave}
-                  save={props.save} 
-                  review={review} />
-              </div>
+            <div className="roow roow-row flex-item-right">
+            </div>
 
-              <Link className="cta-wrapper roow roow-col" onClick={handleForwardClick}>
-                  <div className="cta-icon cta-share"></div>
-                  Forward
-                </Link>
-
-              </div>             
-          </div>
-
+{/**}            <Link className="cta-wrapper roow roow-col" onClick={handleForwardClick}>
+              <div className="cta-icon cta-share"></div>
+                Forward
+            </Link>
 **/}
+          </div>             
+        </div>
+
+
 
       </div> 
     </div>

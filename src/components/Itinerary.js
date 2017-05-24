@@ -45,7 +45,7 @@ class Itinerary extends React.Component {
               <fieldset>
                 <div className="roow roow-row mrgn-bottom-sm">
                   <div className="itinerary__summary__author-photo">
-                    <img className="center-img" src="../img/user.photo.temp.png"/>
+                    <ProxyImage src={this.props.itinerary.createdBy.image} className="center-img" />
                   </div>
                   <div className="ta-left">
                     <div className="v2-type-mono">
