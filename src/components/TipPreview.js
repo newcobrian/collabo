@@ -120,6 +120,7 @@ const TipPreview = props => {
                 errors={props.commentErrors}
                 commentObject={props.review}
                 userInfo={props.userInfo}
+                type={REVIEW_TYPE}
                 delete={props.onDeleteComment} />
             
 

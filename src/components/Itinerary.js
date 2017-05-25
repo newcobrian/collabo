@@ -36,12 +36,11 @@ class Itinerary extends React.Component {
     if (!this.props.itinerary) {
       return (
         <div>
-          Itinerary doesn't exist!
+          Loading...
         </div>
       );
     }
     else {
-      console.log(JSON.stringify(this.props.userInfo))
       const itinerary = this.props.itinerary;
       return (
         <div className="roow roow-row page-common roow-center">
@@ -93,10 +92,11 @@ class Itinerary extends React.Component {
                 <div>
                   <CommentContainer
                   authenticated={this.props.authenticated}
+                  userInfo={this.props.userInfo}
+                  type={ITINERARY_TYPE}
                   comments={this.props.comments || []}
                   errors={this.props.commentErrors}
                   commentObject={this.props.itinerary}
-                  currentUser={this.props.currentUser}
                   delete={this.props.onDeleteComment} />
                 </div>
               </fieldset>

@@ -16,7 +16,11 @@ const CommentContainer = props => {
 		          delete={props.delete} />
 		        <div className="comment-input-wrapper">
 		          <ListErrors errors={props.errors}></ListErrors>
-		          <CommentInput commentObject={props.commentObject} userInfo={props.userInfo} authenticated={props.authenticated} />
+		          <CommentInput 
+		          	commentObject={props.commentObject} 
+		          	userInfo={props.userInfo} 
+		          	authenticated={props.authenticated} 
+		          	type={props.type} />
 		        </div>
 		     </div>
 		);
