@@ -5,7 +5,7 @@ import ProxyImage from './ProxyImage';
 import ReviewActions from './ReviewActions';
 import FORWARD from '../constants';
 import { FORWARD_MODAL, REVIEW_MODAL } from '../actions';
-import { ITINERARY_TYPE, REVIEW_TYPE } from '../constants';
+import { ITINERARY_TYPE } from '../constants';
 
 const CommentPreview = props => {
   if (props.comments) {

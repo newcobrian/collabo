@@ -6,6 +6,7 @@ import ProxyImage from './ProxyImage';
 import ReviewActions from './ReviewActions';
 import FORWARD from '../constants';
 import { FORWARD_MODAL, REVIEW_MODAL } from '../actions';
+import { REVIEW_TYPE } from '../constants';
 
 const CommentPreview = props => {
   if (props.comments) {
@@ -77,7 +78,6 @@ const TipPreview = props => {
               {review.rating}<div className="v2-type-rating--total"> /10</div>
             </div>
             <div className="roow roow-row flex-item-right v2-type-body2">
-              0
               <div className="cta-wrapper">
                 <div className="cta-icon cta-like">
                   <LikeReviewButton
@@ -86,7 +86,8 @@ const TipPreview = props => {
                     likesCount={props.review.likesCount}
                     unLike={props.unLike}
                     like={props.like} 
-                    review={review} />
+                    likeObject={review}
+                    type={REVIEW_TYPE} />
                 </div>
               </div>
             </div>

@@ -18,7 +18,7 @@ class Itinerary extends React.Component {
 
   componentWillMount() {
     if (this.props.params.iid) {
-      return this.props.onItineraryLoad(this.props.params.iid);
+      return this.props.onItineraryLoad(this.props.authenticated, this.props.params.iid);
     }
     this.props.sendMixpanelEvent('Itinerary page loaded');
   }
@@ -80,12 +80,9 @@ class Itinerary extends React.Component {
                   reviews={this.props.reviews} 
                   reviewsCount={this.props.itinerary.reviewsCount}
                   authenticated={this.props.authenticated}
-
                   like={this.props.likeReview} 
                   unLike={this.props.unLikeReview}
-                  save={this.props.saveReview} 
-                  unSave={this.props.unSaveReview}
-                  currentPage={this.props.currentPage}
+
                   updateRating={this.props.onUpdateRating}
                   onSetPage={this.onSetPage}
                   deleteReview={this.props.onDeleteReview}

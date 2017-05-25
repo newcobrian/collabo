@@ -574,13 +574,13 @@ export function onEditorUnload(itineraryId) {
   }
 }
 
-export function onItineraryLoad(itineraryId) {
+export function onItineraryLoad(auth, itineraryId) {
   return dispatch => {
     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).on('value', itinerarySnapshot => {
       if (itinerarySnapshot.exists()) {
         Firebase.database().ref(Constants.USERS_PATH + '/' + itinerarySnapshot.val().userId).on('value', userSnapshot => {
           let userInfo = { createdBy:
-            { username: userSnapshot.val().username, image: userSnapshot.val().image }
+            { username: userSnapshot.val().username, image: userSnapshot.val().image, userId: userSnapshot.key }
           };
           let itineraryObject = Object.assign({}, itinerarySnapshot.val(), userInfo);
           let reviewArray = [];
@@ -597,14 +597,25 @@ export function onItineraryLoad(itineraryId) {
               let reviewObject = {};
               Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + itineraryObject.reviews[i].subjectId).on('value', subjectSnapshot => {
                 Firebase.database().ref(Constants.REVIEWS_PATH + '/' + itineraryObject.reviews[i].reviewId).on('value', reviewSnapshot => {
-                  Object.assign(reviewObject, subjectSnapshot.val(), reviewSnapshot.val(), { key: i });
-                  reviewArray = [reviewObject].concat(reviewArray);
-                  reviewArray.sort(byPriority);
-                  dispatch({
-                    type: ITINERARY_PAGE_LOADED,
-                    itineraryId: itineraryId,
-                    itinerary: itineraryObject,
-                    reviews: reviewArray
+                  Firebase.database().ref(Constants.LIKES_PATH + '/' + itineraryObject.reviews[i].reviewId).on('value', likesSnapshot => {
+                    let isLiked = false;
+                    if (likesSnapshot.val()) {
+                      isLiked = searchLikes(auth, likesSnapshot.val());
+                    }
+                    let likes = {
+                      isLiked: isLiked
+                    }
+
+                    Object.assign(reviewObject, subjectSnapshot.val(), reviewSnapshot.val(), 
+                      { priority: i }, {id: itineraryObject.reviews[i].reviewId}, userInfo, likes);
+                    reviewArray = [reviewObject].concat(reviewArray);
+                    reviewArray.sort(byPriority);
+                    dispatch({
+                      type: ITINERARY_PAGE_LOADED,
+                      itineraryId: itineraryId,
+                      itinerary: itineraryObject,
+                      reviews: reviewArray
+                    })
                   })
                 })
               })
@@ -1938,9 +1949,9 @@ export function unloadLikesOrSavesByUser(userId, path) {
 }
 
 export function byPriority(a, b) {
-  if (a.key < b.key)
+  if (a.priority < b.priority)
     return -1;
-  if (a.key > b.key)
+  if (a.priority > b.priority)
     return 1;
   return 0;
 }
@@ -2079,7 +2090,7 @@ export function likeReview(authenticated, type, likeObject) {
       }
       else if (type === Constants.REVIEW_TYPE) {
         Helpers.incrementReviewCount(Constants.LIKES_COUNT, likeObject.id, likeObject.subjectId, likeObject.createdBy.userId);
-        Helpers.sendInboxMessage(authenticated, likeObject.createdBy.userId, Constants.LIKE_MESSAGE, likeObject);
+        Helpers.sendInboxMessage(authenticated, likeObject.createdBy.userId, Constants.LIKE_MESSAGE, likeObject, likeObject);
 
         dispatch({
           type: REVIEW_LIKED,

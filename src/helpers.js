@@ -135,8 +135,10 @@ export function sendInboxMessage(senderId, recipientId, messageType, sendObject)
 		Firebase.database().ref(Constants.USERS_PATH + '/' + recipientId).once('value', recipientSnapshot => {
 			Firebase.database().ref(Constants.USERS_PATH + '/' + senderId).once('value', senderSnapshot => {
 				inboxObject.reviewId = sendObject.id;
-				if (sendObject.subject.images) inboxObject.reviewImage = getImagePath(sendObject.subject.images);
-				if (sendObject.subject.title) inboxObject.reviewTitle = sendObject.subject.title;
+				// if (sendObject.subject.images) inboxObject.reviewImage = getImagePath(sendObject.subject.images);
+				// if (sendObject.subject.title) inboxObject.reviewTitle = sendObject.subject.title;
+				if (sendObject.images) inboxObject.reviewImage = getImagePath(sendObject.images);
+				if (sendObject.title) inboxObject.reviewTitle = sendObject.title;
 
 				switch(messageType) {
 					case Constants.LIKE_MESSAGE:
