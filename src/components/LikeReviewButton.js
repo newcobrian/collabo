@@ -11,10 +11,11 @@ const LikeReviewButton = props => {
     classes += 'cta-icon cta-like';
   }
 
-  let likeText = ' Likes';
+  let likeText = '';
   if (props.likesCount === 1) {
-    likeText = ' Like'
+    likeText = ''
   }
+  // took out Likes and Like above for now
 
   const handleClick = ev => {
     ev.preventDefault();

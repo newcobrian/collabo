@@ -7,11 +7,15 @@
 	padding: 0px 50px 20px 0;
 }
 .itinerary__summary__author-photo {
-	max-width: 120px;
-	margin-right: 20px;
+    margin-right: 20px;
+    width: 110px;
+    height: 110px;
+    border-radius: 100px;
+    overflow: hidden;
 }
 .itinerary__summary__author-photo img {
 	width: 100%;
+    height: 100%;
 }
 .itinerary__tips {
 	width: 100%;
@@ -19,4 +23,15 @@
 .itinerary__tips ul {
 	width: 100%;
 	list-style: none;
+}
+
+
+.tip__address {
+	margin-top:-5px;
+}
+
+
+
+.itinerary__edit-tip {
+
 }

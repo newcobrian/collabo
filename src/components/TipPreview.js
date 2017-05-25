@@ -67,7 +67,7 @@ const TipPreview = props => {
               Add
             </div>
           </div>
-          <div className="v2-type-mono mono-sm ta-left">
+          <div className="tip__address v2-type-mono mono-sm ta-left">
             {review.address}
           </div>
 
@@ -97,7 +97,7 @@ const TipPreview = props => {
       { /** Caption **/ }
         <div className="roow roow-row-top">
           <div className="review-data-container roow roow-col-left">
-            <div className="subject-caption v2-type-body2 v2-type--italic ta-left pdding-top-sm">
+            <div className="subject-caption v2-type-body2 v2-type--italic ta-left">
               {review.caption}
             </div>
             <div className="review-timestamp">
@@ -111,7 +111,10 @@ const TipPreview = props => {
             <div className="roow roow-col-left">
               
             </div>
-            <CommentPreview comments={props.review.comments} review={props.review} />
+
+            <input type="text" placeholder="Add a comment..." className="input--overline mrgn-top-md" />
+
+           {/** <CommentPreview comments={props.review.comments} review={props.review} />**/}
               
             <div className="roow roow-row flex-item-right">
             </div>
