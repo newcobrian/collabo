@@ -5,6 +5,8 @@ import * as Constants from '../constants';
 import TipList from './TipList';
 import ProxyImage from './ProxyImage';
 import { Link } from 'react-router';
+import LikeReviewButton from './LikeReviewButton';
+import { ITINERARY_TYPE } from '../constants';
 
 const mapStateToProps = state => ({
   ...state.itinerary,
@@ -36,6 +38,7 @@ class Itinerary extends React.Component {
       );
     }
     else {
+      const itinerary = this.props.itinerary;
       return (
         <div className="roow roow-row page-common roow-center">
           <div className="content-wrapper itinerary roow roow-row-top">
@@ -45,30 +48,43 @@ class Itinerary extends React.Component {
               <fieldset>
                 <div className="roow roow-row mrgn-bottom-md">
                   <div className="itinerary__summary__author-photo">
-                    <ProxyImage src={this.props.itinerary.createdBy.image} className="center-img" />
+                    <ProxyImage src={itinerary.createdBy.image} className="center-img" />
                   </div>
                   <div className="ta-left">
                     <div className="v2-type-mono">
-                      {this.props.itinerary.geo}
+                      {itinerary.geo}
                     </div>
                     <div className="v2-type-body1">
-                      4 Tips by {this.props.itinerary.createdBy.username}
+                      {itinerary.reviewsCount} Tips by {itinerary.createdBy.username}
                     </div>
                     <div className="v2-type-caption">
-                      Updated 2 hrs ago
+                      {(new Date(itinerary.lastModified)).toLocaleString()}
                     </div>
                     <div>
-                      <Link to={`@${this.props.itinerary.createdBy.username}`}>
+                      <Link to={`@${itinerary.createdBy.username}`}>
                         <div className="reviewer-photo DN center-img mrgn-right-lg mrgn-top-sm"><ProxyImage src={this.props.itinerary.createdBy.image}/></div>
                       </Link>
                     </div>
                   </div>
                 </div>
 
-                <div className="v2-type-h1 subtitle">{this.props.itinerary.title}</div>
+                <div className="v2-type-h1 subtitle">{itinerary.title}</div>
+
+                <div className="cta-wrapper">
+                  <div className="cta-icon cta-like">
+                    <LikeReviewButton
+                      authenticated={this.props.authenticated}
+                      isLiked={itinerary.isLiked}
+                      likesCount={itinerary.likesCount}
+                      unLike={this.props.unLikeReview}
+                      like={this.props.likeReview} 
+                      likeObject={itinerary}
+                      type={ITINERARY_TYPE} />
+                  </div>
+                </div>
 
                 <div className="v2-type-h6 mrgn-top-sm">
-                  {this.props.itinerary.description}
+                  {itinerary.description}
                 </div>
               </fieldset>
 
@@ -78,7 +94,7 @@ class Itinerary extends React.Component {
               <div>
                 <TipList
                   reviews={this.props.reviews} 
-                  reviewsCount={this.props.itinerary.reviewsCount}
+                  reviewsCount={itinerary.reviewsCount}
                   authenticated={this.props.authenticated}
                   like={this.props.likeReview} 
                   unLike={this.props.unLikeReview}

@@ -579,48 +579,57 @@ export function onItineraryLoad(auth, itineraryId) {
     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).on('value', itinerarySnapshot => {
       if (itinerarySnapshot.exists()) {
         Firebase.database().ref(Constants.USERS_PATH + '/' + itinerarySnapshot.val().userId).on('value', userSnapshot => {
-          let userInfo = { createdBy:
-            { username: userSnapshot.val().username, image: userSnapshot.val().image, userId: userSnapshot.key }
-          };
-          let itineraryObject = Object.assign({}, itinerarySnapshot.val(), userInfo);
-          let reviewArray = [];
-          if (!itineraryObject.reviews) {
-            dispatch({
-              type: ITINERARY_PAGE_LOADED,
-              itineraryId: itineraryId,
-              itinerary: itineraryObject,
-              reviews: []
-            })
-          }
-          else {
-            for (let i = 0; i < itineraryObject.reviews.length; i++) {
-              let reviewObject = {};
-              Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + itineraryObject.reviews[i].subjectId).on('value', subjectSnapshot => {
-                Firebase.database().ref(Constants.REVIEWS_PATH + '/' + itineraryObject.reviews[i].reviewId).on('value', reviewSnapshot => {
-                  Firebase.database().ref(Constants.LIKES_PATH + '/' + itineraryObject.reviews[i].reviewId).on('value', likesSnapshot => {
-                    let isLiked = false;
-                    if (likesSnapshot.val()) {
-                      isLiked = searchLikes(auth, likesSnapshot.val());
-                    }
-                    let likes = {
-                      isLiked: isLiked
-                    }
+          Firebase.database().ref(Constants.LIKES_PATH + '/' + itineraryId).on('value', itinLikeSnapshot => {
+            let userInfo = { createdBy:
+              { username: userSnapshot.val().username, image: userSnapshot.val().image, userId: userSnapshot.key }
+            };
+            let isLiked = false;
+            if (itinLikeSnapshot.val()) {
+              isLiked = searchLikes(auth, itinLikeSnapshot.val());
+            }
+            let likes = {
+              isLiked: isLiked
+            }
+            let itineraryObject = Object.assign({}, {id: itineraryId}, itinerarySnapshot.val(), userInfo, likes);
+            let reviewArray = [];
+            if (!itineraryObject.reviews) {
+              dispatch({
+                type: ITINERARY_PAGE_LOADED,
+                itineraryId: itineraryId,
+                itinerary: itineraryObject,
+                reviews: []
+              })
+            }
+            else {
+              for (let i = 0; i < itineraryObject.reviews.length; i++) {
+                let reviewObject = {};
+                Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + itineraryObject.reviews[i].subjectId).on('value', subjectSnapshot => {
+                  Firebase.database().ref(Constants.REVIEWS_PATH + '/' + itineraryObject.reviews[i].reviewId).on('value', reviewSnapshot => {
+                    Firebase.database().ref(Constants.LIKES_PATH + '/' + itineraryObject.reviews[i].reviewId).on('value', likesSnapshot => {
+                      let isLiked = false;
+                      if (likesSnapshot.val()) {
+                        isLiked = searchLikes(auth, likesSnapshot.val());
+                      }
+                      let likes = {
+                        isLiked: isLiked
+                      }
 
-                    Object.assign(reviewObject, subjectSnapshot.val(), reviewSnapshot.val(), 
-                      { priority: i }, {id: itineraryObject.reviews[i].reviewId}, userInfo, likes);
-                    reviewArray = [reviewObject].concat(reviewArray);
-                    reviewArray.sort(byPriority);
-                    dispatch({
-                      type: ITINERARY_PAGE_LOADED,
-                      itineraryId: itineraryId,
-                      itinerary: itineraryObject,
-                      reviews: reviewArray
+                      Object.assign(reviewObject, subjectSnapshot.val(), reviewSnapshot.val(), 
+                        { priority: i }, {id: itineraryObject.reviews[i].reviewId}, userInfo, likes);
+                      reviewArray = [reviewObject].concat(reviewArray);
+                      reviewArray.sort(byPriority);
+                      dispatch({
+                        type: ITINERARY_PAGE_LOADED,
+                        itineraryId: itineraryId,
+                        itinerary: itineraryObject,
+                        reviews: reviewArray
+                      })
                     })
                   })
                 })
-              })
+              }
             }
-          }
+          })
         })
       }
       else {
