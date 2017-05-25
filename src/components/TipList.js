@@ -27,7 +27,7 @@ const TipList = props => {
               authenticated={props.authenticated}
               like={props.like} 
               unLike={props.unLike}
-              currentUser={props.currentUser}
+              userInfo={props.userInfo}
               comments={reviewItem.comments}
             />
           );

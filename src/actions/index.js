@@ -138,22 +138,14 @@ export const GET_ITINERARIES_BY_USER = 'GET_ITINERARIES_BY_USER'
 //   }
 // }
 
-export function onLoad(currentUser, authenticated) {
+export function onLoad(currentUser) {
   return dispatch => {
-    dispatch({ 
-      type: 'APP_LOAD', 
-      currentUser: currentUser,
-      authenticated: authenticated
-    })
-  }
-}
-
-export function getAppUser(userId) {
-  return dispatch => {
-    Firebase.database().ref(Constants.USERS_PATH + '/' + userId).on('value', snapshot => {
+    Firebase.database().ref(Constants.USERS_PATH + '/' + currentUser.uid).on('value', snapshot => {
       dispatch({
-        type: APP_USER_LOADED,
-        payload: snapshot.val(),
+        type: 'APP_LOAD', 
+        currentUser: currentUser,
+        authenticated: currentUser.uid,
+        userInfo: snapshot.val()
       })
     })
   }
@@ -621,25 +613,21 @@ export function onItineraryLoad(auth, itineraryId) {
 
                         let comments = [];
                         commentSnapshot.forEach(function(commentChild) {
-                          Firebase.database().ref(Constants.USERS_PATH + '/' + commentChild.val().userId).on('value', commentorSnapshot => {
-                            const key = { id: commentChild.key };
-                            const comment = { username: commentorSnapshot.val().username, image: commentorSnapshot.val().image };
-                            Object.assign(comment, commentChild.val(), key);
-                            comments = comments.concat(comment);
-                            comments.sort(lastModifiedAsc);
+                          const comment = ({}, { id: commentChild.key }, commentChild.val());
+                          comments = comments.concat(comment);
+                        })
+                        comments.sort(lastModifiedAsc);
 
-                            let containerObject = {};
-                            Object.assign(containerObject, {review: reviewObject}, {comments: comments});
-                            reviewArray = [containerObject].concat(reviewArray);
-                            reviewArray.sort(byPriority);
+                        let containerObject = {};
+                        Object.assign(containerObject, {review: reviewObject}, {comments: comments});
+                        reviewArray = [containerObject].concat(reviewArray);
+                        reviewArray.sort(byPriority);
 
-                            dispatch({
-                              type: ITINERARY_PAGE_LOADED,
-                              itineraryId: itineraryId,
-                              itinerary: itineraryObject,
-                              reviewList: reviewArray
-                            })
-                          })
+                        dispatch({
+                          type: ITINERARY_PAGE_LOADED,
+                          itineraryId: itineraryId,
+                          itinerary: itineraryObject,
+                          reviewList: reviewArray
                         })
                       })
                     })
@@ -1645,7 +1633,7 @@ export function unloadComments(reviewId) {
   }
 }
 
-export function onCommentSubmit(authenticated, review, body) {
+export function onCommentSubmit(authenticated, userInfo, type, commentObject, body) {
   return dispatch => {
     if(!authenticated) {
       dispatch({
@@ -1654,39 +1642,49 @@ export function onCommentSubmit(authenticated, review, body) {
     }
     const comment = {
       userId: authenticated,
+      username: userInfo.username,
+      image: userInfo.image,
       body: body,
       lastModified: Firebase.database.ServerValue.TIMESTAMP
     }
 
-    Firebase.database().ref(Constants.COMMENTS_PATH + '/' + review.id).push(comment).then(response => {
-      Helpers.incrementReviewCount(Constants.COMMENTS_COUNT, review.id, review.subjectId, review.createdBy.userId);
+    let inboxMessageType = ( type === Constants.REVIEW_TYPE ? Constants.COMMENT_ON_REVIEW_MESSAGE : Constants.COMMENT_ON_ITINERARY_MESSAGE );
+    let commentOnCommentType = ( type === Constants.REVIEW_TYPE ? Constants.COMMENT_ON_COMMENT_REVIEW_MESSAGE : Constants.COMMENT_ON_COMMENT_ITINERARY_MESSAGE );
+
+
+    Firebase.database().ref(Constants.COMMENTS_PATH + '/' + commentObject.id).push(comment).then(response => {
+      if (type === Constants.REVIEW_TYPE) {
+        Helpers.incrementReviewCount(Constants.COMMENTS_COUNT, commentObject.id, commentObject.subjectId, commentObject.createdBy.userId);
+      }
+      else {
+        Helpers.incrementItineraryCount(Constants.COMMENTS_COUNT, commentObject.id, commentObject.geo, commentObject.createdBy.userId); 
+      }
 
       // send message to original review poster if they are not the commentor
       const sentArray = [];
-      if (authenticated !== review.userId) {
-        Helpers.sendInboxMessage(authenticated, review.userId, Constants.COMMENT_ON_REVIEW_MESSAGE, review);
-        sentArray.push(review.userId);
+      if (authenticated !== commentObject.userId) {
+        Helpers.sendInboxMessage(authenticated, commentObject.userId, inboxMessageType, commentObject);
+        sentArray.push(commentObject.userId);
       }
 
-      Firebase.database().ref(Constants.COMMENTS_PATH + '/' + review.id).once('value', commentsSnapshot => {
+      Firebase.database().ref(Constants.COMMENTS_PATH + '/' + commentObject.id).once('value', commentsSnapshot => {
         commentsSnapshot.forEach(function(comment) {
           let commenterId = comment.val().userId;
           // if not commentor or in sent array, then send a message
           if (commenterId !== authenticated && (sentArray.indexOf(commenterId) === -1)) {
-            Helpers.sendInboxMessage(authenticated, commenterId, Constants.COMMENT_ON_COMMENT_MESSAGE, review);
+            Helpers.sendInboxMessage(authenticated, commenterId, commentOnCommentType, commentObject);
             sentArray.push(commenterId);
           }
         })
       })
 
+      const mixpanelProps = ( type === Constants.REVIEW_TYPE ? {subjectId: commentObject.subjectId} : {itineraryId: commentObject.id});
       dispatch({
         type: ADD_COMMENT,
         meta: {
           mixpanel: {
             event: 'Comment added',
-            props: {
-              subjectId: review.subjectId
-            }
+            props: mixpanelProps
           }
         }
       })

@@ -1,11 +1,12 @@
 import DeleteButton from './DeleteButton';
 import { Link } from 'react-router';
 import React from 'react';
+import ProxyImage from './../ProxyImage'
 
 const Comment = props => {
   const comment = props.comment;
-  const show = props.currentUser &&
-    props.currentUser.uid === comment.userId;
+  const show = props.authenticated &&
+    props.authenticated === comment.userId;
   return (
     <div className="card comment-wrapper">
       <div className="card-footer">
@@ -13,7 +14,7 @@ const Comment = props => {
           <Link
             to={`@${comment.username}`}
             className="comment-author">
-            <img src={comment.image} className="comment-author-img center-img" />
+            <ProxyImage src={comment.image} className="comment-author-img center-img" />
           </Link>
           &nbsp;
           <div className="comment-data roow roow-col-left">

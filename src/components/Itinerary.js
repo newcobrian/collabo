@@ -6,12 +6,14 @@ import TipList from './TipList';
 import ProxyImage from './ProxyImage';
 import { Link } from 'react-router';
 import LikeReviewButton from './LikeReviewButton';
+import CommentContainer from './Review/CommentContainer'
 import { ITINERARY_TYPE } from '../constants';
 
 const mapStateToProps = state => ({
   ...state.itinerary,
   currentUser: state.common.currentUser,
-  authenticated: state.common.authenticated
+  authenticated: state.common.authenticated,
+  userInfo: state.common.userInfo
 });
 
 class Itinerary extends React.Component {
@@ -39,6 +41,7 @@ class Itinerary extends React.Component {
       );
     }
     else {
+      console.log(JSON.stringify(this.props.userInfo))
       const itinerary = this.props.itinerary;
       return (
         <div className="roow roow-row page-common roow-center">
@@ -71,6 +74,10 @@ class Itinerary extends React.Component {
 
                 <div className="v2-type-h1 subtitle">{itinerary.title}</div>
 
+                <div className="v2-type-h6 mrgn-top-sm">
+                  {itinerary.description}
+                </div>
+
                 <div className="cta-wrapper">
                   <div className="cta-icon cta-like">
                     <LikeReviewButton
@@ -83,9 +90,14 @@ class Itinerary extends React.Component {
                       type={ITINERARY_TYPE} />
                   </div>
                 </div>
-
-                <div className="v2-type-h6 mrgn-top-sm">
-                  {itinerary.description}
+                <div>
+                  <CommentContainer
+                  authenticated={this.props.authenticated}
+                  comments={this.props.comments || []}
+                  errors={this.props.commentErrors}
+                  commentObject={this.props.itinerary}
+                  currentUser={this.props.currentUser}
+                  delete={this.props.onDeleteComment} />
                 </div>
               </fieldset>
 
@@ -99,7 +111,7 @@ class Itinerary extends React.Component {
                   authenticated={this.props.authenticated}
                   like={this.props.likeReview} 
                   unLike={this.props.unLikeReview}
-                  currentUser={this.props.currentUser}
+                  userInfo={this.props.userInfo}
 
                   updateRating={this.props.onUpdateRating}
                   onSetPage={this.onSetPage}

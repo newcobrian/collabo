@@ -9,8 +9,9 @@ const CommentList = props => {
           return (
             <Comment
               comment={comment}
-              currentUser={props.currentUser}
-              review={props.review}
+              authenticated={props.authenticated}
+              userInfo={props.userInfo}
+              commentObject={props.commentObject}
               key={comment.id}
               delete={props.delete} />
           );

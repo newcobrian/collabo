@@ -118,8 +118,8 @@ const TipPreview = props => {
                 authenticated={props.authenticated}
                 comments={props.comments || []}
                 errors={props.commentErrors}
-                review={props.review}
-                currentUser={props.currentUser}
+                commentObject={props.review}
+                userInfo={props.userInfo}
                 delete={props.onDeleteComment} />
             
 

@@ -5,17 +5,18 @@ import CommentInput from './CommentInput';
 import ListErrors from '../ListErrors';
 
 const CommentContainer = props => {
-	if (props.authenticated && props.currentUser) {
+	if (props.authenticated && props.userInfo) {
 		return (
 			<div className="comments-module">
 		        <CommentList
 		          comments={props.comments}
-		          review={props.review}
-		          currentUser={props.currentUser} 
+		          commentObject={props.commentObject}
+		          authenticated={props.authenticated}
+		          userInfo={props.userInfo} 
 		          delete={props.delete} />
 		        <div className="comment-input-wrapper">
 		          <ListErrors errors={props.errors}></ListErrors>
-		          <CommentInput review={props.review} currentUser={props.currentUser} authenticated={props.authenticated} />
+		          <CommentInput commentObject={props.commentObject} userInfo={props.userInfo} authenticated={props.authenticated} />
 		        </div>
 		     </div>
 		);
@@ -31,8 +32,9 @@ const CommentContainer = props => {
 
 				<CommentList
 					comments={props.comments}
-					review={props.review}
-					currentUser={props.currentUser} 
+					commentObject={props.commentObject}
+					authenticated={props.authenticated}
+		          	userInfo={props.userInfo}
 					delete={props.delete} />
 			</div>
 		);

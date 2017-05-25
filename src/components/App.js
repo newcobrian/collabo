@@ -52,8 +52,7 @@ class App extends React.Component {
         //   this.props.onLoad(user, user.uid);
         // }
         mixpanel.identify(user.uid);
-        this.props.onLoad(user, user.uid);
-        this.props.getAppUser(user.uid);
+        this.props.onLoad(user);
         this.props.getInboxCount(user.uid);
         this.props.sendMixpanelEvent('App loaded');
       } 

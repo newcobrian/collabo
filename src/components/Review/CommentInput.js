@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../../actions';
+import { REVIEW_TYPE } from '../../constants'
+import ProxyImage from './../ProxyImage'
 
 // const mapDispatchToProps = dispatch => ({
 //   onSubmit: payload =>
@@ -24,17 +26,17 @@ class CommentInput extends React.Component {
       //   { body: this.state.body });
       const commentBody = ''.concat(this.state.body);
       this.setState({ body: '' });
-      this.props.onCommentSubmit(this.props.authenticated, this.props.review, commentBody);
+      this.props.onCommentSubmit(this.props.authenticated, this.props.userInfo, REVIEW_TYPE, this.props.commentObject, commentBody);
     };
   }
 
   render() {
     return (
       <form className="comment-wrapper comment-form roow roow-row-center" onSubmit={this.createComment}>
-        <img
-            src={this.props.currentUser.image}
-            className="comment-author-img" />
-
+{/**}        <ProxyImage
+            src={this.props.userInfo.image}
+            className="comment-author-img center-img" />
+**/}
         <button
           className="bttn-style bttn-submit bttn-subject-comment slim-version"
           type="submit">

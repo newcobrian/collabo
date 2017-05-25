@@ -17,6 +17,7 @@ export default (state = defaultState, action) => {
         // token: action.token || null,
         appLoaded: true,
         currentUser: action.currentUser ? action.currentUser : null,
+        userInfo: action.userInfo ? action.userInfo : null
       };
     case APP_USER_LOADED:
       return {
