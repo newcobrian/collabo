@@ -2,13 +2,13 @@ import TipPreview from './TipPreview';
 import React from 'react';
 
 const TipList = props => {
-  if (!props.reviews) {
+  if (!props.reviewList) {
     return (
       <div className="article-preview roow roow-center-all">Loading...</div>
     );
   }
 
-  if (props.reviews.length === 0) {
+  if (props.reviewList.length === 0) {
     return (
       <div className="article-preview roow roow-center-all">
         Empty itinerary.
@@ -19,13 +19,16 @@ const TipList = props => {
   return (
     <div>
       {
-        props.reviews.map(review => {
+        props.reviewList.map(reviewItem => {
+          let review = reviewItem.review;
           return (
             <TipPreview review={review}
               key={review.priority} 
               authenticated={props.authenticated}
               like={props.like} 
               unLike={props.unLike}
+              currentUser={props.currentUser}
+              comments={reviewItem.comments}
             />
           );
         })

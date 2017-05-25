@@ -7,6 +7,7 @@ import ReviewActions from './ReviewActions';
 import FORWARD from '../constants';
 import { FORWARD_MODAL, REVIEW_MODAL } from '../actions';
 import { REVIEW_TYPE } from '../constants';
+import CommentContainer from './Review/CommentContainer'
 
 const CommentPreview = props => {
   if (props.comments) {
@@ -34,7 +35,7 @@ const CommentPreview = props => {
 const TipPreview = props => {
   const review = props.review;
   const canModify = props.authenticated &&
-      props.authenticated === props.review.userId;
+      props.authenticated === review.userId;
 
   return (
     <div className="reviews-wrapper roow roow-row-left roow-row-top mrgn-bottom-lg">
@@ -113,14 +114,23 @@ const TipPreview = props => {
               
             </div>
 
-            <input type="text" placeholder="Add a comment..." className="input--overline mrgn-top-md" />
+             <CommentContainer
+                authenticated={props.authenticated}
+                comments={props.comments || []}
+                errors={props.commentErrors}
+                review={props.review}
+                currentUser={props.currentUser}
+                delete={props.onDeleteComment} />
+            
 
-           {/** <CommentPreview comments={props.review.comments} review={props.review} />**/}
+{/**}            <input type="text" placeholder="Add a comment..." className="input--overline mrgn-top-md" />
+
+           <CommentPreview comments={props.review.comments} review={props.review} />
               
             <div className="roow roow-row flex-item-right">
             </div>
 
-{/**}            <Link className="cta-wrapper roow roow-col" onClick={handleForwardClick}>
+            <Link className="cta-wrapper roow roow-col" onClick={handleForwardClick}>
               <div className="cta-icon cta-share"></div>
                 Forward
             </Link>

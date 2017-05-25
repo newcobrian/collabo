@@ -602,27 +602,45 @@ export function onItineraryLoad(auth, itineraryId) {
             }
             else {
               for (let i = 0; i < itineraryObject.reviews.length; i++) {
+                let reviewItem = itineraryObject.reviews[i];
                 let reviewObject = {};
-                Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + itineraryObject.reviews[i].subjectId).on('value', subjectSnapshot => {
-                  Firebase.database().ref(Constants.REVIEWS_PATH + '/' + itineraryObject.reviews[i].reviewId).on('value', reviewSnapshot => {
-                    Firebase.database().ref(Constants.LIKES_PATH + '/' + itineraryObject.reviews[i].reviewId).on('value', likesSnapshot => {
-                      let isLiked = false;
-                      if (likesSnapshot.val()) {
-                        isLiked = searchLikes(auth, likesSnapshot.val());
-                      }
-                      let likes = {
-                        isLiked: isLiked
-                      }
+                Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + reviewItem.subjectId).on('value', subjectSnapshot => {
+                  Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewItem.reviewId).on('value', reviewSnapshot => {
+                    Firebase.database().ref(Constants.LIKES_PATH + '/' + reviewItem.reviewId).on('value', likesSnapshot => {
+                      Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewItem.reviewId).on('value', commentSnapshot => {
+                        let isLiked = false;
+                        if (likesSnapshot.val()) {
+                          isLiked = searchLikes(auth, likesSnapshot.val());
+                        }
+                        let likes = {
+                          isLiked: isLiked
+                        }
 
-                      Object.assign(reviewObject, subjectSnapshot.val(), reviewSnapshot.val(), 
-                        { priority: i }, {id: itineraryObject.reviews[i].reviewId}, userInfo, likes);
-                      reviewArray = [reviewObject].concat(reviewArray);
-                      reviewArray.sort(byPriority);
-                      dispatch({
-                        type: ITINERARY_PAGE_LOADED,
-                        itineraryId: itineraryId,
-                        itinerary: itineraryObject,
-                        reviews: reviewArray
+                        Object.assign(reviewObject, subjectSnapshot.val(), reviewSnapshot.val(), 
+                              { priority: i }, {id: reviewItem.reviewId}, userInfo, likes);
+
+                        let comments = [];
+                        commentSnapshot.forEach(function(commentChild) {
+                          Firebase.database().ref(Constants.USERS_PATH + '/' + commentChild.val().userId).on('value', commentorSnapshot => {
+                            const key = { id: commentChild.key };
+                            const comment = { username: commentorSnapshot.val().username, image: commentorSnapshot.val().image };
+                            Object.assign(comment, commentChild.val(), key);
+                            comments = comments.concat(comment);
+                            comments.sort(lastModifiedAsc);
+
+                            let containerObject = {};
+                            Object.assign(containerObject, {review: reviewObject}, {comments: comments});
+                            reviewArray = [containerObject].concat(reviewArray);
+                            reviewArray.sort(byPriority);
+
+                            dispatch({
+                              type: ITINERARY_PAGE_LOADED,
+                              itineraryId: itineraryId,
+                              itinerary: itineraryObject,
+                              reviewList: reviewArray
+                            })
+                          })
+                        })
                       })
                     })
                   })
@@ -1634,26 +1652,28 @@ export function onCommentSubmit(authenticated, review, body) {
         type: ASK_FOR_AUTH
       })
     }
-    const userId = Firebase.auth().currentUser.uid;
     const comment = {
-      userId: userId,
+      userId: authenticated,
       body: body,
       lastModified: Firebase.database.ServerValue.TIMESTAMP
     }
 
     Firebase.database().ref(Constants.COMMENTS_PATH + '/' + review.id).push(comment).then(response => {
-      Helpers.incrementCount(Constants.COMMENTS_COUNT, review.id, review.subjectId, review.reviewer.userId);
+      Helpers.incrementReviewCount(Constants.COMMENTS_COUNT, review.id, review.subjectId, review.createdBy.userId);
 
-      // send message to original review poster
-      Helpers.sendInboxMessage(userId, review.userId, Constants.COMMENT_ON_REVIEW_MESSAGE, review);
-      const sentArray = [review.userId];
+      // send message to original review poster if they are not the commentor
+      const sentArray = [];
+      if (authenticated !== review.userId) {
+        Helpers.sendInboxMessage(authenticated, review.userId, Constants.COMMENT_ON_REVIEW_MESSAGE, review);
+        sentArray.push(review.userId);
+      }
 
       Firebase.database().ref(Constants.COMMENTS_PATH + '/' + review.id).once('value', commentsSnapshot => {
         commentsSnapshot.forEach(function(comment) {
           let commenterId = comment.val().userId;
           // if not commentor or in sent array, then send a message
-          if (commenterId !== userId && (sentArray.indexOf(commenterId) === -1)) {
-            Helpers.sendInboxMessage(userId, commenterId, Constants.COMMENT_ON_COMMENT_MESSAGE, review);
+          if (commenterId !== authenticated && (sentArray.indexOf(commenterId) === -1)) {
+            Helpers.sendInboxMessage(authenticated, commenterId, Constants.COMMENT_ON_COMMENT_MESSAGE, review);
             sentArray.push(commenterId);
           }
         })
@@ -1958,9 +1978,9 @@ export function unloadLikesOrSavesByUser(userId, path) {
 }
 
 export function byPriority(a, b) {
-  if (a.priority < b.priority)
+  if (a.review.priority < b.review.priority)
     return -1;
-  if (a.priority > b.priority)
+  if (a.review.priority > b.review.priority)
     return 1;
   return 0;
 }

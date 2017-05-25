@@ -10,6 +10,7 @@ import { ITINERARY_TYPE } from '../constants';
 
 const mapStateToProps = state => ({
   ...state.itinerary,
+  currentUser: state.common.currentUser,
   authenticated: state.common.authenticated
 });
 
@@ -93,11 +94,12 @@ class Itinerary extends React.Component {
             <div className="roow roow-col itinerary__tips">
               <div>
                 <TipList
-                  reviews={this.props.reviews} 
+                  reviewList={this.props.reviewList} 
                   reviewsCount={itinerary.reviewsCount}
                   authenticated={this.props.authenticated}
                   like={this.props.likeReview} 
                   unLike={this.props.unLikeReview}
+                  currentUser={this.props.currentUser}
 
                   updateRating={this.props.onUpdateRating}
                   onSetPage={this.onSetPage}

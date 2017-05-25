@@ -7,7 +7,7 @@ export default (state = {}, action) => {
         ...state,
         itineraryId: action.itineraryId,
         itinerary: action.itinerary,
-        reviews: action.reviews
+        reviewList: action.reviewList
       }
     case ITINERARY_PAGE_UNLOADED:
    	  return {}
