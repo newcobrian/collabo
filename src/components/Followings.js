@@ -10,6 +10,8 @@ class Followings extends Followers {
       if (snapshot.exists()) {
         let userId = snapshot.val().userId;
         this.props.getFollowers(userId, Constants.IS_FOLLOWING_PATH);
+        this.props.getProfileUser(userId);
+        this.props.checkFollowing(userId);
       }
     });
     this.props.sendMixpanelEvent('Followings page loaded');
@@ -20,6 +22,8 @@ class Followings extends Followers {
       if (snapshot.exists()) {
         let userId = snapshot.val().userId;
         this.props.unloadFollowers(userId, Constants.IS_FOLLOWING_PATH);
+        this.props.unloadProfileUser(userId);
+        this.props.unloadProfileFollowing(userId);
       }
     });
   }

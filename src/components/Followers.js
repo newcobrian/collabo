@@ -6,6 +6,7 @@ import * as Actions from '../actions';
 import * as Constants from '../constants';
 import FollowUserButton from './FollowUserButton';
 import ProxyImage from './ProxyImage';
+import ProfileInfo from './ProfileInfo';
 
 const mapStateToProps = state => ({
 	...state.followers,
@@ -19,6 +20,8 @@ class Followers extends React.Component {
 	      if (snapshot.exists()) {
 	        let userId = snapshot.val().userId;
 	        this.props.getFollowers(userId, Constants.HAS_FOLLOWERS_PATH);
+	        this.props.getProfileUser(userId);
+        	this.props.checkFollowing(userId);
 	      }
 	    });
 	    this.props.sendMixpanelEvent('Followers page loaded');
@@ -29,61 +32,118 @@ class Followers extends React.Component {
 	      if (snapshot.exists()) {
 	        let userId = snapshot.val().userId;
 	        this.props.unloadFollowers(userId, Constants.HAS_FOLLOWINGS_PATH);
+	        this.props.unloadProfileUser(userId);
+      		this.props.unloadProfileFollowing(userId);
 	      }
 	    });
 	}
+	renderTabs() {
+	    return (
+	      <div className="feed-toggle flx flx-row flx-just-center">
+	        <ul className="nav nav-pills outline-active">
+	          <li className="nav-item">
+	            <Link
+	              className="nav-link"
+	              to={`@${this.props.profile.username}`}>
+	              Itineraries
+	            </Link>
+	          </li>
+
+	          <li className="nav-item">
+	            <Link
+	              className="nav-link"
+	              to={`@${this.props.profile.username}/likes`}>
+	              Likes
+	            </Link>
+	          </li>
+
+	          <li className="nav-item">
+	            <Link
+	              className="nav-link active"
+	              to={`@${this.props.profile.username}/followers`}>
+	              Followers
+	            </Link>
+	          </li>
+
+	          <li className="nav-item">
+	            <Link
+	              className="nav-link"
+	              to={`@${this.props.profile.username}/isfollowing`}>
+	              Is Following
+	            </Link>
+	          </li>
+
+	        </ul>
+	      </div>
+	    );
+	}
+
 
 	render() {
 		if (!this.props.followers) {
 		    return (
 		      <div className="article-preview">Loading...</div>
 		    );
-		  }
+		}
+		if (!this.props.profile) {
+		  return null;
+		}
+		const profile = this.props.profile;
+		profile.isFollowing = this.props.isFollowing;
 
 	    return (
-	    	<div className="roow roow-col-left page-common follow-page page-no-push">
-		    	<div className="page-title-wrapper center-text">
-		    	  <div className="v2-type-h2 subtitle">Following</div>
-		    	</div>
-		      {
-		        this.props.followers.map(follower => {
-		        	const isUser = this.props.currentUser &&
-      					follower.userId === this.props.currentUser.uid;
-		          	return (
-		          		<div className="roow roow-row list-row" key={follower.userId}>
-				          	<div className="">
-				          		<Link
-						          to={`@${follower.username}`}
-						          className="comment-author">
-						          	<div className="reviewer-photo center-img">
-						          		<ProxyImage src={follower.image} className="comment-author-img" />
-						        	</div>
-						        </Link>
-						    </div>
-						    <div className="roow roow-col-left">
-							    <div>
-								   	<Link
+	    	<div className="flx flx-col page-common profile-page">
+
+		        <ProfileInfo
+		          authenticated={this.props.authenticated}
+		          profile={profile}
+		          follow={this.props.followUser}
+		          unfollow={this.props.unfollowUser} />
+
+
+		        {this.renderTabs()}
+
+		    	<div className="roow roow-col-left page-common follow-page page-no-push">
+			      {
+			        this.props.followers.map(follower => {
+			        	const isUser = this.props.currentUser &&
+	      					follower.userId === this.props.currentUser.uid;
+			          	return (
+			          		<div className="roow roow-row list-row" key={follower.userId}>
+					          	<div className="">
+					          		<Link
 							          to={`@${follower.username}`}
 							          className="comment-author">
-							          {follower.username}
+							          	<div className="reviewer-photo center-img">
+							          		<ProxyImage src={follower.image} className="comment-author-img" />
+							        	</div>
 							        </Link>
 							    </div>
-							    <div>
-							    	<FollowUserButton
-							    	authenticated={this.props.authenticated}
-					                isUser={isUser}
-					                user={follower}
-					                follow={this.props.followUser}
-					                unfollow={this.props.unfollowUser}
-					                isFollowing={follower.isFollowing}
-					                />
-					            </div>
-					        </div>
-						</div>
-          			)
-		      	})
-		      }
-		    </div>
+							    <div className="roow roow-col-left">
+								    <div>
+									   	<Link
+								          to={`@${follower.username}`}
+								          className="comment-author">
+								          {follower.username}
+								        </Link>
+								    </div>
+								    <div>
+								    	<FollowUserButton
+								    	authenticated={this.props.authenticated}
+						                isUser={isUser}
+						                user={follower}
+						                follow={this.props.followUser}
+						                unfollow={this.props.unfollowUser}
+						                isFollowing={follower.isFollowing}
+						                />
+						            </div>
+						        </div>
+							</div>
+	          			)
+			      	})
+			      }
+			    </div>
+			</div>
 		);
 	}
 }

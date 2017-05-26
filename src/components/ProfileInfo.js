@@ -53,7 +53,6 @@ const ProfileInfo = props => {
                 user={profile}
                 follow={props.follow}
                 unfollow={props.unfollow}
-                isFollowing={profile.isFollowing}
                 />
               </div>
             </div>

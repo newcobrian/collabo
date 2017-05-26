@@ -39,8 +39,8 @@ class ProfileLikes extends Profile {
 
   renderTabs() {
     return (
-      <div className="feed-toggle roow roow-row-center">
-          <ul className="nav nav-pills outline-active">
+      <div className="feed-toggle flx flx-row flx-just-center">
+        <ul className="nav nav-pills outline-active">
             <li className="nav-item">
               <Link
                 className="nav-link"
