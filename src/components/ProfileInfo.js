@@ -1,6 +1,7 @@
 import React from 'react';
 import FollowUserButton from './FollowUserButton'
 import ProxyImage from './ProxyImage';
+import { Link } from 'react-router';
 
 const EditProfileSettings = props => {
   if (props.isUser) {

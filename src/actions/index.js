@@ -2368,33 +2368,39 @@ export function getFollowers(userId, followPath) {
     let followerArray = [];
     const current = Firebase.auth().currentUser.uid;
     Firebase.database().ref(followPath + '/' + userId).once('value', followersSnapshot => {
-      followersSnapshot.forEach(function(follower) {
-        let followerId = follower.key;
-        Firebase.database().ref(Constants.USERS_PATH + '/' + followerId).on('value', userSnapshot => {
-          Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + current + '/' + followerId).on('value', isFollowingSnapshot => {
-            let userObject = {};
-            let key = { userId: followerId };
-            let followingObject = { isFollowing: false };
-            if (isFollowingSnapshot.exists()) {
-              followingObject.isFollowing = true;
-            }
-            Object.assign(userObject, key, userSnapshot.val(), followingObject);
+      if (followersSnapshot.exists()) {
+        followersSnapshot.forEach(function(follower) {
+          let followerId = follower.key;
+          Firebase.database().ref(Constants.USERS_PATH + '/' + followerId).on('value', userSnapshot => {
+            Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + current + '/' + followerId).on('value', isFollowingSnapshot => {
+              let userObject = {};
+              let key = { userId: followerId };
+              let followingObject = { isFollowing: false };
+              if (isFollowingSnapshot.exists()) {
+                followingObject.isFollowing = true;
+              }
+              Object.assign(userObject, key, userSnapshot.val(), followingObject);
 
-            followerArray = [userObject].concat(followerArray);
-            followerArray.sort(followerFeedCompare);
+              followerArray = [userObject].concat(followerArray);
+              followerArray.sort(followerFeedCompare);
 
-            // let indexFound = searchFeedArray(key.userId, followerArray);
-            // if (indexFound > -1) {
-            //   followerArray[indexFound] = userObject;
-            // }
-            // else followerArray = followerArray.concat(userObject);
+              // let indexFound = searchFeedArray(key.userId, followerArray);
+              // if (indexFound > -1) {
+              //   followerArray[indexFound] = userObject;
+              // }
+              // else followerArray = followerArray.concat(userObject);
 
-            dispatch({
-              type: GET_FOLLOWERS,
-              payload: followerArray
+              dispatch({
+                type: GET_FOLLOWERS,
+                payload: followerArray
+              })
             })
           })
         })
+      }
+      else dispatch({
+        type: GET_FOLLOWERS,
+        payload: []
       })
     })
   }
