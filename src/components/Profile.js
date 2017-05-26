@@ -84,47 +84,45 @@ class Profile extends React.Component {
     }
   }
 
-  renderTabs(isUser) {
-    if (isUser) {
-      return (
-        <div className="feed-toggle flx flx-row flx-just-center">
-          <ul className="nav nav-pills outline-active">
-            <li className="nav-item">
-              <Link
-                className="nav-link active"
-                to={`${this.props.profile.username}`}>
-                Itineraries
-              </Link>
-            </li>
+  renderTabs() {
+    return (
+      <div className="feed-toggle flx flx-row flx-just-center">
+        <ul className="nav nav-pills outline-active">
+          <li className="nav-item">
+            <Link
+              className="nav-link active"
+              to={`@${this.props.profile.username}`}>
+              Itineraries
+            </Link>
+          </li>
 
-            <li className="nav-item">
-              <Link
-                className="nav-link"
-                to={`${this.props.profile.username}/likes`}>
-                Likes
-              </Link>
-            </li>
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              to={`@${this.props.profile.username}/likes`}>
+              Likes
+            </Link>
+          </li>
 
-            <li className="nav-item">
-              <Link
-                className="nav-link"
-                to={`@${this.props.profile.username}/likes`}>
-                Followers
-              </Link>
-            </li>
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              to={`@${this.props.profile.username}/likes`}>
+              Followers
+            </Link>
+          </li>
 
-            <li className="nav-item">
-              <Link
-                className="nav-link"
-                to={`@${this.props.profile.username}/likes`}>
-                Is Following
-              </Link>
-            </li>
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              to={`@${this.props.profile.username}/likes`}>
+              Is Following
+            </Link>
+          </li>
 
-          </ul>
-        </div>
-      );
-    }
+        </ul>
+      </div>
+    );
   }
 
   render() {
@@ -184,7 +182,7 @@ class Profile extends React.Component {
         </div>
 
 
-        {this.renderTabs(isUser)}
+        {this.renderTabs()}
         
         <div className="">
      
