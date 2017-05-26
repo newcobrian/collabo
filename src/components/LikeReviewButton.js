@@ -27,7 +27,7 @@ const LikeReviewButton = props => {
   };
 
   return (
-    <div className="flx flx-row-reverse flx-just-start flx-align-center" onClick={handleClick}>
+    <div className="like-module flx flx-row-reverse flx-just-start flx-align-center" onClick={handleClick}>
       <div className={classes}></div>
       <div className="v2-copy-body1">{props.likesCount} {likeText}</div>
     </div>

@@ -38,7 +38,7 @@ const TipPreview = props => {
       props.authenticated === review.userId;
 
   return (
-    <div className="reviews-wrapper flx flx-row-start flx-col-start mrgn-bottom-lg">
+    <div className="tip-wrapper flx flx-row-start flx-col-start mrgn-bottom-lg">
 
       <Link to={`review/${review.subjectId}/${review.id}`}>
       <div className="subject-image">
@@ -66,7 +66,7 @@ const TipPreview = props => {
             </div>
             </Link>
             <div className="v-button v-button--add flex-item-right">
-              Add
+              <img className="center-img" src="../img/icon.add.png"/>Save
             </div>
           </div>
           <div className="tip__address v2-type-mono mono-sm ta-left">

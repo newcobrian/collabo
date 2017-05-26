@@ -103,7 +103,12 @@
 
 
 
-
+.flx.flx-wrap {
+  flex-wrap: wrap;
+}
+.flx.flx-no-wrap {
+  flex-wrap: nowrap;
+}
 
 
 

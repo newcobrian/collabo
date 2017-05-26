@@ -13,8 +13,8 @@ const EditProfileSettings = props => {
     return (
       <Link
         to="settings"
-        className="bttn-style bttn-mini bttn-subtle-gray">
-         <i className="ion-gear-a"></i>&nbsp;Edit
+        className="v-button v-button--light">
+         {/*<i className="ion-gear-a"></i>*/}Edit Profile
       </Link>
     );
   }
@@ -87,7 +87,7 @@ class Profile extends React.Component {
   renderTabs(isUser) {
     if (isUser) {
       return (
-        <div className="feed-toggle roow roow-row-center">
+        <div className="feed-toggle flx flx-row flx-just-center">
           <ul className="nav nav-pills outline-active">
             <li className="nav-item">
               <Link
@@ -146,17 +146,18 @@ class Profile extends React.Component {
       this.props.profile.userId === this.props.currentUser.uid;
 
     return (
-      <div className="roow roow-row-top page-common profile-page">
+      <div className="flx flx-col page-common profile-page">
 
         <div className="user-info bottom-divider">
 
-          <div className="profile-info roow roow-col-left">
+          <div className="profile-info flx flx-col flx-align-center flx-just-center">
 
             <ProxyImage src={profile.image} className="user-img" />
-            <div className="user-data roow roow-col-left">
+            <div className="user-data flx flx-col flx-align-center">
               <div className="user-name">{profile.username}</div>
               <div className="user-bio">{profile.bio}</div>
-              <div className="roow roow-row-left profile-followers-wrapper">
+              {/*}
+              <div className="flx flx-row-left profile-followers-wrapper">
                 <Link to={`followers/${profile.username}`}>
                   <div className="profile-data-module">{this.props.followerCount} followers</div>
                 </Link>
@@ -164,7 +165,8 @@ class Profile extends React.Component {
                   <div className="profile-data-module">{this.props.followingCount} following</div>
                 </Link>
               </div>
-              <div className="user-action roow roow-row-top">
+            */}
+              <div className="user-action flx flx-row-top">
                 <EditProfileSettings isUser={isUser} />
                 
                 
@@ -184,7 +186,7 @@ class Profile extends React.Component {
 
         {this.renderTabs(isUser)}
         
-        <div className="profile-feed">
+        <div className="">
      
           <ItineraryList
             itineraries={this.props.itineraries} 

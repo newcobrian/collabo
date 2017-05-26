@@ -4,7 +4,9 @@
 }
 .itinerary__summary {
 	width: 40%;
-	padding: 0px 50px 20px 0;
+    padding: 0px 40px 20px 0;
+    margin-right: 40px;
+    height: 100%;
 }
 .itinerary__summary__author-photo {
     margin-right: 20px;
@@ -26,6 +28,10 @@
 }
 
 
+
+.tip-wrapper {
+	margin: 0 auto;
+}
 .tip__address {
 	margin-top:-5px;
 }

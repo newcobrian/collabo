@@ -78,16 +78,19 @@ class Itinerary extends React.Component {
                 <div className="v2-type-h6 mrgn-top-sm">
                   {itinerary.description}
                 </div>
-
-                <div className="cta-wrapper">
-                  <LikeReviewButton
-                    authenticated={this.props.authenticated}
-                    isLiked={itinerary.isLiked}
-                    likesCount={itinerary.likesCount}
-                    unLike={this.props.unLikeReview}
-                    like={this.props.likeReview} 
-                    likeObject={itinerary}
-                    type={ITINERARY_TYPE} />
+                <div className="flx flx-row-reverse v2-type-body2">
+                  <div className="share">
+                  </div>
+                  <div className="cta-wrapper cta-align-left">
+                    <LikeReviewButton
+                      authenticated={this.props.authenticated}
+                      isLiked={itinerary.isLiked}
+                      likesCount={itinerary.likesCount}
+                      unLike={this.props.unLikeReview}
+                      like={this.props.likeReview} 
+                      likeObject={itinerary}
+                      type={ITINERARY_TYPE} />
+                  </div>
                 </div>
                 <div>
                   <CommentContainer

@@ -18,7 +18,7 @@ const renderReviews = ({fields, meta: {error, submitFailed}}) => (
   <ul>
     {fields.map((review, index) => (
       <li key={index}>
-        <div className="roow roow-row-top itinerary__edit-tip mrgn-bottom-lg">
+        <div className="flx flx-row-top itinerary__edit-tip mrgn-bottom-lg">
           <div className="temp-image">
             upload image
             {/**}        <Field 
@@ -31,7 +31,7 @@ const renderReviews = ({fields, meta: {error, submitFailed}}) => (
           </div>
 
           <div className="temp-text">  
-            <div className="roow roow-row">
+            <div className="flx flx-row">
               <div className="v2-type-h4">Tip #{index + 1}</div>
               <button
               type="button"
@@ -83,8 +83,8 @@ let EditItineraryForm = props => {
   const {handleSubmit, pristine, reset, submitting} = props
   return ( 
     <form onSubmit={handleSubmit}>
-    <div className="roow roow-row page-common roow-center">
-      <div className="content-wrapper itinerary roow roow-row-top">
+    <div className="flx flx-row page-common flx-center">
+      <div className="content-wrapper itinerary flx flx-row-top">
 
         <div className="itinerary__summary ta-left">
           <div>
@@ -105,7 +105,7 @@ let EditItineraryForm = props => {
           </div>
         </div>
 
-        <div className="roow roow-col itinerary__tips">
+        <div className="flx flx-col itinerary__tips">
           <FieldArray name="itinerary.reviews" component={renderReviews} />
         </div>
 

@@ -117,9 +117,9 @@ textarea {
 .v2-type-body2 {
   /* “The almond milk ice: */
   font-weight: 300;
-  font-size: 16px;
+  font-size: 18px;
   letter-spacing: 0.5px;
-  line-height: 28px;
+  line-height: 32px;
   font-family: 'Open Sans', sans-serif;
 }
 .v2-type-rating {
@@ -305,12 +305,17 @@ textarea {
     box-shadow: 0 0 0 2px rgba(107, 255, 78,.4);
     height: 32px;
     color: white;
-    padding: 6px 16px;
+    padding: 6px 10px;
     text-align: center;
     font-weight: 100 !important;
     background-image: linear-gradient(-270deg, #2EC299 0%, #00ACED 100%);
     border-radius: 7px;
     font-size: 14px;
+}
+.v-button img {
+    height: 100%;
+    margin-top: -2px;
+    margin-right: 5px;
 }
 .v-button--light {
   background: white;
@@ -708,14 +713,10 @@ svg {
   padding: 20px 0 10px;
 }
 .feed-toggle {
-    position: fixed;
-    top: 70px;
-    left: 0;
-    right: 0;
-    background: white;
-    border-bottom: 1px solid rgba(0,0,0,.1);
-    z-index: 10;
-    padding: 0;
+  background: white;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  z-index: 10;
+  padding: 0;
 }
 .feed-toggle.tags-toggle {
   top: 131px;
@@ -870,22 +871,14 @@ svg {
 ******
 ******/
 .profile-page {
-  margin: 0px 40px;
 }
 .profile-data-module {
   margin: 10px 20px 10px 0;
 }
 .profile-page .user-info {
-    background: white;
-    padding: 20px 40px;
-    position: fixed;
-    left: 0;
-    width: 270px;
-    text-align: left;
-    height: 100%;
-    border-right: 1px solid rgba(0,0,0,.1);
-    z-index: 100;
-    top: 70px;
+  background: white;
+  padding: 20px;
+  width: 100%;
 }
 .profile-page .user-info .user-img {
   background: #E6E7E8;
@@ -903,8 +896,11 @@ svg {
       font-weight: 700;
     }
     .user-bio {
-      font-size: 16px;
+      font-size: 22px;
       font-weight: 300;
+      font-family: 'Open Sans';
+      padding: 20px;
+      max-width: 600px;
     }
 .profile-page .profile-followers-wrapper {
   font-size: 13px;
@@ -921,13 +917,13 @@ svg {
 }
 .nav-pills.outline-active .nav-link.active,
 .nav-pills.outline-active .nav-link:hover {
-    border-bottom-color: #242833 !important;
+    border-bottom: #09B7EA 3px solid !important;
     color: #0C111D !important;
     opacity: 1;
     background-color: transparent !important;
 }
 .nav-pills .nav-item {
-    height: 30px;
+    height: 34px;
     display: inline-block;
     width: auto;
     white-space: normal;
@@ -971,7 +967,6 @@ li.nav-divider {
 .profile-page .feed-toggle {
     width: 100%;
     margin: 20px 0;
-    top: 50px;
 }
 .profile-feed {
     width: 100%;
@@ -1170,7 +1165,7 @@ input.input--underline {
   font-size: 20px;
 }
 input.input--overline {
-  margin: 0 0 10px 0;
+  margin: 0;
   line-height: inherit;
   border-radius: 2px;
   padding: 10px 0px 10px 0;
@@ -1309,7 +1304,7 @@ position: absolute;
 ******/
 .comment-wrapper.card {
   border: none;
-  margin: 5px 0 5px;
+  margin: 10px 0;
   background-color: transparent;
 }
 .comment-wrapper.card .card-footer {
@@ -1319,17 +1314,18 @@ position: absolute;
   height: auto;
 }
 .comment-wrapper.card .comment-author-img {
-  width: 36px;
-  height: 36px;
+  width: 30px;
+  height: 30px;
   border-radius: 32px;
 }
 .comment-wrapper.card .comment-data {
 }
 .comment-wrapper.card .comment-author {
     font-size: 1em;
-    font-weight: 700;
+    font-weight: 600;
     margin-right: 5px;
     margin-top: -3px;
+    color: black;
 }
 .comment-wrapper .card-text {
   margin: 0;
@@ -1339,6 +1335,7 @@ position: absolute;
   font-size: 10px;
   margin-left: 0;
   margin-top: 1px;
+  opacity: .3;
 }
 .comment-wrapper .comment-block {
   padding: 5px 20px;
@@ -1354,7 +1351,7 @@ position: absolute;
     display: block;
     font-size: 16px;
     line-height: 20px;
-    font-weight: 100;
+    font-weight: 300;
     width: 100%;
     padding: 10px 0 !important;
     outline-width: 0px;
@@ -1379,18 +1376,22 @@ position: absolute;
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: black;
   opacity: .3;
+  font-weight: 300;
 }
 ::-moz-placeholder { /* Firefox 19+ */
   color: black;
   opacity: .3;
+  font-weight: 300;
 }
 :-ms-input-placeholder { /* IE 10+ */
   color: black;
   opacity: .3;
+  font-weight: 300;
 }
 :-moz-placeholder { /* Firefox 18- */
   color: black;
   opacity: .3;
+  font-weight: 300;
 }
 .article-page .comment-form .card-block textarea:focus {
   outline: -webkit-focus-ring-color auto 1px;
@@ -1398,7 +1399,8 @@ position: absolute;
 }
 .comment-row {
     line-height: 1.6em;
-    font-size: 1.2em;
+    font-size: 13px;
+    font-weight: 300;
 }
 
 
