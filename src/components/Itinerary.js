@@ -31,7 +31,7 @@ class Itinerary extends React.Component {
 
   componentWillUnmount() {
     this.props.onItineraryUnload(this.props.itineraryId);
-    this.props.unloadItineraryCommments(this.props.itineraryId);
+    this.props.unloadItineraryComments(this.props.itineraryId);
   }
 
   render() {
