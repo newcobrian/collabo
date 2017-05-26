@@ -11,7 +11,7 @@ const CommentPreview = props => {
   if (props.comments) {
     return (
       <Link to={`itinerary/${props.itinerary.id}`}>
-        <div className="cta-wrapper cta-wrapper-comment roow roow-col">
+        <div className="cta-wrapper cta-wrapper-comment flx flx-col">
           <div className="cta-icon cta-comment"></div>
           {props.itinerary.commentsCount} Comments
         </div>
@@ -21,7 +21,7 @@ const CommentPreview = props => {
   else {
     return (
       <Link to={`itinerary/${props.itinerary.id}`}>
-        <div className="cta-wrapper cta-wrapper-comment roow roow-col">
+        <div className="cta-wrapper cta-wrapper-comment flx flx-col">
           <div className="cta-icon cta-comment comment-on"></div>
           Comment
         </div>
@@ -36,7 +36,7 @@ const ItineraryPreview = props => {
       props.authenticated === props.itinerary.userId;
 
   return (
-    <div className="reviews-wrapper roow roow-left roow-col-left mrgn-bottom-lg bx-shadow">
+    <div className="reviews-wrapper flx flx-left flx-col-left mrgn-bottom-lg bx-shadow">
 
         <Link to={`itinerary/${itinerary.id}`}>
           <div className="subject-image">
@@ -44,7 +44,7 @@ const ItineraryPreview = props => {
           </div>
         </Link>
 
-      <div className="review-container roow roow-center roow-col-left bottom-divider default-card-white">
+      <div className="review-container flx flx-center flx-col-left bottom-divider default-card-white">
         <div className="subject-name-container center-text">
           <div className="delete-wrapper">
             <div className="delete-button">
@@ -59,11 +59,11 @@ const ItineraryPreview = props => {
           </div>
           </Link>
         </div>{/**END subject-name-container**/}
-        <div className="roow roow-row-top pic-and-review">
-          <div className="review-data-container roow roow-col-center">
+        <div className="flx flx-row-top pic-and-review">
+          <div className="review-data-container flx flx-col-center">
               
 
-              <div className="roow">
+              <div className="flx">
 
               </div>
 
@@ -78,14 +78,14 @@ const ItineraryPreview = props => {
 
         </div>
 
-        <div className="roow roow-row flex-wrap cta-container">
-            <div className="cta-box roow roow-row-space">
-              <div className="roow roow-col-left">
+        <div className="flx flx-row flex-wrap cta-container">
+            <div className="cta-box flx flx-row-space">
+              <div className="flx flx-col-left">
               
               </div>
               <CommentPreview comments={props.itinerary.comments} itinerary={props.itinerary} />
               
-              <div className="roow roow-row flex-item-right">
+              <div className="flx flx-row flex-item-right">
                 <LikeReviewButton
                   authenticated={props.authenticated}
                   isLiked={props.itinerary.isLiked}
@@ -95,7 +95,7 @@ const ItineraryPreview = props => {
                   likeObject={itinerary}
                   type={ITINERARY_TYPE} />
 
-{/***}              <Link className="cta-wrapper roow roow-col" onClick={handleForwardClick}>
+{/***}              <Link className="cta-wrapper flx flx-col" onClick={handleForwardClick}>
                   <div className="cta-icon cta-share"></div>
                   Forward
                 </Link>

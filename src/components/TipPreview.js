@@ -13,7 +13,7 @@ const CommentPreview = props => {
   if (props.comments) {
     return (
       <Link to={`review/${props.review.subjectId}/${props.review.id}`}>
-        <div className="cta-wrapper cta-wrapper-comment roow roow-col">
+        <div className="cta-wrapper cta-wrapper-comment flx flx-col">
           <div className="cta-icon cta-comment"></div>
           {props.review.commentsCount} Comments
         </div>
@@ -23,7 +23,7 @@ const CommentPreview = props => {
   else {
     return (
       <Link to={`review/${props.review.subjectId}/${props.review.id}`}>
-        <div className="cta-wrapper cta-wrapper-comment roow roow-col">
+        <div className="cta-wrapper cta-wrapper-comment flx flx-col">
           <div className="cta-icon cta-comment comment-on"></div>
           Comment
         </div>
@@ -38,7 +38,7 @@ const TipPreview = props => {
       props.authenticated === review.userId;
 
   return (
-    <div className="reviews-wrapper roow roow-row-left roow-row-top mrgn-bottom-lg">
+    <div className="reviews-wrapper flx flx-row-start flx-col-start mrgn-bottom-lg">
 
       <Link to={`review/${review.subjectId}/${review.id}`}>
       <div className="subject-image">
@@ -46,7 +46,7 @@ const TipPreview = props => {
       </div>
       </Link>
 
-      <div className="review-container roow roow-center roow-col-left">
+      <div className="review-container flx flx-col flx-col-top">
         <div className="subject-name-container center-text">
           
           { /** Hidden Delete Button **/ }
@@ -59,7 +59,7 @@ const TipPreview = props => {
           
 
           { /** Title and Add **/ }
-          <div className="roow roow-row-top">
+          <div className="flx flx-row-top">
             <Link to={`review/${review.subjectId}/${review.id}`}>
             <div className="v2-type-h2 ta-left">
               {review.title}
@@ -74,22 +74,20 @@ const TipPreview = props => {
           </div>
 
         { /** Rating and Like **/ }
-          <div className="roow roow-row">
+          <div className="flx flx-row">
             <div className={'v2-type-rating ta-left v2-type-rating--' +  review.rating}>
               {review.rating}<div className="v2-type-rating--total"> /10</div>
             </div>
-            <div className="roow roow-row flex-item-right v2-type-body2">
+            <div className="flx flx-row flex-item-right v2-type-body2">
               <div className="cta-wrapper">
-                <div className="cta-icon cta-like">
-                  <LikeReviewButton
-                    authenticated={props.authenticated}
-                    isLiked={props.review.isLiked}
-                    likesCount={props.review.likesCount}
-                    unLike={props.unLike}
-                    like={props.like} 
-                    likeObject={review}
-                    type={REVIEW_TYPE} />
-                </div>
+                <LikeReviewButton
+                  authenticated={props.authenticated}
+                  isLiked={props.review.isLiked}
+                  likesCount={props.review.likesCount}
+                  unLike={props.unLike}
+                  like={props.like} 
+                  likeObject={review}
+                  type={REVIEW_TYPE} />
               </div>
             </div>
           </div>
@@ -97,20 +95,20 @@ const TipPreview = props => {
         </div>{/**END subject-name-container**/}
 
       { /** Caption **/ }
-        <div className="roow roow-row-top">
-          <div className="review-data-container roow roow-col-left">
-            <div className="subject-caption v2-type-body2 v2-type--italic ta-left">
+
+          <div className="review-data-container flx flx-col">
+            <div className="subject-caption v2-type-body2 ta-left">
               {review.caption}
             </div>
             <div className="review-timestamp">
               {(new Date(review.lastModified)).toLocaleString()}
             </div> 
           </div>
-        </div>
 
-        <div className="roow roow-row flex-wrap cta-container">
-          <div className="cta-box roow roow-row-space">
-            <div className="roow roow-col-left">
+
+        <div className="flx flx-row flex-wrap cta-container">
+          <div className="cta-box flx flx-row-space">
+            <div className="flx flx-col-left">
               
             </div>
 
@@ -128,10 +126,10 @@ const TipPreview = props => {
 
            <CommentPreview comments={props.review.comments} review={props.review} />
               
-            <div className="roow roow-row flex-item-right">
+            <div className="flx flx-row flex-item-right">
             </div>
 
-            <Link className="cta-wrapper roow roow-col" onClick={handleForwardClick}>
+            <Link className="cta-wrapper flx flx-col" onClick={handleForwardClick}>
               <div className="cta-icon cta-share"></div>
                 Forward
             </Link>

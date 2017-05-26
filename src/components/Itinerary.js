@@ -45,13 +45,13 @@ class Itinerary extends React.Component {
     else {
       const itinerary = this.props.itinerary;
       return (
-        <div className="roow roow-row page-common roow-center">
-          <div className="content-wrapper itinerary roow roow-row-top">
+        <div className="flx flx-row page-common flx-row-top">
+          <div className="content-wrapper itinerary flx flx-row flx-row-start flx-col-start">
 
             <div className="itinerary__summary ta-left">
 
               <fieldset>
-                <div className="roow roow-row mrgn-bottom-md">
+                <div className="flx flx-row mrgn-bottom-md">
                   <div className="itinerary__summary__author-photo">
                     <ProxyImage src={itinerary.createdBy.image} className="center-img" />
                   </div>
@@ -80,16 +80,14 @@ class Itinerary extends React.Component {
                 </div>
 
                 <div className="cta-wrapper">
-                  <div className="cta-icon cta-like">
-                    <LikeReviewButton
-                      authenticated={this.props.authenticated}
-                      isLiked={itinerary.isLiked}
-                      likesCount={itinerary.likesCount}
-                      unLike={this.props.unLikeReview}
-                      like={this.props.likeReview} 
-                      likeObject={itinerary}
-                      type={ITINERARY_TYPE} />
-                  </div>
+                  <LikeReviewButton
+                    authenticated={this.props.authenticated}
+                    isLiked={itinerary.isLiked}
+                    likesCount={itinerary.likesCount}
+                    unLike={this.props.unLikeReview}
+                    like={this.props.likeReview} 
+                    likeObject={itinerary}
+                    type={ITINERARY_TYPE} />
                 </div>
                 <div>
                   <CommentContainer
@@ -105,7 +103,7 @@ class Itinerary extends React.Component {
 
             </div>
 
-            <div className="roow roow-col itinerary__tips">
+            <div className="flx flx-col itinerary__tips">
               <div>
                 <TipList
                   reviewList={this.props.reviewList} 

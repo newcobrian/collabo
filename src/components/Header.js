@@ -13,7 +13,7 @@ const InboxCounter = props => {
 const LoggedOutView = props => {
   if (!props.currentUser || props.currentUser.isAnonymous) {
     return (
-      <div className="navigation-bar no-icons roow roow-row-right">
+      <div className="navigation-bar no-icons flx flx-row flx-align-center">
           <Link to="login" className="nav-module">
             Sign-in
           </Link>
@@ -31,7 +31,7 @@ const LoggedOutView = props => {
 const LoggedInView = props => {
   if (props.currentUser && props.userInfo) {
     return (
-      <div className="navigation-bar roow roow-row-right">
+      <div className="navigation-bar flx flx-row flx-align-center flx-just-end">
         
         
 
@@ -60,7 +60,7 @@ class Header extends React.Component {
     return (
       <div className="header-container">
         <div className="header-wrapper">
-          <Link to="/" className="logo-module roow roow-row">
+          <Link to="/" className="logo-module flx flx-row flx-just-start flx-align-center">
             <div className="logo-graphic">  
               <img className="center-img" src="../img/views.logo.temp.png"/>
             </div>

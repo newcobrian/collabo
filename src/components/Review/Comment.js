@@ -9,15 +9,15 @@ const Comment = props => {
     props.authenticated === comment.userId;
   return (
     <div className="card comment-wrapper">
-      <div className="card-footer">
-        <div className="roow roow-row-top">
+      <div className="">
+        <div className="flx flx-row-top">
           <Link
             to={`@${comment.username}`}
             className="comment-author">
             <ProxyImage src={comment.image} className="comment-author-img center-img" />
           </Link>
           &nbsp;
-          <div className="comment-data roow roow-col-left">
+          <div className="comment-data flx flx-col flx-just-start">
             <div className="comment-row">
               <Link
                 to={`@${comment.username}`}

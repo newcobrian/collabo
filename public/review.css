@@ -389,6 +389,7 @@ box-shadow: none !important;
 }
 .cta-wrapper {
   padding: 0;
+  width: 100%;
 }
 .cta-box {
   margin-top: -1px;

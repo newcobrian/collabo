@@ -8,12 +8,6 @@ const CommentContainer = props => {
 	if (props.authenticated && props.userInfo) {
 		return (
 			<div className="comments-module">
-		        <CommentList
-		          comments={props.comments}
-		          commentObject={props.commentObject}
-		          authenticated={props.authenticated}
-		          userInfo={props.userInfo} 
-		          delete={props.delete} />
 		        <div className="comment-input-wrapper">
 		          <ListErrors errors={props.errors}></ListErrors>
 		          <CommentInput 
@@ -22,6 +16,12 @@ const CommentContainer = props => {
 		          	authenticated={props.authenticated} 
 		          	type={props.type} />
 		        </div>
+		        <CommentList
+		          comments={props.comments}
+		          commentObject={props.commentObject}
+		          authenticated={props.authenticated}
+		          userInfo={props.userInfo} 
+		          delete={props.delete} />
 		     </div>
 		);
 	} else {

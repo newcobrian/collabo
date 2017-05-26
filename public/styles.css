@@ -58,6 +58,7 @@ input[type="radio"]:checked + label span {
   padding: 20px;
 }
 
+
 /*Reset Safari User Agent Styles*/
 * {-webkit-padding-start: 0px;}
 
@@ -213,7 +214,7 @@ textarea {
     letter-spacing: 0.5px;
     line-height: 32px;
     font-weight: 100;
-    font-style: italic;
+    /*font-style: italic;*/
     font-family: 'Open Sans', sans-serif;
 }
 
@@ -1320,6 +1321,7 @@ position: absolute;
 .comment-wrapper.card .comment-author-img {
   width: 36px;
   height: 36px;
+  border-radius: 32px;
 }
 .comment-wrapper.card .comment-data {
 }
@@ -1355,8 +1357,8 @@ position: absolute;
     font-weight: 100;
     width: 100%;
     padding: 10px 0 !important;
-    border: none;
     outline-width: 0px;
+    margin-top: 10px;
 }
 .article-page .card.comment-wrapper .mod-options {
     color: #333;
