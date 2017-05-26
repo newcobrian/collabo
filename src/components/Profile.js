@@ -37,11 +37,9 @@ const LogoutButton = props => {
 }
 
 const mapStateToProps = state => ({
-  // ...state.reviewList,
   ...state.profile,
   currentUser: state.common.currentUser,
   authenticated: state.common.authenticated,
-  // profile: state.profile
 });
 
 // const mapDispatchToProps = dispatch => ({

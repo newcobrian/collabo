@@ -30,7 +30,7 @@ class ProfileLikes extends Profile {
         this.props.checkFollowing(userId);
         this.props.getFollowingCount(userId);
         this.props.getFollowerCount(userId);
-        this.props.getLikesOrSavesByUser(this.props.authenticated, userId, Constants.LIKES_BY_USER_PATH);
+        this.props.getLikesByUser(this.props.authenticated, userId);
       }
     });
     this.props.sendMixpanelEvent('Likes page loaded');
@@ -131,6 +131,8 @@ class ProfileLikes extends Profile {
                 isFollowing={this.props.profile.isFollowing}
                 />
               </div>
+
+              {this.renderTabs()}
             </div>
           </div>
         </div>
