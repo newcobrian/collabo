@@ -7,19 +7,7 @@ import * as Constants from '../constants';
 import ItineraryList from './ItineraryList';
 import FollowUserButton from './FollowUserButton'
 import ProxyImage from './ProxyImage';
-
-const EditProfileSettings = props => {
-  if (props.isUser) {
-    return (
-      <Link
-        to="settings"
-        className="v-button v-button--light">
-         {/*<i className="ion-gear-a"></i>*/}Edit Profile
-      </Link>
-    );
-  }
-  return null;
-};
+import ProfileInfo from './ProfileInfo'
 
 const LogoutButton = props => {
   if (props.isUser && props.authenticated) {
@@ -105,7 +93,7 @@ class Profile extends React.Component {
           <li className="nav-item">
             <Link
               className="nav-link"
-              to={`@${this.props.profile.username}/likes`}>
+              to={`@${this.props.profile.username}/followers`}>
               Followers
             </Link>
           </li>
@@ -113,7 +101,7 @@ class Profile extends React.Component {
           <li className="nav-item">
             <Link
               className="nav-link"
-              to={`@${this.props.profile.username}/likes`}>
+              to={`@${this.props.profile.username}/isfollowing`}>
               Is Following
             </Link>
           </li>
@@ -144,40 +132,11 @@ class Profile extends React.Component {
     return (
       <div className="flx flx-col page-common profile-page">
 
-        <div className="user-info bottom-divider">
-
-          <div className="profile-info flx flx-col flx-align-center flx-just-center">
-
-            <ProxyImage src={profile.image} className="user-img" />
-            <div className="user-data flx flx-col flx-align-center">
-              <div className="user-name">{profile.username}</div>
-              <div className="user-bio">{profile.bio}</div>
-              {/*}
-              <div className="flx flx-row-left profile-followers-wrapper">
-                <Link to={`followers/${profile.username}`}>
-                  <div className="profile-data-module">{this.props.followerCount} followers</div>
-                </Link>
-                <Link to={`followings/${profile.username}`}>
-                  <div className="profile-data-module">{this.props.followingCount} following</div>
-                </Link>
-              </div>
-            */}
-              <div className="user-action flx flx-row-top">
-                <EditProfileSettings isUser={isUser} />
-                
-                
-                <FollowUserButton
-                authenticated={this.props.authenticated}
-                isUser={isUser}
-                user={profile}
-                follow={this.props.followUser}
-                unfollow={this.props.unfollowUser}
-                isFollowing={this.props.profile.isFollowing}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+        <ProfileInfo
+          authenticated={this.props.authenticated}
+          profile={profile}
+          follow={this.props.followUser}
+          unfollow={this.props.unfollowUser} />
 
 
         {this.renderTabs()}
