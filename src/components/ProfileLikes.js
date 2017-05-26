@@ -5,22 +5,21 @@ import { connect } from 'react-redux';
 import Firebase from 'firebase';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
+import FollowUserButton from './FollowUserButton'
+import ProxyImage from './ProxyImage';
 
-// const mapDispatchToProps = dispatch => ({
-//   onFollow: username => dispatch({
-//     type: 'FOLLOW_USER',
-//     payload: agent.Profile.follow(username)
-//   }),
-//   onLoad: (payload) =>
-//     dispatch({ type: 'PROFILE_FAVORITES_PAGE_LOADED', payload }),
-//   onSetPage: (page, payload) => dispatch({ type: 'SET_PAGE', page, payload }),
-//   onUnfollow: username => dispatch({
-//     type: 'UNFOLLOW_USER',
-//     payload: agent.Profile.unfollow(username)
-//   }),
-//   onUnload: () =>
-//     dispatch({ type: 'PROFILE_FAVORITES_PAGE_UNLOADED' })
-// });
+const EditProfileSettings = props => {
+  if (props.isUser) {
+    return (
+      <Link
+        to="settings"
+        className="bttn-style bttn-mini bttn-subtle-gray">
+         <i className="ion-gear-a"></i>&nbsp;Edit
+      </Link>
+    );
+  }
+  return null;
+};
 
 class ProfileLikes extends Profile {
   componentWillMount() {
@@ -89,6 +88,54 @@ class ProfileLikes extends Profile {
           </ul>
       </div>
     );
+  }
+
+  render() {
+    const profile = this.props.profile;
+    if (!profile) {
+      return null;
+    }
+    
+    const isUser = this.props.currentUser &&
+      this.props.profile.userId === this.props.currentUser.uid;
+
+    return (
+      <div className="roow roow-row-top page-common profile-page">
+
+        <div className="user-info bottom-divider">
+
+          <div className="profile-info roow roow-col-left">
+
+            <ProxyImage src={profile.image} className="user-img" />
+            <div className="user-data roow roow-col-left">
+              <div className="user-name">{profile.username}</div>
+              <div className="user-bio">{profile.bio}</div>
+              <div className="roow roow-row-left profile-followers-wrapper">
+                <Link to={`followers/${profile.username}`}>
+                  <div className="profile-data-module">{this.props.followerCount} followers</div>
+                </Link>
+                <Link to={`followings/${profile.username}`}>
+                  <div className="profile-data-module">{this.props.followingCount} following</div>
+                </Link>
+              </div>
+              <div className="user-action roow roow-row-top">
+                <EditProfileSettings isUser={isUser} />
+                
+                
+                <FollowUserButton
+                authenticated={this.props.authenticated}
+                isUser={isUser}
+                user={profile}
+                follow={this.props.followUser}
+                unfollow={this.props.unfollowUser}
+                isFollowing={this.props.profile.isFollowing}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
   }
 }
 

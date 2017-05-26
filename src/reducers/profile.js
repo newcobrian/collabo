@@ -32,12 +32,12 @@ export default (state = {}, action) => {
     case GET_FOLLOWING_COUNT:
       return {
         ...state,
-        followingCount: action.payload
+        followingCount: (action.payload > 0 ? action.payload : 0)
       }
     case GET_FOLLOWER_COUNT:
       return {
         ...state,
-        followerCount: action.payload
+        followerCount: (action.payload > 0 ? action.payload : 0)
       }
     case GET_REVIEWS_BY_USER:
       return {

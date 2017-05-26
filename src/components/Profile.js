@@ -155,10 +155,10 @@ class Profile extends React.Component {
               <div className="user-bio">{profile.bio}</div>
               <div className="roow roow-row-left profile-followers-wrapper">
                 <Link to={`followers/${profile.username}`}>
-                  <div className="profile-data-module">{profile.followerCount} followers</div>
+                  <div className="profile-data-module">{this.props.followerCount} followers</div>
                 </Link>
                 <Link to={`followings/${profile.username}`}>
-                  <div className="profile-data-module">{profile.followingCount} following</div>
+                  <div className="profile-data-module">{this.props.followingCount} following</div>
                 </Link>
               </div>
               <div className="user-action roow roow-row-top">
