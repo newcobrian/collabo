@@ -23,13 +23,15 @@ class Itinerary extends React.Component {
 
   componentWillMount() {
     if (this.props.params.iid) {
-      return this.props.onItineraryLoad(this.props.authenticated, this.props.params.iid);
+      this.props.onItineraryLoad(this.props.authenticated, this.props.params.iid);
+      this.props.getItineraryComments(this.props.params.iid);
     }
     this.props.sendMixpanelEvent('Itinerary page loaded');
   }
 
   componentWillUnmount() {
     this.props.onItineraryUnload(this.props.itineraryId);
+    this.props.unloadItineraryCommments(this.props.itineraryId);
   }
 
   render() {

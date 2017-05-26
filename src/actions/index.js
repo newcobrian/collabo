@@ -85,6 +85,8 @@ export const ITINERARY_PAGE_UNLOADED = 'ITINERARY_PAGE_UNLOADED'
 export const ITINERARY_UPDATED = 'ITINERARY_UPDATED'
 export const EDITOR_PAGE_NO_AUTH = 'EDITOR_PAGE_NO_AUTH'
 export const GET_ITINERARIES_BY_USER = 'GET_ITINERARIES_BY_USER'
+export const ITINERARY_COMMMENTS_LOADED = 'ITINERARY_COMMMENTS_LOADED'
+export const ITINERARY_COMMMENTS_UNLOADED = 'ITINERARY_COMMMENTS_UNLOADED'
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -566,6 +568,32 @@ export function onEditorUnload(itineraryId) {
   }
 }
 
+export function getItineraryComments(itineraryId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.COMMENTS_PATH + '/' + itineraryId).on('value', itinCommentSnapshot => {
+      let comments = [];
+      itinCommentSnapshot.forEach(function(itinCommentChild) {
+        const comment = ({}, { id: itinCommentChild.key }, itinCommentChild.val());
+        comments = comments.concat(comment);
+      })
+      comments.sort(lastModifiedAsc);
+      dispatch({
+        type: ITINERARY_COMMMENTS_LOADED,
+        comments: comments
+      })
+    })
+  }
+}
+
+export function unloadItineraryComments(itineraryId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.COMMENTS_PATH + '/' + itineraryId).off();
+    dispatch({
+      type: ITINERARY_COMMMENTS_UNLOADED
+    })
+  }
+}
+
 export function onItineraryLoad(auth, itineraryId) {
   return dispatch => {
     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).on('value', itinerarySnapshot => {
@@ -582,6 +610,7 @@ export function onItineraryLoad(auth, itineraryId) {
             let likes = {
               isLiked: isLiked
             }
+
             let itineraryObject = Object.assign({}, {id: itineraryId}, itinerarySnapshot.val(), userInfo, likes);
             let reviewArray = [];
             if (!itineraryObject.reviews) {
@@ -652,11 +681,15 @@ export function onItineraryUnload(itineraryId) {
   return dispatch => {
     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).once('value', itinerarySnapshot => {
       Firebase.database().ref(Constants.USERS_PATH + '/' + itinerarySnapshot.val().userId).off();
+      Firebase.database().ref(Constants.LIKES_PATH + '/' + itineraryId).off();
       let itineraryObject = itinerarySnapshot.val();
       if (itineraryObject && itineraryObject.reviews) {
         for (let i = 0; i < itineraryObject.reviews.length; i++) {
-          Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + itineraryObject.reviews[i].subjectId).off();
-          Firebase.database().ref(Constants.REVIEWS_PATH + '/' + itineraryObject.reviews[i].reviewId).off();
+          let reviewItem = itineraryObject.reviews[i];
+          Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + reviewItem.subjectId).off();
+          Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewItem.reviewId).off();
+          Firebase.database().ref(Constants.LIKES_PATH + '/' + reviewItem.reviewId).off();
+          Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewItem.reviewId).off();
         }
       }
     })
