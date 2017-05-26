@@ -128,8 +128,8 @@ class Profile extends React.Component {
   }
 
   render() {
-    const profile = this.props.profile;
-    if (!profile) {
+
+    if (!this.props.profile) {
       return null;
     }
     if (!this.props.itineraries) {
@@ -138,6 +138,9 @@ class Profile extends React.Component {
     if (this.props.itineraries.length === 0) {
       return 'No itineraries created.'
     }
+
+    let profile = this.props.profile;
+    profile.isFollowing = this.props.isFollowing;
 
     const isUser = this.props.currentUser &&
       this.props.profile.userId === this.props.currentUser.uid;
@@ -189,8 +192,7 @@ class Profile extends React.Component {
             authenticated={this.props.authenticated} 
             like={this.props.likeReview} 
             unLike={this.props.unLikeReview}
-            save={this.props.saveReview} 
-            unSave={this.props.unSaveReview}
+
             currentPage={this.props.currentPage}
             updateRating={this.props.onUpdateRating}
             onSetPage={this.onSetPage}

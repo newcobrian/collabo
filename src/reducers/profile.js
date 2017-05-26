@@ -21,8 +21,7 @@ export default (state = {}, action) => {
     case GET_USER:
       return {
         ...state,
-        profile: action.payload,
-        userId: action.userId
+        profile: action.payload
       };
     case 'IS_FOLLOWING':
       return {

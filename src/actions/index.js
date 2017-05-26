@@ -403,10 +403,10 @@ export function unloadProfileFollowing(uid) {
 export function getProfileUser(userId) {
   return dispatch => {
     Firebase.database().ref(Constants.USERS_PATH + '/' + userId + '/').on('value', snapshot => {
+      let profile = Object.assign( {}, { userId: userId }, snapshot.val());
       dispatch({
         type: GET_USER,
-        payload: snapshot.val(),
-        userId: userId
+        payload: profile
       });
     });
   };
@@ -457,15 +457,12 @@ export function followUser(authenticated, follower) {
         type: ASK_FOR_AUTH
       })
     }
-    const following = Firebase.auth().currentUser.uid;
     const updates = {};
-    if (following && follower) {
-      updates[`/${Constants.HAS_FOLLOWERS_PATH}/${follower}/${following}`] = true;
-      updates[`/${Constants.IS_FOLLOWING_PATH}/${following}/${follower}`] = true;
-      // updates[`/${Constants.HAS_FOLLOWERS_PATH}/${follower}/`] = following;
-      // updates[`/${Constants.IS_FOLLOWING_PATH}/${following}/`] = follower;
+    if (authenticated && follower) {
+      updates[`/${Constants.HAS_FOLLOWERS_PATH}/${follower}/${authenticated}`] = true;
+      updates[`/${Constants.IS_FOLLOWING_PATH}/${authenticated}/${follower}`] = true;
     }
-    Helpers.sendInboxMessage(following, follower, Constants.FOLLOW_MESSAGE, null);
+    Helpers.sendInboxMessage(authenticated, follower, Constants.FOLLOW_MESSAGE, null);
     Firebase.database().ref().update(updates);
 
     dispatch({
