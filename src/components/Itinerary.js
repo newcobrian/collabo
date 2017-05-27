@@ -9,6 +9,19 @@ import LikeReviewButton from './LikeReviewButton';
 import CommentContainer from './Review/CommentContainer'
 import { ITINERARY_TYPE } from '../constants';
 
+const EditItineraryLink = props => {
+  if (props.isUser) {
+    return (
+      <Link
+        to={'edit/' + props.itineraryId}
+        className="v-button v-button--light">
+         {/*<i className="ion-gear-a"></i>*/}Edit Itinerary
+      </Link>
+    );
+  }
+  return null;
+};
+
 const mapStateToProps = state => ({
   ...state.itinerary,
   currentUser: state.common.currentUser,
@@ -44,6 +57,8 @@ class Itinerary extends React.Component {
     }
     else {
       const itinerary = this.props.itinerary;
+      const isUser = this.props.authenticated &&
+      this.props.itinerary.userId === this.props.authenticated;
       return (
         <div className="flx flx-row page-common flx-row-top">
           <div className="content-wrapper itinerary flx flx-row flx-row-start flx-col-start">
@@ -70,6 +85,9 @@ class Itinerary extends React.Component {
                         <div className="reviewer-photo DN center-img mrgn-right-lg mrgn-top-sm"><ProxyImage src={this.props.itinerary.createdBy.image}/></div>
                       </Link>
                     </div>
+                  </div>
+                  <div>
+                    <EditItineraryLink isUser={isUser} itineraryId={this.props.itineraryId} />
                   </div>
                 </div>
 
