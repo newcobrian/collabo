@@ -68,7 +68,6 @@ body {
     padding: 0;
     height: 60px;
     font-size: 10px;
-    background-color: #23424D !important;
 }
 .navigation-bar .nav-icon {
   width: 32px;
@@ -77,22 +76,17 @@ body {
 
 
 .nav-module.nav-feed {
-  background: #E1C792;
   order: 1;
 }
 .nav-module.nav-inbox {
-  background: #7871A2;
   order: 2;
 }
 .nav-module.nav-editor {
-  background: #5B9D3A;
   order: 3;
 }
 .nav-module.nav-saved {
-  background: #67BA9A;
 }
 .nav-module.nav-profile {
-  background: #526166;
 }
 .navigation-bar .nav-module.nav-editor {
 }
@@ -204,7 +198,6 @@ body {
   margin-top: 50px;
 }
 .profile-page {
-  margin: 60px 10px;
 }
 
 .form-wrapper {
@@ -296,23 +289,12 @@ width: 100%;
 
 .profile-page .feed-toggle {
     width: 100%;
-    margin: 0 auto;
-    left: 0;
-    top: 150px;
 }
 .profile-page .user-info {
-    top: 50px;
-    width: 100%;
-    left: 0;
-    right: 0;
-    height: 100px;
-    padding: 10px;
+
 }
 .profile-page .profile-info {
-    -webkit-flex-direction: row; 
-   flex-direction: row;
-   -webkit-align-items: flex-start;
-   align-items: flex-start;
+
 }
 .profile-page .user-info .user-img {
   width: 70px;
@@ -327,23 +309,17 @@ width: 100%;
   margin-top: 30px;
 }
 .profile-page .user-info .user-data {
-  margin-left: 10px;
 }
 .profile-page .profile-followers-wrapper {
   font-size: 12px;
   height: 30px;
 }
 .user-bio {
-  max-height: 32px;
-  overflow: auto;
-  font-size: 12px;
-  line-height: 16px;
-  overflow: scroll;
+  font-size: 16px;
+  line-height: 18px;
 }
 .user-action {
-  position: absolute;
-  right: 0px;
-  top: 0px;
+
 }
 .bttn-style.bttn-subtle-gray {
   background: transparent;

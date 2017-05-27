@@ -26,12 +26,14 @@ const Comment = props => {
               </Link>
               {comment.body}
             </div>
-            <span className="date-posted">
-              {new Date(comment.lastModified).toLocaleString([], {year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute:'2-digit'})}
-            </span>
+            <div className="comment-data-wrapper flx flx-row flx-just-start">
+              <span className="date-posted">
+                {new Date(comment.lastModified).toLocaleString([], {year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute:'2-digit'})}
+              </span>
+              <DeleteButton show={show} review={props.review} commentId={comment.id} delete={props.delete} />
+            </div>
           </div>
         </div>
-        <DeleteButton show={show} review={props.review} commentId={comment.id} delete={props.delete} />
       </div>
      
       

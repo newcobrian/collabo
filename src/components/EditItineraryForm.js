@@ -4,11 +4,11 @@ import {Field, FieldArray, reduxForm} from 'redux-form';
 import validate from './validate';
 import {load as loadItinerary} from '../reducers/editor'
 
-const renderField = ({input, label, type, meta: {touched, error}}) => (
+const renderField = ({input, label, placeholder, type, meta: {touched, error}}) => (
   <div>
     <label>{label}</label>
     <div>
-      <input {...input} type={type} placeholder={label} className="input--underline" />
+      <input {...input} type={type} placeholder={placeholder} className="input--underline" />
       {touched && error && <span>{error}</span>}
     </div>
   </div>
@@ -43,14 +43,17 @@ const renderReviews = ({fields, meta: {error, submitFailed}}) => (
               name={`${review}.title`}
               type="text"
               component={renderField}
-              label="Place"
+              label="Tip Name"
+              placeholder="Golden Boy Pizza"
             />
             <Field
               name={`${review}.address`}
               type="text"
               component={renderField}
               label="Address"
+              placeholder="1100 West Street"
             />
+            <div className="flx flx-row">
             <Field
               name={`${review}.rating`}
               type="number"
@@ -58,14 +61,17 @@ const renderReviews = ({fields, meta: {error, submitFailed}}) => (
               max="10"
               component={renderField}
               label="Rating"
-            />
+              placeholder="0"
+            /><div className="rating-total v2-type-body2">/10</div>
+            </div>
             <label>Caption</label>
             <Field
               name={`${review}.caption`}
               type="text"
               component="textarea"
               rows="8"
-              label="Caption"
+              label="Description"
+              placeholder="Write some tips..."
             />
           </div>
 

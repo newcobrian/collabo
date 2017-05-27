@@ -186,7 +186,6 @@ textarea {
 .v2-type-h2.subtitle {
   /* Saint Franks: */
   font-weight: 200;
-  /* H2s - Subtle title: */
   opacity: 1;
   font-size: 26px;
   color: #405B65;
@@ -894,6 +893,7 @@ svg {
     .user-name {
       font-size: 16px;
       font-weight: 700;
+      margin: 10px 0 0;
     }
     .user-bio {
       font-size: 22px;
@@ -1151,7 +1151,7 @@ input, button, select, textarea {
   line-height: inherit;
   border-radius: 2px;
   padding: 10px;
-  border: 1px solid black;
+  border: 1px solid rgba(0,0,0,.3);
   width: 100%;
 }
 input.input--underline {
@@ -1161,8 +1161,15 @@ input.input--underline {
   padding: 0px 10px 0px 0;
   width: 100%;
   border: none;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid rgba(0,0,0,.3);
   font-size: 20px;
+}
+
+input[type="number"] {
+  border: 1px solid rgba(0,0,0,.3);
+  width: 60px;
+  padding: 5px;
+  text-align: right;
 }
 input.input--overline {
   margin: 0;
@@ -1357,16 +1364,17 @@ position: absolute;
     outline-width: 0px;
     margin-top: 10px;
 }
-.article-page .card.comment-wrapper .mod-options {
-    color: #333;
-    font-size: 1rem;
-    position: absolute;
-    right: 0;
-    top: 0;
-    display: none;
+.comment-data .mod-options {
+    color: black;
+    font-size: 10px;
+    display: inline-block;
+    margin: 0 10px;
+    margin-top: 1px;
+    visibility: hidden;
+    opacity: .5;
 }
-.article-page .card.comment-wrapper:hover .mod-options {
-  display: inline-block;
+.comment-data:hover .mod-options {
+    visibility: visible;
 }
 .article-page .comment-form .card-block {
     padding: 5px 0;
