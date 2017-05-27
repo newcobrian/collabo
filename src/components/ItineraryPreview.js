@@ -32,7 +32,6 @@ const ItineraryPreview = props => {
   const itinerary = props.itinerary;
   const canModify = props.authenticated &&
       props.authenticated === props.itinerary.userId;
-
   return (
     <div className="itinerary__cover flx flx-left flx-col-left mrgn-bottom-lg bx-shadow">
 

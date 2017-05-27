@@ -122,7 +122,6 @@ class Profile extends React.Component {
     if (this.props.itineraries.length === 0) {
       return 'No itineraries created.'
     }
-
     let profile = this.props.profile;
     profile.isFollowing = this.props.isFollowing;
 
@@ -145,7 +144,6 @@ class Profile extends React.Component {
      
           <ItineraryList
             itineraries={this.props.itineraries} 
-            reviewsCount={this.props.reviewsCount}
             authenticated={this.props.authenticated} 
             like={this.props.likeReview} 
             unLike={this.props.unLikeReview}

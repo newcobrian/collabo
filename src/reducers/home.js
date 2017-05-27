@@ -6,8 +6,7 @@ export default (state = {}, action) => {
     case GET_USER_FEED:
       return {
         ...state,
-        feed: action.payload
-        // tags: action.payload[0].tags
+        itineraries: action.payload
       };
     case GET_GLOBAL_FEED:
       return {

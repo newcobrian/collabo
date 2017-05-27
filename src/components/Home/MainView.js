@@ -2,6 +2,7 @@ import ReviewList from '../ReviewList';
 import React from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../../actions';
+import ItineraryList from './../ItineraryList';
 
 const mapStateToProps = state => ({
   ...state.home,
@@ -21,22 +22,11 @@ const MainView = props => {
   const onSetPage = page => props.onSetPage(props.tab, page);
   return (
     <div>
-    
-
-      <ReviewList
-        reviews={props.feed}
-        tag={props.tag}
-        reviewsCount={props.reviewsCount}
-        currentPage={props.currentPage}
-        onSetPage={onSetPage} 
-        authenticated={props.authenticated} 
-        like={props.likeReview} 
-        unLike={props.unLikeReview} 
-        save={props.saveReview} 
-        unSave={props.unSaveReview}
-        updateRating={props.onUpdateRating} 
-        deleteReview={props.onDeleteReview}
-        showModal={props.showModal} />
+       <ItineraryList
+          itineraries={props.itineraries} 
+          authenticated={props.authenticated} 
+          like={props.likeReview} 
+          unLike={props.unLikeReview} />
     </div>
   );
 };

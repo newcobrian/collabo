@@ -31,13 +31,7 @@ class Home extends React.Component {
   }
 
   componentWillMount() {
-    // const tab = this.props.authenticated ? 'feed' : 'all';
-    // const articlesPromise = this.props.token ?
-    //   agent.Articles.feed() :
-    //   agent.Articles.all();
-
-    // this.props.onLoad(tab, Promise.all([agent.Tags.getAll(), articlesPromise]));
-    this.props.getUserFeed(this.props.authenticated, this.props.tag);
+    this.props.getUserFeed(this.props.authenticated);
     this.props.sendMixpanelEvent('Friend feed loaded');
   }
 
