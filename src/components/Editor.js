@@ -38,44 +38,8 @@ class Editor extends React.Component {
 
     this.submitForm = (values) => {
       this.props.onEditorSubmit(this.props.authenticated, this.props.itineraryId, values.itinerary);
-
-      // this.props.onEditorSubmit(values);
-
-
-      // if (!this.props.title) {
-      //   this.props.editorSubmitError('product name');
-      // }
-      // else {
-      //   const subject = {
-      //     title: this.props.title
-      //   };
-
-      //   if (this.props.address) subject.address = this.props.address;
-      //   if (this.props.address) subject.address = this.props.address;
-
-      //   let review = {};
-      //   if (this.props.review || this.props.caption) {
-      //     if (this.props.rating) review.rating = this.props.rating;
-      //     if (this.props.caption) review.caption = this.props.caption;
-      //   }        
-
-      //   this.props.setInProgress();
-      //   this.props.onEditorSubmit(subject, this.props.image, review, this.props.tagInput);
-      // }
     };
   }
-
-  // componentWillReceiveProps(nextProps) {
-  //   if (this.props.params.slug !== nextProps.params.slug) {
-  //     if (nextProps.params.slug) {
-  //       this.props.onEditorUnload();
-  //       return this.props.onEditorLoad();
-  //       // return this.props.onLoad(agent.Articles.get(this.props.params.slug));
-  //     }
-  //     this.props.onEditorLoad();
-  //     // this.props.onLoad(null);
-  //   }
-  // }
 
   componentWillMount() {
     if (this.props.params.iid) {
@@ -92,7 +56,8 @@ class Editor extends React.Component {
     return (
       <EditItineraryForm 
         onSubmit={this.submitForm} 
-        itinerary={this.props.itinerary} />
+        itinerary={this.props.itinerary}
+        itineraryId={this.props.itineraryId} />
     )
     // if (!this.props.itinerary) {
     //   return (

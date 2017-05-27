@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {Field, FieldArray, reduxForm} from 'redux-form';
 import validate from './validate';
 import {load as loadItinerary} from '../reducers/editor'
+import { Link } from 'react-router';
 
 const renderField = ({input, label, placeholder, type, meta: {touched, error}}) => (
   <div>
@@ -107,7 +108,7 @@ let EditItineraryForm = props => {
             <button className="v-button mrgn-top-lg" type="submit" disabled={submitting}>Save & Exit</button>
           </div>
           <div>
-            <button className="v-button v-button--light mrgn-top-sm" type="submit" disabled={submitting}>Exit without Saving</button>
+            <Link to={'itinerary/' + props.itineraryId} className="v-button v-button--light mrgn-top-sm" type="submit" disabled={submitting}>Exit without Saving</Link>
           </div>
         </div>
 
@@ -133,7 +134,8 @@ EditItineraryForm = reduxForm({
 
 EditItineraryForm = connect(
   state => ({
-    initialValues: state.editor.data
+    initialValues: state.editor.data,
+    itineraryId: state.editor.itineraryId
   }),
   {load: loadItinerary} // bind account loading action creator
 )(EditItineraryForm)
