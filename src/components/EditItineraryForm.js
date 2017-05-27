@@ -101,7 +101,7 @@ let EditItineraryForm = props => {
             <Field name="itinerary.geo" component={renderField} type="text" label="Location" />
           </div>
           <div>
-            <label>Caption</label>
+            <label>Description</label>
             <Field name="itinerary.description" component="textarea" rows="12" type="text" label="Description" />
           </div>
           <div>
