@@ -615,7 +615,7 @@ export function onItineraryLoad(auth, itineraryId) {
                 type: ITINERARY_PAGE_LOADED,
                 itineraryId: itineraryId,
                 itinerary: itineraryObject,
-                reviews: []
+                reviewList: []
               })
             }
             else {
@@ -667,7 +667,8 @@ export function onItineraryLoad(auth, itineraryId) {
       else {
         dispatch({
           type: ITINERARY_PAGE_LOADED,
-          itineraryId: itineraryId
+          itineraryId: itineraryId,
+          itinerary: []
         })
       }
     })
