@@ -117,6 +117,14 @@ textarea {
 .v2-type-body2 {
   /* “The almond milk ice: */
   font-weight: 300;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  line-height: 32px;
+  font-family: 'Open Sans', sans-serif;
+}
+.v2-type-body3 {
+  /* “The almond milk ice: */
+  font-weight: 300;
   font-size: 18px;
   letter-spacing: 0.5px;
   line-height: 32px;
@@ -200,8 +208,8 @@ textarea {
 }
 .v2-type-h4 {
   /* H4 - Categories: */
-    opacity: .4;
-    font-size: 18px;
+    opacity: 1;
+    font-size: 20px;
     letter-spacing: 0.5px;
     font-weight: 200;
     width: 100%;
@@ -217,6 +225,10 @@ textarea {
     font-family: 'Open Sans', sans-serif;
 }
 
+.highlight-green {
+  color: #24CC93;
+  display: inline;
+}
 .ta-left {
   text-align: left;
 }
@@ -248,6 +260,7 @@ textarea {
 .form-wrapper {
     width: 355px;
     margin: 0 auto;
+    padding: 20px;
 }
 .bx-shadow,
 .box-shadow {
@@ -286,15 +299,16 @@ textarea {
 ******
 ******/
 .temp-image {
-  width: 200px;
+  width: 100%;
   background: white;
-  height: 150px;
-  margin: 0 40px 20px 0;
-  text-align: center;
-  padding-top: 60px;
-  color: #ccc;
-  border-radius: 100px;
-  border: rgba(0,0,0,1) 1px solid;
+  height: auto;
+  padding: 10px;
+  text-align: left;
+  border-radius: 0;
+  border: 1px solid rgba(0,0,0,.3);
+  font-size: 16px;
+  margin-bottom: 10px;
+  opacity: .3;
 }
 .temp-text {
   width: 100%;
@@ -705,7 +719,7 @@ svg {
   width: 100%;
 }
 .page-title-wrapper {
-  padding: 15px 0;
+  padding: 30px 0;
   width: 100%;
 }
 .page-title-wrapper.with-feed-toggle {
@@ -725,10 +739,9 @@ svg {
   width: 100%;
 }
 .feed-wrapper {
-    width: 355px;
-    overflow: hidden;
-    margin: 0 auto;
-    padding: 10px 0 0;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
 }
 .tag-bar {
   overflow: scroll;
@@ -852,7 +865,6 @@ svg {
 ******
 ******/
 .home-page {
-    margin-top: 120px;
 }
 
 .feed-toggle {
@@ -1115,6 +1127,7 @@ li.nav-divider {
   font-size: 14px;
 }
 .editor-page .form-group.apple {
+  margin: 10px 0;
 }
 .editor-page .form-control.caption {
   border: none
@@ -1158,11 +1171,10 @@ input.input--underline {
   margin: 0 0 10px 0;
   line-height: inherit;
   border-radius: 2px;
-  padding: 0px 10px 0px 0;
+  padding: 10px;
   width: 100%;
-  border: none;
-  border-bottom: 1px solid rgba(0,0,0,.3);
-  font-size: 20px;
+  border: 1px solid rgba(0,0,0,.3);
+  font-size: 16px;
 }
 
 input[type="number"] {
@@ -1184,11 +1196,13 @@ input.input--overline {
 }
 
 label {
-   cursor: pointer;
-   font-size: 13px;
-   margin-bottom: 0;
-   letter-spacing: 2px;
-   /* Style as you please, it will become the visible UI component. */
+  cursor: pointer;
+  font-size: 10px;
+  margin-bottom: 0;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: .4;
+  font-weight: 600;
 }
 
 .upload-image-button {
@@ -1382,22 +1396,22 @@ position: absolute;
     height: 50px;
 }
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: black;
+  color: #60C2AF;
   opacity: .3;
   font-weight: 300;
 }
 ::-moz-placeholder { /* Firefox 19+ */
-  color: black;
+  color: #60C2AF;
   opacity: .3;
   font-weight: 300;
 }
 :-ms-input-placeholder { /* IE 10+ */
-  color: black;
+  color: #60C2AF;
   opacity: .3;
   font-weight: 300;
 }
 :-moz-placeholder { /* Firefox 18- */
-  color: black;
+  color: #60C2AF;
   opacity: .3;
   font-weight: 300;
 }

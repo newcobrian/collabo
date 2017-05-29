@@ -19,17 +19,7 @@ const renderReviews = ({fields, meta: {error, submitFailed}}) => (
   <ul>
     {fields.map((review, index) => (
       <li key={index}>
-        <div className="flx flx-row-top itinerary__edit-tip mrgn-bottom-lg">
-          <div className="temp-image">
-            upload image
-            {/**}        <Field 
-            name={`${review}.image`}
-            type="file"
-            accept="image/*" 
-            component={renderField}
-            label="Image"
-          /> **/}
-          </div>
+        <div className="flx flx-col itinerary__edit-tip mrgn-bottom-sm">
 
           <div className="temp-text">  
             <div className="flx flx-row">
@@ -40,6 +30,19 @@ const renderReviews = ({fields, meta: {error, submitFailed}}) => (
               title="Remove Review"
               onClick={() => fields.remove(index)}>Delete Tip</button>
             </div>
+
+            <label>Upload Images</label>
+            <div className="temp-image">
+              
+              {/**}        <Field 
+              name={`${review}.image`}
+              type="file"
+              accept="image/*" 
+              component={renderField}
+              label="Image"
+            /> **/}
+            </div>
+
             <Field
               name={`${review}.title`}
               type="text"
@@ -90,7 +93,13 @@ let EditItineraryForm = props => {
   const {handleSubmit, pristine, reset, submitting} = props
   return ( 
     <form onSubmit={handleSubmit}>
+
+    <div className="page-title-wrapper center-text">
+      <div className="v2-type-h2">Add Itinerary Tips</div>
+    </div>
+
     <div className="flx flx-row page-common flx-center">
+
       <div className="content-wrapper itinerary flx flx-row-top">
 
         <div className="itinerary__summary ta-left">

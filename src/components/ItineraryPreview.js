@@ -69,7 +69,7 @@ const ItineraryPreview = props => {
                 {itinerary.geo}
               </div>
               <div className="v2-type-body1">
-                {itinerary.reviewsCount} Tips by {itinerary.createdBy.username}
+                <div className="highlight-green">{itinerary.reviewsCount} Tips</div> by {itinerary.createdBy.username}
               </div>
               <div className="v2-type-caption">
                 {(new Date(itinerary.lastModified)).toLocaleString()}

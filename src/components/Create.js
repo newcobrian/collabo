@@ -19,7 +19,7 @@ const SubjectInfo = props => {
 	if (props.subject) {
 		return (
 			<div>
-				<div className="roow roow-row-top">
+				<div className="flx flx-row-top">
 					<div className="subject-image create-subject-image">{renderImage(props.image)}</div>
 				</div>
 			</div>
@@ -91,13 +91,13 @@ class Create extends React.Component {
 	renderRating(subject, review) {
 		if (subject && review) {
 			return (
-				<div className="popup-overlay roow roow-center-all">
+				<div className="popup-overlay flx flx-center-all">
 					<div className="create-popup">
 						<SubjectInfo subject={this.props.subject} image={this.props.image} />
 						<div className="">
 					      	<fieldset className="form-group no-margin">
 						        <div className={'rating-container rating-wrapper-' + this.props.rating}>
-	                                <div className="roow roow-row-right">
+	                                <div className="flx flx-row-right">
 	                                  <button className="rating-graphic rating-2" onClick={this.onRatingsChange(2)}><ProxyImage src={this.props.userImage}/></button>
 	                                  <div className="rating-divider"></div> 
 	                                  <button className="rating-graphic rating-1" onClick={this.onRatingsChange(1)}><ProxyImage src={this.props.userImage}/></button>
@@ -122,7 +122,7 @@ class Create extends React.Component {
 						        </textarea>
 						      </fieldset>
 						  </div>
-					    <div className="roow roow-row-right">
+					    <div className="flx flx-row-right">
 							  <a href="#/create">
 							  <button className="bttn-style bttn-sm bttn-subtle-gray"
 							  	disabled={this.props.inProgress}
@@ -144,13 +144,13 @@ class Create extends React.Component {
 		}
 		else if (subject) {
 			return (
-				<div className="popup-overlay roow roow-center-all">
+				<div className="popup-overlay flx flx-center-all">
 					<div className="create-popup">
 						<SubjectInfo subject={this.props.subject} image={this.props.image} />
 						<div className="">
 					      	<fieldset className="form-group no-margin">
 						        <div className={'rating-container rating-wrapper-' + this.props.rating}>
-	                                <div className="roow roow-row-right">
+	                                <div className="flx flx-row-right">
 	                                  <button className="rating-graphic rating-2" onClick={this.onRatingsChange(2)}><ProxyImage src={this.props.userImage}/></button>
 	                                  <div className="rating-divider"></div> 
 	                                  <button className="rating-graphic rating-1" onClick={this.onRatingsChange(1)}><ProxyImage src={this.props.userImage}/></button>
@@ -175,7 +175,7 @@ class Create extends React.Component {
 						        </textarea>
 						      </fieldset>
 						  </div>
-						  <div className="roow roow-row-right">
+						  <div className="flx flx-row-right">
 							  <a href="#/create">
 							  	<button className="bttn-style bttn-sm bttn-subtle-gray"
 							  	disabled={this.props.inProgress}
@@ -196,10 +196,10 @@ class Create extends React.Component {
 		    )
 		}
 		else return (
-			<div className="form-wrapper roow roow-col-left v2-form">
+			<div className="form-wrapper flx flx-col-left v2-form">
               <form>
                 <fieldset>
-                  <div className="roow roow-row-top">
+                  <div className="flx flx-row-top">
 
                     <fieldset className="form-group">
 
@@ -233,7 +233,7 @@ class Create extends React.Component {
                   </fieldset>
                   <fieldset className="form-group no-margin">
                     <div className={'rating-container rating-wrapper-' + this.props.rating}>
-                        <div className="roow roow-row-right">
+                        <div className="flx flx-row-right">
                           <button className="rating-graphic rating-2" onClick={this.onRatingsChange(2)}><ProxyImage src={this.props.userImage}/></button>
                           <div className="rating-divider"></div> 
                           <button className="rating-graphic rating-1" onClick={this.onRatingsChange(1)}><ProxyImage src={this.props.userImage}/></button>
@@ -287,17 +287,17 @@ class Create extends React.Component {
 
 	render() {
 		return (
-			<div className="roow roow-col roow-center-all page-common editor-page create-page">
+			<div className="flx flx-col flx-center-all page-common editor-page create-page">
 				<div className="page-title-wrapper center-text">
-				  <div className="v2-type-h2 subtitle">Create Itinerary</div>
+				  <div className="v2-type-h2">Create New Itinerary</div>
 				</div>
-				<div className="bx-shadow default-card-white roow roow-col roow-center-all create-wrapper mrgn-top-sm">
+				<div className="bx-shadow default-card-white flx flx-col flx-center-all create-wrapper mrgn-top-sm">
 					<ListErrors errors={this.props.errors}></ListErrors>
-		            <div className="form-wrapper roow roow-col-left">
+		            <div className="form-wrapper flx flx-col-left">
 			            <form>
 							<fieldset className="form-group no-margin apple">
 		                      <input
-		                        className="form-control"
+		                        className="input--underline"
 		                        type="text"
 		                        placeholder="Title"
 		                        required
@@ -306,7 +306,7 @@ class Create extends React.Component {
 		                    </fieldset>
 		                    <fieldset className="form-group no-margin apple">
 		                      <input
-		                        className="form-control"
+		                        className="input--underline"
 		                        type="text"
 		                        placeholder="Location"
 		                        required
@@ -314,17 +314,18 @@ class Create extends React.Component {
 		                        onChange={this.changeGeo} />
 		                    </fieldset>
 							<fieldset className="form-group no-margin apple">
-		                      <input
-		                        className="form-control"
+		                      <textarea
+		                        className="input--underline"
 		                        type="text"
-		                        placeholder="Description"
+		                        rows="6"
+		                        placeholder="What's the story behind this itinerary?"
 		                        required
 		                        value={this.props.description}
 		                        onChange={this.changeDescription} />
 		                    </fieldset>
 
 		                    <button
-		                    className="bttn-style bttn-submit"
+		                    className="v-button"
 		                    type="button"
 		                    disabled={this.props.inProgress}
 		                    onClick={this.submitForm}>

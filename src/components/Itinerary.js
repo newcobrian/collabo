@@ -61,9 +61,9 @@ class Itinerary extends React.Component {
       this.props.itinerary.userId === this.props.authenticated;
       return (
         <div className="flx flx-row page-common flx-row-top">
-          <div className="content-wrapper itinerary flx flx-row flx-row-start flx-col-start">
+          <div className="content-wrapper itinerary flx flx-row">
 
-            <div className="itinerary__summary ta-left">
+            <div className="itinerary__summary option-stackx ta-left">
 
               <fieldset>
                 <div className="flx flx-row mrgn-bottom-md">

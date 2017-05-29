@@ -43,7 +43,7 @@ class Home extends React.Component {
     return (
       <div className="page-title-container">
         <div className="page-title-wrapper center-text">
-          <div className="v2-type-h2 subtitle">WELCOME TO TRIPOOPOO</div>
+          <div className="v2-type-h2 subtitle">What's Your View of the World?</div>
         </div>
 
         <ul className="nav nav-pills outline-active tag-bar">

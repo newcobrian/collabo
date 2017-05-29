@@ -50,7 +50,7 @@ const TipPreview = props => {
         <div className="subject-name-container center-text">
           
           { /** Hidden Delete Button **/ }
-          <div className="delete-wrapper">
+          <div className="DN delete-wrapper">
             <div className="delete-button">
               <ReviewActions review={review} authenticated={props.authenticated} 
               canModify={canModify} deleteReview={props.deleteReview} reviewDetailPath={props.reviewDetailPath} />
