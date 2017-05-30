@@ -1,5 +1,5 @@
 body {
-  font-family: 'Arimo', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   color: #161F34;
   letter-spacing:1px;
   padding-top: 70px;
@@ -185,10 +185,10 @@ textarea {
 }
 .v2-type-h2 {
   /* Saint Franks: */
-  font-weight: 300;
+  font-weight: 500;
   font-size: 24px;
-  letter-spacing: 0.5px;
-  line-height: 30px;
+  letter-spacing: 1px;
+  line-height: 33px;
   color: black;
 }
 .v2-type-h2.subtitle {
@@ -529,7 +529,7 @@ textarea {
     top: 0;
     right: 0;
     left: 0;
-    max-width: 1110px;
+    max-width: 1380px;
     margin: 0 auto;
 }
 .logo-module {
@@ -708,7 +708,7 @@ svg {
   background-color: #FFFFFF;
 }
 .content-wrapper {
-  max-width: 1110px;
+  max-width: 1380px;
   width: 100%;
 }
 .page-common.page-no-push {
@@ -753,6 +753,9 @@ svg {
 
 .opa-60 {
   opacity: .6;
+}
+.opa-30 {
+  opacity: .3;
 }
 
 .mrgn-all-sm {
@@ -1398,22 +1401,30 @@ position: absolute;
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #60C2AF;
   opacity: .3;
-  font-weight: 300;
+  font-weight: 100;
+  font-size: 14px;
+  font-family: 'Open Sans', sans-serif;
 }
 ::-moz-placeholder { /* Firefox 19+ */
   color: #60C2AF;
   opacity: .3;
-  font-weight: 300;
+  font-weight: 100;
+  font-size: 14px;
+  font-family: 'Open Sans', sans-serif;
 }
 :-ms-input-placeholder { /* IE 10+ */
   color: #60C2AF;
   opacity: .3;
-  font-weight: 300;
+  font-weight: 100;
+  font-size: 14px;
+  font-family: 'Open Sans', sans-serif;
 }
 :-moz-placeholder { /* Firefox 18- */
   color: #60C2AF;
   opacity: .3;
-  font-weight: 300;
+  font-weight: 100;
+  font-size: 14px;
+  font-family: 'Open Sans', sans-serif;
 }
 .article-page .comment-form .card-block textarea:focus {
   outline: -webkit-focus-ring-color auto 1px;

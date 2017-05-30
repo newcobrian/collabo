@@ -33,16 +33,9 @@ const ItineraryPreview = props => {
   const canModify = props.authenticated &&
       props.authenticated === props.itinerary.userId;
   return (
-    <div className="itinerary__cover flx flx-left flx-col-left mrgn-bottom-lg bx-shadow">
+    <div className="itinerary__cover flx flx-left mrgn-bottom-lg">
 
-      <Link to={`itinerary/${itinerary.id}`}>
-      <div className="subject-image">
-        <img className="center-img" src="../img/views.ramen.temp.png"/>
-        {/*<ProxyImage className="gray-border" src={itinerary.subjectImage ? itinerary.subjectImage : ""}/>*/}
-      </div>
-      </Link>
-
-      <div className="itinerary__cover__text flx flx-col flx-align-start flx-just-space-between ta-left">
+      <div className="itinerary__cover__text flx flx-col flx-align-center flx-just-space-between ta-center">
         
         {/** DELETE BUTTON !!!! NOT FUNCTIONAL !!!! **/}
         <div className="delete-wrapper DN">
@@ -52,45 +45,44 @@ const ItineraryPreview = props => {
           </div>
         </div>
 
+
+        {/** USER PHOTO AND INFO **/}
+        <div className="flx flx-col flx-just-center flx-align-center ta-center mrgn-bottom-md">
+          <div className="itinerary__cover__author-photo mrgn-bottom-sm">
+            <ProxyImage src={itinerary.createdBy.image} className="center-img" />
+          </div>
+          <div className="v2-type-body1 opa-30">
+            {itinerary.reviewsCount} Tips by {itinerary.createdBy.username}
+          </div>
+          <div className="v2-type-mono">
+            {itinerary.geo}
+          </div>
+        </div>
+
+
         {/** TITLE **/}
         <Link to={`itinerary/${itinerary.id}`}>
-        <div className="text-subject-name v2-type-h2">
+        <div className="text-subject-name ta-center v2-type-h2">
           {itinerary.title}
         </div>
         </Link>
 
-          {/** USER PHOTO AND INFO **/}
-          <div className="flx flx-row mrgn-bottom-md">
-            <div className="itinerary__cover__author-photo">
-              <ProxyImage src={itinerary.createdBy.image} className="center-img" />
-            </div>
-            <div className="ta-left flx flx-col flx-just-center">
-              <div className="v2-type-mono">
-                {itinerary.geo}
-              </div>
-              <div className="v2-type-body1">
-                <div className="highlight-green">{itinerary.reviewsCount} Tips</div> by {itinerary.createdBy.username}
-              </div>
-              <div className="v2-type-caption">
-                {(new Date(itinerary.lastModified)).toLocaleString()}
-              </div>
-            </div>
-          </div>
+        
 
         {/** DESCRIPTION **/}
-        <div className="itinerary__cover__descrip flx flx-row-top">
-          <div className="flx flx-col">
-              <div className="subject-caption v2-type-body1 pdding-top-sm">
+        <div className="itinerary__cover__descrip ta-center flx flx-row-top">
+          <div className="flx flx-col flx-align-center">
+              <div className="subject-caption v2-type-body2 pdding-top-sm">
                 {itinerary.description}
-              </div>
-              <div className="review-timestamp ">
-                {(new Date(itinerary.lastModified)).toLocaleString()}
-              </div>  
+              </div> 
           </div>
         </div>
 
       {/** CTA **/}
-        <div className="flx flx-row flex-wrap cta-container">
+        <div className="flx flx-row flex-wrap flx-just-space-between cta-container">
+          <div className="review-timestamp ta-center">
+            {(new Date(itinerary.lastModified)).toLocaleString()}
+          </div> 
           <div className="cta-box flx flx-row">
             <CommentPreview comments={props.itinerary.comments} itinerary={props.itinerary} />
             <div className="cta-wrapper flx flx-row flex-item-right">
@@ -106,6 +98,15 @@ const ItineraryPreview = props => {
           </div>             
         </div>
       </div> 
+
+      <Link to={`itinerary/${itinerary.id}`}>
+      <div className="subject-image">
+        <img className="center-img" src="../img/views.ramen.temp.png"/>
+        {/*<ProxyImage className="gray-border" src={itinerary.subjectImage ? itinerary.subjectImage : ""}/>*/}
+      </div>
+      </Link>
+
+
     </div>
   );
 }

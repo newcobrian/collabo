@@ -17,7 +17,6 @@
 
 }
 .itinerary__cover__author-photo {
-    margin-right: 20px;
     width: 70px;
     height: 70px;
     border-radius: 100px;
@@ -93,23 +92,23 @@
 	height: 400px;
 	width: 500px;
 	margin: 20px;
+	border: 1px solid rgba(0,0,0,.1);
 }
 .home-page .itinerary__cover {
 	margin: 20px 0;
 }
 .itinerary__cover .subject-image {
-	width: 160px;
+	width: 166.666px;
 	height: 400px;
 }
 
 .itinerary__cover__text {
-	padding: 20px;
+	padding: 30px 20px 20px;
     width: 100%;
     margin-top: -1px;
     height: 100%;
 }
 .itinerary__cover__text .v2-type-h2 {
-	font-size: 32px;
 }
 .tip-count {
 	color: #24CC93;

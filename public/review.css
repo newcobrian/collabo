@@ -394,7 +394,7 @@ box-shadow: none !important;
 }
 .cta-box {
   margin-top: -1px;
-  width: 100%;
+  width: auto;
 }
 .cta-box .icoon {
   font-size: 32px;
