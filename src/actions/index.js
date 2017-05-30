@@ -1151,6 +1151,35 @@ export function generateImageFileName()
     return text;
 }
 
+export function testImageUpload(auth, itineraryId, itinerary) {
+  let imageFile = itinerary.reviews[0].images[0];
+  if (imageFile) {
+    const imageUpdates = {};
+    const storageRef = Firebase.storage().ref();
+    
+    const metadata = {
+      contentType: imageFile.type
+    }
+    let fileName = generateImageFileName();
+    const uploadTask = storageRef.child('images/' + fileName).put(imageFile, metadata);
+    uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+    function(snapshot) {
+      }, function(error) {
+        console.log(error.message)
+    }, function() {
+      const downloadURL = uploadTask.snapshot.downloadURL;
+      if (downloadURL) {
+        console.log(downloadURL)
+        // let imageObject = {
+        //   url: downloadURL,
+        //   lastModified: Firebase.database.ServerValue.TIMESTAMP,
+        //   uploader: uid
+        // }
+      }
+    })
+  }
+}
+
 export function onEditorSubmit(auth, itineraryId, itinerary) {
   return dispatch => {
     let updates = {};
@@ -1166,6 +1195,7 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
       }
 
       let review = Helpers.makeReview(reviews[i], reviews[i].subjectId, lastModified);
+
       // if review doesnt exist, create it
       if (!reviews[i].reviewId) {
         reviews[i].reviewId = Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + auth).push(review).key;
@@ -1179,6 +1209,39 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
 
       let reviewObject = {};      
       reviewsList[i] = Object.assign(reviewObject, { subjectId: reviews[i].subjectId }, { reviewId: reviews[i].reviewId });;
+
+      // save the images on each review
+      let subjectId = reviews[i].subjectId;
+      if (reviews[i].images) {    
+        reviews[i].images.forEach(function(imageFile) {
+          const storageRef = Firebase.storage().ref();
+          
+          const metadata = {
+            contentType: imageFile.type
+          }
+          // save all the new images in Firebase storage, get all the image URLs
+          let fileName = generateImageFileName();
+          const uploadTask = storageRef.child('images/' + fileName).put(imageFile, metadata);
+          uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+          function(snapshot) {
+            }, function(error) {
+              console.log(error.message)
+          }, function() {
+            const downloadURL = uploadTask.snapshot.downloadURL;
+            if (downloadURL) {
+              console.log(downloadURL)
+              let imageObject = {
+                url: downloadURL,
+                lastModified: Firebase.database.ServerValue.TIMESTAMP,
+                userId: auth
+              }
+               // save images in images and images-by-user
+              let imageId = Firebase.database().ref(Constants.IMAGES_PATH + '/' + subjectId).push(imageObject).key;
+              Firebase.database().ref(Constants.IMAGES_BY_USER_PATH + '/' + auth + '/' + subjectId + '/' + imageId).update(imageObject);
+            }
+          })
+        })
+      }
     }
 
     let itineraryByUserObject = Helpers.makeItinerary(auth, itinerary, lastModified);

@@ -4,6 +4,7 @@ import {Field, FieldArray, reduxForm} from 'redux-form';
 import validate from './validate';
 import {load as loadItinerary} from '../reducers/editor'
 import { Link } from 'react-router';
+import Dropzone from 'react-dropzone';
 
 const renderField = ({input, label, placeholder, type, meta: {touched, error}}) => (
   <div>
@@ -15,12 +16,43 @@ const renderField = ({input, label, placeholder, type, meta: {touched, error}}) 
   </div>
 )
 
+const renderDropzoneInput = (field) => {
+  const files = field.input.value;
+  const dropHandler = (filesToUpload, e) => {    
+    field.input.onChange(filesToUpload)
+  }
+
+  return (
+    <div>
+      <Dropzone
+        name={field.name}
+        onDrop={dropHandler}
+        accept="image/*"
+      >
+        <div>Add your own photos</div>
+      </Dropzone>
+      {field.meta.touched &&
+        field.meta.error &&
+        <span className="error">{field.meta.error}</span>}
+      {files && Array.isArray(files) && (
+        <ul>
+          { files.map((file, i) => <li key={i}>{file.name}</li>) }
+        </ul>
+      )}
+    </div>
+  );
+}
+
+const customFileInput = (field) => {
+  delete field.input.value; // <-- just delete the value property
+  return <input type="file" id="file" accept="image/*" className="temp-image" {...field.input} multiple />;
+};
+
 const renderReviews = ({fields, meta: {error, submitFailed}}) => (
   <ul>
     {fields.map((review, index) => (
       <li key={index}>
         <div className="flx flx-col itinerary__edit-tip mrgn-bottom-sm">
-
           <div className="temp-text">  
             <div className="flx flx-row">
               <div className="v2-type-h4">Tip #{index + 1}</div>
@@ -31,18 +63,19 @@ const renderReviews = ({fields, meta: {error, submitFailed}}) => (
               onClick={() => fields.remove(index)}>Delete Tip</button>
             </div>
 
+
+
             <label>Upload Images</label>
-            <div className="temp-image">
-              
-              {/**}        <Field 
+             <Field
+            name={`${review}.images`}
+            component={renderDropzoneInput}/>
+
+ {/**}           <Field 
               name={`${review}.image`}
               type="file"
-              accept="image/*" 
-              component={renderField}
-              label="Image"
-            /> **/}
-            </div>
-
+              component={customFileInput}
+              label="Image" />
+**/}
             <Field
               name={`${review}.title`}
               type="text"
@@ -91,6 +124,7 @@ const renderReviews = ({fields, meta: {error, submitFailed}}) => (
 
 let EditItineraryForm = props => {
   const {handleSubmit, pristine, reset, submitting} = props
+
   return ( 
     <form onSubmit={handleSubmit}>
 

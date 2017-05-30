@@ -37,6 +37,9 @@ class Editor extends React.Component {
     // };
 
     this.submitForm = (values) => {
+        // console.log('VALUES = ' + JSON.stringify(values))
+        // console.log('image = ' + values.itinerary.reviews[0].images[0])
+        // this.props.testImageUpload(this.props.authenticated, this.props.itineraryId, values.itinerary);
       this.props.onEditorSubmit(this.props.authenticated, this.props.itineraryId, values.itinerary);
     };
   }
