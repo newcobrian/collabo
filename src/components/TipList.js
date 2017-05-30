@@ -29,6 +29,7 @@ const TipList = props => {
               unLike={props.unLike}
               userInfo={props.userInfo}
               comments={reviewItem.comments}
+              images={reviewItem.images}
             />
           );
         })

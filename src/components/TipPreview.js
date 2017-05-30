@@ -32,6 +32,20 @@ const CommentPreview = props => {
   }
 }
 
+const ImagePicker = props => {
+  if (props.images.length > 1) {
+    let index = Math.floor(Math.random() * (props.images.length-1))  ;
+    return (
+      <ProxyImage src={props.images[index]} className="center-img" />
+    )
+  }
+  else {
+    return (
+    <img className="center-img" src="../img/views.ramen.temp.png"/>
+    )
+  }
+}
+
 const TipPreview = props => {
   const review = props.review;
   const canModify = props.authenticated &&
@@ -42,7 +56,7 @@ const TipPreview = props => {
 
       <Link to={`review/${review.subjectId}/${review.id}`}>
       <div className="subject-image">
-        <img className="center-img" src="../img/views.ramen.temp.png"/>
+        <ImagePicker images={props.images} />
       </div>
       </Link>
 

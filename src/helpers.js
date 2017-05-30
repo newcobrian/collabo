@@ -3,10 +3,12 @@ import * as Constants from './constants';
 import 'whatwg-fetch';
 
 export function getImagePath(imagesObject) {
-  for (var key in imagesObject) {
-    if (!imagesObject.hasOwnProperty(key)) continue;
-    return imagesObject[key].url;
-  }
+	let imagesArray = [];
+	for (var key in imagesObject) {
+    	if (!imagesObject.hasOwnProperty(key)) continue;
+    	imagesArray.push(imagesObject[key].url);
+  	}
+  	return imagesArray;
 }
 
 export function getTagsArray(tagsSnap) {
