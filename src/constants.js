@@ -40,6 +40,8 @@ export const INBOX_COUNTER_PATH = '/counters/inbox'
 export const TAGS_PATH = '/tags'
 export const IMAGES_PATH = '/images'
 export const IMAGES_BY_USER_PATH = '/images-by-user'
+export const IMAGES_ITINERARIES_PATH = '/images-itineraries'
+export const IMAGES_ITINERARIES_BY_USER_PATH = '/images-itineraries-by-user'
 export const ITINERARIES_PATH = '/itineraries'
 	// stored itinerary id -> itinerary object w geoId and userId
 export const ITINERARIES_BY_USER_PATH = '/itineraries-by-user'

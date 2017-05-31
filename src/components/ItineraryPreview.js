@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import LikeReviewButton from './LikeReviewButton';
 import ProxyImage from './ProxyImage';
+import ImagePicker from './ImagePicker';
 import ReviewActions from './ReviewActions';
 import FORWARD from '../constants';
 import { FORWARD_MODAL, REVIEW_MODAL } from '../actions';
@@ -101,7 +102,7 @@ const ItineraryPreview = props => {
 
       <Link to={`itinerary/${itinerary.id}`}>
       <div className="subject-image">
-        <img className="center-img" src="../img/views.ramen.temp.png"/>
+        <ImagePicker images={itinerary.images} />
         {/*<ProxyImage className="gray-border" src={itinerary.subjectImage ? itinerary.subjectImage : ""}/>*/}
       </div>
       </Link>

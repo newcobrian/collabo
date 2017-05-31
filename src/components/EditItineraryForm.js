@@ -148,6 +148,12 @@ let EditItineraryForm = props => {
             <Field name="itinerary.description" component="textarea" rows="12" type="text" label="Description" />
           </div>
           <div>
+            <label>Upload Images</label>
+             <Field
+            name={`itinerary.images`}
+            component={renderDropzoneInput}/>
+          </div>
+          <div>
             <button className="v-button mrgn-top-lg" type="submit" disabled={submitting}>Save & Exit</button>
           </div>
           <div>

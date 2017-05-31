@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import LikeReviewButton from './LikeReviewButton';
 import SaveReviewButton from './SaveReviewButton';
 import ProxyImage from './ProxyImage';
+import ImagePicker from './ImagePicker';
 import ReviewActions from './ReviewActions';
 import FORWARD from '../constants';
 import { FORWARD_MODAL, REVIEW_MODAL } from '../actions';
@@ -28,20 +29,6 @@ const CommentPreview = props => {
           Comment
         </div>
       </Link>
-    )
-  }
-}
-
-const ImagePicker = props => {
-  if (props.images.length > 1) {
-    let index = Math.floor(Math.random() * (props.images.length-1))  ;
-    return (
-      <ProxyImage src={props.images[index]} className="center-img" />
-    )
-  }
-  else {
-    return (
-    <img className="center-img" src="../img/views.ramen.temp.png"/>
     )
   }
 }

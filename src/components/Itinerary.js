@@ -4,6 +4,7 @@ import * as Actions from '../actions';
 import * as Constants from '../constants';
 import TipList from './TipList';
 import ProxyImage from './ProxyImage';
+import ImagePicker from './ImagePicker';
 import { Link } from 'react-router';
 import LikeReviewButton from './LikeReviewButton';
 import CommentContainer from './Review/CommentContainer'
@@ -90,7 +91,9 @@ class Itinerary extends React.Component {
                     <EditItineraryLink isUser={isUser} itineraryId={this.props.itineraryId} />
                   </div>
                 </div>
-
+                <div className="subject-image">
+                  <ImagePicker images={this.props.itinerary.images} />
+                </div>
                 <div className="v2-type-h1 subtitle">{itinerary.title}</div>
 
                 <div className="v2-type-h6 mrgn-top-sm">
