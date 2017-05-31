@@ -43,11 +43,6 @@ const renderDropzoneInput = (field) => {
   );
 }
 
-const customFileInput = (field) => {
-  delete field.input.value; // <-- just delete the value property
-  return <input type="file" id="file" accept="image/*" className="temp-image" {...field.input} multiple />;
-};
-
 const renderReviews = ({fields, meta: {error, submitFailed}}) => (
   <ul>
     {fields.map((review, index) => (
@@ -69,13 +64,6 @@ const renderReviews = ({fields, meta: {error, submitFailed}}) => (
              <Field
             name={`${review}.images`}
             component={renderDropzoneInput}/>
-
- {/**}           <Field 
-              name={`${review}.image`}
-              type="file"
-              component={customFileInput}
-              label="Image" />
-**/}
             <Field
               name={`${review}.title`}
               type="text"
