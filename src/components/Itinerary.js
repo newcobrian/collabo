@@ -51,8 +51,8 @@ class Itinerary extends React.Component {
   render() {
     if (!this.props.itinerary) {
       return (
-        <div>
-          Loading...
+        <div className="loading-module flx flx-center-all v2-type-body3">
+          Loadin Itinerary...
         </div>
       );
     }
@@ -61,73 +61,73 @@ class Itinerary extends React.Component {
       const isUser = this.props.authenticated &&
       this.props.itinerary.userId === this.props.authenticated;
       return (
-        <div className="flx flx-row page-common flx-row-top">
-          <div className="content-wrapper itinerary flx flx-row">
+        <div className="flx flx-col flx-align-center page-common">
+          <div className="content-wrapper itinerary flx flx-col flx-align-center">
 
-            <div className="itinerary__summary option-stackx ta-left">
+            <div className="itinerary__summary option-stack ta-left mrgn-bottom-lg">
 
               <fieldset>
-                <div className="flx flx-row mrgn-bottom-md">
-                  <div className="itinerary__summary__author-photo">
+                <div className="flx flx-col flx-align-center mrgn-bottom-md">
+
+                  {/*<div className="subject-image">
+                    <ImagePicker images={this.props.itinerary.images} />
+                  </div>*/}
+
+                  {/* Authoer Photo */}
+                  <div className="itinerary__summary__author-photo mrgn-bottom-sm">
                     <ProxyImage src={itinerary.createdBy.image} className="center-img" />
                   </div>
-                  <div className="ta-left">
-                    <div className="v2-type-mono">
-                      {itinerary.geo}
-                    </div>
-                    <div className="v2-type-body1">
-                      {itinerary.reviewsCount} Tips by {itinerary.createdBy.username}
-                    </div>
-                    <div className="v2-type-caption">
-                      {(new Date(itinerary.lastModified)).toLocaleString()}
-                    </div>
-                    <div>
-                      <Link to={`@${itinerary.createdBy.username}`}>
-                        <div className="reviewer-photo DN center-img mrgn-right-lg mrgn-top-sm"><ProxyImage src={this.props.itinerary.createdBy.image}/></div>
-                      </Link>
+                  {/* Location */}
+                  <div className="itinerary__summary__location v2-type-mono">
+                    {itinerary.geo}
+                  </div>
+
+                  {/* Title */}
+                  <div className="itinerary__summary__title v2-type-h1">
+                    {itinerary.title}
+                  </div>
+
+                  {/* Description */}
+                  <div className="itinerary__summary__description ta-center v2-type-h6 mrgn-top-sm mrgn-bottom-sm">
+                    {itinerary.description}
+                  </div>
+
+                  {/* Like */}
+                  <div className="flx flx-row-reverse v2-type-body2 mrgn-bottom-sm">
+                    <div className="cta-wrapper cta-align-left">
+                      <LikeReviewButton
+                        authenticated={this.props.authenticated}
+                        isLiked={itinerary.isLiked}
+                        likesCount={itinerary.likesCount}
+                        unLike={this.props.unLikeReview}
+                        like={this.props.likeReview} 
+                        likeObject={itinerary}
+                        type={ITINERARY_TYPE} />
                     </div>
                   </div>
+
+                  {/* Tips by Author */}
+                  <div className="itinerary__summary__tip-count v2-type-body1 opa-40">
+                    {itinerary.reviewsCount} Tips by {itinerary.createdBy.username}
+                  </div>
+
+                  {/* Last Modified Date */}
+                  <div className="itinerary__summary__timestamp v2-type-caption opa-20">
+                    {(new Date(itinerary.lastModified)).toLocaleString()}
+                  </div>
+
                   <div>
                     <EditItineraryLink isUser={isUser} itineraryId={this.props.itineraryId} />
                   </div>
                 </div>
-                <div className="subject-image">
-                  <ImagePicker images={this.props.itinerary.images} />
-                </div>
-                <div className="v2-type-h1 subtitle">{itinerary.title}</div>
-
-                <div className="v2-type-h6 mrgn-top-sm">
-                  {itinerary.description}
-                </div>
-                <div className="flx flx-row-reverse v2-type-body2">
-                  <div className="share">
-                  </div>
-                  <div className="cta-wrapper cta-align-left">
-                    <LikeReviewButton
-                      authenticated={this.props.authenticated}
-                      isLiked={itinerary.isLiked}
-                      likesCount={itinerary.likesCount}
-                      unLike={this.props.unLikeReview}
-                      like={this.props.likeReview} 
-                      likeObject={itinerary}
-                      type={ITINERARY_TYPE} />
-                  </div>
-                </div>
-                <div>
-                  <CommentContainer
-                  authenticated={this.props.authenticated}
-                  userInfo={this.props.userInfo}
-                  type={ITINERARY_TYPE}
-                  comments={this.props.comments || []}
-                  errors={this.props.commentErrors}
-                  commentObject={this.props.itinerary}
-                  delete={this.props.onDeleteComment} />
-                </div>
+               
+                
+              
               </fieldset>
 
             </div>
 
-            <div className="flx flx-col itinerary__tips">
+            <div className="itinerary__tips-list flx flx-col flx-align-center">
               <div>
                 <TipList
                   reviewList={this.props.reviewList} 
@@ -142,6 +142,23 @@ class Itinerary extends React.Component {
                   deleteReview={this.props.onDeleteReview}
                   showModal={this.props.showModal} />
               </div>
+            </div>
+
+            <div className="itinerary__comments-module flx flx-col flx-align-center flx-just-start">
+              <div className="v2-type-h3 mrgn-top-md ta-left w-100">
+                Comments
+              </div>
+              <div className="v2-type-body2 mrgn-bottom-sm ta-left w-100 opa-40">
+                What do you think about {itinerary.createdBy.username}'s View?
+              </div>
+              <CommentContainer
+              authenticated={this.props.authenticated}
+              userInfo={this.props.userInfo}
+              type={ITINERARY_TYPE}
+              comments={this.props.comments || []}
+              errors={this.props.commentErrors}
+              commentObject={this.props.itinerary}
+              delete={this.props.onDeleteComment} />
             </div>
 
 

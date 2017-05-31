@@ -1,0 +1,157 @@
+/****** 
+******
+************************************ TYPOGRAPHY SHARED
+******
+******/
+
+.text-subject-name {
+  font-weight: 700;
+  font-size: 36px;
+  margin: 0;
+}
+.text-category {
+  font-size: 16px;
+  opacity: .4;
+  font-weight: 100;
+}
+.text-page-title {
+  font-size: 24px;
+  font-weight: 700;
+  width: 100%;
+}
+.text-page-subtitle {
+  font-size: 14px;
+  font-weight: 100;
+  opacity: .5;
+  width: 100%;
+  max-width: 600px;
+}
+.text-section-header {
+  margin: 5px 0;
+}
+form {
+  width: 100%;
+}
+.center-text {
+  text-align: center !important;
+}
+
+textarea {
+    resize: none;
+}
+.v2-type--italic {
+  font-style: italic;
+}
+.v2-type-body1 {
+  /* “The almond milk ice: */
+  font-weight: 300;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  line-height: 26px;
+  font-family: 'Open Sans', sans-serif;
+}
+.v2-type-body2 {
+  font-weight: 300;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  line-height: 20px;
+  font-family: 'Open Sans', sans-serif;
+}
+.v2-type-body3 {
+  /* “The almond milk ice: */
+  font-weight: 300;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  line-height: 32px;
+  font-family: 'Open Sans', sans-serif;
+}
+.v2-type-rating {
+  /* “The almond milk ice: */
+  font-weight: 100;
+  font-size: 30px;
+  letter-spacing: 0.5px;
+  line-height: 26px;
+  font-family: 'Open Sans', sans-serif;
+}
+.v2-type-rating--1,
+.v2-type-rating--2,
+.v2-type-rating--3,
+.v2-type-rating--4 {
+  color: red;
+}
+.v2-type-rating--9,
+.v2-type-rating--10 {
+  color: #00CD8D;
+}
+.v2-type-rating--total {
+  color: black;
+  display: inline;
+}
+.v2-type-caption {
+  /* “The almond milk ice: */
+  font-weight: 300;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  line-height: 26px;
+  font-family: 'Open Sans', sans-serif;
+}
+.v2-type-mono {
+  /* “The almond milk ice: */
+  font-weight: 100;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  line-height: 26px;
+  font-family: 'Inconsolata', monospace;
+}
+.v2-type-mono.mono-sm {
+  font-size: 13px;
+}
+.v2-type-h1 {
+  /* H1 - Ratings: */
+  font-weight: 400;
+  font-size: 44px;
+  color: #000000;
+  letter-spacing: 0;
+  line-height: 48px;
+  font-family: 'Arimo', sans-serif;
+}
+.v2-type-h2 {
+  /* Saint Franks: */
+  font-weight: 400;
+  font-size: 32px;
+  letter-spacing: 1px;
+  line-height: 33px;
+  color: black;
+  font-family: 'Arimo', sans-serif;
+}
+.v2-type-h2.subtitle {
+  /* Saint Franks: */
+  font-weight: 200;
+  opacity: 1;
+  font-size: 26px;
+  color: #405B65;
+  letter-spacing: 0.5px;
+}
+.v2-type-h3 {
+  font-weight: 400;
+  font-size: 24px;
+  letter-spacing: 0;
+}
+.v2-type-h4 {
+  /* H4 - Categories: */
+    opacity: 1;
+    font-size: 20px;
+    letter-spacing: 0.5px;
+    font-weight: 200;
+    width: 100%;
+}
+.v2-type-h6 {
+  /* H4 - Categories: */
+    opacity: .8;
+    font-size: 22px;
+    letter-spacing: 0.5px;
+    line-height: 32px;
+    font-weight: 100;
+    /*font-style: italic;*/
+    font-family: 'Open Sans', sans-serif;
+}

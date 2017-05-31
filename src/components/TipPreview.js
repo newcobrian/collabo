@@ -39,17 +39,11 @@ const TipPreview = props => {
       props.authenticated === review.userId;
 
   return (
-    <div className="tip-wrapper flx flx-row-start flx-col-start mrgn-bottom-lg">
+    <div className="tips-wrapper flx flx-col flx-col-start mrgn-bottom-lg">
 
-      <Link to={`review/${review.subjectId}/${review.id}`}>
-      <div className="subject-image">
-        <ImagePicker images={props.images} />
-      </div>
-      </Link>
 
-      <div className="review-container flx flx-col flx-col-top">
-        <div className="subject-name-container center-text">
-          
+      <div className="tip-container flx flx-col flx-col-top">
+
           { /** Hidden Delete Button **/ }
           <div className="DN delete-wrapper">
             <div className="delete-button">
@@ -60,9 +54,9 @@ const TipPreview = props => {
           
 
           { /** Title and Add **/ }
-          <div className="flx flx-row-top">
+          <div className="tip_title-module flx flx-row-top w-100">
             <Link to={`review/${review.subjectId}/${review.id}`}>
-            <div className="v2-type-h2 ta-left">
+            <div className="tip__title v2-type-h2 ta-left">
               {review.title}
             </div>
             </Link>
@@ -70,14 +64,22 @@ const TipPreview = props => {
               <img className="center-img" src="../img/icon.add.png"/>Save
             </div>
           </div>
-          <div className="tip__address v2-type-mono mono-sm ta-left">
+          <div className="tip__address v2-type-mono mono-sm mrgn-bottom-sm opa-30 ta-left">
             {review.address}
           </div>
 
-        { /** Rating and Like **/ }
-          <div className="flx flx-row">
+          { /** Image **/ }
+          <Link to={`review/${review.subjectId}/${review.id}`}>
+          <div className="tip__image-module mrgn-bottom-sm">
+            <ImagePicker images={props.images} />
+          </div>
+          </Link>
+
+
+          { /** Rating and Like **/ }
+          <div className="tip__rating-module flx flx-row mrgn-bottom-sm mrgn-top-md w-100">
             <div className={'v2-type-rating ta-left v2-type-rating--' +  review.rating}>
-              {review.rating}<div className="v2-type-rating--total"> /10</div>
+              {review.rating}<div className="v2-type-rating--total opa-30"> /10</div>
             </div>
             <div className="flx flx-row flex-item-right v2-type-body2">
               <div className="cta-wrapper">
@@ -93,18 +95,16 @@ const TipPreview = props => {
             </div>
           </div>
 
-        </div>{/**END subject-name-container**/}
-
-      { /** Caption **/ }
-
-          <div className="review-data-container flx flx-col">
-            <div className="subject-caption v2-type-body2 ta-left">
+          { /** Caption **/ }
+          <div className="tip__caption-module flx flx-col w-100">
+            <div className="tip__caption v2-type-body3 ta-left">
               {review.caption}
             </div>
-            <div className="review-timestamp">
-              {(new Date(review.lastModified)).toLocaleString()}
+            <div className="tip__timestamp  v2-type-caption mrgn-top-sm opa-30">
+              Last updated {(new Date(review.lastModified)).toLocaleString()}
             </div> 
           </div>
+          
 
 
         <div className="flx flx-row flex-wrap cta-container">

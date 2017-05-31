@@ -127,3 +127,7 @@
 .flex-item-right {
   margin-left: auto;
 }
+
+.flx-self-end {
+  align-self: flex-end;
+}

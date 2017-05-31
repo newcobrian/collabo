@@ -1,0 +1,67 @@
+.cta-container {
+  font-size: 9px;
+  padding: 0;
+  width: 100%;
+}
+.cta-wrapper {
+  padding: 0;
+  width: auto;
+}
+.cta-box {
+  margin-top: -1px;
+  width: auto;
+}
+.cta-box .icoon {
+  font-size: 32px;
+  margin: 10px 30px 0;
+}
+
+
+.cta-wrapper .cta-icon {
+  height: 32px;
+  width: 32px;
+  margin: 0px;
+  background: url(img/icon32_like_off.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.cta-wrapper:hover {
+  cursor: pointer;
+}
+.cta-wrapper .cta-icon {
+  transition: background-image ease-in .1s;
+}
+.cta-wrapper .cta-icon.cta-like {
+  background-image: url(img/icon32_like_off.png);
+}
+.cta-wrapper:hover .cta-icon.cta-like {
+  background-image: url(img/icon32_like.png);
+}
+.cta-wrapper .cta-icon.cta-liked {
+  background-image: url(img/icon32_like.png);
+}
+.cta-wrapper .cta-icon.cta-save {
+  background-image: url(img/icon32_save_off.png);
+}
+.cta-wrapper:hover .cta-icon.cta-save,
+.cta-wrapper .cta-icon.cta-saved {
+  background-image: url(img/icon32_save.png);
+}
+.cta-wrapper .cta-icon.cta-saved {
+  background-image: url(img/icon32_save.png);
+}
+.cta-wrapper .cta-icon.cta-share {
+  background-image: url(img/icon32_share_off.png);
+}
+.cta-wrapper:hover .cta-icon.cta-share {
+  background-image: url(img/icon32_share.png);
+  transition: background-image ease-in .1s;
+}
+.cta-wrapper .cta-icon.cta-comment {
+  background-image: url(img/icon32_comments_off.png);
+}
+.cta-wrapper:hover .cta-icon.cta-comment,
+.cta-wrapper .cta-icon.cta-comment.comment-on {
+  background-image: url(img/icon32_comments_on.png);
+}
+

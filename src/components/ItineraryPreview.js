@@ -52,36 +52,34 @@ const ItineraryPreview = props => {
           <div className="itinerary__cover__author-photo mrgn-bottom-sm">
             <ProxyImage src={itinerary.createdBy.image} className="center-img" />
           </div>
-          <div className="v2-type-body1 opa-30">
+          <div className="v2-type-body1 opa-40">
             {itinerary.reviewsCount} Tips by {itinerary.createdBy.username}
           </div>
           <div className="v2-type-mono">
             {itinerary.geo}
           </div>
-        </div>
 
-
-        {/** TITLE **/}
-        <Link to={`itinerary/${itinerary.id}`}>
-        <div className="text-subject-name ta-center v2-type-h2">
-          {itinerary.title}
-        </div>
-        </Link>
-
-        
-
-        {/** DESCRIPTION **/}
-        <div className="itinerary__cover__descrip ta-center flx flx-row-top">
-          <div className="flx flx-col flx-align-center">
-              <div className="subject-caption v2-type-body2 pdding-top-sm">
-                {itinerary.description}
-              </div> 
+          {/** TITLE **/}
+          <Link to={`itinerary/${itinerary.id}`}>
+          <div className="itinerary__cover__title ta-center v2-type-h2 mrgn-top-sm">
+            {itinerary.title}
           </div>
-        </div>
+          </Link>
 
-      {/** CTA **/}
-        <div className="flx flx-row flex-wrap flx-just-space-between cta-container">
-          <div className="review-timestamp ta-center">
+          {/** DESCRIPTION **/}
+          <div className="itinerary__cover__descrip ta-center flx flx-row-top mrgn-top-sm">
+            <div className="flx flx-col flx-align-center">
+                <div className="subject-caption v2-type-body2 pdding-top-sm">
+                  {itinerary.description}
+                </div> 
+            </div>
+          </div>
+
+        </div>
+        
+        {/** CTA **/}
+        <div className="flx flx-row flx-wrap flx-align-center flx-just-space-between cta-container">
+          <div className="itinerary__cover__timestamp ta-center opa-30">
             {(new Date(itinerary.lastModified)).toLocaleString()}
           </div> 
           <div className="cta-box flx flx-row">
@@ -98,17 +96,18 @@ const ItineraryPreview = props => {
             </div>
           </div>             
         </div>
-      </div> 
 
+      </div> {/** ----- Close Cover Text DIV ----- **/}
+
+      {/** Cover Image **/}
       <Link to={`itinerary/${itinerary.id}`}>
-      <div className="subject-image">
+      <div className="itinerary__cover__image">
         <ImagePicker images={itinerary.images} />
-        {/*<ProxyImage className="gray-border" src={itinerary.subjectImage ? itinerary.subjectImage : ""}/>*/}
       </div>
       </Link>
 
-
-    </div>
+    {/** ----- Close itinerary__cover DIV ----- **/}  
+    </div> 
   );
 }
 

@@ -9,7 +9,6 @@
     height: 100%;
 }
 .itinerary__summary__author-photo {
-    margin-right: 20px;
     width: 100px;
     height: 100px;
     border-radius: 100px;
@@ -29,16 +28,21 @@
     height: 100%;
 }
 
+.itinerary__summary__description {
+	max-width: 500px;
+}
+
+
+
 
 
 .itinerary__summary.option-stack {
 	width: 100%;
-    padding: 0px 40px 20px 0;
+    padding: 0;
     margin-right: 40px;
     height: 100%;
 }
 .itinerary__summary.option-stack .itinerary__summary__author-photo {
-    margin-right: 20px;
     width: 100px;
     height: 100px;
     border-radius: 100px;
@@ -63,24 +67,20 @@
 
 
 
-.itinerary__tips {
+.itinerary__tips-list {
 	width: 100%;
 }
-.itinerary__tips ul {
+.itinerary__tips-list ul {
 	width: 100%;
 	list-style: none;
 }
 
 
 
-.tip-wrapper {
-	margin: 0 auto;
-	min-width: 750px;
+.itinerary__comments-module {
+	width: 100%;
+	max-width: 800px;
 }
-.tip__address {
-	margin-top:-5px;
-}
-
 
 
 .itinerary__edit-tip {
@@ -88,37 +88,45 @@
 }
 
 
+
+/** TIP COVER **/
 .itinerary__cover {
 	height: 400px;
-	width: 500px;
+	width: 560px;
 	margin: 20px;
 	border: 1px solid rgba(0,0,0,.1);
 }
-.home-page .itinerary__cover {
+
+.home-page
+.itinerary__cover {
 	margin: 20px 0;
 }
-.itinerary__cover .subject-image {
+.itinerary__cover__timestamp {
+
+}
+.itinerary__cover__image {
 	width: 166.666px;
 	height: 400px;
+	overflow: hidden;
 }
-
+.itinerary__cover__image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+}
 .itinerary__cover__text {
 	padding: 30px 20px 20px;
     width: 100%;
     margin-top: -1px;
     height: 100%;
 }
-.itinerary__cover__text .v2-type-h2 {
-}
-.tip-count {
-	color: #24CC93;
+.itinerary__cover__descrip {
+  height: 90px;
+  overflow: hidden;
 }
 
 
-.rating-total {
-	margin: 25px 5px;
-	opacity: .7;
-}
 
 
 

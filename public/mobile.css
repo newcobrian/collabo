@@ -163,8 +163,7 @@ body {
 .review-data-container {
 }
 .cta-box {
-  width: 100%;
-  font-size: 10px;
+  width: auto;
 }
 .comments-preview-wrapper {
   width: 100%;

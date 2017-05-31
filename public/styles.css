@@ -62,169 +62,17 @@ input[type="radio"]:checked + label span {
 /*Reset Safari User Agent Styles*/
 * {-webkit-padding-start: 0px;}
 
-/****** 
-******
-************************************ TYPOGRAPHY SHARED
-******
-******/
-
-.text-subject-name {
-  font-weight: 700;
-  font-size: 36px;
-  margin: 0;
-}
-.text-category {
-  font-size: 16px;
-  opacity: .4;
-  font-weight: 100;
-}
-.text-page-title {
+.loading-module {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  background-image: linear-gradient(-270deg, #2EC299 0%, #00ACED 100%);
+  color: white;
   font-size: 24px;
-  font-weight: 700;
-  width: 100%;
 }
-.text-page-subtitle {
-  font-size: 14px;
-  font-weight: 100;
-  opacity: .5;
-  width: 100%;
-  max-width: 600px;
-}
-.text-section-header {
-  margin: 5px 0;
-}
-form {
-  width: 100%;
-}
-.center-text {
-  text-align: center !important;
-}
-
-textarea {
-    resize: none;
-}
-.v2-type--italic {
-  font-style: italic;
-}
-.v2-type-body1 {
-  /* “The almond milk ice: */
-  font-weight: 300;
-  font-size: 14px;
-  letter-spacing: 0.5px;
-  line-height: 26px;
-  font-family: 'Open Sans', sans-serif;
-}
-.v2-type-body2 {
-  /* “The almond milk ice: */
-  font-weight: 300;
-  font-size: 16px;
-  letter-spacing: 0.5px;
-  line-height: 32px;
-  font-family: 'Open Sans', sans-serif;
-}
-.v2-type-body3 {
-  /* “The almond milk ice: */
-  font-weight: 300;
-  font-size: 18px;
-  letter-spacing: 0.5px;
-  line-height: 32px;
-  font-family: 'Open Sans', sans-serif;
-}
-.v2-type-rating {
-  /* “The almond milk ice: */
-  font-weight: 100;
-  font-size: 18px;
-  letter-spacing: 0.5px;
-  line-height: 26px;
-  font-family: 'Open Sans', sans-serif;
-}
-.v2-type-rating--1,
-.v2-type-rating--2,
-.v2-type-rating--3,
-.v2-type-rating--4 {
-  color: red;
-}
-.v2-type-rating--9,
-.v2-type-rating--10 {
-  color: #00CD8D;
-}
-.v2-type-rating--total {
-  color: black;
-  opacity: .3;
-  display: inline;
-}
-.v2-type-caption {
-  /* “The almond milk ice: */
-  font-weight: 300;
-  font-size: 12px;
-  letter-spacing: 0.5px;
-  line-height: 26px;
-  font-family: 'Open Sans', sans-serif;
-  opacity:.5;
-}
-.v2-type-mono {
-  /* “The almond milk ice: */
-  font-weight: 100;
-  font-size: 16px;
-  letter-spacing: 0.5px;
-  line-height: 26px;
-  opacity: 1;
-  font-family: 'Inconsolata', monospace;
-}
-.v2-type-mono.mono-sm {
-  font-size: 13px;
-  opacity: .5;
-}
-.v2-type-h1 {
-  /* H1 - Ratings: */
-  font-weight: 400;
-  font-size: 44px;
-  color: #000000;
-  letter-spacing: 0;
-  line-height: 48px;
-}
-.v2-type-h2 {
-  /* Saint Franks: */
-  font-weight: 500;
-  font-size: 24px;
-  letter-spacing: 1px;
-  line-height: 33px;
-  color: black;
-}
-.v2-type-h2.subtitle {
-  /* Saint Franks: */
-  font-weight: 200;
-  opacity: 1;
-  font-size: 26px;
-  color: #405B65;
-  letter-spacing: 0.5px;
-}
-.v2-type-h3 {
-    /* -jma: */
-  font-weight: 400;
-  font-size: 16px;
-  letter-spacing: 0;
-  color: #405B65;
-}
-.v2-type-h4 {
-  /* H4 - Categories: */
-    opacity: 1;
-    font-size: 20px;
-    letter-spacing: 0.5px;
-    font-weight: 200;
-    width: 100%;
-}
-.v2-type-h6 {
-  /* H4 - Categories: */
-    opacity: .8;
-    font-size: 22px;
-    letter-spacing: 0.5px;
-    line-height: 32px;
-    font-weight: 100;
-    /*font-style: italic;*/
-    font-family: 'Open Sans', sans-serif;
-}
-
 .highlight-green {
   color: #24CC93;
   display: inline;
@@ -244,7 +92,9 @@ textarea {
 ************************************ DOM STYLING SHARED
 ******
 ******/
-
+.w-100 {
+  width: 100%;
+}
 .default-card-white {
   background: #FFFFFF;
   border: 1px solid #E2E2E2;
@@ -322,7 +172,7 @@ textarea {
     text-align: center;
     font-weight: 100 !important;
     background-image: linear-gradient(-270deg, #2EC299 0%, #00ACED 100%);
-    border-radius: 7px;
+    border-radius: 10px;
     font-size: 14px;
 }
 .v-button img {
@@ -533,15 +383,12 @@ textarea {
     margin: 0 auto;
 }
 .logo-module {
-  position: absolute;
-  left: 0;
-  top: 0;
   padding: 0px;
-  height: 70px;
-  width: 100%;
+  height: 40px;
+  width: 150px;
   color: black;
   font-weight: 700;
-  margin: 0px;
+  margin: 12px 20px;
   z-index: 2;
 }
 a.logo-module:hover,
@@ -754,8 +601,14 @@ svg {
 .opa-60 {
   opacity: .6;
 }
+.opa-40 {
+  opacity: .4;
+}
 .opa-30 {
   opacity: .3;
+}
+.opa-20 {
+  opacity: .2;
 }
 
 .mrgn-all-sm {
@@ -1025,28 +878,7 @@ li.nav-divider {
 ************************************ 4. Article
 ******
 ******/
-.article-page {
-  margin: 110px 40px;
-}
-.article-page .subject-image img {
-    width: 355px;
-    height: 160px;
-}
-.article-page .subject-name-container {
-  text-align: center;
-  margin-bottom: 30px;
-}
-.article-page .text-subject-name {
-}
-.article-page .review-data-container {
-  margin-left: 0px;
-  margin-top: 0px;
-}
-.article-page .comments-container {
-}
-.article-page .reviews-wrapper {
-    margin-bottom: 0 !important;
-}
+
 .comment-wrapper {
   border-radius: 0;
 }
@@ -1519,3 +1351,68 @@ position: absolute;
 
 .dialog-wrapper {
 }
+
+
+
+.comments-preview-wrapper {
+  padding: 10px 20px;
+  font-weight: 100;
+  margin-top: -1px;
+  font-size: 14px;
+}
+.commenter-pic {
+  border-radius: 50px;
+  width: 32px;
+  height: 32px; 
+  overflow: hidden;
+  margin: 0px 10px 0 0;
+}
+.commenter-pic img {
+    object-fit: cover;
+    width: 32px;
+    height: 32px;
+}
+.comment-counter {
+  font-size: 11px;
+  font-weight: 400;
+  text-align: left; 
+  margin-top: 12px;
+  display: inline-block;
+  /*border-top: 1px solid #EBEBEB;*/
+}
+
+
+
+/******
+******
+************************************************ COMMENTS 
+******
+******/
+.comments-container {
+  width: 355px;
+  margin-top: -1px;
+}
+.comments-module {
+  width: 100%;
+  max-width: 800px;
+}
+.delete-wrapper {
+ position: relative;
+    width: 40px;
+    height: 40px;
+    background: red;
+
+}
+.delete-button {
+    display: inline-block;
+    font-size: 1em;
+    opacity: .5;
+    height: 20px;
+    width: 20px;
+}
+.delete-button:hover {
+  opacity: .8;
+}
+.reviews-wrapper:hover .delete-button {
+    visibility: visible;
+} 

@@ -75,26 +75,20 @@
     opacity: 1;
     font-weight: 700;
 }
-.review-container {
-  padding: 0 20px 0 40px;
+.tip-container {
+  padding: 0;
   width: 100%;
   margin-top: -1px;
 }
 .pic-and-review {
   width: 100%;
 }
-.subject-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    box-shadow: 0 0 0 -1 rgba(0,0,0,.1) inset;
-}
+
 
 .review-container > div {
 }
-.subject-image {
-  width: 240px;
+.tip-image {
+  width: 100%;
   height: 300px;
   background: white;
   overflow: hidden;
@@ -277,73 +271,10 @@ box-shadow: none !important;
 
 }
 
-.rating-graphic.rating--2 {
-  width: 24px;
-  height: 24px;
-}
-.rating-graphic.rating--1 {
-  width: 32px;
-  height: 32px;
-}
-.rating-graphic.rating-0 {
-  width: 38px;
-  height: 38px;
-}
-.rating-graphic.rating-1 {
-  width: 46px;
-  height: 46px;       
-}                
-.rating-graphic.rating-2 {
-}
-
-.rating-graphic.rating--2 img {
-  width: 24px;
-  height: 24px;
-  margin-top: -10px;
-  margin-right: -1px;
-}
-.rating-graphic.rating--1 img {
-  width: 32px;
-  height: 32px;
-  margin-top: -4px;
-}
-.rating-graphic.rating-0 img {
-  width: 38px;
-  height: 38px;
-}
-.rating-graphic.rating-1 img {
-  width: 46px;
-  height: 46px;       
-}                
-.rating-graphic.rating-2 img {
-  width: 60px;
-  height: 60px;
-}
-
-
-.rating-container.cannot-rate .rating-graphic {
-  pointer-events: none;
-}
-
-.rating-graphic img {
-  width: 60px;
-  height: 60px;
-  object-position: center;
-  object-fit: cover;
-  border-radius: 132px;
-  margin-top: -1px;
-}
 
 
 
 
-
-.review-timestamp {
-  font-size: 10px;
-  opacity: .3;
-  margin: 5px 0 0;
-  display: inline-block;
-}
 .reviewer-name-container {
   margin: 5px 0 5px 12px;
 }
@@ -406,114 +337,4 @@ box-shadow: none !important;
 }
 .article-page .cta-wrapper.cta-wrapper-comment {
   display: none;
-}
-.cta-wrapper .cta-icon {
-  height: 32px;
-  width: 32px;
-  margin: 0px;
-  background: url(img/icon32_like_off.png);
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-.cta-wrapper:hover {
-  cursor: pointer;
-}
-.cta-wrapper .cta-icon {
-  transition: background-image ease-in .1s;
-}
-.cta-wrapper .cta-icon.cta-like {
-  background-image: url(img/icon32_like_off.png);
-}
-.cta-wrapper:hover .cta-icon.cta-like {
-  background-image: url(img/icon32_like.png);
-}
-.cta-wrapper .cta-icon.cta-liked {
-  background-image: url(img/icon32_like.png);
-}
-.cta-wrapper .cta-icon.cta-save {
-  background-image: url(img/icon32_save_off.png);
-}
-.cta-wrapper:hover .cta-icon.cta-save,
-.cta-wrapper .cta-icon.cta-saved {
-  background-image: url(img/icon32_save.png);
-}
-.cta-wrapper .cta-icon.cta-saved {
-  background-image: url(img/icon32_save.png);
-}
-.cta-wrapper .cta-icon.cta-share {
-  background-image: url(img/icon32_share_off.png);
-}
-.cta-wrapper:hover .cta-icon.cta-share {
-  background-image: url(img/icon32_share.png);
-  transition: background-image ease-in .1s;
-}
-.cta-wrapper .cta-icon.cta-comment {
-  background-image: url(img/icon32_comments_off.png);
-}
-.cta-wrapper:hover .cta-icon.cta-comment,
-.cta-wrapper .cta-icon.cta-comment.comment-on {
-  background-image: url(img/icon32_comments_on.png);
-}
-
-.comments-preview-wrapper {
-  padding: 10px 20px;
-  font-weight: 100;
-  margin-top: -1px;
-  font-size: 14px;
-}
-.commenter-pic {
-  border-radius: 50px;
-  width: 32px;
-  height: 32px; 
-  overflow: hidden;
-  margin: 0px 10px 0 0;
-}
-.commenter-pic img {
-    object-fit: cover;
-    width: 32px;
-    height: 32px;
-}
-.comment-counter {
-  font-size: 11px;
-  font-weight: 400;
-  text-align: left; 
-  margin-top: 12px;
-  display: inline-block;
-  /*border-top: 1px solid #EBEBEB;*/
-}
-
-
-
-/******
-******
-************************************************ COMMENTS 
-******
-******/
-.comments-container {
-  width: 355px;
-  margin-top: -1px;
-}
-.comments-module {
-  width: 100%;
-  max-width: 820px;
-}
-.delete-wrapper {
- position: relative;
-    width: 40px;
-    height: 40px;
-    background: red;
-
-}
-.delete-button {
-    display: inline-block;
-    font-size: 1em;
-    opacity: .5;
-    height: 20px;
-    width: 20px;
-}
-.delete-button:hover {
-  opacity: .8;
-}
-.reviews-wrapper:hover .delete-button {
-    visibility: visible;
 }
