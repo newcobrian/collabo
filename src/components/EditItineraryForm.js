@@ -6,11 +6,11 @@ import {load as loadItinerary} from '../reducers/editor'
 import { Link } from 'react-router';
 import Dropzone from 'react-dropzone';
 
-const renderField = ({input, label, placeholder, classname, type, meta: {touched, error}}) => (
+const renderField = ({input, label, placeholder, min, max, classname, type, meta: {touched, error}}) => (
   <div className="field-wrapper"> 
     <label>{label}</label>
     <div>
-      <input {...input} type={type} className={classname} placeholder={placeholder} />
+      <input {...input} type={type} min={min} max={max} className={classname} placeholder={placeholder} />
       {touched && error && <span>{error}</span>}
     </div>
   </div>
