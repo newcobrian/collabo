@@ -67,7 +67,7 @@ const renderReviews = ({fields, meta: {error, submitFailed}}) => (
               component={renderField}
               label="Tip Name"
               placeholder="Golden Boy Pizza"
-              classname="input--underline edit-tip__title"
+              classname="input--underline edit-tip__name"
             />
             <Field
               name={`${review}.address`}
@@ -107,7 +107,7 @@ const renderReviews = ({fields, meta: {error, submitFailed}}) => (
                 rows="6"
                 label="Description"
                 placeholder="Write some tips..."
-                className="edit-tip__caption"
+                classname="edit-tip__caption"
               />
             </div>
           </div>
@@ -142,14 +142,14 @@ let EditItineraryForm = props => {
          
 
           <div>
-            <Field name="itinerary.title" component={renderField} type="text" label="Itinerary Name" />
+            <Field name="itinerary.title" component={renderField} type="text" label="Itinerary Name" classname="input--underline edit-itinerary__name" />
           </div>
           <div>
-            <Field name="itinerary.geo" component={renderField} type="text" label="Location" />
+            <Field name="itinerary.geo" component={renderField} type="text" label="Location" classname="input--underline edit-itinerary__location" />
           </div>
-          <div>
+          <div className="field-wrapper"> 
             <label>Description</label>
-            <Field name="itinerary.description" component="textarea" rows="12" type="text" label="Description" />
+            <Field name="itinerary.description" component="textarea" rows="8" type="text" label="Description" />
           </div>
           <div>
             <label>Upload Images</label>

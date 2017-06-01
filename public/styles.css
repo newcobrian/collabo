@@ -108,7 +108,6 @@ input[type="radio"]:checked + label span {
   border-bottom: 1px solid #E6E7E8;
 }
 .form-wrapper {
-    width: 355px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -1010,7 +1009,9 @@ li.nav-divider {
 
 
 .create-wrapper {
-  width: 355px;
+  max-width: 600px;
+  width: 100%;
+
 }
 .editor-page .upload-image-button {
 
@@ -1020,8 +1021,11 @@ input, button, select, textarea {
   line-height: inherit;
   border-radius: 2px;
   padding: 10px;
-  border: 1px solid rgba(0,0,0,.3);
+  border: 0px solid rgba(0,0,0,.3);
   width: 100%;
+}
+textarea {
+  padding: 0;
 }
 input.input--underline {
   margin: 0 0 10px 0;
@@ -1032,7 +1036,7 @@ input.input--underline {
   border: 1px solid rgba(0,0,0,.3);
   font-size: 16px;
   border: none;
-  padding: 0 0 10px;
+  padding: 0;
 }
 
 input[type="number"] {
@@ -1060,7 +1064,7 @@ label {
   margin-bottom: 0;
   letter-spacing: 2px;
   text-transform: uppercase;
-  opacity: .4;
+  opacity: .8;
   font-weight: 600;
 }
 
@@ -1266,30 +1270,26 @@ position: absolute;
 }
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #60C2AF;
-  opacity: .5;
+  opacity: .6;
   font-weight: 100;
-  font-size: 14px;
   font-family: 'Open Sans', sans-serif;
 }
 ::-moz-placeholder { /* Firefox 19+ */
   color: #60C2AF;
-  opacity: .5;
+  opacity: .6;
   font-weight: 100;
-  font-size: 14px;
   font-family: 'Open Sans', sans-serif;
 }
 :-ms-input-placeholder { /* IE 10+ */
   color: #60C2AF;
-  opacity: .5;
+  opacity: .6;
   font-weight: 100;
-  font-size: 14px;
   font-family: 'Open Sans', sans-serif;
 }
 :-moz-placeholder { /* Firefox 18- */
   color: #60C2AF;
-  opacity: .5;
+  opacity: .6;
   font-weight: 100;
-  font-size: 14px;
   font-family: 'Open Sans', sans-serif;
 }
 .article-page .comment-form .card-block textarea:focus {

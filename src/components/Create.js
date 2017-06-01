@@ -291,20 +291,22 @@ class Create extends React.Component {
 				<div className="page-title-wrapper center-text">
 				  <div className="v2-type-h2">Create New Itinerary</div>
 				</div>
-				<div className="bx-shadow default-card-white flx flx-col flx-center-all create-wrapper mrgn-top-sm">
+				<div className="flx flx-col flx-center-all create-wrapper mrgn-top-sm">
 					<ListErrors errors={this.props.errors}></ListErrors>
 		            <div className="form-wrapper flx flx-col-left">
 			            <form>
-							<fieldset className="form-group no-margin apple">
+							<fieldset className="field-wrapper">
+								<label>Itinerary Name</label>
 		                      <input
-		                        className="input--underline"
+		                        className="input--underline edit-itinerary__name"
 		                        type="text"
 		                        placeholder="Title"
 		                        required
 		                        value={this.props.title}
 		                        onChange={this.changeTitle} />
 		                    </fieldset>
-		                    <fieldset className="form-group no-margin apple">
+		                    <fieldset className="field-wrapper">
+		                    	<label>City</label>
 		                      <input
 		                        className="input--underline"
 		                        type="text"
@@ -313,7 +315,8 @@ class Create extends React.Component {
 		                        value={this.props.geo}
 		                        onChange={this.changeGeo} />
 		                    </fieldset>
-							<fieldset className="form-group no-margin apple">
+							<fieldset className="field-wrapper">
+								<label>Short Description</label>
 		                      <textarea
 		                        className="input--underline"
 		                        type="text"
@@ -325,7 +328,7 @@ class Create extends React.Component {
 		                    </fieldset>
 
 		                    <button
-		                    className="v-button"
+		                    className="v-button mrgn-top-sm"
 		                    type="button"
 		                    disabled={this.props.inProgress}
 		                    onClick={this.submitForm}>
