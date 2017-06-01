@@ -38,21 +38,24 @@ class Editor extends React.Component {
 
     this.submitForm = (values) => {
         // console.log('VALUES = ' + JSON.stringify(values))
-        // console.log('image = ' + values.itinerary.reviews[0].images[0])
-        // this.props.testImageUpload(this.props.authenticated, this.props.itineraryId, values.itinerary);
-      this.props.onEditorSubmit(this.props.authenticated, this.props.itineraryId, values.itinerary);
+        this.props.onEditorSubmit(this.props.authenticated, this.props.itineraryId, values.itinerary);
     };
   }
 
   componentWillMount() {
     if (this.props.params.iid) {
-      return this.props.onEditorLoad(this.props.authenticated, this.props.params.iid);
+        this.props.onEditorLoad(this.props.authenticated, this.props.params.iid);
+        if (navigator.geolocation) {
+          let watchId = navigator.geolocation.watchPosition(this.props.showPosition);
+          this.props.setWatchPositionId(watchId);
+        }
     }
     this.props.sendMixpanelEvent('Itinerary page loaded');
   }
 
   componentWillUnmount() {
     this.props.onEditorUnload(this.props.itineraryId);
+    if (this.props.watchId) navigator.geolocation.clearWatch(this.props.watchId);
   }
 
   render() {
@@ -60,7 +63,10 @@ class Editor extends React.Component {
       <EditItineraryForm 
         onSubmit={this.submitForm} 
         itinerary={this.props.itinerary}
-        itineraryId={this.props.itineraryId} />
+        itineraryId={this.props.itineraryId}
+        latitude={this.props.latitude}
+        longitude={this.props.longitude}
+        authenticated={this.props.authenticated} />
     )
     // if (!this.props.itinerary) {
     //   return (

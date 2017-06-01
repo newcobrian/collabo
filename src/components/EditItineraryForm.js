@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
-import {Field, FieldArray, reduxForm} from 'redux-form';
+import {Field, FieldArray, reduxForm, formValueSelector} from 'redux-form';
 import validate from './validate';
 import {load as loadItinerary} from '../reducers/editor'
 import { Link } from 'react-router';
 import Dropzone from 'react-dropzone';
+import FirebaseSearchInput from './FirebaseSearchInput'
+import * as Constants from '../constants';
+import Firebase from 'firebase';
 
 const renderField = ({input, label, placeholder, min, max, classname, type, meta: {touched, error}}) => (
   <div className="field-wrapper"> 
@@ -12,6 +15,15 @@ const renderField = ({input, label, placeholder, min, max, classname, type, meta
     <div>
       <input {...input} type={type} min={min} max={max} className={classname} placeholder={placeholder} />
       {touched && error && <span>{error}</span>}
+      </div>
+    </div>
+  )
+
+const notInputField = ({input, label, placeholder, type, meta: {touched, error}}) => (
+  <div>
+    <label>{label}</label>
+    <div>
+      {input.value}
     </div>
   </div>
 )
@@ -44,7 +56,187 @@ const renderDropzoneInput = (field) => {
   );
 }
 
-const renderReviews = ({fields, meta: {error, submitFailed}}) => (
+const renderSearchInput = (field) => {
+  const searchInputCallback = (result) => {
+    if (result && result.id) {
+      Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + result.id + '/' + field.authenticated).once('value', reviewSnapshot => {
+        Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + result.id).once('value', subjectSnapshot => {
+          let resultObject = result;
+          if (subjectSnapshot.exists()) {
+            // if subjectId already exists, just load info
+            Object.assign(resultObject, subjectSnapshot.val(), reviewSnapshot.val());
+            field.input.onChange(resultObject);
+          }
+          else {
+            // subject doesn't exist in database, so fetch image from 4sq API
+            const foursquareURL = Constants.FOURSQUARE_API_PATH + result.id.slice(4) + 
+              '?client_id=' + Constants.FOURSQUARE_CLIENT_ID + 
+              '&client_secret=' + Constants.FOURSQUARE_CLIENT_SECRET + '&v=20170101';
+            fetch(foursquareURL).then(response => response.json())
+            .then(json => {
+              if (json.response.venue && json.response.venue.photos && json.response.venue.photos.groups && 
+                json.response.venue.photos.groups[0] && json.response.venue.photos.groups[0].items &&
+                json.response.venue.photos.groups[0].items[0]) {
+                const photoURL = json.response.venue.photos.groups[0].items[0].prefix + 'original' +
+                  json.response.venue.photos.groups[0].items[0].suffix;
+                let reviewObject = Object.assign({}, {images: photoURL}, reviewSnapshot.val());
+                Object.assign(resultObject, subjectSnapshot.val(), reviewObject);
+                field.input.onChange(resultObject);
+              }
+              else {
+                Object.assign(resultObject, subjectSnapshot.val(), reviewSnapshot.val());
+                field.input.onChange(resultObject);
+              }
+            })
+          }
+        })
+      })
+    }
+    // field.input.onChange(loadResult(field.authenticated, result))
+  }
+
+  return (
+    <FirebaseSearchInput  
+      value={field.input.value}
+      className="form-control main-search-inner" 
+      callback={searchInputCallback}
+      latitude={field.latitude} 
+      longitude={field.longitude}
+      placeholder={"Tip Name"}
+      className="input--underline" />
+  )
+}
+
+const renderSubjectInfo = (review) => {
+  if (true) {
+    return (
+      <div>
+        <Field
+          name={`${review}.address`}
+          type="text"
+          component={notInputField}
+          label="Address"
+          placeholder="1100 West Street"
+        />
+      </div>
+    )
+  }
+  else {
+    return (
+      <div>
+        <label>Upload Images</label>
+         <Field
+          name={`${review}.images`}
+          component={renderDropzoneInput}/>
+        <Field
+          name={`${review}.address`}
+          type="text"
+          component={renderField}
+          label="Address"
+          placeholder="1100 West Street"
+        />
+        <div className="flx flx-row">
+          <Field
+            name={`${review}.rating`}
+            type="number"
+            min="0"
+            max="10"
+            component={renderField}
+            label="Rating"
+            placeholder="0"
+          />
+          <div className="rating-total v2-type-body2">/10</div>
+        </div>
+        <label>Caption</label>
+        <Field
+          name={`${review}.caption`}
+          type="text"
+          component="textarea"
+          rows="8"
+          label="Description"
+          placeholder="Write some tips..."
+        />
+      </div>
+    )
+  }
+}
+
+let Review = ({ review, index, fields, subjectId }) => (
+  <li key={index}>
+    <button
+      type="button"
+      title="Remove Tip"
+      onClick={() => fields.remove(index)}/>
+    <h4>Tip #{index + 1}</h4>
+     {subjectId && <div>subjectId: {subjectId}</div>}
+     {console.log('subj id = ' + subjectId)}
+    <Field
+      name={`${review}.title`}
+      type="text"
+      component={renderField}
+      label="Tip Name"
+      placeholder="Golden Boy Pizza"
+      classname="input--underline edit-tip__name"
+    />
+    <Field
+      name={`${review}.address`}
+      type="text"
+      component={renderField}
+      label="Address"
+      placeholder="1100 West Street"
+      classname="input--underline edit-tip__address"
+    />
+    <div className="flx flx-row">
+      <Field
+        name={`${review}.rating`}
+        type="number"
+        min="0"
+        max="10"
+        component={renderField}
+        label="Rating"
+        placeholder="0"
+        classname="input--underline edit-tip__rating"
+      />
+      <div className="field-wrapper field-wrapper--dropzone"> 
+        <Field
+        name={`${review}.images`}
+        component={renderDropzoneInput}/>
+      </div>
+    </div>
+    <div className="field-wrapper"> 
+      <label>Caption</label>
+      <Field
+        name={`${review}.caption`}
+        type="text"
+        component="textarea"
+        rows="6"
+        label="Description"
+        placeholder="Write some tips..."
+        className="edit-tip__caption"/>
+    </div> 
+  </li>
+)
+
+Review = connect(
+  (state, props) => ({
+    // hasLastName: !!selector(state, `${props.member}.lastName`)
+    subjectId: selector(state, `${props.review}.subjectId`)
+  })
+)(Review)
+
+const renderReviews = ({fields, authenticated, latitude, longitude, meta: {error, submitFailed}}) => (
+  <ul>
+    {fields.map((review, index) =>
+      <Review review={review} fields={fields} index={index} key={index}/>)}
+    <li>
+      <button className="v-button" type="button" onClick={() => fields.push({})}>Add Tip</button>
+      {submitFailed && error && <span>{error}</span>}
+      {/*touched && error && <span>{error}</span> */}
+    </li>
+  </ul>
+)
+
+const renderReviews2 = ({fields, authenticated, latitude, longitude, meta: {error, submitFailed}}) => (
   <ul>
     {fields.map((review, index) => (
       <li key={index}>
@@ -59,57 +251,14 @@ const renderReviews = ({fields, meta: {error, submitFailed}}) => (
               onClick={() => fields.remove(index)}>Delete Tip</button>
             </div>
 
+            <Field name={`${review}.title`}
+              component={renderSearchInput} 
+              label="Itinerary Name"
+              latitude={latitude}
+              longitude={longitude}
+              authenticated={authenticated} />
 
-
-            <Field
-              name={`${review}.title`}
-              type="text"
-              component={renderField}
-              label="Tip Name"
-              placeholder="Golden Boy Pizza"
-              classname="input--underline edit-tip__name"
-            />
-            <Field
-              name={`${review}.address`}
-              type="text"
-              component={renderField}
-              label="Address"
-              placeholder="1100 West Street"
-              classname="input--underline edit-tip__address"
-            />
-            <div className="flx flx-row">
-              <Field
-                name={`${review}.rating`}
-                type="number"
-                min="0"
-                max="10"
-                component={renderField}
-                label="Rating"
-                placeholder="0"
-                classname="input--underline edit-tip__rating"
-
-              />
-              <div className="field-wrapper field-wrapper--dropzone"> 
-                <Field
-                name={`${review}.images`}
-                component={renderDropzoneInput}/>
-              </div>
-
-              {/*<div className="edit-tip__rating-total opa-30">/10</div>*/}
-            </div>
-
-            <div className="field-wrapper"> 
-              <label>Caption</label>
-              <Field
-                name={`${review}.caption`}
-                type="text"
-                component="textarea"
-                rows="6"
-                label="Description"
-                placeholder="Write some tips..."
-                classname="edit-tip__caption"
-              />
-            </div>
+            {renderSubjectInfo(review)}
           </div>
 
         </div>
@@ -122,60 +271,68 @@ const renderReviews = ({fields, meta: {error, submitFailed}}) => (
   </ul>
 )
 
+// const mapStateToProps = state => ({
+//   ...state.form
+// });
+
+// class EditItineraryForm extends Component {
+  // render() {
+    // const {handleSubmit, pristine, reset, submitting} = this.props;
 let EditItineraryForm = props => {
-  const {handleSubmit, pristine, reset, submitting} = props
-
-  return ( 
-    <form onSubmit={handleSubmit}>
-
-    <div className="page-title-wrapper center-text flx flx-row flx-center-all">
-      
-      <div className="v2-type-h2">Edit Tips</div>
-      
-    </div>
-
-    <div className="flx flx-col page-common flx-just-center flx-align-center">
-
-      <div className="container--editor flx flx-col flx-just-center flx-align-center">
-
-        <div className="itinerary__summary ta-left DN">
-         
-
-          <div>
-            <Field name="itinerary.title" component={renderField} type="text" label="Itinerary Name" classname="input--underline edit-itinerary__name" />
-          </div>
-          <div>
-            <Field name="itinerary.geo" component={renderField} type="text" label="Location" classname="input--underline edit-itinerary__location" />
-          </div>
-          <div className="field-wrapper"> 
-            <label>Description</label>
-            <Field name="itinerary.description" component="textarea" rows="8" type="text" label="Description" />
-          </div>
-          <div>
-            <label>Upload Images</label>
-             <Field
-            name={`itinerary.images`}
-            component={renderDropzoneInput}/>
-          </div>
+    const {handleSubmit, pristine, reset, submitting} = props;  
+    return ( 
+      <form onSubmit={handleSubmit}>
+        <div className="page-title-wrapper center-text flx flx-row flx-center-all">
+          
+          <div className="v2-type-h2">Edit Tips</div>
           
         </div>
 
-        <div className="flx flx-col itinerary__tiplist">
-          <FieldArray name="itinerary.reviews" component={renderReviews} />
-        </div>
+        <div className="flx flx-col page-common flx-just-center flx-align-center">
 
-      </div>
+          <div className="container--editor flx flx-col flx-just-center flx-align-center">
 
-      {/* Edit Bar */}  
-      <div className="edit-bar flx flx-row flx-just-end flx-align-center">
-        <div className="mrgn-right-lg">
-          <Link to={'itinerary/' + props.itineraryId} className="v-button v-button--light" type="submit" disabled={submitting}>Cancel</Link>
+            <div className="itinerary__summary ta-left DN">
+             
+
+              <div>
+                <Field name="itinerary.title" component={renderField} type="text" label="Itinerary Name" classname="input--underline edit-itinerary__name" />
+              </div>
+              <div>
+                <Field name="itinerary.geo" component={renderField} type="text" label="Location" classname="input--underline edit-itinerary__location" />
+              </div>
+              <div className="field-wrapper"> 
+                <label>Description</label>
+                <Field name="itinerary.description" component="textarea" rows="8" type="text" label="Description" />
+              </div>
+              <div>
+                <label>Upload Images</label>
+                 <Field
+                name={`itinerary.images`}
+                component={renderDropzoneInput}
+                latitude={props.latitude} 
+                longitude={props.longitude}
+                authenticated={props.authenticated}/>
+              </div>
+              
+            </div>
+
+            <div className="flx flx-col itinerary__tiplist">
+              <FieldArray name="itinerary.reviews" component={renderReviews} />
+            </div>
+          </div>
+
+
+          {/* Edit Bar */}  
+          <div className="edit-bar flx flx-row flx-just-end flx-align-center">
+            <div className="mrgn-right-lg">
+              <Link to={'itinerary/' + props.itineraryId} className="v-button v-button--light" type="submit" disabled={submitting}>Cancel</Link>
+            </div>
+            <div>
+              <button className="v-button v-button--full" type="submit" disabled={submitting}>Save & Exit</button>
+            </div>
+          </div>
         </div>
-        <div>
-          <button className="v-button v-button--full" type="submit" disabled={submitting}>Save & Exit</button>
-        </div>
-      </div>
-    </div>
     </form>
   )
 }
@@ -184,6 +341,8 @@ let EditItineraryForm = props => {
 //   form: 'EditItinerary', // a unique identifier for this form
 //   validate
 // })(EditItineraryForm)
+
+const selector = formValueSelector('EditItinerary')
 
 EditItineraryForm = reduxForm({
   form: 'EditItinerary', // a unique identifier for this form

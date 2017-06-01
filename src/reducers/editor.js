@@ -1,5 +1,5 @@
 import { REVIEW_SUBMITTED, UPDATE_FIELD, EDITOR_PAGE_LOADED, EDITOR_PAGE_UNLOADED, 
-  EDITOR_SUBMIT_ERROR, SET_IN_PROGRESS } from '../actions'
+  EDITOR_SUBMIT_ERROR, SET_IN_PROGRESS, SET_WATCH_ID, GET_USER_LOCATION } from '../actions'
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -26,6 +26,17 @@ export default (state = {}, action) => {
       return {
         ...state,
         inProgress: true
+      }
+    case SET_WATCH_ID:
+      return {
+        ...state,
+        watchId: action.payload
+      }
+    case GET_USER_LOCATION:
+      return {
+        ...state,
+        latitude: action.latitude,
+        longitude: action.longitude
       }
     case 'ASYNC_START':
       if (action.subtype === 'ARTICLE_SUBMITTED') {

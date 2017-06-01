@@ -13,7 +13,7 @@ var client = algoliasearch('2OEMW8KEZS', '62e17a3113351343399fad062d3cbca5', {pr
 var index = client.initIndex('whatsgood-subjects');
 
 const mapStateToProps = state => ({
-  ...state.create,
+  ...state.editor,
   authenticated: state.common.authenticated
 });
 
@@ -118,104 +118,6 @@ class FirebaseSearchInput extends Component {
                 if (result.url) searchObject.url = result.url;
                 if (result.location && result.location.formattedAddress) searchObject.description = result.location.formattedAddress.join(' ');
                 if (result.location && result.location.address + result.location.city) searchObject.text += ' - ' + result.location.address + ', ' + result.location.city;
-                searchObject.tags = { Places: true };
-              }
-              break;
-            case 'spotify':
-              if (result.name && result.id) {
-                searchObject.text = result.name;
-                searchObject.value = result.name;
-                searchObject.id = 'spotify:' + result.id;
-                searchObject.tags = { Music: true };
-                if (result.external_urls && result.external_urls.spotify) searchObject.url = result.external_urls.spotify;
-                if (result.type) {
-                  switch (result.type) {
-                    case 'album':
-                      if (result.artists && result.artists[0] && result.artists[0].name) {
-                        searchObject.text += ' - by ' + result.artists[0].name;
-                        searchObject.description = 'Album by ' + result.artists[0].name;
-                      }
-                      if (result.images && result.images[0] && result.images[0].url) searchObject.image = result.images[0].url;
-                      break;
-                    case 'artist':
-                      if (result.genres) searchObject.description = result.genres.join(', ');
-                      if (result.images && result.images[0] && result.images[0].url) searchObject.image = result.images[0].url;
-                      searchObject.text += ' (artist on Spotify)';
-                      break;
-                    case 'track':
-                      if (result.album && result.album.images && result.album.images[0] && result.album.images[0].url) {
-                        searchObject.image = result.album.images[0].url;
-                      }
-                      if (result.artists && result.artists[0] && result.artists[0].name) {
-                        searchObject.description = 'by ' + result.artists[0].name;
-                        searchObject.text += ' - by ' + result.artists[0].name;
-                      }
-                      if (result.album && result.album.name) searchObject.description += ' from the album ' + result.album.name;
-                      break;
-                    default:
-                      break;
-                  }
-                }
-              }
-              break;
-            case 'tmdb':
-              if ((result.title || result.name) && result.id) {
-                searchObject.text = result.title ? result.title : result.name;
-                searchObject.text += ' (imdb)';
-                searchObject.value = result.title ? result.title : result.name;
-                searchObject.id = 'tmdb:' + result.id;
-                searchObject.tags = { Movies: true };
-                if (result.url) searchObject.url = result.url;
-                if (result.overview) searchObject.description = result.overview;
-                
-                if (result.poster_path) {
-                  searchObject.image = Constants.TMDB_IMAGES_PATH + result.poster_path;
-                } else if (result.backdrop_path) {
-                  searchObject.image = Constants.TMDB_IMAGES_PATH + result.backdrop_path;
-                }
-              }
-              break;
-            case 'amazon':
-              // console.log(result.ProductGroup)
-              if(result.ASIN && result.Title) {
-                searchObject.text = result.Title;
-                searchObject.value = result.Title;
-                searchObject.id = result.ASIN;
-                if (result.ProductGroup) {
-                  searchObject.text += (' - ' + result.ProductGroup + ' on Amazon');
-                  if (result.DetailPageURL) searchObject.url = result.DetailPageURL;
-                  switch (result.ProductGroup) {
-                    case 'DVD':
-                      searchObject.tags = { Movies: true };
-                      break;
-                    case 'Books':
-                      searchObject.tags = { Books: true };
-                      break;
-                    case 'Electronics':
-                    case 'VideoGames':
-                    case 'PCHardware':
-                    case 'Software':
-                      searchObject.tags = { Electronics: true };
-                      break;
-                    case 'Toys':
-                    case 'Tools':
-                    case 'SportingGoods':
-                    case 'Kitchen':
-                      searchObject.tags = { Home: true };
-                      break;
-                    case 'GourmetFood':
-                      searchObject.tags = { 'Food & Drinks': true };
-                      break;
-                    case 'Music':
-                      searchObject.tags = { Music: true };
-                      break;
-                    case 'Apparel':
-                      searchObject.tags = { Fashion: true };
-                      break;
-                    default:
-                      break;
-                  }
-                }
               }
               break;
             default:
@@ -241,10 +143,11 @@ class FirebaseSearchInput extends Component {
           return key.toLowerCase().includes(searchText.toLowerCase());
         }}
         fullWidth={true}
-        hintText='What is it?'
+        hintText={this.props.placeholder}
         dataSource={this.state.dataSource}
         onUpdateInput={this.onUpdateInput} 
         onNewRequest={this.onNewRequest}
+        className={this.props.className}
         style={{
           backgroundColor: '',
         }}
