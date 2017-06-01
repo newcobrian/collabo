@@ -40,7 +40,7 @@ const LoggedInView = props => {
         </IndexLink>
 
         <Link to="create" activeClassName="active" className="nav-module nav-editor">  
-            <div className="nav-text">Create New Itinerary</div>
+            <div className="nav-text">+ Create New Itinerary</div>
         </Link>
 
         <Link to={`@${props.userInfo.username}`} activeClassName="active" className="nav-module nav-profile">

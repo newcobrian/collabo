@@ -45,10 +45,11 @@ textarea {
 .v2-type-body1 {
   /* “The almond milk ice: */
   font-weight: 300;
-  font-size: 15px;
+  font-size: 14px;
   letter-spacing: 0.5px;
   line-height: 26px;
   font-family: 'Open Sans', sans-serif;
+  color: black;
 }
 .v2-type-body2 {
   font-weight: 300;
@@ -56,6 +57,7 @@ textarea {
   letter-spacing: 0.5px;
   line-height: 20px;
   font-family: 'Open Sans', sans-serif;
+  color: black;
 }
 .v2-type-body3 {
   /* “The almond milk ice: */
@@ -64,6 +66,7 @@ textarea {
   letter-spacing: 0.5px;
   line-height: 32px;
   font-family: 'Open Sans', sans-serif;
+  color: black;
 }
 .v2-type-rating {
   /* “The almond milk ice: */
@@ -90,10 +93,11 @@ textarea {
 .v2-type-caption {
   /* “The almond milk ice: */
   font-weight: 300;
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 0.5px;
   line-height: 26px;
   font-family: 'Open Sans', sans-serif;
+  color: black;
 }
 .v2-type-mono {
   /* “The almond milk ice: */
@@ -102,6 +106,7 @@ textarea {
   letter-spacing: 0.5px;
   line-height: 26px;
   font-family: 'Inconsolata', monospace;
+  color: black;
 }
 .v2-type-mono.mono-sm {
   font-size: 13px;
@@ -138,11 +143,10 @@ textarea {
   letter-spacing: 0;
 }
 .v2-type-h4 {
-  /* H4 - Categories: */
     opacity: 1;
-    font-size: 20px;
+    font-size: 19px;
     letter-spacing: 0.5px;
-    font-weight: 200;
+    font-weight: 600;
     width: 100%;
 }
 .v2-type-h6 {

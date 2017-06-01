@@ -6,6 +6,7 @@
 .cta-wrapper {
   padding: 0;
   width: auto;
+  min-width: 60px;
 }
 .cta-box {
   margin-top: -1px;

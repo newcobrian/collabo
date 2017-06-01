@@ -52,7 +52,7 @@ class Itinerary extends React.Component {
     if (!this.props.itinerary) {
       return (
         <div className="loading-module flx flx-center-all v2-type-body3">
-          Loadin Itinerary...
+          Loading Itinerary...
         </div>
       );
     }
@@ -127,7 +127,7 @@ class Itinerary extends React.Component {
 
             </div>
 
-            <div className="itinerary__tips-list flx flx-col flx-align-center">
+            <div className="itinerary__tipslist flx flx-col flx-align-center">
               <div>
                 <TipList
                   reviewList={this.props.reviewList} 

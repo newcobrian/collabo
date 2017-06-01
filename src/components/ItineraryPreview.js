@@ -12,8 +12,11 @@ const CommentPreview = props => {
   if (props.comments) {
     return (
       <Link to={`itinerary/${props.itinerary.id}`}>
-        <div className="cta-wrapper cta-wrapper-comment flx flx-col">
-          {props.itinerary.commentsCount} Comments
+        <div className="cta-wrapper flx flx-row flx-just-end flex-item-right">
+          <div className="flx flx-row flx-just-end flx-align-center">
+            <div className="v2-type-body1">{props.itinerary.commentsCount}</div>
+            <div className="cta-icon cta-comment"></div>
+          </div>
         </div>
       </Link>
     )
@@ -21,8 +24,11 @@ const CommentPreview = props => {
   else {
     return (
       <Link to={`itinerary/${props.itinerary.id}`}>
-        <div className="cta-wrapper cta-wrapper-comment flx flx-col">
-
+        <div className="cta-wrapper flx flx-row flx-just-end flex-item-right">
+          <div className="flx flx-row flx-just-end flx-align-center">
+             <div className="v2-type-body1"></div>
+             <div className="cta-icon cta-comment"></div>
+           </div>
         </div>
       </Link>
     )
@@ -34,7 +40,8 @@ const ItineraryPreview = props => {
   const canModify = props.authenticated &&
       props.authenticated === props.itinerary.userId;
   return (
-    <div className="itinerary__cover flx flx-left mrgn-bottom-lg">
+    <Link to={`itinerary/${itinerary.id}`}>
+    <div className="itinerary__cover flx flx-left">
 
       <div className="itinerary__cover__text flx flx-col flx-align-center flx-just-space-between ta-center">
         
@@ -52,7 +59,7 @@ const ItineraryPreview = props => {
           <div className="itinerary__cover__author-photo mrgn-bottom-sm">
             <ProxyImage src={itinerary.createdBy.image} className="center-img" />
           </div>
-          <div className="v2-type-body1 opa-40">
+          <div className="v2-type-body1 opa-70">
             {itinerary.reviewsCount} Tips by {itinerary.createdBy.username}
           </div>
           <div className="v2-type-mono">
@@ -84,7 +91,7 @@ const ItineraryPreview = props => {
           </div> 
           <div className="cta-box flx flx-row">
             <CommentPreview comments={props.itinerary.comments} itinerary={props.itinerary} />
-            <div className="cta-wrapper flx flx-row flex-item-right">
+            <div className="cta-wrapper flx flx-row flx-just-end flex-item-right">
               <LikeReviewButton
                 authenticated={props.authenticated}
                 isLiked={props.itinerary.isLiked}
@@ -107,7 +114,8 @@ const ItineraryPreview = props => {
       </Link>
 
     {/** ----- Close itinerary__cover DIV ----- **/}  
-    </div> 
+    </div>
+    </Link> 
   );
 }
 
