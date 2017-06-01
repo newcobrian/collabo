@@ -1,13 +1,15 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import * as Actions from '../../actions';
-import { FORWARD_MODAL, REVIEW_MODAL } from '../../actions';
+import { FORWARD_MODAL, REVIEW_MODAL, SAVE_MODAL } from '../../actions';
 import ForwardModal from './ForwardModal'
 import ReviewModal from './ReviewModal'
+import SaveModal from './SaveModal'
 
 const MODAL_COMPONENTS = {
   FORWARD_MODAL: ForwardModal,
-  REVIEW_MODAL: ReviewModal
+  REVIEW_MODAL: ReviewModal,
+  SAVE_MODAL: SaveModal
 }
 const mapStateToProps = state => ({
   ...state.modal,

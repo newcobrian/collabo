@@ -136,11 +136,11 @@ class Itinerary extends React.Component {
                   like={this.props.likeReview} 
                   unLike={this.props.unLikeReview}
                   userInfo={this.props.userInfo}
+                  showModal={this.props.showModal}
 
                   updateRating={this.props.onUpdateRating}
                   onSetPage={this.onSetPage}
-                  deleteReview={this.props.onDeleteReview}
-                  showModal={this.props.showModal} />
+                  deleteReview={this.props.onDeleteReview} />
               </div>
             </div>
 

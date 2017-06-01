@@ -30,6 +30,7 @@ const TipList = props => {
               userInfo={props.userInfo}
               comments={reviewItem.comments}
               images={reviewItem.images}
+              showModal={props.showModal}
             />
           );
         })

@@ -5,8 +5,7 @@ import SaveReviewButton from './SaveReviewButton';
 import ProxyImage from './ProxyImage';
 import ImagePicker from './ImagePicker';
 import ReviewActions from './ReviewActions';
-import FORWARD from '../constants';
-import { FORWARD_MODAL, REVIEW_MODAL } from '../actions';
+import { SAVE_MODAL } from '../actions';
 import { REVIEW_TYPE } from '../constants';
 import CommentContainer from './Review/CommentContainer'
 
@@ -38,6 +37,11 @@ const TipPreview = props => {
   const canModify = props.authenticated &&
       props.authenticated === review.userId;
 
+  const handleSaveClick = ev => {
+    ev.preventDefault();
+    props.showModal(SAVE_MODAL, props.review);
+  }
+
   return (
     <div className="tips-wrapper flx flx-col flx-col-start mrgn-bottom-lg">
 
@@ -61,7 +65,9 @@ const TipPreview = props => {
             </div>
             </Link>
             <div className="v-button v-button--add flex-item-right">
-              <img className="center-img" src="../img/icon.add.png"/>Save
+              <Link onClick={handleSaveClick}>
+                <img className="center-img" src="../img/icon.add.png"/>Save
+              </Link>
             </div>
           </div>
           <div className="tip__address v2-type-mono mono-sm mrgn-bottom-sm opa-30 ta-left">

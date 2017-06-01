@@ -79,6 +79,7 @@ export const HIDE_MODAL = 'HIDE_MODAL';
 export const UNMOUNT_FREIND_SELECTOR = 'UNMOUNT_FREIND_SELECTOR';
 export const FORWARD_MODAL = 'FORWARD_MODAL'
 export const REVIEW_MODAL = 'REVIEW_MODAL'
+export const SAVE_MODAL = 'SAVE_MODAL'
 export const ITINERARY_CREATED = 'ITINERARY_CREATED'
 export const ITINERARY_PAGE_LOADED = 'ITINERARY_PAGE_LOADED'
 export const ITINERARY_PAGE_UNLOADED = 'ITINERARY_PAGE_UNLOADED'
@@ -87,6 +88,7 @@ export const EDITOR_PAGE_NO_AUTH = 'EDITOR_PAGE_NO_AUTH'
 export const GET_ITINERARIES_BY_USER = 'GET_ITINERARIES_BY_USER'
 export const ITINERARY_COMMMENTS_LOADED = 'ITINERARY_COMMMENTS_LOADED'
 export const ITINERARY_COMMMENTS_UNLOADED = 'ITINERARY_COMMMENTS_UNLOADED'
+export const SAVE_TO_ITINERARIES_LIST_LOADED = 'SAVE_TO_ITINERARIES_LIST_LOADED'
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -2743,43 +2745,79 @@ export function applyTag(tag) {
   }
 }
 
+export function getSaveToItinerariesList(auth) {
+  return dispatch => {
+    Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + auth).once('value', snapshot => {
+      let itineraryList = [];
+      snapshot.forEach(function(itinerary) {
+        let item = {
+          title: itinerary.val().title,
+          itineraryId: itinerary.key
+        }
+        itineraryList.push(item);
+      })
+      dispatch({
+        type: SAVE_TO_ITINERARIES_LIST_LOADED,
+        payload: itineraryList
+      })
+    })
+  }
+}
+
 export function showModal(type, review) {
   const uid = Firebase.auth().currentUser.uid;
   return dispatch => {
     switch (type) {
-      case REVIEW_MODAL:
-        if (review) {
-          const subjectId = review.subjectId;
-          const subject = Object.assign({}, review.subject);
-
-          Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + uid).once('value', snapshot => {
-            if (snapshot.exists()) {
-              Firebase.database().ref(Constants.REVIEWS_PATH + '/' + snapshot.val().reviewId).once('value', reviewSnapshot => {
-                dispatch({
-                  type: SHOW_MODAL,
-                  modalType: type,
-                  subject: subject,
-                  review: reviewSnapshot.exists() ? reviewSnapshot.val() : null,
-                  reviewId: reviewSnapshot.exists() ? reviewSnapshot.key : null,
-                  subjectId: subjectId,
-                  rating: reviewSnapshot.exists() ? reviewSnapshot.val().rating : null,
-                  caption: reviewSnapshot.exists() ? reviewSnapshot.val().caption : null,
-                  image: Helpers.getImagePath(subject.images)
-                })
-              })
-            }
-            else {
-              dispatch({
-                type: SHOW_MODAL,
-                modalType: type,
-                subject: subject,
-                subjectId: subjectId,
-                image: Helpers.getImagePath(subject.images)
-              })
-            }
+        case SAVE_MODAL:
+          Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + uid).once('value', snapshot => {
+            let itineraryList = [];
+            snapshot.forEach(function(itinerary) {
+              let item = {
+                title: itinerary.val().title,
+                itineraryId: itinerary.key
+              }
+              itineraryList.push(item);
+            })
+            dispatch({
+              type: SHOW_MODAL,
+              modalType: SAVE_MODAL,
+              itinerariesList: itineraryList
+            })
           })
-        }
-        break;
+          break;
+      // case REVIEW_MODAL:
+      //   if (review) {
+      //     const subjectId = review.subjectId;
+      //     const subject = Object.assign({}, review.subject);
+
+      //     Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + uid).once('value', snapshot => {
+      //       if (snapshot.exists()) {
+      //         Firebase.database().ref(Constants.REVIEWS_PATH + '/' + snapshot.val().reviewId).once('value', reviewSnapshot => {
+      //           dispatch({
+      //             type: SHOW_MODAL,
+      //             modalType: type,
+      //             subject: subject,
+      //             review: reviewSnapshot.exists() ? reviewSnapshot.val() : null,
+      //             reviewId: reviewSnapshot.exists() ? reviewSnapshot.key : null,
+      //             subjectId: subjectId,
+      //             rating: reviewSnapshot.exists() ? reviewSnapshot.val().rating : null,
+      //             caption: reviewSnapshot.exists() ? reviewSnapshot.val().caption : null,
+      //             image: Helpers.getImagePath(subject.images)
+      //           })
+      //         })
+      //       }
+      //       else {
+      //         dispatch({
+      //           type: SHOW_MODAL,
+      //           modalType: type,
+      //           subject: subject,
+      //           subjectId: subjectId,
+      //           image: Helpers.getImagePath(subject.images)
+      //         })
+      //       }
+      //     })
+      //   }
+      //   break;
       default:
         dispatch({
           type: SHOW_MODAL,
