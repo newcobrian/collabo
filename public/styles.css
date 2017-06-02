@@ -163,17 +163,25 @@ input[type="radio"]:checked + label span {
   width: 100%;
 }
 .v-button {
-    border: none;
-    box-shadow: 0 0 0 2px rgba(107, 255, 78,.4);
-    height: 32px;
-    color: white;
-    padding: 6px 10px;
-    text-align: center;
-    font-weight: 100 !important;
-    background-image: linear-gradient(-270deg, #2EC299 0%, #00ACED 100%);
-    border-radius: 10px;
-    font-size: 14px;
-    display: inline-block;
+ border: none;
+  /* box-shadow: 0 0 0 2px rgba(107, 255, 78,.4); */
+  height: 32px;
+  color: white;
+  padding: 6px 10px;
+  text-align: center;
+  font-weight: 100 !important;
+  /* background-image: linear-gradient(-270deg, #2EC299 0%, #00ACED 100%); */
+  border-radius: 5px;
+  font-size: 14px;
+  display: inline-block;
+  background-color: blue;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-family: "Arimo";
+  min-width: 32px;
+}
+.v-button:hover {
+  opacity: .8;
 }
 .v-button img {
     height: 100%;
@@ -192,6 +200,14 @@ input[type="radio"]:checked + label span {
   margin: 0;
   box-shadow: none;
   border-radius: 0;
+}
+.v-button--circle {
+  border-radius: 32px;
+  padding: 6px;
+}
+.v-button--circle img {
+  margin-right: 0;
+  margin-top: 0;
 }
 .v-button--light {
   background: white;
@@ -1380,10 +1396,6 @@ position: absolute;
 }
 .error-messages li {
   list-style: none;
-}
-
-
-.dialog-wrapper {
 }
 
 

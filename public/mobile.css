@@ -11,23 +11,16 @@ body {
   padding-top: 50px !important;
 }
 .header-container {
-  height: 50px;
 }
 .header-wrapper {
   height: 50px;
 }
 .logo-graphic {
-  margin: 0 auto;
 }
 .logo-main {
   display: none;
 }
 .logo-module {
-  right: 0;
-  width: 100%;
-  padding: 0px 10px 0px 15px;
-  border-bottom: 1px solid rgba(0,0,0,.2);
-  height: 50px;
 }
 .navigation-bar.roow {
     bottom: 0;

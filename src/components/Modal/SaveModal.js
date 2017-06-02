@@ -35,22 +35,67 @@ class SaveModal extends React.Component {
           modal={false}
           open={(this.props.modalType === SAVE_MODAL) ? true : false}
           autoScrollBodyContent={true}
-          className="dialog-wrapper"
+          onRequestClose={handleClose}
+
+          className="dialog--save"
+          style={{}}
+
+          overlayClassName="dialog--save__overlay"
+          overlayStyle={{}}
+          
+          title="Choose an itinerary for..."
+          titleClassName="dialog--save__title v2-type-h2"
+          titleStyle={{padding: "20px", fontSize: "12px"}}
+          
+          contentClassName="dialog--save__wrapper"
+          contentStyle={{width: "400px", maxWidth: "none", position: "fixed", top: "0", right:"0"}}
+          
+          bodyClassName="dialog--save__body"
+          bodyStyle={{padding: "30px 0px"}}
+
+          actionsContainerClassName="dialog--save__actions"
+
+          
+
           style={{}}>
-          	<div>
-				<ul>
-					<li> Create new itinerary </li>
-					{this.props.itinerariesList.map(itinerary => {
+            
+            <div className="dialog--save__content">
+            <div className="dialog--save__tip-item">
+              <div className="flx flx-row flx-just-start flx-align-center">
+                <div className="tip-preview-wrapper mrgn-right-md">
+                  <img className="center-img" src="../img/views.ramen.temp.png"/>
+                </div>
+                <div className="v2-type-body2">Gonokamiseisakujo Tsukemen</div>
+              </div>
+            </div>
+    				<ul>
+    					{this.props.itinerariesList.map(itinerary => {
 				        return (
-				            <li>
-						    	<div>
-						    		{itinerary.title}
-						    	</div>
-						    </li>
+  		            <li className="">
+                    <div className="flx flx-row flx-just-start flx-align-center">
+                      <div className="v-button v-button--temp mrgn-right-md">
+                        <img className="center-img" src="../img/icon.bird--dark.png"/>
+                      </div>
+    						    	<div className="save-to__title">
+    						    		{itinerary.title}
+    						    	</div>
+                    </div>
+  				        </li>
 				        );
-				     })}
-				</ul>
-			</div>
+  				     })}
+                  <li className="create-new">
+                    <div className="flx flx-row flx-just-start flx-align-center">
+                      <div className="v-button v-button--temp mrgn-right-md">
+                        <img className="center-img" src="../img/icon.add--dark.png"/>
+                      </div>
+                      <div className="save-to__title">
+                        Create new itinerary
+                      </div>
+                    </div>
+                  </li>
+    				</ul>
+    			</div>
+
         </Dialog>
       </MuiThemeProvider>
     );

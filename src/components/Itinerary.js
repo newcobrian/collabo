@@ -64,7 +64,7 @@ class Itinerary extends React.Component {
         <div className="flx flx-col flx-align-center page-common">
           <div className="content-wrapper itinerary flx flx-col flx-align-center">
 
-            <div className="itinerary__summary option-stack ta-left mrgn-bottom-lg">
+            <div className="itinerary__summary option-stack mrgn-bottom-lg">
 
               <fieldset>
                 <div className="flx flx-col flx-align-center mrgn-bottom-md">

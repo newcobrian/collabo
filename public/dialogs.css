@@ -1,0 +1,86 @@
+.dialog--save {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  font-family: 'Open Sans', sans-serif;
+}
+.dialog--save__wrapper {
+  margin: 0;
+  height: 100%;
+}
+.dialog--save__content {
+  /*border: 2px red solid;*/
+  height: 100%;
+  position: relative;
+  margin-top: 10px;
+}
+.dialog--save__content ul {
+  list-style-type: none;
+}
+.dialog--save__content li {
+  padding: 10px 20px;
+}
+.dialog--save__content li:hover {
+  background-color: rgba(0,47,200,.05);
+  cursor: pointer;
+}
+.dialog--save__title {
+  color: black;
+}
+.dialog--save__tip-item {
+  position: fixed;
+  top: 53px;
+  left: 0;
+  width: 100%;
+  padding: 10px 20px;
+  background: white;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  z-index: 2;
+}
+.dialog--save__body {
+  padding: 40px;
+}
+.dialog--save__overlay {
+/*background-color: rgba(255,255,255.5)*/
+}
+.dialog--save__actions {
+
+}
+.save-to__title {
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+  width: 100%;
+  color: black;
+  font-family: 'Arimo', sans-serif;
+}
+
+
+.v-button--temp {
+  background: transparent;
+  color: black;
+  opacity: 1;
+  font-size: 11px;
+  border: none;
+  box-shadow: none;
+  padding: 6px 0;
+  border-radius: 4px;
+  min-width: 32px;
+}
+.v-button--temp img {
+  margin: 0 auto;
+}
+li:hover .v-button--temp {
+  opacity: 1;
+}
+.create-new {
+}
+.tip-preview-wrapper {
+  width: 32px;
+  height: 32px;
+  overflow: hidden;
+}
+.tip-preview-wrapper img {
+
+}
