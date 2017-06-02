@@ -1166,31 +1166,43 @@ export function uploadImages(auth, objectId, objectType, images) {
     let storagePath = (objectType === Constants.REVIEW_TYPE ? Constants.IMAGES_PATH : Constants.IMAGES_ITINERARIES_PATH);
     let byUserPath = (objectType === Constants.REVIEW_TYPE ? Constants.IMAGES_BY_USER_PATH : Constants.IMAGES_ITINERARIES_BY_USER_PATH);
     images.forEach(function(imageFile) {
-      const storageRef = Firebase.storage().ref();
-      
-      const metadata = {
-        contentType: imageFile.type
-      }
-      // save all the new images in Firebase storage, get all the image URLs
-      let fileName = generateImageFileName();
-      const uploadTask = storageRef.child('images/' + fileName).put(imageFile, metadata);
-      uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-      function(snapshot) {
-        }, function(error) {
-          console.log(error.message)
-      }, function() {
-        const downloadURL = uploadTask.snapshot.downloadURL;
-        if (downloadURL) {
-          let imageObject = {
-            url: downloadURL,
-            lastModified: Firebase.database.ServerValue.TIMESTAMP,
-            userId: auth
-          }
-           // save images in images and images-by-user
-          let imageId = Firebase.database().ref(storagePath + '/' + objectId).push(imageObject).key;
-          Firebase.database().ref(byUserPath + '/' + auth + '/' + objectId + '/' + imageId).update(imageObject);
+      if (typeof imageFile === 'string' || imageFile instanceof String) {
+        // if its the URL path of the image, just save it
+        let imageObject = {
+          url: imageFile,
+          lastModified: Firebase.database.ServerValue.TIMESTAMP
         }
-      })
+        let imageId = Firebase.database().ref(storagePath + '/' + objectId).push(imageObject).key;
+        Firebase.database().ref(byUserPath + '/' + auth + '/' + objectId + '/' + imageId).update(imageObject);
+      }
+      else {
+        // otherwise upload the file if we need to
+        const storageRef = Firebase.storage().ref();
+        
+        const metadata = {
+          contentType: imageFile.type
+        }
+        // save all the new images in Firebase storage, get all the image URLs
+        let fileName = generateImageFileName();
+        const uploadTask = storageRef.child('images/' + fileName).put(imageFile, metadata);
+        uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+        function(snapshot) {
+          }, function(error) {
+            console.log(error.message)
+        }, function() {
+          const downloadURL = uploadTask.snapshot.downloadURL;
+          if (downloadURL) {
+            let imageObject = {
+              url: downloadURL,
+              lastModified: Firebase.database.ServerValue.TIMESTAMP,
+              userId: auth
+            }
+             // save images in images and images-by-user
+            let imageId = Firebase.database().ref(storagePath + '/' + objectId).push(imageObject).key;
+            Firebase.database().ref(byUserPath + '/' + auth + '/' + objectId + '/' + imageId).update(imageObject);
+          }
+        })
+      }
     })
   }
 }
@@ -1204,9 +1216,18 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
     for (var i = 0; i < reviews.length; i++) {
       // create the reviewsList for the itinerary
       let subject = Helpers.makeSubject(reviews[i], lastModified);
-      // if subject doesnt exist, create it
+      
+      // if no subject id, create the subject
       if (!reviews[i].subjectId) {
-        reviews[i].subjectId = Firebase.database().ref(Constants.SUBJECTS_PATH).push(subject).key;
+        if (reviews[i].id) {
+          // if this is a search result from 4sq, use their id as the subject id
+          reviews[i].subjectId = reviews[i].id;
+          updates[`/${Constants.SUBJECTS_PATH}/${reviews[i].subjectId}`] = subject;
+        }
+        else {
+          // new custom subject, so create it
+          reviews[i].subjectId = Firebase.database().ref(Constants.SUBJECTS_PATH).push(subject).key;
+        }
       }
 
       let review = Helpers.makeReview(reviews[i], reviews[i].subjectId, lastModified);
@@ -1219,7 +1240,7 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
         updates[`/${Constants.REVIEWS_BY_USER_PATH}/${auth}/${reviews[i].reviewId}/`] = review;
       }
       // update REVIEWS_BY_USER, REVIEWS_BY_SUBJECT, and REVIEWS tables
-      updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${reviews[i].subjectId}/${auth}/`] = review;
+      updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${reviews[i].subjectId}/${auth}/`] = Object.assign({}, review, {reviewId: reviews[i].reviewId});
       updates[`/${Constants.REVIEWS_PATH}/${reviews[i].reviewId}/`] = Object.assign({}, review, { userId: auth })
 
       let reviewObject = {};      

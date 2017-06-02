@@ -113,10 +113,10 @@ class FirebaseSearchInput extends Component {
             case '4sq':
               if (result.name && result.id) {
                 searchObject.text = result.name;
-                searchObject.value = result.name;
+                searchObject.value = searchObject.title = result.name;
                 searchObject.id = '4sq:' + result.id;
                 if (result.url) searchObject.url = result.url;
-                if (result.location && result.location.formattedAddress) searchObject.description = result.location.formattedAddress.join(' ');
+                if (result.location && result.location.formattedAddress) searchObject.address = result.location.formattedAddress.join(' ');
                 if (result.location && result.location.address + result.location.city) searchObject.text += ' - ' + result.location.address + ', ' + result.location.city;
               }
               break;

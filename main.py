@@ -323,8 +323,8 @@ def search_tmdb_tv(q, **kwargs):
 
 ###
 
-SERVICES = [search_4sq, search_spotify, search_amazon, search_tmdb_movie, search_tmdb_tv]
-#SERVICES = [search_amazon]
+#SERVICES = [search_4sq, search_spotify, search_amazon, search_tmdb_movie, search_tmdb_tv]
+SERVICES = [search_4sq]
 
 ###
 
