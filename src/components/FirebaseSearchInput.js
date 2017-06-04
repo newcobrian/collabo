@@ -32,7 +32,7 @@ class FirebaseSearchInput extends Component {
 
   onUpdateInput(inputValue) {
     const self = this;
-    this.props.onUpdateCreateField('title', inputValue)
+    this.props.onUpdateField('title', inputValue)
     this.setState({
       inputValue: inputValue
     }, function() {

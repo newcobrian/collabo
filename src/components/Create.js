@@ -39,14 +39,14 @@ class Create extends React.Component {
 	    const updateFieldEvent =
 	      key => ev => this.props.onUpdateCreateField(key, ev.target.value);
 
-	    this.changeTitle = updateFieldEvent('itineraryTitle');
+	    this.changeTitle = updateFieldEvent('title');
 	    this.changeGeo = updateFieldEvent('geo');
 	    this.changeDescription = updateFieldEvent('description');
 
 		this.submitForm = ev => {
 	      ev.preventDefault();
 
-	      if (!this.props.itineraryTitle) {
+	      if (!this.props.title) {
 	        this.props.createSubmitError('itinerary name');
 	      }
 	      else if (this.props.geo !== 0 && !this.props.geo) {
@@ -54,7 +54,7 @@ class Create extends React.Component {
 	      }
 	      else {
 		   	let itinerary = {};
-	    	itinerary.title = this.props.itineraryTitle;
+	    	itinerary.title = this.props.title;
 	    	itinerary.geo = this.props.geo;
 	    	if (this.props.description) itinerary.description = this.props.description;
 
@@ -301,7 +301,7 @@ class Create extends React.Component {
 		                        type="text"
 		                        placeholder="Title"
 		                        required
-		                        value={this.props.itineraryTitle}
+		                        value={this.props.title}
 		                        onChange={this.changeTitle} />
 		                    </fieldset>
 		                    <fieldset className="field-wrapper">
