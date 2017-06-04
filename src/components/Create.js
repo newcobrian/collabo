@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import * as Actions from '../actions';
-import FirebaseSearchInput from './FirebaseSearchInput'
 import ProxyImage from './ProxyImage';
 import ListErrors from './ListErrors';
 import * as Constants from '../constants';
@@ -40,14 +39,14 @@ class Create extends React.Component {
 	    const updateFieldEvent =
 	      key => ev => this.props.onUpdateCreateField(key, ev.target.value);
 
-	    this.changeTitle = updateFieldEvent('title');
+	    this.changeTitle = updateFieldEvent('itineraryTitle');
 	    this.changeGeo = updateFieldEvent('geo');
 	    this.changeDescription = updateFieldEvent('description');
 
 		this.submitForm = ev => {
 	      ev.preventDefault();
 
-	      if (!this.props.title) {
+	      if (!this.props.itineraryTitle) {
 	        this.props.createSubmitError('itinerary name');
 	      }
 	      else if (this.props.geo !== 0 && !this.props.geo) {
@@ -55,7 +54,7 @@ class Create extends React.Component {
 	      }
 	      else {
 		   	let itinerary = {};
-	    	itinerary.title = this.props.title;
+	    	itinerary.title = this.props.itineraryTitle;
 	    	itinerary.geo = this.props.geo;
 	    	if (this.props.description) itinerary.description = this.props.description;
 
@@ -302,7 +301,7 @@ class Create extends React.Component {
 		                        type="text"
 		                        placeholder="Title"
 		                        required
-		                        value={this.props.title}
+		                        value={this.props.itineraryTitle}
 		                        onChange={this.changeTitle} />
 		                    </fieldset>
 		                    <fieldset className="field-wrapper">
