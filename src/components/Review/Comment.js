@@ -7,6 +7,7 @@ const Comment = props => {
   const comment = props.comment;
   const show = props.authenticated &&
     props.authenticated === comment.userId;
+
   return (
     <div className="card comment-wrapper">
       <div className="">
@@ -30,7 +31,7 @@ const Comment = props => {
               <span className="date-posted">
                 {new Date(comment.lastModified).toLocaleString([], {year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute:'2-digit'})}
               </span>
-              <DeleteButton show={show} review={props.review} commentId={comment.id} delete={props.delete} />
+              <DeleteButton show={show} commentObject={props.commentObject} commentId={comment.id} deleteComment={props.deleteComment} />
             </div>
           </div>
         </div>

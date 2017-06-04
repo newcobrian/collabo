@@ -21,7 +21,7 @@ const CommentContainer = props => {
 		          commentObject={props.commentObject}
 		          authenticated={props.authenticated}
 		          userInfo={props.userInfo} 
-		          delete={props.delete} />
+		          deleteComment={props.deleteComment} />
 		     </div>
 		);
 	} else {
@@ -39,7 +39,7 @@ const CommentContainer = props => {
 					commentObject={props.commentObject}
 					authenticated={props.authenticated}
 		          	userInfo={props.userInfo}
-					delete={props.delete} />
+					deleteComment={props.deleteComment} />
 			</div>
 		);
 	}

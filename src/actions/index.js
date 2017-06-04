@@ -572,7 +572,7 @@ export function getItineraryComments(itineraryId) {
     Firebase.database().ref(Constants.COMMENTS_PATH + '/' + itineraryId).on('value', itinCommentSnapshot => {
       let comments = [];
       itinCommentSnapshot.forEach(function(itinCommentChild) {
-        const comment = ({}, { id: itinCommentChild.key }, itinCommentChild.val());
+        const comment = Object.assign({}, itinCommentChild.val(), { id: itinCommentChild.key } );
         comments = comments.concat(comment);
       })
       comments.sort(lastModifiedAsc);
@@ -645,7 +645,7 @@ export function getItinerary(auth, itineraryId) {
 
                             let comments = [];
                             commentSnapshot.forEach(function(commentChild) {
-                              const comment = ({}, { id: commentChild.key }, commentChild.val());
+                              const comment = Object.assign({}, { id: commentChild.key }, commentChild.val());
                               comments = comments.concat(comment);
                             })
                             comments.sort(lastModifiedAsc);
@@ -1799,17 +1799,21 @@ export function onCommentSubmit(authenticated, userInfo, type, commentObject, bo
   }
 }
 
-export function onDeleteComment(review, commentId) {
+export function onDeleteComment(commentObject, commentId) {
   return dispatch => {
-    Firebase.database().ref(Constants.COMMENTS_PATH + '/' + review.id + '/' + commentId).remove().then(response => {
-      Helpers.decrementCount(Constants.COMMENTS_COUNT, review.id, review.subjectId, review.reviewer.userId);
+    console.log('action')
+    if (commentObject.subjectId) {
+      Firebase.database().ref(Constants.COMMENTS_PATH + '/' + commentObject.id + '/' + commentId).remove();
+      Helpers.decrementReviewCount(Constants.COMMENTS_COUNT, commentObject.id, commentObject.subjectId, commentObject.createdBy.userId);
+    }
+    else {
+      console.log('else = ' + JSON.stringify(commentObject) + ' id = ' + commentId)
+      Firebase.database().ref(Constants.COMMENTS_PATH + '/' + commentObject.id + '/' + commentId).remove();
+      Helpers.decrementItineraryCount(Constants.COMMENTS_COUNT, commentObject.id, commentObject.geo, commentObject.createdBy.userId);
+    }
 
-      dispatch({
-        type: DELETE_COMMENT
-      })
-    })
-    .catch(error => {
-      console.log(error);
+    dispatch({
+      type: DELETE_COMMENT
     })
   }
 }

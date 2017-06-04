@@ -10,7 +10,7 @@ import * as Actions from '../../actions';
 const DeleteButton = props => {
   const del = () => {
     // const payload = agent.Comments.delete(props.slug, props.commentId);
-    props.delete(props.review, props.commentId);
+    props.deleteComment(props.commentObject, props.commentId);
   };
 
   if (props.show) {

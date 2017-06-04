@@ -137,6 +137,7 @@ class Itinerary extends React.Component {
                   unLike={this.props.unLikeReview}
                   userInfo={this.props.userInfo}
                   showModal={this.props.showModal}
+                  deleteComment={this.props.onDeleteComment}
 
                   updateRating={this.props.onUpdateRating}
                   onSetPage={this.onSetPage}
@@ -158,7 +159,7 @@ class Itinerary extends React.Component {
               comments={this.props.comments || []}
               errors={this.props.commentErrors}
               commentObject={this.props.itinerary}
-              delete={this.props.onDeleteComment} />
+              deleteComment={this.props.onDeleteComment} />
             </div>
 
 

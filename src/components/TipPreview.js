@@ -126,7 +126,7 @@ const TipPreview = props => {
                 commentObject={props.review}
                 userInfo={props.userInfo}
                 type={REVIEW_TYPE}
-                delete={props.onDeleteComment} />
+                deleteComment={props.deleteComment} />
             
 
 {/**}            <input type="text" placeholder="Add a comment..." className="input--overline mrgn-top-md" />

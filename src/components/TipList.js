@@ -31,6 +31,7 @@ const TipList = props => {
               comments={reviewItem.comments}
               images={reviewItem.images}
               showModal={props.showModal}
+              deleteComment={props.deleteComment}
             />
           );
         })
