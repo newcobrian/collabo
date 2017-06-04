@@ -7,14 +7,16 @@ const validate = values => {
   if (!values.itinerary || !values.itinerary.geo) {
     errors.itinerary.geo = 'Required';
   }
-  if (values.reviews) {
+  if (values.itinerary && values.itinerary.reviews) {
     const reviewsArrayErrors = []
-    values.reviews.forEach((review, reviewIndex) => {
+    values.itinerary.reviews.forEach((review, reviewIndex) => {
       const reviewErrors = {}
-      if (!review || !review.place) {
-        reviewErrors.place = 'Required'
-        reviewsArrayErrors[reviewIndex] = reviewErrors
-      }
+      // if (!review.title) {
+        // reviewErrors.title = 'Required'
+        // reviewsArrayErrors[reviewIndex] = reviewErrors
+      // }
+
+      
       // if (tip && member.hobbies && member.hobbies.length) {
       //   const hobbyArrayErrors = []
       //   member.hobbies.forEach((hobby, hobbyIndex) => {
@@ -36,10 +38,10 @@ const validate = values => {
       // }
     })
     if (reviewsArrayErrors.length) {
-      errors.reviews = reviewsArrayErrors
+      errors.itinerary.reviews = reviewsArrayErrors
     }
   }
-  return errors
+  return  errors
 }
 
 export default validate

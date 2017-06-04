@@ -361,7 +361,7 @@ const renderReviews = ({fields, authenticated, latitude, longitude, meta: {error
   // render() {
     // const {handleSubmit, pristine, reset, submitting} = this.props;
 let EditItineraryForm = props => {
-    const {handleSubmit, pristine, reset, submitting} = props;  
+    const {handleSubmit, pristine, reset, submitting} = props;
     return ( 
       <form onSubmit={handleSubmit}>
         <div className="page-title-wrapper center-text flx flx-row flx-center-all">
