@@ -3,7 +3,6 @@ import { Link } from 'react-router';
 import LikeReviewButton from './LikeReviewButton';
 import SaveReviewButton from './SaveReviewButton';
 import ProxyImage from './ProxyImage';
-import ReviewActions from './ReviewActions';
 import FORWARD from '../constants';
 import { FORWARD_MODAL, REVIEW_MODAL } from '../actions';
 
@@ -123,8 +122,8 @@ const ReviewPreview = props => {
         <div className="subject-name-container center-text">
           <div className="delete-wrapper">
             <div className="delete-button">
-                <ReviewActions review={review} authenticated={props.authenticated} 
-                canModify={canModify} deleteReview={props.deleteReview} reviewDetailPath={props.reviewDetailPath} />
+                {/*<ReviewActions review={review} authenticated={props.authenticated} 
+                canModify={canModify} deleteReview={props.deleteReview} reviewDetailPath={props.reviewDetailPath} />*/}
             </div>
           </div>
           <div className="text-category v2-type-h4"><Hashtags tags={review.subject.tag}/></div>

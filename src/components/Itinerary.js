@@ -9,6 +9,7 @@ import { Link } from 'react-router';
 import LikeReviewButton from './LikeReviewButton';
 import CommentContainer from './Review/CommentContainer'
 import { ITINERARY_TYPE } from '../constants';
+import ItineraryActions from './ItineraryActions';
 
 const EditItineraryLink = props => {
   if (props.isUser) {
@@ -60,6 +61,9 @@ class Itinerary extends React.Component {
       const itinerary = this.props.itinerary;
       const isUser = this.props.authenticated &&
       this.props.itinerary.userId === this.props.authenticated;
+
+      const canModify = this.props.authenticated &&
+      this.props.authenticated === this.props.itinerary.createdBy.userId;
       return (
         <div className="flx flx-col flx-align-center page-common">
           <div className="content-wrapper itinerary flx flx-col flx-align-center">
@@ -68,6 +72,17 @@ class Itinerary extends React.Component {
 
               <fieldset>
                 <div className="flx flx-col flx-align-center mrgn-bottom-md">
+                          {/** DELETE BUTTON !!!! NOT FUNCTIONAL !!!! **/}
+                  <div className="delete-wrapper">
+                    <div className="delete-button">
+                        <ItineraryActions 
+                          itinerary={itinerary} 
+                          authenticated={this.props.authenticated} 
+                          canModify={canModify} 
+                          deleteItinerary={this.props.onDeleteItinerary} 
+                          redirectPath="/" />
+                    </div>
+                  </div>
 
                   {/*<div className="subject-image">
                     <ImagePicker images={this.props.itinerary.images} />

@@ -71,6 +71,7 @@ export const UPDATE_FRIENDS_CHECKBOX = 'UPDATE_FRIENDS_CHECKBOX';
 export const FRIEND_SELECTOR_SUBMIT = 'FRIEND_SELECTOR_SUBMIT';
 export const EMPTY_FRIEND_SELECTOR = 'EMPTY_FRIEND_SELECTOR';
 export const REVIEW_DELETED = 'REVIEW_DELETED';
+export const ITINERARY_DELETED = 'ITINERARY_DELETED';
 export const SET_IN_PROGRESS = 'SET_IN_PROGRESS';
 export const MIXPANEL_EVENT = 'MIXPANEL_EVENT';
 export const APPLY_TAG = 'APPLY_TAG';
@@ -1814,6 +1815,26 @@ export function onDeleteComment(commentObject, commentId) {
 
     dispatch({
       type: DELETE_COMMENT
+    })
+  }
+}
+
+export function onDeleteItinerary(userId, itineraryId, geo, redirectPath) {
+  return dispatch => {
+    Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).remove();
+    Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH + '/' + geo + '/' + userId + '/' + itineraryId).remove();
+    Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + userId + '/' + itineraryId).remove();
+    Firebase.database().ref(Constants.LIKES_PATH + '/' + itineraryId).remove();
+    Firebase.database().ref(Constants.COMMENTS_PATH + '/' + itineraryId).remove();
+    Firebase.database().ref(Constants.LIKES_BY_USER_PATH).once('value', likesSnapshot => {
+      likesSnapshot.forEach(function(userChild) {
+        Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userChild.key + '/' + itineraryId).remove();
+      })
+    })
+
+    dispatch({
+      type: ITINERARY_DELETED,
+      redirect: redirectPath
     })
   }
 }

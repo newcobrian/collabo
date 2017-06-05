@@ -3,9 +3,9 @@ import React from 'react';
 import * as Actions from '../actions';
 import { connect } from 'react-redux';
 
-const ReviewActions = props => {
+const ItineraryActions = props => {
   const del = () => {
-    props.deleteReview(props.authenticated, props.review.id, props.review.subjectId, props.reviewDetailPath);
+    props.deleteItinerary(props.authenticated, props.itinerary.id, props.itinerary.geo, props.redirectPath);
   };
 
   if (props.canModify) {
@@ -33,4 +33,4 @@ const ReviewActions = props => {
   );
 };
 
-export default connect(() => ({}), Actions)(ReviewActions);
+export default connect(() => ({}), Actions)(ItineraryActions);

@@ -27,6 +27,8 @@ const ItineraryList = props => {
               authenticated={props.authenticated} 
               like={props.like} 
               unLike={props.unLike}
+              deleteItinerary={props.deleteItinerary}
+              redirectPath={props.redirectPath}
 
               updateRating={props.updateRating}
               deleteReview={props.deleteReview}

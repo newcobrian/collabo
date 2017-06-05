@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import LikeReviewButton from './LikeReviewButton';
 import ProxyImage from './ProxyImage';
 import ImagePicker from './ImagePicker';
-import ReviewActions from './ReviewActions';
+import ItineraryActions from './ItineraryActions';
 import FORWARD from '../constants';
 import { FORWARD_MODAL, REVIEW_MODAL } from '../actions';
 import { ITINERARY_TYPE } from '../constants';
@@ -39,7 +39,7 @@ const ItineraryPreview = props => {
   if (!props.itinerary) {
     return null
   }
-  
+
   const itinerary = props.itinerary;
   const canModify = props.authenticated &&
       props.authenticated === props.itinerary.createdBy.userId;
@@ -50,10 +50,14 @@ const ItineraryPreview = props => {
       <div className="itinerary__cover__text flx flx-col flx-align-center flx-just-space-between ta-center">
         
         {/** DELETE BUTTON !!!! NOT FUNCTIONAL !!!! **/}
-        <div className="delete-wrapper DN">
+        <div className="delete-wrapper">
           <div className="delete-button">
-              <ReviewActions review={itinerary} authenticated={props.authenticated} 
-              canModify={canModify} deleteReview={props.deleteReview} reviewDetailPath={props.reviewDetailPath} />
+              <ItineraryActions 
+                itinerary={itinerary} 
+                authenticated={props.authenticated} 
+                canModify={canModify} 
+                deleteItinerary={props.deleteItinerary} 
+                redirectPath={props.redirectPath} />
           </div>
         </div>
 

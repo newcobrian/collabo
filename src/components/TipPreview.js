@@ -4,7 +4,6 @@ import LikeReviewButton from './LikeReviewButton';
 import SaveReviewButton from './SaveReviewButton';
 import ProxyImage from './ProxyImage';
 import ImagePicker from './ImagePicker';
-import ReviewActions from './ReviewActions';
 import { SAVE_MODAL } from '../actions';
 import { REVIEW_TYPE } from '../constants';
 import CommentContainer from './Review/CommentContainer'
@@ -51,8 +50,8 @@ const TipPreview = props => {
           { /** Hidden Delete Button **/ }
           <div className="DN delete-wrapper">
             <div className="delete-button">
-              <ReviewActions review={review} authenticated={props.authenticated} 
-              canModify={canModify} deleteReview={props.deleteReview} reviewDetailPath={props.reviewDetailPath} />
+              {/*<ReviewActions review={review} authenticated={props.authenticated} 
+              canModify={canModify} deleteReview={props.deleteReview} reviewDetailPath={props.reviewDetailPath} />*/}
             </div>
           </div>
           

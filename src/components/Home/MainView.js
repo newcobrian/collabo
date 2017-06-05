@@ -26,7 +26,8 @@ const MainView = props => {
           itineraries={props.itineraries} 
           authenticated={props.authenticated} 
           like={props.likeReview} 
-          unLike={props.unLikeReview} />
+          unLike={props.unLikeReview}
+          deleteItinerary={props.deleteItinerary} />
     </div>
   );
 };
