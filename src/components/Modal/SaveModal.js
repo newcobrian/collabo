@@ -21,9 +21,10 @@ class SaveModal extends React.Component {
     const actions = [
       <FlatButton
         label="Cancel"
+        hoverColor="white"
         onTouchTap={handleClose}
+        labelStyle={{textTransform: 'none', color:'rgba(0,0,0,.3)'}}
         style={{
-            color:'#2B3538'
           }}
       />
     ];
@@ -45,7 +46,7 @@ class SaveModal extends React.Component {
           
           title="Choose an itinerary for..."
           titleClassName="dialog--save__title v2-type-h2"
-          titleStyle={{padding: "20px", fontSize: "12px"}}
+          titleStyle={{padding: "10px 20px", fontWeight: "700", fontSize: "20px"}}
           
           contentClassName="dialog--save__wrapper"
           contentStyle={{width: "400px", maxWidth: "none", position: "fixed", top: "0", right:"0"}}
@@ -65,7 +66,7 @@ class SaveModal extends React.Component {
                 <div className="tip-preview-wrapper mrgn-right-md">
                   <img className="center-img" src="../img/views.ramen.temp.png"/>
                 </div>
-                <div className="v2-type-body2">Gonokamiseisakujo Tsukemen</div>
+                <div className="dialog--save__tip-name">Gonokamiseisakujo Tsukemen</div>
               </div>
             </div>
     				<ul>
@@ -73,8 +74,7 @@ class SaveModal extends React.Component {
 				        return (
   		            <li className="">
                     <div className="flx flx-row flx-just-start flx-align-center">
-                      <div className="v-button v-button--temp mrgn-right-md">
-                        <img className="center-img" src="../img/icon.bird--dark.png"/>
+                      <div className="v-button v-button--select">
                       </div>
     						    	<div className="save-to__title">
     						    		{itinerary.title}
@@ -86,9 +86,9 @@ class SaveModal extends React.Component {
                   <li className="create-new">
                     <div className="flx flx-row flx-just-start flx-align-center">
                       <div className="v-button v-button--temp mrgn-right-md">
-                        <img className="center-img" src="../img/icon.add--dark.png"/>
+                        <img className="center-img" src="../img/icon.add--green.png"/>
                       </div>
-                      <div className="save-to__title">
+                      <div className="save-to__title color--success">
                         Create new itinerary
                       </div>
                     </div>

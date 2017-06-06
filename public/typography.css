@@ -48,15 +48,15 @@ textarea {
   font-size: 14px;
   letter-spacing: 0.5px;
   line-height: 26px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: Helvetica, sans-serif;
   color: black;
 }
 .v2-type-body2 {
   font-weight: 300;
   font-size: 16px;
   letter-spacing: 0.5px;
-  line-height: 20px;
-  font-family: 'Open Sans', sans-serif;
+  line-height: 28px;
+  font-family: Helvetica, sans-serif;
   color: black;
 }
 .v2-type-body3 {
@@ -65,7 +65,7 @@ textarea {
   font-size: 18px;
   letter-spacing: 0.5px;
   line-height: 32px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: Helvetica, sans-serif;
   color: black;
 }
 .v2-type-rating {
@@ -74,7 +74,7 @@ textarea {
   font-size: 30px;
   letter-spacing: 0.5px;
   line-height: 26px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: Helvetica, sans-serif;
 }
 .v2-type-rating--1,
 .v2-type-rating--2,
@@ -96,7 +96,7 @@ textarea {
   font-size: 11px;
   letter-spacing: 0.5px;
   line-height: 26px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: Helvetica, sans-serif;
   color: black;
 }
 .v2-type-mono {
@@ -121,26 +121,19 @@ textarea {
   font-family: 'Arimo', sans-serif;
 }
 .v2-type-h2 {
-  /* Saint Franks: */
-  font-weight: 400;
-  font-size: 32px;
-  letter-spacing: 1px;
+  font-weight: 600;
+  font-size: 24px;
+  letter-spacing: 2px;
   line-height: 33px;
   color: black;
   font-family: 'Arimo', sans-serif;
 }
-.v2-type-h2.subtitle {
-  /* Saint Franks: */
-  font-weight: 200;
-  opacity: 1;
-  font-size: 26px;
-  color: #405B65;
-  letter-spacing: 0.5px;
-}
 .v2-type-h3 {
-  font-weight: 400;
+  font-weight: 600;
   font-size: 24px;
-  letter-spacing: 0;
+  letter-spacing: 2px;
+  font-family: 'Arimo', sans-serif;
+  text-transform: uppercase;
 }
 .v2-type-h4 {
     opacity: 1;
@@ -157,9 +150,12 @@ textarea {
     line-height: 32px;
     font-weight: 100;
     /*font-style: italic;*/
-    font-family: 'Open Sans', sans-serif;
+    font-family: Helvetica, sans-serif;
 }
 
 .color--primary {
-  color: blue !important;
+  color: #0AAAD5 !important;
+}
+.color--success {
+  color: #63A652 !important;
 }

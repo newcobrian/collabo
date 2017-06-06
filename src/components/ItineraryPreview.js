@@ -67,7 +67,7 @@ const ItineraryPreview = props => {
           <div className="itinerary__cover__author-photo mrgn-bottom-sm">
             <ProxyImage src={itinerary.createdBy.image} className="center-img" />
           </div>
-          <div className="v2-type-body1 opa-70">
+          <div className="v2-type-body1 opa-70 color--primary">
             {itinerary.reviewsCount} Tips by {itinerary.createdBy.username}
           </div>
           <div className="v2-type-mono">
@@ -94,7 +94,7 @@ const ItineraryPreview = props => {
         
         {/** CTA **/}
         <div className="flx flx-row flx-wrap flx-align-center flx-just-space-between cta-container">
-          <div className="itinerary__cover__timestamp ta-center opa-30">
+          <div className="itinerary__cover__timestamp ta-center opa-40">
             {(new Date(itinerary.lastModified)).toLocaleString()}
           </div> 
           <div className="cta-box flx flx-row">

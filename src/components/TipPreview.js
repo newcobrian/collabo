@@ -58,19 +58,22 @@ const TipPreview = props => {
 
           { /** Title and Add **/ }
           <div className="tip_title-module flx flx-row-top w-100">
-            <Link to={`review/${review.subjectId}/${review.id}`}>
-            <div className="tip__title v2-type-h2 ta-left">
-              {review.title}
+            <div className="flx flx-col flx-col-start">
+              <Link to={`review/${review.subjectId}/${review.id}`}>
+              <div className="tip__title v2-type-h2 ta-left">
+                {review.title}
+              </div>
+              </Link>
+              <div className="tip__address v2-type-mono mono-sm mrgn-bottom-sm opa-30 ta-left">
+                {review.address}
+              </div>
             </div>
-            </Link>
+
             <div className="v-button v-button--add flex-item-right">
               <Link onClick={handleSaveClick}>
                 <img className="center-img" src="../img/icon.add.png"/>Save
               </Link>
             </div>
-          </div>
-          <div className="tip__address v2-type-mono mono-sm mrgn-bottom-sm opa-30 ta-left">
-            {review.address}
           </div>
 
           { /** Image **/ }

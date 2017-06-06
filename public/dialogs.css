@@ -3,7 +3,8 @@
   top: 0;
   right: 0;
   height: 100%;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Arimo', sans-serif;
+  font-weight: 400;
 }
 .dialog--save__wrapper {
   margin: 0;
@@ -13,16 +14,20 @@
   /*border: 2px red solid;*/
   height: 100%;
   position: relative;
-  margin-top: 10px;
+  margin-top: 30px;
 }
 .dialog--save__content ul {
   list-style-type: none;
 }
 .dialog--save__content li {
-  padding: 10px 20px;
+  padding: 10px 30px;
 }
 .dialog--save__content li:hover {
-  background-color: rgba(0,47,200,.05);
+  /*background-color: rgba(10,170,213,.05);*/
+  cursor: pointer;
+}
+.dialog--save__content li:hover .v-button--select {
+  background-color: rgba(10,170,213,1);
   cursor: pointer;
 }
 .dialog--save__title {
@@ -47,13 +52,19 @@
 .dialog--save__actions {
 
 }
+.dialog--save__tip-name {
+  font-size: 16px;
+  color: #000000;
+  letter-spacing: 1px;
+}
 .save-to__title {
   font-size: 16px;
   letter-spacing: 0.5px;
-  font-weight: 500;
+  font-weight: 400;
   width: 100%;
   color: black;
   font-family: 'Arimo', sans-serif;
+  color: #0AAAD5;
 }
 
 
@@ -67,6 +78,21 @@
   padding: 6px 0;
   border-radius: 4px;
   min-width: 32px;
+  margin-right: 27px;
+}
+.v-button--select {
+  background: transparent;
+  color: black;
+  opacity: 1;
+  font-size: 11px;
+  border: 2px solid #0AAAD5;
+  width: 18px;
+  height: 16px;
+  box-shadow: none;
+  min-width: 0;
+  padding: 0;
+  border-radius: 42px;
+  margin: 0 36px 0 8px;
 }
 .v-button--temp img {
   margin: 0 auto;
@@ -76,8 +102,11 @@ li:hover .v-button--temp {
 }
 .create-new {
 }
+.create-new img {
+
+}
 .tip-preview-wrapper {
-  width: 32px;
+  width: 50px;
   height: 32px;
   overflow: hidden;
 }

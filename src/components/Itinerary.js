@@ -16,7 +16,7 @@ const EditItineraryLink = props => {
     return (
       <Link
         to={'edit/' + props.itineraryId}
-        className="v-button v-button--light">
+        className="vb vb--light vb--no-outline vb-sm opa-30">
          {/*<i className="ion-gear-a"></i>*/}Edit Itinerary
       </Link>
     );
@@ -71,9 +71,10 @@ class Itinerary extends React.Component {
             <div className="itinerary__summary option-stack mrgn-bottom-lg">
 
               <fieldset>
-                <div className="flx flx-col flx-align-center mrgn-bottom-md">
-                          {/** DELETE BUTTON !!!! NOT FUNCTIONAL !!!! **/}
-                  <div className="delete-wrapper">
+
+                <div className="itinerary__summary__wrapper flx flx-col flx-align-center mrgn-bottom-md">
+
+                <div className="delete-wrapper">
                     <div className="delete-button">
                         <ItineraryActions 
                           itinerary={itinerary} 
@@ -131,7 +132,7 @@ class Itinerary extends React.Component {
                     {(new Date(itinerary.lastModified)).toLocaleString()}
                   </div>
 
-                  <div>
+                  <div className="edit-itinerary-link">
                     <EditItineraryLink isUser={isUser} itineraryId={this.props.itineraryId} />
                   </div>
                 </div>

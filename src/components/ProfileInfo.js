@@ -8,7 +8,7 @@ const EditProfileSettings = props => {
     return (
       <Link
         to="settings"
-        className="v-button v-button--light">
+        className="v-button v-button--light vb--no-outline vb-sm">
          {/*<i className="ion-gear-a"></i>*/}Edit Profile
       </Link>
     );

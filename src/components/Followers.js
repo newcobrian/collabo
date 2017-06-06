@@ -92,7 +92,7 @@ class Followers extends React.Component {
 		profile.isFollowing = this.props.isFollowing;
 
 	    return (
-	    	<div className="flx flx-col page-common profile-page">
+	    	<div className="flx flx-col flx-align-center page-common profile-page">
 
 		        <ProfileInfo
 		          authenticated={this.props.authenticated}
@@ -103,27 +103,25 @@ class Followers extends React.Component {
 
 		        {this.renderTabs()}
 
-		    	<div className="roow roow-col-left page-common follow-page page-no-push">
+		    	<div className="flx flx-col page-common follow-page flx-align-center pdding-top-md">
 			      {
 			        this.props.followers.map(follower => {
 			        	const isUser = this.props.currentUser &&
 	      					follower.userId === this.props.currentUser.uid;
 			          	return (
-			          		<div className="roow roow-row list-row" key={follower.userId}>
-					          	<div className="">
-					          		<Link
-							          to={`@${follower.username}`}
-							          className="comment-author">
-							          	<div className="reviewer-photo center-img">
-							          		<ProxyImage src={follower.image} className="comment-author-img" />
-							        	</div>
-							        </Link>
-							    </div>
-							    <div className="roow roow-col-left">
+			          		<div className="flx flx-col list-row flx-center-all ta-center" key={follower.userId}>
+				          		<Link
+						          to={`@${follower.username}`}
+						          className="">
+						          	<div className="user-image center-img">
+						          		<ProxyImage src={follower.image} className="comment-author-img" />
+						        	</div>
+						        </Link>
+							    <div className="flx flx-col flx-align-center">
 								    <div>
 									   	<Link
 								          to={`@${follower.username}`}
-								          className="comment-author">
+								          className="color--black">
 								          {follower.username}
 								        </Link>
 								    </div>
