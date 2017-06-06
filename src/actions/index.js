@@ -90,6 +90,7 @@ export const GET_ITINERARIES_BY_USER = 'GET_ITINERARIES_BY_USER'
 export const ITINERARY_COMMMENTS_LOADED = 'ITINERARY_COMMMENTS_LOADED'
 export const ITINERARY_COMMMENTS_UNLOADED = 'ITINERARY_COMMMENTS_UNLOADED'
 export const SAVE_TO_ITINERARIES_LIST_LOADED = 'SAVE_TO_ITINERARIES_LIST_LOADED'
+export const ADDED_TO_ITINERARY = 'ADDED_TO_ITINERARY'
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -2810,9 +2811,39 @@ export function getSaveToItinerariesList(auth) {
   }
 }
 
-export function showModal(type, review) {
-  const uid = Firebase.auth().currentUser.uid;
+export function addToItinerary(auth, review, itinerary) {
   return dispatch => {
+    let itineraryId = itinerary.itineraryId;
+    Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).once('value', itinSnapshot => {
+      Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + review.subjectId + '/' + auth).once('value', reviewSnapshot => {
+        let count = itinSnapshot.exists() && itinSnapshot.val().reviewsCount ? itinSnapshot.val().reviewsCount : 0;
+        let geo = itinSnapshot.val().geo;
+        let updates = {};
+        let reviewData = {
+          subjectId: review.subjectId
+        }
+        if (reviewSnapshot.exists()) reviewData.reviewId = reviewSnapshot.val().reviewId;
+
+        updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}/reviews/${count}`] = reviewData;
+        updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}/reviewsCount`] = count + 1;
+        updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}/reviews/${count}`] = reviewData;
+        updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}/reviewsCount`] = count + 1;
+        updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${geo}/${auth}/${itineraryId}/reviews/${count}`] = reviewData;
+        updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${geo}/${auth}/${itineraryId}/reviewsCount`] = count + 1;
+
+        Firebase.database().ref().update(updates);
+
+        dispatch({
+          type: ADDED_TO_ITINERARY
+        })
+      })
+    })
+  }
+}
+
+export function showModal(type, review) {
+  return dispatch => {
+    const uid = Firebase.auth().currentUser.uid;
     switch (type) {
         case SAVE_MODAL:
           Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + uid).once('value', snapshot => {
@@ -2827,7 +2858,8 @@ export function showModal(type, review) {
             dispatch({
               type: SHOW_MODAL,
               modalType: SAVE_MODAL,
-              itinerariesList: itineraryList
+              itinerariesList: itineraryList,
+              review: review
             })
           })
           break;

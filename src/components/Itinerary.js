@@ -57,13 +57,18 @@ class Itinerary extends React.Component {
         </div>
       );
     }
+    else if (this.props.itinerary.length === 0) {
+      return (
+        <div> Itinerary doesn't exist</div>
+      )
+    }
     else {
       const itinerary = this.props.itinerary;
       const isUser = this.props.authenticated &&
       this.props.itinerary.userId === this.props.authenticated;
 
-      const canModify = this.props.authenticated &&
-      this.props.authenticated === this.props.itinerary.createdBy.userId;
+      const canModify = this.props.authenticated && 
+      this.props.authenticated === this.props.itinerary.userId;
       return (
         <div className="flx flx-col flx-align-center page-common">
           <div className="content-wrapper itinerary flx flx-col flx-align-center">

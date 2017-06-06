@@ -116,6 +116,9 @@ class Profile extends React.Component {
     if (!this.props.profile) {
       return null;
     }
+    if (this.props.profile.length === 0) {
+      return 'User does not exist.'
+    }
     if (!this.props.itineraries) {
       return null;
     }

@@ -1,6 +1,7 @@
 import React from 'react';
 import * as Actions from '../../actions';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import Dialog from 'material-ui/Dialog';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -16,6 +17,11 @@ class SaveModal extends React.Component {
   render() {
     const handleClose = () => {
       this.props.hideModal();
+    }
+
+    const handleAdd = itinerary => ev => {
+      ev.preventDefault();
+      this.props.addToItinerary(this.props.authenticated, this.props.review, itinerary)
     }
 
     const actions = [
@@ -66,20 +72,23 @@ class SaveModal extends React.Component {
                 <div className="tip-preview-wrapper mrgn-right-md">
                   <img className="center-img" src="../img/views.ramen.temp.png"/>
                 </div>
-                <div className="dialog--save__tip-name">Gonokamiseisakujo Tsukemen</div>
+                <div className="dialog--save__tip-name">{this.props.review.title}</div>
               </div>
             </div>
     				<ul>
     					{this.props.itinerariesList.map(itinerary => {
 				        return (
   		            <li className="">
-                    <div className="flx flx-row flx-just-start flx-align-center">
-                      <div className="v-button v-button--select">
+                    <Link onClick={handleAdd(itinerary)}>
+                      <div className="flx flx-row flx-just-start flx-align-center">
+                        <div className="v-button v-button--select">
+                          <img className="center-img" src="../img/icon.bird--dark.png"/>
+                        </div>
+      						    	<div className="save-to__title">
+      						    		{itinerary.title}
+      						    	</div>
                       </div>
-    						    	<div className="save-to__title">
-    						    		{itinerary.title}
-    						    	</div>
-                    </div>
+                    </Link>
   				        </li>
 				        );
   				     })}
