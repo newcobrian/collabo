@@ -22,7 +22,7 @@
     height: 100px;
     border-radius: 100px;
     overflow: hidden;
-
+    background-color: #ccc;
 }
 .itinerary__cover__author-photo {
     width: 50px;

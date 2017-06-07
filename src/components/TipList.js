@@ -17,7 +17,7 @@ const TipList = props => {
   }
 
   return (
-    <div>
+    <div className="">
       {
         props.reviewList.map(reviewItem => {
           let review = reviewItem.review;

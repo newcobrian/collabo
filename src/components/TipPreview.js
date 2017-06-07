@@ -105,8 +105,15 @@ const TipPreview = props => {
 
           { /** Caption **/ }
           <div className="tip__caption-module flx flx-col w-100">
-            <div className="tip__caption v2-type-body3 ta-left">
-              {review.caption}
+            <div className="flx flx-row flx-align-start">  
+              <div className="">
+                <div className="tip__author-photo mrgn-right-md">
+                  <ProxyImage src="" className="center-img" />
+                </div>
+              </div>
+              <div className="tip__caption v2-type-body3 ta-left">
+                {review.caption}
+              </div>
             </div>
             <div className="tip__timestamp  v2-type-caption mrgn-top-sm opa-30">
               Last updated {(new Date(review.lastModified)).toLocaleString()}

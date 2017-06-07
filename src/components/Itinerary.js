@@ -24,7 +24,7 @@ const EditItineraryLink = props => {
     return (
       <Link
         to={'edit/' + props.itineraryId}
-        className="vb vb--light vb--no-outline vb-sm opa-30">
+        className="vb vb--light vb--no-outline w-100">
          {/*<i className="ion-gear-a"></i>*/}Edit
       </Link>
     );
@@ -135,22 +135,18 @@ class Itinerary extends React.Component {
                      anchorOrigin={{horizontal: 'left', vertical: 'top'}}
                      targetOrigin={{horizontal: 'left', vertical: 'top'}}
                    >
-                     <MenuItem primaryText="Refresh" />
-                     <MenuItem primaryText="Send feedback" />
-                     <MenuItem primaryText="Settings" />
-                     <MenuItem primaryText="Help" />
-                     <MenuItem primaryText="Sign out" />
+                     <ItineraryActions 
+                       itinerary={itinerary} 
+                       authenticated={this.props.authenticated} 
+                       canModify={canModify} 
+                       deleteItinerary={this.props.onDeleteItinerary} 
+                       redirectPath="/" />
+
+                     <EditItineraryLink isUser={isUser} itineraryId={this.props.itineraryId} />
+
                    </IconMenu>
                    </MuiThemeProvider>
 
-                    <ItineraryActions 
-                      itinerary={itinerary} 
-                      authenticated={this.props.authenticated} 
-                      canModify={canModify} 
-                      deleteItinerary={this.props.onDeleteItinerary} 
-                      redirectPath="/" />
-                    
-                    <EditItineraryLink isUser={isUser} itineraryId={this.props.itineraryId} />
                   </div>
 
 

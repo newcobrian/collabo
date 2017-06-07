@@ -243,8 +243,9 @@ input[type="radio"]:checked + label span {
 
 .vb--no-outline {
   border: none;
-  padding: 8px 0;
+  padding: 5px 0;
   background-color: transparent;
+  height: 24px;
 }
 
 .vb--following {

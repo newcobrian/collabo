@@ -143,7 +143,7 @@ class Profile extends React.Component {
 
         {this.renderTabs()}
         
-        <div className="">
+        <div className="flx flx-row flx-just-center w-100">
      
           <ItineraryList
             itineraries={this.props.itineraries} 
