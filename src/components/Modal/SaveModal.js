@@ -60,11 +60,7 @@ class SaveModal extends React.Component {
           bodyClassName="dialog--save__body"
           bodyStyle={{padding: "30px 0px"}}
 
-          actionsContainerClassName="dialog--save__actions"
-
-          
-
-          style={{}}>
+          actionsContainerClassName="dialog--save__actions">
             
             <div className="dialog--save__content">
             <div className="dialog--save__tip-item">

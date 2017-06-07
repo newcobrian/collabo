@@ -92,6 +92,8 @@ export const ITINERARY_COMMMENTS_UNLOADED = 'ITINERARY_COMMMENTS_UNLOADED'
 export const SAVE_TO_ITINERARIES_LIST_LOADED = 'SAVE_TO_ITINERARIES_LIST_LOADED'
 export const ADDED_TO_ITINERARY = 'ADDED_TO_ITINERARY'
 export const SUBJECT_DUPLICATE = 'SUBJECT_DUPLICATE'
+export const SHOW_SNACKBAR = 'SHOW_SNACKBAR'
+export const CLOSE_SNACKBAR = 'CLOSE_SNACKBAR'
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -2866,10 +2868,10 @@ export function addToItinerary(auth, review, itinerary) {
     Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + itinerary.userId + '/' + itineraryId).once('value', itinSnapshot => {
       let subjectId = review.subjectId;
       if (itinSnapshot.val().reviews && itinSnapshot.val().reviews[subjectId]) {
+        let message = itinerary.title + ' already contains ' + review.title;
         dispatch({
           type: SUBJECT_DUPLICATE,
-          itineraryTitle: itinerary.title,
-          reviewTitle: review.title
+          message: message
         })
       }
       else {
@@ -2895,10 +2897,10 @@ export function addToItinerary(auth, review, itinerary) {
 
           Firebase.database().ref().update(updates);
 
+          let message = review.title + ' has been added to ' + itinerary.title;
           dispatch({
             type: ADDED_TO_ITINERARY,
-            itineraryTitle: itinerary.title,
-            reviewTitle: review.title
+            message: message
           })
         })
       }
@@ -2976,6 +2978,23 @@ export function hideModal(type) {
   return dispatch => {
     dispatch({
       type: HIDE_MODAL
+    })
+  }
+}
+
+export function openSnackbar(message) {
+  return dispatch => {
+    dispatch({
+      type: SHOW_SNACKBAR,
+      payload: message
+    })
+  }
+}
+
+export function closeSnackbar() {
+  return dispatch => {
+    dispatch({
+      type: CLOSE_SNACKBAR
     })
   }
 }

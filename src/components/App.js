@@ -6,6 +6,7 @@ import Firebase from 'firebase';
 import * as Actions from '../actions';
 import mixpanel from 'mixpanel-browser';
 import RootModal from './Modal';
+import SnackbarToaster from './SnackbarToaster';
 
 const mapStateToProps = state => ({
   appLoaded: state.common.appLoaded,
@@ -13,7 +14,8 @@ const mapStateToProps = state => ({
   currentUser: state.common.currentUser,
   userInfo: state.common.userInfo,
   unreadMessages: state.common.unreadMessages,
-  redirectTo: state.common.redirectTo
+  redirectTo: state.common.redirectTo,
+  snackbarToaster: state.common.snackbarToaster
 });
 
 // const mapDispatchToProps = dispatch => ({
@@ -84,6 +86,10 @@ class App extends React.Component {
             unreadMessages={this.props.unreadMessages} />
           {this.props.children}
           <RootModal/>
+          <SnackbarToaster 
+            {...this.props.snackbarToaster}
+            duration={4000} 
+            onRequestClose={this.props.closeSnackbar} />
         </div>
       );
     }

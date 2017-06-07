@@ -16,6 +16,7 @@ import inbox from './reducers/inbox';
 import friendSelector from './reducers/friendSelector';
 import modal from './reducers/modal';
 import itinerary from './reducers/itinerary';
+import snackbarToaster from './reducers/snackbarToaster';
 import Firebase from 'firebase';
 import mixpanel from 'mixpanel-browser';
 import MixpanelMiddleware from 'redux-mixpanel-middleware';
@@ -36,6 +37,7 @@ const reducer = combineReducers({
   friendSelector,
   modal,
   itinerary,
+  snackbarToaster,
   form: formReducer
   // firebase: firebaseStateReducer
 });
