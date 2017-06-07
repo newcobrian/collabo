@@ -33,6 +33,13 @@ export function makeReview(review, subjectId, lastModified) {
 	return Object.assign(reviewObject, lastModified);
 }
 
+export function makeReviewBySubject(review, subjectId, lastModified) {
+	let reviewObject = { reviewId: review.id };
+	if (review.rating) reviewObject.rating = review.rating;
+	if (review.caption) reviewObject.caption = review.caption;
+	return Object.assign(reviewObject, lastModified);
+}
+
 export function makeItinerary(auth, itinerary, lastModified) {
 	let itineraryObject = { 
 		title: itinerary.title,

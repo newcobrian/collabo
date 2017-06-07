@@ -91,6 +91,7 @@ export const ITINERARY_COMMMENTS_LOADED = 'ITINERARY_COMMMENTS_LOADED'
 export const ITINERARY_COMMMENTS_UNLOADED = 'ITINERARY_COMMMENTS_UNLOADED'
 export const SAVE_TO_ITINERARIES_LIST_LOADED = 'SAVE_TO_ITINERARIES_LIST_LOADED'
 export const ADDED_TO_ITINERARY = 'ADDED_TO_ITINERARY'
+export const SUBJECT_DUPLICATE = 'SUBJECT_DUPLICATE'
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -626,14 +627,15 @@ export function getItinerary(auth, itineraryId) {
                 })
               }
               else {
-                for (let i = 0; i < itineraryObject.reviews.length; i++) {
-                  let reviewItem = itineraryObject.reviews[i];
+                // for (let i = 0; i < itineraryObject.reviews.length; i++) {
+                for (let subjectId in itineraryObject.reviews) {
+                  let reviewItem = itineraryObject.reviews[subjectId];
                   let reviewObject = {};
-                  Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + reviewItem.subjectId).on('value', subjectSnapshot => {
+                  Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId).on('value', subjectSnapshot => {
                     Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewItem.reviewId).on('value', reviewSnapshot => {
                       Firebase.database().ref(Constants.LIKES_PATH + '/' + reviewItem.reviewId).on('value', likesSnapshot => {
                         Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewItem.reviewId).on('value', commentSnapshot => {
-                          Firebase.database().ref(Constants.IMAGES_BY_USER_PATH + '/' + auth + '/' + reviewItem.subjectId).on('value', imagesSnapshot => {
+                          Firebase.database().ref(Constants.IMAGES_BY_USER_PATH + '/' + auth + '/' + subjectId).on('value', imagesSnapshot => {
                             let isLiked = false;
                             if (likesSnapshot.val()) {
                               isLiked = searchLikes(auth, likesSnapshot.val());
@@ -643,7 +645,7 @@ export function getItinerary(auth, itineraryId) {
                             }
 
                             Object.assign(reviewObject, subjectSnapshot.val(), reviewSnapshot.val(), 
-                                  { priority: i }, {id: reviewItem.reviewId}, userInfo, likes);
+                                  reviewItem, userInfo, likes);
 
                             let comments = [];
                             commentSnapshot.forEach(function(commentChild) {
@@ -1232,6 +1234,7 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
         }
       }
 
+      let reviewBySubject = Helpers.makeReviewBySubject(reviews[i], reviews[i].subjectId, lastModified);
       let review = Helpers.makeReview(reviews[i], reviews[i].subjectId, lastModified);
 
       // if review doesnt exist, create it
@@ -1242,11 +1245,12 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
         updates[`/${Constants.REVIEWS_BY_USER_PATH}/${auth}/${reviews[i].reviewId}/`] = review;
       }
       // update REVIEWS_BY_USER, REVIEWS_BY_SUBJECT, and REVIEWS tables
-      updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${reviews[i].subjectId}/${auth}/`] = Object.assign({}, review, {reviewId: reviews[i].reviewId});
+      updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${reviews[i].subjectId}/${auth}/`] = reviewBySubject;
       updates[`/${Constants.REVIEWS_PATH}/${reviews[i].reviewId}/`] = Object.assign({}, review, { userId: auth })
 
       let reviewObject = {};      
-      reviewsList[i] = Object.assign(reviewObject, { subjectId: reviews[i].subjectId }, { reviewId: reviews[i].reviewId });;
+      // reviewsList[i] = Object.assign(reviewObject, { subjectId: reviews[i].subjectId }, { reviewId: reviews[i].reviewId });
+      reviewsList[reviews[i].subjectId] = Object.assign(reviewObject, { reviewId: reviews[i].reviewId }, {priority: i});
 
       // save the images on each review
       let subjectId = reviews[i].subjectId;
@@ -2811,11 +2815,56 @@ export function getSaveToItinerariesList(auth) {
   }
 }
 
+/*
+export function modifyItineraryReviews() {
+  return dispatch => {
+    Firebase.database().ref(Constants.ITINERARIES_PATH).once('value', itinerarySnapshot => {
+      let updates = {};
+      itinerarySnapshot.forEach(function(itinerary) {
+        // if (itinerary.key === '-KkvH7gR46xsj7D-7cy-') {
+          if (itinerary.val().reviews && itinerary.val().reviews[0]) {
+            let reviewList = [];
+            let reviewsObject = {};
+            let ity = itinerary.val();
+            // itinerary.val().reviews.forEach(function(reviewItem) {
+            //   console.log(JSON.stringify(reviewItem))
+            // })
+            for (let i = 0; i < ity.reviews.length; i++) {
+              // console.log(i + ': ' + JSON.stringify(ity.reviews[i]))
+              reviewsObject[ity.reviews[i].subjectId] = { priority: i };
+              if (ity.reviews[i].reviewId) reviewsObject[ity.reviews[i].subjectId].reviewId = ity.reviews[i].reviewId;
+            }
+            // console.log('reviewsObject = ' + JSON.stringify(reviewsObject))
+            // console.log(`/${Constants.ITINERARIES_PATH}/${itinerary.key}/reviews/`);
+            updates[`/${Constants.ITINERARIES_PATH}/${itinerary.key}/reviews/`] = reviewsObject;
+            updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${itinerary.val().userId}/${itinerary.key}/reviews/`] = reviewsObject;
+            updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.val().geo}/${itinerary.val().userId}/${itinerary.key}/reviews/`] = reviewsObject;
+            // console.log(`/${Constants.ITINERARIES_BY_USER_PATH}/${itinerary.val().userId}/${itinerary.key}/reviews/`)
+            // console.log(`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.val().geo}/${itinerary.val().userId}/${itinerary.key}/reviews/`)
+          }
+        // }
+      })
+      Firebase.database().ref().update(updates);
+    })
+  }
+}
+*/
+
 export function addToItinerary(auth, review, itinerary) {
   return dispatch => {
     let itineraryId = itinerary.itineraryId;
     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).once('value', itinSnapshot => {
       Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + review.subjectId + '/' + auth).once('value', reviewSnapshot => {
+        itinSnapshot.val().reviews.forEach(function(item) {
+          if (review.subjectId === item.subjectId) {
+            dispatch({
+              type: SUBJECT_DUPLICATE,
+              itineraryTitle: itinerary.title,
+              reviewTitle: review.title
+            })
+            return;
+          }
+        })
         let count = itinSnapshot.exists() && itinSnapshot.val().reviewsCount ? itinSnapshot.val().reviewsCount : 0;
         let geo = itinSnapshot.val().geo;
         let updates = {};
@@ -2831,7 +2880,7 @@ export function addToItinerary(auth, review, itinerary) {
         updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${geo}/${auth}/${itineraryId}/reviews/${count}`] = reviewData;
         updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${geo}/${auth}/${itineraryId}/reviewsCount`] = count + 1;
 
-        Firebase.database().ref().update(updates);
+        // Firebase.database().ref().update(updates);
 
         dispatch({
           type: ADDED_TO_ITINERARY

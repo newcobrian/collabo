@@ -1,5 +1,5 @@
 import { SHOW_MODAL, HIDE_MODAL, FRIEND_SELECTOR_SUBMIT, REVIEW_SUBMITTED, FORWARD_MODAL, 
-  SAVE_MODAL, ADDED_TO_ITINERARY } from '../actions'
+  SAVE_MODAL, ADDED_TO_ITINERARY, SUBJECT_DUPLICATE } from '../actions'
 
 const initialState = {
   modalType: null,
@@ -15,6 +15,8 @@ export default (state = initialState, action) => {
   			review: action.review,
         itinerariesList: action.itinerariesList
   		}
+    case SUBJECT_DUPLICATE:
+      return initialState;
   	case HIDE_MODAL:
     case ADDED_TO_ITINERARY:
   		return initialState;
