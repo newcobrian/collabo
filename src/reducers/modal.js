@@ -15,10 +15,13 @@ export default (state = initialState, action) => {
   			review: action.review,
         itinerariesList: action.itinerariesList
   		}
-    case SUBJECT_DUPLICATE:
+    case HIDE_MODAL:
       return initialState;
-  	case HIDE_MODAL:
+    case SUBJECT_DUPLICATE:
+      console.log('review: ' + action.reviewTitle + ' already in itinerary: ' + action.itineraryTitle)
+      return initialState;
     case ADDED_TO_ITINERARY:
+      console.log('successfully added review: ' + action.reviewTitle + ' to itinerary: ' + action.itineraryTitle)
   		return initialState;
     case FRIEND_SELECTOR_SUBMIT:
       return initialState;

@@ -613,17 +613,17 @@ export function getItinerary(auth, itineraryId) {
               let userInfo = { createdBy:
                 { username: userSnapshot.val().username, image: userSnapshot.val().image, userId: userSnapshot.key }
               };
-              let isLiked = false;
+              let itinIsLiked = false;
               if (itinLikeSnapshot.val()) {
-                isLiked = searchLikes(auth, itinLikeSnapshot.val());
+                itinIsLiked = searchLikes(auth, itinLikeSnapshot.val());
               }
-              let likes = {
-                isLiked: isLiked
+              let itinLikes = {
+                isLiked: itinIsLiked
               }
 
               let itinImages = Helpers.getImagePath(itinImagesSnapshot.val());
 
-              let itineraryObject = Object.assign({}, {id: itineraryId}, itinerarySnapshot.val(), userInfo, likes, {images: itinImages});
+              let itineraryObject = Object.assign({}, {id: itineraryId}, itinerarySnapshot.val(), userInfo, itinLikes, {images: itinImages});
               let reviewArray = [];
               if (!itineraryObject.reviews) {
                 dispatch({
@@ -637,12 +637,13 @@ export function getItinerary(auth, itineraryId) {
                 // for (let i = 0; i < itineraryObject.reviews.length; i++) {
                 for (let subjectId in itineraryObject.reviews) {
                   let reviewItem = itineraryObject.reviews[subjectId];
-                  let reviewObject = {};
                   Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId).on('value', subjectSnapshot => {
                     Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewItem.reviewId).on('value', reviewSnapshot => {
                       Firebase.database().ref(Constants.LIKES_PATH + '/' + reviewItem.reviewId).on('value', likesSnapshot => {
                         Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewItem.reviewId).on('value', commentSnapshot => {
                           Firebase.database().ref(Constants.IMAGES_BY_USER_PATH + '/' + auth + '/' + subjectId).on('value', imagesSnapshot => {
+                            let reviewObject = {};
+
                             let isLiked = false;
                             if (likesSnapshot.val()) {
                               isLiked = searchLikes(auth, likesSnapshot.val());
@@ -651,7 +652,7 @@ export function getItinerary(auth, itineraryId) {
                               isLiked: isLiked
                             }
 
-                            Object.assign(reviewObject, subjectSnapshot.val(), reviewSnapshot.val(), 
+                            Object.assign(reviewObject, subjectSnapshot.val(), { subjectId: subjectId}, reviewSnapshot.val(), 
                                   reviewItem, userInfo, likes);
 
                             let comments = [];
@@ -699,7 +700,9 @@ export function getItinerary(auth, itineraryId) {
 export function onItineraryUnload(itineraryId) {
   return dispatch => {
     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).once('value', itinerarySnapshot => {
-      Firebase.database().ref(Constants.USERS_PATH + '/' + itinerarySnapshot.val().userId).off();
+      if (itinerarySnapshot.exists()) {
+        Firebase.database().ref(Constants.USERS_PATH + '/' + itinerarySnapshot.val().userId).off();
+      }
       Firebase.database().ref(Constants.LIKES_PATH + '/' + itineraryId).off();
       let itineraryObject = itinerarySnapshot.val();
       if (itineraryObject && itineraryObject.reviews) {
@@ -2860,39 +2863,45 @@ export function modifyItineraryReviews() {
 export function addToItinerary(auth, review, itinerary) {
   return dispatch => {
     let itineraryId = itinerary.itineraryId;
-    Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).once('value', itinSnapshot => {
-      Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + review.subjectId + '/' + auth).once('value', reviewSnapshot => {
-        itinSnapshot.val().reviews.forEach(function(item) {
-          if (review.subjectId === item.subjectId) {
-            dispatch({
-              type: SUBJECT_DUPLICATE,
-              itineraryTitle: itinerary.title,
-              reviewTitle: review.title
-            })
-            return;
-          }
-        })
-        let count = itinSnapshot.exists() && itinSnapshot.val().reviewsCount ? itinSnapshot.val().reviewsCount : 0;
-        let geo = itinSnapshot.val().geo;
-        let updates = {};
-        let reviewData = {
-          subjectId: review.subjectId
-        }
-        if (reviewSnapshot.exists()) reviewData.reviewId = reviewSnapshot.val().reviewId;
-
-        updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}/reviews/${count}`] = reviewData;
-        updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}/reviewsCount`] = count + 1;
-        updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}/reviews/${count}`] = reviewData;
-        updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}/reviewsCount`] = count + 1;
-        updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${geo}/${auth}/${itineraryId}/reviews/${count}`] = reviewData;
-        updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${geo}/${auth}/${itineraryId}/reviewsCount`] = count + 1;
-
-        // Firebase.database().ref().update(updates);
-
+    Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + itinerary.userId + '/' + itineraryId).once('value', itinSnapshot => {
+      let subjectId = review.subjectId;
+      if (itinSnapshot.val().reviews && itinSnapshot.val().reviews[subjectId]) {
         dispatch({
-          type: ADDED_TO_ITINERARY
+          type: SUBJECT_DUPLICATE,
+          itineraryTitle: itinerary.title,
+          reviewTitle: review.title
         })
-      })
+      }
+      else {
+        Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + auth).once('value', reviewSnapshot => {
+          let count = itinSnapshot.exists() && itinSnapshot.val().reviewsCount ? itinSnapshot.val().reviewsCount : 1;
+          let geo = itinSnapshot.val().geo;
+          let updates = {};
+          let reviewData = {
+            priority: count
+          }
+          if (reviewSnapshot.exists()) reviewData.reviewId = reviewSnapshot.val().reviewId;
+
+          let itineraryByUserObject = Object.assign({}, itinSnapshot.val());
+          itineraryByUserObject.reviewsCount = itineraryByUserObject.reviewsCount ? itineraryByUserObject.reviewsCount + 1 : 1;
+
+          if (!itineraryByUserObject.reviews) itineraryByUserObject.reviews = {};
+          itineraryByUserObject.reviews[subjectId] = reviewData;
+          let itineraryObject = Object.assign({}, itineraryByUserObject, {userId: itinerary.userId});
+
+          updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}/`] = itineraryObject;
+          updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${geo}/${auth}/${itineraryId}/`] = itineraryObject;
+          updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}/`] = itineraryByUserObject;
+
+          Firebase.database().ref().update(updates);
+
+          dispatch({
+            type: ADDED_TO_ITINERARY,
+            itineraryTitle: itinerary.title,
+            reviewTitle: review.title
+          })
+        })
+      }
     })
   }
 }
@@ -2907,6 +2916,7 @@ export function showModal(type, review) {
             snapshot.forEach(function(itinerary) {
               let item = {
                 title: itinerary.val().title,
+                userId: uid,
                 itineraryId: itinerary.key
               }
               itineraryList.push(item);

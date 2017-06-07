@@ -78,7 +78,7 @@ class SaveModal extends React.Component {
     				<ul>
     					{this.props.itinerariesList.map(itinerary => {
 				        return (
-  		            <li className="">
+  		            <li className="" key={itinerary.itineraryId}>
                     <Link onClick={handleAdd(itinerary)}>
                       <div className="flx flx-row flx-just-start flx-align-center">
                         <div className="v-button v-button--select">
