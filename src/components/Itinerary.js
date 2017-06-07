@@ -80,6 +80,7 @@ class Itinerary extends React.Component {
 
       const canModify = this.props.authenticated && 
       this.props.authenticated === this.props.itinerary.userId;
+      
       return (
         <div className="flx flx-col flx-align-center page-common page-itinerary">
           <div className="content-wrapper itinerary flx flx-col flx-align-center">

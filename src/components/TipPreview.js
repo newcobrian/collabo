@@ -40,6 +40,7 @@ const TipPreview = props => {
     ev.preventDefault();
     props.showModal(SAVE_MODAL, props.review);
   }
+  
   return (
     <div className="tips-wrapper flx flx-col flx-col-start mrgn-bottom-lg">
 

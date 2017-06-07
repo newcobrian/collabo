@@ -636,14 +636,13 @@ export function getItinerary(auth, itineraryId) {
                 })
               }
               else {
-                // for (let i = 0; i < itineraryObject.reviews.length; i++) {
-                for (let subjectId in itineraryObject.reviews) {
-                  let reviewItem = itineraryObject.reviews[subjectId];
-                  Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId).on('value', subjectSnapshot => {
+                for (let i = 0; i < itineraryObject.reviews.length; i++) {
+                  let reviewItem = itineraryObject.reviews[i];
+                  Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + reviewItem.subjectId).on('value', subjectSnapshot => {
                     Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewItem.reviewId).on('value', reviewSnapshot => {
                       Firebase.database().ref(Constants.LIKES_PATH + '/' + reviewItem.reviewId).on('value', likesSnapshot => {
                         Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewItem.reviewId).on('value', commentSnapshot => {
-                          Firebase.database().ref(Constants.IMAGES_BY_USER_PATH + '/' + auth + '/' + subjectId).on('value', imagesSnapshot => {
+                          Firebase.database().ref(Constants.IMAGES_BY_USER_PATH + '/' + auth + '/' + reviewItem.subjectId).on('value', imagesSnapshot => {
                             let reviewObject = {};
 
                             let isLiked = false;
@@ -654,8 +653,8 @@ export function getItinerary(auth, itineraryId) {
                               isLiked: isLiked
                             }
 
-                            Object.assign(reviewObject, subjectSnapshot.val(), { subjectId: subjectId}, reviewSnapshot.val(), 
-                                  reviewItem, userInfo, likes);
+                            Object.assign(reviewObject, subjectSnapshot.val(), reviewSnapshot.val(), 
+                                  { priority: i }, reviewItem, userInfo, likes);
 
                             let comments = [];
                             commentSnapshot.forEach(function(commentChild) {
