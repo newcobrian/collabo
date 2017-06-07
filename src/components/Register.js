@@ -60,12 +60,12 @@ class Register extends React.Component {
           <div className="row">
 
             <div className="col-md-6 offset-md-3 col-xs-12">
-              <h1 className="text-xs-center">Sign Up</h1>
-              <p className="text-xs-center">
-                <Link to="login">
+              <div className="v2-type-page-header ta-center">Sign Up</div>
+              <div className="text-xs-center mrgn-bottom-sm">
+                <Link className="v2-type-body2 color--primary" to="login">
                   Have an account?
                 </Link>
-              </p>
+              </div>
 
               <ListErrors errors={this.props.error} />
 
@@ -76,7 +76,7 @@ class Register extends React.Component {
                     <input
                       className="form-control form-control-lg"
                       type="text"
-                      placeholder="Username"
+                      placeholder="Username" 
                       value={this.props.username}
                       onChange={this.changeUsername} />
                   </fieldset>
@@ -100,7 +100,7 @@ class Register extends React.Component {
                   </fieldset>
 
                   <button
-                    className="bttn-style bttn-wide pull-xs-right"
+                    className="vb w-100"
                     type="submit"
                     disabled={this.props.inProgress}>
                     Sign in

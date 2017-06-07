@@ -49,8 +49,8 @@ const ItineraryPreview = props => {
 
       <div className="itinerary__cover__text flx flx-col flx-align-center flx-just-space-between ta-center">
         
-        {/** DELETE BUTTON !!!! NOT FUNCTIONAL !!!! **/}
-        <div className="delete-wrapper">
+        {/** Hidden - Prob don't need this here **/}
+        <div className="delete-wrapper DN">
           <div className="delete-button">
               <ItineraryActions 
                 itinerary={itinerary} 

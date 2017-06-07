@@ -43,7 +43,7 @@ class Home extends React.Component {
     return (
       <div className="page-title-container">
         <div className="page-title-wrapper center-text">
-          <div className="v2-type-h2">Explore World Views</div>
+          <div className="v2-type-page-header"><div className="location-dropdown">World</div> Views</div>
         </div>
       </div>
     );

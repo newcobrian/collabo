@@ -1,3 +1,4 @@
+
 .itinerary {
 	margin: 40px auto;
 
@@ -40,6 +41,9 @@
 	max-width: 500px;
 }
 
+.itinerary__summary__like {
+    margin-left: -25px;
+}
 
 
 
@@ -83,7 +87,9 @@
 	width: 100%;
 	list-style: none;
 	max-width: 800px;
-
+}
+.itinerary__tiplist li {
+	margin-bottom: 40px;
 }
 
 
@@ -124,6 +130,7 @@
 	margin-right: 20px;
 	border: 1px solid rgba(0,0,0,.1);
 	background: white;
+	box-shadow: 0 6px 0 0px rgba(0,0,0,.05);
 }
 .itinerary__cover:hover {
 	margin-top:-1px !important;

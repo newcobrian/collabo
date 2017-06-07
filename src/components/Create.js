@@ -288,7 +288,7 @@ class Create extends React.Component {
 		return (
 			<div className="flx flx-col flx-center-all page-common editor-page create-page">
 				<div className="page-title-wrapper center-text">
-				  <div className="v2-type-h2">Create New Itinerary</div>
+				  <div className="v2-type-page-header">Create New Itinerary</div>
 				</div>
 				<div className="flx flx-col flx-center-all create-wrapper mrgn-top-sm">
 					<ListErrors errors={this.props.errors}></ListErrors>
@@ -299,7 +299,7 @@ class Create extends React.Component {
 		                      <input
 		                        className="input--underline edit-itinerary__name"
 		                        type="text"
-		                        placeholder="Title"
+		                        placeholder="My Dope Vacation 2018"
 		                        required
 		                        value={this.props.title}
 		                        onChange={this.changeTitle} />
@@ -326,13 +326,13 @@ class Create extends React.Component {
 		                        onChange={this.changeDescription} />
 		                    </fieldset>
 
-		                    <button
-		                    className="v-button mrgn-top-sm"
+		                    <div
+		                    className="vb w-100 vb--create mrgn-top-md"
 		                    type="button"
 		                    disabled={this.props.inProgress}
 		                    onClick={this.submitForm}>
 		                    Next
-		                  </button>
+		                  </div>
 				        </form>
 				    </div>
 				</div>

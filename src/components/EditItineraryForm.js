@@ -170,11 +170,11 @@ let Review = ({ review, index, fields, authenticated, reviewObject }) => {
     // empty review object, so just let the user search
     return (
       <li key={index}>
-        <button
-          type="button"
-          title="Remove Tip"
-          onClick={() => fields.remove(index)}/>
-        <h4>Tip #{index + 1}</h4>
+        <div className="flx flx-row flx-align-center pdding-all-sm">
+          <div className="v2-type-h5">Tip #{index + 1}</div>
+          <button className="vb vb--light vb--no-outline vb-sm opa-30 flex-item-right" onClick={() => fields.remove(index)}>Delete Tip</button>
+        </div>
+          
         <Field
             name={`${review}`}
             type="text"
@@ -191,23 +191,27 @@ let Review = ({ review, index, fields, authenticated, reviewObject }) => {
     // we have a review object, show it
     return (
       <li key={index}>
-        <button
-          type="button"
-          title="Remove Tip"
-          onClick={() => fields.remove(index)}/>
-        <h4>Tip #{index + 1}</h4>
-        <Field
-          name={`${review}.title`}
-          type="text"
-          component={displayField}
-          label="Tip Name"
-        />
-        <Field
-          name={`${review}.address`}
-          type="text"
-          component={displayField}
-          label="Address"
-        />
+        <div className="flx flx-row flx-align-center pdding-all-sm">
+          <div className="v2-type-h5">Tip #{index + 1}</div>
+          <div className="vb vb--light vb--no-outline vb-sm opa-30 flex-item-right"
+          onClick={() => fields.remove(index)}>Delete Tip</div>
+        </div>
+        <div className="field-wrapper"> 
+          <Field
+            name={`${review}.title`}
+            type="text"
+            component={displayField}
+            label="Tip Name"
+          />
+        </div>
+        <div className="field-wrapper"> 
+          <Field
+            name={`${review}.address`}
+            type="text"
+            component={displayField}
+            label="Address"
+          />
+        </div>
         { /** Image **/ }
         {/*<div className="tip__image-module mrgn-bottom-sm">
           <ImagePicker images={`${review}`.images} />
@@ -223,12 +227,12 @@ let Review = ({ review, index, fields, authenticated, reviewObject }) => {
             placeholder="0"
             classname="input--underline edit-tip__rating"
           />
-{/*}          <div className="field-wrapper field-wrapper--dropzone"> 
+          <div className="field-wrapper field-wrapper--dropzone"> 
             <Field
             name={`${review}.images`}
             component={renderDropzoneInput}/>
           </div>
-*/}
+
         </div>
         <div className="field-wrapper"> 
           <label>Caption</label>
@@ -309,9 +313,9 @@ Review = connect(
 const renderReviews = ({fields, authenticated, latitude, longitude, meta: {error, submitFailed}}) => (
   <ul>
     {fields.map((review, index) =>
-      <Review review={review} fields={fields} index={index} key={index} authenticated={authenticated} />)}
+    <Review review={review} fields={fields} index={index} key={index} authenticated={authenticated} />)}
     <li>
-      <button className="v-button" type="button" onClick={() => fields.push({})}>Add Tip</button>
+      <button className="vb" type="button" onClick={() => fields.push({})}>Add Tip</button>
       {submitFailed && error && <span>{error}</span>}
       {/*touched && error && <span>{error}</span> */}
     </li>
@@ -408,10 +412,10 @@ let EditItineraryForm = props => {
           {/* Edit Bar */}  
           <div className="edit-bar flx flx-row flx-just-end flx-align-center">
             <div className="mrgn-right-lg">
-              <Link to={'itinerary/' + props.itineraryId} className="v-button v-button--light" type="submit" disabled={submitting}>Cancel</Link>
+              <Link to={'itinerary/' + props.itineraryId} className="vb vb--full--second" type="submit" disabled={submitting}>Cancel</Link>
             </div>
             <div>
-              <button className="v-button v-button--full" type="submit" disabled={submitting}>Save & Exit</button>
+              <button className="vb vb--full" type="submit" disabled={submitting}>Save & Exit</button>
             </div>
           </div>
         </div>

@@ -33,7 +33,21 @@ const ProfileInfo = props => {
             <ProxyImage src={profile.image} className="user-img" />
             <div className="user-data flx flx-col flx-align-center">
               <div className="user-name">{profile.username}</div>
-              <div className="user-bio">{profile.bio}</div>
+              <div className="user-bio flx flx-col flx-align-center">
+                <div>{profile.bio}</div>
+                <div className="user-action flx flx-row-top">
+                  <EditProfileSettings isUser={isUser} />
+                  
+                  
+                  <FollowUserButton
+                  authenticated={props.authenticated}
+                  isUser={isUser}
+                  user={profile}
+                  follow={props.follow}
+                  unfollow={props.unfollow}
+                  />
+                </div>
+              </div>
               {/*}
               <div className="flx flx-row-left profile-followers-wrapper">
                 <Link to={`followers/${profile.username}`}>
@@ -44,18 +58,6 @@ const ProfileInfo = props => {
                 </Link>
               </div>
             */}
-              <div className="user-action flx flx-row-top">
-                <EditProfileSettings isUser={isUser} />
-                
-                
-                <FollowUserButton
-                authenticated={props.authenticated}
-                isUser={isUser}
-                user={profile}
-                follow={props.follow}
-                unfollow={props.unfollow}
-                />
-              </div>
             </div>
           </div>
         </div>

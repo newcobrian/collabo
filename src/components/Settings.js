@@ -130,7 +130,7 @@ class SettingsForm extends React.Component {
           </fieldset>
 
           <button
-            className="bttn-style bttn-submit mrgn-bottom-sm"
+            className="vb mrgn-bottom-sm"
             type="submit"
             disabled={this.state.inProgress}>
             Update Settings
@@ -173,7 +173,7 @@ class Settings extends React.Component {
                 onSubmitForm={this.props.saveSettings} />
 
               <button
-                className="bttn-style bttn-subtle-gray width-100"
+                className="vb vb--light width-100"
                 onClick={this.props.signOutUser}>
                 Or click here to logout.
               </button>

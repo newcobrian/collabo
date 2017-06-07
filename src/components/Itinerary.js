@@ -11,13 +11,21 @@ import CommentContainer from './Review/CommentContainer'
 import { ITINERARY_TYPE } from '../constants';
 import ItineraryActions from './ItineraryActions';
 
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+
 const EditItineraryLink = props => {
   if (props.isUser) {
     return (
       <Link
         to={'edit/' + props.itineraryId}
         className="vb vb--light vb--no-outline vb-sm opa-30">
-         {/*<i className="ion-gear-a"></i>*/}Edit Itinerary
+         {/*<i className="ion-gear-a"></i>*/}Edit
       </Link>
     );
   }
@@ -30,6 +38,9 @@ const mapStateToProps = state => ({
   authenticated: state.common.authenticated,
   userInfo: state.common.userInfo
 });
+
+
+
 
 class Itinerary extends React.Component {
   constructor() {
@@ -70,7 +81,7 @@ class Itinerary extends React.Component {
       const canModify = this.props.authenticated && 
       this.props.authenticated === this.props.itinerary.userId;
       return (
-        <div className="flx flx-col flx-align-center page-common">
+        <div className="flx flx-col flx-align-center page-common page-itinerary">
           <div className="content-wrapper itinerary flx flx-col flx-align-center">
 
             <div className="itinerary__summary option-stack mrgn-bottom-lg">
@@ -79,16 +90,7 @@ class Itinerary extends React.Component {
 
                 <div className="itinerary__summary__wrapper flx flx-col flx-align-center mrgn-bottom-md">
 
-                <div className="delete-wrapper">
-                    <div className="delete-button">
-                        <ItineraryActions 
-                          itinerary={itinerary} 
-                          authenticated={this.props.authenticated} 
-                          canModify={canModify} 
-                          deleteItinerary={this.props.onDeleteItinerary} 
-                          redirectPath="/" />
-                    </div>
-                  </div>
+                  
 
                   {/*<div className="subject-image">
                     <ImagePicker images={this.props.itinerary.images} />
@@ -98,6 +100,12 @@ class Itinerary extends React.Component {
                   <div className="itinerary__summary__author-photo mrgn-bottom-sm">
                     <ProxyImage src={itinerary.createdBy.image} className="center-img" />
                   </div>
+
+                  {/* Tips by Author */}
+                  <div className="itinerary__summary__tip-count v2-type-body1 opa-50">
+                    {itinerary.reviewsCount} Tips by {itinerary.createdBy.username}
+                  </div>
+
                   {/* Location */}
                   <div className="itinerary__summary__location v2-type-mono">
                     {itinerary.geo}
@@ -113,8 +121,41 @@ class Itinerary extends React.Component {
                     {itinerary.description}
                   </div>
 
+                  {/* Last Modified Date */}
+                  <div className="itinerary__summary__timestamp v2-type-caption opa-20">
+                    {(new Date(itinerary.lastModified)).toLocaleString()}
+                  </div>
+
+                  <div className="edit-itinerary-link">
+                                  
+                  <MuiThemeProvider muiTheme={getMuiTheme()}>
+                  
+                  <IconMenu
+                     iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                     anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+                     targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                   >
+                     <MenuItem primaryText="Refresh" />
+                     <MenuItem primaryText="Send feedback" />
+                     <MenuItem primaryText="Settings" />
+                     <MenuItem primaryText="Help" />
+                     <MenuItem primaryText="Sign out" />
+                   </IconMenu>
+                   </MuiThemeProvider>
+
+                    <ItineraryActions 
+                      itinerary={itinerary} 
+                      authenticated={this.props.authenticated} 
+                      canModify={canModify} 
+                      deleteItinerary={this.props.onDeleteItinerary} 
+                      redirectPath="/" />
+                    
+                    <EditItineraryLink isUser={isUser} itineraryId={this.props.itineraryId} />
+                  </div>
+
+
                   {/* Like */}
-                  <div className="flx flx-row-reverse v2-type-body2 mrgn-bottom-sm">
+                  <div className="itinerary__summary__like flx flx-row-reverse v2-type-body2 mrgn-bottom-sm">
                     <div className="cta-wrapper cta-align-left">
                       <LikeReviewButton
                         authenticated={this.props.authenticated}
@@ -127,19 +168,7 @@ class Itinerary extends React.Component {
                     </div>
                   </div>
 
-                  {/* Tips by Author */}
-                  <div className="itinerary__summary__tip-count v2-type-body1 opa-40">
-                    {itinerary.reviewsCount} Tips by {itinerary.createdBy.username}
-                  </div>
 
-                  {/* Last Modified Date */}
-                  <div className="itinerary__summary__timestamp v2-type-caption opa-20">
-                    {(new Date(itinerary.lastModified)).toLocaleString()}
-                  </div>
-
-                  <div className="edit-itinerary-link">
-                    <EditItineraryLink isUser={isUser} itineraryId={this.props.itineraryId} />
-                  </div>
                 </div>
                
                 

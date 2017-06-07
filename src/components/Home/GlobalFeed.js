@@ -62,15 +62,15 @@ class GlobalFeed extends Home {
                 );
             })}
           </ul>
-        </div>
+        </div> 
       );
     }
     else {
       return (
         <div className="page-title-container">
           <div className="page-title-wrapper center-text">
-            <div className="v2-type-h2 subtitle">WHAT'S YOUR VIEW OF THE WORLD?</div>
-            <div className="v2-type-body1 opa-60">Get solid reviews from dope people you trust.</div>
+            <div className="v2-type-page-header"><div className="location-dropdown">World</div> Views</div>
+            <div className="v2-type-body2 opa-60 mrgn-top-md">Get solid reviews from dope people you trust.</div>
           </div>
         </div>
       )

@@ -55,6 +55,7 @@
     font-family: 'Open Sans', sans-serif;
     cursor: pointer;
     background: white;
+    height: 72px;
 }
 .edit-tip__dropzone:hover {
 	opacity: .9;

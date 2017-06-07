@@ -35,20 +35,26 @@ const LoggedInView = props => {
         
         
 
-        <IndexLink to="/" activeClassName="active" className="nav-module nav-feed">
+        <IndexLink to="/" activeClassName="active" className="nav-module nav-feed flx flx-center-all">
             <div className="nav-text">Explore</div>
         </IndexLink>
 
-        <Link to="create" activeClassName="active" className="nav-module create nav-editor">  
+        <Link to="create" activeClassName="active" className="nav-module create nav-editor flx flx-center-all">  
             <div className="nav-text flx flx-row flx-align-center color--success">
               <img className="mrgn-right-sm center-img" src="../img/icon.add--green.png"/> Create New Itinerary
             </div>
         </Link>
 
-        <Link to={`@${props.userInfo.username}`} activeClassName="active" className="nav-module nav-profile">
+         <Link to="about" activeClassName="active" className="nav-module nav-feed flx flx-center-all">
+            <div className="nav-text">About</div>
+        </Link>
+
+        <Link to={`@${props.userInfo.username}`} activeClassName="active" className="nav-module nav-profile flx flx-center-all">
             {/*<div className="nav-text">You</div>*/}
             <div className="nav-icon"><img className="center-img" src={props.userInfo.image}/></div>
         </Link>
+
+
 
 
       </div>

@@ -50,12 +50,12 @@ class Login extends React.Component {
           <div className="row">
 
             <div className="col-md-6 offset-md-3 col-xs-12">
-              <h1 className="text-xs-center">Sign In</h1>
-              <p className="text-xs-center">
-                <Link to="register">
+              <div className="v2-type-page-header ta-center">Log In</div>
+              <div className="text-xs-center mrgn-bottom-sm">
+                <Link className="v2-type-body2 color--primary" to="register">
                   Need an account?
                 </Link>
-              </p>
+              </div>
 
               <ListErrors errors={this.props.error} />
 
@@ -81,10 +81,10 @@ class Login extends React.Component {
                   </fieldset>
 
                   <button
-                    className="bttn-style bttn-wider pull-xs-right"
+                    className="vb w-100"
                     type="submit"
                     disabled={this.props.inProgress}>
-                    Sign in
+                    Log In
                   </button>
 
                 </fieldset>
