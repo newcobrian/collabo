@@ -13,12 +13,12 @@ const MODAL_COMPONENTS = {
 }
 const mapStateToProps = state => ({
   ...state.modal,
-  ...state.friendSelector,
-  ...state.create,
+  // ...state.friendSelector,
+  // ...state.create,
   authenticated: state.common.authenticated
 });
 
-class ModalRoot extends React.Component {
+class RootModal extends React.Component {
   	render () {
   		if (!this.props.modalType) {
 	    	return null
@@ -46,4 +46,4 @@ class ModalRoot extends React.Component {
 //   state => state.modal
 // )(ModalRoot)
 
-export default connect(mapStateToProps, Actions)(ModalRoot);
+export default connect(mapStateToProps, Actions)(RootModal);
