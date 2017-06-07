@@ -147,14 +147,21 @@ export const SUBJECT_DUPLICATE = 'SUBJECT_DUPLICATE'
 
 export function onLoad(currentUser) {
   return dispatch => {
-    Firebase.database().ref(Constants.USERS_PATH + '/' + currentUser.uid).on('value', snapshot => {
-      dispatch({
-        type: 'APP_LOAD', 
-        currentUser: currentUser,
-        authenticated: currentUser.uid,
-        userInfo: snapshot.val()
+    if (currentUser) {
+      Firebase.database().ref(Constants.USERS_PATH + '/' + currentUser.uid).on('value', snapshot => {
+        dispatch({
+          type: 'APP_LOAD', 
+          currentUser: currentUser,
+          authenticated: currentUser.uid,
+          userInfo: snapshot.val()
+        })
       })
-    })
+    }
+    else {
+      dispatch({
+        type: 'APP_LOAD'
+      })
+    }
   }
 }
 
@@ -2452,7 +2459,7 @@ export function getGlobalFeed(uid, tag) {
                   let reviewObject = {};
                   let key = { id: review.key };
                   let reviewer = { reviewer: userSnapshot.val() };
-                  reviewer.reviewer.userId = reviewerId;
+                  reviewer.createdBy.userId = reviewerId;
                   let isLiked = false;
                   if (likesSnapshot.exists()) {
                     isLiked = searchLikes(uid, likesSnapshot.val());
