@@ -20,7 +20,6 @@ export default (state = initialState, action) => {
     case SUBJECT_DUPLICATE:
       return initialState;
     case ADDED_TO_ITINERARY:
-      console.log('successfully added review: ' + action.reviewTitle + ' to itinerary: ' + action.itineraryTitle)
   		return initialState;
     case FRIEND_SELECTOR_SUBMIT:
       return initialState;

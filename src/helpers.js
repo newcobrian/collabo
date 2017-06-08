@@ -26,17 +26,18 @@ export function makeSubject(review, lastModified) {
 	return Object.assign(subject, lastModified);
 }
 
-export function makeReview(review, subjectId, lastModified) {
+export function makeReview(tip, subjectId, lastModified) {
 	let reviewObject = { subjectId: subjectId };
-	if (review.rating) reviewObject.rating = review.rating;
-	if (review.caption) reviewObject.caption = review.caption;
+	if (tip.rating) reviewObject.rating = tip.rating;
+	if (tip.caption) reviewObject.caption = tip.caption;
 	return Object.assign(reviewObject, lastModified);
 }
 
-export function makeReviewBySubject(review, subjectId, lastModified) {
-	let reviewObject = { reviewId: review.id };
-	if (review.rating) reviewObject.rating = review.rating;
-	if (review.caption) reviewObject.caption = review.caption;
+export function makeReviewBySubject(tip, subjectId, lastModified) {
+	let reviewObject = {};
+	if (tip.reviewId) reviewObject.reviewId = tip.reviewId;
+	if (tip.rating) reviewObject.rating = tip.rating;
+	if (tip.caption) reviewObject.caption = tip.caption;
 	return Object.assign(reviewObject, lastModified);
 }
 
