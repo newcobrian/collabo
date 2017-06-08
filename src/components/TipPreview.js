@@ -31,6 +31,20 @@ const CommentPreview = props => {
   }
 }
 
+/* Displays user entered caption -OR- empty message if user has not entered caption */
+const CaptionDisplay = props => {
+  if (props.review.caption) {
+    return (
+      <div>{props.review.caption}</div>
+    )
+  }
+  else {
+    return (
+     <div className="opa-20">{props.review.createdBy.username} hasn't written anything about this tip yet...</div>
+    )
+  }
+}
+
 const TipPreview = props => {
   const review = props.review;
   const canModify = props.authenticated &&
@@ -105,14 +119,14 @@ const TipPreview = props => {
 
           { /** Caption **/ }
           <div className="tip__caption-module flx flx-col w-100">
-            <div className="flx flx-row flx-align-start">  
+            <div className="flx flx-row flx-just-start flx-align-center">  
               <div className="">
-                <div className="tip__author-photo mrgn-right-md">
-                  <ProxyImage src="" className="center-img" />
+                <div className="user-image tip__author-photo mrgn-right-md">
+                  <ProxyImage src={props.review.createdBy.image} className="center-img" />
                 </div>
               </div>
               <div className="tip__caption v2-type-body3 ta-left">
-                {review.caption}
+                <CaptionDisplay review={props.review} />
               </div>
             </div>
             <div className="tip__timestamp  v2-type-caption mrgn-top-sm opa-30">

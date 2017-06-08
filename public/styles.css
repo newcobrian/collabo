@@ -120,6 +120,7 @@ input[type="radio"]:checked + label span {
   box-shadow: 0px 11px 24px rgba(0,0,0,0.05);
   -webkit-box-shadow: 0px 11px 24px rgba(0,0,0,0.05);
 }
+
 .center-img {
   object-position: center; /* Center the image within the element */
   object-fit: cover;
@@ -291,15 +292,30 @@ input[type="radio"]:checked + label span {
 
 
 
-
+.user-photo-container {
+  overflow: hidden;
+  border-radius: 50px;
+  width: 32px;
+  height: 32px; 
+  overflow: hidden;
+  object-fit: cover;
+}
+.user-photo-container img {
+  object-position: center; /* Center the image within the element */
+  object-fit: cover;
+  width: 100%;
+}
 .user-image {
   width: 100px;
   height: 100px;
   border-radius: 80px;
   overflow: hidden;
+  object-fit: cover;
 }
 .user-image img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .caption-link-subtle {
@@ -481,7 +497,7 @@ a.logo-module:focus {
   height: 32px;
   background: transparent;
   text-align: center;
-  margin: 10px 10px 0;
+  margin: 0 10px 0 0;
   display: inline-block; 
 }
 svg {
@@ -489,9 +505,9 @@ svg {
 }
 
 .navigation-bar .nav-icon img {
-  height: 24px;
+  height: 32px;
   border-radius: 50px;
-  width: 24px;
+  width: 32px;
 }
 .navigation-bar .nav-editor .nav-icon {
   /*box-shadow: 0 0 0px 2px rgba(107,255,78,.2);*/

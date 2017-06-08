@@ -19,6 +19,9 @@ import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
+import Timestamp from 'react-timestamp';
+
+
 const EditItineraryLink = props => {
   if (props.isUser) {
     return (
@@ -64,13 +67,15 @@ class Itinerary extends React.Component {
     if (!this.props.itinerary) {
       return (
         <div className="loading-module flx flx-center-all v2-type-body3">
-          Loading Itinerary...
+          <div>Loading Itinerary...</div>
         </div>
       );
     }
     else if (this.props.itinerary.length === 0) {
       return (
-        <div> Itinerary doesn't exist</div>
+        <div className="flx flx-center-all state--not-exist">
+           <div>Itinerary doesn't exist</div>
+        </div>
       )
     }
     else {
@@ -125,27 +130,29 @@ class Itinerary extends React.Component {
                   {/* Last Modified Date */}
                   <div className="itinerary__summary__timestamp v2-type-caption opa-20">
                     {(new Date(itinerary.lastModified)).toLocaleString()}
+                    {/*<Timestamp time={itinerary.lastModified} precision={1} format='ago' />*/}
                   </div>
 
                   <div className="edit-itinerary-link">
                                   
                   <MuiThemeProvider muiTheme={getMuiTheme()}>
-                  
-                  <IconMenu
-                     iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-                     anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-                     targetOrigin={{horizontal: 'left', vertical: 'top'}}
-                   >
-                     <ItineraryActions 
-                       itinerary={itinerary} 
-                       authenticated={this.props.authenticated} 
-                       canModify={canModify} 
-                       deleteItinerary={this.props.onDeleteItinerary} 
-                       redirectPath="/" />
+                    <IconMenu
+                       iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                       anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+                       targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                     >
 
-                     <EditItineraryLink isUser={isUser} itineraryId={this.props.itineraryId} />
+                       <EditItineraryLink isUser={isUser} itineraryId={this.props.itineraryId} />
 
-                   </IconMenu>
+                       <ItineraryActions 
+                         itinerary={itinerary} 
+                         authenticated={this.props.authenticated} 
+                         canModify={canModify} 
+                         deleteItinerary={this.props.onDeleteItinerary} 
+                         redirectPath="/" />
+
+                         
+                     </IconMenu>
                    </MuiThemeProvider>
 
                   </div>

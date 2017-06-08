@@ -7,6 +7,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
 import { SAVE_MODAL } from '../../actions';
+import ImagePicker from './../ImagePicker';
 
 const mapStateToProps = state => ({
   ...state.modal,
@@ -55,7 +56,7 @@ class SaveModal extends React.Component {
           titleStyle={{padding: "10px 20px", fontWeight: "700", fontSize: "20px"}}
           
           contentClassName="dialog--save__wrapper"
-          contentStyle={{width: "400px", maxWidth: "none", position: "fixed", top: "0", right:"0"}}
+          contentStyle={{width: "400px", maxWidth: "none"}}
           
           bodyClassName="dialog--save__body"
           bodyStyle={{padding: "30px 0px"}}
@@ -66,7 +67,7 @@ class SaveModal extends React.Component {
             <div className="dialog--save__tip-item">
               <div className="flx flx-row flx-just-start flx-align-center">
                 <div className="tip-preview-wrapper mrgn-right-md">
-                  <img className="center-img" src="../img/views.ramen.temp.png"/>
+                   <ImagePicker images={this.props.images} />
                 </div>
                 <div className="dialog--save__tip-name">{this.props.review.title}</div>
               </div>
@@ -90,7 +91,7 @@ class SaveModal extends React.Component {
   				     })}
                   <li className="create-new">
                     <div className="flx flx-row flx-just-start flx-align-center">
-                      <div className="v-button v-button--temp mrgn-right-md">
+                      <div className="vb vb--temp mrgn-right-md">
                         <img className="center-img" src="../img/icon.add--green.png"/>
                       </div>
                       <div className="save-to__title color--success">

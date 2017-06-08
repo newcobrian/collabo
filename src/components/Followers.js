@@ -103,7 +103,7 @@ class Followers extends React.Component {
 
 		        {this.renderTabs()}
 
-		    	<div className="flx flx-col page-common follow-page flx-align-center pdding-top-md">
+		    	<div className="flx flx-row page-common follow-page flx-align-center pdding-top-md">
 			      {
 			        this.props.followers.map(follower => {
 			        	const isUser = this.props.currentUser &&

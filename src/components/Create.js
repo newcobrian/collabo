@@ -289,6 +289,7 @@ class Create extends React.Component {
 			<div className="flx flx-col flx-center-all page-common editor-page create-page">
 				<div className="page-title-wrapper center-text">
 				  <div className="v2-type-page-header">Create New Itinerary</div>
+				  <div className="v2-type-body2 opa-60 mrgn-top-sm DN"></div>
 				</div>
 				<div className="flx flx-col flx-center-all create-wrapper mrgn-top-sm">
 					<ListErrors errors={this.props.errors}></ListErrors>
