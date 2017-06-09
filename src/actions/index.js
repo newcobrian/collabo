@@ -1180,19 +1180,27 @@ export function generateImageFileName()
     return text;
 }
 
-export function uploadImages(auth, objectId, objectType, images) {
+export function uploadImages(auth, objectId, objectType, images, itineraryId) {
   if (images) {
     let storagePath = (objectType === Constants.REVIEW_TYPE ? Constants.IMAGES_PATH : Constants.IMAGES_ITINERARIES_PATH);
     let byUserPath = (objectType === Constants.REVIEW_TYPE ? Constants.IMAGES_BY_USER_PATH : Constants.IMAGES_ITINERARIES_BY_USER_PATH);
+    let updates = {};
+    let imageId = '';
     images.forEach(function(imageFile) {
+      let imageObject = {
+        lastModified: Firebase.database.ServerValue.TIMESTAMP
+      };
       if (typeof imageFile === 'string' || imageFile instanceof String) {
         // if its the URL path of the image, just save it
-        let imageObject = {
-          url: imageFile,
-          lastModified: Firebase.database.ServerValue.TIMESTAMP
+        imageObject.url = imageFile;
+        imageId = Firebase.database().ref(byUserPath + '/' + auth + '/' + objectId).push(imageObject).key;
+        updates[`/${storagePath}/${objectId}/${imageId}`] = Object.assign({}, imageObject, {userId: auth});
+        // Firebase.database().ref(byUserPath + '/' + auth + '/' + objectId + '/' + imageId).update(imageObject);
+
+        if (objectType === Constants.REVIEW_TYPE) {
+          updates[`/${Constants.IMAGES_ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}/${imageId}`] = Object.assign({}, imageObject);
+          updates[`/${Constants.IMAGES_ITINERARIES_PATH}/${itineraryId}/${imageId}`] = Object.assign({}, imageObject, {userId: auth});
         }
-        let imageId = Firebase.database().ref(storagePath + '/' + objectId).push(imageObject).key;
-        Firebase.database().ref(byUserPath + '/' + auth + '/' + objectId + '/' + imageId).update(imageObject);
       }
       else {
         // otherwise upload the file if we need to
@@ -1211,18 +1219,21 @@ export function uploadImages(auth, objectId, objectType, images) {
         }, function() {
           const downloadURL = uploadTask.snapshot.downloadURL;
           if (downloadURL) {
-            let imageObject = {
-              url: downloadURL,
-              lastModified: Firebase.database.ServerValue.TIMESTAMP,
-              userId: auth
-            }
+            imageObject.url = downloadURL;
              // save images in images and images-by-user
-            let imageId = Firebase.database().ref(storagePath + '/' + objectId).push(imageObject).key;
-            Firebase.database().ref(byUserPath + '/' + auth + '/' + objectId + '/' + imageId).update(imageObject);
+            imageId = Firebase.database().ref(byUserPath + '/' + auth + '/' + objectId).push(imageObject).key;
+            updates[`/${storagePath}/${objectId}/${imageId}`] = Object.assign({}, imageObject, {userId: auth});
+            // Firebase.database().ref(byUserPath + '/' + auth + '/' + objectId + '/' + imageId).update(imageObject);
+
+            if (objectType === Constants.REVIEW_TYPE) {
+              updates[`/${Constants.IMAGES_ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}/${imageId}`] = Object.assign({}, imageObject);
+              updates[`/${Constants.IMAGES_ITINERARIES_PATH}/${itineraryId}/${imageId}`] = Object.assign({}, imageObject, {userId: auth});
+            }
           }
         })
       }
     })
+    Firebase.database().ref().update(updates);
   }
 }
 
@@ -1232,6 +1243,11 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
     let reviewsList = {};
     const lastModified = { lastModified: Firebase.database.ServerValue.TIMESTAMP };
     let reviews = itinerary.reviews;
+
+    // create an itineraryId if it doesn't exist
+    if (!itineraryId) {
+      itineraryId = Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + auth).push(itinerary).key;
+    }
     for (var i = 0; i < reviews.length; i++) {
       // create the reviewsList for the itinerary
       let subject = Helpers.makeSubject(reviews[i], lastModified);
@@ -1255,7 +1271,6 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
       // if review doesnt exist, create it
       if (!reviews[i].reviewId) {
         reviews[i].reviewId = Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + auth).push(review).key;
-        console.log('created + ' + reviews[i].reviewId)
       }
       else {
         updates[`/${Constants.REVIEWS_BY_USER_PATH}/${auth}/${reviews[i].reviewId}/`] = review;
@@ -1269,7 +1284,7 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
 
       // save the images on each review
       let subjectId = reviews[i].subjectId;
-      uploadImages(auth, subjectId, Constants.REVIEW_TYPE, reviews[i].images)
+      uploadImages(auth, subjectId, Constants.REVIEW_TYPE, reviews[i].images, itineraryId);
     }
 
     let itineraryByUserObject = Helpers.makeItinerary(auth, itinerary, lastModified);
@@ -1278,19 +1293,13 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
     let itineraryObject = {};
     Object.assign(itineraryObject, itineraryByUserObject, { userId: auth });
 
-    // create itinerary if it doenst exist
-    if (!itineraryId) {
-      itineraryId = Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + auth).push(itineraryByUserObject).key;
-    }
-    else {
-      updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}`] = itineraryByUserObject;
-    }
     // update all itinerary tables
+    updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}`] = itineraryByUserObject;
     updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}/`] = itineraryObject;
     updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo}/${auth}/${itineraryId}/`] = itineraryObject;
 
-    // save itinerary image if there is one
-    uploadImages(auth, itineraryId, Constants.ITINERARY_TYPE, itinerary.images)
+    // upload itinerary images if they exist
+    // uploadImages(auth, itineraryId, Constants.ITINERARY_TYPE, itinerary.images, itineraryId)
 
     Firebase.database().ref().update(updates, function(error) {
       if (error) {
@@ -2182,29 +2191,33 @@ export function getUserFeed(auth) {
           Firebase.database().ref(Constants.USERS_PATH + '/' + userId).on('value', userSnapshot => {
             itinerariesSnapshot.forEach(function(itin) {
               Firebase.database().ref(Constants.LIKES_PATH + '/' + itin.key).on('value', likesSnapshot => {
-                const itineraryObject = {};
-                const key = { id: itin.key };
-                const createdBy = { createdBy: userSnapshot.val() };
-                createdBy.createdBy.userId = userId
-                let isLiked = false;
-                if (likesSnapshot.val()) {
-                  isLiked = searchLikes(auth, likesSnapshot.val());
-                }
-                let likes = {
-                  isLiked: isLiked
-                }
-                
-                Object.assign(itineraryObject, itin.val(), key, createdBy, likes);
+                Firebase.database().ref(Constants.IMAGES_ITINERARIES_BY_USER_PATH + '/' + userId + '/' + itin.key).on('value', itinImagesSnapshot => {
+                  const itineraryObject = {};
+                  const key = { id: itin.key };
+                  const createdBy = { createdBy: userSnapshot.val() };
+                  createdBy.createdBy.userId = userId
+                  let isLiked = false;
+                  if (likesSnapshot.val()) {
+                    isLiked = searchLikes(auth, likesSnapshot.val());
+                  }
+                  let likes = {
+                    isLiked: isLiked
+                  }
 
-                // if (itin.val().subject && itin.val().subject.images) {
-                //   reviewObject.subject.image = Helpers.getImagePath(itin.val().subject.images);
-                // }
+                  let itinImages = Helpers.getImagePath(itinImagesSnapshot.val());
+                  
+                  Object.assign(itineraryObject, itin.val(), key, createdBy, likes, {images: itinImages});
 
-                feedArray = [itineraryObject].concat(feedArray);
-                feedArray.sort(lastModifiedDesc);
-                dispatch({
-                  type: GET_USER_FEED,
-                  payload: feedArray
+                  // if (itin.val().subject && itin.val().subject.images) {
+                  //   reviewObject.subject.image = Helpers.getImagePath(itin.val().subject.images);
+                  // }
+
+                  feedArray = [itineraryObject].concat(feedArray);
+                  feedArray.sort(lastModifiedDesc);
+                  dispatch({
+                    type: GET_USER_FEED,
+                    payload: feedArray
+                  })
                 })
               }) 
             });
