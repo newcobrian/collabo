@@ -3001,7 +3001,7 @@ export function addToItinerary(auth, tip, itinerary) {
   }
 }
 
-export function showModal(type, review) {
+export function showModal(type, review, images) {
   return dispatch => {
     const uid = Firebase.auth().currentUser.uid;
     switch (type) {
@@ -3019,6 +3019,7 @@ export function showModal(type, review) {
             dispatch({
               type: SHOW_MODAL,
               modalType: SAVE_MODAL,
+              images: images,
               itinerariesList: itineraryList,
               review: review
             })

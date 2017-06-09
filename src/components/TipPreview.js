@@ -52,7 +52,7 @@ const TipPreview = props => {
 
   const handleSaveClick = ev => {
     ev.preventDefault();
-    props.showModal(SAVE_MODAL, props.review);
+    props.showModal(SAVE_MODAL, props.review, props.images);
   }
   
   return (

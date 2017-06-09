@@ -14,6 +14,7 @@ export default (state = initialState, action) => {
         ...state,
   			modalType: action.modalType,
   			review: action.review,
+        images: action.images,
         itinerariesList: action.itinerariesList
   		}
     case SHOW_NEW_ITINERARY_MODAL:
