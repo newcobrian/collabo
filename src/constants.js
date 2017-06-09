@@ -78,6 +78,5 @@ export const FORWARD_MESSAGE = 'FORWARD_MESSAGE'
 export const ITINERARY_TYPE = 'itinerary'
 export const REVIEW_TYPE = 'review'
 
-
 /*** Tag list ***/
 export const TAG_LIST = []

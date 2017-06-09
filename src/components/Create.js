@@ -5,6 +5,7 @@ import * as Actions from '../actions';
 import ProxyImage from './ProxyImage';
 import ListErrors from './ListErrors';
 import * as Constants from '../constants';
+import { CREATE_PAGE } from '../actions';
 
 const SubjectInfo = props => {
 	const renderImage = image => {
@@ -37,7 +38,7 @@ class Create extends React.Component {
 		super();
 
 	    const updateFieldEvent =
-	      key => ev => this.props.onUpdateCreateField(key, ev.target.value);
+	      key => ev => this.props.onUpdateCreateField(key, ev.target.value, CREATE_PAGE);
 
 	    this.changeTitle = updateFieldEvent('title');
 	    this.changeGeo = updateFieldEvent('geo');
@@ -47,10 +48,10 @@ class Create extends React.Component {
 	      ev.preventDefault();
 
 	      if (!this.props.title) {
-	        this.props.createSubmitError('itinerary name');
+	        this.props.createSubmitError('itinerary name', CREATE_PAGE);
 	      }
 	      else if (this.props.geo !== 0 && !this.props.geo) {
-	        this.props.createSubmitError('location');
+	        this.props.createSubmitError('location', CREATE_PAGE);
 	      }
 	      else {
 		   	let itinerary = {};

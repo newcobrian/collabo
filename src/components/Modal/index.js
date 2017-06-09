@@ -5,11 +5,13 @@ import { FORWARD_MODAL, REVIEW_MODAL, SAVE_MODAL } from '../../actions';
 import ForwardModal from './ForwardModal'
 import ReviewModal from './ReviewModal'
 import SaveModal from './SaveModal'
+import NewItineraryModal from './NewItineraryModal'
 
 const MODAL_COMPONENTS = {
   FORWARD_MODAL: ForwardModal,
   REVIEW_MODAL: ReviewModal,
-  SAVE_MODAL: SaveModal
+  SAVE_MODAL: SaveModal,
+  NEW_ITINERARY_MODAL: NewItineraryModal
 }
 const mapStateToProps = state => ({
   ...state.modal,

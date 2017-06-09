@@ -1,9 +1,10 @@
-import { SHOW_MODAL, HIDE_MODAL, FRIEND_SELECTOR_SUBMIT, REVIEW_SUBMITTED, FORWARD_MODAL, 
-  SAVE_MODAL, ADDED_TO_ITINERARY, SUBJECT_DUPLICATE } from '../actions'
+import { SHOW_MODAL, HIDE_MODAL, NEW_ITINERARY_MODAL, FRIEND_SELECTOR_SUBMIT, REVIEW_SUBMITTED, 
+  FORWARD_MODAL, SAVE_MODAL, ADDED_TO_ITINERARY, SUBJECT_DUPLICATE, SHOW_NEW_ITINERARY_MODAL, 
+  UPDATE_FIELD_CREATE, CREATE_SUBMIT_ERROR } from '../actions'
 
 const initialState = {
   modalType: null,
-  modalProps: {}
+  modalProps: {},
 }
 
 export default (state = initialState, action) => {
@@ -15,12 +16,21 @@ export default (state = initialState, action) => {
   			review: action.review,
         itinerariesList: action.itinerariesList
   		}
+    case SHOW_NEW_ITINERARY_MODAL:
+      return {
+        ...state,
+        modalType: NEW_ITINERARY_MODAL,
+        auth: action.auth,
+        review: action.review
+      }
+    case UPDATE_FIELD_CREATE:
+      if(action.source === NEW_ITINERARY_MODAL) {
+        return { ...state, [action.key]: action.value };
+      }
+      else return {...state}
     case HIDE_MODAL:
-      return initialState;
     case SUBJECT_DUPLICATE:
-      return initialState;
     case ADDED_TO_ITINERARY:
-  		return initialState;
     case FRIEND_SELECTOR_SUBMIT:
       return initialState;
     case REVIEW_SUBMITTED:
@@ -29,6 +39,15 @@ export default (state = initialState, action) => {
         modalType: FORWARD_MODAL,
         review: action.review
       };
+    case CREATE_SUBMIT_ERROR:
+      if (action.source === NEW_ITINERARY_MODAL) {
+        return {
+          ...state,
+          errors: [action.error],
+          inProgress: null
+        }
+      }
+      else return {...state}
   	default:
   		return state
   	}

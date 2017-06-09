@@ -1,6 +1,6 @@
 import { CREATE_PAGE_LOADED, CREATE_SUBJECT_LOADED, UPDATE_FIELD_CREATE, REVIEW_SUBMITTED, 
   CREATE_PAGE_UNLOADED, CREATE_SUBJECT_CLEARED, GET_USER_LOCATION, SET_WATCH_ID, SET_IN_PROGRESS,
-  CREATE_SUBMIT_ERROR, SHOW_MODAL, REVIEW_MODAL } from '../actions'
+  CREATE_SUBMIT_ERROR, SHOW_MODAL, REVIEW_MODAL, CREATE_PAGE } from '../actions'
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -49,11 +49,14 @@ export default (state = {}, action) => {
         inProgress: null
       }
     case CREATE_SUBMIT_ERROR:
-      return {
-        ...state,
-        errors: [action.error],
-        inProgress: null
+      if (action.source === CREATE_PAGE) {
+        return {
+          ...state,
+          errors: [action.error],
+          inProgress: null
+        }
       }
+      else return {...state}
     case SET_IN_PROGRESS:
       return {
         ...state,
@@ -76,7 +79,10 @@ export default (state = {}, action) => {
         inProgress: null,
       };
   	case UPDATE_FIELD_CREATE:
-      return { ...state, [action.key]: action.value };
+      if(action.source === CREATE_PAGE) {
+        return { ...state, [action.key]: action.value };
+      }
+      else return {...state}
     default:
       return state;
   }

@@ -81,6 +81,7 @@ export const UNMOUNT_FREIND_SELECTOR = 'UNMOUNT_FREIND_SELECTOR';
 export const FORWARD_MODAL = 'FORWARD_MODAL'
 export const REVIEW_MODAL = 'REVIEW_MODAL'
 export const SAVE_MODAL = 'SAVE_MODAL'
+export const NEW_ITINERARY_MODAL = 'NEW_ITINERARY_MODAL'
 export const ITINERARY_CREATED = 'ITINERARY_CREATED'
 export const ITINERARY_PAGE_LOADED = 'ITINERARY_PAGE_LOADED'
 export const ITINERARY_PAGE_UNLOADED = 'ITINERARY_PAGE_UNLOADED'
@@ -94,6 +95,8 @@ export const ADDED_TO_ITINERARY = 'ADDED_TO_ITINERARY'
 export const SUBJECT_DUPLICATE = 'SUBJECT_DUPLICATE'
 export const SHOW_SNACKBAR = 'SHOW_SNACKBAR'
 export const CLOSE_SNACKBAR = 'CLOSE_SNACKBAR'
+export const SHOW_NEW_ITINERARY_MODAL = 'SHOW_NEW_ITINERARY_MODAL'
+export const CREATE_PAGE = 'CREATE_PAGE'
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -884,12 +887,13 @@ export function clearCreateSubject() {
   }
 }
 
-export function onUpdateCreateField(key, value) {
+export function onUpdateCreateField(key, value, source) {
   return dispatch => {
     dispatch({
       type: UPDATE_FIELD_CREATE,
       key,
-      value
+      value,
+      source: source
     })
   }
 }
@@ -1483,11 +1487,12 @@ export function editorSubmitError(missingField) {
   }
 }
 
-export function createSubmitError(missingField) {
+export function createSubmitError(missingField, source) {
   return dispatch => {
     dispatch({
       type: CREATE_SUBMIT_ERROR,
-      error: 'Please add a ' + missingField
+      error: 'Please add a ' + missingField,
+      source: source
     })
   }
 }
@@ -2907,9 +2912,25 @@ export function findSubject(subjectId, reviewsList) {
   return false;
 }
 
+export function showNewItineraryModal(auth, review) {
+  return dispatch => {
+    dispatch({
+      type: SHOW_NEW_ITINERARY_MODAL,
+      auth: auth,
+      review: review
+    })
+  }
+}
+
 export function addToItinerary(auth, tip, itinerary) {
   return dispatch => {
-    let itineraryId = itinerary.itineraryId;
+    let itineraryId;
+    if (!itinerary.itineraryId) {
+      itineraryId = Firebase.database().ref(Constants.ITINERARIES_PATH).push(itinerary).key;
+    }
+    else {
+      itineraryId = itinerary.itineraryId;
+    }
     Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + itinerary.userId + '/' + itineraryId).once('value', itinSnapshot => {
       let subjectId = tip.subjectId;
       if (itinSnapshot.exists() && itinSnapshot.val().reviews && findSubject(subjectId, itinSnapshot.val().reviews)) {
@@ -2921,8 +2942,10 @@ export function addToItinerary(auth, tip, itinerary) {
         })
       }
       else {
+        if (itinSnapshot.exists()) itinerary = Object.assign({}, itinSnapshot.val());
+
         Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + auth).once('value', reviewSnapshot => {
-          let geo = itinSnapshot.val().geo;
+          let geo = itinerary.geo;
           let updates = {};
           let tipData = {
             subjectId: subjectId
@@ -2940,10 +2963,10 @@ export function addToItinerary(auth, tip, itinerary) {
             // tipData.reviewId = reviewId;
           // }
 
-          let itineraryByUserObject = Object.assign({}, itinSnapshot.val());
+          let itineraryByUserObject = Object.assign({}, itinerary);
           itineraryByUserObject.reviewsCount = itineraryByUserObject.reviewsCount ? itineraryByUserObject.reviewsCount + 1 : 1;
 
-          if (!itineraryByUserObject.reviews) itineraryByUserObject.reviews = {};
+          if (!itineraryByUserObject.reviews) itineraryByUserObject.reviews = [];
           itineraryByUserObject.reviews[itineraryByUserObject.reviews.length] = tipData;
           itineraryByUserObject.lastModified = Firebase.database.ServerValue.TIMESTAMP;
           let itineraryObject = Object.assign({}, itineraryByUserObject, {userId: itinerary.userId});

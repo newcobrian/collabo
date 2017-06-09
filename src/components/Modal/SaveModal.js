@@ -25,6 +25,11 @@ class SaveModal extends React.Component {
       this.props.addToItinerary(this.props.authenticated, this.props.review, itinerary)
     }
 
+    const handleItineraryClick = ev => {
+      ev.preventDefault();
+      this.props.showNewItineraryModal(this.props.authenticated, this.props.review);
+    }
+
     const actions = [
       <FlatButton
         label="Cancel"
@@ -90,14 +95,16 @@ class SaveModal extends React.Component {
 				        );
   				     })}
                   <li className="create-new">
-                    <div className="flx flx-row flx-just-start flx-align-center">
-                      <div className="vb vb--temp mrgn-right-md">
-                        <img className="center-img" src="../img/icon.add--green.png"/>
+                    <Link onClick={handleItineraryClick} >
+                      <div className="flx flx-row flx-just-start flx-align-center">
+                        <div className="vb vb--temp mrgn-right-md">
+                          <img className="center-img" src="../img/icon.add--green.png"/>
+                        </div>
+                        <div className="save-to__title color--success">
+                          Create new itinerary
+                        </div>
                       </div>
-                      <div className="save-to__title color--success">
-                        Create new itinerary
-                      </div>
-                    </div>
+                    </Link>
                   </li>
     				</ul>
     			</div>
