@@ -80,7 +80,7 @@ class NewItineraryModal extends React.Component {
           overlayClassName="dialog--save__overlay"
           overlayStyle={{}}
           
-          title="Choose an itinerary for..."
+          title="Create new itinerary for..."
           titleClassName="dialog--save__title v2-type-h2"
           titleStyle={{padding: "10px 20px", fontWeight: "700", fontSize: "20px"}}
           
@@ -101,8 +101,8 @@ class NewItineraryModal extends React.Component {
                 <div className="dialog--save__tip-name">{this.props.review.title}</div>
               </div>
             </div>
-                  <div className="flx flx-col flx-center-all page-common editor-page create-page">
-        <div className="page-title-wrapper center-text">
+      <div className="flx flx-col flx-center-all new-itin-modal">
+        <div className="page-title-wrapper center-text DN">
           <div className="v2-type-page-header">Create New Itinerary</div>
           <div className="v2-type-body2 opa-60 mrgn-top-sm DN"></div>
         </div>
@@ -115,7 +115,7 @@ class NewItineraryModal extends React.Component {
                           <input
                             className="input--underline edit-itinerary__name"
                             type="text"
-                            placeholder="My Dope Vacation 2018"
+                            placeholder="My Vacation 2018 or Best NYC Sandos"
                             required
                             value={this.props.title}
                             onChange={changeTitle} />
@@ -135,7 +135,7 @@ class NewItineraryModal extends React.Component {
                           <textarea
                             className="input--underline"
                             type="text"
-                            rows="6"
+                            rows="4"
                             placeholder="What's the story behind this itinerary?"
                             value={this.props.description}
                             onChange={changeDescription} />
@@ -145,7 +145,7 @@ class NewItineraryModal extends React.Component {
                         className="vb w-100 vb--create mrgn-top-md"
                         type="button"
                         onClick={submitForm}>
-                        Next
+                        Create New Itinerary
                       </div>
                 </form>
             </div>

@@ -222,6 +222,7 @@ input[type="radio"]:checked + label span {
 .vb--full--second {
   background-color: white;
   color: black;
+  background-image: initial;
 }
 .v-button--circle {
   border-radius: 32px;
@@ -1083,7 +1084,7 @@ label {
   margin-bottom: 0;
   letter-spacing: 2px;
   text-transform: uppercase;
-  opacity: .5;
+  opacity: .4;
   font-weight: 600;
 }
 

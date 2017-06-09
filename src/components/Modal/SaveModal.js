@@ -78,6 +78,18 @@ class SaveModal extends React.Component {
               </div>
             </div>
     				<ul>
+              <li className="create-new">
+                <Link onClick={handleItineraryClick} >
+                  <div className="flx flx-row flx-just-start flx-align-center">
+                    <div className="vb vb--temp mrgn-right-md">
+                      <img className="center-img" src="../img/icon.add--green.png"/>
+                    </div>
+                    <div className="save-to__title color--success">
+                      Create new itinerary
+                    </div>
+                  </div>
+                </Link>
+              </li>
     					{this.props.itinerariesList.map(itinerary => {
 				        return (
   		            <li className="" key={itinerary.itineraryId}>
@@ -94,18 +106,7 @@ class SaveModal extends React.Component {
   				        </li>
 				        );
   				     })}
-                  <li className="create-new">
-                    <Link onClick={handleItineraryClick} >
-                      <div className="flx flx-row flx-just-start flx-align-center">
-                        <div className="vb vb--temp mrgn-right-md">
-                          <img className="center-img" src="../img/icon.add--green.png"/>
-                        </div>
-                        <div className="save-to__title color--success">
-                          Create new itinerary
-                        </div>
-                      </div>
-                    </Link>
-                  </li>
+                  
     				</ul>
     			</div>
 

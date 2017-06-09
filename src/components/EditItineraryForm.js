@@ -27,7 +27,7 @@ const displayField = ({input, label, placeholder, type, meta: {touched, error}})
       {input.value}
     </div>
   </div>
-)
+) 
 
 const renderDropzoneInput = (field) => {
   const files = field.input.value;
@@ -99,12 +99,11 @@ const renderSearchInput = (field) => {
   return (
     <FirebaseSearchInput  
       value={field.input.value}
-      className="form-control main-search-inner" 
       callback={searchInputCallback}
       latitude={field.latitude} 
       longitude={field.longitude}
-      placeholder={"Tip Name"}
-      className="input--underline" />
+      placeholder={"Search for a place anywhere in the world..."}
+      className="input--search" />
   )
 }
 
@@ -172,18 +171,20 @@ let Review = ({ review, index, fields, authenticated, reviewObject }) => {
       <li key={index}>
         <div className="flx flx-row flx-align-center pdding-all-sm">
           <div className="v2-type-h5">Tip #{index + 1}</div>
-          <button className="vb vb--light vb--no-outline vb-sm opa-30 flex-item-right" onClick={() => fields.remove(index)}>Delete Tip</button>
+          <div className="vb vb--light vb--no-outline vb-sm opa-30 flex-item-right"
+          onClick={() => fields.remove(index)}>Delete Tip</div>
         </div>
-          
-        <Field
-            name={`${review}`}
-            type="text"
-            component={renderSearchInput}
-            authenticated={authenticated}
-            label="Tip Name"
-            placeholder="Golden Boy Pizza"
-            classname="input--underline edit-tip__name"
-          />
+        <div className="field-wrapper"> 
+          <Field
+              name={`${review}`}
+              type="text"
+              component={renderSearchInput}
+              authenticated={authenticated}
+              label="Search for a place anywhere in the world..."
+              placeholder="Search for a place anywhere in the world..."
+              classname="input--underline edit-tip__name"
+            />
+        </div>
       </li>
     )
   }
