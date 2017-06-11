@@ -1,6 +1,7 @@
 import { SHOW_MODAL, HIDE_MODAL, NEW_ITINERARY_MODAL, FRIEND_SELECTOR_SUBMIT, REVIEW_SUBMITTED, 
   FORWARD_MODAL, SAVE_MODAL, ADDED_TO_ITINERARY, SUBJECT_DUPLICATE, SHOW_NEW_ITINERARY_MODAL, 
-  UPDATE_FIELD_CREATE, CREATE_SUBMIT_ERROR } from '../actions'
+  UPDATE_FIELD_CREATE, CREATE_SUBMIT_ERROR, SHOW_DELETE_ITINERARY_MODAL, DELETE_ITINERARY_MODAL,
+  ITINERARY_DELETED } from '../actions'
 
 const initialState = {
   modalType: null,
@@ -17,6 +18,13 @@ export default (state = initialState, action) => {
         images: action.images,
         itinerariesList: action.itinerariesList
   		}
+    case SHOW_DELETE_ITINERARY_MODAL:
+      return {
+        ...state,
+        modalType: DELETE_ITINERARY_MODAL,
+        itinerary: action.itinerary,
+        source: action.source
+      }
     case SHOW_NEW_ITINERARY_MODAL:
       return {
         ...state,
@@ -33,6 +41,7 @@ export default (state = initialState, action) => {
     case SUBJECT_DUPLICATE:
     case ADDED_TO_ITINERARY:
     case FRIEND_SELECTOR_SUBMIT:
+    case ITINERARY_DELETED:
       return initialState;
     case REVIEW_SUBMITTED:
       return {

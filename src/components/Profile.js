@@ -150,7 +150,7 @@ class Profile extends React.Component {
             authenticated={this.props.authenticated} 
             like={this.props.likeReview} 
             unLike={this.props.unLikeReview}
-            deleteItinerary={this.props.onDeleteItinerary}
+            deleteItinerary={this.props.showDeleteModal}
 
             currentPage={this.props.currentPage}
             updateRating={this.props.onUpdateRating}

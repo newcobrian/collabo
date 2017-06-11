@@ -148,7 +148,7 @@ class Itinerary extends React.Component {
                          itinerary={itinerary} 
                          authenticated={this.props.authenticated} 
                          canModify={canModify} 
-                         deleteItinerary={this.props.onDeleteItinerary} 
+                         deleteItinerary={this.props.showDeleteModal} 
                          redirectPath="/" />
 
                          

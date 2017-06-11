@@ -1,11 +1,10 @@
-import { Link } from 'react-router';
 import React from 'react';
 import * as Actions from '../actions';
 import { connect } from 'react-redux';
 
 const ItineraryActions = props => {
   const del = () => {
-    props.deleteItinerary(props.authenticated, props.itinerary.id, props.itinerary.geo.placeId, props.redirectPath);
+    props.deleteItinerary(props.itinerary, props.redirectPath);
   };
 
   if (props.canModify) {

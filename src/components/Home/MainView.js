@@ -27,7 +27,7 @@ const MainView = props => {
           authenticated={props.authenticated} 
           like={props.likeReview} 
           unLike={props.unLikeReview}
-          deleteItinerary={props.deleteItinerary} />
+          deleteItinerary={props.showDeleteModal} />
     </div>
   );
 };

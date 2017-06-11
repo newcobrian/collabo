@@ -82,6 +82,8 @@ export const FORWARD_MODAL = 'FORWARD_MODAL'
 export const REVIEW_MODAL = 'REVIEW_MODAL'
 export const SAVE_MODAL = 'SAVE_MODAL'
 export const NEW_ITINERARY_MODAL = 'NEW_ITINERARY_MODAL'
+export const DELETE_ITINERARY_MODAL = 'DELETE_ITINERARY_MODAL'
+export const SHOW_DELETE_ITINERARY_MODAL = 'SHOW_DELETE_ITINERARY_MODAL'
 export const ITINERARY_CREATED = 'ITINERARY_CREATED'
 export const ITINERARY_PAGE_LOADED = 'ITINERARY_PAGE_LOADED'
 export const ITINERARY_PAGE_UNLOADED = 'ITINERARY_PAGE_UNLOADED'
@@ -3064,6 +3066,17 @@ export function addToItinerary(auth, tip, itinerary) {
           })
         })
       }
+    })
+  }
+}
+
+export function showDeleteModal(itinerary, source) {
+  return dispatch => {
+    dispatch({
+      type: SHOW_DELETE_ITINERARY_MODAL,
+      modalType: DELETE_ITINERARY_MODAL,
+      itinerary: itinerary,
+      source: source
     })
   }
 }
