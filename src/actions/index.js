@@ -1220,17 +1220,20 @@ export function uploadImages(auth, objectId, objectType, images, itineraryId) {
             console.log(error.message)
         }, function() {
           const downloadURL = uploadTask.snapshot.downloadURL;
+          let uploadUpdates = {};
           if (downloadURL) {
             imageObject.url = downloadURL;
              // save images in images and images-by-user
             imageId = Firebase.database().ref(byUserPath + '/' + auth + '/' + objectId).push(imageObject).key;
-            updates[`/${storagePath}/${objectId}/${imageId}`] = Object.assign({}, imageObject, {userId: auth});
+            uploadUpdates[`/${storagePath}/${objectId}/${imageId}`] = Object.assign({}, imageObject, {userId: auth});
             // Firebase.database().ref(byUserPath + '/' + auth + '/' + objectId + '/' + imageId).update(imageObject);
 
             if (objectType === Constants.REVIEW_TYPE) {
-              updates[`/${Constants.IMAGES_ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}/${imageId}`] = Object.assign({}, imageObject);
-              updates[`/${Constants.IMAGES_ITINERARIES_PATH}/${itineraryId}/${imageId}`] = Object.assign({}, imageObject, {userId: auth});
+              console.log('image if')
+              uploadUpdates[`/${Constants.IMAGES_ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}/${imageId}`] = Object.assign({}, imageObject);
+              uploadUpdates[`/${Constants.IMAGES_ITINERARIES_PATH}/${itineraryId}/${imageId}`] = Object.assign({}, imageObject, {userId: auth});
             }
+            Firebase.database().ref().update(uploadUpdates);
           }
         })
       }

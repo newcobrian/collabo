@@ -107,60 +107,6 @@ const renderSearchInput = (field) => {
   )
 }
 
-// const renderSubjectInfo = (review) => {
-//   if (true) {
-//     return (
-//       <div>
-//         <Field
-//           name={`${review}.address`}
-//           type="text"
-//           component={notInputField}
-//           label="Address"
-//           placeholder="1100 West Street"
-//         />
-//       </div>
-//     )
-//   }
-//   else {
-//     return (
-//       <div>
-//         <label>Upload Images</label>
-//          <Field
-//           name={`${review}.images`}
-//           component={renderDropzoneInput}/>
-//         <Field
-//           name={`${review}.address`}
-//           type="text"
-//           component={renderField}
-//           label="Address"
-//           placeholder="1100 West Street"
-//         />
-//         <div className="flx flx-row">
-//           <Field
-//             name={`${review}.rating`}
-//             type="number"
-//             min="0"
-//             max="10"
-//             component={renderField}
-//             label="Rating"
-//             placeholder="0"
-//           />
-//           <div className="rating-total v2-type-body2">/10</div>
-//         </div>
-//         <label>Caption</label>
-//         <Field
-//           name={`${review}.caption`}
-//           type="text"
-//           component="textarea"
-//           rows="8"
-//           label="Description"
-//           placeholder="Write some tips..."
-//         />
-//       </div>
-//     )
-//   }
-// }
-
 // if subject ID or eventually result.id exists, show subject info + review
 // else if no subject ID, just show the search field
 // eventually need the add custom subject button which would open up all input fields
@@ -248,59 +194,6 @@ let Review = ({ review, index, fields, authenticated, reviewObject }) => {
         </div> 
       </li>
     )
-    // return (
-    //   <li key={index}>
-    //     <button
-    //       type="button"
-    //       title="Remove Tip"
-    //       onClick={() => fields.remove(index)}/>
-    //     <h4>Tip #{index + 1}</h4>
-    //     <Field
-    //       name={`${review}.title`}
-    //       type="text"
-    //       component={renderSearchInput}
-    //       label="Tip Name"
-    //       placeholder="Golden Boy Pizza"
-    //       classname="input--underline edit-tip__name"
-    //     />
-    //     <Field
-    //       name={`${review}.address`}
-    //       type="text"
-    //       component={renderField}
-    //       label="Address"
-    //       placeholder="1100 West Street"
-    //       classname="input--underline edit-tip__address"
-    //     />
-    //     <div className="flx flx-row">
-    //       <Field
-    //         name={`${review}.rating`}
-    //         type="number"
-    //         min="0"
-    //         max="10"
-    //         component={renderField}
-    //         label="Rating"
-    //         placeholder="0"
-    //         classname="input--underline edit-tip__rating"
-    //       />
-    //       <div className="field-wrapper field-wrapper--dropzone"> 
-    //         <Field
-    //         name={`${review}.images`}
-    //         component={renderDropzoneInput}/>
-    //       </div>
-    //     </div>
-    //     <div className="field-wrapper"> 
-    //       <label>Caption</label>
-    //       <Field
-    //         name={`${review}.caption`}
-    //         type="text"
-    //         component="textarea"
-    //         rows="6"
-    //         label="Description"
-    //         placeholder="Write some tips..."
-    //         className="edit-tip__caption"/>
-    //     </div> 
-    //   </li>
-    // )
   }
 }
 
@@ -323,48 +216,6 @@ const renderReviews = ({fields, authenticated, latitude, longitude, meta: {error
   </ul>
 )
 
-// const renderReviews2 = ({fields, authenticated, latitude, longitude, meta: {error, submitFailed}}) => (
-//   <ul>
-//     {fields.map((review, index) => (
-//       <li key={index}>
-//         <div className="flx flx-col itinerary__edit-tip mrgn-bottom-sm">
-//           <div className="temp-text">  
-//             <div className="flx flx-row">
-//               <div className="v2-type-h4">Tip #{index + 1}</div>
-//               <button
-//               type="button"
-//               className="v-button v-button--light v-button--warning tip-delete flex-item-right"
-//               title="Remove Review"
-//               onClick={() => fields.remove(index)}>Delete Tip</button>
-//             </div>
-
-//             <Field name={`${review}.title`}
-//               component={renderSearchInput} 
-//               label="Itinerary Name"
-//               latitude={latitude}
-//               longitude={longitude}
-//               authenticated={authenticated} />
-
-//             {/*renderSubjectInfo(review)*/}
-//           </div>
-
-//         </div>
-//       </li>
-//     ))}
-//     <li>
-//       <button className="v-button" type="button" onClick={() => fields.push({})}>Add a tip</button>
-//       {submitFailed && error && <span>{error}</span>}
-//     </li>
-//   </ul>
-// )
-
-// const mapStateToProps = state => ({
-//   ...state.form
-// });
-
-// class EditItineraryForm extends Component {
-  // render() {
-    // const {handleSubmit, pristine, reset, submitting} = this.props;
 let EditItineraryForm = props => {
     const {handleSubmit, pristine, reset, submitting} = props;
     return ( 
