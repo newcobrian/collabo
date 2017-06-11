@@ -914,12 +914,14 @@ export function onCreateItinerary(auth, itinerary) {
     let itineraryMeta = {
       lastModified: Firebase.database.ServerValue.TIMESTAMP
     }
+    let updates = {};
     Object.assign(itineraryObject, itinerary, itineraryMeta)
 
     let itineraryId = Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + auth).push(itineraryObject).key;
 
-    Object.assign(itineraryObject, {userId: auth});
-    Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).update(itineraryObject);
+    updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${auth}/${itineraryId}`] = itineraryObject;
+    updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}`] = Object.assign({}, itineraryObject, {userId: auth});
+    Firebase.database().ref().update(updates);
 
     dispatch({
       type: ITINERARY_CREATED,
@@ -1237,6 +1239,67 @@ export function uploadImages(auth, objectId, objectType, images, itineraryId) {
   }
 }
 
+// export function updatePlaceId () {
+// // SF ChIJIQBpAG2ahYAR_6128GcTUEo
+// // Tokyo ChIJ51cu8IcbXWARiRtXIothAS4
+// // Paris ChIJD7fiBh9u5kcRYJSMaMOCCwQ
+// // NYC ChIJOwg_06VPwokRYv534QaPC8g
+// // Palo Alto ChIJORy6nXuwj4ARz3b1NVL1Hw4
+// // BCN ChIJ5TCOcRaYpBIRCmZHTz37sEQ
+// // San Sebastian ChIJFf5oO_6vUQ0RSUaGlFnFPuQ
+  
+//   Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH).once('value', snapshot => {
+//     let updates = {};
+//     snapshot.forEach(function(location) {
+
+//       let geoObject = {};
+//       let geoId = '';
+//       if (location.key.includes('Barcelona')) {
+//         geoObject = { placeId: 'ChIJ5TCOcRaYpBIRCmZHTz37sEQ', label: 'Barcelona, Spain' }
+//         geoId = 'ChIJ5TCOcRaYpBIRCmZHTz37sEQ';
+//       }
+//       else if (location.key.includes('San Francisco')) {
+//         geoObject = { placeId: 'ChIJIQBpAG2ahYAR_6128GcTUEo', label: 'San Francisco, CA, United States' }
+//         geoId = 'ChIJIQBpAG2ahYAR_6128GcTUEo';
+//       }
+//       else if (location.key.includes('Tokyo')) {
+//         geoObject = { placeId: 'ChIJ51cu8IcbXWARiRtXIothAS4', label: 'Tokyo, Japan' }
+//         geoId = 'ChIJ51cu8IcbXWARiRtXIothAS4'
+//       }
+//       else if (location.key.includes('Paris')) {
+//         geoObject = { placeId: 'ChIJD7fiBh9u5kcRYJSMaMOCCwQ', label: 'Paris, France' }
+//         geoId = 'ChIJD7fiBh9u5kcRYJSMaMOCCwQ'
+//       }
+//       else if (location.key.includes('New York')) {
+//         geoObject = { placeId: 'ChIJOwg_06VPwokRYv534QaPC8g', label: 'New York, NY, United States' }
+//         geoId = 'ChIJOwg_06VPwokRYv534QaPC8g'
+//       }
+//       else if (location.key.includes('Palo Alto')) {
+//         geoObject = { placeId: 'ChIJORy6nXuwj4ARz3b1NVL1Hw4', label: 'Palo Alto, CA, United States' }
+//         geoId = 'ChIJORy6nXuwj4ARz3b1NVL1Hw4'
+//       }
+//       else if (location.key.includes('San Sebastian')) {
+//         geoObject = { placeId: 'ChIJFf5oO_6vUQ0RSUaGlFnFPuQ', label: 'San Sebastian, Spain' }
+//         geoId = 'ChIJFf5oO_6vUQ0RSUaGlFnFPuQ'
+//       }
+
+//       let itineraryObject = location.val();
+//       updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${geoId}`] = itineraryObject;
+//       updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${location.key}`] = null;
+//       // for (var user in location.val()) {
+//       //   if (!location.val().hasOwnProperty(user)) continue;
+//         // for (var itineraryId in location.val()[user]) {
+//         //   if (!location.val()[user].hasOwnProperty(itineraryId)) continue;
+//         //   updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${user}/${itineraryId}/geo`] = geoObject;
+//         //   updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}/geo`] = geoObject;
+//           // Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH + '/' + location.key + '/' + user + '/' + itineraryId + '/geo').set(geoObject);
+//         // }
+//       // }
+//       Firebase.database().ref().update(updates);
+//     })
+//   })
+// }
+
 export function onEditorSubmit(auth, itineraryId, itinerary) {
   return dispatch => {
     let updates = {};
@@ -1296,7 +1359,7 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
     // update all itinerary tables
     updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}`] = itineraryByUserObject;
     updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}/`] = itineraryObject;
-    updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo}/${auth}/${itineraryId}/`] = itineraryObject;
+    updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${auth}/${itineraryId}/`] = itineraryObject;
 
     // upload itinerary images if they exist
     // uploadImages(auth, itineraryId, Constants.ITINERARY_TYPE, itinerary.images, itineraryId)
@@ -1497,10 +1560,11 @@ export function editorSubmitError(missingField) {
 }
 
 export function createSubmitError(missingField, source) {
+  let message = (missingField === 'location' ? 'Please select a valid location' : 'Please add a ' + missingField);
   return dispatch => {
     dispatch({
       type: CREATE_SUBMIT_ERROR,
-      error: 'Please add a ' + missingField,
+      error: message,
       source: source
     })
   }
@@ -2985,7 +3049,7 @@ export function addToItinerary(auth, tip, itinerary) {
           let itineraryObject = Object.assign({}, itineraryByUserObject, {userId: itinerary.userId});
 
           updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}/`] = itineraryObject;
-          updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${geo}/${auth}/${itineraryId}/`] = itineraryObject;
+          updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${geo.placeId}/${auth}/${itineraryId}/`] = itineraryObject;
           updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}/`] = itineraryByUserObject;
 
           Firebase.database().ref().update(updates);

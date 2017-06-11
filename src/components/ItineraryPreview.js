@@ -71,7 +71,7 @@ const ItineraryPreview = props => {
             {itinerary.reviewsCount} Tips by {itinerary.createdBy.username}
           </div>
           <div className="v2-type-mono">
-            {itinerary.geo}
+            {itinerary.geo.label}
           </div>
 
           {/** TITLE **/}

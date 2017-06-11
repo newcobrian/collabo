@@ -114,7 +114,7 @@ class Itinerary extends React.Component {
 
                   {/* Location */}
                   <div className="itinerary__summary__location v2-type-mono">
-                    {itinerary.geo}
+                    {itinerary.geo.label}
                   </div>
 
                   {/* Title */}
