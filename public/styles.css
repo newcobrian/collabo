@@ -1039,11 +1039,12 @@ input, button, select, textarea {
   border-radius: 2px;
   padding: 10px;
   border: 0px solid rgba(0,0,0,.3);
-  width: 100%;
+  width: auto;
 }
 textarea {
   padding: 0;
   letter-spacing: 1px;
+  width: 100%;
 }
 input.input--underline {
   margin: 0 0 10px 0;

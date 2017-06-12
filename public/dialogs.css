@@ -30,7 +30,7 @@
   background-color: rgba(10,170,213,1);
   cursor: pointer;
 }
-.dialog--save__title {
+.dialog__title {
   color: black;
 }
 .dialog--save__tip-item {
@@ -46,7 +46,7 @@
 .dialog--save__body {
   padding: 40px;
 }
-.dialog--save__overlay {
+.dialog__overlay {
 /*background-color: rgba(255,255,255.5)*/
 }
 .dialog--save__actions {
@@ -112,4 +112,14 @@ li:hover .v-button--temp {
 }
 .tip-preview-wrapper img {
   width: 100%;
+}
+
+
+
+
+/** DELETE **/
+.dialog--delete__content {
+  height: 100%;
+  position: relative;
+  padding: 20px;
 }

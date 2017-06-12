@@ -50,14 +50,14 @@ class SaveModal extends React.Component {
           autoScrollBodyContent={true}
           onRequestClose={handleClose}
 
-          className="dialog--save"
+          className="dialog dialog--save"
           style={{}}
 
-          overlayClassName="dialog--save__overlay"
+          overlayClassName="dialog__overlay"
           overlayStyle={{}}
           
           title="Choose an itinerary for..."
-          titleClassName="dialog--save__title v2-type-h2"
+          titleClassName="dialog__title v2-type-h2"
           titleStyle={{padding: "10px 20px", fontWeight: "700", fontSize: "20px"}}
           
           contentClassName="dialog--save__wrapper"

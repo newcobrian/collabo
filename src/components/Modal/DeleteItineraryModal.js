@@ -6,7 +6,6 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
 import { DELETE_ITINERARY_MODAL } from '../../actions';
-import ImagePicker from './../ImagePicker';
 
 const mapStateToProps = state => ({
   ...state.modal,
@@ -28,7 +27,20 @@ class DeleteItineraryModal extends React.Component {
         label="Cancel"
         hoverColor="white"
         onTouchTap={handleClose}
-        labelStyle={{textTransform: 'none', color:'rgba(0,0,0,.3)'}}
+        disableTouchRipple={true}
+        fullWidth={false}
+        labelStyle={{}}
+        style={{
+          }}
+      />,
+      <FlatButton
+        label="Delete"
+        hoverColor="white"
+        onTouchTap={deleteClick}
+        disableTouchRipple={true}
+        fullWidth={false}
+        className="vb"
+        labelStyle={{color: "white"}}
         style={{
           }}
       />
@@ -48,11 +60,11 @@ class DeleteItineraryModal extends React.Component {
           className="dialog--save"
           style={{}}
 
-          overlayClassName="dialog--save__overlay"
+          overlayClassName="dialog__overlay"
           overlayStyle={{}}
           
-          title="this.props.itinerary.title"
-          titleClassName="dialog--save__title v2-type-h2"
+          title="Permanently delete this itinerary?"
+          titleClassName="dialog__title v2-type-h2"
           titleStyle={{padding: "10px 20px", fontWeight: "700", fontSize: "20px"}}
           
           contentClassName="dialog--save__wrapper"
@@ -63,14 +75,12 @@ class DeleteItineraryModal extends React.Component {
 
           actionsContainerClassName="dialog--save__actions">
             
-            <div className="dialog--save__content">
-              <div className="dialog--save__tip-item">
-                <div className="flx flx-row flx-just-start flx-align-center">
-                  <div className="dialog--save__tip-name">Are you sure you want to delete this itinerary? It will be lost forever</div>
-                </div>
+            <div className="dialog--delete__content">
+              <div className="flx flx-row flx-just-start flx-align-center">
+                <div className="dialog--save__tip-name">Are you sure you want to delete this itinerary? It will be lost forever</div>
               </div>
               <div
-                className="vb w-100 vb--create mrgn-top-md"
+                className="vb w-100 vb--create mrgn-top-md DN"
                 type="button"
                 onClick={deleteClick}>
                 Delete
