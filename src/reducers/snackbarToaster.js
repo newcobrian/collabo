@@ -1,4 +1,5 @@
-import { CLOSE_SNACKBAR, SHOW_SNACKBAR, SUBJECT_DUPLICATE, ADDED_TO_ITINERARY } from '../actions';
+import { CLOSE_SNACKBAR, SHOW_SNACKBAR, SUBJECT_DUPLICATE, ADDED_TO_ITINERARY, ITINERARY_DELETED,
+  ITINERARY_UPDATED, SETTINGS_SAVED } from '../actions';
 
 const initialState = {
   message:'',
@@ -12,6 +13,9 @@ export default function(state = initialState, action) {
     case SHOW_SNACKBAR:
     case SUBJECT_DUPLICATE:
     case ADDED_TO_ITINERARY:
+    case ITINERARY_DELETED:
+    case ITINERARY_UPDATED:
+    case SETTINGS_SAVED:
       {
         return {...state,
           message:action.message,

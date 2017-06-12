@@ -309,6 +309,7 @@ export function saveSettings(user, currentUsername, imageFile) {
                   type: SETTINGS_SAVED,
                   payload:
                     Firebase.database().ref(Constants.USERS_PATH + '/' + uid + '/').update(user),
+                  message: 'Your profile has been saved.',
                   meta: {
                     mixpanel: {
                       event: 'Settings saved'
@@ -324,6 +325,7 @@ export function saveSettings(user, currentUsername, imageFile) {
             type: SETTINGS_SAVED,
             payload:
               Firebase.database().ref(Constants.USERS_PATH + '/' + uid + '/').update(user),
+            message: 'Your profile has been saved.',
             meta: {
               mixpanel: {
                 event: 'Settings saved'
@@ -351,6 +353,7 @@ export function saveSettings(user, currentUsername, imageFile) {
 
             dispatch({
               type: SETTINGS_SAVED,
+              message: 'Your profile has been saved.',
               payload:
                 Firebase.database().ref(Constants.USERS_PATH + '/' + uid + '/').update(user),
               meta: {
@@ -365,6 +368,7 @@ export function saveSettings(user, currentUsername, imageFile) {
       else {
         dispatch({
           type: SETTINGS_SAVED,
+          message: 'Your profile has been saved.',
           payload:
             Firebase.database().ref(Constants.USERS_PATH + '/' + uid + '/').update(user),
           meta: {
@@ -1375,9 +1379,12 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
       }
     });
 
+    let message = itinerary.title + ' has been saved.';
+
     dispatch({
       type: ITINERARY_UPDATED,
-      itineraryId: itineraryId
+      itineraryId: itineraryId,
+      message
     })
   }
 }
@@ -1931,9 +1938,11 @@ export function onDeleteItinerary(userId, itineraryId, geo, redirectPath) {
       })
     })
 
+    let message = 'Your itinerary has been deleted.'
     dispatch({
       type: ITINERARY_DELETED,
-      redirect: redirectPath
+      redirect: redirectPath,
+      message: message
     })
   }
 }
