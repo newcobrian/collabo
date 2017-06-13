@@ -43,6 +43,7 @@ const ItineraryPreview = props => {
   const itinerary = props.itinerary;
   const canModify = props.authenticated &&
       props.authenticated === props.itinerary.createdBy.userId;
+
   return (
     <Link to={`itinerary/${itinerary.id}`}>
     <div className="itinerary__cover flx flx-left">

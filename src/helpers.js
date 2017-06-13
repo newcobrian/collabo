@@ -144,10 +144,11 @@ export function sendInboxMessage(senderId, recipientId, messageType, sendObject)
 	if (sendObject || messageType === Constants.FOLLOW_MESSAGE) {
 		Firebase.database().ref(Constants.USERS_PATH + '/' + recipientId).once('value', recipientSnapshot => {
 			Firebase.database().ref(Constants.USERS_PATH + '/' + senderId).once('value', senderSnapshot => {
-				if (sendObject) inboxObject.reviewId = sendObject.id;
+				if (sendObject) inboxObject.reviewId = (sendObject.id ? sendObject.id : sendObject.reviewId);
 				// if (sendObject.subject.images) inboxObject.reviewImage = getImagePath(sendObject.subject.images);
 				// if (sendObject.subject.title) inboxObject.reviewTitle = sendObject.subject.title;
-				if (sendObject && sendObject.images) inboxObject.reviewImage = getImagePath(sendObject.images);
+				// if (sendObject && sendObject.images) inboxObject.reviewImage = getImagePath(sendObject.images);
+				if (sendObject && sendObject.images) inboxObject.reviewImage = sendObject.images[0];
 				if (sendObject && sendObject.title) inboxObject.reviewTitle = sendObject.title;
 
 				switch(messageType) {

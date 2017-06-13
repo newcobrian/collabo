@@ -619,17 +619,13 @@ export function getItinerary(auth, itineraryId) {
     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).on('value', itinerarySnapshot => {
       if (itinerarySnapshot.exists()) {
         Firebase.database().ref(Constants.USERS_PATH + '/' + itinerarySnapshot.val().userId).on('value', userSnapshot => {
-          Firebase.database().ref(Constants.LIKES_PATH + '/' + itineraryId).on('value', itinLikeSnapshot => {
+          Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itineraryId).on('value', itinLikeSnapshot => {
             Firebase.database().ref(Constants.IMAGES_ITINERARIES_BY_USER_PATH + '/' + auth + '/' + itineraryId).on('value', itinImagesSnapshot => {
               let userInfo = { createdBy:
                 { username: userSnapshot.val().username, image: userSnapshot.val().image, userId: userSnapshot.key }
               };
-              let itinIsLiked = false;
-              if (itinLikeSnapshot.val()) {
-                itinIsLiked = searchLikes(auth, itinLikeSnapshot.val());
-              }
               let itinLikes = {
-                isLiked: itinIsLiked
+                isLiked: itinLikeSnapshot.exists()
               }
 
               let itinImages = Helpers.getImagePath(itinImagesSnapshot.val());
@@ -649,17 +645,13 @@ export function getItinerary(auth, itineraryId) {
                   let reviewItem = itineraryObject.reviews[i];
                   Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + reviewItem.subjectId).on('value', subjectSnapshot => {
                     Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewItem.reviewId).on('value', reviewSnapshot => {
-                      Firebase.database().ref(Constants.LIKES_PATH + '/' + reviewItem.reviewId).on('value', likesSnapshot => {
+                      Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + reviewItem.reviewId).on('value', likesSnapshot => {
                         Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewItem.reviewId).on('value', commentSnapshot => {
                           Firebase.database().ref(Constants.IMAGES_BY_USER_PATH + '/' + auth + '/' + reviewItem.subjectId).on('value', imagesSnapshot => {
                             let reviewObject = {};
 
-                            let isLiked = false;
-                            if (likesSnapshot.val()) {
-                              isLiked = searchLikes(auth, likesSnapshot.val());
-                            }
                             let likes = {
-                              isLiked: isLiked
+                              isLiked: likesSnapshot.exists()
                             }
 
                             Object.assign(reviewObject, subjectSnapshot.val(), reviewSnapshot.val(), 
@@ -2005,19 +1997,15 @@ export function getItinerariesByUser(auth, userId) {
       let feedArray = [];
       Firebase.database().ref(Constants.USERS_PATH + '/' + userId).on('value', userSnapshot => {
         itinerariesSnapshot.forEach(function(itin) {
-          Firebase.database().ref(Constants.LIKES_PATH + '/' + itin.key).on('value', likesSnapshot => {
+          Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itin.key).on('value', likesSnapshot => {
             Firebase.database().ref(Constants.IMAGES_ITINERARIES_BY_USER_PATH + '/' + auth + '/' + itin.key).on('value', itinImagesSnapshot => {
           //   Firebase.database().ref(Constants.COMMENTS_PATH + '/' + itin.key).on('value', commentCountSnapshot => {
               const itineraryObject = {};
               const key = { id: itin.key };
               const createdBy = { createdBy: userSnapshot.val() };
               createdBy.createdBy.userId = userId
-              let isLiked = false;
-              if (likesSnapshot.val()) {
-                isLiked = searchLikes(auth, likesSnapshot.val());
-              }
               let likes = {
-                isLiked: isLiked
+                isLiked: likesSnapshot.exists()
               }
 
               let commentObject = {};
@@ -2268,18 +2256,14 @@ export function getUserFeed(auth) {
         Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + userId).on('value', itinerariesSnapshot => {
           Firebase.database().ref(Constants.USERS_PATH + '/' + userId).on('value', userSnapshot => {
             itinerariesSnapshot.forEach(function(itin) {
-              Firebase.database().ref(Constants.LIKES_PATH + '/' + itin.key).on('value', likesSnapshot => {
+              Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itin.key).on('value', likesSnapshot => {
                 Firebase.database().ref(Constants.IMAGES_ITINERARIES_BY_USER_PATH + '/' + userId + '/' + itin.key).on('value', itinImagesSnapshot => {
                   const itineraryObject = {};
                   const key = { id: itin.key };
                   const createdBy = { createdBy: userSnapshot.val() };
                   createdBy.createdBy.userId = userId
-                  let isLiked = false;
-                  if (likesSnapshot.val()) {
-                    isLiked = searchLikes(auth, likesSnapshot.val());
-                  }
                   let likes = {
-                    isLiked: isLiked
+                    isLiked: likesSnapshot.exists()
                   }
 
                   let itinImages = Helpers.getImagePath(itinImagesSnapshot.val());
@@ -2391,12 +2375,14 @@ export function likeReview(authenticated, type, likeObject) {
         type: ASK_FOR_AUTH
       })
     }
+
+    let id = (type === Constants.REVIEW_TYPE ? likeObject.reviewId : likeObject.id);
     const updates = {};
-    updates[`/${Constants.LIKES_PATH}/${likeObject.id}/${authenticated}`] = type;
-    updates[`/${Constants.LIKES_BY_USER_PATH}/${authenticated}/${likeObject.id}`] = type;
+    updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = type;
+    updates[`/${Constants.LIKES_BY_USER_PATH}/${authenticated}/${id}`] = type;
     Firebase.database().ref().update(updates).then(response => {
       if (type === Constants.ITINERARY_TYPE) {
-        Helpers.incrementItineraryCount(Constants.LIKES_COUNT, likeObject.id, likeObject.geo, likeObject.createdBy.userId);
+        Helpers.incrementItineraryCount(Constants.LIKES_COUNT, id, likeObject.geo, likeObject.createdBy.userId);
         Helpers.sendInboxMessage(authenticated, likeObject.createdBy.userId, Constants.LIKE_ITINERARY_MESSAGE, likeObject);
 
         dispatch({
@@ -2412,7 +2398,7 @@ export function likeReview(authenticated, type, likeObject) {
         })
       }
       else if (type === Constants.REVIEW_TYPE) {
-        Helpers.incrementReviewCount(Constants.LIKES_COUNT, likeObject.id, likeObject.subjectId, likeObject.createdBy.userId);
+        Helpers.incrementReviewCount(Constants.LIKES_COUNT, id, likeObject.subjectId, likeObject.createdBy.userId);
         Helpers.sendInboxMessage(authenticated, likeObject.createdBy.userId, Constants.LIKE_MESSAGE, likeObject, likeObject);
 
         dispatch({
@@ -2441,15 +2427,16 @@ export function unLikeReview(authenticated, type, unlikeObject) {
         type: ASK_FOR_AUTH
       })
     }
+    let id = (type === Constants.REVIEW_TYPE ? unlikeObject.reviewId : unlikeObject.id);
     const updates = {};
-    updates[`/${Constants.LIKES_PATH}/${unlikeObject.id}/${authenticated}`] = null;
-    updates[`/${Constants.LIKES_BY_USER_PATH}/${authenticated}/${unlikeObject.id}`] = null;
+    updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = null;
+    updates[`/${Constants.LIKES_BY_USER_PATH}/${authenticated}/${id}`] = null;
     Firebase.database().ref().update(updates).then(response => {
       if (type === Constants.REVIEW_TYPE) {
-        Helpers.decrementReviewCount(Constants.LIKES_COUNT, unlikeObject.id, unlikeObject.subjectId, unlikeObject.createdBy.userId);
+        Helpers.decrementReviewCount(Constants.LIKES_COUNT, id, unlikeObject.subjectId, unlikeObject.createdBy.userId);
       }
       else if (type === Constants.ITINERARY_TYPE) {
-        Helpers.decrementItineraryCount(Constants.LIKES_COUNT, unlikeObject.id, unlikeObject.geo, unlikeObject.createdBy.userId);
+        Helpers.decrementItineraryCount(Constants.LIKES_COUNT, id, unlikeObject.geo, unlikeObject.createdBy.userId);
       }
       dispatch({
         type: REVIEW_UNLIKED
