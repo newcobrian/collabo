@@ -1,10 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import * as Actions from '../actions';
 import ProxyImage from './ProxyImage';
 import ListErrors from './ListErrors';
-import * as Constants from '../constants';
 import { CREATE_PAGE } from '../actions';
 import Geosuggest from 'react-geosuggest';
 
@@ -43,6 +41,21 @@ class Create extends React.Component {
 
 	    this.changeTitle = updateFieldEvent('title');
 	    this.suggestSelect = result => {
+
+	    	var request = {
+			  placeId: result.placeId
+			};
+
+			// let service = new google.maps.places.PlacesService(document.createElement('div'));
+			// service.getDetails(request, callback);
+
+			// function callback(place, status) {
+			//   if (status == google.maps.places.PlacesServiceStatus.OK) {
+			//     console.log(place.photos[0])
+			//     console.log('url = ' + place.url)
+			//   }
+			// }
+
 	    	let geoData = {
 	    		label: result.label,
 	    		placeId: result.placeId,
@@ -94,207 +107,19 @@ class Create extends React.Component {
     	this.props.sendMixpanelEvent('Create itinerary page loaded');
 	}
 
+	// componentDidMount() {
+	// 	var ref = window.document.getElementsByTagName("script")[0];
+	//     var script = window.document.createElement("script");
+	//     script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBvxXp_QM-oiWqY9v6Des7D2EPnhrn769g&libraries=places';
+	//     script.async = true;
+	//     ref.parentNode.insertBefore(script, ref);
+	    
+	// }
+
 	componentWillUnmount() {
 		this.props.onCreateUnload();
 		if (this.props.watchId) navigator.geolocation.clearWatch(this.props.watchId);
 	}
-
-	// renderRating(subject, review) {
-	// 	if (subject && review) {
-	// 		return (
-	// 			<div className="popup-overlay flx flx-center-all">
-	// 				<div className="create-popup">
-	// 					<SubjectInfo subject={this.props.subject} image={this.props.image} />
-	// 					<div className="">
-	// 				      	<fieldset className="form-group no-margin">
-	// 					        <div className={'rating-container rating-wrapper-' + this.props.rating}>
-	//                                 <div className="flx flx-row-right">
-	//                                   <button className="rating-graphic rating-2" onClick={this.onRatingsChange(2)}><ProxyImage src={this.props.userImage}/></button>
-	//                                   <div className="rating-divider"></div> 
-	//                                   <button className="rating-graphic rating-1" onClick={this.onRatingsChange(1)}><ProxyImage src={this.props.userImage}/></button>
-	//                                   <div className="rating-divider"></div> 
-	//                                   <button className="rating-graphic rating-0" onClick={this.onRatingsChange(0)}><ProxyImage src={this.props.userImage}/></button>
-	//                                   <div className="rating-divider"></div> 
-	//         							<button className="rating-graphic rating--1" onClick={this.onRatingsChange(-1)}><ProxyImage src={this.props.userImage}/></button>
-	//                                   <div className="rating-divider"></div> 
-	//         							<button className="rating-graphic rating--2" onClick={this.onRatingsChange(-2)}><ProxyImage src={this.props.userImage}/></button>
-	//                                   <div className="v2-type-h3">&nbsp; :Rate it</div>
-	//                                 </div>
-	//                             </div>
-	// 					      </fieldset>
-
-	// 					      <fieldset className="form-group">
-	// 					        <textarea
-	// 					          className="form-control caption"
-	// 					          rows="3"
-	// 					          placeholder={review.caption}
-	// 					          value={this.props.caption}
-	// 					          onChange={this.changeCaption}>
-	// 					        </textarea>
-	// 					      </fieldset>
-	// 					  </div>
-	// 				    <div className="flx flx-row-right">
-	// 						  <a href="#/create">
-	// 						  <button className="bttn-style bttn-sm bttn-subtle-gray"
-	// 						  	disabled={this.props.inProgress}
-	// 						  	onClick={this.onCancelClick}>
-	// 					        Cancel
-	// 					       </button>
-	// 					       </a>
-	// 					      <button
-	// 					        className="bttn-style bttn-sm bttn-submit box-shadow"
-	// 					        type="button"
-	// 					        disabled={this.props.inProgress}
-	// 					        onClick={this.submitForm}>
-	// 					        Submit New Review
-	// 			      		</button>
-	// 			      	</div>
-	// 			     </div>
- //      			</div>
-	// 		)
-	// 	}
-	// 	else if (subject) {
-	// 		return (
-	// 			<div className="popup-overlay flx flx-center-all">
-	// 				<div className="create-popup">
-	// 					<SubjectInfo subject={this.props.subject} image={this.props.image} />
-	// 					<div className="">
-	// 				      	<fieldset className="form-group no-margin">
-	// 					        <div className={'rating-container rating-wrapper-' + this.props.rating}>
-	//                                 <div className="flx flx-row-right">
-	//                                   <button className="rating-graphic rating-2" onClick={this.onRatingsChange(2)}><ProxyImage src={this.props.userImage}/></button>
-	//                                   <div className="rating-divider"></div> 
-	//                                   <button className="rating-graphic rating-1" onClick={this.onRatingsChange(1)}><ProxyImage src={this.props.userImage}/></button>
-	//                                   <div className="rating-divider"></div> 
-	//                                   <button className="rating-graphic rating-0" onClick={this.onRatingsChange(0)}><ProxyImage src={this.props.userImage}/></button>
-	//                                   <div className="rating-divider"></div> 
-	//         							<button className="rating-graphic rating--1" onClick={this.onRatingsChange(-1)}><ProxyImage src={this.props.userImage}/></button>
-	//                                   <div className="rating-divider"></div> 
-	//         							<button className="rating-graphic rating--2" onClick={this.onRatingsChange(-2)}><ProxyImage src={this.props.userImage}/></button>
-	//                                   <div className="v2-type-h3">&nbsp; :Rate it</div>
-	//                                 </div>
-	//                             </div>
-	// 					      </fieldset>
-
-	// 					      <fieldset className="form-group">
-	// 					        <textarea
-	// 					          className="form-control caption"
-	// 					          rows="3"
-	// 					          placeholder="Add a comment"
-	// 					          value={this.props.caption}
-	// 					          onChange={this.changeCaption}>
-	// 					        </textarea>
-	// 					      </fieldset>
-	// 					  </div>
-	// 					  <div className="flx flx-row-right">
-	// 						  <a href="#/create">
-	// 						  	<button className="bttn-style bttn-sm bttn-subtle-gray"
-	// 						  	disabled={this.props.inProgress}
-	// 						  	onClick={this.onCancelClick}>
-	// 					        Cancel
-	// 					       </button>
-	// 					       </a>
-	// 					      <button
-	// 					        className="bttn-style bttn-sm bttn-submit box-shadow"
-	// 					        type="button"
-	// 					        disabled={this.props.inProgress}
-	// 					        onClick={this.submitForm}>
-	// 					        Submit Review
-	// 			      		</button>
-	// 			      	</div>
-	// 	      		</div>
-	// 	    	</div>
-	// 	    )
-	// 	}
-	// 	else return (
-	// 		<div className="form-wrapper flx flx-col-left v2-form">
- //              <form>
- //                <fieldset>
- //                  <div className="flx flx-row-top">
-
- //                    <fieldset className="form-group">
-
- //                    <div className="upload-wrapper">
-	//                     <div className="upload-overlay dis-no">Upload Image</div>
-	//                     <div className="fileUpload">
-	//                     	<input
-	//                       className="form-control upload-image-button"
-	//                       type="file"
-	//                       accept="image/*" 
-	//                       onChange={this.changeFile} />
-
-	//                       </div>
-	//                  </div> 
-	                 
- //                  </fieldset>
-
- //                  </div>
- //                  <fieldset className="form-group no-margin">
- //                    <div className="pdding-all-md">
- //                      <select className='react-textselect-input' onChange={this.changeTag} value={this.props.tagInput}>
- //                        <option selected disabled>Choose a category</option>
- //                        {Constants.TAG_LIST.map(item => {
- //                          return (
- //                                <option value={item} key={item}>{item}</option>
- //                            );
- //                        })}
- //                      </select>
- //                     {/***} <SelectTag options={Constants.TAG_LIST} handler={this.changeTag} value={this.props.tag} />  **}
- //                    </div>
- //                  </fieldset>
- //                  <fieldset className="form-group no-margin">
- //                    <div className={'rating-container rating-wrapper-' + this.props.rating}>
- //                        <div className="flx flx-row-right">
- //                          <button className="rating-graphic rating-2" onClick={this.onRatingsChange(2)}><ProxyImage src={this.props.userImage}/></button>
- //                          <div className="rating-divider"></div> 
- //                          <button className="rating-graphic rating-1" onClick={this.onRatingsChange(1)}><ProxyImage src={this.props.userImage}/></button>
- //                          <div className="rating-divider"></div> 
- //                          <button className="rating-graphic rating-0" onClick={this.onRatingsChange(0)}><ProxyImage src={this.props.userImage}/></button>
- //                          <div className="rating-divider"></div> 
-	// 						<button className="rating-graphic rating--1" onClick={this.onRatingsChange(-1)}><ProxyImage src={this.props.userImage}/></button>
- //                          <div className="rating-divider"></div> 
-	// 						<button className="rating-graphic rating--2" onClick={this.onRatingsChange(-2)}><ProxyImage src={this.props.userImage}/></button>
- //                          <div className="v2-type-h3">&nbsp; :Rate it</div>
- //                        </div>
- //                    </div>
- //                  </fieldset>
-
- //                  <div className="">
- //                  <fieldset className="form-group">
- //                    <textarea
- //                      className="form-control caption"
- //                      rows="3"
- //                      placeholder="Compose a quick comment..."
- //                      value={this.props.caption}
- //                      onChange={this.changeCaption}>
- //                    </textarea>
- //                   </fieldset>
- //                  <fieldset className="form-group">
- //                    <input
- //                      className="form-control subtle-input"
- //                      type="text"
- //                      placeholder="website link (optional)"
- //                      value={this.props.url}
- //                      onChange={this.changeURL} />
- //                  </fieldset>
- //                  </div>
-
-
-
- //                  <button
- //                    className="bttn-style bttn-submit"
- //                    type="button"
- //                    disabled={this.props.inProgress}
- //                    onClick={this.submitForm}>
- //                    Submit Review
- //                  </button>
-
- //                </fieldset>
- //              </form>
-
- //            </div>
-	// 	);
-	// }
 
 	render() {
 		return (
