@@ -1853,45 +1853,49 @@ export function onCommentSubmit(authenticated, userInfo, type, commentObject, bo
     let commentOnCommentType = ( type === Constants.REVIEW_TYPE ? Constants.COMMENT_ON_COMMENT_REVIEW_MESSAGE : Constants.COMMENT_ON_COMMENT_ITINERARY_MESSAGE );
     let objectId = ( type === Constants.REVIEW_TYPE ? commentObject.reviewId : commentObject.id );
 
-    Firebase.database().ref(Constants.COMMENTS_PATH + '/' + objectId).push(comment).then(response => {
-      if (type === Constants.REVIEW_TYPE) {
-        Helpers.incrementReviewCount(Constants.COMMENTS_COUNT, objectId, commentObject.subjectId, commentObject.createdBy.userId);
-      }
-      else {
-        Helpers.incrementItineraryCount(Constants.COMMENTS_COUNT, objectId, commentObject.geo, commentObject.createdBy.userId); 
-      }
+    let commentId = Firebase.database().ref(Constants.COMMENTS_PATH + '/' + objectId).push(comment).key;
+    if (type === Constants.REVIEW_TYPE) {
+      Helpers.incrementReviewCount(Constants.COMMENTS_COUNT, objectId, commentObject.subjectId, commentObject.createdBy.userId);
+    }
+    else {
+      Helpers.incrementItineraryCount(Constants.COMMENTS_COUNT, objectId, commentObject.geo, commentObject.createdBy.userId); 
 
-      // send message to original review poster if they are not the commentor
-      const sentArray = [];
-      if (authenticated !== commentObject.userId) {
-        Helpers.sendInboxMessage(authenticated, commentObject.userId, inboxMessageType, commentObject);
-        sentArray.push(commentObject.userId);
-      }
+      // update lastComment on itinerary
+      let updates = {};
+      updates[Constants.ITINERARIES_BY_USER_PATH +'/' + commentObject.createdBy.userId + '/' + commentObject.id + '/lastComment'] = Object.assign({}, comment, {commentId: commentId});
+      updates[Constants.ITINERARIES_PATH +'/' + commentObject.id + '/lastComment'] = Object.assign({}, comment, {commentId: commentId});
+      updates[Constants.ITINERARIES_BY_GEO_PATH + '/' + commentObject.geo.placeId + '/' + authenticated + '/' + commentObject.id + '/lastComment'] = Object.assign({}, comment, {commentId: commentId});
 
-      Firebase.database().ref(Constants.COMMENTS_PATH + '/' + objectId).once('value', commentsSnapshot => {
-        commentsSnapshot.forEach(function(comment) {
-          let commenterId = comment.val().userId;
-          // if not commentor or in sent array, then send a message
-          if (commenterId !== authenticated && (sentArray.indexOf(commenterId) === -1)) {
-            Helpers.sendInboxMessage(authenticated, commenterId, commentOnCommentType, commentObject);
-            sentArray.push(commenterId);
-          }
-        })
-      })
+      Firebase.database().ref().update(updates);
+    }
 
-      const mixpanelProps = ( type === Constants.REVIEW_TYPE ? {subjectId: commentObject.subjectId} : {itineraryId: commentObject.id});
-      dispatch({
-        type: ADD_COMMENT,
-        meta: {
-          mixpanel: {
-            event: 'Comment added',
-            props: mixpanelProps
-          }
+    // send message to original review poster if they are not the commentor
+    const sentArray = [];
+    if (authenticated !== commentObject.userId) {
+      Helpers.sendInboxMessage(authenticated, commentObject.userId, inboxMessageType, commentObject);
+      sentArray.push(commentObject.userId);
+    }
+
+    Firebase.database().ref(Constants.COMMENTS_PATH + '/' + objectId).once('value', commentsSnapshot => {
+      commentsSnapshot.forEach(function(comment) {
+        let commenterId = comment.val().userId;
+        // if not commentor or in sent array, then send a message
+        if (commenterId !== authenticated && (sentArray.indexOf(commenterId) === -1)) {
+          Helpers.sendInboxMessage(authenticated, commenterId, commentOnCommentType, commentObject);
+          sentArray.push(commenterId);
         }
       })
     })
-    .catch(error => {
-      console.log(error);
+
+    const mixpanelProps = ( type === Constants.REVIEW_TYPE ? {subjectId: commentObject.subjectId} : {itineraryId: commentObject.id});
+    dispatch({
+      type: ADD_COMMENT,
+      meta: {
+        mixpanel: {
+          event: 'Comment added',
+          props: mixpanelProps
+        }
+      }
     })
   }
 }
