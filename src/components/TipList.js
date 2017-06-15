@@ -20,16 +20,14 @@ const TipList = props => {
     <div className="">
       {
         props.reviewList.map(reviewItem => {
-          let review = reviewItem.review;
+          // console.log('review item comments = ' + JSON.stringify(reviewItem))
           return (
-            <TipPreview review={review}
-              key={review.priority} 
+            <TipPreview review={reviewItem}
+              key={reviewItem.priority} 
               authenticated={props.authenticated}
               like={props.like} 
               unLike={props.unLike}
               userInfo={props.userInfo}
-              comments={reviewItem.comments}
-              images={reviewItem.images}
               showModal={props.showModal}
               deleteComment={props.deleteComment}
             />

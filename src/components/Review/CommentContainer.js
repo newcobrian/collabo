@@ -12,15 +12,15 @@ const CommentContainer = props => {
 		          <ListErrors errors={props.errors}></ListErrors>
 		          <CommentInput 
 		          	commentObject={props.commentObject} 
-		          	userInfo={props.userInfo} 
 		          	authenticated={props.authenticated} 
+		          	userInfo={props.userInfo}
 		          	type={props.type} />
 		        </div>
 		        <CommentList
 		          comments={props.comments}
 		          commentObject={props.commentObject}
 		          authenticated={props.authenticated}
-		          userInfo={props.userInfo} 
+		          userInfo={props.userInfo}
 		          deleteComment={props.deleteComment} />
 		     </div>
 		);
@@ -38,7 +38,7 @@ const CommentContainer = props => {
 					comments={props.comments}
 					commentObject={props.commentObject}
 					authenticated={props.authenticated}
-		          	userInfo={props.userInfo}
+					userInfo={props.userInfo}
 					deleteComment={props.deleteComment} />
 			</div>
 		);

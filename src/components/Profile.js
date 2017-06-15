@@ -28,6 +28,7 @@ const mapStateToProps = state => ({
   ...state.profile,
   currentUser: state.common.currentUser,
   authenticated: state.common.authenticated,
+  userInfo: state.common.userInfo
 });
 
 // const mapDispatchToProps = dispatch => ({

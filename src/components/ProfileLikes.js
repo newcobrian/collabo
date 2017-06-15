@@ -8,6 +8,7 @@ import * as Constants from '../constants';
 import FollowUserButton from './FollowUserButton'
 import ProxyImage from './ProxyImage';
 import ProfileInfo from './ProfileInfo';
+import FeedList from './FeedList';
 
 class ProfileLikes extends Profile {
   componentWillMount() {
@@ -98,6 +99,19 @@ class ProfileLikes extends Profile {
           unfollow={this.props.unfollowUser} />
 
         {this.renderTabs()}
+        <div className="flx flx-row flx-just-center w-100">
+     
+          <FeedList
+            feed={this.props.feed} 
+            authenticated={this.props.authenticated} 
+            userInfo={this.props.userInfo}
+            like={this.props.likeReview} 
+            unLike={this.props.unLikeReview}
+            showModal={this.props.showModal}
+            deleteItinerary={this.props.showDeleteModal}
+            deleteComment={this.props.onDeleteComment}
+          />
+        </div>
       </div>
     )
   }

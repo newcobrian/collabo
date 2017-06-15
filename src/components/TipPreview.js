@@ -10,6 +10,7 @@ import CommentContainer from './Review/CommentContainer'
 
 const CommentPreview = props => {
   if (props.comments) {
+    // console.log('comments = ' + JSON.stringify(props.comments))
     return (
       <Link to={`review/${props.review.subjectId}/${props.review.id}`}>
         <div className="cta-wrapper cta-wrapper-comment flx flx-col">
@@ -49,10 +50,10 @@ const TipPreview = props => {
   const review = props.review;
   const canModify = props.authenticated &&
       props.authenticated === review.userId;
-
+      
   const handleSaveClick = ev => {
     ev.preventDefault();
-    props.showModal(SAVE_MODAL, props.review, props.images);
+    props.showModal(SAVE_MODAL, props.review, props.review.images);
   }
 
   return (
@@ -93,7 +94,7 @@ const TipPreview = props => {
           { /** Image **/ }
           <Link to={`review/${review.subjectId}/${review.id}`}>
           <div className="tip__image-module mrgn-bottom-sm">
-            <ImagePicker images={props.images} />
+            <ImagePicker images={review.images} />
           </div>
           </Link>
 
@@ -107,8 +108,8 @@ const TipPreview = props => {
               <div className="cta-wrapper">
                 <LikeReviewButton
                   authenticated={props.authenticated}
-                  isLiked={props.review.isLiked}
-                  likesCount={props.review.likesCount}
+                  isLiked={review.isLiked}
+                  likesCount={review.likesCount}
                   unLike={props.unLike}
                   like={props.like} 
                   likeObject={review}
@@ -122,11 +123,11 @@ const TipPreview = props => {
             <div className="flx flx-row flx-just-start flx-align-center">  
               <div className="">
                 <div className="user-image tip__author-photo mrgn-right-md">
-                  <ProxyImage src={props.review.createdBy.image} className="center-img" />
+                  <ProxyImage src={review.createdBy.image} className="center-img" />
                 </div>
               </div>
               <div className="tip__caption v2-type-body3 ta-left">
-                <CaptionDisplay review={props.review} />
+                <CaptionDisplay review={review} />
               </div>
             </div>
             <div className="tip__timestamp  v2-type-caption mrgn-top-sm opa-30">
@@ -144,11 +145,11 @@ const TipPreview = props => {
 
              <CommentContainer
                 authenticated={props.authenticated}
-                comments={props.comments || []}
+                comments={review.comments || []}
                 errors={props.commentErrors}
-                commentObject={props.review}
-                userInfo={props.userInfo}
+                commentObject={review}
                 type={REVIEW_TYPE}
+                userInfo={props.userInfo}
                 deleteComment={props.deleteComment} />
             
 
