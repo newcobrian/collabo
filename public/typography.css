@@ -71,7 +71,7 @@ textarea {
 .v2-type-rating {
   /* “The almond milk ice: */
   font-weight: 100;
-  font-size: 30px;
+  font-size: 24px;
   letter-spacing: 0.5px;
   line-height: 26px;
   font-family: Helvetica, sans-serif;
@@ -171,6 +171,10 @@ textarea {
 }
 .color--success {
   color: #63A652 !important;
+  /*color: #73FF96 !important;*/
+}
+.color--neon {
+  color: #73FF96 !important;
 }
 
 :focus {

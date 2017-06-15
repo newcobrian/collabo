@@ -183,13 +183,15 @@ input[type="radio"]:checked + label span {
   cursor: pointer;
   text-transform: uppercase;
   font-family: "Arimo";
-  min-width: 32px;
   padding: 15px 20px;
   background-image:
     linear-gradient(
       to top right, 
       #0AAAD5, #7DD5AC
     );
+  background-image: linear-gradient(-90deg, #6DFFDA 0%, #F5FFA4 100%);
+  border-radius: 4px;
+  color: black;
 }
 .vb.vb--create {
   background-color: #63A652;
@@ -260,22 +262,28 @@ input[type="radio"]:checked + label span {
 .color--black {
   color: black;
 }
-.v-button.v-button--add {
+.v-button.v-button--add,
+.vb.vb--add {
   border: none;
   /* box-shadow: 0 0 0 2px rgba(107, 255, 78,.4); */
   height: 40px;
   color: white;
-  padding: 9px 22px;
+  padding: 11px;
   text-align: center;
   font-weight: 100 !important;
   /* background-image: linear-gradient(-270deg, #2EC299 0%, #00ACED 100%); */
-  border-radius: 55px;
+  /*border-radius: 55px;*/
   font-size: 16px;
   display: inline-block;
   background-color: #0AAAD5;
   cursor: pointer;
   text-transform: uppercase;
   font-family: "Arimo";
+  width: 114px;
+  font-size: 14px;
+  /*background-image: none;*/
+  /*background-color: #F5FFA4;*/
+  color: black;
 }
 
 .v-button--warning {
@@ -367,7 +375,8 @@ input[type="radio"]:checked + label span {
     right: 0;
     left: 0;
     width: 100%;
-    background-color:#fff;
+    background-color:black;
+    /*background-color:#004131;*/
     border-bottom: 1px solid rgba(0,0,0,.1);
 }
 .header-wrapper {
@@ -402,6 +411,8 @@ a.logo-module:focus {
     margin-left: 17px;
     letter-spacing: 7px;
     font-family: 'Arimo', sans-serif;
+    color: white;
+    margin-top: 2px;
 }
 .logo-tagline {
     font-size: 14px;
@@ -434,7 +445,7 @@ a.logo-module:focus {
   margin: 0 20px;
   padding: 0;
   font-size: 13px;
-  color: black;
+  color: white;
   letter-spacing: 2px;
   height: 70px;
 }
@@ -486,12 +497,13 @@ a.logo-module:focus {
 }
 
 .logo-graphic {
-  width: 26px;
-  height: 26px;
+  width: 38px;
+  height: 38px;
+  margin-top: -4px;
 }
 .logo-graphic img {
-  width: 26px;
-  height: 26px;
+  width: 38px;
+  height: 38px;
 }
 .navigation-bar .nav-icon {
   width: 32px;
@@ -746,11 +758,11 @@ svg {
 ******
 ******/
 .home-page {
-  /*background: #FFFEF9;*/
   background-size: 40px 40px;
-  background-image: linear-gradient(to right, rgba(0,0,0,.05) 1px, transparent 1px),
-  linear-gradient(to bottom, rgba(0,0,0,.05) 1px, transparent 1px);
+  /*background-image: linear-gradient(to right, rgba(0,0,0,.05) 1px, transparent 1px),*/
+  /*linear-gradient(to bottom, rgba(0,0,0,.05) 1px, transparent 1px);*/
   background-attachment: fixed;
+  background-color: white;
 }
 
 .feed-toggle {
@@ -1074,7 +1086,7 @@ input.input--overline {
   padding: 0px 0px 10px 0;
   width: 100%;
   border: none;
-  border-top: 1px solid rgba(0,0,0,.1);
+  /*border-top: 1px solid rgba(0,0,0,.1);*/
   font-size: 14px;
   opacity: 1;
 }
@@ -1258,7 +1270,6 @@ position: absolute;
   padding: 5px 20px;
 }
 .comments-module .comment-input-wrapper {
-  margin: 10px 0;
   outline: none;
 }
 .comments-module .comment-input-wrapper:focus {
@@ -1270,7 +1281,7 @@ position: absolute;
     line-height: 20px;
     font-weight: 300;
     width: 100%;
-    padding: 10px 0 !important;
+    padding: 0 0 10px;
     outline-width: 0px;
     margin-top: 10px;
 }
@@ -1292,25 +1303,25 @@ position: absolute;
     height: 50px;
 }
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: #0AAAD5;
+  color: #08427B;
   opacity: .5;
   font-weight: 100;
   font-family: Helvetica, sans-serif;
 }
 ::-moz-placeholder { /* Firefox 19+ */
-  color: #0AAAD5;
+  color: #08427B;
   opacity: .5;
   font-weight: 100;
   font-family: Helvetica, sans-serif;
 }
 :-ms-input-placeholder { /* IE 10+ */
-  color: #0AAAD5;
+  color: #08427B;
   opacity: .5;
   font-weight: 100;
   font-family: Helvetica, sans-serif;
 }
 :-moz-placeholder { /* Firefox 18- */
-  color: #0AAAD5;
+  color: #08427B;
   opacity: .5;
   font-weight: 100;
   font-family: Helvetica, sans-serif;

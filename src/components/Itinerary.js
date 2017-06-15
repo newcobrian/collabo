@@ -27,7 +27,7 @@ const EditItineraryLink = props => {
     return (
       <Link
         to={'edit/' + props.itineraryId}
-        className="vb vb--light vb--no-outline w-100">
+        className="vb vb--light vb--no-outline mrgn-right-md">
          {/*<i className="ion-gear-a"></i>*/}Edit
       </Link>
     );
@@ -93,88 +93,111 @@ class Itinerary extends React.Component {
             <div className="itinerary__summary option-stack mrgn-bottom-lg">
 
               <fieldset>
-
-                <div className="itinerary__summary__wrapper flx flx-col flx-align-center mrgn-bottom-md">
-
-                  
-
-                  {/*<div className="subject-image">
-                    <ImagePicker images={this.props.itinerary.images} />
-                  </div>*/}
-
-                  {/* Authoer Photo */}
-                  <div className="itinerary__summary__author-photo mrgn-bottom-sm">
-                    <ProxyImage src={itinerary.createdBy.image} className="center-img" />
-                  </div>
-
-                  {/* Tips by Author */}
-                  <div className="itinerary__summary__tip-count v2-type-body1 opa-50">
-                    {itinerary.reviewsCount} Tips by {itinerary.createdBy.username}
-                  </div>
-
-                  {/* Location */}
-                  <div className="itinerary__summary__location v2-type-mono">
-                    {itinerary.geo.label}
-                  </div>
-
-                  {/* Title */}
-                  <div className="itinerary__summary__title v2-type-h1">
-                    {itinerary.title}
-                  </div>
-
-                  {/* Description */}
-                  <div className="itinerary__summary__description ta-center v2-type-h6 mrgn-top-sm mrgn-bottom-sm">
-                    {itinerary.description}
-                  </div>
-
-                  {/* Last Modified Date */}
-                  <div className="itinerary__summary__timestamp v2-type-caption opa-20">
-                    {(new Date(itinerary.lastModified)).toLocaleString()}
-                    {/*<Timestamp time={itinerary.lastModified} precision={1} format='ago' />*/}
-                  </div>
-
-                  <div className="edit-itinerary-link">
-                                  
-                  <MuiThemeProvider muiTheme={getMuiTheme()}>
-                    <IconMenu
-                       iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-                       anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-                       targetOrigin={{horizontal: 'left', vertical: 'top'}}
-                     >
-
-                       <EditItineraryLink isUser={isUser} itineraryId={this.props.itineraryId} />
-
-                       <ItineraryActions 
-                         itinerary={itinerary} 
-                         authenticated={this.props.authenticated} 
-                         canModify={canModify} 
-                         deleteItinerary={this.props.showDeleteModal} 
-                         redirectPath="/" />
-
-                         
-                     </IconMenu>
-                   </MuiThemeProvider>
-
-                  </div>
-
-
-                  {/* Like */}
-                  <div className="itinerary__summary__like flx flx-row-reverse v2-type-body2 mrgn-bottom-sm">
-                    <div className="cta-wrapper cta-align-left">
-                      <LikeReviewButton
-                        authenticated={this.props.authenticated}
-                        isLiked={itinerary.isLiked}
-                        likesCount={itinerary.likesCount}
-                        unLike={this.props.unLikeReview}
-                        like={this.props.likeReview} 
-                        likeObject={itinerary}
-                        type={ITINERARY_TYPE} />
+                <div className="flx flx-row flx-just-start">
+                  <div className="flx flx-col flx-align-center mrgn-right-lg">
+                    {/* Author Photo */}
+                    <div className="itinerary__summary__author-photo mrgn-bottom-sm">
+                      <ProxyImage src={itinerary.createdBy.image} className="center-img" />
+                    </div>
+                    <div className="itinerary__author-name ta-center v2-type-body1">
+                      {itinerary.createdBy.username}
                     </div>
                   </div>
+                  
+                  {/* Right Module */}
+                  <div className="itinerary__summary__wrapper flx flx-col flx-align-start flx-just-start ta-left w-100">
+
+                    {/*<div className="subject-image">
+                      <ImagePicker images={this.props.itinerary.images} />
+                    </div>*/}
+
+                    <div className="flx flx-row flx-just-start w-100">
+                      {/* Location */}
+                      <div className="itinerary__summary__location v2-type-mono mrgn-right-md">
+                        {itinerary.geo.label}
+                      </div>
+
+                      {/* Tips by Author */}
+                      <div className="itinerary__summary__tip-count v2-type-mono opa-50 mrgn-right-sm">
+                        {itinerary.reviewsCount} Tips
+                      </div>
+
+                      {/* Like */}
+                      <div className="itinerary__summary__like flx flx-row flx-item-right v2-type-body2 mrgn-bottom-sm">
+                        <div className="cta-wrapper cta-align-left">
+                          <LikeReviewButton
+                            authenticated={this.props.authenticated}
+                            isLiked={itinerary.isLiked}
+                            likesCount={itinerary.likesCount}
+                            unLike={this.props.unLikeReview}
+                            like={this.props.likeReview} 
+                            likeObject={itinerary}
+                            type={ITINERARY_TYPE} />
+                        </div>
+                      </div>
+
+                    </div>
+
+                    {/* Title */}
+                    <div className="itinerary__summary__title v2-type-h1">
+                      {itinerary.title}
+                    </div>
+
+                    {/* Description */}
+                    <div className="itinerary__summary__description ta-left v2-type-h6 mrgn-top-sm mrgn-bottom-sm">
+                      {itinerary.description}
+                    </div>
+
+                    {/* Date and Edit Module*/}
+                    <div className="flx flx-row w-100 flx-just-start">
+                      {/* Last Modified Date */}
+                      <div className="itinerary__summary__timestamp v2-type-caption opa-20 mrgn-right-md">
+                        {(new Date(itinerary.lastModified)).toLocaleString()}
+                        {/*<Timestamp time={itinerary.lastModified} precision={1} format='ago' />*/}
+                      </div>
+
+                      <EditItineraryLink isUser={isUser} itineraryId={this.props.itineraryId} />
+
+                      <ItineraryActions 
+                        itinerary={itinerary} 
+                        authenticated={this.props.authenticated} 
+                        canModify={canModify} 
+                        deleteItinerary={this.props.showDeleteModal} 
+                        redirectPath="/" />
 
 
-                </div>
-               
+                    </div>
+
+
+
+
+                    <div className="edit-itinerary-link DN">             
+                      <MuiThemeProvider muiTheme={getMuiTheme()}>
+                        <IconMenu
+                           iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                           anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+                           targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                         >
+
+                           <EditItineraryLink isUser={isUser} itineraryId={this.props.itineraryId} />
+
+                           <ItineraryActions 
+                             itinerary={itinerary} 
+                             authenticated={this.props.authenticated} 
+                             canModify={canModify} 
+                             deleteItinerary={this.props.showDeleteModal} 
+                             redirectPath="/" />
+
+                         </IconMenu>
+
+                       </MuiThemeProvider>
+                    </div>
+
+
+
+
+                  </div> {/* End right module */}
+               </div>
                 
               
               </fieldset>

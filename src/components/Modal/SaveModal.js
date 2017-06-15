@@ -81,10 +81,10 @@ class SaveModal extends React.Component {
               <li className="create-new">
                 <Link onClick={handleItineraryClick} >
                   <div className="flx flx-row flx-just-start flx-align-center">
-                    <div className="vb vb--temp mrgn-right-md">
+                    <div className="vb vb--temp">
                       <img className="center-img" src="../img/icon.add--green.png"/>
                     </div>
-                    <div className="save-to__title color--success">
+                    <div className="option-title create-new__title color--success">
                       Create new itinerary
                     </div>
                   </div>
@@ -95,10 +95,11 @@ class SaveModal extends React.Component {
   		            <li className="" key={itinerary.itineraryId}>
                     <Link onClick={handleAdd(itinerary)}>
                       <div className="flx flx-row flx-just-start flx-align-center">
-                        <div className="v-button v-button--select">
-                          {/*<img className="center-img" src="../img/icon.bird--dark.png"/>*/}
+                        <div className="vb vb--add mrgn-right-md">
+                          <img className="center-img" src="../img/logos/icon.nike.black.png"/>
+                          Save
                         </div>
-      						    	<div className="save-to__title">
+      						    	<div className="option-title">
       						    		{itinerary.title}
       						    	</div>
                       </div>
