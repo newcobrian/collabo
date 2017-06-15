@@ -62,6 +62,17 @@ class NewItineraryModal extends React.Component {
         labelStyle={{textTransform: 'none', color:'rgba(0,0,0,.3)'}}
         style={{
           }}
+      />,
+      <FlatButton
+        label="Create"
+        hoverColor="white"
+        onTouchTap={submitForm}
+        disableTouchRipple={true}
+        fullWidth={false}
+        className="vb"
+        labelStyle={{textTransform: 'none', color: "black"}}
+        style={{
+          }}
       />
     ];
 
@@ -142,7 +153,7 @@ class NewItineraryModal extends React.Component {
                         </fieldset>
 
                         <div
-                        className="vb w-100 vb--create mrgn-top-md"
+                        className="DN vb w-100 vb--create mrgn-top-md"
                         type="button"
                         onClick={submitForm}>
                         Create New Itinerary

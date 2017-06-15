@@ -40,7 +40,7 @@ const LoggedInView = props => {
         </IndexLink>
 
         <Link to="create" activeClassName="active" className="nav-module create nav-editor flx flx-center-all">  
-            <div className="nav-text flx flx-row flx-align-center color--success">
+            <div className="nav-text flx flx-row flx-align-center color--neon">
               <img className="mrgn-right-sm center-img" src="../img/icon.add--green.png"/> Create New Itinerary
             </div>
         </Link>
@@ -71,7 +71,7 @@ class Header extends React.Component {
         <div className="header-wrapper">
           <Link to="/" className="logo-module flx flx-row flx-just-start flx-align-center">
             <div className="logo-graphic">  
-              <img className="center-img" src="../img/views.logo.temp.png"/>
+              <img className="center-img" src="../img/logos/logo.nike.blue-yellow.png"/>
             </div>
             <div className="logo-main">
             VIEWS

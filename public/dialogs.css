@@ -20,7 +20,7 @@
   list-style-type: none;
 }
 .dialog--save__content li {
-  padding: 10px 30px;
+  padding: 10px 20px;
 }
 .dialog--save__content li:hover {
   /*background-color: rgba(10,170,213,.05);*/
@@ -64,7 +64,7 @@
   width: 100%;
   color: black;
   font-family: 'Arimo', sans-serif;
-  color: #0AAAD5;
+  color: black;
 }
 
 
@@ -79,6 +79,7 @@
   min-width: 32px;
   width: 32px;
   padding: 15px 0;
+  margin: 0 45px 0 30px;
 }
 .v-button--select {
   background: transparent;
@@ -106,7 +107,7 @@ li:hover .v-button--temp {
 
 }
 .tip-preview-wrapper {
-  width: 50px;
+  width: 87px;
   height: 32px;
   overflow: hidden;
 }
