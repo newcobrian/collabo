@@ -7,6 +7,7 @@ export default (state = {}, action) => {
       return {
         ...state,
         itineraryId: action.itineraryId,
+        geo: action.geo,
         data: action.data
       }
     case EDITOR_PAGE_UNLOADED:

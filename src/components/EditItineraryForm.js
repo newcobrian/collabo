@@ -100,8 +100,7 @@ const renderSearchInput = (field) => {
     <FirebaseSearchInput  
       value={field.input.value}
       callback={searchInputCallback}
-      latitude={field.latitude} 
-      longitude={field.longitude}
+      geo={field.geo}
       placeholder={"Search for a place anywhere in the world..."}
       className="input--search" />
   )
@@ -110,7 +109,7 @@ const renderSearchInput = (field) => {
 // if subject ID or eventually result.id exists, show subject info + review
 // else if no subject ID, just show the search field
 // eventually need the add custom subject button which would open up all input fields
-let Review = ({ review, index, fields, authenticated, reviewObject }) => {
+let Review = ({ review, index, fields, authenticated, reviewObject, geo }) => {
   if (Object.keys(reviewObject).length === 0 && reviewObject.constructor === Object) {
     // empty review object, so just let the user search
     return (
@@ -125,6 +124,7 @@ let Review = ({ review, index, fields, authenticated, reviewObject }) => {
               name={`${review}`}
               type="text"
               component={renderSearchInput}
+              geo={geo}
               authenticated={authenticated}
               label="Search for a place anywhere in the world..."
               placeholder="Search for a place anywhere in the world..."
@@ -200,14 +200,14 @@ let Review = ({ review, index, fields, authenticated, reviewObject }) => {
 Review = connect(
   (state, props) => ({
     // hasLastName: !!selector(state, `${props.member}.lastName`)
-    reviewObject: selector(state, `${props.review}`)
+    reviewObject: selector(state, `${props.review}`),
   })
 )(Review)
 
-const renderReviews = ({fields, authenticated, latitude, longitude, meta: {error, submitFailed}}) => (
+const renderReviews = ({fields, geo, authenticated, meta: {error, submitFailed}}) => (
   <ul>
     {fields.map((review, index) =>
-    <Review review={review} fields={fields} index={index} key={index} authenticated={authenticated} />)}
+    <Review review={review} fields={fields} index={index} key={index} geo={geo} authenticated={authenticated} />)}
     <li>
       <button className="vb" type="button" onClick={() => fields.push({})}>Add Tip</button>
       {submitFailed && error && <span>{error}</span>}
@@ -256,7 +256,7 @@ let EditItineraryForm = props => {
             </div>
 
             <div className="flx flx-col itinerary__tiplist">
-              <FieldArray name="itinerary.reviews" component={renderReviews} authenticated={props.authenticated} />
+              <FieldArray name="itinerary.reviews" component={renderReviews} geo={props.geo} authenticated={props.authenticated} />
             </div>
           </div>
 
@@ -285,7 +285,8 @@ EditItineraryForm = reduxForm({
 EditItineraryForm = connect(
   state => ({
     initialValues: state.editor.data,
-    itineraryId: state.editor.itineraryId
+    itineraryId: state.editor.itineraryId,
+    geo: state.editor.geo
   }),
   {load: loadItinerary} // bind account loading action creator
 )(EditItineraryForm)

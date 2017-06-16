@@ -39,12 +39,7 @@ class Editor extends React.Component {
   render() {
     return (
       <EditItineraryForm 
-        onSubmit={this.submitForm} 
-        itinerary={this.props.itinerary}
-        itineraryId={this.props.itineraryId}
-        latitude={this.props.latitude}
-        longitude={this.props.longitude}
-        authenticated={this.props.authenticated} />
+        onSubmit={this.submitForm}  />
     )
   }
 }

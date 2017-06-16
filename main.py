@@ -126,7 +126,7 @@ def parse_4sq(rpc, results, errors):
     except Exception, e:
         errors.append({'service': '4sq', 'err': str(e)})
 
-def search_4sq(q, ll=None, radius=None):
+def search_4sq(q, ll=None, near=None, radius=None):
     rpc = urlfetch.create_rpc(deadline=REMOTE_TIMEOUT)
     args = {
         'client_id': FOURSQUARE_CLIENT_ID,
@@ -137,6 +137,9 @@ def search_4sq(q, ll=None, radius=None):
     }
     if ll:
         args['ll'] = ll
+        args['radius'] = radius or '30000'
+    elif near:
+        args['near'] = near
         args['radius'] = radius or '30000'
     else:
         args['near'] = 'San Francisco, CA'

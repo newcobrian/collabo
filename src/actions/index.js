@@ -553,6 +553,7 @@ export function onEditorLoad(authenticated, itineraryId) {
               dispatch({
                 type: EDITOR_PAGE_LOADED,
                 itineraryId: itineraryId,
+                geo: itinerarySnapshot.val().geo.label,
                 data: { itinerary: itineraryObject }
               })
             })
@@ -564,6 +565,7 @@ export function onEditorLoad(authenticated, itineraryId) {
         dispatch({
           type: EDITOR_PAGE_LOADED,
           itineraryId: itineraryId,
+          geo: itinerarySnapshot.val().geo.label,
           data: { itinerary: itineraryObject }
         })
       }

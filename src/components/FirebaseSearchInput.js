@@ -65,7 +65,7 @@ class FirebaseSearchInput extends Component {
 
   performSearch() {
     const self = this,
-      url = Constants.SUBJECT_SEARCH_URL + this.state.inputValue + '&ll=' + this.props.latitude + ',' + this.props.longitude;
+      url = Constants.SUBJECT_SEARCH_URL + this.state.inputValue + '&near=' + this.props.geo;
       
     // console.log(url)
 
