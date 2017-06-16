@@ -19,6 +19,7 @@
   "dependencies": {
     "algoliasearch": "^3.22.1",
     "firebase": "^3.6.9",
+    "google-maps-react": "^1.0.19",
     "immutable": "^3.8.1",
     "marked": "^0.3.6",
     "material-ui": "^0.16.7",
@@ -27,6 +28,7 @@
     "react-dom": "^15.4.2",
     "react-dropzone": "^3.13.2",
     "react-geosuggest": "^2.2.0",
+    "react-load-script": "0.0.4",
     "react-modal": "^1.7.3",
     "react-redux": "^4.4.6",
     "react-redux-form": "^1.5.4",

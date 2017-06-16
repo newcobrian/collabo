@@ -1,10 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
+import * as Constants from '../constants';
 import ProxyImage from './ProxyImage';
 import ListErrors from './ListErrors';
 import { CREATE_PAGE } from '../actions';
 import Geosuggest from 'react-geosuggest';
+// import Script from 'react-load-script';
+// import {GoogleApiWrapper} from 'google-maps-react';
+// import Map from 'google-maps-react';
 
 const SubjectInfo = props => {
 	const renderImage = image => {
@@ -88,12 +92,26 @@ class Create extends React.Component {
 		  }
     	}
 
-    	this.getUserLocation= () => {
+    	this.getUserLocation = () => {
     		if (navigator.geolocation) {
 		      let watchId = navigator.geolocation.watchPosition(this.props.showPosition);
 		      this.props.setWatchPositionId(watchId);
 		    }
     	}
+
+		// this.initMap = (mapProps, map) => {
+		// 	const {google} = this.props;
+		// 	let service = new google.maps.places.PlacesService(map);
+		// 	let request = { placeId: 'ChIJ10KlwAdzXg0RsH56kZsfcHs'}
+
+		//   	service.getDetails(request, function(place, status) {
+		//       if (status == google.maps.places.PlacesServiceStatus.OK) {
+		//           let lat = place.geometry.location.lat();
+		//           let lng = place.geometry.location.lng();
+		//           console.log('lat = ' + lat)
+		// 		}
+		// 	})
+		// }
 	}
 
 	componentWillMount() {
@@ -107,15 +125,6 @@ class Create extends React.Component {
     	this.props.sendMixpanelEvent('Create itinerary page loaded');
 	}
 
-	// componentDidMount() {
-	// 	var ref = window.document.getElementsByTagName("script")[0];
-	//     var script = window.document.createElement("script");
-	//     script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBvxXp_QM-oiWqY9v6Des7D2EPnhrn769g&libraries=places';
-	//     script.async = true;
-	//     ref.parentNode.insertBefore(script, ref);
-	    
-	// }
-
 	componentWillUnmount() {
 		this.props.onCreateUnload();
 		if (this.props.watchId) navigator.geolocation.clearWatch(this.props.watchId);
@@ -124,6 +133,19 @@ class Create extends React.Component {
 	render() {
 		return (
 			<div className="flx flx-col flx-center-all page-common editor-page create-page">
+{/**}				<Map google={window.google}
+					onReady={this.initMap}
+					visible={false} >
+				</Map>
+				<div>
+			        <Script
+			          url={url}
+			          onCreate={this.handleScriptCreate.bind(this)}
+			          onError={this.handleScriptError.bind(this)}
+			          onLoad={this.handleScriptLoad.bind(this)}
+			        /> 
+			    </div> 
+			    <div ref="GMap"></div>**/}
 				<div className="page-title-wrapper center-text">
 				  <div className="v2-type-page-header">Create New Itinerary</div>
 				  <div className="v2-type-body2 opa-60 mrgn-top-sm DN"></div>
@@ -178,5 +200,9 @@ class Create extends React.Component {
 	    )
 	}
 }
+
+// export default GoogleApiWrapper({
+//   apiKey: Constants.GOOGLE_API_KEY
+// }) (connect(mapStateToProps, Actions)(Create));
 
 export default connect(mapStateToProps, Actions)(Create);

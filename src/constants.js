@@ -2,6 +2,9 @@ export const SUBJECT_SEARCH_URL = 'https://whatsgoooood.com/search?q='
 
 export const INBOX_SEND_EMAIL_URL = 'https://whatsgoooood.com/mail/send'
 
+/*** Google Maps API Key ***/
+export const GOOGLE_API_KEY = 'AIzaSyBvxXp_QM-oiWqY9v6Des7D2EPnhrn769g'
+
 /*** FourSquare API Keys ***/
 export const FOURSQUARE_CLIENT_ID = 'QXEK1PR4ELFYEMMRBSP4O3NJ20B5F34PXZD3VAXNPNUBX0PB'
 export const FOURSQUARE_CLIENT_SECRET = 'LAHBY4DND3VJL3YZQKXBJ4RY4TFKEZJC2O51P04YKXRUZXGA'
