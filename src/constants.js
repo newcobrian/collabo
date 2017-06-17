@@ -1,4 +1,5 @@
 export const SUBJECT_SEARCH_URL = 'https://whatsgoooood.com/search?q='
+// export const SUBJECT_SEARCH_URL = 'https://localhost:8000/search?q='
 
 export const INBOX_SEND_EMAIL_URL = 'https://whatsgoooood.com/mail/send'
 

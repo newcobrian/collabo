@@ -116,11 +116,9 @@ const ItineraryPreview = props => {
       </div> {/** ----- Close Cover Text DIV ----- **/}
 
       {/** Cover Image **/}
-      <Link to={`itinerary/${itinerary.id}`}>
       <div className="itinerary__cover__image">
         <ImagePicker images={itinerary.images} />
       </div>
-      </Link>
 
     {/** ----- Close itinerary__cover DIV ----- **/}  
     </div>

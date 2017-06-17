@@ -1,11 +1,17 @@
 import React from 'react';
-import ProxyImage from './ProxyImage';
+// import Lightbox from 'react-image-lightbox';
 
 const ImagePicker = props => {
+  const handleClick = ev => {
+    ev.preventDefault();
+  }
+
   if (props.images && props.images.length > 0) {
-    let index = Math.floor(Math.random() * (props.images.length-1));
+    const imgSrc = props.images[0].indexOf('http://') == 0 ? ("https://images.weserv.nl/?url=" 
+    +  encodeURIComponent(props.images[0].replace(/^https?\:\/\//i, ""))) : props.images[0];
+    // let index = Math.floor(Math.random() * (props.images.length-1));
     return (
-      <ProxyImage src={props.images[index]} className="center-img" />
+       <img src={imgSrc} className="center-img" onClick={handleClick} />
     )
   }
   else {

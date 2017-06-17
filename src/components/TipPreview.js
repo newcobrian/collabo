@@ -63,11 +63,9 @@ const TipPreview = props => {
           <div className="flx flx-row flx-just-start">
 
             { /** Image **/ }
-            <Link to={`review/${review.subjectId}/${review.id}`}>
             <div className="tip__image-module mrgn-right-lg">
-              <ImagePicker images={props.images} />
+              <ImagePicker images={review.images} />
             </div>
-            </Link>
 
 
             {/* Non-image module on right */}
