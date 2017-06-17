@@ -25,6 +25,7 @@
   background: url(img/icon32_like_off.png);
   background-size: cover;
   background-repeat: no-repeat;
+  margin-right: 5px;
 }
 .cta-wrapper:hover {
   cursor: pointer;

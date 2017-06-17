@@ -1,13 +1,12 @@
 .tips-wrapper {
 	margin: 0 auto;
-	max-width: 860px;
+	max-width: none;
 	width: 100%;
 }
 .tip-container {
-	max-width: 860px;
 	width: 100%;
 	border-bottom: 1px solid rgba(0,0,0,.1);
-	padding-bottom: 20px;
+	padding: 40px 0;
 }
 .tip_title-module {
 
@@ -21,7 +20,8 @@
 }
 .tip__image-module {
 	height: 250px;
-	width: 210px;
+	width: 360px;
+	flex-shrink: 0;
 }
 .tip__image-module img {
     width: 100%;
@@ -33,14 +33,12 @@
 
 .tip__caption {
 	width: 100%;
+	max-width: 860px;
 }
 .tip__caption-module {
 
 }
 .tip__rating-module {
-
-}
-.tip__caption {
 
 }
 .tip__timestamp {

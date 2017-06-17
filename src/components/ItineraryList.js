@@ -18,7 +18,7 @@ const ItineraryList = props => {
   }
 
   return (
-    <div className="profile-feed flx flx-row flx-just-center flx-align-start flx-wrap">
+    <div className="profile-feed flx flx-col flx-just-start flx-align-start flx-wrap w-max">
       {
         props.itineraries.map(itinerary => {
           return (

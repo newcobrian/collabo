@@ -1,9 +1,9 @@
 body {
   font-family: Helvetica, sans-serif;
-  color: #161F34;
+  color: #292F3D;
   letter-spacing:1px;
   padding-top: 70px;
-  background-color: #FAFAF8;
+  /*background-color: #FAFAF8;*/
   font-family: 'Arimo', sans-serif;
 }
 
@@ -95,6 +95,9 @@ input[type="radio"]:checked + label span {
 ************************************ DOM STYLING SHARED
 ******
 ******/
+.w-max {
+  max-width: 1025px;
+}
 .w-100 {
   width: 100%;
 }
@@ -179,22 +182,24 @@ input[type="radio"]:checked + label span {
   border-radius: 7px;
   font-size: 14px;
   display: inline-block;
-  background-color: #0AAAD5;
+  background-color: #1C398C;
   cursor: pointer;
+  color: white;
   text-transform: uppercase;
   font-family: "Arimo";
   padding: 15px 20px;
-  background-image:
+/*  background-image:
     linear-gradient(
       to top right, 
       #0AAAD5, #7DD5AC
-    );
-  background-image: linear-gradient(-90deg, #6DFFDA 0%, #F5FFA4 100%);
+    );*/
   border-radius: 4px;
-  color: black;
+  /* Rectangle 8: */
+  background-image: linear-gradient(90deg, #61F2ED 4%, #C1FDE0 98%);
+  border-radius: 100px;
 }
 .vb.vb--create {
-  background-color: #63A652;
+  /*background-color: #63A652;*/
 }
 .v-button:hover,
 .vb:hover {
@@ -260,7 +265,7 @@ input[type="radio"]:checked + label span {
   font-size: 10px;
 }
 .color--black {
-  color: black;
+  color: #292F3D;
 }
 .v-button.v-button--add,
 .vb.vb--add {
@@ -275,15 +280,15 @@ input[type="radio"]:checked + label span {
   /*border-radius: 55px;*/
   font-size: 16px;
   display: inline-block;
-  background-color: #0AAAD5;
   cursor: pointer;
   text-transform: uppercase;
   font-family: "Arimo";
   width: 114px;
   font-size: 14px;
+  background-color: #DDFCDE;
+  color: #1D2E58;
   /*background-image: none;*/
   /*background-color: #F5FFA4;*/
-  color: black;
 }
 
 .v-button--warning {
@@ -375,9 +380,13 @@ input[type="radio"]:checked + label span {
     right: 0;
     left: 0;
     width: 100%;
-    background-color:black;
+    background-color:white;
     /*background-color:#004131;*/
+    /* Rectangle 6: */
+    background-image: linear-gradient(90deg, #1C398C 0%, #59FFF2 66%, #FFFDCD 100%);
     border-bottom: 1px solid rgba(0,0,0,.1);
+    /* Rectangle 6: */
+    background-image: linear-gradient(90deg, #1C398C 0%, #59FFF2 65%, #B5FEE3 100%);
 }
 .header-wrapper {
     position: absolute;
@@ -386,14 +395,14 @@ input[type="radio"]:checked + label span {
     top: 0;
     right: 0;
     left: 0;
-    max-width: 1380px;
+    max-width: 1025px;
     margin: 0 auto;
 }
 .logo-module {
   padding: 0px;
   height: 40px;
   width: 150px;
-  color: black;
+  color: white;
   font-weight: 700;
   margin: 12px 20px;
   z-index: 2;
@@ -405,14 +414,15 @@ a.logo-module:focus {
   opacity: 1;
 }
 .logo-main {
-    font-size: 24px;
-    height: 36px;
-    font-weight: 400;
-    margin-left: 17px;
-    letter-spacing: 7px;
-    font-family: 'Arimo', sans-serif;
-    color: white;
-    margin-top: 2px;
+  font-size: 18px;
+  height: 36px;
+  font-weight: 700;
+  margin-left: 38px;
+  letter-spacing: 7px;
+  font-family: 'Arimo', sans-serif;
+  color: white;
+  margin-top: 14px;
+  opacity: .8;
 }
 .logo-tagline {
     font-size: 14px;
@@ -435,7 +445,7 @@ a.logo-module:focus {
   height: 70px;
   z-index: 2;
   padding: 0px;
-  color: white;
+  color: black;
 }
 .navigation-bar .nav-module {
   text-align: center;
@@ -445,7 +455,6 @@ a.logo-module:focus {
   margin: 0 20px;
   padding: 0;
   font-size: 13px;
-  color: white;
   letter-spacing: 2px;
   height: 70px;
 }
@@ -454,7 +463,8 @@ a.logo-module:focus {
   height: 18px;
 }
 .navigation-bar .nav-module.create {
-  color: #63A652;
+  /*color: #63A652;  Bright green */
+  /*color: #4F7A39;*/
 }
 .nav-module.nav-editor {
   order: 1;
@@ -475,13 +485,13 @@ a.logo-module:focus {
 
 .navigation-bar .nav-module.active,
 .navigation-bar .nav-module.nav-editor.active {
-  opacity: .9;
-  border-bottom: 3px solid #0AAAD5;
+  opacity: 1;
+  border-bottom: 3px solid #79D5DD;
   padding-top: 3px;
 }
 .navigation-bar .nav-module.active.create,
 .navigation-bar .nav-module.nav-editor.active.create {
-  border-bottom: 3px solid #63A652;
+  border-bottom: 3px solid #79D5DD;
 }
 .navigation-bar .nav-module:hover {
   opacity: .8;
@@ -497,13 +507,13 @@ a.logo-module:focus {
 }
 
 .logo-graphic {
-  width: 38px;
-  height: 38px;
-  margin-top: -4px;
+  width: 32px;
+  height: 32px;
+  margin-top: 1px;
 }
 .logo-graphic img {
-  width: 38px;
-  height: 38px;
+  width: 32px;
+  height: 32px;
 }
 .navigation-bar .nav-icon {
   width: 32px;
@@ -581,13 +591,12 @@ svg {
 .page-common {
   padding-top: 0px;
   margin: 0px 0px;
-  background-color: #FAFAF8;
+  background-color: white;
 }
 .page-common.page-itinerary {
   background-color: white;
 }
 .content-wrapper {
-  max-width: 1380px;
   width: 100%;
 }
 .page-common.page-no-push {
@@ -598,17 +607,21 @@ svg {
   width: 100%;
 }
 .page-title-wrapper {
-  padding: 30px 0;
+  padding: 0;
   width: 100%;
 }
 .page-title-wrapper.with-feed-toggle {
   padding: 20px 0 10px;
 }
+.toggle-wrapper {
+  border-bottom: 1px solid rgba(0,0,0,.1);
+}
 .feed-toggle {
   background: white;
-  border-bottom: 1px solid rgba(0,0,0,.1);
   z-index: 10;
-  padding: 0;
+  padding: 10px;
+  width: 100%;
+  margin: 0 auto;
 }
 .feed-toggle.tags-toggle {
   top: 131px;
@@ -827,7 +840,8 @@ svg {
 }
 .nav-pills.outline-active .nav-link.active,
 .nav-pills.outline-active .nav-link:hover {
-    border-bottom: #09B7EA 3px solid !important;
+    border-bottom: #79D5DD 3px solid !important;
+    border-bottom: #A2D0FB 3px solid !important;
     color: #0C111D !important;
     opacity: 1;
     background-color: transparent !important;
@@ -887,8 +901,7 @@ li.nav-divider {
 }
 .profile-feed {
     width: 100%;
-    margin-left: 0px;
-    margin-top: 50px;
+    margin: 0 auto;
 }
 .profile-image {
   overflow: hidden;
@@ -1277,7 +1290,7 @@ position: absolute;
 }
 .comments-module .comment-input-wrapper .comment-input {
     display: block;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 20px;
     font-weight: 300;
     width: 100%;

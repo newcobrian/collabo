@@ -41,26 +41,90 @@ class Home extends React.Component {
 
   renderTabs() {
     return (
-      <div className="page-title-container">
-        <div className="page-title-wrapper center-text">
-          <div className="v2-type-page-header"><div className="location-dropdown">World</div> Views</div>
-        </div>
-      </div>
+          
+          <div className="feed-toggle w-max flx flx-row flx-just-start w-100 w-max">
+            <ul className="nav nav-pills outline-active">
+              <li className="nav-item">
+                <Link
+                  className="nav-link active"
+                  to="">
+                  Global
+                </Link>
+              </li>
+
+              <li className="nav-item">
+                <Link
+                  className="nav-link"
+                  to="">
+                  Tokyo
+                </Link>
+              </li>
+
+              <li className="nav-item">
+                <Link
+                  className="nav-link"
+                  to="">
+                  Waikiki
+                </Link>
+              </li>
+
+              <li className="nav-item">
+                <Link
+                  className="nav-link"
+                 to="">
+                  Paris
+                </Link>
+              </li>
+              
+              <li className="nav-item">
+                <Link
+                  className="nav-link"
+                 to="">
+                  Barcelona
+                </Link>
+              </li>
+
+              <li className="nav-item">
+                <Link
+                  className="nav-link"
+                  to="">
+                  Chicago
+                </Link>
+              </li>
+
+              <li className="nav-item">
+                <Link
+                  className="nav-link"
+                 to="">
+                  Thailand
+                </Link>
+              </li>
+
+              <li className="nav-item">
+                <Link
+                  className="nav-link"
+                 to="">
+                  Vietnam
+                </Link>
+              </li>
+
+            </ul>
+          </div>
+
+
     );
   }
 
   render() {
     return (
       <div className="home-page">
-            <div className="roow">
-              <div className="feed-toggle">
-                {this.renderTabs()}
-              </div>
-              <div className="feed-wrapper">
-                <MainView />
-              </div>
+        <div className="toggle-wrapper">
+          {this.renderTabs()}
+        </div>
+        <div className="feed-wrapper">
+          <MainView />
+        </div>
 
-            </div>
       </div>
 
 

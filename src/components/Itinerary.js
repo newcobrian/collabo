@@ -88,19 +88,47 @@ class Itinerary extends React.Component {
       
       return (
         <div className="flx flx-col flx-align-center page-common page-itinerary">
-          <div className="content-wrapper itinerary flx flx-col flx-align-center">
+          <div className="content-wrapper w-max itinerary flx flx-col flx-align-center">
 
-            <div className="itinerary__summary option-stack mrgn-bottom-lg">
+            <div className="itinerary__summary option-stack">
 
               <fieldset>
-                <div className="flx flx-row flx-just-start">
-                  <div className="flx flx-col flx-align-center mrgn-right-lg">
+                <div className="flx flx-col flx-just-start">
+                  
+                  <div className="flx flx-row flx-align-center mrgn-right-lg mrgn-bottom-md w-100 v2-type-body1">
                     {/* Author Photo */}
-                    <div className="itinerary__summary__author-photo mrgn-bottom-sm">
+                    <div className="itinerary__summary__author-photo mrgn-right-md">
                       <ProxyImage src={itinerary.createdBy.image} className="center-img" />
                     </div>
-                    <div className="itinerary__author-name ta-center v2-type-body1">
+                    <div className="itinerary__author-name ta-center v2-type-body1 mrgn-right-md">
                       {itinerary.createdBy.username}
+                    </div>
+                    {/* Flag */}
+                    <div className="itinerary__summary__flag opa-50 mrgn-right-md">
+                      
+                    </div>
+                    {/* Location */}
+                    <div className="itinerary__summary__location opa-50 mrgn-right-md">
+                      {itinerary.geo.label}
+                    </div>
+
+                    {/* Tips by Author */}
+                    <div className="itinerary__summary__tip-count opa-50 mrgn-right-sm">
+                      {itinerary.reviewsCount} Tips
+                    </div>
+
+                    {/* Like */}
+                    <div className="itinerary__summary__like flx flx-row flx-item-right v2-type-body2 mrgn-bottom-sm">
+                      <div className="cta-wrapper cta-align-left">
+                        <LikeReviewButton
+                          authenticated={this.props.authenticated}
+                          isLiked={itinerary.isLiked}
+                          likesCount={itinerary.likesCount}
+                          unLike={this.props.unLikeReview}
+                          like={this.props.likeReview} 
+                          likeObject={itinerary}
+                          type={ITINERARY_TYPE} />
+                      </div>
                     </div>
                   </div>
                   
@@ -111,40 +139,13 @@ class Itinerary extends React.Component {
                       <ImagePicker images={this.props.itinerary.images} />
                     </div>*/}
 
-                    <div className="flx flx-row flx-just-start w-100">
-                      {/* Location */}
-                      <div className="itinerary__summary__location v2-type-mono mrgn-right-md">
-                        {itinerary.geo.label}
-                      </div>
-
-                      {/* Tips by Author */}
-                      <div className="itinerary__summary__tip-count v2-type-mono opa-50 mrgn-right-sm">
-                        {itinerary.reviewsCount} Tips
-                      </div>
-
-                      {/* Like */}
-                      <div className="itinerary__summary__like flx flx-row flx-item-right v2-type-body2 mrgn-bottom-sm">
-                        <div className="cta-wrapper cta-align-left">
-                          <LikeReviewButton
-                            authenticated={this.props.authenticated}
-                            isLiked={itinerary.isLiked}
-                            likesCount={itinerary.likesCount}
-                            unLike={this.props.unLikeReview}
-                            like={this.props.likeReview} 
-                            likeObject={itinerary}
-                            type={ITINERARY_TYPE} />
-                        </div>
-                      </div>
-
-                    </div>
-
                     {/* Title */}
                     <div className="itinerary__summary__title v2-type-h1">
                       {itinerary.title}
                     </div>
 
                     {/* Description */}
-                    <div className="itinerary__summary__description ta-left v2-type-h6 mrgn-top-sm mrgn-bottom-sm">
+                    <div className="itinerary__summary__description ta-left v2-type-body2 opa-60">
                       {itinerary.description}
                     </div>
 
@@ -164,13 +165,9 @@ class Itinerary extends React.Component {
                         canModify={canModify} 
                         deleteItinerary={this.props.showDeleteModal} 
                         redirectPath="/" />
-
-
                     </div>
 
-
-
-
+                    {/* Hidden edit itinerary dropdown */}
                     <div className="edit-itinerary-link DN">             
                       <MuiThemeProvider muiTheme={getMuiTheme()}>
                         <IconMenu
@@ -193,9 +190,6 @@ class Itinerary extends React.Component {
                        </MuiThemeProvider>
                     </div>
 
-
-
-
                   </div> {/* End right module */}
                </div>
                 
@@ -204,8 +198,8 @@ class Itinerary extends React.Component {
 
             </div>
 
-            <div className="itinerary__tipslist flx flx-col flx-align-center">
-              <div>
+            <div className="itinerary__tipslist flx flx-col flx-align-center w-100">
+              <div className="w-100">
                 <TipList
                   reviewList={this.props.reviewList} 
                   reviewsCount={itinerary.reviewsCount}
@@ -222,7 +216,7 @@ class Itinerary extends React.Component {
               </div>
             </div>
 
-            <div className="itinerary__comments-module flx flx-col flx-align-center flx-just-start">
+            <div className="itinerary__comments-module flx flx-col flx-align-start flx-just-start">
               <div className="v2-type-h3 mrgn-top-md ta-left w-100">
                 Comments
               </div>

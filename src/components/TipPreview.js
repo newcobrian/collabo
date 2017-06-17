@@ -57,10 +57,10 @@ const TipPreview = props => {
   }
 
   return (
-    <div className="tips-wrapper flx flx-col flx-col-start mrgn-bottom-lg">
+    <div className="tips-wrapper flx flx-col flx-col-start">
       <div className="tip-container flx flx-col flx-col-top">
           
-          <div className="flx flx-row flx-just-start">
+          <div className="flx flx-row flx-just-start w-100">
 
             { /** Image **/ }
             <div className="tip__image-module mrgn-right-lg">
@@ -69,11 +69,11 @@ const TipPreview = props => {
 
 
             {/* Non-image module on right */}
-            <div className="flx flx-col flx-align-start">
+            <div className="flx flx-col flx-align-start w-100">
 
               { /** Title and Add **/ }
               <div className="tip_title-module flx flx-row-top w-100">
-                <div className="flx flx-col flx-col-start mrgn-right-md">
+                <div className="flx flx-col flx-col-start mrgn-right-md w-100">
                   <Link to={`review/${review.subjectId}/${review.id}`}>
                   <div className="tip__title v2-type-h2 ta-left">
                     {review.title}
@@ -86,7 +86,7 @@ const TipPreview = props => {
 
                 <div className="vb vb--add flex-item-right">
                   <Link onClick={handleSaveClick}>
-                    <img className="center-img" src="../img/logos/icon.nike.black.png"/>Save
+                    <img className="center-img" src="../img/logos/logo.bird2.blue.png"/>Save
                   </Link>
                 </div>
 
@@ -98,9 +98,9 @@ const TipPreview = props => {
                   <ProxyImage src={review.createdBy.image} className="center-img" />
                 </div>
                 <div className={'v2-type-rating ta-left v2-type-rating--' +  review.rating}>
-                  {review.rating}<div className="v2-type-rating--total opa-30"> /10</div>
+                  {review.rating}<div className="v2-type-rating--total opa-20">/10</div>
                 </div>
-                <div className="flx flx-row flex-item-right v2-type-body2">
+                <div className="flx flx-row flex-item-right v2-type-body2 mrgn-right-md">
                   <div className="cta-wrapper">
                     <LikeReviewButton
                       authenticated={props.authenticated}
@@ -118,7 +118,7 @@ const TipPreview = props => {
               { /** Caption **/ }
               <div className="tip__caption-module flx flx-col w-100">
                 <div className="flx flx-row flx-just-start flx-align-start">  
-                  <div className="tip__caption v2-type-body3 ta-left">
+                  <div className="tip__caption v2-type-body2 opa-60 ta-left">
                     <CaptionDisplay review={props.review} />
                   </div>
                 </div>

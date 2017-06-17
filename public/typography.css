@@ -4,6 +4,10 @@
 ******
 ******/
 
+a {
+  color: #1D2E58;
+}
+
 .text-subject-name {
   font-weight: 700;
   font-size: 36px;
@@ -49,7 +53,6 @@ textarea {
   letter-spacing: 0.5px;
   line-height: 26px;
   font-family: Helvetica, sans-serif;
-  color: black;
 }
 .v2-type-body2 {
   font-weight: 300;
@@ -57,7 +60,6 @@ textarea {
   letter-spacing: 0.5px;
   line-height: 28px;
   font-family: Helvetica, sans-serif;
-  color: black;
 }
 .v2-type-body3 {
   /* “The almond milk ice: */
@@ -66,12 +68,11 @@ textarea {
   letter-spacing: 0.5px;
   line-height: 32px;
   font-family: Helvetica, sans-serif;
-  color: black;
 }
 .v2-type-rating {
   /* “The almond milk ice: */
   font-weight: 100;
-  font-size: 24px;
+  font-size: 20px;
   letter-spacing: 0.5px;
   line-height: 26px;
   font-family: Helvetica, sans-serif;
@@ -105,27 +106,25 @@ textarea {
   font-size: 18px;
   letter-spacing: 0.5px;
   line-height: 26px;
-  font-family: 'Inconsolata', monospace;
+  /*font-family: 'Inconsolata', monospace;*/
   color: black;
 }
 .v2-type-mono.mono-sm {
-  font-size: 13px;
+  font-size: 12px;
 }
 .v2-type-h1 {
   /* H1 - Ratings: */
   font-weight: 700;
-  font-size: 44px;
-  color: #000000;
+  font-size: 39px;
   letter-spacing: 1px;
   line-height: 48px;
   font-family: 'Arimo', sans-serif;
 }
 .v2-type-h2 {
   font-weight: 600;
-  font-size: 28px;
+  font-size: 22px;
   letter-spacing: 2px;
-  line-height: 33px;
-  color: black;
+  line-height: 24px;
   font-family: 'Arimo', sans-serif;
 }
 .v2-type-page-header {
@@ -162,12 +161,15 @@ textarea {
     letter-spacing: 0.5px;
     line-height: 32px;
     font-weight: 100;
-    /*font-style: italic;*/
-    font-family: Helvetica, sans-serif;
+    display: inline-block;
+}
+
+.tips-count {
+  font-size: 30px;
 }
 
 .color--primary {
-  color: #0AAAD5 !important;
+  color: #1E479A !important;
 }
 .color--success {
   color: #63A652 !important;
