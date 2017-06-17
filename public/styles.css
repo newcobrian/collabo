@@ -72,7 +72,7 @@ input[type="radio"]:checked + label span {
   right: 0;
   bottom: 0;
   background: white;
-  background-image: linear-gradient(-270deg, #2EC299 0%, #00ACED 100%);
+  /*background-image: linear-gradient(-270deg, #2EC299 0%, #00ACED 100%);*/
   color: white !important;
   font-size: 24px;
 }
@@ -174,29 +174,29 @@ input[type="radio"]:checked + label span {
 .vb {
   border: none;
   /* box-shadow: 0 0 0 2px rgba(107, 255, 78,.4); */
-  height: 50px;
+  height: 40px;
   color: white;
   text-align: center;
-  font-weight: 100 !important;
+  letter-spacing: 3px;
+  font-weight: 600 !important;
   /* background-image: linear-gradient(-270deg, #2EC299 0%, #00ACED 100%); */
-  border-radius: 7px;
+  border-radius: 4px;
   font-size: 14px;
   display: inline-block;
   background-color: #1C398C;
+  background-color: #295BA2;
   cursor: pointer;
   color: white;
   text-transform: uppercase;
   font-family: "Arimo";
-  padding: 15px 20px;
+  padding: 10px 20px;
+  width: auto;
+  flex-shrink: 0;
 /*  background-image:
     linear-gradient(
       to top right, 
       #0AAAD5, #7DD5AC
     );*/
-  border-radius: 4px;
-  /* Rectangle 8: */
-  background-image: linear-gradient(90deg, #61F2ED 4%, #C1FDE0 98%);
-  border-radius: 100px;
 }
 .vb.vb--create {
   /*background-color: #63A652;*/
@@ -207,9 +207,10 @@ input[type="radio"]:checked + label span {
 }
 .v-button img,
 .vb img {
-    height: 100%;
-    margin-top: -2px;
-    margin-right: 5px;
+  margin-top: -2px;
+      margin-right: 12px;
+      width: 20px;
+      height: 20px;
 }
 .v-button--full,
 .vb--full {
@@ -275,18 +276,20 @@ input[type="radio"]:checked + label span {
   color: white;
   padding: 11px;
   text-align: center;
-  font-weight: 100 !important;
+  font-weight: 600 !important;
   /* background-image: linear-gradient(-270deg, #2EC299 0%, #00ACED 100%); */
   /*border-radius: 55px;*/
   font-size: 16px;
   display: inline-block;
   cursor: pointer;
-  text-transform: uppercase;
   font-family: "Arimo";
   width: 114px;
   font-size: 14px;
   background-color: #DDFCDE;
   color: #1D2E58;
+  text-transform: none;
+  background-image: linear-gradient(90deg, #61F2ED 4%, #C1FDE0 98%);
+
   /*background-image: none;*/
   /*background-color: #F5FFA4;*/
 }
@@ -383,7 +386,7 @@ input[type="radio"]:checked + label span {
     background-color:white;
     /*background-color:#004131;*/
     /* Rectangle 6: */
-    background-image: linear-gradient(90deg, #1C398C 0%, #59FFF2 66%, #FFFDCD 100%);
+    /*background-image: linear-gradient(90deg, #1C398C 0%, #59FFF2 66%, #FFFDCD 100%);*/
     border-bottom: 1px solid rgba(0,0,0,.1);
     /* Rectangle 6: */
     background-image: linear-gradient(90deg, #1C398C 0%, #59FFF2 65%, #B5FEE3 100%);

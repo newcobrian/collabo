@@ -108,7 +108,7 @@ class Itinerary extends React.Component {
                       
                     </div>
                     {/* Location */}
-                    <div className="itinerary__summary__location opa-50 mrgn-right-md">
+                    <div className="itinerary__summary__location opa-50 geo-label mrgn-right-md">
                       {itinerary.geo.label}
                     </div>
 

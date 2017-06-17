@@ -80,7 +80,7 @@ const ItineraryPreview = props => {
             </div>
             <div className="itinerary__cover__flag mrgn-right-md">
             </div>
-            <div className="opa-60 mrgn-right-md">
+            <div className="opa-60 geo-type mrgn-right-md">
               {itinerary.geo.label}
             </div>
 
@@ -106,9 +106,9 @@ const ItineraryPreview = props => {
          
 
           {/** CTA **/}
-          <div className="flx flx-row flx-align-center w-100 mrgn-top-sm">
+          <div className="flx flx-row flx-align-center w-100 flx-just-center">
             <div className="cta-box flx flx-row">
-              <div className="cta-wrapper flx flx-row flx-just-end flex-item-right flx-row-reverse">
+              <div className="cta-wrapper flx flx-row flx-just-end flex-item-right flx-row-reverse mrgn-right-md">
                 <LikeReviewButton
                   authenticated={props.authenticated}
                   isLiked={props.itinerary.isLiked}
@@ -123,7 +123,13 @@ const ItineraryPreview = props => {
            
             <div className="tips-count flx-item-right flx-self-end">
               <Link to={`itinerary/${itinerary.id}`}>
-              {itinerary.reviewsCount}
+              <div className="flx flx-row flx-just-end flx-align-center">
+                {itinerary.reviewsCount}
+                <div className="cta-wrapper opa-30">
+                  <div className="cta-icon cta-arrow--r">
+                  </div>
+                </div>
+              </div>
               </Link>
             </div>            
           </div>

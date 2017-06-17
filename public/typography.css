@@ -163,6 +163,14 @@ textarea {
     font-weight: 100;
     display: inline-block;
 }
+.geo-type {
+  font-family: "Arimo";
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 12px;
+  line-height: 14px;
+  max-width: 260px;
+}
 
 .tips-count {
   font-size: 30px;

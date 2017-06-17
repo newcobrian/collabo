@@ -84,9 +84,9 @@ const TipPreview = props => {
                   </div>
                 </div>
 
-                <div className="vb vb--add flex-item-right">
+                <div className="vb flex-item-right">
                   <Link onClick={handleSaveClick}>
-                    <img className="center-img" src="../img/logos/logo.bird2.blue.png"/>Save
+                    <img className="center-img" src="../img/logos/logo.bird2.white.png"/>Save
                   </Link>
                 </div>
 

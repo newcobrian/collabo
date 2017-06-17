@@ -6,7 +6,6 @@
 .cta-wrapper {
   padding: 0;
   width: auto;
-  min-width: 60px;
 }
 .cta-box {
   margin-top: -1px;
@@ -67,3 +66,12 @@
   background-image: url(img/icon32_comments_on.png);
 }
 
+.cta-icon.cta-arrow--r {
+  background-image: url(img/icon.arrow--right.png);
+  width: 21px;
+}
+
+.icon-img {
+  width: 32px;
+  height: 32px;
+}
