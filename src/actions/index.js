@@ -2175,6 +2175,8 @@ export function getLikesByUser(auth, userId) {
   }
 }
 
+
+
 export function unloadReviewsByUser(userId) {
   return dispatch => {
     Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + userId).orderByChild('lastModified').once('value', reviewsSnapshot => {
@@ -2193,21 +2195,30 @@ export function unloadReviewsByUser(userId) {
   }
 }
 
-export function unloadLikesOrSavesByUser(userId, path) {
-  return dispatch => {
-    Firebase.database().ref(path + '/' + userId).orderByChild('lastModified').once('value', likesByUserSnapshot => {
+
+
+
+export function unloadLikesByUser(auth, userId) {
+    return dispatch => {
+    let likesArray = [];
+    Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).orderByChild('lastModified').once('value', likesByUserSnapshot => {
       likesByUserSnapshot.forEach(function(likeItem) {
-        Firebase.database().ref(Constants.REVIEWS_PATH + '/' + likeItem.key).once('value', reviewSnapshot => {
-          Firebase.database().ref(Constants.LIKES_PATH + '/' + likeItem.key).off();
-          Firebase.database().ref(Constants.SAVES_BY_USER_PATH + '/' + userId + '/' + likeItem.key).off();
+        let objectPath = (likeItem.val().type === Constants.ITINERARY_TYPE ? Constants.ITINERARIES_PATH : Constants.REVIEWS_PATH);
+        let imagePath = (likeItem.val().type === Constants.ITINERARY_TYPE ? 
+          (Constants.IMAGES_ITINERARIES_PATH + '/' + likeItem.key) : 
+          (Constants.IMAGES_PATH + '/' + likeItem.val().subjectId) );
+        Firebase.database().ref(objectPath + '/' + likeItem.key).once('value', objectSnapshot => {
+          Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + likeItem.val().subjectId).off();
+          Firebase.database().ref(Constants.USERS_PATH + '/' + objectSnapshot.val().userId).off();
+          Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + likeItem.key).off();
           Firebase.database().ref(Constants.COMMENTS_PATH + '/' + likeItem.key).off();
-          Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + reviewSnapshot.val().subjectId).off();
+          Firebase.database().ref(imagePath).off();
         })
-        Firebase.database().ref(Constants.REVIEWS_PATH + '/' + likeItem.key).off();
+        Firebase.database().ref(objectPath + '/' + likeItem.key).off();
       })
     })
-    Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).orderByChild('lastModified').off();
-
+    Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).off();
+    
     dispatch({
       type: UNLOAD_LIKES_OR_SAVES_BY_USER
     })

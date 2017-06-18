@@ -142,7 +142,7 @@ def search_4sq(q, ll=None, near=None, radius=None):
         args['near'] = near
         args['radius'] = radius or '30000'
     else:
-        args['near'] = 'Los Angeles, CA'
+        args['near'] = 'San Francisco, CA'
 
     url = '%s?%s' % (FOURSQUARE_URL, urllib.urlencode(args))
     logging.info('fetching 4sq %s' % url)
