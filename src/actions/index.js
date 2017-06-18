@@ -914,7 +914,8 @@ export function onCreateItinerary(auth, itinerary) {
   return dispatch => {
     let itineraryObject = {};
     let itineraryMeta = {
-      lastModified: Firebase.database.ServerValue.TIMESTAMP
+      lastModified: Firebase.database.ServerValue.TIMESTAMP,
+      createdOn: Firebase.database.ServerValue.TIMESTAMP
     }
     let updates = {};
     Object.assign(itineraryObject, itinerary, itineraryMeta)
