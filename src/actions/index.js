@@ -557,7 +557,7 @@ export function onEditorLoad(authenticated, itineraryId) {
               dispatch({
                 type: EDITOR_PAGE_LOADED,
                 itineraryId: itineraryId,
-                geo: itinerarySnapshot.val().geo.label,
+                searchLocation: itinerarySnapshot.val().geo.location,
                 data: { itinerary: itineraryObject }
               })
             })
@@ -569,7 +569,7 @@ export function onEditorLoad(authenticated, itineraryId) {
         dispatch({
           type: EDITOR_PAGE_LOADED,
           itineraryId: itineraryId,
-          geo: itinerarySnapshot.val().geo.label,
+          searchLocation: itinerarySnapshot.val().geo.location,
           data: { itinerary: itineraryObject }
         })
       }
@@ -2218,7 +2218,7 @@ export function unloadLikesByUser(auth, userId) {
       })
     })
     Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).off();
-    
+
     dispatch({
       type: UNLOAD_LIKES_OR_SAVES_BY_USER
     })

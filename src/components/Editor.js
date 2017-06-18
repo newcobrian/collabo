@@ -39,7 +39,8 @@ class Editor extends React.Component {
   render() {
     return (
       <EditItineraryForm 
-        onSubmit={this.submitForm}  />
+        onSubmit={this.submitForm}
+        searchLocation={this.props.geo}  />
     )
   }
 }
