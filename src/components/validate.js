@@ -1,21 +1,25 @@
 const validate = values => {
-  const errors = {}
-  errors.itinerary = {};
-  if (!values.itinerary || !values.itinerary.title) {
-    errors.itinerary.title = 'Required';
-    }
-  if (!values.itinerary || !values.itinerary.geo) {
-    errors.itinerary.geo = 'Required';
-  }
+  const errors = {};
+  errors.reviews = {};
+  // if (!values.itinerary || !values.itinerary.title) {
+  //   errors.itinerary.title = 'Required';
+  //   }
+  // if (!values.itinerary || !values.itinerary.geo) {
+  //   errors.itinerary.geo = 'Required';
+  // }
   if (values.itinerary && values.itinerary.reviews) {
     const reviewsArrayErrors = []
     values.itinerary.reviews.forEach((review, reviewIndex) => {
       const reviewErrors = {}
-      // if (!review.title) {
+      if (!review.title) {
         // reviewErrors.title = 'Required'
         // reviewsArrayErrors[reviewIndex] = reviewErrors
-      // }
-
+        reviewsArrayErrors[reviewIndex] = 'Required'
+      }
+    })
+    if (reviewsArrayErrors.length) {
+      errors.reviews = reviewsArrayErrors;
+    }
       
       // if (tip && member.hobbies && member.hobbies.length) {
       //   const hobbyArrayErrors = []
@@ -36,10 +40,8 @@ const validate = values => {
       //     membersArrayErrors[memberIndex] = memberErrors
       //   }
       // }
-    })
-    if (reviewsArrayErrors.length) {
-      errors.itinerary.reviews = reviewsArrayErrors
-    }
+    // })
+    
   }
   return  errors
 }

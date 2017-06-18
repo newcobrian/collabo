@@ -1317,42 +1317,44 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
       itineraryId = Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + auth).push(itinerary).key;
     }
     for (var i = 0; i < reviews.length; i++) {
-      // create the reviewsList for the itinerary
-      let subject = Helpers.makeSubject(reviews[i], lastModified);
-      
-      // if no subject id, create the subject
-      if (!reviews[i].subjectId) {
-        if (reviews[i].id) {
-          // if this is a search result from 4sq, use their id as the subject id
-          reviews[i].subjectId = reviews[i].id;
-          updates[`/${Constants.SUBJECTS_PATH}/${reviews[i].subjectId}`] = subject;
+      if (reviews[i].title) {
+        // create the reviewsList for the itinerary
+        let subject = Helpers.makeSubject(reviews[i], lastModified);
+        
+        // if no subject id, create the subject
+        if (!reviews[i].subjectId) {
+          if (reviews[i].id) {
+            // if this is a search result from 4sq, use their id as the subject id
+            reviews[i].subjectId = reviews[i].id;
+            updates[`/${Constants.SUBJECTS_PATH}/${reviews[i].subjectId}`] = subject;
+          }
+          else {
+            // new custom subject, so create it
+            reviews[i].subjectId = Firebase.database().ref(Constants.SUBJECTS_PATH).push(subject).key;
+          }
+        }
+
+        let reviewBySubject = Helpers.makeReviewBySubject(reviews[i], reviews[i].subjectId, lastModified);
+        let review = Helpers.makeReview(reviews[i], reviews[i].subjectId, lastModified);
+
+        // if review doesnt exist, create it
+        if (!reviews[i].reviewId) {
+          reviews[i].reviewId = Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + auth).push(review).key;
         }
         else {
-          // new custom subject, so create it
-          reviews[i].subjectId = Firebase.database().ref(Constants.SUBJECTS_PATH).push(subject).key;
+          updates[`/${Constants.REVIEWS_BY_USER_PATH}/${auth}/${reviews[i].reviewId}/`] = review;
         }
+        // update REVIEWS_BY_USER, REVIEWS_BY_SUBJECT, and REVIEWS tables
+        updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${reviews[i].subjectId}/${auth}/`] = reviewBySubject;
+        updates[`/${Constants.REVIEWS_PATH}/${reviews[i].reviewId}/`] = Object.assign({}, review, { userId: auth })
+
+        reviewsList[i] = Object.assign({}, { subjectId: reviews[i].subjectId }, { reviewId: reviews[i].reviewId });
+        // reviewsList[reviews[i].subjectId] = Object.assign({}, { reviewId: reviews[i].reviewId }, {priority: i});
+
+        // save the images on each review
+        let subjectId = reviews[i].subjectId;
+        uploadImages(auth, subjectId, Constants.REVIEW_TYPE, reviews[i].images, itineraryId);
       }
-
-      let reviewBySubject = Helpers.makeReviewBySubject(reviews[i], reviews[i].subjectId, lastModified);
-      let review = Helpers.makeReview(reviews[i], reviews[i].subjectId, lastModified);
-
-      // if review doesnt exist, create it
-      if (!reviews[i].reviewId) {
-        reviews[i].reviewId = Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + auth).push(review).key;
-      }
-      else {
-        updates[`/${Constants.REVIEWS_BY_USER_PATH}/${auth}/${reviews[i].reviewId}/`] = review;
-      }
-      // update REVIEWS_BY_USER, REVIEWS_BY_SUBJECT, and REVIEWS tables
-      updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${reviews[i].subjectId}/${auth}/`] = reviewBySubject;
-      updates[`/${Constants.REVIEWS_PATH}/${reviews[i].reviewId}/`] = Object.assign({}, review, { userId: auth })
-
-      reviewsList[i] = Object.assign({}, { subjectId: reviews[i].subjectId }, { reviewId: reviews[i].reviewId });
-      // reviewsList[reviews[i].subjectId] = Object.assign({}, { reviewId: reviews[i].reviewId }, {priority: i});
-
-      // save the images on each review
-      let subjectId = reviews[i].subjectId;
-      uploadImages(auth, subjectId, Constants.REVIEW_TYPE, reviews[i].images, itineraryId);
     }
 
     let itineraryByUserObject = Helpers.makeItinerary(auth, itinerary, lastModified);
