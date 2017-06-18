@@ -23,17 +23,17 @@ class Editor extends React.Component {
   componentWillMount() {
     if (this.props.params.iid) {
         this.props.onEditorLoad(this.props.authenticated, this.props.params.iid);
-        if (navigator.geolocation) {
-          let watchId = navigator.geolocation.watchPosition(this.props.showPosition);
-          this.props.setWatchPositionId(watchId);
-        }
+        // if (navigator.geolocation) {
+        //   let watchId = navigator.geolocation.watchPosition(this.props.showPosition);
+        //   this.props.setWatchPositionId(watchId);
+        // }
     }
     this.props.sendMixpanelEvent('Itinerary page loaded');
   }
 
   componentWillUnmount() {
     this.props.onEditorUnload(this.props.itineraryId);
-    if (this.props.watchId) navigator.geolocation.clearWatch(this.props.watchId);
+    // if (this.props.watchId) navigator.geolocation.clearWatch(this.props.watchId);
   }
 
   render() {

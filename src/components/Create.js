@@ -45,7 +45,6 @@ class Create extends React.Component {
 
 	    this.changeTitle = updateFieldEvent('title');
 	    this.suggestSelect = result => {
-
 	    	var request = {
 			  placeId: result.placeId
 			};
@@ -64,6 +63,14 @@ class Create extends React.Component {
 	    		label: result.label,
 	    		placeId: result.placeId,
 	    		location: result.location
+	    	}
+
+	    	if (result.gmaps && result.gmaps.address_components) {
+	    		result.gmaps.address_components.forEach(function(resultItem) {
+	    			if (resultItem.types && resultItem.types[0] && resultItem.types[0] === 'country') {
+	    				if (resultItem.short_name) geoData.country = resultItem.short_name;
+	    			}
+	    		})
 	    	}
 	    	this.props.onUpdateCreateField('geo', geoData, CREATE_PAGE);
 	    }
