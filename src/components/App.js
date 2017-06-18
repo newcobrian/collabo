@@ -7,6 +7,7 @@ import * as Actions from '../actions';
 import mixpanel from 'mixpanel-browser';
 import RootModal from './Modal';
 import SnackbarToaster from './SnackbarToaster';
+import LightboxComponent from './LightboxComponent';
 
 const mapStateToProps = state => ({
   appLoaded: state.common.appLoaded,
@@ -90,6 +91,7 @@ class App extends React.Component {
             {...this.props.snackbarToaster}
             duration={4000} 
             onRequestClose={this.props.closeSnackbar} />
+            <LightboxComponent/>
         </div>
       );
     }

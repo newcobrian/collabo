@@ -1,24 +1,40 @@
 import React from 'react';
-// import Lightbox from 'react-image-lightbox';
+import { connect } from 'react-redux';
+import Lightbox from 'react-image-lightbox';
+import * as Actions from '../actions'
 
-const ImagePicker = props => {
-  const handleClick = ev => {
-    ev.preventDefault();
+const mapStateToProps = state => ({
+  authenticated: state.common.authenticated
+});
+
+class ImagePicker extends React.Component {
+  constructor() {
+    super();
+
+    this.handleClick = ev => {
+      ev.preventDefault();
+      this.props.openLightbox(this.props.images);
+    }
   }
 
-  if (props.images && props.images.length > 0) {
-    const imgSrc = props.images[0].indexOf('http://') == 0 ? ("https://images.weserv.nl/?url=" 
-    +  encodeURIComponent(props.images[0].replace(/^https?\:\/\//i, ""))) : props.images[0];
-    // let index = Math.floor(Math.random() * (props.images.length-1));
-    return (
-       <img src={imgSrc} className="center-img" onClick={handleClick} />
-    )
-  }
-  else {
-    return (
-    <img className="center-img" src="../img/views.ramen.temp.png"/>
-    )
+  render() {
+    let images = this.props.images;
+
+    if (images && images.length > 0) {
+      const imgSrc = images[0].indexOf('http://') == 0 ? ("https://images.weserv.nl/?url=" 
+      +  encodeURIComponent(images[0].replace(/^https?\:\/\//i, ""))) : images[0];
+      // let index = Math.floor(Math.random() * (props.images.length-1));
+
+        return (
+           <img src={imgSrc} className="center-img" onClick={this.handleClick} />
+        )
+    }
+    else {
+      return (
+      <img className="center-img" src="../img/views.ramen.temp.png"/>
+      )
+    }
   }
 }
 
-export default ImagePicker;
+export default connect(mapStateToProps, Actions)(ImagePicker);

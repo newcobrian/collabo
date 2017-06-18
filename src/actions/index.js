@@ -100,6 +100,10 @@ export const SHOW_SNACKBAR = 'SHOW_SNACKBAR'
 export const CLOSE_SNACKBAR = 'CLOSE_SNACKBAR'
 export const SHOW_NEW_ITINERARY_MODAL = 'SHOW_NEW_ITINERARY_MODAL'
 export const CREATE_PAGE = 'CREATE_PAGE'
+export const OPEN_LIGHTBOX = 'OPEN_LIGHTBOX'
+export const CLOSE_LIGHTBOX = 'CLOSE_LIGHTBOX'
+export const PREV_LIGHTBOX = 'PREV_LIGHTBOX'
+export const NEXT_LIGHTBOX = 'NEXT_LIGHTBOX'
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -3157,6 +3161,41 @@ export function showModal(type, review, images) {
           review: review
         })
     }
+  }
+}
+
+export function openLightbox(images) {
+  return dispatch => {
+    dispatch({
+      type: OPEN_LIGHTBOX,
+      images: images
+    })
+  }
+}
+
+export function closeLightbox(images) {
+  return dispatch => {
+    dispatch({
+      type: CLOSE_LIGHTBOX
+    })
+  }
+}
+
+export function prevLightbox(index) {
+  return dispatch => {
+    dispatch({
+      type: PREV_LIGHTBOX,
+      index: index
+    })
+  }
+}
+
+export function nextLightbox(index) {
+  return dispatch => {
+    dispatch({
+      type: NEXT_LIGHTBOX,
+      index: index
+    })
   }
 }
 
