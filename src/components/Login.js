@@ -5,8 +5,7 @@ import { connect } from 'react-redux';
 import * as Actions from '../actions';
 
 const mapStateToProps = state => ({ 
-  ...state.auth,
-  authenticationError: state.auth.error
+  ...state.auth
 });
 
 // const mapDispatchToProps = dispatch => ({
@@ -57,7 +56,7 @@ class Login extends React.Component {
                 </Link>
               </div>
 
-              <ListErrors errors={this.props.error} />
+              <ListErrors errors={this.props.errors} />
 
               <form onSubmit={this.submitForm(email, password)}>
                 <fieldset>

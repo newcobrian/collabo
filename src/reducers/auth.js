@@ -31,7 +31,7 @@ export default (state = {}, action) => {
     case AUTH_ERROR:
       return {
         ...state,
-        errors: [action.error]
+        errors: [action.error.message]
       };
     case SIGN_OUT_USER:
       return {

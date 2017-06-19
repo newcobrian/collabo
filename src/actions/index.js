@@ -191,13 +191,13 @@ export function signUpUser(username, email, password) {
     if (username.length === 1) {
       dispatch({
         type: AUTH_ERROR,
-        error: 'Username must be longer than 1 character'
+        error: {message: 'Username must be longer than 1 character'}
       })
     }
     else if (Constants.INVALID_USERNAMES.indexOf(username) > -1) {
       dispatch({
         type: AUTH_ERROR,
-        error: 'Username is already taken'
+        error: {message: 'Username is already taken'}
       })
     }
     else {
@@ -205,7 +205,7 @@ export function signUpUser(username, email, password) {
         if (snapshot.exists()) {
           dispatch({
             type: AUTH_ERROR,
-            error: 'Username is already taken'
+            error: {message: 'Username is already taken'}
           });
         } 
         else {
@@ -246,7 +246,14 @@ export function signUpUser(username, email, password) {
 
 export function signInUser(email, password) {
   return function(dispatch) {
-    Firebase.auth().signInWithEmailAndPassword(email, password)
+    if (!password || password === '') {
+      dispatch({
+        type: AUTH_ERROR,
+        error: {message: 'Please enter a password'}
+      })
+    }
+    else {
+      Firebase.auth().signInWithEmailAndPassword(email, password)
       .then(response => {
         dispatch({
           type: AUTH_USER,
@@ -261,6 +268,7 @@ export function signInUser(email, password) {
       .catch(error => {
         dispatch(authError(error));
       });
+    }
   }
 }
 
@@ -560,7 +568,7 @@ export function unfollowUser(authenticated, following) {
 export function authError(error) {
   return {
     type: AUTH_ERROR,
-    payload: error
+    error: error
   }
 }
 
