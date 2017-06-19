@@ -31,6 +31,7 @@ export const GET_REVIEWS_BY_USER = 'GET_REVIEWS_BY_USER';
 export const GET_LIKES_OR_SAVES_BY_USER = 'GET_LIKES_OR_SAVES_BY_USER';
 export const GET_LIKES_BY_USER = 'GET_LIKES_BY_USER';
 export const REVIEWS_BY_USER_UNLOADED = 'REVIEWS_BY_USER_UNLOADED';
+export const ITINERARIES_BY_USER_UNLOADED = 'ITINERARIES_BY_USER_UNLOADED';
 export const GET_USER_FEED = 'GET_USER_FEED';
 export const USER_FEED_UNLOADED = 'USER_FEED_UNLOADED';
 export const GET_GLOBAL_FEED = 'GET_GLOBAL_FEED';
@@ -2046,110 +2047,70 @@ export function getItinerariesByUser(auth, userId) {
           payload: []
         })
       }
-      let feedArray = [];
-      Firebase.database().ref(Constants.USERS_PATH + '/' + userId).on('value', userSnapshot => {
-        itinerariesSnapshot.forEach(function(itin) {
-          Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itin.key).on('value', likesSnapshot => {
-            Firebase.database().ref(Constants.IMAGES_ITINERARIES_BY_USER_PATH + '/' + auth + '/' + itin.key).on('value', itinImagesSnapshot => {
-          //   Firebase.database().ref(Constants.COMMENTS_PATH + '/' + itin.key).on('value', commentCountSnapshot => {
-              const itineraryObject = {};
-              const key = { id: itin.key };
-              const createdBy = { createdBy: userSnapshot.val() };
-              createdBy.createdBy.userId = userId
-              let likes = {
-                isLiked: likesSnapshot.exists()
-              }
-
-              let commentObject = {};
-              // if (commentCountSnapshot.exists()) {
-              //   commentObject.comments = {
-              //         lastComment: '',
-              //         commentorImage: '',
-              //         username: ''                  
-              //   }
-              // }
-
-              let itinImages = Helpers.getImagePath(itinImagesSnapshot.val());
-              
-              Object.assign(itineraryObject, itin.val(), key, createdBy, likes, commentObject, {images: itinImages});
-
-              // if (itin.val().subject && itin.val().subject.images) {
-              //   reviewObject.subject.image = Helpers.getImagePath(itin.val().subject.images);
-              // }
-
-              feedArray = [itineraryObject].concat(feedArray);
-              feedArray.sort(lastModifiedDesc);
-              // console.log('feed array = ' + JSON.stringify(feedArray))
-              dispatch({
-                type: GET_ITINERARIES_BY_USER,
-                payload: feedArray
-              })
-            })
-          })  
-        });
-      })
-    })
-  }
-}
-
-export function getReviewsByUser2(appUserId, userId) {
-  return dispatch => {
-    Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + userId).orderByChild('lastModified').on('value', reviewsSnapshot => {
-      if (!reviewsSnapshot.exists()) {
-        dispatch({
-          type: GET_REVIEWS_BY_USER,
-          payload: []
-        })
-      }
-      let feedArray = [];
-      Firebase.database().ref(Constants.USERS_PATH + '/' + userId).on('value', userSnapshot => {
-        reviewsSnapshot.forEach(function(review) {
-          Firebase.database().ref(Constants.LIKES_PATH + '/' + review.key).on('value', likesSnapshot => {
-            Firebase.database().ref(Constants.SAVES_BY_USER_PATH + '/' + appUserId + '/' + review.key).on('value', savesSnapshot => {
-              Firebase.database().ref(Constants.COMMENTS_PATH + '/' + review.key).on('value', commentCountSnapshot => {
-                const reviewObject = {};
-                const key = { id: review.key };
-                const reviewer = { reviewer: userSnapshot.val() };
-                reviewer.reviewer.userId = userId
-                let isLiked = false;
-                if (likesSnapshot.val()) {
-                  isLiked = searchLikes(appUserId, likesSnapshot.val());
-                }
+      else {
+        let feedArray = [];
+        Firebase.database().ref(Constants.USERS_PATH + '/' + userId).on('value', userSnapshot => {
+          itinerariesSnapshot.forEach(function(itin) {
+            Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itin.key).on('value', likesSnapshot => {
+              Firebase.database().ref(Constants.IMAGES_ITINERARIES_BY_USER_PATH + '/' + auth + '/' + itin.key).on('value', itinImagesSnapshot => {
+            //   Firebase.database().ref(Constants.COMMENTS_PATH + '/' + itin.key).on('value', commentCountSnapshot => {
+                const itineraryObject = {};
+                const key = { id: itin.key };
+                const createdBy = { createdBy: userSnapshot.val() };
+                createdBy.createdBy.userId = userId
                 let likes = {
-                  isLiked: isLiked
-                }
-
-                let saved = {
-                  isSaved: savesSnapshot.exists()
+                  isLiked: likesSnapshot.exists()
                 }
 
                 let commentObject = {};
-                if (commentCountSnapshot.exists()) {
-                  commentObject.comments = {
-                        lastComment: '',
-                        commentorImage: '',
-                        username: ''                  
-                  }
-                }
+                // if (commentCountSnapshot.exists()) {
+                //   commentObject.comments = {
+                //         lastComment: '',
+                //         commentorImage: '',
+                //         username: ''                  
+                //   }
+                // }
+
+                let itinImages = Helpers.getImagePath(itinImagesSnapshot.val());
                 
-                Object.assign(reviewObject, review.val(), key, reviewer, likes, saved, commentObject);
+                Object.assign(itineraryObject, itin.val(), key, createdBy, likes, commentObject, {images: itinImages});
 
-                if (review.val().subject && review.val().subject.images) {
-                  reviewObject.subject.image = Helpers.getImagePath(review.val().subject.images);
-                }
+                // if (itin.val().subject && itin.val().subject.images) {
+                //   reviewObject.subject.image = Helpers.getImagePath(itin.val().subject.images);
+                // }
 
-                feedArray = [reviewObject].concat(feedArray);
+                feedArray = [itineraryObject].concat(feedArray);
                 feedArray.sort(lastModifiedDesc);
+                // console.log('feed array = ' + JSON.stringify(feedArray))
                 dispatch({
-                  type: GET_REVIEWS_BY_USER,
+                  type: GET_ITINERARIES_BY_USER,
                   payload: feedArray
                 })
               })
             })  
-          })
-        });
-      })
+          });
+        })
+      }
     })
+  }
+}
+
+export function unloadItinerariesByUser(auth, userId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + userId).on('value', itinerariesSnapshot => {
+      if (itinerariesSnapshot.exists()) {
+        Firebase.database().ref(Constants.USERS_PATH + '/' + userId).off();
+        itinerariesSnapshot.forEach(function(itin) {
+          Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itin.key).off();
+          Firebase.database().ref(Constants.IMAGES_ITINERARIES_BY_USER_PATH + '/' + auth + '/' + itin.key).off();
+        })
+      }
+    })
+    Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + userId).off();
+
+    dispatch({
+      type: ITINERARIES_BY_USER_UNLOADED
+    });
   }
 }
 
@@ -2219,8 +2180,6 @@ export function getLikesByUser(auth, userId) {
   }
 }
 
-
-
 export function unloadReviewsByUser(userId) {
   return dispatch => {
     Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + userId).orderByChild('lastModified').once('value', reviewsSnapshot => {
@@ -2238,9 +2197,6 @@ export function unloadReviewsByUser(userId) {
     });
   }
 }
-
-
-
 
 export function unloadLikesByUser(auth, userId) {
     return dispatch => {

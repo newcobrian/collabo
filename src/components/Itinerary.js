@@ -48,19 +48,34 @@ const mapStateToProps = state => ({
 class Itinerary extends React.Component {
   constructor() {
     super();
+
+    this.loadItinerary = iid => {
+      if (iid) {
+        this.props.getItinerary(this.props.authenticated, iid);
+        this.props.getItineraryComments(iid);
+      }
+      this.props.sendMixpanelEvent('Itinerary page loaded');
+    }
+
+    this.unloadItinerary = itineraryId => {
+      this.props.onItineraryUnload(itineraryId);
+      this.props.unloadItineraryComments(itineraryId);
+    }
   }
 
   componentWillMount() {
-    if (this.props.params.iid) {
-      this.props.getItinerary(this.props.authenticated, this.props.params.iid);
-      this.props.getItineraryComments(this.props.params.iid);
-    }
-    this.props.sendMixpanelEvent('Itinerary page loaded');
+    this.loadItinerary(this.props.params.iid);
   }
 
   componentWillUnmount() {
-    this.props.onItineraryUnload(this.props.itineraryId);
-    this.props.unloadItineraryComments(this.props.itineraryId);
+    this.unloadItinerary(this.props.itineraryId);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.params.iid !== this.props.params.iid) {
+      this.unloadItinerary(this.props.itineraryId);
+      this.loadItinerary(nextProps.params.iid);
+    }
   }
 
   render() {
