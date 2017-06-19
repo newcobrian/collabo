@@ -26,28 +26,28 @@ const ProfileInfo = props => {
       props.profile.userId === props.authenticated;
 
     return (
-        <div className="user-info bottom-divider">
+        <div className="user-info w-100 w-max">
 
-          <div className="profile-info flx flx-col flx-align-center flx-just-center">
-
-            <ProxyImage src={profile.image} className="user-img" />
-            <div className="user-data flx flx-col flx-align-center">
-              <div className="user-name">{profile.username}</div>
-              <div className="user-bio flx flx-col flx-align-center">
-                <div>{profile.bio}</div>
-                <div className="user-action flx flx-row-top">
-                  <EditProfileSettings isUser={isUser} />
-                  
-                  
-                  <FollowUserButton
-                  authenticated={props.authenticated}
-                  isUser={isUser}
-                  user={profile}
-                  follow={props.follow}
-                  unfollow={props.unfollow}
-                  />
-                </div>
+          <div className="profile-info flx flx-row flx-align-start flx-just-start w-100 w-max">
+            <div className="flx flx-col flx-align-center mrgn-right-md">
+              <ProxyImage src={profile.image} className="user-img" />
+            </div>
+            <div className="user-bio ta-left flx flx-col flx-align-start">
+              <div className="flx flx-row flx-just-start flx-align-center">
+                <div className="user-name">{profile.username}</div>
               </div>
+              <div>{profile.bio}</div>
+              <div className="user-action flx flx-row-top">
+                <EditProfileSettings isUser={isUser} />
+                <FollowUserButton
+                authenticated={props.authenticated}
+                isUser={isUser}
+                user={profile}
+                follow={props.follow}
+                unfollow={props.unfollow}
+                />
+              </div>
+            </div>
               {/*}
               <div className="flx flx-row-left profile-followers-wrapper">
                 <Link to={`followers/${profile.username}`}>
@@ -60,7 +60,6 @@ const ProfileInfo = props => {
             */}
             </div>
           </div>
-        </div>
     )
 }
 

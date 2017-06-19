@@ -71,7 +71,7 @@ const ItineraryPreview = props => {
         {/** USER PHOTO AND INFO **/}
         <div className="flx flx-col flx-just-start ta-left w-100">
           
-          <div className="flx flx-row flx-align-center flx-just-start v2-type-body1 mrgn-bottom-md w-100">
+          <div className="flx flx-row flx-align-center flx-just-start v2-type-body1 mrgn-bottom-sm w-100">
             <div className="itinerary__cover__author-photo mrgn-right-md">
               <ProxyImage src={itinerary.createdBy.image} className="center-img" />
             </div>
@@ -106,7 +106,7 @@ const ItineraryPreview = props => {
          
 
           {/** CTA **/}
-          <div className="flx flx-row flx-align-center w-100 flx-just-center">
+          <div className="flx flx-row flx-align-center w-100 flx-just-center mrgn-top-sm">
             <div className="cta-box flx flx-row">
               <div className="cta-wrapper flx flx-row flx-just-end flex-item-right flx-row-reverse mrgn-right-md">
                 <LikeReviewButton

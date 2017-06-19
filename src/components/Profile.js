@@ -73,7 +73,7 @@ class Profile extends React.Component {
 
   renderTabs() {
     return (
-      <div className="feed-toggle flx flx-row flx-just-center">
+      <div className="feed-toggle flx flx-row flx-just-start w-100 w-max">
         <ul className="nav nav-pills outline-active">
           <li className="nav-item">
             <Link
@@ -133,7 +133,7 @@ class Profile extends React.Component {
       this.props.profile.userId === this.props.currentUser.uid;
 
     return (
-      <div className="flx flx-col page-common profile-page">
+      <div className="flx flx-col page-common profile-page flx-align-center">
 
         <ProfileInfo
           authenticated={this.props.authenticated}

@@ -187,6 +187,7 @@ class Create extends React.Component {
 		                        className="input--underline"
 		                        type="text"
 		                        rows="6"
+		                        maxlength="184"
 		                        placeholder="What's the story behind this itinerary?"
 		                        required
 		                        value={this.props.description}

@@ -231,7 +231,7 @@ let EditItineraryForm = props => {
 
           <div className="container--editor flx flx-col flx-just-center flx-align-center">
 
-            <div className="itinerary__summary ta-left DN">
+            <div className="itinerary__summary ta-left">
              
 
              {/*} <div>
@@ -244,7 +244,7 @@ let EditItineraryForm = props => {
                 <label>Description</label>
                 <Field name="itinerary.description" component="textarea" rows="8" type="text" label="Description" />
               </div>
-              <div>
+              <div className="DN">
                 <label>Upload Images</label>
                  <Field
                 name={`itinerary.images`}

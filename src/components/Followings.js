@@ -32,7 +32,7 @@ class Followings extends Followers {
 
   renderTabs() {
     return (
-      <div className="feed-toggle flx flx-row flx-just-center">
+      <div className="feed-toggle flx flx-row flx-just-start w-100 w-max">
         <ul className="nav nav-pills outline-active">
           <li className="nav-item">
             <Link

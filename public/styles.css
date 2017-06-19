@@ -243,12 +243,14 @@ input[type="radio"]:checked + label span {
 .v-button--light,
 .vb--light {
   background: white;
-  color: #0AAAD5;
+  color: #295BA2;
   opacity: 1;
-  font-size: 11px;
   border: 1px solid #BFC7BE;
   box-shadow: none;
   padding: 8px 10px;
+  font-weight: 300 !important;
+  font-size: 10px;
+  letter-spacing: 2px;
 }
 
 .vb--no-outline {
@@ -802,15 +804,15 @@ svg {
 }
 .profile-page .user-info {
   background: white;
-  padding: 20px;
+  padding: 20px 0 0;
   width: 100%;
 }
 .profile-page .user-info .user-img {
   background: #E6E7E8;
   margin: 10px 0;
   object-fit: cover;
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
 }
 .profile-page .user-info .user-data {
   background: white;
@@ -822,10 +824,9 @@ svg {
       margin: 10px 0 0;
     }
     .user-bio {
-      font-size: 22px;
+      font-size: 18px;
       font-weight: 300;
       font-family: Helvetica, sans-serif;
-      padding: 20px;
       max-width: 600px;
     }
 .profile-page .profile-followers-wrapper {
@@ -845,6 +846,7 @@ svg {
 .nav-pills.outline-active .nav-link:hover {
     border-bottom: #79D5DD 3px solid !important;
     border-bottom: #A2D0FB 3px solid !important;
+    border-bottom: #295BA2 3px solid !important;
     color: #0C111D !important;
     opacity: 1;
     background-color: transparent !important;
@@ -870,7 +872,9 @@ li.nav-divider {
     float: none;
 }
 
+.profile-info {
 
+}
 
 /******
 ******
@@ -897,7 +901,7 @@ li.nav-divider {
 .profile-page .feed-toggle {
   width: 100%;
   margin: 0;
-  padding: 5px 0;
+  padding: 20px 0;
 }
 .profile-page .feed-toggle .nav {
   height: 26px;

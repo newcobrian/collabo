@@ -41,7 +41,7 @@ const LoggedInView = props => {
 
         <Link to="create" activeClassName="active" className="nav-module create nav-editor flx flx-center-all">  
             <div className="nav-text flx flx-row flx-align-center">
-              <img className="mrgn-right-sm center-img" src="../img/icon.add--blue.png"/> Create New Itinerary
+              <img className="mrgn-right-sm center-img" src="../img/icon.add--blue.png"/> New Itinerary
             </div>
         </Link>
 

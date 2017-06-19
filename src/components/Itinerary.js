@@ -100,15 +100,14 @@ class Itinerary extends React.Component {
                     <div className="itinerary__summary__author-photo mrgn-right-md">
                       <ProxyImage src={itinerary.createdBy.image} className="center-img" />
                     </div>
-                    <div className="itinerary__author-name ta-center v2-type-body1 mrgn-right-md">
+                    <div className="itinerary__author-name ta-left v2-type-body1 mrgn-right-md">
                       {itinerary.createdBy.username}
                     </div>
                     {/* Flag */}
-                    <div className="itinerary__summary__flag opa-50 mrgn-right-md">
-                      
+                    <div className="itinerary__summary__flag mrgn-right-md">
                     </div>
                     {/* Location */}
-                    <div className="itinerary__summary__location opa-50 geo-label mrgn-right-md">
+                    <div className="itinerary__summary__location opa-50 geo-type mrgn-right-lg">
                       {itinerary.geo.label}
                     </div>
 

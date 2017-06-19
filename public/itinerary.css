@@ -26,22 +26,23 @@
     background-color: #ccc;
 }
 .itinerary__cover__author-photo {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 100px;
     overflow: hidden;
     flex-shrink: 0;
 }
-
 .itinerary__summary__author-photo img,
 .itinerary__cover__author-photo img {
 	width: 100%;
     height: 100%;
 }
-.itinerary__summary__flag {
+.itinerary__author-name  {
+	min-width: 100px;
+}
+.itinerary__summary .itinerary__summary__flag {
 	height: 50px;
 	width: 70px;
-	background: #ccc;
 }
 .itinerary__summary__location {
 
@@ -95,7 +96,7 @@
 
 .itinerary__comments-module {
 	width: 100%;
-	padding: 40px;
+	padding: 40px 0;
 }
 
 
@@ -119,12 +120,18 @@
 }
 
 
+
+
+
+
+
 /** TIP COVER **/
 .itinerary__cover {
-	height: 260px;
+	height: 240px;
 	width: 100%;
-	padding: 20px 0;
+	padding: 10px 0;
 	border-bottom: 1px solid rgba(0,0,0,.1);
+	border-bottom: 1px solid #EBEFF5;
 	background: white;
 	/*box-shadow: 0 6px 0 0px rgba(0,0,0,.05);*/
 }
@@ -142,7 +149,7 @@
   font-size: 11px;
 }
 .itinerary__cover__image {
-	width: 400px;
+	width: 360px;
 	height: 220px;
 	overflow: hidden;
 	flex-shrink: 0;
@@ -160,15 +167,16 @@
 }
 .itinerary__cover__descrip {
   height: 90px;
-  overflow: hidden;
 }
-.itinerary__cover__flag {
-	height: 40px;
-	width: 50px;
-	background: #ccc;
+.itinerary__cover__flag,
+.itinerary__summary__flag {
+	height: 30px;
+	width: 40px;
+	background: no-repeat 100% url("img/flags/usa.png");
+	background-size: contain;
 }
 .itinerary__cover__username {
-	width: 100px;
+	width: 120px;
 }
 
 
