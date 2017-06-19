@@ -148,7 +148,7 @@ export function sendInboxMessage(senderId, recipientId, messageType, sendObject)
 				// if (sendObject.subject.images) inboxObject.reviewImage = getImagePath(sendObject.subject.images);
 				// if (sendObject.subject.title) inboxObject.reviewTitle = sendObject.subject.title;
 				// if (sendObject && sendObject.images) inboxObject.reviewImage = getImagePath(sendObject.images);
-				if (sendObject && sendObject.images) inboxObject.reviewImage = sendObject.images[0];
+				if (sendObject && sendObject.images && sendObject.images[0]) inboxObject.reviewImage = sendObject.images[0];
 				if (sendObject && sendObject.title) inboxObject.reviewTitle = sendObject.title;
 
 				switch(messageType) {
