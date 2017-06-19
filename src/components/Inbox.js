@@ -24,7 +24,7 @@ const LeftSenderPic = props => {
     return (
       <div className="">
         <Link
-        to={`@${props.username}`}
+        to={`${props.username}`}
         className="comment-author">
           <div className="reviewer-photo center-img">
             <ProxyImage src={props.image} className="comment-author-img" />
@@ -49,7 +49,7 @@ const RenderUsername = props => {
   if (props.senderId) {
     return (
       <Link
-          to={`@${props.username}`}
+          to={`${props.username}`}
           className="comment-author">
           {props.username}
       </Link>

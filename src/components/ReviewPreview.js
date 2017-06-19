@@ -142,7 +142,7 @@ const ReviewPreview = props => {
         <div className="roow roow-row-top pic-and-review">
           <div className="review-data-container roow roow-col-center">
               
-              <Link to={`@${review.reviewer.username}`}>
+              <Link to={`${review.reviewer.username}`}>
                     <div className="reviewer-photo DN center-img mrgn-right-lg mrgn-top-sm"><ProxyImage src={review.reviewer.image}/></div>
                 </Link>
 
@@ -153,7 +153,7 @@ const ReviewPreview = props => {
               <div className="subject-caption v2-type-body2 center-text pdding-top-sm">
                 {review.caption}
               </div>
-              <Link to={`@${review.reviewer.username}`}>
+              <Link to={`${review.reviewer.username}`}>
                 <div className="reviewer-name v2-type-h3 center-text">
                   <span className="dash">-</span> {review.reviewer.username}
                 </div>
@@ -241,7 +241,7 @@ const ReviewPreview = props => {
   //         <div className="roow roow-row-top pic-and-review">
   //           <div className="review-data-container roow roow-col-center">
                 
-  //               <Link to={`@${review.reviewer.username}`}>
+  //               <Link to={`${review.reviewer.username}`}>
   //                     <div className="reviewer-photo DN center-img mrgn-right-lg mrgn-top-sm"><ProxyImage src={review.reviewer.image}/></div>
   //                 </Link>
 
@@ -261,7 +261,7 @@ const ReviewPreview = props => {
   //               <div className="subject-caption v2-type-body2 center-text pdding-top-sm">
   //                 {review.caption}
   //               </div>
-  //               <Link to={`@${review.reviewer.username}`}>
+  //               <Link to={`${review.reviewer.username}`}>
   //                 <div className="reviewer-name v2-type-h3 center-text">
   //                   <span className="dash">-</span> {review.reviewer.username}
   //                 </div>

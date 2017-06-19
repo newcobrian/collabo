@@ -78,7 +78,7 @@ class Profile extends React.Component {
           <li className="nav-item">
             <Link
               className="nav-link active"
-              to={`@${this.props.profile.username}`}>
+              to={`${this.props.profile.username}`}>
               Itineraries
             </Link>
           </li>
@@ -86,7 +86,7 @@ class Profile extends React.Component {
           <li className="nav-item">
             <Link
               className="nav-link"
-              to={`@${this.props.profile.username}/likes`}>
+              to={`${this.props.profile.username}/likes`}>
               Likes
             </Link>
           </li>
@@ -94,7 +94,7 @@ class Profile extends React.Component {
           <li className="nav-item">
             <Link
               className="nav-link"
-              to={`@${this.props.profile.username}/followers`}>
+              to={`${this.props.profile.username}/followers`}>
               Followers
             </Link>
           </li>
@@ -102,7 +102,7 @@ class Profile extends React.Component {
           <li className="nav-item">
             <Link
               className="nav-link"
-              to={`@${this.props.profile.username}/isfollowing`}>
+              to={`${this.props.profile.username}/isfollowing`}>
               Is Following
             </Link>
           </li>
