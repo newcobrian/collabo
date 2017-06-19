@@ -111,7 +111,7 @@ class Followers extends React.Component {
 			          	return (
 			          		<div className="flx flx-col list-row flx-center-all ta-center" key={follower.userId}>
 				          		<Link
-						          to={`@${follower.username}`}
+						          to={`${follower.username}`}
 						          className="">
 						          	<div className="user-image center-img">
 						          		<ProxyImage src={follower.image} className="comment-author-img" />
@@ -120,7 +120,7 @@ class Followers extends React.Component {
 							    <div className="flx flx-col flx-align-center">
 								    <div>
 									   	<Link
-								          to={`@${follower.username}`}
+								          to={`${follower.username}`}
 								          className="color--black">
 								          {follower.username}
 								        </Link>
