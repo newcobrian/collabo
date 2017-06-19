@@ -83,6 +83,29 @@ class ProfileLikes extends Profile {
     if (!this.props.profile) {
       return null;
     }
+    if (this.props.profile.length === 0) {
+      return (<div>User does not exist.</div>);
+    }
+    if (!this.props.feed) {
+      return null;
+    }
+    if (this.props.feed.length === 0) {
+      return (
+        <div className="flx flx-col page-common profile-page flx-align-center">
+          <ProfileInfo
+            authenticated={this.props.authenticated}
+            profile={this.props.profile}
+            follow={this.props.followUser}
+            unfollow={this.props.unfollowUser} />
+
+          {this.renderTabs()}
+          
+          <div className="flx flx-row flx-just-center w-100">
+            <div>{this.props.profile.username} has not liked anything yet.</div>
+          </div>
+        </div>
+      )
+    }
 
     const profile = this.props.profile;
     profile.isFollowing = this.props.isFollowing;

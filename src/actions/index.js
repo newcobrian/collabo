@@ -2120,54 +2120,56 @@ export function getLikesByUser(auth, userId) {
     Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).orderByChild('lastModified').on('value', likesByUserSnapshot => {
       if (!likesByUserSnapshot.exists()) {
         dispatch({
-          type: GET_LIKES_OR_SAVES_BY_USER,
+          type: GET_LIKES_BY_USER,
           payload: []
         })
       }
-      likesByUserSnapshot.forEach(function(likeItem) {
-        let objectPath = (likeItem.val().type === Constants.ITINERARY_TYPE ? Constants.ITINERARIES_PATH : Constants.REVIEWS_PATH);
-        let imagePath = (likeItem.val().type === Constants.ITINERARY_TYPE ? 
-          (Constants.IMAGES_ITINERARIES_PATH + '/' + likeItem.key) : 
-          (Constants.IMAGES_PATH + '/' + likeItem.val().subjectId) );
-        Firebase.database().ref(objectPath + '/' + likeItem.key).on('value', objectSnapshot => {
-          Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + likeItem.val().subjectId).on('value', subjectSnapshot => {
-            Firebase.database().ref(Constants.USERS_PATH + '/' + objectSnapshot.val().userId).on('value', userSnapshot => {
-              Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + likeItem.key).on('value', isLikedSnapshot => {
-                Firebase.database().ref(Constants.COMMENTS_PATH + '/' + likeItem.key).on('value', commentSnapshot => {
-                  Firebase.database().ref(imagePath).on('value', imagesSnapshot => {
-                    const containerObject = {};
-                    const key = { id: likeItem.key };
-                    const createdBy = { createdBy: userSnapshot.val(), userId: userSnapshot.key };
-                    let likes = { 
-                      isLiked: isLikedSnapshot.exists()
-                    }
+      else {
+        likesByUserSnapshot.forEach(function(likeItem) {
+          let objectPath = (likeItem.val().type === Constants.ITINERARY_TYPE ? Constants.ITINERARIES_PATH : Constants.REVIEWS_PATH);
+          let imagePath = (likeItem.val().type === Constants.ITINERARY_TYPE ? 
+            (Constants.IMAGES_ITINERARIES_PATH + '/' + likeItem.key) : 
+            (Constants.IMAGES_PATH + '/' + likeItem.val().subjectId) );
+          Firebase.database().ref(objectPath + '/' + likeItem.key).on('value', objectSnapshot => {
+            Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + likeItem.val().subjectId).on('value', subjectSnapshot => {
+              Firebase.database().ref(Constants.USERS_PATH + '/' + objectSnapshot.val().userId).on('value', userSnapshot => {
+                Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + likeItem.key).on('value', isLikedSnapshot => {
+                  Firebase.database().ref(Constants.COMMENTS_PATH + '/' + likeItem.key).on('value', commentSnapshot => {
+                    Firebase.database().ref(imagePath).on('value', imagesSnapshot => {
+                      const containerObject = {};
+                      const key = { id: likeItem.key };
+                      const createdBy = { createdBy: userSnapshot.val(), userId: userSnapshot.key };
+                      let likes = { 
+                        isLiked: isLikedSnapshot.exists()
+                      }
 
-                    let itineraryObject = {};
-                    let reviewObject = {};
+                      let itineraryObject = {};
+                      let reviewObject = {};
 
-                    let comments = [];
-                    commentSnapshot.forEach(function(commentChild) {
-                      const comment = Object.assign({}, { id: commentChild.key }, commentChild.val());
-                      comments = comments.concat(comment);
-                    })
-                    comments.sort(lastModifiedAsc);
+                      let comments = [];
+                      commentSnapshot.forEach(function(commentChild) {
+                        const comment = Object.assign({}, { id: commentChild.key }, commentChild.val());
+                        comments = comments.concat(comment);
+                      })
+                      comments.sort(lastModifiedAsc);
 
-                    let images = Helpers.getImagePath(imagesSnapshot.val());
+                      let images = Helpers.getImagePath(imagesSnapshot.val());
 
-                    if (likeItem.val().type === Constants.ITINERARY_TYPE) {
-                      Object.assign(itineraryObject, objectSnapshot.val(), key, createdBy, likes, {comments: comments}, {images: images});
-                    }
-                    else {
-                      Object.assign(reviewObject, key, objectSnapshot.val(), subjectSnapshot.val(), createdBy, likes, {comments: comments}, {images: images})
-                    }
+                      if (likeItem.val().type === Constants.ITINERARY_TYPE) {
+                        Object.assign(itineraryObject, objectSnapshot.val(), key, createdBy, likes, {comments: comments}, {images: images});
+                      }
+                      else {
+                        Object.assign(reviewObject, key, objectSnapshot.val(), subjectSnapshot.val(), createdBy, likes, {comments: comments}, {images: images})
+                      }
 
-                    Object.assign(containerObject, {review: reviewObject}, {itinerary: itineraryObject});
-                    likesArray = [containerObject].concat(likesArray);
-                    likesArray.sort(lastModifiedDesc);
+                      Object.assign(containerObject, {review: reviewObject}, {itinerary: itineraryObject});
+                      likesArray = [containerObject].concat(likesArray);
+                      likesArray.sort(lastModifiedDesc);
 
-                    dispatch({
-                      type: GET_LIKES_BY_USER,
-                      payload: likesArray
+                      dispatch({
+                        type: GET_LIKES_BY_USER,
+                        payload: likesArray
+                      })
                     })
                   })
                 })
@@ -2175,7 +2177,7 @@ export function getLikesByUser(auth, userId) {
             })
           })
         })
-      })
+      }
     })
   }
 }

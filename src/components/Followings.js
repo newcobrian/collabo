@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 import Firebase from 'firebase';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
+import FollowUserButton from './FollowUserButton';
+import ProxyImage from './ProxyImage';
+import ProfileInfo from './ProfileInfo';
 
 class Followings extends Followers {
   componentWillMount() {
@@ -67,6 +70,91 @@ class Followings extends Followers {
           </li>
 
         </ul>
+      </div>
+    );
+  }
+
+    render() {
+      if (!this.props.profile) {
+        return null;
+      }
+      if (this.props.profile.length === 0) {
+        return (<div>User does not exist.</div>);
+      }
+
+      if (!this.props.followers) {
+        return null;
+      }
+      if (this.props.followers.length === 0) {
+        return (
+          <div className="flx flx-col page-common profile-page flx-align-center">
+            <ProfileInfo
+              authenticated={this.props.authenticated}
+              profile={this.props.profile}
+              follow={this.props.followUser}
+              unfollow={this.props.unfollowUser} />
+
+            {this.renderTabs()}
+            
+            <div className="flx flx-row flx-just-center w-100">
+              <div>{this.props.profile.username} has no followers yet.</div>
+            </div>
+          </div>
+        )
+      }
+    const profile = this.props.profile;
+    profile.isFollowing = this.props.isFollowing;
+
+      return (
+        <div className="flx flx-col flx-align-center page-common profile-page">
+
+            <ProfileInfo
+              authenticated={this.props.authenticated}
+              profile={profile}
+              follow={this.props.followUser}
+              unfollow={this.props.unfollowUser} />
+
+
+            {this.renderTabs()}
+
+          <div className="flx flx-row page-common follow-page flx-align-center pdding-top-md">
+            {
+              this.props.followers.map(follower => {
+                const isUser = this.props.currentUser &&
+                  follower.userId === this.props.currentUser.uid;
+                  return (
+                    <div className="flx flx-col list-row flx-center-all ta-center" key={follower.userId}>
+                      <Link
+                      to={`${follower.username}`}
+                      className="">
+                        <div className="user-image center-img">
+                          <ProxyImage src={follower.image} className="comment-author-img" />
+                      </div>
+                    </Link>
+                  <div className="flx flx-col flx-align-center">
+                    <div>
+                      <Link
+                          to={`${follower.username}`}
+                          className="color--black">
+                          {follower.username}
+                        </Link>
+                    </div>
+                    <div>
+                      <FollowUserButton
+                      authenticated={this.props.authenticated}
+                            isUser={isUser}
+                            user={follower}
+                            follow={this.props.followUser}
+                            unfollow={this.props.unfollowUser}
+                            isFollowing={follower.isFollowing}
+                            />
+                        </div>
+                    </div>
+              </div>
+                  )
+              })
+            }
+          </div>
       </div>
     );
   }

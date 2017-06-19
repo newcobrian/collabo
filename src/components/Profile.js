@@ -145,43 +145,59 @@ class Profile extends React.Component {
       return null;
     }
     if (this.props.itineraries.length === 0) {
-      return (<div>{this.props.profile.username} has not created any itineraries.</div>)
-    }
-    let profile = this.props.profile;
-    profile.isFollowing = this.props.isFollowing;
+      return (
+        <div className="flx flx-col page-common profile-page flx-align-center">
+          <ProfileInfo
+            authenticated={this.props.authenticated}
+            profile={this.props.profile}
+            follow={this.props.followUser}
+            unfollow={this.props.unfollowUser} />
 
-    const isUser = this.props.currentUser &&
-      this.props.profile.userId === this.props.currentUser.uid;
-
-    return (
-      <div className="flx flx-col page-common profile-page flx-align-center">
-
-        <ProfileInfo
-          authenticated={this.props.authenticated}
-          profile={profile}
-          follow={this.props.followUser}
-          unfollow={this.props.unfollowUser} />
-
-
-        {this.renderTabs()}
-        
-        <div className="flx flx-row flx-just-center w-100">
-     
-          <ItineraryList
-            itineraries={this.props.itineraries} 
-            authenticated={this.props.authenticated} 
-            like={this.props.likeReview} 
-            unLike={this.props.unLikeReview}
-            deleteItinerary={this.props.showDeleteModal}
-
-            currentPage={this.props.currentPage}
-            updateRating={this.props.onUpdateRating}
-            onSetPage={this.onSetPage}
-            deleteReview={this.props.onDeleteReview}
-            showModal={this.props.showModal} />
+          {this.renderTabs()}
+          
+          <div className="flx flx-row flx-just-center w-100">
+            <div>{this.props.profile.username} has not created any itineraries.</div>
+          </div>
         </div>
-      </div>
-    );
+      )
+    }
+    else {
+      let profile = this.props.profile;
+      profile.isFollowing = this.props.isFollowing;
+
+      const isUser = this.props.currentUser &&
+        this.props.profile.userId === this.props.currentUser.uid;
+
+      return (
+        <div className="flx flx-col page-common profile-page flx-align-center">
+
+          <ProfileInfo
+            authenticated={this.props.authenticated}
+            profile={profile}
+            follow={this.props.followUser}
+            unfollow={this.props.unfollowUser} />
+
+
+          {this.renderTabs()}
+          
+          <div className="flx flx-row flx-just-center w-100">
+       
+            <ItineraryList
+              itineraries={this.props.itineraries} 
+              authenticated={this.props.authenticated} 
+              like={this.props.likeReview} 
+              unLike={this.props.unLikeReview}
+              deleteItinerary={this.props.showDeleteModal}
+
+              currentPage={this.props.currentPage}
+              updateRating={this.props.onUpdateRating}
+              onSetPage={this.onSetPage}
+              deleteReview={this.props.onDeleteReview}
+              showModal={this.props.showModal} />
+          </div>
+        </div>
+      );
+    }
   }
 }
 

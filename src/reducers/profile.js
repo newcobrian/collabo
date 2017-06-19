@@ -49,6 +49,7 @@ export default (state = {}, action) => {
         reviews: action.payload
       }
     case GET_LIKES_BY_USER:
+    console.log(action.payload)
       return {
         ...state,
         feed: action.payload
