@@ -1,7 +1,7 @@
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
 import React from 'react';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 
 import App from './components/App';
 import Review from './components/Review';
@@ -28,7 +28,7 @@ injectTapEventPlugin();
 
 ReactDOM.render((
   <Provider store={store}>
-    <Router history={browserHistory}>
+    <Router history={hashHistory}>
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
         <Route path="global" component={GlobalFeed} />
