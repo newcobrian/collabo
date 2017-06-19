@@ -44,7 +44,7 @@ class Followers extends React.Component {
 	          <li className="nav-item">
 	            <Link
 	              className="nav-link"
-	              to={`@${this.props.profile.username}`}>
+	              to={`${this.props.profile.username}`}>
 	              Itineraries
 	            </Link>
 	          </li>
@@ -52,7 +52,7 @@ class Followers extends React.Component {
 	          <li className="nav-item">
 	            <Link
 	              className="nav-link"
-	              to={`@${this.props.profile.username}/likes`}>
+	              to={`${this.props.profile.username}/likes`}>
 	              Likes
 	            </Link>
 	          </li>
