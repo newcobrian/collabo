@@ -94,7 +94,7 @@ const ItineraryPreview = props => {
 
             {/** TIMESTAMP **/}
             <div className="itinerary__cover__timestamp ta-center opa-30 flx-item-right flx-self-end">
-              2h{/*{(new Date(itinerary.lastModified)).toLocaleString()}*/}
+              {(new Date(itinerary.lastModified)).toLocaleString()}
             </div> 
 
           </div>

@@ -49,7 +49,7 @@ const mapStateToProps = state => ({
 class Profile extends React.Component {
   componentWillMount() {
     // look up userID from username and load profile
-    Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + this.props.params.username + '/').once('value', snapshot => {
+    Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + this.props.params.username).once('value', snapshot => {
       if (snapshot.exists()) {
         let userId = snapshot.val().userId;
         this.props.getProfileUser(userId);
@@ -59,6 +59,9 @@ class Profile extends React.Component {
         this.props.getFollowingCount(userId);
         this.props.getFollowerCount(userId);
         this.props.sendMixpanelEvent('Profile page loaded');
+      }
+      else {
+        this.props.userDoesntExist();
       }
     });
   }
@@ -113,18 +116,18 @@ class Profile extends React.Component {
   }
 
   render() {
-
     if (!this.props.profile) {
       return null;
     }
     if (this.props.profile.length === 0) {
-      return 'User does not exist.'
+      return (<div>User does not exist.</div>);
     }
+
     if (!this.props.itineraries) {
       return null;
     }
     if (this.props.itineraries.length === 0) {
-      return 'No itineraries created.'
+      return (<div>{this.props.profile.username} has not created any itineraries.</div>)
     }
     let profile = this.props.profile;
     profile.isFollowing = this.props.isFollowing;

@@ -104,6 +104,7 @@ export const OPEN_LIGHTBOX = 'OPEN_LIGHTBOX'
 export const CLOSE_LIGHTBOX = 'CLOSE_LIGHTBOX'
 export const PREV_LIGHTBOX = 'PREV_LIGHTBOX'
 export const NEXT_LIGHTBOX = 'NEXT_LIGHTBOX'
+export const USER_DOESNT_EXIST = 'USER_DOESNT_EXIST'
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -451,6 +452,14 @@ export function unloadProfileFollowing(uid) {
 //     });
 //   }
 // }
+
+export function userDoesntExist() {
+  return dispatch => {
+    dispatch({
+      type: USER_DOESNT_EXIST
+    })
+  }
+}
 
 export function getProfileUser(userId) {
   return dispatch => {
