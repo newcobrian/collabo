@@ -9,13 +9,21 @@ import { FORWARD_MODAL, REVIEW_MODAL } from '../actions';
 import { ITINERARY_TYPE } from '../constants';
 
 const CommentPreview = props => {
-  if (props.comments) {
+  if (props.lastComment) {
     return (
       <Link to={`itinerary/${props.itinerary.id}`}>
         <div className="cta-wrapper flx flx-row flx-just-end flex-item-right flx-row-reverse">
           <div className="flx flx-row flx-just-end flx-align-center">
             <div className="v2-type-body1">{props.itinerary.commentsCount}</div>
             <div className="cta-icon cta-comment"></div>
+            <div className="comment-row">
+                <Link
+                  to={`${props.itinerary.lastComment.username}`}
+                  className="comment-author">
+                  {props.itinerary.lastComment.username}
+                </Link>
+                {props.itinerary.lastComment.body}
+              </div>
           </div>
         </div>
       </Link>
@@ -118,7 +126,7 @@ const ItineraryPreview = props => {
                   likeObject={itinerary}
                   type={ITINERARY_TYPE} />
               </div>
-              <CommentPreview comments={props.itinerary.comments} itinerary={props.itinerary} />
+              <CommentPreview itinerary={props.itinerary} />
             </div>
            
             <div className="tips-count flx-item-right flx-self-end">

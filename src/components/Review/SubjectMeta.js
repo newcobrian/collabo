@@ -10,7 +10,7 @@ const SubjectMeta = props => {
         <ProxyImage src={subject.image} />
 
       <div className="info">
-        {/* <Link to={`@${subject.description}`} className="author"> 
+        {/* <Link to={`${subject.description}`} className="author"> 
           {subject.description}
         </Link> */}
       </div>
