@@ -84,3 +84,7 @@ export const REVIEW_TYPE = 'review'
 
 /*** Tag list ***/
 export const TAG_LIST = []
+
+export const INVALID_USERNAMES = ['account', 'send', 'message', 'inbox', 'notification', 'create', 'edit', 'editor',
+ 'itinerary', 'messenger', 'settings', 'admin', 'administrator', 'settings', 'global', 'saved', 'login', 'register',
+  'review', 'followers', 'isfollowing', 'likes', 'saves', 'select']

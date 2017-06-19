@@ -187,36 +187,60 @@ export function onRedirect() {
 
 export function signUpUser(username, email, password) {
   return dispatch => {
-      Firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then(response => {
-          let userId = response.uid;
-
-          // need to save users profile info
-          Firebase.database().ref(Constants.USERS_PATH + '/' + userId + '/').update({
-            username: username,
-            email: email
-          })
-
-          // save userId lookup from username
-          Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + username + '/').update({
-            userId: userId
-          })
-
+    if (username.length === 1) {
+      dispatch({
+        type: AUTH_ERROR,
+        error: 'Username must be longer than 1 character'
+      })
+    }
+    else if (Constants.INVALID_USERNAMES.indexOf(username) > -1) {
+      dispatch({
+        type: AUTH_ERROR,
+        error: 'Username is already taken'
+      })
+    }
+    else {
+      Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + username).once('value', snapshot => {
+        if (snapshot.exists()) {
           dispatch({
-            type: AUTH_USER,
-            payload: userId,
-            meta: {
-              mixpanel: {
-                event: 'Sign up'
+            type: AUTH_ERROR,
+            error: 'Username is already taken'
+          });
+        } 
+        else {
+          Firebase.auth().createUserWithEmailAndPassword(email, password)
+          .then(response => {
+            let userId = response.uid;
+
+            // need to save users profile info
+            Firebase.database().ref(Constants.USERS_PATH + '/' + userId + '/').update({
+              username: username,
+              email: email
+            })
+
+            // save userId lookup from username
+            Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + username + '/').update({
+              userId: userId
+            })
+
+            dispatch({
+              type: AUTH_USER,
+              payload: userId,
+              meta: {
+                mixpanel: {
+                  event: 'Sign up'
+                }
               }
-            }
+            })
           })
-        })
-        .catch(error => {
-          console.log(error);
-          dispatch(authError(error));
-        });
-      }
+          .catch(error => {
+            console.log(error);
+            dispatch(authError(error));
+          });
+        }
+      })
+    }
+  }
 }
 
 export function signInUser(email, password) {
