@@ -16,6 +16,10 @@ const mapStateToProps = state => ({
 });
 
 class NewItineraryModal extends React.Component {
+  componentWillMount() {
+    this.props.sendMixpanelEvent('New Itinerary Modal');
+  }
+
   render() {
     const handleClose = () => {
       this.props.hideModal();

@@ -15,6 +15,10 @@ const mapStateToProps = state => ({
 });
 
 class SaveModal extends React.Component {
+  componentWillMount() {
+    this.props.sendMixpanelEvent('Save Modal');
+  }
+
   render() {
     const handleClose = () => {
       this.props.hideModal();

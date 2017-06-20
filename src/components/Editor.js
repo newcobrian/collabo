@@ -28,7 +28,7 @@ class Editor extends React.Component {
         //   this.props.setWatchPositionId(watchId);
         // }
     }
-    this.props.sendMixpanelEvent('Itinerary page loaded');
+    this.props.sendMixpanelEvent('Editor page loaded');
   }
 
   componentWillUnmount() {

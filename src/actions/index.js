@@ -106,6 +106,7 @@ export const CLOSE_LIGHTBOX = 'CLOSE_LIGHTBOX'
 export const PREV_LIGHTBOX = 'PREV_LIGHTBOX'
 export const NEXT_LIGHTBOX = 'NEXT_LIGHTBOX'
 export const USER_DOESNT_EXIST = 'USER_DOESNT_EXIST'
+export const SEND_INBOX_MESSAGE = 'Send inbox message'
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -542,6 +543,12 @@ export function followUser(authenticated, follower) {
           event: 'Followed user',
           props: {
             userId: follower
+          },
+        },
+        mixpanel: {
+          event: 'Send inbox message',
+          props: {
+            type: Constants.FOLLOW_MESSAGE
           }
         }
       }
@@ -971,7 +978,12 @@ export function onCreateItinerary(auth, itinerary) {
     dispatch({
       type: ITINERARY_CREATED,
       payload: itineraryObject,
-      itineraryId: itineraryId
+      itineraryId: itineraryId,
+      meta: {
+        mixpanel: {
+          event: 'Itinerary created'
+        }
+      }
     })
   }
 }
@@ -1425,7 +1437,15 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
     dispatch({
       type: ITINERARY_UPDATED,
       itineraryId: itineraryId,
-      message
+      message: message,
+      meta: {
+        mixpanel: {
+          event: 'Itinerary updated',
+          props: {
+            itineraryId: itineraryId,
+          }
+        }
+      }
     })
   }
 }
@@ -1925,6 +1945,15 @@ export function onCommentSubmit(authenticated, userInfo, type, commentObject, bo
     if (authenticated !== commentObject.userId) {
       Helpers.sendInboxMessage(authenticated, commentObject.userId, inboxMessageType, commentObject);
       sentArray.push(commentObject.userId);
+      dispatch({
+        type: MIXPANEL_EVENT,
+        mixpanel: {
+          event: SEND_INBOX_MESSAGE,
+          props: {
+            type: Constants.inboxMessageType
+          }
+        }
+      })
     }
 
     Firebase.database().ref(Constants.COMMENTS_PATH + '/' + objectId).once('value', commentsSnapshot => {
@@ -1934,6 +1963,15 @@ export function onCommentSubmit(authenticated, userInfo, type, commentObject, bo
         if (commenterId !== authenticated && (sentArray.indexOf(commenterId) === -1)) {
           Helpers.sendInboxMessage(authenticated, commenterId, commentOnCommentType, commentObject);
           sentArray.push(commenterId);
+          dispatch({
+            type: MIXPANEL_EVENT,
+            mixpanel: {
+              event: SEND_INBOX_MESSAGE,
+              props: {
+                type: commentOnCommentType
+              }
+            }
+          })
         }
       })
     })
@@ -2350,6 +2388,12 @@ export function likeReview(authenticated, type, likeObject) {
               props: {
                 itineraryId: likeObject.itineraryId
               }
+            },
+            mixpanel: {
+              event: 'Send inbox message',
+              props: {
+                type: Constants.LIKE_ITINERARY_MESSAGE
+              }
             }
           }
         })
@@ -2365,6 +2409,12 @@ export function likeReview(authenticated, type, likeObject) {
               event: 'Liked review',
               props: {
                 subjectId: likeObject.subjectId
+              }
+            },
+            mixpanel: {
+              event: SEND_INBOX_MESSAGE,
+              props: {
+                type: Constants.LIKE_MESSAGE
               }
             }
           }
@@ -2426,6 +2476,12 @@ export function saveReview(authenticated, review) {
               event: 'Saved review',
               props: {
                 subjectId: review.subjectId
+              }
+            },
+            mixpanel: {
+              event: SEND_INBOX_MESSAGE,
+              props: {
+                type: Constants.SAVE_MESSAGE
               }
             }
           }
@@ -2736,8 +2792,30 @@ export function onFriendSelectorSubmit(authenticated, selectedFriends, review, p
     // for (const friendId of selectedFriends) {
     for (var i = 0; i < selectedFriends.length; i++) {
       recipientCount++;
-      if (path === FORWARD_MODAL) Helpers.sendInboxMessage(authenticated, selectedFriends[i], Constants.FORWARD_MESSAGE, review);
-      else Helpers.sendInboxMessage(authenticated, selectedFriends[i], Constants.DIRECT_MESSAGE, review);
+      if (path === FORWARD_MODAL) {
+        Helpers.sendInboxMessage(authenticated, selectedFriends[i], Constants.FORWARD_MESSAGE, review);
+        dispatch({
+          type: MIXPANEL_EVENT,
+          mixpanel: {
+            event: SEND_INBOX_MESSAGE,
+            props: {
+              type: Constants.FORWARD_MESSAGE
+            }
+          }
+        })
+      }
+      else {
+        Helpers.sendInboxMessage(authenticated, selectedFriends[i], Constants.DIRECT_MESSAGE, review);
+        dispatch({
+          type: MIXPANEL_EVENT,
+          mixpanel: {
+            event: SEND_INBOX_MESSAGE,
+            props: {
+              type: Constants.DIRECT_MESSAGE
+            }
+          }
+        })
+      }
       // console.log(friendId, 'is selected.');
       // Helpers.sendInboxMessage(authenticated, friendId, Constants.DIRECT_MESSAGE, review);
     }
@@ -3046,7 +3124,12 @@ export function addToItinerary(auth, tip, itinerary) {
           let message = tip.title + ' successfully added to ' + itinerary.title;
           dispatch({
             type: ADDED_TO_ITINERARY,
-            message: message
+            message: message,
+            meta: {
+              mixpanel: {
+                event: 'Saved to itinerary'
+              }
+            }
           })
         })
       }
