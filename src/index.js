@@ -37,16 +37,16 @@ ReactDOM.render((
         <Route path="register" component={Register} />
         <Route path="settings" component={Settings} />
         <Route path="review/:sid(/:rid)" component={Review} />
-        <Route path=":username/followers" component={Followers} />
-        <Route path=":username/isfollowing" component={Followings} />
-        <Route path=":username" component={Profile} />
-        <Route path=":username/likes" component={ProfileLikes} />
-        <Route path=":username/saves" component={ProfileSaves} />
         <Route path="edit/:iid" component={Editor} />
         <Route path="create" component={Create} />
         <Route path="inbox" component={Inbox} />
         <Route path="select" component={FriendSelector} />
         <Route path="itinerary/:iid" component={Itinerary} />
+        <Route path=":username/followers" component={Followers} />
+        <Route path=":username/isfollowing" component={Followings} />
+        <Route path=":username" component={Profile} />
+        <Route path=":username/likes" component={ProfileLikes} />
+        <Route path=":username/saves" component={ProfileSaves} />
       </Route>
     </Router>
   </Provider>
