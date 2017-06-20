@@ -4,15 +4,11 @@ GET_LIKES_OR_SAVES_BY_USER, ITINERARY_DELETED } from '../actions';
 export default (state = {}, action) => {
   switch (action.type) {
     case GET_USER_FEED:
+    case GET_GLOBAL_FEED:
       return {
         ...state,
         itineraries: action.payload
       };
-    case GET_GLOBAL_FEED:
-      return {
-        ...state,
-        feed: action.payload
-      }
     case GET_LIKES_OR_SAVES_BY_USER:
       return {
         ...state,
