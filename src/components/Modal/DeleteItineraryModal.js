@@ -40,7 +40,7 @@ class DeleteItineraryModal extends React.Component {
         disableTouchRipple={true}
         fullWidth={false}
         className="vb"
-        labelStyle={{color: "white"}}
+        labelStyle={{color: "red"}}
         style={{
           }}
       />

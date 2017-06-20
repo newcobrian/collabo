@@ -85,17 +85,489 @@
 .itinerary__summary__flag {
   height: 30px;
   width: 40px;
-  background: url("img/flags/USA.png");
+  background: url("img/flags/US.png");
   background-size: contain;
   background-repeat: no-repeat;
 }
 
-* .flag-US {
-  background-image: url("img/flags/USA.png");
+
+* .flag-AF { background-image: url("img/flags/AF.png");
 }
-* .flag-HK {
-  background-image: url("img/flags/HK.png");
+* .flag-AX { background-image: url("img/flags/AX.png");
+}
+* .flag-AL { background-image: url("img/flags/AL.png");
+}
+* .flag-DZ { background-image: url("img/flags/DZ.png");
+}
+* .flag-AS { background-image: url("img/flags/AS.png");
+}
+* .flag-AD { background-image: url("img/flags/AD.png");
+}
+* .flag-AO { background-image: url("img/flags/AO.png");
+}
+* .flag-AI { background-image: url("img/flags/AI.png");
+}
+* .flag-AQ { background-image: url("img/flags/AQ.png");
+}
+* .flag-AG { background-image: url("img/flags/AG.png");
+}
+* .flag-AR { background-image: url("img/flags/AR.png");
+}
+* .flag-AM { background-image: url("img/flags/AM.png");
+}
+* .flag-AW { background-image: url("img/flags/AW.png");
+}
+* .flag-AU { background-image: url("img/flags/AU.png");
+}
+* .flag-AT { background-image: url("img/flags/AT.png");
+}
+* .flag-AZ { background-image: url("img/flags/AZ.png");
+}
+* .flag-BS { background-image: url("img/flags/BS.png");
+}
+* .flag-BH { background-image: url("img/flags/BH.png");
+}
+* .flag-BD { background-image: url("img/flags/BD.png");
+}
+* .flag-BB { background-image: url("img/flags/BB.png");
+}
+* .flag-BY { background-image: url("img/flags/BY.png");
+}
+* .flag-BE { background-image: url("img/flags/BE.png");
+}
+* .flag-BZ { background-image: url("img/flags/BZ.png");
+}
+* .flag-BJ { background-image: url("img/flags/BJ.png");
+}
+* .flag-BM { background-image: url("img/flags/BM.png");
+}
+* .flag-BT { background-image: url("img/flags/BT.png");
+}
+* .flag-BO { background-image: url("img/flags/BO.png");
+}
+* .flag-BA { background-image: url("img/flags/BA.png");
 }
 
 
-.
+
+* .flag-BW { background-image: url("img/flags/BW.png");
+}
+* .flag-BV { background-image: url("img/flags/BV.png");
+}
+* .flag-BR { background-image: url("img/flags/BR.png");
+}
+* .flag-IO { background-image: url("img/flags/IO.png");
+}
+* .flag-BN { background-image: url("img/flags/BN.png");
+}
+* .flag-BG { background-image: url("img/flags/BG.png");
+}
+* .flag-BF { background-image: url("img/flags/BF.png");
+}
+* .flag-BI { background-image: url("img/flags/BI.png");
+}
+* .flag-KH { background-image: url("img/flags/KH.png");
+}
+* .flag-CM { background-image: url("img/flags/CM.png");
+}
+* .flag-CA { background-image: url("img/flags/CA.png");
+}
+* .flag-CV { background-image: url("img/flags/CV.png");
+}
+* .flag-CV { background-image: url("img/flags/CV.png");
+}
+
+* .flag-KY { background-image: url("img/flags/KY.png");
+}
+* .flag-CF { background-image: url("img/flags/CF.png");
+}
+* .flag-TD { background-image: url("img/flags/TD.png");
+}
+* .flag-CL { background-image: url("img/flags/CL.png");
+}
+* .flag-CN { background-image: url("img/flags/CN.png");
+}
+* .flag-CX { background-image: url("img/flags/CX.png");
+}
+* .flag-CC { background-image: url("img/flags/CC.png");
+}
+* .flag-CO { background-image: url("img/flags/CO.png");
+}
+* .flag-KM { background-image: url("img/flags/KM.png");
+}
+* .flag-CG { background-image: url("img/flags/CG.png");
+}
+* .flag-CD { background-image: url("img/flags/CD.png");
+}
+* .flag-CK { background-image: url("img/flags/CK.png");
+}
+* .flag-CR { background-image: url("img/flags/CR.png");
+}
+
+
+* .flag-CI { background-image: url("img/flags/CI.png");
+}
+* .flag-HR { background-image: url("img/flags/HR.png");
+}
+* .flag-CU { background-image: url("img/flags/CU.png");
+}
+* .flag-CY { background-image: url("img/flags/CY.png");
+}
+* .flag-CZ { background-image: url("img/flags/CZ.png");
+}
+* .flag-DK { background-image: url("img/flags/DK.png");
+}
+* .flag-DJ { background-image: url("img/flags/DJ.png");
+}
+* .flag-DM { background-image: url("img/flags/DM.png");
+}
+* .flag-DO { background-image: url("img/flags/DO.png");
+}
+* .flag-EC { background-image: url("img/flags/EC.png");
+}
+* .flag-EG { background-image: url("img/flags/EG.png");
+}
+* .flag-SV { background-image: url("img/flags/SV.png");
+}
+* .flag-GQ { background-image: url("img/flags/GQ.png");
+}
+
+
+* .flag-ER { background-image: url("img/flags/ER.png");
+}
+* .flag-EE { background-image: url("img/flags/EE.png");
+}
+* .flag-FK { background-image: url("img/flags/FK.png");
+}
+* .flag-FO { background-image: url("img/flags/FO.png");
+}
+* .flag-FJ { background-image: url("img/flags/FJ.png");
+}
+* .flag-FI { background-image: url("img/flags/FI.png");
+}
+* .flag-FR { background-image: url("img/flags/FR.png");
+}
+* .flag-GF { background-image: url("img/flags/GF.png");
+}
+* .flag-PF { background-image: url("img/flags/PF.png");
+}
+* .flag-TF { background-image: url("img/flags/TF.png");
+}
+* .flag-GA { background-image: url("img/flags/GA.png");
+}
+* .flag-GM { background-image: url("img/flags/GM.png");
+}
+* .flag-GE { background-image: url("img/flags/GE.png");
+}
+
+* .flag-DE { background-image: url("img/flags/DE.png");
+}
+* .flag-GH { background-image: url("img/flags/GH.png");
+}
+* .flag-GI { background-image: url("img/flags/GI.png");
+}
+* .flag-GR { background-image: url("img/flags/GR.png");
+}
+* .flag-GL { background-image: url("img/flags/GL.png");
+}
+* .flag-GD { background-image: url("img/flags/GD.png");
+}
+* .flag-GP { background-image: url("img/flags/GP.png");
+}
+* .flag-GU { background-image: url("img/flags/GU.png");
+}
+* .flag-GT { background-image: url("img/flags/GT.png");
+}
+* .flag-GG { background-image: url("img/flags/GG.png");
+}
+* .flag-GN { background-image: url("img/flags/GB.png");
+}
+* .flag-GW { background-image: url("img/flags/GW.png");
+}
+* .flag-GY { background-image: url("img/flags/GY.png");
+}
+* .flag-HT { background-image: url("img/flags/HT.png");
+}
+* .flag-HM { background-image: url("img/flags/HM.png");
+}
+* .flag-VA { background-image: url("img/flags/VA.png");
+}
+* .flag-HN { background-image: url("img/flags/HN.png");
+}
+* .flag-HK { background-image: url("img/flags/HK.png");
+}
+* .flag-HU { background-image: url("img/flags/HU.png");
+}
+* .flag-IS { background-image: url("img/flags/IS.png");
+}
+* .flag-IN { background-image: url("img/flags/IN.png");
+}
+* .flag-ID { background-image: url("img/flags/ID.png");
+}
+* .flag-IR { background-image: url("img/flags/IR.png");
+}
+* .flag-IQ { background-image: url("img/flags/IQ.png");
+}
+* .flag-IE { background-image: url("img/flags/IE.png");
+}
+* .flag-IM { background-image: url("img/flags/IM.png");
+}
+
+
+* .flag-LY { background-image: url("img/flags/LY.png");
+}
+* .flag-LI { background-image: url("img/flags/LI.png");
+}
+* .flag-LT { background-image: url("img/flags/LT.png");
+}
+* .flag-LU { background-image: url("img/flags/LU.png");
+}
+* .flag-MO { background-image: url("img/flags/MO.png");
+}
+* .flag-MK { background-image: url("img/flags/MK.png");
+}
+* .flag-MG { background-image: url("img/flags/MG.png");
+}
+* .flag-MW { background-image: url("img/flags/MW.png");
+}
+* .flag-MY { background-image: url("img/flags/MY.png");
+}
+* .flag-MV { background-image: url("img/flags/MV.png");
+}
+* .flag-ML { background-image: url("img/flags/ML.png");
+}
+* .flag-MT { background-image: url("img/flags/MT.png");
+}
+* .flag-MH { background-image: url("img/flags/MH.png");
+}
+* .flag-MQ { background-image: url("img/flags/MQ.png");
+}
+* .flag-MR { background-image: url("img/flags/MR.png");
+}
+* .flag-MU { background-image: url("img/flags/MU.png");
+}
+* .flag-YT { background-image: url("img/flags/YT.png");
+}
+* .flag-MX { background-image: url("img/flags/MX.png");
+}
+* .flag-FM { background-image: url("img/flags/FM.png");
+}
+* .flag-MD { background-image: url("img/flags/MD.png");
+}
+* .flag-MC { background-image: url("img/flags/MC.png");
+}
+* .flag-MN { background-image: url("img/flags/MN.png");
+}
+* .flag-ME { background-image: url("img/flags/ME.png");
+}
+* .flag-MS { background-image: url("img/flags/MS.png");
+}
+* .flag-MA { background-image: url("img/flags/MA.png");
+}
+* .flag-MZ { background-image: url("img/flags/MZ.png");
+}
+* .flag-MM { background-image: url("img/flags/MM.png");
+}
+* .flag-NA { background-image: url("img/flags/NA.png");
+}
+
+
+* .flag-NP { background-image: url("img/flags/NP.png");
+}
+* .flag-NL { background-image: url("img/flags/NL.png");
+}
+* .flag-AN { background-image: url("img/flags/AN.png");
+}
+* .flag-NC { background-image: url("img/flags/NC.png");
+}
+* .flag-NZ { background-image: url("img/flags/NZ.png");
+}
+* .flag-NI { background-image: url("img/flags/NI.png");
+}
+* .flag-NE { background-image: url("img/flags/NE.png");
+}
+* .flag-NG { background-image: url("img/flags/NG.png");
+}
+* .flag-NU { background-image: url("img/flags/NU.png");
+}
+* .flag-NF { background-image: url("img/flags/NF.png");
+}
+* .flag-MP { background-image: url("img/flags/MP.png");
+}
+* .flag-NO { background-image: url("img/flags/NO.png");
+}
+* .flag-OM { background-image: url("img/flags/OM.png");
+}
+* .flag-PK { background-image: url("img/flags/PK.png");
+}
+* .flag-PW { background-image: url("img/flags/PW.png");
+}
+* .flag-PS { background-image: url("img/flags/PS.png");
+}
+* .flag-PA { background-image: url("img/flags/PA.png");
+}
+* .flag-PG { background-image: url("img/flags/PG.png");
+}
+* .flag-PY { background-image: url("img/flags/PY.png");
+}
+* .flag-PW { background-image: url("img/flags/PW.png");
+}
+* .flag-PS { background-image: url("img/flags/PS.png");
+}
+* .flag-PA { background-image: url("img/flags/PA.png");
+}
+* .flag-PG { background-image: url("img/flags/PG.png");
+}
+* .flag-PY { background-image: url("img/flags/PY.png");
+}
+* .flag-PE { background-image: url("img/flags/PE.png");
+}
+* .flag-PH { background-image: url("img/flags/PH.png");
+}
+* .flag-PN { background-image: url("img/flags/PN.png");
+}
+* .flag-PL { background-image: url("img/flags/PL.png");
+}
+
+* .flag-PT { background-image: url("img/flags/PT.png");
+}
+* .flag-PR { background-image: url("img/flags/PR.png");
+}
+* .flag-QA { background-image: url("img/flags/QA.png");
+}
+* .flag-RE { background-image: url("img/flags/RE.png");
+}
+* .flag-RO { background-image: url("img/flags/RO.png");
+}
+* .flag-RU { background-image: url("img/flags/RU.png");
+}
+* .flag-RW { background-image: url("img/flags/RW.png");
+}
+* .flag-BL { background-image: url("img/flags/BL.png");
+}
+* .flag-SH { background-image: url("img/flags/SH.png");
+}
+* .flag-KN { background-image: url("img/flags/KN.png");
+}
+* .flag-LC { background-image: url("img/flags/LC.png");
+}
+* .flag-MF { background-image: url("img/flags/MF.png");
+}
+* .flag-PM { background-image: url("img/flags/PM.png");
+}
+* .flag-VC { background-image: url("img/flags/VC.png");
+}
+* .flag-WS { background-image: url("img/flags/WS.png");
+}
+* .flag-SM { background-image: url("img/flags/SM.png");
+}
+* .flag-ST { background-image: url("img/flags/ST.png");
+}
+* .flag-SA { background-image: url("img/flags/SA.png");
+}
+* .flag-SN { background-image: url("img/flags/SN.png");
+}
+* .flag-RS { background-image: url("img/flags/RS.png");
+}
+* .flag-SC { background-image: url("img/flags/SC.png");
+}
+* .flag-SL { background-image: url("img/flags/SL.png");
+}
+* .flag-SG { background-image: url("img/flags/SG.png");
+}
+* .flag-SK { background-image: url("img/flags/SK.png");
+}
+* .flag-SI { background-image: url("img/flags/SI.png");
+}
+* .flag-SB { background-image: url("img/flags/SB.png");
+}
+* .flag-SO { background-image: url("img/flags/SO.png");
+}
+* .flag-ZA { background-image: url("img/flags/ZA.png");
+}
+
+* .flag-GS { background-image: url("img/flags/GS.png");
+}
+* .flag-ES { background-image: url("img/flags/ES.png");
+}
+* .flag-LK { background-image: url("img/flags/LK.png");
+}
+* .flag-SD { background-image: url("img/flags/SD.png");
+}
+* .flag-SR { background-image: url("img/flags/SR.png");
+}
+* .flag-SJ { background-image: url("img/flags/SJ.png");
+}
+* .flag-SZ { background-image: url("img/flags/SZ.png");
+}
+* .flag-SE { background-image: url("img/flags/SE.png");
+}
+* .flag-CH { background-image: url("img/flags/CH.png");
+}
+* .flag-SY { background-image: url("img/flags/SY.png");
+}
+* .flag-TW { background-image: url("img/flags/TW.png");
+}
+* .flag-TJ { background-image: url("img/flags/TJ.png");
+}
+* .flag-TZ { background-image: url("img/flags/TZ.png");
+}
+* .flag-TH { background-image: url("img/flags/TH.png");
+}
+* .flag-TL { background-image: url("img/flags/TL.png");
+}
+* .flag-TG { background-image: url("img/flags/TG.png");
+}
+* .flag-TK { background-image: url("img/flags/TK.png");
+}
+* .flag-TO { background-image: url("img/flags/TO.png");
+}
+* .flag-TT { background-image: url("img/flags/TT.png");
+}
+* .flag-TN { background-image: url("img/flags/TN.png");
+}
+* .flag-TR { background-image: url("img/flags/TR.png");
+}
+* .flag-TM { background-image: url("img/flags/TM.png");
+}
+* .flag-TC { background-image: url("img/flags/TC.png");
+}
+* .flag-TV { background-image: url("img/flags/TV.png");
+}
+* .flag-UG { background-image: url("img/flags/UG.png");
+}
+* .flag-UA { background-image: url("img/flags/UA.png");
+}
+* .flag-AE { background-image: url("img/flags/AE.png");
+}
+* .flag-GB { background-image: url("img/flags/GB.png");
+}
+
+* .flag-US { background-image: url("img/flags/US.png");
+}
+* .flag-UM { background-image: url("img/flags/UM.png");
+}
+* .flag-UY { background-image: url("img/flags/UY.png");
+}
+* .flag-UZ { background-image: url("img/flags/UZ.png");
+}
+* .flag-VU { background-image: url("img/flags/VU.png");
+}
+* .flag-VE { background-image: url("img/flags/VE.png");
+}
+* .flag-VN { background-image: url("img/flags/VN.png");
+}
+* .flag-VG { background-image: url("img/flags/VG.png");
+}
+* .flag-VI { background-image: url("img/flags/VI.png");
+}
+* .flag-WF { background-image: url("img/flags/WF.png");
+}
+* .flag-EH { background-image: url("img/flags/EH.png");
+}
+* .flag-YE { background-image: url("img/flags/YE.png");
+}
+* .flag-ZM { background-image: url("img/flags/ZM.png");
+}
+* .flag-ZW { background-image: url("img/flags/ZW.png");
+}

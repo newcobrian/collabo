@@ -44,7 +44,7 @@ const renderDropzoneInput = (field) => {
         accept="image/*"
         className="edit-tip__dropzone__touch flx flx-align-start flx-just-start ta-left"
       >
-        <div className="edit-tip__upload">Upload or Drop image(s) here</div>
+        <div className="edit-tip__upload w-100">Upload or Drop image(s) here</div>
 
         {field.meta.touched &&
           field.meta.error &&
