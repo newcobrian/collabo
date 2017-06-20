@@ -70,7 +70,7 @@ const ItineraryPreview = props => {
   }
 
   const itinerary = props.itinerary;
-  const canModify = props.authenticated &&
+  const canModify = props.authenticated && props.itinerary.createdBy &&
       props.authenticated === props.itinerary.createdBy.userId;
 
   return (
