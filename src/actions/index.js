@@ -3151,7 +3151,13 @@ export function showDeleteModal(itinerary, source) {
 export function showModal(type, review, images) {
   return dispatch => {
     const uid = Firebase.auth().currentUser.uid;
-    switch (type) {
+    if (!uid) {
+      dispatch({
+        type: ASK_FOR_AUTH
+      })
+    }
+    else {
+      switch (type) {
         case SAVE_MODAL:
           Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + uid).once('value', snapshot => {
             let itineraryList = [];
@@ -3211,6 +3217,7 @@ export function showModal(type, review, images) {
           modalType: type,
           review: review
         })
+      }
     }
   }
 }

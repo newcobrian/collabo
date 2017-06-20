@@ -21,6 +21,9 @@ class Editor extends React.Component {
   }
 
   componentWillMount() {
+    if (!this.props.authenticated) {
+        this.props.askForAuth();
+    }
     if (this.props.params.iid) {
         this.props.onEditorLoad(this.props.authenticated, this.props.params.iid);
         // if (navigator.geolocation) {

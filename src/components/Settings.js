@@ -41,6 +41,9 @@ class SettingsForm extends React.Component {
   }
 
   componentWillMount() {
+    if (!this.props.authenticated) {
+        this.props.askForAuth();
+    }
     if (this.props.currentUser) {
       Object.assign(this.state, {
         image: this.props.currentUser.image || '',
