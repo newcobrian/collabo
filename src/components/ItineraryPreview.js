@@ -13,11 +13,17 @@ const CommentPreview = props => {
   if (props.itinerary.lastComment) {
     return (
       <Link to={`itinerary/${props.itinerary.id}`}>
-        <div className="cta-wrapper flx flx-row flx-just-end flex-item-right flx-row-reverse last-comment">
+        <div className="cta-wrapper flx flx-row flx-just-end flex-item-right last-comment">
           <div className="flx flx-row flx-just-end flx-align-center">
-            <div className="v2-type-body1">{props.itinerary.commentsCount}</div>
-            <div className="cta-icon cta-comment"></div>
+            <div className="cta-icon cta-comment comment-on"></div>
+            <div className="v2-type-body1 mrgn-right-md">{props.itinerary.commentsCount}</div>
             <div className="comment-row">
+                <Link
+                  to={`${props.itinerary.lastComment.username}`}
+                  className="comment-author">
+                  <ProxyImage src={props.itinerary.lastComment.image} className="comment-author-img center-img" />
+                </Link>
+                &nbsp;
                 <Link
                   to={`${props.itinerary.lastComment.username}`}
                   className="comment-author">

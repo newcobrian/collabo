@@ -241,8 +241,6 @@ input[type="radio"]:checked + label span {
   color: white;
   text-align: center;
   font-weight: 100 !important;
-  /*background-image: linear-gradient(-270deg, #2EC299 0%, #00ACED 100%);*/
-  background-color: #63A652;
   font-size: 14px;
   padding: 10px 50px;
   margin: 0;
@@ -273,6 +271,7 @@ input[type="radio"]:checked + label span {
   font-weight: 300 !important;
   font-size: 10px;
   letter-spacing: 2px;
+  display: block;
 }
 
 .vb--no-outline {
@@ -1301,14 +1300,14 @@ position: absolute;
   border-top: none;
   height: auto;
 }
-.comment-wrapper.card .comment-author-img {
+.comment-author-img {
   width: 30px;
   height: 30px;
   border-radius: 32px;
 }
 .comment-wrapper.card .comment-data {
 }
-.comment-wrapper.card .comment-author {
+.comment-author {
     font-size: 1em;
     font-weight: 600;
     margin-right: 5px;

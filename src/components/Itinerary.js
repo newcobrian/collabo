@@ -166,7 +166,7 @@ class Itinerary extends React.Component {
                     </div>
 
                     {/* Description */}
-                    <div className="itinerary__summary__description ta-left v2-type-body2 opa-60">
+                    <div className="itinerary__summary__description ta-left v2-type-body3 opa-60">
                       {itinerary.description}
                     </div>
 
@@ -239,9 +239,9 @@ class Itinerary extends React.Component {
 
             <div className="itinerary__comments-module flx flx-col flx-align-start flx-just-start">
               <div className="v2-type-h3 mrgn-top-md ta-left w-100">
-                Comments
+                Itinerary Comments
               </div>
-              <div className="v2-type-body2 mrgn-bottom-sm ta-left w-100 opa-40">
+              <div className="v2-type-body2 mrgn-bottom-sm ta-left w-100 opa-40 DN">
                 What do you think about {itinerary.createdBy.username}'s View?
               </div>
               <CommentContainer

@@ -142,9 +142,9 @@
 }
 
 .itinerary__cover__timestamp {
-  font-family: 'Inconsolata', monospace;
   color: black;
   font-size: 11px;
+  text-transform: uppercase;
 }
 .itinerary__cover__image {
 	width: 240px;
