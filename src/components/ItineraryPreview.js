@@ -10,7 +10,7 @@ import { ITINERARY_TYPE } from '../constants';
 import DisplayTimestamp from './DisplayTimestamp';
 
 const CommentPreview = props => {
-  if (props.lastComment) {
+  if (props.itinerary.lastComment) {
     return (
       <Link to={`itinerary/${props.itinerary.id}`}>
         <div className="cta-wrapper flx flx-row flx-just-end flex-item-right flx-row-reverse last-comment">
