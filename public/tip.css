@@ -21,6 +21,11 @@
 	height: 250px;
 	width: 360px;
 	flex-shrink: 0;
+	position: relative;
+}
+.tip__image-module:hover {
+	cursor: pointer;
+	opacity: .9;
 }
 .tip__image-module img {
     width: 100%;
@@ -41,6 +46,16 @@
 
 }
 .tip__timestamp {
+}
+.tip__photo-count {
+	color: white;
+	font-family: "Helvetica", sans-serif;
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+	font-weight: 300;
+	opacity: .6;
+	font-size: 12px;
 }
 
 
