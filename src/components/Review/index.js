@@ -1,8 +1,10 @@
 import CommentContainer from './CommentContainer';
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import * as Actions from '../../actions';
 import ReviewPreview from '../ReviewPreview';
+import ImagePicker from '../ImagePicker'
 
 const DisplayAppUserReview = props => {
   if (props.review && props.authenticated) {
@@ -47,11 +49,7 @@ const DisplayFollowingReviews = props => {
               key={review.id}
               authenticated={props.authenticated} 
               like={props.like} 
-              unLike={props.unLike}
-              save={props.save}
-              unSave={props.unSave}
-              updateRating={props.updateRating}
-              showModal={props.showModal} />
+              unLike={props.unLike} />
           )
         })
       }
@@ -82,55 +80,54 @@ const mapStateToProps = state => ({
 });*/
 
 class Review extends React.Component {
-  componentWillMount() {
-    // this.props.onLoad(Promise.all([
-    //   agent.Articles.get(this.props.params.id),
-    //   agent.Comments.forArticle(this.props.params.id)
-    // ]));
-    this.props.getSubject(this.props.params.sid);
-    if (this.props.params.rid) {
-      this.props.getReview(this.props.authenticated, this.props.params.rid);
-      this.props.getComments(this.props.params.rid);
-      this.props.getAppUserReview(this.props.authenticated, this.props.userInfo, this.props.params.sid);
-      this.props.getFollowingReviews(this.props.authenticated, this.props.params.sid, this.props.params.rid);
-      this.props.sendMixpanelEvent('Review page loaded');
+  constructor() {
+    super();
+
+    this.handleSaveClick = ev => {
+      ev.preventDefault();
+      // props.showModal(SAVE_MODAL, props.review, props.review.images);
     }
+  }
+  componentWillMount() {
+    // this.props.getSubject(this.props.params.sid);
+    // if (this.props.params.rid) {
+    //   this.props.getReview(this.props.authenticated, this.props.params.rid);
+    //   this.props.getComments(this.props.params.rid);
+    //   // this.props.getAppUserReview(this.props.authenticated, this.props.userInfo, this.props.params.sid);
+    //   // this.props.getFollowingReviews(this.props.authenticated, this.props.params.sid, this.props.params.rid);
+    //   this.props.sendMixpanelEvent('Review page loaded');
+    // }
+
+    this.props.getSubject(this.props.params.sid);
+    this.props.getFollowingReviews(this.props.authenticated, this.props.params.sid);
   }
 
   componentWillUnmount() {
+    // this.props.unloadSubject(this.props.params.sid);
+    // if (this.props.params.rid) {
+    //   this.props.unloadReview(this.props.authenticated, this.props.params.rid, this.props.params.sid);
+    //   this.props.unloadComments(this.props.params.rid);
+    // }
+    // if (this.props.authenticated) {
+    //   this.props.unloadAppUserReview(this.props.authenticated, this.props.params.sid);
+    //   this.props.unloadFollowingReviews(this.props.authenticated, this.props.params.sid);
+    // }
     this.props.unloadSubject(this.props.params.sid);
-    if (this.props.params.rid) {
-      this.props.unloadReview(this.props.authenticated, this.props.params.rid, this.props.params.sid);
-      this.props.unloadComments(this.props.params.rid);
-    }
-    if (this.props.authenticated) {
-      this.props.unloadAppUserReview(this.props.authenticated, this.props.params.sid);
-      this.props.unloadFollowingReviews(this.props.authenticated, this.props.params.sid);
-    }
+    this.props.unloadFollowingReviews(this.props.authenticated, this.props.params.sid);
   }
 
   render() {
-    if (!this.props.review) {
+    if (!this.props.subject) {
       return null;
     }
-    let reviewObject = this.props.review;
-    reviewObject.subject = this.props.subject;
+    let subject = this.props.subject;
 
-    // const markup = { __html: marked(this.props.article.body) };
-    // const canModify = false;
-    // const canModify = this.props.currentUser &&
-      // this.props.currentUser.username === this.props.article.author.username;
     return (
+      <div className="tips-wrapper flx flx-col flx-col-start">
+        <div className="tip-container flx flx-col flx-col-top">
+          
 
-
-    <div className="page-common article-page">
-    <div className="reviewpreview-wrapper main-review roow roow-col-center">
-      
-       <div className="review-now-wrapper bx-shadow">
-        <i className="ion-plus"></i> Add Your Review Now
-      </div> 
-
-      <ReviewPreview review={reviewObject} 
+          {/*}      <ReviewPreview review={reviewObject} 
               authenticated={this.props.authenticated} 
               like={this.props.likeReview} 
               unLike={this.props.unLikeReview}
@@ -150,11 +147,44 @@ class Review extends React.Component {
           delete={this.props.onDeleteComment} />
         </div>
       </div>
+      */}
 
-      
+          <div className="flx flx-row flx-just-start w-100">
+
+            { /** Image **/ }
+            <div className="tip__image-module mrgn-right-lg">
+              <div className="tip__photo-count">{subject.images.length}</div>
+              <ImagePicker images={subject.images} />
+
+            </div>
 
 
-    <DisplayAppUserReview 
+            {/* Non-image module on right */}
+            <div className="flx flx-col flx-align-start w-100">
+
+              { /** Title and Add **/ }
+              <div className="tip_title-module flx flx-row-top w-100">
+                <div className="flx flx-col flx-col-start mrgn-right-md w-100">
+                  <Link to={`review/${subject.id}`}>
+                  <div className="tip__title v2-type-h2 ta-left">
+                    {subject.title}
+                  </div>
+                  </Link>
+                  <div className="tip__address v2-type-mono mono-sm mrgn-bottom-sm opa-30 ta-left">
+                    {subject.address}
+                  </div>
+                </div>
+
+                <div className="vb flex-item-right">
+                  <Link onClick={this.handleSaveClick}>
+                    <img className="center-img" src="../img/logos/logo.bird2.white.png"/>Save
+                  </Link>
+                </div>
+
+              </div>
+            </div>
+
+{/*}    <DisplayAppUserReview 
       currentReviewId={this.props.params.rid}
       review={this.props.appUserReview}
       subject={this.props.subject}
@@ -166,20 +196,20 @@ class Review extends React.Component {
       unSave={this.props.unSaveReview}
       updateRating={this.props.onUpdateRating}
       showModal={this.props.showModal} />
+*/}
+        <DisplayFollowingReviews
+          reviews={this.props.followingReviews}
+          subject={this.props.subject}
+          authenticated={this.props.authenticated}
+          userInfo={this.props.userInfo}
+          like={this.props.likeReview} 
+          unLike={this.props.unLikeReview}
 
-    <DisplayFollowingReviews
-      reviews={this.props.followingReviews}
-      subject={this.props.subject}
-      authenticated={this.props.authenticated}
-      userInfo={this.props.userInfo}
-      like={this.props.likeReview} 
-      unLike={this.props.unLikeReview}
-      save={this.props.saveReview}
-      unSave={this.props.unSaveReview}
-      updateRating={this.props.onUpdateRating}
-      showModal={this.props.showModal} />
+          showModal={this.props.showModal} />
 
-</div>/* END - PAGE-WRAPPER */
+        </div>
+      </div>
+    </div>
     
     );
   }

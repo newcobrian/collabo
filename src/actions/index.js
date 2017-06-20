@@ -1645,16 +1645,18 @@ export function createSubmitError(missingField, source) {
 
 export function getSubject(subjectId) {
   return dispatch => {
-    Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId).on('value', snapshot => {
-      let subject = snapshot.val();
-      subject.image = subject.images ? Helpers.getImagePath(subject.images) : '';
-      subject.tag = subject.tags ? Helpers.getTagsArray(subject.tags) : [];
-      dispatch({
-        type: GET_SUBJECT,
-        payload: subject
-      });
-    });
-  };
+    Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId).on('value', subjectSnapshot => {
+      Firebase.database().ref(Constants.IMAGES_PATH + '/' + subjectId).on('value', imageSnapshot => {
+        let subject = Object.assign({}, subjectSnapshot.val(), 
+          { images: Helpers.getImagePath(imageSnapshot.val()) } );
+        
+        dispatch({
+          type: GET_SUBJECT,
+          payload: subject
+        })
+      })
+    })
+  }
 }
 
 export function getReview(authenticated, reviewId) {
@@ -1760,42 +1762,48 @@ export function unloadAppUserReview(authenticated, subjectId) {
   }
 }
 
-export function getFollowingReviews(authenticated, subjectId, viewingReviewId) {
+export function getFollowingReviews(auth, subjectId) {
   return dispatch => {
-    if (!authenticated) {
+    if (!auth) {
       dispatch({
-        type: GET_APP_USER_REVIEW,
+        type: GET_FOLLOWING_REVIEWS,
         payload: []
       })
     }
     let reviewArray = [];
-    Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + authenticated).on('value', followingSnapshot => {
+    Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + auth).on('value', followingSnapshot => {
       followingSnapshot.forEach(function(followingChild) {
         Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + followingChild.key).on('value', reviewSnapshot => {
-          if (reviewSnapshot.exists() && viewingReviewId !== reviewSnapshot.val().reviewId) {
+          if (reviewSnapshot.exists()) {
             Firebase.database().ref(Constants.USERS_PATH + '/' + followingChild.key).once('value', userSnapshot => {
-              Firebase.database().ref(Constants.LIKES_PATH + '/' + reviewSnapshot.val().reviewId).on('value', likesSnapshot => {
-                Firebase.database().ref(Constants.SAVES_BY_USER_PATH + '/' + authenticated + '/' + reviewSnapshot.val().reviewId).on('value', savesSnapshot => {
-                  let review = reviewSnapshot.val();
-                  review.id = reviewSnapshot.val().reviewId;
-                  review.reviewer = {};
-                  let userMeta = { username: userSnapshot.val().username, image: userSnapshot.val().image };
-                  Object.assign(review.reviewer, userMeta)
+              Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + reviewSnapshot.val().reviewId).on('value', likesSnapshot => {
+                Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewSnapshot.val().reviewId).on('value', commentSnapshot => {
+                  // Firebase.database().ref(Constants.IMAGES_BY_USER_PATH + '/' + auth + '/' + reviewItem.subjectId).on('value', imagesSnapshot => {
+                    let reviewObject = {};
+                    let likes = {
+                      isLiked: likesSnapshot.exists()
+                    }
 
-                  review.isLiked = false
-                  if (likesSnapshot.val()) {
-                    review.isLiked = searchLikes(authenticated, likesSnapshot.val());
-                  }
+                    let comments = [];
+                    commentSnapshot.forEach(function(commentChild) {
+                      const comment = Object.assign({}, { id: commentChild.key }, commentChild.val());
+                      comments = comments.concat(comment);
+                    })
+                    comments.sort(lastModifiedAsc);
 
-                  review.isSaved = savesSnapshot.exists();
+                    // let images = Helpers.getImagePath(imagesSnapshot.val());
+                    let images = [];
 
-                  reviewArray = [review].concat(reviewArray);
-                  reviewArray.sort(lastModifiedDesc);
+                    Object.assign(reviewObject, reviewSnapshot.val(), {id: reviewSnapshot.val().reviewId},
+                      { createdBy: userSnapshot.val() }, likes, {comments: comments}, {images: images} );
+                    reviewArray = [reviewObject].concat(reviewArray);
+                    reviewArray.sort(lastModifiedDesc);
 
-                  dispatch({
-                    type: GET_FOLLOWING_REVIEWS,
-                    payload: reviewArray
-                  });
+                    dispatch({
+                      type: GET_FOLLOWING_REVIEWS,
+                      payload: reviewArray
+                    })
+                  // })
                 })
               })
             })
@@ -1806,25 +1814,25 @@ export function getFollowingReviews(authenticated, subjectId, viewingReviewId) {
   }
 }
 
-export function unloadFollowingReviews(authenticated, subjectId) {
-  return dispatch => {
-    Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + authenticated).once('value', followingSnapshot => {
-      followingSnapshot.forEach(function(followingChild) {
-        Firebase.database().ref(Constants.USERS_PATH + '/' + followingChild.key).off();
-        Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + followingChild.key).once('value', reviewSnapshot => {
-          if (reviewSnapshot.exists()) {
-            Firebase.database().ref(Constants.LIKES_PATH + '/' + reviewSnapshot.val().reviewId).off();
-            Firebase.database().ref(Constants.SAVES_BY_USER_PATH + '/' + authenticated + '/' + reviewSnapshot.val().reviewId).off();
-          }
-        })
-        Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + followingChild.key).off();
-      })
-    })
-    Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + authenticated).off();
-    dispatch({
-      type: FOLLOWING_REVIEWS_UNLOADED
-    })
-  }
+export function unloadFollowingReviews(auth, subjectId) {
+  // return dispatch => {
+  //   Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + authenticated).once('value', followingSnapshot => {
+  //     followingSnapshot.forEach(function(followingChild) {
+  //       Firebase.database().ref(Constants.USERS_PATH + '/' + followingChild.key).off();
+  //       Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + followingChild.key).once('value', reviewSnapshot => {
+  //         if (reviewSnapshot.exists()) {
+  //           Firebase.database().ref(Constants.LIKES_PATH + '/' + reviewSnapshot.val().reviewId).off();
+  //           Firebase.database().ref(Constants.SAVES_BY_USER_PATH + '/' + authenticated + '/' + reviewSnapshot.val().reviewId).off();
+  //         }
+  //       })
+  //       Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + followingChild.key).off();
+  //     })
+  //   })
+  //   Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + authenticated).off();
+  //   dispatch({
+  //     type: FOLLOWING_REVIEWS_UNLOADED
+  //   })
+  // }
 }
 
 export function getComments(reviewId) {
@@ -1864,10 +1872,12 @@ export function getComments(reviewId) {
 }
 
 export function unloadSubject(subjectId) {
+  Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId).off();
+  Firebase.database().ref(Constants.IMAGES_PATH + '/' + subjectId).off();
+  
   return dispatch => {
     dispatch({
-      type: SUBJECT_UNLOADED,
-      payload: Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId).off()
+      type: SUBJECT_UNLOADED
     });
   }
 }
