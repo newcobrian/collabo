@@ -33,7 +33,7 @@ const CommentPreview = props => {
   }
 }
 
-/* Displays user entered caption -OR- empty message if user has not entered caption */
+/* Displays user entered caption -OR- empty message if user has not entered caption */ 
 const CaptionDisplay = props => {
   if (props.review.caption) {
     return (
@@ -42,7 +42,7 @@ const CaptionDisplay = props => {
   }
   else {
     return (
-     <div className="opa-20">{props.review.createdBy.username} hasn't written anything about this tip yet...</div>
+     <div className="opa-30">{props.review.createdBy.username} hasn't written anything about this tip yet...</div>
     )
   }
 }

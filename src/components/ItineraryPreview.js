@@ -9,6 +9,20 @@ import { FORWARD_MODAL, REVIEW_MODAL } from '../actions';
 import { ITINERARY_TYPE } from '../constants';
 import DisplayTimestamp from './DisplayTimestamp';
 
+/* Displays user entered caption -OR- empty message if user has not entered caption */ 
+const DescriptionPreview = props => {
+  if (props.itinerary.description) {
+    return (
+      <div>{props.itinerary.description}</div>
+    )
+  }
+  else {
+    return (
+     <div className="opa-30">{props.itinerary.createdBy.username} hasn't written anything about this itinerary yet...</div>
+    )
+  }
+}
+
 const CommentPreview = props => {
   if (props.itinerary.lastComment) {
     return (
@@ -124,8 +138,8 @@ const ItineraryPreview = props => {
           </Link>
 
           {/** DESCRIPTION **/}
-          <div className="itinerary__cover__descrip v2-type-body1 opa-60 mrgn-top-sm">
-            {itinerary.description}
+          <div className="itinerary__cover__descrip v2-type-body3 opa-60 mrgn-top-sm">
+             <DescriptionPreview itinerary={props.itinerary}/>
           </div>
          
 
