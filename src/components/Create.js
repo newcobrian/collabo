@@ -6,6 +6,7 @@ import ProxyImage from './ProxyImage';
 import ListErrors from './ListErrors';
 import { CREATE_PAGE } from '../actions';
 import Geosuggest from 'react-geosuggest';
+import ProfileInfo from './ProfileInfo'
 // import Script from 'react-load-script';
 // import {GoogleApiWrapper} from 'google-maps-react';
 // import Map from 'google-maps-react';
@@ -159,14 +160,14 @@ class Create extends React.Component {
 				</div>
 				<div className="flx flx-col flx-center-all create-wrapper mrgn-top-sm">
 					<ListErrors errors={this.props.errors}></ListErrors>
-		            <div className="form-wrapper flx flx-col-left">
+		            <div className="create-form-wrapper form-wrapper flx flx-col-left">
 			            <form>
 							<fieldset className="field-wrapper">
 								<label>Itinerary Name</label>
 		                      <input
 		                        className="input--underline edit-itinerary__name"
 		                        type="text"
-		                        placeholder="My Dope Vacation 2018"
+		                        placeholder="My New Itinerary"
 		                        required
 		                        value={this.props.title}
 		                        onChange={this.changeTitle} />
@@ -176,7 +177,7 @@ class Create extends React.Component {
 		                    	<Geosuggest 
 		                    	  className="input--underline"
 								  types={['(regions)']}
-								  placeholder="Pick a city or country"
+								  placeholder="Search a city or country"
 								  required
 								  onChange={this.changeGeo}
 								  onSuggestSelect={this.suggestSelect}/>
@@ -186,7 +187,7 @@ class Create extends React.Component {
 		                      <textarea
 		                        className="input--underline"
 		                        type="text"
-		                        rows="6"
+		                        rows="3"
 		                        maxLength="184"
 		                        placeholder="What's the story behind this itinerary?"
 		                        required

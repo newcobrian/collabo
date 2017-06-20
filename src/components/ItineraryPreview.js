@@ -13,7 +13,7 @@ const CommentPreview = props => {
   if (props.lastComment) {
     return (
       <Link to={`itinerary/${props.itinerary.id}`}>
-        <div className="cta-wrapper flx flx-row flx-just-end flex-item-right flx-row-reverse">
+        <div className="cta-wrapper flx flx-row flx-just-end flex-item-right flx-row-reverse last-comment">
           <div className="flx flx-row flx-just-end flx-align-center">
             <div className="v2-type-body1">{props.itinerary.commentsCount}</div>
             <div className="cta-icon cta-comment"></div>
@@ -33,7 +33,7 @@ const CommentPreview = props => {
   else {
     return (
       <Link to={`itinerary/${props.itinerary.id}`}>
-        <div className="cta-wrapper flx flx-row flx-just-end flex-item-right flx-row-reverse">
+        <div className="cta-wrapper flx flx-row flx-just-end flex-item-right flx-row-reverse no-comments">
           <div className="flx flx-row flx-just-end flx-align-center">
              <div className="v2-type-body1"></div>
              <div className="cta-icon cta-comment"></div>
@@ -82,14 +82,22 @@ const ItineraryPreview = props => {
           
           <div className="flx flx-row flx-align-center flx-just-start v2-type-body1 mrgn-bottom-sm w-100">
             <div className="itinerary__cover__author-photo mrgn-right-md">
-              <ProxyImage src={itinerary.createdBy.image} className="center-img" />
+                <Link
+                to={`${itinerary.createdBy.username}`}
+                className="">
+                <ProxyImage src={itinerary.createdBy.image} className="center-img" />
+                </Link>
             </div>
             <div className="itinerary__cover__username opa-60 mrgn-right-md">
+              <Link
+              to={`${itinerary.createdBy.username}`}
+              className="">
               {itinerary.createdBy.username}
+              </Link>
             </div>
-            <div className="itinerary__cover__flag mrgn-right-md">
+            <div className={'mrgn-right-md itinerary__cover__flag flx-hold flag-' + itinerary.geo.country}>
             </div>
-            <div className="opa-60 geo-type mrgn-right-md">
+            <div className="opa-60 geo-type mrgn-right-md ellipsis">
               {itinerary.geo.label}
             </div>
 

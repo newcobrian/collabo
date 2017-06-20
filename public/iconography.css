@@ -6,8 +6,11 @@
 .cta-wrapper {
   padding: 0;
   width: auto;
+}
+.page-itinerary .cta-wrapper {
   min-width: 76px;
 }
+
 .cta-box {
   margin-top: -1px;
   width: auto;
@@ -76,3 +79,23 @@
   width: 32px;
   height: 32px;
 }
+
+
+.itinerary__cover__flag,
+.itinerary__summary__flag {
+  height: 30px;
+  width: 40px;
+  background: url("img/flags/USA.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+* .flag-US {
+  background-image: url("img/flags/USA.png");
+}
+* .flag-HK {
+  background-image: url("img/flags/HK.png");
+}
+
+
+.

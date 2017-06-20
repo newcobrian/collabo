@@ -128,7 +128,9 @@
 .flx-item-right {
   margin-left: auto;
 }
-
+.flx .flx-hold {
+  flex-shrink: 0;
+}
 .flx-self-end {
   align-self: flex-end;
 }

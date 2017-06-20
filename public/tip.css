@@ -46,36 +46,39 @@
 
 
 
-
+.edit-tip_wrapper {
+	padding: 10px 20px;
+	border: 1px solid rgba(0,0,0,.1);
+}
 
 .edit-tip__dropzone {
-    color: rgba(6,175,227,0.5);
     background: rgba(6,175,227,0.1);
     position: relative;
-    font-family: 'Open Sans', sans-serif;
     cursor: pointer;
     background: white;
-    height: 72px;
+    height: auto;
 }
 .edit-tip__dropzone:hover {
 	opacity: .9;
 }
 .edit-tip__dropzone__touch {
 	width: 100%;
-    height: 92px;
+    height: 32px;
 }
 .edit-tip__dropzone ul {
-	position: absolute;
-	left: 0;
-	top: 60px;
-	color: black;
-	font-family: 'Open Sans', sans-serif;
-	font-size: 10px;
-	opacity: .4;
+    color: black;
+    font-size: 10px;
+    opacity: .4;
 }
 .edit-tip__rating-total {
 	margin: 30px 0 0 6px;
     font-size: 16px;
+}
+.edit-tip__upload {
+	color: #08427B;
+	opacity: .5;
+	font-weight: 100;
+	font-family: Helvetica, sans-serif;
 }
 
 input.edit-tip__name {
@@ -89,7 +92,7 @@ input.edit-tip__rating {
 }
 .edit-tip__caption {
 	border: none;
-	padding: 10px 0;
+	padding: 0;
 }
 .input--search {
 	margin-bottom: 0 !important;

@@ -20,10 +20,10 @@ const renderField = ({input, label, placeholder, min, max, classname, type, meta
     </div>
   )
 
-const displayField = ({input, label, placeholder, type, meta: {touched, error}}) => (
+const displayField = ({input, label, classname, placeholder, type, meta: {touched, error}}) => (
   <div>
     <label>{label}</label>
-    <div>
+    <div className={classname}>
       {input.value}
     </div>
   </div>
@@ -36,23 +36,27 @@ const renderDropzoneInput = (field) => {
   }
 
   return (
-    <div className="edit-tip__dropzone flx flx-center-all ta-center">
+    <div className="edit-tip__dropzone flx flx-col flx-just-start ta-left">
+      <label>Photos</label>
       <Dropzone
         name={field.name}
         onDrop={dropHandler}
         accept="image/*"
-        className="edit-tip__dropzone__touch flx flx-center-all"
+        className="edit-tip__dropzone__touch flx flx-align-start flx-just-start ta-left"
       >
-        <div>Upload or Drop image here</div>
+        <div className="edit-tip__upload">Upload or Drop image(s) here</div>
+
+        {field.meta.touched &&
+          field.meta.error &&
+          <span className="error">{field.meta.error}</span>}
+        {files && Array.isArray(files) && (
+          <ul>
+            { files.map((file, i) => <li key={i}>{file.name}</li>) }
+          </ul>
+        )}
+
       </Dropzone>
-      {field.meta.touched &&
-        field.meta.error &&
-        <span className="error">{field.meta.error}</span>}
-      {files && Array.isArray(files) && (
-        <ul>
-          { files.map((file, i) => <li key={i}>{file.name}</li>) }
-        </ul>
-      )}
+      
     </div>
   );
 }
@@ -113,8 +117,8 @@ let Review = ({ review, index, fields, authenticated, reviewObject, searchLocati
   if (Object.keys(reviewObject).length === 0 && reviewObject.constructor === Object) {
     // empty review object, so just let the user search
     return (
-      <li key={index}>
-        <div className="flx flx-row flx-align-center pdding-all-sm">
+      <li key={index} className="mrgn-bottom-lg edit-tip_wrapper">
+        <div className="flx flx-row flx-align-center pdding-top-sm pdding-bottom-sm">
           <div className="v2-type-h5">Tip #{index + 1}</div>
           <div className="vb vb--light vb--no-outline vb-sm opa-30 flex-item-right"
           onClick={() => fields.remove(index)}>Delete Tip</div>
@@ -137,8 +141,8 @@ let Review = ({ review, index, fields, authenticated, reviewObject, searchLocati
   else {
     // we have a review object, show it
     return (
-      <li key={index}>
-        <div className="flx flx-row flx-align-center pdding-all-sm">
+      <li key={index} className="mrgn-bottom-lg edit-tip_wrapper">
+        <div className="flx flx-row flx-align-center pdding-top-sm pdding-bottom-sm">
           <div className="v2-type-h5">Tip #{index + 1}</div>
           <div className="vb vb--light vb--no-outline vb-sm opa-30 flex-item-right"
           onClick={() => fields.remove(index)}>Delete Tip</div>
@@ -147,6 +151,7 @@ let Review = ({ review, index, fields, authenticated, reviewObject, searchLocati
           <Field
             name={`${review}.title`}
             type="text"
+            classname="edit-tip__name"
             component={displayField}
             label="Tip Name"
           />
@@ -174,24 +179,25 @@ let Review = ({ review, index, fields, authenticated, reviewObject, searchLocati
             placeholder="0"
             classname="input--underline edit-tip__rating"
           />
-          <div className="field-wrapper field-wrapper--dropzone"> 
+          <div className="field-wrapper"> 
+            <label>Caption</label>
             <Field
-            name={`${review}.images`}
-            component={renderDropzoneInput}/>
-          </div>
-
+              name={`${review}.caption`}
+              type="text"
+              component="textarea"
+              maxLength="120"
+              rows="2"
+              label="Description"
+              placeholder="Add a caption (optional)"
+              className="edit-tip__caption"/>
+          </div> 
         </div>
-        <div className="field-wrapper"> 
-          <label>Caption</label>
+        <div className="field-wrapper field-wrapper--dropzone"> 
           <Field
-            name={`${review}.caption`}
-            type="text"
-            component="textarea"
-            rows="6"
-            label="Description"
-            placeholder="Add a caption (optional)"
-            className="edit-tip__caption"/>
-        </div> 
+          name={`${review}.images`}
+          component={renderDropzoneInput}/>
+        </div>
+
       </li>
     )
   }
@@ -223,7 +229,7 @@ let EditItineraryForm = props => {
       <form onSubmit={handleSubmit}>
         <div className="page-title-wrapper center-text flx flx-row flx-center-all">
           
-          <div className="v2-type-h2">Edit Tips</div>
+          <div className="v2-type-page-header">Edit Itinerary</div>
           
         </div>
 
@@ -234,15 +240,21 @@ let EditItineraryForm = props => {
             <div className="itinerary__summary ta-left">
              
 
-             {/*} <div>
+              <div>
                 <Field name="itinerary.title" component={renderField} type="text" label="Itinerary Name" classname="input--underline edit-itinerary__name" />
               </div>
               <div>
-                <Field name="itinerary.geo" component={renderField} type="text" label="Location" classname="input--underline edit-itinerary__location" />
-              </div>*/}
+                <Field name="itinerary.geo.location" component={renderField} type="text" label="Location" classname="input--underline edit-itinerary__location" />
+              </div>
               <div className="field-wrapper"> 
                 <label>Description</label>
-                <Field name="itinerary.description" component="textarea" rows="8" type="text" label="Description" />
+                <Field
+                name="itinerary.description"
+                component="textarea"
+                rows="2"
+                maxLength="120"
+                type="text"
+                label="Description" />
               </div>
               <div className="DN">
                 <label>Upload Images</label>

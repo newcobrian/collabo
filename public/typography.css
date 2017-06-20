@@ -122,8 +122,8 @@ textarea {
 }
 .v2-type-h2 {
   font-weight: 600;
-  font-size: 24px;
-  letter-spacing: 2px;
+  font-size: 26px;
+  letter-spacing: 1px;
   line-height: 24px;
   font-family: 'Arimo', sans-serif;
 }
@@ -169,7 +169,8 @@ textarea {
   letter-spacing: 3px;
   font-size: 12px;
   line-height: 14px;
-  max-width: 260px;
+  max-width: 300px;
+  width: 40%;
 }
 
 .tips-count {
@@ -185,6 +186,9 @@ textarea {
 }
 .color--neon {
   color: #73FF96 !important;
+}
+.color--input {
+  color: #08427B !important;
 }
 
 :focus {

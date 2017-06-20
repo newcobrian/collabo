@@ -113,7 +113,7 @@ class ProfileLikes extends Profile {
       this.props.profile.userId === this.props.currentUser.uid;
 
     return (
-      <div className="roow roow-row-top page-common profile-page">
+      <div className="flx flx-col page-common profile-page flx-align-center">
 
         <ProfileInfo
           authenticated={this.props.authenticated}
@@ -122,7 +122,7 @@ class ProfileLikes extends Profile {
           unfollow={this.props.unfollowUser} />
 
         {this.renderTabs()}
-        <div className="flx flx-row flx-just-center w-100">
+        <div className="flx flx-row flx-just-center w-100 w-max">
      
           <FeedList
             feed={this.props.feed} 

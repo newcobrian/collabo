@@ -43,7 +43,7 @@ class Home extends React.Component {
     return (
           
           <div className="feed-toggle w-max flx flx-row flx-just-start w-100 w-max">
-            <ul className="nav nav-pills outline-active">
+            <ul className="nav nav-pills outline-active flx flx-row">
               <li className="nav-item">
                 <Link
                   className="nav-link active"

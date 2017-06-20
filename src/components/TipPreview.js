@@ -101,7 +101,7 @@ const TipPreview = props => {
                 <div className={'v2-type-rating ta-left v2-type-rating--' +  review.rating}>
                   {review.rating}<div className="v2-type-rating--total opa-20">/10</div>
                 </div>
-                <div className="flx flx-row flex-item-right v2-type-body2 mrgn-right-md">
+                <div className="flx flx-row flex-item-right v2-type-body2">
                   <div className="cta-wrapper">
                     <LikeReviewButton
                       authenticated={props.authenticated}

@@ -112,13 +112,21 @@ class Itinerary extends React.Component {
                   <div className="flx flx-row flx-align-center mrgn-right-lg mrgn-bottom-md w-100 v2-type-body1">
                     {/* Author Photo */}
                     <div className="itinerary__summary__author-photo mrgn-right-md">
-                      <ProxyImage src={itinerary.createdBy.image} className="center-img" />
+                      <Link
+                      to={`${itinerary.createdBy.username}`}
+                      className="">
+                        <ProxyImage src={itinerary.createdBy.image} className="center-img" />
+                      </Link>
                     </div>
                     <div className="itinerary__author-name ta-left v2-type-body1 mrgn-right-md">
-                      {itinerary.createdBy.username}
+                      <Link
+                      to={`${itinerary.createdBy.username}`}
+                      className="">
+                        {itinerary.createdBy.username}
+                      </Link>
                     </div>
                     {/* Flag */}
-                    <div className="itinerary__summary__flag mrgn-right-md">
+                    <div className={'mrgn-right-md itinerary__summary__flag flag-' + itinerary.geo.country}>
                     </div>
                     {/* Location */}
                     <div className="itinerary__summary__location opa-50 geo-type mrgn-right-lg">
