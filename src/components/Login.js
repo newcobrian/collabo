@@ -51,7 +51,7 @@ class Login extends React.Component {
             <div className="col-md-6 offset-md-3 col-xs-12">
               <div className="v2-type-page-header ta-center">Log In</div>
               <div className="text-xs-center mrgn-bottom-sm">
-                <Link className="v2-type-body2 color--primary" to="register">
+                <Link className="v2-type-body1 color--primary" to="register">
                   Need an account?
                 </Link>
               </div>

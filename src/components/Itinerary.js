@@ -87,7 +87,7 @@ class Itinerary extends React.Component {
     }
     else if (this.props.itinerary.length === 0) {
       return (
-        <div className="flx flx-center-all state--not-exist">
+        <div className="error-module flx flx-center-all v2-type-body3">
            <div>Itinerary doesn't exist</div>
         </div>
       )
