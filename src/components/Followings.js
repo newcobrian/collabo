@@ -11,7 +11,7 @@ import ProfileInfo from './ProfileInfo';
 
 class Followings extends Followers {
   componentWillMount() {
-  	Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + this.props.params.username + '/').once('value', snapshot => {
+  	Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + this.props.params.username + '/').on('value', snapshot => {
       if (snapshot.exists()) {
         let userId = snapshot.val().userId;
         this.props.getFollowers(userId, Constants.IS_FOLLOWING_PATH);
@@ -31,6 +31,7 @@ class Followings extends Followers {
         this.props.unloadProfileFollowing(userId);
       }
     });
+    Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + this.props.params.username + '/').off();
   }
 
   renderTabs() {

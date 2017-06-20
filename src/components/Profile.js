@@ -51,7 +51,7 @@ class Profile extends React.Component {
     super();
 
     this.loadUser = username => {
-      Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + username).once('value', snapshot => {
+      Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + username).on('value', snapshot => {
         if (snapshot.exists()) {
           let userId = snapshot.val().userId;
           this.props.getProfileUser(userId);
@@ -67,12 +67,13 @@ class Profile extends React.Component {
       });
     }
     
-    this.unloadUser = userId => {
+    this.unloadUser = (username, userId) => {
       if (this.props.profile) {
         this.props.unloadProfileUser(userId);
         this.props.unloadProfileFollowing(userId);
         this.props.unloadItinerariesByUser(this.props.authenticated, userId);
       }
+      Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + username).off();
     }
   }
 
@@ -82,12 +83,12 @@ class Profile extends React.Component {
   }
 
   componentWillUnmount() {
-    this.unloadUser(this.props.profile.userId);
+    this.unloadUser(this.props.params.username, this.props.profile.userId);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.username !== this.props.params.username) {
-      this.unloadUser(this.props.profile.userId);
+      this.unloadUser(this.props.params.username, this.props.profile.userId);
       this.loadUser(nextProps.params.username);
     }
   }

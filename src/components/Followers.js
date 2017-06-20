@@ -16,7 +16,8 @@ const mapStateToProps = state => ({
 
 class Followers extends React.Component {
 	componentWillMount() {
-		Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + this.props.params.username + '/').once('value', snapshot => {
+		// this.props.loadFollowers(this.props.params.username);
+		Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + this.props.params.username + '/').on('value', snapshot => {
 	      if (snapshot.exists()) {
 	        let userId = snapshot.val().userId;
 	        this.props.getFollowers(userId, Constants.HAS_FOLLOWERS_PATH);
@@ -36,6 +37,7 @@ class Followers extends React.Component {
       		this.props.unloadProfileFollowing(userId);
 	      }
 	    });
+	    Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + this.props.params.username + '/').off();
 	}
 	renderTabs() {
 	    return (

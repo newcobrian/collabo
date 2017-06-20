@@ -12,7 +12,7 @@ import FeedList from './FeedList';
 
 class ProfileLikes extends Profile {
   componentWillMount() {
-    Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + this.props.params.username + '/').once('value', snapshot => {
+    Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + this.props.params.username + '/').on('value', snapshot => {
       if (snapshot.exists()) {
         let userId = snapshot.val().userId;
         this.props.getProfileUser(userId);
@@ -31,6 +31,7 @@ class ProfileLikes extends Profile {
       this.props.unloadProfileFollowing(this.props.profile.userId);
       this.props.unloadLikesByUser(this.props.authenticated, this.props.profile.userId);
     }
+    Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + this.props.params.username + '/').off();
   }
 
   onSetPage(page) {
