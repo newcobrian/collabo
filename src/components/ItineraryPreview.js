@@ -7,6 +7,7 @@ import ItineraryActions from './ItineraryActions';
 import FORWARD from '../constants';
 import { FORWARD_MODAL, REVIEW_MODAL } from '../actions';
 import { ITINERARY_TYPE } from '../constants';
+import DisplayTimestamp from './DisplayTimestamp';
 
 const CommentPreview = props => {
   if (props.lastComment) {
@@ -94,7 +95,8 @@ const ItineraryPreview = props => {
 
             {/** TIMESTAMP **/}
             <div className="itinerary__cover__timestamp ta-center opa-30 flx-item-right flx-self-end">
-              {(new Date(itinerary.lastModified)).toLocaleString()}
+              <DisplayTimestamp timestamp={itinerary.lastModified} />
+              {/*(new Date(itinerary.lastModified)).toLocaleString()*/}
             </div> 
 
           </div>

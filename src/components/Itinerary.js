@@ -10,10 +10,9 @@ import LikeReviewButton from './LikeReviewButton';
 import CommentContainer from './Review/CommentContainer'
 import { ITINERARY_TYPE } from '../constants';
 import ItineraryActions from './ItineraryActions';
-
+import DisplayTimestamp from './DisplayTimestamp';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
@@ -167,8 +166,8 @@ class Itinerary extends React.Component {
                     <div className="flx flx-row w-100 flx-just-start">
                       {/* Last Modified Date */}
                       <div className="itinerary__summary__timestamp v2-type-caption opa-20 mrgn-right-md">
-                        {(new Date(itinerary.lastModified)).toLocaleString()}
-                        {/*<Timestamp time={itinerary.lastModified} precision={1} format='ago' />*/}
+                        {/*(new Date(itinerary.lastModified)).toLocaleString()*/}
+                        <DisplayTimestamp timestamp={itinerary.lastModified} />
                       </div>
 
                       <EditItineraryLink isUser={isUser} itineraryId={this.props.itineraryId} />

@@ -6,7 +6,8 @@ import ProxyImage from './ProxyImage';
 import ImagePicker from './ImagePicker';
 import { SAVE_MODAL } from '../actions';
 import { REVIEW_TYPE } from '../constants';
-import CommentContainer from './Review/CommentContainer'
+import CommentContainer from './Review/CommentContainer';
+import DisplayTimestamp from './DisplayTimestamp';
 
 const CommentPreview = props => {
   if (props.comments) {
@@ -123,7 +124,7 @@ const TipPreview = props => {
                   </div>
                 </div>
                 <div className="tip__timestamp  v2-type-caption opa-30">
-                  Last updated {(new Date(review.lastModified)).toLocaleString()}
+                  Last updated <DisplayTimestamp timestamp={review.lastModified} />
                 </div> 
 
               </div>

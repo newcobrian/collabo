@@ -51,63 +51,6 @@ class Home extends React.Component {
                   Global
                 </Link>
               </li>
-
-              <li className="nav-item">
-                <Link
-                  className="nav-link"
-                  to="">
-                  Tokyo
-                </Link>
-              </li>
-
-              <li className="nav-item">
-                <Link
-                  className="nav-link"
-                  to="">
-                  Waikiki
-                </Link>
-              </li>
-
-              <li className="nav-item">
-                <Link
-                  className="nav-link"
-                 to="">
-                  Paris
-                </Link>
-              </li>
-              
-              <li className="nav-item">
-                <Link
-                  className="nav-link"
-                 to="">
-                  Barcelona
-                </Link>
-              </li>
-
-              <li className="nav-item">
-                <Link
-                  className="nav-link"
-                  to="">
-                  Chicago
-                </Link>
-              </li>
-
-              <li className="nav-item">
-                <Link
-                  className="nav-link"
-                 to="">
-                  Thailand
-                </Link>
-              </li>
-
-              <li className="nav-item">
-                <Link
-                  className="nav-link"
-                 to="">
-                  Vietnam
-                </Link>
-              </li>
-
             </ul>
           </div>
 
@@ -119,7 +62,7 @@ class Home extends React.Component {
     return (
       <div className="home-page">
         <div className="toggle-wrapper">
-          {this.renderTabs()}
+          {/*this.renderTabs()*/}
         </div>
         <div className="feed-wrapper">
           <MainView />

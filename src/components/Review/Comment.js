@@ -1,7 +1,8 @@
 import DeleteButton from './DeleteButton';
 import { Link } from 'react-router';
 import React from 'react';
-import ProxyImage from './../ProxyImage'
+import ProxyImage from './../ProxyImage';
+import DisplayTimestamp from './../DisplayTimestamp';
 
 const Comment = props => {
   const comment = props.comment;
@@ -29,7 +30,7 @@ const Comment = props => {
             </div>
             <div className="comment-data-wrapper flx flx-row flx-just-start">
               <span className="date-posted">
-                {new Date(comment.lastModified).toLocaleString([], {year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute:'2-digit'})}
+                <DisplayTimestamp timestamp={comment.lastModified} />
               </span>
               <DeleteButton show={show} commentObject={props.commentObject} commentId={comment.id} deleteComment={props.deleteComment} />
             </div>
