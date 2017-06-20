@@ -46,7 +46,7 @@ const DisplayTimestamp = props => {
     }
   }
 
-  return (<div>{calcTimestamp(props.timestamp)}</div>);
+  return (<span>{calcTimestamp(props.timestamp)}</span>);
 }
 
 
