@@ -177,7 +177,7 @@ class Create extends React.Component {
 		                    	<Geosuggest 
 		                    	  className="input--underline"
 								  types={['(regions)']}
-								  placeholder="Search a city or country"
+								  placeholder="Search for a city or country"
 								  required
 								  onChange={this.changeGeo}
 								  onSuggestSelect={this.suggestSelect}/>

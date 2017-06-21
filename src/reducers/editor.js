@@ -8,6 +8,7 @@ export default (state = {}, action) => {
         ...state,
         itineraryId: action.itineraryId,
         searchLocation: action.searchLocation,
+        geoSuggest: action.geoSuggest,
         data: action.data
       }
     case EDITOR_PAGE_UNLOADED:

@@ -9,6 +9,7 @@ import FirebaseSearchInput from './FirebaseSearchInput'
 import * as Constants from '../constants';
 import Firebase from 'firebase';
 import ImagePicker from './ImagePicker';
+import Geosuggest from 'react-geosuggest';
 
 const renderField = ({input, label, placeholder, min, max, classname, type, meta: {touched, error}}) => (
   <div className="field-wrapper"> 
@@ -107,6 +108,40 @@ const renderSearchInput = (field) => {
       searchLocation={field.searchLocation}
       placeholder={"Search for a place anywhere in the world..."}
       className="input--search" />
+  )
+}
+
+const renderGeoSuggest = (field) => {
+  const suggestSelect = result => {
+    var request = {
+      placeId: result.placeId
+    };
+
+    let geoData = {
+      label: result.label,
+      placeId: result.placeId,
+      location: result.location
+    }
+
+    if (result.gmaps && result.gmaps.address_components) {
+      result.gmaps.address_components.forEach(function(resultItem) {
+        if (resultItem.types && resultItem.types[0] && resultItem.types[0] === 'country') {
+          if (resultItem.short_name) geoData.country = resultItem.short_name;
+        }
+      })
+    }
+
+    field.input.onChange(geoData);
+  }
+
+  return (
+    <Geosuggest 
+      className="input--underline"
+      types={['(regions)']}
+      placeholder="Search a city or country"
+      required
+      initialValue={field.geoSuggest}
+      onSuggestSelect={suggestSelect}/>
   )
 }
 
@@ -238,13 +273,11 @@ let EditItineraryForm = props => {
           <div className="container--editor flx flx-col flx-just-center flx-align-center">
 
             <div className="itinerary__summary ta-left">
-             
-
               <div>
                 <Field name="itinerary.title" component={renderField} type="text" label="Itinerary Name" classname="input--underline edit-itinerary__name" />
               </div>
               <div>
-                <Field name="itinerary.geo.location" component={renderField} type="text" label="Location" classname="input--underline edit-itinerary__location" />
+                <Field name="itinerary.geo" component={renderGeoSuggest} geoSuggest={props.geoSuggest} type="text" label="Location" classname="input--underline edit-itinerary__location" />
               </div>
               <div className="field-wrapper"> 
                 <label>Description</label>
@@ -299,7 +332,8 @@ EditItineraryForm = connect(
   state => ({
     initialValues: state.editor.data,
     itineraryId: state.editor.itineraryId,
-    searchLocation: state.editor.searchLocation
+    searchLocation: state.editor.searchLocation,
+    geoSuggest: state.editor.geoSuggest
   }),
   {load: loadItinerary} // bind account loading action creator
 )(EditItineraryForm)

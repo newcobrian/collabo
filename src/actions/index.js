@@ -609,6 +609,7 @@ export function onEditorLoad(authenticated, itineraryId) {
                 type: EDITOR_PAGE_LOADED,
                 itineraryId: itineraryId,
                 searchLocation: itinerarySnapshot.val().geo.location,
+                geoSuggest: itinerarySnapshot.val().geo.label,
                 data: { itinerary: itineraryObject }
               })
             })
@@ -621,6 +622,7 @@ export function onEditorLoad(authenticated, itineraryId) {
           type: EDITOR_PAGE_LOADED,
           itineraryId: itineraryId,
           searchLocation: itinerarySnapshot.val().geo.location,
+          geoSuggest: itinerarySnapshot.val().geo.label,
           data: { itinerary: itineraryObject }
         })
       }
