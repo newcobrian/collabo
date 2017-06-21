@@ -35,9 +35,9 @@ const LoggedInView = props => {
         
         
 
-        <IndexLink to="/" activeClassName="active" className="nav-module nav-feed flx flx-center-all">
+        <Link to="explore" activeClassName="active" className="nav-module nav-feed flx flx-center-all">
             <div className="nav-text">Explore</div>
-        </IndexLink>
+        </Link>
 
         <Link to="create" activeClassName="active" className="nav-module create nav-editor flx flx-center-all">  
             <div className="nav-text flx flx-row flx-align-center">

@@ -88,7 +88,7 @@ export const TAG_LIST = []
 
 export const INVALID_USERNAMES = ['account', 'send', 'message', 'inbox', 'notification', 'create', 'edit', 'editor',
  'itinerary', 'messenger', 'settings', 'admin', 'administrator', 'settings', 'global', 'saved', 'login', 'register',
-  'review', 'followers', 'isfollowing', 'likes', 'saves', 'select']
+  'review', 'followers', 'isfollowing', 'likes', 'saves', 'select', 'explore', 'search', 'user']
 
 
 export const COUNTRY_FLAGS = {

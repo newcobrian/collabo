@@ -107,6 +107,8 @@ export const PREV_LIGHTBOX = 'PREV_LIGHTBOX'
 export const NEXT_LIGHTBOX = 'NEXT_LIGHTBOX'
 export const USER_DOESNT_EXIST = 'USER_DOESNT_EXIST'
 export const SEND_INBOX_MESSAGE = 'Send inbox message'
+export const LOADED_ALL_USERS = 'LOADED_ALL_USERS'
+export const UNLOADED_ALL_USERS = 'UNLOADED_ALL_USERS'
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -3142,6 +3144,45 @@ export function addToItinerary(auth, tip, itinerary) {
           })
         })
       }
+    })
+  }
+}
+
+export function getAllUsers(auth) {
+  return dispatch => {
+    let userArray = [];
+    Firebase.database().ref(Constants.USERS_PATH).on('value', snapshot => {
+      snapshot.forEach(function(user) {
+        if (user.key !== auth) {
+          Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + auth + '/' + user.key).on('value', isFollowingSnapshot => {
+            let userObject = Object.assign({}, user.val(), {userId: user.key});
+            if (isFollowingSnapshot.exists()) {
+              userObject.isFollowing = true;
+            }
+            userArray = [userObject].concat(userArray);
+            userArray.sort();
+
+            dispatch({
+              type: LOADED_ALL_USERS,
+              payload: userArray
+            })
+          })
+        }
+      })
+    })
+  }
+}
+
+export function unloadAllUsers(auth) {
+  return dispatch => {
+    Firebase.database().ref(Constants.USERS_PATH).once('value', snapshot => {
+      snapshot.forEach(function(user) {
+        Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + auth + '/' + user.key).off();
+      })
+    })
+    Firebase.database().ref(Constants.USERS_PATH).off();
+    dispatch({
+      type: UNLOADED_ALL_USERS
     })
   }
 }
