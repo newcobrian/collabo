@@ -598,34 +598,39 @@ export function onEditorLoad(authenticated, itineraryId) {
           itineraryId: itineraryId
         })
       }
-      let itineraryObject = itinerarySnapshot.val();
-      if (itineraryObject && itineraryObject.reviews) {
-        for (let i = 0; i < itineraryObject.reviews.length; i++) {
-          Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + itineraryObject.reviews[i].subjectId).on('value', subjectSnapshot => {
-            Firebase.database().ref(Constants.REVIEWS_PATH + '/' + itineraryObject.reviews[i].reviewId).on('value', reviewSnapshot => {
-              Object.assign(itineraryObject.reviews[i], subjectSnapshot.val(), reviewSnapshot.val());
-              
-              dispatch({
-                type: EDITOR_PAGE_LOADED,
-                itineraryId: itineraryId,
-                searchLocation: itinerarySnapshot.val().geo.location,
-                geoSuggest: itinerarySnapshot.val().geo.label,
-                data: { itinerary: itineraryObject }
+      Firebase.database().ref(Constants.IMAGES_ITINERARIES_BY_USER_PATH + '/' + authenticated + '/' + itineraryId).on('value', itinImageSnapshot => {
+        let itineraryObject = Object.assign({}, itinerarySnapshot.val(), {images: Helpers.getImagePath(itinImageSnapshot.val())});
+        if (itineraryObject && itineraryObject.reviews) {
+          for (let i = 0; i < itineraryObject.reviews.length; i++) {
+            Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + itineraryObject.reviews[i].subjectId).on('value', subjectSnapshot => {
+              Firebase.database().ref(Constants.REVIEWS_PATH + '/' + itineraryObject.reviews[i].reviewId).on('value', reviewSnapshot => {
+                Firebase.database().ref(Constants.IMAGES_BY_USER_PATH + '/' + authenticated + '/' + itineraryObject.reviews[i].subjectId).on('value', imageSnapshot => {
+                  Object.assign(itineraryObject.reviews[i], subjectSnapshot.val(), reviewSnapshot.val(), 
+                    { images: Helpers.getImagePath(imageSnapshot.val()) });
+                
+                  dispatch({
+                    type: EDITOR_PAGE_LOADED,
+                    itineraryId: itineraryId,
+                    searchLocation: itinerarySnapshot.val().geo.location,
+                    geoSuggest: itinerarySnapshot.val().geo.label,
+                    data: { itinerary: itineraryObject }
+                  })
+                })
               })
             })
+          }
+        }
+        else {
+          itineraryObject.reviews = [];
+          dispatch({
+            type: EDITOR_PAGE_LOADED,
+            itineraryId: itineraryId,
+            searchLocation: itinerarySnapshot.val().geo.location,
+            geoSuggest: itinerarySnapshot.val().geo.label,
+            data: { itinerary: itineraryObject }
           })
         }
-      }
-      else {
-        itineraryObject.reviews = [];
-        dispatch({
-          type: EDITOR_PAGE_LOADED,
-          itineraryId: itineraryId,
-          searchLocation: itinerarySnapshot.val().geo.location,
-          geoSuggest: itinerarySnapshot.val().geo.label,
-          data: { itinerary: itineraryObject }
-        })
-      }
+      })
     })
   }
 }
