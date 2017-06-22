@@ -1130,6 +1130,15 @@ input.input--underline {
   cursor: pointer;
   opacity: 1;
 }
+.geosuggest__suggests--hidden {
+  max-height: 0;
+  overflow: hidden;
+  border-width: 0;
+}
+.geosuggest__item--active {
+  background: #267dc0;
+  color: #fff;
+}
 input[type="number"] {
   border: none;
   width: 60px;
