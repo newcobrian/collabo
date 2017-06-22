@@ -109,6 +109,7 @@ export const USER_DOESNT_EXIST = 'USER_DOESNT_EXIST'
 export const SEND_INBOX_MESSAGE = 'Send inbox message'
 export const LOADED_ALL_USERS = 'LOADED_ALL_USERS'
 export const UNLOADED_ALL_USERS = 'UNLOADED_ALL_USERS'
+export const GOOGLE_MAP_LOADED = 'GOOGLE_MAP_LOADED'
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -585,6 +586,16 @@ export function authError(error) {
 export function logout() {
   return {
     type: SIGN_OUT_USER
+  }
+}
+
+export function loadGoogleMaps(googleObject, source) {
+  return dispatch => {
+    dispatch({
+      type: GOOGLE_MAP_LOADED,
+      googleMapsObject: googleObject,
+      source: source
+    })
   }
 }
 

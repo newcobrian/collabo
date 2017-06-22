@@ -1,6 +1,6 @@
 import { CREATE_PAGE_LOADED, CREATE_SUBJECT_LOADED, UPDATE_FIELD_CREATE, REVIEW_SUBMITTED, 
   CREATE_PAGE_UNLOADED, CREATE_SUBJECT_CLEARED, GET_USER_LOCATION, SET_WATCH_ID, SET_IN_PROGRESS,
-  CREATE_SUBMIT_ERROR, SHOW_MODAL, REVIEW_MODAL, CREATE_PAGE } from '../actions'
+  CREATE_SUBMIT_ERROR, SHOW_MODAL, REVIEW_MODAL, CREATE_PAGE, GOOGLE_MAP_LOADED } from '../actions'
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -11,6 +11,14 @@ export default (state = {}, action) => {
       }
   	case CREATE_PAGE_UNLOADED:
   		return {};
+    case GOOGLE_MAP_LOADED:
+      if (action.source === CREATE_PAGE) {
+        return {
+          ...state,
+          googleMapsObject: action.googleMapsObject
+        }
+      }
+      else return {...state}
   	case CREATE_SUBJECT_LOADED:
   		return {
   			...state,
