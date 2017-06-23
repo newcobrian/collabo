@@ -430,7 +430,7 @@ input[type="radio"]:checked + label span {
   height: 40px;
   width: 150px;
   font-weight: 700;
-  margin: 12px 30px;
+  margin: 12px 32px;
   z-index: 2;
 }
 a.logo-module:hover,
@@ -443,7 +443,7 @@ a.logo-module:focus {
   font-size: 18px;
   height: 36px;
   font-weight: 700;
-  margin-left: 38px;
+  margin-left: 30px;
   letter-spacing: 7px;
   color: rgba(0,0,0,.5);
   margin-top: 14px;

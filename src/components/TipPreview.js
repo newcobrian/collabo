@@ -125,7 +125,7 @@ const TipPreview = props => {
                     <CaptionDisplay review={props.review} />
                   </div>
                 </div>
-                <div className="tip__timestamp v2-type-caption opa-20">
+                <div className="tip__timestamp v2-type-caption opa-30">
                   Last updated <DisplayTimestamp timestamp={review.lastModified} />
                 </div> 
 

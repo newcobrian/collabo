@@ -87,9 +87,8 @@ const ItineraryPreview = props => {
 
       {/** Cover Content **/}
       <div className="itinerary__cover__text flx flx-col flx-center-all ta-left">
-        
 
-          {/** USER PHOTO AND TIP COUNT **/}
+          {/** <<<<<< USER PHOTO AND TIP COUNT **/}
           <div className="itinerary__cover__topbar flx flx-row flx-align-center flx-just-start v2-type-body1 mrgn-bottom-sm">
             <div className="itinerary__cover__author-photo mrgn-right-md">
                 <Link
@@ -124,17 +123,13 @@ const ItineraryPreview = props => {
                 type={ITINERARY_TYPE} />
             </div>
 
-            {/** TIMESTAMP **/}
-            <div className="DN itinerary__cover__timestamp ta-center opa-30 flx-item-right flx-self-end">
-              <DisplayTimestamp timestamp={itinerary.lastModified} />
-              {/*(new Date(itinerary.lastModified)).toLocaleString()*/}
-            </div> 
+            
 
           </div>
-          
+          {/** >>>>>> CLOSE USER PHOTO AND TIP COUNT **/}
 
 
-        {/** CENTER INFO **/}
+          {/** <<<<<< CENTER INFO **/}
           <div className="flx flx-col flx-center-all ta-center w-100 mrgn-bottom-sm">
             
             {/** Flag and Geo **/}
@@ -155,10 +150,17 @@ const ItineraryPreview = props => {
             <div className="itinerary__cover__descrip text-shadow v2-type-body3 color--white mrgn-top-sm">
                <DescriptionPreview itinerary={props.itinerary}/>
             </div>
-         </div>
 
+            {/** TIMESTAMP **/}
+            <div className="itinerary__cover__timestamp ta-center color--white opa-30">
+              <DisplayTimestamp timestamp={itinerary.lastModified} />
+            </div> 
+
+          </div>
+          {/** CLOSE CENTER INFO >>>>>> **/}
          
-              {/*<CommentPreview itinerary={props.itinerary} />*/}
+
+          {/*<CommentPreview itinerary={props.itinerary} />*/}
            
           
 
@@ -168,12 +170,12 @@ const ItineraryPreview = props => {
         {/** Hidden - Prob don't need this here **/}
         <div className="delete-wrapper DN">
           <div className="delete-button">
-              <ItineraryActions 
-                itinerary={itinerary} 
-                authenticated={props.authenticated} 
-                canModify={canModify} 
-                deleteItinerary={props.deleteItinerary} 
-                redirectPath={props.redirectPath} />
+            <ItineraryActions 
+              itinerary={itinerary} 
+              authenticated={props.authenticated} 
+              canModify={canModify} 
+              deleteItinerary={props.deleteItinerary} 
+              redirectPath={props.redirectPath} />
           </div>
         </div>
 
@@ -181,7 +183,7 @@ const ItineraryPreview = props => {
 
     
 
-    {/** ----- Close itinerary__cover DIV ----- **/}  
+    
     </div>
   );
 }

@@ -1,6 +1,5 @@
 
 .itinerary {
-	margin: 40px auto;
 
 }
 .itinerary__summary {
@@ -79,7 +78,9 @@
 }
 
 
-
+.itinerary__tipslist {
+	padding: 20px;
+}
 
 
 .itinerary__tiplist {
@@ -150,6 +151,9 @@
 }
 .cover-height {
 	height: 520px;
+}
+.header-height {
+	height: 400px;
 }
 .itinerary__cover__timestamp {
   color: black;
@@ -244,4 +248,10 @@ input.edit-itinerary__name {
 .profile-page .profile-feed.flx {
 	-webkit-flex-direction: row;
     flex-direction: row;
+}
+
+
+.it-author-controls {
+	position: absolute;
+    bottom: 0;
 }
