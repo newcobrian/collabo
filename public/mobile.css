@@ -166,7 +166,7 @@ body {
 
 /** Home Page **/
 .page-common {
-  margin: 10px;
+  margin: 10px 0;
 }
 .page-common.no-feed-toggle {
   padding-top: 0;
