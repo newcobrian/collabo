@@ -134,3 +134,6 @@
 .flx-self-end {
   align-self: flex-end;
 }
+.flx-self-start {
+  align-self: flex-start;
+}

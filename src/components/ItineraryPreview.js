@@ -74,16 +74,97 @@ const ItineraryPreview = props => {
       props.authenticated === props.itinerary.createdBy.userId;
 
   return (
-    <div className="itinerary__cover flx flx-row flx-just-start">
+    <div className="itinerary__cover flx flx-row flx-center-all cover-height">
+     
       {/** Cover Image **/}
-      <Link to={`itinerary/${itinerary.id}`}>
-      <div className="itinerary__cover__image">
+      <div className="itinerary__cover__image cover-height">
         <ImagePicker images={itinerary.images} />
       </div>
-      </Link>
+      {/** Cover Overlay **/}
+      <div className="itinerary__cover__overlay cover-height">
+        <img className="cover-height" src="../img/cover-overlay.png"/>
+      </div>
 
-      <div className="itinerary__cover__text flx flx-col flx-align-start ta-left">
+      {/** Cover Content **/}
+      <div className="itinerary__cover__text flx flx-col flx-center-all ta-left">
         
+
+          {/** USER PHOTO AND TIP COUNT **/}
+          <div className="itinerary__cover__topbar flx flx-row flx-align-center flx-just-start v2-type-body1 mrgn-bottom-sm">
+            <div className="itinerary__cover__author-photo mrgn-right-md">
+                <Link
+                to={`${itinerary.createdBy.username}`}
+                className="">
+                <ProxyImage src={itinerary.createdBy.image} className="center-img" />
+                </Link>
+            </div>
+            <div className="flx flx-col flx-just-start flx-align-start">
+              <div className="itinerary__cover__username color--white mrgn-right-md">
+                <Link
+                to={`${itinerary.createdBy.username}`}
+                className="color--white">
+                {itinerary.createdBy.username}
+                </Link>
+              </div>
+              <Link to={`itinerary/${itinerary.id}`}>
+              <div className="flx flx-row flx-just-end flx-align-center opa-80 color--white">
+                {itinerary.reviewsCount} Tips
+              </div>
+              </Link>
+            </div>
+
+            <div className="cta-wrapper flx flx-row flx-just-end flex-item-right mrgn-right-md">
+              <LikeReviewButton
+                authenticated={props.authenticated}
+                isLiked={props.itinerary.isLiked}
+                likesCount={props.itinerary.likesCount}
+                unLike={props.unLike}
+                like={props.like} 
+                likeObject={itinerary}
+                type={ITINERARY_TYPE} />
+            </div>
+
+            {/** TIMESTAMP **/}
+            <div className="DN itinerary__cover__timestamp ta-center opa-30 flx-item-right flx-self-end">
+              <DisplayTimestamp timestamp={itinerary.lastModified} />
+              {/*(new Date(itinerary.lastModified)).toLocaleString()*/}
+            </div> 
+
+          </div>
+          
+
+
+        {/** CENTER INFO **/}
+          <div className="flx flx-col flx-center-all ta-center w-100 mrgn-bottom-sm">
+            
+            {/** Flag and Geo **/}
+            <div className={'itinerary__cover__flag mrgn-bottom-sm flx-hold flag-' + itinerary.geo.country}>
+            </div>
+            <div className="geo-type color--white text-shadow ellipsis mrgn-bottom-sm">
+              {itinerary.geo.label}
+            </div>
+
+            {/** TITLE **/}
+            <Link to={`itinerary/${itinerary.id}`}>
+            <div className="itinerary__cover__title text-shadow ta-center v2-type-h2 color--white">
+              {itinerary.title}
+            </div>
+            </Link>
+
+            {/** DESCRIPTION **/}
+            <div className="itinerary__cover__descrip text-shadow v2-type-body3 color--white mrgn-top-sm">
+               <DescriptionPreview itinerary={props.itinerary}/>
+            </div>
+         </div>
+
+         
+              {/*<CommentPreview itinerary={props.itinerary} />*/}
+           
+          
+
+
+        
+
         {/** Hidden - Prob don't need this here **/}
         <div className="delete-wrapper DN">
           <div className="delete-button">
@@ -95,87 +176,6 @@ const ItineraryPreview = props => {
                 redirectPath={props.redirectPath} />
           </div>
         </div>
-
-
-        {/** USER PHOTO AND INFO **/}
-        <div className="flx flx-col flx-just-start ta-left w-100">
-          
-          <div className="flx flx-row flx-align-center flx-just-start v2-type-body1 mrgn-bottom-sm w-100">
-            <div className="itinerary__cover__author-photo mrgn-right-md">
-                <Link
-                to={`${itinerary.createdBy.username}`}
-                className="">
-                <ProxyImage src={itinerary.createdBy.image} className="center-img" />
-                </Link>
-            </div>
-            <div className="itinerary__cover__username opa-60 mrgn-right-md">
-              <Link
-              to={`${itinerary.createdBy.username}`}
-              className="">
-              {itinerary.createdBy.username}
-              </Link>
-            </div>
-            <div className={'mrgn-right-md itinerary__cover__flag flx-hold flag-' + itinerary.geo.country}>
-            </div>
-            <div className="opa-60 geo-type mrgn-right-md ellipsis">
-              {itinerary.geo.label}
-            </div>
-
-            {/** TIMESTAMP **/}
-            <div className="itinerary__cover__timestamp ta-center opa-30 flx-item-right flx-self-end">
-              <DisplayTimestamp timestamp={itinerary.lastModified} />
-              {/*(new Date(itinerary.lastModified)).toLocaleString()*/}
-            </div> 
-
-          </div>
-          
-
-          {/** TITLE **/}
-          <Link to={`itinerary/${itinerary.id}`}>
-          <div className="itinerary__cover__title ta-center v2-type-h2 mrgn-top-sm">
-            {itinerary.title}
-          </div>
-          </Link>
-
-          {/** DESCRIPTION **/}
-          <div className="itinerary__cover__descrip v2-type-body3 opa-60 mrgn-top-sm">
-             <DescriptionPreview itinerary={props.itinerary}/>
-          </div>
-         
-
-          {/** CTA **/}
-          <div className="flx flx-row flx-align-center w-100 flx-just-center mrgn-top-sm">
-            <div className="cta-box flx flx-row">
-              <div className="cta-wrapper flx flx-row flx-just-end flex-item-right flx-row-reverse mrgn-right-md">
-                <LikeReviewButton
-                  authenticated={props.authenticated}
-                  isLiked={props.itinerary.isLiked}
-                  likesCount={props.itinerary.likesCount}
-                  unLike={props.unLike}
-                  like={props.like} 
-                  likeObject={itinerary}
-                  type={ITINERARY_TYPE} />
-              </div>
-              <CommentPreview itinerary={props.itinerary} />
-            </div>
-           
-            <div className="tips-count flx-item-right flx-self-end">
-              <Link to={`itinerary/${itinerary.id}`}>
-              <div className="flx flx-row flx-just-end flx-align-center">
-                {itinerary.reviewsCount}
-                <div className="cta-wrapper opa-30">
-                  <div className="cta-icon cta-arrow--r">
-                  </div>
-                </div>
-              </div>
-              </Link>
-            </div>            
-          </div>
-
-
-        </div>
-        
-        
 
       </div> {/** ----- Close Cover Text DIV ----- **/}
 

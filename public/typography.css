@@ -52,22 +52,25 @@ textarea {
   font-size: 14px;
   letter-spacing: 0.5px;
   line-height: 26px;
-  font-family: Helvetica, sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 .v2-type-body2 {
   font-weight: 300;
   font-size: 16px;
   letter-spacing: 0.5px;
   line-height: 28px;
-  font-family: Helvetica, sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+.itinerary__cover .v2-type-body1 {
+  color: white;
 }
 .v2-type-body3 {
   /* “The almond milk ice: */
   font-weight: 300;
-  font-size: 18px;
+  font-size: 20px;
   letter-spacing: 0.5px;
-  line-height: 32px;
-  font-family: Helvetica, sans-serif;
+  line-height: 28px;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 .v2-type-rating {
   /* “The almond milk ice: */
@@ -75,7 +78,7 @@ textarea {
   font-size: 20px;
   letter-spacing: 0.5px;
   line-height: 26px;
-  font-family: Helvetica, sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 .v2-type-rating--1,
 .v2-type-rating--2,
@@ -97,7 +100,7 @@ textarea {
   font-size: 11px;
   letter-spacing: 0.5px;
   line-height: 26px;
-  font-family: Helvetica, sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   color: black;
 }
 .v2-type-mono {
@@ -118,29 +121,29 @@ textarea {
   font-size: 39px;
   letter-spacing: 1px;
   line-height: 48px;
-  font-family: 'Arimo', sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 .v2-type-h2 {
   font-weight: 600;
-  font-size: 28px;
-  letter-spacing: 2px;
-  line-height: 24px;
-  font-family: 'Arimo', sans-serif;
+  font-size: 50px;
+  letter-spacing: 3px;
+  line-height: 50px;
+  font-family: 'Montserrat', sans-serif;
   text-transform: uppercase;
   color: #373a3c;
 }
 .v2-type-page-header {
   font-size: 32px;
-  font-weight: 400;
+  font-weight: 300;
   text-transform: uppercase;
   letter-spacing: 3px;
-  font-family: 'Arimo', sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 .v2-type-h3 {
   font-weight: 600;
   font-size: 24px;
   letter-spacing: 2px;
-  font-family: 'Arimo', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   text-transform: uppercase;
 }
 .v2-type-h4 {
@@ -166,21 +169,29 @@ textarea {
     display: inline-block;
 }
 .geo-type {
-  font-family: "Arimo";
+  font-family: "Montserrat";
   text-transform: uppercase;
+  font-weight: 400;
   letter-spacing: 3px;
-  font-size: 12px;
   line-height: 14px;
-  max-width: 300px;
-  width: 40%;
+  width: 100%;
+  font-size: 16px;
+  letter-spacing: 3px;
+  line-height: 18px;
 }
 
+.text-shadow {
+  text-shadow: 0 0 15px rgba(96,57,49,0.50);
+}
 .tips-count {
   font-size: 30px;
 }
 
 .color--primary {
   color: #295BA2 !important;
+}
+.color--white {
+  color: #ffffff !important;
 }
 .color--success {
   color: #63A652 !important;

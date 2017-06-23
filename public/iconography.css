@@ -91,6 +91,8 @@
 }
 
 
+* .flag-JP { background-image: url("img/flags/JP.png");
+}
 * .flag-AF { background-image: url("img/flags/AF.png");
 }
 * .flag-AX { background-image: url("img/flags/AX.png");

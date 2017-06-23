@@ -258,6 +258,17 @@ width: 100%;
     font-size: 16px;
     line-height: 20px;
 }
+
+..v2-type-h2 {
+  font-size: 38px;
+  letter-spacing: 2px;
+  line-height: 38px;
+}
+
+.cover-height {
+    height: 460px;
+}
+
 /******
 ******
 ************************************ PROFILE
