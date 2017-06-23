@@ -58,6 +58,7 @@
 
 
 
+
 .itinerary__summary.option-stack {
 	width: 100%;
     height: 100%;
@@ -234,4 +235,13 @@ input.edit-itinerary__name {
 
 .new-itin-modal input.edit-itinerary__name {
 	font-size: 16px;
+}
+
+
+.profile-page .itinerary__cover {
+	width: 50%;
+}
+.profile-page .profile-feed.flx {
+	-webkit-flex-direction: row;
+    flex-direction: row;
 }
