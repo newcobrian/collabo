@@ -58,10 +58,10 @@ const TipPreview = props => {
   }
 
   return (
-    <div className="tips-wrapper flx flx-col flx-col-start">
-      <div className="tip-container flx flx-col flx-col-top">
+    <div className="tip-wrapper flx flx-col flx-col-start">
+      <div className="tip-container flx flx-col flx-align-center">
           
-          <div className="flx flx-row flx-just-start w-100">
+          <div className="tip-inner flx flx-row flx-just-start w-100 w-max-2">
 
             { /** Image **/ }
             <div className="tip__image-module mrgn-right-lg">
@@ -78,7 +78,7 @@ const TipPreview = props => {
               <div className="tip_title-module flx flx-row-top w-100">
                 <div className="flx flx-col flx-col-start mrgn-right-md w-100">
                   <Link to={`review/${review.subjectId}/${review.id}`}>
-                  <div className="tip__title v2-type-h2 ta-left">
+                  <div className="tip__title v2-type-h3 ta-left">
                     {review.title}
                   </div>
                   </Link>
@@ -89,20 +89,37 @@ const TipPreview = props => {
 
                 <div className="vb flex-item-right">
                   <Link onClick={handleSaveClick}>
-                    <img className="center-img" src="../img/logos/logo.bird2.white.png"/>Save
+                    <img className="center-img" src="../img/logos/logo.bird3.green.png"/>Save
                   </Link>
                 </div>
 
               </div>
 
               { /** Rating and Like **/ }
-              <div className="tip__rating-module flx flx-row flx-align-center mrgn-bottom-sm w-100">
-                <div className="user-image tip__author-photo mrgn-right-md">
-                  <ProxyImage src={review.createdBy.image} className="center-img" />
+              <div className="tip__rating-module flx flx-row flx-align-start mrgn-bottom-sm w-100">
+                
+                <div className="flx flx-row flx-align-center mrgn-bottom-sm">
+                  <div className="user-image tip__author-photo mrgn-right-md flx-hold">
+                    <ProxyImage src={review.createdBy.image} className="center-img" />
+                  </div>
+                  <div className={'v2-type-rating ta-right mrgn-right-md v2-type-rating--' +  review.rating}>
+                    {review.rating}<div className="v2-type-rating--total opa-10">/10</div>
+                  </div>
+                  
+                </div> 
+                { /** Caption **/ }
+                <div className="tip__caption-module flx flx-col w-100">
+                  <div className="flx flx-row flx-just-start flx-align-start">
+                    <div className="tip__caption v2-type-body2 opa-80 ta-left">
+                      <CaptionDisplay review={props.review} />
+                    </div>
+                  </div>
+                  <div className="tip__timestamp v2-type-caption opa-30">
+                    <DisplayTimestamp timestamp={review.lastModified} />
+                  </div>
+
                 </div>
-                <div className={'v2-type-rating ta-left v2-type-rating--' +  review.rating}>
-                  {review.rating}<div className="v2-type-rating--total opa-20">/10</div>
-                </div>
+
                 <div className="flx flx-row flex-item-right v2-type-body2">
                   <div className="cta-wrapper">
                     <LikeReviewButton
@@ -117,20 +134,6 @@ const TipPreview = props => {
                 </div>
               </div>
 
-
-              { /** Caption **/ }
-              <div className="tip__caption-module flx flx-col w-100">
-                <div className="flx flx-row flx-just-start flx-align-start">  
-                  <div className="tip__caption v2-type-body2 opa-60 ta-left">
-                    <CaptionDisplay review={props.review} />
-                  </div>
-                </div>
-                <div className="tip__timestamp v2-type-caption opa-30">
-                  Last updated <DisplayTimestamp timestamp={review.lastModified} />
-                </div> 
-
-              </div>
-
               { /** Comments **/ }
               <div className="flx flx-row flex-wrap cta-container">
                  <CommentContainer
@@ -141,7 +144,11 @@ const TipPreview = props => {
                     userInfo={props.userInfo}
                     type={REVIEW_TYPE}
                     deleteComment={props.deleteComment} />
-              </div>
+              </div> 
+
+              
+
+            
 
             </div> { /** End right col stack **/ }
           </div> { /** End photo / copy row **/ }

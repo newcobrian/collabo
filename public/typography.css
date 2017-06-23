@@ -6,6 +6,7 @@
 
 a {
   color: #1D2E58;
+  color: black;
 }
 
 .text-subject-name {
@@ -52,25 +53,25 @@ textarea {
   font-size: 14px;
   letter-spacing: 0.5px;
   line-height: 26px;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 .v2-type-body2 {
   font-weight: 300;
-  font-size: 16px;
+  font-size: 18px;
   letter-spacing: 0.5px;
   line-height: 28px;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 .itinerary__cover .v2-type-body1 {
   color: white;
 }
 .v2-type-body3 {
   /* “The almond milk ice: */
-  font-weight: 300;
+  font-weight: 200;
   font-size: 20px;
   letter-spacing: 0.5px;
   line-height: 28px;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 .v2-type-rating {
   /* “The almond milk ice: */
@@ -78,7 +79,8 @@ textarea {
   font-size: 20px;
   letter-spacing: 0.5px;
   line-height: 26px;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Roboto', sans-serif;
+  width: 50px;
 }
 .v2-type-rating--1,
 .v2-type-rating--2,
@@ -97,10 +99,10 @@ textarea {
 .v2-type-caption {
   /* “The almond milk ice: */
   font-weight: 300;
-  font-size: 11px;
-  letter-spacing: 0.5px;
-  line-height: 26px;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 10px;
+  letter-spacing: 1px;
+  line-height: 10px;
+  font-family: 'Roboto', sans-serif;
   color: black;
 }
 .v2-type-mono {
@@ -113,7 +115,7 @@ textarea {
   color: black;
 }
 .v2-type-mono.mono-sm {
-  font-size: 12px;
+  font-size: 14px;
 }
 .v2-type-h1 {
   /* H1 - Ratings: */
@@ -121,14 +123,14 @@ textarea {
   font-size: 39px;
   letter-spacing: 1px;
   line-height: 48px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Arimo', sans-serif;
 }
 .v2-type-h2 {
   font-weight: 600;
   font-size: 50px;
   letter-spacing: 3px;
   line-height: 50px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Arimo', sans-serif;
   text-transform: uppercase;
   color: #373a3c;
 }
@@ -137,14 +139,14 @@ textarea {
   font-weight: 300;
   text-transform: uppercase;
   letter-spacing: 3px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Arimo', sans-serif;
 }
 .v2-type-h3 {
-  font-weight: 600;
-  font-size: 24px;
-  letter-spacing: 2px;
-  font-family: 'Montserrat', sans-serif;
-  text-transform: uppercase;
+  font-size: 26px;
+  letter-spacing: 1px;
+  font-family: 'Arimo', sans-serif;
+  font-weight: 700;
+  line-height: 22px;
 }
 .v2-type-h4 {
     opacity: 1;
@@ -169,7 +171,7 @@ textarea {
     display: inline-block;
 }
 .geo-type {
-  font-family: "Montserrat";
+  font-family: "Arimo";
   text-transform: uppercase;
   font-weight: 400;
   letter-spacing: 3px;

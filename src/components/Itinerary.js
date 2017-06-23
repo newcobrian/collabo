@@ -255,7 +255,7 @@ class Itinerary extends React.Component {
               </div>
             </div>
 
-            <div className="itinerary__comments-module flx flx-col flx-align-start flx-just-start">
+            <div className="itinerary__comments-module flx flx-col flx-align-start flx-just-start w-max-2">
               <div className="v2-type-h3 mrgn-top-md ta-left w-100">
                 Itinerary Comments
               </div>

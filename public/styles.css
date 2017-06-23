@@ -4,7 +4,7 @@ body {
   letter-spacing:1px;
   padding-top: 70px;
   /*background-color: #FAFAF8;*/
-  font-family: 'Arimo', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 nput[type="checkbox"] {
@@ -118,6 +118,9 @@ input[type="radio"]:checked + label span {
 .w-max {
   max-width: 1025px;
   max-width: 1525px;
+}
+.w-max-2 {
+  max-width: 1000px;
 }
 .w-100 {
   width: 100%;
@@ -432,6 +435,7 @@ input[type="radio"]:checked + label span {
   font-weight: 700;
   margin: 12px 32px;
   z-index: 2;
+
 }
 a.logo-module:hover,
 a.logo-module:active,
@@ -445,8 +449,9 @@ a.logo-module:focus {
   font-weight: 700;
   margin-left: 30px;
   letter-spacing: 7px;
-  color: rgba(0,0,0,.5);
+  color: rgba(0,0,0,.8);
   margin-top: 14px;
+  font-family: 'Montserrat', sans-serif;
 }
 .logo-tagline {
     font-size: 14px;
@@ -475,7 +480,7 @@ a.logo-module:focus {
   text-align: center;
   width: auto;
   height: auto;
-  font-weight: 100;
+  font-weight: 400;
   margin: 0 20px;
   padding: 0;
   font-size: 13px;
@@ -692,6 +697,9 @@ svg {
 .opa-20 {
   opacity: .2;
 }
+.opa-10 {
+  opacity: .2;
+}
 
 .mrgn-all-sm {
   margin: 10px !important;
@@ -882,7 +890,6 @@ svg {
     white-space: normal;
     float: none;
     font-size: 12px;
-    font-family: "Arimo";
     text-transform: uppercase;
     letter-spacing: 3px;
 }
@@ -1112,7 +1119,7 @@ input.input--underline {
   font-size: 16px;
   border: none;
   padding: 0;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 .geosuggest__input {
   padding: 10px 0;
@@ -1129,7 +1136,7 @@ input.input--underline {
   color: #08427B;
   opacity: .5;
   font-weight: 100;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 .geosuggest__item:hover {
   cursor: pointer;
@@ -1349,7 +1356,7 @@ position: absolute;
 }
 .comments-module .comment-input-wrapper .comment-input {
     display: block;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 20px;
     font-weight: 300;
     width: 100%;

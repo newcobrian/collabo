@@ -45,7 +45,7 @@ class CommentInput extends React.Component {
 
 
           <input className="comment-input input--overline w-100"
-            placeholder="Write a comment..."
+            placeholder="Leave a comment..."
             value={this.state.body}
             onChange={this.setBody}
             rows="1">

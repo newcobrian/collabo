@@ -1,4 +1,4 @@
-.tips-wrapper {
+.tip-wrapper {
 	margin: 0 auto;
 	max-width: none;
 	width: 100%;
@@ -6,7 +6,9 @@
 .tip-container {
 	width: 100%;
 	border-bottom: 1px solid rgba(0,0,0,.1);
-	padding: 40px 0;
+	padding: 20px;
+}
+.tip-inner {
 }
 .tip_title-module {
 
@@ -18,10 +20,11 @@
 	height: 26px;
 }
 .tip__image-module {
-	height: 240px;
-	width: 240px;
+	height: 180px;
+	width: 180px;
 	flex-shrink: 0;
 	position: relative;
+	box-shadow: 0 14px 24px 0 rgba(0,0,0,0.1);
 }
 .tip__image-module:hover {
 	cursor: pointer;
@@ -40,7 +43,7 @@
 	max-width: 860px;
 }
 .tip__caption-module {
-
+	margin-top: 10px;
 }
 .tip__rating-module {
 

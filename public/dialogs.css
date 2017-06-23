@@ -66,6 +66,7 @@
   color: black;
   font-family: 'Arimo', sans-serif;
   color: black;
+  text-transform: uppercase;
 }
 .create-new__title {
   font-weight: 400;
