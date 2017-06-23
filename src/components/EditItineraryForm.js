@@ -380,7 +380,7 @@ EditItineraryForm = connect(
     searchLocation: state.editor.searchLocation,
     geoSuggest: state.editor.geoSuggest,
     googleMapsObject: state.editor.googleMapsObject,
-    itineraryObject: state.editor.itinerary
+    itineraryObject: state.editor.itineraryObject
   }),
   {load: loadItinerary} // bind account loading action creator
 )(EditItineraryForm)
