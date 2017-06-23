@@ -35,8 +35,12 @@ const LoggedInView = props => {
         
         
 
+        <Link to="/" activeClassName="active" className="nav-module nav-feed flx flx-center-all">
+            <div className="nav-text">Trips</div>
+        </Link>
+
         <Link to="explore" activeClassName="active" className="nav-module nav-feed flx flx-center-all">
-            <div className="nav-text">Explore</div>
+            <div className="nav-text">People</div>
         </Link>
 
         <Link to="create" activeClassName="active" className="nav-module create nav-editor flx flx-center-all">  
@@ -74,7 +78,7 @@ class Header extends React.Component {
               <img className="center-img" src="../img/logos/logo.earth.temp.png"/>
             </div>
             <div className="logo-main">
-            VIEWS
+            EPIC
             </div>
             <div className="logo-tagline">Reviews by people you trust</div>
           </Link>
