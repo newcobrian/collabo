@@ -35,8 +35,8 @@ const LoggedInView = props => {
         
         
 
-        <Link to="/" activeClassName="active" className="nav-module nav-feed flx flx-center-all">
-            <div className="nav-text">Trips</div>
+        <Link to="/" onlyActiveOnIndex activeClassName="active" className="nav-module nav-feed flx flx-center-all">
+            <div className="nav-text">Explore</div>
         </Link>
 
         <Link to="explore" activeClassName="active" className="nav-module nav-feed flx flx-center-all">

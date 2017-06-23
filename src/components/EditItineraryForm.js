@@ -289,7 +289,7 @@ let EditItineraryForm = props => {
                 type="text"
                 label="Description" />
               </div>
-              <div className="DN">
+              <div className="">
                 <label>Upload Images</label>
                  <Field
                 name={`itinerary.images`}
