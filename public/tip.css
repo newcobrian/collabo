@@ -74,6 +74,7 @@
     cursor: pointer;
     background: white;
     height: auto;
+    padding: 10px;
 }
 .edit-tip__dropzone:hover {
 	opacity: .9;
@@ -86,6 +87,7 @@
     color: black;
     font-size: 10px;
     opacity: .4;
+    list-style: none;
 }
 .edit-tip__rating-total {
 	margin: 30px 0 0 6px;

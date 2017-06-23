@@ -41,14 +41,13 @@ const renderDropzoneInput = (field) => {
 
   return (
     <div className="edit-tip__dropzone flx flx-col flx-just-start ta-left">
-      <label>Photos</label>
       <Dropzone
         name={field.name}
         onDrop={dropHandler}
         accept="image/*"
         className="edit-tip__dropzone__touch flx flx-align-start flx-just-start ta-left"
       >
-        <div className="edit-tip__upload w-100">Upload or Drop image(s) here</div>
+        <div className="edit-tip__upload vb vb--light vb--no-outline vb-sm ta-center w-100">Upload or Drop image(s) here</div>
 
         {field.meta.touched &&
           field.meta.error &&
@@ -217,61 +216,78 @@ let Review = ({ review, index, fields, authenticated, reviewObject, searchLocati
     // we have a review object, show it
     return (
       <li key={index} className="mrgn-bottom-lg edit-tip_wrapper">
+        
+        { /** Top Row **/ }
         <div className="flx flx-row flx-align-center pdding-top-sm pdding-bottom-sm">
           <div className="v2-type-h5">Tip #{index + 1}</div>
           <div className="vb vb--light vb--no-outline vb-sm opa-30 flex-item-right"
           onClick={() => fields.remove(index)}>Delete Tip</div>
         </div>
-        <div className="field-wrapper"> 
-          <Field
-            name={`${review}.title`}
-            type="text"
-            classname="edit-tip__name"
-            component={displayField}
-            label="Tip Name"
-          />
+
+        { /** Image and Fields **/ }
+        <div className="flx flx-row"> 
+
+          { /** Image **/ }
+          <div className="image-module mrgn-right-lg">
+            <div className="tip__image-module">
+              <ImagePicker images={reviewObject.images} />
+            </div>
+              <Field
+              name={`${review}.images`}
+              component={renderDropzoneInput}/>
+          </div>
+
+          { /** Text Inputs **/ }
+          <div className="text-fields"> 
+            { /** rating and caption row **/ }
+            <div className="field-wrapper"> 
+              <Field
+                name={`${review}.title`}
+                type="text"
+                classname="edit-tip__name"
+                component={displayField}
+                label="Tip Name"
+              />
+            </div>
+            <div className="field-wrapper"> 
+              <Field
+                name={`${review}.address`}
+                type="text"
+                component={displayField}
+                label="Address"
+              />
+            </div>            
+            <div className="flx flx-row">
+              <Field
+                name={`${review}.rating`}
+                type="number"
+                min="0"
+                max="10"
+                component={renderField}
+                label="Rating (optional)"
+                placeholder="0"
+                classname="input--underline edit-tip__rating"
+              />
+              <div className="field-wrapper"> 
+                <label>Caption</label>
+                <Field
+                  name={`${review}.caption`}
+                  type="text"
+                  component="textarea"
+                  maxLength="120"
+                  rows="2"
+                  label="Description"
+                  placeholder="Add a caption (optional)"
+                  className="edit-tip__caption"/>
+              </div> 
+            </div>
+            { /** >>>>>> rating and caption row **/ }
+         
+         </div>
+        { /** >>>>>> Text Inputs **/ }
+
         </div>
-        <div className="field-wrapper"> 
-          <Field
-            name={`${review}.address`}
-            type="text"
-            component={displayField}
-            label="Address"
-          />
-        </div>
-        { /** Image **/ }
-        {/*<div className="tip__image-module mrgn-bottom-sm">
-          <ImagePicker images={`${review}`.images} />
-        </div> */}
-        <div className="flx flx-row">
-          <Field
-            name={`${review}.rating`}
-            type="number"
-            min="0"
-            max="10"
-            component={renderField}
-            label="Rating (optional)"
-            placeholder="0"
-            classname="input--underline edit-tip__rating"
-          />
-          <div className="field-wrapper"> 
-            <label>Caption</label>
-            <Field
-              name={`${review}.caption`}
-              type="text"
-              component="textarea"
-              maxLength="120"
-              rows="2"
-              label="Description"
-              placeholder="Add a caption (optional)"
-              className="edit-tip__caption"/>
-          </div> 
-        </div>
-        <div className="field-wrapper field-wrapper--dropzone"> 
-          <Field
-          name={`${review}.images`}
-          component={renderDropzoneInput}/>
-        </div>
+        { /** >>>>>> Image and Fields **/ }
 
       </li>
     )
@@ -312,38 +328,51 @@ let EditItineraryForm = props => {
 
         <div className="flx flx-col page-common flx-just-center flx-align-center">
 
-          <div className="container--editor flx flx-col flx-just-center flx-align-center">
+          <div className="container--editor flx flx-col flx-just-center flx-align-center w-100 w-max-2">
 
-            <div className="itinerary__summary ta-left">
-              <div>
-                <Field name="itinerary.title" component={renderField} type="text" label="Itinerary Name" classname="input--underline edit-itinerary__name" />
+            <div className="edit-it-wrapper flx flx-row w-100 pdding-all-md">
+              { /** Left Image **/ }
+              <div className="image-module">
+                <div className="tip__image-module">
+                  {/*<ImagePicker images={props.itineraryObject.images} />*/}
+                </div>
+                <div className="">
+                   <Field
+                  name={`itinerary.images`}
+                  component={renderDropzoneInput}
+                  latitude={props.latitude} 
+                  longitude={props.longitude}
+                  authenticated={props.authenticated}/>
+                </div>
+
               </div>
-              <div>
-                <Field name="itinerary.geo" component={renderGeoSuggestItinerary} 
-                  geoSuggest={props.geoSuggest} type="text" label="Location" 
-                  googleMapsObject={props.googleMapsObject}
-                  classname="input--underline edit-itinerary__location" />
-              </div>
-              <div className="field-wrapper"> 
-                <label>Description</label>
-                <Field
-                name="itinerary.description"
-                component="textarea"
-                rows="2"
-                maxLength="120"
-                type="text"
-                label="Description" />
-              </div>
-              <div className="">
-                <label>Upload Images</label>
-                 <Field
-                name={`itinerary.images`}
-                component={renderDropzoneInput}
-                latitude={props.latitude} 
-                longitude={props.longitude}
-                authenticated={props.authenticated}/>
-              </div>
+              { /** >>>>>> Left Image **/ }
+
+              {/* Right */}
+              <div className="itinerary__summary ta-left">
+                <div>
+                  <Field name="itinerary.title" component={renderField} type="text" label="Itinerary Name" classname="input--underline edit-itinerary__name" />
+                </div>
               
+                <div className="field-wrapper"> 
+                  <label>Description</label>
+                  <Field
+                  name="itinerary.description"
+                  component="textarea"
+                  rows="2"
+                  maxLength="120"
+                  type="text"
+                  label="Description" />
+                </div>
+
+                <div>
+                  <Field name="itinerary.geo" component={renderGeoSuggestItinerary} 
+                    geoSuggest={props.geoSuggest} type="text" label="Location" 
+                    googleMapsObject={props.googleMapsObject}
+                    classname="input--underline edit-itinerary__location" />
+                </div>
+              </div>
+              {/* >>>>> Right */}
             </div>
 
             <div className="flx flx-col itinerary__tiplist">
