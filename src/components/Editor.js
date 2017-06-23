@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
 import EditItineraryForm from './EditItineraryForm';
+import { EDITOR_PAGE } from '../actions';
+import {GoogleApiWrapper} from 'google-maps-react';
+import Map from 'google-maps-react';
 
 const mapStateToProps = state => ({
   ...state.editor,
@@ -17,7 +20,13 @@ class Editor extends React.Component {
     this.submitForm = (values) => {
         // console.log('VALUES = ' + JSON.stringify(values))
         this.props.onEditorSubmit(this.props.authenticated, this.props.itineraryId, values.itinerary);
-    };
+    }
+
+    this.initMap = (mapProps, map) => {
+      const {google} = this.props;
+      let service = new google.maps.places.PlacesService(map);
+      this.props.loadGoogleMaps(service, EDITOR_PAGE);
+    }
   }
 
   componentWillMount() {
@@ -40,12 +49,26 @@ class Editor extends React.Component {
   }
 
   render() {
+    if (!this.props.googleMapsObject) {
+      return (
+        <Map google={window.google}
+          onReady={this.initMap}
+          visible={false} >
+        </Map>
+        );
+    }
     return (
       <EditItineraryForm 
         onSubmit={this.submitForm}
-        searchLocation={this.props.geo}  />
+        searchLocation={this.props.geo}
+        loadGoogleMaps={this.props.loadGoogleMaps}
+          />
     )
   }
 }
 
-export default connect(mapStateToProps, Actions)(Editor);
+export default GoogleApiWrapper({
+  apiKey: Constants.GOOGLE_API_KEY
+}) (connect(mapStateToProps, Actions)(Editor));
+
+// export default connect(mapStateToProps, Actions)(Editor);

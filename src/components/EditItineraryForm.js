@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import {Field, FieldArray, reduxForm, formValueSelector} from 'redux-form';
+import { EDITOR_PAGE } from '../actions'
 import validate from './validate';
 import {load as loadItinerary} from '../reducers/editor'
 import { Link } from 'react-router';
@@ -10,6 +11,8 @@ import * as Constants from '../constants';
 import Firebase from 'firebase';
 import ImagePicker from './ImagePicker';
 import Geosuggest from 'react-geosuggest';
+import {GoogleApiWrapper} from 'google-maps-react';
+import Map from 'google-maps-react';
 
 const renderField = ({input, label, placeholder, min, max, classname, type, meta: {touched, error}}) => (
   <div className="field-wrapper"> 
@@ -111,7 +114,44 @@ const renderSearchInput = (field) => {
   )
 }
 
-const renderGeoSuggest = (field) => {
+let renderGeoSuggestItinerary = (field, googlemaps) => {
+  const suggestSelect = result => {
+    var request = {
+      placeId: result.placeId
+    };
+
+    let geoData = {
+      label: result.label,
+      placeId: result.placeId,
+      location: result.location
+    }
+
+    if (result.gmaps && result.gmaps.address_components) {
+      result.gmaps.address_components.forEach(function(resultItem) {
+        if (resultItem.types && resultItem.types[0] && resultItem.types[0] === 'country') {
+          if (resultItem.short_name) geoData.country = resultItem.short_name;
+        }
+      })
+    }
+
+    field.input.onChange(geoData);
+  }
+
+  return null;
+  // if (!field.googleMapsObject) return null;
+  // return (
+  //   <Geosuggest 
+  //     className="input--underline"
+  //     types={['(regions)']}
+  //     placeholder="Search a city or country"
+  //     required
+  //     googleMaps={field.googleMapsObject}
+  //     initialValue={field.geoSuggest}
+  //     onSuggestSelect={suggestSelect}/>
+  // )
+}
+
+const renderGeoSuggestReview = (field) => {
   const suggestSelect = result => {
     var request = {
       placeId: result.placeId
@@ -137,9 +177,9 @@ const renderGeoSuggest = (field) => {
   return (
     <Geosuggest 
       className="input--underline"
-      types={['(regions)']}
       placeholder="Search a city or country"
       required
+      googleMaps={field.googleMapsObject}
       initialValue={field.geoSuggest}
       onSuggestSelect={suggestSelect}/>
   )
@@ -260,6 +300,8 @@ const renderReviews = ({fields, searchLocation, authenticated, meta: {error, sub
 let EditItineraryForm = props => {
     const {handleSubmit, pristine, reset, submitting} = props;
 
+    // if (!props.googleMapsObject) return null;
+
     return ( 
       <form onSubmit={handleSubmit}>
         <div className="page-title-wrapper center-text flx flx-row flx-center-all">
@@ -277,7 +319,10 @@ let EditItineraryForm = props => {
                 <Field name="itinerary.title" component={renderField} type="text" label="Itinerary Name" classname="input--underline edit-itinerary__name" />
               </div>
               <div>
-                <Field name="itinerary.geo" component={renderGeoSuggest} geoSuggest={props.geoSuggest} type="text" label="Location" classname="input--underline edit-itinerary__location" />
+                <Field name="itinerary.geo" component={renderGeoSuggestItinerary} 
+                  geoSuggest={props.geoSuggest} type="text" label="Location" 
+                  googleMapsObject={props.googleMapsObject}
+                  classname="input--underline edit-itinerary__location" />
               </div>
               <div className="field-wrapper"> 
                 <label>Description</label>
@@ -333,7 +378,9 @@ EditItineraryForm = connect(
     initialValues: state.editor.data,
     itineraryId: state.editor.itineraryId,
     searchLocation: state.editor.searchLocation,
-    geoSuggest: state.editor.geoSuggest
+    geoSuggest: state.editor.geoSuggest,
+    googleMapsObject: state.editor.googleMapsObject,
+    itineraryObject: state.editor.itinerary
   }),
   {load: loadItinerary} // bind account loading action creator
 )(EditItineraryForm)

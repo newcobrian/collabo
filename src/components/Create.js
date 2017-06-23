@@ -7,7 +7,7 @@ import ListErrors from './ListErrors';
 import { CREATE_PAGE } from '../actions';
 import Geosuggest from 'react-geosuggest';
 import ProfileInfo from './ProfileInfo'
-import Script from 'react-load-script';
+// import Script from 'react-load-script';
 import {GoogleApiWrapper} from 'google-maps-react';
 import Map from 'google-maps-react';
 

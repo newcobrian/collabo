@@ -1,5 +1,5 @@
-import { REVIEW_SUBMITTED, UPDATE_FIELD, EDITOR_PAGE_LOADED, EDITOR_PAGE_UNLOADED, 
-  EDITOR_SUBMIT_ERROR, SET_IN_PROGRESS, SET_WATCH_ID, GET_USER_LOCATION } from '../actions'
+import { REVIEW_SUBMITTED, UPDATE_FIELD, EDITOR_PAGE_LOADED, EDITOR_PAGE_UNLOADED, EDITOR_PAGE,
+  EDITOR_SUBMIT_ERROR, SET_IN_PROGRESS, SET_WATCH_ID, GET_USER_LOCATION, GOOGLE_MAP_LOADED } from '../actions'
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -9,8 +9,17 @@ export default (state = {}, action) => {
         itineraryId: action.itineraryId,
         searchLocation: action.searchLocation,
         geoSuggest: action.geoSuggest,
-        data: action.data
+        data: action.data,
+        itinerary: action.itinerary
       }
+    case GOOGLE_MAP_LOADED:
+      if (action.source === EDITOR_PAGE ) {
+        return {
+          ...state,
+          googleMapsObject: action.googleMapsObject
+        }
+      }
+      else return {...state}
     case EDITOR_PAGE_UNLOADED:
       return {};
     case EDITOR_SUBMIT_ERROR:

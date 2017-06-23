@@ -101,6 +101,7 @@ export const SHOW_SNACKBAR = 'SHOW_SNACKBAR'
 export const CLOSE_SNACKBAR = 'CLOSE_SNACKBAR'
 export const SHOW_NEW_ITINERARY_MODAL = 'SHOW_NEW_ITINERARY_MODAL'
 export const CREATE_PAGE = 'CREATE_PAGE'
+export const EDITOR_PAGE = 'EDITOR_PAGE'
 export const OPEN_LIGHTBOX = 'OPEN_LIGHTBOX'
 export const CLOSE_LIGHTBOX = 'CLOSE_LIGHTBOX'
 export const PREV_LIGHTBOX = 'PREV_LIGHTBOX'
@@ -624,6 +625,7 @@ export function onEditorLoad(authenticated, itineraryId) {
                     itineraryId: itineraryId,
                     searchLocation: itinerarySnapshot.val().geo.location,
                     geoSuggest: itinerarySnapshot.val().geo.label,
+                    itinerary: itinerarySnapshot.val(),
                     data: { itinerary: itineraryObject }
                   })
                 })
@@ -638,6 +640,7 @@ export function onEditorLoad(authenticated, itineraryId) {
             itineraryId: itineraryId,
             searchLocation: itinerarySnapshot.val().geo.location,
             geoSuggest: itinerarySnapshot.val().geo.label,
+            itinerary: itinerarySnapshot.val(),
             data: { itinerary: itineraryObject }
           })
         }
