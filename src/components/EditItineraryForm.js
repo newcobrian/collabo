@@ -334,7 +334,7 @@ let EditItineraryForm = props => {
               { /** Left Image **/ }
               <div className="image-module">
                 <div className="tip__image-module">
-                  {/*<ImagePicker images={props.itineraryObject.images} />*/}
+                  <ImagePicker images={props.itineraryImages} />
                 </div>
                 <div className="">
                    <Field
@@ -409,7 +409,7 @@ EditItineraryForm = connect(
     searchLocation: state.editor.searchLocation,
     geoSuggest: state.editor.geoSuggest,
     googleMapsObject: state.editor.googleMapsObject,
-    itineraryObject: state.editor.itineraryObject
+    itineraryImages: state.editor.itineraryImages
   }),
   {load: loadItinerary} // bind account loading action creator
 )(EditItineraryForm)

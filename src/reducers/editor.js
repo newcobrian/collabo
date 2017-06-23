@@ -10,7 +10,7 @@ export default (state = {}, action) => {
         searchLocation: action.searchLocation,
         geoSuggest: action.geoSuggest,
         data: action.data,
-        itineraryObject: action.itinerary
+        itineraryImages: action.itineraryImages
       }
     case GOOGLE_MAP_LOADED:
       if (action.source === EDITOR_PAGE ) {

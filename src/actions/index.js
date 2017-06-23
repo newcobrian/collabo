@@ -625,7 +625,7 @@ export function onEditorLoad(authenticated, itineraryId) {
                     itineraryId: itineraryId,
                     searchLocation: itinerarySnapshot.val().geo.location,
                     geoSuggest: itinerarySnapshot.val().geo.label,
-                    itinerary: itinerarySnapshot.val(),
+                    itineraryImages: itineraryObject.images,
                     data: { itinerary: itineraryObject }
                   })
                 })
@@ -640,7 +640,7 @@ export function onEditorLoad(authenticated, itineraryId) {
             itineraryId: itineraryId,
             searchLocation: itinerarySnapshot.val().geo.location,
             geoSuggest: itinerarySnapshot.val().geo.label,
-            itinerary: itinerarySnapshot.val(),
+            itineraryImages: itineraryObject.images,
             data: { itinerary: itineraryObject }
           })
         }

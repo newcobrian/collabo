@@ -7,6 +7,7 @@ import EditItineraryForm from './EditItineraryForm';
 import { EDITOR_PAGE } from '../actions';
 import {GoogleApiWrapper} from 'google-maps-react';
 import Map from 'google-maps-react';
+import Geosuggest from 'react-geosuggest'
 
 const mapStateToProps = state => ({
   ...state.editor,
@@ -26,6 +27,14 @@ class Editor extends React.Component {
       const {google} = this.props;
       let service = new google.maps.places.PlacesService(map);
       this.props.loadGoogleMaps(service, EDITOR_PAGE);
+    }
+
+    this.changeGeo = () => {
+
+    }
+
+    this.suggestSelect = () => {
+      
     }
   }
 
@@ -58,11 +67,21 @@ class Editor extends React.Component {
         );
     }
     return (
+      <div>
+      <Geosuggest 
+        className="input--underline"
+        types={['(regions)']}
+        placeholder="Search for a city or country"
+        required
+        googleMaps={this.props.googleMapObject}
+        onChange={this.changeGeo}
+        onSuggestSelect={this.suggestSelect}/>
       <EditItineraryForm 
         onSubmit={this.submitForm}
         searchLocation={this.props.geo}
         loadGoogleMaps={this.props.loadGoogleMaps}
           />
+      </div>
     )
   }
 }
