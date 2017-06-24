@@ -1841,9 +1841,11 @@ export function unloadFollowingReviews(auth, subjectId) {
     Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + auth).once('value', followingSnapshot => {
       followingSnapshot.forEach(function(followingChild) {
         Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + followingChild.key).once('value', reviewSnapshot => {
-          Firebase.database().ref(Constants.USERS_PATH + '/' + followingChild.key).off();
-          Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + reviewSnapshot.val().reviewId).off();
-          Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewSnapshot.val().reviewId).off();
+          if (reviewSnapshot.exists()) {
+            Firebase.database().ref(Constants.USERS_PATH + '/' + followingChild.key).off();
+            Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + reviewSnapshot.val().reviewId).off();
+            Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewSnapshot.val().reviewId).off();
+          }
         })
         Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + followingChild.key).off();
       })
