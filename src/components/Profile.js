@@ -6,7 +6,6 @@ import * as Actions from '../actions';
 import * as Constants from '../constants';
 import ItineraryList from './ItineraryList';
 import FollowUserButton from './FollowUserButton'
-import ProxyImage from './ProxyImage';
 import ProfileInfo from './ProfileInfo'
 
 const LogoutButton = props => {

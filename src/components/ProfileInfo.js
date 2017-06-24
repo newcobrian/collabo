@@ -1,6 +1,6 @@
 import React from 'react';
 import FollowUserButton from './FollowUserButton'
-import ProxyImage from './ProxyImage';
+import ProfilePic from './ProfilePic';
 import { Link } from 'react-router';
 
 const EditProfileSettings = props => {
@@ -30,7 +30,7 @@ const ProfileInfo = props => {
 
           <div className="profile-info flx flx-row flx-align-start flx-just-start w-100 w-max">
             <div className="flx flx-col flx-align-center mrgn-right-md">
-              <ProxyImage src={profile.image} className="user-img" />
+              <ProfilePic src={profile.image} className="user-img" />
             </div>
             <div className="user-bio ta-left flx flx-col flx-align-start">
               <div className="flx flx-row flx-just-start flx-align-center">

@@ -5,7 +5,7 @@ import Firebase from 'firebase';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
 import FollowUserButton from './FollowUserButton';
-import ProxyImage from './ProxyImage';
+import ProfilePic from './ProfilePic';
 import ProfileInfo from './ProfileInfo';
 
 const mapStateToProps = state => ({
@@ -135,7 +135,7 @@ class Followers extends React.Component {
 						          to={`${follower.username}`}
 						          className="">
 						          	<div className="user-image center-img">
-						          		<ProxyImage src={follower.image} className="comment-author-img" />
+						          		<ProfilePic src={follower.image} className="comment-author-img" />
 						        	</div>
 						        </Link>
 							    <div className="flx flx-col flx-align-center">

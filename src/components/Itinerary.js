@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
 import TipList from './TipList';
-import ProxyImage from './ProxyImage';
+import ProfilePic from './ProfilePic';
 import ImagePicker from './ImagePicker';
 import { Link } from 'react-router';
 import LikeReviewButton from './LikeReviewButton';
@@ -125,7 +125,7 @@ class Itinerary extends React.Component {
                       <Link
                       to={`${itinerary.createdBy.username}`}
                       className="">
-                      <ProxyImage src={itinerary.createdBy.image} className="center-img" />
+                      <ProfilePic src={itinerary.createdBy.image} className="center-img" />
                       </Link>
                   </div>
                   <div className="flx flx-col flx-just-start flx-align-start">

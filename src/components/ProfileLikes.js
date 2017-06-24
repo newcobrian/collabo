@@ -6,7 +6,6 @@ import Firebase from 'firebase';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
 import FollowUserButton from './FollowUserButton'
-import ProxyImage from './ProxyImage';
 import ProfileInfo from './ProfileInfo';
 import FeedList from './FeedList';
 

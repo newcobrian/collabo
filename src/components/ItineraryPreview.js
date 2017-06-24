@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import LikeReviewButton from './LikeReviewButton';
-import ProxyImage from './ProxyImage';
+import ProfilePic from './ProfilePic';
 import ImagePicker from './ImagePicker';
 import ItineraryActions from './ItineraryActions';
 import FORWARD from '../constants';
@@ -35,7 +35,7 @@ const CommentPreview = props => {
                 <Link
                   to={`${props.itinerary.lastComment.username}`}
                   className="comment-author">
-                  <ProxyImage src={props.itinerary.lastComment.image} className="comment-author-img center-img" />
+                  <ProfilePic src={props.itinerary.lastComment.image} className="comment-author-img center-img" />
                 </Link>
                 &nbsp;
                 <Link
@@ -94,7 +94,7 @@ const ItineraryPreview = props => {
                 <Link
                 to={`${itinerary.createdBy.username}`}
                 className="">
-                <ProxyImage src={itinerary.createdBy.image} className="center-img" />
+                <ProfilePic src={itinerary.createdBy.image} className="center-img" />
                 </Link>
             </div>
             <div className="flx flx-col flx-just-start flx-align-start">
