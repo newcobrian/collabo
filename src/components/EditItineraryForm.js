@@ -230,7 +230,7 @@ let Review = ({ review, index, fields, authenticated, reviewObject, searchLocati
           { /** Image **/ }
           <div className="image-module mrgn-right-lg">
             <div className="tip__image-module">
-              <ImagePicker images={reviewObject.images} />
+              <ImagePicker images={reviewObject.images} source={EDITOR_PAGE} />
             </div>
               <Field
               name={`${review}.images`}
@@ -335,7 +335,7 @@ let EditItineraryForm = props => {
               { /** Left Image **/ }
               <div className="image-module mrgn-right-lg">
                 <div className="tip__image-module">
-                  <ImagePicker images={props.itineraryImages} />
+                  <ImagePicker images={props.itineraryImages} source={EDITOR_PAGE}/>
                 </div>
                 <div className="">
                    <Field

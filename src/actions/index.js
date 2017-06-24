@@ -732,7 +732,6 @@ export function getItinerary(auth, itineraryId) {
                               isLiked: likesSnapshot.exists()
                             }
                             
-
                             let comments = [];
                             commentSnapshot.forEach(function(commentChild) {
                               const comment = Object.assign({}, { id: commentChild.key }, commentChild.val());

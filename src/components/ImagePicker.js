@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Lightbox from 'react-image-lightbox';
 import * as Actions from '../actions'
+import { EDITOR_PAGE } from '../actions'
 
 const mapStateToProps = state => ({
   authenticated: state.common.authenticated
@@ -30,6 +31,13 @@ class ImagePicker extends React.Component {
            <img src={imgSrc} className="center-img cover-height" onClick={this.handleClick} />
 
         )
+    }
+    else if (this.props.source === EDITOR_PAGE) {
+      return (
+        <div className="default-bg">
+          <img className="" src="../img/profile_temp.png"/>
+      </div>
+      )
     }
     else {
       return (
