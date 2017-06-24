@@ -16,7 +16,7 @@ const DeleteButton = props => {
   if (props.show) {
     return (
       <span className="mod-options">
-        <div className="v2-copy-caption" onClick={del}>Delete</div>
+        <div className="v2-type-caption danger-hover" onClick={del}>Delete</div>
       </span>
     );
   }

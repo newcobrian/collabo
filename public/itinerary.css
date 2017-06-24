@@ -181,7 +181,7 @@
 	flex-shrink: 0;
 	position: absolute;
 	width: 100%;
-	opacity: .4;
+	opacity: .8;
 	/*mix-blend-mode: screen;*/
 }
 .itinerary__cover__overlay img {
@@ -262,7 +262,7 @@ textarea.edit-itinerary__name {
 
 
 .profile-page .itinerary__cover {
-	width: 50%;
+
 }
 .profile-page .profile-feed.flx {
 	-webkit-flex-direction: row;

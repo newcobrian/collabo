@@ -73,7 +73,7 @@ input[type="radio"]:checked + label span {
   bottom: 0;
   background: white;
   /*background-image: linear-gradient(-270deg, #2EC299 0%, #00ACED 100%);*/
-  color: white !important;
+  color: black !important;
   font-size: 24px;
 }
 .error-module {
@@ -1379,9 +1379,10 @@ position: absolute;
     font-size: 10px;
     display: inline-block;
     margin: 0 10px;
-    margin-top: 1px;
+    margin-top: 4px;
     visibility: hidden;
     opacity: .5;
+    height: 20px;
 }
 .comment-data:hover .mod-options {
     visibility: visible;
