@@ -11,8 +11,8 @@ const ReviewList = props => {
 
   if (props.reviews.length === 0) {
     return (
-      <div className="article-preview roow roow-center-all">
-        Empty itinerary.
+      <div className="status-module flx flx-col flx-center-all v2-type-body3">
+        No tips added yet
       </div>
     );
   }

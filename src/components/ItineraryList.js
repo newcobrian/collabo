@@ -5,13 +5,18 @@ import React from 'react';
 const ItineraryList = props => {
   if (!props.itineraries) {
     return (
-      <div className="loading-module flx flx-center-all v2-type-body3">I-list Loading...</div>
+      <div className="loading-module flx flx-col flx-center-all v2-type-body3">
+        <div className="logo-graphic w-100">  
+          <img className="center-img" src="../img/logos/logo.earth.temp.png"/>
+        </div>
+        <div>Loading Itinerary...</div>
+      </div>
     );
   }
 
   if (props.itineraries.length === 0) {
     return (
-      <div className="loading-module flx flx-center-all v2-type-body3">
+      <div className="status-module flx flx-center-all v2-type-body3">
         No itineraries.
       </div>
     );

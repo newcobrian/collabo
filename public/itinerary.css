@@ -147,6 +147,9 @@
 .profile-page .itinerary__cover {
 	margin: 0;
 }
+.page-itinerary .itinerary__cover {
+	margin: 0 0 20px;
+}
 .itinerary__cover:hover {
 	/*margin-top:-1px !important;
 	margin-bottom: 41px;

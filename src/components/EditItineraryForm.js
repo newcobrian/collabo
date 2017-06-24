@@ -191,10 +191,10 @@ let Review = ({ review, index, fields, authenticated, reviewObject, searchLocati
   if (Object.keys(reviewObject).length === 0 && reviewObject.constructor === Object) {
     // empty review object, so just let the user search
     return (
-      <li key={index} className="mrgn-bottom-lg edit-tip_wrapper">
+      <li key={index} className="mrgn-bottom-md edit-tip_wrapper">
         <div className="flx flx-row flx-align-center pdding-top-sm pdding-bottom-sm">
           <div className="v2-type-h5">Tip #{index + 1}</div>
-          <div className="vb vb--light vb--no-outline vb-sm opa-30 flex-item-right"
+          <div className="vb vb--light vb--no-outline vb-sm opa-30 danger-hover flex-item-right"
           onClick={() => fields.remove(index)}>Delete Tip</div>
         </div>
         <div className="field-wrapper"> 
@@ -307,9 +307,11 @@ const renderReviews = ({fields, searchLocation, authenticated, meta: {error, sub
     {fields.map((review, index) =>
     <Review review={review} fields={fields} index={index} key={index} geo={searchLocation} authenticated={authenticated} />)}
     <li>
-      <button className="vb" type="button" onClick={() => fields.push({})}>Add Tip</button>
-      {submitFailed && error && <span>{error}</span>}
-      {/*touched && error && <span>{error}</span> */}
+      <div className="add-tip-wrapper">
+        <button className="vb" type="button" onClick={() => fields.push({})}>Add Tip</button>
+        {submitFailed && error && <span>{error}</span>}
+        {/*touched && error && <span>{error}</span> */}
+      </div>
     </li>
   </ul>
 )

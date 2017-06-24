@@ -80,7 +80,10 @@ class Itinerary extends React.Component {
   render() {
     if (!this.props.itinerary) {
       return (
-        <div className="loading-module flx flx-center-all v2-type-body3">
+        <div className="loading-module flx flx-col flx-center-all v2-type-body3">
+          <div className="logo-graphic w-100">  
+            <img className="center-img" src="../img/logos/logo.earth.temp.png"/>
+          </div>
           <div>Loading Itinerary...</div>
         </div>
       );

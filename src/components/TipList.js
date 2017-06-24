@@ -10,8 +10,8 @@ const TipList = props => {
 
   if (props.reviewList.length === 0) {
     return (
-      <div className="article-preview roow roow-center-all">
-        Empty itinerary.
+      <div className="status-module flx flx-col flx-center-all v2-type-body3">
+          Click 'Edit' to add some tips
       </div>
     );
   }
