@@ -65,7 +65,7 @@ class SaveModal extends React.Component {
           titleStyle={{padding: "10px 20px", fontWeight: "700", fontSize: "20px"}}
           
           contentClassName="dialog--save__wrapper"
-          contentStyle={{width: "560px", maxWidth: "none"}}
+          contentStyle={{width: "600px", maxWidth: "none"}}
           
           bodyClassName="dialog--save__body"
           bodyStyle={{padding: "30px 0px"}}
@@ -100,7 +100,7 @@ class SaveModal extends React.Component {
                     <Link onClick={handleAdd(itinerary)}>
                       <div className="flx flx-row flx-just-start flx-align-center">
                         <div className="vb mrgn-right-md">
-                          <img className="center-img" src="../img/logos/logo.bird3.green.png"/>
+                          <img className="center-img" src="../img/icon.add--white.png"/>
                           Save
                         </div>
       						    	<div className="option-title">

@@ -89,7 +89,7 @@ const TipPreview = props => {
 
                 <div className="vb flex-item-right">
                   <Link onClick={handleSaveClick}>
-                    <img className="center-img" src="../img/logos/logo.bird3.green.png"/>Save
+                    <img className="center-img" src="../img/icon.add--white.png"/>Save
                   </Link>
                 </div>
 

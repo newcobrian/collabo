@@ -14,11 +14,11 @@ import Geosuggest from 'react-geosuggest';
 import {GoogleApiWrapper} from 'google-maps-react';
 import Map from 'google-maps-react';
 
-const renderField = ({input, label, placeholder, min, max, classname, type, meta: {touched, error}}) => (
-  <div className="field-wrapper"> 
+const renderField = ({input, label, placeholder, min, max, maxlength, classname, type, meta: {touched, error}}) => (
+  <div className={"field-wrapper " + classname}> 
     <label>{label}</label>
     <div>
-      <input {...input} type={type} min={min} max={max} className={classname} placeholder={placeholder} />
+      <input {...input} type={type} min={min} max={max} maxlength={maxlength} className={classname} placeholder={placeholder} />
       {touched && error && <span>{error}</span>}
       </div>
     </div>
@@ -45,15 +45,15 @@ const renderDropzoneInput = (field) => {
         name={field.name}
         onDrop={dropHandler}
         accept="image/*"
-        className="edit-tip__dropzone__touch flx flx-align-start flx-just-start ta-left"
+        className="edit-tip__dropzone__touch flx flx-col flx-align-center flx-just-start ta-center"
       >
-        <div className="edit-tip__upload vb vb--light vb--no-outline vb-sm ta-center w-100">Upload or Drop image(s) here</div>
+        <div className="edit-tip__upload vb vb--light vb--no-outline vb-sm ta-center w-100">Upload New image(s)</div>
 
         {field.meta.touched &&
           field.meta.error &&
           <span className="error">{field.meta.error}</span>}
         {files && Array.isArray(files) && (
-          <ul>
+          <ul className="">
             { files.map((file, i) => <li key={i}>{file.name}</li>) }
           </ul>
         )}
@@ -255,6 +255,7 @@ let Review = ({ review, index, fields, authenticated, reviewObject, searchLocati
                 type="text"
                 component={displayField}
                 label="Address"
+                classname="edit-tip__address"
               />
             </div>            
             <div className="flx flx-row">
@@ -264,7 +265,7 @@ let Review = ({ review, index, fields, authenticated, reviewObject, searchLocati
                 min="0"
                 max="10"
                 component={renderField}
-                label="Rating (optional)"
+                label="Rating"
                 placeholder="0"
                 classname="input--underline edit-tip__rating"
               />
@@ -278,7 +279,7 @@ let Review = ({ review, index, fields, authenticated, reviewObject, searchLocati
                   rows="2"
                   label="Description"
                   placeholder="Add a caption (optional)"
-                  className="edit-tip__caption"/>
+                  classname="edit-tip__caption"/>
               </div> 
             </div>
             { /** >>>>>> rating and caption row **/ }
@@ -332,7 +333,7 @@ let EditItineraryForm = props => {
 
             <div className="edit-it-wrapper flx flx-row w-100 pdding-all-md">
               { /** Left Image **/ }
-              <div className="image-module">
+              <div className="image-module mrgn-right-lg">
                 <div className="tip__image-module">
                   <ImagePicker images={props.itineraryImages} />
                 </div>
@@ -351,7 +352,15 @@ let EditItineraryForm = props => {
               {/* Right */}
               <div className="itinerary__summary ta-left">
                 <div>
-                  <Field name="itinerary.title" component={renderField} type="text" label="Itinerary Name" classname="input--underline edit-itinerary__name" />
+                  <label>Itinerary Name</label>
+                  <Field
+                  name="itinerary.title"
+                  component="textarea"
+                  type="text"
+                  rows="1"
+                  maxLength="32"
+                  label="Itinerary Name"
+                  className="input--underline edit-itinerary__name" />
                 </div>
               
                 <div className="field-wrapper"> 
@@ -360,7 +369,7 @@ let EditItineraryForm = props => {
                   name="itinerary.description"
                   component="textarea"
                   rows="2"
-                  maxLength="120"
+                  maxLength="180"
                   type="text"
                   label="Description" />
                 </div>

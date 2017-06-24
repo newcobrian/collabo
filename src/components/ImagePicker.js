@@ -26,12 +26,16 @@ class ImagePicker extends React.Component {
       // let index = Math.floor(Math.random() * (props.images.length-1));
 
         return (
+
            <img src={imgSrc} className="center-img cover-height" onClick={this.handleClick} />
+
         )
     }
     else {
       return (
-      <img className="center-img cover-height" src="../img/cover_default.png"/>
+        <div className="default-bg">
+          <img className="center-img cover-height DN" src="../img/cover_default.png"/>
+      </div>
       )
     }
   }

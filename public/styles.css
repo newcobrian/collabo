@@ -182,6 +182,12 @@ input[type="radio"]:checked + label span {
 ************************************ BUTTONS 
 ******
 ******/
+.default-bg {
+  /*background-image: linear-gradient(270deg, #4BDEC8 3%, #0095FF 100%);*/
+  background: #1D2C4A;
+  height: 100%;
+  width: 100%;
+}
 .temp-image {
   width: 100%;
   background: white;
@@ -212,12 +218,17 @@ input[type="radio"]:checked + label span {
   display: inline-block;
   background-color: #1C398C;
   background-color: #295BA2;
+  background-color: #91F8BA;
+  background-color: #79D5DD;
   cursor: pointer;
   color: white;
   text-transform: uppercase;
   font-family: "Arimo";
   padding: 10px 20px;
   flex-shrink: 0;
+  /* Rectangle 2: */
+  background-image: linear-gradient(270deg, #4BDEC8 3%, #0095FF 100%);
+  box-shadow: 0 14px 24px 0 rgba(0,0,0,0.1);
 /*  background-image:
     linear-gradient(
       to top right, 
@@ -255,10 +266,12 @@ input[type="radio"]:checked + label span {
   background-color: white;
   color: black;
   background-image: initial;
+  box-shadow: none;
 }
 .v-button--circle {
   border-radius: 32px;
   padding: 6px;
+  box-shadow: none;
 }
 .v-button--circle img {
   margin-right: 0;
@@ -276,6 +289,7 @@ input[type="radio"]:checked + label span {
   font-size: 10px;
   letter-spacing: 2px;
   display: block;
+  box-shadow: none;
 }
 
 .vb--no-outline {
@@ -283,6 +297,7 @@ input[type="radio"]:checked + label span {
   padding: 5px 0;
   background-color: transparent;
   height: 24px;
+  box-shadow: none;
 }
 
 .vb--following {
@@ -422,7 +437,7 @@ input[type="radio"]:checked + label span {
 .header-wrapper {
     position: absolute;
     width: 100%;
-    height: auto;
+    height: 100%;
     top: 0;
     right: 0;
     left: 0;
@@ -539,9 +554,9 @@ a.logo-module:focus {
   width: 48px;
   height: 48px;
   margin-top: 3px;
-  -webkit-animation:spin 16s linear infinite;
-  -moz-animation:spin 16s linear infinite;
-  animation:spin 16s linear infinite;
+  -webkit-animation:spin 8s linear 1;
+  -moz-animation:spin 8s linear 1;
+  animation:spin 8s linear 1;
 }
 
 @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
@@ -854,7 +869,7 @@ svg {
   padding: 0;
 }
     .user-name {
-      font-size: 16px;
+      font-size: 20px;
       font-weight: 700;
       margin: 10px 0 0;
     }
@@ -1100,12 +1115,11 @@ input, button, select, textarea {
   margin: 0 0 10px 0;
   line-height: inherit;
   border-radius: 2px;
-  padding: 10px;
-  border: 0px solid rgba(0,0,0,.3);
+  border: 1px solid rgba(0,0,0,.1);
   width: auto;
+  padding: 10px;
 }
 textarea {
-  padding: 0;
   letter-spacing: 1px;
   width: 100%;
 }
@@ -1115,14 +1129,10 @@ input.input--underline {
   border-radius: 2px;
   padding: 10px;
   width: 100%;
-  border: 1px solid rgba(0,0,0,.3);
-  font-size: 16px;
-  border: none;
-  padding: 0;
   font-family: 'Roboto', sans-serif;
 }
 .geosuggest__input {
-  padding: 10px 0;
+  padding: 10px 0 10px 10px;
   width: 100%;
 }
 .geosuggest__suggests {
@@ -1152,11 +1162,9 @@ input.input--underline {
   color: #fff;
 }
 input[type="number"] {
-  border: none;
-  width: 60px;
-  padding: 5px;
+  padding: 10px;
   text-align: right;
-  height: 32px;
+  height: 70px;
   margin: 0;
 }
 input.input--overline {
@@ -1179,14 +1187,16 @@ label {
   text-transform: uppercase;
   opacity: .4;
   font-weight: 600;
+  width: 100%;
 }
 
 .field-wrapper {
   border: 0px solid #ccc;
   padding: 0 0 5px;
   margin-top: -1px;
-  min-width: 220px;
+  min-width: 140px;
   background-color: white;
+  width: 100%;
 }
 .field-wrapper.field-wrapper--dropzone {
   margin-left: -1px;

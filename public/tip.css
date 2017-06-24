@@ -70,9 +70,10 @@
 
 .edit-tip__dropzone {
     background: rgba(6,175,227,0.1);
+    background: transparent;
     position: relative;
     cursor: pointer;
-    background: white;
+    background: transparent;
     height: auto;
     padding: 10px;
 }
@@ -84,10 +85,14 @@
     height: 32px;
 }
 .edit-tip__dropzone ul {
-    color: black;
-    font-size: 10px;
-    opacity: .4;
-    list-style: none;
+	color: black;
+	font-size: 10px;
+	opacity: .4;
+	list-style: none;
+	width: 120px;
+}
+.edit-tip__dropzone li {
+
 }
 .edit-tip__rating-total {
 	margin: 30px 0 0 6px;
@@ -99,7 +104,9 @@
 	font-weight: 100;
 	font-family: Helvetica, sans-serif;
 }
-
+.edit-tip__address {
+	font-size: 13px;
+}
 input.edit-tip__name {
 	font-size: 32px;
 }
@@ -108,6 +115,10 @@ input.edit-tip__address {
 }
 input.edit-tip__rating {
 	font-size: 24px;
+	width: 120px;
+}
+.edit-tip__rating.field-wrapper {
+	width: 120px;
 }
 .edit-tip__caption {
 	border: none;

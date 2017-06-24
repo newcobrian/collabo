@@ -40,7 +40,7 @@ const LoggedInView = props => {
         </Link>
 
         <Link to="explore" activeClassName="active" className="nav-module nav-feed flx flx-center-all">
-            <div className="nav-text">People</div>
+            <div className="nav-text">Travelers</div>
         </Link>
 
         <Link to="create" activeClassName="active" className="nav-module create nav-editor flx flx-center-all">  
