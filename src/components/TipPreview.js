@@ -65,7 +65,7 @@ const TipPreview = props => {
 
             { /** Image **/ }
             <div className="tip__image-module mrgn-right-lg">
-              <div className="tip__photo-count">{review.images.length}</div>
+              <div className="tip__photo-count">{review.images.length > 0 ? review.images.length : null}</div>
               <ImagePicker images={review.images} />
 
             </div>
