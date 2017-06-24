@@ -136,18 +136,18 @@ let renderGeoSuggestItinerary = (field, googlemaps) => {
     field.input.onChange(geoData);
   }
 
-  return null;
+  // return null;
   // if (!field.googleMapsObject) return null;
-  // return (
-  //   <Geosuggest 
-  //     className="input--underline"
-  //     types={['(regions)']}
-  //     placeholder="Search a city or country"
-  //     required
-  //     googleMaps={field.googleMapsObject}
-  //     initialValue={field.geoSuggest}
-  //     onSuggestSelect={suggestSelect}/>
-  // )
+  return (
+    <Geosuggest 
+      className="input--underline"
+      types={['(regions)']}
+      placeholder="Search a city or country"
+      required
+      googleMaps={field.googleMapsObject}
+      initialValue={field.geoSuggest}
+      onSuggestSelect={suggestSelect}/>
+  )
 }
 
 const renderGeoSuggestReview = (field) => {

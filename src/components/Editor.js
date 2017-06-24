@@ -58,24 +58,16 @@ class Editor extends React.Component {
   }
 
   render() {
-    if (!this.props.googleMapsObject) {
-      return (
-        <Map google={window.google}
-          onReady={this.initMap}
-          visible={false} >
-        </Map>
-        );
-    }
+    // if (!this.props.googleMapsObject) {
+    //   return (
+    //     <Map google={window.google}
+    //       onReady={this.initMap}
+    //       visible={false} >
+    //     </Map>
+    //     );
+    // }
     return (
       <div>
-      <Geosuggest 
-        className="input--underline"
-        types={['(regions)']}
-        placeholder="Search for a city or country"
-        required
-        googleMaps={this.props.googleMapObject}
-        onChange={this.changeGeo}
-        onSuggestSelect={this.suggestSelect}/>
       <EditItineraryForm 
         onSubmit={this.submitForm}
         searchLocation={this.props.geo}
@@ -86,8 +78,8 @@ class Editor extends React.Component {
   }
 }
 
-export default GoogleApiWrapper({
-  apiKey: Constants.GOOGLE_API_KEY
-}) (connect(mapStateToProps, Actions)(Editor));
+// export default GoogleApiWrapper({
+//   apiKey: Constants.GOOGLE_API_KEY
+// }) (connect(mapStateToProps, Actions)(Editor));
 
-// export default connect(mapStateToProps, Actions)(Editor);
+export default connect(mapStateToProps, Actions)(Editor);
