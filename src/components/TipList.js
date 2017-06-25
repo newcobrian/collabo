@@ -23,7 +23,7 @@ const TipList = props => {
           // console.log('review item comments = ' + JSON.stringify(reviewItem))
           return (
             <TipPreview review={reviewItem}
-              key={reviewItem.priority} 
+              key={reviewItem.priority || reviewItem.id} 
               authenticated={props.authenticated}
               like={props.like} 
               unLike={props.unLike}

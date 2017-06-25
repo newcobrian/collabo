@@ -3,39 +3,39 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import * as Actions from '../../actions';
-import ReviewPreview from '../ReviewPreview';
+import TipList from '../TipList';
 import ImagePicker from '../ImagePicker'
 
-const DisplayAppUserReview = props => {
-  if (props.review && props.authenticated) {
-    if (props.currentReviewId !== props.review.reviewId) {
-      let review = props.review;
-      review.subject = props.subject;
-      review.reviewer = props.userInfo;
-      return (
-        <div className="reviewpreview-wrapper your-review roow roow-col-center">
+// const DisplayAppUserReview = props => {
+//   if (props.review && props.authenticated) {
+//     if (props.currentReviewId !== props.review.reviewId) {
+//       let review = props.review;
+//       review.subject = props.subject;
+//       review.reviewer = props.userInfo;
+//       return (
+//         <div className="reviewpreview-wrapper your-review roow roow-col-center">
 
-          <ReviewPreview review={review} 
-            authenticated={props.authenticated} 
-            like={props.like} 
-            unLike={props.unLike}
-            save={props.save}
-            unSave={props.unSave}
-            updateRating={props.updateRating}
-            showModal={props.showModal} />
-        </div>
-      )
-    }
-    else return null;
-  }
-  else {
-    return (
-      <div className="DN roow roow-col-center your-review empty-prompt">
-        <a className="review-prompt gray-border" href="">+ Add Your Review</a>
-      </div>
-    )
-  }
-}
+//           <Tip review={review} 
+//             authenticated={props.authenticated} 
+//             like={props.like} 
+//             unLike={props.unLike}
+//             save={props.save}
+//             unSave={props.unSave}
+//             updateRating={props.updateRating}
+//             showModal={props.showModal} />
+//         </div>
+//       )
+//     }
+//     else return null;
+//   }
+//   else {
+//     return (
+//       <div className="DN roow roow-col-center your-review empty-prompt">
+//         <a className="review-prompt gray-border" href="">+ Add Your Review</a>
+//       </div>
+//     )
+//   }
+// }
 
 const DisplayFollowingReviews = props => {
   if (props.reviews) {
@@ -45,7 +45,7 @@ const DisplayFollowingReviews = props => {
         props.reviews.map(review => {
           review.subject = props.subject;
           return (
-            <ReviewPreview review={review} 
+            <TipList review={review} 
               key={review.id}
               authenticated={props.authenticated} 
               like={props.like} 
@@ -197,7 +197,7 @@ class Review extends React.Component {
       unSave={this.props.unSaveReview}
       updateRating={this.props.onUpdateRating}
       showModal={this.props.showModal} />
-*/}
+
         <DisplayFollowingReviews
           reviews={this.props.followingReviews}
           subject={this.props.subject}
@@ -207,8 +207,17 @@ class Review extends React.Component {
           unLike={this.props.unLikeReview}
 
           showModal={this.props.showModal} />
-
+*/}
+          
         </div>
+        <TipList
+            reviewList={this.props.followingReviews} 
+            authenticated={this.props.authenticated}
+            like={this.props.likeReview} 
+            unLike={this.props.unLikeReview}
+            userInfo={this.props.userInfo}
+            showModal={this.props.showModal}
+            deleteComment={this.props.onDeleteComment} />
       </div>
     </div>
     
