@@ -100,7 +100,7 @@ class ProfileLikes extends Profile {
 
           {this.renderTabs()}
           
-          <div className="flx flx-row flx-just-center w-100">
+          <div className="status-module flx flx-row flx-just-center w-100 v2-type-body3">
             <div>{this.props.profile.username} has not liked anything yet.</div>
           </div>
         </div>

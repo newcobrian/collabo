@@ -125,7 +125,6 @@ class Review extends React.Component {
 
     return (
       <div className="tips-wrapper flx flx-col flx-col-start">
-        <div className="tip-container flx flx-col flx-col-top">
           
 
           {/*}      <ReviewPreview review={reviewObject} 
@@ -151,38 +150,42 @@ class Review extends React.Component {
       */}
 
           <div className="flx flx-row flx-just-start w-100">
+            <div className="tip-container flx flx-col flx-align-center">
+              <div className="tip-inner flx flx-row flx-just-start w-100 w-max-2">
 
-            { /** Image **/ }
-            <div className="tip__image-module mrgn-right-lg">
-              <div className="tip__photo-count">{subject.images.length}</div>
-              <ImagePicker images={subject.images} />
+                { /** Image **/ }
+                <div className="tip__image-module mrgn-right-lg">
+                  <div className="tip__photo-count">{subject.images.length}</div>
+                  <ImagePicker images={subject.images} />
 
-            </div>
-
-
-            {/* Non-image module on right */}
-            <div className="flx flx-col flx-align-start w-100">
-
-              { /** Title and Add **/ }
-              <div className="tip_title-module flx flx-row-top w-100">
-                <div className="flx flx-col flx-col-start mrgn-right-md w-100">
-                  <Link to={`review/${subject.id}`}>
-                  <div className="tip__title v2-type-h2 ta-left">
-                    {subject.title}
-                  </div>
-                  </Link>
-                  <div className="tip__address v2-type-mono mono-sm mrgn-bottom-sm opa-30 ta-left">
-                    {subject.address}
-                  </div>
                 </div>
+     
 
-                <div className="vb flex-item-right">
-                  <Link onClick={this.handleSaveClick}>
-                    <img className="center-img" src="../img/logos/logo.bird2.white.png"/>Save
-                  </Link>
-                </div>
+                {/* Non-image module on right */}
+                <div className="flx flx-col flx-align-start w-100">
 
+                  { /** Title and Add **/ }
+                  <div className="tip_title-module flx flx-row-top w-100">
+                    <div className="flx flx-col flx-col-start mrgn-right-md w-100">
+                      <Link to={`review/${subject.id}`}>
+                      <div className="tip__title v2-type-h2 ta-left">
+                        {subject.title}
+                      </div>
+                      </Link>
+                      <div className="tip__address v2-type-mono mono-sm mrgn-bottom-sm opa-30 ta-left">
+                        {subject.address}
+                      </div>
+                    </div>
+
+                    <div className="vb flex-item-right">
+                      <Link onClick={this.handleSaveClick}>
+                        <img className="center-img" src="../img/icon.add--white.png"/>Save
+                      </Link>
+                    </div>
+
+                  </div>
               </div>
+            </div>
             </div>
 
 {/*}    <DisplayAppUserReview 
@@ -210,16 +213,19 @@ class Review extends React.Component {
 */}
           
         </div>
-        <TipList
-            reviewList={this.props.followingReviews} 
-            authenticated={this.props.authenticated}
-            like={this.props.likeReview} 
-            unLike={this.props.unLikeReview}
-            userInfo={this.props.userInfo}
-            showModal={this.props.showModal}
-            deleteComment={this.props.onDeleteComment} />
+        <div className="itinerary__tipslist flx flx-col flx-align-center w-100">
+          <div className="w-100">
+          <TipList
+              reviewList={this.props.followingReviews} 
+              authenticated={this.props.authenticated}
+              like={this.props.likeReview} 
+              unLike={this.props.unLikeReview}
+              userInfo={this.props.userInfo}
+              showModal={this.props.showModal}
+              deleteComment={this.props.onDeleteComment} />
+          </div>
+        </div>
       </div>
-    </div>
     
     );
   }

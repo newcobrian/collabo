@@ -118,7 +118,7 @@ class Followings extends Followers {
 
             {this.renderTabs()}
 
-          <div className="flx flx-row page-common follow-page flx-align-center pdding-top-md">
+          <div className="flx flx-row page-common follow-page flx-just-start pdding-top-md w-100">
             {
               this.props.followers.map(follower => {
                 const isUser = this.props.currentUser &&

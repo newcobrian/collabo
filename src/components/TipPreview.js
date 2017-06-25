@@ -99,9 +99,13 @@ const TipPreview = props => {
               <div className="tip__rating-module flx flx-row flx-align-start mrgn-bottom-sm w-100">
                 
                 <div className="flx flx-row flx-align-center mrgn-bottom-sm">
-                  <div className="user-image tip__author-photo mrgn-right-md flx-hold">
-                    <ProxyImage src={review.createdBy.image} className="center-img" />
-                  </div>
+                  <Link
+                    to=""
+                    className="">
+                    <div className="user-image tip__author-photo mrgn-right-md flx-hold">
+                      <ProxyImage src={review.createdBy.image} className="center-img" />
+                    </div> 
+                  </Link>
                   <div className={'v2-type-rating ta-right mrgn-right-md v2-type-rating--' +  review.rating}>
                     {review.rating}<div className="v2-type-rating--total opa-10">/10</div>
                   </div>

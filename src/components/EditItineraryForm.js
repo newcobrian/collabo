@@ -47,7 +47,7 @@ const renderDropzoneInput = (field) => {
         accept="image/*"
         className="edit-tip__dropzone__touch flx flx-col flx-align-center flx-just-start ta-center"
       >
-        <div className="edit-tip__upload vb vb--light vb--no-outline vb-sm ta-center w-100">Upload New image(s)</div>
+        <div className="edit-tip__upload vb vb--light vb--no-outline vb-sm ta-center w-100">Upload New image</div>
 
         {field.meta.touched &&
           field.meta.error &&

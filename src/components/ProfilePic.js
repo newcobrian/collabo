@@ -2,7 +2,11 @@ import React from 'react';
 
 const ProfilePic = props => {
   if (!props.src) {
-    return null;
+    return (
+    	<div className="user-image center-img">
+    	 	<img src="../img/user_temp.png" className="center-img"/>
+    	</div>
+    	);
   }
 
   // const imgSrc = 'https://images.weserv.nl/?url=' + props.src.replace(/^https?\:\/\//i, "");

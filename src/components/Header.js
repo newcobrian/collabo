@@ -13,13 +13,17 @@ const InboxCounter = props => {
 const LoggedOutView = props => {
   if (!props.currentUser || props.currentUser.isAnonymous) {
     return (
-      <div className="navigation-bar no-icons flx flx-row flx-align-center">
+      <div className="navigation-bar no-icons flx flx-row flx-align-center pdding-right-md">
           <Link to="login" className="nav-module">
-            Sign-in
+            <div className="nav-text">
+              Sign-in
+            </div>
           </Link>
 
           <Link to="register" className="nav-module">
-            Sign-up
+            <div className="nav-text">
+              Sign-up
+            </div>
           </Link>
 
       </div>
@@ -31,7 +35,7 @@ const LoggedOutView = props => {
 const LoggedInView = props => {
   if (props.currentUser && props.userInfo) {
     return (
-      <div className="navigation-bar flx flx-row flx-align-center flx-just-end">
+      <div className="navigation-bar flx flx-row flx-align-center flx-just-end pdding-right-md">
         
         
 

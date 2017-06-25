@@ -23,9 +23,9 @@ const SubjectInfo = props => {
 	if (props.subject) {
 		return (
 			<div>
-				<div className="flx flx-row-top">
-					<div className="subject-image create-subject-image">{renderImage(props.image)}</div>
-				</div>
+			<div className="flx flx-row-top">
+				<div className="subject-image create-subject-image">{renderImage(props.image)}</div>
+			</div>
 			</div>
 		)
 	}
@@ -162,9 +162,9 @@ class Create extends React.Component {
 				    </div> 
 				    <div ref="GMap"></div>**/}
 					<div className="page-title-wrapper center-text">
-					  <div className="v2-type-page-header">Create New Itinerary</div>
-					  <div className="v2-type-body2 opa-60 mrgn-top-sm DN"></div>
-					</div>
+			          <div className="v2-type-page-header">Create a New Itinerary</div>
+			          <div className="v2-type-body2 opa-60 mrgn-top-sm">This could be a list of top spots or plans for an upcoming trip</div>
+			        </div>
 					<div className="flx flx-col flx-center-all create-wrapper mrgn-top-sm">
 						<ListErrors errors={this.props.errors}></ListErrors>
 			            <div className="create-form-wrapper form-wrapper flx flx-col-left">

@@ -373,6 +373,7 @@ input[type="radio"]:checked + label span {
   border-radius: 80px;
   overflow: hidden;
   object-fit: cover;
+  border: 1px solid rgba(0,0,0,.1);
 }
 .user-image img {
   width: 100%;
@@ -462,14 +463,14 @@ a.logo-module:focus {
   opacity: 1;
 }
 .logo-main {
-  font-size: 18px;
+  font-size: 20px;
   height: 36px;
   font-weight: 700;
   margin-left: 30px;
   letter-spacing: 7px;
   color: rgba(0,0,0,.8);
-  margin-top: 14px;
-  font-family: 'Montserrat', sans-serif;
+  margin-top: 7px;
+  font-family: 'Arimo', sans-serif;
 }
 .logo-tagline {
     font-size: 14px;
@@ -607,6 +608,7 @@ svg {
 }
 .navigation-bar .nav-text {
   width: 100%;
+  font-family: 'Arimo', sans-serif;
 }
 .nav-module.nav-user-image {
     width: 40px;
@@ -1128,6 +1130,9 @@ input, button, select, textarea {
   padding: 10px;
   box-shadow: inset 0 0px 20px rgba(0,0,0,.04);
 }
+button {
+  box-shadow: none;
+}
 textarea {
   letter-spacing: 1px;
   width: 100%;
@@ -1392,6 +1397,7 @@ position: absolute;
     padding: 0 0 10px;
     outline-width: 0px;
     margin-top: 10px;
+    box-shadow: none;
 }
 .comment-data .mod-options {
     color: black;

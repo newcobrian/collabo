@@ -159,12 +159,16 @@ class FirebaseSearchInput extends Component {
         }}
         textFieldStyle={{
           height: '50px',
-          marginBottom: '40px'
+          marginBottom: '40px',
+          border: '1px solid rgba(0,0,0,.1)'
         }}
         underlineStyle={{borderColor: '#5B9D3A'}}
         menuStyle={{
           height: '400px',
           overflow: 'scroll'
+        }}
+        hintStyle={{
+          paddingLeft: '10px'
         }}
      />
       </MuiThemeProvider>
