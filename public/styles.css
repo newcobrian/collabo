@@ -1359,14 +1359,26 @@ position: absolute;
   width: 30px;
   height: 30px;
   border-radius: 32px;
+  border: 1px solid white;
+  overflow: hidden;
+}
+.comment-author-img img {
+  width: 30px;
+  height: 30px;
+  border-radius: 32px;
+}
+.comment-preview-wrapper {
+  background: rgba(255,255,255,.2);
+  border-radius: 6px;
+  padding: 2px 12px;
+}
+.comment-text {
+  max-width: 100px;
 }
 .comment-wrapper.card .comment-data {
 }
 .comment-author {
-    font-size: 1em;
-    font-weight: 600;
     margin-right: 5px;
-    margin-top: -3px;
     color: black;
 }
 .comment-wrapper .card-text {

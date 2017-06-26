@@ -104,6 +104,7 @@ textarea {
   line-height: 10px;
   font-family: 'Roboto', sans-serif;
   color: black;
+  text-transform: uppercase;
 }
 .mod-options .v2-type-caption {
   cursor: pointer;

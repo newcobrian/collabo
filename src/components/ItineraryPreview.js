@@ -29,22 +29,28 @@ const CommentPreview = props => {
       <Link to={`itinerary/${props.itinerary.id}`}>
         <div className="cta-wrapper flx flx-row flx-just-end flex-item-right last-comment">
           <div className="flx flx-row flx-just-end flx-align-center">
-            <div className="cta-icon cta-comment comment-on"></div>
-            <div className="v2-type-body1 mrgn-right-md">{props.itinerary.commentsCount}</div>
-            <div className="comment-row">
-                <Link
-                  to={`${props.itinerary.lastComment.username}`}
-                  className="comment-author">
-                  <ProfilePic src={props.itinerary.lastComment.image} className="comment-author-img center-img" />
-                </Link>
-                &nbsp;
-                <Link
-                  to={`${props.itinerary.lastComment.username}`}
-                  className="comment-author">
-                  {props.itinerary.lastComment.username}
-                </Link>
+            <div className="comment-author-img mrgn-right-sm">
+              <Link
+                to={`${props.itinerary.lastComment.username}`}
+                >
+                <ProfilePic src={props.itinerary.lastComment.image} className="center-img" />
+              </Link>
+            </div>
+
+            <div className="comment-preview-wrapper v2-type-body1 color--white flx flx-row mrgn-right-sm">
+              <Link
+                to={`${props.itinerary.lastComment.username}`}
+                className="comment-author color--white">
+                {props.itinerary.lastComment.username}:
+              </Link>
+              <div className="ellipsis comment-text">
                 {props.itinerary.lastComment.body}
               </div>
+            </div>
+             
+
+            <div className="cta-icon cta-comment comment-on"></div>
+            <div className="v2-type-body1 mrgn-right-md">{props.itinerary.commentsCount}</div>
           </div>
         </div>
       </Link>
@@ -111,16 +117,18 @@ const ItineraryPreview = props => {
               </div>
               </Link>
             </div>
-
-            <div className="cta-wrapper flx flx-row flx-just-end flex-item-right mrgn-right-md">
-              <LikeReviewButton
-                authenticated={props.authenticated}
-                isLiked={props.itinerary.isLiked}
-                likesCount={props.itinerary.likesCount}
-                unLike={props.unLike}
-                like={props.like} 
-                likeObject={itinerary}
-                type={ITINERARY_TYPE} />
+            <div className="flx flx-row flx-just-end flex-item-right mrgn-right-md">
+              <CommentPreview itinerary={props.itinerary} />
+              <div className="cta-wrapper flx flx-row flx-just-end flex-item-right">
+                <LikeReviewButton
+                  authenticated={props.authenticated}
+                  isLiked={props.itinerary.isLiked}
+                  likesCount={props.itinerary.likesCount}
+                  unLike={props.unLike}
+                  like={props.like} 
+                  likeObject={itinerary}
+                  type={ITINERARY_TYPE} />
+              </div>
             </div>
 
             
@@ -152,7 +160,7 @@ const ItineraryPreview = props => {
             </div>
 
             {/** TIMESTAMP **/}
-            <div className="itinerary__cover__timestamp ta-center color--white opa-30">
+            <div className="itinerary__cover__timestamp pdding-top-sm ta-center color--white opa-30">
               <DisplayTimestamp timestamp={itinerary.lastModified} />
             </div> 
 
@@ -160,7 +168,6 @@ const ItineraryPreview = props => {
           {/** CLOSE CENTER INFO >>>>>> **/}
          
 
-          {/*<CommentPreview itinerary={props.itinerary} />*/}
            
           
 

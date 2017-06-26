@@ -82,7 +82,7 @@ const TipPreview = props => {
                     {review.title}
                   </div>
                   </Link>
-                  <div className="tip__address v2-type-mono mono-sm mrgn-bottom-sm opa-30 ta-left">
+                  <div className="tip__address v2-type-mono mono-sm opa-30 ta-left">
                     {review.address}
                   </div>
                 </div>
@@ -95,8 +95,20 @@ const TipPreview = props => {
 
               </div>
 
+              { /** Caption **/ }
+              <div className="tip__caption-module flx flx-col w-100">
+                <div className="flx flx-row flx-just-start flx-align-start">
+                  <div className="tip__caption v2-type-body2 opa-80 ta-left">
+                    <CaptionDisplay review={props.review} />
+                  </div>
+                </div>
+                <div className="tip__timestamp v2-type-caption opa-30">
+                  <DisplayTimestamp timestamp={review.lastModified} />
+                </div>
+              </div>
+
               { /** Rating and Like **/ }
-              <div className="tip__rating-module flx flx-row flx-align-start mrgn-bottom-sm w-100">
+              <div className="tip__rating-module flx flx-row flx-align-start mrgn-top-sm w-100">
                 
                 <div className="flx flx-row flx-align-center mrgn-bottom-sm">
                   <Link
@@ -111,18 +123,7 @@ const TipPreview = props => {
                   </div>
                   
                 </div> 
-                { /** Caption **/ }
-                <div className="tip__caption-module flx flx-col w-100">
-                  <div className="flx flx-row flx-just-start flx-align-start">
-                    <div className="tip__caption v2-type-body2 opa-80 ta-left">
-                      <CaptionDisplay review={props.review} />
-                    </div>
-                  </div>
-                  <div className="tip__timestamp v2-type-caption opa-30">
-                    <DisplayTimestamp timestamp={review.lastModified} />
-                  </div>
-
-                </div>
+                
 
                 <div className="flx flx-row flex-item-right v2-type-body2">
                   <div className="cta-wrapper">

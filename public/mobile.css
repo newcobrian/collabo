@@ -368,4 +368,20 @@ width: 100%;
   width: 100%;
 }
 
+
+/* TIP PREVIEW */
+.v2-type-h3 {
+  font-size: 18px;
+}
+.v2-type-mono.mono-sm {
+  font-size: 11px;
+  line-height: 14px;
+}
+.mrgn-right-lg {
+  margin-right: 20px;
+}
+.tip__image-module {
+  height: 80px;
+  width: 80px;
+}
 }
