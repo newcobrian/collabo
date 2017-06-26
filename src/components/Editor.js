@@ -66,6 +66,7 @@ class Editor extends React.Component {
     //     </Map>
     //     );
     // }
+
     return (
       <div>
       <EditItineraryForm 

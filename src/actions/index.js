@@ -616,17 +616,20 @@ export function onEditorLoad(authenticated, itineraryId) {
           for (let i = 0; i < itineraryObject.reviews.length; i++) {
             Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + itineraryObject.reviews[i].subjectId).on('value', subjectSnapshot => {
               Firebase.database().ref(Constants.REVIEWS_PATH + '/' + itineraryObject.reviews[i].reviewId).on('value', reviewSnapshot => {
-                Firebase.database().ref(Constants.IMAGES_BY_USER_PATH + '/' + authenticated + '/' + itineraryObject.reviews[i].subjectId).on('value', imageSnapshot => {
-                  Object.assign(itineraryObject.reviews[i], subjectSnapshot.val(), reviewSnapshot.val(), 
-                    { images: Helpers.getImagePath(imageSnapshot.val()) });
-                
-                  dispatch({
-                    type: EDITOR_PAGE_LOADED,
-                    itineraryId: itineraryId,
-                    searchLocation: itinerarySnapshot.val().geo.location,
-                    geoSuggest: itinerarySnapshot.val().geo.label,
-                    itineraryImages: itineraryObject.images,
-                    data: { itinerary: itineraryObject }
+                Firebase.database().ref(Constants.IMAGES_BY_USER_PATH + '/' + authenticated + '/' + itineraryObject.reviews[i].subjectId).on('value', userImageSnapshot => {
+                  Firebase.database().ref(Constants.IMAGES_PATH + '/' + itineraryObject.reviews[i].subjectId).on('value', imageSnapshot => {
+                    let imageList = (userImageSnapshot.exists() ? Helpers.getImagePath(userImageSnapshot.val()) : Helpers.getImagePath(imageSnapshot.val()) );
+                    Object.assign(itineraryObject.reviews[i], subjectSnapshot.val(), reviewSnapshot.val(), 
+                      { images: imageList });
+
+                    dispatch({
+                      type: EDITOR_PAGE_LOADED,
+                      itineraryId: itineraryId,
+                      searchLocation: itinerarySnapshot.val().geo.location,
+                      geoSuggest: itinerarySnapshot.val().geo.label,
+                      itineraryImages: itineraryObject.images,
+                      data: { itinerary: itineraryObject }
+                    })
                   })
                 })
               })
@@ -1278,10 +1281,10 @@ export function uploadImages(auth, objectId, objectType, images, itineraryId) {
         updates[`/${storagePath}/${objectId}/${imageId}`] = Object.assign({}, imageObject, {userId: auth});
         // Firebase.database().ref(byUserPath + '/' + auth + '/' + objectId + '/' + imageId).update(imageObject);
 
-        if (objectType === Constants.REVIEW_TYPE) {
-          updates[`/${Constants.IMAGES_ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}/${imageId}`] = Object.assign({}, imageObject);
-          updates[`/${Constants.IMAGES_ITINERARIES_PATH}/${itineraryId}/${imageId}`] = Object.assign({}, imageObject, {userId: auth});
-        }
+        // if (objectType === Constants.REVIEW_TYPE) {
+        //   updates[`/${Constants.IMAGES_ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}/${imageId}`] = Object.assign({}, imageObject);
+        //   updates[`/${Constants.IMAGES_ITINERARIES_PATH}/${itineraryId}/${imageId}`] = Object.assign({}, imageObject, {userId: auth});
+        // }
       }
       else {
         // otherwise upload the file if we need to
@@ -1305,13 +1308,7 @@ export function uploadImages(auth, objectId, objectType, images, itineraryId) {
              // save images in images and images-by-user
             imageId = Firebase.database().ref(byUserPath + '/' + auth + '/' + objectId).push(imageObject).key;
             uploadUpdates[`/${storagePath}/${objectId}/${imageId}`] = Object.assign({}, imageObject, {userId: auth});
-            // Firebase.database().ref(byUserPath + '/' + auth + '/' + objectId + '/' + imageId).update(imageObject);
 
-            if (objectType === Constants.REVIEW_TYPE) {
-              console.log('image if')
-              uploadUpdates[`/${Constants.IMAGES_ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}/${imageId}`] = Object.assign({}, imageObject);
-              uploadUpdates[`/${Constants.IMAGES_ITINERARIES_PATH}/${itineraryId}/${imageId}`] = Object.assign({}, imageObject, {userId: auth});
-            }
             Firebase.database().ref().update(uploadUpdates);
           }
         })
@@ -1404,6 +1401,15 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
             // if this is a search result from 4sq, use their id as the subject id
             reviews[i].subjectId = reviews[i].id;
             updates[`/${Constants.SUBJECTS_PATH}/${reviews[i].subjectId}`] = subject;
+
+            // save the default image from 4sq
+            if (reviews[i].defaultImage && reviews[i].defaultImage[0]) {
+              let imageObject = {
+                lastModified: Firebase.database.ServerValue.TIMESTAMP
+              };
+              imageObject.url = reviews[i].defaultImage[0];
+              Firebase.database().ref(Constants.IMAGES_PATH + '/' + reviews[i].subjectId).push(imageObject);
+            }
           }
           else {
             // new custom subject, so create it
@@ -1428,7 +1434,7 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
         reviewsList[i] = Object.assign({}, { subjectId: reviews[i].subjectId }, { reviewId: reviews[i].reviewId });
         // reviewsList[reviews[i].subjectId] = Object.assign({}, { reviewId: reviews[i].reviewId }, {priority: i});
 
-        // save the images on each review
+        // save the custom images from each review
         let subjectId = reviews[i].subjectId;
         uploadImages(auth, subjectId, Constants.REVIEW_TYPE, reviews[i].images, itineraryId);
       }
@@ -1439,6 +1445,10 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
 
     let itineraryObject = {};
     Object.assign(itineraryObject, itineraryByUserObject, { userId: auth });
+
+    // if (itinerary.images) {
+    //   uploadImages(auth, itineraryId, Constants.ITINERARY_TYPE, itinerary.images, itineraryId);
+    // }
 
     // update all itinerary tables
     updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}`] = itineraryByUserObject;

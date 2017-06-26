@@ -18,7 +18,7 @@ const renderField = ({input, label, placeholder, min, max, maxlength, classname,
   <div className={"field-wrapper " + classname}> 
     <label>{label}</label>
     <div>
-      <input {...input} type={type} min={min} max={max} maxlength={maxlength} className={classname} placeholder={placeholder} />
+      <input {...input} type={type} min={min} max={max} maxLength={maxlength} className={classname} placeholder={placeholder} />
       {touched && error && <span>{error}</span>}
       </div>
     </div>
@@ -88,7 +88,7 @@ const renderSearchInput = (field) => {
                 json.response.venue.photos.groups[0].items[0]) {
                 const photoURL = json.response.venue.photos.groups[0].items[0].prefix + 'original' +
                   json.response.venue.photos.groups[0].items[0].suffix;
-                let reviewObject = Object.assign({}, {images: [ photoURL ]}, reviewSnapshot.val());
+                let reviewObject = Object.assign({}, {defaultImage: [ photoURL ]}, reviewSnapshot.val());
                 Object.assign(resultObject, subjectSnapshot.val(), reviewObject);
                 field.input.onChange(resultObject);
               }
@@ -230,7 +230,7 @@ let Review = ({ review, index, fields, authenticated, reviewObject, searchLocati
           { /** Image **/ }
           <div className="image-module mrgn-right-lg">
             <div className="tip__image-module">
-              <ImagePicker images={reviewObject.images} source={EDITOR_PAGE} />
+              <ImagePicker images={reviewObject.images || reviewObject.defaultImage} source={EDITOR_PAGE} />
             </div>
               <Field
               name={`${review}.images`}
