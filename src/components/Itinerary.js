@@ -102,7 +102,7 @@ class Itinerary extends React.Component {
 
       const canModify = this.props.authenticated && 
       this.props.authenticated === this.props.itinerary.userId;
-      
+
       return (
         <div className="flx flx-col flx-align-center page-common page-itinerary">
 
@@ -112,7 +112,7 @@ class Itinerary extends React.Component {
               
               {/** Cover Image **/}
               <div className="itinerary__cover__image header-height">
-                <ImagePicker images={itinerary.images} />
+                <ImagePicker images={(itinerary.images && itinerary.images.url ? [itinerary.images.url] : null)} />
               </div>
               {/** Cover Overlay **/}
               <div className="itinerary__cover__overlay header-height">
