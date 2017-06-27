@@ -1279,12 +1279,6 @@ export function uploadImages(auth, objectId, objectType, images, itineraryId) {
         imageObject.url = imageFile;
         imageId = Firebase.database().ref(byUserPath + '/' + auth + '/' + objectId).push(imageObject).key;
         updates[`/${storagePath}/${objectId}/${imageId}`] = Object.assign({}, imageObject, {userId: auth});
-        // Firebase.database().ref(byUserPath + '/' + auth + '/' + objectId + '/' + imageId).update(imageObject);
-
-        // if (objectType === Constants.REVIEW_TYPE) {
-        //   updates[`/${Constants.IMAGES_ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}/${imageId}`] = Object.assign({}, imageObject);
-        //   updates[`/${Constants.IMAGES_ITINERARIES_PATH}/${itineraryId}/${imageId}`] = Object.assign({}, imageObject, {userId: auth});
-        // }
       }
       else {
         // otherwise upload the file if we need to
@@ -1455,14 +1449,16 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
     updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}/`] = itineraryObject;
     updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${auth}/${itineraryId}/`] = itineraryObject;
 
-    // upload itinerary images if they exist
-    // uploadImages(auth, itineraryId, Constants.ITINERARY_TYPE, itinerary.images, itineraryId)
-
     Firebase.database().ref().update(updates, function(error) {
       if (error) {
         console.log("Error updating data:", error);
       }
     });
+
+    // upload itinerary images if they exist
+    // if (itinerary.images) {
+    //   uploadImages(auth, itineraryId, Constants.ITINERARY_TYPE, itinerary.images, itineraryId)
+    // }
 
     let message = itinerary.title + ' has been saved.';
 
