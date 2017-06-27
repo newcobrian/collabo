@@ -1485,10 +1485,6 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
     let itineraryObject = {};
     Object.assign(itineraryObject, itineraryByUserObject, { userId: auth });
 
-    // if (itinerary.images) {
-    //   uploadImages(auth, itineraryId, Constants.ITINERARY_TYPE, itinerary.images, itineraryId);
-    // }
-
     // update all itinerary tables
     updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}`] = itineraryByUserObject;
     updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}/`] = itineraryObject;
@@ -2322,11 +2318,13 @@ export function unloadLikesByUser(auth, userId) {
           (Constants.IMAGES_ITINERARIES_PATH + '/' + likeItem.key) : 
           (Constants.IMAGES_PATH + '/' + likeItem.val().subjectId) );
         Firebase.database().ref(objectPath + '/' + likeItem.key).once('value', objectSnapshot => {
-          Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + likeItem.val().subjectId).off();
-          Firebase.database().ref(Constants.USERS_PATH + '/' + objectSnapshot.val().userId).off();
-          Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + likeItem.key).off();
-          Firebase.database().ref(Constants.COMMENTS_PATH + '/' + likeItem.key).off();
-          Firebase.database().ref(imagePath).off();
+          if (objectSnapshot.exists()) {
+            Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + likeItem.val().subjectId).off();
+            Firebase.database().ref(Constants.USERS_PATH + '/' + objectSnapshot.val().userId).off();
+            Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + likeItem.key).off();
+            Firebase.database().ref(Constants.COMMENTS_PATH + '/' + likeItem.key).off();
+            Firebase.database().ref(imagePath).off();
+          }
         })
         Firebase.database().ref(objectPath + '/' + likeItem.key).off();
       })
