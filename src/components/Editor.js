@@ -28,14 +28,6 @@ class Editor extends React.Component {
       let service = new google.maps.places.PlacesService(map);
       this.props.loadGoogleMaps(service, EDITOR_PAGE);
     }
-
-    this.changeGeo = () => {
-
-    }
-
-    this.suggestSelect = () => {
-      
-    }
   }
 
   componentWillMount() {

@@ -84,7 +84,7 @@ const ItineraryPreview = props => {
      
       {/** Cover Image **/}
       <div className="itinerary__cover__image cover-height">
-        <ImagePicker images={itinerary.images} />
+        <ImagePicker images={(itinerary.images && itinerary.images.url ? [itinerary.images.url] : null)} />
       </div>
       {/** Cover Overlay **/}
       <div className="itinerary__cover__overlay cover-height">

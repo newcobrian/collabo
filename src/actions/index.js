@@ -1312,6 +1312,55 @@ export function uploadImages(auth, objectId, objectType, images, itineraryId) {
   }
 }
 
+export function uploadCoverPhoto(auth, imageFile, itinerary, itineraryId) {
+  if (imageFile) {
+    let updates = {};
+    let imageId = '';
+    let imageObject = {
+      lastModified: Firebase.database.ServerValue.TIMESTAMP
+    };
+    if (typeof imageFile === 'string' || imageFile instanceof String) {
+      // if its the URL path of the image, just save it
+      imageObject.url = imageFile;
+
+      updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}/images/`] = imageObject;
+      updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}/images/`] = imageObject;
+      updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${auth}/${itineraryId}/images/`] = imageObject;
+
+      Firebase.database().ref().update(updates);
+    }
+    else {
+      // otherwise upload the file if we need to
+      const storageRef = Firebase.storage().ref();
+      
+      const metadata = {
+        contentType: imageFile.type
+      }
+      // save all the new images in Firebase storage, get all the image URLs
+      let fileName = generateImageFileName();
+      const uploadTask = storageRef.child('images/' + fileName).put(imageFile, metadata);
+      uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+      function(snapshot) {
+        }, function(error) {
+          console.log(error.message)
+      }, function() {
+        const downloadURL = uploadTask.snapshot.downloadURL;
+        let uploadUpdates = {};
+        if (downloadURL) {
+          imageObject.url = downloadURL;
+           // save images to all destinations
+           
+          updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}/images/`] = imageObject;
+          updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}/images/`] = imageObject;
+          updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${auth}/${itineraryId}/images/`] = imageObject;
+
+          Firebase.database().ref().update(updates);
+        }
+      })
+    }
+  }
+}
+
 // export function updatePlaceId () {
 // // SF ChIJIQBpAG2ahYAR_6128GcTUEo
 // // Tokyo ChIJ51cu8IcbXWARiRtXIothAS4
@@ -1456,9 +1505,9 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
     });
 
     // upload itinerary images if they exist
-    // if (itinerary.images) {
-    //   uploadImages(auth, itineraryId, Constants.ITINERARY_TYPE, itinerary.images, itineraryId)
-    // }
+    if (itinerary.images && itinerary.images[0]) {
+      uploadCoverPhoto(auth, itinerary.images[0], itinerary, itineraryId);
+    }
 
     let message = itinerary.title + ' has been saved.';
 
