@@ -610,44 +610,42 @@ export function onEditorLoad(authenticated, itineraryId) {
           itineraryId: itineraryId
         })
       }
-      Firebase.database().ref(Constants.IMAGES_ITINERARIES_BY_USER_PATH + '/' + authenticated + '/' + itineraryId).on('value', itinImageSnapshot => {
-        let itineraryObject = Object.assign({}, itinerarySnapshot.val(), {images: Helpers.getImagePath(itinImageSnapshot.val())});
-        if (itineraryObject && itineraryObject.reviews) {
-          for (let i = 0; i < itineraryObject.reviews.length; i++) {
-            Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + itineraryObject.reviews[i].subjectId).on('value', subjectSnapshot => {
-              Firebase.database().ref(Constants.REVIEWS_PATH + '/' + itineraryObject.reviews[i].reviewId).on('value', reviewSnapshot => {
-                Firebase.database().ref(Constants.IMAGES_BY_USER_PATH + '/' + authenticated + '/' + itineraryObject.reviews[i].subjectId).on('value', userImageSnapshot => {
-                  Firebase.database().ref(Constants.IMAGES_PATH + '/' + itineraryObject.reviews[i].subjectId).on('value', imageSnapshot => {
-                    let imageList = (userImageSnapshot.exists() ? Helpers.getImagePath(userImageSnapshot.val()) : Helpers.getImagePath(imageSnapshot.val()) );
-                    Object.assign(itineraryObject.reviews[i], subjectSnapshot.val(), reviewSnapshot.val(), 
-                      { images: imageList });
+      let itineraryObject = Object.assign({}, itinerarySnapshot.val());
+      if (itineraryObject && itineraryObject.reviews) {
+        for (let i = 0; i < itineraryObject.reviews.length; i++) {
+          Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + itineraryObject.reviews[i].subjectId).on('value', subjectSnapshot => {
+            Firebase.database().ref(Constants.REVIEWS_PATH + '/' + itineraryObject.reviews[i].reviewId).on('value', reviewSnapshot => {
+              Firebase.database().ref(Constants.IMAGES_BY_USER_PATH + '/' + authenticated + '/' + itineraryObject.reviews[i].subjectId).on('value', userImageSnapshot => {
+                Firebase.database().ref(Constants.IMAGES_PATH + '/' + itineraryObject.reviews[i].subjectId).on('value', imageSnapshot => {
+                  let imageList = (userImageSnapshot.exists() ? Helpers.getImagePath(userImageSnapshot.val()) : Helpers.getImagePath(imageSnapshot.val()) );
+                  Object.assign(itineraryObject.reviews[i], subjectSnapshot.val(), reviewSnapshot.val(), 
+                    { images: imageList });
 
-                    dispatch({
-                      type: EDITOR_PAGE_LOADED,
-                      itineraryId: itineraryId,
-                      searchLocation: itinerarySnapshot.val().geo.location,
-                      geoSuggest: itinerarySnapshot.val().geo.label,
-                      itineraryImages: itineraryObject.images,
-                      data: { itinerary: itineraryObject }
-                    })
+                  dispatch({
+                    type: EDITOR_PAGE_LOADED,
+                    itineraryId: itineraryId,
+                    searchLocation: itinerarySnapshot.val().geo.location,
+                    geoSuggest: itinerarySnapshot.val().geo.label,
+                    itineraryImages: itineraryObject.images,
+                    data: { itinerary: itineraryObject }
                   })
                 })
               })
             })
-          }
-        }
-        else {
-          itineraryObject.reviews = [];
-          dispatch({
-            type: EDITOR_PAGE_LOADED,
-            itineraryId: itineraryId,
-            searchLocation: itinerarySnapshot.val().geo.location,
-            geoSuggest: itinerarySnapshot.val().geo.label,
-            itineraryImages: itineraryObject.images,
-            data: { itinerary: itineraryObject }
           })
         }
-      })
+      }
+      else {
+        itineraryObject.reviews = [];
+        dispatch({
+          type: EDITOR_PAGE_LOADED,
+          itineraryId: itineraryId,
+          searchLocation: itinerarySnapshot.val().geo.location,
+          geoSuggest: itinerarySnapshot.val().geo.label,
+          itineraryImages: itineraryObject.images,
+          data: { itinerary: itineraryObject }
+        })
+      }
     })
   }
 }
