@@ -34,7 +34,7 @@ const displayField = ({input, label, classname, placeholder, type, meta: {touche
 ) 
 
 const renderDropzoneInput = (field) => {
-  const files = field.input.value;
+  const inputField = field.input.value;
   const dropHandler = (filesToUpload, e) => {
     let obj = {files: filesToUpload, isNew: true};
     field.input.onChange(obj)
@@ -54,9 +54,9 @@ const renderDropzoneInput = (field) => {
         {field.meta.touched &&
           field.meta.error &&
           <span className="error">{field.meta.error}</span>}
-        {files && Array.isArray(files) && (
+        {inputField && inputField.files && Array.isArray(inputField.files) && (
           <ul className="">
-            { files.map((file, i) => <li key={i}>{file.name}</li>) }
+            { inputField.files.map((file, i) => <li key={i}>{file.name}</li>) }
           </ul>
         )}
 
