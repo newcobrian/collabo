@@ -177,11 +177,11 @@ class Review extends React.Component {
                       </div>
                     </div>
 
-                    <div className="vb flex-item-right">
+               {/*}     <div className="vb flex-item-right">
                       <Link onClick={this.handleSaveClick}>
                         <img className="center-img" src="../img/icon.add--white.png"/>Save
                       </Link>
-                    </div>
+                    </div>*/}
 
                   </div>
               </div>
