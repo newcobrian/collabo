@@ -9,6 +9,7 @@ import FlatButton from 'material-ui/FlatButton';
 import { NEW_ITINERARY_MODAL } from '../../actions';
 import ImagePicker from './../ImagePicker';
 import ListErrors from './../ListErrors';
+import Geosuggest from 'react-geosuggest';
 
 const mapStateToProps = state => ({
   ...state.modal,
@@ -39,8 +40,32 @@ class NewItineraryModal extends React.Component {
         key => ev => this.props.onUpdateCreateField(key, ev.target.value, NEW_ITINERARY_MODAL);
 
     const changeTitle = updateFieldEvent('title');
-    const changeGeo = updateFieldEvent('geo');
     const changeDescription = updateFieldEvent('description');
+
+    const suggestSelect = result => {
+      var request = {
+        placeId: result.placeId
+      };
+
+      let geoData = {
+        label: result.label,
+        placeId: result.placeId,
+        location: result.location
+      }
+
+      if (result.gmaps && result.gmaps.address_components) {
+        result.gmaps.address_components.forEach(function(resultItem) {
+          if (resultItem.types && resultItem.types[0] && resultItem.types[0] === 'country') {
+            if (resultItem.short_name) geoData.country = resultItem.short_name;
+          }
+        })
+      }
+      this.props.onUpdateCreateField('geo', geoData, NEW_ITINERARY_MODAL);
+    }
+    
+    const changeGeo = value => {
+      this.props.onUpdateCreateField('geo', value, NEW_ITINERARY_MODAL) ;
+    }
 
     const submitForm = ev => {
       ev.preventDefault();
@@ -136,14 +161,22 @@ class NewItineraryModal extends React.Component {
                             onChange={changeTitle} />
                         </fieldset>
                         <fieldset className="field-wrapper">
-                          <label>City</label>
-                          <input
+                          <label>Location</label>
+                          <Geosuggest 
+                              className="input--underline"
+                              types={['(regions)']}
+                              placeholder="Search for a city or country"
+                              required
+                              onChange={changeGeo}
+                              onSuggestSelect={suggestSelect}/>
+                               {/*   googleMaps={this.props.googleMapObject} */}
+                       {/*}   <input
                             className="input--underline"
                             type="text"
                             placeholder="Location"
                             required
                             value={this.props.geo}
-                            onChange={changeGeo} />
+                            onChange={changeGeo} /> */}
                         </fieldset>
               <fieldset className="field-wrapper">
                 <label>Short Description</label>
