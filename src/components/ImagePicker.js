@@ -39,8 +39,12 @@ class ImagePicker extends React.Component {
     }
     else if (this.props.source === EDITOR_PAGE) {
       return (
-        <div className="default-bg">
-          <img className="" src="../img/profile_temp.png"/>
+        <div className="default-bg--white flx flx-center-all">
+          <div className="v2-type-body3 ta-center opa-20">
+          No<br/>
+          Photo
+          </div>
+          <img className="DN" src="../img/profile_temp.png"/>
       </div>
       )
     }

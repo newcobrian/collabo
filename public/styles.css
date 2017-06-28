@@ -120,7 +120,7 @@ input[type="radio"]:checked + label span {
 }
 .w-max {
   max-width: 1025px;
-  max-width: 1525px;
+  max-width: 1225px;
 }
 .w-max-2 {
   max-width: 1000px;
@@ -188,6 +188,11 @@ input[type="radio"]:checked + label span {
 .default-bg {
   /*background-image: linear-gradient(270deg, #4BDEC8 3%, #0095FF 100%);*/
   background: #1D2C4A;
+  height: 100%;
+  width: 100%;
+}
+.default-bg--white {
+  background: white;
   height: 100%;
   width: 100%;
 }
