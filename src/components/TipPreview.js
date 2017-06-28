@@ -112,7 +112,7 @@ const TipPreview = props => {
                 
                 <div className="flx flx-row flx-align-center mrgn-bottom-sm">
                   <Link
-                    to=""
+                    to={review.createdBy.username}
                     className="">
                     <div className="user-image tip__author-photo mrgn-right-md flx-hold">
                       <ProxyImage src={review.createdBy.image} className="center-img" />
