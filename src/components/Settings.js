@@ -42,7 +42,7 @@ class SettingsForm extends React.Component {
 
   componentWillMount() {
     if (!this.props.authenticated) {
-        this.props.askForAuth();
+      Actions.askForAuth();
     }
     if (this.props.currentUser) {
       Object.assign(this.state, {
