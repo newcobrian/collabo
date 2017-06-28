@@ -57,7 +57,7 @@ class Itinerary extends React.Component {
     }
 
     this.unloadItinerary = itineraryId => {
-      this.props.onItineraryUnload(itineraryId);
+      this.props.onItineraryUnload(this.props.authenticated, itineraryId);
       this.props.unloadItineraryComments(itineraryId);
     }
   }
