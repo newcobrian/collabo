@@ -40,21 +40,18 @@ class Home extends React.Component {
   }
 
   renderTabs() {
-    return (
-          
-          <div className="feed-toggle w-max flx flx-row flx-just-start w-100 w-max">
-            <ul className="nav nav-pills outline-active flx flx-row">
-              <li className="nav-item">
-                <Link
-                  className="nav-link active"
-                  to="">
-                  Global
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-
+    return (         
+      <div className="feed-toggle w-max flx flx-row flx-just-start w-100 w-max">
+        <ul className="nav nav-pills outline-active flx flx-row">
+          <li className="nav-item">
+            <Link
+              className="nav-link active"
+              to="">
+              Global
+            </Link>
+          </li>
+        </ul>
+      </div>
     );
   }
 
@@ -66,7 +63,7 @@ class Home extends React.Component {
           <div className="v2-type-body2 opa-60 mrgn-top-sm">All the latest itineries and travel lists</div>
         </div>
         <div className="toggle-wrapper DN">
-          {/*this.renderTabs()*/}
+          {this.renderTabs()}
         </div>
         <div className="feed-wrapper">
           <MainView />
