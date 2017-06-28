@@ -232,7 +232,7 @@ let Review = ({ review, index, fields, authenticated, reviewObject, searchLocati
           { /** Image **/ }
           <div className="image-module mrgn-right-lg">
             <div className="tip__image-module">
-              <ImagePicker images={reviewObject.images || reviewObject.defaultImage} source={EDITOR_PAGE} />
+              <ImagePicker images={(reviewObject.images ? reviewObject.images.files : null) || reviewObject.defaultImage} source={EDITOR_PAGE} />
             </div>
               <Field
               name={`${review}.images`}
