@@ -620,7 +620,6 @@ export function onEditorLoad(authenticated, itineraryId) {
                   let imageList = (userImageSnapshot.exists() ? Helpers.getImagePath(userImageSnapshot.val()) : Helpers.getImagePath(imageSnapshot.val()) );
                   Object.assign(itineraryObject.reviews[i], subjectSnapshot.val(), reviewSnapshot.val(), 
                     { images: imageList });
-
                   dispatch({
                     type: EDITOR_PAGE_LOADED,
                     itineraryId: itineraryId,
@@ -1427,6 +1426,8 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
     if (!itineraryId) {
       itineraryId = Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + auth).push(itinerary).key;
     }
+    let fallbackImageChosen = false,
+      fallbackImageURL = '';
     for (var i = 0; i < reviews.length; i++) {
       if (reviews[i].title) {
         // create the reviewsList for the itinerary
@@ -1473,46 +1474,57 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
 
         // save the custom images from each review
         let subjectId = reviews[i].subjectId;
-        uploadImages(auth, subjectId, Constants.REVIEW_TYPE, reviews[i].images, itineraryId);
-      }
-    }
-
-    let itineraryByUserObject = Helpers.makeItinerary(auth, itinerary, lastModified);
-    Object.assign(itineraryByUserObject, { reviews: reviewsList }, { reviewsCount: reviews.length });
-
-    let itineraryObject = {};
-    Object.assign(itineraryObject, itineraryByUserObject, { userId: auth });
-
-    // update all itinerary tables
-    updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}`] = itineraryByUserObject;
-    updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}/`] = itineraryObject;
-    updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${auth}/${itineraryId}/`] = itineraryObject;
-
-    Firebase.database().ref().update(updates, function(error) {
-      if (error) {
-        console.log("Error updating data:", error);
-      }
-    });
-
-    // upload itinerary images if they exist
-    if (itinerary.images && itinerary.images[0]) {
-      uploadCoverPhoto(auth, itinerary.images[0], itinerary, itineraryId);
-    }
-
-    let message = itinerary.title + ' has been saved.';
-
-    dispatch({
-      type: ITINERARY_UPDATED,
-      itineraryId: itineraryId,
-      message: message,
-      meta: {
-        mixpanel: {
-          event: 'Itinerary updated',
-          props: {
-            itineraryId: itineraryId,
+        if (reviews[i].images && reviews[i].images.isNew) {
+          let customImage = uploadImages(auth, subjectId, Constants.REVIEW_TYPE, reviews[i].images.files, itineraryId);
+          if (fallbackImageChosen === false) {
+            // fallbackImageURL = customImage ||;
+            fallbackImageChosen = true;
           }
         }
       }
+    }
+
+    Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId + '/images').once('value', coverSnapshot => {
+      let itineraryByUserObject = Helpers.makeItinerary(auth, itinerary, lastModified);
+      Object.assign(itineraryByUserObject, { reviews: reviewsList }, { reviewsCount: reviews.length }, {images: coverSnapshot.val()});
+
+      let itineraryObject = {};
+      Object.assign(itineraryObject, itineraryByUserObject, { userId: auth });
+
+      // update all itinerary tables
+      updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}`] = itineraryByUserObject;
+      updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}/`] = itineraryObject;
+      updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${auth}/${itineraryId}/`] = itineraryObject;
+
+      Firebase.database().ref().update(updates, function(error) {
+        if (error) {
+          console.log("Error updating data:", error);
+        }
+      });
+
+      // upload itinerary images if they exist
+      if (itinerary.images && itinerary.images.isNew && itinerary.images.files && itinerary.images.files[0]) {
+        uploadCoverPhoto(auth, itinerary.images.files[0], itinerary, itineraryId);
+      }
+      // else if (itinerary.images && itinerary.images.isFallback === true) {
+
+      // }
+
+      let message = itinerary.title + ' has been saved.';
+
+      dispatch({
+        type: ITINERARY_UPDATED,
+        itineraryId: itineraryId,
+        message: message,
+        meta: {
+          mixpanel: {
+            event: 'Itinerary updated',
+            props: {
+              itineraryId: itineraryId,
+            }
+          }
+        }
+      })
     })
   }
 }

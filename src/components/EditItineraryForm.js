@@ -35,8 +35,9 @@ const displayField = ({input, label, classname, placeholder, type, meta: {touche
 
 const renderDropzoneInput = (field) => {
   const files = field.input.value;
-  const dropHandler = (filesToUpload, e) => {    
-    field.input.onChange(filesToUpload)
+  const dropHandler = (filesToUpload, e) => {
+    let obj = {files: filesToUpload, isNew: true};
+    field.input.onChange(obj)
   }
 
   return (
@@ -44,6 +45,7 @@ const renderDropzoneInput = (field) => {
       <Dropzone
         name={field.name}
         onDrop={dropHandler}
+        disablePreview={false}
         accept="image/*"
         className="edit-tip__dropzone__touch flx flx-col flx-align-center flx-just-start ta-center"
       >
