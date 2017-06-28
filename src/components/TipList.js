@@ -4,7 +4,7 @@ import React from 'react';
 const TipList = props => {
   if (!props.reviewList) {
     return (
-      <div className="article-preview roow roow-center-all">Loading...</div>
+      <div className="status-module flx flx-row flx-just-center w-100 v2-type-body3">No one has saved this yet</div>
     );
   }
 

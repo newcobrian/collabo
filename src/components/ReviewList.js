@@ -2,16 +2,16 @@ import ReviewPreview from './ReviewPreview';
 import ListPagination from './ListPagination';
 import React from 'react';
 
-const ReviewList = props => {
+const ReviewList = props => { 
   if (!props.reviews) {
     return (
-      <div className="article-preview roow roow-center-all">Loading...</div>
+      <div className="status-module flx flx-row flx-just-center w-100 v2-type-body3">Loading...</div>
     );
   }
 
   if (props.reviews.length === 0) {
     return (
-      <div className="status-module flx flx-col flx-center-all v2-type-body3">
+      <div className="status-module flx flx-row flx-just-center w-100 v2-type-body3">
         No tips added yet
       </div>
     );

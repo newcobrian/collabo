@@ -39,7 +39,7 @@ class DeleteItineraryModal extends React.Component {
         onTouchTap={deleteClick}
         disableTouchRipple={true}
         fullWidth={false}
-        className="vb"
+        className="vb vb--light"
         labelStyle={{color: "red"}}
         style={{
           }}

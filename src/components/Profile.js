@@ -138,7 +138,7 @@ class Profile extends React.Component {
       return null;
     }
     if (this.props.profile.length === 0) {
-      return (<div className="error-module flx flx-center-all v2-type-body3">User does not exist.</div>);
+      return (<div className="error-module flx flx-center-all v2-type-body3">This person does not exist.</div>);
     }
 
     if (!this.props.itineraries) {
@@ -157,7 +157,7 @@ class Profile extends React.Component {
           
           <div className="status-module flx flx-row flx-just-center w-100 v2-type-body3">
 
-            <div>{this.props.profile.username} has not created any itineraries.</div>
+            <div>{this.props.profile.username} has not created any itineraries...yet.</div>
           </div>
         </div>
       )

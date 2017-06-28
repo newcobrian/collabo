@@ -184,7 +184,8 @@
 	flex-shrink: 0;
 	position: absolute;
 	width: 100%;
-	opacity: .8;
+	opacity: 1;
+	background: rgba(0,0,0,.3);
 	/*mix-blend-mode: screen;*/
 }
 .itinerary__cover__overlay img {
