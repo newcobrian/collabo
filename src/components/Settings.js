@@ -165,8 +165,9 @@ class Settings extends React.Component {
     return (
       <div className="roow roow-col-left page-common settings-page page-no-push">
             <div className="page-title-wrapper center-text">
-              <div className="v2-type-h2 subtitle">Profile Settings</div>
-            </div>
+               <div className="v2-type-page-header">Settings</div>
+               <div className="v2-type-body2 opa-60 mrgn-top-sm DN"></div>
+             </div>
             <div className="settings-wrapper roow roow-col-left">
 
               <ListErrors errors={this.props.errors}></ListErrors>
@@ -176,7 +177,7 @@ class Settings extends React.Component {
                 onSubmitForm={this.props.saveSettings} />
 
               <button
-                className="vb vb--light width-100"
+                className="vb vb--light vb--no-outline width-100"
                 onClick={this.props.signOutUser}>
                 Or click here to logout.
               </button>
