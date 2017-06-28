@@ -1387,6 +1387,7 @@ position: absolute;
 .comment-author {
     margin-right: 5px;
     color: black;
+    font-weight: 700;
 }
 .comment-wrapper .card-text {
   margin: 0;
@@ -1471,6 +1472,9 @@ position: absolute;
     color: #373a3c;
 }
 
+.no-click {
+  pointer-events: none;
+}
 
 
 

@@ -338,7 +338,7 @@ let EditItineraryForm = props => {
             <div className="edit-it-wrapper flx flx-row w-100 pdding-all-md">
               { /** Left Image **/ }
               <div className="image-module mrgn-right-lg">
-                <div className="tip__image-module">
+                <div className="tip__image-module no-click">
                   <ImagePicker images={(props.itineraryImages && props.itineraryImages.url ? [props.itineraryImages.url] : null)} source={EDITOR_PAGE}/>
                 </div>
                 <div className="">

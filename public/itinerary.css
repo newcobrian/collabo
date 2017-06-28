@@ -266,7 +266,7 @@ textarea.edit-itinerary__name {
 
 
 .profile-page .itinerary__cover {
-
+	margin: 20px 10px;
 }
 .profile-page .profile-feed.flx {
 	-webkit-flex-direction: row;
