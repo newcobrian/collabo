@@ -29,7 +29,7 @@
     border-radius: 100px;
     overflow: hidden;
     flex-shrink: 0;
-    border: 2px solid rgba(255,255,255,1);
+    /*border: 2px solid rgba(255,255,255,1);*/
 }
 .itinerary__summary__author-photo img,
 .itinerary__cover__author-photo img {

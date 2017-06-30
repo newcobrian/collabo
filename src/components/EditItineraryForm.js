@@ -55,7 +55,7 @@ const renderDropzoneInput = (field) => {
           field.meta.error &&
           <span className="error">{field.meta.error}</span>}
         {inputField && inputField.files && Array.isArray(inputField.files) && (
-          <ul className="">
+          <ul className="mrgn-top-sm">
             { inputField.files.map((file, i) => <li key={i}>{file.name}</li>) }
           </ul>
         )}

@@ -128,8 +128,8 @@ class Followings extends Followers {
                       <Link
                       to={`${follower.username}`}
                       className="">
-                        <div className="user-image center-img">
-                          <ProfilePic src={follower.image} className="comment-author-img" />
+                        <div className="">
+                          <ProfilePic src={follower.image} className="user-image center-img" />
                       </div>
                     </Link>
                   <div className="flx flx-col flx-align-center">

@@ -191,13 +191,13 @@ class Create extends React.Component {
 									  onSuggestSelect={this.suggestSelect}/>
 			                    </fieldset>
 								<fieldset className="field-wrapper">
-									<label>Short Description</label>
+									<label>Description (Optional)</label>
 			                      <textarea
 			                        className="input--underline"
 			                        type="text"
 			                        rows="3"
 			                        maxLength="184"
-			                        placeholder="What's the story behind this itinerary?"
+			                        placeholder="Write something about this..."
 			                        required
 			                        value={this.props.description}
 			                        onChange={this.changeDescription} />

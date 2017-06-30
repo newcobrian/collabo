@@ -3,8 +3,8 @@ import React from 'react';
 const ProfilePic = props => {
   if (!props.src) {
     return (
-    	<div className="user-image center-img">
-    	 	<img src="../img/user_temp.png" className="center-img"/>
+    	<div className="">
+    	 	<img src="../img/user_temp.png" className="user-image center-img"/>
     	</div>
     	);
   }

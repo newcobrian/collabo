@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import * as Actions from '../actions';
-import ProxyImage from './ProxyImage';
+import ProfilePic from './ProfilePic';
 import FollowUserButton from './FollowUserButton';
 
 const mapStateToProps = state => ({
@@ -40,8 +40,8 @@ class Explore extends React.Component {
                     <Link
                       to={`${user.username}`}
                       className="">
-                      <div className="user-image center-img">
-                        <ProxyImage src={user.image} className="comment-author-img" />
+                      <div className="">
+                        <ProfilePic src={user.image} className="user-image center-img" />
                       </div>
                     </Link>
                     <div className="flx flx-col flx-align-center">

@@ -58,8 +58,8 @@ const LoggedInView = props => {
         </Link>*/}
 
         <Link to={`${props.userInfo.username}`} activeClassName="active" className="nav-module nav-profile flx flx-row flx-center-all">
-          <div className="nav-text">Profile</div>
-          {/*<div className="nav-icon"><img className="center-img" src={props.userInfo.image}/></div>*/}
+          {/*<div className="nav-text">Profile</div>*/}
+          <div className="nav-icon mrgn-none"><img className="center-img" src={props.userInfo.image}/></div>
         </Link>
 
 
