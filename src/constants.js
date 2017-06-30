@@ -58,7 +58,7 @@ export const TIPS_BY_USER_PATH = '/tips-by-user'
 	// stored userId -> tip ojbect w/ subject id
 export const TIPS_BY_SUBJECT_PATH = '/tips-by-subject'
 	// stored subjectId -> userid -> tip object
-export const GEOS_TO_GEOIDS_PATH = '/geos-to-geoids'
+export const GEOS_PATH = '/geos'
 
 /*** Counter Type Constants ***/
 export const LIKES_COUNT = 'likesCount'

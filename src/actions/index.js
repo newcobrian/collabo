@@ -983,7 +983,7 @@ export function onUpdateField(key, value) {
 
 export function onCreateItinerary(auth, itinerary) {
   return dispatch => {
-    Firebase.database().ref(Constants.GEOS_TO_GEOIDS_PATH + '/' + itinerary.geo.label).once('value', geoSnapshot => { 
+    Firebase.database().ref(Constants.GEOS_PATH + '/' + itinerary.geo.placeId).once('value', geoSnapshot => { 
       let itineraryObject = {};
       let itineraryMeta = {
         lastModified: Firebase.database.ServerValue.TIMESTAMP,
@@ -1002,9 +1002,9 @@ export function onCreateItinerary(auth, itinerary) {
         let geoObject = {
           country: itinerary.geo.country,
           location: itinerary.geo.location,
-          placeId: itinerary.geo.placeId
+          label: itinerary.geo.label
         }
-        updates[`/${Constants.GEOS_TO_GEOIDS_PATH}/${itinerary.geo.label}`] = geoObject;
+        updates[`/${Constants.GEOS_PATH}/${itinerary.geo.placeId}`] = geoObject;
       }
       Firebase.database().ref().update(updates);
 
@@ -1501,7 +1501,7 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
     }
 
     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId + '/images').once('value', coverSnapshot => {
-      Firebase.database().ref(Constants.GEOS_TO_GEOIDS_PATH + '/' + itinerary.geo.label).once('value', geoSnapshot => { 
+      Firebase.database().ref(Constants.GEOS_PATH + '/' + itinerary.geo.placeId).once('value', geoSnapshot => { 
         let itineraryByUserObject = Helpers.makeItinerary(auth, itinerary, lastModified);
         Object.assign(itineraryByUserObject, { reviews: reviewsList }, { reviewsCount: reviews.length }, {images: coverSnapshot.val()});
 
@@ -1518,9 +1518,9 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
           let geoObject = {
             country: itinerary.geo.country,
             location: itinerary.geo.location,
-            placeId: itinerary.geo.placeId
+            label: itinerary.geo.label
           }
-          updates[`/${Constants.GEOS_TO_GEOIDS_PATH}/${itinerary.geo.label}`] = geoObject;
+          updates[`/${Constants.GEOS_PATH}/${itinerary.geo.placeId}`] = geoObject;
         }
 
         Firebase.database().ref().update(updates, function(error) {

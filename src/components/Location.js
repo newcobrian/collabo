@@ -15,7 +15,6 @@ class Location extends React.Component {
   }
 
   componentWillMount() {
-    
     this.props.sendMixpanelEvent('Location page loaded');
   }
 
