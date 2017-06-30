@@ -2058,13 +2058,14 @@ export function onCommentSubmit(authenticated, userInfo, type, commentObject, bo
       Helpers.incrementReviewCount(Constants.COMMENTS_COUNT, objectId, commentObject.subjectId, commentObject.createdBy.userId);
     }
     else {
+    // this is a comment on an itinerary
       Helpers.incrementItineraryCount(Constants.COMMENTS_COUNT, objectId, commentObject.geo, commentObject.createdBy.userId); 
 
       // update lastComment on itinerary
       let updates = {};
       updates[Constants.ITINERARIES_BY_USER_PATH +'/' + commentObject.createdBy.userId + '/' + commentObject.id + '/lastComment'] = Object.assign({}, comment, {commentId: commentId});
       updates[Constants.ITINERARIES_PATH +'/' + commentObject.id + '/lastComment'] = Object.assign({}, comment, {commentId: commentId});
-      updates[Constants.ITINERARIES_BY_GEO_BY_USER_PATH + '/' + commentObject.geo.placeId + '/' + authenticated + '/' + commentObject.id + '/lastComment'] = Object.assign({}, comment, {commentId: commentId});
+      updates[Constants.ITINERARIES_BY_GEO_BY_USER_PATH + '/' + commentObject.geo.placeId + '/' + commentObject.createdBy.userId + '/' + commentObject.id + '/lastComment'] = Object.assign({}, comment, {commentId: commentId});
       updates[Constants.ITINERARIES_BY_GEO_PATH + '/' + commentObject.geo.placeId + '/' + commentObject.id + '/lastComment'] = Object.assign({}, comment, {commentId: commentId});
 
       Firebase.database().ref().update(updates);
@@ -3488,8 +3489,10 @@ export function unloadPlacesFeed(auth, locationId) {
   }
 }
 
-// // export function buildItinerariesByUser() {
-// //   return dispatch => {
-// //     Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH).once('value')
-// //   }
-// }
+export function buildItinerariesByGeo() {
+  return dispatch => {
+    Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH).once('value', snap => {
+      Firebase.database().ref(Constants.ITINERARIES_BY_GEO_BY_USER_PATH).update(snap.val());
+    })
+  }
+}
