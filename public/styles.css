@@ -407,6 +407,10 @@ img.user-image {
   border-radius: 50px;
   border: 1px solid rgba(0,0,0,.1);
 }
+img.user-image.user-image-sm {
+  width: 40px;
+  height: 40px;
+}
 
 .caption-link-subtle {
   font-size: 12px;

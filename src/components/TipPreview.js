@@ -114,8 +114,8 @@ const TipPreview = props => {
                   <Link
                     to={review.createdBy.username}
                     className="">
-                    <div className="user-image tip__author-photo mrgn-right-md flx-hold">
-                      <ProxyImage src={review.createdBy.image} className="center-img" />
+                    <div className="tip__author-photo mrgn-right-md flx-hold">
+                      <ProxyImage src={review.createdBy.image} className="user-image user-image-sm center-img" />
                     </div> 
                   </Link>
                   <div className={'v2-type-rating ta-right mrgn-right-md v2-type-rating--' +  review.rating}>
