@@ -59,7 +59,7 @@ textarea {
   font-weight: 300;
   font-size: 18px;
   letter-spacing: 0.5px;
-  line-height: 28px;
+  line-height: 20px;
   font-family: 'Roboto', sans-serif;
 }
 .itinerary__cover .v2-type-body1 {
@@ -123,7 +123,7 @@ textarea {
   color: black;
 }
 .v2-type-mono.mono-sm {
-  font-size: 14px;
+  font-size: 13px;
 }
 .v2-type-h1 {
   /* H1 - Ratings: */

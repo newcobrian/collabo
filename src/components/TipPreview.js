@@ -42,7 +42,7 @@ const CaptionDisplay = props => {
   }
   else {
     return (
-     <div className="opa-30">{props.review.createdBy.username} hasn't written anything about this tip yet...</div>
+     <div className="opa-20">{props.review.createdBy.username} hasn't written anything about this tip yet...</div>
     )
   }
 }
@@ -82,7 +82,7 @@ const TipPreview = props => {
                     {review.title}
                   </div>
                   </Link>
-                  <div className="tip__address v2-type-mono mono-sm opa-30 ta-left">
+                  <div className="tip__address v2-type-mono mono-sm opa-50 ta-left">
                     {review.address}
                   </div>
                 </div>
@@ -102,7 +102,7 @@ const TipPreview = props => {
                     <CaptionDisplay review={props.review} />
                   </div>
                 </div>
-                <div className="tip__timestamp v2-type-caption opa-30">
+                <div className="tip__timestamp v2-type-caption opa-20 mrgn-top-xs">
                   <DisplayTimestamp timestamp={review.lastModified} />
                 </div>
               </div>
