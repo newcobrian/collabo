@@ -52,6 +52,7 @@ export const ITINERARIES_BY_USER_PATH = '/itineraries-by-user'
 	// stored user id -> itinerary object w/ geoId
 export const ITINERARIES_BY_GEO_PATH = '/itineraries-by-geo'
 	// stored geo id -> user id -> itinerary object
+export const ITINERARIES_BY_GEO_BY_USER_PATH = '/itineraries-by-geo-by-user'
 export const TIPS_PATH = '/tips'
 	// stored tip id -> tip object w subjectId and userId
 export const TIPS_BY_USER_PATH = '/tips-by-user'
@@ -89,7 +90,7 @@ export const TAG_LIST = []
 export const INVALID_USERNAMES = ['account', 'send', 'message', 'inbox', 'notification', 'create', 'edit', 'editor',
  'itinerary', 'messenger', 'settings', 'admin', 'administrator', 'settings', 'global', 'saved', 'login', 'register',
   'review', 'followers', 'isfollowing', 'likes', 'saves', 'select', 'explore', 'search', 'user', 'location', 'city', 
-  'geo', 'attraction', 'subject', 'home']
+  'geo', 'attraction', 'subject', 'home', 'places']
 
 
 export const COUNTRY_FLAGS = {

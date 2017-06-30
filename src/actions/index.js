@@ -111,6 +111,9 @@ export const SEND_INBOX_MESSAGE = 'Send inbox message'
 export const LOADED_ALL_USERS = 'LOADED_ALL_USERS'
 export const UNLOADED_ALL_USERS = 'UNLOADED_ALL_USERS'
 export const GOOGLE_MAP_LOADED = 'GOOGLE_MAP_LOADED'
+export const GET_PLACES_FEED = 'GET_PLACES_FEED'
+export const UNLOAD_PLACES_FEED = 'UNLOAD_PLACES_FEED'
+export const LOAD_PLACES = 'LOAD_PLACES'
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -994,7 +997,8 @@ export function onCreateItinerary(auth, itinerary) {
 
       let itineraryId = Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + auth).push(itineraryObject).key;
 
-      updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${auth}/${itineraryId}`] = itineraryObject;
+      updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${itinerary.geo.placeId}/${auth}/${itineraryId}`] = itineraryObject;
+      updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itineraryId}`] = Object.assign({}, itineraryObject, {userId: auth});
       updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}`] = Object.assign({}, itineraryObject, {userId: auth});
 
       // add geo to the geo table if it doesnt exists
@@ -1334,7 +1338,8 @@ export function uploadCoverPhoto(auth, imageFile, itinerary, itineraryId) {
 
       updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}/images/`] = imageObject;
       updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}/images/`] = imageObject;
-      updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${auth}/${itineraryId}/images/`] = imageObject;
+      updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${itinerary.geo.placeId}/${auth}/${itineraryId}/images/`] = imageObject;
+      updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itineraryId}/images/`] = imageObject;
 
       Firebase.database().ref().update(updates);
     }
@@ -1361,7 +1366,8 @@ export function uploadCoverPhoto(auth, imageFile, itinerary, itineraryId) {
            
           updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}/images/`] = imageObject;
           updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}/images/`] = imageObject;
-          updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${auth}/${itineraryId}/images/`] = imageObject;
+          updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${itinerary.geo.placeId}/${auth}/${itineraryId}/images/`] = imageObject;
+          updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itineraryId}/images/`] = imageObject;
 
           Firebase.database().ref().update(updates);
         }
@@ -1511,7 +1517,8 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
         // update all itinerary tables
         updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}`] = itineraryByUserObject;
         updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}/`] = itineraryObject;
-        updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${auth}/${itineraryId}/`] = itineraryObject;
+        updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${itinerary.geo.placeId}/${auth}/${itineraryId}/`] = itineraryByUserObject;
+        updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itineraryId}/`] = itineraryObject;
 
         // add geo to geo table if its not there
         if (!geoSnapshot.exists()) {
@@ -2057,7 +2064,8 @@ export function onCommentSubmit(authenticated, userInfo, type, commentObject, bo
       let updates = {};
       updates[Constants.ITINERARIES_BY_USER_PATH +'/' + commentObject.createdBy.userId + '/' + commentObject.id + '/lastComment'] = Object.assign({}, comment, {commentId: commentId});
       updates[Constants.ITINERARIES_PATH +'/' + commentObject.id + '/lastComment'] = Object.assign({}, comment, {commentId: commentId});
-      updates[Constants.ITINERARIES_BY_GEO_PATH + '/' + commentObject.geo.placeId + '/' + authenticated + '/' + commentObject.id + '/lastComment'] = Object.assign({}, comment, {commentId: commentId});
+      updates[Constants.ITINERARIES_BY_GEO_BY_USER_PATH + '/' + commentObject.geo.placeId + '/' + authenticated + '/' + commentObject.id + '/lastComment'] = Object.assign({}, comment, {commentId: commentId});
+      updates[Constants.ITINERARIES_BY_GEO_PATH + '/' + commentObject.geo.placeId + '/' + commentObject.id + '/lastComment'] = Object.assign({}, comment, {commentId: commentId});
 
       Firebase.database().ref().update(updates);
     }
@@ -2133,7 +2141,8 @@ export function onDeleteComment(commentObject, commentId) {
 export function onDeleteItinerary(userId, itineraryId, geo, redirectPath) {
   return dispatch => {
     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).remove();
-    Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH + '/' + geo + '/' + userId + '/' + itineraryId).remove();
+    Firebase.database().ref(Constants.ITINERARIES_BY_GEO_BY_USER_PATH + '/' + geo + '/' + userId + '/' + itineraryId).remove();
+    Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH + '/' + geo + '/' + itineraryId).remove();
     Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + userId + '/' + itineraryId).remove();
     Firebase.database().ref(Constants.LIKES_PATH + '/' + itineraryId).remove();
     Firebase.database().ref(Constants.COMMENTS_PATH + '/' + itineraryId).remove();
@@ -3217,7 +3226,8 @@ export function addToItinerary(auth, tip, itinerary) {
           let itineraryObject = Object.assign({}, itineraryByUserObject, {userId: itinerary.userId});
 
           updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}/`] = itineraryObject;
-          updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${geo.placeId}/${auth}/${itineraryId}/`] = itineraryObject;
+          updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${geo.placeId}/${auth}/${itineraryId}/`] = itineraryByUserObject;
+          updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${geo.placeId}/${itineraryId}/`] = itineraryObject;
           updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}/`] = itineraryByUserObject;
 
           Firebase.database().ref().update(updates);
@@ -3420,4 +3430,66 @@ export function closeSnackbar() {
       type: CLOSE_SNACKBAR
     })
   }
+}
+
+export function loadPlaces(geoId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.GEOS_PATH + '/' + geoId).once('value', geoSnapshot => {
+      dispatch({
+        type: LOAD_PLACES,
+        geo: geoSnapshot.val()
+      })
+    })
+  }
+}
+
+export function getPlacesFeed(auth, locationId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH + '/' + locationId).on('value', itinerariesSnapshot => {
+      let feedArray = [];
+      itinerariesSnapshot.forEach(function(itin) {
+        Firebase.database().ref(Constants.USERS_PATH + '/' + itin.val().userId).on('value', userSnapshot => {
+          Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itin.key).on('value', likesSnapshot => {
+            const itineraryObject = {};
+            const key = { id: itin.key };
+            const createdBy = { createdBy: Object.assign({}, userSnapshot.val(), {userId: itin.val().userId}) };
+            let likes = {
+              isLiked: likesSnapshot.exists()
+            }
+            
+            Object.assign(itineraryObject, itin.val(), key, createdBy, likes);
+
+            feedArray = [itineraryObject].concat(feedArray);
+            feedArray.sort(lastModifiedDesc);
+            dispatch({
+              type: GET_PLACES_FEED,
+              payload: feedArray
+            })
+          })
+        })
+      })
+    })
+  }
+}
+
+export function unloadPlacesFeed(auth, locationId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH + '/' + locationId).once('value', itinerariesSnapshot => {
+      itinerariesSnapshot.forEach(function(itin) {
+        Firebase.database().ref(Constants.USERS_PATH + '/' + itin.val().userId).off();
+        Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itin.key).off();
+      })
+    Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH + '/' + locationId).off();
+    })
+
+    dispatch({
+      type: UNLOAD_PLACES_FEED
+    })
+  }
+}
+
+// export function buildItinerariesByUser() {
+//   return dispatch => {
+//     Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH).once('value')
+//   }
 }
