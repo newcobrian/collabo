@@ -26,7 +26,7 @@ const EditItineraryLink = props => {
     return (
       <Link
         to={'edit/' + props.itineraryId}
-        className="vb vb--light vb--no-outline color--white mrgn-right-md">
+        className="vb vb--light vb--outline--white color--white mrgn-right-md">
          {/*<i className="ion-gear-a"></i>*/}Edit
       </Link>
     );
