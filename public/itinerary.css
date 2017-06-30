@@ -144,8 +144,15 @@
 	background: black;
 	margin: 20px 0;
 }
-.profile-page .itinerary__cover {
-	margin: 0;
+.profile-page .itinerary__cover,
+.home-page .itinerary__cover {
+	margin: 20px;
+	width: 572px;
+	box-shadow: 0px 11px 24px rgba(0,0,0,0.2);
+}
+.profile-page .itinerary__cover .v2-type-h2,
+.home-page .itinerary__cover .v2-type-h2 {
+	font-size: 36px;
 }
 .page-itinerary .itinerary__cover {
 	margin: 0 0 20px;
@@ -161,6 +168,12 @@
 	position: absolute;
 	left: 20px;
 	top: 20px;
+	right: 20px;
+}
+.itinerary__cover__bottombar {
+	position: absolute;
+	left: 20px;
+	bottom: 20px;
 	right: 20px;
 }
 
@@ -223,7 +236,9 @@
 	font-size: 18px;
 	font-weight: 400;
 }
-
+.it__center-info {
+	margin-top: 140px;
+}
 
 /** EDIT **/
 
@@ -265,9 +280,6 @@ textarea.edit-itinerary__name {
 }
 
 
-.profile-page .itinerary__cover {
-	margin: 20px 10px;
-}
 .profile-page .profile-feed.flx {
 	-webkit-flex-direction: row;
     flex-direction: row;

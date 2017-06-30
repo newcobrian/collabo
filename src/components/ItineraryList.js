@@ -23,7 +23,7 @@ const ItineraryList = props => {
   }
 
   return (
-    <div className="profile-feed flx flx-col flx-just-center flx-align-center flx-wrap w-max">
+    <div className="profile-feed flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap w-max">
       {
         props.itineraries.map(itinerary => {
           return (

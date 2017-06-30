@@ -80,7 +80,7 @@ const ItineraryPreview = props => {
       props.authenticated === props.itinerary.createdBy.userId;
 
   return (
-    <div className="itinerary__cover flx flx-row flx-center-all cover-height">
+    <div className="itinerary__cover flx flx-row flx-center-all flx-just-space-between cover-height">
      
       {/** Cover Image **/}
       <div className="itinerary__cover__image cover-height">
@@ -92,7 +92,7 @@ const ItineraryPreview = props => {
       </div>
 
       {/** Cover Content **/}
-      <div className="itinerary__cover__text flx flx-col flx-center-all ta-left">
+      <div className="itinerary__cover__text flx flx-col flx-align-start ta-left">
 
           {/** <<<<<< USER PHOTO AND TIP COUNT **/}
           <div className="itinerary__cover__topbar flx flx-row flx-align-center flx-just-start v2-type-body1 mrgn-bottom-sm">
@@ -117,19 +117,9 @@ const ItineraryPreview = props => {
               </div>
               </Link>
             </div>
-            <div className="flx flx-row flx-just-end flex-item-right mrgn-right-md">
-              <CommentPreview itinerary={props.itinerary} />
-              <div className="cta-wrapper flx flx-row flx-just-end flex-item-right">
-                <LikeReviewButton
-                  authenticated={props.authenticated}
-                  isLiked={props.itinerary.isLiked}
-                  likesCount={props.itinerary.likesCount}
-                  unLike={props.unLike}
-                  like={props.like} 
-                  likeObject={itinerary}
-                  type={ITINERARY_TYPE} />
-              </div>
-            </div>
+            
+             
+
 
             
 
@@ -138,7 +128,7 @@ const ItineraryPreview = props => {
 
 
           {/** <<<<<< CENTER INFO **/}
-          <div className="flx flx-col flx-center-all ta-center w-100 mrgn-bottom-sm">
+          <div className="it__center-info flx flx-col flx-align-center ta-center w-100 mrgn-bottom-sm">
             
             {/** Flag and Geo **/}
             <div className={'itinerary__cover__flag mrgn-bottom-sm flx-hold flag-' + itinerary.geo.country}>
@@ -170,7 +160,21 @@ const ItineraryPreview = props => {
 
            
           
-
+          <div className="itinerary__cover__bottombar flx flx-row flx-align-center flx-just-end v2-type-body1 mrgn-bottom-sm">
+            <div className="flx flx-row flx-just-end flex-item-right mrgn-right-md">
+              <CommentPreview itinerary={props.itinerary} />
+              <div className="cta-wrapper flx flx-row flx-just-end flex-item-right">
+                <LikeReviewButton
+                  authenticated={props.authenticated}
+                  isLiked={props.itinerary.isLiked}
+                  likesCount={props.itinerary.likesCount}
+                  unLike={props.unLike}
+                  like={props.like} 
+                  likeObject={itinerary}
+                  type={ITINERARY_TYPE} />
+              </div>
+            </div>
+          </div>
 
         
 
