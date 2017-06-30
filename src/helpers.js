@@ -157,69 +157,69 @@ export function sendInboxMessage(senderId, recipientId, messageType, sendObject)
 						inboxObject.message = ' liked your tip: ';
 						inboxObject.link = 'review/' + sendObject.subjectId + '/' + sendObject.id;
 						emailMessage = senderSnapshot.val().username + 
-							' liked your tip. Click here to check it out: https://whatsgoooood.com/' + inboxObject.link;
+							' liked your tip. Click here to check it out: https://whatsgoooood.com/#/' + inboxObject.link;
 						break;
 					case Constants.LIKE_ITINERARY_MESSAGE:
 						inboxObject.senderId = senderId;
 						inboxObject.message = ' liked your itinerary: ';
 						inboxObject.link = 'itinerary/' + sendObject.id;
 						emailMessage = senderSnapshot.val().username + 
-							' liked your itinerary. Click here to check it out: https://whatsgoooood.com/' + inboxObject.link;
+							' liked your itinerary. Click here to check it out: https://whatsgoooood.com/#/' + inboxObject.link;
 						break;
 					case Constants.COMMENT_ON_REVIEW_MESSAGE:
 						inboxObject.senderId = senderId;
 						inboxObject.message = ' commented on your tip: ';
 						inboxObject.link = 'review/' + sendObject.subjectId + '/' + sendObject.id;
 						emailMessage = senderSnapshot.val().username + 
-							' commented on your tip. Click here to check it out: https://whatsgoooood.com/' + inboxObject.link;
+							' commented on your tip. Click here to check it out: https://whatsgoooood.com/#/' + inboxObject.link;
 						break;
 					case Constants.COMMENT_ON_COMMENT_REVIEW_MESSAGE:
 						inboxObject.senderId = senderId;
 						inboxObject.message = ' also commented on the tip: ';
 						inboxObject.link = 'review/' + sendObject.subjectId + '/' + sendObject.id;
 						emailMessage = senderSnapshot.val().username + 
-							' also commented on a tip you commented on. Click here to check it out: https://whatsgoooood.com/' + inboxObject.link;
+							' also commented on a tip you commented on. Click here to check it out: https://whatsgoooood.com/#/' + inboxObject.link;
 						break;
 					case Constants.COMMENT_ON_ITINERARY_MESSAGE:
 						inboxObject.senderId = senderId;
 						inboxObject.message = ' commented on your itinerary: ';
 						inboxObject.link = 'itinerary/' + sendObject.id;
 						emailMessage = senderSnapshot.val().username + 
-							' commented on your itinerary. Click here to check it out: https://whatsgoooood.com/' + inboxObject.link;
+							' commented on your itinerary. Click here to check it out: https://whatsgoooood.com/#/' + inboxObject.link;
 						break;
 					case Constants.COMMENT_ON_COMMENT_ITINERARY_MESSAGE:
 						inboxObject.senderId = senderId;
 						inboxObject.message = ' also commented on the itinerary: ';
 						inboxObject.link = 'itinerary/' + sendObject.id;
 						emailMessage = senderSnapshot.val().username + 
-							' also commented on an itinerary you commented on. Click here to check it out: https://whatsgoooood.com/' + inboxObject.link;
+							' also commented on an itinerary you commented on. Click here to check it out: https://whatsgoooood.com/#/' + inboxObject.link;
 						break;
 					case Constants.FOLLOW_MESSAGE:
 						inboxObject.senderId = senderId;
 						inboxObject.message = ' started following you.';
 						inboxObject.link = senderSnapshot.val().username;
 						emailMessage = senderSnapshot.val().username + 
-							' followed you. Click here to see their profile: https://whatsgoooood.com/' + inboxObject.link;
+							' followed you. Click here to see their profile: https://whatsgoooood.com/#/' + inboxObject.link;
 						break;
 					case Constants.DIRECT_MESSAGE:
 						inboxObject.senderId = senderId;
 						inboxObject.message = ' sent you a personal review.'
 						inboxObject.link = 'review/' + sendObject.subjectId + '/' + sendObject.id;
 						emailMessage = senderSnapshot.val().username + 
-							' sent you a personal review. Click here to see it: https://whatsgoooood.com/' + inboxObject.link;
+							' sent you a personal review. Click here to see it: https://whatsgoooood.com/#/' + inboxObject.link;
 						break;
 					case Constants.FORWARD_MESSAGE:
 						inboxObject.senderId = senderId;
 						inboxObject.message = ' forwared you a review.'
 						inboxObject.link = 'review/' + sendObject.subjectId + '/' + sendObject.id;
 						emailMessage = senderSnapshot.val().username + 
-							' forwarded you a review. Click here to see it: https://whatsgoooood.com/' + inboxObject.link;
+							' forwarded you a review. Click here to see it: https://whatsgoooood.com/#/' + inboxObject.link;
 						break;
 					case Constants.SAVE_MESSAGE:
 						inboxObject.senderId = '';
 						inboxObject.message = 'Can\'t tell you who, but somebody saved your review of ';
 						inboxObject.link = 'review/' + sendObject.subjectId + '/' + sendObject.id;
-						emailMessage = 'Somebody saved your review. Click here to go to your inbox: https://whatsgoooood.com/inbox';
+						emailMessage = 'Somebody saved your review. Click here to go to your inbox: https://whatsgoooood.com/#/inbox';
 						break;
 				}
 				if (senderId !== recipientId) {
