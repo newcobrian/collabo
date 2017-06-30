@@ -52,17 +52,22 @@ export function makeItinerary(auth, itinerary, lastModified) {
 }
 
 export function incrementItineraryCount(counterType, itineraryId, geo, userId) {
-	// increment count on reviews
+	// increment count on itineraries
 	Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId + '/' + counterType).transaction(function (current_count) {
 		return (current_count || 0) + 1;
     });
 
-    // increment count on reviews by subject
-    Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH + '/' + geo.placeId + '/' + userId + '/' + itineraryId + '/' + counterType).transaction(function (current_count) {
+    // increment count on itineraries by geo by user
+    Firebase.database().ref(Constants.ITINERARIES_BY_GEO_BY_USER_PATH + '/' + geo.placeId + '/' + userId + '/' + itineraryId + '/' + counterType).transaction(function (current_count) {
 		return (current_count || 0) + 1;
     });
 
-	// incrememt count on reviews by user
+    // increment count on itineraries by geo
+    Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH + '/' + geo.placeId + '/' + itineraryId + '/' + counterType).transaction(function (current_count) {
+		return (current_count || 0) + 1;
+    });
+
+	// incrememt count on itineraries by user
 	Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + userId + '/' + itineraryId + '/' + counterType).transaction(function (current_count) {
 		return (current_count || 0) + 1;
     });
@@ -119,17 +124,22 @@ export function decrementReviewCount(counterType, reviewId, subjectId, userId) {
 }
 
 export function decrementItineraryCount(counterType, itineraryId, geo, userId) {
-	// decrement count on reviews
+	// decrement count on itineraries
 	Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId + '/' + counterType).transaction(function (current_count) {
 		return (current_count - 1 > 0) ? (current_count - 1) : 0;
     });
 
-    // decrement count on reviews by subject
-    Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH + '/' + geo.placeId + '/' + userId + '/' + itineraryId + '/' + counterType).transaction(function (current_count) {
+    // decrement count on itienraries by geo by user
+    Firebase.database().ref(Constants.ITINERARIES_BY_GEO_BY_USER_PATH + '/' + geo.placeId + '/' + userId + '/' + itineraryId + '/' + counterType).transaction(function (current_count) {
 		return (current_count - 1 > 0) ? (current_count - 1) : 0;
     });
 
-	// decrement count on reviews by user
+    // decrement count on itineraries by geo
+    Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH + '/' + geo.placeId + '/' + itineraryId + '/' + counterType).transaction(function (current_count) {
+		return (current_count - 1 > 0) ? (current_count - 1) : 0;
+    });
+
+	// decrement count on itineraries by user
 	Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + userId + '/' + itineraryId + '/' + counterType).transaction(function (current_count) {
 		return (current_count - 1 > 0) ? (current_count - 1) : 0;
     });

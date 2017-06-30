@@ -3488,11 +3488,3 @@ export function unloadPlacesFeed(auth, locationId) {
     })
   }
 }
-
-export function buildItinerariesByGeo() {
-  return dispatch => {
-    Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH).once('value', snap => {
-      Firebase.database().ref(Constants.ITINERARIES_BY_GEO_BY_USER_PATH).update(snap.val());
-    })
-  }
-}
