@@ -15,14 +15,14 @@ const LoggedOutView = props => {
     return (
       <div className="navigation-bar no-icons flx flx-row flx-align-center pdding-right-md">
           <Link to="login" className="nav-module">
-            <div className="nav-text">
-              Sign-in
+            <div className="">
+              Log in
             </div>
           </Link>
 
-          <Link to="register" className="nav-module">
-            <div className="nav-text">
-              Sign-up
+          <Link to="register" className="vb">
+            <div className="">
+              Sign up
             </div>
           </Link>
 
