@@ -3488,8 +3488,8 @@ export function unloadPlacesFeed(auth, locationId) {
   }
 }
 
-// export function buildItinerariesByUser() {
-//   return dispatch => {
-//     Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH).once('value')
-//   }
-}
+// // export function buildItinerariesByUser() {
+// //   return dispatch => {
+// //     Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH).once('value')
+// //   }
+// }
