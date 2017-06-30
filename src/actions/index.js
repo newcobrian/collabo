@@ -983,29 +983,41 @@ export function onUpdateField(key, value) {
 
 export function onCreateItinerary(auth, itinerary) {
   return dispatch => {
-    let itineraryObject = {};
-    let itineraryMeta = {
-      lastModified: Firebase.database.ServerValue.TIMESTAMP,
-      createdOn: Firebase.database.ServerValue.TIMESTAMP
-    }
-    let updates = {};
-    Object.assign(itineraryObject, itinerary, itineraryMeta)
-
-    let itineraryId = Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + auth).push(itineraryObject).key;
-
-    updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${auth}/${itineraryId}`] = itineraryObject;
-    updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}`] = Object.assign({}, itineraryObject, {userId: auth});
-    Firebase.database().ref().update(updates);
-
-    dispatch({
-      type: ITINERARY_CREATED,
-      payload: itineraryObject,
-      itineraryId: itineraryId,
-      meta: {
-        mixpanel: {
-          event: 'Itinerary created'
-        }
+    Firebase.database().ref(Constants.GEOS_TO_GEOIDS_PATH + '/' + itinerary.geo.label).once('value', geoSnapshot => { 
+      let itineraryObject = {};
+      let itineraryMeta = {
+        lastModified: Firebase.database.ServerValue.TIMESTAMP,
+        createdOn: Firebase.database.ServerValue.TIMESTAMP
       }
+      let updates = {};
+      Object.assign(itineraryObject, itinerary, itineraryMeta)
+
+      let itineraryId = Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + auth).push(itineraryObject).key;
+
+      updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${auth}/${itineraryId}`] = itineraryObject;
+      updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}`] = Object.assign({}, itineraryObject, {userId: auth});
+
+      // add geo to the geo table if it doesnt exists
+      if (!geoSnapshot.exists()) {
+        let geoObject = {
+          country: itinerary.geo.country,
+          location: itinerary.geo.location,
+          placeId: itinerary.geo.placeId
+        }
+        updates[`/${Constants.GEOS_TO_GEOIDS_PATH}/${itinerary.geo.label}`] = geoObject;
+      }
+      Firebase.database().ref().update(updates);
+
+      dispatch({
+        type: ITINERARY_CREATED,
+        payload: itineraryObject,
+        itineraryId: itineraryId,
+        meta: {
+          mixpanel: {
+            event: 'Itinerary created'
+          }
+        }
+      })
     })
   }
 }
@@ -1489,45 +1501,57 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
     }
 
     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId + '/images').once('value', coverSnapshot => {
-      let itineraryByUserObject = Helpers.makeItinerary(auth, itinerary, lastModified);
-      Object.assign(itineraryByUserObject, { reviews: reviewsList }, { reviewsCount: reviews.length }, {images: coverSnapshot.val()});
+      Firebase.database().ref(Constants.GEOS_TO_GEOIDS_PATH + '/' + itinerary.geo.label).once('value', geoSnapshot => { 
+        let itineraryByUserObject = Helpers.makeItinerary(auth, itinerary, lastModified);
+        Object.assign(itineraryByUserObject, { reviews: reviewsList }, { reviewsCount: reviews.length }, {images: coverSnapshot.val()});
 
-      let itineraryObject = {};
-      Object.assign(itineraryObject, itineraryByUserObject, { userId: auth });
+        let itineraryObject = {};
+        Object.assign(itineraryObject, itineraryByUserObject, { userId: auth });
 
-      // update all itinerary tables
-      updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}`] = itineraryByUserObject;
-      updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}/`] = itineraryObject;
-      updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${auth}/${itineraryId}/`] = itineraryObject;
+        // update all itinerary tables
+        updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}`] = itineraryByUserObject;
+        updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}/`] = itineraryObject;
+        updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${auth}/${itineraryId}/`] = itineraryObject;
 
-      Firebase.database().ref().update(updates, function(error) {
-        if (error) {
-          console.log("Error updating data:", error);
+        // add geo to geo table if its not there
+        if (!geoSnapshot.exists()) {
+          let geoObject = {
+            country: itinerary.geo.country,
+            location: itinerary.geo.location,
+            placeId: itinerary.geo.placeId
+          }
+          updates[`/${Constants.GEOS_TO_GEOIDS_PATH}/${itinerary.geo.label}`] = geoObject;
         }
-      });
 
-      // upload itinerary images if they exist
-      if (itinerary.images && itinerary.images.isNew && itinerary.images.files && itinerary.images.files[0]) {
-        uploadCoverPhoto(auth, itinerary.images.files[0], itinerary, itineraryId);
-      }
-      // else if (itinerary.images && itinerary.images.isFallback === true) {
+        Firebase.database().ref().update(updates, function(error) {
+          if (error) {
+            console.log("Error updating data:", error);
+          }
+        });
 
-      // }
+        // upload itinerary images if they exist
+        if (itinerary.images && itinerary.images.isNew && itinerary.images.files && itinerary.images.files[0]) {
+          uploadCoverPhoto(auth, itinerary.images.files[0], itinerary, itineraryId);
+        }
+        // else if (itinerary.images && itinerary.images.isFallback === true) {
 
-      let message = itinerary.title + ' has been saved.';
+        // }
 
-      dispatch({
-        type: ITINERARY_UPDATED,
-        itineraryId: itineraryId,
-        message: message,
-        meta: {
-          mixpanel: {
-            event: 'Itinerary updated',
-            props: {
-              itineraryId: itineraryId,
+        let message = itinerary.title + ' has been saved.';
+
+        dispatch({
+          type: ITINERARY_UPDATED,
+          itineraryId: itineraryId,
+          message: message,
+          meta: {
+            mixpanel: {
+              event: 'Itinerary updated',
+              props: {
+                itineraryId: itineraryId,
+              }
             }
           }
-        }
+        })
       })
     })
   }

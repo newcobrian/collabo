@@ -19,6 +19,7 @@ import itinerary from './reducers/itinerary';
 import snackbarToaster from './reducers/snackbarToaster';
 import lightboxComponent from './reducers/lightboxComponent';
 import explore from './reducers/explore';
+import location from './reducers/location';
 import Firebase from 'firebase';
 import mixpanel from 'mixpanel-browser';
 import MixpanelMiddleware from 'redux-mixpanel-middleware';
@@ -42,6 +43,7 @@ const reducer = combineReducers({
   snackbarToaster,
   lightboxComponent,
   explore,
+  location,
   form: formReducer
   // firebase: firebaseStateReducer
 });
