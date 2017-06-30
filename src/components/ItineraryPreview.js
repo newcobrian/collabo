@@ -113,7 +113,7 @@ const ItineraryPreview = props => {
               </div>
               <Link to={`itinerary/${itinerary.id}`}>
               <div className="flx flx-row flx-just-end flx-align-center opa-80 color--white">
-                {itinerary.reviewsCount ? itinerary.reviewsCount : 0} {itinerary.reviewsCount === 1 ? 'Tip' : 'Tips'}
+                {itinerary.reviewsCount ? itinerary.reviewsCount : 0} {itinerary.reviewsCount === 1 ? 'Tip' : ' Tips'}
               </div>
               </Link>
             </div>
