@@ -196,7 +196,7 @@ let Review = ({ review, index, fields, authenticated, reviewObject, searchLocati
       <li key={index} className="mrgn-bottom-md edit-tip_wrapper">
         <div className="flx flx-row flx-align-center pdding-top-sm pdding-bottom-sm">
           <div className="v2-type-h5">Tip #{index + 1}</div>
-          <div className="vb vb--light vb--no-outline vb-sm opa-30 danger-hover flex-item-right"
+          <div className="vb vb--light vb--no-outline vb-sm opa-30 danger-hover flex-item-right danger-hover"
           onClick={() => fields.remove(index)}>Delete Tip</div>
         </div>
         <div className="field-wrapper"> 
@@ -222,7 +222,7 @@ let Review = ({ review, index, fields, authenticated, reviewObject, searchLocati
         { /** Top Row **/ }
         <div className="flx flx-row flx-align-center pdding-top-sm pdding-bottom-sm">
           <div className="v2-type-h5">Tip #{index + 1}</div>
-          <div className="vb vb--light vb--no-outline vb-sm opa-30 flex-item-right"
+          <div className="vb vb--light vb--no-outline vb-sm opa-30 flex-item-right danger-hover"
           onClick={() => fields.remove(index)}>Delete Tip</div>
         </div>
 
@@ -293,8 +293,8 @@ let Review = ({ review, index, fields, authenticated, reviewObject, searchLocati
                     <option value="10">10</option>
                   </select>
               </div>
-              <div className="field-wrapper"> 
-                <label>Caption</label>
+              <div className="field-wrapper resize-ok"> 
+                <label>Notes</label>
                 <Field
                   name={`${review}.caption`}
                   type="text"
@@ -302,7 +302,7 @@ let Review = ({ review, index, fields, authenticated, reviewObject, searchLocati
                   maxLength="500"
                   rows="4"
                   label="Description"
-                  placeholder="Add a caption (optional)"
+                  placeholder="Write notes and info for others or yourself here"
                   classname="edit-tip__caption"/>
               </div> 
             </div>

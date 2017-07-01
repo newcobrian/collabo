@@ -44,6 +44,9 @@ form {
 textarea {
     resize: none;
 }
+.resize-ok textarea {
+    resize: vertical;
+}
 .v2-type--italic {
   font-style: italic;
 }
