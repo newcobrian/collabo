@@ -2444,6 +2444,14 @@ export function lastModifiedAsc(a, b) {
   return 0;
 }
 
+export function byUsername(a, b) {
+  if (a.username < b.username)
+    return -1;
+  if (a.username > b.username)
+    return 1;
+  return 0;
+}
+
 export function searchLikes(uid, likes) {
   for (var key in likes) {
     if (key === uid) {
@@ -3296,7 +3304,7 @@ export function getAllUsers(auth) {
               userObject.isFollowing = true;
             }
             userArray = [userObject].concat(userArray);
-            userArray.sort();
+            userArray.sort(byUsername);
 
             dispatch({
               type: LOADED_ALL_USERS,
