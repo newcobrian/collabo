@@ -273,25 +273,20 @@ let Review = ({ review, index, fields, authenticated, reviewObject, searchLocati
               />*/}
               <div className="field-wrapper input--underline edit-tip__rating">
                 <label>Rating</label>
-                  <select
-                    type="number" 
-                    name={`${review}.rating`}
-                    label="Rating"
-                    placeholder="0"
-                    >
-                    <option selected value="-">-</option>
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                  </select>
+                <Field name={`${review}.rating`} component="select">
+                  <option selected value="-">-</option>
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </Field>
               </div>
               <div className="field-wrapper resize-ok"> 
                 <label>Notes</label>
