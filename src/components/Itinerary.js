@@ -170,9 +170,11 @@ class Itinerary extends React.Component {
                 {/** Flag and Geo **/}
                 <div className={'itinerary__cover__flag mrgn-bottom-sm flx-hold flag-' + itinerary.geo.country}>
                 </div>
-                <div className="geo-type color--white text-shadow ellipsis mrgn-bottom-sm">
+                <Link to={`places/${itinerary.geo.placeId}`}>
+                  <div className="geo-type color--white text-shadow ellipsis mrgn-bottom-sm">
                   {itinerary.geo.label}
-                </div>
+                  </div>
+                </Link>
 
                 {/** TITLE **/}
                 <Link to={`itinerary/${itinerary.id}`}>
