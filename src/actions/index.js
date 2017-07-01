@@ -2122,14 +2122,49 @@ export function onCommentSubmit(authenticated, userInfo, type, commentObject, bo
 
 export function onDeleteComment(commentObject, commentId) {
   return dispatch => {
-    console.log('action')
     if (commentObject.subjectId) {
+      // this is a review comment
       Firebase.database().ref(Constants.COMMENTS_PATH + '/' + commentObject.id + '/' + commentId).remove();
       Helpers.decrementReviewCount(Constants.COMMENTS_COUNT, commentObject.id, commentObject.subjectId, commentObject.createdBy.userId);
     }
+    // else this is an itinerary comment
     else {
-      console.log('else = ' + JSON.stringify(commentObject) + ' id = ' + commentId)
+      // update the lastComment on each itinerary
+      Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + commentObject.id).once('value', itinSnapshot => {
+        if (itinSnapshot.exists() && itinSnapshot.val().lastComment && itinSnapshot.val().lastComment.commentId === commentId) {
+          if (itinSnapshot.val().commentsCount >= 2) {
+            Firebase.database().ref(Constants.COMMENTS_PATH + '/' + commentObject.id).orderByKey().limitToFirst(itinSnapshot.val().commentsCount - 1).once('value', limitedSnap => {
+              let saveObject = {};
+              if (limitedSnap.exists()) {
+                limitedSnap.forEach(function(commentItem) {
+                  saveObject = Object.assign({}, commentItem.val(), { commentId: commentItem.key });
+                })
+                let updates = {};
+                updates[`/${Constants.ITINERARIES_PATH}/${commentObject.id}/lastComment`] = saveObject;
+                updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${commentObject.userId}/${commentObject.id}/lastComment`] = saveObject;
+                updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${commentObject.geo.placeId}/${commentObject.id}/lastComment`] = saveObject;
+                updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${commentObject.geo.placeId}/${commentObject.userId}/${commentObject.id}/lastComment`] = saveObject;
+
+                Firebase.database().ref().update(updates);
+              }
+            })
+          }
+          else {
+            // only 1 comment so just remove lastComment
+            let updates = {};
+            updates[`/${Constants.ITINERARIES_PATH}/${commentObject.id}/lastComment`] = null;
+            updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${commentObject.userId}/${commentObject.id}/lastComment`] = null;
+            updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${commentObject.geo.placeId}/${commentObject.id}/lastComment`] = null;
+            updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${commentObject.geo.placeId}/${commentObject.userId}/${commentObject.id}/lastComment`] = null;
+
+            Firebase.database().ref().update(updates);
+          }
+        }
+      })
+
+      // delete the comment
       Firebase.database().ref(Constants.COMMENTS_PATH + '/' + commentObject.id + '/' + commentId).remove();
+
       Helpers.decrementItineraryCount(Constants.COMMENTS_COUNT, commentObject.id, commentObject.geo, commentObject.createdBy.userId);
     }
 
