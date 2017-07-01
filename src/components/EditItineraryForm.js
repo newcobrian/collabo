@@ -310,7 +310,7 @@ const renderReviews = ({fields, searchLocation, authenticated, meta: {error, sub
     <Review review={review} fields={fields} index={index} key={index} geo={searchLocation} authenticated={authenticated} />)}
     <li>
       <div className="add-tip-wrapper">
-        <button className="vb" type="button" onClick={() => fields.push({})}>Add Tip</button>
+        <button className="vb" type="button" onClick={() => fields.push({})}><img className="center-img" src="../img/icon.add--white.png"/> Add Tip</button>
         {submitFailed && error && <span>{error}</span>}
         {/*touched && error && <span>{error}</span> */}
       </div>
@@ -395,12 +395,12 @@ let EditItineraryForm = props => {
 
 
           {/* Edit Bar */}  
-          <div className="edit-bar flx flx-row flx-just-end flx-align-center">
+          <div className="edit-bar flx flx-center-all">
             <div className="mrgn-right-lg">
-              <Link to={'itinerary/' + props.itineraryId} className="vb vb--full--second" type="submit" disabled={submitting}>Cancel</Link>
+              <Link to={'itinerary/' + props.itineraryId} className="vb vb--light vb--no-outline" type="submit" disabled={submitting}>Cancel</Link>
             </div>
             <div>
-              <button className="vb vb--full" type="submit" disabled={submitting}>Save & Exit</button>
+              <button className="vb" type="submit" disabled={submitting}>Save & Exit</button>
             </div>
           </div>
         </div>

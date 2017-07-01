@@ -110,8 +110,8 @@
 	left: 0;
 	right: 0;
 	height: 60px;
-	background: white;
-	padding: 10px 0px;
+	background: rgba(255,255,255,.9);
+	padding: 10px 0;
 	z-index: 1;
 	border-top: 1px solid rgba(0,0,0,.1);
 }
