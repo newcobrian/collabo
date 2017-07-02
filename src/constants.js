@@ -60,6 +60,7 @@ export const TIPS_BY_USER_PATH = '/tips-by-user'
 export const TIPS_BY_SUBJECT_PATH = '/tips-by-subject'
 	// stored subjectId -> userid -> tip object
 export const GEOS_PATH = '/geos'
+export const COUNTRIES_PATH = '/countries'
 
 /*** Counter Type Constants ***/
 export const LIKES_COUNT = 'likesCount'
@@ -90,7 +91,7 @@ export const TAG_LIST = []
 export const INVALID_USERNAMES = ['account', 'send', 'message', 'inbox', 'notification', 'create', 'edit', 'editor',
  'itinerary', 'messenger', 'settings', 'admin', 'administrator', 'settings', 'global', 'saved', 'login', 'register',
   'review', 'followers', 'isfollowing', 'likes', 'saves', 'select', 'explore', 'search', 'user', 'location', 'city', 
-  'geo', 'attraction', 'subject', 'home', 'places']
+  'geo', 'attraction', 'subject', 'home', 'places', 'countries']
 
 
 export const COUNTRY_FLAGS = {
