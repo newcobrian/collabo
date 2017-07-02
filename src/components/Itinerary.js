@@ -198,7 +198,7 @@ class Itinerary extends React.Component {
               {/** >>>>>> CLOSE CENTER INFO **/}
 
               {/** <<<<<< AUTHOER INFO **/}
-              <div className="it-author-controls flx flx-row flx-just-center ta-center w-100 mrgn-bottom-sm">
+              <div className="it-author-controls flx flx-row flx-just-center ta-center w-100 mrgn-bottom-md">
 
                 <EditItineraryLink isUser={isUser} itineraryId={this.props.itineraryId} />
 
