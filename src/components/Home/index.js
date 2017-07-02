@@ -20,6 +20,35 @@ const mapStateToProps = state => ({
 //     dispatch({  type: 'HOME_PAGE_UNLOADED' })
 // });
 
+const LoggedOutIntro = props => {
+  if (!props.authenticated) {
+    return (
+     <div className="intro-container">
+      <div className="intro-content flx flx-col flx-center-all ta-center">
+        <div className="v2-type-h3 color--white mrgn-bottom-md">
+         Easily plan trips using your friends
+        </div>
+        <div className="v2-type-body3 color--white mrgn-bottom-md">
+         Make itineries, take notes and share recs
+        </div>
+        <Link to="register" className="">
+          <div className="vb vb--light vb--intro--register">
+            Get started
+          </div>
+        </Link>
+      </div>
+
+
+        <div className="intro-map opa-20">
+        </div>
+        <div className="intro-grid opa-10">
+        </div>
+     </div>
+    );
+  }
+  return null;
+};
+
 class Home extends React.Component {
   constructor() {
     super();
@@ -58,6 +87,9 @@ class Home extends React.Component {
   render() {
     return (
       <div className="home-page">
+
+        <LoggedOutIntro currentUser={this.props.currentUser} />
+
         <div className="page-title-wrapper center-text">
           <div className="v2-type-page-header">Explore</div>
           <div className="v2-type-body2 opa-60 mrgn-top-sm">All the latest itineries and travel lists</div>

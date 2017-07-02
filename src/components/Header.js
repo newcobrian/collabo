@@ -20,8 +20,8 @@ const LoggedOutView = props => {
             </div>
           </Link>
 
-          <Link to="register" className="vb">
-            <div className="">
+          <Link to="register" className="nav-module">
+            <div className="color--primary">
               Sign up
             </div>
           </Link>
@@ -82,7 +82,7 @@ class Header extends React.Component {
               <img className="center-img" src="../img/logos/logo.earth.temp.png"/>
             </div>
             <div className="logo-main">
-            EPIC
+            VIEWS
             </div>
             <div className="logo-tagline">Reviews by people you trust</div>
           </Link>

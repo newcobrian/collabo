@@ -1,0 +1,43 @@
+.intro-container {
+	height: 300px;
+	background-color:#FFFEF1;
+	/* Rectangle 3: */
+	background-image: linear-gradient(-270deg, #0095FF 2%, #4BDEC8 98%);
+	width: 100%;
+	position: relative;
+	background-attachment: fixed;
+}
+.intro-content {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	z-index: 2;
+}
+.intro-map {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background-image: url(img/bg/map_A.png);
+	background-attachment: fixed;
+	animation: animatedBackground 40s linear 1;
+	z-index: 1;
+}
+.intro-grid {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background-attachment: fixed;
+	background-image: url(img/grids/80.png);
+	z-index: 1;
+}
+
+@keyframes animatedBackground {
+	from { background-position: -50% 0; }
+	to { background-position: 120% 0; }
+}
