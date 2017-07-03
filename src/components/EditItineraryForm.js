@@ -146,7 +146,6 @@ let renderGeoSuggestItinerary = (field, googlemaps) => {
       types={['(regions)']}
       placeholder="Search a city or country"
       required
-      googleMaps={field.googleMapsObject}
       initialValue={field.geoSuggest}
       onSuggestSelect={suggestSelect}/>
   )
@@ -180,7 +179,6 @@ const renderGeoSuggestReview = (field) => {
       className="input--underline"
       placeholder="Search a city or country"
       required
-      googleMaps={field.googleMapsObject}
       initialValue={field.geoSuggest}
       onSuggestSelect={suggestSelect}/>
   )
@@ -398,7 +396,6 @@ let EditItineraryForm = props => {
                 <div>
                   <Field name="itinerary.geo" component={renderGeoSuggestItinerary} 
                     geoSuggest={props.geoSuggest} type="text" label="Location" 
-                    googleMapsObject={props.googleMapsObject}
                     classname="input--underline edit-itinerary__location" />
                 </div>
               </div>

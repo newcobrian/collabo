@@ -140,14 +140,14 @@ class Create extends React.Component {
 	}
 
 	render() {
-		// if (!this.props.googleMapsObject) {
-		// 	return (
-		// 		<Map google={window.google}
-		// 			onReady={this.initMap}
-		// 			visible={false} >
-		// 		</Map>
-		// 		);
-		// }
+		if (!this.props.googleMapsObject) {
+			return (
+				<Map google={window.google}
+					onReady={this.initMap}
+					visible={false} >
+				</Map>
+				);
+		}
 		return (
 			<div>
 				<div className="flx flx-col flx-center-all page-common editor-page create-page">
@@ -186,7 +186,6 @@ class Create extends React.Component {
 									  types={['(regions)']}
 									  placeholder="Search for a city or country"
 									  required
-									  googleMaps={this.props.googleMapObject}
 									  onChange={this.changeGeo}
 									  onSuggestSelect={this.suggestSelect}/>
 			                    </fieldset>
@@ -219,8 +218,8 @@ class Create extends React.Component {
 	}
 }
 
-// export default GoogleApiWrapper({
-//   apiKey: Constants.GOOGLE_API_KEY
-// }) (connect(mapStateToProps, Actions)(Create));
+export default GoogleApiWrapper({
+  apiKey: Constants.GOOGLE_API_KEY
+}) (connect(mapStateToProps, Actions)(Create));
 
-export default connect(mapStateToProps, Actions)(Create);
+// export default connect(mapStateToProps, Actions)(Create);
