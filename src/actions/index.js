@@ -987,7 +987,7 @@ export function onUpdateField(key, value) {
 export function onCreateItinerary(auth, itinerary) {
   return dispatch => {
     Firebase.database().ref(Constants.GEOS_PATH + '/' + itinerary.geo.placeId).once('value', geoSnapshot => {
-      Firebase.database().ref(Constants.COUNTRIES_PATH + '/' + itinerary.geo.country + '/' + itinerary.geo.placeId).once('value', countrySnapshot => {
+      Firebase.database().ref(Constants.COUNTRIES_PATH + '/' + itinerary.geo.country + '/places/' + itinerary.geo.placeId).once('value', countrySnapshot => {
         let itineraryObject = {};
         let itineraryMeta = {
           lastModified: Firebase.database.ServerValue.TIMESTAMP,
@@ -1013,7 +1013,7 @@ export function onCreateItinerary(auth, itinerary) {
         }
 
         if (!countrySnapshot.exists()) {
-          updates[`/${Constants.COUNTRIES_PATH}/${itinerary.geo.country}/${itinerary.geo.placeId}`] = true;
+          updates[`/${Constants.COUNTRIES_PATH}/${itinerary.geo.country}/places/${itinerary.geo.placeId}`] = true;
         }
         Firebase.database().ref().update(updates);
 
@@ -1514,7 +1514,7 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
 
     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId + '/images').once('value', coverSnapshot => {
       Firebase.database().ref(Constants.GEOS_PATH + '/' + itinerary.geo.placeId).once('value', geoSnapshot => { 
-        Firebase.database().ref(Constants.COUNTRIES_PATH + '/' + itinerary.geo.country + '/' + itinerary.geo.placeId).once('value', countrySnapshot => {
+        Firebase.database().ref(Constants.COUNTRIES_PATH + '/' + itinerary.geo.country + '/places/' + itinerary.geo.placeId).once('value', countrySnapshot => {
           let itineraryByUserObject = Helpers.makeItinerary(auth, itinerary, lastModified);
           Object.assign(itineraryByUserObject, { reviews: reviewsList }, { reviewsCount: reviews.length }, {images: coverSnapshot.val()});
 
@@ -1538,7 +1538,7 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
           }
 
           if (!countrySnapshot.exists()) {
-            updates[`/${Constants.COUNTRIES_PATH}/${itinerary.geo.country}/${itinerary.geo.placeId}`] = true;
+            updates[`/${Constants.COUNTRIES_PATH}/${itinerary.geo.country}/places/${itinerary.geo.placeId}`] = true;
           }
 
           Firebase.database().ref().update(updates, function(error) {
