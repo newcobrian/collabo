@@ -150,6 +150,8 @@ let renderGeoSuggestItinerary = (field, googlemaps) => {
 }
 
 const renderGeoSuggestReview = (field) => {
+  // const location = new google.maps.LatLng(-34.397, 150.644);
+  // Geo suggest needs location and radius
   const suggestSelect = result => {
     var request = {
       placeId: result.placeId
