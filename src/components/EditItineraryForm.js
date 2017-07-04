@@ -138,8 +138,6 @@ let renderGeoSuggestItinerary = (field, googlemaps) => {
     field.input.onChange(geoData);
   }
 
-  // return null;
-  // if (!field.googleMapsObject) return null;
   return (
     <Geosuggest 
       className="input--underline"
@@ -336,7 +334,20 @@ const renderReviews = ({fields, searchLocation, authenticated, meta: {error, sub
 let EditItineraryForm = props => {
     const {handleSubmit, pristine, reset, submitting} = props;
 
-    // if (!props.googleMapsObject) return null;
+    const initMap = (mapProps, map) => {
+      const {google} = props;
+      let service = new google.maps.places.PlacesService(map);
+      props.loadGoogleMaps(service, EDITOR_PAGE);
+    }
+
+    if (!props.googleMapsObject) {
+      return (
+        <Map google={window.google}
+          onReady={initMap}
+          visible={false} >
+        </Map>
+      )
+    }
 
     return ( 
       <form onSubmit={handleSubmit}>
@@ -441,4 +452,8 @@ EditItineraryForm = connect(
   {load: loadItinerary} // bind account loading action creator
 )(EditItineraryForm)
 
-export default EditItineraryForm
+export default GoogleApiWrapper({
+  apiKey: Constants.GOOGLE_API_KEY
+}) (EditItineraryForm);
+
+// export default EditItineraryForm
