@@ -23,7 +23,15 @@ import places from './reducers/places';
 import Firebase from 'firebase';
 import mixpanel from 'mixpanel-browser';
 import MixpanelMiddleware from 'redux-mixpanel-middleware';
-import { reducer as formReducer } from 'redux-form'
+import { reducer as formReducer } from 'redux-form';
+import { combineForms } from 'react-redux-form';
+
+const initialItinerary = {
+  itinerary: {
+    title: '',
+    geo: ''
+  }
+}
 
 const reducer = combineReducers({
   review,
@@ -44,6 +52,9 @@ const reducer = combineReducers({
   lightboxComponent,
   explore,
   places,
+  // editForm: combineForms({
+  //   editForm: initialItinerary
+  // }, 'editForm')
   form: formReducer
   // firebase: firebaseStateReducer
 });

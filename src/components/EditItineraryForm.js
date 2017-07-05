@@ -333,26 +333,31 @@ const renderReviews = ({fields, searchLocation, authenticated, meta: {error, sub
   </ul>
 )
 
-let EditItineraryForm = props => {
-    const {handleSubmit, pristine, reset, submitting} = props;
+class EditItineraryForm extends React.Component {
+  constructor() {
+    super();
 
-    const initMap = (mapProps, map) => {
-      const {google} = props;
+    // const {handleSubmit, pristine, reset, submitting} = this.props;
+
+    this.initMap = (mapProps, map) => {
+      const {google} = this.props;
       let service = new google.maps.places.PlacesService(map);
-      props.loadGoogleMaps(service, EDITOR_PAGE);
-    }
+      this.props.loadGoogleMaps(service, EDITOR_PAGE);
+    } 
+  }
 
-    if (!props.googleMapsObject) {
+  render() {
+    if (!this.props.googleMapsObject) {
       return (
         <Map google={window.google}
-          onReady={initMap}
+          onReady={this.initMap}
           visible={false} >
         </Map>
       )
     }
 
     return ( 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={this.props.handleSubmit}>
         <div className="page-title-wrapper center-text flx flx-row flx-center-all">
           
           <div className="v2-type-page-header">Edit Itinerary</div>
@@ -367,15 +372,15 @@ let EditItineraryForm = props => {
               { /** Left Image **/ }
               <div className="image-module mrgn-right-lg">
                 <div className="tip__image-module no-click">
-                  <ImagePicker images={(props.itineraryImages && props.itineraryImages.url ? [props.itineraryImages.url] : null)} source={EDITOR_PAGE}/>
+                  <ImagePicker images={(this.props.itineraryImages && this.props.itineraryImages.url ? [this.props.itineraryImages.url] : null)} source={EDITOR_PAGE}/>
                 </div>
                 <div className="">
                    <Field
                   name={`itinerary.images`}
                   component={renderDropzoneInput}
-                  latitude={props.latitude} 
-                  longitude={props.longitude}
-                  authenticated={props.authenticated}/>
+                  latitude={this.props.latitude} 
+                  longitude={this.props.longitude}
+                  authenticated={this.props.authenticated}/>
                 </div>
 
               </div>
@@ -408,7 +413,7 @@ let EditItineraryForm = props => {
 
                 <div>
                   <Field name="itinerary.geo" component={renderGeoSuggestItinerary} 
-                    geoSuggest={props.geoSuggest} type="text" label="Location" 
+                    geoSuggest={this.props.geoSuggest} type="text" label="Location" 
                     classname="input--underline edit-itinerary__location" />
                 </div>
               </div>
@@ -416,7 +421,7 @@ let EditItineraryForm = props => {
             </div>
 
             <div className="flx flx-col itinerary__tiplist">
-              <FieldArray name="itinerary.reviews" component={renderReviews} searchLocation={props.searchLocation} authenticated={props.authenticated} />
+              <FieldArray name="itinerary.reviews" component={renderReviews} searchLocation={this.props.searchLocation} authenticated={this.props.authenticated} />
             </div>
           </div>
 
@@ -424,15 +429,16 @@ let EditItineraryForm = props => {
           {/* Edit Bar */}  
           <div className="edit-bar flx flx-center-all">
             <div className="mrgn-right-lg">
-              <Link to={'itinerary/' + props.itineraryId} className="vb vb--light vb--no-outline" type="submit" disabled={submitting}>Cancel</Link>
+              <Link to={'itinerary/' + this.props.itineraryId} className="vb vb--light vb--no-outline" type="submit" disabled={this.props.submitting}>Cancel</Link>
             </div>
             <div>
-              <button className="vb" type="submit" disabled={submitting}>Save & Exit</button>
+              <button className="vb" type="submit" disabled={this.props.submitting}>Save & Exit</button>
             </div>
           </div>
         </div>
     </form>
   )
+  }
 }
 
 const selector = formValueSelector('EditItinerary')

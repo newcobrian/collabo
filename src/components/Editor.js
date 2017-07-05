@@ -8,6 +8,7 @@ import { EDITOR_PAGE } from '../actions';
 import {GoogleApiWrapper} from 'google-maps-react';
 import Map from 'google-maps-react';
 import Geosuggest from 'react-geosuggest'
+import EditForm from './EditForm'
 
 const mapStateToProps = state => ({
   ...state.editor,
@@ -61,6 +62,7 @@ class Editor extends React.Component {
 
     return (
       <div>
+        {/*<EditForm />*/}
         <EditItineraryForm 
           onSubmit={this.submitForm}
           searchLocation={this.props.geo}
