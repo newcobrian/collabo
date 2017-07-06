@@ -723,43 +723,45 @@ export function getItinerary(auth, itineraryId) {
             else {
               for (let i = 0; i < itineraryObject.reviews.length; i++) {
                 let reviewItem = itineraryObject.reviews[i];
-                Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + reviewItem.subjectId).on('value', subjectSnapshot => {
-                  Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewItem.reviewId).on('value', reviewSnapshot => {
-                    Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + reviewItem.reviewId).on('value', likesSnapshot => {
-                      Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewItem.reviewId).on('value', commentSnapshot => {
-                        Firebase.database().ref(Constants.IMAGES_BY_USER_PATH + '/' + auth + '/' + reviewItem.subjectId).on('value', imagesSnapshot => {
-                          Firebase.database().ref(Constants.IMAGES_PATH + '/' + reviewItem.subjectId).on('value', defaultImagesSnapshot => {
-                            let reviewObject = {};
-                            let likes = {
-                              isLiked: likesSnapshot.exists()
-                            }
-                            
-                            let comments = [];
-                            commentSnapshot.forEach(function(commentChild) {
-                              const comment = Object.assign({}, { id: commentChild.key }, commentChild.val());
-                              comments = comments.concat(comment);
-                            })
-                            comments.sort(lastModifiedAsc);
+                if (reviewItem) {
+                  Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + reviewItem.subjectId).on('value', subjectSnapshot => {
+                    Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewItem.reviewId).on('value', reviewSnapshot => {
+                      Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + reviewItem.reviewId).on('value', likesSnapshot => {
+                        Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewItem.reviewId).on('value', commentSnapshot => {
+                          Firebase.database().ref(Constants.IMAGES_BY_USER_PATH + '/' + auth + '/' + reviewItem.subjectId).on('value', imagesSnapshot => {
+                            Firebase.database().ref(Constants.IMAGES_PATH + '/' + reviewItem.subjectId).on('value', defaultImagesSnapshot => {
+                              let reviewObject = {};
+                              let likes = {
+                                isLiked: likesSnapshot.exists()
+                              }
+                              
+                              let comments = [];
+                              commentSnapshot.forEach(function(commentChild) {
+                                const comment = Object.assign({}, { id: commentChild.key }, commentChild.val());
+                                comments = comments.concat(comment);
+                              })
+                              comments.sort(lastModifiedAsc);
 
-                            let images = imagesSnapshot.exists() ? Helpers.getImagePath(imagesSnapshot.val()) : Helpers.getImagePath(defaultImagesSnapshot.val());
+                              let images = imagesSnapshot.exists() ? Helpers.getImagePath(imagesSnapshot.val()) : Helpers.getImagePath(defaultImagesSnapshot.val());
 
-                            Object.assign(reviewObject, subjectSnapshot.val(), reviewSnapshot.val(), {id: reviewItem.reviewId},
-                                  { priority: i }, reviewItem, userInfo, likes, {comments: comments}, {images: images} );
-                            reviewArray = [reviewObject].concat(reviewArray);
-                            reviewArray.sort(byPriority);
+                              Object.assign(reviewObject, subjectSnapshot.val(), reviewSnapshot.val(), {id: reviewItem.reviewId},
+                                    { priority: i }, reviewItem, userInfo, likes, {comments: comments}, {images: images} );
+                              reviewArray = [reviewObject].concat(reviewArray);
+                              reviewArray.sort(byPriority);
 
-                            dispatch({
-                              type: ITINERARY_PAGE_LOADED,
-                              itineraryId: itineraryId,
-                              itinerary: itineraryObject,
-                              reviewList: reviewArray
+                              dispatch({
+                                type: ITINERARY_PAGE_LOADED,
+                                itineraryId: itineraryId,
+                                itinerary: itineraryObject,
+                                reviewList: reviewArray
+                              })
                             })
                           })
                         })
                       })
                     })
                   })
-                })
+                }
               }
             }
           })
