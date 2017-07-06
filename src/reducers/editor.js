@@ -16,7 +16,8 @@ export default (state = {}, action) => {
       if (action.source === EDITOR_PAGE ) {
         return {
           ...state,
-          googleMapsObject: action.googleMapsObject
+          googleObject: action.googleObject,
+          mapObject: action.mapObject
         }
       }
       else return {...state}

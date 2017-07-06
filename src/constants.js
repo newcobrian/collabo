@@ -5,6 +5,7 @@ export const INBOX_SEND_EMAIL_URL = 'https://whatsgoooood.com/mail/send'
 
 /*** Google Maps API Key ***/
 export const GOOGLE_API_KEY = 'AIzaSyBvxXp_QM-oiWqY9v6Des7D2EPnhrn769g'
+export const GOOGLE_PHOTOS_API_KEY = 'AIzaSyB3MbSBNOV7P2Od_AypauRe3ICDRIhxtNQ'
 
 /*** FourSquare API Keys ***/
 export const FOURSQUARE_CLIENT_ID = 'QXEK1PR4ELFYEMMRBSP4O3NJ20B5F34PXZD3VAXNPNUBX0PB'

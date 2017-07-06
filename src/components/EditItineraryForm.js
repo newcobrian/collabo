@@ -8,6 +8,7 @@ import { Link } from 'react-router';
 import Dropzone from 'react-dropzone';
 import FirebaseSearchInput from './FirebaseSearchInput'
 import * as Constants from '../constants';
+import * as Actions from '../actions';
 import Firebase from 'firebase';
 import ImagePicker from './ImagePicker';
 import Geosuggest from 'react-geosuggest';
@@ -117,10 +118,6 @@ const renderSearchInput = (field) => {
 
 let renderGeoSuggestItinerary = (field, googlemaps) => {
   const suggestSelect = result => {
-    var request = {
-      placeId: result.placeId
-    };
-
     let geoData = {
       label: result.label,
       placeId: result.placeId,
@@ -150,44 +147,71 @@ let renderGeoSuggestItinerary = (field, googlemaps) => {
 }
 
 const renderGeoSuggestReview = (field) => {
-  // const location = new google.maps.LatLng(-34.397, 150.644);
+  let latLng = {};
+  if (field.searchLocation) {
+    latLng = new field.googleObject.maps.LatLng(field.searchLocation.lat, field.searchLocation.lng);
+  }
   // Geo suggest needs location and radius
   const suggestSelect = result => {
-    var request = {
-      placeId: result.placeId
-    };
-
-    let geoData = {
-      label: result.label,
-      placeId: result.placeId,
+    let resultObject = {
+      title: result.label,
+      id: result.placeId,
       location: result.location
     }
-
-    if (result.gmaps && result.gmaps.address_components) {
-      result.gmaps.address_components.forEach(function(resultItem) {
-        if (resultItem.types && resultItem.types[0] && resultItem.types[0] === 'country') {
-          if (resultItem.short_name) geoData.country = resultItem.short_name;
-        }
-      })
+    if (result.gmaps && result.gmaps.formatted_address) {
+      resultObject.address = result.gmaps.formatted_address;
     }
 
-    field.input.onChange(geoData);
+    let service = new field.googleObject.maps.places.PlacesService(field.mapObject);
+    let request = { placeId: result.placeId }
+    service.getDetails(request, function(place, status) {
+      if (status == field.googleObject.maps.places.PlacesServiceStatus.OK) {
+        if (place.international_phone_number) resultObject.internationalPhoneNumber = place.international_phone_number;
+        if (place.formatted_phone_number) resultObject.formattedPhoneNumber = place.formatted_phone_number;
+        if (place.opening_hours) {
+          resultObject.hours = {};
+          if (place.opening_hours.periods) resultObject.hours.periods = place.opening_hours.periods;
+          if (place.opening_hours.weekday_text) resultObject.hours.weekdayText = place.opening_hours.weekday_text;
+        }
+        if (place.permanently_closed) resultObject.permanently_closed = true;
+        if (place.website) resultObject.website = place.website;
+        if (place.photos && place.photos[0]) {
+          resultObject.defaultImage = [ place.photos[0].getUrl({'maxWidth': 1225, 'maxHeight': 500}) ];
+        }
+      }
+    })
+
+    field.input.onChange(resultObject);
   }
 
-  return (
-    <Geosuggest 
-      className="input--underline"
-      placeholder="Search a city or country"
-      required
-      initialValue={field.geoSuggest}
-      onSuggestSelect={suggestSelect}/>
-  )
+  if (latLng) {
+    return (
+      <Geosuggest 
+        className="input--underline"
+        placeholder="What's your tip about? (e.g. 'Yosemite National Park' or 'W Hotel')"
+        location={latLng}
+        radius={1000}
+        required
+        initialValue={field.geoSuggest}
+        onSuggestSelect={suggestSelect}/>
+    )
+  }
+  else {
+    return (
+      <Geosuggest 
+        className="input--underline"
+        placeholder="Search for what you want to add"
+        required
+        initialValue={field.geoSuggest}
+        onSuggestSelect={suggestSelect}/>
+    )
+  }
 }
 
 // if subject ID or eventually result.id exists, show subject info + review
 // else if no subject ID, just show the search field
 // eventually need the add custom subject button which would open up all input fields
-let Review = ({ review, index, fields, authenticated, reviewObject, searchLocation }) => {
+let Review = ({ review, index, fields, authenticated, reviewObject, searchLocation, googleObject, mapObject }) => {
   if (Object.keys(reviewObject).length === 0 && reviewObject.constructor === Object) {
     // empty review object, so just let the user search
     return (
@@ -204,6 +228,8 @@ let Review = ({ review, index, fields, authenticated, reviewObject, searchLocati
               component={renderSearchInput}
               searchLocation={searchLocation}
               authenticated={authenticated}
+              googleObject={googleObject}
+              mapObject={mapObject}
               label="Search for a place anywhere in the world..."
               placeholder="Search for a place anywhere in the world..."
               classname="input--underline edit-tip__name"
@@ -270,7 +296,7 @@ let Review = ({ review, index, fields, authenticated, reviewObject, searchLocati
                 classname="DN input--underline edit-tip__rating"
               />*/}
               <div className="field-wrapper input--underline edit-tip__rating">
-                <label>Rating</label>
+                <label>Rating (optional)</label>
                 <Field name={`${review}.rating`} component="select">
                   <option selected value="-">-</option>
                   <option value="0">0</option>
@@ -287,7 +313,7 @@ let Review = ({ review, index, fields, authenticated, reviewObject, searchLocati
                 </Field>
               </div>
               <div className="field-wrapper resize-ok"> 
-                <label>Notes</label>
+                <label>Notes (optional)</label>
                 <Field
                   name={`${review}.caption`}
                   type="text"
@@ -319,10 +345,10 @@ Review = connect(
   })
 )(Review)
 
-const renderReviews = ({fields, searchLocation, authenticated, meta: {error, submitFailed}}) => (
+const renderReviews = ({fields, searchLocation, authenticated, googleObject, mapObject, meta: {error, submitFailed}}) => (
   <ul>
     {fields.map((review, index) =>
-    <Review review={review} fields={fields} index={index} key={index} geo={searchLocation} authenticated={authenticated} />)}
+    <Review review={review} fields={fields} index={index} key={index} searchLocation={searchLocation} authenticated={authenticated} googleObject={googleObject} mapObject={mapObject} />)}
     <li>
       <div className="add-tip-wrapper">
         <button className="vb" type="button" onClick={() => fields.push({})}><img className="center-img" src="../img/icon.add--white.png"/> Add Tip</button>
@@ -333,6 +359,11 @@ const renderReviews = ({fields, searchLocation, authenticated, meta: {error, sub
   </ul>
 )
 
+const mapStateToProps = state => ({
+  ...state.editor,
+  authenticated: state.common.authenticated
+});
+
 class EditItineraryForm extends React.Component {
   constructor() {
     super();
@@ -341,13 +372,13 @@ class EditItineraryForm extends React.Component {
 
     this.initMap = (mapProps, map) => {
       const {google} = this.props;
-      let service = new google.maps.places.PlacesService(map);
-      this.props.loadGoogleMaps(service, EDITOR_PAGE);
+      // let service = new google.maps.places.PlacesService(map);
+      this.props.loadGoogleMaps(google, map, EDITOR_PAGE);
     } 
   }
 
   render() {
-    if (!this.props.googleMapsObject) {
+    if (!this.props.googleObject) {
       return (
         <Map google={window.google}
           onReady={this.initMap}
@@ -401,7 +432,7 @@ class EditItineraryForm extends React.Component {
                 </div>
               
                 <div className="field-wrapper"> 
-                  <label>Description</label>
+                  <label>Description (optional)</label>
                   <Field
                   name="itinerary.description"
                   component="textarea"
@@ -421,7 +452,12 @@ class EditItineraryForm extends React.Component {
             </div>
 
             <div className="flx flx-col itinerary__tiplist">
-              <FieldArray name="itinerary.reviews" component={renderReviews} searchLocation={this.props.searchLocation} authenticated={this.props.authenticated} />
+              <FieldArray name="itinerary.reviews" 
+                component={renderReviews} 
+                searchLocation={this.props.searchLocation} 
+                authenticated={this.props.authenticated}
+                googleObject={this.props.googleObject}
+                mapObject={this.props.mapObject} />
             </div>
           </div>
 
@@ -451,17 +487,17 @@ EditItineraryForm = reduxForm({
 EditItineraryForm = connect(
   state => ({
     initialValues: state.editor.data,
-    itineraryId: state.editor.itineraryId,
-    searchLocation: state.editor.searchLocation,
-    geoSuggest: state.editor.geoSuggest,
-    googleMapsObject: state.editor.googleMapsObject,
-    itineraryImages: state.editor.itineraryImages
+    // itineraryId: state.editor.itineraryId,
+    // searchLocation: state.editor.searchLocation,
+    // geoSuggest: state.editor.geoSuggest,
+    // googleMapsObject: state.editor.googleMapsObject,
+    // itineraryImages: state.editor.itineraryImages
   }),
   {load: loadItinerary} // bind account loading action creator
 )(EditItineraryForm)
 
 export default GoogleApiWrapper({
   apiKey: Constants.GOOGLE_API_KEY
-}) (EditItineraryForm);
+}) (connect(mapStateToProps, Actions)(EditItineraryForm));
 
 // export default EditItineraryForm

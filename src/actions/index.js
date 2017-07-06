@@ -593,11 +593,12 @@ export function logout() {
   }
 }
 
-export function loadGoogleMaps(googleObject, source) {
+export function loadGoogleMaps(googleObject, mapObject, source) {
   return dispatch => {
     dispatch({
       type: GOOGLE_MAP_LOADED,
-      googleMapsObject: googleObject,
+      googleObject: googleObject,
+      mapObject: mapObject,
       source: source
     })
   }

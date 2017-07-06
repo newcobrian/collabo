@@ -23,6 +23,10 @@ export function getTagsArray(tagsSnap) {
 export function makeSubject(review, lastModified) {
 	let subject = { title: review.title };
 	if (review.address) subject.address = review.address;
+	if (review.internationalPhoneNumber) subject.internationalPhoneNumber = review.formattedPhoneNumber;
+	if (review.hours) subject.hours = review.hours;
+	if (review.permanentlyClosed) subject.permanentlyClosed = review.permanentlyClosed;
+	if (review.website) subject.website = review.website;
 	return Object.assign(subject, lastModified);
 }
 

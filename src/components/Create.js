@@ -109,8 +109,8 @@ class Create extends React.Component {
 
 		this.initMap = (mapProps, map) => {
 			const {google} = this.props;
-			let service = new google.maps.places.PlacesService(map);
-			this.props.loadGoogleMaps(service, CREATE_PAGE);
+			// let service = new google.maps.places.PlacesService(map);
+			this.props.loadGoogleMaps(google, map, CREATE_PAGE);
 			// let request = { placeId: 'ChIJ10KlwAdzXg0RsH56kZsfcHs'}
 
 		 //  	service.getDetails(request, function(place, status) {
@@ -140,7 +140,7 @@ class Create extends React.Component {
 	}
 
 	render() {
-		if (!this.props.googleMapsObject) {
+		if (!this.props.googleObject) {
 			return (
 				<Map google={window.google}
 					onReady={this.initMap}

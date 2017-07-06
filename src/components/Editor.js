@@ -24,11 +24,11 @@ class Editor extends React.Component {
         this.props.onEditorSubmit(this.props.authenticated, this.props.itineraryId, values.itinerary);
     }
 
-    this.initMap = (mapProps, map) => {
-      const {google} = this.props;
-      let service = new google.maps.places.PlacesService(map);
-      this.props.loadGoogleMaps(service, EDITOR_PAGE);
-    }
+    // this.initMap = (mapProps, map) => {
+    //   const {google} = this.props;
+    //   let service = new google.maps.places.PlacesService(map);
+    //   this.props.loadGoogleMaps(google, map, EDITOR_PAGE);
+    // }
   }
 
   componentWillMount() {
@@ -51,7 +51,7 @@ class Editor extends React.Component {
   }
 
   render() {
-    // if (!this.props.googleMapsObject) {
+    // if (!this.props.googleObject) {
     //   return (
     //     <Map google={window.google}
     //       onReady={this.initMap}
