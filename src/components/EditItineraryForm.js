@@ -212,6 +212,15 @@ const renderGeoSuggestReview = (field) => {
 // else if no subject ID, just show the search field
 // eventually need the add custom subject button which would open up all input fields
 let Review = ({ review, index, fields, authenticated, reviewObject, searchLocation, googleObject, mapObject }) => {
+  const getReviewPic = reviewObject => {
+    const images = reviewObject.images;
+    if (!reviewObject.images) return null;
+    if (images.files) return images.files;
+    else if (images) return images;
+    else if (reviewObject.defaultImage) return reviewObject.defaultImage;
+    else return null;
+  }
+
   if (Object.keys(reviewObject).length === 0 && reviewObject.constructor === Object) {
     // empty review object, so just let the user search
     return (
@@ -256,7 +265,8 @@ let Review = ({ review, index, fields, authenticated, reviewObject, searchLocati
           { /** Image **/ }
           <div className="image-module mrgn-right-lg">
             <div className="tip__image-module">
-              <ImagePicker images={(reviewObject.images ? reviewObject.images.files : null) || reviewObject.defaultImage} source={EDITOR_PAGE} />
+              {/*<ImagePicker images={(reviewObject.images ? reviewObject.images.files : null) || reviewObject.defaultImage} source={EDITOR_PAGE} />*/}
+              <ImagePicker images={getReviewPic(reviewObject)} source={EDITOR_PAGE} />
             </div>
               <Field
               name={`${review}.images`}
