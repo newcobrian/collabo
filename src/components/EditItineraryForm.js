@@ -265,7 +265,6 @@ let Review = ({ review, index, fields, authenticated, reviewObject, searchLocati
           { /** Image **/ }
           <div className="image-module mrgn-right-lg">
             <div className="tip__image-module">
-              {/*<ImagePicker images={(reviewObject.images ? reviewObject.images.files : null) || reviewObject.defaultImage} source={EDITOR_PAGE} />*/}
               <ImagePicker images={getReviewPic(reviewObject)} source={EDITOR_PAGE} />
             </div>
               <Field
@@ -382,9 +381,15 @@ class EditItineraryForm extends React.Component {
 
     this.initMap = (mapProps, map) => {
       const {google} = this.props;
-      // let service = new google.maps.places.PlacesService(map);
       this.props.loadGoogleMaps(google, map, EDITOR_PAGE);
     } 
+
+    this.getItineraryImage = itineraryImages => {
+      if (!itineraryImages) return null;
+      if (itineraryImages.files) return itineraryImages.files;
+      else if (itineraryImages.url) return [itineraryImages.url];
+      else return null;
+    }
   }
 
   render() {
@@ -413,7 +418,7 @@ class EditItineraryForm extends React.Component {
               { /** Left Image **/ }
               <div className="image-module mrgn-right-lg">
                 <div className="tip__image-module no-click">
-                  <ImagePicker images={(this.props.itineraryImages && this.props.itineraryImages.url ? [this.props.itineraryImages.url] : null)} source={EDITOR_PAGE}/>
+                  <ImagePicker images={this.getItineraryImage(this.props.itineraryImages)} source={EDITOR_PAGE}/>
                 </div>
                 <div className="">
                    <Field
