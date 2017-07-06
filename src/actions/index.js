@@ -1550,7 +1550,9 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
 
           // upload itinerary images if they exist
           if (itinerary.images && itinerary.images.isNew && itinerary.images.files && itinerary.images.files[0]) {
-            uploadCoverPhoto(auth, itinerary.images.files[0], itinerary, itineraryId);
+            setTimeout(function() {
+              uploadCoverPhoto(auth, itinerary.images.files[0], itinerary, itineraryId);
+            }, 2000);
           }
           // else if (itinerary.images && itinerary.images.isFallback === true) {
 
