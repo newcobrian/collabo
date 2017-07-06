@@ -624,14 +624,17 @@ export function onEditorLoad(authenticated, itineraryId) {
                   let imageList = (userImageSnapshot.exists() ? Helpers.getImagePath(userImageSnapshot.val()) : Helpers.getImagePath(imageSnapshot.val()) );
                   Object.assign(itineraryObject.reviews[i], subjectSnapshot.val(), reviewSnapshot.val(), 
                     { images: imageList });
-                  dispatch({
-                    type: EDITOR_PAGE_LOADED,
-                    itineraryId: itineraryId,
-                    searchLocation: itinerarySnapshot.val().geo.location,
-                    geoSuggest: itinerarySnapshot.val().geo.label,
-                    itineraryImages: itineraryObject.images,
-                    data: { itinerary: itineraryObject }
-                  })
+
+                  if (i === itineraryObject.reviews.length - 1) {
+                    dispatch({
+                      type: EDITOR_PAGE_LOADED,
+                      itineraryId: itineraryId,
+                      searchLocation: itinerarySnapshot.val().geo.location,
+                      geoSuggest: itinerarySnapshot.val().geo.label,
+                      itineraryImages: itineraryObject.images,
+                      data: { itinerary: itineraryObject }
+                    })
+                  }
                 })
               })
             })
