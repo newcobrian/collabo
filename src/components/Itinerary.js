@@ -134,7 +134,7 @@ class Itinerary extends React.Component {
 
           <div className="content-wrapper itinerary flx flx-col flx-align-center">
 
-            <div className="itinerary__cover flx flx-row flx-center-all header-height">
+            <div className="itinerary__cover flx flx-row flx-just-start header-height">
               
               {/** Cover Image **/}
               <div className="itinerary__cover__image header-height">
@@ -145,29 +145,31 @@ class Itinerary extends React.Component {
                 <img className="cover-height DN" src="../img/cover-overlay.png"/>
               </div>
 
-              {/** Cover Content **/}
-              <div className="itinerary__cover__text flx flx-col flx-center-all ta-left">
-                
-                {/** <<<<<< USER PHOTO AND TIP COUNT **/}
-                <div className="itinerary__cover__topbar w-max flx flx-row flx-align-center flx-just-start v2-type-body1 mrgn-bottom-sm pdding-top-md">
-                  <div className="itinerary__cover__author-photo">
-                      <Link
-                      to={`${itinerary.createdBy.username}`}
-                      className="">
-                      <ProfilePic src={itinerary.createdBy.image} className="center-img" />
-                      </Link>
-                  </div>
-                  <div className="flx flx-col flx-just-start flx-align-start">
-                    <div className="itinerary__cover__username ta-left mrgn-right-md color--white">
-                      <Link
-                      to={`${itinerary.createdBy.username}`}
-                      className="color--white">
-                      {itinerary.createdBy.username}
-                      </Link>
-                    </div>
+              {/** <<<<<< USER PHOTO AND TIP COUNT **/}
+              <div className="itinerary__cover__topbar w-max flx flx-row flx-align-center flx-just-start v2-type-body1 mrgn-bottom-sm pdding-top-md">
+                <div className="itinerary__cover__author-photo">
+                    <Link
+                    to={`${itinerary.createdBy.username}`}
+                    className="">
+                    <ProfilePic src={itinerary.createdBy.image} className="center-img" />
+                    </Link>
+                </div>
+                <div className="flx flx-col flx-just-start flx-align-start">
+                  <div className="itinerary__cover__username ta-left mrgn-right-md color--white">
+                    <Link
+                    to={`${itinerary.createdBy.username}`}
+                    className="color--white">
+                    {itinerary.createdBy.username}
+                    </Link>
                   </div>
                 </div>
-                {/** >>>>>> CLOSE USER PHOTO AND TIP COUNT **/}
+              </div>
+              {/** >>>>>> CLOSE USER PHOTO AND TIP COUNT **/}
+
+              {/** Cover Content **/}
+              <div className="itinerary__cover__text flx flx-col flx-center-all ta-left w-100">
+                
+                
 
             
               {/** <<<<<< CENTER INFO **/}

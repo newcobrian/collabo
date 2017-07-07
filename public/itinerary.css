@@ -168,9 +168,11 @@
 .profile-page .itinerary__cover .v2-type-h2,
 .home-page .itinerary__cover .v2-type-h2 {
 	font-size: 36px;
+	text-indent: -2px;
 }
 .page-itinerary .itinerary__cover {
 	margin: 0;
+	padding: 0;
 }
 .itinerary__cover:hover {
 	/*margin-top:-1px !important;
@@ -224,7 +226,7 @@
     transition: box-shadow 0.3s;
 }
 .itinerary__book:hover {
-	top: 69px;
+	top: 70px;
 	box-shadow: 0 22px 43px rgba(0,0,0,0.15);
 	-webkit-box-shadow: 0 22px 43px rgba(0,0,0,0.15);
 	-webkit-transform: translateY(-1px);
@@ -272,11 +274,9 @@
 }
 .itinerary__cover__text {
 	padding: 20px 0;
-	width: 100%;
-	height: 100%;
 	position: absolute;
 	bottom: 0;
-	pointer-events: none;
+	z-index: 2;
 }
 .itinerary__cover__descrip {
   height: auto;
@@ -363,4 +363,5 @@ textarea.edit-itinerary__name {
 	top: 0;
 	right: 0;
 	bottom: 0;
+	z-index: 1;
 }
