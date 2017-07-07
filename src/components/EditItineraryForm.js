@@ -176,12 +176,15 @@ const renderGeoSuggestReview = (field) => {
         if (place.permanently_closed) resultObject.permanently_closed = true;
         if (place.website) resultObject.website = place.website;
         if (place.photos && place.photos[0]) {
+          console.log('place photos')
           resultObject.defaultImage = [ place.photos[0].getUrl({'maxWidth': 1225, 'maxHeight': 500}) ];
         }
+        field.input.onChange(resultObject);
+      }
+      else {
+        field.input.onChange(resultObject);
       }
     })
-
-    field.input.onChange(resultObject);
   }
 
   if (latLng) {
@@ -214,9 +217,10 @@ const renderGeoSuggestReview = (field) => {
 let Review = ({ review, index, fields, authenticated, reviewObject, searchLocation, googleObject, mapObject }) => {
   const getReviewPic = reviewObject => {
     const images = reviewObject.images;
-    if (!reviewObject.images) return null;
-    if (images.files) return images.files;
-    else if (images) return images;
+    if (images) {
+      if (images.files) return images.files;
+      else if (images) return images;
+    }
     else if (reviewObject.defaultImage) return reviewObject.defaultImage;
     else return null;
   }
