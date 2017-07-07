@@ -169,6 +169,16 @@ class Create extends React.Component {
 						<ListErrors errors={this.props.errors}></ListErrors>
 			            <div className="create-form-wrapper form-wrapper flx flx-col-left">
 				            <form>
+				            	<fieldset className="field-wrapper">
+			                    	<label>Location</label>
+			                    	<Geosuggest 
+			                    	  className="input--underline"
+									  types={['(regions)']}
+									  placeholder="Search for a city or country"
+									  required
+									  onChange={this.changeGeo}
+									  onSuggestSelect={this.suggestSelect}/>
+			                    </fieldset>
 								<fieldset className="field-wrapper">
 									<label>Itinerary Name</label>
 			                      <input
@@ -178,16 +188,6 @@ class Create extends React.Component {
 			                        required
 			                        value={this.props.title}
 			                        onChange={this.changeTitle} />
-			                    </fieldset>
-			                    <fieldset className="field-wrapper">
-			                    	<label>Location</label>
-			                    	<Geosuggest 
-			                    	  className="input--underline"
-									  types={['(regions)']}
-									  placeholder="Search for a city or country"
-									  required
-									  onChange={this.changeGeo}
-									  onSuggestSelect={this.suggestSelect}/>
 			                    </fieldset>
 								<fieldset className="field-wrapper">
 									<label>Description (Optional)</label>

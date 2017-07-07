@@ -434,6 +434,7 @@ class EditItineraryForm extends React.Component {
 
               {/* Right */}
               <div className="itinerary__summary ta-left">
+                
                 <div>
                   <label>Itinerary Name</label>
                   <Field
@@ -462,6 +463,7 @@ class EditItineraryForm extends React.Component {
                     geoSuggest={this.props.geoSuggest} type="text" label="Location" 
                     classname="input--underline edit-itinerary__location" />
                 </div>
+
               </div>
               {/* >>>>> Right */}
             </div>
