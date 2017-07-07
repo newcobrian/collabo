@@ -109,6 +109,9 @@ input[type="radio"]:checked + label span {
 ************************************ DOM STYLING SHARED
 ******
 ******/
+.inline {
+  display: inline-block;
+}
 .ellipsis {
   width: 100%;
   white-space: nowrap;
@@ -401,8 +404,17 @@ input[type="radio"]:checked + label span {
   width: 60px;
 }
 
-
-
+.feed-pic-wrapper {
+  width: 60px;
+  height: 60px;
+}
+.image--basic {
+  width: 60px;
+  height: 60px;
+  border-radius: 0;
+  border: 0;
+  overflow: hidden;
+}
 .user-photo-container {
   overflow: hidden;
   border-radius: 50px;
@@ -420,8 +432,8 @@ input[type="radio"]:checked + label span {
   
 }
 img.user-image {
-  width: 100px;
-  height: 100px;
+  width: 60px;
+  height: 60px;
   object-fit: cover;
   border-radius: 50px;
   border: 1px solid rgba(0,0,0,.1);
@@ -754,6 +766,10 @@ svg {
   padding: 0 20px;
 }
 
+.brdr-bottom {
+border-bottom: 1px solid rgba(0,0,0,.1);
+}
+
 .opa-70 {
   opacity: .7;
 }
@@ -1058,13 +1074,10 @@ li.nav-divider {
 
 .list-row {
   width: 100%;
-    width: 100%;
-    max-width: 175px;
-    margin: 0 auto 10px;
+  max-width:960px;
 }
 
 .list-row > div {
-  margin: 10px 20px 10px 0;
 }
 .list-row > div:last-child {
   margin-right: 0;

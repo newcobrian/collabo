@@ -9,9 +9,9 @@ const RightPic = props => {
     return (
       <Link
       to={props.link}
-      className="comment-author">
-        <div className="item-photo center-img">
-          <ProxyImage src={props.image} className="comment-author-img" />
+      className="">
+        <div className="bx-shadow">
+          <ProxyImage src={props.image} className="image--basic center-img" />
         </div>
       </Link>
     )
@@ -22,23 +22,19 @@ const RightPic = props => {
 const LeftSenderPic = props => {
   if (props.senderId) {
     return (
-      <div className="">
+      <div className="mrgn-left-sm mrgn-right-md">
         <Link
         to={`${props.username}`}
-        className="comment-author">
-          <div className="reviewer-photo center-img">
-            <ProxyImage src={props.image} className="comment-author-img" />
-          </div>
+        className="">
+          <ProxyImage src={props.image} className="user-image user-image-sm center-img" />
         </Link>
       </div>
     )
   }
   else {
     return (
-      <div className="">
-       <div className="reviewer-photo center-img">
-        <img src="../img/someone_temp.png"/>
-       </div>
+      <div className="mrgn-left-sm mrgn-right-md">
+        <img className="user-image user-image-sm center-img" src="../img/someone_temp.png"/>
       </div>
     )
   }
@@ -50,7 +46,7 @@ const RenderUsername = props => {
     return (
       <Link
           to={`${props.username}`}
-          className="comment-author">
+          className="">
           {props.username}
       </Link>
     )
@@ -89,27 +85,26 @@ class Inbox extends React.Component {
     }
 
     return (
-      <div className="page-common no-feed-toggle inbox-page">
+      <div className="page-common no-feed-toggle inbox-page flx flx-col flx-just-start">
         <div className="page-title-wrapper center-text">
-          <div className="v2-type-h2 subtitle">Stuff people do to you is here 👋</div>
-         </div>
+          <div className="v2-type-page-header">Recent Activity</div>
+          <div className="v2-type-body2 opa-60 mrgn-top-sm DN"></div>
+        </div>
           {
             this.props.inbox.map(inboxItem => {
               // const isUser = this.props.currentUser &&
               //   follower.userId === this.props.currentUser.uid;
                 return (
-                  <div className="roow roow-row mrgn-bottom-sm pdding-all-sm list-row default-card-white bx-shadow" key={inboxItem.key}>
+                  <div className="flx flx-row flx-just-start brdr-bottom flx-align-center pdding-all-sm list-row w-100 w-max" key={inboxItem.key}>
                     <LeftSenderPic senderId={inboxItem.senderId} username={inboxItem.senderUsername} image={inboxItem.senderImage} />
-                    <div className="roow roow-col-left">
+                    <div className="flx flx-col">
                       <div className="v2-type-body1">
-                        <RenderUsername senderId={inboxItem.senderId} username={inboxItem.senderUsername} />
-                        {inboxItem.message} <Link to={inboxItem.link}>{inboxItem.reviewTitle}</Link>
+                        <strong><RenderUsername senderId={inboxItem.senderId} username={inboxItem.senderUsername} />&nbsp;</strong>
+                        {inboxItem.message}&nbsp;<Link to={inboxItem.link}><div className="color--primary inline">{inboxItem.reviewTitle}</div></Link>
                       </div>
                     </div>
-                    <div className="flex-item-right">
-                      <RightPic link={inboxItem.link} image={inboxItem.reviewImage} />
-                    </div>
-                    
+                    <div className="feed-pic-wrapper mrgn-right-md flx-item-right"><RightPic link={inboxItem.link} image={inboxItem.reviewImage} /></div>
+
                   </div>
                 )
             })
