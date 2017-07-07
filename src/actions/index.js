@@ -114,6 +114,7 @@ export const GOOGLE_MAP_LOADED = 'GOOGLE_MAP_LOADED'
 export const GET_PLACES_FEED = 'GET_PLACES_FEED'
 export const UNLOAD_PLACES_FEED = 'UNLOAD_PLACES_FEED'
 export const LOAD_PLACES = 'LOAD_PLACES'
+export const COVER_PHOTO_UPDATED = 'COVER_PHOTO_UPDATED'
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -1334,6 +1335,15 @@ export function uploadImages(auth, objectId, objectType, images, itineraryId) {
       }
     })
     Firebase.database().ref().update(updates);
+  }
+}
+
+export function dispatchUploadCoverPhoto(auth, imageFile, itinerary, itineraryId) {
+  return dispatch => {
+    uploadCoverPhoto(auth, imageFile, itinerary, itineraryId);
+    dispatch({
+      type: COVER_PHOTO_UPDATED
+    })
   }
 }
 

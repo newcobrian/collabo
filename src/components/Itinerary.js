@@ -17,9 +17,35 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import Dropzone from 'react-dropzone';
 
 import Timestamp from 'react-timestamp';
 
+const UpdateCoverPhoto = props => {
+  if (props.isUser) {
+    const dropHandler = (fileToUpload, e) => {
+      if (fileToUpload && fileToUpload[0]) {
+        props.uploadCoverPhoto(props.authenticated, fileToUpload[0], props.itinerary, props.itinerary.id)
+      }
+    }
+
+    return (
+      <div >
+        <Dropzone
+          onDrop={dropHandler}
+          disablePreview={false}
+          multiple={false}
+          accept="image/*"
+          className="edit-tip__dropzone__touch flx flx-col flx-align-center flx-just-start ta-center">
+          <div className="vb vb--light vb--outline--white color--white mrgn-right-md">Change cover photo</div>
+
+        </Dropzone>
+        
+      </div>
+    );
+  }
+  return null;
+}
 
 const EditItineraryLink = props => {
   if (props.isUser) {
@@ -201,6 +227,9 @@ class Itinerary extends React.Component {
               <div className="it-author-controls flx flx-row flx-just-center ta-center w-100 mrgn-bottom-md">
 
                 <EditItineraryLink isUser={isUser} itineraryId={this.props.itineraryId} />
+
+                <UpdateCoverPhoto isUser={isUser} itinerary={itinerary} itineraryId={this.props.itineraryId} 
+                  uploadCoverPhoto={this.props.dispatchUploadCoverPhoto} authenticated={this.props.authenticated} />
 
                 <ItineraryActions 
                   itinerary={itinerary} 

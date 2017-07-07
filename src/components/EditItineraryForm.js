@@ -416,7 +416,7 @@ class EditItineraryForm extends React.Component {
 
             <div className="edit-it-wrapper flx flx-row w-100 pdding-all-md">
               { /** Left Image **/ }
-              <div className="image-module mrgn-right-lg">
+              {/*<div className="image-module mrgn-right-lg">
                 <div className="tip__image-module no-click">
                   <ImagePicker images={this.getItineraryImage(this.props.itineraryImages)} source={EDITOR_PAGE}/>
                 </div>
@@ -429,7 +429,7 @@ class EditItineraryForm extends React.Component {
                   authenticated={this.props.authenticated}/>
                 </div>
 
-              </div>
+              </div>*/}
               { /** >>>>>> Left Image **/ }
 
               {/* Right */}

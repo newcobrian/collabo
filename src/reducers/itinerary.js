@@ -1,5 +1,5 @@
 import { ITINERARY_PAGE_LOADED, ITINERARY_PAGE_UNLOADED, ITINERARY_COMMMENTS_LOADED, 
-  ITINERARY_COMMMENTS_UNLOADED, ADDED_TO_ITINERARY } from '../actions'
+  ITINERARY_COMMMENTS_UNLOADED, ADDED_TO_ITINERARY, COVER_PHOTO_UPDATED } from '../actions'
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -19,6 +19,7 @@ export default (state = {}, action) => {
     case ITINERARY_PAGE_UNLOADED:
    	  return {}
     case ADDED_TO_ITINERARY:
+    case COVER_PHOTO_UPDATED:
     default:
       return state;
   }
