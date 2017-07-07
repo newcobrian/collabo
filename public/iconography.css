@@ -83,11 +83,12 @@
 
 .itinerary__cover__flag,
 .itinerary__summary__flag {
-  height: 30px;
+  height: 29px;
   width: 40px;
-  background: url("img/flags/US.png");
+  background: url(img/flags/US.png);
   background-size: contain;
   background-repeat: no-repeat;
+  margin-right: 20px;
 }
 
 
@@ -159,6 +160,8 @@
 * .flag-BR { background-image: url("img/flags/BR.png");
 }
 * .flag-IO { background-image: url("img/flags/IO.png");
+}
+* .flag-IT { background-image: url("img/flags/IT.png");
 }
 * .flag-BN { background-image: url("img/flags/BN.png");
 }

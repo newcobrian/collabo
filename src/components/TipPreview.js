@@ -82,7 +82,7 @@ const TipPreview = props => {
                     {review.title}
                   </div>
                   </Link>
-                  <div className="tip__address v2-type-mono mono-sm opa-50 ta-left">
+                  <div className="tip__address v2-type-mono mono-sm opa-70 ta-left">
                     {review.address}
                   </div>
                 </div>

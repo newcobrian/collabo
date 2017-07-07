@@ -66,12 +66,11 @@ textarea {
   font-family: 'Roboto', sans-serif;
 }
 .itinerary__cover .v2-type-body1 {
-  color: white;
 }
 .v2-type-body3 {
   /* “The almond milk ice: */
   font-weight: 200;
-  font-size: 20px;
+  font-size: 16px;
   letter-spacing: 0.5px;
   line-height: 28px;
   font-family: 'Roboto', sans-serif;
@@ -137,10 +136,10 @@ textarea {
   font-family: 'Arimo', sans-serif;
 }
 .v2-type-h2 {
-  font-weight: 600;
+  font-weight: 500;
   font-size: 46px;
   letter-spacing: 3px;
-  line-height: 46px;
+  line-height: 36px;
   font-family: 'Arimo', sans-serif;
   text-transform: uppercase;
   color: #373a3c;
@@ -186,9 +185,8 @@ textarea {
   text-transform: uppercase;
   font-weight: 400;
   letter-spacing: 3px;
-  line-height: 14px;
   width: auto;
-  font-size: 16px;
+  font-size: 11px;
   letter-spacing: 3px;
   line-height: 18px;
 }

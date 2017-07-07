@@ -261,7 +261,6 @@ width: 100%;
 }
 
 .cover-height {
-    height: 460px;
 }
 
 /******
@@ -383,5 +382,10 @@ width: 100%;
 .tip__image-module {
   height: 80px;
   width: 80px;
+}
+
+
+.profile-page .itinerary__cover, .home-page .itinerary__cover {
+  width: 100%;
 }
 }

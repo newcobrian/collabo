@@ -24,12 +24,14 @@
     background-color: #ccc;
 }
 .itinerary__cover__author-photo {
-    width: 72px;
-    height: 72px;
-    border-radius: 100px;
-    overflow: hidden;
-    flex-shrink: 0;
-    /*border: 2px solid rgba(255,255,255,1);*/
+	width: 55px;
+	height: 56px;
+	border-radius: 100px;
+	overflow: hidden;
+	flex-shrink: 0;
+	/* border: 2px solid rgba(255,255,255,1); */
+	margin-left: 10px;
+	margin-right: 15px !important;
 }
 .itinerary__summary__author-photo img,
 .itinerary__cover__author-photo img {
@@ -136,26 +138,39 @@
 .itinerary__cover {
 	width: 100%;
 	padding: 20px 0;
-	border-bottom: 1px solid rgba(0,0,0,.1);
-	border-bottom: 1px solid #EBEFF5;
 	background: white;
 	/*box-shadow: 0 6px 0 0px rgba(0,0,0,.05);*/
 	position: relative;
-	background: black;
+	background: transparent;
 	margin: 20px 0;
+	height: 440px;
+}
+.home-page .itinerary__cover:nth-of-type(3n+0) {
+	width: 100%;
 }
 .profile-page .itinerary__cover,
 .home-page .itinerary__cover {
 	margin: 20px;
-	width: 572px;
-	box-shadow: 0px 11px 24px rgba(0,0,0,0.2);
+	width: 500px;
+	width: 46%;
 }
+	.my-profile-page .itinerary__cover__topbar {
+		display: none;
+	}
+
+	.my-profile-page .itinerary__cover .itinerary__cover {
+		height: 370px;
+	}
+	.my-profile-page .itinerary__cover .itinerary__book {
+		top: 0;
+	}
+
 .profile-page .itinerary__cover .v2-type-h2,
 .home-page .itinerary__cover .v2-type-h2 {
 	font-size: 36px;
 }
 .page-itinerary .itinerary__cover {
-	margin: 0 0 20px;
+	margin: 0;
 }
 .itinerary__cover:hover {
 	/*margin-top:-1px !important;
@@ -166,20 +181,25 @@
 }
 .itinerary__cover__topbar {
 	position: absolute;
-	left: 20px;
-	top: 20px;
-	right: 20px;
+	left: 0px;
+	top: 0px;
+	right: 0px;
+	margin: auto;
 }
+
 .itinerary__cover__bottombar {
 	position: absolute;
-	left: 20px;
-	bottom: 20px;
-	right: 20px;
+	left: 0px;
+	bottom: 10px;
+	right: 0px;
 }
 
 .cover-height {
-	height: 520px;
+	height: 300px;
 }
+	.page-itinerary .itinerary__cover .cover-height {
+		height: 400px;
+	}
 .tip-preview-wrapper .cover-height {
 	height: 100%;
 }
@@ -192,14 +212,34 @@
     font-weight: 300;
     letter-spacing: 2px;
 }
+.itinerary__book {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 70px;
+	box-shadow: 0px 11px 24px rgba(0,0,0,0.2);
+}
 .itinerary__cover__overlay {
 	overflow: hidden;
 	flex-shrink: 0;
 	position: absolute;
-	width: 100%;
-	opacity: 1;
-	background: rgba(0,0,0,.3);
-	/*mix-blend-mode: screen;*/
+    overflow: hidden;
+    flex-shrink: 0;
+    position: absolute;
+    width: 100%;
+    padding: 60px 10.125% 0px;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0.66)));
+    background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, .6));
+    background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.66));
+    background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.66));
+    background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.66));
+}
+.page-itinerary .itinerary__cover__overlay {
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0.66)));
+    background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, .7));
+    background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, .7));
+    background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, .7));
+    background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, .7));
 }
 .itinerary__cover__overlay img {
 	width: 100%;
@@ -227,6 +267,8 @@
 .itinerary__cover__descrip {
   height: auto;
   max-width: 480px;
+  width: 100%;
+  font-family: 'Roboto', sans-serif;
  }
 .itinerary__cover__flag,
 .itinerary__summary__flag {
@@ -237,7 +279,7 @@
 	font-weight: 400;
 }
 .it__center-info {
-	margin-top: 140px;
+	margin-top: auto;
 }
 
 /** EDIT **/
@@ -286,7 +328,18 @@ textarea.edit-itinerary__name {
 }
 
 
-.it-author-controls {
-	position: absolute;
-    bottom: 0;
+.page-itinerary .it-author-controls {
+	border-bottom: 1px solid rgba(0,0,0,.1);
 }
+
+
+
+/** IT PAGE **/
+
+.it__title-module {
+	margin-top: auto !important;
+}
+.it__tip-count {
+
+}
+

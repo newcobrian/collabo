@@ -37,7 +37,7 @@ const UpdateCoverPhoto = props => {
           multiple={false}
           accept="image/*"
           className="edit-tip__dropzone__touch flx flx-col flx-align-center flx-just-start ta-center">
-          <div className="vb vb--light vb--outline--white color--white mrgn-right-md">Change cover photo</div>
+          <div className="vb vb--light vb--no-outline mrgn-right-md">Change cover photo</div>
 
         </Dropzone>
         
@@ -52,7 +52,7 @@ const EditItineraryLink = props => {
     return (
       <Link
         to={'edit/' + props.itineraryId}
-        className="vb vb--light vb--outline--white color--white mrgn-right-md">
+        className="vb vb--light vb--no-outline mrgn-right-md">
          {/*<i className="ion-gear-a"></i>*/}Edit
       </Link>
     );
@@ -132,7 +132,7 @@ class Itinerary extends React.Component {
       return (
         <div className="flx flx-col flx-align-center page-common page-itinerary">
 
-          <div className="content-wrapper w-max itinerary flx flx-col flx-align-center">
+          <div className="content-wrapper itinerary flx flx-col flx-align-center">
 
             <div className="itinerary__cover flx flx-row flx-center-all header-height">
               
@@ -142,15 +142,15 @@ class Itinerary extends React.Component {
               </div>
               {/** Cover Overlay **/}
               <div className="itinerary__cover__overlay header-height">
-                <img className="cover-height" src="../img/cover-overlay.png"/>
+                <img className="cover-height DN" src="../img/cover-overlay.png"/>
               </div>
 
               {/** Cover Content **/}
               <div className="itinerary__cover__text flx flx-col flx-center-all ta-left">
                 
                 {/** <<<<<< USER PHOTO AND TIP COUNT **/}
-                <div className="itinerary__cover__topbar flx flx-row flx-align-center flx-just-start v2-type-body1 mrgn-bottom-sm">
-                  <div className="itinerary__cover__author-photo mrgn-right-md">
+                <div className="itinerary__cover__topbar w-max flx flx-row flx-align-center flx-just-start v2-type-body1 mrgn-bottom-sm pdding-top-md">
+                  <div className="itinerary__cover__author-photo">
                       <Link
                       to={`${itinerary.createdBy.username}`}
                       className="">
@@ -158,40 +158,20 @@ class Itinerary extends React.Component {
                       </Link>
                   </div>
                   <div className="flx flx-col flx-just-start flx-align-start">
-                    <div className="itinerary__cover__username color--white mrgn-right-md">
+                    <div className="itinerary__cover__username ta-left mrgn-right-md color--white">
                       <Link
                       to={`${itinerary.createdBy.username}`}
                       className="color--white">
                       {itinerary.createdBy.username}
                       </Link>
                     </div>
-                    <Link to={`itinerary/${itinerary.id}`}>
-                    <div className="flx flx-row flx-just-end flx-align-center opa-80 color--white">
-                      {itinerary.reviewsCount} Tips
-                    </div>
-                    </Link>
                   </div>
-
-                  {/* Like */}
-                  <div className="cta-wrapper flx flx-row flx-just-end flex-item-right mrgn-right-md">
-                    <LikeReviewButton
-                      authenticated={this.props.authenticated}
-                      isLiked={itinerary.isLiked}
-                      likesCount={itinerary.likesCount}
-                      unLike={this.props.unLikeReview}
-                      like={this.props.likeReview} 
-                      likeObject={itinerary}
-                      type={ITINERARY_TYPE} />
-                  </div>
-
-
-
                 </div>
                 {/** >>>>>> CLOSE USER PHOTO AND TIP COUNT **/}
 
             
               {/** <<<<<< CENTER INFO **/}
-              <div className="flx flx-col flx-center-all ta-center w-100 mrgn-bottom-sm">
+              <div className="it__title-module flx flx-col flx-just-start ta-center w-100 w-max pdding-left-md">
                 
                 {/** Flag and Geo **/}
                 <div className={'itinerary__cover__flag mrgn-bottom-sm flx-hold flag-' + itinerary.geo.country}>
@@ -210,12 +190,12 @@ class Itinerary extends React.Component {
                 </Link>
 
                 {/** DESCRIPTION **/}
-                <div className="itinerary__cover__descrip text-shadow v2-type-body3 color--white mrgn-top-sm">
+                <div className="itinerary__cover__descrip text-shadow v2-type-body3 ta-left color--white mrgn-top-sm">
                    {itinerary.description}
                 </div>
 
                 {/** TIMESTAMP **/}
-                <div className="itinerary__cover__timestamp ta-center pdding-top-sm opa-30 color--white">
+                <div className="itinerary__cover__timestamp ta-center pdding-top-sm opa-30 color--white DN">
                   <DisplayTimestamp timestamp={itinerary.lastModified} />
                   {/*(new Date(itinerary.lastModified)).toLocaleString()*/}
                 </div> 
@@ -223,22 +203,6 @@ class Itinerary extends React.Component {
               </div>
               {/** >>>>>> CLOSE CENTER INFO **/}
 
-              {/** <<<<<< AUTHOER INFO **/}
-              <div className="it-author-controls flx flx-row flx-just-center ta-center w-100 mrgn-bottom-md">
-
-                <EditItineraryLink isUser={isUser} itineraryId={this.props.itineraryId} />
-
-                <UpdateCoverPhoto isUser={isUser} itinerary={itinerary} itineraryId={this.props.itineraryId} 
-                  uploadCoverPhoto={this.props.dispatchUploadCoverPhoto} authenticated={this.props.authenticated} />
-
-                <ItineraryActions 
-                  itinerary={itinerary} 
-                  authenticated={this.props.authenticated} 
-                  canModify={canModify} 
-                  deleteItinerary={this.props.showDeleteModal} 
-                  redirectPath="/" />
-              </div>
-              {/** AUTHOR CONTROLS >>>>>> **/}
             
             </div>
             {/** Close Cover Text DIV >>>>>> **/}  
@@ -270,6 +234,47 @@ class Itinerary extends React.Component {
 
             </div>
             {/** ----- Close itinerary__cover DIV ----- **/}  
+
+            {/** -------- AUTHOR CONTROLS **/}
+            <div className="it-author-controls w-100 pdding-top-sm pdding-bottom-sm pdding-left-md pdding-right-md mrgn-bottom-sm">
+              <div className="w-100 w-max flx flx-row flx-center-all ta-center pdding-left-md pdding-right-md">
+                <div className="flx flx-row flx-center-all">
+                  <div className="it__tip-count flx flx-row flx-just-end flx-align-center opa-60 mrgn-right-lg">
+                    {itinerary.reviewsCount} Tips
+                  </div>
+
+                  <EditItineraryLink isUser={isUser} itineraryId={this.props.itineraryId} />
+
+                  <UpdateCoverPhoto isUser={isUser} itinerary={itinerary} itineraryId={this.props.itineraryId} 
+                    uploadCoverPhoto={this.props.dispatchUploadCoverPhoto} authenticated={this.props.authenticated} />
+
+                  <ItineraryActions 
+                    itinerary={itinerary} 
+                    authenticated={this.props.authenticated} 
+                    canModify={canModify} 
+                    deleteItinerary={this.props.showDeleteModal} 
+                    redirectPath="/" />
+
+                </div>
+
+
+                {/* Like */}
+                <div className="cta-wrapper flx flx-row flx-item-right">
+                  <LikeReviewButton
+                    authenticated={this.props.authenticated}
+                    isLiked={itinerary.isLiked}
+                    likesCount={itinerary.likesCount}
+                    unLike={this.props.unLikeReview}
+                    like={this.props.likeReview} 
+                    likeObject={itinerary}
+                    type={ITINERARY_TYPE} />
+                </div>
+              </div>{/** END MAX div **/}
+
+            </div>
+            {/** AUTHOR CONTROLS >>>>>> **/}
+
+
 
             <div className="itinerary__tipslist flx flx-col flx-align-center w-100">
               <div className="w-100">

@@ -128,6 +128,9 @@
 .flx-item-right {
   margin-left: auto;
 }
+.flx-item-left {
+  margin-right: auto;
+}
 .flx .flx-hold {
   flex-shrink: 0;
 }
