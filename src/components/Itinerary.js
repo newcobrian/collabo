@@ -8,7 +8,7 @@ import ImagePicker from './ImagePicker';
 import { Link } from 'react-router';
 import LikeReviewButton from './LikeReviewButton';
 import CommentContainer from './Review/CommentContainer'
-import { ITINERARY_TYPE } from '../constants';
+import { ITINERARY_TYPE, ITINERARY_PAGE } from '../constants';
 import ItineraryActions from './ItineraryActions';
 import DisplayTimestamp from './DisplayTimestamp';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -18,8 +18,7 @@ import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Dropzone from 'react-dropzone';
-
-import Timestamp from 'react-timestamp';
+import ItineraryForm from './ItineraryForm';
 
 const UpdateCoverPhoto = props => {
   if (props.isUser) {
@@ -168,10 +167,7 @@ class Itinerary extends React.Component {
 
               {/** Cover Content **/}
               <div className="itinerary__cover__text flx flx-col flx-center-all ta-left w-100">
-                
-                
 
-            
               {/** <<<<<< CENTER INFO **/}
               <div className="it__title-module flx flx-col flx-just-start ta-center w-100 w-max pdding-left-md">
                 
