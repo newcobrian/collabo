@@ -123,7 +123,7 @@ const ItineraryPreview = props => {
 
 
             {/** <<<<<< CENTER INFO **/}
-            <div className="it__center-info flx flx-col flx-align-start ta-left w-100">
+            <div className="it__center-info flx flx-col flx-align-start ta-left w-100 mrgn-left-md">
               
               <Link to={`places/${itinerary.geo.placeId}`}>
               <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm">
