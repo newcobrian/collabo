@@ -238,7 +238,7 @@ let Review = ({ review, index, fields, authenticated, reviewObject, searchLocati
           <Field
               name={`${review}`}
               type="text"
-              component={renderSearchInput}
+              component={renderGeoSuggestReview}
               searchLocation={searchLocation}
               authenticated={authenticated}
               googleObject={googleObject}
