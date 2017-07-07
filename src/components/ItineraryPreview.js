@@ -106,6 +106,8 @@ const ItineraryPreview = props => {
       </div>
 
       <div className="itinerary__book cover-height">
+        
+        
         {/** Cover Image **/}
         <div className="itinerary__cover__image cover-height">
           <ImagePicker images={(itinerary.images && itinerary.images.url ? [itinerary.images.url] : null)} />
@@ -114,54 +116,46 @@ const ItineraryPreview = props => {
         <div className="itinerary__cover__overlay cover-height">
           <img className="cover-height DN" src="../img/cover-overlay.png"/>
         </div>
-
+        {/** Cover Hit Area **/}
+        <Link className="it__hit-area" to={`itinerary/${itinerary.id}`}>
+          <div></div>
+        </Link>
         {/** Cover Content **/}
-        <div className="itinerary__cover__text flx flx-col flx-align-start ta-left cover-height">
+        <div className="itinerary__cover__text flx flx-col flx-align-start ta-left">
 
-
-            {/** >>>>>> CLOSE USER PHOTO AND TIP COUNT **/}
-
-
-            {/** <<<<<< CENTER INFO **/}
-            <div className="it__center-info flx flx-col flx-align-start ta-left w-100 mrgn-left-md">
-              
-              <Link to={`places/${itinerary.geo.placeId}`}>
-              <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm">
-                {/** Flag and Geo **/}
-                <div className={'itinerary__cover__flag flx-hold flag-' + itinerary.geo.country}>
+          {/** <<<<<< CENTER INFO **/}
+          <div className="it__center-info flx flx-col flx-align-start ta-left w-100 pdding-left-md pdding-right-md">
+            <Link to={`places/${itinerary.geo.placeId}`}>
+            <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-xs">
+              {/** Flag and Geo **/}
+              <div className={'itinerary__cover__flag flx-hold flag-' + itinerary.geo.country}>
+              </div>
+                <div className="geo-type color--white text-shadow ellipsis">
+                  {itinerary.geo.label}
                 </div>
-                  <div className="geo-type color--white text-shadow ellipsis">
-                    {itinerary.geo.label}
-                  </div>
-              </div>
-              </Link>
-
-              {/** TITLE **/}
-              <Link to={`itinerary/${itinerary.id}`}>
-              <div className="itinerary__cover__title text-shadow ta-left v2-type-h2 color--white">
-                {itinerary.title}
-              </div>
-              </Link>
-
-              {/** DESCRIPTION **/}
-              <div className="itinerary__cover__descrip text-shadow v2-type-body3 color--white">
-                 <DescriptionPreview  itinerary={props.itinerary}/>
-              </div>
-
-              {/** TIMESTAMP **/}
-              <div className="itinerary__cover__timestamp pdding-top-sm ta-left color--white opa-30 DN">
-                <DisplayTimestamp timestamp={itinerary.lastModified} />
-              </div> 
-
             </div>
-            {/** CLOSE CENTER INFO >>>>>> **/}
-           
+            </Link>
 
-             
-            
-            
+            {/** TITLE **/}
+            <Link to={`itinerary/${itinerary.id}`}>
+            <div className="itinerary__cover__title text-shadow ta-left v2-type-h2 color--white">
+              {itinerary.title}
+            </div>
+            </Link>
 
-          
+            {/** DESCRIPTION **/}
+            <div className="itinerary__cover__descrip text-shadow v2-type-body3 color--white">
+               <DescriptionPreview  itinerary={props.itinerary}/>
+            </div>
+
+            {/** TIMESTAMP **/}
+            <div className="itinerary__cover__timestamp pdding-top-sm ta-left color--white opa-30 DN">
+              <DisplayTimestamp timestamp={itinerary.lastModified} />
+            </div> 
+          </div>
+          {/** CLOSE CENTER INFO >>>>>> **/}
+         
+            
 
           {/** Hidden - Prob don't need this here **/}
           <div className="delete-wrapper DN">
