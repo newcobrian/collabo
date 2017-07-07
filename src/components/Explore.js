@@ -40,7 +40,7 @@ class Explore extends React.Component {
                     <Link
                       to={`${user.username}`}
                       className="">
-                      <div className="">
+                      <div className="mrgn-bottom-sm">
                         <ProfilePic src={user.image} className="user-image center-img" />
                       </div>
                     </Link>
@@ -48,7 +48,7 @@ class Explore extends React.Component {
                     <div>
                       <Link
                           to={`${user.username}`}
-                          className="color--black">
+                          className="color--black mrgn-bottom-sm">
                           {user.username}
                       </Link>
                     </div>

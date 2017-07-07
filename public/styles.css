@@ -589,6 +589,10 @@ a.logo-module:focus {
   order: 4;
 }
 .nav-module.nav-profile {
+  order: 6;
+}
+
+.nav-module.nav-notifs {
   order: 5;
 }
 
@@ -680,24 +684,29 @@ svg {
 }
 
 .navigation-bar.no-icons .nav-module {
-    padding: 25px 0;
-    font-size: 14px;
+  padding: 25px 0;
+  font-size: 14px;
 }
 .count-badge {
-    background-color: #F36965;
-    padding: 0px 6px 2px 8px;
-    border-radius: 32px;
-    text-align: center;
-    display: inline-block;
-    box-shadow: 0 0 10px 0px rgba(0,0,0,.3);
-    font-size: 12px;
-    line-height: 19px;
+  background-color: #F36965;
+  padding: 0 7px 2px 9px;
+  border-radius: 32px;
+  text-align: center;
+  display: inline-block;
+  box-shadow: 0 0 10px 0px rgba(0,0,0,.3);
+  font-size: 12px;
+  line-height: 19px;
 }
 .header-badge {
-    margin-top: -36px;
-    position: absolute;
-    margin-left: 7px;
-    font-size: 12px;
+  font-size: 12px;
+  background: rgba(0,0,0,.1);
+  box-shadow: none;
+  color: white;
+  line-height: 22px;
+  height: 22px;
+}
+.header-badge.badge-on {
+  background-color: #F36965;
 }
 .location-dropdown {
   border-bottom: 1px solid #0AAAD5;

@@ -4,10 +4,12 @@ import React from 'react';
 const InboxCounter = props => {
   if (props.unreadMessages > 0) {
     return (
-      <div className="count-badge header-badge">{props.unreadMessages}</div>
+      <div className="count-badge header-badge badge-on">{props.unreadMessages}</div>
     );
   }
-  return null;
+  return (
+    <div className="count-badge header-badge">0</div>
+  );
 }
 
 const LoggedOutView = props => {
@@ -48,14 +50,16 @@ const LoggedInView = props => {
         </Link>
 
         <Link to="create" activeClassName="active" className="nav-module create nav-editor flx flx-center-all">  
-            <div className="nav-text flx flx-row flx-align-center">
-              <img className="mrgn-right-sm center-img" src="../img/icon.add--blue.png"/> New Itinerary
-            </div>
+          <div className="nav-text flx flx-row flx-align-center">
+            <img className="mrgn-right-sm center-img" src="../img/icon.add--blue.png"/> New Itinerary
+          </div>
         </Link>
 
-        {/*<Link to="about" activeClassName="active" className="nav-module nav-feed flx flx-center-all">
-            <div className="nav-text">About</div>
-        </Link>*/}
+        <Link to="inbox" activeClassName="active" className="nav-module nav-notifs flx flx-center-all">
+          <div className="nav-text">
+            <InboxCounter unreadMessages={props.unreadMessages} />
+          </div>
+        </Link>
 
         <Link to={`${props.userInfo.username}`} activeClassName="active" className="nav-module nav-profile flx flx-row flx-center-all">
           {/*<div className="nav-text">Profile</div>*/}

@@ -236,7 +236,7 @@ class Itinerary extends React.Component {
             {/** ----- Close itinerary__cover DIV ----- **/}  
 
             {/** -------- AUTHOR CONTROLS **/}
-            <div className="it-author-controls w-100 pdding-top-sm pdding-bottom-sm pdding-left-md pdding-right-md mrgn-bottom-sm">
+            <div className="it-author-controls w-100 pdding-top-sm pdding-bottom-sm pdding-left-md pdding-right-md">
               <div className="w-100 w-max flx flx-row flx-center-all ta-center pdding-left-md pdding-right-md">
                 <div className="flx flx-row flx-center-all">
                   <div className="it__tip-count flx flx-row flx-just-end flx-align-center opa-60 mrgn-right-lg">
