@@ -158,7 +158,7 @@ class Settings extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.unloadSettings();
+    this.props.unloadSettings(this.props.authenticated);
   }
 
   render() {
