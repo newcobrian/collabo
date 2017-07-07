@@ -430,12 +430,11 @@ export function saveSettings(user, currentUsername, imageFile) {
   }
 }
 
-export function unloadSettings() {
+export function unloadSettings(auth) {
   return dispatch => {
-    let uid = Firebase.auth().currentUser.uid;
+    Firebase.database().ref(Constants.USERS_PATH + '/' + auth + '/').off();
     dispatch({
-      type: SETTINGS_UNLOADED,
-      payload: Firebase.database().ref(Constants.USERS_PATH + '/' + uid + '/').off()
+      type: SETTINGS_UNLOADED
     });
   }
 }
