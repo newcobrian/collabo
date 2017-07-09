@@ -166,6 +166,7 @@ const renderGeoSuggestReview = (field) => {
     let request = { placeId: result.placeId }
     service.getDetails(request, function(place, status) {
       if (status == field.googleObject.maps.places.PlacesServiceStatus.OK) {
+        if (place.name) resultObject.title = place.name;
         if (place.international_phone_number) resultObject.internationalPhoneNumber = place.international_phone_number;
         if (place.formatted_phone_number) resultObject.formattedPhoneNumber = place.formatted_phone_number;
         if (place.opening_hours) {
@@ -176,7 +177,6 @@ const renderGeoSuggestReview = (field) => {
         if (place.permanently_closed) resultObject.permanently_closed = true;
         if (place.website) resultObject.website = place.website;
         if (place.photos && place.photos[0]) {
-          console.log('place photos')
           resultObject.defaultImage = [ place.photos[0].getUrl({'maxWidth': 1225, 'maxHeight': 500}) ];
         }
         field.input.onChange(resultObject);
