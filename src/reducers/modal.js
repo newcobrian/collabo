@@ -1,7 +1,7 @@
 import { SHOW_MODAL, HIDE_MODAL, NEW_ITINERARY_MODAL, FRIEND_SELECTOR_SUBMIT, REVIEW_SUBMITTED, 
   FORWARD_MODAL, SAVE_MODAL, ADDED_TO_ITINERARY, SUBJECT_DUPLICATE, SHOW_NEW_ITINERARY_MODAL, 
   UPDATE_FIELD_CREATE, CREATE_SUBMIT_ERROR, SHOW_DELETE_ITINERARY_MODAL, DELETE_ITINERARY_MODAL,
-  ITINERARY_DELETED } from '../actions'
+  ITINERARY_DELETED, GOOGLE_MAP_LOADED } from '../actions'
 
 const initialState = {
   modalType: null,
@@ -55,6 +55,15 @@ export default (state = initialState, action) => {
           ...state,
           errors: [action.error],
           inProgress: null
+        }
+      }
+      else return {...state}
+    case GOOGLE_MAP_LOADED:
+      if (action.source === NEW_ITINERARY_MODAL) {
+        return {
+          ...state,
+          googleObject: action.googleObject,
+          mapObject: action.mapObject
         }
       }
       else return {...state}

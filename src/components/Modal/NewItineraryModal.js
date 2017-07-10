@@ -1,5 +1,6 @@
 import React from 'react';
 import * as Actions from '../../actions';
+import * as Constants from '../../constants';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import Dialog from 'material-ui/Dialog';
@@ -10,6 +11,8 @@ import { NEW_ITINERARY_MODAL } from '../../actions';
 import ImagePicker from './../ImagePicker';
 import ListErrors from './../ListErrors';
 import Geosuggest from 'react-geosuggest';
+import {GoogleApiWrapper} from 'google-maps-react';
+import Map from 'google-maps-react';
 
 const mapStateToProps = state => ({
   ...state.modal,
@@ -17,6 +20,15 @@ const mapStateToProps = state => ({
 });
 
 class NewItineraryModal extends React.Component {
+  constructor() {
+    super();
+
+    this.initMap = (mapProps, map) => {
+      const {google} = this.props;
+      this.props.loadGoogleMaps(google, map, NEW_ITINERARY_MODAL);
+    }
+  }
+
   componentWillMount() {
     this.props.sendMixpanelEvent('New Itinerary Modal');
   }
@@ -69,6 +81,7 @@ class NewItineraryModal extends React.Component {
 
     const submitForm = ev => {
       ev.preventDefault();
+
       if (!this.props.title) {
         this.props.createSubmitError('itinerary name', NEW_ITINERARY_MODAL);
       }
@@ -104,6 +117,15 @@ class NewItineraryModal extends React.Component {
           }}
       />
     ];
+
+    if (!this.props.googleObject) {
+      return (
+        <Map google={window.google}
+          onReady={this.initMap}
+          visible={false} >
+        </Map>
+        );
+    }
 
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
@@ -207,4 +229,6 @@ class NewItineraryModal extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, Actions)(NewItineraryModal);
+export default GoogleApiWrapper({
+  apiKey: Constants.GOOGLE_API_KEY
+}) (connect(mapStateToProps, Actions)(NewItineraryModal));
