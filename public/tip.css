@@ -10,18 +10,20 @@
 }
 .tip-inner {
 }
-.tip_title-module {
+.tip__data-module {
+	
+}
+.tip__title-module {
 
 }
 .tip__title {
 
 }
 .tip__address {
-	height: 26px;
 }
 .tip__image-module {
-	height: 220px;
-	width: 220px;
+	height: 280px;
+	width: 280px;
 	flex-shrink: 0;
 	position: relative;
 	box-shadow: 0 14px 24px 0 rgba(0,0,0,0.1);
@@ -45,7 +47,7 @@
 .tip__caption-module {
 }
 .tip__rating-module {
-
+	width: auto;
 }
 .tip__timestamp {
 }
@@ -137,4 +139,12 @@ input.edit-tip__rating {
 	overflow: hidden;
 	background-color: #ccc;
 	margin-top: 5px;*/
+}
+
+.tip-wrapper .cta-container {
+-webkit-flex-direction: column;
+   flex-direction: column;
+}
+.tip-wrapper .cta-wrapper .cta-icon {
+	margin-right: 0;
 }

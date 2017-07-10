@@ -55,7 +55,7 @@ textarea {
   font-weight: 300;
   font-size: 14px;
   letter-spacing: 0.5px;
-  line-height: 26px;
+  line-height: 18px;
   font-family: 'Roboto', sans-serif;
 }
 .v2-type-body2 {
@@ -75,14 +75,20 @@ textarea {
   line-height: 28px;
   font-family: 'Roboto', sans-serif;
 }
-.v2-type-rating {
+.tip__rating {
   /* “The almond milk ice: */
   font-weight: 300;
   font-size: 20px;
   letter-spacing: 0.5px;
   line-height: 26px;
   font-family: 'Roboto', sans-serif;
-  width: 50px;
+  width: 60px;
+  height: 60px;
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 60px;
+  text-align: center;
+  padding: 16px;
+  margin-left: -10px;
 }
 .v2-type-rating--1,
 .v2-type-rating--2,
@@ -117,7 +123,7 @@ textarea {
 }
 .v2-type-mono {
   /* “The almond milk ice: */
-  font-weight: 100;
+  font-weight: 300;
   font-size: 18px;
   letter-spacing: 0.5px;
   line-height: 26px;
@@ -152,15 +158,15 @@ textarea {
   font-family: 'Arimo', sans-serif;
 }
 .v2-type-h3 {
-  font-size: 26px;
+  font-size: 32px;
   letter-spacing: 1px;
   font-family: 'Arimo', sans-serif;
-  font-weight: 700;
+  font-weight: 300;
   line-height: 26px;
+  text-transform: none;
 }
 .v2-type-h4 {
-    opacity: 1;
-    font-size: 18px;
+    font-size: 20px;
     letter-spacing: 0.5px;
     font-weight: 400;
     width: 100%;
@@ -201,6 +207,7 @@ textarea {
 .color--primary {
   color: #295BA2 !important;
   color: #0095FF !important;
+  color: #00DCB9 !important;
 }
 .color--white {
   color: #ffffff !important;

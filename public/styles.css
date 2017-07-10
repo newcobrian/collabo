@@ -110,6 +110,9 @@ input[type="radio"]:checked + label span {
 ******
 ******/
 .inline {
+  display: inline;
+}
+.inline-block {
   display: inline-block;
 }
 .ellipsis {
@@ -132,6 +135,9 @@ input[type="radio"]:checked + label span {
 }
 .w-100 {
   width: 100%;
+}
+.w-third {
+  width: 30%;
 }
 
 .default-card-white {
@@ -259,7 +265,6 @@ input[type="radio"]:checked + label span {
 .v-button img,
 .vb img {
   margin-top: -2px;
-      margin-right: 12px;
       width: 20px;
       height: 20px;
 }
@@ -358,7 +363,10 @@ input[type="radio"]:checked + label span {
 .vb--following {
   color: #ccc;
 }
-
+.vb--save {
+  background: #50ECD3;
+  border-radius: 32px;
+}
 .vb-sm {
   font-size: 10px;
 }
@@ -441,6 +449,10 @@ img.user-image {
 img.user-image.user-image-sm {
   width: 40px;
   height: 40px;
+}
+img.user-image.user-image-md {
+  width: 60px;
+  height: 60px;
 }
 
 .caption-link-subtle {
@@ -525,13 +537,13 @@ a.logo-module:focus {
   opacity: 1;
 }
 .logo-main {
-  font-size: 24px;
+  font-size: 17px;
   height: 38px;
   font-weight: 700;
   margin-left: 30px;
   letter-spacing: 7px;
   color: rgba(0,0,0,.8);
-  margin-top: 6px;
+  margin-top: 17px;
   font-family: 'Arimo', sans-serif;
 }
 .logo-tagline {
@@ -623,10 +635,13 @@ a.logo-module:focus {
 .logo-graphic {
   width: 48px;
   height: 48px;
-  margin-top: 3px;
-  -webkit-animation:spin 4s linear 1;
+  margin-top: 1px;
+/*  -webkit-animation:spin 4s linear 1;
   -moz-animation:spin 4s linear 1;
-  animation:spin 4s linear 1;
+  animation:spin 4s linear 1;*/
+}
+.logo-graphic img {
+  fill: #27ae60;
 }
 .loading-module .logo-graphic {
   -webkit-animation:spin 2s linear infinite;
@@ -981,7 +996,7 @@ border-bottom: 1px solid rgba(0,0,0,.1);
       margin: 10px 0 0;
     }
     .user-bio {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 300;
       font-family: Helvetica, sans-serif;
       max-width: 600px;
@@ -1462,7 +1477,7 @@ position: absolute;
 ******/
 .comment-wrapper.card {
   border: none;
-  margin: 10px 0;
+  margin: 0;
   background-color: transparent;
 }
 .comment-wrapper.card .card-footer {
@@ -1547,25 +1562,25 @@ position: absolute;
     height: 50px;
 }
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: #0095FF;
+  color: #00DCB9;
   opacity: 1;
   font-weight: 100;
   font-family: Helvetica, sans-serif;
 }
 ::-moz-placeholder { /* Firefox 19+ */
-  color: #0095FF;
+  color: #00DCB9;
   opacity: 1;
   font-weight: 100;
   font-family: Helvetica, sans-serif;
 }
 :-ms-input-placeholder { /* IE 10+ */
-  color: #0095FF;
+  color: #00DCB9;
   opacity: 1;
   font-weight: 100;
   font-family: Helvetica, sans-serif;
 }
 :-moz-placeholder { /* Firefox 18- */
-  color: #0095FF;
+  color: #00DCB9;
   opacity: 1;
   font-weight: 100;
   font-family: Helvetica, sans-serif;

@@ -65,7 +65,7 @@ class SaveModal extends React.Component {
           titleStyle={{padding: "10px 20px", fontWeight: "700", fontSize: "20px"}}
           
           contentClassName="dialog--save__wrapper"
-          contentStyle={{width: "600px", maxWidth: "none"}}
+          contentStyle={{width: "none", maxWidth: "none"}}
           
           bodyClassName="dialog--save__body"
           bodyStyle={{padding: "30px 0px"}}

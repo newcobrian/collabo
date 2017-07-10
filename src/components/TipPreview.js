@@ -37,12 +37,12 @@ const CommentPreview = props => {
 const CaptionDisplay = props => {
   if (props.review.caption) {
     return (
-      <div>{props.review.caption}</div>
+      <div className="inline">{props.review.caption}</div>
     )
   }
   else {
     return (
-     <div className="opa-20">{props.review.createdBy.username} hasn't written anything about this tip yet...</div>
+     <div className="inline opa-20">{props.review.createdBy.username} hasn't written anything about this tip yet...</div>
     )
   }
 }
@@ -71,14 +71,43 @@ const TipPreview = props => {
             </div>
 
 
-            {/* Non-image module on right */}
-            <div className="flx flx-col flx-align-start w-100">
 
-              { /** Title and Add **/ }
-              <div className="tip_title-module flx flx-row-top w-100">
+
+
+
+            <div className="tip__cta-box flx flx-col flx-center-all">
+              <div className="vb vb--save">
+                <Link onClick={handleSaveClick}>
+                  <img className="center-img" src="../img/icon.add--white.png"/>
+                </Link>
+              </div>
+              <div className="flx flx-col v2-type-body2">
+                <div className="cta-wrapper flx flx-col mrgn-top-md">
+                  <LikeReviewButton
+                    authenticated={props.authenticated}
+                    isLiked={props.review.isLiked}
+                    likesCount={props.review.likesCount}
+                    unLike={props.unLike}
+                    like={props.like} 
+                    likeObject={review}
+                    type={REVIEW_TYPE} />
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+
+            {/* Non-image module on right */}
+            <div className="tip__data-module flx flx-col flx-align-start w-100 mrgn-left-lg">
+
+              { /** Title and Address **/ }
+              <div className="tip__title-module flx flx-row-top w-100">
                 <div className="flx flx-col flx-col-start mrgn-right-md w-100">
                   <Link to={`review/${review.subjectId}/${review.id}`}>
-                  <div className="tip__title v2-type-h3 ta-left">
+                  <div className="tip__title v2-type-h4 ta-left">
                     {review.title}
                   </div>
                   </Link>
@@ -87,75 +116,62 @@ const TipPreview = props => {
                   </div>
                 </div>
 
-                <div className="vb flex-item-right">
-                  <Link onClick={handleSaveClick}>
-                    <img className="center-img" src="../img/icon.add--white.png"/>Save
-                  </Link>
-                </div>
-
               </div>
 
-              { /** Caption **/ }
-              <div className="tip__caption-module flx flx-col w-100">
-                <div className="flx flx-row flx-just-start flx-align-start">
-                  <div className="tip__caption v2-type-body2 opa-80 ta-left">
-                    <CaptionDisplay review={props.review} />
-                  </div>
-                </div>
-                <div className="tip__timestamp v2-type-caption opa-20 mrgn-top-xs">
-                  <DisplayTimestamp timestamp={review.lastModified} />
-                </div>
-              </div>
 
-              { /** Rating and Like **/ }
-              <div className="tip__rating-module flx flx-row flx-align-start mrgn-top-sm w-100">
-                
-                <div className="flx flx-row flx-align-center mrgn-bottom-sm">
-                  <Link
-                    to={review.createdBy.username}
-                    className="">
-                    <div className="tip__author-photo mrgn-right-md flx-hold">
-                      <ProxyImage src={review.createdBy.image} className="user-image user-image-sm center-img" />
-                    </div> 
-                  </Link>
-                  <div className={'v2-type-rating ta-right mrgn-right-md v2-type-rating--' +  review.rating}>
-                    {review.rating}<div className="v2-type-rating--total opa-10">/10</div>
-                  </div>
+
+              <div className="flx flx-row">
+                { /** Rating and Like **/ }
+                <div className="tip__rating-module flx flx-row flx-align-start mrgn-top-sm w-100">
                   
-                </div> 
-                
-
-                <div className="flx flx-row flex-item-right v2-type-body2">
-                  <div className="cta-wrapper">
-                    <LikeReviewButton
-                      authenticated={props.authenticated}
-                      isLiked={props.review.isLiked}
-                      likesCount={props.review.likesCount}
-                      unLike={props.unLike}
-                      like={props.like} 
-                      likeObject={review}
-                      type={REVIEW_TYPE} />
-                  </div>
+                  <div className="flx flx-row flx-align-center mrgn-bottom-sm">
+                    <Link
+                      to={review.createdBy.username}
+                      className="">
+                      <div className="tip__author-photo flx-hold">
+                        <ProxyImage src={review.createdBy.image} className="user-image user-image-md center-img" />
+                      </div> 
+                    </Link>
+                    <div className={'tip__rating mrgn-right-md v2-type-rating--' +  review.rating}>
+                      {review.rating}<div className="v2-type-rating--total opa-10 DN">/10</div>
+                    </div>
+                  </div> 
                 </div>
+
+                { /** Caption **/ }
+                <div className="tip__caption-module flx flx-col w-100 pdding-top-sm pdding-right-md">
+                  <div className="flx flx-row flx-just-start flx-align-start">
+                    <div className="tip__caption v2-type-body2 opa-80 ta-left">
+                      <strong>{review.createdBy.username}:</strong> <CaptionDisplay review={props.review} />
+                    </div>
+                  </div>
+                  <div className="tip__timestamp v2-type-caption opa-20 mrgn-top-xs">
+                    <DisplayTimestamp timestamp={review.lastModified} />
+                  </div>
+                  { /** Comments **/ }
+                  <div className="flx flx-row flex-wrap cta-container">
+                     <CommentContainer
+                        authenticated={props.authenticated}
+                        comments={review.comments || []}
+                        errors={props.commentErrors}
+                        commentObject={review}
+                        userInfo={props.userInfo}
+                        type={REVIEW_TYPE}
+                        deleteComment={props.deleteComment} />
+                  </div> 
+                </div>
+
               </div>
+              
 
-              { /** Comments **/ }
-              <div className="flx flx-row flex-wrap cta-container">
-                 <CommentContainer
-                    authenticated={props.authenticated}
-                    comments={review.comments || []}
-                    errors={props.commentErrors}
-                    commentObject={review}
-                    userInfo={props.userInfo}
-                    type={REVIEW_TYPE}
-                    deleteComment={props.deleteComment} />
-              </div> 
-
+             
               
 
             
 
             </div> { /** End right col stack **/ }
+
+           
           </div> { /** End photo / copy row **/ }
 
 

@@ -9,6 +9,7 @@
 .dialog--save__wrapper {
   margin: 0;
   height: 100%;
+  width: 500px;
 }
 .dialog--save__content {
   /*border: 2px red solid;*/

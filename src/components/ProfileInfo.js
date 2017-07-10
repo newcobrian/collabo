@@ -32,7 +32,7 @@ const ProfileInfo = props => {
             <div className="flx flx-col flx-align-center mrgn-right-md">
               <ProfilePic src={profile.image} className="user-img" />
             </div>
-            <div className="user-bio ta-left flx flx-col flx-align-start">
+            <div className="user-bio ta-left flx flx-col flx-align-start mrgn-bottom-sm">
               <div className="flx flx-row flx-just-start flx-align-center">
                 <div className="user-name">{profile.username}</div>
               </div>

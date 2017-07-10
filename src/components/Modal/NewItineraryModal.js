@@ -99,7 +99,7 @@ class NewItineraryModal extends React.Component {
         disableTouchRipple={true}
         fullWidth={false}
         className="vb"
-        labelStyle={{textTransform: 'none', color: "black"}}
+        labelStyle={{textTransform: 'none', color: "white"}}
         style={{
           }}
       />
@@ -125,7 +125,7 @@ class NewItineraryModal extends React.Component {
           titleStyle={{padding: "10px 20px", fontWeight: "700", fontSize: "20px"}}
           
           contentClassName="dialog--save__wrapper"
-          contentStyle={{width: "400px", maxWidth: "none"}}
+          contentStyle={{width: "none", maxWidth: "none"}}
           
           bodyClassName="dialog--save__body"
           bodyStyle={{padding: "30px 0px"}}

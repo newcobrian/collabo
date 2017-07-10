@@ -27,11 +27,11 @@ const LikeReviewButton = props => {
   };
 
   return (
-    <div className="like-module flx flx-just-start flx-align-center" onClick={handleClick}>
-      <div className={classes}></div>
+    <div className="cta-container flx flx-row flx-center-all" onClick={handleClick}>
+      <div onClick={handleClick} className={classes}></div>
       <div className="v2-type-body1 ta-left">{props.likesCount ? props.likesCount : 0} {likeText}</div>
-
     </div>
+
   );
 };
 

@@ -363,10 +363,24 @@ width: 100%;
 
 /* TIP */
 
+.tip-wrapper .tip-inner {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+.tip__data-module {
+  margin-left: 0;
+}
 .tip__image-module { 
   width: 100%;
 }
-
+.tip_info-module {
+  -webkit-flex-direction: column;
+   flex-direction: column;
+   width: 100%;
+}
+.tip__data {
+  padding: 10px 0;
+}
 
 /* TIP PREVIEW */
 .v2-type-h3 {
@@ -380,8 +394,8 @@ width: 100%;
   margin-right: 20px;
 }
 .tip__image-module {
-  height: 80px;
-  width: 80px;
+  height: 200px;
+  width: 100%;
 }
 
 
