@@ -86,6 +86,8 @@ export const SAVE_MODAL = 'SAVE_MODAL'
 export const NEW_ITINERARY_MODAL = 'NEW_ITINERARY_MODAL'
 export const DELETE_ITINERARY_MODAL = 'DELETE_ITINERARY_MODAL'
 export const SHOW_DELETE_ITINERARY_MODAL = 'SHOW_DELETE_ITINERARY_MODAL'
+export const DELETE_PICTURE_MODAL = 'DELETE_PICTURE_MODAL'
+export const SHOW_DELETE_PICTURE_MODAL = 'SHOW_DELETE_PICTURE_MODAL'
 export const ITINERARY_CREATED = 'ITINERARY_CREATED'
 export const ITINERARY_PAGE_LOADED = 'ITINERARY_PAGE_LOADED'
 export const ITINERARY_PAGE_UNLOADED = 'ITINERARY_PAGE_UNLOADED'
@@ -1923,7 +1925,7 @@ export function getFollowingReviews(auth, subjectId) {
               Firebase.database().ref(Constants.USERS_PATH + '/' + followingChild.key).once('value', userSnapshot => {
                 Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + reviewSnapshot.val().reviewId).on('value', likesSnapshot => {
                   Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewSnapshot.val().reviewId).on('value', commentSnapshot => {
-                    // Firebase.database().ref(Constants.IMAGES_BY_USER_PATH + '/' + auth + '/' + reviewItem.subjectId).on('value', imagesSnapshot => {
+                    Firebase.database().ref(Constants.IMAGES_BY_USER_PATH + '/' + followingChild.key + '/' + subjectId).on('value', imagesSnapshot => {
                       let reviewObject = {};
                       let likes = {
                         isLiked: likesSnapshot.exists()
@@ -1936,8 +1938,8 @@ export function getFollowingReviews(auth, subjectId) {
                       })
                       comments.sort(lastModifiedAsc);
 
-                      // let images = Helpers.getImagePath(imagesSnapshot.val());
-                      let images = [];
+                      let images = Helpers.getImagePath(imagesSnapshot.val());
+                      // let images = [];
 
                       Object.assign(reviewObject, subjectSnapshot.val(), {subjectId: subjectSnapshot.key}, 
                         reviewSnapshot.val(), {id: reviewSnapshot.val().reviewId},
@@ -1949,7 +1951,7 @@ export function getFollowingReviews(auth, subjectId) {
                         type: GET_FOLLOWING_REVIEWS,
                         payload: reviewArray
                       })
-                    // })
+                    })
                   })
                 })
               })
@@ -2256,6 +2258,12 @@ export function onDeleteReview(userId, reviewId, subjectId, reviewDetailPath) {
       type: REVIEW_DELETED,
       redirect: reviewDetailPath
     })
+  }
+}
+
+export function onDeletePicture() {
+  return dispatch => {
+
   }
 }
 

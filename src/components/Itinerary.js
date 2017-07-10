@@ -137,7 +137,7 @@ class Itinerary extends React.Component {
               
               {/** Cover Image **/}
               <div className="itinerary__cover__image header-height">
-                <ImagePicker images={(itinerary.images && itinerary.images.url ? [itinerary.images.url] : null)} />
+                <ImagePicker images={itinerary.images ? [itinerary.images] : null} />
               </div>
               {/** Cover Overlay **/}
               <div className="itinerary__cover__overlay header-height">

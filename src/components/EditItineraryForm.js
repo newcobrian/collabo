@@ -221,7 +221,7 @@ let Review = ({ review, index, fields, authenticated, reviewObject, searchLocati
       if (images.files) return images.files;
       else if (images) return images;
     }
-    else if (reviewObject.defaultImage) return reviewObject.defaultImage;
+    else if (reviewObject.defaultImage) return [{url: reviewObject.defaultImage}];
     else return null;
   }
 

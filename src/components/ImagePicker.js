@@ -19,17 +19,24 @@ class ImagePicker extends React.Component {
 
   render() {
     let images = this.props.images;
-
     if (images && images.length > 0) {
-      if ((typeof images[0] === 'string' || images[0] instanceof String)) {
-        const imgSrc = images[0].indexOf('http://') == 0 ? ("https://images.weserv.nl/?url=" 
-        +  encodeURIComponent(images[0].replace(/^https?\:\/\//i, ""))) : images[0];
-        // let index = Math.floor(Math.random() * (props.images.length-1));
+      if (images[0].url) {
+        const imgSrc = images[0].url.indexOf('http://') == 0 ? ("https://images.weserv.nl/?url=" 
+        +  encodeURIComponent(images[0].url.replace(/^https?\:\/\//i, ""))) : images[0].url;
 
-          return (
+        return (
              <img src={imgSrc} className="center-img cover-height" onClick={this.handleClick} />
           )
       }
+      // else if ((typeof images[0] === 'string' || images[0] instanceof String)) {
+      //   const imgSrc = images[0].indexOf('http://') == 0 ? ("https://images.weserv.nl/?url=" 
+      //   +  encodeURIComponent(images[0].replace(/^https?\:\/\//i, ""))) : images[0];
+      //   // let index = Math.floor(Math.random() * (props.images.length-1));
+
+      //     return (
+      //        <img src={imgSrc} className="center-img cover-height" onClick={this.handleClick} />
+      //     )
+      // }
       else if (images[0].preview) {
         return (
           <img src={images[0].preview} className="center-img cover-height" onClick={this.handleClick} />
