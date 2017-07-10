@@ -57,12 +57,12 @@
   "main": ".eslintrc.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/newcobrian/whatsgood.git"
+    "url": "git+https://github.com/newcobrian/trippy.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/newcobrian/whatsgood/issues"
+    "url": "https://github.com/newcobrian/trippy/issues"
   }
 }
