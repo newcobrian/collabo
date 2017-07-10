@@ -22,9 +22,9 @@ class LightboxComponent extends React.Component {
     if (this.props.showLightbox) {
       return (
           <Lightbox
-            mainSrc={images[photoIndex]}
-            nextSrc={images[(photoIndex + 1) % images.length]}
-            prevSrc={images[(photoIndex + images.length - 1) % images.length]}
+            mainSrc={images[photoIndex].url}
+            nextSrc={images[(photoIndex + 1) % images.length].url}
+            prevSrc={images[(photoIndex + images.length - 1) % images.length].url}
             onCloseRequest={() => this.props.closeLightbox()}
             onMovePrevRequest={() => this.props.prevLightbox((photoIndex + images.length - 1) % images.length)}
             onMoveNextRequest={() => this.props.nextLightbox((photoIndex + 1) % images.length)}
