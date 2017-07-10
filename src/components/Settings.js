@@ -133,7 +133,7 @@ class SettingsForm extends React.Component {
           </fieldset>
 
           <button
-            className="vb mrgn-bottom-sm w-100"
+            className="vb fill--primary mrgn-bottom-sm w-100"
             type="submit"
             disabled={this.state.inProgress}>
             Update Profile

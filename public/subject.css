@@ -1,7 +1,14 @@
-.tip_info-module {
+.tip__info-module {
+	padding: 10px 15px;
 }
+.tip__save {
+}
+
 .tip__data {
 	padding: 20px 0;
+}
+.page-subject .tip-subject .tip__title-module {
+	margin-left: 18px;
 }
 .page-subject .itinerary__tipslist .vb--save {
 	display: none;

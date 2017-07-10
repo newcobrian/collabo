@@ -167,7 +167,7 @@ class Create extends React.Component {
 			        </div>
 					<div className="flx flx-col flx-center-all create-wrapper mrgn-top-sm">
 						<ListErrors errors={this.props.errors}></ListErrors>
-			            <div className="create-form-wrapper form-wrapper flx flx-col-left">
+			            <div className="create-form-wrapper form-wrapper flx flx-col-left bx-shadow">
 				            <form>
 				            	<fieldset className="field-wrapper">
 			                    	<label>Location</label>
@@ -204,7 +204,7 @@ class Create extends React.Component {
 			                    </fieldset>
 
 			                    <div
-			                    className="vb w-100 vb--create mrgn-top-md"
+			                    className="vb vb--create w-100 mrgn-top-md fill--primary"
 			                    type="button"
 			                    disabled={this.props.inProgress}
 			                    onClick={this.submitForm}>

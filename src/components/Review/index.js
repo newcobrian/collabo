@@ -150,8 +150,8 @@ class Review extends React.Component {
       */}
 
           <div className="flx flx-row flx-just-start w-100">
-            <div className="tip-container flx flx-col flx-align-center">
-              <div className="tip-inner flx flx-row flx-just-start w-100 w-max-2">
+            <div className="tip-container tip-subject flx flx-col flx-align-center">
+              <div className="tip-inner flx flx-row flx-just-start w-100 w-max">
 
                 { /** Image **/ }
                 <div className="tip__image-module mrgn-right-lg DN">
@@ -164,37 +164,49 @@ class Review extends React.Component {
                 <div className="flx flx-col flx-align-start w-100">
 
                   { /** Title and Add **/ }
-                  <div className="tip_title-module flx flx-row-top w-100">
-                    <div className="flx flx-col flx-col-start mrgn-right-md w-100">
-                      <Link to={`review/${subject.id}`}>
-                      <div className="tip__title v2-type-h3 ta-left">
-                        {subject.title}
+                    
+                    <div className="flx flx-col w-100">
+                      
+                      <div className="tip__title-module flx flx-row flx-just-start flx-align-center w-100">
+                        <div className="tip__save flx flx-col flx-center-all mrgn-right-md">
+                          <div className="vb vb--save">
+                            <Link onClick={this.handleSaveClick}>
+                              <img className="center-img" src="../img/icon.add--white.png"/>
+                            </Link>
+                          </div>
+                          <div className="DN v2-type-body0 opa-40 mrgn-top-sm">Save to</div>
+                        </div>
+                        <Link to={`review/${subject.id}`}>
+                        <div className="tip__title v2-type-h3 ta-left w-100">
+                          {subject.title}
+                        </div>
+                        </Link>
                       </div>
-                      </Link>
+                      
 
-                      <div className="tip_info-module flx flx-row-top w-100 pdding-all-md">
+
+                      <div className="tip__info-module flx flx-row-top w-100">
                         <div className="tip__data tip__address col-md-4 flx flx-row flx-center-all v2-type-body1 ta-left">
                           <img className="v-icon mrgn-right-md center-img" src="../img/icons/icon32--geo.png"/>
-                          <div className="">{subject.address}</div>
+                          <div className="v2-type-body1">{subject.address}</div>
                         </div>
                         <div className="tip__data tip__hours col-md-4 flx flx-row flx-center-all v2-type-body1 ta-left">
                           <img className="v-icon mrgn-right-md center-img" src="../img/icons/icon32--hours.png"/>
-                          <div className="">Mon: 5:00 - 8:00 PM</div>
+                          <div className="v2-type-body1">Mon: 5:00 - 8:00 PM</div>
                         </div>
                         <div className="tip__data tip__phone col-md-4 flx flx-row flx-center-all v2-type-body1 ta-left">
                           <img className="v-icon mrgn-right-md center-img" src="../img/icons/icon32--phone.png"/>
-                          <div className="">+1 (530) 219-9931</div>
+                          <div className="v2-type-body1">+1 (530) 219-9931</div>
                         </div>
                       </div>
+
+                      
+
+
                     </div>
 
-               {/*}     <div className="vb flex-item-right">
-                      <Link onClick={this.handleSaveClick}>
-                        <img className="center-img" src="../img/icon.add--white.png"/>Save
-                      </Link>
-                    </div>*/}
+ 
 
-                  </div>
               </div>
             </div>
             </div>

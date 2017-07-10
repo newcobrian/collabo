@@ -99,7 +99,7 @@ class SaveModal extends React.Component {
   		            <li className="" key={itinerary.itineraryId}>
                     <Link onClick={handleAdd(itinerary)}>
                       <div className="flx flx-row flx-just-start flx-align-center">
-                        <div className="vb mrgn-right-md">
+                        <div className="vb fill--primary mrgn-right-lg">
                           <img className="center-img" src="../img/icon.add--white.png"/>
                           Save
                         </div>
