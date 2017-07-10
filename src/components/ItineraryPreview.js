@@ -121,7 +121,7 @@ const ItineraryPreview = props => {
           <div></div>
         </Link>
         {/** Cover Content **/}
-        <div className="itinerary__cover__text flx flx-col flx-align-start ta-left">
+        <div className="itinerary__cover__text flx flx-col flx-align-start ta-left w-100">
 
           {/** <<<<<< CENTER INFO **/}
           <div className="it__center-info flx flx-col flx-align-start ta-left w-100 pdding-left-md pdding-right-md">

@@ -148,7 +148,6 @@ body {
   width: 100%;
 }
 .cta-wrapper .cta-icon {
-  margin: 5px;
 }
 .review-image-wrapper {
   height: 120px;
@@ -254,10 +253,10 @@ width: 100%;
     line-height: 20px;
 }
 
-..v2-type-h2 {
-  font-size: 38px;
+.v2-type-h2 {
+  font-size: 24px;
   letter-spacing: 2px;
-  line-height: 38px;
+  line-height: 26px;
 }
 
 .cover-height {
@@ -367,8 +366,25 @@ width: 100%;
     -webkit-flex-direction: column;
     flex-direction: column;
 }
-.tip__data-module {
-  margin-left: 0;
+.tip-wrapper .tip__cta-box {
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  margin-top: 10px;
+  width: 100%;
+}
+.tip-wrapper .tip__title-module {
+  margin-top: 10px;
+}
+.tip-wrapper .cta-wrapper {
+  margin-top: 0;
+  margin-left: auto;
+}
+.tip-wrapper .cta-container {
+    -webkit-flex-direction: row;
+    flex-direction: row;
+}
+.tip-wrapper .tip__data-module {
+  margin-left: 0 !important;
 }
 .tip__image-module { 
   width: 100%;
@@ -401,5 +417,7 @@ width: 100%;
 
 .profile-page .itinerary__cover, .home-page .itinerary__cover {
   width: 100%;
+  padding: 0;
+  margin: 0;
 }
 }

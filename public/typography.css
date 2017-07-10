@@ -191,10 +191,11 @@ textarea {
   text-transform: uppercase;
   font-weight: 400;
   letter-spacing: 3px;
-  width: auto;
+  width: 70%;
   font-size: 11px;
   letter-spacing: 3px;
   line-height: 18px;
+  text-indent: -3px;
 }
 
 .text-shadow {

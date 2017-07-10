@@ -81,8 +81,8 @@ const TipPreview = props => {
                   <img className="center-img" src="../img/icon.add--white.png"/>
                 </Link>
               </div>
-              <div className="flx flx-col v2-type-body2">
-                <div className="cta-wrapper flx flx-col mrgn-top-md">
+
+                <div className="cta-wrapper flx flx-col mrgn-top-md v2-type-body2">
                   <LikeReviewButton
                     authenticated={props.authenticated}
                     isLiked={props.review.isLiked}
@@ -92,7 +92,7 @@ const TipPreview = props => {
                     likeObject={review}
                     type={REVIEW_TYPE} />
                 </div>
-              </div>
+
             </div>
 
 

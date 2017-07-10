@@ -99,7 +99,7 @@
 
 .itinerary__comments-module {
 	width: 100%;
-	padding: 40px 0;
+	padding: 40px 20px;
 }
 
 
@@ -200,7 +200,7 @@
 	height: 300px;
 }
 	.page-itinerary .itinerary__cover .cover-height {
-		height: 400px;
+		height: 500px;
 	}
 .tip-preview-wrapper .cover-height {
 	height: 100%;

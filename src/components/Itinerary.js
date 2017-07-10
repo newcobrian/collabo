@@ -182,7 +182,7 @@ class Itinerary extends React.Component {
 
                 {/** TITLE **/}
                 <Link to={`itinerary/${itinerary.id}`}>
-                <div className="itinerary__cover__title text-shadow ta-center v2-type-h2 color--white">
+                <div className="itinerary__cover__title text-shadow ta-left v2-type-h2 color--white">
                   {itinerary.title}
                 </div>
                 </Link>
