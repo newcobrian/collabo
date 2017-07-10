@@ -1926,30 +1926,31 @@ export function getFollowingReviews(auth, subjectId) {
                 Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + reviewSnapshot.val().reviewId).on('value', likesSnapshot => {
                   Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewSnapshot.val().reviewId).on('value', commentSnapshot => {
                     Firebase.database().ref(Constants.IMAGES_BY_USER_PATH + '/' + followingChild.key + '/' + subjectId).on('value', imagesSnapshot => {
-                      let reviewObject = {};
-                      let likes = {
-                        isLiked: likesSnapshot.exists()
-                      }
+                      Firebase.database().ref(Constants.IMAGES_PATH + '/' + subjectId).on('value', defaultImagesSnapshot => {
+                        let reviewObject = {};
+                        let likes = {
+                          isLiked: likesSnapshot.exists()
+                        }
 
-                      let comments = [];
-                      commentSnapshot.forEach(function(commentChild) {
-                        const comment = Object.assign({}, { id: commentChild.key }, commentChild.val());
-                        comments = comments.concat(comment);
-                      })
-                      comments.sort(lastModifiedAsc);
+                        let comments = [];
+                        commentSnapshot.forEach(function(commentChild) {
+                          const comment = Object.assign({}, { id: commentChild.key }, commentChild.val());
+                          comments = comments.concat(comment);
+                        })
+                        comments.sort(lastModifiedAsc);
 
-                      let images = Helpers.getImagePath(imagesSnapshot.val());
-                      // let images = [];
+                        let images = imagesSnapshot.exists() ? Helpers.getImagePath(imagesSnapshot.val()) : Helpers.getImagePath(defaultImagesSnapshot.val());
 
-                      Object.assign(reviewObject, subjectSnapshot.val(), {subjectId: subjectSnapshot.key}, 
-                        reviewSnapshot.val(), {id: reviewSnapshot.val().reviewId},
-                        { createdBy: userSnapshot.val() }, likes, {comments: comments}, {images: images} );
-                      reviewArray = [reviewObject].concat(reviewArray);
-                      reviewArray.sort(lastModifiedDesc);
+                        Object.assign(reviewObject, subjectSnapshot.val(), {subjectId: subjectSnapshot.key}, 
+                          reviewSnapshot.val(), {id: reviewSnapshot.val().reviewId},
+                          { createdBy: userSnapshot.val() }, likes, {comments: comments}, {images: images} );
+                        reviewArray = [reviewObject].concat(reviewArray);
+                        reviewArray.sort(lastModifiedDesc);
 
-                      dispatch({
-                        type: GET_FOLLOWING_REVIEWS,
-                        payload: reviewArray
+                        dispatch({
+                          type: GET_FOLLOWING_REVIEWS,
+                          payload: reviewArray
+                        })
                       })
                     })
                   })
