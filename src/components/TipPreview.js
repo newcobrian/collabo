@@ -93,6 +93,7 @@ const TipPreview = props => {
                     unLike={props.unLike}
                     like={props.like} 
                     likeObject={review}
+                    itineraryId={props.itineraryId}
                     type={REVIEW_TYPE} />
                 </div>
             </div>
@@ -157,6 +158,7 @@ const TipPreview = props => {
                         comments={review.comments || []}
                         errors={props.commentErrors}
                         commentObject={review}
+                        itineraryId={props.itineraryId}
                         userInfo={props.userInfo}
                         type={REVIEW_TYPE}
                         deleteComment={props.deleteComment} />

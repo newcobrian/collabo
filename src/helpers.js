@@ -149,7 +149,7 @@ export function decrementItineraryCount(counterType, itineraryId, geo, userId) {
     });
 }
 
-export function sendInboxMessage(senderId, recipientId, messageType, sendObject) {
+export function sendInboxMessage(senderId, recipientId, messageType, sendObject, itineraryId) {
 	const inboxObject = {
 		lastModified: Firebase.database.ServerValue.TIMESTAMP
 	};
@@ -174,7 +174,7 @@ export function sendInboxMessage(senderId, recipientId, messageType, sendObject)
 					case Constants.LIKE_MESSAGE:
 						inboxObject.senderId = senderId;
 						inboxObject.message = ' liked your tip: ';
-						inboxObject.link = 'review/' + sendObject.subjectId + '/' + sendObject.id;
+						inboxObject.link = itineraryId ? 'itinerary/' + itineraryId : 'review/' + sendObject.subjectId + '/' + sendObject.id;
 						emailMessage = senderSnapshot.val().username + 
 							' liked your tip. Click here to check it out: https://whatsgoooood.com/#/' + inboxObject.link;
 						break;
@@ -188,14 +188,14 @@ export function sendInboxMessage(senderId, recipientId, messageType, sendObject)
 					case Constants.COMMENT_ON_REVIEW_MESSAGE:
 						inboxObject.senderId = senderId;
 						inboxObject.message = ' commented on your tip: ';
-						inboxObject.link = 'review/' + sendObject.subjectId + '/' + sendObject.id;
+						inboxObject.link = itineraryId ? 'itinerary/' + itineraryId : 'review/' + sendObject.subjectId + '/' + sendObject.id;
 						emailMessage = senderSnapshot.val().username + 
 							' commented on your tip. Click here to check it out: https://whatsgoooood.com/#/' + inboxObject.link;
 						break;
 					case Constants.COMMENT_ON_COMMENT_REVIEW_MESSAGE:
 						inboxObject.senderId = senderId;
 						inboxObject.message = ' also commented on the tip: ';
-						inboxObject.link = 'review/' + sendObject.subjectId + '/' + sendObject.id;
+						inboxObject.link = itineraryId ? 'itinerary/' + itineraryId : 'review/' + sendObject.subjectId + '/' + sendObject.id;
 						emailMessage = senderSnapshot.val().username + 
 							' also commented on a tip you commented on. Click here to check it out: https://whatsgoooood.com/#/' + inboxObject.link;
 						break;

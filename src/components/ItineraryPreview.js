@@ -191,6 +191,7 @@ const ItineraryPreview = props => {
             unLike={props.unLike}
             like={props.like} 
             likeObject={itinerary}
+            itineraryId={itinerary.id}
             type={ITINERARY_TYPE} />
         </div>
       </div>

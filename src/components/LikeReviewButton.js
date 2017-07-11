@@ -22,7 +22,7 @@ const LikeReviewButton = props => {
     if (props.isLiked) {
       props.unLike(props.authenticated, props.type, props.likeObject);
     } else {
-      props.like(props.authenticated, props.type, props.likeObject);
+      props.like(props.authenticated, props.type, props.likeObject, props.itineraryId);
     }
   };
 

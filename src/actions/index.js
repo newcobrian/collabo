@@ -545,7 +545,7 @@ export function followUser(authenticated, follower) {
       updates[`/${Constants.HAS_FOLLOWERS_PATH}/${follower}/${authenticated}`] = true;
       updates[`/${Constants.IS_FOLLOWING_PATH}/${authenticated}/${follower}`] = true;
     }
-    Helpers.sendInboxMessage(authenticated, follower, Constants.FOLLOW_MESSAGE, null);
+    Helpers.sendInboxMessage(authenticated, follower, Constants.FOLLOW_MESSAGE, null, null);
     Firebase.database().ref().update(updates);
 
     dispatch({
@@ -2140,7 +2140,7 @@ export function unloadComments(reviewId) {
   }
 }
 
-export function onCommentSubmit(authenticated, userInfo, type, commentObject, body) {
+export function onCommentSubmit(authenticated, userInfo, type, commentObject, body, itineraryId) {
   return dispatch => {
     if(!authenticated) {
       dispatch({
@@ -2180,7 +2180,7 @@ export function onCommentSubmit(authenticated, userInfo, type, commentObject, bo
     // send message to original review poster if they are not the commentor
     const sentArray = [];
     if (authenticated !== commentObject.userId) {
-      Helpers.sendInboxMessage(authenticated, commentObject.userId, inboxMessageType, commentObject);
+      Helpers.sendInboxMessage(authenticated, commentObject.userId, inboxMessageType, commentObject, itineraryId);
       sentArray.push(commentObject.userId);
       dispatch({
         type: MIXPANEL_EVENT,
@@ -2198,7 +2198,7 @@ export function onCommentSubmit(authenticated, userInfo, type, commentObject, bo
         let commenterId = comment.val().userId;
         // if not commentor or in sent array, then send a message
         if (commenterId !== authenticated && (sentArray.indexOf(commenterId) === -1)) {
-          Helpers.sendInboxMessage(authenticated, commenterId, commentOnCommentType, commentObject);
+          Helpers.sendInboxMessage(authenticated, commenterId, commentOnCommentType, commentObject, itineraryId);
           sentArray.push(commenterId);
           dispatch({
             type: MIXPANEL_EVENT,
@@ -2628,7 +2628,7 @@ export function getUserFeed(auth) {
   }
 }
 
-export function likeReview(authenticated, type, likeObject) {
+export function likeReview(authenticated, type, likeObject, itineraryId) {
   return dispatch => {
     if (!authenticated) {
       dispatch({
@@ -2649,7 +2649,7 @@ export function likeReview(authenticated, type, likeObject) {
     Firebase.database().ref().update(updates).then(response => {
       if (type === Constants.ITINERARY_TYPE) {
         Helpers.incrementItineraryCount(Constants.LIKES_COUNT, id, likeObject.geo, likeObject.createdBy.userId);
-        Helpers.sendInboxMessage(authenticated, likeObject.createdBy.userId, Constants.LIKE_ITINERARY_MESSAGE, likeObject);
+        Helpers.sendInboxMessage(authenticated, likeObject.createdBy.userId, Constants.LIKE_ITINERARY_MESSAGE, likeObject, itineraryId);
 
         dispatch({
           type: REVIEW_LIKED,
@@ -2671,7 +2671,7 @@ export function likeReview(authenticated, type, likeObject) {
       }
       else if (type === Constants.REVIEW_TYPE) {
         Helpers.incrementReviewCount(Constants.LIKES_COUNT, id, likeObject.subjectId, likeObject.createdBy.userId);
-        Helpers.sendInboxMessage(authenticated, likeObject.createdBy.userId, Constants.LIKE_MESSAGE, likeObject, likeObject);
+        Helpers.sendInboxMessage(authenticated, likeObject.createdBy.userId, Constants.LIKE_MESSAGE, likeObject, itineraryId);
 
         dispatch({
           type: REVIEW_LIKED,

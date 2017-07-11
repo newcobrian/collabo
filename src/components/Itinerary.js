@@ -267,6 +267,7 @@ class Itinerary extends React.Component {
                     unLike={this.props.unLikeReview}
                     like={this.props.likeReview} 
                     likeObject={itinerary}
+                    itineraryId={itinerary.id}
                     type={ITINERARY_TYPE} />
                 </div>
               </div>{/** END MAX div **/}
@@ -287,6 +288,7 @@ class Itinerary extends React.Component {
                   userInfo={this.props.userInfo}
                   showModal={this.props.showModal}
                   deleteComment={this.props.onDeleteComment}
+                  itineraryId={this.props.itineraryId}
 
                   updateRating={this.props.onUpdateRating}
                   onSetPage={this.onSetPage}
@@ -308,7 +310,8 @@ class Itinerary extends React.Component {
               comments={this.props.comments || []}
               errors={this.props.commentErrors}
               commentObject={this.props.itinerary}
-              deleteComment={this.props.onDeleteComment} />
+              deleteComment={this.props.onDeleteComment}
+              itineraryId={this.props.itineraryId} />
             </div>
 
 

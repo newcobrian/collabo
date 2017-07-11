@@ -12,6 +12,7 @@ const CommentContainer = props => {
 		          <ListErrors errors={props.errors}></ListErrors>
 		          <CommentInput 
 		          	commentObject={props.commentObject} 
+		          	itineraryId={props.itineraryId}
 		          	authenticated={props.authenticated} 
 		          	userInfo={props.userInfo}
 		          	type={props.type} />

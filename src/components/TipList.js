@@ -30,6 +30,7 @@ const TipList = props => {
               userInfo={props.userInfo}
               showModal={props.showModal}
               deleteComment={props.deleteComment}
+              itineraryId={props.itineraryId}
             />
           );
         })
