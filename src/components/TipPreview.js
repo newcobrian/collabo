@@ -144,7 +144,7 @@ const TipPreview = props => {
                 { /** Caption **/ }
                 <div className="tip__caption-module flx flx-col w-100 pdding-top-sm pdding-right-md">
                   <div className="flx flx-row flx-just-start flx-align-start">
-                    <div className="tip__caption v2-type-body2 opa-80 ta-left">
+                    <div className="tip__caption v2-type-body2 ta-left">
                       <strong>{review.createdBy.username}:</strong> <CaptionDisplay review={props.review} />
                     </div>
                   </div>
