@@ -10,8 +10,10 @@
 .page-subject .tip-subject .tip__title-module {
 	margin-left: 18px;
 }
-.page-subject .itinerary__tipslist .vb--save {
+.page-subject .itinerary__tipslist .vb--save,
+.page-subject .itinerary__tipslist .vb__label {
 	display: none;
+}
 }
 .page-subject .itinerary__tipslist .tip__title-module {
 	display: none;

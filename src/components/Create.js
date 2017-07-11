@@ -187,7 +187,7 @@ class Create extends React.Component {
 			                        placeholder="My New Itinerary"
 			                        required
 			                        value={this.props.title}
-			                        maxLength="72"
+			                        maxLength="42"
 			                        onChange={this.changeTitle} />
 			                    </fieldset>
 								<fieldset className="field-wrapper">

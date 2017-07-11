@@ -135,15 +135,6 @@ class Itinerary extends React.Component {
 
             <div className="itinerary__cover flx flx-row flx-just-start header-height">
               
-              {/** Cover Image **/}
-              <div className="itinerary__cover__image header-height">
-                <ImagePicker images={itinerary.images ? [itinerary.images] : null} />
-              </div>
-              {/** Cover Overlay **/}
-              <div className="itinerary__cover__overlay header-height">
-                <img className="cover-height DN" src="../img/cover-overlay.png"/>
-              </div>
-
               {/** <<<<<< USER PHOTO AND TIP COUNT **/}
               <div className="itinerary__cover__topbar w-max flx flx-row flx-align-center flx-just-start v2-type-body1 mrgn-bottom-sm pdding-top-md">
                 <div className="itinerary__cover__author-photo">
@@ -165,47 +156,18 @@ class Itinerary extends React.Component {
               </div>
               {/** >>>>>> CLOSE USER PHOTO AND TIP COUNT **/}
 
-              {/** Cover Content **/}
-              <div className="itinerary__cover__text flx flx-col flx-center-all ta-left w-100">
 
-              {/** <<<<<< CENTER INFO **/}
-              <div className="it__title-module flx flx-col flx-just-start ta-center w-100 w-max pdding-left-md">
-                
-                {/** Flag and Geo **/}
-                <Link to={`places/${itinerary.geo.placeId}`}>
-                <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm">
-                  <div className={'itinerary__cover__flag flx-hold flag-' + itinerary.geo.country}>
-                  </div>
-                  <div className="geo-type color--white text-shadow ellipsis">
-                  {itinerary.geo.label}
-                  </div>
-                </div>
-                </Link>
-
-                {/** TITLE **/}
-                <Link to={`itinerary/${itinerary.id}`}>
-                <div className="itinerary__cover__title text-shadow ta-left v2-type-h2 color--white">
-                  {itinerary.title}
-                </div>
-                </Link>
-
-                {/** DESCRIPTION **/}
-                <div className="itinerary__cover__descrip text-shadow v2-type-body3 ta-left color--white mrgn-top-sm">
-                   {itinerary.description}
-                </div>
-
-                {/** TIMESTAMP **/}
-                <div className="itinerary__cover__timestamp ta-center pdding-top-sm opa-30 color--white DN">
-                  <DisplayTimestamp timestamp={itinerary.lastModified} />
-                  {/*(new Date(itinerary.lastModified)).toLocaleString()*/}
-                </div> 
-
+              {/** Cover Image **/}
+              <div className="itinerary__cover__image header-height">
+                <ImagePicker images={itinerary.images ? [itinerary.images] : null} />
               </div>
-              {/** >>>>>> CLOSE CENTER INFO **/}
 
-            
-            </div>
-            {/** Close Cover Text DIV >>>>>> **/}  
+              {/** Cover Overlay **/}
+              <div className="itinerary__cover__overlay header-height DN">
+                <img className="cover-height DN" src="../img/cover-overlay.png"/>
+              </div>
+
+             
 
 
             {/* Hidden edit itinerary dropdown 
@@ -234,6 +196,50 @@ class Itinerary extends React.Component {
 
             </div>
             {/** ----- Close itinerary__cover DIV ----- **/}  
+
+            {/** Cover Content **/}
+            <div className="itinerary__cover__text flx flx-col flx-center-all ta-left w-100">
+
+              {/** <<<<<< CENTER INFO **/}
+              <div className="it__title-module flx flx-col flx-just-start ta-center w-100 w-max pdding-left-md">
+                
+                {/** Flag and Geo **/}
+                <Link to={`places/${itinerary.geo.placeId}`}>
+                <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm mrgn-top-xs">
+                  <div className={'itinerary__cover__flag flx-hold flag-' + itinerary.geo.country}>
+                  </div>
+                  <div className="geo-type ellipsis">
+                  {itinerary.geo.label}
+                  </div>
+                </div>
+                </Link>
+
+                {/** TITLE **/}
+                <Link to={`itinerary/${itinerary.id}`}>
+                <div className="itinerary__cover__title ta-left v2-type-h2">
+                  {itinerary.title}
+                </div>
+                </Link>
+
+                {/** DESCRIPTION **/}
+                <div className="itinerary__cover__descrip v2-type-body3 ta-left mrgn-top-sm">
+                   {itinerary.description}
+                </div>
+
+                {/** TIMESTAMP **/}
+                <div className="itinerary__cover__timestamp ta-center pdding-top-sm opa-30 DN">
+                  <DisplayTimestamp timestamp={itinerary.lastModified} />
+                  {/*(new Date(itinerary.lastModified)).toLocaleString()*/}
+                </div> 
+
+              </div>
+              {/** >>>>>> CLOSE CENTER INFO **/}
+
+            
+            </div>
+            {/** Close Cover Text DIV >>>>>> **/}  
+
+
 
             {/** -------- AUTHOR CONTROLS **/}
             <div className="it-author-controls w-100 pdding-top-sm pdding-bottom-sm pdding-left-md pdding-right-md">

@@ -446,7 +446,7 @@ class EditItineraryForm extends React.Component {
                   component="textarea"
                   type="text"
                   rows="1"
-                  maxLength="32"
+                  maxLength="42"
                   label="Itinerary Name"
                   className="input--underline edit-itinerary__name" />
                 </div>

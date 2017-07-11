@@ -127,6 +127,8 @@ class Review extends React.Component {
     }
     let subject = this.props.subject;
 
+    console.log(JSON.stringify(subject));
+
     return (
       <div className="page-subject flx flx-col flx-col-start">
           
@@ -178,7 +180,7 @@ class Review extends React.Component {
                               <img className="center-img" src="../img/icon.add--white.png"/>
                             </Link>
                           </div>
-                          <div className="DN v2-type-body0 opa-40 mrgn-top-sm">Save to</div>
+                          <div className="v2-type-body0 opa-40 mrgn-top-sm DN">Save to</div>
                         </div>
                         <Link to={`review/${subject.id}`}>
                         <div className="tip__title v2-type-h3 ta-left w-100">
@@ -196,11 +198,17 @@ class Review extends React.Component {
                         </div>
                         <div className="tip__data tip__hours col-md-4 flx flx-row flx-center-all v2-type-body1 ta-left">
                           <img className="v-icon mrgn-right-md center-img" src="../img/icons/icon32--hours.png"/>
-                          <div className="v2-type-body1">Mon: 5:00 - 8:00 PM</div>
+                          <div className="v2-type-body1">{subject.hours.weekdayText.map(hoursItem => {
+
+                            return (
+                                <div>{hoursItem}</div>
+                              );
+                          })}</div>
+
                         </div>
                         <div className="tip__data tip__phone col-md-4 flx flx-row flx-center-all v2-type-body1 ta-left">
                           <img className="v-icon mrgn-right-md center-img" src="../img/icons/icon32--phone.png"/>
-                          <div className="v2-type-body1">+1 (530) 219-9931</div>
+                          <div className="v2-type-body1">{subject.internationalPhoneNumber}</div>
                         </div>
                       </div>
 

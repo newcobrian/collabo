@@ -535,9 +535,10 @@ svg {
   background: rgba(0,0,0,.1);
   box-shadow: none;
   color: white;
-  line-height: 20px;
+  line-height: inherit;
   height: 22px;
   font-family: 'Roboto', sans-serif;
+  padding: 2px 8px 3px 9px;
 }
 .header-badge.badge-on {
   background-color: #F36965;
@@ -613,6 +614,12 @@ svg {
 border-bottom: 1px solid rgba(0,0,0,.1);
 }
 
+.opa-90 {
+  opacity: .7;
+}
+.opa-80 {
+  opacity: .7;
+}
 .opa-70 {
   opacity: .7;
 }
@@ -1153,9 +1160,9 @@ li.nav-divider {
   border-radius: 32px;
 }
 .comment-preview-wrapper {
-  background: rgba(255,255,255,.2);
-  border-radius: 6px;
-  padding: 2px;
+  background: rgba(255,255,255,1);
+  border-radius: 4px;
+  padding: 4px 10px;
 }
 .comment-text {
   max-width: 100px;

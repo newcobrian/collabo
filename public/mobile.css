@@ -274,6 +274,9 @@ width: 100%;
   letter-spacing: 2px;
   line-height: 32px;
 }
+.page-itinerary .itinerary__cover__topbar  {
+  left: 10px;
+}
 
 .cover-height {
 }
@@ -437,9 +440,11 @@ width: 100%;
 }
 
 
-.profile-page .itinerary__cover, .home-page .itinerary__cover {
+.profile-page .itinerary__cover,
+.home-page .itinerary__cover {
   width: 100%;
-  padding: 0;
-  margin: 0;
+  padding: 0 10px 20px;
+  margin: 0 0 40px;
+  border-bottom: 1px solid rgba(0,0,0,.1);
 }
 }

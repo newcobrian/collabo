@@ -77,8 +77,15 @@ textarea {
 }
 .v2-type-body3 {
   /* “The almond milk ice: */
-  font-weight: 200;
+  font-weight: 300;
   font-size: 16px;
+  letter-spacing: 0.5px;
+  line-height: 28px;
+  font-family: 'Roboto', sans-serif;
+}
+.v2-type-body4 {
+  font-weight: 300;
+  font-size: 18px;
   letter-spacing: 0.5px;
   line-height: 28px;
   font-family: 'Roboto', sans-serif;
@@ -150,12 +157,11 @@ textarea {
   font-family: 'Arimo', sans-serif;
 }
 .v2-type-h2 {
-  font-weight: 500;
-  font-size: 46px;
-  letter-spacing: 3px;
+  font-weight: 600;
+  font-size: 42px;
+  letter-spacing: 1px;
   line-height: 36px;
   font-family: 'Arimo', sans-serif;
-  text-transform: uppercase;
   color: #373a3c;
 }
 .v2-type-page-header {
@@ -199,10 +205,11 @@ textarea {
   text-transform: uppercase;
   font-weight: 400;
   letter-spacing: 3px;
-  width: 70%;
+  width: 100%;
   font-size: 11px;
   letter-spacing: 3px;
   line-height: 18px;
+  max-width: 180px;
 }
 
 .text-shadow {
@@ -214,9 +221,11 @@ textarea {
 
 .color--primary {
   color: #00DCB9;
+  color: #79D5DD;
+  color: #0080B0;
 }
 .fill--primary {
-  background-color: #00DCB9;
+  background-color: #79D5DD;
 }
 .color--white {
   color: #ffffff;
