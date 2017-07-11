@@ -92,7 +92,7 @@ export const TAG_LIST = []
 export const INVALID_USERNAMES = ['account', 'send', 'message', 'inbox', 'notification', 'create', 'edit', 'editor',
  'itinerary', 'messenger', 'settings', 'admin', 'administrator', 'settings', 'global', 'saved', 'login', 'register',
   'review', 'followers', 'isfollowing', 'likes', 'saves', 'select', 'explore', 'search', 'user', 'location', 'city', 
-  'geo', 'attraction', 'subject', 'home', 'places', 'countries']
+  'geo', 'attraction', 'subject', 'home', 'places', 'countries', 'api', 'guide']
 
 
 export const COUNTRY_FLAGS = {
