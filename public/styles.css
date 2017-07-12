@@ -521,7 +521,7 @@ svg {
   font-size: 14px;
 }
 .count-badge {
-  background-color: #F36965;
+  background-color: #F39973;
   padding: 0 7px 2px 9px;
   border-radius: 32px;
   text-align: center;
@@ -541,7 +541,6 @@ svg {
   padding: 2px 8px 3px 9px;
 }
 .header-badge.badge-on {
-  background-color: #F36965;
 }
 .location-dropdown {
   border-bottom: 1px solid #0AAAD5;

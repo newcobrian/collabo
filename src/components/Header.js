@@ -4,7 +4,7 @@ import React from 'react';
 const InboxCounter = props => {
   if (props.unreadMessages > 0) {
     return (
-      <div className="count-badge header-badge badge-on"> {props.unreadMessages}</div>
+      <div className="count-badge header-badge badge-on fill--red"> {props.unreadMessages}</div>
     );
   }
   return (
@@ -83,7 +83,7 @@ class Header extends React.Component {
         <div className="header-wrapper w-max">
           <Link to="/" className="logo-module flx flx-row flx-just-start flx-align-center">
             <div className="logo-graphic">  
-              <img className="center-img" src="../img/logos/logo.bird3.sea.png"/>
+              <img className="center-img" src="../img/logos/logo.bird4.ocean.png"/>
             </div>
             <div className="logo-main">
             VIEWS

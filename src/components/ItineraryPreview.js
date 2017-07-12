@@ -50,7 +50,7 @@ const CommentPreview = props => {
         </div>
 
 
-        <div className="cta-wrapper flx flx-row flx-just-end flex-item-right last-comment mrgn-right-md">
+        <div className="cta-wrapper flx flx-row flx-just-end flex-item-right last-comment mrgn-right-sm">
           
           <div className="flx flx-row flx-just-end flx-align-center">
 
@@ -65,7 +65,7 @@ const CommentPreview = props => {
   else {
     return (
       <Link to={`itinerary/${props.itinerary.id}`}>
-        <div className="cta-wrapper flx flx-row flx-just-end flex-item-right flx-row-reverse no-comments mrgn-right-md">
+        <div className="cta-wrapper flx flx-row flx-just-end flex-item-right flx-row-reverse no-comments mrgn-right-sm">
           <div className="flx flx-row flx-just-end flx-align-center">
              <div className="cta-icon cta-comment"></div>
              <div className="v2-type-body1">0</div>
@@ -108,7 +108,7 @@ const ItineraryPreview = props => {
             </Link>
           </div>
           <Link to={`itinerary/${itinerary.id}`}>
-          <div className="v2-type-body4 flx flx-row flx-just-end flx-align-center color--primary">
+          <div className="v2-type-body4 flx flx-row flx-just-end flx-align-center color--primary mrgn-top-xs">
             {itinerary.reviewsCount ? itinerary.reviewsCount : 0} {itinerary.reviewsCount === 1 ? 'Tip' : ' Tips'}
           </div>
           </Link>

@@ -201,7 +201,7 @@ class Itinerary extends React.Component {
             <div className="itinerary__cover__text flx flx-col flx-center-all ta-left w-100">
 
               {/** <<<<<< CENTER INFO **/}
-              <div className="it__title-module flx flx-col flx-just-start ta-center w-100 w-max pdding-left-md">
+              <div className="it__title-module flx flx-col flx-just-start ta-center w-100 w-max pdding-left-md pdding-right-md">
                 
                 {/** Flag and Geo **/}
                 <Link to={`places/${itinerary.geo.placeId}`}>

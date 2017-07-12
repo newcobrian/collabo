@@ -172,9 +172,9 @@
 
 .profile-page .itinerary__cover .v2-type-h2,
 .home-page .itinerary__cover .v2-type-h2 {
-	font-size: 28px;
-	font-weight: 600;
-	line-height: 32px;
+	font-size: 32px;
+	font-weight: 300;
+	line-height: 34px;
 	width: 100%;
 	max-width: 460px;
 }
@@ -199,8 +199,8 @@
 .page-itinerary .itinerary__cover__topbar  {
 	position: absolute;
 	margin: 0 auto;
-	left: 40px;
-	right: 20px;
+	left: 20px;
+	right: 0px;
 }
 .page-itinerary .itinerary__cover__title {
 	max-width: 800px;
@@ -294,8 +294,10 @@
   height: auto;
   max-width: 480px;
   width: 100%;
+  max-width: 600px;
   font-family: 'Roboto', sans-serif;
  }
+
 .itinerary__cover__flag,
 .itinerary__summary__flag {
 }
