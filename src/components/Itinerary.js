@@ -208,7 +208,7 @@ class Itinerary extends React.Component {
                 <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm mrgn-top-xs">
                   <div className={'itinerary__cover__flag flx-hold flag-' + itinerary.geo.country}>
                   </div>
-                  <div className="geo-type ellipsis">
+                  <div className="v2-type-body2 ellipsis">
                   {itinerary.geo.label}
                   </div>
                 </div>

@@ -107,16 +107,11 @@ const ItineraryPreview = props => {
             {itinerary.createdBy.username}
             </Link>
           </div>
-          <Link to={`itinerary/${itinerary.id}`}>
-          <div className="v2-type-body4 flx flx-row flx-just-end flx-align-center color--primary mrgn-top-xs">
-            {itinerary.reviewsCount ? itinerary.reviewsCount : 0} {itinerary.reviewsCount === 1 ? 'Tip' : ' Tips'}
-          </div>
-          </Link>
         </div>
       
       </div>
 
-      <div className="itinerary__book cover-height">
+      <div className="itinerary__book cover-height w-100">
         
         
         {/** Cover Image **/}
@@ -149,7 +144,7 @@ const ItineraryPreview = props => {
             {/** Flag and Geo **/}
             <div className={'itinerary__cover__flag flx-hold flag-' + itinerary.geo.country}>
             </div>
-            <div className="geo-type ellipsis">
+            <div className="v2-type-body1 ellipsis">
               {itinerary.geo.label}
             </div>
           </div>
@@ -174,7 +169,7 @@ const ItineraryPreview = props => {
 
         {/** TITLE **/}
         <Link to={`itinerary/${itinerary.id}`}>
-        <div className="itinerary__cover__title ta-left v2-type-h2 ellipsis mrgn-top-xs">
+        <div className="itinerary__cover__title ta-left v2-type-h2 ellipsis mrgn-top-xs mrgn-bottom-xs">
           {itinerary.title}
         </div>
         </Link>
@@ -183,6 +178,13 @@ const ItineraryPreview = props => {
         <div className="itinerary__cover__descrip v2-type-body3 opa-90">
            <DescriptionPreview  itinerary={props.itinerary}/>
         </div>
+
+        {/** TIP COUNT **/}
+        <Link to={`itinerary/${itinerary.id}`}>
+        <div className="v2-type-body2 flx flx-row flx-just-end flx-align-center color--primary mrgn-top-xs">
+          {itinerary.reviewsCount ? itinerary.reviewsCount : 0} {itinerary.reviewsCount === 1 ? 'Tip' : ' Tips'}
+        </div>
+        </Link>
 
         {/** TIMESTAMP **/}
         <div className="itinerary__cover__timestamp pdding-top-sm ta-left color--white opa-30 DN">
