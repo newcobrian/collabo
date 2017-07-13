@@ -7,7 +7,7 @@ const EditProfileSettings = props => {
   if (props.isUser) {
     return (
       <Link
-        to="settings"
+        to="/settings"
         className="vb vb--light vb--outline--gray vb-sm mrgn-top-xs">
          {/*<i className="ion-gear-a"></i>*/}Edit Profile
       </Link>
@@ -50,10 +50,10 @@ const ProfileInfo = props => {
             </div>
               {/*}
               <div className="flx flx-row-left profile-followers-wrapper">
-                <Link to={`followers/${profile.username}`}>
+                <Link to={`/followers/${profile.username}`}>
                   <div className="profile-data-module">{this.props.followerCount} followers</div>
                 </Link>
-                <Link to={`followings/${profile.username}`}>
+                <Link to={`/followings/${profile.username}`}>
                   <div className="profile-data-module">{this.props.followingCount} following</div>
                 </Link>
               </div>

@@ -62,7 +62,7 @@ class Register extends React.Component {
             <div className="col-md-6 offset-md-3 col-xs-12">
               <div className="v2-type-page-header ta-center">Sign Up</div>
               <div className="text-xs-center mrgn-bottom-sm">
-                <Link className="v2-type-body1 color--primary" to="login">
+                <Link className="v2-type-body1 color--primary" to="/login">
                   Have an account?
                 </Link>
               </div>

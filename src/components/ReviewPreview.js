@@ -58,7 +58,7 @@ const RatingsNumber= props => {
 const CommentPreview = props => {
   if (props.comments) {
     return (
-      <Link to={`review/${props.review.subjectId}/${props.review.id}`}>
+      <Link to={`/review/${props.review.subjectId}/${props.review.id}`}>
         <div className="cta-wrapper cta-wrapper-comment roow roow-col">
           <div className="cta-icon cta-comment"></div>
           {props.review.commentsCount} Comments
@@ -68,7 +68,7 @@ const CommentPreview = props => {
   }
   else {
     return (
-      <Link to={`review/${props.review.subjectId}/${props.review.id}`}>
+      <Link to={`/review/${props.review.subjectId}/${props.review.id}`}>
         <div className="cta-wrapper cta-wrapper-comment roow roow-col">
           <div className="cta-icon cta-comment comment-on"></div>
           Comment
@@ -116,14 +116,14 @@ const ReviewPreview = props => {
           <div className="roow roow-row-top pic-and-review">
             <div className="review-data-container roow roow-col-center">
                 
-              <Link to={`${review.createdBy.username}`}>
+              <Link to={`/${review.createdBy.username}`}>
                   <div className="reviewer-photo DN center-img mrgn-right-lg mrgn-top-sm"><ProxyImage src={review.createdBy.image}/></div>
               </Link>
 
               <div className="subject-caption v2-type-body2 center-text pdding-top-sm">
                 {review.caption}
               </div>
-              <Link to={`${review.createdBy.username}`}>
+              <Link to={`/${review.createdBy.username}`}>
                 <div className="reviewer-name v2-type-h3 center-text">
                   <span className="dash">-</span> {review.createdBy.username}
                 </div>
@@ -168,7 +168,7 @@ const ReviewPreview = props => {
   // return (
   //     <div className="reviews-wrapper roow roow-left roow-col-left mrgn-bottom-lg bx-shadow">
 
-  //         <Link to={`review/${review.subjectId}/${review.id}`}>
+  //         <Link to={`/review/${review.subjectId}/${review.id}`}>
   //           <div className="subject-image">
   //             <ProxyImage className="gray-border" src={review.subject.image ? review.subject.image : ""}/>
   //           </div>
@@ -184,7 +184,7 @@ const ReviewPreview = props => {
   //           </div>
   //           <div className="text-category v2-type-h4"><Hashtags tags={review.subject.tag}/></div>
             
-  //           <Link to={`review/${review.subjectId}/${review.id}`}>
+  //           <Link to={`/review/${review.subjectId}/${review.id}`}>
   //           <div className="text-subject-name v2-type-h2 center-text">
   //             {review.subject.title}
   //           </div>
@@ -198,14 +198,14 @@ const ReviewPreview = props => {
   //         <div className="roow roow-row-top pic-and-review">
   //           <div className="review-data-container roow roow-col-center">
                 
-  //               <Link to={`${review.reviewer.username}`}>
+  //               <Link to={`/${review.reviewer.username}`}>
   //                     <div className="reviewer-photo DN center-img mrgn-right-lg mrgn-top-sm"><ProxyImage src={review.reviewer.image}/></div>
   //                 </Link>
 
   //               <div className="roow">
   //                 {/* Rating Stars */}
   //                 <div className="roow roow-col-left">
-  //                   <Link to={`review/${review.subjectId}/${review.id}`}> 
+  //                   <Link to={`/review/${review.subjectId}/${review.id}`}> 
   //                     <RatingsButtons review={review} authenticated={props.authenticated} updateRating={props.updateRating} />
   //                   </Link>
   //                 </div>
@@ -218,7 +218,7 @@ const ReviewPreview = props => {
   //               <div className="subject-caption v2-type-body2 center-text pdding-top-sm">
   //                 {review.caption}
   //               </div>
-  //               <Link to={`${review.reviewer.username}`}>
+  //               <Link to={`/${review.reviewer.username}`}>
   //                 <div className="reviewer-name v2-type-h3 center-text">
   //                   <span className="dash">-</span> {review.reviewer.username}
   //                 </div>

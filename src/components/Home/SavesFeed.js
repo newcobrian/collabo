@@ -53,7 +53,7 @@ class SavesFeed extends Home {
             <li className="nav-item">
               <Link
                 className="nav-link active"
-                to={`global`}>
+                to={`/global`}>
                 Global Feed
               </Link>
             </li>

@@ -36,7 +36,7 @@ class ProfileSaves extends Profile {
             <li className="nav-item">
               <Link
                 className="nav-link"
-                to={`${this.props.profile.username}`}>
+                to={`/${this.props.profile.username}`}>
                 My Posts
               </Link>
             </li>
@@ -44,7 +44,7 @@ class ProfileSaves extends Profile {
             <li className="nav-item">
               <Link
                 className="nav-link"
-                to={`${this.props.profile.username}/likes`}>
+                to={`/${this.props.profile.username}/likes`}>
                 My Likes
               </Link>
             </li>

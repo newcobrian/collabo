@@ -39,18 +39,18 @@ export default (state = defaultState, action) => {
         return { ...state };
       }
       else {
-        const redirectUrl = 'select';
+        const redirectUrl = '/select';
         return { ...state, redirectTo: redirectUrl };
       }
     case ITINERARY_CREATED:
       return {
         ...state,
-        redirectTo: 'edit/' + action.itineraryId
+        redirectTo: '/edit/' + action.itineraryId
       }
     case ITINERARY_UPDATED:
       return {
         ...state,
-        redirectTo: 'itinerary/' + action.itineraryId
+        redirectTo: '/itinerary/' + action.itineraryId
       }
     case FRIEND_SELECTOR_SUBMIT:
       if (action.path === FORWARD_MODAL) {
@@ -74,12 +74,12 @@ export default (state = defaultState, action) => {
     case HOME_PAGE_NO_AUTH:
       return {
         ...state,
-        redirectTo: 'global'
+        redirectTo: '/global'
       }
     case ASK_FOR_AUTH:
       return {
         ...state,
-        redirectTo: 'login'
+        redirectTo: '/login'
       }
     case AUTH_USER:
       return {
@@ -98,7 +98,7 @@ export default (state = defaultState, action) => {
     case EDITOR_PAGE_NO_AUTH:
       return {
         ...state,
-        redirectTo: 'itinerary/' + action.itineraryId
+        redirectTo: '/itinerary/' + action.itineraryId
       }
     default: 
       return state;

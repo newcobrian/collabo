@@ -38,7 +38,7 @@ class Explore extends React.Component {
                 return (
                   <div className="flx flx-col list-row flx-center-all ta-center" key={user.userId}>
                     <Link
-                      to={`${user.username}`}
+                      to={`/${user.username}`}
                       className="">
                       <div className="mrgn-bottom-sm">
                         <ProfilePic src={user.image} className="user-image center-img" />
@@ -47,7 +47,7 @@ class Explore extends React.Component {
                     <div className="flx flx-col flx-align-center">
                     <div>
                       <Link
-                          to={`${user.username}`}
+                          to={`/${user.username}`}
                           className="color--black mrgn-bottom-sm">
                           {user.username}
                       </Link>

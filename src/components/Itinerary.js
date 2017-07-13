@@ -50,7 +50,7 @@ const EditItineraryLink = props => {
   if (props.isUser) {
     return (
       <Link
-        to={'edit/' + props.itineraryId}
+        to={'/edit/' + props.itineraryId}
         className="vb vb--light vb--no-outline mrgn-right-md">
          {/*<i className="ion-gear-a"></i>*/}Edit
       </Link>
@@ -139,7 +139,7 @@ class Itinerary extends React.Component {
               <div className="itinerary__cover__topbar w-max flx flx-row flx-align-center flx-just-start v2-type-body1 mrgn-bottom-sm pdding-top-md">
                 <div className="itinerary__cover__author-photo">
                     <Link
-                    to={`${itinerary.createdBy.username}`}
+                    to={`/${itinerary.createdBy.username}`}
                     className="">
                     <ProfilePic src={itinerary.createdBy.image} className="center-img" />
                     </Link>
@@ -147,7 +147,7 @@ class Itinerary extends React.Component {
                 <div className="flx flx-col flx-just-start flx-align-start">
                   <div className="itinerary__cover__username ta-left mrgn-right-md color--white">
                     <Link
-                    to={`${itinerary.createdBy.username}`}
+                    to={`/${itinerary.createdBy.username}`}
                     className="color--white">
                     {itinerary.createdBy.username}
                     </Link>
@@ -204,7 +204,7 @@ class Itinerary extends React.Component {
               <div className="it__title-module flx flx-col flx-just-start ta-center w-100 w-max pdding-left-md pdding-right-md">
                 
                 {/** Flag and Geo **/}
-                <Link to={`places/${itinerary.geo.placeId}`}>
+                <Link to={`/places/${itinerary.geo.placeId}`}>
                 <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm mrgn-top-xs">
                   <div className={'itinerary__cover__flag flx-hold flag-' + itinerary.geo.country}>
                   </div>
@@ -215,7 +215,7 @@ class Itinerary extends React.Component {
                 </Link>
 
                 {/** TITLE **/}
-                <Link to={`itinerary/${itinerary.id}`}>
+                <Link to={`/itinerary/${itinerary.id}`}>
                 <div className="itinerary__cover__title ta-left v2-type-h2">
                   {itinerary.title}
                 </div>

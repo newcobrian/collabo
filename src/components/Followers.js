@@ -46,7 +46,7 @@ class Followers extends React.Component {
 	          <li className="nav-item">
 	            <Link
 	              className="nav-link"
-	              to={`${this.props.profile.username}`}>
+	              to={`/${this.props.profile.username}`}>
 	              Itineraries
 	            </Link>
 	          </li>
@@ -54,7 +54,7 @@ class Followers extends React.Component {
 	          <li className="nav-item">
 	            <Link
 	              className="nav-link"
-	              to={`${this.props.profile.username}/likes`}>
+	              to={`/${this.props.profile.username}/likes`}>
 	              Likes
 	            </Link>
 	          </li>
@@ -62,7 +62,7 @@ class Followers extends React.Component {
 	          <li className="nav-item">
 	            <Link
 	              className="nav-link active"
-	              to={`${this.props.profile.username}/followers`}>
+	              to={`/${this.props.profile.username}/followers`}>
 	              Followers
 	            </Link>
 	          </li>
@@ -70,7 +70,7 @@ class Followers extends React.Component {
 	          <li className="nav-item">
 	            <Link
 	              className="nav-link"
-	              to={`${this.props.profile.username}/isfollowing`}>
+	              to={`/${this.props.profile.username}/isfollowing`}>
 	              Is Following
 	            </Link>
 	          </li>
@@ -132,7 +132,7 @@ class Followers extends React.Component {
 			          	return (
 			          		<div className="flx flx-col list-row flx-center-all ta-center" key={follower.userId}>
 				          		<Link
-						          to={`${follower.username}`}
+						          to={`/${follower.username}`}
 						          className="">
 						          	<div className="">
 						          		<ProfilePic src={follower.image} className="user-image center-img" />
@@ -141,7 +141,7 @@ class Followers extends React.Component {
 							    <div className="flx flx-col flx-align-center">
 								    <div>
 									   	<Link
-								          to={`${follower.username}`}
+								          to={`/${follower.username}`}
 								          className="color--black">
 								          {follower.username}
 								        </Link>

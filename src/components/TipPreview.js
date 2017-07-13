@@ -13,7 +13,7 @@ const CommentPreview = props => {
   if (props.comments) {
     // console.log('comments = ' + JSON.stringify(props.comments))
     return (
-      <Link to={`review/${props.review.subjectId}/${props.review.id}`}>
+      <Link to={`/review/${props.review.subjectId}/${props.review.id}`}>
         <div className="cta-wrapper cta-wrapper-comment flx flx-col">
           <div className="cta-icon cta-comment"></div>
           {props.review.commentsCount} Comments
@@ -23,7 +23,7 @@ const CommentPreview = props => {
   }
   else {
     return (
-      <Link to={`review/${props.review.subjectId}/${props.review.id}`}>
+      <Link to={`/review/${props.review.subjectId}/${props.review.id}`}>
         <div className="cta-wrapper cta-wrapper-comment flx flx-col">
           <div className="cta-icon cta-comment comment-on"></div>
           Comment
@@ -109,7 +109,7 @@ const TipPreview = props => {
               { /** Title and Address **/ }
               <div className="tip__title-module flx flx-row-top w-100">
                 <div className="flx flx-col flx-col-start mrgn-right-md w-100">
-                  <Link to={`review/${review.subjectId}/${review.id}`}>
+                  <Link to={`/review/${review.subjectId}/${review.id}`}>
                   <div className="tip__title v2-type-h4 ta-left">
                     {review.title}
                   </div>
@@ -129,7 +129,7 @@ const TipPreview = props => {
                   
                   <div className="flx flx-row flx-align-center mrgn-bottom-sm">
                     <Link
-                      to={review.createdBy.username}
+                      to={'/' + review.createdBy.username}
                       className="">
                       <div className="tip__author-photo flx-hold">
                         <ProxyImage src={review.createdBy.image} className="user-image user-image-md center-img" />

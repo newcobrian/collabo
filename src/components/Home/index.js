@@ -46,7 +46,7 @@ class Home extends React.Component {
           <li className="nav-item">
             <Link
               className="nav-link active"
-              to="">
+              to="/">
               Global
             </Link>
           </li>
@@ -66,7 +66,7 @@ class Home extends React.Component {
         <div className="v2-type-body3 color--white mrgn-bottom-md">
          CREATE lists for places you want to visit. SHARE guides of your favorite spots
         </div>
-        <Link to="register" className="">
+        <Link to="/register" className="">
           <div className="vb vb--light vb--intro--register">
             Get started
           </div>

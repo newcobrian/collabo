@@ -22,7 +22,7 @@ const Comment = props => {
           <div className="comment-data flx flx-col flx-just-start">
             <div className="comment-row">
               <Link
-                to={`${comment.username}`}
+                to={`/${comment.username}`}
                 className="comment-author">
                 {comment.username}
               </Link>

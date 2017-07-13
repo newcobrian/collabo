@@ -8,7 +8,7 @@ const RightPic = props => {
   if (props.image) {
     return (
       <Link
-      to={props.link}
+      to={'/' + props.link}
       className="">
         <div className="bx-shadow">
           <ProxyImage src={props.image} className="image--basic center-img" />
@@ -24,7 +24,7 @@ const LeftSenderPic = props => {
     return (
       <div className="mrgn-left-sm mrgn-right-md">
         <Link
-        to={`${props.username}`}
+        to={`/${props.username}`}
         className="">
           <ProxyImage src={props.image} className="user-image user-image-sm center-img" />
         </Link>
@@ -45,7 +45,7 @@ const RenderUsername = props => {
   if (props.senderId) {
     return (
       <Link
-          to={`${props.username}`}
+          to={`/${props.username}`}
           className="">
           {props.username}
       </Link>

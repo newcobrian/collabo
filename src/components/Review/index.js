@@ -182,7 +182,7 @@ class Review extends React.Component {
                           </div>
                           <div className="v2-type-body0 opa-40 mrgn-top-sm DN">Save to</div>
                         </div>
-                        <Link to={`review/${subject.id}`}>
+                        <Link to={`/review/${subject.id}`}>
                         <div className="tip__title v2-type-h3 ta-left w-100">
                           {subject.title}
                         </div>

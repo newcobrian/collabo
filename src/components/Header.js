@@ -16,13 +16,13 @@ const LoggedOutView = props => {
   if (!props.currentUser || props.currentUser.isAnonymous) {
     return (
       <div className="navigation-bar no-icons flx flx-row flx-align-center pdding-right-md">
-          <Link to="login" className="nav-module">
+          <Link to="/login" className="nav-module">
             <div className="">
               Log in
             </div>
           </Link>
 
-          <Link to="register" className="nav-module">
+          <Link to="/register" className="nav-module">
             <div className="color--primary">
               Sign up
             </div>
@@ -45,23 +45,23 @@ const LoggedInView = props => {
             <div className="nav-text">Explore</div>
         </Link>
 
-        <Link to="explore" activeClassName="active" className="nav-module nav-feed flx flx-center-all">
+        <Link to="/explore" activeClassName="active" className="nav-module nav-feed flx flx-center-all">
             <div className="nav-text">Travelers</div>
         </Link>
 
-        <Link to="create" activeClassName="active" className="nav-module create nav-editor flx flx-center-all">  
+        <Link to="/create" activeClassName="active" className="nav-module create nav-editor flx flx-center-all">  
           <div className="nav-text flx flx-row flx-align-center">
             <img className="mrgn-right-sm center-img mobile-hide" src="../img/icon.add--blue.png"/> New Guide
           </div>
         </Link>
 
-        <Link to="inbox" activeClassName="active" className="nav-module nav-notifs flx flx-center-all">
+        <Link to="/inbox" activeClassName="active" className="nav-module nav-notifs flx flx-center-all">
           <div className="nav-text">
             <InboxCounter unreadMessages={props.unreadMessages} />
           </div>
         </Link>
 
-        <Link to={`${props.userInfo.username}`} activeClassName="active" className="nav-module nav-profile flx flx-row flx-center-all">
+        <Link to={`/${props.userInfo.username}`} activeClassName="active" className="nav-module nav-profile flx flx-row flx-center-all">
           {/*<div className="nav-text">Profile</div>*/}
           <div className="nav-icon mrgn-none"><img className="center-img" src={props.userInfo.image}/></div>
         </Link>

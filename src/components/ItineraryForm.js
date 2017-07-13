@@ -104,7 +104,7 @@ class ItineraryForm extends React.Component {
                 <div className="itinerary__cover__topbar w-max flx flx-row flx-align-center flx-just-start v2-type-body1 mrgn-bottom-sm pdding-top-md">
                   <div className="itinerary__cover__author-photo">
                       <Link
-                      to={`${itinerary.createdBy.username}`}
+                      to={`/${itinerary.createdBy.username}`}
                       className="">
                       <ProfilePic src={itinerary.createdBy.image} className="center-img" />
                       </Link>
@@ -112,7 +112,7 @@ class ItineraryForm extends React.Component {
                   <div className="flx flx-col flx-just-start flx-align-start">
                     <div className="itinerary__cover__username ta-left mrgn-right-md color--white">
                       <Link
-                      to={`${itinerary.createdBy.username}`}
+                      to={`/${itinerary.createdBy.username}`}
                       className="color--white">
                       {itinerary.createdBy.username}
                       </Link>
@@ -130,7 +130,7 @@ class ItineraryForm extends React.Component {
                     {/** Flag and Geo **/}
                     <div className={'itinerary__cover__flag mrgn-bottom-sm flx-hold flag-' + itinerary.geo.country}>
                     </div>
-                    <Link to={`places/${itinerary.geo.placeId}`}>
+                    <Link to={`/places/${itinerary.geo.placeId}`}>
                       <div className="geo-type color--white text-shadow ellipsis mrgn-bottom-sm">
                       {itinerary.geo.label}
                       </div>

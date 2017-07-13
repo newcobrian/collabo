@@ -2,7 +2,6 @@ import React from 'react';
 import * as Actions from '../../actions';
 import * as Constants from '../../constants';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import Dialog from 'material-ui/Dialog';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
