@@ -1038,13 +1038,13 @@ export function onCreateItinerary(auth, itinerary) {
   return dispatch => {
     Firebase.database().ref(Constants.GEOS_PATH + '/' + itinerary.geo.placeId).once('value', geoSnapshot => {
       Firebase.database().ref(Constants.COUNTRIES_PATH + '/' + itinerary.geo.country + '/places/' + itinerary.geo.placeId).once('value', countrySnapshot => {
-        let itineraryObject = {};
-        let itineraryMeta = {
-          lastModified: Firebase.database.ServerValue.TIMESTAMP,
-          createdOn: Firebase.database.ServerValue.TIMESTAMP
+        let serverTimestamp = Firebase.database.ServerValue.TIMESTAMP;
+        let itineraryObject = {
+          lastModified: serverTimestamp,
+          createdOn: serverTimestamp
         }
         let updates = {};
-        Object.assign(itineraryObject, itinerary, itineraryMeta)
+        Object.assign(itineraryObject, itinerary)
 
         let itineraryId = Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + auth).push(itineraryObject).key;
 
@@ -1511,7 +1511,7 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
 
     // create an itineraryId if it doesn't exist
     if (!itineraryId) {
-      itineraryId = Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + auth).push(itinerary).key;
+      itineraryId = Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + auth).push(Object.assign({}, itinerary, {createdOn: Firebase.database.ServerValue.TIMESTAMP})).key;
     }
     let fallbackImageChosen = false,
       fallbackImageURL = '';
@@ -1571,11 +1571,13 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
       }
     }
 
-    Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId + '/images').once('value', coverSnapshot => {
+    Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).once('value', itinSnapshot => {
       Firebase.database().ref(Constants.GEOS_PATH + '/' + itinerary.geo.placeId).once('value', geoSnapshot => { 
         Firebase.database().ref(Constants.COUNTRIES_PATH + '/' + itinerary.geo.country + '/places/' + itinerary.geo.placeId).once('value', countrySnapshot => {
           let itineraryByUserObject = Helpers.makeItinerary(auth, itinerary, lastModified);
-          Object.assign(itineraryByUserObject, { reviews: reviewsList }, { reviewsCount: reviews.length }, {images: coverSnapshot.val()});
+          Object.assign(itineraryByUserObject, { reviews: reviewsList }, { reviewsCount: reviews.length });
+          if (itinSnapshot.exists() && itinSnapshot.val().createdOn) itineraryByUserObject.createdOn = itinSnapshot.val().createdOn;
+          if (itinSnapshot.exists() && itinSnapshot.val().images) itineraryByUserObject.images = itinSnapshot.val().images;
 
           let itineraryObject = {};
           Object.assign(itineraryObject, itineraryByUserObject, { userId: auth });
@@ -3369,7 +3371,7 @@ export function addToItinerary(auth, tip, itinerary) {
   return dispatch => {
     let itineraryId;
     if (!itinerary.itineraryId) {
-      itineraryId = Firebase.database().ref(Constants.ITINERARIES_PATH).push(itinerary).key;
+      itineraryId = Firebase.database().ref(Constants.ITINERARIES_PATH).push(Object.assign({}, itinerary, {createdOn: Firebase.database.ServerValue.TIMESTAMP})).key;
     }
     else {
       itineraryId = itinerary.itineraryId;
