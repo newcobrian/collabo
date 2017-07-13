@@ -2639,64 +2639,66 @@ export function likeReview(authenticated, type, likeObject, itineraryId) {
     }
 
     let id = (type === Constants.REVIEW_TYPE ? likeObject.reviewId : likeObject.id);
-    const updates = {};
-    let saveObject = {
-      type: type,
-      lastModified: Firebase.database.ServerValue.TIMESTAMP
+    if (id) {
+      const updates = {};
+      let saveObject = {
+        type: type,
+        lastModified: Firebase.database.ServerValue.TIMESTAMP
+      }
+      if (type === Constants.REVIEW_TYPE) saveObject.subjectId = likeObject.subjectId;
+
+      updates[`/${Constants.LIKES_BY_USER_PATH}/${authenticated}/${id}`] = saveObject;
+      updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = saveObject;
+      Firebase.database().ref().update(updates).then(response => {
+        if (type === Constants.ITINERARY_TYPE) {
+          Helpers.incrementItineraryCount(Constants.LIKES_COUNT, id, likeObject.geo, likeObject.createdBy.userId);
+          Helpers.sendInboxMessage(authenticated, likeObject.createdBy.userId, Constants.LIKE_ITINERARY_MESSAGE, likeObject, itineraryId);
+
+          dispatch({
+            type: REVIEW_LIKED,
+            meta: {
+              mixpanel: {
+                event: 'Liked itinerary',
+                props: {
+                  itineraryId: likeObject.itineraryId
+                }
+              },
+              mixpanel: {
+                event: 'Send inbox message',
+                props: {
+                  type: Constants.LIKE_ITINERARY_MESSAGE
+                }
+              }
+            }
+          })
+        }
+        else if (type === Constants.REVIEW_TYPE) {
+          Helpers.incrementReviewCount(Constants.LIKES_COUNT, id, likeObject.subjectId, likeObject.createdBy.userId);
+          Helpers.sendInboxMessage(authenticated, likeObject.createdBy.userId, Constants.LIKE_MESSAGE, likeObject, itineraryId);
+
+          dispatch({
+            type: REVIEW_LIKED,
+            meta: {
+              mixpanel: {
+                event: 'Liked review',
+                props: {
+                  subjectId: likeObject.subjectId
+                }
+              },
+              mixpanel: {
+                event: SEND_INBOX_MESSAGE,
+                props: {
+                  type: Constants.LIKE_MESSAGE
+                }
+              }
+            }
+          })
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      })
     }
-    if (type === Constants.REVIEW_TYPE) saveObject.subjectId = likeObject.subjectId;
-
-    updates[`/${Constants.LIKES_BY_USER_PATH}/${authenticated}/${id}`] = saveObject;
-    updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = saveObject;
-    Firebase.database().ref().update(updates).then(response => {
-      if (type === Constants.ITINERARY_TYPE) {
-        Helpers.incrementItineraryCount(Constants.LIKES_COUNT, id, likeObject.geo, likeObject.createdBy.userId);
-        Helpers.sendInboxMessage(authenticated, likeObject.createdBy.userId, Constants.LIKE_ITINERARY_MESSAGE, likeObject, itineraryId);
-
-        dispatch({
-          type: REVIEW_LIKED,
-          meta: {
-            mixpanel: {
-              event: 'Liked itinerary',
-              props: {
-                itineraryId: likeObject.itineraryId
-              }
-            },
-            mixpanel: {
-              event: 'Send inbox message',
-              props: {
-                type: Constants.LIKE_ITINERARY_MESSAGE
-              }
-            }
-          }
-        })
-      }
-      else if (type === Constants.REVIEW_TYPE) {
-        Helpers.incrementReviewCount(Constants.LIKES_COUNT, id, likeObject.subjectId, likeObject.createdBy.userId);
-        Helpers.sendInboxMessage(authenticated, likeObject.createdBy.userId, Constants.LIKE_MESSAGE, likeObject, itineraryId);
-
-        dispatch({
-          type: REVIEW_LIKED,
-          meta: {
-            mixpanel: {
-              event: 'Liked review',
-              props: {
-                subjectId: likeObject.subjectId
-              }
-            },
-            mixpanel: {
-              event: SEND_INBOX_MESSAGE,
-              props: {
-                type: Constants.LIKE_MESSAGE
-              }
-            }
-          }
-        })
-      }
-    })
-    .catch(error => {
-      console.log(error);
-    })
   }
 }
 
