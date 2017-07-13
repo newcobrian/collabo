@@ -34,10 +34,10 @@ class SettingsForm extends React.Component {
       if(this.state.image) user.image = this.state.image;
       if(this.state.username) user.username = (this.state.username).toLowerCase();
       if(this.state.bio) user.bio = this.state.bio;
-      if(this.state.email) userAuth.email = this.state.email;
-      if(this.state.password) userAuth.password = this.state.password;
+      if(this.state.email) user.email = this.state.email;
+      if(this.state.password) user.password = this.state.password;
 
-      this.props.onSubmitForm(this.props.authenticated, user, userAuth, this.props.currentUser, this.state.imageFile);
+      this.props.onSubmitForm(this.props.authenticated, user, this.props.currentUser, this.state.imageFile);
     };
   }
 
@@ -117,24 +117,24 @@ class SettingsForm extends React.Component {
           </fieldset>
 
           <fieldset className="form-group">
-          Email Address: {this.state.email}
-       {/*}     <input
+            <input
               className="form-control form-control-lg"
               type="email"
               placeholder="Email"
               required
               value={this.state.email}
-              onChange={this.updateState('email')} /> */}
+              onChange={this.updateState('email')} />
           </fieldset>
 
-          {/*<fieldset className="form-group">
+         {/*} <fieldset className="form-group">
             <input
               className="form-control form-control-lg"
               type="password"
               placeholder="New Password"
+              minLength="6"
               value={this.state.password}
               onChange={this.updateState('password')} />
-          </fieldset>*/}
+          </fieldset> */}
 
           <button
             className="vb fill--primary mrgn-bottom-sm w-100"

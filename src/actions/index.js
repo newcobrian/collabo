@@ -352,39 +352,30 @@ export function makeUser(newUser, currentUser) {
   return null;
 }
 
-export function updateFirebaseEmail(newUser, currentUser, password) {
-  if (newUser && newUser !== currentUser) {
-    Firebase.auth().changeEmail({
-      oldEmail : currentUser,
-      newEmail : newUser,
-      password : password
+export function updateFirebaseEmail(newEmail, currentEmail) {
+  if (newEmail !== currentEmail) {
+    let user = Firebase.auth().currentUser;
+
+    user.updateEmail(newEmail).then(function() {
+      console.log('successful email update')
     }, function(error) {
-      if (error === null) {
-        console.log("Email changed successfully");
-      } else {
-        console.log("Error changing email:", error);
-      }
+      console.log(JSON.stringify(error))
     });
   }
 }
 
-export function updateFirebasePassword(newUser, currentUser, email) {
-  if (newUser && newUser !== currentUser) {
-    Firebase.auth().changePassword({
-      email       : email,
-      oldPassword : currentUser,
-      newPassword : newUser
+export function updateFirebasePassword(password) {
+  if (password) {
+    let user = Firebase.auth().currentUser;
+    user.updatePassword(password).then(function() {
+      console.log('successful password update')
     }, function(error) {
-      if (error === null) {
-        console.log("Password changed successfully");
-      } else {
-        console.log("Error changing password:", error);
-      }
+      console.log(JSON.stringify(error))
     });
   }
 }
 
-export function saveSettings(auth, user, userAuth, currentUser, imageFile) {
+export function saveSettings(auth, user, currentUser, imageFile) {
   const uid = Firebase.auth().currentUser.uid;
   return dispatch => {
     if (user && currentUser) {
@@ -396,6 +387,15 @@ export function saveSettings(auth, user, userAuth, currentUser, imageFile) {
           })
         }
         else {
+          // update Firebase Auth details if necessary
+          updateFirebaseEmail(user.email, currentUser.email);
+          // updateFirebasePassword(user.password);
+
+          if (user.username !== currentUser.username) {
+            // need to also update usernames_to_userids
+            updateUsername(currentUser.username, user.username, auth);
+          }
+
           // if user uploaded an image, save it
           if (imageFile) {
             const storageRef = Firebase.storage().ref();
@@ -420,15 +420,6 @@ export function saveSettings(auth, user, userAuth, currentUser, imageFile) {
                   // save the user
                   Firebase.database().ref(Constants.USERS_PATH + '/' + uid + '/').set(userObject);
 
-                  if (user.username !== currentUser.username) {
-                    // need to also update usernames_to_userids
-                    updateUsername(currentUser.username, user.username, auth);
-                  }
-                  
-                  // update Firebase Auth details if necessary
-                  // updateFirebasePassword(userAuth.password, currentUser.password, currentUser.email);
-                  // updateFirebaseEmail(userAuth.email, currentUser.email, currentUser.password);
-
                   dispatch({
                     type: SETTINGS_SAVED,
                     message: 'Your profile has been saved.',
@@ -442,15 +433,6 @@ export function saveSettings(auth, user, userAuth, currentUser, imageFile) {
                 else {
                   // no image, but still save the user 
                   Firebase.database().ref(Constants.USERS_PATH + '/' + uid + '/').set(userObject);
-
-                  if (user.username !== currentUser.username) {
-                    // need to also update usernames_to_userids
-                    updateUsername(currentUser.username, user.username, auth);
-                  }
-
-                  // and update Firebase Auth details
-                  // updateFirebasePassword(userAuth.password, currentUser.password, currentUser.email);
-                  // updateFirebaseEmail(userAuth.email, currentUser.email, currentUser.password);
                 }
               }
             })
@@ -459,14 +441,6 @@ export function saveSettings(auth, user, userAuth, currentUser, imageFile) {
             let userObject = makeUser(user, currentUser);
             // no new imageFile
             Firebase.database().ref(Constants.USERS_PATH + '/' + uid + '/').set(userObject);
-
-            if (user.username !== currentUser.username) {
-              // need to also update usernames_to_userids
-              updateUsername(currentUser.username, user.username, auth);
-            }
-
-            // updateFirebasePassword(userAuth.password, currentUser.password, currentUser.email);
-            // updateFirebaseEmail(userAuth.email, currentUser.email, currentUser.password);
 
             dispatch({
               type: SETTINGS_SAVED,
