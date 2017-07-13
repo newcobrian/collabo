@@ -1,5 +1,5 @@
 import { CLOSE_SNACKBAR, SHOW_SNACKBAR, SUBJECT_DUPLICATE, ADDED_TO_ITINERARY, ITINERARY_DELETED,
-  ITINERARY_UPDATED, SETTINGS_SAVED } from '../actions';
+  ITINERARY_UPDATED, SETTINGS_SAVED, FORGOT_PASSWORD_SENT } from '../actions';
 
 const initialState = {
   message:'',
@@ -16,6 +16,7 @@ export default function(state = initialState, action) {
     case ITINERARY_DELETED:
     case ITINERARY_UPDATED:
     case SETTINGS_SAVED:
+    case FORGOT_PASSWORD_SENT:
       {
         return {...state,
           message:action.message,

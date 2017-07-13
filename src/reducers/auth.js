@@ -1,4 +1,4 @@
-import { AUTH_USER, SIGN_OUT_USER, AUTH_ERROR } from '../actions';
+import { AUTH_USER, SIGN_OUT_USER, AUTH_ERROR, UNLOAD_AUTH, FORGOT_PASSWORD_SENT } from '../actions';
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -39,6 +39,10 @@ export default (state = {}, action) => {
         authenticated: false,
         error: null
       };
+    case FORGOT_PASSWORD_SENT:
+      return {}
+    case UNLOAD_AUTH:
+      return {};
     default:
       return state;
   }

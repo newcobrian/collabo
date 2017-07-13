@@ -23,6 +23,7 @@ import FriendSelector from './components/FriendSelector';
 import Itinerary from './components/Itinerary';
 import Explore from './components/Explore';
 import Places from './components/Places';
+import ForgotPassword from './components/ForgotPassword';
 import store from './store';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
@@ -38,6 +39,7 @@ ReactDOM.render((
         <Route path="login" component={Login} />
         <Route path="register" component={Register} />
         <Route path="settings" component={Settings} />
+        <Route path="forgotPassword" component={ForgotPassword} />
         <Route path="review/:sid(/:rid)" component={Review} />
         <Route path="edit/:iid" component={Editor} />
         <Route path="create" component={Create} />

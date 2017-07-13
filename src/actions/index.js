@@ -5,6 +5,7 @@ import 'whatwg-fetch';
 
 export const AUTH_ERROR = 'AUTH_ERROR';
 export const AUTH_USER = 'AUTH_USER';
+export const UNLOAD_AUTH = 'UNLOAD_AUTH';
 export const SIGN_OUT_USER = 'SIGN_OUT_USER';
 export const GET_USER = 'GET_USER';
 export const LOOKUP_USERID = 'LOOKUP_USERID';
@@ -120,6 +121,7 @@ export const LOAD_PLACES = 'LOAD_PLACES'
 export const COVER_PHOTO_UPDATED = 'COVER_PHOTO_UPDATED'
 export const GET_USER_REVIEW = 'GET_USER_REVIEW'
 export const UNLOAD_USER_REVIEW = 'UNLOAD_USER_REVIEW'
+export const FORGOT_PASSWORD_SENT = 'FORGOT_PASSWORD_SENT'
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -190,6 +192,14 @@ export function onLoad(currentUser) {
         type: 'APP_LOAD'
       })
     }
+  }
+}
+
+export function unloadAuth() {
+  return dispatch => {
+    dispatch({
+      type: UNLOAD_AUTH
+    })
   }
 }
 
@@ -480,6 +490,22 @@ export function unloadSettings(auth) {
     dispatch({
       type: SETTINGS_UNLOADED
     });
+  }
+}
+
+export function sendForgotPassword(email) {
+  return dispatch => {
+    Firebase.auth().sendPasswordResetEmail(email).then(function() {
+      dispatch({
+        type: FORGOT_PASSWORD_SENT,
+        message: 'A password reset link has been sent to your email address'
+      })
+    }, function(error) {
+      dispatch({
+        type: AUTH_ERROR,
+        error: error
+      })
+    })
   }
 }
 

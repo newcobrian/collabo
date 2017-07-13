@@ -37,12 +37,13 @@ class Login extends React.Component {
   }
 
   componentWillUnmount() {
-    // this.props.onUnload();
+    this.props.unloadAuth();
   }
 
   render() {
     const email = this.props.email;
     const password = this.props.password;
+
     return (
       <div className="page-common auth-page">
         <div className="container page">
@@ -86,6 +87,9 @@ class Login extends React.Component {
                     Log In
                   </button>
 
+                  <fieldset className="text-xs-center mrgn-bottom-sm">
+                    <Link className="v2-type-body1 color--primary" to='/ForgotPassword'>Forgot password?</Link>
+                  </fieldset>
                 </fieldset>
               </form>
             </div>
