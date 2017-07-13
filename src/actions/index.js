@@ -3637,19 +3637,3 @@ export function unloadPlacesFeed(auth, locationId) {
     })
   }
 }
-
-// export function updateReviewIds() {
-//   return dispatch => {
-//     Firebase.database().ref(Constants.ITINERARIES_PATH).once('value', snap => {
-//       snap.forEach(function(itinerary) {
-//         if (itinerary.val() && itinerary.val().reviews) {
-//           itinerary.val().reviews.forEach(function(tipItem) {
-//             if (!tipItem.val().reviewId) {
-//               let reviewId = Firebase.database().ref(Constants.REVIEWS_PATH)
-//             }
-//           })
-//         }
-//       })
-//     })
-//   }
-// }
