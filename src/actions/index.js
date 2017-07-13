@@ -2159,70 +2159,72 @@ export function onCommentSubmit(authenticated, userInfo, type, commentObject, bo
     let commentOnCommentType = ( type === Constants.REVIEW_TYPE ? Constants.COMMENT_ON_COMMENT_REVIEW_MESSAGE : Constants.COMMENT_ON_COMMENT_ITINERARY_MESSAGE );
     let objectId = ( type === Constants.REVIEW_TYPE ? commentObject.reviewId : commentObject.id );
 
-    let commentId = Firebase.database().ref(Constants.COMMENTS_PATH + '/' + objectId).push(comment).key;
-    if (type === Constants.REVIEW_TYPE) {
-      Helpers.incrementReviewCount(Constants.COMMENTS_COUNT, objectId, commentObject.subjectId, commentObject.createdBy.userId);
-    }
-    else {
-    // this is a comment on an itinerary
-      Helpers.incrementItineraryCount(Constants.COMMENTS_COUNT, objectId, commentObject.geo, commentObject.createdBy.userId); 
+    if (objectId) {
+      let commentId = Firebase.database().ref(Constants.COMMENTS_PATH + '/' + objectId).push(comment).key;
+      if (type === Constants.REVIEW_TYPE) {
+        Helpers.incrementReviewCount(Constants.COMMENTS_COUNT, objectId, commentObject.subjectId, commentObject.createdBy.userId);
+      }
+      else {
+      // this is a comment on an itinerary
+        Helpers.incrementItineraryCount(Constants.COMMENTS_COUNT, objectId, commentObject.geo, commentObject.createdBy.userId); 
 
-      // update lastComment on itinerary
-      let updates = {};
-      updates[Constants.ITINERARIES_BY_USER_PATH +'/' + commentObject.createdBy.userId + '/' + commentObject.id + '/lastComment'] = Object.assign({}, comment, {commentId: commentId});
-      updates[Constants.ITINERARIES_PATH +'/' + commentObject.id + '/lastComment'] = Object.assign({}, comment, {commentId: commentId});
-      updates[Constants.ITINERARIES_BY_GEO_BY_USER_PATH + '/' + commentObject.geo.placeId + '/' + commentObject.createdBy.userId + '/' + commentObject.id + '/lastComment'] = Object.assign({}, comment, {commentId: commentId});
-      updates[Constants.ITINERARIES_BY_GEO_PATH + '/' + commentObject.geo.placeId + '/' + commentObject.id + '/lastComment'] = Object.assign({}, comment, {commentId: commentId});
+        // update lastComment on itinerary
+        let updates = {};
+        updates[Constants.ITINERARIES_BY_USER_PATH +'/' + commentObject.createdBy.userId + '/' + commentObject.id + '/lastComment'] = Object.assign({}, comment, {commentId: commentId});
+        updates[Constants.ITINERARIES_PATH +'/' + commentObject.id + '/lastComment'] = Object.assign({}, comment, {commentId: commentId});
+        updates[Constants.ITINERARIES_BY_GEO_BY_USER_PATH + '/' + commentObject.geo.placeId + '/' + commentObject.createdBy.userId + '/' + commentObject.id + '/lastComment'] = Object.assign({}, comment, {commentId: commentId});
+        updates[Constants.ITINERARIES_BY_GEO_PATH + '/' + commentObject.geo.placeId + '/' + commentObject.id + '/lastComment'] = Object.assign({}, comment, {commentId: commentId});
 
-      Firebase.database().ref().update(updates);
-    }
+        Firebase.database().ref().update(updates);
+      }
 
-    // send message to original review poster if they are not the commentor
-    const sentArray = [];
-    if (authenticated !== commentObject.userId) {
-      Helpers.sendInboxMessage(authenticated, commentObject.userId, inboxMessageType, commentObject, itineraryId);
-      sentArray.push(commentObject.userId);
+      // send message to original review poster if they are not the commentor
+      const sentArray = [];
+      if (authenticated !== commentObject.userId) {
+        Helpers.sendInboxMessage(authenticated, commentObject.userId, inboxMessageType, commentObject, itineraryId);
+        sentArray.push(commentObject.userId);
+        dispatch({
+          type: MIXPANEL_EVENT,
+          mixpanel: {
+            event: SEND_INBOX_MESSAGE,
+            props: {
+              type: Constants.inboxMessageType
+            }
+          }
+        })
+      }
+
+      Firebase.database().ref(Constants.COMMENTS_PATH + '/' + objectId).once('value', commentsSnapshot => {
+        commentsSnapshot.forEach(function(comment) {
+          let commenterId = comment.val().userId;
+          // if not commentor or in sent array, then send a message
+          if (commenterId !== authenticated && (sentArray.indexOf(commenterId) === -1)) {
+            Helpers.sendInboxMessage(authenticated, commenterId, commentOnCommentType, commentObject, itineraryId);
+            sentArray.push(commenterId);
+            dispatch({
+              type: MIXPANEL_EVENT,
+              mixpanel: {
+                event: SEND_INBOX_MESSAGE,
+                props: {
+                  type: commentOnCommentType
+                }
+              }
+            })
+          }
+        })
+      })
+
+      const mixpanelProps = ( type === Constants.REVIEW_TYPE ? {subjectId: commentObject.subjectId} : {itineraryId: commentObject.id});
       dispatch({
-        type: MIXPANEL_EVENT,
-        mixpanel: {
-          event: SEND_INBOX_MESSAGE,
-          props: {
-            type: Constants.inboxMessageType
+        type: ADD_COMMENT,
+        meta: {
+          mixpanel: {
+            event: 'Comment added',
+            props: mixpanelProps
           }
         }
       })
     }
-
-    Firebase.database().ref(Constants.COMMENTS_PATH + '/' + objectId).once('value', commentsSnapshot => {
-      commentsSnapshot.forEach(function(comment) {
-        let commenterId = comment.val().userId;
-        // if not commentor or in sent array, then send a message
-        if (commenterId !== authenticated && (sentArray.indexOf(commenterId) === -1)) {
-          Helpers.sendInboxMessage(authenticated, commenterId, commentOnCommentType, commentObject, itineraryId);
-          sentArray.push(commenterId);
-          dispatch({
-            type: MIXPANEL_EVENT,
-            mixpanel: {
-              event: SEND_INBOX_MESSAGE,
-              props: {
-                type: commentOnCommentType
-              }
-            }
-          })
-        }
-      })
-    })
-
-    const mixpanelProps = ( type === Constants.REVIEW_TYPE ? {subjectId: commentObject.subjectId} : {itineraryId: commentObject.id});
-    dispatch({
-      type: ADD_COMMENT,
-      meta: {
-        mixpanel: {
-          event: 'Comment added',
-          props: mixpanelProps
-        }
-      }
-    })
   }
 }
 
@@ -3306,8 +3308,6 @@ export function modifyItineraryReviews2() {
 export function findSubject(subjectId, reviewsList) {
   for (let i = 0; i < reviewsList.length; i++) {
     if (subjectId === reviewsList[i].subjectId) {
-      console.log('reviewsList = ' + JSON.stringify(reviewsList[i]))
-      console.log('subjectId = ' + JSON.stringify(subjectId))
       return true;
     }
   }
@@ -3333,7 +3333,7 @@ export function addToItinerary(auth, tip, itinerary) {
     else {
       itineraryId = itinerary.itineraryId;
     }
-    Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + itinerary.userId + '/' + itineraryId).once('value', itinSnapshot => {
+    Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + auth + '/' + itineraryId).once('value', itinSnapshot => {
       let subjectId = tip.subjectId;
       if (itinSnapshot.exists() && itinSnapshot.val().reviews && findSubject(subjectId, itinSnapshot.val().reviews)) {
       // if (itinSnapshot.val().reviews && itinSnapshot.val().reviews[subjectId]) {
@@ -3346,6 +3346,7 @@ export function addToItinerary(auth, tip, itinerary) {
       else {
         if (itinSnapshot.exists()) itinerary = Object.assign({}, itinSnapshot.val());
 
+        // see if the user has already reviewed the subject. If so, add their review
         Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + auth).once('value', reviewSnapshot => {
           let geo = itinerary.geo;
           let updates = {};
@@ -3355,15 +3356,16 @@ export function addToItinerary(auth, tip, itinerary) {
           if (reviewSnapshot.exists()) {
             tipData.reviewId = reviewSnapshot.val().reviewId;
           }
-          // else {
+          else {
             // create the empty review
-            // let lastModified = Firebase.database.ServerValue.TIMESTAMP;
-            // let reviewObject = Object.assign({}, lastModified, {subjectId: subjectId});
-            // let reviewId = Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + auth).push(reviewObject).key;
-            // updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${subjectId}/${auth}/`] = Object.assign({}, reviewObject, {reviewId: reviewId});
-            // updates[`/${Constants.REVIEWS_PATH}/${reviewId}/`] = Object.assign({}, reviewObject, { userId: auth })
-            // tipData.reviewId = reviewId;
-          // }
+            let lastModified = Firebase.database.ServerValue.TIMESTAMP;
+            let reviewObject = Object.assign({}, {lastModified: lastModified});
+            let reviewId = Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + auth).push().key;
+            updates[`/${Constants.REVIEWS_BY_USER_PATH}/${auth}/${reviewId}/`] = Object.assign({}, reviewObject, {subjectId: subjectId});
+            updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${subjectId}/${auth}/`] = Object.assign({}, reviewObject, {reviewId: reviewId});
+            updates[`/${Constants.REVIEWS_PATH}/${reviewId}/`] = Object.assign({}, reviewObject, { userId: auth }, {subjectId: subjectId});
+            tipData.reviewId = reviewId;
+          }
 
           let itineraryByUserObject = Object.assign({}, itinerary);
           itineraryByUserObject.reviewsCount = itineraryByUserObject.reviewsCount ? itineraryByUserObject.reviewsCount + 1 : 1;
@@ -3635,3 +3637,19 @@ export function unloadPlacesFeed(auth, locationId) {
     })
   }
 }
+
+// export function updateReviewIds() {
+//   return dispatch => {
+//     Firebase.database().ref(Constants.ITINERARIES_PATH).once('value', snap => {
+//       snap.forEach(function(itinerary) {
+//         if (itinerary.val() && itinerary.val().reviews) {
+//           itinerary.val().reviews.forEach(function(tipItem) {
+//             if (!tipItem.val().reviewId) {
+//               let reviewId = Firebase.database().ref(Constants.REVIEWS_PATH)
+//             }
+//           })
+//         }
+//       })
+//     })
+//   }
+// }
