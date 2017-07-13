@@ -30,13 +30,14 @@ class SettingsForm extends React.Component {
       ev.preventDefault();
 
       const user = {};
+      const userAuth = {};
       if(this.state.image) user.image = this.state.image;
       if(this.state.username) user.username = (this.state.username).toLowerCase();
       if(this.state.bio) user.bio = this.state.bio;
-      if(this.state.email) user.email = this.state.email;
-      if(this.state.password) user.password = this.state.password;
+      if(this.state.email) userAuth.email = this.state.email;
+      if(this.state.password) userAuth.password = this.state.password;
 
-      this.props.onSubmitForm(user, this.props.currentUser.username, this.state.imageFile);
+      this.props.onSubmitForm(this.props.authenticated, user, userAuth, this.props.currentUser, this.state.imageFile);
     };
   }
 
@@ -99,6 +100,7 @@ class SettingsForm extends React.Component {
               className="form-control form-control-lg"
               type="text"
               placeholder="Username"
+              required
               value={this.state.username}
               onChange={this.updateState('username')} />
           </fieldset>
@@ -115,22 +117,24 @@ class SettingsForm extends React.Component {
           </fieldset>
 
           <fieldset className="form-group">
-            <input
+          Email Address: {this.state.email}
+       {/*}     <input
               className="form-control form-control-lg"
               type="email"
               placeholder="Email"
+              required
               value={this.state.email}
-              onChange={this.updateState('email')} />
+              onChange={this.updateState('email')} /> */}
           </fieldset>
 
-          <fieldset className="form-group">
+          {/*<fieldset className="form-group">
             <input
               className="form-control form-control-lg"
               type="password"
               placeholder="New Password"
               value={this.state.password}
               onChange={this.updateState('password')} />
-          </fieldset>
+          </fieldset>*/}
 
           <button
             className="vb fill--primary mrgn-bottom-sm w-100"
@@ -173,6 +177,7 @@ class Settings extends React.Component {
               <ListErrors errors={this.props.errors}></ListErrors>
 
               <SettingsForm
+                authenticated={this.props.authenticated}
                 currentUser={this.props.firebaseUser}
                 onSubmitForm={this.props.saveSettings} />
 

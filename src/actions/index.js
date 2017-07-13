@@ -325,23 +325,68 @@ export function updateUsername(oldName, newName, userid) {
   Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + oldName).remove();
 }
 
-export function saveSettings(user, currentUsername, imageFile) {
+export function makeUser(newUser, currentUser) {
+  if (newUser && currentUser) {
+    let userObject = {};
+    userObject.email = (newUser.email && newUser.email !== currentUser.email ? newUser.email : currentUser.email);
+    userObject.username = (newUser.username && newUser.username !== currentUser.username ? newUser.username : currentUser.username);
+    if (newUser.bio && newUser.bio !== currentUser.io) userObject.bio = newUser.bio;
+    if (newUser.image) {
+      userObject.image = newUser.image;
+    }
+    else if (currentUser.image) {
+      userObject.image = currentUser.image;
+    }
+    return userObject;
+  }
+  return null;
+}
+
+export function updateFirebaseEmail(newUser, currentUser, password) {
+  if (newUser && newUser !== currentUser) {
+    Firebase.auth().changeEmail({
+      oldEmail : currentUser,
+      newEmail : newUser,
+      password : password
+    }, function(error) {
+      if (error === null) {
+        console.log("Email changed successfully");
+      } else {
+        console.log("Error changing email:", error);
+      }
+    });
+  }
+}
+
+export function updateFirebasePassword(newUser, currentUser, email) {
+  if (newUser && newUser !== currentUser) {
+    Firebase.auth().changePassword({
+      email       : email,
+      oldPassword : currentUser,
+      newPassword : newUser
+    }, function(error) {
+      if (error === null) {
+        console.log("Password changed successfully");
+      } else {
+        console.log("Error changing password:", error);
+      }
+    });
+  }
+}
+
+export function saveSettings(auth, user, userAuth, currentUser, imageFile) {
   const uid = Firebase.auth().currentUser.uid;
   return dispatch => {
-    if (user.username && user.username !== currentUsername) {
+    if (user && currentUser) {
       Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + user.username).once('value', snapshot => {
-        if (snapshot.exists()) {
+        if (user.username && user.username !== currentUser.username && snapshot.exists()) {
           dispatch({
             type: SETTINGS_SAVED_ERROR,
             error: 'username is already taken'
           })
         }
         else {
-          // need to also update usernames_to_userids
-          const uid = Firebase.auth().currentUser.uid;
-          updateUsername(currentUsername, user.username, uid);
-
-              // if user uploaded an image, save it
+          // if user uploaded an image, save it
           if (imageFile) {
             const storageRef = Firebase.storage().ref();
             const metadata = {
@@ -355,82 +400,76 @@ export function saveSettings(user, currentUsername, imageFile) {
                 console.log(error.message)
             }, function() {
               const downloadURL = uploadTask.snapshot.downloadURL;
-              if (downloadURL) {
-                user.image = downloadURL;
 
-                dispatch({
-                  type: SETTINGS_SAVED,
-                  payload:
-                    Firebase.database().ref(Constants.USERS_PATH + '/' + uid + '/').update(user),
-                  message: 'Your profile has been saved.',
-                  meta: {
-                    mixpanel: {
-                      event: 'Settings saved'
-                    }
+              // create the new user object to save
+              let userObject = makeUser(user, currentUser);
+              if (userObject) {
+                if (downloadURL) {
+                  userObject.image = downloadURL;
+
+                  // save the user
+                  Firebase.database().ref(Constants.USERS_PATH + '/' + uid + '/').set(userObject);
+
+                  if (user.username !== currentUser.username) {
+                    // need to also update usernames_to_userids
+                    updateUsername(currentUser.username, user.username, auth);
                   }
-                });
+                  
+                  // update Firebase Auth details if necessary
+                  // updateFirebasePassword(userAuth.password, currentUser.password, currentUser.email);
+                  // updateFirebaseEmail(userAuth.email, currentUser.email, currentUser.password);
+
+                  dispatch({
+                    type: SETTINGS_SAVED,
+                    message: 'Your profile has been saved.',
+                    meta: {
+                      mixpanel: {
+                        event: 'Settings saved'
+                      }
+                    }
+                  });
+                }
+                else {
+                  // no image, but still save the user 
+                  Firebase.database().ref(Constants.USERS_PATH + '/' + uid + '/').set(userObject);
+
+                  if (user.username !== currentUser.username) {
+                    // need to also update usernames_to_userids
+                    updateUsername(currentUser.username, user.username, auth);
+                  }
+
+                  // and update Firebase Auth details
+                  // updateFirebasePassword(userAuth.password, currentUser.password, currentUser.email);
+                  // updateFirebaseEmail(userAuth.email, currentUser.email, currentUser.password);
+                }
               }
             })
           }
+          else {
+            let userObject = makeUser(user, currentUser);
+            // no new imageFile
+            Firebase.database().ref(Constants.USERS_PATH + '/' + uid + '/').set(userObject);
 
-          // no new imageFile
-          dispatch({
-            type: SETTINGS_SAVED,
-            payload:
-              Firebase.database().ref(Constants.USERS_PATH + '/' + uid + '/').update(user),
-            message: 'Your profile has been saved.',
-            meta: {
-              mixpanel: {
-                event: 'Settings saved'
-              }
+            if (user.username !== currentUser.username) {
+              // need to also update usernames_to_userids
+              updateUsername(currentUser.username, user.username, auth);
             }
-          });  
-        }
-      });
-    } else {
-      if (imageFile) {
-        const storageRef = Firebase.storage().ref();
-        const metadata = {
-          contentType: 'image/jpeg'
-        }
-        let fileName = generateImageFileName();
-        const uploadTask = storageRef.child('images/' + fileName).put(imageFile, metadata);
-        uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-        function(snapshot) {
-          }, function(error) {
-            console.log(error.message)
-        }, function() {
-          const downloadURL = uploadTask.snapshot.downloadURL;
-          if (downloadURL) {
-            user.image = downloadURL;
+
+            // updateFirebasePassword(userAuth.password, currentUser.password, currentUser.email);
+            // updateFirebaseEmail(userAuth.email, currentUser.email, currentUser.password);
 
             dispatch({
               type: SETTINGS_SAVED,
               message: 'Your profile has been saved.',
-              payload:
-                Firebase.database().ref(Constants.USERS_PATH + '/' + uid + '/').update(user),
               meta: {
                 mixpanel: {
                   event: 'Settings saved'
                 }
               }
-            });
+            })
           }
-        })
-      }
-      else {
-        dispatch({
-          type: SETTINGS_SAVED,
-          message: 'Your profile has been saved.',
-          payload:
-            Firebase.database().ref(Constants.USERS_PATH + '/' + uid + '/').update(user),
-          meta: {
-            mixpanel: {
-              event: 'Settings saved'
-            }
-          }
-        });
-      }
+        }
+      })
     }
   }
 }
