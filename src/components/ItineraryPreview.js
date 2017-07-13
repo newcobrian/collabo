@@ -123,7 +123,7 @@ const ItineraryPreview = props => {
           <img className="cover-height DN" src="../img/cover-overlay.png"/>
         </div>
         {/** Cover Hit Area **/}
-        <Link className="it__hit-area" to={`/itinerary/${itinerary.id}`}>
+        <Link className="it__hit-area" to={`/guide/${itinerary.id}`}>
           <div></div>
         </Link>
         {/** Cover Content **/}
