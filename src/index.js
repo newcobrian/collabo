@@ -45,7 +45,7 @@ ReactDOM.render((
         <Route path="select" component={FriendSelector} />
         <Route path="explore" component={Explore} />
         <Route path="places/:pid" component={Places} />
-        <Route path="itinerary/:iid" component={Itinerary} />
+        <Route path="guide/:iid" component={Itinerary} />
         <Route path=":username/followers" component={Followers} />
         <Route path=":username/isfollowing" component={Followings} />
         <Route path=":username" component={Profile} />

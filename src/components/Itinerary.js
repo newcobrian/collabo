@@ -215,7 +215,7 @@ class Itinerary extends React.Component {
                 </Link>
 
                 {/** TITLE **/}
-                <Link to={`/itinerary/${itinerary.id}`}>
+                <Link to={`/guide/${itinerary.id}`}>
                 <div className="itinerary__cover__title ta-left v2-type-h2">
                   {itinerary.title}
                 </div>

@@ -174,42 +174,42 @@ export function sendInboxMessage(senderId, recipientId, messageType, sendObject,
 					case Constants.LIKE_MESSAGE:
 						inboxObject.senderId = senderId;
 						inboxObject.message = ' liked your tip: ';
-						inboxObject.link = itineraryId ? '/itinerary/' + itineraryId : '/review/' + sendObject.subjectId + '/' + sendObject.id;
+						inboxObject.link = itineraryId ? '/guide/' + itineraryId : '/review/' + sendObject.subjectId + '/' + sendObject.id;
 						emailMessage = senderSnapshot.val().username + 
 							' liked your tip. Click here to check it out: https://myviews.io' + inboxObject.link;
 						break;
 					case Constants.LIKE_ITINERARY_MESSAGE:
 						inboxObject.senderId = senderId;
 						inboxObject.message = ' liked your itinerary: ';
-						inboxObject.link = '/itinerary/' + sendObject.id;
+						inboxObject.link = '/guide/' + sendObject.id;
 						emailMessage = senderSnapshot.val().username + 
 							' liked your itinerary. Click here to check it out: https://myviews.io' + inboxObject.link;
 						break;
 					case Constants.COMMENT_ON_REVIEW_MESSAGE:
 						inboxObject.senderId = senderId;
 						inboxObject.message = ' commented on your tip: ';
-						inboxObject.link = itineraryId ? '/itinerary/' + itineraryId : '/review/' + sendObject.subjectId + '/' + sendObject.id;
+						inboxObject.link = itineraryId ? '/guide/' + itineraryId : '/review/' + sendObject.subjectId + '/' + sendObject.id;
 						emailMessage = senderSnapshot.val().username + 
 							' commented on your tip. Click here to check it out: https://myviews.io' + inboxObject.link;
 						break;
 					case Constants.COMMENT_ON_COMMENT_REVIEW_MESSAGE:
 						inboxObject.senderId = senderId;
 						inboxObject.message = ' also commented on the tip: ';
-						inboxObject.link = itineraryId ? '/itinerary/' + itineraryId : '/review/' + sendObject.subjectId + '/' + sendObject.id;
+						inboxObject.link = itineraryId ? '/guide/' + itineraryId : '/review/' + sendObject.subjectId + '/' + sendObject.id;
 						emailMessage = senderSnapshot.val().username + 
 							' also commented on a tip you commented on. Click here to check it out: https://myviews.io' + inboxObject.link;
 						break;
 					case Constants.COMMENT_ON_ITINERARY_MESSAGE:
 						inboxObject.senderId = senderId;
 						inboxObject.message = ' commented on your itinerary: ';
-						inboxObject.link = '/itinerary/' + sendObject.id;
+						inboxObject.link = '/guide/' + sendObject.id;
 						emailMessage = senderSnapshot.val().username + 
 							' commented on your itinerary. Click here to check it out: https://myviews.io' + inboxObject.link;
 						break;
 					case Constants.COMMENT_ON_COMMENT_ITINERARY_MESSAGE:
 						inboxObject.senderId = senderId;
 						inboxObject.message = ' also commented on the itinerary: ';
-						inboxObject.link = '/itinerary/' + sendObject.id;
+						inboxObject.link = '/guide/' + sendObject.id;
 						emailMessage = senderSnapshot.val().username + 
 							' also commented on an itinerary you commented on. Click here to check it out: https://myviews.io' + inboxObject.link;
 						break;

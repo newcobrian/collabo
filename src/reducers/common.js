@@ -50,7 +50,7 @@ export default (state = defaultState, action) => {
     case ITINERARY_UPDATED:
       return {
         ...state,
-        redirectTo: '/itinerary/' + action.itineraryId
+        redirectTo: '/guide/' + action.itineraryId
       }
     case FRIEND_SELECTOR_SUBMIT:
       if (action.path === FORWARD_MODAL) {
@@ -98,7 +98,7 @@ export default (state = defaultState, action) => {
     case EDITOR_PAGE_NO_AUTH:
       return {
         ...state,
-        redirectTo: '/itinerary/' + action.itineraryId
+        redirectTo: '/guide/' + action.itineraryId
       }
     default: 
       return state;
