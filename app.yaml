@@ -42,8 +42,8 @@ handlers:
   upload: build/img/(.*)
 
 - url: /(.*\.(css))$
-  static_files: static/\1
-  upload: static/.*\.(css)$
+  static_files: build/\1
+  upload: build/.*\.(css)$
 
 - url: /(.*)
   static_files: build/index.html
