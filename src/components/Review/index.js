@@ -127,7 +127,14 @@ class Review extends React.Component {
     }
     let subject = this.props.subject;
 
-    console.log(JSON.stringify(subject));
+    const showWeekdayText = subject => {
+      if (!subject || !subject.hours || !subject.weekdayText) return null;
+      subject.hours.weekdayText.map(hoursItem => {
+        return (
+            <div>{hoursItem}</div>
+          );
+      })
+    }
 
     return (
       <div className="page-subject flx flx-col flx-col-start">
@@ -198,12 +205,7 @@ class Review extends React.Component {
                         </div>
                         <div className="tip__data tip__hours col-md-4 flx flx-row flx-center-all v2-type-body1 ta-left">
                           <img className="v-icon mrgn-right-md center-img" src="../img/icons/icon32--hours.png"/>
-                          <div className="v2-type-body1">{subject.hours.weekdayText.map(hoursItem => {
-
-                            return (
-                                <div>{hoursItem}</div>
-                              );
-                          })}</div>
+                          <div className="v2-type-body1">{showWeekdayText(subject)}</div>
 
                         </div>
                         <div className="tip__data tip__phone col-md-4 flx flx-row flx-center-all v2-type-body1 ta-left">
