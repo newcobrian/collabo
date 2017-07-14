@@ -81,7 +81,7 @@ class Login extends React.Component {
                   </fieldset>
 
                   <button
-                    className="vb w-100"
+                    className="vb fill--primary w-100"
                     type="submit"
                     disabled={this.props.inProgress}>
                     Log In

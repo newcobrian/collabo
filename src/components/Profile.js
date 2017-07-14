@@ -157,7 +157,7 @@ class Profile extends React.Component {
           
           <div className="status-module flx flx-row flx-just-center w-100 v2-type-body3">
 
-            <div>{this.props.profile.username} has not created any itineraries...yet.</div>
+            <div>{this.props.profile.username} has not created any guides...yet.</div>
           </div>
         </div>
       )
