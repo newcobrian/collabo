@@ -54,9 +54,9 @@ const CommentPreview = props => {
           
           <div className="flx flx-row flx-just-end flx-align-center">
 
-            <div className="cta-icon cta-comment comment-on"></div>
             <div className="v2-type-body1">{props.itinerary.commentsCount}</div>
-          
+            <div className="cta-icon cta-comment comment-on"></div>
+
           </div>
         </div>
       </Link>
@@ -67,8 +67,8 @@ const CommentPreview = props => {
       <Link to={`/guide/${props.itinerary.id}`}>
         <div className="cta-wrapper flx flx-row flx-just-end flex-item-right flx-row-reverse no-comments mrgn-right-sm">
           <div className="flx flx-row flx-just-end flx-align-center">
-             <div className="cta-icon cta-comment"></div>
              <div className="v2-type-body1">0</div>
+             <div className="cta-icon cta-comment"></div>
            </div>
         </div>
       </Link>
@@ -90,8 +90,10 @@ const ItineraryPreview = props => {
 
     <div className="itinerary__cover flx flx-col">
       
-      {/** <<<<<< USER PHOTO AND TIP COUNT **/}
+      {/** START USER PHOTO AND TIP COUNT **/}
       <div className="itinerary__cover__topbar flx flx-row flx-align-center w-100 w-max flx-just-start v2-type-body1 mrgn-bottom-sm">
+        
+        {/** USER PHOTO **/}
         <div className="itinerary__cover__author-photo mrgn-right-md">
             <Link
             to={`/${itinerary.createdBy.username}`}
@@ -99,6 +101,8 @@ const ItineraryPreview = props => {
             <ProfilePic src={itinerary.createdBy.image} className="center-img" />
             </Link>
         </div>
+
+        {/** USERNAME **/}
         <div className="flx flx-col flx-just-center flx-align-start">
           <div className="itinerary__cover__username mrgn-right-md">
             <Link
@@ -108,12 +112,17 @@ const ItineraryPreview = props => {
             </Link>
           </div>
         </div>
+        {/** TIMESTAMP **/}
+        <div className="itinerary__cover__timestamp flx-item-right ta-left opa-50">
+          <DisplayTimestamp timestamp={itinerary.lastModified} />
+        </div> 
       
       </div>
+      {/** END USER PHOTO AND TIP COUNT **/}
 
+      {/** START IMAGES **/}
       <div className="itinerary__book cover-height w-100">
-        
-        
+
         {/** Cover Image **/}
         <div className="itinerary__cover__image cover-height">
           <ImagePicker images={itinerary.images ? [itinerary.images]: null} />
@@ -128,8 +137,8 @@ const ItineraryPreview = props => {
         </Link>
         {/** Cover Content **/}
         
-
-    </div> {/** ----- Close GRAPHIC ----- **/}
+      </div>
+      {/** END IMAGES **/}
 
 
     <div className="itinerary__cover__text flx flx-col flx-align-start ta-left w-100">
@@ -137,16 +146,55 @@ const ItineraryPreview = props => {
       {/** <<<<<< CENTER INFO **/}
       <div className="it__center-info flx flx-col flx-align-start ta-left w-100">
         
-        <div className="flx flx-row flx-center-all w-100">
+        {/** CAPTION ROW - START **/}
+        <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm w-100">
 
+          {/** GEO - START **/}
           <Link to={`/places/${itinerary.geo.placeId}`}>
           <div className="flx flx-row flx-just-start flx-align-center">
             {/** Flag and Geo **/}
             <div className={'itinerary__cover__flag flx-hold flag-' + itinerary.geo.country}>
             </div>
-            <div className="v2-type-body1 ellipsis">
+            <div className="geo-type ellipsis">
               {itinerary.geo.label}
             </div>
+          </div>
+          </Link>
+          {/** END - GEO ROW **/}
+          
+        </div>
+        {/** END - CAPTION ROW **/}
+
+
+
+        {/** TEXT CONTAINER - START **/}
+        <div className="guide-text-wrapper w-100 flx flx-col">
+
+          {/** TITLE - START  **/}
+          <Link to={`/guide/${itinerary.id}`}>
+          <div className="itinerary__cover__title ta-left v2-type-h2 mrgn-top-xs mrgn-bottom-xs">
+            {itinerary.title}
+          </div>
+          </Link>
+          {/** END - TITLE **/}
+
+          {/** DESCRIPTION - START **/}
+          <div className="itinerary__cover__descrip v2-type-body2 opa-90">
+             <DescriptionPreview  itinerary={props.itinerary}/>
+          </div>
+          {/** END - DESCRIPTION **/}
+        
+        </div>
+        {/** END - TEXT CONTAINER **/}
+
+
+        {/** CTA - START **/}
+        <div className="flx flx-row flx-center-all w-100">
+
+          {/** TIP COUNT **/}
+          <Link to={`/guide/${itinerary.id}`}>
+          <div className="v2-type-body2 flx flx-row flx-just-end flx-align-center color--primary mrgn-top-xs">
+            {itinerary.reviewsCount ? itinerary.reviewsCount : 0} {itinerary.reviewsCount === 1 ? 'tip' : ' tips'}
           </div>
           </Link>
 
@@ -166,30 +214,9 @@ const ItineraryPreview = props => {
           </div>
 
         </div>
+        {/** END - CTA ROW **/}
 
-        {/** TITLE **/}
-        <Link to={`/guide/${itinerary.id}`}>
-        <div className="itinerary__cover__title ta-left v2-type-h2 ellipsis mrgn-top-xs mrgn-bottom-xs">
-          {itinerary.title}
-        </div>
-        </Link>
 
-        {/** DESCRIPTION **/}
-        <div className="itinerary__cover__descrip v2-type-body3 opa-90">
-           <DescriptionPreview  itinerary={props.itinerary}/>
-        </div>
-
-        {/** TIP COUNT **/}
-        <Link to={`/guide/${itinerary.id}`}>
-        <div className="v2-type-body2 flx flx-row flx-just-end flx-align-center color--primary mrgn-top-xs">
-          {itinerary.reviewsCount ? itinerary.reviewsCount : 0} {itinerary.reviewsCount === 1 ? 'Tip' : ' Tips'}
-        </div>
-        </Link>
-
-        {/** TIMESTAMP **/}
-        <div className="itinerary__cover__timestamp pdding-top-sm ta-left color--white opa-30 DN">
-          <DisplayTimestamp timestamp={itinerary.lastModified} />
-        </div> 
       </div>
        
 

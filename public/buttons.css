@@ -377,6 +377,32 @@ position: absolute;
   font-weight: 300;
   font-family: 'Roboto', sans-serif;
 }
+
+
+.page-itinerary ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: ##2ECBDB;
+  opacity: .8;
+  font-weight: 300;
+  font-family: 'Roboto', sans-serif;
+}
+.page-itinerary ::-moz-placeholder { /* Firefox 19+ */
+  color: ##2ECBDB;
+  opacity: .8;
+  font-weight: 300;
+  font-family: 'Roboto', sans-serif;
+}
+.page-itinerary :-ms-input-placeholder { /* IE 10+ */
+  color: ##2ECBDB;
+  opacity: .8;
+  font-weight: 300;
+  font-family: 'Roboto', sans-serif;
+}
+.page-itinerary :-moz-placeholder { /* Firefox 18- */
+  color: ##2ECBDB;
+  opacity: .8;
+  font-weight: 300;
+  font-family: 'Roboto', sans-serif;
+}
 .article-page .comment-form .card-block textarea:focus {
   outline: -webkit-focus-ring-color auto 1px;
   outline-offset: -2px;

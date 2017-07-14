@@ -7,7 +7,7 @@
 a {
   color: #1D2E58;
   color: #2ECBDB;
-  color: black;
+  color: #292F3D;
 }
 
 .text-subject-name {
@@ -174,7 +174,7 @@ textarea {
   font-family: 'Arimo', sans-serif;
 }
 .v2-type-h3 {
-  font-size: 32px;
+  font-size: 24px;
   letter-spacing: 1px;
   font-family: 'Arimo', sans-serif;
   font-weight: 300;
@@ -203,15 +203,15 @@ textarea {
     display: inline-block;
 }
 .geo-type {
-  font-family: "Arimo";
+  font-family: 'Roboto Condensed', sans-serif;;
   text-transform: uppercase;
   font-weight: 400;
   letter-spacing: 3px;
   width: 100%;
-  font-size: 11px;
-  letter-spacing: 2px;
+  font-size: 16px;
+  letter-spacing: .5px;
   line-height: 18px;
-  max-width: 180px;
+  max-width: 400px;
   opacity: 1;
 }
 

@@ -182,7 +182,7 @@
 
 .profile-page .itinerary__cover .v2-type-h2,
 .home-page .itinerary__cover .v2-type-h2 {
-	font-size: 27px;
+	font-size: 26px;
 	font-weight: 700;
 	line-height: 34px;
 	width: 100%;
@@ -225,7 +225,7 @@
 }
 
 .cover-height {
-	height: 320px;
+	height: 360px;
 }
 	.page-itinerary .itinerary__cover .cover-height {
 		height: 400px;
@@ -300,6 +300,9 @@
 .itinerary__cover__text {
 	padding: 10px 0 0;
 	z-index: 2;
+}
+.guide-text-wrapper {
+	height: 110px;
 }
 .itinerary__cover__descrip {
   height: auto;

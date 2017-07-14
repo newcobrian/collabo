@@ -364,7 +364,7 @@ const renderReviews = ({fields, searchLocation, authenticated, googleObject, map
     <Review review={review} fields={fields} index={index} key={index} searchLocation={searchLocation} authenticated={authenticated} googleObject={googleObject} mapObject={mapObject} />)}
     <li>
       <div className="add-tip-wrapper">
-        <button className="vb" type="button" onClick={() => fields.push({})}><img className="center-img" src="../img/icon.add--white.png"/> Add Tip</button>
+        <button className="vb fill--primary" type="button" onClick={() => fields.push({})}><img className="center-img" src="../img/icon.add--white.png"/> Add Tip</button>
         {submitFailed && error && <span>{error}</span>}
         {/*touched && error && <span>{error}</span> */}
       </div>
@@ -489,7 +489,7 @@ class EditItineraryForm extends React.Component {
               <Link to={'/guide/' + this.props.itineraryId} className="vb vb--light vb--no-outline" type="submit" disabled={this.props.submitting}>Cancel</Link>
             </div>
             <div>
-              <button className="vb" type="submit" disabled={this.props.submitting}>Save & Exit</button>
+              <button className="vb fill--primary" type="submit" disabled={this.props.submitting}>Save & Exit</button>
             </div>
           </div>
         </div>
