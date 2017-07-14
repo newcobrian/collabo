@@ -9,7 +9,9 @@ a {
   color: #2ECBDB;
   color: #292F3D;
 }
-
+a: hover {
+  opacity: .9;
+}
 .text-subject-name {
   font-weight: 700;
   font-size: 36px;

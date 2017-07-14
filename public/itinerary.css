@@ -104,9 +104,8 @@
 .comment-preview-bubble {
 	position: absolute;
    width: auto;
-   right: 20px;
-   margin-top: -50px;
-
+   right: 140px;
+   bottom: 20px;
 }
 
 .itinerary__edit-tip {
