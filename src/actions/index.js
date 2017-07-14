@@ -1337,7 +1337,7 @@ export function uploadImages(auth, objectId, objectType, images, itineraryId) {
   if (images) {
     let storagePath = (objectType === Constants.REVIEW_TYPE ? Constants.IMAGES_PATH : Constants.IMAGES_ITINERARIES_PATH);
     let byUserPath = (objectType === Constants.REVIEW_TYPE ? Constants.IMAGES_BY_USER_PATH : Constants.IMAGES_ITINERARIES_BY_USER_PATH);
-    let updates = {};
+    // let updates = {};
     let imageId = '';
     images.forEach(function(imageFile) {
       let imageObject = {
@@ -1346,8 +1346,8 @@ export function uploadImages(auth, objectId, objectType, images, itineraryId) {
       if (typeof imageFile === 'string' || imageFile instanceof String) {
         // if its the URL path of the image, just save it
         imageObject.url = imageFile;
-        imageId = Firebase.database().ref(byUserPath + '/' + auth + '/' + objectId).push(imageObject).key;
-        updates[`/${storagePath}/${objectId}/${imageId}`] = Object.assign({}, imageObject, {userId: auth});
+        Firebase.database().ref(byUserPath + '/' + auth + '/' + objectId).push(imageObject);
+        // updates[`/${storagePath}/${objectId}/${imageId}`] = Object.assign({}, imageObject, {userId: auth});
       }
       else {
         // otherwise upload the file if we need to
@@ -1365,19 +1365,19 @@ export function uploadImages(auth, objectId, objectType, images, itineraryId) {
             console.log(error.message)
         }, function() {
           const downloadURL = uploadTask.snapshot.downloadURL;
-          let uploadUpdates = {};
+          // let uploadUpdates = {};
           if (downloadURL) {
             imageObject.url = downloadURL;
              // save images in images and images-by-user
-            imageId = Firebase.database().ref(byUserPath + '/' + auth + '/' + objectId).push(imageObject).key;
-            uploadUpdates[`/${storagePath}/${objectId}/${imageId}`] = Object.assign({}, imageObject, {userId: auth});
+            Firebase.database().ref(byUserPath + '/' + auth + '/' + objectId).push(imageObject);
+            // uploadUpdates[`/${storagePath}/${objectId}/${imageId}`] = Object.assign({}, imageObject, {userId: auth});
 
-            Firebase.database().ref().update(uploadUpdates);
+            // Firebase.database().ref().update(uploadUpdates);
           }
         })
       }
     })
-    Firebase.database().ref().update(updates);
+    // Firebase.database().ref().update(updates);
   }
 }
 
