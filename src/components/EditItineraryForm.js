@@ -508,7 +508,7 @@ EditItineraryForm = reduxForm({
 EditItineraryForm = connect(
   state => ({
     initialValues: state.editor.data,
-    // itineraryId: state.editor.itineraryId,
+    itineraryId: state.editor.itineraryId,
     // searchLocation: state.editor.searchLocation,
     // geoSuggest: state.editor.geoSuggest,
     // googleMapsObject: state.editor.googleMapsObject,
