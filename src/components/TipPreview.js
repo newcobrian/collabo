@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import LikeReviewButton from './LikeReviewButton';
 import SaveReviewButton from './SaveReviewButton';
 import ProxyImage from './ProxyImage';
+import ProfilePic from './ProfilePic';
 import ImagePicker from './ImagePicker';
 import { SAVE_MODAL } from '../actions';
 import { REVIEW_TYPE } from '../constants';
@@ -76,16 +77,16 @@ const TipPreview = props => {
 
             {/* Action Module */}
             <div className="tip__cta-box flx flx-col flx-center-all">
-              <div className="flx flx-col flx-center-all">
+              <div className="flx flx-col flx-center-all mrgn-bottom-md">
                 <div className="vb vb--save">
                   <Link onClick={handleSaveClick}>
-                    <img className="center-img" src="../img/icon.add--white.png"/>
+                    <img className="center-img" src="/img/icon.add--white.png"/>
                   </Link>
                 </div>
-                <div className="v2-type-body0 opa-40 mrgn-top-sm">Save to</div>
+                <div className="vb__label v2-type-body0 opa-40 mrgn-top-sm">Save to</div>
               </div>
 
-                <div className="cta-wrapper flx flx-col mrgn-top-md v2-type-body2">
+                <div className="cta-wrapper flx flx-col v2-type-body2">
                   <LikeReviewButton
                     authenticated={props.authenticated}
                     isLiked={props.review.isLiked}
@@ -132,7 +133,7 @@ const TipPreview = props => {
                       to={'/' + review.createdBy.username}
                       className="">
                       <div className="tip__author-photo flx-hold">
-                        <ProxyImage src={review.createdBy.image} className="user-image user-image-md center-img" />
+                        <ProfilePic src={review.createdBy.image} className="user-image user-image-md center-img" />
                       </div> 
                     </Link>
                     <div className={'tip__rating mrgn-right-md v2-type-rating--' +  review.rating}>

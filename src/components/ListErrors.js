@@ -5,7 +5,7 @@ class ListErrors extends React.Component {
     const errors = this.props.errors;
     if (errors) {
       return (
-        <ul className="error-messages">
+        <ul className="error-messages v2-type-body2 ta-center">
           {
             Object.keys(errors).map(key => {
               return (

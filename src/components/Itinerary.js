@@ -222,7 +222,7 @@ class Itinerary extends React.Component {
                 </Link>
 
                 {/** DESCRIPTION **/}
-                <div className="itinerary__cover__descrip v2-type-body3 ta-left mrgn-top-sm">
+                <div className="itinerary__cover__descrip v2-type-body3 ta-left mrgn-top-sm opa-80">
                    {itinerary.description}
                 </div>
 
