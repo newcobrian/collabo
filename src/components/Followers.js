@@ -124,17 +124,17 @@ class Followers extends React.Component {
 
 		        {this.renderTabs()}
 
-		    	<div className="flx flx-row page-common follow-page flx-just-start pdding-top-md w-100">
+		    	<div className="flx flx-row page-common follow-page pdding-top-md w-100">
 			      {
 			        this.props.followers.map(follower => {
 			        	const isUser = this.props.currentUser &&
 	      					follower.userId === this.props.currentUser.uid;
 			          	return (
-			          		<div className="flx flx-col list-row flx-center-all ta-center" key={follower.userId}>
+			          		<div className="flx flx-col flx-center-all flx-wrap ta-center w-100" key={follower.userId}>
 				          		<Link
 						          to={`/${follower.username}`}
 						          className="">
-						          	<div className="">
+						          	<div className="mrgn-bottom-sm">
 						          		<ProfilePic src={follower.image} className="user-image center-img" />
 						        	</div>
 						        </Link>

@@ -118,40 +118,40 @@ class Followings extends Followers {
 
             {this.renderTabs()}
 
-          <div className="flx flx-row page-common follow-page flx-just-start pdding-top-md w-100">
+          <div className="flx flx-row page-common follow-page flx-just-start flx-wrap pdding-top-md w-100">
             {
               this.props.followers.map(follower => {
                 const isUser = this.props.currentUser &&
                   follower.userId === this.props.currentUser.uid;
                   return (
-                    <div className="flx flx-col list-row flx-center-all ta-center" key={follower.userId}>
+                    <div className="flx flx-col flx-center-all flx-wrap ta-center w-100" key={follower.userId}>
                       <Link
                       to={`/${follower.username}`}
                       className="">
-                        <div className="">
+                        <div className="mrgn-bottom-sm">
                           <ProfilePic src={follower.image} className="user-image center-img" />
                       </div>
                     </Link>
-                  <div className="flx flx-col flx-align-center">
-                    <div>
-                      <Link
-                          to={`/${follower.username}`}
-                          className="color--black">
-                          {follower.username}
-                        </Link>
-                    </div>
-                    <div>
-                      <FollowUserButton
-                      authenticated={this.props.authenticated}
-                            isUser={isUser}
-                            user={follower}
-                            follow={this.props.followUser}
-                            unfollow={this.props.unfollowUser}
-                            isFollowing={follower.isFollowing}
-                            />
-                        </div>
-                    </div>
-              </div>
+                    <div className="flx flx-col flx-align-center">
+                      <div>
+                        <Link
+                            to={`/${follower.username}`}
+                            className="color--black">
+                            {follower.username}
+                          </Link>
+                      </div>
+                      <div>
+                        <FollowUserButton
+                        authenticated={this.props.authenticated}
+                              isUser={isUser}
+                              user={follower}
+                              follow={this.props.followUser}
+                              unfollow={this.props.unfollowUser}
+                              isFollowing={follower.isFollowing}
+                              />
+                          </div>
+                      </div>
+                  </div>
                   )
               })
             }

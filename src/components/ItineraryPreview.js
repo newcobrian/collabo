@@ -200,7 +200,7 @@ const ItineraryPreview = props => {
 
           <div className="it__cover__cta-module flx flx-row flx-just-end flx-item-right mrgn-left-md">
             <CommentPreview itinerary={props.itinerary} />
-            <div className="cta-wrapper flx flx-row flx-just-end flex-item-right mrgn-right-sm">
+            <div className="cta-wrapper flx flx-row flx-just-end flex-item-right">
               <LikeReviewButton
                 authenticated={props.authenticated}
                 isLiked={props.itinerary.isLiked}

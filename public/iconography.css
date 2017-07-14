@@ -88,12 +88,13 @@
 
 .itinerary__cover__flag,
 .itinerary__summary__flag {
-  height: 26px;
-  width: 36px;
+  height: 27px;
+  width: 37px;
   background: url(img/flags/US.png);
   background-size: contain;
   background-repeat: no-repeat;
   margin-right: 20px;
+  border: 1px solid rgba(0,0,0,.08);
 }
 
 

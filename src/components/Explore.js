@@ -30,13 +30,13 @@ class Explore extends React.Component {
           <div className="v2-type-page-header">Travelers</div>
           <div className="v2-type-body2 opa-60 mrgn-top-sm">All the special beta users right now</div>
         </div>
-        <div className="flx flx-row flx-align-center flx-just-start w-100">
+        <div className="flx flx-row flx-just-center flx-align-start flx-wrap w-100">
           {
             this.props.users.map(user => {
               const isUser = this.props.authenticated &&
                 user.userId === this.props.authenticated;
                 return (
-                  <div className="flx flx-col list-row flx-center-all ta-center" key={user.userId}>
+                  <div className="flx flx-col flx-center-all ta-center pdding-all-md" key={user.userId}>
                     <Link
                       to={`/${user.username}`}
                       className="">

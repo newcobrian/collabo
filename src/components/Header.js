@@ -88,7 +88,7 @@ class Header extends React.Component {
               <div className="logo-main">
                 VIEWS
               </div>
-              <div className="v2-type-caption opa-60 w-100 mrgn-top-xs">
+              <div className="v2-type-caption opa-60 w-100 mrgn-top-xs mrgn-left-xs">
                 Alpha 1.2
               </div>
           </Link>
