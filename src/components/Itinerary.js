@@ -107,7 +107,7 @@ class Itinerary extends React.Component {
       return (
         <div className="loading-module flx flx-col flx-center-all v2-type-body3">
           <div className="logo-graphic w-100">  
-            <img className="center-img" src="../img/logos/logo.earth.temp.png"/>
+            <img className="center-img" src="/img/logos/logo.earth.temp.png"/>
           </div>
           <div>Loading Travel Guide...</div>
         </div>
@@ -164,7 +164,7 @@ class Itinerary extends React.Component {
 
               {/** Cover Overlay **/}
               <div className="itinerary__cover__overlay header-height DN">
-                <img className="cover-height DN" src="../img/cover-overlay.png"/>
+                <img className="cover-height DN" src="/img/cover-overlay.png"/>
               </div>
 
              

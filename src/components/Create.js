@@ -223,7 +223,7 @@ class Create extends React.Component {
 
 					    <div className="hero-map opa-20">
 					    </div>
-					    <div className="hero-grid opa-10">
+					    <div className="hero-grid opa-20">
 					    </div>
 					</div>	
 					{/* END CONTAINER */}
