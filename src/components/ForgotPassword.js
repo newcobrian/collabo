@@ -33,9 +33,9 @@ class ForgotPassword extends React.Component {
 	          <div className="row">
 
 	            <div className="col-md-6 offset-md-3 col-xs-12">
-	              <div className="v2-type-page-header ta-center">Reset Password</div>
-	              <div className="mrgn-bottom-sm">
-	              	Enter your email address and we'll send you a link to reset your password
+	              <div className="mrgn-top-lg v2-type-page-header mrgn-bottom-sm ta-center">Reset Password</div>
+	              <div className="v2-type-body1 mrgn-bottom-sm ta-center mrgn-bottom-md">
+	              	Enter your email address and we'll send you a link to reset your password:
 	              </div>
 
 	              <form onSubmit={this.submitForm(email)}>
@@ -43,7 +43,7 @@ class ForgotPassword extends React.Component {
 
 	                  <fieldset className="form-group">
 	                    <input
-	                      className="form-control form-control-lg"
+	                      className="form-control form-control-lg mrgn-bottom-sm"
 	                      type="email"
 	                      placeholder="Email"
 	                      value={email}
@@ -51,7 +51,7 @@ class ForgotPassword extends React.Component {
 	                  </fieldset>
 
 	                  <button
-	                    className="vb w-100"
+	                    className="vb fill--primary w-100"
 	                    type="submit">
 	                    Reset Password
 	                  </button>
