@@ -184,7 +184,7 @@ class Review extends React.Component {
                         <div className="tip__save flx flx-col flx-center-all mrgn-right-md">
                           <div className="vb vb--save">
                             <Link onClick={this.handleSaveClick}>
-                              <img className="center-img" src="../img/icon.add--white.png"/>
+                              <img className="center-img" src="/img/icon.add--white.png"/>
                             </Link>
                           </div>
                           <div className="v2-type-body0 opa-40 mrgn-top-sm DN">Save to</div>
@@ -200,16 +200,16 @@ class Review extends React.Component {
 
                       <div className="tip__info-module flx flx-row-top w-100">
                         <div className="tip__data tip__address col-md-4 flx flx-row flx-center-all v2-type-body1 ta-left">
-                          <img className="v-icon mrgn-right-md center-img" src="../img/icons/icon32--geo.png"/>
+                          <img className="v-icon mrgn-right-md center-img" src="/img/icons/icon32--geo.png"/>
                           <div className="v2-type-body1">{subject.address}</div>
                         </div>
                         <div className="tip__data tip__hours col-md-4 flx flx-row flx-center-all v2-type-body1 ta-left">
-                          <img className="v-icon mrgn-right-md center-img" src="../img/icons/icon32--hours.png"/>
+                          <img className="v-icon mrgn-right-md center-img" src="/img/icons/icon32--hours.png"/>
                           <div className="v2-type-body1">{showWeekdayText(subject)}</div>
 
                         </div>
                         <div className="tip__data tip__phone col-md-4 flx flx-row flx-center-all v2-type-body1 ta-left">
-                          <img className="v-icon mrgn-right-md center-img" src="../img/icons/icon32--phone.png"/>
+                          <img className="v-icon mrgn-right-md center-img" src="/img/icons/icon32--phone.png"/>
                           <div className="v2-type-body1">{subject.internationalPhoneNumber}</div>
                         </div>
                       </div>
