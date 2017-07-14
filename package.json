@@ -21,6 +21,7 @@
     "firebase": "^3.6.9",
     "google-maps-react": "^1.0.19",
     "immutable": "^3.8.1",
+    "lodash": "^4.17.4",
     "marked": "^0.3.6",
     "material-ui": "^0.16.7",
     "mixpanel-browser": "^2.11.0",
