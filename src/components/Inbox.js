@@ -73,7 +73,12 @@ class Inbox extends React.Component {
   render() {
 	  if (!this.props.inbox) {
       return (
-        <div className="article-preview">Loading...</div>
+        <div className="loading-module flx flx-col flx-center-all v2-type-body3">
+          <div className="logo-graphic w-100">  
+            <img className="center-img" src="../img/logos/logo.earth.temp.png"/>
+          </div>
+          <div>Hmmm what's new...?</div>
+        </div>
       );
     }
     if (this.props.inbox.length === 0) {

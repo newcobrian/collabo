@@ -92,7 +92,7 @@ class Home extends React.Component {
 
         <div className="page-title-wrapper center-text">
           <div className="v2-type-page-header">Explore</div>
-          <div className="v2-type-body2 opa-60 mrgn-top-sm">All the latest itineries and travel lists</div>
+          <div className="v2-type-body2 opa-60 mrgn-top-sm">All the latest travel guides from your friends</div>
         </div>
         <div className="toggle-wrapper DN">
           {/*this.renderTabs()*/}

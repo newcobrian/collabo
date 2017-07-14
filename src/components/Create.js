@@ -162,7 +162,7 @@ class Create extends React.Component {
 				    </div> 
 				    <div ref="GMap"></div>**/}
 					<div className="page-title-wrapper center-text">
-			          <div className="v2-type-page-header">Create a New Itinerary</div>
+			          <div className="v2-type-page-header">Create a New Guide</div>
 			          <div className="v2-type-body2 opa-60 mrgn-top-sm">This could be a list of top spots or plans for an upcoming trip</div>
 			        </div>
 					<div className="flx flx-col flx-center-all create-wrapper mrgn-top-sm">
@@ -184,7 +184,7 @@ class Create extends React.Component {
 			                      <input
 			                        className="input--underline edit-itinerary__name"
 			                        type="text"
-			                        placeholder="My New Itinerary"
+			                        placeholder="My New Travel Guide"
 			                        required
 			                        value={this.props.title}
 			                        maxLength="42"

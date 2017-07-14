@@ -109,7 +109,7 @@ class Itinerary extends React.Component {
           <div className="logo-graphic w-100">  
             <img className="center-img" src="../img/logos/logo.earth.temp.png"/>
           </div>
-          <div>Loading Itinerary...</div>
+          <div>Loading Travel Guide...</div>
         </div>
       );
     }
@@ -304,7 +304,7 @@ class Itinerary extends React.Component {
 
             <div className="itinerary__comments-module flx flx-col flx-align-start flx-just-start w-max-2">
               <div className="v2-type-h3 mrgn-top-md ta-left w-100">
-                Itinerary Comments
+                Talk about this guide
               </div>
               <div className="v2-type-body2 mrgn-bottom-sm ta-left w-100 opa-40 DN">
                 What do you think about {itinerary.createdBy.username}'s View?

@@ -100,7 +100,7 @@ class Profile extends React.Component {
             <Link
               className="nav-link active"
               to={`/${this.props.profile.username}`}>
-              Itineraries
+              Guides
             </Link>
           </li>
 

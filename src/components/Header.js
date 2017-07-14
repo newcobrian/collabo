@@ -85,10 +85,12 @@ class Header extends React.Component {
             <div className="logo-graphic">  
               <img className="center-img" src="../img/logos/logo.bird5.ocean.png"/>
             </div>
-            <div className="logo-main">
-            VIEWS
-            </div>
-            <div className="logo-tagline">Reviews by people you trust</div>
+              <div className="logo-main">
+                VIEWS
+              </div>
+              <div className="v2-type-caption opa-60 w-100 mrgn-top-xs">
+                Alpha 1.2
+              </div>
           </Link>
 
           <LoggedOutView currentUser={this.props.currentUser} />

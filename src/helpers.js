@@ -180,10 +180,10 @@ export function sendInboxMessage(senderId, recipientId, messageType, sendObject,
 						break;
 					case Constants.LIKE_ITINERARY_MESSAGE:
 						inboxObject.senderId = senderId;
-						inboxObject.message = ' liked your itinerary: ';
+						inboxObject.message = ' liked your guide: ';
 						inboxObject.link = '/guide/' + sendObject.id;
 						emailMessage = senderSnapshot.val().username + 
-							' liked your itinerary. Click here to check it out: https://myviews.io' + inboxObject.link;
+							' liked your guide. Click here to check it out: https://myviews.io' + inboxObject.link;
 						break;
 					case Constants.COMMENT_ON_REVIEW_MESSAGE:
 						inboxObject.senderId = senderId;
@@ -201,17 +201,17 @@ export function sendInboxMessage(senderId, recipientId, messageType, sendObject,
 						break;
 					case Constants.COMMENT_ON_ITINERARY_MESSAGE:
 						inboxObject.senderId = senderId;
-						inboxObject.message = ' commented on your itinerary: ';
+						inboxObject.message = ' commented on your guide: ';
 						inboxObject.link = '/guide/' + sendObject.id;
 						emailMessage = senderSnapshot.val().username + 
-							' commented on your itinerary. Click here to check it out: https://myviews.io' + inboxObject.link;
+							' commented on your guide. Click here to check it out: https://myviews.io' + inboxObject.link;
 						break;
 					case Constants.COMMENT_ON_COMMENT_ITINERARY_MESSAGE:
 						inboxObject.senderId = senderId;
-						inboxObject.message = ' also commented on the itinerary: ';
+						inboxObject.message = ' also commented on the guide: ';
 						inboxObject.link = '/guide/' + sendObject.id;
 						emailMessage = senderSnapshot.val().username + 
-							' also commented on an itinerary you commented on. Click here to check it out: https://myviews.io' + inboxObject.link;
+							' also commented on an guide you commented on. Click here to check it out: https://myviews.io' + inboxObject.link;
 						break;
 					case Constants.FOLLOW_MESSAGE:
 						inboxObject.senderId = senderId;
