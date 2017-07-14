@@ -111,7 +111,7 @@ const TipPreview = props => {
               <div className="tip__title-module flx flx-row-top w-100">
                 <div className="flx flx-col flx-col-start mrgn-right-md w-100">
                   <Link to={`/review/${review.subjectId}/${review.id}`}>
-                  <div className="tip__title v2-type-h4 ta-left">
+                  <div className="tip__title v2-type-h3 ta-left">
                     {review.title}
                   </div>
                   </Link>

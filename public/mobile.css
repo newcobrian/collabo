@@ -9,6 +9,13 @@
 ******/
 body {
 }
+.pdding-mobile-none {
+  padding: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
 .mobile-hide {
   display: none;
 }
@@ -266,7 +273,10 @@ width: 100%;
 }
 
 
-
+.flx.it-author-controls {
+  padding-right: 0;
+  padding-left: 0;
+}
 
 .profile-page .itinerary__cover .v2-type-h2,
 .home-page .itinerary__cover .v2-type-h2 {
@@ -419,6 +429,11 @@ width: 100%;
 }
 .tip__data {
   padding: 10px 0;
+}
+.tip__author-photo img.user-image.user-image-md,
+.tip__rating-module .tip__rating {
+  width: 50px;
+  height: 50px;
 }
 
 /* TIP PREVIEW */
