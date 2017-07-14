@@ -51,7 +51,7 @@ const EditItineraryLink = props => {
     return (
       <Link
         to={'/edit/' + props.itineraryId}
-        className="vb vb--light vb--no-outline mrgn-right-md">
+        className="vb vb--sm fill--primary mrgn-right-md">
          {/*<i className="ion-gear-a"></i>*/}Edit
       </Link>
     );
@@ -160,11 +160,6 @@ class Itinerary extends React.Component {
               {/** Cover Image **/}
               <div className="itinerary__cover__image header-height">
                 <ImagePicker images={itinerary.images ? [itinerary.images] : null} />
-              </div>
-
-              {/** Cover Overlay **/}
-              <div className="itinerary__cover__overlay header-height DN">
-                <img className="cover-height DN" src="/img/cover-overlay.png"/>
               </div>
 
              
