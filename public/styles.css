@@ -160,6 +160,7 @@ input[type="radio"]:checked + label span {
 }
 .create-form-wrapper {
   border: 1px solid rgba(0,0,0,.1);
+  background: rgba(255,255,255,1);
 }
 .bx-shadow,
 .box-shadow {

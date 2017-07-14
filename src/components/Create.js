@@ -165,54 +165,72 @@ class Create extends React.Component {
 			          <div className="v2-type-page-header">Create a New Guide</div>
 			          <div className="v2-type-body2 opa-60 mrgn-top-sm">This could be a list of top spots or plans for an upcoming trip</div>
 			        </div>
-					<div className="flx flx-col flx-center-all create-wrapper mrgn-top-sm">
-						<ListErrors errors={this.props.errors}></ListErrors>
-			            <div className="create-form-wrapper form-wrapper flx flx-col-left bx-shadow">
-				            <form>
-				            	<fieldset className="field-wrapper">
-			                    	<label>Location</label>
-			                    	<Geosuggest 
-			                    	  className="input--underline"
-									  types={['(regions)']}
-									  placeholder="Search for a city or country"
-									  required
-									  onChange={this.changeGeo}
-									  onSuggestSelect={this.suggestSelect}/>
-			                    </fieldset>
-								<fieldset className="field-wrapper">
-									<label>Itinerary Name</label>
-			                      <input
-			                        className="input--underline edit-itinerary__name"
-			                        type="text"
-			                        placeholder="My New Travel Guide"
-			                        required
-			                        value={this.props.title}
-			                        maxLength="42"
-			                        onChange={this.changeTitle} />
-			                    </fieldset>
-								<fieldset className="field-wrapper">
-									<label>Description (Optional)</label>
-			                      <textarea
-			                        className="input--underline"
-			                        type="text"
-			                        rows="3"
-			                        maxLength="184"
-			                        placeholder="Write something about this..."
-			                        required
-			                        value={this.props.description}
-			                        onChange={this.changeDescription} />
-			                    </fieldset>
 
-			                    <div
-			                    className="vb vb--create w-100 mrgn-top-md fill--primary"
-			                    type="button"
-			                    disabled={this.props.inProgress}
-			                    onClick={this.submitForm}>
-			                    Next
-			                  </div>
-					        </form>
+				    {/* CONTAINER - START */}
+			        <div className="hero-container">
+			         	<div className="hero-content flx flx-col flx-center-all ta-center">
+							
+							<div className="flx flx-col flx-center-all create-wrapper">
+						
+								<ListErrors errors={this.props.errors}></ListErrors>
+					            <div className="create-form-wrapper form-wrapper ta-left flx flx-col-left bx-shadow">
+						            <form>
+						            	<fieldset className="field-wrapper">
+					                    	<label>Location</label>
+					                    	<Geosuggest 
+					                    	  className="input--underline"
+											  types={['(regions)']}
+											  placeholder="Search for a city or country"
+											  required
+											  onChange={this.changeGeo}
+											  onSuggestSelect={this.suggestSelect}/>
+					                    </fieldset>
+										<fieldset className="field-wrapper">
+											<label>Itinerary Name</label>
+					                      <input
+					                        className="input--underline edit-itinerary__name"
+					                        type="text"
+					                        placeholder="My New Travel Guide"
+					                        required
+					                        value={this.props.title}
+					                        maxLength="42"
+					                        onChange={this.changeTitle} />
+					                    </fieldset>
+										<fieldset className="field-wrapper">
+											<label>Description (Optional)</label>
+					                      <textarea
+					                        className="input--underline"
+					                        type="text"
+					                        rows="3"
+					                        maxLength="184"
+					                        placeholder="Write something about this..."
+					                        required
+					                        value={this.props.description}
+					                        onChange={this.changeDescription} />
+					                    </fieldset>
+
+					                    <div
+					                    className="vb vb--create w-100 mrgn-top-md fill--success"
+					                    type="button"
+					                    disabled={this.props.inProgress}
+					                    onClick={this.submitForm}>
+					                    Next
+					                  </div>
+							        </form>
+							    </div>
+						    </div>
+					  	</div>
+
+					    <div className="hero-map opa-20">
 					    </div>
-					</div>				
+					    <div className="hero-grid opa-10">
+					    </div>
+					</div>	
+					{/* END CONTAINER */}
+					<div className="v2-type-body1 mrgn-top-lg opa-60 ta-center">
+						<div>“Travel and change of place impart new vigor to the mind.”</div>
+						<div>– Seneca</div>
+					</div>	
 			    </div>
 			</div>
 		)

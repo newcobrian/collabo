@@ -58,8 +58,8 @@ class Home extends React.Component {
   LoggedOutIntro(authenticated) {
   if (!authenticated) {
     return (
-     <div className="intro-container">
-      <div className="intro-content flx flx-col flx-center-all ta-center">
+     <div className="hero-container">
+      <div className="hero-content flx flx-col flx-center-all ta-center">
         <div className="v2-type-h3 color--white mrgn-bottom-md">
          A better way to plan your trips
         </div>
@@ -74,9 +74,9 @@ class Home extends React.Component {
       </div>
 
 
-        <div className="intro-map opa-20">
+        <div className="hero-map opa-20">
         </div>
-        <div className="intro-grid opa-10">
+        <div className="hero-grid opa-10">
         </div>
      </div>
     );

@@ -12,33 +12,11 @@ a {
 a: hover {
   opacity: .9;
 }
-.text-subject-name {
-  font-weight: 700;
-  font-size: 36px;
-  margin: 0;
-}
-.text-category {
-  font-size: 16px;
-  opacity: .4;
-  font-weight: 100;
-}
-.text-page-title {
-  font-size: 24px;
-  font-weight: 700;
-  width: 100%;
-}
-.text-page-subtitle {
-  font-size: 14px;
-  font-weight: 100;
-  opacity: .5;
-  width: 100%;
-  max-width: 600px;
-}
-.text-section-header {
-  margin: 5px 0;
-}
+
+
 form {
   width: 100%;
+  background-color: transparent;
 }
 .center-text {
   text-align: center !important;
@@ -136,7 +114,7 @@ textarea {
   cursor: pointer;
 }
 .danger-hover:hover {
-  color: red;
+  color: red !important;
   cursor: pointer;
 }
 .v2-type-mono {
@@ -201,7 +179,7 @@ textarea {
     font-size: 22px;
     letter-spacing: 0.5px;
     line-height: 32px;
-    font-weight: 100;
+    font-weight: 400;
     display: inline-block;
 }
 .geo-type {
@@ -228,23 +206,27 @@ textarea {
   color: #00DCB9;
   color: #79D5DD;
   color: #0080B0;
-  color: #2ECBDB;
+  color: #2ECBDB !important;
 }
 .fill--primary {
   background-color: #79D5DD;
-  background-color: #2ECBDB;
+  background-color: #2ECBDB !important;
 }
 .fill--red {
-  background-color: #F39973;
+  background-color: #F39973 !important;
 }
 .color--white {
-  color: #ffffff;
+  color: #ffffff !important;
 }
 .fill--white {
-  background-color: #ffffff;
+  background-color: #ffffff !important;
 }
 .color--success {
   color: #63A652 !important;
+  /*color: #73FF96 !important;*/
+}
+.fill--success {
+  background-color: #63A652 !important;
   /*color: #73FF96 !important;*/
 }
 .color--neon {

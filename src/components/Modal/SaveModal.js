@@ -75,7 +75,7 @@ class SaveModal extends React.Component {
             <div className="dialog--save__content">
             <div className="dialog--save__tip-item">
               <div className="flx flx-row flx-just-start flx-align-center">
-                <div className="tip-preview-wrapper mrgn-right-md">
+                <div className="tip-preview-wrapper">
                    <ImagePicker images={this.props.images} />
                 </div>
                 <div className="dialog--save__tip-name">{this.props.review.title}</div>
@@ -89,7 +89,7 @@ class SaveModal extends React.Component {
                       <img className="center-img" src="../img/icon.add--green.png"/>
                     </div>
                     <div className="option-title create-new__title color--success">
-                      Create new itinerary
+                      Create new guide
                     </div>
                   </div>
                 </Link>

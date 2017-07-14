@@ -110,7 +110,7 @@ class NewItineraryModal extends React.Component {
         onTouchTap={submitForm}
         disableTouchRipple={true}
         fullWidth={false}
-        className="vb"
+        className="vb fill--success"
         labelStyle={{textTransform: 'none', color: "white"}}
         style={{
           }}
