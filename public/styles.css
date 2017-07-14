@@ -1196,7 +1196,7 @@ li.nav-divider {
 }
 .comments-module .comment-input-wrapper .comment-input {
     display: block;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 20px;
     font-weight: 300;
     width: 100%;
@@ -1226,7 +1226,7 @@ li.nav-divider {
 
 .comment-row {
     line-height: 1.6em;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 300;
     color: #373a3c;
 }

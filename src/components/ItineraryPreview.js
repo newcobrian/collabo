@@ -41,7 +41,7 @@ const CommentPreview = props => {
             <Link
               to={`/${props.itinerary.lastComment.username}`}
               className="comment-author">
-              {props.itinerary.lastComment.username}:
+              {props.itinerary.lastComment.username}
             </Link>
             <div className="ellipsis comment-text">
               {props.itinerary.lastComment.body}
