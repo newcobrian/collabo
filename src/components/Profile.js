@@ -69,7 +69,7 @@ class Profile extends React.Component {
     this.unloadUser = (username, userId) => {
       if (this.props.profile) {
         this.props.unloadProfileUser(userId);
-        this.props.unloadProfileFollowing(userId);
+        this.props.unloadProfileFollowing(this.props.authenticated, userId);
         this.props.unloadItinerariesByUser(this.props.authenticated, userId);
       }
       Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + username).off();

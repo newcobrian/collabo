@@ -499,12 +499,11 @@ export function unloadProfileUser(uid) {
   }
 }
 
-export function unloadProfileFollowing(uid) {
+export function unloadProfileFollowing(auth, uid) {
   return dispatch => {
-    let current = Firebase.auth().currentUser.uid;
     dispatch({
       type: PROFILE_FOLLOWING_UNLOADED,
-      payload: Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + current + '/' + uid).off()
+      payload: Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + auth + '/' + uid).off()
     });
   }
 }
