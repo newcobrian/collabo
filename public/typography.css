@@ -242,6 +242,9 @@ textarea {
 .color--input {
   color: #08427B !important;
 }
+.color--black {
+  color: #292F3D;
+}
 
 :focus {
       outline: -webkit-focus-ring-color auto 0px;

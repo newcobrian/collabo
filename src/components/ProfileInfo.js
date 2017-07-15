@@ -8,7 +8,7 @@ const EditProfileSettings = props => {
     return (
       <Link
         to="/settings"
-        className="vb vb--light vb--outline--gray vb-sm mrgn-top-xs">
+        className="vb vb--light vb--outline--gray vb--sm mrgn-top-xs">
          {/*<i className="ion-gear-a"></i>*/}Edit Profile
       </Link>
     );

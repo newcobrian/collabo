@@ -4,7 +4,7 @@ const FollowUserButton = props => {
   if (props.isUser) {
     return null;
   }
-  let classes = 'vb vb--light vb--outline--gray vb-sm mrgn-top-xs';
+  let classes = 'vb vb--light vb--outline--gray vb--sm vb--follow mrgn-top-xs';
   // if (props.user.following) {
   if (props.user.isFollowing) {
     classes += ' vb--following';

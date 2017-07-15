@@ -57,7 +57,7 @@ select {
 
 .vb {
   border: none;
-  height: 40px;
+  height: 60px;
   color: white;
   text-align: center;
   letter-spacing: 3px;
@@ -65,18 +65,16 @@ select {
   border-radius: 4px;
   font-size: 14px;
   display: inline-block;
-  background-color: #1C398C;
-  background-color: #295BA2;
-  background-color: #91F8BA;
-  background-color: #79D5DD;
+  background-color: #2ECBDB;
   cursor: pointer;
   color: white;
   text-transform: uppercase !important;
   font-family: "Arimo", sans-serif !important;
-  padding: 10px;
+  padding: 20px;
   flex-shrink: 0;
+  box-shadow: 0 14px 24px 0 rgba(0,0,0,0.1);
 /*  background-image: linear-gradient(270deg, #4BDEC8 3%, #0095FF 100%);
-*/  box-shadow: 0 14px 24px 0 rgba(0,0,0,0.1);
+*/ 
 }
 
 .vb:hover {
@@ -88,7 +86,6 @@ select {
   width: 20px;
   height: 20px;
 }
-
 
 .vb--circle {
   border-radius: 32px;
@@ -104,7 +101,6 @@ select {
 
 .vb--light {
   background: white;
-  color: #295BA2;
   color: #2ECBDB;
   opacity: 1;
   border: 1px solid #BFC7BE;
@@ -117,45 +113,18 @@ select {
   box-shadow: none;
 }
 
-.vb--no-outline {
-  padding: 4px;
-  background-color: transparent;
-  height: auto;
-  box-shadow: none;
-  border: 0;
-  color: #0095FF;
-  color: #00C7CD;
-  color: #2ECBDB;
-  text-transform: none;
-  font-weight: 400 !important;
-  letter-spacing: 0;
-}
+
 .vb--sm {
   padding: 4px 8px;
-  background-color: transparent;
   height: auto;
   box-shadow: none;
   border: 0;
-  color: #ffffff;
   font-weight: 300;
   font-size: 11px;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
 }
-.vb--outline--white {
-  padding: 4px 20px;
-  background-color: rgba(255,255,255,.05);
-  height: auto;
-  box-shadow: none;
-  border: 1px solid rgba(255,255,255,.3);
-}
-.vb--outline--gray {
-  padding: 5px 20px;
-  background-color: transparent;
-  height: auto;
-  box-shadow: none;
-  border: 1px solid rgba(0,0,0,.2);
-  font-weight: 600;
-}
+
+
 .vb--outline {
   border: none;
   padding: 5px 10px;
@@ -165,6 +134,36 @@ select {
   border: 1px solid rgba(0,0,0,.1);
   color: black;
 }
+.vb--outline--white {
+  background-color: rgba(255,255,255,.05);
+  height: auto;
+  box-shadow: none;
+  border: 1px solid rgba(255,255,255,.3);
+}
+.vb--outline--gray {
+  background-color: transparent;
+  height: auto;
+  box-shadow: none;
+  border: 1px solid rgba(0,0,0,.2);
+  font-weight: 600;
+}
+.vb--outline--none {
+  background-color: transparent;
+  height: auto;
+  box-shadow: none;
+  border: 0;
+  color: #2ECBDB;
+  text-transform: none;
+  font-weight: 400 !important;
+}
+
+.vb--follow {
+  width: 120px;
+}
+.vb--following {
+  color: #ccc;
+}
+
 
 .vb--intro--register {
     padding: 5px 20px;
@@ -180,20 +179,16 @@ select {
   color: #292F3D;
   opacity: 1;
 }
-.vb--following {
-  color: #ccc;
-}
+
+
+
 .vb--save {
   background: #50ECD3;
   background: #2ECBDB;
   border-radius: 32px;
 }
-.vb-sm {
-  font-size: 10px;
-}
-.color--black {
-  color: #292F3D;
-}
+
+
 .vb.vb--add {
   border: none;
   /* box-shadow: 0 0 0 2px rgba(107, 255, 78,.4); */
@@ -214,9 +209,6 @@ select {
   color: #1D2E58;
   text-transform: none;
   background-image: linear-gradient(90deg, #61F2ED 4%, #C1FDE0 98%);
-
-  /*background-image: none;*/
-  /*background-color: #F5FFA4;*/
 }
 
 .v-button--warning {
@@ -225,6 +217,10 @@ select {
 .v-button--warning:hover {
   color: red;
 }
+
+
+
+
 
 
 
@@ -322,25 +318,25 @@ label {
 
 }
 .upload-wrapper {
-    background: transparent;
-    position: relative;
-    padding: 0px;
+  background: transparent;
+  position: relative;
+  padding: 0px;
 }
 .upload-overlay {
-position: absolute;
-    left: 0;
-    right: 2px;
-    bottom: 0;
-    top: 0;
-    background: white;
-    pointer-events: none;
-    text-align: center;
-    color: #2B3538;
-    font-size: 16px;
-    cursor: pointer;
-    padding: 20px;
-    height: auto;
-    display: none;
+  position: absolute;
+  left: 0;
+  right: 2px;
+  bottom: 0;
+  top: 0;
+  background: white;
+  pointer-events: none;
+  text-align: center;
+  color: #2B3538;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 20px;
+  height: auto;
+  display: none;
 }
 
 .react-textselect-input {

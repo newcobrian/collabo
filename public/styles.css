@@ -57,8 +57,6 @@ input[type="radio"]:checked + label span {
   font-weight: 300;
   font-size: 16px;
   padding: 20px;
-  font-family: Helvetica, sans-serif;
-
 }
 
 
