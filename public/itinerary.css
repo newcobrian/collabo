@@ -149,7 +149,13 @@
 	background: transparent;
 	margin: 20px 2%;
 }
-
+.itinerary__cover.cover--empty {
+	height: 667px;
+	border-color: #2ECBDB;
+}
+.itinerary__cover.cover--empty:hover {
+	border-color: #68E4E7;
+}
 .home-page .itinerary__cover:nth-of-type(odd) {
 
 }
