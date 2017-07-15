@@ -116,7 +116,7 @@
 	top: 70px;
 	left: 0;
 	right: 0;
-	height: 60px;
+	height: 50px;
 	background: rgba(255,255,255,.9);
 	padding: 10px 20px;
 	z-index: 1;
@@ -387,7 +387,7 @@ textarea.edit-itinerary__name {
 	background: transparent;
 	position: absolute;
 	left: 0;
-	top: 0;
+	top: 86px;
 	right: 0;
 	bottom: 0;
 	z-index: 1;

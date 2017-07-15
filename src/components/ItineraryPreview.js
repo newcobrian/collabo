@@ -124,15 +124,15 @@ const ItineraryPreview = props => {
       <div className="itinerary__book cover-height w-100">
 
         {/** Cover Image **/}
-         <Link className="itinerary__cover__image cover-height" to={`/guide/${itinerary.id}`}>
+        <div className="itinerary__cover__image cover-height">
           <ImagePicker images={itinerary.images ? [itinerary.images]: null} />
-        </Link>
+        </div>
         {/** Cover Overlay **/}
         <div className="itinerary__cover__overlay cover-height DN">
           <img className="cover-height DN" src="../img/cover-overlay.png"/>
         </div>
         {/** Cover Hit Area **/}
-        <Link className="it__hit-area DN" to={`/guide/${itinerary.id}`}>
+        <Link className="it__hit-area cover-height" to={`/guide/${itinerary.id}`}>
           <div></div>
         </Link>
         {/** Cover Content **/}

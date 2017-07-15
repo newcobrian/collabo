@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import ProfilePic from './ProfilePic';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
 import ProxyImage from './ProxyImage';
@@ -26,7 +27,7 @@ const LeftSenderPic = props => {
         <Link
         to={`/${props.username}`}
         className="">
-          <ProxyImage src={props.image} className="user-image user-image-sm center-img" />
+          <ProfilePic src={props.image} className="user-image user-image-sm center-img" />
         </Link>
       </div>
     )
@@ -34,7 +35,7 @@ const LeftSenderPic = props => {
   else {
     return (
       <div className="mrgn-left-sm mrgn-right-md">
-        <img className="user-image user-image-sm center-img" src="../img/someone_temp.png"/>
+        <img className="user-image user-image-sm user-image-sm center-img" src="../img/someone_temp.png"/>
       </div>
     )
   }
@@ -102,10 +103,10 @@ class Inbox extends React.Component {
                 return (
                   <div className="flx flx-row flx-just-start brdr-bottom flx-align-center pdding-all-sm list-row w-100 w-max" key={inboxItem.key}>
                     <LeftSenderPic senderId={inboxItem.senderId} username={inboxItem.senderUsername} image={inboxItem.senderImage} />
-                    <div className="flx flx-col">
+                    <div className="flx flx-col mrgn-right-md">
                       <div className="v2-type-body1">
-                        <strong><RenderUsername senderId={inboxItem.senderId} username={inboxItem.senderUsername} />&nbsp;</strong>
-                        {inboxItem.message}&nbsp;<Link to={inboxItem.link}><div className="color--primary inline">{inboxItem.reviewTitle}</div></Link>
+                        <strong><RenderUsername senderId={inboxItem.senderId} username={inboxItem.senderUsername} /></strong>
+                        {inboxItem.message}<Link to={inboxItem.link}><div className="color--primary inline">{inboxItem.reviewTitle}</div></Link>
                       </div>
                     </div>
                     <div className="feed-pic-wrapper mrgn-right-md flx-item-right"><RightPic link={inboxItem.link} image={inboxItem.reviewImage} /></div>

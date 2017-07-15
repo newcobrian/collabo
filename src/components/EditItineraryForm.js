@@ -50,7 +50,7 @@ const renderDropzoneInput = (field) => {
         accept="image/*"
         className="edit-tip__dropzone__touch flx flx-col flx-align-center flx-just-start ta-center"
       >
-        <div className="edit-tip__upload vb vb--light vb--no-outline vb-sm ta-center w-100">Upload New image</div>
+        <div className="edit-tip__upload vb vb--light vb--outline--none vb--sm ta-center w-100">Upload New image</div>
 
         {field.meta.touched &&
           field.meta.error &&
@@ -231,7 +231,7 @@ let Review = ({ review, index, fields, authenticated, reviewObject, searchLocati
       <li key={index} className="mrgn-bottom-md edit-tip_wrapper">
         <div className="flx flx-row flx-align-center pdding-top-sm pdding-bottom-sm">
           <div className="v2-type-h5">Tip #{index + 1}</div>
-          <div className="vb vb--small vb--light vb--no-outline vb-sm opa-30 flx-item-right danger-hover"
+          <div className="vb vb--small vb--light vb--no-outline vb--sm opa-30 flx-item-right danger-hover"
           onClick={() => fields.remove(index)}>Delete Tip</div>
         </div>
         <div className="field-wrapper"> 
@@ -259,7 +259,7 @@ let Review = ({ review, index, fields, authenticated, reviewObject, searchLocati
         { /** Top Row **/ }
         <div className="flx flx-row flx-align-center pdding-top-sm pdding-bottom-sm">
           <div className="v2-type-h5">Tip #{index + 1}</div>
-          <div className="vb vb--light vb--no-outline vb-sm opa-30 flx-item-right danger-hover"
+          <div className="vb vb--light vb--outline--none vb--sm opa-30 flx-item-right danger-hover"
           onClick={() => fields.remove(index)}>Delete Tip</div>
         </div>
 
@@ -488,9 +488,9 @@ class EditItineraryForm extends React.Component {
             
             <div className="flx flx-row flx-item-right flx-center-all">
               <div className="mrgn-right-lg">
-                <Link to={'/guide/' + this.props.itineraryId} className="vb vb--light vb--no-outline" type="submit" disabled={this.props.submitting}>Cancel</Link>
+                <Link to={'/guide/' + this.props.itineraryId} className="vb vb--light vb--outline--none vb--sm" type="submit" disabled={this.props.submitting}>Cancel</Link>
               </div>
-                <button className="vb fill--success" type="submit" disabled={this.props.submitting}>Save & Exit</button>
+                <button className="vb fill--success vb--sm" type="submit" disabled={this.props.submitting}>Save & Exit</button>
             </div>
 
           </div>

@@ -186,7 +186,7 @@ class Create extends React.Component {
 											  onSuggestSelect={this.suggestSelect}/>
 					                    </fieldset>
 										<fieldset className="field-wrapper">
-											<label>Itinerary Name</label>
+											<label>Guide Name</label>
 					                      <input
 					                        className="input--underline edit-itinerary__name"
 					                        type="text"

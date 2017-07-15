@@ -38,7 +38,7 @@ const UpdateCoverPhoto = props => {
           multiple={false}
           accept="image/*"
           className="edit-tip__dropzone__touch flx flx-col flx-align-center flx-just-start ta-center">
-          <div className="vb vb--light vb--no-outline mrgn-right-md">Change cover photo</div>
+          <div className="vb vb--light vb--outline--none mrgn-right-md">Change cover photo</div>
 
         </Dropzone>
         

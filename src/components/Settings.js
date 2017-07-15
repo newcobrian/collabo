@@ -182,7 +182,7 @@ class Settings extends React.Component {
                 onSubmitForm={this.props.saveSettings} />
 
               <button
-                className="vb vb--light vb--no-outline width-100"
+                className="vb vb--light vb--outline--none w-100"
                 onClick={this.props.signOutUser}>
                 Or click here to logout.
               </button>

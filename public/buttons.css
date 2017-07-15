@@ -62,7 +62,7 @@ select {
   text-align: center;
   letter-spacing: 3px;
   font-weight: 600 !important;
-  border-radius: 4px;
+  border-radius: 0px;
   font-size: 14px;
   display: inline-block;
   background-color: #2ECBDB;

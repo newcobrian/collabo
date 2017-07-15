@@ -12,7 +12,9 @@ a {
 a: hover {
   opacity: .9;
 }
+strong {
 
+}
 
 form {
   width: 100%;
