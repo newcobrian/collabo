@@ -54,7 +54,7 @@ class Profile extends React.Component {
         if (snapshot.exists()) {
           let userId = snapshot.val().userId;
           this.props.getProfileUser(userId);
-          this.props.checkFollowing(userId);
+          this.props.checkFollowing(this.props.authenticated, userId);
           this.props.getItinerariesByUser(this.props.authenticated, userId);
           this.props.getFollowingCount(userId);
           this.props.getFollowerCount(userId);

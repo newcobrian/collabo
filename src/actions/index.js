@@ -541,10 +541,9 @@ export function getProfileUser(userId) {
   };
 }
 
-export function checkFollowing(profile) {
-  const current = Firebase.auth().currentUser.uid;
+export function checkFollowing(auth, profile) {
   return dispatch => {
-    Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + current + '/' + profile).on('value', snapshot => {
+    Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + auth + '/' + profile).on('value', snapshot => {
       let isFollowing = false;
       if (snapshot.exists()) {
         isFollowing = true;
