@@ -853,7 +853,7 @@ border-bottom: 1px solid rgba(0,0,0,.1);
     float: none;
     font-size: 12px;
     text-transform: uppercase;
-    letter-spacing: 3px;
+    letter-spacing: 1px;
 }
 li.nav-divider {
     height: 10px;

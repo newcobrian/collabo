@@ -130,6 +130,9 @@
 .flx-item-left {
   margin-right: auto;
 }
+.flx-grow1 {
+  flex-grow:1;
+}
 .flx .flx-hold {
   flex-shrink: 0;
 }

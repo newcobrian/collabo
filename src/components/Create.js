@@ -178,7 +178,7 @@ class Create extends React.Component {
 						            	<fieldset className="field-wrapper">
 					                    	<label>Location</label>
 					                    	<Geosuggest 
-					                    	  className="input--underline"
+					                    	  className="input--underline v2-type-body3"
 											  types={['(regions)']}
 											  placeholder="Search for a city or country"
 											  required
@@ -188,7 +188,7 @@ class Create extends React.Component {
 										<fieldset className="field-wrapper">
 											<label>Guide Name</label>
 					                      <input
-					                        className="input--underline edit-itinerary__name"
+					                        className="input--underline edit-itinerary__name v2-type-body3"
 					                        type="text"
 					                        placeholder="My New Travel Guide"
 					                        required
@@ -199,7 +199,7 @@ class Create extends React.Component {
 										<fieldset className="field-wrapper">
 											<label>Description (Optional)</label>
 					                      <textarea
-					                        className="input--underline"
+					                        className="input--underline v2-type-body3"
 					                        type="text"
 					                        rows="3"
 					                        maxLength="184"
@@ -214,7 +214,10 @@ class Create extends React.Component {
 					                    type="button"
 					                    disabled={this.props.inProgress}
 					                    onClick={this.submitForm}>
-					                    Next
+					                    	<div className="flx flx-row flx-center-all ta-center">
+						                    	<div className="flx-grow1">Next</div>
+												<img className="flx-item-right" src="/img/icons/icon32_next.png"/>
+											</div>
 					                  </div>
 							        </form>
 							    </div>
