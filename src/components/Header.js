@@ -83,7 +83,7 @@ class Header extends React.Component {
         <div className="header-wrapper w-max">
           <Link to="/" className="logo-module flx flx-row flx-just-start flx-align-center">
             <div className="logo-graphic">  
-              <img className="center-img" src="/img/logos/logo.bird5.ocean.png"/>
+              <img className="center-img" src="/img/logos/logo.bird3.lg.png"/>
             </div>
               <div className="logo-main">
                 VIEWS

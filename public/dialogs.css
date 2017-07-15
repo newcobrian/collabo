@@ -15,7 +15,7 @@
   /*border: 2px red solid;*/
   height: 100%;
   position: relative;
-  margin-top: 74px;
+  margin-top: 60px;
 }
 .dialog--save__content ul {
   list-style-type: none;
@@ -26,6 +26,7 @@
 .dialog--save__content li:hover {
   /*background-color: rgba(10,170,213,.05);*/
   cursor: pointer;
+  background: rgba(0,198,224,.05);
 }
 .dialog--save__content li:hover .v-button--select {
   background-color: rgba(10,170,213,1);
@@ -33,10 +34,11 @@
 }
 .dialog__title {
   color: black;
+  border-bottom: 1px solid #E7E7E7 !important;
 }
 .dialog--save__tip-item {
   position: fixed;
-  top: 53px;
+  top: 40px;
   left: 0;
   width: 100%;
   padding: 10px 20px;

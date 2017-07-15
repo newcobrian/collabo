@@ -54,6 +54,13 @@ textarea {
   line-height: 27px;
   font-family: 'Roboto', sans-serif;
 }
+.strong--400.v2-type-body0,
+.strong--400.v2-type-body1,
+.strong--400.v2-type-body2,
+.strong--400.v2-type-body3,
+.strong--400.v2-type-body4 {
+  font-weight: 400;
+}
 .itinerary__cover .v2-type-body1 {
 }
 .v2-type-body3 {

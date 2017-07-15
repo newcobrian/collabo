@@ -193,7 +193,7 @@ const ItineraryPreview = props => {
 
           {/** TIP COUNT **/}
           <Link to={`/guide/${itinerary.id}`}>
-          <div className="v2-type-body2 flx flx-row flx-just-end flx-align-center color--primary mrgn-top-xs">
+          <div className="v2-type-body3 strong--400 flx flx-row flx-just-end flx-align-center color--primary mrgn-top-xs">
             {itinerary.reviewsCount ? itinerary.reviewsCount : 0} {itinerary.reviewsCount === 1 ? ' tip' : ' tips'}
           </div>
           </Link>

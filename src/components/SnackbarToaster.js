@@ -20,6 +20,9 @@ class SnackbarToaster extends React.Component {
 	          message={this.props.message}
 	          autoHideDuration={this.props.duration || 5000}
 	          onRequestClose={this.props.onRequestClose}
+            style={{opacity:"1", marginBottom:"20px"}}
+            bodyStyle={{opacity:".95", backgroundColor: "#63A652"}}
+
 	        />
 	    </MuiThemeProvider>
       </span>
