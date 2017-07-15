@@ -115,7 +115,7 @@ select {
 
 
 .vb--sm {
-  padding: 4px 8px;
+  padding: 4px 14px;
   height: auto;
   box-shadow: none;
   border: 0;
@@ -296,7 +296,7 @@ label {
   margin-bottom: 0;
   letter-spacing: 2px;
   text-transform: uppercase;
-  opacity: .6;
+  opacity: 1;
   font-weight: 600;
   width: 100%;
 }
