@@ -94,7 +94,7 @@ class Profile extends React.Component {
 
   renderTabs() {
     return (
-      <div className="feed-toggle flx flx-row flx-just-start w-100 w-max">
+      <div className="feed-toggle flx flx-row flx-center-all w-100 w-max">
         <ul className="nav nav-pills outline-active">
           <li className="nav-item">
             <Link
@@ -116,7 +116,7 @@ class Profile extends React.Component {
             <Link
               className="nav-link"
               to={`/${this.props.profile.username}/followers`}>
-              Followers
+              10 Followers
             </Link>
           </li>
 
@@ -124,7 +124,7 @@ class Profile extends React.Component {
             <Link
               className="nav-link"
               to={`/${this.props.profile.username}/isfollowing`}>
-              Is Following
+              Following 20
             </Link>
           </li>
 
@@ -157,7 +157,7 @@ class Profile extends React.Component {
           
           <div className="status-module flx flx-row flx-just-center w-100 v2-type-body3">
 
-            <div>{this.props.profile.username} has not created any guides...yet.</div>
+            <div className="ta-center pdding-all-md">{this.props.profile.username} has not created any guides...yet.</div>
           </div>
         </div>
       )

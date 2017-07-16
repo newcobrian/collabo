@@ -36,7 +36,7 @@ class Followings extends Followers {
 
   renderTabs() {
     return (
-      <div className="feed-toggle flx flx-row flx-just-start w-100 w-max">
+      <div className="feed-toggle flx flx-row flx-just-center w-100 w-max">
         <ul className="nav nav-pills outline-active">
           <li className="nav-item">
             <Link
@@ -66,7 +66,7 @@ class Followings extends Followers {
             <Link
               className="nav-link active"
               to={`/${this.props.profile.username}/isfollowing`}>
-              Is Following
+              Following
             </Link>
           </li>
 
@@ -118,13 +118,13 @@ class Followings extends Followers {
 
             {this.renderTabs()}
 
-          <div className="flx flx-row page-common follow-page flx-just-start flx-wrap pdding-top-md w-100">
+          <div className="flx flx-row page-common follow-page flx-just-center flx-wrap pdding-top-md w-100 flx-wrap">
             {
               this.props.followers.map(follower => {
                 const isUser = this.props.currentUser &&
                   follower.userId === this.props.currentUser.uid;
                   return (
-                    <div className="flx flx-col flx-center-all flx-wrap ta-center w-100" key={follower.userId}>
+                    <div className="flx flx-col flx-center-all flx-wrap ta-center pdding-all-md" key={follower.userId}>
                       <Link
                       to={`/${follower.username}`}
                       className="">

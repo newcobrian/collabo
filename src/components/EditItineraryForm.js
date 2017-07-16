@@ -363,7 +363,7 @@ const renderReviews = ({fields, searchLocation, authenticated, googleObject, map
     {fields.map((review, index) =>
     <Review review={review} fields={fields} index={index} key={index} searchLocation={searchLocation} authenticated={authenticated} googleObject={googleObject} mapObject={mapObject} />)}
     <li>
-      <div className="add-tip-wrapper">
+      <div className="add-tip-wrapper mrgn-bottom-md">
         <button className="vb fill--primary" type="button" onClick={() => fields.push({})}><img className="center-img" src="../img/icon.add--white.png"/> Add Tip</button>
         {submitFailed && error && <span>{error}</span>}
         {/*touched && error && <span>{error}</span> */}

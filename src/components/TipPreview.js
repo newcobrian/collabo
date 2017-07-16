@@ -77,7 +77,7 @@ const TipPreview = props => {
 
             {/* Action Module */}
             <div className="tip__cta-box flx flx-col flx-center-all">
-              <div className="flx flx-col flx-center-all mrgn-bottom-md">
+              <div className="tip__actions-wrapper flx flx-col flx-center-all mrgn-bottom-md">
                 <div className="vb vb--save">
                   <Link onClick={handleSaveClick}>
                     <img className="center-img" src="/img/icon.add--white.png"/>
@@ -124,11 +124,11 @@ const TipPreview = props => {
 
 
 
-              <div className="flx flx-row">
+              <div className="flx flx-col">
                 { /** Rating and Like **/ }
                 <div className="tip__rating-module flx flx-row flx-align-start mrgn-top-sm w-100">
                   
-                  <div className="flx flx-row flx-align-center mrgn-bottom-sm">
+                  <div className="flx flx-row flx-align-center">
                     <Link
                       to={'/' + review.createdBy.username}
                       className="">

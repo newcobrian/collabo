@@ -798,17 +798,25 @@ border-bottom: 1px solid rgba(0,0,0,.1);
 .profile-data-module {
   margin: 10px 20px 10px 0;
 }
+.profile-info {
+  padding: 0 20px;
+  max-width: 600px;
+  width: 600px;
+}
+.user-action {
+  max-width: 600px;
+}
+
 .profile-page .user-info {
   background: white;
   padding: 20px 0 0;
-  width: 100%;
 }
 .profile-page .user-info .user-img {
   background: #E6E7E8;
   margin: 10px 0;
   object-fit: cover;
-  width: 80px;
-  height: 80px;
+  width: 120px;
+  height: 120px;
 }
 .profile-page .user-info .user-data {
   background: white;
@@ -823,7 +831,6 @@ border-bottom: 1px solid rgba(0,0,0,.1);
       font-size: 16px;
       font-weight: 300;
       font-family: Helvetica, sans-serif;
-      max-width: 600px;
     }
 .profile-page .profile-followers-wrapper {
   font-size: 13px;
@@ -865,9 +872,6 @@ li.nav-divider {
     float: none;
 }
 
-.profile-info {
-    padding: 0 20px;
-}
 
 /******
 ******

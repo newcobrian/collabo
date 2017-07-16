@@ -40,7 +40,7 @@ class ProfileLikes extends Profile {
 
   renderTabs() {
     return (
-      <div className="feed-toggle flx flx-row flx-just-start w-100 w-max">
+      <div className="feed-toggle flx flx-row flx-just-center w-100 w-max">
         <ul className="nav nav-pills outline-active">
             <li className="nav-item">
               <Link

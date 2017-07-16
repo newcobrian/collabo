@@ -304,9 +304,10 @@ width: 100%;
     width: 100%;
 }
 .profile-page .user-info {
-
+  width: 100%;
 }
 .profile-page .profile-info {
+  width: 100%;
 
 }
 .profile-page .user-info .user-img {
@@ -402,6 +403,15 @@ width: 100%;
   margin-top: 10px;
   width: 100%;
 }
+.tip-wrapper .tip__cta-box .tip__actions-wrapper {
+  margin-bottom: 0;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
 .tip-inner .tip__title-module {
   margin-top: 10px;
   margin-left: -4px;
@@ -437,6 +447,9 @@ width: 100%;
 .tip__rating-module .tip__rating {
   width: 50px;
   height: 50px;
+}
+.tip__rating-module .tip__rating {
+  padding: 11px;
 }
 
 /* TIP PREVIEW */
@@ -478,6 +491,16 @@ width: 100%;
   padding: 0 20px;
 }
 
+.vb.vb--mobile-full,
+.user-info .vb.vb--sm  {
+  width: 100%;
+  height: 40px;
+  padding: 10px;
+}
+.tip__cta-box .vb__label {
+  margin-top: 0;
+  margin-left: 10px;
+}
 
 
 }

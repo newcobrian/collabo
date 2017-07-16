@@ -8,7 +8,7 @@ const EditProfileSettings = props => {
     return (
       <Link
         to="/settings"
-        className="vb vb--sm mrgn-top-xs">
+        className="vb vb--sm mrgn-top-xs vb--mobile-full">
          {/*<i className="ion-gear-a"></i>*/}Edit Profile
       </Link>
     );
@@ -26,9 +26,9 @@ const ProfileInfo = props => {
       props.profile.userId === props.authenticated;
 
     return (
-        <div className="user-info w-100 w-max">
+        <div className="user-info flx flx-col flx-just-start w-100 w-max">
 
-          <div className="profile-info flx flx-row flx-align-start flx-just-start w-100 w-max">
+          <div className="profile-info flx flx-row flx-just-start mrgn-bottom-xs">
             <div className="flx flx-col flx-align-center mrgn-right-md">
               <ProfilePic src={profile.image} className="user-img" />
             </div>
@@ -37,29 +37,19 @@ const ProfileInfo = props => {
                 <div className="user-name">{profile.username}</div>
               </div>
               <div>{profile.bio}</div>
-              <div className="user-action flx flx-row-top">
-                <EditProfileSettings isUser={isUser} />
-                <FollowUserButton
-                authenticated={props.authenticated}
-                isUser={isUser}
-                user={profile}
-                follow={props.follow}
-                unfollow={props.unfollow}
-                />
-              </div>
-            </div>
-              {/*}
-              <div className="flx flx-row-left profile-followers-wrapper">
-                <Link to={`/followers/${profile.username}`}>
-                  <div className="profile-data-module">{this.props.followerCount} followers</div>
-                </Link>
-                <Link to={`/followings/${profile.username}`}>
-                  <div className="profile-data-module">{this.props.followingCount} following</div>
-                </Link>
-              </div>
-            */}
             </div>
           </div>
+          <div className="user-action flx flx-col flx-just-start pdding-left-md pdding-right-md w-100">
+            <EditProfileSettings isUser={isUser} />
+            <FollowUserButton
+            authenticated={props.authenticated}
+            isUser={isUser}
+            user={profile}
+            follow={props.follow}
+            unfollow={props.unfollow}
+            />
+          </div>
+        </div>
     )
 }
 
