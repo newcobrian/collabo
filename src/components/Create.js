@@ -180,7 +180,7 @@ class Create extends React.Component {
 					                    	<Geosuggest 
 					                    	  className="input--underline v2-type-body3"
 											  types={['(regions)']}
-											  placeholder="Search for a city or country"
+											  placeholder="Paris, Madrid, Waikiki..."
 											  required
 											  onChange={this.changeGeo}
 											  onSuggestSelect={this.suggestSelect}/>
@@ -197,25 +197,25 @@ class Create extends React.Component {
 					                        onChange={this.changeTitle} />
 					                    </fieldset>
 										<fieldset className="field-wrapper">
-											<label>Description (Optional)</label>
+											<label>About (Optional)</label>
 					                      <textarea
 					                        className="input--underline v2-type-body3"
 					                        type="text"
 					                        rows="3"
 					                        maxLength="184"
-					                        placeholder="Write something about this..."
+					                        placeholder="Add a description..."
 					                        required
 					                        value={this.props.description}
 					                        onChange={this.changeDescription} />
 					                    </fieldset>
 
 					                    <div
-					                    className="vb vb--create w-100 mrgn-top-md fill--success"
+					                    className="vb vb--create w-100 mrgn-top-md fill--success gradient"
 					                    type="button"
 					                    disabled={this.props.inProgress}
 					                    onClick={this.submitForm}>
 					                    	<div className="flx flx-row flx-center-all ta-center">
-						                    	<div className="flx-grow1">Next</div>
+						                    	<div className="flx-grow1 mrgn-left-md">Next</div>
 												<img className="flx-item-right" src="/img/icons/icon32_next.png"/>
 											</div>
 					                  </div>
