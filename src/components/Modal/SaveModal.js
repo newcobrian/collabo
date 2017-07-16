@@ -60,7 +60,7 @@ class SaveModal extends React.Component {
           overlayClassName="dialog__overlay"
           overlayStyle={{}}
           
-          title="Choose an itinerary for..."
+          title="Choose an guide for..."
           titleClassName="dialog__title v2-type-h2"
           titleStyle={{padding: "10px 20px", fontWeight: "700", fontSize: "20px"}}
           
@@ -99,7 +99,7 @@ class SaveModal extends React.Component {
   		            <li className="" key={itinerary.itineraryId}>
                     <Link onClick={handleAdd(itinerary)}>
                       <div className="flx flx-row flx-just-start flx-align-center">
-                        <div className="vb fill--primary mrgn-right-lg">
+                        <div className="vb vb--md fill--primary mrgn-right-lg">
                           <img className="center-img mrgn-right-sm" src="../img/icon.add--white.png"/>
                           Save
                         </div>

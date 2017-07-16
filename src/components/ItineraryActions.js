@@ -17,7 +17,7 @@ const ItineraryActions = props => {
         </Link>
       ***/}
 
-        <button className="vb vb--light vb--outline--none vb--sm w-100" onClick={del}>
+        <button className="vb vb--light vb--outline--none color--primary vb--sm w-100" onClick={del}>
           {/*<img src="../img/icon32_x.svg"/>*/} Delete
         </button>
 

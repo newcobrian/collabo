@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import {Field, FieldArray, reduxForm, formValueSelector} from 'redux-form';
 import { EDITOR_PAGE } from '../actions'
+import {BackToTop} from 'pui-react-back-to-top';
 import validate from './validate';
 import {load as loadItinerary} from '../reducers/editor'
 import { Link } from 'react-router';
@@ -481,6 +482,7 @@ class EditItineraryForm extends React.Component {
             </div>
           </div>
 
+          <BackToTop />
 
           {/* Edit Bar */}  
           <div className="edit-bar flx flx-center-all w-100 w-max">

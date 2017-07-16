@@ -78,7 +78,7 @@ const TipPreview = props => {
             {/* Action Module */}
             <div className="tip__cta-box flx flx-col flx-center-all">
               <div className="tip__actions-wrapper flx flx-col flx-center-all mrgn-bottom-md">
-                <div className="vb vb--save">
+                <div className="vb vb--save fill--primary">
                   <Link onClick={handleSaveClick}>
                     <img className="center-img" src="/img/icon.add--white.png"/>
                   </Link>

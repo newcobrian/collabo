@@ -46,7 +46,7 @@ class ProfileLikes extends Profile {
               <Link
                 className="nav-link"
                 to={`/${this.props.profile.username}`}>
-                Itineraries
+                Guides
               </Link>
             </li>
 

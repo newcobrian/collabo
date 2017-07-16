@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
+import {BackToTop} from 'pui-react-back-to-top';
 import TipList from './TipList';
 import ProfilePic from './ProfilePic';
 import ImagePicker from './ImagePicker';
@@ -36,7 +37,7 @@ const UpdateCoverPhoto = props => {
           multiple={false}
           accept="image/*"
           className="edit-tip__dropzone__touch flx flx-col flx-align-center flx-just-start ta-center">
-          <div className="vb vb--light vb--outline--none mrgn-right-md">Change cover photo</div>
+          <div className="vb vb--light vb--outline--none color--primary mrgn-right-md">Change cover photo</div>
 
         </Dropzone>
         
@@ -51,7 +52,7 @@ const EditItineraryLink = props => {
     return (
       <Link
         to={'/edit/' + props.itineraryId}
-        className="vb vb--sm vb--outline--none vb--light mrgn-right-md">
+        className="vb vb--sm vb--outline--none color--primary vb--light mrgn-right-md">
          {/*<i className="ion-gear-a"></i>*/}Edit
       </Link>
     );
@@ -317,6 +318,7 @@ class Itinerary extends React.Component {
 
 
           </div>
+          <BackToTop />
         </div>
       )
     }

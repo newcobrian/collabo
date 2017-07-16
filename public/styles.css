@@ -429,12 +429,11 @@ a.logo-module:focus {
 .navigation-bar .nav-module.active,
 .navigation-bar .nav-module.nav-editor.active {
   opacity: 1;
-  border-bottom: 2px solid #79D5DD;
   padding-top: 3px;
 }
 .navigation-bar .nav-module.active.create,
 .navigation-bar .nav-module.nav-editor.active.create {
-  border-bottom: 3px solid #79D5DD;
+
 }
 .navigation-bar .nav-module:hover {
   opacity: .8;
@@ -844,10 +843,6 @@ border-bottom: 1px solid rgba(0,0,0,.1);
 }
 .nav-pills.outline-active .nav-link.active,
 .nav-pills.outline-active .nav-link:hover {
-    border-bottom: #79D5DD 3px solid !important;
-    border-bottom: #A2D0FB 3px solid !important;
-    border-bottom: #295BA2 3px solid !important;
-    border-bottom: #2ECBDB 2px solid !important;
     color: #0C111D !important;
     opacity: 1;
     background-color: transparent !important;
