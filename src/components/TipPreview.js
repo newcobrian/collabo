@@ -138,7 +138,7 @@ const TipPreview = props => {
                       </div> 
                     </Link>
                     <div className={'tip__rating mrgn-left-md v2-type-rating--' +  review.rating}>
-                      {review.rating}<div className="v2-type-rating--total opa-50">/10</div>
+                      {review.rating}<div className="v2-type-rating--total opa-50 weight-300"> /10</div>
                     </div>
                     <div className="v2-type-body2">
                       &nbsp; &middot;

@@ -17,7 +17,7 @@ const mapStateToProps = state => ({
 class SaveModal extends React.Component {
   componentWillMount() {
     this.props.sendMixpanelEvent('Save Modal');
-  }
+  } 
 
   render() {
     const handleClose = () => {
@@ -36,10 +36,19 @@ class SaveModal extends React.Component {
 
     const actions = [
       <FlatButton
+        label="+ Create New Guide"
+        className="color--success"
+        hoverColor="white"
+        onTouchTap={handleItineraryClick}
+        labelStyle={{textTransform: 'none'}}
+        style={{
+          }}
+      />,
+      <FlatButton
         label="Cancel"
         hoverColor="white"
         onTouchTap={handleClose}
-        labelStyle={{textTransform: 'none', color:'rgba(0,0,0,.3)'}}
+        labelStyle={{textTransform: 'none', color:'rgba(0,0,0,.5)'}}
         style={{
           }}
       />
@@ -60,12 +69,12 @@ class SaveModal extends React.Component {
           overlayClassName="dialog__overlay"
           overlayStyle={{}}
           
-          title="Choose an guide for..."
+          title="Choose a guide for..."
           titleClassName="dialog__title v2-type-h2"
           titleStyle={{padding: "10px 20px", fontWeight: "700", fontSize: "20px"}}
           
           contentClassName="dialog--save__wrapper"
-          contentStyle={{width: "none", maxWidth: "none"}}
+          contentStyle={{width: "auto", maxWidth: "600px"}}
           
           bodyClassName="dialog--save__body"
           bodyStyle={{padding: "30px 0px"}}
@@ -82,7 +91,7 @@ class SaveModal extends React.Component {
               </div>
             </div>
     				<ul>
-              <li className="create-new">
+              <li className="create-new DN">
                 <Link onClick={handleItineraryClick} >
                   <div className="flx flx-row flx-just-start flx-align-center">
                     <div className="vb vb--temp">
@@ -96,14 +105,14 @@ class SaveModal extends React.Component {
               </li>
     					{this.props.itinerariesList.map(itinerary => {
 				        return (
-  		            <li className="" key={itinerary.itineraryId}>
+  		            <li className="brdr-bottom" key={itinerary.itineraryId}>
                     <Link onClick={handleAdd(itinerary)}>
                       <div className="flx flx-row flx-just-start flx-align-center">
-                        <div className="vb vb--md fill--primary mrgn-right-lg">
-                          <img className="center-img mrgn-right-sm" src="../img/icon.add--white.png"/>
+                        <div className="vb vb--md fill--primary mrgn-right-md DN">
+                          <img className="center-img mrgn-right-sm" src="../img/icons/icon40--save.png"/>
                           Save
                         </div>
-      						    	<div className="option-title">
+      						    	<div className="option-title color--primary">
       						    		{itinerary.title}
       						    	</div>
                       </div>

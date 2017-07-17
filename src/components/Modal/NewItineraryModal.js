@@ -12,7 +12,7 @@ import ListErrors from './../ListErrors';
 import Geosuggest from 'react-geosuggest';
 import {GoogleApiWrapper} from 'google-maps-react';
 import Map from 'google-maps-react';
-
+ 
 const mapStateToProps = state => ({
   ...state.modal,
   authenticated: state.common.authenticated
@@ -169,54 +169,55 @@ class NewItineraryModal extends React.Component {
         </div>
         <div className="flx flx-col flx-center-all create-wrapper mrgn-top-sm">
           <ListErrors errors={this.props.errors}></ListErrors>
-                <div className="form-wrapper flx flx-col-left">
-                  <form>
-              <fieldset className="field-wrapper">
-                <label>Itinerary Name</label>
-                          <input
-                            className="input--underline edit-itinerary__name"
-                            type="text"
-                            placeholder="My Vacation 2018 or Best NYC Sandos"
-                            required
-                            value={this.props.title}
-                            onChange={changeTitle} />
-                        </fieldset>
-                        <fieldset className="field-wrapper">
-                          <label>Location</label>
-                          <Geosuggest 
-                              className="input--underline"
-                              types={['(regions)']}
-                              placeholder="Search for a city or country"
-                              required
-                              onChange={changeGeo}
-                              onSuggestSelect={suggestSelect}/>
-                               {/*   googleMaps={this.props.googleMapObject} */}
-                       {/*}   <input
-                            className="input--underline"
-                            type="text"
-                            placeholder="Location"
-                            required
-                            value={this.props.geo}
-                            onChange={changeGeo} /> */}
-                        </fieldset>
-              <fieldset className="field-wrapper">
-                <label>Short Description</label>
-                          <textarea
-                            className="input--underline"
-                            type="text"
-                            rows="4"
-                            placeholder="What's the story behind this itinerary?"
-                            value={this.props.description}
-                            onChange={changeDescription} />
-                        </fieldset>
+              <div className="form-wrapper flx flx-col-left">
+                <form>
+                 <fieldset className="field-wrapper">
+                   <label>Location</label>
+                   <Geosuggest 
+                       className="input--underline"
+                       types={['(regions)']}
+                       placeholder="Paris, Madrid, Waikiki..."
+                       required
+                       onChange={changeGeo}
+                       onSuggestSelect={suggestSelect}/>
+                        {/*   googleMaps={this.props.googleMapObject} */}
+                {/*}   <input
+                     className="input--underline"
+                     type="text"
+                     placeholder="Location"
+                     required
+                     value={this.props.geo}
+                     onChange={changeGeo} /> */}
+                 </fieldset>
+            <fieldset className="field-wrapper">
+              <label>Guide Name</label>
+                <input
+                  className="input--underline edit-itinerary__name"
+                  type="text"
+                  placeholder="My New Travel Guide"
+                  required
+                  value={this.props.title}
+                  onChange={changeTitle} />
+              </fieldset>
+              
+            <fieldset className="field-wrapper">
+              <label>About (Optional)</label>
+                        <textarea
+                          className="input--underline"
+                          type="text"
+                          rows="4"
+                          placeholder="Add a description..."
+                          value={this.props.description}
+                          onChange={changeDescription} />
+                      </fieldset>
 
-                        <div
-                        className="DN vb w-100 vb--create mrgn-top-md"
-                        type="button"
-                        onClick={submitForm}>
-                        Create New Itinerary
-                      </div>
-                </form>
+                      <div
+                      className="DN vb w-100 vb--create mrgn-top-md"
+                      type="button"
+                      onClick={submitForm}>
+                      Create New Itinerary
+                    </div>
+              </form>
             </div>
         </div>
         </div>
