@@ -218,13 +218,16 @@ select {
   background-image: linear-gradient(90deg, #61F2ED 4%, #C1FDE0 98%);
 }
 
-.v-button--warning {
 
+.vb--change-cover {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  opacity: .8;
 }
-.v-button--warning:hover {
-  color: red;
+.itinerary__cover__image:hover .vb--change-cover {
+  opacity: 1;
 }
-
 
 
 

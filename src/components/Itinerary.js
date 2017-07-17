@@ -37,7 +37,7 @@ const UpdateCoverPhoto = props => {
           multiple={false}
           accept="image/*"
           className="edit-tip__dropzone__touch flx flx-col flx-align-center flx-just-start ta-center">
-          <div className="vb vb--sm vb--link vb--outline--none color--primary mrgn-right-md">Change cover photo</div>
+          <div className="vb vb--sm fill--white color--primary">Change photo</div>
 
         </Dropzone>
         
@@ -52,7 +52,7 @@ const EditItineraryLink = props => {
     return (
       <Link
         to={'/edit/' + props.itineraryId}
-        className="vb vb--sm vb--link vb--outline--none color--primary vb--light mrgn-right-md">
+        className="vb vb--sm fill--white color--primary mrgn-right-md">
          {/*<i className="ion-gear-a"></i>*/}Edit
       </Link>
     );
@@ -161,6 +161,10 @@ class Itinerary extends React.Component {
               {/** Cover Image **/}
               <div className="itinerary__cover__image header-height">
                 <ImagePicker images={itinerary.images ? [itinerary.images] : null} />
+                <div className="vb--change-cover">
+                <UpdateCoverPhoto isUser={isUser} itinerary={itinerary} itineraryId={this.props.itineraryId} 
+                  uploadCoverPhoto={this.props.dispatchUploadCoverPhoto} authenticated={this.props.authenticated} />
+                </div>
               </div>
 
              
@@ -245,9 +249,6 @@ class Itinerary extends React.Component {
                   </div>
 
                   <EditItineraryLink isUser={isUser} itineraryId={this.props.itineraryId} />
-
-                  <UpdateCoverPhoto isUser={isUser} itinerary={itinerary} itineraryId={this.props.itineraryId} 
-                    uploadCoverPhoto={this.props.dispatchUploadCoverPhoto} authenticated={this.props.authenticated} />
 
                   <ItineraryActions 
                     itinerary={itinerary} 

@@ -505,4 +505,9 @@ width: 100%;
 .dialog--save__wrapper {
   width: 100%;
 }
+
+.back-to-top {
+    bottom: 80px;
+    right: 20px;
+  }
 }
