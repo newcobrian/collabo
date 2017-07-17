@@ -73,6 +73,17 @@ export function findItineraryIndex(itineraries, itineraryId) {
 	return -1;
 }
 
+export function generateImageFileName()
+{
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < 15; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}
+
 export function incrementItineraryCount(counterType, itineraryId, geo, userId) {
 	// increment count on itineraries
 	Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId + '/' + counterType).transaction(function (current_count) {
