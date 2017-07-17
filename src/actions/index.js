@@ -274,67 +274,74 @@ export function loadGoogleMaps(googleObject, mapObject, source) {
 export function onEditorLoad(authenticated, itineraryId) {
   return dispatch => {
     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).on('value', itinerarySnapshot => {
-      // make this is the authed user's itinerary
-      if (authenticated !== itinerarySnapshot.val().userId) {
-        dispatch ({
-          type: EDITOR_PAGE_NO_AUTH,
-          itineraryId: itineraryId
-        })
-      }
-      let itineraryObject = Object.assign({}, itinerarySnapshot.val());
-      if (itineraryObject && itineraryObject.reviews) {
-        for (let i = 0; i < itineraryObject.reviews.length; i++) {
-          Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + itineraryObject.reviews[i].subjectId).on('value', subjectSnapshot => {
-            Firebase.database().ref(Constants.REVIEWS_PATH + '/' + itineraryObject.reviews[i].reviewId).on('value', reviewSnapshot => {
-              Firebase.database().ref(Constants.IMAGES_BY_USER_PATH + '/' + authenticated + '/' + itineraryObject.reviews[i].subjectId).on('value', userImageSnapshot => {
-                Firebase.database().ref(Constants.IMAGES_PATH + '/' + itineraryObject.reviews[i].subjectId).on('value', imageSnapshot => {
-                  let imageList = (userImageSnapshot.exists() ? Helpers.getImagePath(userImageSnapshot.val()) : Helpers.getImagePath(imageSnapshot.val()) );
-                  Object.assign(itineraryObject.reviews[i], subjectSnapshot.val(), reviewSnapshot.val(), 
-                    { images: imageList });
-
-                  if (i === itineraryObject.reviews.length - 1) {
-                    dispatch({
-                      type: EDITOR_PAGE_LOADED,
-                      itineraryId: itineraryId,
-                      searchLocation: itinerarySnapshot.val().geo.location,
-                      geoSuggest: itinerarySnapshot.val().geo.label,
-                      itineraryImages: itineraryObject.images,
-                      data: { itinerary: itineraryObject }
-                    })
-                  }
+      Firebase.database().ref(Constants.REVIEWS_BY_ITINERARY_PATH + '/' + itineraryId).on('value', reviewsListSnapshot => {
+        // make this is the authed user's itinerary
+        if (authenticated !== itinerarySnapshot.val().userId) {
+          dispatch ({
+            type: EDITOR_PAGE_NO_AUTH,
+            itineraryId: itineraryId
+          })
+        }
+        let itineraryObject = Object.assign({}, itinerarySnapshot.val(), {reviews: []});
+        let reviewsList = Object.assign({}, reviewsListSnapshot.val());
+        if (itineraryObject && reviewsList) {
+          let reviewsLength = reviewsListSnapshot.numChildren();
+          for (let i = 0; i < reviewsLength; i++) {
+            Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + reviewsList[i].subjectId).on('value', subjectSnapshot => {
+              Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewsList[i].reviewId).on('value', reviewSnapshot => {
+                Firebase.database().ref(Constants.IMAGES_BY_USER_PATH + '/' + authenticated + '/' + reviewsList[i].subjectId).on('value', userImageSnapshot => {
+                  Firebase.database().ref(Constants.IMAGES_PATH + '/' + reviewsList[i].subjectId).on('value', imageSnapshot => {
+                    let imageList = (userImageSnapshot.exists() ? Helpers.getImagePath(userImageSnapshot.val()) : Helpers.getImagePath(imageSnapshot.val()) );
+                    Object.assign(reviewsList[i], subjectSnapshot.val(), reviewSnapshot.val(), 
+                      { images: imageList });
+                    itineraryObject.reviews = itineraryObject.reviews.concat(reviewsList[i])
+                    itineraryObject.reviews = itineraryObject.reviews.slice();
+                    
+                    if (i === reviewsLength - 1) {
+                      dispatch({
+                        type: EDITOR_PAGE_LOADED,
+                        itineraryId: itineraryId,
+                        searchLocation: itinerarySnapshot.val().geo.location,
+                        geoSuggest: itinerarySnapshot.val().geo.label,
+                        itineraryImages: itineraryObject.images,
+                        data: { itinerary: itineraryObject }
+                      })
+                    }
+                  })
                 })
               })
             })
+          }
+        }
+        else {
+          itineraryObject.reviews = [];
+          dispatch({
+            type: EDITOR_PAGE_LOADED,
+            itineraryId: itineraryId,
+            searchLocation: itinerarySnapshot.val().geo.location,
+            geoSuggest: itinerarySnapshot.val().geo.label,
+            itineraryImages: itineraryObject.images,
+            data: { itinerary: itineraryObject }
           })
         }
-      }
-      else {
-        itineraryObject.reviews = [];
-        dispatch({
-          type: EDITOR_PAGE_LOADED,
-          itineraryId: itineraryId,
-          searchLocation: itinerarySnapshot.val().geo.location,
-          geoSuggest: itinerarySnapshot.val().geo.label,
-          itineraryImages: itineraryObject.images,
-          data: { itinerary: itineraryObject }
-        })
-      }
+      })
     })
   }
 }
 
 export function onEditorUnload(itineraryId) {
   return dispatch => {
-    Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).once('value', itinerarySnapshot => {
-      let itineraryObject = itinerarySnapshot.val();
-      if (itineraryObject && itineraryObject.reviews) {
-        for (let i = 0; i < itineraryObject.reviews.length; i++) {
-          Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + itineraryObject.reviews[i].subjectId).off();
-          Firebase.database().ref(Constants.REVIEWS_PATH + '/' + itineraryObject.reviews[i].reviewId).off();
+    Firebase.database().ref(Constants.REVIEWS_BY_ITINERARY_PATH + '/' + itineraryId).once('value', reviewsListSnapshot => {
+      if (reviewsListSnapshot.exists()) {
+        let reviewsLength = reviewsListSnapshot.numChildren();
+        for (let i = 0; i < reviewsLength; i++) {
+          Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + reviewsListSnapshot.val()[i].subjectId).off();
+          Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewsListSnapshot.val()[i].reviewId).off();
         }
       }
     })
     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).off();
+    Firebase.database().ref(Constants.REVIEWS_BY_ITINERARY_PATH + '/' + itineraryId).off();
     dispatch({
       type: EDITOR_PAGE_UNLOADED
     })
@@ -1045,7 +1052,7 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
       Firebase.database().ref(Constants.GEOS_PATH + '/' + itinerary.geo.placeId).once('value', geoSnapshot => { 
         Firebase.database().ref(Constants.COUNTRIES_PATH + '/' + itinerary.geo.country + '/places/' + itinerary.geo.placeId).once('value', countrySnapshot => {
           let itineraryByUserObject = Helpers.makeItinerary(auth, itinerary, lastModified);
-          Object.assign(itineraryByUserObject, { reviews: reviewsList }, { reviewsCount: reviews.length });
+          Object.assign(itineraryByUserObject, { reviewsCount: reviews.length });
           if (itinSnapshot.exists() && itinSnapshot.val().createdOn) itineraryByUserObject.createdOn = itinSnapshot.val().createdOn;
           if (itinSnapshot.exists() && itinSnapshot.val().images) itineraryByUserObject.images = itinSnapshot.val().images;
 
@@ -1057,6 +1064,9 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
           updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}/`] = itineraryObject;
           updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${itinerary.geo.placeId}/${auth}/${itineraryId}/`] = itineraryByUserObject;
           updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itineraryId}/`] = itineraryObject;
+
+          // udpate reviews-by-itinerary
+          updates[`/${Constants.REVIEWS_BY_ITINERARY_PATH}/${itineraryId}/`] = Object.assign({}, reviewsList);
 
           // add geo to geo table if its not there
           if (!geoSnapshot.exists()) {
@@ -1799,6 +1809,7 @@ export function onDeleteItinerary(userId, itineraryId, geo, redirectPath) {
     Firebase.database().ref(Constants.ITINERARIES_BY_GEO_BY_USER_PATH + '/' + geo + '/' + userId + '/' + itineraryId).remove();
     Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH + '/' + geo + '/' + itineraryId).remove();
     Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + userId + '/' + itineraryId).remove();
+    Firebase.database().ref(Constants.REVIEWS_BY_ITINERARY_PATH + '/' + itineraryId).remove();
     Firebase.database().ref(Constants.LIKES_PATH + '/' + itineraryId).remove();
     Firebase.database().ref(Constants.COMMENTS_PATH + '/' + itineraryId).remove();
     Firebase.database().ref(Constants.LIKES_BY_USER_PATH).once('value', likesSnapshot => {
@@ -1910,6 +1921,28 @@ export function getItinerariesByUser(auth, userId) {
     })
   }
 }
+
+// export function migrateItinData () {
+//   return dispatch => {
+//     let updates = {};
+//     Firebase.database().ref(Constants.ITINERARIES_PATH).once('value', snapshot => {
+//       snapshot.forEach(function(itin) {
+//         if (itin.key === '-KnhYCTtpuMU5GTqnBNx') {
+//           if (itin.val().reviews) {
+//             let reviewsList = itin.val().reviews;
+//             updates[`/${Constants.REVIEWS_BY_ITINERARY_PATH}/${itin.key}`] = reviewsList;
+//             updates[`/${Constants.ITINERARIES_PATH}/${itin.key}/reviews`] = null;
+//             updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${itin.val().userId}/${itin.key}/reviews`] = null;
+//             updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${itin.val().geo.placeId}/${itin.val().userId}/${itin.key}/reviews`] = null;
+//             updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itin.val().geo.placeId}/${itin.key}/reviews`] = null;
+//           }
+//         }
+//       })
+//       console.log(JSON.stringify(updates));
+//       Firebase.database().ref().update(updates);
+//     })
+//   }
+// }
 
 export function unloadItinerariesByUser(auth, userId) {
   return dispatch => {
@@ -2956,9 +2989,9 @@ export function addToItinerary(auth, tip, itinerary) {
     else {
       itineraryId = itinerary.itineraryId;
     }
-    Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + auth + '/' + itineraryId).once('value', itinSnapshot => {
+    Firebase.database().ref(Constants.REVIEWS_BY_ITINERARY_PATH + '/' + itineraryId).once('value', reviewsByItinSnapshot => {
       let subjectId = tip.subjectId;
-      if (itinSnapshot.exists() && itinSnapshot.val().reviews && findSubject(subjectId, itinSnapshot.val().reviews)) {
+      if (reviewsByItinSnapshot.exists() && findSubject(subjectId, reviewsByItinSnapshot.val())) {
       // if (itinSnapshot.val().reviews && itinSnapshot.val().reviews[subjectId]) {
         let message = itinerary.title + ' already contains ' + tip.title;
         dispatch({
@@ -2967,54 +3000,69 @@ export function addToItinerary(auth, tip, itinerary) {
         })
       }
       else {
-        if (itinSnapshot.exists()) itinerary = Object.assign({}, itinSnapshot.val());
-
-        // see if the user has already reviewed the subject. If so, add their review
-        Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + auth).once('value', reviewSnapshot => {
-          let geo = itinerary.geo;
-          let updates = {};
-          let tipData = {
-            subjectId: subjectId
-          }
-          if (reviewSnapshot.exists()) {
-            tipData.reviewId = reviewSnapshot.val().reviewId;
-          }
-          else {
-            // create the empty review
-            let lastModified = Firebase.database.ServerValue.TIMESTAMP;
-            let reviewObject = Object.assign({}, {lastModified: lastModified});
-            let reviewId = Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + auth).push().key;
-            updates[`/${Constants.REVIEWS_BY_USER_PATH}/${auth}/${reviewId}/`] = Object.assign({}, reviewObject, {subjectId: subjectId});
-            updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${subjectId}/${auth}/`] = Object.assign({}, reviewObject, {reviewId: reviewId});
-            updates[`/${Constants.REVIEWS_PATH}/${reviewId}/`] = Object.assign({}, reviewObject, { userId: auth }, {subjectId: subjectId});
-            tipData.reviewId = reviewId;
-          }
-
-          let itineraryByUserObject = Object.assign({}, itinerary);
-          itineraryByUserObject.reviewsCount = itineraryByUserObject.reviewsCount ? itineraryByUserObject.reviewsCount + 1 : 1;
-
-          if (!itineraryByUserObject.reviews) itineraryByUserObject.reviews = [];
-          itineraryByUserObject.reviews[itineraryByUserObject.reviews.length] = tipData;
-          itineraryByUserObject.lastModified = Firebase.database.ServerValue.TIMESTAMP;
-          let itineraryObject = Object.assign({}, itineraryByUserObject, {userId: itinerary.userId});
-
-          updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}/`] = itineraryObject;
-          updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${geo.placeId}/${auth}/${itineraryId}/`] = itineraryByUserObject;
-          updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${geo.placeId}/${itineraryId}/`] = itineraryObject;
-          updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}/`] = itineraryByUserObject;
-
-          Firebase.database().ref().update(updates);
-
-          let message = tip.title + ' successfully added to ' + itinerary.title;
-          dispatch({
-            type: ADDED_TO_ITINERARY,
-            message: message,
-            meta: {
-              mixpanel: {
-                event: 'Saved to itinerary'
+        Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + auth + '/' + itineraryId).once('value', itinSnapshot => {
+          if (itinSnapshot.exists()) {
+            // see if the user has already reviewed the subject. If so, add their review
+            Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + auth).once('value', reviewSnapshot => {
+              let geo = itinSnapshot.val().geo;
+              let updates = {};
+              let tipData = {
+                subjectId: subjectId
               }
-            }
-          })
+              if (reviewSnapshot.exists()) {
+                tipData.reviewId = reviewSnapshot.val().reviewId;
+              }
+              else {
+                // create the empty review
+                let lastModified = Firebase.database.ServerValue.TIMESTAMP;
+                let reviewObject = Object.assign({}, {lastModified: lastModified});
+                let reviewId = Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + auth).push().key;
+                updates[`/${Constants.REVIEWS_BY_USER_PATH}/${auth}/${reviewId}/`] = Object.assign({}, reviewObject, {subjectId: subjectId});
+                updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${subjectId}/${auth}/`] = Object.assign({}, reviewObject, {reviewId: reviewId});
+                updates[`/${Constants.REVIEWS_PATH}/${reviewId}/`] = Object.assign({}, reviewObject, { userId: auth }, {subjectId: subjectId});
+                tipData.reviewId = reviewId;
+              }
+
+              // let itineraryByUserObject = Object.assign({}, itinerary);
+              // itineraryByUserObject.reviewsCount = itineraryByUserObject.reviewsCount ? itineraryByUserObject.reviewsCount + 1 : 1;
+
+              // if (!itineraryByUserObject.reviews) itineraryByUserObject.reviews = [];
+              // itineraryByUserObject.reviews[itineraryByUserObject.reviews.length] = tipData;
+              // itineraryByUserObject.lastModified = Firebase.database.ServerValue.TIMESTAMP;
+              // let itineraryObject = Object.assign({}, itineraryByUserObject, {userId: itinerary.userId});
+
+              let reviewsList = reviewsByItinSnapshot.val() || [];
+              // itineraryByUserObject.reviewsCount = itineraryByUserObject.reviewsCount ? itineraryByUserObject.reviewsCount + 1 : 1;
+
+              reviewsList[reviewsByItinSnapshot.val().length] = tipData;
+              let lastModified = Firebase.database.ServerValue.TIMESTAMP;
+
+              // update reviews by itinerary
+              updates[`/${Constants.REVIEWS_BY_ITINERARY_PATH}/${itineraryId}`] = reviewsList;              
+
+              // update lastModified on itinerary tables
+              updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}/lastModified`] = lastModified;
+              updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${geo.placeId}/${auth}/${itineraryId}/lastModified`] = lastModified;
+              updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${geo.placeId}/${itineraryId}/lastModified`] = lastModified;
+              updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}/lastModified`] = lastModified;
+
+              // increment reviewsCount counters on itinerary tables
+              Helpers.incrementItineraryCount(Constants.REVIEWS_COUNT, itineraryId, geo, auth);
+
+              Firebase.database().ref().update(updates);
+
+              let message = tip.title + ' successfully added to ' + itinerary.title;
+              dispatch({
+                type: ADDED_TO_ITINERARY,
+                message: message,
+                meta: {
+                  mixpanel: {
+                    event: 'Saved to itinerary'
+                  }
+                }
+              })
+            })
+          }
         })
       }
     })

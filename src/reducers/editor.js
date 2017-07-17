@@ -1,5 +1,6 @@
 import { REVIEW_SUBMITTED, UPDATE_FIELD, EDITOR_PAGE_LOADED, EDITOR_PAGE_UNLOADED, EDITOR_PAGE,
-  EDITOR_SUBMIT_ERROR, SET_IN_PROGRESS, SET_WATCH_ID, GET_USER_LOCATION, GOOGLE_MAP_LOADED } from '../actions'
+  EDITOR_SUBMIT_ERROR, SET_IN_PROGRESS, SET_WATCH_ID, GET_USER_LOCATION, GOOGLE_MAP_LOADED,
+  ITINERARY_UPDATED } from '../actions'
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -22,6 +23,7 @@ export default (state = {}, action) => {
       }
       else return {...state}
     case EDITOR_PAGE_UNLOADED:
+    case ITINERARY_UPDATED:
       return {};
     case EDITOR_SUBMIT_ERROR:
       return {

@@ -41,69 +41,72 @@ export function getItinerary(auth, itineraryId) {
   return dispatch => {
     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).on('value', itinerarySnapshot => {
       if (itinerarySnapshot.exists()) {
-        Firebase.database().ref(Constants.USERS_PATH + '/' + itinerarySnapshot.val().userId).on('value', userSnapshot => {
-          Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itineraryId).on('value', itinLikeSnapshot => {
-            let userInfo = { createdBy:
-              { username: userSnapshot.val().username, image: userSnapshot.val().image, userId: userSnapshot.key }
-            };
-            let itinLikes = {
-              isLiked: itinLikeSnapshot.exists()
-            }
+        Firebase.database().ref(Constants.REVIEWS_BY_ITINERARY_PATH + '/' + itineraryId).on('value', reviewsListSnapshot => {
+          Firebase.database().ref(Constants.USERS_PATH + '/' + itinerarySnapshot.val().userId).on('value', userSnapshot => {
+            Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itineraryId).on('value', itinLikeSnapshot => {
+              let userInfo = { createdBy:
+                { username: userSnapshot.val().username, image: userSnapshot.val().image, userId: userSnapshot.key }
+              };
+              let itinLikes = {
+                isLiked: itinLikeSnapshot.exists()
+              }
 
-            let itineraryObject = Object.assign({}, {id: itineraryId}, itinerarySnapshot.val(), userInfo, itinLikes);
-            let reviewArray = [];
-            if (!itineraryObject.reviews) {
-              dispatch({
-                type: ActionTypes.ITINERARY_PAGE_LOADED,
-                itineraryId: itineraryId,
-                itinerary: itineraryObject,
-                reviewList: []
-              })
-            }
-            else {
-              for (let i = 0; i < itineraryObject.reviews.length; i++) {
-                let reviewItem = itineraryObject.reviews[i];
-                if (reviewItem) {
-                  Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + reviewItem.subjectId).on('value', subjectSnapshot => {
-                    Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewItem.reviewId).on('value', reviewSnapshot => {
-                      Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + reviewItem.reviewId).on('value', likesSnapshot => {
-                        Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewItem.reviewId).on('value', commentSnapshot => {
-                          Firebase.database().ref(Constants.IMAGES_BY_USER_PATH + '/' + itinerarySnapshot.val().userId + '/' + reviewItem.subjectId).on('value', imagesSnapshot => {
-                            Firebase.database().ref(Constants.IMAGES_PATH + '/' + reviewItem.subjectId).on('value', defaultImagesSnapshot => {
-                              let reviewObject = {};
-                              let likes = {
-                                isLiked: likesSnapshot.exists()
-                              }
-                              
-                              let comments = [];
-                              commentSnapshot.forEach(function(commentChild) {
-                                const comment = Object.assign({}, { id: commentChild.key }, commentChild.val());
-                                comments = comments.concat(comment);
-                              })
-                              comments.sort(Helpers.lastModifiedAsc);
+              let itineraryObject = Object.assign({}, {id: itineraryId}, itinerarySnapshot.val(), userInfo, itinLikes);
+              let reviewArray = [];
+              if (!reviewsListSnapshot.exists()) {
+                dispatch({
+                  type: ActionTypes.ITINERARY_PAGE_LOADED,
+                  itineraryId: itineraryId,
+                  itinerary: itineraryObject,
+                  reviewList: []
+                })
+              }
+              else {
+                let reviewsList = Object.assign({}, reviewsListSnapshot.val());
+                let reviewsLength = reviewsListSnapshot.numChildren();
+                for (let i = 0; i < reviewsLength; i++) {
+                  let reviewItem = reviewsList[i];
+                  if (reviewItem) {
+                    Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + reviewItem.subjectId).on('value', subjectSnapshot => {
+                      Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewItem.reviewId).on('value', reviewSnapshot => {
+                        Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + reviewItem.reviewId).on('value', likesSnapshot => {
+                          Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewItem.reviewId).on('value', commentSnapshot => {
+                            Firebase.database().ref(Constants.IMAGES_BY_USER_PATH + '/' + itinerarySnapshot.val().userId + '/' + reviewItem.subjectId).on('value', imagesSnapshot => {
+                              Firebase.database().ref(Constants.IMAGES_PATH + '/' + reviewItem.subjectId).on('value', defaultImagesSnapshot => {
+                                let reviewObject = {};
+                                let likes = {
+                                  isLiked: likesSnapshot.exists()
+                                }
+                                let comments = [];
+                                commentSnapshot.forEach(function(commentChild) {
+                                  const comment = Object.assign({}, { id: commentChild.key }, commentChild.val());
+                                  comments = comments.concat(comment);
+                                })
+                                comments.sort(Helpers.lastModifiedAsc);
 
-                              let images = imagesSnapshot.exists() ? Helpers.getImagePath(imagesSnapshot.val()) : Helpers.getImagePath(defaultImagesSnapshot.val());
+                                let images = imagesSnapshot.exists() ? Helpers.getImagePath(imagesSnapshot.val()) : Helpers.getImagePath(defaultImagesSnapshot.val());
 
-                              Object.assign(reviewObject, subjectSnapshot.val(), reviewSnapshot.val(), {id: reviewItem.reviewId},
-                                    { priority: i }, reviewItem, userInfo, likes, {comments: comments}, {images: images} );
-                              reviewArray = [reviewObject].concat(reviewArray);
-                              reviewArray.sort(Helpers.byPriority);
+                                Object.assign(reviewObject, subjectSnapshot.val(), reviewSnapshot.val(), {id: reviewItem.reviewId},
+                                      { priority: i }, reviewItem, userInfo, likes, {comments: comments}, {images: images} );
+                                reviewArray = [reviewObject].concat(reviewArray);
+                                reviewArray.sort(Helpers.byPriority);
 
-                              dispatch({
-                                type: ActionTypes.ITINERARY_PAGE_LOADED,
-                                itineraryId: itineraryId,
-                                itinerary: itineraryObject,
-                                reviewList: reviewArray
+                                dispatch({
+                                  type: ActionTypes.ITINERARY_PAGE_LOADED,
+                                  itineraryId: itineraryId,
+                                  itinerary: itineraryObject,
+                                  reviewList: reviewArray
+                                })
                               })
                             })
                           })
                         })
                       })
                     })
-                  })
+                  }
                 }
               }
-            }
+            })
           })
         })
       }
