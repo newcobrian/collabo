@@ -223,10 +223,10 @@ select {
   position: absolute;
   right: 10px;
   bottom: 10px;
-  opacity: .8;
+  opacity: 1;
 }
 .itinerary__cover__image:hover .vb--change-cover {
-  opacity: 1;
+
 }
 
 
