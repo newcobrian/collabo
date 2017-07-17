@@ -2092,7 +2092,7 @@ export function unloadLikesByUser(auth, userId) {
 
 export function startFeedWatch(auth) {
   return dispatch => {
-    watchLikesByUser(dispatch, auth);
+    watchLikesByUser(dispatch, auth, Constants.USER_FEED);
     watchFollowingFeed(dispatch, auth);
     watchItinerariesByUser(dispatch, auth)
   }
@@ -2100,7 +2100,7 @@ export function startFeedWatch(auth) {
 
 export function unloadFeedWatch(auth) {
   return dispatch => {
-  unwatchLikesByUser(dispatch, auth);
+  unwatchLikesByUser(dispatch, auth, Constants.USER_FEED);
   unwatchItinerariesByUser(dispatch, auth);
   unwatchFollowingFeed(dispatch, auth);
   }
@@ -2109,13 +2109,13 @@ export function unloadFeedWatch(auth) {
 export function watchFollowingFeed(dispatch, userId) {
   // when new follower added, watch the user's info and their itineraries
   Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + userId).on('child_added', snap => {
-    watchUser(dispatch, snap.key);
+    watchUser(dispatch, snap.key, Constants.USER_FEED);
     watchItinerariesByUser(dispatch, snap.key);
   })
 
   // on child_removed - unwatch all the listeners
   Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + userId).on('child_removed', snap => {
-    unwatchUser(dispatch, snap.key);
+    unwatchUser(dispatch, snap.key, Constants.USER_FEED);
     unwatchItinerariesByUser(dispatch, snap.key);
   })
 }
@@ -2182,38 +2182,40 @@ function itineraryRemovedAction(itineraryId) {
   }
 }
 
-export function watchUser(dispatch, userId) {
+export function watchUser(dispatch, userId, source) {
   Firebase.database().ref(Constants.USERS_PATH + '/' + userId).on('value', snap => {
-    dispatch(userAddedAction(userId, snap.val()));
+    dispatch(userAddedAction(userId, snap.val(), source));
   })
 }
 
-export function unwatchUser(dispatch, userId) {
-  dispatch(userRemovedAction(userId));
+export function unwatchUser(dispatch, userId, source) {
+  dispatch(userRemovedAction(userId, source));
   Firebase.database().ref(Constants.USERS_PATH + '/' + userId).off();
 }
 
-function userAddedAction(userId, user) {
+function userAddedAction(userId, user, source) {
   return {
     type: USER_ADDED_ACTION,
     userInfo: user,
-    userId: userId
+    userId: userId,
+    source: source
   }
 }
 
-function userRemovedAction(userId) {
+function userRemovedAction(userId, source) {
   return {
     type: USER_REMOVED_ACTION,
-    userId
+    userId,
+    source
   }
 }
 
-export function watchLikesByUser(dispatch, userId) {
+export function watchLikesByUser(dispatch, userId, source) {
   Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).on('child_added', snap => {
-    dispatch(likesByUserAddedAction(snap.key));
+    dispatch(likesByUserAddedAction(snap.key, source));
   })
   Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).on('child_removed', snap => {
-    dispatch(likesByUserRemovedAction(snap.key));
+    dispatch(likesByUserRemovedAction(snap.key, source));
   })
 }
 
@@ -2221,17 +2223,19 @@ export function unwatchLikesByUser(dispatch, userId) {
   Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).off();
 }
 
-function likesByUserAddedAction(objectId) {
+function likesByUserAddedAction(objectId, source) {
   return {
     type: LIKES_BY_USER_ADDED_ACTION,
-    objectId
+    objectId,
+    source
   }
 }
 
-function likesByUserRemovedAction(objectId) {
+function likesByUserRemovedAction(objectId, source) {
   return {
     type: LIKES_BY_USER_REMOVED_ACTION,
-    objectId
+    objectId,
+    source
   }
 }
 

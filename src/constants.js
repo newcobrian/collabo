@@ -68,7 +68,6 @@ export const LIKES_COUNT = 'likesCount'
 export const COMMENTS_COUNT = 'commentsCount'
 export const SAVES_COUNT = 'savesCount'
 
-
 /*** Message Type Constants ***/
 export const LIKE_MESSAGE = 'LIKE_MESSAGE'
 export const LIKE_ITINERARY_MESSAGE = 'LIKE_ITINERARY_MESSAGE'
@@ -81,9 +80,12 @@ export const COMMENT_ON_ITINERARY_MESSAGE = 'COMMENT_ON_ITINERARY_MESSAGE'
 export const DIRECT_MESSAGE = 'DIRECT_MESSAGE'
 export const FORWARD_MESSAGE = 'FORWARD_MESSAGE'
 
-
 export const ITINERARY_TYPE = 'itinerary'
 export const REVIEW_TYPE = 'review'
+
+/*** Page Sources ***/
+export const USER_FEED = 'USER_FEED'
+export const ITINERARY_PAGE = 'ITINERARY_PAGE'
 
 /*** Tag list ***/
 export const TAG_LIST = []

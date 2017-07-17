@@ -3,6 +3,40 @@ import * as Constants from '../constants'
 import * as Helpers from '../helpers'
 import * as ActionTypes from './types'
 
+// export function watchItinerary(auth, itineraryId) {
+// 	return dispatch => {
+// 		// get the likes data for the viewer
+// 		watchLikesByUser(dispatch, auth, Constants.ITINERARY_PAGE);
+
+// 		// watch the itinerary
+// 		Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).on('value', itinerarySnapshot => {
+// 			// watch the itinerary creator
+// 			watchUser(dispatch, itinerarySnapshot.val().userId, Constants.ITINERARY_PAGE);
+
+// 			// dispatch itinerary data
+// 			dispatch(itineraryValueAction(itinerarySnapshot.val(), Constants.ITINERARY_PAGE));
+
+// 			// get all tips in the itinerary
+// 			for (let i = 0; i < itineraryObject.reviews.length; i++) {
+// 				let reviewItem = itineraryObject.reviews[i];
+// 				watchSubject(reviewItem.subjectId);
+// 				watchReview(reviewItem.reviewId);
+// 				watchComments(reviewItem.reviewId);
+// 				watchImagesByUser(itinerarySnapshot.val().userId, reviewItem.subjectId);
+// 				watchImages(reviewItem.subjectId);
+// 			}
+// 		})
+// 	}
+// }
+
+// function itineraryValueAction(itinerary, source) {
+//   return {
+//     type: ActionTypes.ITINERARY_VALUE_ACTION,
+//     itinerary,
+//     source
+//   }
+// }
+
 export function getItinerary(auth, itineraryId) {
   return dispatch => {
     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).on('value', itinerarySnapshot => {
@@ -34,7 +68,7 @@ export function getItinerary(auth, itineraryId) {
                     Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewItem.reviewId).on('value', reviewSnapshot => {
                       Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + reviewItem.reviewId).on('value', likesSnapshot => {
                         Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewItem.reviewId).on('value', commentSnapshot => {
-                          Firebase.database().ref(Constants.IMAGES_BY_USER_PATH + '/' + auth + '/' + reviewItem.subjectId).on('value', imagesSnapshot => {
+                          Firebase.database().ref(Constants.IMAGES_BY_USER_PATH + '/' + itinerarySnapshot.val().userId + '/' + reviewItem.subjectId).on('value', imagesSnapshot => {
                             Firebase.database().ref(Constants.IMAGES_PATH + '/' + reviewItem.subjectId).on('value', defaultImagesSnapshot => {
                               let reviewObject = {};
                               let likes = {
