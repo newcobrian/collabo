@@ -124,11 +124,14 @@ export const UNLOAD_USER_REVIEW = 'UNLOAD_USER_REVIEW'
 export const FORGOT_PASSWORD_SENT = 'FORGOT_PASSWORD_SENT'
 export const FOLLOWER_ADDED_ACTION = 'FOLLOWER_ADDED_ACTION'
 export const FOLLOWER_REMOVED_ACTION = 'FOLLOWER_REMOVED_ACTION'
-export const ITINERARIES_BY_USER_ADDED_ACTION = 'ITINERARIES_BY_USER_ADDED_ACTION'
 export const USER_ADDED_ACTION = 'USER_ADDED_ACTION'
+export const USER_REMOVED_ACTION = 'USER_REMOVED_ACTION'
 export const LIKES_BY_USER_ADDED_ACTION = 'LIKES_BY_USER_ADDED_ACTION'
+export const LIKES_BY_USER_REMOVED_ACTION = 'LIKES_BY_USER_REMOVED_ACTION'
+export const ITINERARY_ADDED_ACTION = 'ITINERARY_ADDED_ACTION'
+export const ITINERARY_REMOVED_ACTION = 'ITINERARY_REMOVED_ACTION'
+export const ITINERARY_CHANGED_ACTION = 'ITINERARY_CHANGED_ACTION'
 export const ITINERARIES_BY_USER_REMOVED_ACTION = 'ITINERARIES_BY_USER_REMOVED_ACTION'
-export const ITINERARIES_BY_USER_CHANGED_ACTION = 'ITINERARIES_BY_USER_CHANGED_ACTION'
 
 // export function signUpUser(username, email, password) {
 //   return dispatch => {
@@ -2617,122 +2620,7 @@ export function searchLikes(uid, likes) {
   return false;
 }
 
-export function createItineraryObject(itineraryId, itineraryVal, creatorId, creatorSnap, likesExists) {
-  const key = { id: itineraryId };
-  const createdBy = { createdBy: creatorSnap };
-  createdBy.createdBy.userId = creatorId;
-  let likes = {
-    isLiked: likesExists
-  }
-  
-  return Object.assign({}, itineraryVal, key, createdBy, likes);
-}
-
-export function getUserFeed(auth) {
-  return dispatch => {
-    if (!auth) {
-      dispatch({
-        type: HOME_PAGE_NO_AUTH
-      })
-    }
-    Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + auth).on('value', followedSnapshot => {
-      if (!followedSnapshot.exists()) {
-        dispatch({
-          type: GET_USER_FEED,
-          payload: []
-        })
-      }
-      else {
-        let userList = [auth];
-        followedSnapshot.forEach(function(followedUser) {
-          userList.push(followedUser.key);
-        })
-        let feedArray = [];
-        userList.forEach(function(userId) {
-          Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + userId).on('value', itinerariesSnapshot => {
-            Firebase.database().ref(Constants.USERS_PATH + '/' + userId).once('value', userSnapshot => {
-              itinerariesSnapshot.forEach(function(itin) {
-                Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itin.key).on('value', likesSnapshot => {
-                  const itineraryObject = createItineraryObject(itin.key, itin.val(), userId, userSnapshot.val(), likesSnapshot.exists())
-
-                  feedArray = [itineraryObject].concat(feedArray);
-                  feedArray.sort(lastModifiedDesc);
-                  
-                  dispatch({
-                    type: GET_USER_FEED,
-                    payload: feedArray
-                  })
-                })
-              })
-            })
-          })
-        })
-      }
-    })
-  }
-}
-
-// export function watchUserFeed2(auth) {
-//   return dispatch => {
-//     if (!auth) {
-//       dispatch({
-//         type: HOME_PAGE_NO_AUTH
-//       })
-//     }
-//     // new follower added
-//     Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + auth).on('child_added', followedSnapshot => {
-//       if (!followedSnapshot.exists()) {
-//         dispatch({
-//           type: GET_USER_FEED,
-//           payload: []
-//         })
-//       }
-//       else {
-//         let feedArray = [];
-//         let userCounter = 0;
-//         followedSnapshot.forEach(function(follow) {
-//           // watch for user data
-//           Firebase.database().ref(Constants.USERS_PATH + '/' + follow.key).on('value', userSnapshot => {
-//             // check follower itinerary added
-//             Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + follow.key).on('child_added', itinerariesSnapshot => {
-//               let itinCounter = 0;
-//               itinerariesSnapshot.forEach(function(itin) {
-//                 // watch for changes to likes to see if user has liked the itinerary
-//                 Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itin.key).on('value', likesSnapshot => {
-//                   // put together the object
-//                   const itineraryObject = createItineraryObject(itin.key, itin.val(), follow.key, userSnapshot.val(), likesSnapshot.exists())
-
-//                   // add it to the feed
-//                   feedArray = [itineraryObject].concat(feedArray);
-//                   feedArray.sort(lastModifiedDesc);
-
-//                   // if this is the last item in both itinerary and user, dispatch
-//                   if ((userList && userCounter === userList.length) && (itinerariesSnapshot.exists() && itinCounter === itinerariesSnapshot.numChildren())) {
-//                     dispatch({
-//                       type: GET_USER_FEED,
-//                       payload: feedArray
-//                     })
-//                   }
-//                 })
-//                 itinCounter++;
-//               })
-//             })
-
-//             // check for itinerary changed
-
-//             // check itinerary removed
-//           })
-//           userCounter++;
-//         })
-//       }
-//     })
-
-//     // follower is removed
-
-//     // also check the users own feed
-//   }
-// }
-
+// ORIGINAL VERSION on value
 // export function getUserFeed(auth) {
 //   return dispatch => {
 //     if (!auth) {
@@ -2740,9 +2628,7 @@ export function getUserFeed(auth) {
 //         type: HOME_PAGE_NO_AUTH
 //       })
 //     }
-//     Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + auth).once('value', followedSnapshot => {
-//       watchUserFeed(dispatch, auth, auth);
-
+//     Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + auth).on('value', followedSnapshot => {
 //       if (!followedSnapshot.exists()) {
 //         dispatch({
 //           type: GET_USER_FEED,
@@ -2755,182 +2641,184 @@ export function getUserFeed(auth) {
 //           userList.push(followedUser.key);
 //         })
 //         let feedArray = [];
-//         let userCounter = 0;
 //         userList.forEach(function(userId) {
-//           Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + userId).once('value', itinerariesSnapshot => {
-//             watchItinerariesByUser(dispatch, userId);
-
+//           Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + userId).on('value', itinerariesSnapshot => {
 //             Firebase.database().ref(Constants.USERS_PATH + '/' + userId).once('value', userSnapshot => {
-//               watchUser(dispatch, userId);
-
-//               let itinCounter = 0;
 //               itinerariesSnapshot.forEach(function(itin) {
-//                 Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itin.key).once('value', likesSnapshot => {
-//                   watchLikesByUser(dispatch, auth, itin.key);
-                  
+//                 Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itin.key).on('value', likesSnapshot => {
 //                   const itineraryObject = createItineraryObject(itin.key, itin.val(), userId, userSnapshot.val(), likesSnapshot.exists())
 
 //                   feedArray = [itineraryObject].concat(feedArray);
 //                   feedArray.sort(lastModifiedDesc);
-
-//                   // if this is the last item in both itinerary and user, dispatch
-//                   if ((userList && userCounter === userList.length) && (itinerariesSnapshot.exists() && itinCounter === itinerariesSnapshot.numChildren())) {
-//                     dispatch({
-//                       type: GET_USER_FEED,
-//                       payload: feedArray
-//                     })
-//                   }
+                  
+//                   dispatch({
+//                     type: GET_USER_FEED,
+//                     payload: feedArray
+//                   })
 //                 })
-//                 itinCounter++;
 //               })
 //             })
 //           })
-//           userCounter++;
 //         })
 //       }
 //     })
 //   }
-// }
+// } 
 
-// export function watchUserFeed(dispatch, auth, userId) {
-//   //handle child_added
-//   Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + userId).on('child_added', snap => {
-//     // get all itineraries for new follower and start all the necessary new watchers on data
-//     let feedArray = [];
-//     Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + snap.key).once('value', itinerariesSnapshot => {
-//       watchItinerariesByUser(dispatch, snap.key);
+export function startFeedWatch(auth) {
+  return dispatch => {
+    watchLikesByUser(dispatch, auth);
+    watchFollowingFeed(dispatch, auth);
+    watchItinerariesByUser(dispatch, auth)
+  }
+}
 
-//       Firebase.database().ref(Constants.USERS_PATH + '/' + snap.key).once('value', userSnapshot => {
-//         watchUser(dispatch, snap.key);
+export function unloadFeedWatch(auth) {
+  return dispatch => {
+  unwatchLikesByUser(dispatch, auth);
+  unwatchItinerariesByUser(dispatch, auth);
+  unwatchFollowingFeed(dispatch, auth);
+  }
+}
 
-//         let itinCounter = 0;
-//         itinerariesSnapshot.forEach(function(itin) {
-//           Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itin.key).once('value', likesSnapshot => {
-//             watchLikesByUser(dispatch, auth, itin.key);
-            
-//             const itineraryObject = createItineraryObject(itin.key, itin.val(), userId, userSnapshot.val(), likesSnapshot.exists())
+export function watchFollowingFeed(dispatch, userId) {
+  // when new follower added, watch the user's info and their itineraries
+  Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + userId).on('child_added', snap => {
+    watchUser(dispatch, snap.key);
+    watchItinerariesByUser(dispatch, snap.key);
+  })
 
-//             feedArray = [itineraryObject].concat(feedArray);
+  // on child_removed - unwatch all the listeners
+  Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + userId).on('child_removed', snap => {
+    unwatchUser(dispatch, snap.key);
+    unwatchItinerariesByUser(dispatch, snap.key);
+  })
+}
 
-//             if (itinerariesSnapshot.exists() && ++itinCounter === itinerariesSnapshot.numChildren()) {
-//               // send array of new itineraries to reducer
-//               dispatch(getFollowerAddedAction(feedArray));
-//             }
-//           })
-//         })
-//       })
-//     })
-//   })
+export function unwatchFollowingFeed(dispatch, userId) {
+  Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + userId).once('value', snap => {
+    snap.forEach(function(user) {
+      Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + user.key).off();
+      Firebase.database().ref(Constants.USERS_PATH + '/' + user.key).off();
+    })
+  })
+}
 
-//   // on child_removed - unwatch all the listeners
-//   Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + userId).on('child_removed', snap => {
-//     let removeArray = [];
-//     Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + snap.key).once('value', itinerariesSnapshot => {
-//       unwatchItinerariesByUser(dispatch, snap.key);
+function getFollowerAddedAction(addItineraries, userId) {
+  return {
+    type: FOLLOWER_ADDED_ACTION,
+    addItineraries,
+    userId
+  }
+}
 
-//       Firebase.database().ref(Constants.USERS_PATH + '/' + snap.key).once('value', userSnapshot => {
-//         unwatchUser(dispatch, snap.key);
+function getFollowerRemovedAction(removeIds) {
+  return {
+    type: FOLLOWER_REMOVED_ACTION,
+    removeIds
+  }
+}
 
-//         let itinCounter = 0;
-//         itinerariesSnapshot.forEach(function(itin) {
-//           unwatchLikesByUser(dispatch, auth, itin.key);
+export function watchItinerariesByUser(dispatch, userId) {
+  Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + userId).on('child_added', addedSnap => {
+    dispatch(itineraryAddedAddedAction(addedSnap.key,userId,  addedSnap.val()));
+  })
+  Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + userId).on('child_changed', changedSnap => {
+    dispatch(itineraryChangedAction(changedSnap.key, changedSnap.val()));
+  })
+  Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + userId).on('child_removed', removedSnap => {
+    dispatch(itineraryRemovedAction(removedSnap.key));
+  })
+}
 
-//           removeArray = [itin.key].concat(removeArray);
+export function unwatchItinerariesByUser(dispatch, userId) {
+  Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + userId).off();
+  dispatch(itineraryByUserRemovedAction(userId));
+}
 
-//           if (itinerariesSnapshot.exists() && ++itinCounter === itinerariesSnapshot.numChildren()) {
-//             // send array itinerary IDs to remove to reducer
-//             dispatch(getFollowerRemovedAction(removeArray));
-//           }
-//         })
-//       })
-//     })
-//   })
-// }
+function itineraryByUserRemovedAction(userId) {
+  return {
+    type: ITINERARIES_BY_USER_REMOVED_ACTION,
+    userId
+  }
+}
 
-// function getFollowerAddedAction(addItineraries) {
-//   return {
-//     type: FOLLOWER_ADDED_ACTION,
-//     addItineraries
-//   }
-// }
+function itineraryAddedAddedAction(itineraryId, userId, itinerary) {
+  return {
+    type: ITINERARY_ADDED_ACTION,
+    itineraryId,
+    userId,
+    itinerary
+  }
+}
 
-// function getFollowerRemovedAction(removeIds) {
-//   return {
-//     type: FOLLOWER_REMOVED_ACTION,
-//     removeIds
-//   }
-// }
+function itineraryChangedAction(itineraryId, itinerary) {
+  return {
+    type: ITINERARY_CHANGED_ACTION,
+    itineraryId,
+    itinerary
+  }
+}
 
-// export function watchItinerariesByUser(dispatch, auth, userId) {
-//   // Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + userId).on('child_added', addedSnap => {
-//   //   dispatch(getItinerariesByUserAddedAction(addedSnap.val()));
-//   // })
-//   // Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + userId).on('child_changed', changedSnap => {
-//   //   dispatch(getItinerariesByUserChangedAction(changedSnap.val()));
-//   // })
-//   // Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + userId).on('child_removed', removedSnap => {
-//   //   dispatch(getItinerariesByUserRemovedAction(removedSnap.key));
-//   // })
-// }
+function itineraryRemovedAction(itineraryId) {
+  return {
+    type: ITINERARY_REMOVED_ACTION,
+    itineraryId
+  }
+}
 
-// export function unwatchItinerariesByUser(dispatch, userId) {
-//   Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + userId).off();
-// }
+export function watchUser(dispatch, userId) {
+  Firebase.database().ref(Constants.USERS_PATH + '/' + userId).on('value', snap => {
+    dispatch(userAddedAction(userId, snap.val()));
+  })
+}
 
-// function getItinerariesByUserAddedAction(itinerary) {
-//   return {
-//     type: ITINERARIES_BY_USER_ADDED_ACTION,
-//     itinerary
-//   }
-// }
+export function unwatchUser(dispatch, userId) {
+  dispatch(userRemovedAction(userId));
+  Firebase.database().ref(Constants.USERS_PATH + '/' + userId).off();
+}
 
-// function getItinerariesByUserChangedAction(itinerary) {
-//   return {
-//     type: ITINERARIES_BY_USER_CHANGED_ACTION,
-//     itinerary
-//   }
-// }
+function userAddedAction(userId, user) {
+  return {
+    type: USER_ADDED_ACTION,
+    userInfo: user,
+    userId: userId
+  }
+}
 
-// function getItinerariesByUserRemovedAction(itineraryId) {
-//   return {
-//     type: ITINERARIES_BY_USER_REMOVED_ACTION,
-//     itineraryId
-//   }
-// }
+function userRemovedAction(userId) {
+  return {
+    type: USER_REMOVED_ACTION,
+    userId
+  }
+}
 
-// export function watchUser(dispatch, userId) {
-//   Firebase.database().ref(Constants.USERS_PATH + '/' + userId).on('child_added', snap => {
-//     dispatch(getUserAddedAction(snap.val()));
-//   })
-// }
+export function watchLikesByUser(dispatch, userId) {
+  Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).on('child_added', snap => {
+    dispatch(likesByUserAddedAction(snap.key));
+  })
+  Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).on('child_removed', snap => {
+    dispatch(likesByUserRemovedAction(snap.key));
+  })
+}
 
-// export function unwatchUser(dispatch, userId) {
-//   Firebase.database().ref(Constants.USERS_PATH + '/' + userId).off();
-// }
+export function unwatchLikesByUser(dispatch, userId) {
+  Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).off();
+}
 
-// function getUserAddedAction(user) {
-//   return {
-//     type: USER_ADDED_ACTION,
-//     user
-//   }
-// }
+function likesByUserAddedAction(objectId) {
+  return {
+    type: LIKES_BY_USER_ADDED_ACTION,
+    objectId
+  }
+}
 
-// export function watchLikesByUser(dispatch, userId, objectId) {
-//   Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId + '/' + objectId).on('child_added', snap => {
-//     dispatch(getLikesByUserAddedAction(snap.val()));
-//   })
-// }
-
-// export function unwatchLikesByUser(dispatch, userId, objectId) {
-//   Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId + '/' + objectId).off();
-// }
-
-// function getLikesByUserAddedAction(likes) {
-//   return {
-//     type: LIKES_BY_USER_ADDED_ACTION,
-//     likes
-//   }
-// }
+function likesByUserRemovedAction(objectId) {
+  return {
+    type: LIKES_BY_USER_REMOVED_ACTION,
+    objectId
+  }
+}
 
 export function likeReview(authenticated, type, likeObject, itineraryId) {
   return dispatch => {

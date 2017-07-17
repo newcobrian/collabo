@@ -55,6 +55,24 @@ export function makeItinerary(auth, itinerary, lastModified) {
 	return Object.assign(itineraryObject, lastModified);
 }
 
+export function createItineraryObject(itineraryId, itineraryVal, creatorId, creatorSnap, likesData) {
+  const key = { id: itineraryId };
+  const createdBy = { createdBy: creatorSnap };
+  createdBy.createdBy.userId = creatorId;
+  let likes = {
+    isLiked: likesData[itineraryId]
+  }
+  
+  return Object.assign({}, itineraryVal, key, createdBy, likes);
+}
+
+export function findItineraryIndex(itineraries, itineraryId) {
+	for (let i = 0; i < itineraries.length; i++) {
+		if (itineraries[i].id === itineraryId) return i;
+	}
+	return -1;
+}
+
 export function incrementItineraryCount(counterType, itineraryId, geo, userId) {
 	// increment count on itineraries
 	Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId + '/' + counterType).transaction(function (current_count) {

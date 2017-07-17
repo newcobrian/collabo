@@ -31,12 +31,14 @@ class Home extends React.Component {
   }
 
   componentWillMount() {
-    this.props.getUserFeed(this.props.authenticated);
+    // this.props.getUserFeed(this.props.authenticated);
+    this.props.startFeedWatch(this.props.authenticated);
     this.props.sendMixpanelEvent('Friend feed loaded');
   }
 
   componentWillUnmount() {
-    this.props.unloadUserFeed(this.props.authenticated);
+    // this.props.unloadUserFeed(this.props.authenticated);
+    this.props.unloadFeedWatch(this.props.authenticated);
   }
 
   renderTabs() {
