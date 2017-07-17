@@ -59,7 +59,7 @@ const TipPreview = props => {
   }
 
   return (
-    <div className="tip-wrapper flx flx-col flx-col-start">
+    <div className="tip-wrapper flx flx-col flx-col w-100 w-max mrgn-top-md">
       <div className="tip-container flx flx-col flx-align-center">
           
           <div className="tip-inner flx flx-row flx-just-start w-100 w-max-2">
@@ -83,7 +83,7 @@ const TipPreview = props => {
                     <img className="center-img" src="/img/icon.add--white.png"/>
                   </Link>
                 </div>
-                <div className="vb__label v2-type-body0 opa-40 mrgn-top-sm">Save to</div>
+                <div className="vb__label v2-type-body0 opa-60 mrgn-top-sm">Save to</div>
               </div>
 
                 <div className="cta-wrapper flx flx-col v2-type-body2">

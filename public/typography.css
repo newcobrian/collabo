@@ -30,6 +30,12 @@ textarea {
 .resize-ok textarea {
     resize: vertical;
 }
+.weight-400 {
+  font-weight: 400 !important;
+}
+.weight-500 {
+  font-weight: 500 !important;
+}
 .v2-type--italic {
   font-style: italic;
 }
@@ -212,8 +218,10 @@ textarea {
 }
 
 .color--primary {
-
   color: #4DBDE9 !important;
+}
+.color--gray {
+  color: #D5E3E5;
 }
 .fill--primary {
   background-color: #79D5DD;
@@ -268,26 +276,26 @@ textarea {
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #4DBDE9;
-  color: #0095FF !important;
-  opacity: .3;
+  color: #4DBDE9 !important;
+  opacity: .8;
   font-weight: 300;
   font-family: 'Roboto', sans-serif;
 }
 ::-moz-placeholder { /* Firefox 19+ */
   color: #000000;
-  opacity: .5;
+  opacity: .8;
   font-weight: 300;
   font-family: 'Roboto', sans-serif;
 }
 :-ms-input-placeholder { /* IE 10+ */
   color: #000000;
-  opacity: .5;
+  opacity: .8;
   font-weight: 300;
   font-family: 'Roboto', sans-serif;
 }
 :-moz-placeholder { /* Firefox 18- */
   color: #000000;
-  opacity: .5;
+  opacity: .8;
   font-weight: 300;
   font-family: 'Roboto', sans-serif;
 }

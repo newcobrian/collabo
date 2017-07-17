@@ -80,7 +80,7 @@
 
 
 .itinerary__tipslist {
-	/*max-width: 1100px;*/
+	background-color: #F8FBFB;
 }
 
 
@@ -171,8 +171,10 @@
 	margin: 20px;
 	width: 500px;
 	width: 46%;
-	border: 1px solid rgba(0,0,0,.1);
 	padding: 20px;
+	background: #FFFFFF;
+	border: 1px solid #D5E3E5;
+	box-shadow: 0 2px 0 0 #D5E3E5;
 }
 	.my-profile-page .itinerary__cover__topbar {
 		display: none;
@@ -376,7 +378,6 @@ textarea.edit-itinerary__name {
 
 
 .page-itinerary .it-author-controls {
-	border-bottom: 1px solid rgba(0,0,0,.1);
 }
 
 

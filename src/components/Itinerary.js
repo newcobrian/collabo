@@ -37,7 +37,7 @@ const UpdateCoverPhoto = props => {
           multiple={false}
           accept="image/*"
           className="edit-tip__dropzone__touch flx flx-col flx-align-center flx-just-start ta-center">
-          <div className="vb vb--light vb--outline--none color--primary mrgn-right-md">Change cover photo</div>
+          <div className="vb vb--sm vb--link vb--outline--none color--primary mrgn-right-md">Change cover photo</div>
 
         </Dropzone>
         
@@ -52,7 +52,7 @@ const EditItineraryLink = props => {
     return (
       <Link
         to={'/edit/' + props.itineraryId}
-        className="vb vb--sm vb--outline--none color--primary vb--light mrgn-right-md">
+        className="vb vb--sm vb--link vb--outline--none color--primary vb--light mrgn-right-md">
          {/*<i className="ion-gear-a"></i>*/}Edit
       </Link>
     );
@@ -231,7 +231,6 @@ class Itinerary extends React.Component {
               </div>
               {/** >>>>>> CLOSE CENTER INFO **/}
 
-            
             </div>
             {/** Close Cover Text DIV >>>>>> **/}  
 
@@ -279,7 +278,7 @@ class Itinerary extends React.Component {
 
 
 
-            <div className="itinerary__tipslist flx flx-col flx-align-center w-100">
+            <div className="itinerary__tipslist flx flx-col flx-align-center w-100 pdding-bottom-lg">
               <div className="w-100">
                 <TipList
                   reviewList={this.props.reviewList} 

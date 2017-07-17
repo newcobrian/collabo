@@ -1,11 +1,9 @@
 .tip-wrapper {
-	margin: 0 auto;
-	max-width: none;
-	width: 100%;
+	background: #FFFFFF;
+	border: 1px solid #D5E3E5;
 }
 .tip-container {
 	width: 100%;
-	border-bottom: 1px solid rgba(0,0,0,.1);
 	padding: 20px;
 }
 .tip-inner {

@@ -88,7 +88,7 @@ const ItineraryPreview = props => {
   return (
 
 
-    <div className="itinerary__cover flx flx-col bx-shadow">
+    <div className="itinerary__cover flx flx-col">
       
       {/** START USER PHOTO AND TIP COUNT **/}
       <div className="itinerary__cover__topbar flx flx-row flx-align-center w-100 w-max flx-just-start v2-type-body1 mrgn-bottom-sm">
@@ -193,11 +193,12 @@ const ItineraryPreview = props => {
 
           {/** TIP COUNT **/}
           <Link to={`/guide/${itinerary.id}`}>
-          <div className="v2-type-body3 strong--400 flx flx-row flx-just-end flx-align-center color--primary mrgn-top-xs">
-            {itinerary.reviewsCount ? itinerary.reviewsCount : 0} {itinerary.reviewsCount === 1 ? ' tip' : ' tips'}
+          <div className="color--primary v2-type-body3 weight-400 flx flx-row flx-just-start flx-align-center color--primary mrgn-top-xs">
+              {itinerary.reviewsCount ? itinerary.reviewsCount : 0} {itinerary.reviewsCount === 1 ? ' tip' : ' tips'}
           </div>
           </Link>
 
+          {/** LIKE AND COMMENTS **/}
           <div className="it__cover__cta-module flx flx-row flx-just-end flx-item-right mrgn-left-md">
             <CommentPreview itinerary={props.itinerary} />
             <div className="cta-wrapper flx flx-row flx-just-end flex-item-right">
