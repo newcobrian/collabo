@@ -29,6 +29,7 @@ class LightboxComponent extends React.Component {
             onMovePrevRequest={() => this.props.prevLightbox((photoIndex + images.length - 1) % images.length)}
             onMoveNextRequest={() => this.props.nextLightbox((photoIndex + 1) % images.length)}
           />
+
       )
     }
     else return null;

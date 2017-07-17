@@ -232,6 +232,9 @@ textarea {
 .fill--white {
   background-color: #ffffff !important;
 }
+.fill--light-gray {
+  background-color: #F8FBFB;
+}
 .color--success {
   color: #63A652 !important;
   /*color: #73FF96 !important;*/

@@ -436,7 +436,7 @@ a.logo-module:focus {
 
 }
 .navigation-bar .nav-module:hover {
-  opacity: .8;
+  opacity: .9;
 }
 .navigation-bar .nav-module.nav-editor {
   /*background-color: rgba(43,93,210,.2);*/
@@ -575,6 +575,7 @@ svg {
 .page-title-wrapper {
   padding: 40px 0;
   width: 100%;
+  border-bottom: 1px solid #D5E3E5;
 }
 .page-title-wrapper.with-feed-toggle {
   padding: 20px 0 10px;
@@ -776,7 +777,7 @@ border-bottom: 1px solid rgba(0,0,0,.1);
   /*background-image: linear-gradient(to right, rgba(0,0,0,.05) 1px, transparent 1px),*/
   /*linear-gradient(to bottom, rgba(0,0,0,.05) 1px, transparent 1px);*/
   background-attachment: fixed;
-  background-color: #FFFEFA;
+  background-color: #;
 }
 
 .feed-toggle {

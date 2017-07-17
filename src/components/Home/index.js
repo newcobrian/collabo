@@ -99,7 +99,7 @@ class Home extends React.Component {
         <div className="toggle-wrapper DN">
           {/*this.renderTabs()*/}
         </div>
-        <div className="feed-wrapper">
+        <div className="feed-wrapper fill--light-gray pdding-top-sm">
           <MainView />
         </div>
 

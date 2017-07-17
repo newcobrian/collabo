@@ -30,7 +30,7 @@ class Explore extends React.Component {
           <div className="v2-type-page-header">Travelers</div>
           <div className="v2-type-body2 opa-60 mrgn-top-sm">All the special beta users right now</div>
         </div>
-        <div className="flx flx-row flx-just-center flx-align-start flx-wrap w-100">
+        <div className="flx flx-row flx-just-center flx-align-start flx-wrap w-100 pdding-top-md">
           {
             this.props.users.map(user => {
               const isUser = this.props.authenticated &&

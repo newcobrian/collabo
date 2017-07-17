@@ -58,7 +58,7 @@ class Followings extends Followers {
             <Link
               className="nav-link"
               to={`/${this.props.profile.username}/followers`}>
-              Followers
+              {this.props.followerCount} Followers
             </Link>
           </li>
 
@@ -66,7 +66,7 @@ class Followings extends Followers {
             <Link
               className="nav-link active"
               to={`/${this.props.profile.username}/isfollowing`}>
-              Following
+              Following {this.props.followingCount}
             </Link>
           </li>
 
