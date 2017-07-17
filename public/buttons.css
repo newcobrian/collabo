@@ -86,8 +86,8 @@ select {
   height: 20px;
 }
 .vb.vb--save img {
-  width: 22px;
-  height: 22px;
+  width: 40px;
+  height: 40px;
 }
 
 .vb--circle {
@@ -116,6 +116,7 @@ select {
   letter-spacing: 0;
   text-transform: none;
   font-weight: 300;
+  padding: 6px 10px;
 }
 
 .vb--md {
@@ -191,7 +192,7 @@ select {
   border-radius: 32px;
   height: 50px;
   width: 50px;
-  padding: 14px;
+  padding: 5px;
 }
 
 

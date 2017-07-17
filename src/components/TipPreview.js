@@ -80,7 +80,7 @@ const TipPreview = props => {
               <div className="tip__actions-wrapper flx flx-col flx-center-all mrgn-bottom-md">
                 <div className="vb vb--save fill--primary">
                   <Link onClick={handleSaveClick}>
-                    <img className="center-img" src="/img/icon.add--white.png"/>
+                    <img className="center-img" src="/img/icons/icon40--save.png"/>
                   </Link>
                 </div>
                 <div className="vb__label v2-type-body0 opa-60 mrgn-top-sm">Save to</div>
@@ -108,16 +108,17 @@ const TipPreview = props => {
             <div className="tip__data-module flx flx-col flx-align-start w-100 mrgn-left-lg">
 
               { /** Title and Address **/ }
-              <div className="tip__title-module flx flx-row-top w-100">
-                <div className="flx flx-col flx-col-start mrgn-right-md w-100">
+              <div className="tip__title-module flx flx-row w-100">
+                <div className="flx flx-row flx-align-center w-100">
                   <Link to={`/review/${review.subjectId}/${review.id}`}>
-                  <div className="tip__title v2-type-h3 ta-left">
+                  <div className="tip__title color--primary v2-type-h3 weight-400 ta-left">
                     {review.title}
                   </div>
                   </Link>
-                  <div className="tip__address v2-type-mono mono-sm opa-70 ta-left">
-                    {review.address}
-                  </div>
+                  <Link to={`/review/${review.subjectId}/${review.id}`}>
+                  <img width="16" height="16" className="mrgn-left-sm opa-20" src="/img/icons/icon32--next--black.png"/>
+                  </Link>
+                  <div className="v2-type-h3 flx-item-right opa-40">#1</div>
                 </div>
 
               </div>
@@ -133,12 +134,20 @@ const TipPreview = props => {
                       to={'/' + review.createdBy.username}
                       className="">
                       <div className="tip__author-photo flx-hold">
-                        <ProfilePic src={review.createdBy.image} className="user-image user-image-md center-img" />
+                        <ProfilePic src={review.createdBy.image} className="user-image user-image-sm center-img" />
                       </div> 
                     </Link>
-                    <div className={'tip__rating mrgn-right-md v2-type-rating--' +  review.rating}>
-                      {review.rating}<div className="v2-type-rating--total opa-10 DN">/10</div>
+                    <div className={'tip__rating mrgn-left-md v2-type-rating--' +  review.rating}>
+                      {review.rating}<div className="v2-type-rating--total opa-50">/10</div>
                     </div>
+                    <div className="v2-type-body2">
+                      &nbsp; &middot;
+                    </div>
+                    <Link to={`/review/${review.subjectId}/${review.id}`}>
+                    <div className="vb vb--sm vb--link vb--outline--none v2-type-body1">
+                      <div className="color--primary">Info</div>
+                    </div>
+                    </Link>
                   </div> 
                 </div>
 

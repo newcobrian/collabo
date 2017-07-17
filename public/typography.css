@@ -87,19 +87,13 @@ textarea {
   font-family: 'Roboto', sans-serif;
 }
 .tip__rating {
-  /* “The almond milk ice: */
   font-weight: 300;
-  font-size: 20px;
+  font-size: 14px;
   letter-spacing: 0.5px;
   line-height: 26px;
   font-family: 'Roboto', sans-serif;
-  width: 60px;
-  height: 60px;
-  border: 1px solid rgba(0,0,0,.1);
-  border-radius: 60px;
   text-align: center;
-  padding: 16px;
-  margin-left: -10px;
+  padding: 0;
 }
 .v2-type-rating--1,
 .v2-type-rating--2,
