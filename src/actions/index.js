@@ -134,6 +134,7 @@ export const ITINERARY_CHANGED_ACTION = 'ITINERARY_CHANGED_ACTION'
 export const ITINERARIES_BY_USER_REMOVED_ACTION = 'ITINERARIES_BY_USER_REMOVED_ACTION'
 
 export * from './authActions';
+export * from './itineraryActions';
 
 export function unloadProfileUser(uid) {
   return dispatch => {
@@ -150,26 +151,6 @@ export function unloadProfileFollowing(auth, uid) {
       type: PROFILE_FOLLOWING_UNLOADED,
       payload: Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + auth + '/' + uid).off()
     });
-  }
-}
-
-// export function verifyAuth() {
-//   return function (dispatch) {
-//     Firebase.auth().onAuthStateChanged(user => {
-//       if (user) {
-//         dispatch({type: 'APP_LOAD', user: user, authenticated: true });
-//       } else {
-//         dispatch(signOutUser());
-//       }
-//     });
-//   }
-// }
-
-export function userDoesntExist() {
-  return dispatch => {
-    dispatch({
-      type: USER_DOESNT_EXIST
-    })
   }
 }
 
@@ -245,8 +226,13 @@ export function followUser(authenticated, follower) {
           props: {
             userId: follower
           },
-        },
-        mixpanel: {
+        }
+      }
+    });
+
+    dispatch({
+      meta: {
+          mixpanel: {
           event: 'Send inbox message',
           props: {
             type: Constants.FOLLOW_MESSAGE
@@ -351,148 +337,6 @@ export function onEditorUnload(itineraryId) {
     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).off();
     dispatch({
       type: EDITOR_PAGE_UNLOADED
-    })
-  }
-}
-
-export function getItineraryComments(itineraryId) {
-  return dispatch => {
-    Firebase.database().ref(Constants.COMMENTS_PATH + '/' + itineraryId).on('value', itinCommentSnapshot => {
-      let comments = [];
-      itinCommentSnapshot.forEach(function(itinCommentChild) {
-        const comment = Object.assign({}, itinCommentChild.val(), { id: itinCommentChild.key } );
-        comments = comments.concat(comment);
-      })
-      comments.sort(lastModifiedAsc);
-      dispatch({
-        type: ITINERARY_COMMMENTS_LOADED,
-        comments: comments
-      })
-    })
-  }
-}
-
-export function unloadItineraryComments(itineraryId) {
-  return dispatch => {
-    Firebase.database().ref(Constants.COMMENTS_PATH + '/' + itineraryId).off();
-    dispatch({
-      type: ITINERARY_COMMMENTS_UNLOADED
-    })
-  }
-}
-
-export function getItinerary(auth, itineraryId) {
-  return dispatch => {
-    Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).on('value', itinerarySnapshot => {
-      if (itinerarySnapshot.exists()) {
-        Firebase.database().ref(Constants.USERS_PATH + '/' + itinerarySnapshot.val().userId).on('value', userSnapshot => {
-          Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itineraryId).on('value', itinLikeSnapshot => {
-            let userInfo = { createdBy:
-              { username: userSnapshot.val().username, image: userSnapshot.val().image, userId: userSnapshot.key }
-            };
-            let itinLikes = {
-              isLiked: itinLikeSnapshot.exists()
-            }
-
-            let itineraryObject = Object.assign({}, {id: itineraryId}, itinerarySnapshot.val(), userInfo, itinLikes);
-            let reviewArray = [];
-            if (!itineraryObject.reviews) {
-              dispatch({
-                type: ITINERARY_PAGE_LOADED,
-                itineraryId: itineraryId,
-                itinerary: itineraryObject,
-                reviewList: []
-              })
-            }
-            else {
-              for (let i = 0; i < itineraryObject.reviews.length; i++) {
-                let reviewItem = itineraryObject.reviews[i];
-                if (reviewItem) {
-                  Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + reviewItem.subjectId).on('value', subjectSnapshot => {
-                    Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewItem.reviewId).on('value', reviewSnapshot => {
-                      Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + reviewItem.reviewId).on('value', likesSnapshot => {
-                        Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewItem.reviewId).on('value', commentSnapshot => {
-                          Firebase.database().ref(Constants.IMAGES_BY_USER_PATH + '/' + auth + '/' + reviewItem.subjectId).on('value', imagesSnapshot => {
-                            Firebase.database().ref(Constants.IMAGES_PATH + '/' + reviewItem.subjectId).on('value', defaultImagesSnapshot => {
-                              let reviewObject = {};
-                              let likes = {
-                                isLiked: likesSnapshot.exists()
-                              }
-                              
-                              let comments = [];
-                              commentSnapshot.forEach(function(commentChild) {
-                                const comment = Object.assign({}, { id: commentChild.key }, commentChild.val());
-                                comments = comments.concat(comment);
-                              })
-                              comments.sort(lastModifiedAsc);
-
-                              let images = imagesSnapshot.exists() ? Helpers.getImagePath(imagesSnapshot.val()) : Helpers.getImagePath(defaultImagesSnapshot.val());
-
-                              Object.assign(reviewObject, subjectSnapshot.val(), reviewSnapshot.val(), {id: reviewItem.reviewId},
-                                    { priority: i }, reviewItem, userInfo, likes, {comments: comments}, {images: images} );
-                              reviewArray = [reviewObject].concat(reviewArray);
-                              reviewArray.sort(byPriority);
-
-                              dispatch({
-                                type: ITINERARY_PAGE_LOADED,
-                                itineraryId: itineraryId,
-                                itinerary: itineraryObject,
-                                reviewList: reviewArray
-                              })
-                            })
-                          })
-                        })
-                      })
-                    })
-                  })
-                }
-              }
-            }
-          })
-        })
-      }
-      else {
-        dispatch({
-          type: ITINERARY_PAGE_LOADED,
-          itineraryId: itineraryId,
-          itinerary: []
-        })
-      }
-    })
-  }
-}
-
-export function onItineraryUnload(auth, itineraryId) {
-  return dispatch => {
-    Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).once('value', itinerarySnapshot => {
-      if (itinerarySnapshot.exists()) {
-        Firebase.database().ref(Constants.USERS_PATH + '/' + itinerarySnapshot.val().userId).off();
-        Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itineraryId).off();
-        let itineraryObject = itinerarySnapshot.val();
-        if (itineraryObject && itineraryObject.reviews) {
-          for (let i = 0; i < itineraryObject.reviews.length; i++) {
-            let reviewItem = itineraryObject.reviews[i];
-            Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + reviewItem.subjectId).off();
-            Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewItem.reviewId).off();
-            Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + reviewItem.reviewId).off();
-            Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewItem.reviewId).off();
-            Firebase.database().ref(Constants.IMAGES_BY_USER_PATH + '/' + auth + '/' + reviewItem.subjectId).off();
-            Firebase.database().ref(Constants.IMAGES_PATH + '/' + reviewItem.subjectId).off();
-          }
-        }
-      }
-    })
-    Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).off();
-    dispatch({
-      type: ITINERARY_PAGE_UNLOADED
-    })
-  }
-}
-
-export function askForAuth() {
-  return dispatch => {
-    dispatch({
-      type: ASK_FOR_AUTH
     })
   }
 }
@@ -1496,7 +1340,7 @@ export function getReview(authenticated, reviewId) {
 
                 review.isLiked = false
                 if (likesSnapshot.val()) {
-                  review.isLiked = searchLikes(authenticated, likesSnapshot.val());
+                  review.isLiked = Helpers.searchLikes(authenticated, likesSnapshot.val());
                 }
 
                 review.isSaved = savesSnapshot.exists();
@@ -1546,7 +1390,7 @@ export function getAppUserReview(authenticated, currentUserInfo, subjectId) {
 
             review.isLiked = false
             if (likesSnapshot.val()) {
-              review.isLiked = searchLikes(authenticated, likesSnapshot.val());
+              review.isLiked = Helpers.searchLikes(authenticated, likesSnapshot.val());
             }
 
             review.isSaved = savesSnapshot.exists();
@@ -1606,7 +1450,7 @@ export function getFollowingReviews(auth, subjectId) {
                           const comment = Object.assign({}, { id: commentChild.key }, commentChild.val());
                           comments = comments.concat(comment);
                         })
-                        comments.sort(lastModifiedAsc);
+                        comments.sort(Helpers.lastModifiedAsc);
 
                         let images = imagesSnapshot.exists() ? Helpers.getImagePath(imagesSnapshot.val()) : Helpers.getImagePath(defaultImagesSnapshot.val());
 
@@ -1614,7 +1458,7 @@ export function getFollowingReviews(auth, subjectId) {
                           reviewSnapshot.val(), {id: reviewSnapshot.val().reviewId},
                           { createdBy: userSnapshot.val() }, likes, {comments: comments}, {images: images} );
                         reviewArray = [reviewObject].concat(reviewArray);
-                        reviewArray.sort(lastModifiedDesc);
+                        reviewArray.sort(Helpers.lastModifiedDesc);
 
                         dispatch({
                           type: GET_FOLLOWING_REVIEWS,
@@ -1682,7 +1526,7 @@ export function getUserReview(auth, userId, subjectId) {
                       const comment = Object.assign({}, { id: commentChild.key }, commentChild.val());
                       comments = comments.concat(comment);
                     })
-                    comments.sort(lastModifiedAsc);
+                    comments.sort(Helpers.lastModifiedAsc);
 
                     let images = imagesSnapshot.exists() ? Helpers.getImagePath(imagesSnapshot.val()) : Helpers.getImagePath(defaultImagesSnapshot.val());
 
@@ -1750,7 +1594,7 @@ export function getComments(reviewId) {
             const comment = { username: userSnapshot.val().username, image: userSnapshot.val().image };
             Object.assign(comment, childSnapshot.val(), key);
             comments = comments.concat(comment);
-            comments.sort(lastModifiedAsc);
+            comments.sort(Helpers.lastModifiedAsc);
 
             dispatch({
               type: GET_COMMENTS,
@@ -2053,7 +1897,7 @@ export function getItinerariesByUser(auth, userId) {
               // }
 
               feedArray = [itineraryObject].concat(feedArray);
-              feedArray.sort(lastModifiedDesc);
+              feedArray.sort(Helpers.lastModifiedDesc);
               // console.log('feed array = ' + JSON.stringify(feedArray))
               dispatch({
                 type: GET_ITINERARIES_BY_USER,
@@ -2123,7 +1967,7 @@ export function getLikesByUser(auth, userId) {
                           const comment = Object.assign({}, { id: commentChild.key }, commentChild.val());
                           comments = comments.concat(comment);
                         })
-                        comments.sort(lastModifiedAsc);
+                        comments.sort(Helpers.lastModifiedAsc);
 
                         if (likeItem.val().type === Constants.REVIEW_TYPE) {
                           let images = Helpers.getImagePath(imagesSnapshot.val());
@@ -2135,7 +1979,7 @@ export function getLikesByUser(auth, userId) {
 
                         Object.assign(containerObject, {review: reviewObject}, {itinerary: itineraryObject});
                         likesArray = [containerObject].concat(likesArray);
-                        likesArray.sort(lastModifiedDesc);
+                        likesArray.sort(Helpers.lastModifiedDesc);
 
                         dispatch({
                           type: GET_LIKES_BY_USER,
@@ -2201,43 +2045,6 @@ export function unloadLikesByUser(auth, userId) {
   }
 }
 
-export function byPriority(a, b) {
-  if (a.priority < b.priority)
-    return -1;
-  if (a.priority > b.priority)
-    return 1;
-  return 0;
-}
-
-export function lastModifiedDesc(a, b) {
-  return b.lastModified - a.lastModified;
-}
-
-export function lastModifiedAsc(a, b) {
-  if (a.lastModified < b.lastModified)
-    return -1;
-  if (a.lastModified > b.lastModified)
-    return 1;
-  return 0;
-}
-
-export function byUsername(a, b) {
-  if (a.username < b.username)
-    return -1;
-  if (a.username > b.username)
-    return 1;
-  return 0;
-}
-
-export function searchLikes(uid, likes) {
-  for (var key in likes) {
-    if (key === uid) {
-      return true;
-    }
-  }
-  return false;
-}
-
 // ORIGINAL VERSION on value
 // export function getUserFeed(auth) {
 //   return dispatch => {
@@ -2267,7 +2074,7 @@ export function searchLikes(uid, likes) {
 //                   const itineraryObject = createItineraryObject(itin.key, itin.val(), userId, userSnapshot.val(), likesSnapshot.exists())
 
 //                   feedArray = [itineraryObject].concat(feedArray);
-//                   feedArray.sort(lastModifiedDesc);
+//                   feedArray.sort(Helpers.lastModifiedDesc);
                   
 //                   dispatch({
 //                     type: GET_USER_FEED,
@@ -2325,21 +2132,6 @@ export function unwatchFollowingFeed(dispatch, userId) {
   dispatch({
     type: USER_FEED_UNLOADED
   })
-}
-
-function getFollowerAddedAction(addItineraries, userId) {
-  return {
-    type: FOLLOWER_ADDED_ACTION,
-    addItineraries,
-    userId
-  }
-}
-
-function getFollowerRemovedAction(removeIds) {
-  return {
-    type: FOLLOWER_REMOVED_ACTION,
-    removeIds
-  }
 }
 
 export function watchItinerariesByUser(dispatch, userId) {
@@ -2475,7 +2267,11 @@ export function likeReview(authenticated, type, likeObject, itineraryId) {
                 props: {
                   itineraryId: likeObject.itineraryId
                 }
-              },
+              }
+            }
+          })
+          dispatch({
+            meta: {
               mixpanel: {
                 event: 'Send inbox message',
                 props: {
@@ -2497,7 +2293,11 @@ export function likeReview(authenticated, type, likeObject, itineraryId) {
                 props: {
                   subjectId: likeObject.subjectId
                 }
-              },
+              }
+            }
+          })
+          dispatch({
+            meta: {
               mixpanel: {
                 event: SEND_INBOX_MESSAGE,
                 props: {
@@ -2565,7 +2365,11 @@ export function saveReview(authenticated, review) {
               props: {
                 subjectId: review.subjectId
               }
-            },
+            }
+          }
+        })
+        dispatch({
+          meta: {
             mixpanel: {
               event: SEND_INBOX_MESSAGE,
               props: {
@@ -2642,7 +2446,7 @@ export function getGlobalFeed(auth) {
             Object.assign(itineraryObject, itin.val(), key, createdBy, likes);
 
             feedArray = [itineraryObject].concat(feedArray);
-            feedArray.sort(lastModifiedDesc);
+            feedArray.sort(Helpers.lastModifiedDesc);
             dispatch({
               type: GET_GLOBAL_FEED,
               payload: feedArray
@@ -2676,7 +2480,7 @@ export function getGlobalFeed(auth) {
 //                   reviewer.createdBy.userId = reviewerId;
 //                   let isLiked = false;
 //                   if (likesSnapshot.exists()) {
-//                     isLiked = searchLikes(uid, likesSnapshot.val());
+//                     isLiked = Helpers.searchLikes(uid, likesSnapshot.val());
 //                   }
 //                   let likes = { 
 //                     isLiked: isLiked
@@ -2703,7 +2507,7 @@ export function getGlobalFeed(auth) {
 //                     }
 
 //                   feedArray = [reviewObject].concat(feedArray);
-//                   feedArray.sort(lastModifiedDesc);
+//                   feedArray.sort(Helpers.lastModifiedDesc);
 
 //                   dispatch({
 //                     type: GET_GLOBAL_FEED,
@@ -2757,7 +2561,7 @@ export function getFollowers(userId, followPath) {
               Object.assign(userObject, key, userSnapshot.val(), followingObject);
 
               followerArray = [userObject].concat(followerArray);
-              followerArray.sort(byUsername);
+              followerArray.sort(Helpers.byUsername);
 
               // let indexFound = searchFeedArray(key.userId, followerArray);
               // if (indexFound > -1) {
@@ -2822,7 +2626,7 @@ export function getFriends(userId) {
             let userObject = {};
             Object.assign(userObject, {id: friend.key}, userSnapshot.val());
             friendArray = [userObject].concat(friendArray);
-            friendArray.sort(byUsername);
+            friendArray.sort(Helpers.byUsername);
 
             dispatch({
               type: GET_FRIENDS,
@@ -2948,7 +2752,7 @@ export function getInbox(authenticated) {
           inboxObject.senderImage = senderSnapshot.val().image;
 
           inboxArray = [inboxObject].concat(inboxArray);
-          inboxArray.sort(lastModifiedDesc);
+          inboxArray.sort(Helpers.lastModifiedDesc);
 
           dispatch({
             type: GET_INBOX,
@@ -3225,7 +3029,7 @@ export function getAllUsers(auth) {
               userObject.isFollowing = true;
             }
             userArray = [userObject].concat(userArray);
-            userArray.sort(byUsername);
+            userArray.sort(Helpers.byUsername);
 
             dispatch({
               type: LOADED_ALL_USERS,
@@ -3425,7 +3229,7 @@ export function getPlacesFeed(auth, locationId) {
             Object.assign(itineraryObject, itin.val(), key, createdBy, likes);
 
             feedArray = [itineraryObject].concat(feedArray);
-            feedArray.sort(lastModifiedDesc);
+            feedArray.sort(Helpers.lastModifiedDesc);
             dispatch({
               type: GET_PLACES_FEED,
               payload: feedArray

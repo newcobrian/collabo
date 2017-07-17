@@ -2,6 +2,43 @@ import Firebase from 'firebase';
 import * as Constants from './constants';
 import 'whatwg-fetch';
 
+export function byPriority(a, b) {
+  if (a.priority < b.priority)
+    return -1;
+  if (a.priority > b.priority)
+    return 1;
+  return 0;
+}
+
+export function lastModifiedDesc(a, b) {
+  return b.lastModified - a.lastModified;
+}
+
+export function lastModifiedAsc(a, b) {
+  if (a.lastModified < b.lastModified)
+    return -1;
+  if (a.lastModified > b.lastModified)
+    return 1;
+  return 0;
+}
+
+export function byUsername(a, b) {
+  if (a.username < b.username)
+    return -1;
+  if (a.username > b.username)
+    return 1;
+  return 0;
+}
+
+export function searchLikes(uid, likes) {
+  for (var key in likes) {
+    if (key === uid) {
+      return true;
+    }
+  }
+  return false;
+}
+
 export function getImagePath(imagesObject) {
 	let imagesArray = [];
 	for (var key in imagesObject) {

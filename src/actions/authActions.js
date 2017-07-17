@@ -3,6 +3,14 @@ import * as Constants from '../constants'
 import * as Helpers from '../helpers'
 import * as ActionTypes from './types'
 
+export function askForAuth() {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.ASK_FOR_AUTH
+    })
+  }
+}
+
 export function onLoad(currentUser) {
   return dispatch => {
     if (currentUser) {
@@ -321,5 +329,13 @@ export function authError(error) {
 export function logout() {
   return {
     type: ActionTypes.SIGN_OUT_USER
+  }
+}
+
+export function userDoesntExist() {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.USER_DOESNT_EXIST
+    })
   }
 }
