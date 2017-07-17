@@ -2320,6 +2320,11 @@ export function unwatchFollowingFeed(dispatch, userId) {
       Firebase.database().ref(Constants.USERS_PATH + '/' + user.key).off();
     })
   })
+  Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + userId).off();
+
+  dispatch({
+    type: USER_FEED_UNLOADED
+  })
 }
 
 function getFollowerAddedAction(addItineraries, userId) {
