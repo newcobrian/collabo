@@ -87,7 +87,7 @@ class Review extends React.Component {
 
     this.handleSaveClick = ev => {
       ev.preventDefault();
-      // props.showModal(SAVE_MODAL, props.review, props.review.images);
+      //props.showModal(SAVE_MODAL, props.review, props.review.images);
     }
   }
   componentWillMount() {
@@ -180,22 +180,16 @@ class Review extends React.Component {
                     
                     <div className="flx flx-col w-100">
                       
-                      <div className="tip__title-module flx flx-row flx-just-start flx-align-center w-100">
-                        <div className="tip__save flx flx-col flx-center-all mrgn-right-md">
-                          <div className="vb vb--save">
-                            <Link onClick={this.handleSaveClick}>
-                              <img className="center-img" src="/img/icon.add--white.png"/>
-                            </Link>
-                          </div>
-                          <div className="v2-type-body0 opa-40 mrgn-top-sm DN">Save to</div>
-                        </div>
-                        <Link to={`/review/${subject.id}`}>
-                        <div className="tip__title v2-type-h3 ta-left w-100">
+                      <div className="tip__title-module flx flx-row flx-just-start flx-align-center w-100 mrgn-bottom-md">
+                        <div className="tip__title v2-type-h2 weight-400 ta-left">
                           {subject.title}
                         </div>
-                        </Link>
                       </div>
                       
+                        <Link onClick={this.handleSaveClick} className="tip__save flx flx-row flx-center-all vb vb--md fill--primary vb--mobile-full color--white">
+                          <img className="center-img mrgn-right-sm" src="/img/icons/icon40--save.png"/> Save to a Guide
+                        </Link>
+
 
 
                       <div className="tip__info-module flx flx-row-top w-100">
