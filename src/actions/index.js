@@ -231,6 +231,7 @@ export function followUser(authenticated, follower) {
     });
 
     dispatch({
+      type: SEND_INBOX_MESSAGE,
       meta: {
           mixpanel: {
           event: 'Send inbox message',
@@ -1922,28 +1923,6 @@ export function getItinerariesByUser(auth, userId) {
   }
 }
 
-// export function migrateItinData () {
-//   return dispatch => {
-//     let updates = {};
-//     Firebase.database().ref(Constants.ITINERARIES_PATH).once('value', snapshot => {
-//       snapshot.forEach(function(itin) {
-//         if (itin.key === '-KnhYCTtpuMU5GTqnBNx') {
-//           if (itin.val().reviews) {
-//             let reviewsList = itin.val().reviews;
-//             updates[`/${Constants.REVIEWS_BY_ITINERARY_PATH}/${itin.key}`] = reviewsList;
-//             updates[`/${Constants.ITINERARIES_PATH}/${itin.key}/reviews`] = null;
-//             updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${itin.val().userId}/${itin.key}/reviews`] = null;
-//             updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${itin.val().geo.placeId}/${itin.val().userId}/${itin.key}/reviews`] = null;
-//             updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itin.val().geo.placeId}/${itin.key}/reviews`] = null;
-//           }
-//         }
-//       })
-//       console.log(JSON.stringify(updates));
-//       Firebase.database().ref().update(updates);
-//     })
-//   }
-// }
-
 export function unloadItinerariesByUser(auth, userId) {
   return dispatch => {
     Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + userId).on('value', itinerariesSnapshot => {
@@ -2308,6 +2287,7 @@ export function likeReview(authenticated, type, likeObject, itineraryId) {
             }
           })
           dispatch({
+            type: SEND_INBOX_MESSAGE,
             meta: {
               mixpanel: {
                 event: 'Send inbox message',
@@ -2334,6 +2314,7 @@ export function likeReview(authenticated, type, likeObject, itineraryId) {
             }
           })
           dispatch({
+            type: SEND_INBOX_MESSAGE,
             meta: {
               mixpanel: {
                 event: SEND_INBOX_MESSAGE,
@@ -2406,6 +2387,7 @@ export function saveReview(authenticated, review) {
           }
         })
         dispatch({
+          type: SEND_INBOX_MESSAGE,
           meta: {
             mixpanel: {
               event: SEND_INBOX_MESSAGE,
