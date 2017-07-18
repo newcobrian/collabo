@@ -77,7 +77,7 @@ class DeleteItineraryModal extends React.Component {
             
             <div className="dialog--delete__content">
               <div className="flx flx-row flx-just-start flx-align-center">
-                <div className="dialog--save__tip-name">Are you sure you want to delete this itinerary? It will be lost forever</div>
+                <div className="dialog--save__tip-name">Are you sure you want to delete this guide? It will be lost forever</div>
               </div>
               <div
                 className="vb w-100 vb--create mrgn-top-md DN"

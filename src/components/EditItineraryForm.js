@@ -232,7 +232,7 @@ let Review = ({ review, index, fields, authenticated, reviewObject, searchLocati
       <li key={index} className="mrgn-bottom-md edit-tip_wrapper">
         <div className="flx flx-row flx-align-center pdding-top-sm pdding-bottom-sm">
           <div className="v2-type-h5">Tip #{index + 1}</div>
-          <div className="vb vb--small vb--light vb--no-outline vb--sm opa-30 flx-item-right danger-hover"
+          <div className="vb vb--sm fill--white color--primary flx-item-right danger-hover"
           onClick={() => fields.remove(index)}>Delete Tip</div>
         </div>
         <div className="field-wrapper"> 
@@ -260,7 +260,7 @@ let Review = ({ review, index, fields, authenticated, reviewObject, searchLocati
         { /** Top Row **/ }
         <div className="flx flx-row flx-align-center pdding-top-sm pdding-bottom-sm">
           <div className="v2-type-h5">Tip #{index + 1}</div>
-          <div className="vb vb--light vb--outline--none vb--sm opa-30 flx-item-right danger-hover"
+          <div className="vb vb--sm fill--white color--primary flx-item-right danger-hover"
           onClick={() => fields.remove(index)}>Delete Tip</div>
         </div>
 
