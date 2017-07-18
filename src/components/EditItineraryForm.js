@@ -409,10 +409,7 @@ class EditItineraryForm extends React.Component {
 
     return ( 
       <form onSubmit={this.props.handleSubmit}>
-        <div className="page-title-wrapper center-text flx flx-row flx-center-all Dropzone">
-          
-          
-        </div>
+
 
         <div className="flx flx-col page-common flx-just-center flx-align-center">
 

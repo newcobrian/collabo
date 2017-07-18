@@ -10,7 +10,7 @@ const ItineraryList = props => {
         <div className="logo-graphic w-100">  
           <img className="center-img" src="/img/logos/logo.earth.temp.png"/>
         </div>
-        <div>Loading Travel Guide...</div>
+        <div>Loading Travel Guides...</div>
       </div>
     );
   }

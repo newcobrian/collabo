@@ -50,12 +50,12 @@ const CommentPreview = props => {
         </div>
 
 
-        <div className="cta-wrapper flx flx-row flx-just-end flex-item-right last-comment mrgn-right-sm">
+        <div className="cta-wrapper flx flx-row flx-just-end flex-item-right last-comment mrgn-left-sm">
           
           <div className="flx flx-row flx-just-end flx-align-center">
 
-            <div className="v2-type-body1">{props.itinerary.commentsCount}</div>
             <div className="cta-icon cta-comment comment-on"></div>
+            <div className="v2-type-body1">{props.itinerary.commentsCount}</div>
 
           </div>
         </div>
@@ -65,10 +65,11 @@ const CommentPreview = props => {
   else {
     return (
       <Link to={`/guide/${props.itinerary.id}`}>
-        <div className="cta-wrapper flx flx-row flx-just-end flex-item-right flx-row-reverse no-comments mrgn-right-sm">
+        <div className="cta-wrapper flx flx-row flx-just-end flex-item-right flx-row-reverse no-comments mrgn-left-sm">
           <div className="flx flx-row flx-just-end flx-align-center">
-             <div className="v2-type-body1">0</div>
+             
              <div className="cta-icon cta-comment"></div>
+             <div className="v2-type-body1">0</div>
            </div>
         </div>
       </Link>
@@ -191,16 +192,8 @@ const ItineraryPreview = props => {
         {/** CTA - START **/}
         <div className="flx flx-row flx-center-all w-100">
 
-          {/** TIP COUNT **/}
-          <Link to={`/guide/${itinerary.id}`}>
-          <div className="color--primary v2-type-body3 weight-400 flx flx-row flx-just-start flx-align-center color--primary mrgn-top-xs">
-              {itinerary.reviewsCount ? itinerary.reviewsCount : 0} {itinerary.reviewsCount === 1 ? ' tip' : ' tips'}
-          </div>
-          </Link>
-
           {/** LIKE AND COMMENTS **/}
-          <div className="it__cover__cta-module flx flx-row flx-just-end flx-item-right mrgn-left-md">
-            <CommentPreview itinerary={props.itinerary} />
+          <div className="it__cover__cta-module flx flx-row flx-just-end">
             <div className="cta-wrapper flx flx-row flx-just-end flex-item-right">
               <LikeReviewButton
                 authenticated={props.authenticated}
@@ -212,7 +205,13 @@ const ItineraryPreview = props => {
                 itineraryId={itinerary.id}
                 type={ITINERARY_TYPE} />
             </div>
+            <CommentPreview itinerary={props.itinerary} />
           </div>
+
+          {/** TIP COUNT **/}
+          <Link to={`/guide/${itinerary.id}`} className="color--primary v2-type-body3 weight-400 flx flx-row flx-just-start flx-align-center color--primary flx-item-right mrgn-top-xs">
+              {itinerary.reviewsCount ? itinerary.reviewsCount : 0} {itinerary.reviewsCount === 1 ? ' tip' : ' tips'}
+          </Link>
 
         </div>
         {/** END - CTA ROW **/}
