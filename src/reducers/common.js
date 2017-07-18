@@ -43,6 +43,7 @@ export default (state = defaultState, action) => {
         return { ...state, redirectTo: redirectUrl };
       }
     case ITINERARY_CREATED:
+    console.log('reducer action.itineraryId = ' + action.itineraryId)
       return {
         ...state,
         redirectTo: '/edit/' + action.itineraryId
