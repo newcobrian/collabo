@@ -77,26 +77,24 @@ const TipPreview = props => {
 
             {/* Action Module */}
             <div className="tip__cta-box flx flx-col flx-center-all">
-              <div className="tip__actions-wrapper flx flx-col flx-center-all mrgn-bottom-md">
-                <div className="vb vb--save fill--primary">
-                  <Link onClick={handleSaveClick}>
-                    <img className="center-img" src="/img/icons/icon40--save.png"/>
-                  </Link>
-                </div>
-                <div className="vb__label v2-type-body0 opa-60 mrgn-top-sm">Save to</div>
+              <Link onClick={handleSaveClick} className="vb vb--save fill--primary flx flx-col flx-align-center mrgn-bottom-md">
+                  <img className="center-img" src="/img/icons/icon30--save.png"/>
+                  <div className="color--white weight-400">SAVE</div>
+              </Link>
+
+              <div className="vb__label v2-type-body0 opa-60 mrgn-top-sm DN">Save to</div>
+              <div className="cta-wrapper flx flx-col v2-type-body2">
+                <LikeReviewButton
+                  authenticated={props.authenticated}
+                  isLiked={props.review.isLiked}
+                  likesCount={props.review.likesCount}
+                  unLike={props.unLike}
+                  like={props.like} 
+                  likeObject={review}
+                  itineraryId={props.itineraryId}
+                  type={REVIEW_TYPE} />
               </div>
 
-                <div className="cta-wrapper flx flx-col v2-type-body2">
-                  <LikeReviewButton
-                    authenticated={props.authenticated}
-                    isLiked={props.review.isLiked}
-                    likesCount={props.review.likesCount}
-                    unLike={props.unLike}
-                    like={props.like} 
-                    likeObject={review}
-                    itineraryId={props.itineraryId}
-                    type={REVIEW_TYPE} />
-                </div>
             </div>
 
 

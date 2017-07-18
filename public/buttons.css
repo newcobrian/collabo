@@ -62,7 +62,7 @@ select {
   text-align: center;
   letter-spacing: 3px;
   font-weight: 600;
-  border-radius: 0px;
+  border-radius: 2px;
   font-size: 14px;
   background-color: #cccccc;
   cursor: pointer;
@@ -85,9 +85,30 @@ select {
   width: 20px;
   height: 20px;
 }
-.vb.vb--save img {
-  width: 40px;
+.vb--save {
+  background: #cccccc;
+  border-radius: 2px;
+  height: 60px;
+  width: 50px;
+  padding: 5px;
+  font-size: 12px;
+  letter-spacing: 0;
+  /* Rectangle 9: */
+  /*background-image: linear-gradient(216deg, #5AFFF9 -7%, #4DBDE9 54%);*/
+  box-shadow: 0 2px 0 0 #D5E3E5, 0 7px 12px 0 rgba(0,0,0,0.06);
+}
+.page-subject .vb.vb--save {
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  width: 180px;
   height: 40px;
+  margin-bottom: 0px;
+  padding-right: 10px;
+}
+.vb.vb--save img {
+  width: 30px;
+  height: 30px;
+  margin: 0 5px;
 }
 
 .vb--circle {
@@ -187,13 +208,6 @@ select {
 
 
 
-.vb--save {
-  background: #cccccc;
-  border-radius: 32px;
-  height: 50px;
-  width: 50px;
-  padding: 5px;
-}
 
 
 .vb.vb--add {

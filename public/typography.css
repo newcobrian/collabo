@@ -31,6 +31,9 @@ textarea {
     resize: vertical;
 }
 .weight-400 {
+  font-weight: 300 !important;
+}
+.weight-400 {
   font-weight: 400 !important;
 }
 .weight-500 {
