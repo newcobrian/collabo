@@ -163,7 +163,7 @@ class Create extends React.Component {
 				    <div ref="GMap"></div>**/}
 					<div className="page-title-wrapper center-text">
 			          <div className="v2-type-page-header">Create a New Guide</div>
-			          <div className="v2-type-body2 opa-60 mrgn-top-sm">This could be a list of top spots or plans for an upcoming trip</div>
+			          <div className="v2-type-body2 opa-60">This could be a list of top spots or plans for an upcoming trip</div>
 			        </div>
 
 				    {/* CONTAINER - START */}
