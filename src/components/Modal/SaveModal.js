@@ -37,18 +37,28 @@ class SaveModal extends React.Component {
     const actions = [
       <FlatButton
         label="+ Create New Guide"
-        className="color--primary"
+        className="vb vb--shadow-none color--primary"
         hoverColor="white"
         onTouchTap={handleItineraryClick}
-        labelStyle={{textTransform: 'none'}}
+        labelStyle={{fontWeight: '400',
+                        fontSize: '14px',
+                        letterSpacing: '2px',
+                        boxShadow: 'none'
+                    }}
         style={{
           }}
       />,
       <FlatButton
         label="Cancel"
         hoverColor="white"
+        className="vb vb--shadow-none"
         onTouchTap={handleClose}
-        labelStyle={{textTransform: 'none', color:'rgba(0,0,0,.5)'}}
+        labelStyle={{fontWeight: '400',
+                    fontSize: '14px',
+                    letterSpacing: '2px',
+                    color:'rgba(0,0,0,.5)',
+                    boxShadow: 'none'
+                    }}
         style={{
           }}
       />

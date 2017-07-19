@@ -55,7 +55,12 @@
 	margin-top: -2px;
 }
 
-
+.tip-count {
+	background: white;
+    z-index: 1;
+    padding-left: 20px;
+    box-shadow: 0 0 30px 10px white;
+}
 
 
 
@@ -104,7 +109,7 @@
 .comment-preview-bubble {
 	position: absolute;
    width: auto;
-   left: 140px;
+   left: 130px;
    bottom: 20px;
 }
 
@@ -149,6 +154,9 @@
 	background: transparent;
 	margin: 20px 2%;
 }
+.itinerary__cover:hover {
+	transition: all 0.23s ease-in-out 0s;
+}
 .itinerary__cover.cover--empty {
 	height: 667px;
 	border-color: #2ECBDB;
@@ -162,15 +170,15 @@
 .home-page .itinerary__cover:nth-of-type(even) {
 
 }
-.home-page .itinerary__cover:nth-of-type(3n+0) {
-	width: 100%;
+.home-pageX .itinerary__cover:nth-of-type(3n+0) {
+	width: 46%;
 	margin: 20px 2%;
 }
 .profile-page .itinerary__cover,
 .home-page .itinerary__cover {
 	margin: 20px;
 	width: 500px;
-	width: 46%;
+	width: 30%;
 	padding: 20px;
 	background: #FFFFFF;
 	border: 1px solid #D5E3E5;

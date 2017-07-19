@@ -87,7 +87,7 @@ class Login extends React.Component {
                     Log In
                   </button>
 
-                  <fieldset className="text-xs-center mrgn-bottom-sm">
+                  <fieldset className="text-xs-center mrgn-bottom-sm mrgn-top-sm">
                     <Link className="v2-type-body1 color--primary" to='/ForgotPassword'>Forgot password?</Link>
                   </fieldset>
                 </fieldset>

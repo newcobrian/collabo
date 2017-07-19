@@ -75,9 +75,13 @@ select {
 /*  background-image: linear-gradient(270deg, #4BDEC8 3%, #0095FF 100%);
 */ 
 }
+.vb.vb--shadow-none {
+  box-shadow: none;
+}
 
 .vb:hover {
-  opacity: .8;
+  opacity: .9;
+  transition: all 0.23s ease-in-out 0s;
 }
 
 .vb img {
@@ -323,6 +327,7 @@ label {
   opacity: 1;
   font-weight: 600;
   width: 100%;
+  color: #292F3D;
 }
 
 .field-wrapper {

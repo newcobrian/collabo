@@ -7,9 +7,10 @@
 	width: 100%;
 	position: relative;
 	background-attachment: fixed;
+	background-color: #97F1FF;
 }
 .create-page .hero-container {
-	background-color: #87E6E5;
+	background-color: #97F1FF;
 	width: 100%;
 	position: absolute;
 	background-attachment: fixed;

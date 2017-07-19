@@ -99,11 +99,13 @@ class NewItineraryModal extends React.Component {
       <FlatButton
         label="Cancel"
         hoverColor="white"
-        className="vb"
+        className="vb vb--shadow-none mrgn-right-sm"
         onTouchTap={handleClose}
         labelStyle={{   fontWeight: '400',
                         fontSize: '14px',
-                        color:'rgba(0,0,0,.5)'}}
+                        color:'rgba(0,0,0,.5)',
+                      boxShadow: 'none'
+                    }}
         style={{
           }}
       />,
@@ -113,10 +115,12 @@ class NewItineraryModal extends React.Component {
         onTouchTap={submitForm}
         disableTouchRipple={true}
         fullWidth={false}
-        className="vb color--white fill--primary"
+        className="vb vb--shadow-none color--white fill--primary"
         labelStyle={{   fontWeight: '400',
                         fontSize: '14px',
-                        letterSpacing: '2px'}}
+                        letterSpacing: '2px',
+                        boxShadow: 'none'
+                    }}
         style={{
           }}
       />

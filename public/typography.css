@@ -231,7 +231,8 @@ textarea {
   color: #1A75CE !important; /*BLUE BERRY*/
   color: #377037 !important; /*UBER */
   color: #36B096 !important; /*UBER */
-  color: #01B7C8 !important; /*UBER */
+  color: #01A4C8 !important; /*UBER */
+  color: #009BCB !important; /*UBER */
 
 }
 
@@ -248,7 +249,8 @@ textarea {
   background-color: #1A75CE !important; /*BLUEBERRY*/
   background-color: #377037 !important; /*UBER*/
   background-color: #36B096 !important; /*UBER*/
-  background-color: #01B7C8 !important; /*UBER*/
+  background-color: #01A4C8 !important; /*UBER*/
+  background-color: #009BCB !important; /*UBER*/
 
   /* Rectangle Copy: */
   /*background-image: linear-gradient(213deg, #00FFE2 -40%, #02B1DA 50%);*/
@@ -280,7 +282,8 @@ textarea {
   color: #1A75CE !important; /*KING BLUE*/
   color: #377037 !important; /*KING BLUE*/
   color: #36B096 !important; /*KING BLUE*/
-  color: #01B7C8 !important; /*KING BLUE*/
+  color: #01A4C8 !important; /*KING BLUE*/
+  color: #009BCB !important; /*KING BLUE*/
 
   opacity: .8;
   font-weight: 300;
