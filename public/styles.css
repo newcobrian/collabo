@@ -324,7 +324,7 @@ img.user-image.user-image-md {
     /*background-color:#004131;*/
     /* Rectangle 6: */
     /*background-image: linear-gradient(90deg, #1C398C 0%, #59FFF2 66%, #FFFDCD 100%);*/
-    border-bottom: 1px solid rgba(0,0,0,.1);
+    /*border-bottom: 1px solid rgba(0,0,0,.1);*/
     /* Rectangle 6: */
     opacity: 1;
     /*background-image: linear-gradient(90deg, #1C398C 0%, #59FFF2 65%, #B5FEE3 100%);*/
@@ -343,7 +343,7 @@ img.user-image.user-image-md {
   height: 40px;
   width: 220px;
   font-weight: 700;
-  margin: 12px;
+  margin: 12px 40px;
   z-index: 2;
 
 }
@@ -356,7 +356,7 @@ a.logo-module:focus {
 .logo-main {
   font-size: 17px;
   height: 38px;
-  font-weight: 700;
+  font-weight: 400;
   margin-left: 20px;
   letter-spacing: 7px;
   color: rgba(0,0,0,.8);

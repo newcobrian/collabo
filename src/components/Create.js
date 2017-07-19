@@ -161,20 +161,23 @@ class Create extends React.Component {
 				        /> 
 				    </div> 
 				    <div ref="GMap"></div>**/}
-					<div className="page-title-wrapper center-text">
-			          <div className="v2-type-page-header">Create a New Guide</div>
-			          <div className="v2-type-body2 opa-60">This could be a list of top spots or plans for an upcoming trip</div>
-			        </div>
+					
 
 				    {/* CONTAINER - START */}
 			        <div className="hero-container">
+	        			<div className="page-title-wrapper center-text DN">
+	        	          <div className="v2-type-page-header">Create a New Guide</div>
+	        	          <div className="v2-type-body2 opa-60">This could be a list of top spots or plans for an upcoming trip</div>
+	        	        </div>
 			         	<div className="hero-content flx flx-col flx-center-all ta-center">
 							
 							<div className="flx flx-col flx-center-all create-wrapper">
 						
 								<ListErrors errors={this.props.errors}></ListErrors>
 					            <div className="create-form-wrapper form-wrapper ta-left flx flx-col-left bx-shadow">
+						            
 						            <form>
+						            	<div className="v2-type-page-header mrgn-bottom-sm">Create a New Guide</div>
 						            	<fieldset className="field-wrapper">
 					                    	<label>Location</label>
 					                    	<Geosuggest 
@@ -222,18 +225,23 @@ class Create extends React.Component {
 							        </form>
 							    </div>
 						    </div>
+
+						    <div className="v2-type-body2 mrgn-top-lg ta-center DN">
+						    	<div>“Travel and change of place impart new vigor to the mind.”</div>
+						    	<div>– Seneca</div>
+						    </div>	
+
 					  	</div>
 
-					    <div className="hero-map opa-20">
+					    <div className="hero-map opa-40">
 					    </div>
 					    <div className="hero-grid opa-20">
 					    </div>
+
+
 					</div>	
 					{/* END CONTAINER */}
-					<div className="v2-type-body1 mrgn-top-lg opa-60 ta-center">
-						<div>“Travel and change of place impart new vigor to the mind.”</div>
-						<div>– Seneca</div>
-					</div>	
+					
 			    </div>
 			</div>
 		)

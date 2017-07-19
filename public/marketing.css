@@ -2,13 +2,22 @@
 	height: 300px;
 	background-color:#FFFEF1;
 	/* Rectangle 3: */
-	background-image: linear-gradient(-270deg, #0095FF 2%, #4BDEC8 98%);
+	/*background-image: linear-gradient(-270deg, #0095FF 2%, #4BDEC8 98%);*/
+	background-color: #036FD0;
 	width: 100%;
 	position: relative;
 	background-attachment: fixed;
 }
 .create-page .hero-container {
-	height: 540px;
+	background-color: #87E6E5;
+	width: 100%;
+	position: absolute;
+	background-attachment: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: initial;
 }
 .hero-content {
 	position: absolute;
