@@ -25,7 +25,7 @@ class ImagePicker extends React.Component {
         +  encodeURIComponent(images[0].url.replace(/^https?\:\/\//i, ""))) : images[0].url;
 
         return (
-             <img src={imgSrc} className="center-img cover-height" onClick={this.handleClick} />
+             <img src={imgSrc} className="center-img header-height" onClick={this.handleClick} />
           )
       }
       // else if ((typeof images[0] === 'string' || images[0] instanceof String)) {
@@ -39,7 +39,7 @@ class ImagePicker extends React.Component {
       // }
       else if (images[0].preview) {
         return (
-          <img src={images[0].preview} className="center-img cover-height" onClick={this.handleClick} />
+          <img src={images[0].preview} className="center-img header-height" onClick={this.handleClick} />
           )
       }
       else return null;

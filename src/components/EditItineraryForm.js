@@ -489,7 +489,7 @@ class EditItineraryForm extends React.Component {
               <div className="mrgn-right-lg">
                 <Link to={'/guide/' + this.props.itineraryId} className="vb vb--light vb--outline--none vb--sm" type="submit" disabled={this.props.submitting}>Cancel</Link>
               </div>
-                <button className="vb fill--success vb--sm" type="submit" disabled={this.props.submitting}>Save & Exit</button>
+                <button className="vb fill--primary vb--sm" type="submit" disabled={this.props.submitting}>Save & Exit</button>
             </div>
 
           </div>

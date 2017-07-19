@@ -1365,4 +1365,17 @@ li.nav-divider {
 }
 
 
+.content-wrapper.map-on {
+  width: 500px;
+}
+.content-wrapper.map-on .tip__image-module {
+    height: 200px;
+    width: 200px;
+
+}
+.content-wrapper.map-on .itinerary__cover.header-height,
+.content-wrapper.map-on .itinerary__cover__image.header-height {
+  height: 180px;
+}
+
 

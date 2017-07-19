@@ -50,7 +50,6 @@ body {
     right: 0;
     margin: 0 auto;
     border-top: 1px solid rgba(0,0,0,.1);
-    background:white;
     -webkit-justify-content: center;
     justify-content: center;
     -webkit-align-items: center;
@@ -182,7 +181,7 @@ body {
 
 /** Home Page **/
 .page-common {
-  margin: 10px 0;
+  margin: 0;
 }
 .page-common.no-feed-toggle {
   padding-top: 0;
@@ -499,7 +498,7 @@ width: 100%;
 .vb.vb--save {
   -webkit-flex-direction: row;
   flex-direction: row;
-  width: 80px;
+  width: 90px;
   height: 40px;
   margin-bottom: 0px;
 }

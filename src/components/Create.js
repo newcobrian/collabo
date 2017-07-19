@@ -210,7 +210,7 @@ class Create extends React.Component {
 					                    </fieldset>
 
 					                    <div
-					                    className="vb vb--create w-100 mrgn-top-md fill--success gradient"
+					                    className="vb vb--create w-100 mrgn-top-md fill--primary"
 					                    type="button"
 					                    disabled={this.props.inProgress}
 					                    onClick={this.submitForm}>

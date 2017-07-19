@@ -138,8 +138,8 @@ input.edit-tip__rating {
 }
 
 .tip-wrapper .cta-container {
--webkit-flex-direction: column;
-   flex-direction: column;
+/*-webkit-flex-direction: column;*/
+   /*flex-direction: column;*/
 }
 .tip-wrapper .cta-wrapper .cta-icon {
 	margin-right: 0;

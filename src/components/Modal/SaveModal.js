@@ -37,7 +37,7 @@ class SaveModal extends React.Component {
     const actions = [
       <FlatButton
         label="+ Create New Guide"
-        className="color--success"
+        className="color--primary"
         hoverColor="white"
         onTouchTap={handleItineraryClick}
         labelStyle={{textTransform: 'none'}}

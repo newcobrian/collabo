@@ -51,7 +51,7 @@ const LoggedInView = props => {
 
         <Link to="/create" activeClassName="active" className="nav-module create nav-editor flx flx-center-all">  
           <div className="nav-text flx flx-row flx-align-center">
-            <img className="mrgn-right-sm center-img mobile-hide" src="/img/icon.add--green.png"/> New Guide
+            <img className="mrgn-right-sm center-img mobile-hide" src="/img/icon.add--white.png"/> New Guide
           </div>
         </Link>
 
@@ -62,7 +62,7 @@ const LoggedInView = props => {
         </Link>
 
         <Link to={`/${props.userInfo.username}`} activeClassName="active" className="nav-module nav-profile flx flx-row flx-center-all">
-          {/*<div className="nav-text">Profile</div>*/}
+          <div className="nav-text mrgn-right-md mobile-hide">My Views</div>
           <div className="nav-icon mrgn-none"><img className="center-img" src={props.userInfo.image}/></div>
         </Link>
 
@@ -80,7 +80,7 @@ class Header extends React.Component {
   render() {
     return (
       <div className="header-container">
-        <div className="header-wrapper w-max">
+        <div className="header-wrapper w-100">
           <Link to="/" className="logo-module flx flx-row flx-just-start flx-align-center">
             <div className="logo-graphic">  
               <img className="center-img" src="/img/logos/logo.bird.ocean.wide.png"/>
@@ -88,7 +88,7 @@ class Header extends React.Component {
               <div className="logo-main">
                 VIEWS
               </div>
-              <div className="v2-type-caption opa-60 w-100 mrgn-top-xs mrgn-left-xs">
+              <div className="v2-type-caption opa-60 w-100 mrgn-top-xs mrgn-left-xs DN">
                 Alpha 1.2
               </div>
           </Link>

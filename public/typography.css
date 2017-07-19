@@ -214,18 +214,64 @@ textarea {
   font-size: 30px;
 }
 
-.color--primary {
-  color: #4DBDE9 !important;
-}
 .color--gray {
   color: #D5E3E5;
 }
+
+
+
+
+
+/* CHANGE ME FOR COLOR TEST!!!! */
+.color--primary {
+  color: #4DBDE9 !important;
+  color: #03675C !important;
+}
+
+/* CHANGE ME FOR COLOR TEST!!!! */
 .fill--primary {
   background-color: #79D5DD;
   background-color: #2ECBDB !important;
   background-color: #0095FF !important;
   background-color: #4DBDE9 !important;
+  background-color: #02706A !important;
+  background-color: #03675C !important;
+
 }
+/* CHANGE ME FOR COLOR TEST!!!! */
+.navigation-bar .nav-module.active,
+.navigation-bar .nav-module:hover,
+.navigation-bar .nav-module.nav-editor.active,
+.navigation-bar .nav-module.active.create,
+.navigation-bar .nav-module.nav-editor.active.create,
+.nav-pills.outline-active .nav-link.active,
+.nav-pills.outline-active .nav-link:hover  {
+  border-bottom: 2px solid #4DBDE9;
+  border-bottom: 2px solid #02706A;
+  border-bottom: 2px solid white;
+  padding-top: 2px;
+}
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #4DBDE9;
+  color: #4DBDE9 !important;
+  color: #02706A !important;
+  color: #03675C !important;
+  opacity: .8;
+  font-weight: 300;
+  font-family: 'Roboto', sans-serif;
+}
+.header-container,
+.navigation-bar {
+  background-color: #03675C;
+}
+.logo-main {
+  color: white;
+}
+body a.nav-module {
+  color: white;
+}
+
+
 .fill--red {
   background-color: #F39973 !important;
 }
@@ -259,14 +305,8 @@ textarea {
   color: #292F3D;
 }
 
-.navigation-bar .nav-module.active,
-.navigation-bar .nav-module.nav-editor.active,
-.navigation-bar .nav-module.active.create,
-.navigation-bar .nav-module.nav-editor.active.create,
-.nav-pills.outline-active .nav-link.active,
-.nav-pills.outline-active .nav-link:hover  {
-  border-bottom: 2px solid #4DBDE9;
-}
+
+
 
 /******
 ******
@@ -274,13 +314,6 @@ textarea {
 ******
 ******/
 
-::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: #4DBDE9;
-  color: #4DBDE9 !important;
-  opacity: .8;
-  font-weight: 300;
-  font-family: 'Roboto', sans-serif;
-}
 ::-moz-placeholder { /* Firefox 19+ */
   color: #000000;
   opacity: .8;

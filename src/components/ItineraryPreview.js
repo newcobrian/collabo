@@ -108,7 +108,7 @@ const ItineraryPreview = props => {
           <div className="itinerary__cover__username mrgn-right-md">
             <Link
             to={`/${itinerary.createdBy.username}`}
-            className="">
+            className="color--primary">
             {itinerary.createdBy.username}
             </Link>
           </div>

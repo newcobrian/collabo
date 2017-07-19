@@ -131,9 +131,9 @@ class Itinerary extends React.Component {
       this.props.authenticated === this.props.itinerary.userId;
 
       return (
-        <div className="flx flx-col flx-align-center page-common page-itinerary">
+        <div className="flx flx-col flx-align-start page-common page-itinerary">
 
-          <div className="content-wrapper itinerary flx flx-col flx-align-center">
+          <div className="content-wrapper map-off itinerary flx flx-col flx-align-center">
 
             <div className="itinerary__cover flx flx-row flx-just-start header-height">
               

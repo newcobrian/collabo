@@ -174,7 +174,7 @@
 	padding: 20px;
 	background: #FFFFFF;
 	border: 1px solid #D5E3E5;
-	box-shadow: 0 2px 0 0 #D5E3E5;
+	/*box-shadow: 0 2px 0 0 #D5E3E5;*/
 }
 	.my-profile-page .itinerary__cover__topbar {
 		display: none;

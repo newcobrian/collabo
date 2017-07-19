@@ -63,36 +63,35 @@ const TipPreview = props => {
       <div className="tip-container flx flx-col flx-align-center">
           
           <div className="tip-inner flx flx-row flx-just-start w-100 w-max-2">
+            
+            <div className="flx fl-col flx-wrap">
+              
+              { /** Image **/ }
+              <div className="tip__image-module mrgn-right-lg">
+                <div className="tip__photo-count">{review.images.length > 0 ? review.images.length : null}</div>
+                <ImagePicker images={review.images} />
 
-            { /** Image **/ }
-            <div className="tip__image-module mrgn-right-lg">
-              <div className="tip__photo-count">{review.images.length > 0 ? review.images.length : null}</div>
-              <ImagePicker images={review.images} />
-
-            </div>
+              </div>
 
 
-
-
-
-            {/* Action Module */}
-            <div className="tip__cta-box flx flx-col flx-center-all">
-              <Link onClick={handleSaveClick} className="vb vb--save fill--primary flx flx-col flx-align-center mrgn-bottom-md">
-                  <img className="center-img" src="/img/icons/icon30--save.png"/>
-                  <div className="color--white weight-400">SAVE</div>
-              </Link>
-
-              <div className="vb__label v2-type-body0 opa-60 mrgn-top-sm DN">Save to</div>
-              <div className="cta-wrapper flx flx-col v2-type-body2">
-                <LikeReviewButton
-                  authenticated={props.authenticated}
-                  isLiked={props.review.isLiked}
-                  likesCount={props.review.likesCount}
-                  unLike={props.unLike}
-                  like={props.like} 
-                  likeObject={review}
-                  itineraryId={props.itineraryId}
-                  type={REVIEW_TYPE} />
+              {/* Action Module */}
+              <div className="tip__cta-box flx flx-row flx-just-start flx-align-center mrgn-top-md">
+                <Link onClick={handleSaveClick} className="vb vb--save fill--primary flx flx-row flx-align-center">
+                    <img className="center-img" src="/img/icons/icon30--save.png"/>
+                    <div className="color--white weight-400">SAVE</div>
+                </Link>
+                <div className="vb__label v2-type-body0 opa-60 mrgn-top-sm DN">Save to</div>
+                <div className="cta-wrapper flx flx-row v2-type-body2">
+                  <LikeReviewButton
+                    authenticated={props.authenticated}
+                    isLiked={props.review.isLiked}
+                    likesCount={props.review.likesCount}
+                    unLike={props.unLike}
+                    like={props.like} 
+                    likeObject={review}
+                    itineraryId={props.itineraryId}
+                    type={REVIEW_TYPE} />
+                </div>
               </div>
 
             </div>
@@ -101,20 +100,19 @@ const TipPreview = props => {
 
 
 
-
             {/* Non-image module on right */}
-            <div className="tip__data-module flx flx-col flx-align-start w-100 mrgn-left-lg">
+            <div className="tip__data-module flx flx-col flx-align-start w-100">
 
               { /** Title and Address **/ }
               <div className="tip__title-module flx flx-row w-100">
-                <div className="flx flx-row flx-align-center w-100">
+                <div className="flx flx-row flx-align-top w-100">
                   <Link to={`/review/${review.subjectId}/${review.id}`}>
                   <div className="tip__title color--primary v2-type-h3 weight-400 ta-left">
                     {review.title}
                   </div>
                   </Link>
                   <Link to={`/review/${review.subjectId}/${review.id}`}>
-                  <img width="16" height="16" className="mrgn-left-sm opa-20" src="/img/icons/icon32--next--black.png"/>
+                  <img width="16" height="16" className="mrgn-left-sm opa-20 mrgn-right-sm" src="/img/icons/icon32--next--black.png"/>
                   </Link>
                   <div className="v2-type-h3 flx-item-right opa-40">#1</div>
                 </div>

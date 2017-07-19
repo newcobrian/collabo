@@ -99,8 +99,11 @@ class NewItineraryModal extends React.Component {
       <FlatButton
         label="Cancel"
         hoverColor="white"
+        className="vb"
         onTouchTap={handleClose}
-        labelStyle={{textTransform: 'none', color:'rgba(0,0,0,.3)'}}
+        labelStyle={{   fontWeight: '400',
+                        fontSize: '14px',
+                        color:'rgba(0,0,0,.5)'}}
         style={{
           }}
       />,
@@ -110,8 +113,10 @@ class NewItineraryModal extends React.Component {
         onTouchTap={submitForm}
         disableTouchRipple={true}
         fullWidth={false}
-        className="vb fill--success"
-        labelStyle={{textTransform: 'none', color: "white"}}
+        className="vb color--white fill--primary"
+        labelStyle={{   fontWeight: '400',
+                        fontSize: '14px',
+                        letterSpacing: '2px'}}
         style={{
           }}
       />
@@ -141,7 +146,7 @@ class NewItineraryModal extends React.Component {
           overlayClassName="dialog--save__overlay"
           overlayStyle={{}}
           
-          title="Create new itinerary for..."
+          title="Create new guide for..."
           titleClassName="dialog--save__title v2-type-h2"
           titleStyle={{padding: "10px 20px", fontWeight: "700", fontSize: "20px"}}
           
