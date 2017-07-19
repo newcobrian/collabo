@@ -229,7 +229,8 @@ textarea {
   color: #8B6563 !important; /*COPPER EEL*/
   color: #6DB6D4 !important; /*SILVER CLOUDS*/
   color: #1A75CE !important; /*BLUE BERRY*/
-  color: #377037 !important; /*KING BLUE*/
+  color: #377037 !important; /*UBER */
+  color: #36B096 !important; /*UBER */
 
 }
 
@@ -245,6 +246,7 @@ textarea {
   background-color: #6DB6D4 !important; /*SILVER CLOUDS*/
   background-color: #1A75CE !important; /*BLUEBERRY*/
   background-color: #377037 !important; /*UBER*/
+  background-color: #36B096 !important; /*UBER*/
 
 
 }
@@ -260,6 +262,7 @@ textarea {
   border-bottom: 2px solid #02706A; 
   border-bottom: 2px solid #0ABBBD;
   border-bottom: 2px solid white;
+  /*border-bottom: 2px solid #377037;*/
   padding-top: 2px;
 }
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -271,6 +274,7 @@ textarea {
   color: #6DB6D4 !important; /*SILVER CLOUDS*/
   color: #1A75CE !important; /*KING BLUE*/
   color: #377037 !important; /*KING BLUE*/
+  color: #36B096 !important; /*KING BLUE*/
 
   opacity: .8;
   font-weight: 300;
@@ -283,6 +287,8 @@ textarea {
   background-color: #6DB6D4; /*SILVER CLOUDS*/
   background-color: #1A75CE; /*KING BLUE*/
   background-color: #377037; /*KING BLUE*/
+  background-color: initial; /*KING BLUE*/
+  background-color: #36B096; /*KING BLUE*/
 
 }
 .logo-main {
