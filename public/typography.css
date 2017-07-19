@@ -225,7 +225,10 @@ textarea {
 /* CHANGE ME FOR COLOR TEST!!!! */
 .color--primary {
   color: #4DBDE9 !important;
-  color: #03675C !important;
+  color: #03675C !important; /*ALGAE GREEN*/
+  color: #8B6563 !important; /*COPPER EEL*/
+  color: #6DB6D4 !important; /*SILVER CLOUDS*/
+
 }
 
 /* CHANGE ME FOR COLOR TEST!!!! */
@@ -235,7 +238,10 @@ textarea {
   background-color: #0095FF !important;
   background-color: #4DBDE9 !important;
   background-color: #02706A !important;
-  background-color: #03675C !important;
+  background-color: #03675C !important; /*ALGAE GREEN*/
+  background-color: #8B6563 !important; /*COPPER EEL*/
+  background-color: #6DB6D4 !important; /*SILVER CLOUDS*/
+
 
 }
 /* CHANGE ME FOR COLOR TEST!!!! */
@@ -247,7 +253,8 @@ textarea {
 .nav-pills.outline-active .nav-link.active,
 .nav-pills.outline-active .nav-link:hover  {
   border-bottom: 2px solid #4DBDE9;
-  border-bottom: 2px solid #02706A;
+  border-bottom: 2px solid #02706A; 
+  border-bottom: 2px solid #0ABBBD;
   border-bottom: 2px solid white;
   padding-top: 2px;
 }
@@ -255,14 +262,20 @@ textarea {
   color: #4DBDE9;
   color: #4DBDE9 !important;
   color: #02706A !important;
-  color: #03675C !important;
+  color: #03675C !important; /*ALGAE GREEN*/
+  color: #8B6563 !important; /*COPPER EEL*/
+  color: #6DB6D4 !important; /*SILVER CLOUDS*/
+
   opacity: .8;
   font-weight: 300;
   font-family: 'Roboto', sans-serif;
 }
 .header-container,
 .navigation-bar {
-  background-color: #03675C;
+  background-color: #03675C; /*ALGAE GREEN*/
+  background-color: #8B6563; /*COPPER EEL*/
+  background-color: #6DB6D4; /*SILVER CLOUDS*/
+
 }
 .logo-main {
   color: white;
@@ -270,6 +283,14 @@ textarea {
 body a.nav-module {
   color: white;
 }
+
+
+
+
+
+
+
+
 
 
 .fill--red {
