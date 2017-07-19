@@ -1359,6 +1359,7 @@ li.nav-divider {
     background-size: 18px 18px;
     background-repeat: no-repeat;
     background-position: center;
+    background-color: #009BCB;
 }
 .back-to-top:hover {
     background-color: #68E4E7;
