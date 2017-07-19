@@ -505,7 +505,7 @@ svg {
 }
 .navigation-bar .nav-text {
   width: 100%;
-  font-family: 'Arimo', sans-serif;
+  letter-spacing: 1px;
 }
 .nav-module.nav-user-image {
     width: 40px;
@@ -537,7 +537,7 @@ svg {
   line-height: inherit;
   height: 22px;
   font-family: 'Roboto', sans-serif;
-  padding: 2px 8px 8px 11px;
+  padding: 2px 8px 8px 8px;
 }
 .header-badge.badge-on {
 }
