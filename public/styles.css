@@ -324,7 +324,7 @@ img.user-image.user-image-md {
     /*background-color:#004131;*/
     /* Rectangle 6: */
     /*background-image: linear-gradient(90deg, #1C398C 0%, #59FFF2 66%, #FFFDCD 100%);*/
-    /*border-bottom: 1px solid rgba(0,0,0,.1);*/
+    border-bottom: 1px solid rgba(0,0,0,.1);
     /* Rectangle 6: */
     opacity: 1;
     /*background-image: linear-gradient(90deg, #1C398C 0%, #59FFF2 65%, #B5FEE3 100%);*/
@@ -356,7 +356,7 @@ a.logo-module:focus {
 .logo-main {
   font-size: 17px;
   height: 38px;
-  font-weight: 400;
+  font-weight: 600;
   margin-left: 20px;
   letter-spacing: 7px;
   color: rgba(0,0,0,.8);
@@ -381,7 +381,7 @@ a.logo-module:focus {
   position: absolute;
   right: 0;
   top: 0;
-  height: 70px;
+  height: 69px;
   z-index: 2;
   padding: 0px;
   color: black;
@@ -398,8 +398,8 @@ a.logo-module:focus {
   height: 70px;
 }
 .navigation-bar .nav-module img {
-  width: 18px;
-  height: 18px;
+  width: 28px;
+  height: 28px;
 }
 .navigation-bar .nav-module.create {
   /*color: #63A652;  Bright green */

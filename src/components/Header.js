@@ -51,7 +51,7 @@ const LoggedInView = props => {
 
         <Link to="/create" activeClassName="active" className="nav-module create nav-editor flx flx-center-all">  
           <div className="nav-text flx flx-row flx-align-center">
-            <img className="mrgn-right-sm center-img mobile-hide" src="/img/icon.add--white.png"/> New Guide
+            <img className="mrgn-right-sm center-img mobile-hide" src="/img/icon.add--kelp.png"/> New Guide
           </div>
         </Link>
 
@@ -88,7 +88,7 @@ class Header extends React.Component {
               <div className="logo-main">
                 VIEWS
               </div>
-              <div className="v2-type-caption opa-60 w-100 mrgn-top-xs mrgn-left-xs DN">
+              <div className="v2-type-caption opa-60 w-100 mrgn-top-xs mrgn-left-xs">
                 Alpha 1.2
               </div>
           </Link>

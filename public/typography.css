@@ -230,27 +230,14 @@ textarea {
   color: #6DB6D4 !important; /*SILVER CLOUDS*/
   color: #1A75CE !important; /*BLUE BERRY*/
   color: #377037 !important; /*UBER */
-  color: #36B096 !important; /*UBER */
-  color: #01A4C8 !important; /*UBER */
-  color: #00B3CB !important; /*UBER */
+  color: #00B3CB !important; /*SEA TURTLE MOSS */
 
 }
 
 /* CHANGE ME FOR COLOR TEST!!!! */
 .fill--primary {
-  background-color: #79D5DD;
-  background-color: #2ECBDB !important;
-  background-color: #0095FF !important;
-  background-color: #4DBDE9 !important;
-  background-color: #02706A !important;
-  background-color: #03675C !important; /*ALGAE GREEN*/
-  background-color: #8B6563 !important; /*COPPER EEL*/
-  background-color: #6DB6D4 !important; /*SILVER CLOUDS*/
-  background-color: #1A75CE !important; /*BLUEBERRY*/
-  background-color: #377037 !important; /*UBER*/
-  background-color: #36B096 !important; /*UBER*/
-  background-color: #01A4C8 !important; /*UBER*/
-  background-color: #00B3CB !important; /*UBER*/
+
+  background-color: #00B3CB !important; /*SEA TURTLE MOSS*/
 
   /* Rectangle Copy: */
   /*background-image: linear-gradient(213deg, #00FFE2 -40%, #02B1DA 50%);*/
@@ -264,12 +251,8 @@ textarea {
 .navigation-bar .nav-module.nav-editor.active.create,
 .nav-pills.outline-active .nav-link.active,
 .nav-pills.outline-active .nav-link:hover  {
-  border-bottom: 2px solid #4DBDE9;
-  border-bottom: 2px solid #02706A; 
-  border-bottom: 2px solid #0ABBBD;
-  border-bottom: 2px solid white;
-  /*border-bottom: 2px solid #63F4F3;*/
-  /*border-bottom: 2px solid #37703pu7;*/
+  border-bottom: 2px solid #00B3CB;
+
   padding-top: 2px;
 }
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -284,7 +267,6 @@ textarea {
   color: #36B096 !important; /*KING BLUE*/
   color: #01A4C8 !important; /*KING BLUE*/
   color: #00B3CB !important; /*DARK BLUE*/
-  color: #0063A4 !important; /*KING BLUE*/
 
   opacity: .8;
   font-weight: 300;
@@ -292,27 +274,14 @@ textarea {
 }
 .header-container,
 .navigation-bar {
-  background-color: #03675C; /*ALGAE GREEN*/
-  background-color: #8B6563; /*COPPER EEL*/
-  background-color: #6DB6D4; /*SILVER CLOUDS*/
-  background-color: #1A75CE; /*KING BLUE*/
-  background-color: #377037; /*KING BLUE*/
-  background-color: initial; /*KING BLUE*/
-  background-color: #172983; /*KING BLUE*/
-  background-color: #1A75CE !important; /*GOOD BLUE*/
-  background-color: #036FD0 !important; /* DEVIL BLUE*/
-  background-color: #3D77B4 !important; /* DEVIL BLUE*/
-  background-color: #3569A1 !important; /* DEVIL BLUE*/
-  background-color: #2494C0 !important; /* DEVIL BLUE*/
-  background-color: #003755 !important; /* DEVIL BLUE*/
-
+  background-color: #ffffff;
 
 }
 .logo-main {
-  color: white;
+
 }
 body a.nav-module {
-  color: white;
+
 }
 
 
