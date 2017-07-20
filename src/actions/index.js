@@ -991,13 +991,14 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
     if (!itineraryId) {
       itineraryId = Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + auth).push(Object.assign({}, itinerary, {createdOn: Firebase.database.ServerValue.TIMESTAMP})).key;
     }
-    let fallbackImageChosen = false,
-      fallbackImageURL = '';
     for (var i = 0; i < reviews.length; i++) {
       if (reviews[i].title) {
         // create the reviewsList for the itinerary
         let subject = Helpers.makeSubject(reviews[i], lastModified);
         
+        Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + reviews[i].id).once('value', subjectSnap => {
+
+        })
         // if no subject id, create the subject
         if (!reviews[i].subjectId) {
           if (reviews[i].id) {
@@ -1005,13 +1006,17 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
             reviews[i].subjectId = reviews[i].id;
             updates[`/${Constants.SUBJECTS_PATH}/${reviews[i].subjectId}`] = subject;
 
-            // save the default image from 4sq
+            // save the default image from google
             if (reviews[i].defaultImage && reviews[i].defaultImage[0]) {
-              let imageObject = {
-                lastModified: Firebase.database.ServerValue.TIMESTAMP
-              };
-              imageObject.url = reviews[i].defaultImage[0];
-              Firebase.database().ref(Constants.IMAGES_PATH + '/' + reviews[i].subjectId).push(imageObject);
+              Firebase.database.ref(Constants.IMAGES_PATH + '/' + reviews[i].subjectId).once('value', imageCheckSnap => {
+                if (!imageCheckSnap.exists()) {
+                  let imageObject = {
+                    lastModified: Firebase.database.ServerValue.TIMESTAMP
+                  };
+                  imageObject.url = reviews[i].defaultImage[0];
+                  Firebase.database().ref(Constants.IMAGES_PATH + '/' + reviews[i].subjectId).push(imageObject);
+                }
+              })
             }
           }
           else {
@@ -1041,10 +1046,6 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
         let subjectId = reviews[i].subjectId;
         if (reviews[i].images && reviews[i].images.isNew) {
           let customImage = uploadImages(auth, subjectId, Constants.REVIEW_TYPE, reviews[i].images.files, itineraryId);
-          if (fallbackImageChosen === false) {
-            // fallbackImageURL = customImage ||;
-            fallbackImageChosen = true;
-          }
         }
       }
     }

@@ -48,7 +48,6 @@ const UpdateCoverPhoto = props => {
 }
 
 const EditItineraryLink = props => {
-  console.log('in edit link = ' + props.itineraryId)
   if (props.isUser) {
     return (
       <Link
