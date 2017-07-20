@@ -2146,6 +2146,8 @@ export function unwatchFollowingFeed(dispatch, userId) {
 }
 
 export function watchItinerariesByUser(dispatch, userId) {
+  watchUser(dispatch, userId, Constants.USER_FEED);
+
   Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + userId).on('child_added', addedSnap => {
     dispatch(itineraryAddedAddedAction(addedSnap.key,userId,  addedSnap.val()));
   })
@@ -2158,6 +2160,8 @@ export function watchItinerariesByUser(dispatch, userId) {
 }
 
 export function unwatchItinerariesByUser(dispatch, userId) {
+  unwatchUser(dispatch, userId, Constants.USER_FEED);
+
   Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + userId).off();
   dispatch(itineraryByUserRemovedAction(userId));
 }
