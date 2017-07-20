@@ -114,6 +114,7 @@ class SaveModal extends React.Component {
                 </Link>
               </li>
     					{this.props.itinerariesList.map(itinerary => {
+                console.log(itinerary.itineraryId);
 				        return (
   		            <li className="brdr-bottom" key={itinerary.itineraryId}>
                     <Link onClick={handleAdd(itinerary)}>

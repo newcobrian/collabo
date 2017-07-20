@@ -20,12 +20,13 @@ import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Dropzone from 'react-dropzone';
 import ItineraryForm from './ItineraryForm';
+import * as Selectors from '../selectors/itinerarySelectors';
 
 const UpdateCoverPhoto = props => {
   if (props.isUser) {
     const dropHandler = (fileToUpload, e) => {
       if (fileToUpload && fileToUpload[0]) {
-        props.uploadCoverPhoto(props.authenticated, fileToUpload[0], props.itinerary, props.itinerary.id)
+        props.uploadCoverPhoto(props.authenticated, fileToUpload[0], props.itinerary, props.itineraryId)
       }
     }
 
@@ -75,16 +76,19 @@ class Itinerary extends React.Component {
     super();
 
     this.loadItinerary = iid => {
+      // if (iid) {
+      //   this.props.getItinerary(this.props.authenticated, iid);
+      //   this.props.getItineraryComments(iid);
+      // }
       if (iid) {
-        this.props.getItinerary(this.props.authenticated, iid);
-        this.props.getItineraryComments(iid);
+        this.props.watchItinerary(this.props.authenticated, iid);
       }
       this.props.sendMixpanelEvent('Itinerary page loaded');
     }
 
     this.unloadItinerary = itineraryId => {
-      this.props.onItineraryUnload(this.props.authenticated, itineraryId);
-      this.props.unloadItineraryComments(itineraryId);
+      // this.props.onItineraryUnload(this.props.authenticated, itineraryId);
+      // this.props.unloadItineraryComments(itineraryId);
     }
   }
 
@@ -104,7 +108,8 @@ class Itinerary extends React.Component {
   }
 
   render() {
-    if (!this.props.itinerary) {
+    // if (!this.props.itinerary || !this.props.itinerary.createdBy || !this.props.itinerary.geo) {
+    if (!this.props.itinerary || !this.props.itinerary.geo) {
       return (
         <div className="loading-module flx flx-col flx-center-all v2-type-body3">
           <div className="logo-graphic w-100">  
@@ -122,13 +127,26 @@ class Itinerary extends React.Component {
       )
     }
     else {
-      const itinerary = this.props.itinerary;
+      const itinerary = Selectors.getFullItinerary(this.props.itinerary, this.props.createdByData);
+      const createdByUsername = Selectors.getCreatedByUsername(this.props.createdByData);
+      const createdByImage = Selectors.getCreatedByImage(this.props.createdByData);
+      const tipList = Selectors.getTipList(this.props.createdByData, this.props.tipsData, this.props.reviewsData,
+        this.props.subjectsData, this.props.likesData, this.props.commentsData, this.props.userImagesData, this.props.defaultImagesData);
+
       const isUser = this.props.authenticated &&
       this.props.itinerary.userId === this.props.authenticated;
 
       const canModify = this.props.authenticated && 
       this.props.authenticated === this.props.itinerary.userId;
 
+// console.log('cmt = ' + JSON.stringify(Selectors.getItineraryComments(this.props.commentsData, this.props.itinerary.id)))
+// console.log('itinerary = ' + JSON.stringify(this.props.itinerary))
+// console.log('likesData = ' + JSON.stringify(this.props.likesData))
+// console.log('commentsData = ' + JSON.stringify(this.props.commentsData))
+// console.log('subjectData = ' + JSON.stringify(this.props.subjectsData))
+// console.log('reviewsData = ' + JSON.stringify(this.props.reviewsData))
+// console.log('tipsData = ' + JSON.stringify(this.props.tipsData))
+// console.log('user images data = ' + JSON.stringify(this.props.userImagesData))
       return (
         <div className="flx flx-col flx-align-start page-common page-itinerary">
 
@@ -140,17 +158,17 @@ class Itinerary extends React.Component {
               <div className="itinerary__cover__topbar w-max flx flx-row flx-align-center flx-just-start v2-type-body1 mrgn-bottom-sm pdding-top-md">
                 <div className="itinerary__cover__author-photo">
                     <Link
-                    to={`/${itinerary.createdBy.username}`}
+                    to={`/${createdByUsername}`}
                     className="">
-                    <ProfilePic src={itinerary.createdBy.image} className="center-img" />
+                    <ProfilePic src={createdByImage} className="center-img" />
                     </Link>
                 </div>
                 <div className="flx flx-col flx-just-start flx-align-start">
                   <div className="itinerary__cover__username ta-left mrgn-right-md color--white">
                     <Link
-                    to={`/${itinerary.createdBy.username}`}
+                    to={`/${createdByUsername}`}
                     className="color--white">
-                    {itinerary.createdBy.username}
+                    {createdByUsername}
                     </Link>
                   </div>
                 </div>
@@ -162,7 +180,7 @@ class Itinerary extends React.Component {
               <div className="itinerary__cover__image header-height">
                 <ImagePicker images={itinerary.images ? [itinerary.images] : null} />
                 <div className="vb--change-cover">
-                <UpdateCoverPhoto isUser={isUser} itinerary={itinerary} itineraryId={this.props.itineraryId} 
+                <UpdateCoverPhoto isUser={isUser} itinerary={itinerary} itineraryId={itinerary.id} 
                   uploadCoverPhoto={this.props.dispatchUploadCoverPhoto} authenticated={this.props.authenticated} />
                 </div>
               </div>
@@ -215,7 +233,7 @@ class Itinerary extends React.Component {
                 </Link>
 
                 {/** TITLE **/}
-                <Link to={`/guide/${itinerary.id}`}>
+                <Link to={`/guide/${this.props.itineraryId}`}>
                 <div className="itinerary__cover__title ta-left v2-type-h2">
                   {itinerary.title}
                 </div>
@@ -264,12 +282,12 @@ class Itinerary extends React.Component {
                 <div className="cta-wrapper flx flx-row flx-item-right">
                   <LikeReviewButton
                     authenticated={this.props.authenticated}
-                    isLiked={itinerary.isLiked}
+                    isLiked={Selectors.getIsLiked(this.props.likesData, this.props.itinerary.id)}
                     likesCount={itinerary.likesCount}
                     unLike={this.props.unLikeReview}
                     like={this.props.likeReview} 
                     likeObject={itinerary}
-                    itineraryId={itinerary.id}
+                    itineraryId={this.props.itineraryId}
                     type={ITINERARY_TYPE} />
                 </div>
               </div>{/** END MAX div **/}
@@ -282,7 +300,7 @@ class Itinerary extends React.Component {
             <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
               <div className="w-100">
                 <TipList
-                  reviewList={this.props.reviewList} 
+                  tipList={tipList} 
                   reviewsCount={itinerary.reviewsCount}
                   authenticated={this.props.authenticated}
                   like={this.props.likeReview} 
@@ -290,7 +308,8 @@ class Itinerary extends React.Component {
                   userInfo={this.props.userInfo}
                   showModal={this.props.showModal}
                   deleteComment={this.props.onDeleteComment}
-                  itineraryId={this.props.itineraryId}
+                  itineraryId={this.props.itinerary.id}
+                  itinerary={itinerary}
 
                   updateRating={this.props.onUpdateRating}
                   onSetPage={this.onSetPage}
@@ -303,19 +322,18 @@ class Itinerary extends React.Component {
                 Talk about this guide
               </div>
               <div className="v2-type-body2 mrgn-bottom-sm ta-left w-100 opa-40 DN">
-                What do you think about {itinerary.createdBy.username}'s View?
+                What do you think about {createdByUsername}'s View?
               </div>
               <CommentContainer
               authenticated={this.props.authenticated}
               userInfo={this.props.userInfo}
               type={ITINERARY_TYPE}
-              comments={this.props.comments || []}
+              comments={Selectors.getItineraryComments(this.props.commentsData, this.props.itinerary.id) || []}
               errors={this.props.commentErrors}
-              commentObject={this.props.itinerary}
+              commentObject={itinerary}
               deleteComment={this.props.onDeleteComment}
-              itineraryId={this.props.itineraryId} />
+              itineraryId={this.props.itinerary.id} />
             </div>
-
 
           </div>
           <BackToTop />

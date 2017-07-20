@@ -2,13 +2,13 @@ import TipPreview from './TipPreview';
 import React from 'react';
 
 const TipList = props => {
-  if (!props.reviewList) {
+  if (!props.tipList) {
     return (
-      <div className="status-module flx flx-row flx-just-center w-100 v2-type-body3">No one has saved this yet</div>
+      <div className="status-module flx flx-row flx-just-center w-100 v2-type-body3">This guide is empty</div>
     );
   }
 
-  if (props.reviewList.length === 0) {
+  if (props.tipList.length === 0) {
     return (
       <div className="status-module flx flx-col flx-center-all v2-type-body3">
           Click 'Edit' to add some tips
@@ -19,11 +19,10 @@ const TipList = props => {
   return (
     <div className="">
       {
-        props.reviewList.map(reviewItem => {
-          // console.log('review item comments = ' + JSON.stringify(reviewItem))
+        props.tipList.map(tipItem => {
           return (
-            <TipPreview review={reviewItem}
-              key={reviewItem.priority || reviewItem.id} 
+            <TipPreview review={tipItem}
+              key={tipItem.priority || tipItem.id} 
               authenticated={props.authenticated}
               like={props.like} 
               unLike={props.unLike}
@@ -31,6 +30,7 @@ const TipList = props => {
               showModal={props.showModal}
               deleteComment={props.deleteComment}
               itineraryId={props.itineraryId}
+              itinerary={props.itinerary}
             />
           );
         })

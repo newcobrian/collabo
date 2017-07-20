@@ -85,6 +85,12 @@ export const FORWARD_MESSAGE = 'FORWARD_MESSAGE'
 export const ITINERARY_TYPE = 'itinerary'
 export const REVIEW_TYPE = 'review'
 
+export const SUBJECTS_DATA = 'subjectsData'
+export const REVIEWS_DATA = 'reviewsData'
+export const TIPS_DATA = 'tipsData'
+export const DEFAULT_IMAGES_DATA = 'defaultImagesData'
+export const USER_IMAGES_DATA = 'userImagesData'
+
 /*** Page Sources ***/
 export const USER_FEED = 'USER_FEED'
 export const ITINERARY_PAGE = 'ITINERARY_PAGE'

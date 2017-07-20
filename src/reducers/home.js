@@ -1,6 +1,6 @@
 import * as ActionTypes from '../actions/types';
 import * as Constants from '../constants';
-import { createItineraryObject, findItineraryIndex } from '../helpers';
+import { createItineraryObject, findIndexByValue } from '../helpers';
 import { filter } from 'lodash';
 
 const lastModifiedDesc = (a, b) => {
@@ -54,24 +54,22 @@ export default (state = {}, action) => {
     case ActionTypes.USER_FEED_UNLOADED:
     case ActionTypes.GLOBAL_FEED_UNLOADED:
       return {};
-    case ActionTypes.USER_ADDED_ACTION: {
+    case ActionTypes.USER_VALUE_ACTION: {
       if (action.source === Constants.USER_FEED) {
         const newState = Object.assign({}, state);
         newState.usersData = newState.usersData || {};
         newState.usersData = Object.assign({}, newState.usersData);
-        if (!newState.usersData[action.userId]) {
-          newState.usersData[action.userId] = Object.assign({}, action.userInfo);
+        newState.usersData[action.userId] = Object.assign({}, action.userInfo);
 
-          // now update any itineraries with the user
-          // newState.itineraries = newState.itineraries || [];
-          // newState.itineraries = newState.itineraries.slice();
-          // for (let i = 0; i < newState.itineraries.length; i++) {
-          //   if (newState.itineraries[i].createdBy && newState.itineraries[i].createdBy.userId === action.userId) {
-          //     newState.itineraries[i].createdBy = Object.assign({}, action.userInfo, {userId: action.userId});
-          //   }
-          // }
-          return newState;
+        // now update any itineraries with the user
+        newState.itineraries = newState.itineraries || [];
+        newState.itineraries = newState.itineraries.slice();
+        for (let i = 0; i < newState.itineraries.length; i++) {
+          if (newState.itineraries[i].createdBy && newState.itineraries[i].createdBy.userId === action.userId) {
+            newState.itineraries[i].createdBy = Object.assign({}, action.userInfo, {userId: action.userId});
+          }
         }
+        return newState;
       }
       return state;
     }
@@ -148,7 +146,7 @@ export default (state = {}, action) => {
       newState.itineraries = newState.itineraries.slice();
 
       // if itinerary is in the feed, update it with new itinerary data
-      let index = findItineraryIndex(newState.itineraries, action.itineraryId);
+      let index = findIndexByValue(newState.itineraries, action.itineraryId, 'id')
       if (index > -1) {
         let iid = newState.itineraries[index].id;
         let isLiked = newState.likesData[iid];

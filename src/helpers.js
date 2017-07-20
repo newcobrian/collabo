@@ -103,9 +103,9 @@ export function createItineraryObject(itineraryId, itineraryVal, creatorId, crea
   return Object.assign({}, itineraryVal, key, createdBy, likes);
 }
 
-export function findItineraryIndex(itineraries, itineraryId) {
-	for (let i = 0; i < itineraries.length; i++) {
-		if (itineraries[i].id === itineraryId) return i;
+export function findIndexByValue(arr, value, propertyName) {
+	for (let i = 0; i < arr.length; i++) {
+		if (arr[i].propertyName === value) return i;
 	}
 	return -1;
 }
@@ -159,13 +159,13 @@ export function incrementReviewCount(counterType, reviewId, subjectId, userId) {
 		return (current_count || 0) + 1;
     });
 
-	// increment count on subject
-	Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId + '/' + counterType).transaction(function (current_count) {
-		return (current_count || 0) + 1;
-    });
+	// // increment count on subject
+	// Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId + '/' + counterType).transaction(function (current_count) {
+	// 	return (current_count || 0) + 1;
+ //    });
 
-	// update subject timestamp
-    Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId).update({ lastModified: Firebase.database.ServerValue.TIMESTAMP })
+	// // update subject timestamp
+ //    Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId).update({ lastModified: Firebase.database.ServerValue.TIMESTAMP })
 }
 
 export function decrementReviewCount(counterType, reviewId, subjectId, userId) {
@@ -184,13 +184,13 @@ export function decrementReviewCount(counterType, reviewId, subjectId, userId) {
 		return (current_count - 1 > 0) ? (current_count - 1) : 0;
     });
 
-	// decrement count on subject
-	Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId + '/' + counterType).transaction(function (current_count) {
-		return (current_count - 1 > 0) ? (current_count - 1) : 0;
-    });
+	// // decrement count on subject
+	// Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId + '/' + counterType).transaction(function (current_count) {
+	// 	return (current_count - 1 > 0) ? (current_count - 1) : 0;
+ //    });
 
-	// update subject timestamp
-    Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId).update({ lastModified: Firebase.database.ServerValue.TIMESTAMP })
+	// // update subject timestamp
+ //    Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId).update({ lastModified: Firebase.database.ServerValue.TIMESTAMP })
 }
 
 export function decrementItineraryCount(counterType, itineraryId, geo, userId) {

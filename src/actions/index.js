@@ -124,7 +124,7 @@ export const UNLOAD_USER_REVIEW = 'UNLOAD_USER_REVIEW'
 export const FORGOT_PASSWORD_SENT = 'FORGOT_PASSWORD_SENT'
 export const FOLLOWER_ADDED_ACTION = 'FOLLOWER_ADDED_ACTION'
 export const FOLLOWER_REMOVED_ACTION = 'FOLLOWER_REMOVED_ACTION'
-export const USER_ADDED_ACTION = 'USER_ADDED_ACTION'
+export const USER_VALUE_ACTION = 'USER_VALUE_ACTION'
 export const USER_REMOVED_ACTION = 'USER_REMOVED_ACTION'
 export const LIKES_BY_USER_ADDED_ACTION = 'LIKES_BY_USER_ADDED_ACTION'
 export const LIKES_BY_USER_REMOVED_ACTION = 'LIKES_BY_USER_REMOVED_ACTION'
@@ -276,6 +276,7 @@ export function onEditorLoad(authenticated, itineraryId) {
   return dispatch => {
     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).on('value', itinerarySnapshot => {
       Firebase.database().ref(Constants.REVIEWS_BY_ITINERARY_PATH + '/' + itineraryId).on('value', reviewsListSnapshot => {
+        console.log('itinerarySnap = ' + JSON.stringify(itinerarySnapshot.val()))
         // make this is the authed user's itinerary
         if (authenticated !== itinerarySnapshot.val().userId) {
           dispatch ({
@@ -1096,9 +1097,6 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
               uploadCoverPhoto(auth, itinerary.images.files[0], itinerary, itineraryId);
             }, 2000);
           }
-          // else if (itinerary.images && itinerary.images.isFallback === true) {
-
-          // }
 
           let message = itinerary.title + ' has been saved.';
 
@@ -2208,7 +2206,7 @@ export function unwatchUser(dispatch, userId, source) {
 
 function userAddedAction(userId, user, source) {
   return {
-    type: USER_ADDED_ACTION,
+    type: USER_VALUE_ACTION,
     userInfo: user,
     userId: userId,
     source: source
@@ -2992,7 +2990,7 @@ export function addToItinerary(auth, tip, itinerary) {
               let tipData = {
                 subjectId: subjectId
               }
-              if (reviewSnapshot.exists()) {
+              if (reviewSnapshot.exists() && reviewSnapshot.val().reviewId) {
                 tipData.reviewId = reviewSnapshot.val().reviewId;
               }
               else {
