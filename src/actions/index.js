@@ -3111,13 +3111,14 @@ export function showDeleteModal(itinerary, source) {
 
 export function showModal(type, review, images) {
   return dispatch => {
-    const uid = Firebase.auth().currentUser.uid;
-    if (!uid) {
+    const currentUser = Firebase.auth().currentUser;
+    if (!currentUser) {
       dispatch({
         type: ASK_FOR_AUTH
       })
     }
     else {
+      const uid = currentUser.uid;
       switch (type) {
         case SAVE_MODAL:
           Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + uid).once('value', snapshot => {
