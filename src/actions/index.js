@@ -2103,6 +2103,11 @@ export function unloadLikesByUser(auth, userId) {
 
 export function startFeedWatch(auth) {
   return dispatch => {
+    if (!auth) {
+      dispatch({
+        type: HOME_PAGE_NO_AUTH
+      })
+    }
     watchLikesByUser(dispatch, auth, Constants.USER_FEED);
     watchFollowingFeed(dispatch, auth);
     watchItinerariesByUser(dispatch, auth)

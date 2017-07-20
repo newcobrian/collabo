@@ -7,14 +7,14 @@ const lastModifiedDesc = (a, b) => {
   return b.lastModified - a.lastModified;
 }
 
-export default (state = {}, action) => {
+export default (state = { usersData: {}, likesData: {} }, action) => {
   switch (action.type) {
-    // case ActionTypes.GET_USER_FEED:
-    // case ActionTypes.GET_GLOBAL_FEED:
-    //   return {
-    //     ...state,
-    //     itineraries: action.payload
-    //   };
+    case ActionTypes.GET_USER_FEED:
+    case ActionTypes.GET_GLOBAL_FEED:
+      return {
+        ...state,
+        itineraries: action.payload
+      };
     // case ActionTypes.GET_LIKES_OR_SAVES_BY_USER:
     //   return {
     //     ...state,

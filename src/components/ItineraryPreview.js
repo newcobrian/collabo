@@ -77,6 +77,26 @@ const CommentPreview = props => {
   }
 }
 
+const GeoInfo = props => {
+  if (!props.geo) {
+    return null;
+  }
+  else {
+    return (
+      <Link to={`/places/${props.geo.placeId}`}>
+        <div className="flx flx-row flx-just-start flx-align-center">
+          {/** Flag and Geo **/}
+          <div className={'itinerary__cover__flag flx-hold flag-' + props.geo.country}>
+          </div>
+          <div className="geo-type ellipsis">
+            {props.geo.label}
+          </div>
+        </div>
+      </Link>
+      )
+  }
+}
+
 const ItineraryPreview = props => {
   if (!props.itinerary) {
     return null
@@ -151,18 +171,9 @@ const ItineraryPreview = props => {
         <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm w-100 mrgn-top-sm">
 
           {/** GEO - START **/}
-          <Link to={`/places/${itinerary.geo.placeId}`}>
-          <div className="flx flx-row flx-just-start flx-align-center">
-            {/** Flag and Geo **/}
-            <div className={'itinerary__cover__flag flx-hold flag-' + itinerary.geo.country}>
-            </div>
-            <div className="geo-type ellipsis">
-              {itinerary.geo.label}
-            </div>
-          </div>
-          </Link>
+          <GeoInfo geo={itinerary.geo} />          
           {/** END - GEO ROW **/}
-          
+
         </div>
         {/** END - CAPTION ROW **/}
 

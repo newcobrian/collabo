@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import * as Actions from '../../actions';
 import * as Constants from '../../constants';
 import { Link } from 'react-router';
+import MainView from './MainView';
 
 class GlobalFeed extends Home {
   componentWillMount() {

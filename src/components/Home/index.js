@@ -58,33 +58,33 @@ class Home extends React.Component {
   }
 
   LoggedOutIntro(authenticated) {
-  if (!authenticated) {
-    return (
-     <div className="hero-container">
-      <div className="hero-content flx flx-col flx-center-all ta-center">
-        <div className="v2-type-h3 color--white mrgn-bottom-md">
-         A better way to plan your trips
-        </div>
-        <div className="v2-type-body3 color--white mrgn-bottom-md">
-         CREATE lists for places you want to visit. SHARE guides of your favorite spots
-        </div>
-        <Link to="/register" className="">
-          <div className="vb vb--light vb--intro--register">
-            Get started
+    if (!authenticated) {
+      return (
+       <div className="hero-container">
+        <div className="hero-content flx flx-col flx-center-all ta-center">
+          <div className="v2-type-h3 color--white mrgn-bottom-md">
+           A better way to plan your trips
           </div>
-        </Link>
-      </div>
+          <div className="v2-type-body3 color--white mrgn-bottom-md">
+           CREATE lists for places you want to visit. SHARE guides of your favorite spots
+          </div>
+          <Link to="/register" className="">
+            <div className="vb vb--light vb--intro--register">
+              Get started
+            </div>
+          </Link>
+        </div>
 
 
-        <div className="hero-map opa-20">
-        </div>
-        <div className="hero-grid opa-10">
-        </div>
-     </div>
-    );
-  }
-  return null;
-};
+          <div className="hero-map opa-20">
+          </div>
+          <div className="hero-grid opa-10">
+          </div>
+       </div>
+      );
+    }
+    return null;
+  };
 
   render() {
     return (
