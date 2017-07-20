@@ -291,7 +291,9 @@ body a.nav-module {
 
 
 
-
+.fill--none {
+  background-color: transparent;
+}
 
 .fill--red {
   background-color: #F39973 !important;
