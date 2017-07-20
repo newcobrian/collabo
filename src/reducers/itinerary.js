@@ -7,19 +7,19 @@ import { filter, isEqual, find } from 'lodash';
 export default (state = { reviewsData: {}, tipsData: {}, subjectsData: {}, itinerary: {}, commentsData: {}, 
   userImagesData: {}, defaultImagesData: {}}, action) => {
   switch (action.type) {
-    case ActionTypes.ITINERARY_PAGE_LOADED:
-      return {
-        ...state,
-        itineraryId: action.itineraryId,
-        itinerary: action.itinerary,
-        newItin: action.itinerary,
-        reviewList: action.reviewList
-      }
-    case ActionTypes.ITINERARY_COMMMENTS_LOADED:
-      return {
-        ...state,
-        comments: action.comments
-      }
+    // case ActionTypes.ITINERARY_PAGE_LOADED:
+    //   return {
+    //     ...state,
+    //     itineraryId: action.itineraryId,
+    //     itinerary: action.itinerary,
+    //     newItin: action.itinerary,
+    //     reviewList: action.reviewList
+    //   }
+    // case ActionTypes.ITINERARY_COMMMENTS_LOADED:
+    //   return {
+    //     ...state,
+    //     comments: action.comments
+    //   }
     case ActionTypes.GOOGLE_MAP_LOADED:
       if (action.source === Constants.ITINERARY_PAGE ) {
         return {
