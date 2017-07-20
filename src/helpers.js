@@ -301,10 +301,10 @@ export function sendInboxMessage(senderId, recipientId, messageType, sendObject,
 							' forwarded you a review. Click here to see it: https://myviews.io' + inboxObject.link;
 						break;
 					case Constants.SAVE_MESSAGE:
-						inboxObject.senderId = '';
-						inboxObject.message = 'Can\'t tell you who, but somebody saved your review of ';
-						inboxObject.link = '/review/' + sendObject.subjectId + '/' + sendObject.id;
-						emailMessage = 'Somebody saved your review. Click here to go to your inbox: https://myviews.io/inbox';
+						inboxObject.senderId = senderId;
+						inboxObject.message = ' saved your tip to their guide: ';
+						inboxObject.link = '/guide/' + itineraryId;
+						emailMessage = ' saved your tip to their guide. Click here to check out their guide: https://myviews.io/inbox';
 						break;
 				}
 				if (senderId !== recipientId) {

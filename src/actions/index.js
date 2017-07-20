@@ -3042,6 +3042,9 @@ export function addToItinerary(auth, tip, itinerary) {
               Firebase.database().ref().update(updates);
 
               let message = tip.title + ' successfully added to ' + itinerary.title;
+
+              Helpers.sendInboxMessage(auth, tip.createdBy.userId, Constants.SAVE_MESSAGE, Object.assign({}, itinerary, {id: itineraryId}), itineraryId)
+
               dispatch({
                 type: ADDED_TO_ITINERARY,
                 message: message,
