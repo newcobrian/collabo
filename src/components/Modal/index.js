@@ -7,13 +7,15 @@ import ReviewModal from './ReviewModal'
 import SaveModal from './SaveModal'
 import NewItineraryModal from './NewItineraryModal'
 import DeleteItineraryModal from './DeleteItineraryModal'
+import InfoModal from './InfoModal'
 
 const MODAL_COMPONENTS = {
   FORWARD_MODAL: ForwardModal,
   REVIEW_MODAL: ReviewModal,
   SAVE_MODAL: SaveModal,
   NEW_ITINERARY_MODAL: NewItineraryModal,
-  DELETE_ITINERARY_MODAL: DeleteItineraryModal
+  DELETE_ITINERARY_MODAL: DeleteItineraryModal,
+  INFO_MODAL: InfoModal
 }
 const mapStateToProps = state => ({
   ...state.modal,

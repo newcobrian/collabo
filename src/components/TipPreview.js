@@ -5,8 +5,7 @@ import SaveReviewButton from './SaveReviewButton';
 import ProxyImage from './ProxyImage';
 import ProfilePic from './ProfilePic';
 import ImagePicker from './ImagePicker';
-import { SAVE_MODAL } from '../actions';
-import { REVIEW_TYPE } from '../constants';
+import * as Constants from '../constants';
 import CommentContainer from './Review/CommentContainer';
 import DisplayTimestamp from './DisplayTimestamp';
 
@@ -55,7 +54,12 @@ const TipPreview = props => {
       
   const handleSaveClick = ev => {
     ev.preventDefault();
-    props.showModal(SAVE_MODAL, props.review, props.review.images);
+    props.showModal(Constants.SAVE_MODAL, props.review, props.review.images);
+  }
+
+  const onInfoClick = ev => {
+    ev.preventDefault();
+    props.showModal(Constants.INFO_MODAL, props.review);
   }
 
   return (
@@ -90,7 +94,7 @@ const TipPreview = props => {
                     like={props.like} 
                     likeObject={review}
                     itineraryId={props.itineraryId}
-                    type={REVIEW_TYPE} />
+                    type={Constants.REVIEW_TYPE} />
                 </div>
               </div>
 
@@ -139,7 +143,7 @@ const TipPreview = props => {
                     <div className="v2-type-body2">
                       &nbsp; &middot;
                     </div>
-                    <Link to={`/review/${review.subjectId}/${review.id}`}>
+                    <Link onClick={onInfoClick}>
                     <div className="vb vb--sm vb--link vb--outline--none v2-type-body1">
                       <div className="color--primary">Info</div>
                     </div>
@@ -166,7 +170,7 @@ const TipPreview = props => {
                         commentObject={review}
                         itineraryId={props.itineraryId}
                         userInfo={props.userInfo}
-                        type={REVIEW_TYPE}
+                        type={Constants.REVIEW_TYPE}
                         deleteComment={props.deleteComment} />
                   </div> 
                 </div>

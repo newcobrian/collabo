@@ -91,6 +91,14 @@ export const TIPS_DATA = 'tipsData'
 export const DEFAULT_IMAGES_DATA = 'defaultImagesData'
 export const USER_IMAGES_DATA = 'userImagesData'
 
+/**** Modal Types ***/
+export const FORWARD_MODAL = 'FORWARD_MODAL'
+export const REVIEW_MODAL = 'REVIEW_MODAL'
+export const SAVE_MODAL = 'SAVE_MODAL'
+export const NEW_ITINERARY_MODAL = 'NEW_ITINERARY_MODAL'
+export const DELETE_ITINERARY_MODAL = 'DELETE_ITINERARY_MODAL'
+export const INFO_MODAL = 'INFO_MODAL'
+
 /*** Page Sources ***/
 export const USER_FEED = 'USER_FEED'
 export const ITINERARY_PAGE = 'ITINERARY_PAGE'
