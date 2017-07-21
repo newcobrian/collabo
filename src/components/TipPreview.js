@@ -118,7 +118,7 @@ const TipPreview = props => {
                   <Link to={`/review/${review.subjectId}/${review.id}`}>
                   <img width="16" height="16" className="mrgn-left-sm opa-20 mrgn-right-sm" src="/img/icons/icon32--next--black.png"/>
                   </Link>
-                  <div className="v2-type-h3 flx-item-right opa-40">#1</div>
+                  <div className="v2-type-h3 flx-item-right opa-40">#{props.index}</div>
                 </div>
 
               </div>

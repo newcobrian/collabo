@@ -19,7 +19,7 @@ const TipList = props => {
   return (
     <div className="">
       {
-        props.tipList.map(tipItem => {
+        props.tipList.map((tipItem, index) => {
           return (
             <TipPreview review={tipItem}
               key={tipItem.priority || tipItem.id} 
@@ -31,6 +31,7 @@ const TipList = props => {
               deleteComment={props.deleteComment}
               itineraryId={props.itineraryId}
               itinerary={props.itinerary}
+              index={index+1}
             />
           );
         })
