@@ -893,7 +893,7 @@ export function uploadCoverPhoto(auth, imageFile, itinerary, itineraryId) {
         uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
         function(snapshot) {
           let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log('Upload is ' + progress + '% done');
+          // console.log('Upload is ' + progress + '% done');
           switch (snapshot.state) {
             case Firebase.storage.TaskState.PAUSED: // or 'paused'
               // console.log('Upload is paused');
