@@ -138,7 +138,7 @@ class Itinerary extends React.Component {
 
       const canModify = this.props.authenticated && 
       this.props.authenticated === this.props.itinerary.userId;
-
+console.log('progress = ' + this.props.coverPicProgress)
 // console.log('cmt = ' + JSON.stringify(Selectors.getItineraryComments(this.props.commentsData, this.props.itinerary.id)))
 // console.log('itinerary = ' + JSON.stringify(this.props.itinerary))
 // console.log('likesData = ' + JSON.stringify(this.props.likesData))
@@ -181,7 +181,7 @@ class Itinerary extends React.Component {
                 <ImagePicker images={itinerary.images ? [itinerary.images] : null} />
                 <div className="vb--change-cover">
                 <UpdateCoverPhoto isUser={isUser} itinerary={itinerary} itineraryId={itinerary.id} 
-                  uploadCoverPhoto={this.props.dispatchUploadCoverPhoto} authenticated={this.props.authenticated} />
+                  uploadCoverPhoto={this.props.uploadCoverPhoto} authenticated={this.props.authenticated} />
                 </div>
               </div>
 

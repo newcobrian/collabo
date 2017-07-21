@@ -241,6 +241,19 @@ export default (state = { reviewsData: {}, tipsData: {}, subjectsData: {}, itine
       }
       return state;
     }
+    case ActionTypes.UPLOAD_ERROR:
+      return {
+        ...state,
+        error: action.error
+      }
+    case ActionTypes.UPLOAD_PAUSED:
+    case ActionTypes.UPLOAD_RUNNING:
+      return {
+        ...state,
+        coverPicProgress: action.progress
+      }
+    case ActionTypes.UPLOAD_COMPLETED:
+      return state;
     default:
       return state;
   }
