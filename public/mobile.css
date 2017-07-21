@@ -433,7 +433,7 @@ width: 100%;
 .tip__image-module { 
   width: 100%;
 }
-.tip__info-module {
+.tip__info-module.flx {
   -webkit-flex-direction: column;
    flex-direction: column;
    width: 100%;
@@ -448,6 +448,13 @@ width: 100%;
 }
 .tip__rating-module .tip__rating {
 
+}
+.tip-info-col {
+  width: 100%;
+}
+.page-subject.flx {
+  -webkit-flex-direction: column;
+  flex-direction: column;
 }
 
 /* TIP PREVIEW */
@@ -526,7 +533,7 @@ width: 100%;
   width: 100%;
 }
 
-.back-to-top {
+body .back-to-top {
     bottom: 80px;
     right: 20px;
   }

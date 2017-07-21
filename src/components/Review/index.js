@@ -137,7 +137,7 @@ class Review extends React.Component {
     }
 
     return (
-      <div className="page-subject flx flx-col flx-col-start">
+      <div className="page-subject flx flx-row">
           
 
           {/*}      <ReviewPreview review={reviewObject} 
@@ -162,7 +162,7 @@ class Review extends React.Component {
       </div>
       */}
 
-          <div className="flx flx-row flx-just-start w-100">
+          <div className="tip-info-col flx flx-row flx-just-start w-100">
             <div className="tip-container tip-subject flx flx-col flx-align-center">
               <div className="tip-inner flx flx-row flx-just-start w-100 w-max">
 
@@ -193,19 +193,21 @@ class Review extends React.Component {
 
 
 
-                      <div className="tip__info-module flx flx-row-top w-100">
-                        <div className="tip__data tip__address col-md-4 flx flx-row flx-center-all v2-type-body1 ta-left">
-                          <img className="v-icon mrgn-right-md center-img" src="/img/icons/icon32--geo.png"/>
+                      <div className="tip__info-module flx flx-col w-100">
+                        <div className="tip__data tip__address flx flx-col flx-align-start v2-type-body1 ta-left">
+                          <img className="DN v-icon mrgn-right-md center-img" src="/img/icons/icon32--geo.png"/>
+                          <label>Address</label>
                           <div className="v2-type-body1">{subject.address}</div>
                         </div>
-                        <div className="tip__data tip__hours col-md-4 flx flx-row flx-center-all v2-type-body1 ta-left">
-                          <img className="v-icon mrgn-right-md center-img" src="/img/icons/icon32--hours.png"/>
-                          <div className="v2-type-body1">{showWeekdayText(subject)}</div>
-
-                        </div>
-                        <div className="tip__data tip__phone col-md-4 flx flx-row flx-center-all v2-type-body1 ta-left">
-                          <img className="v-icon mrgn-right-md center-img" src="/img/icons/icon32--phone.png"/>
+                        <div className="tip__data tip__phone flx flx-col flx-align-start v2-type-body1 ta-left">
+                          <img className="DN v-icon mrgn-right-md center-img" src="/img/icons/icon32--phone.png"/>
+                          <label>Phone</label>
                           <div className="v2-type-body1">{subject.internationalPhoneNumber}</div>
+                        </div>
+                        <div className="tip__data tip__hours flx flx-col flx-align-start v2-type-body1 ta-left">
+                          <img className="DN v-icon mrgn-right-md center-img" src="/img/icons/icon32--hours.png"/>
+                          <label>Hours</label>
+                          <div className="v2-type-body1">{showWeekdayText(subject)}</div>
                         </div>
                       </div>
 
@@ -245,7 +247,7 @@ class Review extends React.Component {
 */}
           
         </div>
-        <div className="itinerary__tipslist flx flx-col flx-align-center w-100">
+        <div className="itinerary__tipslist flx flx-col flx-align-center pdding-all-md w-100">
           <div className="w-100">
           <DisplayAppUserReview 
             review={this.props.appUserReview}
@@ -258,13 +260,15 @@ class Review extends React.Component {
             unSave={this.props.unSaveReview}
             showModal={this.props.showModal} />
           <TipList
+              itinerary={this.props.itinerary}
               reviewList={this.props.followingReviews} 
               authenticated={this.props.authenticated}
               like={this.props.likeReview} 
               unLike={this.props.unLikeReview}
               userInfo={this.props.userInfo}
               showModal={this.props.showModal}
-              deleteComment={this.props.onDeleteComment} />
+              deleteComment={this.props.onDeleteComment}
+               />
           </div>
         </div>
       </div>

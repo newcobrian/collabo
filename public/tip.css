@@ -144,3 +144,7 @@ input.edit-tip__rating {
 .tip-wrapper .cta-wrapper .cta-icon {
 	margin-right: 0;
 }
+.tip-info-col {
+	width: 500px;
+	height: 100%;
+}

@@ -21,7 +21,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Dropzone from 'react-dropzone';
 import ItineraryForm from './ItineraryForm';
 import * as Selectors from '../selectors/itinerarySelectors';
-
+ 
 const UpdateCoverPhoto = props => {
   if (props.isUser) {
     const dropHandler = (fileToUpload, e) => {
@@ -297,7 +297,7 @@ class Itinerary extends React.Component {
 
 
 
-            <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
+            <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg pdding-top-md">
               <div className="w-100">
                 <TipList
                   tipList={tipList} 

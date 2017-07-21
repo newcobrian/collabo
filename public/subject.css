@@ -1,11 +1,11 @@
 .tip__info-module {
-	padding: 10px 15px;
+	padding: 10px 0;
 }
 .tip__save {
 }
 
 .tip__data {
-	padding: 20px 0;
+	padding: 20px 40px 20px 0;
 }
 .page-subject .tip-subject .tip__title-module {
 }
@@ -16,4 +16,12 @@
 }
 .page-subject .itinerary__tipslist .tip__title-module {
 	display: none;
+}
+.page-subject .hide-in-list {
+	display: none;
+}
+.v-row {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	width: 100%;
 }

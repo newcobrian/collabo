@@ -9,6 +9,13 @@ import * as Constants from '../constants';
 import CommentContainer from './Review/CommentContainer';
 import DisplayTimestamp from './DisplayTimestamp';
 
+const mapStateToProps = state => ({
+  ...state.itinerary,
+  currentUser: state.common.currentUser,
+  authenticated: state.common.authenticated,
+  userInfo: state.common.userInfo
+});
+
 const CommentPreview = props => {
   if (props.comments) {
     // console.log('comments = ' + JSON.stringify(props.comments))
@@ -44,7 +51,7 @@ const CaptionDisplay = props => {
     return (
      <div className="inline opa-20">{props.review.createdBy.username} hasn't written anything about this tip yet...</div>
     )
-  }
+  } 
 }
 
 const TipPreview = props => {
@@ -63,7 +70,7 @@ const TipPreview = props => {
   }
 
   return (
-    <div className="tip-wrapper flx flx-col flx-col w-100 w-max mrgn-top-md">
+    <div className="tip-wrapper flx flx-col flx-col w-100 w-max mrgn-bottom-md">
       <div className="tip-container flx flx-col flx-align-center">
           
           <div className="tip-inner flx flx-row flx-just-start w-100 w-max-2">
@@ -109,16 +116,16 @@ const TipPreview = props => {
 
               { /** Title and Address **/ }
               <div className="tip__title-module flx flx-row w-100">
-                <div className="flx flx-row flx-align-top w-100">
+                <div className="tip__title-wrapper flx flx-row flx-align-top w-100 hide-in-list">
                   <Link to={`/review/${review.subjectId}/${review.id}`}>
                   <div className="tip__title color--primary v2-type-h3 weight-400 ta-left">
-                    {review.title}
+                    {review.title} 
                   </div>
                   </Link>
                   <Link to={`/review/${review.subjectId}/${review.id}`}>
                   <img width="16" height="16" className="mrgn-left-sm opa-20 mrgn-right-sm" src="/img/icons/icon32--next--black.png"/>
                   </Link>
-                  <div className="v2-type-h3 flx-item-right opa-40">#{props.index}</div>
+                  <div className="tip__order-count v2-type-h3 flx-item-right opa-40">#{props.index}</div>
                 </div>
 
               </div>
@@ -140,10 +147,10 @@ const TipPreview = props => {
                     <div className={'tip__rating mrgn-left-md v2-type-rating--' +  review.rating}>
                       {review.rating}<div className="v2-type-rating--total opa-50 weight-300"> /10</div>
                     </div>
-                    <div className="v2-type-body2">
+                    <div className="v2-type-body2 hide-in-list">
                       &nbsp; &middot;
                     </div>
-                    <Link onClick={onInfoClick}>
+                    <Link onClick={onInfoClick} className="hide-in-list">
                     <div className="vb vb--sm vb--link vb--outline--none v2-type-body1">
                       <div className="color--primary">Info</div>
                     </div>

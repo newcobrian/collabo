@@ -1,10 +1,18 @@
 import TipPreview from './TipPreview';
 import React from 'react';
 
+
+const mapStateToProps = state => ({
+  ...state.itinerary,
+  currentUser: state.common.currentUser,
+  authenticated: state.common.authenticated,
+  userInfo: state.common.userInfo
+});
+
 const TipList = props => {
   if (!props.tipList) {
     return (
-      <div className="status-module flx flx-row flx-just-center w-100 v2-type-body3">This guide is empty</div>
+      <div className="status-module flx flx-row flx-just-center w-100 v2-type-body3"></div>
     );
   }
 
@@ -40,4 +48,4 @@ const TipList = props => {
   );
 };
 
-export default TipList;
+export default TipList; 

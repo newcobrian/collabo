@@ -22,6 +22,7 @@ class InfoModal extends React.Component {
     const actions = [
       <FlatButton
         label="Cancel"
+        className="vb fill--white vb--shadow-none"
         onTouchTap={handleClose}
         style={{
             color:'#2B3538'
@@ -41,7 +42,24 @@ class InfoModal extends React.Component {
               
             }}
         >
-          {JSON.stringify(this.props.review)}
+
+        <div className="flx flx-col">
+           <div className="dialog--save__tip-name v-row">{this.props.review.title}</div>
+           <div className="v-row">
+             <label>Address</label>
+             <div className="v2-type-body2">{this.props.review.address}</div>
+          </div>
+           <div className="v-row">
+             <label>Phone</label>
+             <div className="v2-type-body2">{this.props.review.internationalPhoneNumber}</div>
+          </div>
+          <div className="v-row">
+             <label>Hours</label>
+             <div className="v2-type-body2">{this.props.review.showWeekdayText}</div>
+          </div>
+        </div>
+          {/*{JSON.stringify(this.props.review)}*/}
+
         </Dialog>
       </MuiThemeProvider>
     );
