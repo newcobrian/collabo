@@ -277,7 +277,6 @@ export function onEditorLoad(authenticated, itineraryId) {
   return dispatch => {
     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).on('value', itinerarySnapshot => {
       Firebase.database().ref(Constants.REVIEWS_BY_ITINERARY_PATH + '/' + itineraryId).on('value', reviewsListSnapshot => {
-        console.log('itinerarySnap = ' + JSON.stringify(itinerarySnapshot.val()))
         // make this is the authed user's itinerary
         if (authenticated !== itinerarySnapshot.val().userId) {
           dispatch ({
@@ -1016,10 +1015,7 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
       if (reviews[i].title) {
         // create the reviewsList for the itinerary
         let subject = Helpers.makeSubject(reviews[i], lastModified);
-        
-        Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + reviews[i].id).once('value', subjectSnap => {
 
-        })
         // if no subject id, create the subject
         if (!reviews[i].subjectId) {
           if (reviews[i].id) {
@@ -1027,15 +1023,16 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
             reviews[i].subjectId = reviews[i].id;
             updates[`/${Constants.SUBJECTS_PATH}/${reviews[i].subjectId}`] = subject;
 
+            let reviewItem = Object.assign({}, reviews[i]);
             // save the default image from google
             if (reviews[i].defaultImage && reviews[i].defaultImage[0]) {
-              Firebase.database.ref(Constants.IMAGES_PATH + '/' + reviews[i].subjectId).once('value', imageCheckSnap => {
+              Firebase.database().ref(Constants.IMAGES_PATH + '/' + reviews[i].subjectId).once('value', imageCheckSnap => {
                 if (!imageCheckSnap.exists()) {
                   let imageObject = {
                     lastModified: Firebase.database.ServerValue.TIMESTAMP
                   };
-                  imageObject.url = reviews[i].defaultImage[0];
-                  Firebase.database().ref(Constants.IMAGES_PATH + '/' + reviews[i].subjectId).push(imageObject);
+                  imageObject.url = reviewItem.defaultImage[0];
+                  Firebase.database().ref(Constants.IMAGES_PATH + '/' + reviewItem.subjectId).push(imageObject);
                 }
               })
             }
