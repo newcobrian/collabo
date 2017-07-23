@@ -8,6 +8,13 @@ body a {
   color: #1D2E58;
   color: #2ECBDB;
   color: #292F3D;
+
+  -webkit-transition: none;
+  transition: none;
+  -webkit-transition-property: none;
+  transition-property: none;
+  -webkit-transition: none;
+  transition: none;
 }
 body a: hover {
   opacity: .9;
