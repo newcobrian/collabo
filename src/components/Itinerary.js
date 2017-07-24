@@ -38,7 +38,7 @@ const UpdateCoverPhoto = props => {
           multiple={false}
           accept="image/*"
           className="edit-tip__dropzone__touch flx flx-col flx-align-center flx-just-start ta-center">
-          <div className="vb vb--sm fill--white color--primary">Change photo</div>
+          <div className="vb vb--sm vb--shadow-none fill--white color--primary">Change photo</div>
 
         </Dropzone>
         
@@ -53,7 +53,7 @@ const EditItineraryLink = props => {
     return (
       <Link
         to={'/edit/' + props.itineraryId}
-        className="vb vb--sm fill--white color--primary mrgn-right-md">
+        className="vb vb--sm vb--shadow-none fill--white color--primary mrgn-right-md">
          {/*<i className="ion-gear-a"></i>*/}Edit
       </Link>
     );

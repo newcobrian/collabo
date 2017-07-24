@@ -9,6 +9,8 @@ import FlatButton from 'material-ui/FlatButton';
 import { SAVE_MODAL } from '../../actions';
 import ImagePicker from './../ImagePicker';
 
+
+
 const mapStateToProps = state => ({
   ...state.modal,
   authenticated: state.common.authenticated
@@ -33,6 +35,24 @@ class SaveModal extends React.Component {
       ev.preventDefault();
       this.props.showNewItineraryModal(this.props.authenticated, this.props.review);
     }
+
+    const GeoInfo = props => {
+      if (!props.geo) {
+        return null;
+      }
+      else {
+        return (
+          <Link to={`/places/${props.geo.placeId}`}>
+            <div className="flx flx-row flx-just-start flx-align-center">
+              {/** Flag and Geo **/}
+              <div className={'itinerary__cover__flag flx-hold flag-' + props.geo.country}>
+              </div>
+            </div>
+          </Link>
+          )
+      }
+    }
+
 
     const actions = [
       <FlatButton
@@ -78,7 +98,7 @@ class SaveModal extends React.Component {
 
           overlayClassName="dialog__overlay"
           overlayStyle={{}}
-          
+           
           title="Choose a guide for..."
           titleClassName="dialog__title v2-type-h2"
           titleStyle={{padding: "10px 20px", fontWeight: "700", fontSize: "20px"}}
@@ -122,6 +142,11 @@ class SaveModal extends React.Component {
                           <img className="center-img mrgn-right-sm" src="../img/icons/icon40--save.png"/>
                           Save
                         </div>
+
+                        {/** GEO - START **/}
+                        <GeoInfo geo={itinerary.geo} />          
+                        {/** END - GEO ROW **/}
+                        
       						    	<div className="option-title color--primary">
       						    		{itinerary.title}
       						    	</div>

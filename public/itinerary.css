@@ -171,14 +171,14 @@
 
 }
 .home-pageX .itinerary__cover:nth-of-type(3n+0) {
-	width: 46%;
-	margin: 20px 2%;
+	/*width: 46%;*/
+	/*margin: 20px 2%;*/
 }
 .profile-page .itinerary__cover,
 .home-page .itinerary__cover {
 	margin: 20px;
 	width: 500px;
-	width: 30%;
+	width: 46%;
 	padding: 20px;
 	background: #FFFFFF;
 	border: 1px solid #D5E3E5;
@@ -242,8 +242,8 @@
 .cover-height {
 	height: 360px;
 }
-	.page-itinerary .itinerary__cover .cover-height {
-		height: 400px;
+	.page-itinerary .itinerary__cover .header-height {
+		height: 180px;
 	}
 .tip-preview-wrapper .cover-height {
 	height: 100%;
