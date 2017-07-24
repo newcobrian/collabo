@@ -70,10 +70,11 @@ body {
   height: 60px;*/
 }
 .navigation-bar .nav-text {
-    font-size: 11px;
+    font-size: 10px;
     letter-spacing: 1px;
 }
 .navigation-bar .nav-module {
+  margin: 0 10px;
 }
 .navigation-bar .nav-icon {
   width: 32px;
@@ -226,7 +227,6 @@ body {
 }
 
 .count-badge {
-  padding: 2px 6px 1px 8px;
 }
 
 .article-page.page-common {

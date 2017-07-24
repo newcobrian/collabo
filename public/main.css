@@ -134,9 +134,9 @@ textarea {
 
 fieldset {
   min-width: 0;
-  padding: 0;
-  margin: 0;
-  border: 0; }
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important; }
 
 legend {
   display: block;
@@ -1514,7 +1514,8 @@ input[type="month"].form-control {
   border-radius: 0rem; }
 
 .form-group {
-  margin-bottom: 1rem; }
+  margin: 20px 0 !important;
+  border: none !important; }
 
 .radio,
 .checkbox {

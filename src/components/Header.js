@@ -4,7 +4,7 @@ import React from 'react';
 const InboxCounter = props => {
   if (props.unreadMessages > 0) {
     return (
-      <div className="count-badge header-badge badge-on fill--red"> {props.unreadMessages}</div>
+      <div className="count-badge header-badge badge-on"> {props.unreadMessages}</div>
     );
   }
   return (
@@ -23,7 +23,7 @@ const LoggedOutView = props => {
           </Link>
 
           <Link to="/register" className="nav-module nav-feed flx flx-center-all">
-            <div className="nav-text color--white">
+            <div className="nav-text">
               Sign up
             </div>
           </Link>
@@ -51,7 +51,7 @@ const LoggedInView = props => {
 
         <Link to="/create" activeClassName="active" className="nav-module create nav-editor flx flx-center-all">  
           <div className="nav-text flx flx-row flx-align-center">
-            <img className="mrgn-right-sm center-img mobile-hide" src="/img/icon.add--kelp.png"/> New Guide
+            <img className="nav-header-icon mrgn-right-sm center-img mobile-hide" src="/img/icon.add--kelp.png"/> New Guide
           </div>
         </Link>
 
@@ -83,7 +83,7 @@ class Header extends React.Component {
         <div className="header-wrapper w-100">
           <Link to="/" className="logo-module flx flx-row flx-just-start flx-align-center">
             <div className="logo-graphic">  
-              <img className="center-img" src="/img/logos/logo.bird.ocean.wide.png"/>
+              <img className="center-img" src="/img/logos/logo.sunset.png"/>
             </div>
               <div className="logo-main">
                 VIEWS

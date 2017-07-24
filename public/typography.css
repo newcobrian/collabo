@@ -161,16 +161,16 @@ textarea {
   font-size: 38px;
   letter-spacing: 1px;
   line-height: 36px;
-  /*font-family: 'Arimo', sans-serif;*/
+  font-family: 'Montserrat', sans-serif;
   color: #373a3c;
   text-transform: uppercase;
 }
 .v2-type-page-header {
-  font-size: 24px;
-  font-weight: 700;
+  font-size: 32px;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 3px;
-  font-family: 'Roboto Condensed', sans-serif;
+  letter-spacing: .6px;
+  font-family: 'Montserrat', sans-serif;
 }
 .v2-type-h3 {
   font-size: 24px;
@@ -259,7 +259,7 @@ textarea {
 .nav-pills.outline-active .nav-link.active,
 .nav-pills.outline-active .nav-link:hover  {
   border-bottom: 2px solid #00B3CB;
-
+  color: #00B3CB;
   padding-top: 2px;
 }
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */

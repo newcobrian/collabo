@@ -62,7 +62,7 @@ input[type="radio"]:checked + label span {
   font-weight: 300;
   font-size: 16px;
   padding: 20px;
-  border: none;
+  border: 1px solid rgba(0,0,0,.1);
 }
 
 
@@ -349,7 +349,7 @@ img.user-image.user-image-md {
   height: 40px;
   width: 220px;
   font-weight: 700;
-  margin: 12px 40px;
+  margin: 15px;
   z-index: 2;
 
 }
@@ -360,14 +360,17 @@ a.logo-module:focus {
   opacity: 1;
 }
 .logo-main {
-  font-size: 17px;
+  font-size: 24px;
   height: 38px;
   font-weight: 600;
-  margin-left: 20px;
-  letter-spacing: 7px;
-  color: rgba(0,0,0,.8);
-  margin-top: 17px;
-  font-family: 'Arimo', sans-serif;
+  margin-left: 15px;
+  letter-spacing: .6px;
+  margin-top: 3px;
+  font-family: 'Montserrat', sans-serif;
+  margin-right: 6px;
+  opacity: 0.25;
+  color: #596DA0;
+
 }
 .logo-tagline {
     font-size: 14px;
@@ -396,11 +399,13 @@ a.logo-module:focus {
   text-align: center;
   width: auto;
   height: auto;
-  font-weight: 400;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
   margin: 0 20px;
   padding: 0;
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 2px;
+  text-transform: uppercase;
   height: 70px;
 }
 .navigation-bar .nav-module img {
@@ -442,7 +447,7 @@ a.logo-module:focus {
 
 }
 .navigation-bar .nav-module:hover {
-  opacity: .9;
+  opacity: 1;
 }
 .navigation-bar .nav-module.nav-editor {
   /*background-color: rgba(43,93,210,.2);*/
@@ -455,8 +460,8 @@ a.logo-module:focus {
 }
 
 .logo-graphic {
-  width: 48px;
-  height: 48px;
+  width: 50px;
+  height: 50px;
   margin-top: 1px;
 /*  -webkit-animation:spin 4s linear 1;
   -moz-animation:spin 4s linear 1;
@@ -541,11 +546,16 @@ svg {
   box-shadow: none;
   color: white;
   line-height: inherit;
-  height: 22px;
+  height: 32px;
   font-family: 'Roboto', sans-serif;
-  padding: 2px 8px 8px 8px;
+  padding: 6px 12px 12px 12px;
+  font-size: 14px;
 }
 .header-badge.badge-on {
+  background-color: #0329A7;
+  box-shadow: inset 0 0 10px 4px rgba(19,229,225,0.5), 0 0 4px 0 rgba(0,142,255,0.51);
+  font-weight: 500;
+  font-weight: 600;
 }
 .location-dropdown {
   border-bottom: 1px solid #0AAAD5;
@@ -873,6 +883,9 @@ li.nav-divider {
     width: auto;
     white-space: normal;
     float: none;
+}
+.nav-header-icon {
+  margin-top: -1px;
 }
 
 
