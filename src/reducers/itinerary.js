@@ -4,7 +4,7 @@ import * as Helpers from '../helpers';
 import { findIndexByValue } from '../helpers';
 import { filter, isEqual, find } from 'lodash';
 
-export default (state = { reviewsData: {}, tipsData: {}, subjectsData: {}, itinerary: {}, commentsData: {}, 
+export default (state = { usersData: {}, reviewsData: {}, tipsData: {}, subjectsData: {}, itinerary: {}, commentsData: {}, 
   userImagesData: {}, defaultImagesData: {}, likesData: {} }, action) => {
   switch (action.type) {
     // case ActionTypes.ITINERARY_PAGE_LOADED:
