@@ -278,7 +278,7 @@ export function onEditorLoad(authenticated, itineraryId) {
     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).on('value', itinerarySnapshot => {
       Firebase.database().ref(Constants.REVIEWS_BY_ITINERARY_PATH + '/' + itineraryId).on('value', reviewsListSnapshot => {
         // make this is the authed user's itinerary
-        if (authenticated !== itinerarySnapshot.val().userId) {
+        if (authenticated !== itinerarySnapshot.val().userId && Constants.SHARED_ITINERARIES.indexOf(itineraryId) === -1) {
           dispatch ({
             type: EDITOR_PAGE_NO_AUTH,
             itineraryId: itineraryId
@@ -1046,18 +1046,20 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
         let reviewBySubject = Helpers.makeReviewBySubject(reviews[i], reviews[i].subjectId, lastModified);
         let review = Helpers.makeReview(reviews[i], reviews[i].subjectId, lastModified);
 
+        let reviewCreator = reviews[i].userId ? reviews[i].userId : auth;
+
         // if review doesnt exist, create it
         if (!reviews[i].reviewId) {
           reviews[i].reviewId = Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + auth).push(review).key;
         }
         else {
-          updates[`/${Constants.REVIEWS_BY_USER_PATH}/${auth}/${reviews[i].reviewId}/`] = review;
+          updates[`/${Constants.REVIEWS_BY_USER_PATH}/${reviewCreator}/${reviews[i].reviewId}/`] = review;
         }
         // update REVIEWS_BY_USER, REVIEWS_BY_SUBJECT, and REVIEWS tables
-        updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${reviews[i].subjectId}/${auth}/`] = reviewBySubject;
-        updates[`/${Constants.REVIEWS_PATH}/${reviews[i].reviewId}/`] = Object.assign({}, review, { userId: auth })
+        updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${reviews[i].subjectId}/${reviewCreator}/`] = reviewBySubject;
+        updates[`/${Constants.REVIEWS_PATH}/${reviews[i].reviewId}/`] = Object.assign({}, review, { userId: reviewCreator })
 
-        reviewsList[i] = Object.assign({}, { subjectId: reviews[i].subjectId }, { reviewId: reviews[i].reviewId });
+        reviewsList[i] = Object.assign({}, { subjectId: reviews[i].subjectId }, { reviewId: reviews[i].reviewId }, { userId: reviewCreator });
         // reviewsList[reviews[i].subjectId] = Object.assign({}, { reviewId: reviews[i].reviewId }, {priority: i});
 
         // save the custom images from each review
@@ -1071,18 +1073,19 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).once('value', itinSnapshot => {
       Firebase.database().ref(Constants.GEOS_PATH + '/' + itinerary.geo.placeId).once('value', geoSnapshot => { 
         Firebase.database().ref(Constants.COUNTRIES_PATH + '/' + itinerary.geo.country + '/places/' + itinerary.geo.placeId).once('value', countrySnapshot => {
-          let itineraryByUserObject = Helpers.makeItinerary(auth, itinerary, lastModified);
+          let itineraryByUserObject = Helpers.makeItineraryByUser(itinerary, lastModified);
           Object.assign(itineraryByUserObject, { reviewsCount: reviews.length });
           if (itinSnapshot.exists() && itinSnapshot.val().createdOn) itineraryByUserObject.createdOn = itinSnapshot.val().createdOn;
           if (itinSnapshot.exists() && itinSnapshot.val().images) itineraryByUserObject.images = itinSnapshot.val().images;
 
-          let itineraryObject = {};
-          Object.assign(itineraryObject, itineraryByUserObject, { userId: auth });
+          
+          let itineraryCreator = itinerary.userId ? itinerary.userId : auth;
+          let itineraryObject = Object.assign({}, itineraryByUserObject, { userId: itineraryCreator });
 
           // update all itinerary tables
-          updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}`] = itineraryByUserObject;
+          updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${itineraryCreator}/${itineraryId}`] = itineraryByUserObject;
+          updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${itinerary.geo.placeId}/${itineraryCreator}/${itineraryId}/`] = itineraryByUserObject;
           updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}/`] = itineraryObject;
-          updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${itinerary.geo.placeId}/${auth}/${itineraryId}/`] = itineraryByUserObject;
           updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itineraryId}/`] = itineraryObject;
 
           // udpate reviews-by-itinerary
@@ -3014,7 +3017,8 @@ export function addToItinerary(auth, tip, itinerary) {
               let geo = itinSnapshot.val().geo;
               let updates = {};
               let tipData = {
-                subjectId: subjectId
+                subjectId: subjectId,
+                userId: auth
               }
               if (reviewSnapshot.exists() && reviewSnapshot.val().reviewId) {
                 tipData.reviewId = reviewSnapshot.val().reviewId;

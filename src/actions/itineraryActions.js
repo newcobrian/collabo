@@ -177,6 +177,9 @@ function defaultImagesRemovedAction(subjectId, source) {
 
 export function watchTips(dispatch, itineraryId, itineraryUserId, source) {
   Firebase.database().ref(Constants.REVIEWS_BY_ITINERARY_PATH + '/' + itineraryId).on('child_added', tipSnapshot => {
+    if (tipSnapshot.val().userId && tipSnapshot.val().userId !== itineraryUserId) {
+      watchUser(dispatch, tipSnapshot.val().userId, source)
+    }
     watchSubject(dispatch, tipSnapshot.key, tipSnapshot.val().subjectId, source);
     watchReview(dispatch, tipSnapshot.key, tipSnapshot.val().reviewId, source);
     watchComments(dispatch, tipSnapshot.val().reviewId, source);
@@ -207,6 +210,9 @@ export function watchTips(dispatch, itineraryId, itineraryUserId, source) {
 
 export function unwatchTips(dispatch, itineraryId, itineraryUserId, source) {
   Firebase.database().ref(Constants.REVIEWS_BY_ITINERARY_PATH + '/' + itineraryId).once('value', tipSnapshot => {
+    if (tipSnapshot.val().userId && tipSnapshot.val().userId !== itineraryUserId) {
+      unwatchUser(dispatch, tipSnapshot.val().userId, source)
+    }
     unwatchSubject(dispatch, tipSnapshot.key, tipSnapshot.val().subjectId, source);
     unwatchReview(dispatch, tipSnapshot.key, tipSnapshot.val().reviewId, source);
     unwatchComments(dispatch, tipSnapshot.val().reviewId, source);

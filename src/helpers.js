@@ -82,11 +82,10 @@ export function makeReviewBySubject(tip, subjectId, lastModified) {
 	return Object.assign(reviewObject, lastModified);
 }
 
-export function makeItinerary(auth, itinerary, lastModified) {
+export function makeItineraryByUser(itinerary, lastModified) {
 	let itineraryObject = { 
 		title: itinerary.title,
-		geo: itinerary.geo,
-		userId: auth
+		geo: itinerary.geo
 	};
 	if (itinerary.description) itineraryObject.description = itinerary.description;
 	return Object.assign(itineraryObject, lastModified);

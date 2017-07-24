@@ -41,9 +41,14 @@ export default (state = { reviewsData: {}, tipsData: {}, subjectsData: {}, itine
       if (action.source === Constants.ITINERARY_PAGE) {
         const newState = Object.assign({}, state);
         // update usersData
-        newState.createdByData = newState.createdByData || {};
-        newState.createdByData = Object.assign({}, newState.createdByData);
-        newState.createdByData = Object.assign({}, action.userInfo, {userId: action.userId});
+        newState.usersData = newState.usersData || {};
+        newState.usersData = Object.assign({}, newState.usersData);
+
+        if (!isEqual(action.userInfo, newState.usersData[action.userId])) {
+          newState.usersData[action.userId] = Object.assign({}, action.userInfo);
+          return newState;
+        }
+
         // newState.createdByData[action.userId] = Object.assign({}, action.userInfo);
 
         // update itinerary with user data if the user ID matches
@@ -51,7 +56,6 @@ export default (state = { reviewsData: {}, tipsData: {}, subjectsData: {}, itine
         // newState.itinerary = Object.assign({}, newState.itinerary);
         // newState.itinerary.createdBy = Object.assign({}, action.userInfo, { userId: action.userId });
 
-        return newState;
       }
       return state;
     }

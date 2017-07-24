@@ -49,7 +49,7 @@ const UpdateCoverPhoto = props => {
 }
 
 const EditItineraryLink = props => {
-  if (props.isUser) {
+  if (props.isUser || Constants.SHARED_ITINERARIES.indexOf(props.itineraryId) > -1) {
     return (
       <Link
         to={'/edit/' + props.itineraryId}
@@ -127,11 +127,12 @@ class Itinerary extends React.Component {
       )
     }
     else {
-      const itinerary = Selectors.getFullItinerary(this.props.itinerary, this.props.createdByData);
-      const createdByUsername = Selectors.getCreatedByUsername(this.props.createdByData);
-      const createdByImage = Selectors.getCreatedByImage(this.props.createdByData);
-      const tipList = Selectors.getTipList(this.props.createdByData, this.props.tipsData, this.props.reviewsData,
-        this.props.subjectsData, this.props.likesData, this.props.commentsData, this.props.userImagesData, this.props.defaultImagesData);
+      const itinerary = Selectors.getFullItinerary(this.props.itinerary, this.props.usersData);
+      const createdByUsername = Selectors.getUsername(this.props.usersData, this.props.itinerary.userId);
+      const createdByImage = Selectors.getUserImage(this.props.usersData, this.props.itinerary.userId);
+      const tipList = Selectors.getTipList(this.props.usersData, this.props.tipsData, this.props.reviewsData,
+        this.props.subjectsData, this.props.likesData, this.props.commentsData, this.props.userImagesData, 
+        this.props.defaultImagesData, this.props.itinerary);
 
       const isUser = this.props.authenticated &&
       this.props.itinerary.userId === this.props.authenticated;
