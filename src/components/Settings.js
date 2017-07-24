@@ -182,7 +182,7 @@ class Settings extends React.Component {
                 onSubmitForm={this.props.saveSettings} />
 
               <button
-                className="vb vb--sm fill--none color--primary w-100"
+                className="vb vb--sm vb--shadow-none fill--none color--primary w-100"
                 onClick={this.props.signOutUser}>
                 Or click here to logout.
               </button>
