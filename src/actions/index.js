@@ -3151,7 +3151,8 @@ export function showModal(type, review, images) {
               let item = {
                 title: itinerary.val().title,
                 userId: uid,
-                itineraryId: itinerary.key
+                itineraryId: itinerary.key,
+                geo: itinerary.val().geo
               }
               itineraryList.push(item);
             })
