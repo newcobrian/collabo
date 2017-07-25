@@ -34,7 +34,7 @@ export function getTipList(usersData, tipsData, reviewsData, subjectsData, likes
 			let subject = subjectsData[tipItem.subjectId];
 			let defaultImage = defaultImagesData[tipItem.subjectId] ? defaultImagesData[tipItem.subjectId] : [];
 			let images = userImagesData[tipItem.subjectId] ? userImagesData[tipItem.subjectId] : defaultImage;
-			let reviewObject = Object.assign({}, subject, review, {id: tipItem.reviewId}, { priority: key || priority }, tipItem, 
+			let reviewObject = Object.assign({}, subject, review, {id: tipItem.reviewId}, { priority: priority }, tipItem, 
 				{createdBy: creatorData }, {isLiked: likesData[tipItem.reviewId]}, {comments: commentsData[tipItem.reviewId]}, {images: images} );
 			tipsList = [reviewObject].concat(tipsList);
 			priority++;
