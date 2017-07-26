@@ -134,7 +134,7 @@ const ItineraryPreview = props => {
           </div>
         </div>
         {/** TIMESTAMP **/}
-        <div className="itinerary__cover__timestamp flx-item-right ta-left opa-50">
+        <div className="itinerary__cover__timestamp flx-item-right ta-left opa-70">
           <DisplayTimestamp timestamp={itinerary.lastModified} />
         </div> 
       
@@ -168,7 +168,7 @@ const ItineraryPreview = props => {
       <div className="it__center-info flx flx-col flx-align-start ta-left w-100">
         
         {/** CAPTION ROW - START **/}
-        <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm w-100 mrgn-top-sm">
+        <div className="geo-wrapper flx flx-row flx-just-start flx-align-center mrgn-bottom-sm w-100 mrgn-top-sm">
 
           {/** GEO - START **/}
           <GeoInfo geo={itinerary.geo} />          

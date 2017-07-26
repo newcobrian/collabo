@@ -1,5 +1,6 @@
 import MainView from './MainView';
 import React from 'react';
+import {BackToTop} from 'pui-react-back-to-top';
 import { connect } from 'react-redux';
 import * as Actions from '../../actions';
 import * as Constants from '../../constants';
@@ -102,7 +103,7 @@ class Home extends React.Component {
         <div className="feed-wrapper fill--light-gray pdding-top-sm">
           <MainView />
         </div>
-
+        <BackToTop />
       </div>
 
 

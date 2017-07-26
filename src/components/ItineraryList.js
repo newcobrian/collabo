@@ -18,7 +18,7 @@ const ItineraryList = props => {
   if (props.itineraries.length === 0) {
     return (
       <div className="status-module flx flx-center-all v2-type-body3">
-        No itineraries.
+        Nothing here...
       </div>
     );
   }

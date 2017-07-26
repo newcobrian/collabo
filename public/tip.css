@@ -9,7 +9,12 @@
 .tip-inner {
 }
 .tip__data-module {
-	
+	min-height: 290px;
+}
+.tip-wrapper .tip__cta-box { 
+	padding: 20px 0 10px;
+    margin-top: auto;
+    border-top: 1px solid rgba(0,0,0,.05);
 }
 
 .tip__title {

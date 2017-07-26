@@ -84,27 +84,6 @@ const TipPreview = props => {
 
               </div>
 
-
-              {/* Action Module */}
-              <div className="tip__cta-box flx flx-row flx-just-start flx-align-center mrgn-top-md">
-                <Link onClick={handleSaveClick} className="vb vb--save fill--primary flx flx-row flx-align-center">
-                    <img className="center-img" src="/img/icons/icon30--save.png"/>
-                    <div className="color--white weight-400">SAVE</div>
-                </Link>
-                <div className="vb__label v2-type-body0 opa-60 mrgn-top-sm DN">Save to</div>
-                <div className="cta-wrapper flx flx-row v2-type-body2">
-                  <LikeReviewButton
-                    authenticated={props.authenticated}
-                    isLiked={props.review.isLiked}
-                    likesCount={props.review.likesCount}
-                    unLike={props.unLike}
-                    like={props.like} 
-                    likeObject={review}
-                    itineraryId={props.itineraryId}
-                    type={Constants.REVIEW_TYPE} />
-                </div>
-              </div>
-
             </div>
 
 
@@ -132,7 +111,7 @@ const TipPreview = props => {
 
 
 
-              <div className="flx flx-col">
+              <div className="flx flx-col mrgn-bottom-md">
                 { /** Rating and Like **/ }
                 <div className="tip__rating-module flx flx-row flx-align-start mrgn-top-sm w-100">
                   
@@ -183,6 +162,27 @@ const TipPreview = props => {
                 </div>
 
               </div>
+
+              {/* Action Module */}
+              <div className="tip__cta-box w-100 flx flx-row flx-just-start flx-align-center mrgn-top-md">
+                <Link onClick={handleSaveClick} className="vb vb--save fill--primary flx flx-row flx-align-center">
+                    <img className="center-img" src="/img/icons/icon30--save.png"/>
+                    <div className="color--white weight-400">SAVE</div>
+                </Link>
+                <div className="vb__label v2-type-body0 opa-60 mrgn-top-sm DN">Save to</div>
+                <div className="cta-wrapper flx flx-row v2-type-body2">
+                  <LikeReviewButton
+                    authenticated={props.authenticated}
+                    isLiked={props.review.isLiked}
+                    likesCount={props.review.likesCount}
+                    unLike={props.unLike}
+                    like={props.like} 
+                    likeObject={review}
+                    itineraryId={props.itineraryId}
+                    type={Constants.REVIEW_TYPE} />
+                </div>
+              </div>
+
               
 
              
@@ -195,8 +195,7 @@ const TipPreview = props => {
            
           </div> { /** End photo / copy row **/ }
 
-
-
+          
  
 
 

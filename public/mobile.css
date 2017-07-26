@@ -50,10 +50,7 @@ body {
     right: 0;
     margin: 0 auto;
     border-top: 1px solid rgba(0,0,0,.1);
-    -webkit-justify-content: center;
-    justify-content: center;
-    -webkit-align-items: center;
-    align-items: center;
+    overflow: hidden;
 }
 .navigation-bar .nav-module.create-review {
 /*  background: white;
@@ -103,11 +100,18 @@ body {
 
 
 .navigation-bar .nav-module.active,
-.navigation-bar .nav-module.nav-editor.active {
+.navigation-bar .nav-module:hover,
+.navigation-bar .nav-module.nav-editor.active,
+.navigation-bar .nav-module.active.create,
+.navigation-bar .nav-module.nav-editor.active.create {
   border-bottom: none;
   padding-top: 0;
-
+  border-top: 4px solid #00B3CB;
+  height: 56px;
+  margin-top: -4px;
 }
+
+
 .navigation-bar .nav-module:hover {
 
 }
@@ -284,7 +288,7 @@ width: 100%;
 .home-page .itinerary__cover .v2-type-h2 {
   font-size: 24px;
   letter-spacing: 2px;
-  line-height: 24px;
+  line-height: 26px;
 }
 .page-itinerary .itinerary__cover__topbar  {
   left: 10px;
@@ -303,7 +307,18 @@ width: 100%;
 .geo-type {
   font-size: 14px;
 }
+.itinerary__cover__flag, .itinerary__summary__flag {
+    height: 22px;
+    width: 29px;
+}
+.itinerary__cover__topbar {
+  margin-bottom: 10px;
+}
 
+.geo-wrapper {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
 /******
 ******
 ************************************ PROFILE
@@ -402,7 +417,9 @@ width: 100%;
 
 
 /* TIP */
-
+.tip-container {
+  padding: 10px;
+}
 .tip-wrapper .tip-inner {
     -webkit-flex-direction: column;
     flex-direction: column;
@@ -412,6 +429,8 @@ width: 100%;
   flex-direction: row;
   margin-top: 10px;
   width: 100%;
+  border-top: 1px solid rgba(0,0,0,.1);
+  padding: 20px 0 10px;
 }
 .tip-wrapper .tip__cta-box .tip__actions-wrapper {
   margin-bottom: 0;
@@ -470,7 +489,7 @@ width: 100%;
 
 /* TIP PREVIEW */
 .v2-type-h3 {
-  font-size: 18px;
+  font-size: 24px;
 }
 .v2-type-mono.mono-sm {
   font-size: 11px;
