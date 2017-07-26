@@ -407,3 +407,16 @@ textarea.edit-itinerary__name {
 	bottom: 0;
 	z-index: 1;
 }
+
+.cover__loading {
+	background: white;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+}
+.cover__loading.loading-done-100, 
+.cover__loading.loading-done-undefined {
+	display: none;
+}

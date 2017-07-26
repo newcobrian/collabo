@@ -180,6 +180,9 @@ class Itinerary extends React.Component {
               {/** Cover Image **/}
               <div className="itinerary__cover__image header-height">
                 <ImagePicker images={itinerary.images ? [itinerary.images] : null} />
+                <div className={'flx flx-col flx-center-all v2-type-body3 cover__loading loading-done-' + this.props.coverPicProgress}>
+                  Uploading New Cover Photo...
+                </div> 
                 <div className="vb--change-cover">
                 <UpdateCoverPhoto isUser={isUser} itinerary={itinerary} itineraryId={itinerary.id} 
                   uploadCoverPhoto={this.props.uploadCoverPhoto} authenticated={this.props.authenticated} />

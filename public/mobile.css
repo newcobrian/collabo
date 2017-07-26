@@ -282,15 +282,26 @@ width: 100%;
 
 .profile-page .itinerary__cover .v2-type-h2,
 .home-page .itinerary__cover .v2-type-h2 {
-  font-size: 28px;
+  font-size: 24px;
   letter-spacing: 2px;
-  line-height: 32px;
+  line-height: 24px;
 }
 .page-itinerary .itinerary__cover__topbar  {
   left: 10px;
 }
 
 .cover-height {
+  height: 180px;
+}
+.itinerary__cover__image .header-height {
+  height: 180px;
+}
+.itinerary__cover__author-photo {
+  height: 40px;
+  width: 40px;
+}
+.geo-type {
+  font-size: 14px;
 }
 
 /******
