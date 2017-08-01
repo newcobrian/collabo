@@ -23,29 +23,116 @@ import Map from 'google-maps-react';
 import Geosuggest from 'react-geosuggest';
 
 const UpdateCoverPhoto = props => {
-  if (props.isUser) {
-    const dropHandler = (fileToUpload, e) => {
-      if (fileToUpload && fileToUpload[0]) {
-        props.uploadCoverPhoto(props.authenticated, fileToUpload[0], props.itinerary, props.itinerary.id)
-      }
+  const dropHandler = (fileToUpload, e) => {
+    if (fileToUpload && fileToUpload[0]) {
+      props.uploadCoverPhoto(props.authenticated, fileToUpload[0], props.itinerary, props.itinerary.id)
     }
-
-    return (
-      <div >
-        <Dropzone
-          onDrop={dropHandler}
-          disablePreview={false}
-          multiple={false}
-          accept="image/*"
-          className="edit-tip__dropzone__touch flx flx-col flx-align-center flx-just-start ta-center">
-          <div className="vb vb--light vb--outline--none mrgn-right-md">Change cover photo</div>
-
-        </Dropzone>
-        
-      </div>
-    );
   }
-  return null;
+
+  return (
+    <div >
+      <Dropzone
+        onDrop={dropHandler}
+        disablePreview={false}
+        multiple={false}
+        accept="image/*"
+        className="edit-tip__dropzone__touch flx flx-col flx-align-center flx-just-start ta-center">
+        <div className="vb vb--light vb--outline--none mrgn-right-md">Change cover photo</div>
+
+      </Dropzone>
+      
+    </div>
+  );
+}
+    
+const Tip = props => {
+  console.log('props. tip = ' + JSON.stringify(props.tip))
+  return (
+        <li key={props.index} className="mrgn-bottom-lg edit-tip_wrapper">
+        
+        { /** Top Row **/ }
+        <div className="flx flx-row flx-align-center pdding-top-sm pdding-bottom-sm">
+          <div className="v2-type-h5">Tip #{props.index + 1}</div>
+          <div className="vb vb--sm vb--shadow-none fill--white color--primary flx-item-right danger-hover"/>
+          {/* onClick={() => fields.remove(index)}>Delete Tip 
+          </div> */}
+        </div>
+
+        { /** Image and Fields **/ }
+        <div className="flx flx-row"> 
+
+          { /** Image **
+          <div className="image-module mrgn-right-lg">
+            <div className="tip__image-module">
+              <ImagePicker images={getReviewPic(reviewObject)} source={EDITOR_PAGE} />
+            </div>
+              <Field
+              name={`${review}.images`}
+              component={renderDropzoneInput}/>
+          </div>
+
+          { /** Text Inputs **
+          <div className="text-fields"> 
+            { /** rating and caption row **/ }
+            <label>Tip Name</label>
+            <div className="field-wrapper"> 
+              <input
+                value={`${props.tip}.title`}
+                type="text"
+                classname="edit-tip__name"
+              />
+{/*}            </div>
+            <div className="field-wrapper"> 
+              <Field
+                name={`${review}.address`}
+                type="text"
+                component={displayField}
+                label="Address"
+                classname="edit-tip__address"
+              />
+            </div>            
+            <div className="flx flx-row">
+
+              <div className="field-wrapper input--underline edit-tip__rating">
+                <label>Rating (optional)</label>
+                <Field name={`${review}.rating`} component="select">
+                  <option selected value="-">-</option>
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </Field>
+              </div>
+              <div className="field-wrapper resize-ok"> 
+                <label>Notes (optional)</label>
+                <Field
+                  name={`${review}.caption`}
+                  type="text"
+                  component="textarea"
+                  maxLength="500"
+                  rows="4"
+                  label="Description"
+                  placeholder="Write notes and info for others or yourself here"
+                  classname="edit-tip__caption"/>
+              </div> 
+            </div>
+            { /** >>>>>> rating and caption row **/ }
+         
+         </div>
+        { /** >>>>>> Text Inputs **/ }
+
+        </div>
+        { /** >>>>>> Image and Fields **/ }
+
+      </li>
+      )
 }
 
 const mapStateToProps = state => ({
@@ -62,30 +149,67 @@ class ItineraryForm extends React.Component {
       this.props.loadGoogleMaps(google, map, ITINERARY_PAGE);
     }
 
+    this.suggestSelect = result => {
+    let geoData = {
+      label: result.label,
+      placeId: result.placeId,
+      location: result.location
+    }
+
+    if (result.gmaps && result.gmaps.address_components) {
+      result.gmaps.address_components.forEach(function(resultItem) {
+        if (resultItem.types && resultItem.types[0] && resultItem.types[0] === 'country') {
+          if (resultItem.short_name) geoData.country = resultItem.short_name;
+        }
+      })
+    }
+
+    this.onUpdateCreateField('geo', geoData, ITINERARY_PAGE);
+  }
+
     const updateFieldEvent =
         key => ev => this.props.onUpdateCreateField(key, ev.target.value, ITINERARY_PAGE);
 
-    this.changeTitle = updateFieldEvent('newItin.title');
+    this.changeTitle = updateFieldEvent('title');
+    this.changeDescription = updateFieldEvent('description');
+  }
+
+  componentWillMount() {
+    console.log('mounty mount = ' + JSON.stringify(this.props.tipsList))
+    if (this.props.itinerary && this.props.tipsList) {
+      console.log('will mount - ' + JSON.stringify(this.props.tipsList))
+      this.props.loadItineraryForm(this.props.itinerary, this.props.tipsList);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // console.log('next props itin = ' + JSON.stringify(nextProps.itinerary) + ' ..... next props tips = ' + JSON.stringify(nextProps.tipsList))
+    // console.log('THIS PROPS itin = ' + JSON.stringify(this.props.itinerary) + ' ..... THIS TIPS = ' + JSON.stringify(this.props.tipsList))
+    // if (nextProps.itinerary !== this.props.itinerary) {
+    //   this.props.onUpdateCreateField('itinerary', nextProps.itinerary, ITINERARY_PAGE);
+    // }
+    if (nextProps.tipsList !== this.props.tipsList) {
+      // this.props.loadItineraryForm(this.props.itinerary, this.props.tipsList);
+      // this.props.onUpdateCreateField('tipsList', nextProps.tipsList, ITINERARY_PAGE);
+    }
   }
 
   render() {
-    // if (!this.props.googleObject) {
-    //   return (
-    //     <Map google={window.google}
-    //       onReady={this.initMap}
-    //       visible={false} >
-    //     </Map>
-    //     );
-    // }
+    if (!this.props.googleObject) {
+      return (
+        <Map google={window.google}
+          onReady={this.initMap}
+          visible={false} >
+        </Map>
+        );
+    }
     
     const itinerary = this.props.itinerary;
-    const isUser = this.props.authenticated &&
-    this.props.itinerary.userId === this.props.authenticated;
-
-    const canModify = this.props.authenticated && 
-    this.props.authenticated === this.props.itinerary.userId;
+    const createdBy = this.props.createdBy;
+console.log('tips = ' + JSON.stringify(this.props.tipsList))
     return (
-      <div className="flx flx-col flx-align-center page-common page-itinerary">
+      <form>
+        <div className="flx flx-col flx-align-center page-common page-itinerary">
 
             <div className="content-wrapper itinerary flx flx-col flx-align-center">
 
@@ -93,7 +217,7 @@ class ItineraryForm extends React.Component {
                 
                 {/** Cover Image **/}
                 <div className="itinerary__cover__image header-height">
-                  <ImagePicker images={(itinerary.images && itinerary.images.url ? [itinerary.images.url] : null)} />
+                  <ImagePicker images={itinerary.images ? [itinerary.images] : null} />
                 </div>
                 {/** Cover Overlay **/}
                 <div className="itinerary__cover__overlay header-height">
@@ -104,17 +228,17 @@ class ItineraryForm extends React.Component {
                 <div className="itinerary__cover__topbar w-max flx flx-row flx-align-center flx-just-start v2-type-body1 mrgn-bottom-sm pdding-top-md">
                   <div className="itinerary__cover__author-photo">
                       <Link
-                      to={`/${itinerary.createdBy.username}`}
+                      to={`/${createdBy.username}`}
                       className="">
-                      <ProfilePic src={itinerary.createdBy.image} className="center-img" />
+                      <ProfilePic src={createdBy.image} className="center-img" />
                       </Link>
                   </div>
                   <div className="flx flx-col flx-just-start flx-align-start">
                     <div className="itinerary__cover__username ta-left mrgn-right-md color--white">
                       <Link
-                      to={`/${itinerary.createdBy.username}`}
+                      to={`/${createdBy.username}`}
                       className="color--white">
-                      {itinerary.createdBy.username}
+                      {createdBy.username}
                       </Link>
                     </div>
                   </div>
@@ -153,13 +277,13 @@ class ItineraryForm extends React.Component {
                           {itinerary.reviewsCount} Tips
                         </div>
 
-                        <UpdateCoverPhoto isUser={isUser} itinerary={itinerary} itineraryId={this.props.itineraryId} 
+                        <UpdateCoverPhoto itinerary={itinerary} itineraryId={this.props.itineraryId} 
                           uploadCoverPhoto={this.props.dispatchUploadCoverPhoto} authenticated={this.props.authenticated} />
 
                         <ItineraryActions 
                           itinerary={itinerary} 
                           authenticated={this.props.authenticated} 
-                          canModify={canModify} 
+                          canModify={true} 
                           deleteItinerary={this.props.showDeleteModal} 
                           redirectPath="/" />
 
@@ -189,8 +313,8 @@ class ItineraryForm extends React.Component {
               <div className={"field-wrapper " + "input--underline edit-itinerary__name"}> 
                 <label>Itinerary Name</label>
                 <div>
-                  <input name={this.props.newItin.title}
-                    value={this.props.newItin.title}
+                  <input 
+                    value={this.props.title}
                     type="text" 
                     maxLength="32" 
                     className="input--underline edit-itinerary__name"
@@ -203,23 +327,40 @@ class ItineraryForm extends React.Component {
               <div className={"field-wrapper " + "input--underline edit-itinerary__name"}> 
                 <label>Description (optional)</label>
                 <div>
-                  <input name={itinerary.description}
-                    value={itinerary.description}
-                    type="text" 
-                    rows="2"
-                    maxLength="180" 
+                  <input
+                    value={this.props.description}
+                    type="textarea" 
+                    maxLength="500"
+                    rows="4"
+                    label="Description"
+                    placeholder="Write notes and info for others or yourself here"
                     className="input--underline edit-itinerary__name"
-                    placeholder="What is this is about?" />
+                    onChange={this.changeDescription} />
                   </div>
               </div>
             </div>
+            <div className={"field-wrapper " + "input--underline edit-itinerary__name"}>
+              <label>Location</label>
+              <Geosuggest 
+                className="input--underline"
+                types={['(regions)']}
+                placeholder="Search a city or country"
+                required
+                initialValue={this.props.initialGeo}
+                onSuggestSelect={this.suggestSelect}/>
+            </div>
           </div>
+          <ul>
+            {this.props.tips.map((tip, index) =>
+              <Tip tip={tip} />)}
+          </ul>
+        </form>
     );
   }
 }
 
-export default connect(mapStateToProps, Actions)(ItineraryForm);
+// export default connect(mapStateToProps, Actions)(ItineraryForm);
 
-// export default GoogleApiWrapper({
-//   apiKey: Constants.GOOGLE_API_KEY
-// }) (connect(mapStateToProps, Actions)(ItineraryForm));
+export default GoogleApiWrapper({
+  apiKey: Constants.GOOGLE_API_KEY
+}) (connect(mapStateToProps, Actions)(ItineraryForm));

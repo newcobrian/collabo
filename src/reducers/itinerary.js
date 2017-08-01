@@ -4,8 +4,10 @@ import * as Helpers from '../helpers';
 import { findIndexByValue } from '../helpers';
 import { filter, isEqual, find } from 'lodash';
 
-export default (state = { usersData: {}, reviewsData: {}, tipsData: {}, subjectsData: {}, itinerary: {}, commentsData: {}, 
-  userImagesData: {}, defaultImagesData: {}, likesData: {} }, action) => {
+const defaultState = { usersData: {}, reviewsData: {}, tipsData: {}, subjectsData: {}, itinerary: {}, commentsData: {}, 
+  userImagesData: {}, defaultImagesData: {}, likesData: {}, title: '' }
+
+export default (state = defaultState, action) => {
   switch (action.type) {
     // case ActionTypes.ITINERARY_PAGE_LOADED:
     //   return {
@@ -20,6 +22,15 @@ export default (state = { usersData: {}, reviewsData: {}, tipsData: {}, subjects
     //     ...state,
     //     comments: action.comments
     //   }
+    case ActionTypes.LOAD_ITINERARY_FORM:
+      return {
+        ...state,
+        title: action.itinerary.title,
+        description: action.itinerary.description,
+        geo: action.itinerary.geo,
+        initialGeo: action.itinerary.geo.label,
+        tips: action.tips
+      }
     case ActionTypes.GOOGLE_MAP_LOADED:
       if (action.source === Constants.ITINERARY_PAGE ) {
         return {
