@@ -111,7 +111,7 @@ export const INVALID_USERNAMES = ['account', 'send', 'message', 'inbox', 'notifi
   'review', 'followers', 'isfollowing', 'likes', 'saves', 'select', 'explore', 'search', 'user', 'location', 'city', 
   'geo', 'attraction', 'subject', 'home', 'places', 'countries', 'api', 'guide']
 
-export const SHARED_ITINERARIES = ['-KpOQT2bgUyHNdcX662g', '-KpiW2sKdc81qIKD_iOO']
+export const SHARED_ITINERARIES = ['-KpOQT2bgUyHNdcX662g', '-KpiW2sKdc81qIKD_iOO', '-KqURO44kTCwkDyISjBe']
 
 export const COUNTRY_FLAGS = {
     'AF' : 'Afghanistan',
