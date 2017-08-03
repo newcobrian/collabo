@@ -1381,8 +1381,9 @@ body .back-to-top {
     background-position: center;
     background-color: #009BCB;
 }
-.back-to-top:hover {
+body .back-to-top:hover {
     background-color: #68E4E7;
+    background-color: initial;
 }
 
 
