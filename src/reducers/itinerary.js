@@ -4,8 +4,10 @@ import * as Helpers from '../helpers';
 import { findIndexByValue } from '../helpers';
 import { filter, isEqual, find } from 'lodash';
 
-export default (state = { usersData: {}, reviewsData: {}, tipsData: {}, subjectsData: {}, itinerary: {}, commentsData: {}, 
-  userImagesData: {}, defaultImagesData: {}, likesData: {} }, action) => {
+const initialState = { usersData: {}, reviewsData: {}, tipsData: {}, subjectsData: {}, itinerary: {}, commentsData: {}, 
+  userImagesData: {}, defaultImagesData: {}, likesData: {} };
+
+export default (state = initialState, action) => {
   switch (action.type) {
     // case ActionTypes.ITINERARY_PAGE_LOADED:
     //   return {
@@ -36,7 +38,7 @@ export default (state = { usersData: {}, reviewsData: {}, tipsData: {}, subjects
       else return {...state}
     case ActionTypes.ITINERARY_COMMMENTS_UNLOADED:
     case ActionTypes.ITINERARY_PAGE_UNLOADED:
-   	  return {}
+   	  return initialState;
     case ActionTypes.USER_VALUE_ACTION: {
       if (action.source === Constants.ITINERARY_PAGE) {
         const newState = Object.assign({}, state);
