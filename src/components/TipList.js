@@ -16,10 +16,17 @@ const TipList = props => {
     );
   }
 
-  if (props.tipList.length === 0) {
+  if (props.tipList.length === 0 && props.canModify) {
     return (
       <div className="status-module flx flx-col flx-center-all v2-type-body3">
           Click 'Edit' to add some tips
+      </div>
+    );
+  }
+  else if (props.tipList.length === 0) {
+    return (
+      <div className="status-module flx flx-col flx-center-all v2-type-body3">
+          This guide is empty.
       </div>
     );
   }

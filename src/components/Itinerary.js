@@ -21,6 +21,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Dropzone from 'react-dropzone';
 import ItineraryForm from './ItineraryForm';
 import * as Selectors from '../selectors/itinerarySelectors';
+import { isEmpty } from 'lodash';
  
 const UpdateCoverPhoto = props => {
   if (props.isUser) {
@@ -109,8 +110,15 @@ class Itinerary extends React.Component {
   }
 
   render() {
+    if (isEmpty(this.props.itinerary)) {
+      return (
+        <div className="error-module flx flx-center-all v2-type-body3">
+           <div>Itinerary doesn't exist</div>
+        </div>
+      )
+    }
     // if (!this.props.itinerary || !this.props.itinerary.createdBy || !this.props.itinerary.geo) {
-    if (!this.props.itinerary || !this.props.itinerary.geo) {
+    else if (!this.props.itinerary || !this.props.itinerary.geo) {
       return (
         <div className="loading-module flx flx-col flx-center-all v2-type-body3">
           <div className="logo-graphic w-100">  
@@ -119,13 +127,6 @@ class Itinerary extends React.Component {
           <div>Loading Travel Guide...</div>
         </div>
       );
-    }
-    else if (this.props.itinerary.length === 0) {
-      return (
-        <div className="error-module flx flx-center-all v2-type-body3">
-           <div>Itinerary doesn't exist</div>
-        </div>
-      )
     }
     else {
       const itinerary = Selectors.getFullItinerary(this.props.itinerary, this.props.usersData);
@@ -315,6 +316,7 @@ class Itinerary extends React.Component {
                   deleteComment={this.props.onDeleteComment}
                   itineraryId={this.props.itinerary.id}
                   itinerary={itinerary}
+                  canModify={canModify}
 
                   updateRating={this.props.onUpdateRating}
                   onSetPage={this.onSetPage}
