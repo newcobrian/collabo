@@ -102,6 +102,7 @@ export const INFO_MODAL = 'INFO_MODAL'
 /*** Page Sources ***/
 export const USER_FEED = 'USER_FEED'
 export const ITINERARY_PAGE = 'ITINERARY_PAGE'
+export const EXPLORE_PAGE = 'EXPLORE_PAGE'
 
 /*** Tag list ***/
 export const TAG_LIST = []

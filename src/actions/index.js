@@ -170,10 +170,7 @@ export function getProfileUser(userId) {
 export function checkFollowing(auth, profile) {
   return dispatch => {
     Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + auth + '/' + profile).on('value', snapshot => {
-      let isFollowing = false;
-      if (snapshot.exists()) {
-        isFollowing = true;
-      }
+      let isFollowing = snapshot.exists() ? true : false;
       dispatch({
         type: IS_FOLLOWING,
         payload: isFollowing
@@ -216,7 +213,7 @@ export function followUser(authenticated, follower) {
       updates[`/${Constants.HAS_FOLLOWERS_PATH}/${follower}/${authenticated}`] = true;
       updates[`/${Constants.IS_FOLLOWING_PATH}/${authenticated}/${follower}`] = true;
     }
-    Helpers.sendInboxMessage(authenticated, follower, Constants.FOLLOW_MESSAGE, null, null);
+    // Helpers.sendInboxMessage(authenticated, follower, Constants.FOLLOW_MESSAGE, null, null);
     Firebase.database().ref().update(updates);
 
     dispatch({
@@ -3083,32 +3080,42 @@ export function addToItinerary(auth, tip, itinerary) {
   }
 }
 
-export function getAllUsers(auth) {
+export function watchAllUsers(auth, source) {
   return dispatch => {
-    let userArray = [];
     Firebase.database().ref(Constants.USERS_PATH).on('value', snapshot => {
       snapshot.forEach(function(user) {
         if (user.key !== auth) {
-          Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + auth + '/' + user.key).on('value', isFollowingSnapshot => {
-            let userObject = Object.assign({}, user.val(), {userId: user.key});
-            if (isFollowingSnapshot.exists()) {
-              userObject.isFollowing = true;
-            }
-            userArray = [userObject].concat(userArray);
-            userArray.sort(Helpers.byUsername);
-
-            dispatch({
-              type: LOADED_ALL_USERS,
-              payload: userArray
-            })
-          })
+          watchFollowingPath(dispatch, auth, user.key);
         }
+        dispatch({
+          type: ActionTypes.USER_VALUE_ACTION,
+          userInfo: user.val(),
+          userId: user.key,
+          source: source
+        })
       })
     })
   }
 }
 
-export function unloadAllUsers(auth) {
+export function watchFollowingPath(dispatch, auth, userId) {
+  Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + auth + '/' + userId).on('value', followingSnap => {
+    if (followingSnap.exists()) {
+      dispatch({
+        type: ActionTypes.IS_FOLLOWING_ADDED,
+        userId
+      })
+    }
+    else {
+      dispatch({
+      type: ActionTypes.IS_FOLLOWING_REMOVED,
+      userId
+    })
+    }
+  })
+}
+
+export function unwatchAllUsers(auth) {
   return dispatch => {
     Firebase.database().ref(Constants.USERS_PATH).once('value', snapshot => {
       snapshot.forEach(function(user) {

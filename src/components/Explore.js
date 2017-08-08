@@ -2,8 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import * as Actions from '../actions';
+import * as Constants from '../constants';
 import ProfilePic from './ProfilePic';
 import FollowUserButton from './FollowUserButton';
+import * as Selectors from '../selectors/exploreSelectors';
 
 const mapStateToProps = state => ({
   ...state.explore,
@@ -12,18 +14,17 @@ const mapStateToProps = state => ({
 
 class Explore extends React.Component {
   componentWillMount() {
-    this.props.getAllUsers(this.props.authenticated);
+    this.props.watchAllUsers(this.props.authenticated, Constants.EXPLORE_PAGE)
     this.props.sendMixpanelEvent('Explore page loaded');
   }
 
   componentWillUnmount() {
-    this.props.unloadAllUsers(this.props.authenticated);
+    this.props.unwatchAllUsers(this.props.authenticated);
   }
 
   render() {
-    if (!this.props.users) {
-      return null;
-    }
+    const users = Selectors.getAllUsers(this.props.usersData, this.props.isFollowingData);
+    
     return (
       <div className="flx flx-col page-common follow-page flx-just-start w-100">
         <div className="page-title-wrapper center-text">
@@ -32,9 +33,10 @@ class Explore extends React.Component {
         </div>
         <div className="flx flx-row flx-just-center flx-align-start flx-wrap w-100 pdding-top-md">
           {
-            this.props.users.map(user => {
+            users.map(user => {
               const isUser = this.props.authenticated &&
                 user.userId === this.props.authenticated;
+
                 return (
                   <div className="flx flx-col flx-center-all ta-center pdding-all-md" key={user.userId}>
                     <Link
