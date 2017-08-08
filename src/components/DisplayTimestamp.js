@@ -33,7 +33,11 @@ const DisplayTimestamp = props => {
       todayStart = removeTime(today).getTime(),
       lastWeek = removeTime(new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7)).getTime();
 
-    if (removeTime(new Date(timestamp)).getTime() === todayStart) {
+
+    if (!timestamp) {
+      return null;
+    }
+    else if (removeTime(new Date(timestamp)).getTime() === todayStart) {
       return displayTime(timestamp);
     }
     // in the last week, show the day of the week + time
