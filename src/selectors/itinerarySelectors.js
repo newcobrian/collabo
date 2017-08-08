@@ -1,8 +1,13 @@
 import * as Helpers from '../helpers'
 
-export function getCreatedBy (usersData, userId) {
-	if (userId && usersData[userId]) return usersData[userId];
-	else return { username: null, images: null };
+export function getUsername (usersData, userId) {
+	if (userId && usersData[userId]) return usersData[userId].username;
+	else return null;
+}
+
+export function getUserImage (usersData, userId) {
+	if (userId && usersData[userId]) return usersData[userId].image;
+	else return null;
 }
 
 export function getFullItinerary(itinerary, usersData) {
@@ -24,7 +29,7 @@ export function getTipList(usersData, tipsData, reviewsData, subjectsData, likes
 		if (tipsData[key]) {
 			let tipItem = tipsData[key];
 			let tipCreator = tipItem.userId ? tipItem.userId : itinerary.userId;
-			let creatorData = Object.assign({}, getCreatedBy(usersData, tipCreator));
+			let creatorData = Object.assign({}, { username: getUsername(usersData, tipCreator) }, { image: getUserImage(usersData, tipCreator) });
 			let review = reviewsData[tipItem.reviewId];
 			let subject = subjectsData[tipItem.subjectId];
 			let defaultImage = defaultImagesData[tipItem.subjectId] ? defaultImagesData[tipItem.subjectId] : [];

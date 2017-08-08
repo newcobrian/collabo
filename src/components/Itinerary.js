@@ -87,7 +87,6 @@ class Itinerary extends React.Component {
     }
 
     this.unloadItinerary = itineraryId => {
-      this.props.unwatchItinerary(this.props.authenticated, itineraryId);
       // this.props.onItineraryUnload(this.props.authenticated, itineraryId);
       // this.props.unloadItineraryComments(itineraryId);
     }
@@ -129,7 +128,8 @@ class Itinerary extends React.Component {
     }
     else {
       const itinerary = Selectors.getFullItinerary(this.props.itinerary, this.props.usersData);
-      const createdBy = Selectors.getCreatedBy(this.props.usersData, this.props.itinerary.userId);
+      const createdByUsername = Selectors.getUsername(this.props.usersData, this.props.itinerary.userId);
+      const createdByImage = Selectors.getUserImage(this.props.usersData, this.props.itinerary.userId);
       const tipList = Selectors.getTipList(this.props.usersData, this.props.tipsData, this.props.reviewsData,
         this.props.subjectsData, this.props.likesData, this.props.commentsData, this.props.userImagesData, 
         this.props.defaultImagesData, this.props.itinerary);
@@ -159,17 +159,17 @@ class Itinerary extends React.Component {
               <div className="itinerary__cover__topbar w-max flx flx-row flx-align-center flx-just-start v2-type-body1 mrgn-bottom-sm pdding-top-md">
                 <div className="itinerary__cover__author-photo">
                     <Link
-                    to={`/${createdBy.username}`}
+                    to={`/${createdByUsername}`}
                     className="">
-                    <ProfilePic src={createdBy.image} className="center-img" />
+                    <ProfilePic src={createdByImage} className="center-img" />
                     </Link>
                 </div>
                 <div className="flx flx-col flx-just-start flx-align-start">
                   <div className="itinerary__cover__username ta-left mrgn-right-md color--white">
                     <Link
-                    to={`/${createdBy.username}`}
+                    to={`/${createdByUsername}`}
                     className="color--white">
-                    {createdBy.username}
+                    {createdByUsername}
                     </Link>
                   </div>
                 </div>
@@ -326,7 +326,7 @@ class Itinerary extends React.Component {
                 Talk about this guide
               </div>
               <div className="v2-type-body2 mrgn-bottom-sm ta-left w-100 opa-40 DN">
-                What do you think about {createdBy.username}'s View?
+                What do you think about {createdByUsername}'s View?
               </div>
               <CommentContainer
               authenticated={this.props.authenticated}
