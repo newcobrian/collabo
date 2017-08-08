@@ -1,7 +1,7 @@
 import * as ActionTypes from '../actions/types';
 import * as Constants from '../constants';
 import { createItineraryObject, findIndexByValue } from '../helpers';
-import { filter } from 'lodash';
+import { filter, find } from 'lodash';
 
 const lastModifiedDesc = (a, b) => {
   return b.lastModified - a.lastModified;
@@ -94,12 +94,18 @@ export default (state = { usersData: {}, likesData: {} }, action) => {
           newState.likesData[action.objectId] = true;
 
           // now update that itinerary
-          // newState.itineraries = newState.itineraries || [];
-          // newState.itineraries = newState.itineraries.slice();
-          // let index = findItineraryIndex(newState.itineraries, action.objectId);
+          newState.itineraries = newState.itineraries || [];
+          newState.itineraries = newState.itineraries.slice();
+
+          for (let i = 0; i < newState.itineraries.length; i++) {
+            if (newState.itineraries[i].id === action.objectId) {
+              newState.itineraries[i].isLiked = true;
+            }
+          }
+          // let index = find(newState.itineraries, ['id', action.objectId])
           // if (index > -1) {
-          //   console.log('iid = ' + action.objectId)
-          //   newState.itineraries[index].likes = true;
+          //   // console.log('iid = ' + action.objectId)
+            // newState.itineraries[index].likes = true;
           // }
           return newState;
         }
@@ -115,13 +121,14 @@ export default (state = { usersData: {}, likesData: {} }, action) => {
           newState.likesData[action.objectId] = undefined;
 
           // update itinerary
-          // newState.itineraries = newState.itineraries || [];
-          // newState.itineraries = newState.itineraries.slice();
-          // let index = findItineraryIndex(newState.itineraries, action.objectId);
-          // if (index > -1) {
-          //   console.log('iid = ' + action.objectId)
-          //   newState.itineraries[index].likes = false;
-          // }
+          newState.itineraries = newState.itineraries || [];
+          newState.itineraries = newState.itineraries.slice();
+
+          for (let i = 0; i < newState.itineraries.length; i++) {
+            if (newState.itineraries[i].id === action.objectId) {
+              newState.itineraries[i].isLiked = false;
+            }
+          }
           return newState;
         }
       }
@@ -146,15 +153,21 @@ export default (state = { usersData: {}, likesData: {} }, action) => {
       newState.itineraries = newState.itineraries.slice();
 
       // if itinerary is in the feed, update it with new itinerary data
-      let index = findIndexByValue(newState.itineraries, action.itineraryId, 'id')
-      if (index > -1) {
-        let iid = newState.itineraries[index].id;
-        let isLiked = newState.likesData[iid];
-        let createdBy = Object.assign({}, newState.itineraries[index].createdBy);
-        newState.itineraries[index] = Object.assign({}, {id: iid}, action.itinerary, {isLiked: isLiked}, {createdBy: createdBy});
-        return newState;
+      // let index = findIndexByValue(newState.itineraries, action.itineraryId, 'id')
+      // if (index > -1) {
+      let changedFlag = false;
+      for (let i = 0; i < newState.itineraries.length; i++) {
+        if (newState.itineraries[i].id === action.itineraryId) {
+          let iid = newState.itineraries[i].id;
+          let isLiked = newState.likesData[iid];
+          let createdBy = Object.assign({}, newState.itineraries[i].createdBy);
+          newState.itineraries[i] = Object.assign({}, {id: iid}, action.itinerary, {isLiked: isLiked}, {createdBy: createdBy});
+          changedFlag = true;
+        }
       }
-      else return state;
+
+      if (changedFlag) return newState;
+      return state;
     }
     case ActionTypes.ITINERARY_REMOVED_ACTION: {
       const newState = Object.assign({}, state);
