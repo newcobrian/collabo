@@ -261,7 +261,7 @@ class Review extends React.Component {
             showModal={this.props.showModal} />
           <TipList
               itinerary={this.props.itinerary}
-              reviewList={this.props.followingReviews} 
+              tipList={this.props.followingReviews} 
               authenticated={this.props.authenticated}
               like={this.props.likeReview} 
               unLike={this.props.unLikeReview}
