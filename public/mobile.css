@@ -300,6 +300,9 @@ width: 100%;
 .itinerary__cover__image .header-height {
   height: 180px;
 }
+.page-itinerary .itinerary__cover .header-height {
+    height: 160px;
+}
 .itinerary__cover__author-photo {
   height: 40px;
   width: 40px;
