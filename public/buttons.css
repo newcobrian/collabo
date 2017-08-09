@@ -83,7 +83,6 @@ select {
 .vb:hover {
   opacity: .9;
   transition: all 0.23s ease-in-out 0s;
-  color: white;
 }
 
 .vb img {
@@ -129,13 +128,14 @@ select {
 
 
 .vb--sm {
-  padding: 6px 14px 4px;
-  height: auto;
-  border: 0;
-  font-weight: 400;
-  font-size: 12px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+    padding: 6px 10px 5px;
+    height: auto;
+    border: 0;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    height: 32px;
+    line-height: 22px;
 }
 
 .vb--link {
@@ -157,12 +157,10 @@ select {
 
 
 .vb--outline {
-  border: none;
-  padding: 5px 10px;
   background-color: transparent;
-  height: auto;
   box-shadow: none;
-  border: 1px solid rgba(0,0,0,.1);
+  border: 1px solid rgba(0,0,0,.3);
+  border: 1px solid #D7E3E5;
   color: black;
 }
 .vb--outline--white {

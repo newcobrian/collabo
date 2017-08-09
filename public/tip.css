@@ -1,20 +1,18 @@
 .tip-wrapper {
 	background: #FFFFFF;
-	border: 1px solid #D5E3E5;
+	border-bottom: 1px solid #D5E3E5;
 }
 .tip-container {
 	width: 100%;
-	padding: 20px;
+	padding: 30px 20px;
 }
 .tip-inner {
 }
 .tip__data-module {
-	min-height: 290px;
 }
 .tip-wrapper .tip__cta-box { 
-	padding: 20px 0 10px;
+	padding: 0 0 10px;
     margin-top: auto;
-    border-top: 1px solid rgba(0,0,0,.05);
 }
 
 .tip__title {
@@ -24,11 +22,12 @@
 	margin-top:-1px;
 }
 .tip__image-module {
-	height: 280px;
-	width: 280px;
+	height: 90px;
+	width: 90px;
 	flex-shrink: 0;
 	position: relative;
 	box-shadow: 0 14px 24px 0 rgba(0,0,0,0.1);
+	margin-left: 60px;
 }
 .tip__image-module:hover {
 	cursor: pointer;
@@ -40,6 +39,12 @@
     object-fit: cover;
     object-position: center;
     box-shadow: 0 0 0 -1 rgba(0,0,0,.1) inset;
+}
+.tip__order-count {
+	width: 40px;
+    text-align: center;
+    margin-right: 18px;
+    font-weight: 500 !important;
 }
 
 .tip__caption {

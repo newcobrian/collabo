@@ -419,6 +419,7 @@ width: 100%;
 /* TIP */
 .tip-container {
   padding: 10px;
+  position: relative;
 }
 .tip-wrapper .tip-inner {
     -webkit-flex-direction: column;
@@ -429,8 +430,7 @@ width: 100%;
   flex-direction: row;
   margin-top: 10px;
   width: 100%;
-  border-top: 1px solid rgba(0,0,0,.1);
-  padding: 20px 0 10px;
+  padding: 0 0 10px;
 }
 .tip-wrapper .tip__cta-box .tip__actions-wrapper {
   margin-bottom: 0;
@@ -444,6 +444,7 @@ width: 100%;
 .tip-inner .tip__title-module {
   margin-top: 10px;
   margin-left: -4px;
+  max-width: 300px;
 }
 .page-subject .tip-inner .tip__title-module {
   margin-top: 0;
@@ -459,9 +460,6 @@ width: 100%;
 }
 .tip-wrapper .tip__data-module {
   margin-left: 0 !important;
-}
-.tip__image-module { 
-  width: 100%;
 }
 .tip__info-module.flx {
   -webkit-flex-direction: column;
@@ -499,10 +497,24 @@ width: 100%;
   margin-right: 20px;
 }
 .tip__image-module {
-  height: 200px;
-  width: 100%;
+  margin-left: 0;
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  right: 0;
+  top: 20px;
 }
-
+.tip__photo-count {
+    color: white;
+    position: absolute;
+    right: -5px;
+    bottom: -5px;
+    font-weight: 300;
+    font-size: 10px;
+    background: rgba(0,0,0,.9);
+    padding: 2px 6px;
+    border-radius: 30px;
+}
 
 .profile-page .itinerary__cover,
 .home-page .itinerary__cover {

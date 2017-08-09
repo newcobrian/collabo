@@ -4,11 +4,9 @@
   width: 100%;
 }
 .cta-wrapper {
-  padding: 0;
   width: auto;
 }
 .page-itinerary .cta-wrapper {
-  min-width: 76px;
 }
 
 .cta-box {
@@ -26,10 +24,10 @@
 }
 
 
-.cta-wrapper .cta-icon {
+.cta-wrapper .cta-icon,
+.cta-icon {
   height: 32px;
   width: 32px;
-  margin: 0px;
   background: url(img/icon32_like_off.png);
   background-size: cover;
   background-repeat: no-repeat;
@@ -37,8 +35,15 @@
 .cta-wrapper:hover {
   cursor: pointer;
 }
-.cta-wrapper .cta-icon {
+.cta-icon {
   transition: background-image ease-in .1s;
+}
+.cta-icon.cta-comment-sm {
+  background-image: url(img/icons/i32_comment.png);
+  margin-top: 4px;
+}
+.cta-wrapper:hover .cta-icon.cta-comment-sm {
+  background-image: url(img/icons/i32_comment.png);
 }
 .cta-wrapper .cta-icon.cta-like {
   background-image: url(img/icon32_like_off.png);
@@ -87,8 +92,8 @@
 
 .itinerary__cover__flag,
 .itinerary__summary__flag {
-  height: 27px;
-  width: 37px;
+  height: 24px;
+  width: 32px;
   background: url(img/flags/US.png);
   background-size: contain;
   background-repeat: no-repeat;

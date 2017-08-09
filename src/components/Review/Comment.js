@@ -15,8 +15,8 @@ const Comment = props => {
         <div className="flx flx-row-top">
           <Link
             to={`${comment.username}`}
-            className="comment-author">
-            <ProxyImage src={comment.image} className="comment-author-img center-img" />
+            className="">
+            <ProxyImage src={comment.image} className="comment-author-img center-img mrgn-right-md" />
           </Link>
           &nbsp;
           <div className="comment-data flx flx-col flx-just-start">

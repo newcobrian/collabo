@@ -1,5 +1,6 @@
 body {
   color: #292F3D;
+  color: #121419;
   letter-spacing:1px;
   padding-top: 70px;
   /*background-color: #FAFAF8;*/
@@ -135,6 +136,9 @@ input[type="radio"]:checked + label span {
   max-width: 1225px;
   margin-left: auto;
   margin-right: auto;
+}
+.w-max-1 {
+  max-width: 1250px;
 }
 .w-max-2 {
   max-width: 1200px;
@@ -1168,11 +1172,13 @@ li.nav-divider {
   height: auto;
 }
 .comment-author-img {
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
   border-radius: 32px;
   border: 1px solid white;
   overflow: hidden;
+  margin-right: 20px;
+  margin-left: 2px;
 }
 .comment-author-img img {
   width: 30px;
@@ -1192,7 +1198,7 @@ li.nav-divider {
 .comment-author {
     margin-right: 5px;
     color: black;
-    font-weight: 700;
+    font-weight: 400;
 }
 .comment-wrapper .card-text {
   margin: 0;

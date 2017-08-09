@@ -23,14 +23,18 @@
     overflow: hidden;
     background-color: #ccc;
 }
+.itinerary__cover .itinerary__cover__author-photo {
+	margin-left: 0; 
+	margin-right: 10px !important;
+}
 .itinerary__cover__author-photo {
-	width: 55px;
-	height: 56px;
-	border-radius: 100px;
-	overflow: hidden;
-	flex-shrink: 0;
-	/* border: 2px solid rgba(255,255,255,1); */
-	margin-right: 15px !important;
+    width: 48px;
+    height: 48px;
+    border-radius: 100px;
+    overflow: hidden;
+    flex-shrink: 0;
+    /* border: 2px solid rgba(255,255,255,1); */
+    margin-left: 15px;
 }
 .itinerary__summary__author-photo img,
 .itinerary__cover__author-photo img {
@@ -238,12 +242,15 @@
 	bottom: 10px;
 	right: 0px;
 }
-
+.itinerary__book.cover-height,
+.itinerary__book .cover-height {
+	height: 280px;
+}
 .cover-height {
-	height: 360px;
+	height: 420px;
 }
 	.page-itinerary .itinerary__cover .header-height {
-		height: 180px;
+		height: 420px;
 	}
 .tip-preview-wrapper .cover-height {
 	height: 100%;
@@ -314,7 +321,7 @@
 	object-position: center;
 }
 .itinerary__cover__text {
-	padding: 10px 0 0;
+	padding: 20px 0 10px;
 	z-index: 2;
 }
 .guide-text-wrapper {
@@ -333,7 +340,7 @@
 }
 .itinerary__cover__username {
 	width: 120px;
-	font-size: 16px;
+	font-size: 13px;
 	font-weight: 400;
 }
 .it__center-info {

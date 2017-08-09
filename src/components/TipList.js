@@ -32,7 +32,7 @@ const TipList = props => {
   }
 
   return (
-    <div className="">
+    <div className="w-100">
       {
         props.tipList.map((tipItem, index) => {
           return (

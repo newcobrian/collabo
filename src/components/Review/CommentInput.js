@@ -43,6 +43,7 @@ class CommentInput extends React.Component {
           <i className="ion-plus"></i>
         </button>
 
+          <div className="cta-icon cta-comment-sm mrgn-right-md"></div>
 
           <input className="comment-input input--overline w-100"
             placeholder="Leave a comment..."

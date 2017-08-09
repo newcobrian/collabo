@@ -37,7 +37,7 @@ textarea {
 .resize-ok textarea {
     resize: vertical;
 }
-.weight-400 {
+.weight-300 {
   font-weight: 300 !important;
 }
 .weight-400 {
@@ -69,7 +69,7 @@ textarea {
   font-weight: 300;
   font-size: 16px;
   letter-spacing: 0.5px;
-  line-height: 27px;
+  line-height: 26px;
   font-family: 'Roboto', sans-serif;
 }
 .strong--400.v2-type-body0,
@@ -97,13 +97,19 @@ textarea {
   font-family: 'Roboto', sans-serif;
 }
 .tip__rating {
-  font-weight: 400;
-  font-size: 14px;
-  letter-spacing: 0.5px;
-  line-height: 26px;
-  font-family: 'Roboto', sans-serif;
-  text-align: center;
-  padding: 0;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    line-height: 6px;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    padding: 10px 5px;
+        margin-right: 20px;
+    border: 1px solid rgba(0,0,0,.3);
+    border-radius: 1px;
+    width: 28px;
+    height: 26px;
+    box-shadow: 0 2px 0px 0px rgba(0,0,0,.2);
 }
 .v2-type-rating--1,
 .v2-type-rating--2,
@@ -157,12 +163,11 @@ textarea {
   /*font-family: 'Arimo', sans-serif;*/
 }
 .v2-type-h2 {
-  font-weight: 600;
+  font-weight: 700;
   font-size: 38px;
   letter-spacing: 1px;
   line-height: 36px;
   font-family: 'Montserrat', sans-serif;
-  color: #373a3c;
   text-transform: uppercase;
 }
 .v2-type-page-header {
@@ -173,10 +178,10 @@ textarea {
   font-family: 'Montserrat', sans-serif;
 }
 .v2-type-h3 {
-  font-size: 24px;
+  font-size: 28px;
   letter-spacing: 1px;
-  /*font-family: 'Arimo', sans-serif;*/
-  font-weight: 300;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
   line-height: 26px;
   text-transform: none;
 }
@@ -211,7 +216,6 @@ textarea {
   letter-spacing: .5px;
   line-height: 18px;
   max-width: 400px;
-  opacity: 1;
 }
 
 .text-shadow {
@@ -333,6 +337,8 @@ body a.nav-module {
 }
 .color--black {
   color: #292F3D;
+  color: #121419;
+
 }
 
 
