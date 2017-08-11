@@ -32,7 +32,7 @@ class CommentInput extends React.Component {
 
   render() {
     return (
-      <form className="comment-wrapper comment-form flx flx-row flx-row-left" onSubmit={this.createComment}>
+      <form className="comment-wrapper comment-form flx flx-row flx-row-left mrgn-bottom-sm" onSubmit={this.createComment}>
 {/**}        <ProxyImage
             src={this.props.userInfo.image}
             className="comment-author-img center-img" />

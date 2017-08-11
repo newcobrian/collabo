@@ -54,8 +54,8 @@ const EditItineraryLink = props => {
     return (
       <Link
         to={'/edit/' + props.itineraryId}
-        className="vb vb--sm vb--shadow-none fill--white color--primary mrgn-right-md">
-         {/*<i className="ion-gear-a"></i>*/}Edit
+        className="vb vb--sm vb--outline fill--white color--primary mrgn-right-md">
+         <div>Edit</div>
       </Link>
     );
   }
@@ -207,35 +207,36 @@ class Itinerary extends React.Component {
             {/** ----- Close itinerary__cover DIV ----- **/}  
 
             {/** Cover Content **/}
-            <div className="itinerary__cover__text flx flx-row flx-just-start ta-left w-100 w-max-1">
+            <div className="itinerary__cover__text flx flx-row flx-just-start ta-left w-100 w-max">
               
-
-              <div className="itinerary__cover__author-photo mrgn-left-md">
+              <div className="it__author-wrapper flx flx-col flx-center-all mrgn-bottom-sm">
+                <div className="itinerary__cover__author-photo">
+                    <Link
+                    to={`/${createdByUsername}`}
+                    className="">
+                    <ProfilePic src={createdByImage} className="center-img" />
+                    </Link>
+                </div>
+                <div className="itinerary__cover__username">
                   <Link
                   to={`/${createdByUsername}`}
                   className="">
-                  <ProfilePic src={createdByImage} className="center-img" />
+                  {createdByUsername}
                   </Link>
+                </div>
               </div>
 
 
               {/** <<<<<< CENTER INFO **/}
-              <div className="it__title-module flx flx-col flx-just-start ta-center pdding-left-md pdding-right-md">
-                <div className="flx flx-col flx-just-start flx-align-start">
-                  <div className="itinerary__cover__username ta-left mrgn-right-md">
-                    <Link
-                    to={`/${createdByUsername}`}
-                    className="">
-                    {createdByUsername}
-                    </Link>
-                  </div>
-                </div>
+              <div className="it__title-module flx flx-col flx-just-start ta-center">
+              
+               
                 {/** Flag and Geo **/}
                 <Link to={`/places/${itinerary.geo.placeId}`}>
                 <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm mrgn-top-xs">
                   <div className={'itinerary__cover__flag flx-hold flag-' + itinerary.geo.country}>
                   </div>
-                  <div className="geo-type ellipsis opa-60">
+                  <div className="geo-type ellipsis opa-30">
                   {itinerary.geo.label}
                   </div>
                 </div>
@@ -354,7 +355,7 @@ class Itinerary extends React.Component {
             </div>
 
           </div>
-          <BackToTop />
+          {/*<BackToTop />*/}
         </div>
       )
     }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46 (44423) - http://www.bohemiancoding.com/sketch -->
+    <title>Combined Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <radialGradient cx="50%" cy="56.778806%" fx="50%" fy="56.778806%" r="84.4113409%" id="radialGradient-1">
+            <stop stop-color="#00B8BD" offset="0%"></stop>
+            <stop stop-color="#40FAFF" offset="100%"></stop>
+        </radialGradient>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon32_comments_on" transform="translate(-4.000000, -4.000000)" fill="url(#radialGradient-1)">
+            <path d="M10.6455685,25.7632204 C12.3422758,26.7404332 14.3083572,27.2991095 16.4043209,27.2991095 C22.8084376,27.2991095 28,22.0834262 28,15.6495548 C28,9.21568333 22.8084376,4 16.4043209,4 C10.0002042,4 4.80864185,9.21568333 4.80864185,15.6495548 C4.80864185,17.6823747 5.32690596,19.5935852 6.2379311,21.2570999 L3.97641684,28 L10.6455685,25.7632204 Z" id="Combined-Shape"></path>
+        </g>
+    </g>
+</svg>

@@ -181,7 +181,7 @@ class Review extends React.Component {
                     <div className="flx flx-col w-100">
                       
                       <div className="tip__title-module flx flx-row flx-just-start flx-align-center w-100 mrgn-bottom-md">
-                        <div className="tip__title v2-type-h2 weight-400 ta-left">
+                        <div className="tip__title v2-type-h2 ta-left">
                           {subject.title}
                         </div>
                       </div>

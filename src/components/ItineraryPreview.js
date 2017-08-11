@@ -50,7 +50,7 @@ const CommentPreview = props => {
         </div>
 
 
-        <div className="cta-wrapper flx flx-row flx-just-end flex-item-right last-comment mrgn-left-sm">
+        <div className="vb vb--sm vb--outline flx-align-center mrgn-right-sm cta-wrapper flx flx-row flx-just-end flex-item-right last-comment mrgn-left-sm">
           
           <div className="flx flx-row flx-just-end flx-align-center">
 
@@ -65,12 +65,9 @@ const CommentPreview = props => {
   else {
     return (
       <Link to={`/guide/${props.itinerary.id}`}>
-        <div className="cta-wrapper flx flx-row flx-just-end flex-item-right flx-row-reverse no-comments mrgn-left-sm">
-          <div className="flx flx-row flx-just-end flx-align-center">
-             
+        <div className="vb vb--sm vb--outline cta-wrapper flx flx-row flx-center-all no-comments">             
              <div className="cta-icon cta-comment"></div>
              <div className="v2-type-body1">0</div>
-           </div>
         </div>
       </Link>
     )
@@ -205,7 +202,7 @@ const ItineraryPreview = props => {
 
           {/** LIKE AND COMMENTS **/}
           <div className="it__cover__cta-module flx flx-row flx-just-end">
-            <div className="cta-wrapper flx flx-row flx-just-end flex-item-right">
+            <div className="vb vb--sm vb--outline flx flx-row flx-align-center mrgn-right-sm cta-wrapper flx flx-row flx-just-end flex-item-right">
               <LikeReviewButton
                 authenticated={props.authenticated}
                 isLiked={props.itinerary.isLiked}

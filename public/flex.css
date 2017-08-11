@@ -95,6 +95,8 @@
 
 
 .flx.flx-center-all {
+  display: -webkit-flex;
+  display: flex;
   -webkit-align-items: center;
    align-items: center;
    -webkit-justify-content: center;

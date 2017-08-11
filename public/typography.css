@@ -66,10 +66,10 @@ textarea {
   font-family: 'Roboto', sans-serif;
 }
 .v2-type-body2 {
-  font-weight: 300;
-  font-size: 16px;
-  letter-spacing: 0.5px;
-  line-height: 26px;
+font-weight: 300;
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: 26px;
   font-family: 'Roboto', sans-serif;
 }
 .strong--400.v2-type-body0,
@@ -82,11 +82,10 @@ textarea {
 .itinerary__cover .v2-type-body1 {
 }
 .v2-type-body3 {
-  /* “The almond milk ice: */
   font-weight: 300;
   font-size: 18px;
-  letter-spacing: 0.5px;
-  line-height: 22px;
+  letter-spacing: 0;
+  line-height: 28px;
   font-family: 'Roboto', sans-serif;
 }
 .v2-type-body4 {
@@ -95,35 +94,6 @@ textarea {
   letter-spacing: 0.5px;
   line-height: 28px;
   font-family: 'Roboto', sans-serif;
-}
-.tip__rating {
-    font-weight: 600;
-    font-size: 14px;
-    letter-spacing: 0.5px;
-    line-height: 6px;
-    font-family: 'Roboto', sans-serif;
-    text-align: center;
-    padding: 10px 5px;
-        margin-right: 20px;
-    border: 1px solid rgba(0,0,0,.3);
-    border-radius: 1px;
-    width: 28px;
-    height: 26px;
-    box-shadow: 0 2px 0px 0px rgba(0,0,0,.2);
-}
-.v2-type-rating--1,
-.v2-type-rating--2,
-.v2-type-rating--3,
-.v2-type-rating--4 {
-  color: red;
-}
-.v2-type-rating--9,
-.v2-type-rating--10 {
-  color: #00CD8D;
-}
-.v2-type-rating--total {
-  color: black;
-  display: inline;
 }
 .v2-type-caption {
   /* “The almond milk ice: */
@@ -178,12 +148,12 @@ textarea {
   font-family: 'Montserrat', sans-serif;
 }
 .v2-type-h3 {
-  font-size: 28px;
-  letter-spacing: 1px;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 500;
-  line-height: 26px;
-  text-transform: none;
+    font-size: 28px;
+    letter-spacing: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    line-height: 30px;
+    text-transform: none;
 }
 .v2-type-h4 {
     font-size: 20px;

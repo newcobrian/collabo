@@ -19,7 +19,7 @@ const Comment = props => {
             <ProxyImage src={comment.image} className="comment-author-img center-img mrgn-right-md" />
           </Link>
           &nbsp;
-          <div className="comment-data flx flx-col flx-just-start">
+          <div className="comment-data flx flx-row flx-just-start">
             <div className="comment-row">
               <Link
                 to={`/${comment.username}`}
@@ -27,13 +27,15 @@ const Comment = props => {
                 {comment.username}
               </Link>
               {comment.body}
+
+             
+                <div className="date-posted inline-block">
+                  <DisplayTimestamp timestamp={comment.lastModified} />
+                </div>
+                <DeleteButton show={show} commentObject={props.commentObject} commentId={comment.id} deleteComment={props.deleteComment} />
+
             </div>
-            <div className="comment-data-wrapper flx flx-row flx-just-start">
-              <span className="date-posted">
-                <DisplayTimestamp timestamp={comment.lastModified} />
-              </span>
-              <DeleteButton show={show} commentObject={props.commentObject} commentId={comment.id} deleteComment={props.deleteComment} />
-            </div>
+            
           </div>
         </div>
       </div>

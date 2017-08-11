@@ -1162,7 +1162,7 @@ li.nav-divider {
 ******/
 .comment-wrapper.card {
   border: none;
-  margin: 0;
+  margin: 0 0 10px;
   background-color: transparent;
 }
 .comment-wrapper.card .card-footer {
@@ -1177,7 +1177,7 @@ li.nav-divider {
   border-radius: 32px;
   border: 1px solid white;
   overflow: hidden;
-  margin-right: 20px;
+  margin-right: 16px;
   margin-left: 2px;
 }
 .comment-author-img img {
@@ -1198,7 +1198,7 @@ li.nav-divider {
 .comment-author {
     margin-right: 5px;
     color: black;
-    font-weight: 400;
+    font-weight: 500;
 }
 .comment-wrapper .card-text {
   margin: 0;
@@ -1206,9 +1206,13 @@ li.nav-divider {
 }
 .comment-wrapper.card .date-posted {
   font-size: 10px;
-  margin-left: 0;
+  margin-left: 10px;
   margin-top: 1px;
-  opacity: .3;
+  opacity: .4;
+  visibility: hidden;
+}
+.comment-wrapper.card:hover .date-posted {
+  visibility: visible;
 }
 .comment-wrapper .comment-block {
   padding: 5px 20px;

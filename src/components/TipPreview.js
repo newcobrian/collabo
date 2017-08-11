@@ -72,73 +72,75 @@ const TipPreview = props => {
   return (
     <div className="tip-wrapper flx flx-col flx-col w-100">
       
-      <div className="tip-container flx flx-col flx-align-center">
+      <div className="tip-container flx flx-col fl-center-all w-100 w-max">
           
-          <div className="tip-inner flx flx-col flx-just-start w-100 w-max-2">
+          <div className="tip-inner flx flx-col w-100">
             
             { /** Title and Address **/ }
-            <div className="tip__title-module flx flx-row w-100 mrgn-bottom-md">
-              <div className="tip__order-count v2-type-h3 flx-item-right">{props.index}.</div>
-              <div className="tip__title-wrapper flx flx-row flx-align-top w-100 hide-in-list">
-                <Link to={`/review/${review.subjectId}/${review.id}`}>
-                <div className="tip__title v2-type-h3 ta-left">
-                  {review.title} 
+            <div className="tip__title-module flx flx-row w-100">
+
+
+              <div className="tip__right-module flx flx-col flx-align-end">
+
+
+                { /** Image **/ }
+                <div className="tip__image-module">
+                  <div className="tip__photo-count">{review.images.length > 0 ? review.images.length : null}</div>
+                  <ImagePicker images={review.images} />
                 </div>
-                </Link>
-              </div>
-            </div>
+                { /** END Image **/ }
 
-
-            <div className="flx fl-row">
-              
-              { /** Image **/ }
-              <div className="tip__image-module mrgn-right-lg">
-                <div className="tip__photo-count">{review.images.length > 0 ? review.images.length : null}</div>
-                <ImagePicker images={review.images} />
-              </div>
-
-
-
-
-
-                {/* Non-image module on right */}
-                <div className="tip__data-module flx flx-col flx-align-start w-100">
-
-                  <div className="flx flx-col mrgn-bottom-sm">
-
-                    { /** Rating and Caption **/ }
-                    <div className="tip__rating-module flx flx-row flx-align-start mrgn-bottom-sm w-100">
-                      <div className={'tip__rating flx-hold v2-type-rating--' +  review.rating}>
-                        {review.rating}<div className="v2-type-rating--total opa-50 weight-300"></div>
-                      </div>
-            
-                      { /** Caption **/ }
-                      <div className="tip__caption-module flx flx-col w-100 pdding-right-md">
-                        <div className="tip__caption v2-type-body2 ta-left">
-                          <CaptionDisplay review={props.review} />
-                        </div>
-                      </div> 
-                    </div>
-
-                    <div className="tip__timestamp v2-type-caption opa-20 mrgn-top-xs">
-                      <DisplayTimestamp timestamp={review.lastModified} />
-                    </div>
-
-
-                    { /** Comments **/ }
-                    <div className="flx flx-row flex-wrap cta-container">
-                       <CommentContainer
-                          authenticated={props.authenticated}
-                          comments={review.comments || []}
-                          errors={props.commentErrors}
-                          commentObject={review}
-                          itineraryId={props.itineraryId}
-                          userInfo={props.userInfo}
-                          type={Constants.REVIEW_TYPE}
-                          deleteComment={props.deleteComment} />
-                    </div> 
+                { /** Rating **/ }
+                <div className={'tip__rating-module bx-shadow flx flx-row flx-align-start mrgn-top-sm w-100 tip__rating-module--' + review.rating}>
+                  <div className={'tip__rating flx-hold v2-type-rating--' +  review.rating}>
+                    {review.rating}<div className="v2-type-rating--total opa-50 weight-300"></div>
                   </div>
+                </div>
+                { /** END Rating **/ }
 
+                <div className="tip__timestamp v2-type-caption opa-20 mrgn-top-xs DN">
+                  <DisplayTimestamp timestamp={review.lastModified} />
+                </div>
+                
+              </div>
+
+
+              <div className="flx flx-col w-100">
+
+                  <div className="tip__title-wrapper flx flx-row flx-align-top w-100 hide-in-list">
+                    <div className="tip__order-count DN v2-type-h3">{props.index}.</div>
+
+                  
+
+                  </div>
+                <div className="tip__content-wrapper">
+
+                  { /** Title **/ }
+                  <Link to={`/review/${review.subjectId}/${review.id}`}>
+                  <div className="tip__title v2-type-h3 ta-left">
+                    <div className="tip__order-count">{props.index}.</div> {review.title} 
+                  </div>
+                  </Link>
+                  { /** END Title **/ }
+
+                  { /** Caption **/ }
+                  <div className="tip__caption-module flx flx-col w-100 pdding-right-md mrgn-bottom-sm">
+                    <div className="tip__caption v2-type-body2 ta-left opa-90">
+                      <CaptionDisplay review={props.review} />
+                    </div>
+                  </div>
+                  { /** Comments **/ }
+                  <div className="flx flx-row flex-wrap cta-container">
+                     <CommentContainer
+                        authenticated={props.authenticated}
+                        comments={review.comments || []}
+                        errors={props.commentErrors}
+                        commentObject={review}
+                        itineraryId={props.itineraryId}
+                        userInfo={props.userInfo}
+                        type={Constants.REVIEW_TYPE}
+                        deleteComment={props.deleteComment} />
+                  </div> 
                   {/* Action Module */}
                   <div className="tip__cta-box w-100 flx flx-row flx-just-start flx-align-center mrgn-top-md">
                     <Link onClick={onInfoClick} className="hide-in-list vb vb--sm vb--outline flx flx-row flx-align-center mrgn-right-sm">
@@ -162,16 +164,14 @@ const TipPreview = props => {
                         type={Constants.REVIEW_TYPE} />
                     </div>
                   </div>
-                
-                     
+                  {/* END Action Module */}
+                </div>
+              </div>
 
-                   
+             
 
-                  </div>
+            </div>
 
-            
-
-            </div> { /** End right col stack **/ }
 
            
           </div> { /** End photo / copy row **/ }

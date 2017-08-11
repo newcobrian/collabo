@@ -26,11 +26,12 @@
 
 .cta-wrapper .cta-icon,
 .cta-icon {
-  height: 32px;
-  width: 32px;
-  background: url(img/icon32_like_off.png);
-  background-size: cover;
-  background-repeat: no-repeat;
+    height: 24px;
+    width: 24px;
+    background: url(img/icon32_like_off.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-right: 10px; 
 }
 .cta-wrapper:hover {
   cursor: pointer;
@@ -40,7 +41,8 @@
 }
 .cta-icon.cta-comment-sm {
   background-image: url(img/icons/i32_comment.png);
-  margin-top: 4px;
+  margin-top: 8px;
+  margin-right: 20px;
 }
 .cta-wrapper:hover .cta-icon.cta-comment-sm {
   background-image: url(img/icons/i32_comment.png);

@@ -298,14 +298,18 @@ width: 100%;
   height: 180px;
 }
 .itinerary__cover__image .header-height {
-  height: 180px;
+  height: 280px;
 }
 .page-itinerary .itinerary__cover .header-height {
     height: 160px;
 }
 .itinerary__cover__author-photo {
-  height: 40px;
-  width: 40px;
+  width: 46px;
+  height: 46px;
+}
+.itinerary__cover__username {
+  margin-top: 0;
+  text-align: left;
 }
 .geo-type {
   font-size: 14px;
@@ -316,6 +320,16 @@ width: 100%;
 }
 .itinerary__cover__topbar {
   margin-bottom: 10px;
+}
+.flx.itinerary__cover__text {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+.flx.itinerary__cover__text .it__author-wrapper  {
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  margin-right: 0;
+  margin-left: 0;
 }
 
 .geo-wrapper {
@@ -420,9 +434,24 @@ width: 100%;
 
 
 /* TIP */
-.tip-container {
-  padding: 10px;
-  position: relative;
+.tip__order-count {
+  width: auto;
+}
+.tip__content-wrapper {
+  margin-left: 0;
+}
+.flx.tip__right-module {
+  -webkit-align-items: flex-end;
+  align-items: flex-end;
+
+}
+.flx.tip-container {
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+.flx.tip__image-rating {
+  -webkit-flex-direction: row;
+  flex-direction: row;
 }
 .tip-wrapper .tip-inner {
     -webkit-flex-direction: column;
@@ -445,9 +474,8 @@ width: 100%;
   justify-content: center;
 }
 .tip-inner .tip__title-module {
-  margin-top: 10px;
-  margin-left: -4px;
-  max-width: 300px;
+  -webkit-flex-direction: row-reverse;
+  flex-direction: row-reverse;
 }
 .page-subject .tip-inner .tip__title-module {
   margin-top: 0;
@@ -455,7 +483,6 @@ width: 100%;
 }
 .tip-wrapper .cta-wrapper {
   margin-top: 0;
-  margin-left: auto;
 }
 .tip-wrapper .cta-container {
     -webkit-flex-direction: row;
@@ -473,9 +500,17 @@ width: 100%;
 .tip__data {
   padding: 10px 0;
 }
+.flx.tip__rating-module {
+  margin-top: 10px;
+}
+.page-itinerary .itinerary__cover__author-photo {
+    width: 30px;
+    height: 30px;
+    margin: 0px 20px 0px 0;
+}
 .tip__author-photo img.user-image.user-image-md,
 .tip__rating-module .tip__rating {
-
+  margin: 0;
 }
 .tip__rating-module .tip__rating {
 
@@ -500,12 +535,8 @@ width: 100%;
   margin-right: 20px;
 }
 .tip__image-module {
-  margin-left: 0;
-  height: 40px;
-  width: 40px;
-  position: absolute;
-  right: 0;
-  top: 20px;
+  height: 48px;
+  width: 48px;
 }
 .tip__photo-count {
     color: white;
