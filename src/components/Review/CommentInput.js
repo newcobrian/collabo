@@ -9,6 +9,10 @@ import ProxyImage from './../ProxyImage'
 //     dispatch({ type: 'ADD_COMMENT', payload })
 // });
 
+const mapStateToProps = state => ({
+  userInfo: state.common.userInfo
+});
+
 class CommentInput extends React.Component {
   constructor() {
     super();
@@ -33,15 +37,9 @@ class CommentInput extends React.Component {
   render() {
     return (
       <form className="comment-wrapper comment-form flx flx-row flx-just-start flx-align-center mrgn-bottom-sm" onSubmit={this.createComment}>
-{/**}        <ProxyImage
-            src={this.props.userInfo.image}
-            className="comment-author-img center-img" />
-**/}
-         
-
           <div className="DN cta-icon cta-comment-sm mrgn-right-md"></div>
 
-          <div className="comment-author-img center-img mrgn-right-md fill--primary flx-hold opa-30"></div>
+          <ProxyImage src={this.props.userInfo.image} className="comment-author-img center-img mrgn-right-md fill--primary flx-hold opa-30" />
 
           <input className="comment-input input--overline w-100"
             placeholder="Leave a comment..."
@@ -57,4 +55,4 @@ class CommentInput extends React.Component {
   }
 }
 
-export default connect(() => ({}), Actions)(CommentInput);
+export default connect(mapStateToProps, Actions)(CommentInput);
