@@ -1,8 +1,7 @@
 .tip-wrapper {
 	background: #FFFFFF;
-	border-bottom: 1px solid #D5E3E5;
 	margin: 10px 0;
-	border-top: 1px solid #D5E3E5;
+	border: 1px solid #D5E3E5;
 }
 .tip-container {
 	width: 100%;
@@ -47,7 +46,7 @@
 	width: 120px;
 	flex-shrink: 0;
 	position: relative;
-	box-shadow: 0 14px 24px 0 rgba(0,0,0,0.1);
+	/*box-shadow: 0 14px 24px 0 rgba(0,0,0,0.1);*/
 }
 .tip__image-module:hover {
 	cursor: pointer;
@@ -72,7 +71,6 @@
 .tip__caption {
 	width: 100%;
 	max-width: 680px;
-	margin-bottom: 10px;
 }
 .tip__caption-module {
 }
@@ -93,7 +91,8 @@
 
 
 .add-tip-wrapper {
-	padding: 20px;
+	background: #FFFFFF;
+	margin: 20px;
 }
 
 .edit-tip_wrapper {

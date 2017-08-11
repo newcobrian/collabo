@@ -20,6 +20,12 @@
 .page-subject .hide-in-list {
 	display: none;
 }
+body .show-in-list {
+	display: none;
+}
+.page-subject .show-in-list {
+	display: inline-block;
+}
 .v-row {
 	padding-top: 20px;
 	padding-bottom: 20px;

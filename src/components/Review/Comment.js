@@ -12,7 +12,7 @@ const Comment = props => {
   return (
     <div className="card comment-wrapper">
       <div className="">
-        <div className="flx flx-row-top">
+        <div className="flx flx-row flx-just-start">
           <Link
             to={`${comment.username}`}
             className="">

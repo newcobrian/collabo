@@ -39,7 +39,7 @@ const UpdateCoverPhoto = props => {
           multiple={false}
           accept="image/*"
           className="edit-tip__dropzone__touch flx flx-col flx-align-center flx-just-start ta-center">
-          <div className="vb vb--sm vb--shadow-none fill--white color--primary">Change photo</div>
+          <div className="vb vb--sm vb--shadow-none fill--white color--black">Change photo</div>
 
         </Dropzone>
         
@@ -54,7 +54,7 @@ const EditItineraryLink = props => {
     return (
       <Link
         to={'/edit/' + props.itineraryId}
-        className="vb vb--sm vb--outline fill--white color--primary mrgn-right-md">
+        className="vb vb--sm vb--outline fill--white color--black mrgn-right-sm">
          <div>Edit</div>
       </Link>
     );
@@ -207,24 +207,25 @@ class Itinerary extends React.Component {
             {/** ----- Close itinerary__cover DIV ----- **/}  
 
             {/** Cover Content **/}
-            <div className="itinerary__cover__text flx flx-row flx-just-start ta-left w-100 w-max">
-              
-              <div className="it__author-wrapper flx flx-col flx-center-all mrgn-bottom-sm">
-                <div className="itinerary__cover__author-photo">
+            <div className="itinerary__cover__text w-100">
+              <div className="it__cover__inner flx flx-row flx-just-start ta-left w-100 w-max">
+                <div className="it__author-wrapper flx flx-col flx-center-all mrgn-bottom-sm">
+                  <div className="itinerary__cover__author-photo">
+                      <Link
+                      to={`/${createdByUsername}`}
+                      className="">
+                      <ProfilePic src={createdByImage} className="center-img" />
+                      </Link>
+                  </div>
+                  <div className="itinerary__cover__username">
                     <Link
                     to={`/${createdByUsername}`}
                     className="">
-                    <ProfilePic src={createdByImage} className="center-img" />
+                    {createdByUsername}
                     </Link>
+                  </div>
                 </div>
-                <div className="itinerary__cover__username">
-                  <Link
-                  to={`/${createdByUsername}`}
-                  className="">
-                  {createdByUsername}
-                  </Link>
-                </div>
-              </div>
+               
 
 
               {/** <<<<<< CENTER INFO **/}
@@ -263,10 +264,10 @@ class Itinerary extends React.Component {
 
 
                 {/** -------- AUTHOR CONTROLS **/}
-                <div className="it-author-controls w-100 w-max flx flx-row flx-center-all ta-center pdding-top-sm pdding-bottom-sm">
-                  <div className="w-100 w-max flx flx-row flx-center-all ta-center pdding-right-md">
+                <div className="it-author-controls w-100 w-max flx flx-row flx-just-start flx-align-center ta-center pdding-top-sm pdding-bottom-sm">
+                  <div className="w-100 w-max flx flx-row flx-just-start flx-align-center ta-center pdding-right-md">
                     <div className="flx flx-row flx-center-all">
-                      <div className="it__tip-count flx flx-row flx-just-end flx-align-center opa-60 mrgn-right-lg">
+                      <div className="it__tip-count flx flx-row flx-just-end flx-align-center opa-60 mrgn-right-md">
                         {itinerary.reviewsCount} tips
                       </div>
 
@@ -283,7 +284,7 @@ class Itinerary extends React.Component {
 
 
                     {/* Like */}
-                    <div className="cta-wrapper flx flx-row flx-item-right">
+                    <div className="cta-wrapper flx flx-row vb vb--sm vb--outline fill--white color--black">
                       <LikeReviewButton
                         authenticated={this.props.authenticated}
                         isLiked={Selectors.getIsLiked(this.props.likesData, this.props.itinerary.id)}
@@ -299,7 +300,7 @@ class Itinerary extends React.Component {
                 </div>
                 {/** AUTHOR CONTROLS >>>>>> **/}
 
-
+                </div>
 
 
 
@@ -338,7 +339,7 @@ class Itinerary extends React.Component {
 
             <div className="itinerary__comments-module flx flx-col flx-align-start flx-just-start w-max-2">
               <div className="v2-type-h3 mrgn-top-md mrgn-bottom-md ta-left w-100">
-                Talk about this guide
+                Comments
               </div>
               <div className="v2-type-body2 mrgn-bottom-sm ta-left w-100 opa-40 DN">
                 What do you think about {createdByUsername}'s View?

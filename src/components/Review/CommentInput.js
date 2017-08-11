@@ -32,18 +32,16 @@ class CommentInput extends React.Component {
 
   render() {
     return (
-      <form className="comment-wrapper comment-form flx flx-row flx-row-left mrgn-bottom-sm" onSubmit={this.createComment}>
+      <form className="comment-wrapper comment-form flx flx-row flx-just-start flx-align-center mrgn-bottom-sm" onSubmit={this.createComment}>
 {/**}        <ProxyImage
             src={this.props.userInfo.image}
             className="comment-author-img center-img" />
 **/}
-        <button
-          className="DN bttn-style bttn-submit bttn-subject-comment slim-version"
-          type="submit">
-          <i className="ion-plus"></i>
-        </button>
+         
 
-          <div className="cta-icon cta-comment-sm mrgn-right-md"></div>
+          <div className="DN cta-icon cta-comment-sm mrgn-right-md"></div>
+
+          <div className="comment-author-img center-img mrgn-right-md fill--primary flx-hold opa-30"></div>
 
           <input className="comment-input input--overline w-100"
             placeholder="Leave a comment..."

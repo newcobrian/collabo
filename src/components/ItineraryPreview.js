@@ -106,7 +106,7 @@ const ItineraryPreview = props => {
   return (
 
 
-    <div className="itinerary__cover flx flx-col">
+    <div className="itinerary__cover flx flx-col bx-shadow">
       
       {/** START USER PHOTO AND TIP COUNT **/}
       <div className="itinerary__cover__topbar flx flx-row flx-align-center w-100 w-max flx-just-start v2-type-body1 mrgn-bottom-md">
@@ -121,7 +121,7 @@ const ItineraryPreview = props => {
         </div>
 
         {/** USERNAME **/}
-        <div className="flx flx-col flx-just-center flx-align-start">
+
           <div className="itinerary__cover__username mrgn-right-md">
             <Link
             to={`/${itinerary.createdBy.username}`}
@@ -129,7 +129,7 @@ const ItineraryPreview = props => {
             {itinerary.createdBy.username}
             </Link>
           </div>
-        </div>
+
         {/** TIMESTAMP **/}
         <div className="itinerary__cover__timestamp flx-item-right ta-left opa-70">
           <DisplayTimestamp timestamp={itinerary.lastModified} />

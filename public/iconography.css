@@ -43,6 +43,7 @@
   background-image: url(img/icons/i32_comment.png);
   margin-top: 8px;
   margin-right: 20px;
+  margin-left: 2px;
 }
 .cta-wrapper:hover .cta-icon.cta-comment-sm {
   background-image: url(img/icons/i32_comment.png);

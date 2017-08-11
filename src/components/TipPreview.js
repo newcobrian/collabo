@@ -70,9 +70,9 @@ const TipPreview = props => {
   }
 
   return (
-    <div className="tip-wrapper flx flx-col flx-col w-100">
+    <div className="tip-wrapper flx flx-col flx-col w-100 w-max">
       
-      <div className="tip-container flx flx-col fl-center-all w-100 w-max">
+      <div className="tip-container flx flx-col fl-center-all w-100">
           
           <div className="tip-inner flx flx-col w-100">
             
@@ -91,7 +91,7 @@ const TipPreview = props => {
                 { /** END Image **/ }
 
                 { /** Rating **/ }
-                <div className={'tip__rating-module bx-shadow flx flx-row flx-align-start mrgn-top-sm w-100 tip__rating-module--' + review.rating}>
+                <div className={'tip__rating-module flx flx-row flx-align-start mrgn-top-sm w-100 tip__rating-module--' + review.rating}>
                   <div className={'tip__rating flx-hold v2-type-rating--' +  review.rating}>
                     {review.rating}<div className="v2-type-rating--total opa-50 weight-300"></div>
                   </div>
@@ -117,11 +117,26 @@ const TipPreview = props => {
 
                   { /** Title **/ }
                   <Link to={`/review/${review.subjectId}/${review.id}`}>
-                  <div className="tip__title v2-type-h3 ta-left">
+                  <div className="hide-in-list tip__title v2-type-h3 ta-left">
                     <div className="tip__order-count">{props.index}.</div> {review.title} 
                   </div>
                   </Link>
                   { /** END Title **/ }
+
+                  { /** Author **/ }
+                  <Link
+                      to={'/' + review.createdBy.username}
+                      className="show-in-list">
+                    <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm">
+                        <div className="tip__author-photo flx-hold mrgn-right-sm">
+                          <ProfilePic src={review.createdBy.image} className="user-image user-image-sm center-img" />
+                        </div> 
+                        <div className="color--black v2-type-body1">
+                          {review.createdBy.username}
+                        </div>
+                    </div>
+                  </Link>
+                  { /** END Author **/ }
 
                   { /** Caption **/ }
                   <div className="tip__caption-module flx flx-col w-100 pdding-right-md mrgn-bottom-sm">
@@ -129,6 +144,7 @@ const TipPreview = props => {
                       <CaptionDisplay review={props.review} />
                     </div>
                   </div>
+
                   { /** Comments **/ }
                   <div className="flx flx-row flex-wrap cta-container">
                      <CommentContainer
@@ -147,7 +163,7 @@ const TipPreview = props => {
                       <img className="center-img mrgn-right-sm" src="/img/icons/i32_info.png"/>
                       <div className="color--black">Info</div>
                     </Link>
-                    <Link onClick={handleSaveClick} className="vb vb--sm vb--outline flx flx-row flx-align-center mrgn-right-sm">
+                    <Link onClick={handleSaveClick} className="hide-in-list vb vb--sm vb--outline flx flx-row flx-align-center mrgn-right-sm">
                         <img className="center-img mrgn-right-sm" src="/img/icons/i32_save.png"/>
                         <div className="color--black">SAVE</div>
                     </Link>

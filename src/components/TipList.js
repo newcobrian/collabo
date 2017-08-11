@@ -32,7 +32,7 @@ const TipList = props => {
   }
 
   return (
-    <div className="w-100">
+    <div className="w-100 flx flx-col flx-center-all">
       {
         props.tipList.map((tipItem, index) => {
           return (

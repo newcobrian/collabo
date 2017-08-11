@@ -364,17 +364,15 @@ a.logo-module:focus {
   opacity: 1;
 }
 .logo-main {
-  font-size: 24px;
-  height: 38px;
-  font-weight: 600;
-  margin-left: 15px;
-  letter-spacing: .6px;
-  margin-top: 3px;
-  font-family: 'Montserrat', sans-serif;
-  margin-right: 6px;
-  opacity: 0.25;
-  color: #596DA0;
-
+    font-size: 24px;
+    height: 38px;
+    font-weight: 600;
+    margin-left: 15px;
+    letter-spacing: .6px;
+    margin-top: 3px;
+    font-family: 'Montserrat', sans-serif;
+    margin-right: 6px;
+    opacity: 1;
 }
 .logo-tagline {
     font-size: 14px;
@@ -557,9 +555,10 @@ svg {
 }
 .header-badge.badge-on {
   background-color: #0329A7;
-  box-shadow: inset 0 0 10px 4px rgba(19,229,225,0.5), 0 0 4px 0 rgba(0,142,255,0.51);
+  /*box-shadow: inset 0 0 10px 4px rgba(19,229,225,0.5), 0 0 4px 0 rgba(0,142,255,0.51);*/
   font-weight: 500;
   font-weight: 600;
+  background-color: red;
 }
 .location-dropdown {
   border-bottom: 1px solid #0AAAD5;
@@ -1184,6 +1183,10 @@ li.nav-divider {
   width: 30px;
   height: 30px;
   border-radius: 32px;
+}
+.itinerary__comments-module .comment-author-img {
+  width: 48px;
+  height: 48px;
 }
 .comment-preview-wrapper {
   /*background: rgba(255,255,255,1);*/

@@ -9,19 +9,13 @@ const ItineraryActions = props => {
 
   if (props.canModify) {
     return (
-      <div>
-{/***}        <Link
-          to={`/editor/${subject.slug}`}
-          className="btn btn-outline-secondary btn-sm">
-          <i className="ion-edit"></i> Edit Article
-        </Link>
-      ***/}
+      <div className="mrgn-right-sm">
 
-        <button className="vb vb--sm vb--shadow-none fill--white color--primary w-100" onClick={del}>
-          {/*<img src="../img/icon32_x.svg"/>*/} Delete
-        </button>
-
+      <button className="vb vb--sm vb vb--sm vb--outline vb--shadow-none fill--white color--black w-100" onClick={del}>
+      Delete
+      </button>
       </div>
+
     );
   }
 
