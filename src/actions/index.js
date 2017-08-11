@@ -1700,11 +1700,11 @@ export function onCommentSubmit(authenticated, userInfo, type, commentObject, bo
     if (objectId) {
       let commentId = Firebase.database().ref(Constants.COMMENTS_PATH + '/' + objectId).push(comment).key;
       if (type === Constants.REVIEW_TYPE) {
-        Helpers.incrementReviewCount(Constants.COMMENTS_COUNT, objectId, commentObject.subjectId, commentObject.createdBy.userId);
+        Helpers.incrementReviewCount(Constants.COMMENTS_COUNT, objectId, commentObject.subjectId, commentObject.userId);
       }
       else {
       // this is a comment on an itinerary
-        Helpers.incrementItineraryCount(Constants.COMMENTS_COUNT, objectId, commentObject.geo, commentObject.createdBy.userId); 
+        Helpers.incrementItineraryCount(Constants.COMMENTS_COUNT, objectId, commentObject.geo, commentObject.userId); 
 
         // update lastComment on itinerary
         let updates = {};
@@ -2325,7 +2325,7 @@ export function likeReview(authenticated, type, likeObject, itineraryId) {
         }
         else if (type === Constants.REVIEW_TYPE) {
           Helpers.incrementReviewCount(Constants.LIKES_COUNT, id, likeObject.subjectId, likeObject.createdBy.userId);
-          Helpers.sendInboxMessage(authenticated, likeObject.createdBy.userId, Constants.LIKE_MESSAGE, likeObject, itineraryId);
+          Helpers.sendInboxMessage(authenticated, likeObject.userId, Constants.LIKE_MESSAGE, likeObject, itineraryId);
 
           dispatch({
             type: REVIEW_LIKED,
@@ -3009,7 +3009,7 @@ export function addToItinerary(auth, tip, itinerary) {
       let subjectId = tip.subjectId;
       if (reviewsByItinSnapshot.exists() && findSubject(subjectId, reviewsByItinSnapshot.val())) {
       // if (itinSnapshot.val().reviews && itinSnapshot.val().reviews[subjectId]) {
-        let message = itinerary.title + ' already contains ' + tip.title;
+        let message = itinerary.title + ' already contains ' + tip.subject.title;
         dispatch({
           type: SUBJECT_DUPLICATE,
           message: message
@@ -3069,9 +3069,9 @@ export function addToItinerary(auth, tip, itinerary) {
 
               Firebase.database().ref().update(updates);
 
-              let message = tip.title + ' successfully added to ' + itinerary.title;
+              let message = tip.subject.title + ' successfully added to ' + itinerary.title;
 
-              Helpers.sendInboxMessage(auth, tip.createdBy.userId, Constants.SAVE_MESSAGE, Object.assign({}, itinerary, {id: itineraryId}), itineraryId)
+              Helpers.sendInboxMessage(auth, tip.userId, Constants.SAVE_MESSAGE, Object.assign({}, itinerary, {id: itineraryId}), itineraryId)
 
               dispatch({
                 type: ADDED_TO_ITINERARY,

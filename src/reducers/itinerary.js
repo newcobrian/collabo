@@ -2,10 +2,16 @@ import * as ActionTypes from '../actions/types';
 import * as Constants from '../constants';
 import * as Helpers from '../helpers';
 import { findIndexByValue } from '../helpers';
-import { filter, isEqual, find } from 'lodash';
+import { filter, isEqual, find, omit } from 'lodash';
 
 const initialState = { usersData: {}, reviewsData: {}, tipsData: {}, subjectsData: {}, itinerary: {}, commentsData: {}, 
-  userImagesData: {}, defaultImagesData: {}, likesData: {} };
+  userImagesData: {}, defaultImagesData: {}, likesData: {}, tips: [] };
+
+const getImage = (userImages, defaultImages) => {
+  let defaultImage = defaultImages ? defaultImages : [];
+  let images = { images: (userImages ? userImages : defaultImage) };
+  return images;
+}
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -48,16 +54,26 @@ export default (state = initialState, action) => {
 
         if (!isEqual(action.userInfo, newState.usersData[action.userId])) {
           newState.usersData[action.userId] = Object.assign({}, action.userInfo);
-          return newState;
+          // return newState;
         }
 
-        // newState.createdByData[action.userId] = Object.assign({}, action.userInfo);
-
         // update itinerary with user data if the user ID matches
-        // newState.itinerary = newState.itinerary || {};
-        // newState.itinerary = Object.assign({}, newState.itinerary);
-        // newState.itinerary.createdBy = Object.assign({}, action.userInfo, { userId: action.userId });
+        newState.itinerary = newState.itinerary || {};
+        newState.itinerary = Object.assign({}, newState.itinerary);
+        if (newState.itinerary.userId === action.userId) {
+          newState.itinerary.createdBy = Object.assign({}, action.userInfo, { userId: action.userId });  
+        }
 
+        // update any tip creators
+        newState.tips = newState.tips || [];
+        newState.tips = newState.tips.slice();
+        for (let i = 0; i < newState.tips.length; i++) {
+          if (newState.tips[i].userId === action.userId) {
+            newState.tips[i].createdBy = Object.assign({}, action.userInfo);
+          }
+        }
+        
+        return newState;
       }
       return state;
     }
@@ -70,6 +86,9 @@ export default (state = initialState, action) => {
           newState.createdByData = undefined;
         }
         return newState;
+
+
+        // !!!!!!!!! didnt finish
       }
       return state;
     }
@@ -80,6 +99,24 @@ export default (state = initialState, action) => {
         newState.likesData = Object.assign({}, newState.likesData);
         if (!newState.likesData[action.objectId]) {
           newState.likesData[action.objectId] = true;
+
+          newState.itinerary = newState.itinerary || {};
+          newState.itinerary = Object.assign({}, newState.itinerary);
+
+          // like itinerary if ID matches
+          if (newState.itineraryId === action.objectId) {
+            newState.itinerary.isLiked = true;
+          }
+
+          newState.tips = newState.tips || [];
+          newState.tips = newState.tips.slice();
+
+          // like any tips if ID matches
+          for (let i = 0; i < newState.tips.length; i++) {
+            if (newState.tips[i].reviewId === action.objectId) {
+              newState.tips[i].isLiked = true;
+            }
+          }
           return newState;
         }
       }
@@ -92,6 +129,23 @@ export default (state = initialState, action) => {
         newState.likesData = Object.assign({}, newState.likesData);
         if (newState.likesData[action.objectId]) {
           newState.likesData[action.objectId] = undefined;
+
+          newState.itinerary = newState.itinerary || {};
+          newState.itinerary = Object.assign({}, newState.itinerary);
+
+          // like itinerary if ID matches
+          if (newState.itineraryId === action.objectId) {
+            newState.itinerary.isLiked = false;
+          }
+
+          newState.tips = newState.tips || [];
+          newState.tips = newState.tips.slice();
+          // like any tips if ID matches
+          for (let i = 0; i < newState.tips.length; i++) {
+            if (newState.tips[i].reviewId === action.objectId) {
+              newState.tips[i].isLiked = false;
+            }
+          }
           return newState;
         }
       }
@@ -109,6 +163,12 @@ export default (state = initialState, action) => {
         newState[action.dataName] = Object.assign({}, newState[action.dataName]);
         if (newState[action.dataName][action.id]) {
           newState[action.dataName][action.id] = undefined;
+
+          newState.tips = newState.tips || [];
+          newState.tips = newState.tips.slice();
+          // find the tip and remove it
+          delete newState.tips[action.id];
+
           return newState;
         }
       }
@@ -121,11 +181,11 @@ export default (state = initialState, action) => {
         newState.itinerary = Object.assign({}, newState.itinerary);
 
         let isLiked = newState.likesData[action.itineraryId];
-        let createdBy = newState.itinerary.createdBy;
-        let itineraryObject = Object.assign({}, action.itinerary, {id: action.itineraryId});
-        if (!isEqual(itineraryObject, newState.itinerary)) {
-          newState.itinerary = itineraryObject;
-        // newState.itinerary = Object.assign({}, action.itinerary, {isLiked: isLiked}, {createdBy: createdBy});
+        let createdBy = newState.itinerary.createdBy ? Object.assign({}, newState.itinerary.createdBy) : Object.assign({}, newState.usersData[action.itinerary.userId]);
+        // let comments = newState.itinerary.comments ? [].concat(newState.itinerary.comments) : (newState.usersData[action.itinerary.userId] ? [].concat(newState.usersData[action.itinerary.userId]) : []);
+        if (!isEqual(action.itinerary, omit(newState.itinerary, ['isLiked', 'createdBy', 'id']))) {
+          newState.itinerary = Object.assign({}, action.itinerary, { id: action.itineraryId }, {isLiked: isLiked}, {createdBy: createdBy});
+          // newState.itinerary = Object.assign({}, action.itinerary, {isLiked: isLiked}, {createdBy: createdBy});
           newState.itineraryId = action.itineraryId;
           return newState;
         }
@@ -150,7 +210,34 @@ export default (state = initialState, action) => {
     //   }
     //   return state;
     // }
-    case ActionTypes.SUBJECT_VALUE_ACTION:
+    case ActionTypes.SUBJECT_VALUE_ACTION: {
+      if (action.source === Constants.ITINERARY_PAGE) {
+        // update reviews data
+        const newState = Object.assign({}, state);
+        newState[action.dataName] = newState[action.dataName] || {};
+        newState[action.dataName] = Object.assign({}, newState[action.dataName]);
+        // if (!action.payload) {
+        //   newState[action.dataName][action.id] = undefined;
+        //   return newState;
+        // }
+        // else {
+          if (!isEqual(action.payload, newState[action.dataName][action.id])) {
+            newState[action.dataName][action.id] = Object.assign({}, action.payload);
+
+            newState.tips = newState.tips || [];
+            newState.tips = newState.tips.slice();
+            // like any tips if ID matches
+            for (let i = 0; i < newState.tips.length; i++) {
+              if (newState.tips[i].subjectId === action.id) {
+                newState.tips[i].subject = Object.assign({}, action.payload);
+              }
+            }
+            return newState;
+          }
+        // }
+      }
+      return state;
+    }
     case ActionTypes.REVIEW_VALUE_ACTION: {
       if (action.source === Constants.ITINERARY_PAGE) {
         // update reviews data
@@ -164,6 +251,16 @@ export default (state = initialState, action) => {
         // else {
           if (!isEqual(action.payload, newState[action.dataName][action.id])) {
             newState[action.dataName][action.id] = Object.assign({}, action.payload);
+
+            newState.tips = newState.tips || [];
+            newState.tips = newState.tips.slice();
+            // like any tips if ID matches
+            for (let i = 0; i < newState.tips.length; i++) {
+              if (newState.tips[i].reviewId === action.id) {
+                newState.tips[i].review = Object.assign({}, action.payload);
+              }
+            }
+
             return newState;
           }
         // }
@@ -177,6 +274,16 @@ export default (state = initialState, action) => {
         newState.tipsData = Object.assign({}, newState.tipsData);
         if (!isEqual(newState.tipsData[action.priority], action.tip)) {
           newState.tipsData[action.priority] = Object.assign({}, action.tip);
+
+          newState.tips = newState.tips || [];
+          newState.tips = newState.tips.slice();
+          let subject = { subject: Object.assign({}, newState.subjectsData[action.tip.subjectId]) };
+          let review = { review: Object.assign({}, newState.reviewsData[action.tip.reviewId]) };
+          let createdBy = { createdBy: Object.assign({}, newState.usersData[action.tip.userId]) };
+          let comments = { comments: newState.commentsData[action.tip.reviewId] ? [].concat(newState.commentsData[action.tip.reviewId]) : [] };
+          let isLiked = { isLiked: newState.likesData[action.tip.reviewId] ? true : false };
+          let images = getImage(newState.userImagesData[action.tip.subjectId], newState.defaultImagesData[action.tip.subjectId]);
+          newState.tips[action.priority] = Object.assign({}, {key: action.priority}, {priority: action.priority}, action.tip, subject, review, createdBy, comments, isLiked, images);
           return newState;
         }
       }
@@ -189,6 +296,16 @@ export default (state = initialState, action) => {
         newState.tipsData = Object.assign({}, newState.tipsData);
         if (!isEqual(newState.tipsData[action.priority], action.tip)) {
           newState.tipsData[action.priority] = Object.assign({}, action.tip);
+
+          newState.tips = newState.tips || [];
+          newState.tips = newState.tips.slice();
+          let subject = { subject: Object.assign({}, newState.subjectsData[action.tip.subjectId]) };
+          let review = { review: Object.assign({}, newState.reviewsData[action.tip.reviewId]) };
+          let createdBy = { createdBy: Object.assign({}, newState.usersData[action.tip.userId]) };
+          let comments = { comments: newState.commentsData[action.tip.reviewId] ? [].concat(newState.commentsData[action.tip.reviewId]) : [] };
+          let isLiked = { isLiked: newState.likesData[action.tip.reviewId] ? true : false };
+          let images = getImage(newState.userImagesData[action.tip.subjectId], newState.defaultImagesData[action.tip.subjectId]);
+          newState.tips[action.priority] = Object.assign({}, {key: action.priority}, {priority: action.priority}, action.tip, subject, review, createdBy, comments, isLiked, images);
           return newState;
         }
       }
@@ -204,6 +321,23 @@ export default (state = initialState, action) => {
         if (!find(newState.commentsData[action.objectId], ['id', action.commentId])) {
           newState.commentsData[action.objectId] = newState.commentsData[action.objectId].concat(Object.assign({}, {id: action.commentId}, action.comment));
           // newState.commentsData[action.objectId].sort(Helpers.lastModofiedAsc);
+
+          // update itinerary comments if ID matches
+          if (newState.itineraryId === action.objectId) {
+            newState.itinerary = newState.itinerary || {};
+            newState.itinerary = Object.assign({}, newState.itinerary);
+            newState.itinerary.comments = [].concat(newState.commentsData[action.objectId]);
+          }
+
+          // update any tip comments that match
+          newState.tips = newState.tips || [];
+          newState.tips = newState.tips.slice();
+          for (let i = 0; i < newState.tips.length; i++) {
+            if (newState.tips[i].reviewId === action.objectId) {
+              newState.tips[i].comments = [].concat(newState.commentsData[action.objectId]);
+            }
+          }
+
           return newState;
         }
       }
@@ -218,8 +352,24 @@ export default (state = initialState, action) => {
         newState.commentsData[action.objectId] = newState.commentsData[action.objectId].slice();
         newState.commentsData[action.objectId] = filter(newState.commentsData[action.objectId], function(o) {
           return !(action.commentId === o.id) });
+
+        // update itinerary comments if ID matches
+        if (newState.itineraryId === action.objectId) {
+          newState.itinerary = newState.itinerary || {};
+          newState.itinerary = Object.assign({}, newState.itinerary);
+          newState.itinerary.comments = [].concat(newState.commentsData[action.objectId]);
+        }
+
+        // update any tip comments that match
+        newState.tips = newState.tips || [];
+        newState.tips = newState.tips.slice();
+        for (let i = 0; i < newState.tips.length; i++) {
+          if (newState.tips[i].reviewId === action.objectId) {
+            newState.tips[i].comments = [].concat(newState.commentsData[action.objectId]);
+          }
+        }
+
         return newState;
-        return state;
       }
       return state;
     }
@@ -229,7 +379,16 @@ export default (state = initialState, action) => {
         newState.userImagesData = newState.userImagesData || {};
         newState.userImagesData = Object.assign({}, newState.userImagesData);
         if (!isEqual(newState.userImagesData[action.subjectId], action.images)) {
-          newState.userImagesData[action.subjectId] = action.images;
+          newState.userImagesData[action.subjectId] = [].concat(action.images);
+
+          // update any tips with user images
+          newState.tips = newState.tips || [];
+          newState.tips = newState.tips.slice();
+          for (let i = 0; i < newState.tips.length; i++) {
+            if (newState.tips[i].subjectId === action.subjectId) {
+              newState.tips[i].images = [].concat(action.images);
+            }
+          }
           return newState;
         }
       }
@@ -241,7 +400,17 @@ export default (state = initialState, action) => {
         newState.defaultImagesData = newState.defaultImagesData || {};
         newState.defaultImagesData = Object.assign({}, newState.defaultImagesData);
         if (!isEqual(newState.defaultImagesData[action.subjectId], action.images)) {
-          newState.defaultImagesData[action.subjectId] = action.images;
+          newState.defaultImagesData[action.subjectId] = [].concat(action.images);
+
+          // update any tips with user images
+          newState.tips = newState.tips || [];
+          newState.tips = newState.tips.slice();
+          for (let i = 0; i < newState.tips.length; i++) {
+            // if subject ID matches and theres no custom image, update with default image
+            if (newState.tips[i].subjectId === action.subjectId && !newState.userImagesData[action.subjectId]) {
+              newState.tips[i].images = [].concat(action.images);
+            }
+          }
           return newState;
         }
       }

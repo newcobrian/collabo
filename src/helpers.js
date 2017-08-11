@@ -233,7 +233,13 @@ export function sendInboxMessage(senderId, recipientId, messageType, sendObject,
 				else if (sendObject && sendObject.images && sendObject.images.url) {
 					inboxObject.reviewImage = sendObject.images.url;
 				}
-				if (sendObject && sendObject.title) inboxObject.reviewTitle = sendObject.title;
+				// get itinerary title or subject title
+				if (sendObject && sendObject.title) {
+					inboxObject.reviewTitle = sendObject.title;
+				}
+				else if (sendObject && sendObject.subject && sendObject.subject.title) {
+					inboxObject.reviewTitle = sendObject.subject.title;
+				}
 
 				switch(messageType) {
 					case Constants.LIKE_MESSAGE:
@@ -303,7 +309,7 @@ export function sendInboxMessage(senderId, recipientId, messageType, sendObject,
 						inboxObject.senderId = senderId;
 						inboxObject.message = ' saved your tip to their guide: ';
 						inboxObject.link = '/guide/' + itineraryId;
-						emailMessage = ' saved your tip to their guide. Click here to check out their guide: https://myviews.io/inbox';
+						emailMessage = ' saved your tip to their guide. Click here to check out your inbox: https://myviews.io/inbox';
 						break;
 				}
 				if (senderId !== recipientId) {

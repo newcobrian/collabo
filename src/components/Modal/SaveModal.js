@@ -117,7 +117,7 @@ class SaveModal extends React.Component {
                 <div className="tip-preview-wrapper">
                    <ImagePicker images={this.props.images} />
                 </div>
-                <div className="dialog--save__tip-name">{this.props.review.title}</div>
+                <div className="dialog--save__tip-name">{this.props.review.subject.title}</div>
               </div>
             </div>
     				<ul>

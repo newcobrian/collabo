@@ -18,19 +18,18 @@ const mapStateToProps = state => ({
  
 const CommentPreview = props => {
   if (props.comments) {
-    // console.log('comments = ' + JSON.stringify(props.comments))
     return (
-      <Link to={`/review/${props.review.subjectId}/${props.review.id}`}>
+      <Link to={`/review/${props.tip.subjectId}/${props.tip.id}`}>
         <div className="cta-wrapper cta-wrapper-comment flx flx-col">
           <div className="cta-icon cta-comment"></div>
-          {props.review.commentsCount} Comments
+          {props.tip.commentsCount} Comments
         </div>
       </Link>
     )
   }
   else {
     return (
-      <Link to={`/review/${props.review.subjectId}/${props.review.id}`}>
+      <Link to={`/review/${props.tip.subjectId}/${props.tip.id}`}>
         <div className="cta-wrapper cta-wrapper-comment flx flx-col">
           <div className="cta-icon cta-comment comment-on"></div>
           Comment
@@ -42,9 +41,9 @@ const CommentPreview = props => {
 
 /* Displays user entered caption -OR- empty message if user has not entered caption */ 
 const CaptionDisplay = props => {
-  if (props.review.caption) {
+  if (props.tip.caption) {
     return (
-      <div className="inline">{props.review.caption}</div>
+      <div className="inline">{props.tip.caption}</div>
     )
   }
   else {
@@ -55,18 +54,16 @@ const CaptionDisplay = props => {
 }
 
 const TipPreview = props => {
-  const review = props.review;
-  const canModify = props.authenticated &&
-      props.authenticated === review.userId;
+  const tip = props.tip;
       
   const handleSaveClick = ev => {
     ev.preventDefault();
-    props.showModal(Constants.SAVE_MODAL, props.review, props.review.images);
+    props.showModal(Constants.SAVE_MODAL, props.tip, props.tip.images);
   }
 
   const onInfoClick = ev => {
     ev.preventDefault();
-    props.showModal(Constants.INFO_MODAL, props.review);
+    props.showModal(Constants.INFO_MODAL, props.tip);
   }
 
   return (
@@ -85,21 +82,21 @@ const TipPreview = props => {
 
                 { /** Image **/ }
                 <div className="tip__image-module">
-                  <div className="tip__photo-count">{review.images.length > 0 ? review.images.length : null}</div>
-                  <ImagePicker images={review.images} />
+                  <div className="tip__photo-count">{tip.images.length > 0 ? tip.images.length : null}</div>
+                  <ImagePicker images={tip.images} />
                 </div>
                 { /** END Image **/ }
 
                 { /** Rating **/ }
-                <div className={'tip__rating-module flx flx-row flx-align-start mrgn-top-sm w-100 tip__rating-module--' + review.rating}>
-                  <div className={'tip__rating flx-hold v2-type-rating--' +  review.rating}>
-                    {review.rating}<div className="v2-type-rating--total opa-50 weight-300"></div>
+                <div className={'tip__rating-module flx flx-row flx-align-start mrgn-top-sm w-100 tip__rating-module--' + tip.review.rating}>
+                  <div className={'tip__rating flx-hold v2-type-rating--' +  tip.review.rating}>
+                    {tip.review.rating}<div className="v2-type-rating--total opa-50 weight-300"></div>
                   </div>
                 </div>
                 { /** END Rating **/ }
 
                 <div className="tip__timestamp v2-type-caption opa-20 mrgn-top-xs DN">
-                  <DisplayTimestamp timestamp={review.lastModified} />
+                  <DisplayTimestamp timestamp={tip.review.lastModified} />
                 </div>
                 
               </div>
@@ -116,23 +113,23 @@ const TipPreview = props => {
                 <div className="tip__content-wrapper">
 
                   { /** Title **/ }
-                  <Link to={`/review/${review.subjectId}/${review.id}`}>
+                  <Link to={`/review/${tip.subjectId}/${tip.id}`}>
                   <div className="hide-in-list tip__title v2-type-h3 ta-left">
-                    <div className="tip__order-count">{props.index}.</div> {review.title} 
+                    <div className="tip__order-count">{props.index}.</div> {tip.subject.title} 
                   </div>
                   </Link>
                   { /** END Title **/ }
 
                   { /** Author **/ }
                   <Link
-                      to={'/' + review.createdBy.username}
+                      to={'/' + tip.createdBy.username}
                       className="show-in-list">
                     <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm">
                         <div className="tip__author-photo flx-hold mrgn-right-sm">
-                          <ProfilePic src={review.createdBy.image} className="user-image user-image-sm center-img" />
+                          <ProfilePic src={tip.createdBy.image} className="user-image user-image-sm center-img" />
                         </div> 
                         <div className="color--black v2-type-body1">
-                          {review.createdBy.username}
+                          {tip.createdBy.username}
                         </div>
                     </div>
                   </Link>
@@ -141,7 +138,7 @@ const TipPreview = props => {
                   { /** Caption **/ }
                   <div className="tip__caption-module flx flx-col w-100 pdding-right-md mrgn-bottom-sm">
                     <div className="tip__caption v2-type-body2 ta-left opa-90">
-                      <CaptionDisplay review={props.review} />
+                      <CaptionDisplay tip={props.tip} />
                     </div>
                   </div>
 
@@ -149,9 +146,9 @@ const TipPreview = props => {
                   <div className="flx flx-row flex-wrap cta-container">
                      <CommentContainer
                         authenticated={props.authenticated}
-                        comments={review.comments || []}
+                        comments={tip.comments || []}
                         errors={props.commentErrors}
-                        commentObject={review}
+                        commentObject={tip}
                         itineraryId={props.itineraryId}
                         userInfo={props.userInfo}
                         type={Constants.REVIEW_TYPE}
@@ -171,11 +168,11 @@ const TipPreview = props => {
                     <div className="cta-wrapper vb vb--sm vb--outline flx flx-row flx-align-center v2-type-body2 mrgn-right-sm">
                       <LikeReviewButton
                         authenticated={props.authenticated}
-                        isLiked={props.review.isLiked}
-                        likesCount={props.review.likesCount}
+                        isLiked={props.tip.isLiked}
+                        likesCount={props.tip.review.likesCount}
                         unLike={props.unLike}
                         like={props.like} 
-                        likeObject={review}
+                        likeObject={tip}
                         itineraryId={props.itineraryId}
                         type={Constants.REVIEW_TYPE} />
                     </div>

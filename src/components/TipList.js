@@ -36,8 +36,8 @@ const TipList = props => {
       {
         props.tipList.map((tipItem, index) => {
           return (
-            <TipPreview review={tipItem}
-              key={tipItem.priority || tipItem.id} 
+            <TipPreview tip={tipItem}
+              key={tipItem.priority || tipItem.key} 
               authenticated={props.authenticated}
               like={props.like} 
               unLike={props.unLike}
