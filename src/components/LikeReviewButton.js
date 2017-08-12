@@ -29,7 +29,7 @@ const LikeReviewButton = props => {
   return (
     <div className="cta-container flx flx-row flx-center-all">
       <div onClick={handleClick} className={classes}></div>
-      <div className="v2-type-body1 weight-400 ta-left">{props.likesCount ? props.likesCount : 0} {likeText}</div>
+      <div className="v2-type-body1 weight-500 ta-left">{props.likesCount ? props.likesCount : 0} {likeText}</div>
     </div>
 
   );

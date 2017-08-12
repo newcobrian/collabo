@@ -147,7 +147,7 @@ class SaveModal extends React.Component {
                         <GeoInfo geo={itinerary.geo} />          
                         {/** END - GEO ROW **/}
                         
-      						    	<div className="option-title color--primary">
+      						    	<div className="option-title color--black">
       						    		{itinerary.title}
       						    	</div>
                       </div>

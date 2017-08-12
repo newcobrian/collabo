@@ -1,10 +1,5 @@
 body div.dialog--save {
-  position: fixed;
-  top: 0;
-  right: 0;
-  height: 100%;
-  font-weight: 400;
-  color: #292F3D;
+
 }
 .dialog--save__wrapper {
   margin: 0;
@@ -36,6 +31,9 @@ body div.dialog--save {
   color: black;
   border-bottom: 1px solid #E7E7E7 !important;
 }
+.dialog--save li {
+  list-style: none;
+}
 .dialog--save__tip-item {
   position: fixed;
   top: 40px;
@@ -56,6 +54,7 @@ body div.dialog--save {
 
 }
 .dialog--save__tip-name {
+  padding-top: 0;
 }
 
 .option-title {

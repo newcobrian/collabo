@@ -9,7 +9,7 @@ const EditProfileSettings = props => {
       <Link
         to="/settings"
         className="vb vb--sm fill--primary mrgn-top-xs vb--mobile-full">
-         {/*<i className="ion-gear-a"></i>*/}Edit Profile
+         <i className="material-icons mrgn-right-sm color--white md-18">mode_edit</i>Edit Profile
       </Link>
     );
   }

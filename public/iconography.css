@@ -8,7 +8,9 @@
 }
 .page-itinerary .cta-wrapper {
 }
-
+.nav-module.create .material-icons {
+  margin-top: -2px;
+}
 .cta-box {
   margin-top: -1px;
   width: auto;
@@ -23,6 +25,10 @@
   flex-shrink: 0;
 }
 
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
 
 .cta-wrapper .cta-icon,
 .cta-icon {

@@ -187,7 +187,7 @@ class Review extends React.Component {
                       </div>
                       
                         <Link onClick={this.handleSaveClick} className="vb vb--save fill--primary flx flx-col flx-align-center flx-just-center mrgn-bottom-md vb--mobile-full">
-                          <img className="center-img" src="/img/icons/icon30--save.png"/>
+                          <i className="material-icons mrgn-right-sm color--white">playlist_add</i>
                           <div className="color--white v2-type-body0 weight-400">SAVE TO A GUIDE</div>
                         </Link>
 

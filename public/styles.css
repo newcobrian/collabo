@@ -10,7 +10,7 @@ body a.active,
 body a:active,
 body a:focus,
 body a:hover {
-    color: initial;
+
 }
 
 input[type="checkbox"] {
@@ -518,7 +518,7 @@ svg {
 }
 .navigation-bar .nav-text {
   width: 100%;
-  letter-spacing: 1px;
+  letter-spacing: 0px;
 }
 .nav-module.nav-user-image {
     width: 40px;
@@ -633,10 +633,10 @@ border-bottom: 1px solid rgba(0,0,0,.1);
 }
 
 .opa-90 {
-  opacity: .7;
+  opacity: .9;
 }
 .opa-80 {
-  opacity: .7;
+  opacity: .8;
 }
 .opa-70 {
   opacity: .7;

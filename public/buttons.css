@@ -61,7 +61,7 @@ select {
   color: white;
   text-align: center;
   letter-spacing: 3px;
-  font-weight: 600;
+  font-weight: 500;
   border-radius: 2px;
   font-size: 14px;
   background-color: #cccccc;
@@ -134,14 +134,14 @@ select {
 
 
 .vb--sm {
-    padding: 0px 10px 0px;
-    height: auto;
-    border: 0;
-    font-size: 12px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    height: 32px;
-    line-height: 22px;
+  padding: 0px 10px 0px;
+  height: auto;
+  border: 0;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  height: 32px;
+  line-height: 22px;
 }
 
 .vb--link {

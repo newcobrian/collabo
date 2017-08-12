@@ -39,7 +39,9 @@ const UpdateCoverPhoto = props => {
           multiple={false}
           accept="image/*"
           className="edit-tip__dropzone__touch flx flx-col flx-align-center flx-just-start ta-center">
-          <div className="vb vb--sm vb--shadow-none fill--white color--black">Change photo</div>
+          <div className="vb vb--sm vb--shadow-none fill--white color--black opa-80">
+            <i className="material-icons color--primary md-24">add_a_photo</i>
+          </div>
 
         </Dropzone>
         

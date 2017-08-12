@@ -51,7 +51,8 @@ const LoggedInView = props => {
 
         <Link to="/create" activeClassName="active" className="nav-module create nav-editor flx flx-center-all">  
           <div className="nav-text flx flx-row flx-align-center">
-            <img className="nav-header-icon mrgn-right-sm center-img mobile-hide" src="/img/icon.add--kelp.png"/> New Guide
+            <i className="material-icons mrgn-right-sm color--primary md-24">add</i>
+            <div>New Guide</div>
           </div>
         </Link>
 
