@@ -538,15 +538,14 @@ width: 100%;
   width: 48px;
 }
 .tip__photo-count {
-    color: white;
-    position: absolute;
-    right: -5px;
-    bottom: -5px;
-    font-weight: 300;
-    font-size: 10px;
-    background: rgba(0,0,0,.9);
-    padding: 2px 6px;
-    border-radius: 30px;
+  color: white;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  font-weight: 300;
+  font-size: 10px;
+  background: rgba(0,0,0,.9);
+  padding: 2px 6px;
 }
 
 .profile-page .itinerary__cover,

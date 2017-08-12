@@ -67,7 +67,7 @@ const TipPreview = props => {
   }
 
   return (
-    <div className="tip-wrapper flx flx-col flx-col w-100 w-max">
+    <div className="tip-wrapper flx flx-col flx-col w-100 w-max bx-shadow">
       
       <div className="tip-container flx flx-col fl-center-all w-100">
           

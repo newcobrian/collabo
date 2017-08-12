@@ -37,7 +37,7 @@
 .page-itinerary .itinerary__cover__author-photo {
     width: 80px;
     height: 80px;
-    margin: 20px;
+    margin: 0 10px 10px;
 }
 .itinerary__summary__author-photo img,
 .itinerary__cover__author-photo img {

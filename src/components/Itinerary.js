@@ -161,56 +161,6 @@ class Itinerary extends React.Component {
 
           <div className="content-wrapper map-off itinerary flx flx-col flx-align-center">
 
-            <div className="itinerary__cover flx flx-row flx-just-start header-height">
-              
-              {/** <<<<<< USER PHOTO AND TIP COUNT **/}
-              <div className="itinerary__cover__topbar w-max flx flx-row flx-align-center flx-just-start v2-type-body1 mrgn-bottom-sm pdding-top-md">
-                
-              </div>
-              {/** >>>>>> CLOSE USER PHOTO AND TIP COUNT **/}
-
-
-              {/** Cover Image **/}
-              <div className="itinerary__cover__image header-height">
-                <ImagePicker images={itinerary.images ? [itinerary.images] : null} />
-                <div className={'flx flx-col flx-center-all v2-type-body3 cover__loading loading-done-' + this.props.coverPicProgress}>
-                  Uploading New Cover Photo...
-                </div> 
-                <div className="vb--change-cover">
-                <UpdateCoverPhoto isUser={isUser} itinerary={itinerary} itineraryId={itinerary.id} 
-                  uploadCoverPhoto={this.props.uploadCoverPhoto} authenticated={this.props.authenticated} />
-                </div>
-              </div>
-
-             
-
-
-            {/* Hidden edit itinerary dropdown 
-            <div className="edit-itinerary-link DN">             
-              <MuiThemeProvider muiTheme={getMuiTheme()}>
-                <IconMenu
-                   iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-                   anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-                   targetOrigin={{horizontal: 'left', vertical: 'top'}}
-                 >
-
-                   <EditItineraryLink isUser={isUser} itineraryId={this.props.itineraryId} />
-
-                   <ItineraryActions 
-                     itinerary={itinerary} 
-                     authenticated={this.props.authenticated} 
-                     canModify={canModify} 
-                     deleteItinerary={this.props.showDeleteModal} 
-                     redirectPath="/" />
-
-                 </IconMenu>
-
-               </MuiThemeProvider>
-            </div>
-            */}
-
-            </div>
-            {/** ----- Close itinerary__cover DIV ----- **/}  
 
             {/** Cover Content **/}
             <div className="itinerary__cover__text w-100">
@@ -308,16 +258,36 @@ class Itinerary extends React.Component {
 
                 </div>
 
-
-
               </div>
               {/** >>>>>> CLOSE CENTER INFO **/}
-
-
 
             </div>
             {/** Close Cover Text DIV >>>>>> **/}  
 
+
+
+
+            <div className="itinerary__cover flx flx-row flx-just-start header-height">
+              
+
+              {/** Cover Image **/}
+              <div className="itinerary__cover__image header-height">
+                <ImagePicker images={itinerary.images ? [itinerary.images] : null} />
+                <div className={'flx flx-col flx-center-all v2-type-body3 cover__loading loading-done-' + this.props.coverPicProgress}>
+                  Uploading New Cover Photo...
+                </div> 
+                <div className="vb--change-cover">
+                <UpdateCoverPhoto isUser={isUser} itinerary={itinerary} itineraryId={itinerary.id} 
+                  uploadCoverPhoto={this.props.uploadCoverPhoto} authenticated={this.props.authenticated} />
+                </div>
+              </div>
+
+          
+
+            </div>
+            {/** ----- Close itinerary__cover DIV ----- **/}  
+
+           
 
 
 
