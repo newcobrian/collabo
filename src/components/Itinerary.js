@@ -129,33 +129,17 @@ class Itinerary extends React.Component {
       );
     }
     else {
-      // const itinerary = Selectors.getFullItinerary(this.props.itinerary, this.props.usersData);
-      // const createdByUsername = Selectors.getUsername(this.props.usersData, this.props.itinerary.userId);
-      // const createdByImage = Selectors.getUserImage(this.props.usersData, this.props.itinerary.userId);
-      // const tipList = Selectors.getTipList(this.props.usersData, this.props.tipsData, this.props.reviewsData,
-      //   this.props.subjectsData, this.props.likesData, this.props.commentsData, this.props.userImagesData, 
-      //   this.props.defaultImagesData, this.props.itinerary);
-
       const itinerary = this.props.itinerary;
       const createdByUsername = Selectors.getCreatedByUsername(this.props.itinerary);
       const createdByImage = Selectors.getCreatedByUserImage(this.props.itinerary);
       const tipList = this.props.tips;
-      // console.log('tip list = ' + JSON.stringify(tipList))
 
       const isUser = this.props.authenticated &&
       this.props.itinerary.userId === this.props.authenticated;
 
       const canModify = this.props.authenticated && 
       this.props.authenticated === this.props.itinerary.userId;
-// console.log('progress = ' + this.props.coverPicProgress)
-// console.log('cmt = ' + JSON.stringify(Selectors.getItineraryComments(this.props.commentsData, this.props.itinerary.id)))
-// console.log('itinerary = ' + JSON.stringify(this.props.itinerary))
-// console.log('likesData = ' + JSON.stringify(this.props.likesData))
-// console.log('commentsData = ' + JSON.stringify(this.props.commentsData))
-// console.log('subjectData = ' + JSON.stringify(this.props.subjectsData))
-// console.log('reviewsData = ' + JSON.stringify(this.props.reviewsData))
-// console.log('tipsData = ' + JSON.stringify(this.props.tipsData))
-// console.log('user images data = ' + JSON.stringify(this.props.userImagesData))
+
       return (
         <div className="flx flx-col flx-align-start page-common page-itinerary">
 
