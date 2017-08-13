@@ -200,6 +200,14 @@ font-weight: 300;
   color: #D5E3E5;
 }
 
+.color--favorite {
+  color: #FF776A;
+}
+.color--favorite_border {
+  color: #121419;
+  opacity: .5;
+}
+
 
 
 

@@ -5,10 +5,10 @@ const LikeReviewButton = props => {
   let classes = '';
   if (props.isLiked) {
     // classes += ' btn-secondary';
-    classes += 'cta-icon cta-liked';
+    classes += 'favorite';
   } else {
     // classes += ' btn-outline-secondary';
-    classes += 'cta-icon cta-like';
+    classes += 'favorite_border';
   }
 
   let likeText = '';
@@ -28,7 +28,7 @@ const LikeReviewButton = props => {
 
   return (
     <div className="cta-container flx flx-row flx-center-all">
-      <div onClick={handleClick} className={classes}></div>
+      <div onClick={handleClick} className={'mrgn-right-sm material-icons color--' + classes}>{classes}</div>
       <div className="v2-type-body1 weight-500 ta-left">{props.likesCount ? props.likesCount : 0} {likeText}</div>
     </div>
 

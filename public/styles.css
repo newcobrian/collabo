@@ -1180,8 +1180,8 @@ li.nav-divider {
   margin-left: 2px;
 }
 .comment-author-img img {
-  width: 30px;
-  height: 30px;
+  width: 100%;
+  height: 100%;
   border-radius: 32px;
 }
 .itinerary__comments-module .comment-author-img {
