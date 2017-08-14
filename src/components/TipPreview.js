@@ -41,9 +41,9 @@ const CommentPreview = props => {
 
 /* Displays user entered caption -OR- empty message if user has not entered caption */ 
 const CaptionDisplay = props => {
-  if (props.tip.caption) {
+  if (props.tip.review.caption) {
     return (
-      <div className="inline">{props.tip.caption}</div>
+      <div className="inline">{props.tip.review.caption}</div>
     )
   }
   else {
