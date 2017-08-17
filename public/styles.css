@@ -794,7 +794,9 @@ border-bottom: 1px solid rgba(0,0,0,.1);
 }
 /* optional: show position indicator in red */
 
-
+.float-left {
+  float: left;
+}
 
 /******
 ******

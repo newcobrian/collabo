@@ -8,7 +8,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
 import { SAVE_MODAL } from '../../actions';
 import ImagePicker from './../ImagePicker';
-
+ 
 
 
 const mapStateToProps = state => ({
@@ -57,10 +57,10 @@ class SaveModal extends React.Component {
     const actions = [
       <FlatButton
         label="+ Create New Guide"
-        className="vb vb--shadow-none color--primary"
+        className="vb vb--shadow-none fill--primary color--white mrng-left-sm float-left"
         hoverColor="white"
         onTouchTap={handleItineraryClick}
-        labelStyle={{fontWeight: '400',
+        labelStyle={{   fontWeight: '500',
                         fontSize: '14px',
                         letterSpacing: '2px',
                         boxShadow: 'none'
@@ -73,7 +73,7 @@ class SaveModal extends React.Component {
         hoverColor="white"
         className="vb vb--shadow-none"
         onTouchTap={handleClose}
-        labelStyle={{fontWeight: '400',
+        labelStyle={{fontWeight: '500',
                     fontSize: '14px',
                     letterSpacing: '2px',
                     color:'rgba(0,0,0,.5)',
@@ -109,8 +109,11 @@ class SaveModal extends React.Component {
           bodyClassName="dialog--save__body"
           bodyStyle={{padding: "30px 0px"}}
 
-          actionsContainerClassName="dialog--save__actions">
-            
+          actionsContainerClassName="dialog--save__actions"
+          actionsContainerStyle={{
+            padding: "10px"
+          }}
+            >
             <div className="dialog--save__content">
             <div className="dialog--save__tip-item">
               <div className="flx flx-row flx-just-start flx-align-center">
