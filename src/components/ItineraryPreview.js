@@ -18,7 +18,9 @@ const DescriptionPreview = props => {
   }
   else {
     return (
-     <div className="ellipsis w-100 opa-30">{props.itinerary.createdBy.username} hasn't written anything about this itinerary yet...</div>
+     <div className="ellipsis w-100 opa-30">
+     {/**{props.itinerary.createdBy.username} hasn't written anything about this itinerary yet...**/}
+     </div>
     )
   }
 }
@@ -29,7 +31,7 @@ const CommentPreview = props => {
       <Link to={`/guide/${props.itinerary.id}`}>
 
         <div className="comment-preview-bubble flx flx-row flx-center-all">
-          <div className="comment-author-img mrgn-right-sm">
+          <div className="comment-author-img mrgn-right-sm flx-hold">
             <Link
               to={`/${props.itinerary.lastComment.username}`}
               >
@@ -50,7 +52,7 @@ const CommentPreview = props => {
         </div>
 
 
-        <div className="vb vb--sm vb--outline flx-align-center mrgn-right-sm cta-wrapper flx flx-row flx-just-end flex-item-right last-comment mrgn-left-sm">
+        <div className="vb vb--sm vb--outline flx-align-center mrgn-right-sm cta-wrapper flx flx-row flx-just-end flex-item-right last-comment">
           
           <div className="flx flx-row flx-just-end flx-align-center">
 
@@ -65,7 +67,7 @@ const CommentPreview = props => {
   else {
     return (
       <Link to={`/guide/${props.itinerary.id}`}>
-        <div className="vb vb--sm vb--outline cta-wrapper flx flx-row flx-center-all no-comments">             
+        <div className="vb vb--sm vb--outline cta-wrapper flx flx-row flx-center-all no-comments mrgn-right-sm">             
              <div className="cta-icon cta-comment"></div>
              <div className="v2-type-body1">0</div>
         </div>
@@ -106,7 +108,7 @@ const ItineraryPreview = props => {
   return (
 
 
-    <div className="itinerary__cover flx flx-col bx-shadow">
+    <div className="itinerary__cover flx flx-col">
       
       {/** START USER PHOTO AND TIP COUNT **/}
       <div className="itinerary__cover__topbar flx flx-row flx-align-center w-100 w-max flx-just-start v2-type-body1 mrgn-bottom-md">
@@ -202,6 +204,8 @@ const ItineraryPreview = props => {
 
           {/** LIKE AND COMMENTS **/}
           <div className="it__cover__cta-module flx flx-row flx-just-end">
+            <CommentPreview itinerary={props.itinerary} />
+
             <div className="vb vb--sm vb--outline flx flx-row flx-align-center mrgn-right-sm cta-wrapper flx flx-row flx-just-end flex-item-right">
               <LikeReviewButton
                 authenticated={props.authenticated}
@@ -213,11 +217,10 @@ const ItineraryPreview = props => {
                 itineraryId={itinerary.id}
                 type={ITINERARY_TYPE} />
             </div>
-            <CommentPreview itinerary={props.itinerary} />
           </div>
 
           {/** TIP COUNT **/}
-          <Link to={`/guide/${itinerary.id}`} className="tip-count color--primary v2-type-body3 weight-400 flx flx-row flx-just-start flx-align-center color--primary flx-item-right mrgn-top-xs">
+          <Link to={`/guide/${itinerary.id}`} className="vb vb--sm vb--outline tip-count color--primary v2-type-body3 flx flx-row flx-just-start flx-align-center color--primary flx-item-right">
               <div>{itinerary.reviewsCount ? itinerary.reviewsCount : 0} {itinerary.reviewsCount === 1 ? ' tip' : ' tips'}</div>
               <i className="material-icons mrgn-left-sm color--primary md-24">playlist_play</i>
           </Link>

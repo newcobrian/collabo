@@ -353,7 +353,7 @@ img.user-image.user-image-md {
   height: 40px;
   width: 220px;
   font-weight: 700;
-  margin: 15px;
+  margin: 15px 0;
   z-index: 2;
 
 }
@@ -401,12 +401,12 @@ a.logo-module:focus {
   text-align: center;
   width: auto;
   height: auto;
-  font-family: 'Montserrat', sans-serif;
+  /*font-family: 'Montserrat', sans-serif;*/
   font-weight: 500;
   margin: 0 20px;
   padding: 0;
   font-size: 14px;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   text-transform: uppercase;
   height: 70px;
 }
@@ -462,17 +462,31 @@ a.logo-module:focus {
 }
 
 .logo-graphic {
-  width: 50px;
-  height: 50px;
-  margin-top: 1px;
+  width: 140px;
+  height: 70px;
+  margin-top: 0px;
 /*  -webkit-animation:spin 4s linear 1;
   -moz-animation:spin 4s linear 1;
   animation:spin 4s linear 1;*/
 }
 .logo-graphic img {
-  fill: #27ae60;
+  width: 140px;
+  height: 70px;
 }
-.loading-module .logo-graphic {
+
+.earth-graphic {
+  width: 40px;
+  height: 40px;
+  margin-top: 0px;
+/*  -webkit-animation:spin 4s linear 1;
+  -moz-animation:spin 4s linear 1;
+  animation:spin 4s linear 1;*/
+}
+.earth-graphic img {
+  width: 40px;
+  height: 40px;
+}
+.loading-module .earth-graphic {
   -webkit-animation:spin 2s linear infinite;
   -moz-animation:spin 2s linear infinite;
   animation:spin 2s linear infinite;
@@ -482,10 +496,7 @@ a.logo-module:focus {
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
-.logo-graphic img {
-  width: 48px;
-  height: 48px;
-}
+
 .navigation-bar .nav-icon {
   width: 32px;
   height: 32px;
@@ -518,7 +529,6 @@ svg {
 }
 .navigation-bar .nav-text {
   width: 100%;
-  letter-spacing: 0px;
 }
 .nav-module.nav-user-image {
     width: 40px;
@@ -555,10 +565,10 @@ svg {
 }
 .header-badge.badge-on {
   background-color: #0329A7;
+  background-color: #FF6161;
   /*box-shadow: inset 0 0 10px 4px rgba(19,229,225,0.5), 0 0 4px 0 rgba(0,142,255,0.51);*/
   font-weight: 500;
   font-weight: 600;
-  background-color: red;
 }
 .location-dropdown {
   border-bottom: 1px solid #0AAAD5;
@@ -835,8 +845,8 @@ border-bottom: 1px solid rgba(0,0,0,.1);
   background: #E6E7E8;
   margin: 10px 0;
   object-fit: cover;
-  width: 120px;
-  height: 120px;
+  width: 146px;
+  height: 146px;
 }
 .profile-page .user-info .user-data {
   background: white;
@@ -1194,7 +1204,7 @@ li.nav-divider {
   padding: 4px;
 }
 .comment-text {
-  max-width: 100px;
+  max-width: 200px;
 }
 .comment-wrapper.card .comment-data {
 }
@@ -1209,10 +1219,13 @@ li.nav-divider {
 }
 .comment-wrapper.card .date-posted {
   font-size: 10px;
-  margin-left: 10px;
-  margin-top: 1px;
+  margin-top: -2px;
   opacity: .4;
-  visibility: hidden;
+  display: block;
+  /* visibility: hidden; */
+  font-size: 11px;
+  letter-spacing: 0;
+  font-weight: 400;
 }
 .comment-wrapper.card:hover .date-posted {
   visibility: visible;
@@ -1242,10 +1255,9 @@ li.nav-divider {
     font-size: 10px;
     display: inline-block;
     margin: 0 10px;
-    margin-top: 4px;
-    visibility: hidden;
-    opacity: .5;
-    height: 20px;
+    margin-top: -2px;
+    opacity: .8;
+    height: auto;
 }
 .comment-data:hover .mod-options {
     visibility: visible;

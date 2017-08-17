@@ -121,8 +121,19 @@
     width: auto;
     bottom: 44px;
     left: 210px;
-}
 
+    position: absolute;
+    width: auto;
+    bottom: 85px;
+    left: 40px;
+    z-index: 3;
+}
+.comment-preview-bubble .comment-author-img {
+	margin-right: 10px;
+	margin-left: 0;
+	width: 32px;
+	height: 32px;
+}
 .itinerary__edit-tip {
 
 }
@@ -337,7 +348,7 @@
 	margin:  10px 40px 0 20px;
 }
 .guide-text-wrapper {
-	height: 110px;
+	height: 160px;
 }
 .itinerary__cover__descrip {
   height: auto;
@@ -345,6 +356,8 @@
   width: 100%;
   max-width: 600px;
   font-family: 'Roboto', sans-serif;
+  border-bottom: 1px solid rgba(0,0,0,.05);
+  padding-bottom: 20px;
  }
 
 .itinerary__cover__flag,

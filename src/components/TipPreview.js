@@ -67,7 +67,7 @@ const TipPreview = props => {
   }
 
   return (
-    <div className="tip-wrapper flx flx-col flx-col w-100 w-max bx-shadow">
+    <div className="tip-wrapper flx flx-col flx-col w-100 w-max">
       
       <div className="tip-container flx flx-col flx-center-all w-100">
           
@@ -156,14 +156,14 @@ const TipPreview = props => {
                   </div> 
                   {/* Action Module */}
                   <div className="tip__cta-box w-100 flx flx-row flx-just-start flx-align-center mrgn-top-md">
+                    <Link onClick={handleSaveClick} className="hide-in-list vb vb--sm vb--outline-none flx flx-row flx-align-center mrgn-right-sm color--white fill-primary">
+                        {/*<img className="center-img mrgn-right-sm" src="/img/icons/i32_save.png"/>*/}
+                        <i className="material-icons mrgn-right-sm color--white">playlist_add</i>
+                        <div className="color--white">SAVE</div>
+                    </Link>
                     <Link onClick={onInfoClick} className="hide-in-list vb vb--sm vb--outline flx flx-row flx-align-center mrgn-right-sm">
                       <i className="material-icons mrgn-right-sm opa-50">info_outline</i>
                       <div className="color--black">Info</div>
-                    </Link>
-                    <Link onClick={handleSaveClick} className="hide-in-list vb vb--sm vb--outline flx flx-row flx-align-center mrgn-right-sm">
-                        {/*<img className="center-img mrgn-right-sm" src="/img/icons/i32_save.png"/>*/}
-                        <i className="material-icons mrgn-right-sm color--primary">playlist_add</i>
-                        <div className="color--black">SAVE TO GUIDE</div>
                     </Link>
                     <div className="vb__label v2-type-body0 opa-60 mrgn-top-sm DN">Save to</div>
                     <div className="cta-wrapper vb vb--sm vb--outline flx flx-row flx-align-center v2-type-body2 mrgn-right-sm">

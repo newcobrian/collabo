@@ -28,12 +28,12 @@ const Comment = props => {
               </Link>
               {comment.body}
 
-             
+              <div className="flx flx-row flx-just-start flx-align-center">
                 <div className="date-posted inline-block">
                   <DisplayTimestamp timestamp={comment.lastModified} />
                 </div>
                 <DeleteButton show={show} commentObject={props.commentObject} commentId={comment.id} deleteComment={props.deleteComment} />
-
+              </div>
             </div>
             
           </div>

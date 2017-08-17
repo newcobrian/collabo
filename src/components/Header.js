@@ -84,12 +84,12 @@ class Header extends React.Component {
         <div className="header-wrapper w-100">
           <Link to="/" className="logo-module flx flx-row flx-just-start flx-align-center">
             <div className="logo-graphic">  
-              <img className="center-img" src="/img/logos/logo.sunset.png"/>
+              <img className="center-img" src="/img/logos/logo.horizon.png"/>
             </div>
-              <div className="logo-main">
+              <div className="logo-main DN">
                 VIEWS
               </div>
-              <div className="v2-type-caption opa-60 w-100 mrgn-top-xs mrgn-left-xs">
+              <div className="DN v2-type-caption opa-60 w-100 mrgn-top-xs mrgn-left-xs">
                 Alpha 1.2
               </div>
           </Link>

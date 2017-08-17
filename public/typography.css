@@ -96,14 +96,11 @@ font-weight: 300;
   font-family: 'Roboto', sans-serif;
 }
 .v2-type-caption {
-  /* “The almond milk ice: */
-  font-weight: 300;
-  font-size: 10px;
+  font-weight: 400;
+  font-size: 11px;
   letter-spacing: 1px;
   line-height: 10px;
   font-family: 'Roboto', sans-serif;
-  color: black;
-  text-transform: uppercase;
 }
 .mod-options .v2-type-caption {
   cursor: pointer;
@@ -221,6 +218,9 @@ font-weight: 300;
   color: #1A75CE !important; /*BLUE BERRY*/
   color: #377037 !important; /*UBER */
   color: #00B3CB !important; /*SEA TURTLE MOSS */
+  color: #45CAE6 !important; /*SEA TURTLE MOSS */
+  color: #6694E0 !important; /*SEA TURTLE MOSS */
+
 
 }
 
@@ -228,6 +228,8 @@ font-weight: 300;
 .fill--primary {
 
   background-color: #00B3CB !important; /*SEA TURTLE MOSS*/
+  background-color: #45CAE6 !important; /*SEA TURTLE MOSS*/
+  background-color: #6694E0 !important; /*SEA TURTLE MOSS*/
 
   /* Rectangle Copy: */
   /*background-image: linear-gradient(213deg, #00FFE2 -40%, #02B1DA 50%);*/
@@ -242,8 +244,16 @@ font-weight: 300;
 .nav-pills.outline-active .nav-link.active,
 .nav-pills.outline-active .nav-link:hover  {
   border-bottom: 2px solid #00B3CB;
-  color: #00B3CB;
+  border-bottom: 2px solid #6694E0;
+
+  color: #45CAE6;
+  color: #6694E0;
+
   padding-top: 2px;
+}
+
+.vb {
+  background-color: #6694E0;
 }
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #4DBDE9;
@@ -257,6 +267,9 @@ font-weight: 300;
   color: #36B096 !important; /*KING BLUE*/
   color: #01A4C8 !important; /*KING BLUE*/
   color: #00B3CB !important; /*DARK BLUE*/
+  color: #45CAE6 !important; /*DARK BLUE*/
+  color: #6694E0 !important; /*DARK BLUE*/
+
 
   opacity: .8;
   font-weight: 300;
@@ -296,6 +309,7 @@ body a.nav-module {
 }
 .fill--light-gray {
   background-color: #F8FBFB;
+  background-color: #ffffff;
 }
 .color--success {
   color: #63A652 !important;

@@ -517,6 +517,8 @@ width: 100%;
 }
 .tip-info-col {
   width: 100%;
+  /*position: relative;*/
+  /*top: 0;*/
 }
 .page-subject.flx {
   -webkit-flex-direction: column;
