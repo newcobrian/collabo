@@ -1,5 +1,7 @@
 import React from 'react';
 import { debounce } from 'lodash';
+import Textarea from 'react-textarea-autosize';
+
 
 class RenderDebounceInput extends React.Component {
   constructor(props) {
@@ -31,11 +33,11 @@ class RenderDebounceInput extends React.Component {
 
   render() {
     return (
-        <textarea
+        <Textarea
           className={this.props.className}
           cols="20"
+          rows="auto"
           wrap="hard"
-          forceNotifyByEnter = {false}
           placeholder={this.props.placeholder}
           type={this.props.type}
           value={this.getValue()}

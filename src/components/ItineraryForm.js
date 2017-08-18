@@ -23,6 +23,8 @@ import {GoogleApiWrapper} from 'google-maps-react';
 import Map from 'google-maps-react';
 import Geosuggest from 'react-geosuggest';
 import * as Selectors from '../selectors/itinerarySelectors';
+import Textarea from 'react-textarea-autosize';
+
 
 const DisplayError = props => {
   if (!props.error) {
