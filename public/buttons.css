@@ -293,9 +293,12 @@ select {
 .geosuggest__input {
   padding: 10px 0 10px 10px;
   width: 100%;
-  opacity: .5;
-  text-transform: uppercase;
 }
+.page-edit-own .geosuggest__input {
+  opacity: .5;
+    text-transform: uppercase;
+}
+
 .geosuggest__suggests {
   list-style: none;
   z-index: 1;

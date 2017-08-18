@@ -468,4 +468,5 @@ textarea.edit-itinerary__name {
 
 .geosuggest__suggests-wrapper {
 	position: absolute;
+	z-index: 1;
 }
