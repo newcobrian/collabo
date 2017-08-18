@@ -223,7 +223,7 @@ class ItineraryForm extends React.Component {
     }
 
     return (
-      <div className="flx flx-col flx-align-start page-common page-itinerary">
+      <div className="flx flx-col flx-align-start page-common page-itinerary page-edit-own">
 
         <div className="content-wrapper map-off itinerary flx flx-col flx-align-center">
 

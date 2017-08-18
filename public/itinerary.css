@@ -356,8 +356,14 @@
   width: 100%;
   max-width: 600px;
   font-family: 'Roboto', sans-serif;
-  border-bottom: 1px solid rgba(0,0,0,.05);
-  padding-bottom: 20px;
+
+ }
+.itinerary__cover .itinerary__cover__descrip {
+	border-bottom: 1px solid rgba(0,0,0,.05);
+	padding-bottom: 20px;
+ }
+ .page-edit-own .itinerary__cover__descrip {
+ 	margin-top: -5px;
  }
 
 .itinerary__cover__flag,
