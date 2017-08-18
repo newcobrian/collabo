@@ -205,7 +205,7 @@ class ItineraryForm extends React.Component {
         
         return (
           <Geosuggest 
-            className="input--underline"
+            className="input--underline w-100"
             placeholder="Search for a place (e.g. 'Yosemite National Park' or 'W Hotel')"
             location={latLng}
             radius={1000}
@@ -214,7 +214,7 @@ class ItineraryForm extends React.Component {
       }
       else return (
         <Geosuggest 
-          className="input--underline"
+          className="input--underline w-100"
           placeholder="Search for a place (e.g. 'Yosemite National Park' or 'W Hotel')"
           onSuggestSelect={suggestSelectTip}/>
       )
@@ -254,12 +254,12 @@ class ItineraryForm extends React.Component {
              
               {/** Flag and Geo **/}
               {/** <Link to={`/places/${itinerary.geo.placeId}`}> **/}
-              <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm mrgn-top-xs">
+              <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm mrgn-top-xs w-100">
                 <div className={'itinerary__cover__flag flx-hold flag-' + itinerary.geo.country}>
                 </div>
-                <div className="geo-type ellipsis opa-30">
+                <div className="geo-type ellipsis w-100">
                   <Geosuggest 
-                    className="input--underline"
+                    classname="input--underline w-100"
                     types={['(regions)']}
                     placeholder="Search for a location (e.g. 'New York' or 'Japan')"
                     required
@@ -284,6 +284,7 @@ class ItineraryForm extends React.Component {
               <div className="itinerary__cover__descrip v2-type-body3 ta-left mrgn-top-sm opa-80">
                  <RenderDebounceInput
                     type="text"
+                    className="w-100"
                     value={this.props.data.description}
                     placeholder="Description"
                     debounceFunction={this.changeDescription} />
@@ -367,7 +368,7 @@ class ItineraryForm extends React.Component {
               {
                 itinerary.tips.map((tip, index) => {
                   return (
-                    <div className="tip-wrapper flx flx-col flx-col w-100 w-max bx-shadow" key={index+1}>
+                    <div className="tip-wrapper flx flx-col flx-col w-100 w-max" key={index+1}>
                           
                           <div className="tip-container flx flx-col flx-center-all w-100">
                               
@@ -452,6 +453,9 @@ class ItineraryForm extends React.Component {
                                         <div className="tip__caption v2-type-body2 ta-left opa-90">
                                           <RenderDebounceInput
                                             type="textarea"
+                                            className="w-100"
+                                            cols="20"
+                                            wrap="hard"
                                             value={tip.review.caption}
                                             placeholder="Add a caption"
                                             debounceFunction={this.changeCaption(tip)} />
@@ -472,13 +476,13 @@ class ItineraryForm extends React.Component {
                                       </div> 
                                       {/* Action Module */}
                                       <div className="tip__cta-box w-100 flx flx-row flx-just-start flx-align-center mrgn-top-md">
+                                        <Link onClick={handleSaveClick(tip)} className="hide-in-list vb vb--sm vb--outline-none flx flx-row flx-align-center mrgn-right-sm color--white fill-primary">
+                                            <i className="material-icons mrgn-right-sm color--white">playlist_add</i>
+                                            <div className="color--white">SAVE</div>
+                                        </Link>
                                         <Link onClick={onInfoClick(tip)} className="hide-in-list vb vb--sm vb--outline flx flx-row flx-align-center mrgn-right-sm">
                                           <i className="material-icons mrgn-right-sm opa-50">info_outline</i>
                                           <div className="color--black">Info</div>
-                                        </Link>
-                                        <Link onClick={handleSaveClick(tip)} className="hide-in-list vb vb--sm vb--outline flx flx-row flx-align-center mrgn-right-sm">
-                                            <i className="material-icons mrgn-right-sm color--primary">playlist_add</i>
-                                            <div className="color--black">SAVE TO GUIDE</div>
                                         </Link>
                                         <div className="vb__label v2-type-body0 opa-60 mrgn-top-sm DN">Save to</div>
                                         <div className="cta-wrapper vb vb--sm vb--outline flx flx-row flx-align-center v2-type-body2 mrgn-right-sm">

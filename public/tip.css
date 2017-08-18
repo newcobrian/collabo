@@ -66,6 +66,7 @@
 }
 .tip__content-wrapper {
 	margin-left: 40px;
+	width: 100%;
 }
 
 .tip__caption {

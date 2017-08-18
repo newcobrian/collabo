@@ -31,12 +31,16 @@ class RenderDebounceInput extends React.Component {
 
   render() {
     return (
-        <input
+        <textarea
           className={this.props.className}
+          cols="20"
+          wrap="hard"
+          forceNotifyByEnter = {false}
           placeholder={this.props.placeholder}
           type={this.props.type}
           value={this.getValue()}
           onChange={this.handleOnChange}/>
+
     )
   }
 }

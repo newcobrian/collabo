@@ -457,3 +457,9 @@ textarea.edit-itinerary__name {
 .cover__loading.loading-done-undefined {
 	display: none;
 }
+
+
+
+.geosuggest__suggests-wrapper {
+	position: absolute;
+}
