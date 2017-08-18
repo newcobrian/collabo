@@ -1040,8 +1040,8 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
           }
         }
 
-        let reviewBySubject = Helpers.makeReviewBySubject(reviews[i], reviews[i].subjectId, lastModified);
-        let review = Helpers.makeReview(reviews[i], reviews[i].subjectId, lastModified);
+        let reviewBySubject = Helpers.makeReviewBySubjectEditor(reviews[i], reviews[i].subjectId, lastModified);
+        let review = Helpers.makeReviewEditor(reviews[i], reviews[i].subjectId, lastModified);
 
         let reviewCreator = reviews[i].userId ? reviews[i].userId : auth;
 

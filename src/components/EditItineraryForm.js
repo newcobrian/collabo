@@ -140,7 +140,7 @@ let renderGeoSuggestItinerary = (field, googlemaps) => {
     <Geosuggest 
       className="input--underline"
       types={['(regions)']}
-      placeholder="Search a city or country"
+      placeholder="Search for a location (e.g. 'New York' or 'Japan')"
       required
       initialValue={field.geoSuggest}
       onSuggestSelect={suggestSelect}/>

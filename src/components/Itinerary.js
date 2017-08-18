@@ -132,9 +132,9 @@ class Itinerary extends React.Component {
     }
     else {
       const itinerary = this.props.itinerary;
+      itinerary.tips = this.props.tips;
       const createdByUsername = Selectors.getCreatedByUsername(this.props.itinerary);
       const createdByImage = Selectors.getCreatedByUserImage(this.props.itinerary);
-      const tipList = this.props.tips;
 
       const isUser = this.props.authenticated &&
       this.props.itinerary.userId === this.props.authenticated;
@@ -142,185 +142,192 @@ class Itinerary extends React.Component {
       const canModify = this.props.authenticated && 
       this.props.authenticated === this.props.itinerary.userId;
 
-      return (
-        <div className="flx flx-col flx-align-start page-common page-itinerary">
+      if (canModify) {
+        return (
+          <ItineraryForm initialValues={itinerary} />
+          )
+      }
+      else {
+        return (
+          <div className="flx flx-col flx-align-start page-common page-itinerary">
 
-          <div className="content-wrapper map-off itinerary flx flx-col flx-align-center">
+            <div className="content-wrapper map-off itinerary flx flx-col flx-align-center">
 
 
-            {/** Cover Content **/}
-            <div className="itinerary__cover__text w-100">
-              <div className="it__cover__inner flx flx-row flx-just-start ta-left w-100 w-max">
-                <div className="it__author-wrapper flx flx-col flx-center-all mrgn-bottom-sm">
-                  <div className="itinerary__cover__author-photo">
+              {/** Cover Content **/}
+              <div className="itinerary__cover__text w-100">
+                <div className="it__cover__inner flx flx-row flx-just-start ta-left w-100 w-max">
+                  <div className="it__author-wrapper flx flx-col flx-center-all mrgn-bottom-sm">
+                    <div className="itinerary__cover__author-photo">
+                        <Link
+                        to={`/${createdByUsername}`}
+                        className="">
+                        <ProfilePic src={createdByImage} className="center-img" />
+                        </Link>
+                    </div>
+                    <div className="itinerary__cover__username">
                       <Link
                       to={`/${createdByUsername}`}
                       className="">
-                      <ProfilePic src={createdByImage} className="center-img" />
+                      {createdByUsername}
                       </Link>
+                    </div>
                   </div>
-                  <div className="itinerary__cover__username">
-                    <Link
-                    to={`/${createdByUsername}`}
-                    className="">
-                    {createdByUsername}
-                    </Link>
+                 
+
+
+                {/** <<<<<< CENTER INFO **/}
+                <div className="it__title-module flx flx-col flx-just-start ta-center">
+                
+                 
+                  {/** Flag and Geo **/}
+                  <Link to={`/places/${itinerary.geo.placeId}`}>
+                  <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm mrgn-top-xs">
+                    <div className={'itinerary__cover__flag flx-hold flag-' + itinerary.geo.country}>
+                    </div>
+                    <div className="geo-type ellipsis opa-30">
+                    {itinerary.geo.label}
+                    </div>
                   </div>
-                </div>
-               
+                  </Link>
 
-
-              {/** <<<<<< CENTER INFO **/}
-              <div className="it__title-module flx flx-col flx-just-start ta-center">
-              
-               
-                {/** Flag and Geo **/}
-                <Link to={`/places/${itinerary.geo.placeId}`}>
-                <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm mrgn-top-xs">
-                  <div className={'itinerary__cover__flag flx-hold flag-' + itinerary.geo.country}>
+                  {/** TITLE **/}
+                  <Link to={`/guide/${this.props.itineraryId}`}>
+                  <div className="itinerary__cover__title ta-left v2-type-h2">
+                    {itinerary.title}
                   </div>
-                  <div className="geo-type ellipsis opa-30">
-                  {itinerary.geo.label}
+                  </Link>
+
+                  {/** DESCRIPTION **/}
+                  <div className="itinerary__cover__descrip v2-type-body3 ta-left mrgn-top-sm opa-80">
+                     {itinerary.description}
                   </div>
-                </div>
-                </Link>
 
-                {/** TITLE **/}
-                <Link to={`/guide/${this.props.itineraryId}`}>
-                <div className="itinerary__cover__title ta-left v2-type-h2">
-                  {itinerary.title}
-                </div>
-                </Link>
-
-                {/** DESCRIPTION **/}
-                <div className="itinerary__cover__descrip v2-type-body3 ta-left mrgn-top-sm opa-80">
-                   {itinerary.description}
-                </div>
-
-                {/** TIMESTAMP **/}
-                <div className="itinerary__cover__timestamp ta-center pdding-top-sm opa-30 DN">
-                  <DisplayTimestamp timestamp={itinerary.lastModified} />
-                  {/*(new Date(itinerary.lastModified)).toLocaleString()*/}
-                </div> 
+                  {/** TIMESTAMP **/}
+                  <div className="itinerary__cover__timestamp ta-center pdding-top-sm opa-30 DN">
+                    <DisplayTimestamp timestamp={itinerary.lastModified} />
+                    {/*(new Date(itinerary.lastModified)).toLocaleString()*/}
+                  </div> 
 
 
 
-                {/** -------- AUTHOR CONTROLS **/}
-                <div className="it-author-controls w-100 w-max flx flx-row flx-just-start flx-align-center ta-center pdding-top-sm pdding-bottom-sm">
-                  <div className="w-100 w-max flx flx-row flx-just-start flx-align-center ta-center pdding-right-md">
-                    <div className="flx flx-row flx-center-all">
-                      <div className="it__tip-count flx flx-row flx-just-end flx-align-center opa-60 mrgn-right-md">
-                        {itinerary.reviewsCount} tips
+                  {/** -------- AUTHOR CONTROLS **/}
+                  <div className="it-author-controls w-100 w-max flx flx-row flx-just-start flx-align-center ta-center pdding-top-sm pdding-bottom-sm">
+                    <div className="w-100 w-max flx flx-row flx-just-start flx-align-center ta-center pdding-right-md">
+                      <div className="flx flx-row flx-center-all">
+                        <div className="it__tip-count flx flx-row flx-just-end flx-align-center opa-60 mrgn-right-md">
+                          {itinerary.reviewsCount} tips
+                        </div>
+
+                        <EditItineraryLink isUser={isUser} itineraryId={this.props.itineraryId} />
+
+                        <ItineraryActions 
+                          itinerary={itinerary} 
+                          authenticated={this.props.authenticated} 
+                          canModify={canModify} 
+                          deleteItinerary={this.props.showDeleteModal} 
+                          redirectPath="/" />
+
                       </div>
 
-                      <EditItineraryLink isUser={isUser} itineraryId={this.props.itineraryId} />
 
-                      <ItineraryActions 
-                        itinerary={itinerary} 
-                        authenticated={this.props.authenticated} 
-                        canModify={canModify} 
-                        deleteItinerary={this.props.showDeleteModal} 
-                        redirectPath="/" />
+                      {/* Like */}
+                      <div className="cta-wrapper flx flx-row vb vb--sm vb--outline fill--white color--black">
+                        <LikeReviewButton
+                          authenticated={this.props.authenticated}
+                          isLiked={this.props.itinerary.isLiked}
+                          likesCount={itinerary.likesCount}
+                          unLike={this.props.unLikeReview}
+                          like={this.props.likeReview} 
+                          likeObject={itinerary}
+                          itineraryId={this.props.itineraryId}
+                          type={ITINERARY_TYPE} />
+                      </div>
+                    </div>{/** END MAX div **/}
 
-                    </div>
+                  </div>
+                  {/** AUTHOR CONTROLS >>>>>> **/}
 
-
-                    {/* Like */}
-                    <div className="cta-wrapper flx flx-row vb vb--sm vb--outline fill--white color--black">
-                      <LikeReviewButton
-                        authenticated={this.props.authenticated}
-                        isLiked={this.props.itinerary.isLiked}
-                        likesCount={itinerary.likesCount}
-                        unLike={this.props.unLikeReview}
-                        like={this.props.likeReview} 
-                        likeObject={itinerary}
-                        itineraryId={this.props.itineraryId}
-                        type={ITINERARY_TYPE} />
-                    </div>
-                  </div>{/** END MAX div **/}
+                  </div>
 
                 </div>
-                {/** AUTHOR CONTROLS >>>>>> **/}
+                {/** >>>>>> CLOSE CENTER INFO **/}
 
+              </div>
+              {/** Close Cover Text DIV >>>>>> **/}  
+
+
+
+
+              <div className="itinerary__cover flx flx-row flx-just-start header-height">
+                
+
+                {/** Cover Image **/}
+                <div className="itinerary__cover__image header-height">
+                  <ImagePicker images={itinerary.images ? [itinerary.images] : null} />
+                  <div className={'flx flx-col flx-center-all v2-type-body3 cover__loading loading-done-' + this.props.coverPicProgress}>
+                    Uploading New Cover Photo...
+                  </div> 
+                  <div className="vb--change-cover">
+                  <UpdateCoverPhoto isUser={isUser} itinerary={itinerary} itineraryId={itinerary.id} 
+                    uploadCoverPhoto={this.props.uploadCoverPhoto} authenticated={this.props.authenticated} />
+                  </div>
                 </div>
 
+            
+
               </div>
-              {/** >>>>>> CLOSE CENTER INFO **/}
+              {/** ----- Close itinerary__cover DIV ----- **/}  
 
-            </div>
-            {/** Close Cover Text DIV >>>>>> **/}  
-
+             
 
 
 
-            <div className="itinerary__cover flx flx-row flx-just-start header-height">
-              
 
-              {/** Cover Image **/}
-              <div className="itinerary__cover__image header-height">
-                <ImagePicker images={itinerary.images ? [itinerary.images] : null} />
-                <div className={'flx flx-col flx-center-all v2-type-body3 cover__loading loading-done-' + this.props.coverPicProgress}>
-                  Uploading New Cover Photo...
-                </div> 
-                <div className="vb--change-cover">
-                <UpdateCoverPhoto isUser={isUser} itinerary={itinerary} itineraryId={itinerary.id} 
-                  uploadCoverPhoto={this.props.uploadCoverPhoto} authenticated={this.props.authenticated} />
+
+
+              <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
+                  <TipList
+                    tipList={this.props.tips} 
+                    reviewsCount={itinerary.reviewsCount}
+                    authenticated={this.props.authenticated}
+                    like={this.props.likeReview} 
+                    unLike={this.props.unLikeReview}
+                    userInfo={this.props.userInfo}
+                    showModal={this.props.showModal}
+                    deleteComment={this.props.onDeleteComment}
+                    itineraryId={this.props.itinerary.id}
+                    itinerary={itinerary}
+                    canModify={canModify}
+
+                    updateRating={this.props.onUpdateRating}
+                    onSetPage={this.onSetPage}
+                    deleteReview={this.props.onDeleteReview} />
+              </div>
+
+              <div className="itinerary__comments-module flx flx-col flx-align-start flx-just-start w-max-2">
+                <div className="v2-type-h3 mrgn-top-md mrgn-bottom-md ta-left w-100">
+                  Comments
                 </div>
+                <div className="v2-type-body2 mrgn-bottom-sm ta-left w-100 opa-40 DN">
+                  What do you think about {createdByUsername}'s View?
+                </div>
+                <CommentContainer
+                authenticated={this.props.authenticated}
+                userInfo={this.props.userInfo}
+                type={ITINERARY_TYPE}
+                comments={Selectors.getItineraryComments(this.props.commentsData, this.props.itinerary.id) || []}
+                errors={this.props.commentErrors}
+                commentObject={itinerary}
+                deleteComment={this.props.onDeleteComment}
+                itineraryId={this.props.itinerary.id} />
               </div>
 
-          
-
             </div>
-            {/** ----- Close itinerary__cover DIV ----- **/}  
-
-           
-
-
-
-
-
-
-            <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
-                <TipList
-                  tipList={tipList} 
-                  reviewsCount={itinerary.reviewsCount}
-                  authenticated={this.props.authenticated}
-                  like={this.props.likeReview} 
-                  unLike={this.props.unLikeReview}
-                  userInfo={this.props.userInfo}
-                  showModal={this.props.showModal}
-                  deleteComment={this.props.onDeleteComment}
-                  itineraryId={this.props.itinerary.id}
-                  itinerary={itinerary}
-                  canModify={canModify}
-
-                  updateRating={this.props.onUpdateRating}
-                  onSetPage={this.onSetPage}
-                  deleteReview={this.props.onDeleteReview} />
-            </div>
-
-            <div className="itinerary__comments-module flx flx-col flx-align-start flx-just-start w-max-2">
-              <div className="v2-type-h3 mrgn-top-md mrgn-bottom-md ta-left w-100">
-                Comments
-              </div>
-              <div className="v2-type-body2 mrgn-bottom-sm ta-left w-100 opa-40 DN">
-                What do you think about {createdByUsername}'s View?
-              </div>
-              <CommentContainer
-              authenticated={this.props.authenticated}
-              userInfo={this.props.userInfo}
-              type={ITINERARY_TYPE}
-              comments={Selectors.getItineraryComments(this.props.commentsData, this.props.itinerary.id) || []}
-              errors={this.props.commentErrors}
-              commentObject={itinerary}
-              deleteComment={this.props.onDeleteComment}
-              itineraryId={this.props.itinerary.id} />
-            </div>
-
+            {/*<BackToTop />*/}
           </div>
-          {/*<BackToTop />*/}
-        </div>
-      )
+        )
+      }
     }
   }
 }

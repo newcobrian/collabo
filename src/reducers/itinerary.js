@@ -5,7 +5,7 @@ import { findIndexByValue } from '../helpers';
 import { filter, isEqual, find, omit } from 'lodash';
 
 const initialState = { usersData: {}, reviewsData: {}, tipsData: {}, subjectsData: {}, itinerary: {}, commentsData: {}, 
-  userImagesData: {}, defaultImagesData: {}, likesData: {}, tips: [] };
+  userImagesData: {}, defaultImagesData: {}, likesData: {}, tips: [], formErrors: { title: false, geo: false } };
 
 const getImage = (userImages, defaultImages) => {
   let defaultImage = defaultImages ? defaultImages : [];
@@ -415,6 +415,18 @@ export default (state = initialState, action) => {
         }
       }
       return state;
+    }
+    case ActionTypes.UPDATE_ITINERARY_FORM:
+      return {
+        ...state,
+        [action.key]: action.value
+      }
+    case ActionTypes.UPDATE_ITINERARY_FORM_ERRORS: {
+      const newState = Object.assign({}, state);
+      newState.formErrors = newState.formErrors || { title: false, geo: false};
+      newState.formErrors = Object.assign({}, newState.formErrors);
+      newState.formErrors[action.field] = action.value;
+      return newState;
     }
     case ActionTypes.UPLOAD_ERROR:
       return {
