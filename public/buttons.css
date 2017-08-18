@@ -16,6 +16,7 @@ input, button, select, textarea {
   /*margin-left: -10px;*/
   padding: 0;
   border: none; 
+  background-color: transparent;
 }
 .page-edit-own input:hover,
 .page-edit-own textarea:hover {
@@ -323,7 +324,7 @@ select {
   padding: 10px 0 10px 10px;
   width: 100%;
 }
-.page-edit-own .geosuggest__input {
+.page-edit-own .it__title-module .geosuggest__input {
   opacity: .5;
     text-transform: uppercase;
 }
@@ -345,6 +346,7 @@ select {
   /*font-family: 'Arimo', sans-serif;*/
   font-size: 15px;
   letter-spacing: 2px;
+  text-align: left;
 }
 .geosuggest__item:hover {
   cursor: pointer;

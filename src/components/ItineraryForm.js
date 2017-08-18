@@ -48,8 +48,9 @@ const UpdateCoverPhoto = props => {
         multiple={false}
         accept="image/*"
         className="edit-tip__dropzone__touch flx flx-col flx-align-center flx-just-start ta-center">
-        <div className="vb vb--light vb--outline--none mrgn-right-md">Change cover photo</div>
-
+        <div className="vb vb--sm vb--shadow-none fill--white color--black opa-80">
+          <i className="material-icons color--primary md-24">add_a_photo</i>
+        </div>
       </Dropzone>
       
     </div>
@@ -206,26 +207,34 @@ class ItineraryForm extends React.Component {
         let latLng = new this.props.googleObject.maps.LatLng(geo.location.lat, geo.location.lng);
         
         return (
-          <Geosuggest 
-            className="input--underline w-100"
-            placeholder="Search for a place (e.g. 'Yosemite National Park' or 'W Hotel')"
-            location={latLng}
-            radius={1000}
-            onSuggestSelect={suggestSelectTip}/>
+          <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--primary">
+
+            <i className="material-icons color--white md-36 mrgn-right-md">add</i>
+
+            <Geosuggest 
+              className="input--underline w-100 color--white"
+              placeholder="Search for a place (e.g. 'Yosemite National Park' or 'W Hotel')"
+              location={latLng}
+              radius={1000}
+              onSuggestSelect={suggestSelectTip}/>
+          </div>
         )
       }
       else return (
-        <Geosuggest 
-          className="input--underline w-100"
-          placeholder="Search for a place (e.g. 'Yosemite National Park' or 'W Hotel')"
-          onSuggestSelect={suggestSelectTip}/>
+        <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--primary">
+          <i className="material-icons color--white md-36 mrgn-right-md">add</i>
+          <Geosuggest 
+            className="input--underline w-100 color--white"
+            placeholder="Search for a place (e.g. 'Yosemite National Park' or 'W Hotel')"
+            onSuggestSelect={suggestSelectTip}/>
+        </div>
       )
     }
 
     return (
       <div className="flx flx-col flx-align-start page-common page-itinerary page-edit-own">
 
-        <div className="content-wrapper map-off itinerary flx flx-col flx-align-center">
+        <div className="content-wrapper itinerary flx flx-col flx-align-center map-on">
 
 
           {/** Cover Content **/}
@@ -259,9 +268,9 @@ class ItineraryForm extends React.Component {
               <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm mrgn-top-xs w-100">
                 <div className={'itinerary__cover__flag flx-hold flag-' + itinerary.geo.country}>
                 </div>
-                <div className="geo-type ellipsis w-100">
+                <div className="geo-type ellipsis w-100 flx flx-row flx-align-center flx-just-start">
                   <Geosuggest 
-                    classname="input--underline w-100"
+                    className="input--underline w-100"
                     types={['(regions)']}
                     placeholder="Search for a location (e.g. 'New York' or 'Japan')"
                     required
@@ -451,7 +460,7 @@ class ItineraryForm extends React.Component {
                                       { /** END Author **/ }
 
                                       { /** Caption **/ }
-                                      <div className="tip__caption-module flx flx-col w-100 pdding-right-md mrgn-bottom-sm">
+                                      <div className="tip__caption-module flx flx-col w-100 pdding-right-lg mrgn-bottom-sm">
                                         <div className="tip__caption v2-type-body2 ta-left opa-90">
                                           <RenderDebounceInput
                                             type="textarea"
@@ -505,8 +514,10 @@ class ItineraryForm extends React.Component {
 
                                
                               </div> { /** End photo / copy row **/ }
+                              <div className="it-map-container">
+                              </div>
 
-                          </div> 
+                          </div> { /** END Content-wrapper **/}
                         </div>
                   );
                 })

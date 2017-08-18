@@ -294,9 +294,11 @@ width: 100%;
   left: 10px;
 }
 
-.cover-height {
+.cover-height,
+.page-itinerary .itinerary__cover .header-height {
   height: 180px;
 }
+
 .itinerary__cover__image .header-height {
   height: 280px;
 }
@@ -455,7 +457,7 @@ width: 100%;
 .tip-wrapper .tip-container {
     -webkit-flex-direction: column;
     flex-direction: column;
-    padding: 10px;
+    padding: 40px 20px;
 }
 .tip-wrapper .tip__cta-box {
   -webkit-flex-direction: row;
@@ -614,4 +616,26 @@ body .back-to-top {
     bottom: 80px;
     right: 20px;
   }
+
+  .it-add-wrapper {
+  padding: 20px;
 }
+.it-add-wrapper .geosuggest {
+  margin-left: 0;
+}
+
+
+.content-wrapper.map-on {
+  width: 100%;
+}
+.it-map-container {
+  display: none;
+}
+
+}
+
+
+
+
+
+

@@ -136,7 +136,7 @@ const TipPreview = props => {
                   { /** END Author **/ }
 
                   { /** Caption **/ }
-                  <div className="tip__caption-module flx flx-col w-100 pdding-right-md mrgn-bottom-sm">
+                  <div className="tip__caption-module flx flx-col w-100 pdding-right-lg mrgn-bottom-sm">
                     <div className="tip__caption v2-type-body2 ta-left opa-90">
                       <CaptionDisplay tip={props.tip} />
                     </div>

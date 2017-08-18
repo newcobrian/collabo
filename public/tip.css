@@ -5,7 +5,7 @@
 }
 .tip-container {
 	width: 100%;
-	padding: 20px;
+	padding: 30px 20px;
 }
 .tip-inner {
 }
@@ -65,7 +65,7 @@
     display: inline-block;
 }
 .tip__content-wrapper {
-	margin-left: 40px;
+	margin-left: 30px;
 	width:100%;
 }
 

@@ -151,7 +151,7 @@ class Itinerary extends React.Component {
         return (
           <div className="flx flx-col flx-align-start page-common page-itinerary">
 
-            <div className="content-wrapper map-off itinerary flx flx-col flx-align-center">
+            <div className="content-wrapper itinerary flx flx-col flx-align-center map-on">
 
 
               {/** Cover Content **/}
@@ -323,6 +323,8 @@ class Itinerary extends React.Component {
                 itineraryId={this.props.itinerary.id} />
               </div>
 
+            </div> {/*Content Wrapper*/}
+            <div className="it-map-container">
             </div>
             {/*<BackToTop />*/}
           </div>
