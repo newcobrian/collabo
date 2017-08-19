@@ -473,6 +473,7 @@ textarea.edit-itinerary__name {
 .geosuggest__suggests-wrapper {
 	position: absolute;
 	z-index: 1;
+	color: #121419;
 }
 
 .it-add-wrapper {

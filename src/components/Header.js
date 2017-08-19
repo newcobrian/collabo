@@ -94,10 +94,11 @@ class Header extends React.Component {
               </div>
           </Link>
 
-          <LoggedOutView currentUser={this.props.currentUser} />
-
-          <LoggedInView currentUser={this.props.currentUser} userInfo={this.props.userInfo} unreadMessages={this.props.unreadMessages} />
+          
         </div>
+        <LoggedOutView currentUser={this.props.currentUser} />
+
+        <LoggedInView currentUser={this.props.currentUser} userInfo={this.props.userInfo} unreadMessages={this.props.unreadMessages} />
       </div>
     );
   }
