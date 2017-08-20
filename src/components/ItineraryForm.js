@@ -59,7 +59,8 @@ const UpdateCoverPhoto = props => {
 
 const mapStateToProps = state => ({
   ...state.itinerary,
-  authenticated: state.common.authenticated
+  authenticated: state.common.authenticated,
+  userInfo: state.common.userInfo
 });
 
 class ItineraryForm extends React.Component {
@@ -194,10 +195,10 @@ class ItineraryForm extends React.Component {
           if (place.photos && place.photos[0]) {
             resultObject.defaultImage = [ place.photos[0].getUrl({'maxWidth': 1225, 'maxHeight': 500}) ];
           }
-          // addTipFun(auth, resultObject, itinerary)
+          addTipFun(auth, resultObject, itinerary)
         }
         else {
-          // addTipFun(auth, resultObject, itinerary)
+          addTipFun(auth, resultObject, itinerary)
         }
       })
     }
@@ -475,15 +476,14 @@ class ItineraryForm extends React.Component {
 
                                       { /** Comments **/ }
                                       <div className="flx flx-row flex-wrap cta-container">
-                                        {/*} <CommentContainer
-                                            authenticated={props.authenticated}
+                                         <CommentContainer
+                                            authenticated={this.props.authenticated}
                                             comments={tip.comments || []}
-                                            errors={props.commentErrors}
                                             commentObject={tip}
-                                            itineraryId={props.itineraryId}
-                                            userInfo={props.userInfo}
+                                            itineraryId={this.props.itineraryId}
+                                            userInfo={this.props.userInfo}
                                             type={Constants.REVIEW_TYPE}
-                                            deleteComment={props.deleteComment} /> */}
+                                            deleteComment={this.props.onDeleteComment} />
                                       </div> 
                                       {/* Action Module */}
                                       <div className="tip__cta-box w-100 flx flx-row flx-just-start flx-align-center mrgn-top-md">
@@ -500,7 +500,7 @@ class ItineraryForm extends React.Component {
                                           <LikeReviewButton
                                             authenticated={this.props.authenticated}
                                             isLiked={tip.isLiked}
-                                            likesCount={tip.review.likesCount}
+                                            likesCount={tip.likesCount}
                                             unLike={this.props.unLikeReview}
                                             like={this.props.likeReview} 
                                             likeObject={tip}
@@ -511,9 +511,8 @@ class ItineraryForm extends React.Component {
                                       {/* END Action Module */}
                                     </div>
                                   </div>
-
-                               
                               </div> { /** End photo / copy row **/ }
+
                               <div className="it-map-container">
                               </div>
 
@@ -525,7 +524,23 @@ class ItineraryForm extends React.Component {
             </div>
             {renderGeoSuggestTip(itinerary.geo)}
           </div>
-
+          <div className="itinerary__comments-module flx flx-col flx-align-start flx-just-start w-max-2">
+            <div className="v2-type-h3 mrgn-top-md mrgn-bottom-md ta-left w-100">
+              Comments
+            </div>
+            <div className="v2-type-body2 mrgn-bottom-sm ta-left w-100 opa-40 DN">
+              What do you think about {createdByUsername}'s View?
+            </div>
+            <CommentContainer
+            authenticated={this.props.authenticated}
+            userInfo={this.props.userInfo}
+            type={Constants.ITINERARY_TYPE}
+            comments={Selectors.getItineraryComments(this.props.commentsData, this.props.itinerary.id) || []}
+            errors={this.props.commentErrors}
+            commentObject={itinerary}
+            deleteComment={this.props.onDeleteComment}
+            itineraryId={this.props.itineraryId} />
+          </div>
         </div>
     );
   }

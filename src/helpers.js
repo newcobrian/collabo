@@ -57,13 +57,13 @@ export function getTagsArray(tagsSnap) {
 	return tagsArray;
 }
 
-export function makeSubject(review, lastModified) {
-	let subject = { title: review.title };
-	if (review.address) subject.address = review.address;
-	if (review.internationalPhoneNumber) subject.internationalPhoneNumber = review.formattedPhoneNumber;
-	if (review.hours) subject.hours = review.hours;
-	if (review.permanentlyClosed) subject.permanentlyClosed = review.permanentlyClosed;
-	if (review.website) subject.website = review.website;
+export function makeSubject(result, lastModified) {
+	let subject = { title: result.title };
+	if (result.address) subject.address = result.address;
+	if (result.internationalPhoneNumber) subject.internationalPhoneNumber = result.formattedPhoneNumber;
+	if (result.hours) subject.hours = result.hours;
+	if (result.permanentlyClosed) subject.permanentlyClosed = result.permanentlyClosed;
+	if (result.website) subject.website = result.website;
 	return Object.assign(subject, lastModified);
 }
 

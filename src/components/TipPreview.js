@@ -170,7 +170,7 @@ const TipPreview = props => {
                       <LikeReviewButton
                         authenticated={props.authenticated}
                         isLiked={props.tip.isLiked}
-                        likesCount={props.tip.review.likesCount}
+                        likesCount={props.tip.likesCount}
                         unLike={props.unLike}
                         like={props.like} 
                         likeObject={tip}

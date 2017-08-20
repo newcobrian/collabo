@@ -20,7 +20,7 @@ const LikeReviewButton = props => {
   const handleClick = ev => {
     ev.preventDefault();
     if (props.isLiked) {
-      props.unLike(props.authenticated, props.type, props.likeObject);
+      props.unLike(props.authenticated, props.type, props.likeObject, props.itineraryId);
     } else {
       props.like(props.authenticated, props.type, props.likeObject, props.itineraryId);
     }

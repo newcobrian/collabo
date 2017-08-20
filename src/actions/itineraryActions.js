@@ -55,7 +55,7 @@ function itineraryValueAction(itinerary, itineraryId, userId, source) {
 }
 
 function subjectValueAction(subjectId, subject, source) {
-  delete subject.lastModified;
+  if (subject) delete subject.lastModified;
   return {
     type: ActionTypes.SUBJECT_VALUE_ACTION,
     dataName: Constants.SUBJECTS_DATA,
@@ -94,31 +94,31 @@ function reviewRemovedAction(reviewId, source) {
   }
 }
 
-function tipAddedAction(priority, tip, source) {
+function tipAddedAction(tipId, tip, source) {
   delete tip.lastModified;
   return {
     type: ActionTypes.TIP_ADDED_ACTION,
-    priority,
+    tipId,
     tip,
     source
   }
 }
 
-function tipChangedAction(priority, tip, source) {
+function tipChangedAction(tipId, tip, source) {
   delete tip.lastModified;
   return {
     type: ActionTypes.TIP_CHANGED_ACTION,
-    priority,
+    tipId,
     tip,
     source
   }
 }
 
-function tipRemovedAction(priority, source) {
+function tipRemovedAction(tipId, source) {
   return {
     type: ActionTypes.TIP_REMOVED_ACTION,
     dataName: Constants.TIPS_DATA,
-    id: priority,
+    tipId,
     source
   }
 }
@@ -179,32 +179,32 @@ function defaultImagesRemovedAction(subjectId, source) {
 }
 
 export function watchTips(dispatch, itineraryId, itineraryUserId, source) {
-  Firebase.database().ref(Constants.REVIEWS_BY_ITINERARY_PATH + '/' + itineraryId).on('child_added', tipSnapshot => {
+  Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).on('child_added', tipSnapshot => {
     if (tipSnapshot.val().userId && tipSnapshot.val().userId !== itineraryUserId) {
       watchUser(dispatch, tipSnapshot.val().userId, source)
     }
     watchSubject(dispatch, tipSnapshot.key, tipSnapshot.val().subjectId, source);
     watchReview(dispatch, tipSnapshot.key, tipSnapshot.val().reviewId, source);
-    watchComments(dispatch, tipSnapshot.val().reviewId, source);
+    watchComments(dispatch, tipSnapshot.key, source);
     watchImagesByUser(dispatch, itineraryUserId, tipSnapshot.val().subjectId, source);
     watchDefaultImages(dispatch, tipSnapshot.val().subjectId, source);
     dispatch(tipAddedAction(tipSnapshot.key, tipSnapshot.val(), source));
   })
 
   // on child changed, how do we unwatch old refs?
-  Firebase.database().ref(Constants.REVIEWS_BY_ITINERARY_PATH + '/' + itineraryId).on('child_changed', tipSnapshot => {
+  Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).on('child_changed', tipSnapshot => {
     watchSubject(dispatch, tipSnapshot.key, tipSnapshot.val().subjectId, source);
     watchReview(dispatch, tipSnapshot.key, tipSnapshot.val().reviewId, source);
-    watchComments(dispatch, tipSnapshot.val().reviewId, source);
+    watchComments(dispatch, tipSnapshot.key, source);
     watchImagesByUser(dispatch, itineraryUserId, tipSnapshot.val().subjectId, source);
     watchDefaultImages(dispatch, tipSnapshot.val().subjectId, source);
     dispatch(tipChangedAction(tipSnapshot.key, tipSnapshot.val(), source));
   })
 
-  Firebase.database().ref(Constants.REVIEWS_BY_ITINERARY_PATH + '/' + itineraryId).on('child_removed', tipSnapshot => {
+  Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).on('child_removed', tipSnapshot => {
     unwatchSubject(dispatch, tipSnapshot.key, tipSnapshot.val().subjectId, source);
     unwatchReview(dispatch, tipSnapshot.key, tipSnapshot.val().reviewId, source);
-    unwatchComments(dispatch, tipSnapshot.val().reviewId, source);
+    unwatchComments(dispatch, tipSnapshot.key, source);
     unwatchImagesByUser(dispatch, itineraryUserId, tipSnapshot.val().subjectId, source);
     unwatchDefaultImages(dispatch, tipSnapshot.val().subjectId, source);
     dispatch(tipRemovedAction(tipSnapshot.key, source));
@@ -212,17 +212,17 @@ export function watchTips(dispatch, itineraryId, itineraryUserId, source) {
 }
 
 export function unwatchTips(dispatch, itineraryId, itineraryUserId, source) {
-  Firebase.database().ref(Constants.REVIEWS_BY_ITINERARY_PATH + '/' + itineraryId).once('value', tipSnapshot => {
+  Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).once('value', tipSnapshot => {
     if (tipSnapshot.val().userId && tipSnapshot.val().userId !== itineraryUserId) {
       unwatchUser(dispatch, tipSnapshot.val().userId, source)
     }
     unwatchSubject(dispatch, tipSnapshot.key, tipSnapshot.val().subjectId, source);
     unwatchReview(dispatch, tipSnapshot.key, tipSnapshot.val().reviewId, source);
-    unwatchComments(dispatch, tipSnapshot.val().reviewId, source);
+    unwatchComments(dispatch, tipSnapshot.key, source);
     unwatchImagesByUser(dispatch, itineraryUserId, tipSnapshot.val().subjectId, source);
     unwatchDefaultImages(dispatch, tipSnapshot.val().subjectId, source);
   })
-  Firebase.database().ref(Constants.REVIEWS_BY_ITINERARY_PATH + '/' + itineraryId).off();
+  Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).off();
 }
 
 export function watchSubject(dispatch, priority, subjectId, source) {
@@ -369,7 +369,7 @@ export function updateItineraryGeo(auth, itinerary, newGeo) {
         dispatch({
           type: ActionTypes.ITINERARY_UPDATED,
           itineraryId: itinerary.id,
-          message: itinerary.title + ' saved',
+          message: 'Your guide has been updated',
           meta: {
             mixpanel: {
               event: 'Itinerary updated',
@@ -412,7 +412,7 @@ export function updateReviewField(auth, itinerary, field, value, tip) {
       dispatch({
         type: ActionTypes.ITINERARY_UPDATED,
         itineraryId: itinerary.id,
-        message: 'Saved your aption for ' + tip.subject.title,
+        message: 'Updated your review for ' + tip.subject.title,
         meta: {
           mixpanel: {
             event: 'Itinerary updated',
@@ -438,17 +438,20 @@ export function updateItineraryFormErrors(field, value) {
 
 export function addTip(auth, result, itinerary) {
   return dispatch => {
-    // make the subject
-
-    // make the review and update all reviews tables
-    // push to reviews-by-itinerary
-
-    //
-
     let lastModified = Firebase.database.ServerValue.TIMESTAMP;
-    let subject = Helpers.makeSubject(result, lastModified);
-    let subjectId = ''
-    let updates = {}
+    // let subject = Helpers.makeSubject(Object.assign({}, result), lastModified);
+    let subjectId = '';
+    let updates = {};
+
+    let subject = {
+      title: result.title,
+      lastModified: lastModified
+    }
+    if (result.address) subject.address = result.address;
+    if (result.internationalPhoneNumber) subject.internationalPhoneNumber = result.formattedPhoneNumber;
+    if (result.hours) subject.hours = result.hours;
+    if (result.permanentlyClosed) subject.permanentlyClosed = result.permanentlyClosed;
+    if (result.website) subject.website = result.website;
 
     // create the subject
     // if no subject id returned from Google, this is a custom subject so save it
@@ -460,7 +463,7 @@ export function addTip(auth, result, itinerary) {
       // overwrite whatever the old subject info was
       subjectId = result.id;
       updates[`/${Constants.SUBJECTS_PATH}/${subjectId}`] = subject;
-      
+
       // upload a default image if we dont have one yet
       if (result.defaultImage && result.defaultImage[0]) {
         Firebase.database().ref(Constants.IMAGES_PATH + '/' + subjectId).once('value', imageCheckSnap => {
@@ -483,18 +486,20 @@ export function addTip(auth, result, itinerary) {
       }
       else {
         // make the review
-        let reviewBySubject = Object.assign({}, {lastModified: lastModified});
         let review = Object.assign({}, {subjectId: subjectId}, {lastModified: lastModified})
 
         reviewId = Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + auth).push(review).key;
+
+        let reviewBySubject = Object.assign({}, {lastModified: lastModified}, {reviewId: reviewId});
 
         // update REVIEWS_BY_USER, REVIEWS_BY_SUBJECT, and REVIEWS tables
         updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${subjectId}/${auth}/`] = reviewBySubject;
         updates[`/${Constants.REVIEWS_PATH}/${reviewId}/`] = Object.assign({}, review, { userId: auth })
       }
 
-      let tipObject = Object.assign({}, { subjectId: subjectId }, { reviewId: reviewId }, { userId: auth }, {priority: itinerary.reviewsCount + 1});
-      let tipId = Firebase.database().ref(Constants.REVIEWS_BY_ITINERARY_PATH + '/' + itinerary.id).push(tipObject).key;
+      let reviewsCount = itinerary.reviewsCount ? itinerary.reviewsCount : 0;
+      let tipObject = Object.assign({}, { subjectId: subjectId }, { reviewId: reviewId }, { userId: auth }, {priority: reviewsCount + 1});
+      let tipId = Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itinerary.id).push(tipObject).key;
 
       // update review counts on the itinerary
       Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + itinerary.userId + '/' + itinerary.id + '/reviewsCount').transaction(function (current_count) {
@@ -529,7 +534,7 @@ export function addTip(auth, result, itinerary) {
 //   return dispatch => {
 //     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).on('value', itinerarySnapshot => {
 //       if (itinerarySnapshot.exists()) {
-//         Firebase.database().ref(Constants.REVIEWS_BY_ITINERARY_PATH + '/' + itineraryId).on('value', reviewsListSnapshot => {
+//         Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).on('value', reviewsListSnapshot => {
 //           Firebase.database().ref(Constants.USERS_PATH + '/' + itinerarySnapshot.val().userId).on('value', userSnapshot => {
 //             Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itineraryId).on('value', itinLikeSnapshot => {
 //               let userInfo = { createdBy:

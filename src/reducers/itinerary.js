@@ -4,7 +4,7 @@ import * as Helpers from '../helpers';
 import { findIndexByValue } from '../helpers';
 import { filter, isEqual, find, omit } from 'lodash';
 
-const initialState = { usersData: {}, reviewsData: {}, tipsData: {}, subjectsData: {}, itinerary: {}, commentsData: {}, 
+const initialState = { usersData: {}, reviewsData: {}, subjectsData: {}, itinerary: {}, commentsData: {}, 
   userImagesData: {}, defaultImagesData: {}, likesData: {}, tips: [], formErrors: { title: false, geo: false } };
 
 const getImage = (userImages, defaultImages) => {
@@ -113,7 +113,7 @@ export default (state = initialState, action) => {
 
           // like any tips if ID matches
           for (let i = 0; i < newState.tips.length; i++) {
-            if (newState.tips[i].reviewId === action.objectId) {
+            if (newState.tips[i].key === action.objectId) {
               newState.tips[i].isLiked = true;
             }
           }
@@ -142,7 +142,7 @@ export default (state = initialState, action) => {
           newState.tips = newState.tips.slice();
           // like any tips if ID matches
           for (let i = 0; i < newState.tips.length; i++) {
-            if (newState.tips[i].reviewId === action.objectId) {
+            if (newState.tips[i].key === action.objectId) {
               newState.tips[i].isLiked = false;
             }
           }
@@ -151,7 +151,6 @@ export default (state = initialState, action) => {
       }
       return state;
     }
-    
     // case ActionTypes.REVIEW_REMOVED_ACTION:
     // case ActionTypes.SUBJECT_REMOVED_ACTION:
     // case ActionTypes.IMAGES_BY_USER_REMOVED_ACTION:
@@ -159,17 +158,14 @@ export default (state = initialState, action) => {
     case ActionTypes.TIP_REMOVED_ACTION: {
       if (action.source === Constants.ITINERARY_PAGE) {
         const newState = Object.assign({}, state);
-        newState[action.dataName] = newState[action.dataName] || {};
-        newState[action.dataName] = Object.assign({}, newState[action.dataName]);
-        if (newState[action.dataName][action.id]) {
-          newState[action.dataName][action.id] = undefined;
-
-          newState.tips = newState.tips || [];
-          newState.tips = newState.tips.slice();
-          // find the tip and remove it
-          delete newState.tips[action.id];
-
-          return newState;
+        newState.tips = newState.tips || [];
+        newState.tips = newState.tips.slice();
+        // find the tip and remove it
+        for (let i = 0; i < newState.tips.length; i++) {
+          if (newState.tips[i].key === action.tipId) {
+            newState.tips.splice(i, 1);
+            return newState;    
+          }
         }
       }
       return state;
@@ -270,20 +266,18 @@ export default (state = initialState, action) => {
     case ActionTypes.TIP_ADDED_ACTION: {
       if (action.source === Constants.ITINERARY_PAGE) {
         const newState = Object.assign({}, state);
-        newState.tipsData = newState.tipsData || {};
-        newState.tipsData = Object.assign({}, newState.tipsData);
-        if (!isEqual(newState.tipsData[action.priority], action.tip)) {
-          newState.tipsData[action.priority] = Object.assign({}, action.tip);
-
-          newState.tips = newState.tips || [];
-          newState.tips = newState.tips.slice();
+        newState.tips = newState.tips || [];
+        newState.tips = newState.tips.slice();
+        if (!find(newState.tips, ['key', action.tipId])) {
           let subject = { subject: Object.assign({}, newState.subjectsData[action.tip.subjectId]) };
           let review = { review: Object.assign({}, newState.reviewsData[action.tip.reviewId]) };
           let createdBy = { createdBy: Object.assign({}, newState.usersData[action.tip.userId]) };
-          let comments = { comments: newState.commentsData[action.tip.reviewId] ? [].concat(newState.commentsData[action.tip.reviewId]) : [] };
-          let isLiked = { isLiked: newState.likesData[action.tip.reviewId] ? true : false };
+          let comments = { comments: newState.commentsData[action.tipId] ? [].concat(newState.commentsData[action.tipId]) : [] };
+          let isLiked = { isLiked: newState.likesData[action.tipId] ? true : false };
           let images = getImage(newState.userImagesData[action.tip.subjectId], newState.defaultImagesData[action.tip.subjectId]);
-          newState.tips[action.priority] = Object.assign({}, {key: action.priority}, {priority: action.priority}, action.tip, subject, review, createdBy, comments, isLiked, images);
+          // newState.tips[action.priority] = Object.assign({}, {key: action.priority}, {priority: action.priority}, action.tip, subject, review, createdBy, comments, isLiked, images);
+          newState.tips = newState.tips.concat(Object.assign({}, {key: action.tipId}, {priority: action.priority}, action.tip, subject, review, createdBy, comments, isLiked, images));
+          newState.tips.sort(Helpers.byPriority);
           return newState;
         }
       }
@@ -292,22 +286,20 @@ export default (state = initialState, action) => {
     case ActionTypes.TIP_CHANGED_ACTION: {
       if (action.source === Constants.ITINERARY_PAGE) {
         const newState = Object.assign({}, state);
-        newState.tipsData = newState.tipsData || {};
-        newState.tipsData = Object.assign({}, newState.tipsData);
-        if (!isEqual(newState.tipsData[action.priority], action.tip)) {
-          newState.tipsData[action.priority] = Object.assign({}, action.tip);
-
-          newState.tips = newState.tips || [];
-          newState.tips = newState.tips.slice();
-          let subject = { subject: Object.assign({}, newState.subjectsData[action.tip.subjectId]) };
-          let review = { review: Object.assign({}, newState.reviewsData[action.tip.reviewId]) };
-          let createdBy = { createdBy: Object.assign({}, newState.usersData[action.tip.userId]) };
-          let comments = { comments: newState.commentsData[action.tip.reviewId] ? [].concat(newState.commentsData[action.tip.reviewId]) : [] };
-          let isLiked = { isLiked: newState.likesData[action.tip.reviewId] ? true : false };
-          let images = getImage(newState.userImagesData[action.tip.subjectId], newState.defaultImagesData[action.tip.subjectId]);
-          newState.tips[action.priority] = Object.assign({}, {key: action.priority}, {priority: action.priority}, action.tip, subject, review, createdBy, comments, isLiked, images);
-          return newState;
+        newState.tips = newState.tips || [];
+        newState.tips = newState.tips.slice();
+        let subject = { subject: Object.assign({}, newState.subjectsData[action.tip.subjectId]) };
+        let review = { review: Object.assign({}, newState.reviewsData[action.tip.reviewId]) };
+        let createdBy = { createdBy: Object.assign({}, newState.usersData[action.tip.userId]) };
+        let comments = { comments: newState.commentsData[action.tipId] ? [].concat(newState.commentsData[action.tipId]) : [] };
+        let isLiked = { isLiked: newState.likesData[action.tipId] ? true : false };
+        let images = getImage(newState.userImagesData[action.tip.subjectId], newState.defaultImagesData[action.tip.subjectId]);
+        for (let i = 0; i < newState.tips.length; i++) {
+          if (newState.tips[i].key === action.tipId) {
+            newState.tips[i] = Object.assign({}, {key: action.tipId}, {priority: action.priority}, action.tip, subject, review, createdBy, comments, isLiked, images);
+          }
         }
+        return newState;
       }
       return state;
     }
@@ -333,7 +325,7 @@ export default (state = initialState, action) => {
           newState.tips = newState.tips || [];
           newState.tips = newState.tips.slice();
           for (let i = 0; i < newState.tips.length; i++) {
-            if (newState.tips[i].reviewId === action.objectId) {
+            if (newState.tips[i].key === action.objectId) {
               newState.tips[i].comments = [].concat(newState.commentsData[action.objectId]);
             }
           }
@@ -364,7 +356,7 @@ export default (state = initialState, action) => {
         newState.tips = newState.tips || [];
         newState.tips = newState.tips.slice();
         for (let i = 0; i < newState.tips.length; i++) {
-          if (newState.tips[i].reviewId === action.objectId) {
+          if (newState.tips[i].key === action.objectId) {
             newState.tips[i].comments = [].concat(newState.commentsData[action.objectId]);
           }
         }
