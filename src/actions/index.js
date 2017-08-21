@@ -1773,8 +1773,11 @@ export function onDeleteComment(commentObject, commentId) {
   return dispatch => {
     if (commentObject.subjectId) {
       // this is a review comment
-      Firebase.database().ref(Constants.COMMENTS_PATH + '/' + commentObject.id + '/' + commentId).remove();
-      Helpers.decrementReviewCount(Constants.COMMENTS_COUNT, commentObject.id, commentObject.subjectId, commentObject.createdBy.userId);
+      Firebase.database().ref(Constants.COMMENTS_PATH + '/' + commentObject.key + '/' + commentId).remove();
+      // Helpers.decrementReviewCount(Constants.COMMENTS_COUNT, commentObject.id, commentObject.subjectId, commentObject.createdBy.userId);
+      Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + commentObject.key + '/commentsCount').transaction(function (current_count) {
+        return current_count && current_count > 1 ? current_count - 1 : 0;
+      })
     }
     // else this is an itinerary comment
     else {
