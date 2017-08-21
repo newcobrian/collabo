@@ -33,9 +33,11 @@ export function unwatchItinerary(auth, itineraryId) {
   return dispatch => {
     unwatchLikesByUser(dispatch, auth);
     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).once('value', itinerarySnapshot => {
-      unwatchUser(dispatch, itinerarySnapshot.val().userId, Constants.ITINERARY_PAGE);
-      unwatchTips(dispatch, itineraryId, itinerarySnapshot.val().userId, Constants.ITINERARY_PAGE);
-      unwatchComments(dispatch, itineraryId, Constants.ITINERARY_PAGE);
+      if (itinerarySnapshot.exists()) {
+        unwatchUser(dispatch, itinerarySnapshot.val().userId, Constants.ITINERARY_PAGE);
+        unwatchTips(dispatch, itineraryId, itinerarySnapshot.val().userId, Constants.ITINERARY_PAGE);
+        unwatchComments(dispatch, itineraryId, Constants.ITINERARY_PAGE);
+      }
     })
     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).off();
     dispatch({
@@ -436,7 +438,7 @@ export function updateItineraryFormErrors(field, value) {
   }
 }
 
-export function addTip(auth, result, itinerary) {
+export function onAddTip(auth, result, itinerary) {
   return dispatch => {
     let lastModified = Firebase.database.ServerValue.TIMESTAMP;
     // let subject = Helpers.makeSubject(Object.assign({}, result), lastModified);
@@ -527,6 +529,24 @@ export function addTip(auth, result, itinerary) {
       //   type: ActionTypes.ITINERARY_UPDATED
       // })
     })
+  }
+}
+
+export function onDeleteTip(auth, tip, itineraryId) {
+  return dispatch => {
+    // for every tip after deleted tip, subtract 1 from priority
+    // Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId + '/' tip.key).remove().then(
+    // response => {
+    //   Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).once('value', snap => {
+
+    //   })
+    // })
+  }
+}
+
+export function onReorderTips(auth) {
+  return dispatch => {
+    // move tip to correct priority, set priority of all tips after it
   }
 }
 

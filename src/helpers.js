@@ -311,6 +311,12 @@ export function sendInboxMessage(senderId, recipientId, messageType, sendObject,
 						inboxObject.link = '/guide/' + itineraryId;
 						emailMessage = ' saved your tip to their guide. Click here to check out your inbox: https://myviews.io/inbox';
 						break;
+					case Constants.USER_MENTIONED_TYPE:
+						inboxObject.senderId = senderId;
+						inboxObject.message = ' mentioned you in a comment. ';
+						inboxObject.link = '/guide/' + itineraryId;
+						emailMessage = ' mentioned you in a comment. Click here to check out your inbox: https://myviews.io/inbox';
+						break;
 				}
 				if (senderId !== recipientId) {
 					Firebase.database().ref(Constants.INBOX_PATH + '/' + recipientId).push().set(inboxObject);

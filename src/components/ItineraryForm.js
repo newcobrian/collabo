@@ -107,6 +107,11 @@ class ItineraryForm extends React.Component {
     this.changeCaption = tip => value => updateReviewFieldEvent('caption', value, tip)
     this.changeRating = tip => ev => updateReviewFieldEvent('rating', ev.target.value, tip)
 
+    this.deleteTip = tip => ev => {
+      ev.preventDefault();
+      this.props.onDeleteTip(this.props.authenticated, tip, this.props.itineraryId)
+    }
+
     this.suggestSelectGeo = result => {
       let geoData = {
         label: result.label,
@@ -151,7 +156,7 @@ class ItineraryForm extends React.Component {
     
     const itinerary = this.props.data;
     const {google} = this.props;
-    const addTipFun = this.props.addTip;
+    const addTipFun = this.props.onAddTip;
     const auth = this.props.authenticated;
 
     const createdByUsername = Selectors.getCreatedByUsername(this.props.itinerary);
@@ -381,6 +386,9 @@ class ItineraryForm extends React.Component {
                 itinerary.tips.map((tip, index) => {
                   return (
                     <div className="tip-wrapper flx flx-col flx-col w-100 w-max" key={index+1}>
+                      <div className="vb vb--sm vb--shadow-none fill--white color--primary flx-item-right danger-hover"
+                        onClick={this.deleteTip(tip)}>Delete Tip
+                      </div>
                           
                           <div className="tip-container flx flx-col flx-center-all w-100">
                               
