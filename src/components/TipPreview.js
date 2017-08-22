@@ -88,10 +88,11 @@ const TipPreview = props => {
                 { /** END Image **/ }
 
                 { /** Rating **/ }
-                <div className={'tip__rating-module flx flx-row flx-align-start mrgn-top-sm w-100 tip__rating-module--' + tip.review.rating}>
-                  <div className={'tip__rating flx-hold v2-type-rating--' +  tip.review.rating}>
-                    {tip.review.rating}<div className="v2-type-rating--total opa-50 weight-300"></div>
+                <div className={'tip__rating-module flx flx-row flx-align-center mrgn-top-sm w-100 tip__rating-module--' + tip.review.rating}>
+                  <div className={'tip__rating flx-hold flx flx-row flx-center-all v2-type-rating--' +  tip.review.rating}>
+                    {tip.review.rating}
                   </div>
+                  <i className="rating-star-icon material-icons color--black opa-40 md-14">star</i>
                 </div>
                 { /** END Rating **/ }
 

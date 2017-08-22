@@ -1260,6 +1260,7 @@ li.nav-divider {
     margin-top: -2px;
     opacity: .8;
     height: auto;
+    visibility: hidden;
 }
 .comment-data:hover .mod-options {
     visibility: visible;
@@ -1431,6 +1432,15 @@ body .back-to-top {
   top: 0;
   left: 50%;
   bottom: 0;
+}
+.it-map-overlay {
+  position: fixed;
+  right: 0;
+  top: 0;
+  left: 50%;
+  bottom: 0;
+  background-color: rgba(0,0,0,.1);
+  background-color: rgba(22,32,52,.5);
 }
 
 

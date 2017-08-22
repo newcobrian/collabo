@@ -477,14 +477,19 @@ textarea.edit-itinerary__name {
 }
 
 .it-add-wrapper {
-	height: 100px;
+	height: 80px;
 	padding: 0px 50px;
 }
 .it-add-wrapper .geosuggest__input {
 	height: 80px;
 }
+
 .it-add-wrapper .geosuggest {
 	margin-left: 44px;
+	cursor: pointer;
+}
+.it-add-wrapper .geosuggest:hover {
+	opacity: .9;
 }
 
 .page-edit-own .it-add-wrapper input,

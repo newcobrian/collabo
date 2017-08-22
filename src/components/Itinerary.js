@@ -325,6 +325,11 @@ class Itinerary extends React.Component {
 
             </div> {/*Content Wrapper*/}
             <div className="it-map-container">
+              <div className="it-map-overlay flx flx-center-all">
+                <div className="v2-type-body2 color--white">
+                  Map coming soon
+                </div>
+              </div>
             </div>
             {/*<BackToTop />*/}
           </div>

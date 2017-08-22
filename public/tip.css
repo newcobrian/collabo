@@ -27,16 +27,18 @@
 }
 .tip__rating {
     font-weight: 600;
-    font-size: 16px;
+    font-size: 14px;
     letter-spacing: 0;
     line-height: 6px;
     font-family: 'Roboto', sans-serif;
     text-align: center;
-    padding: 16px 5px;
+    padding: 5px;
     border-radius: 0;
-    width: 38px;
-    height: 38px;
+    width: 32px;
+    height: 32px;
     margin: 0;
+    margin-right: 5px;
+    border-radius: 32px;
 }
 .tip__image-rating {
 	margin-right: 30px;
@@ -186,11 +188,20 @@ input.edit-tip__rating {
     border-bottom: 1px solid rgba(0,0,0,.1);
 }
 
-
+.rating-star-icon {
+/*	margin-top: -30px;
+	margin-left: -10px;*/
+}
+.v2-type-rating--0,
 .v2-type-rating--1,
 .v2-type-rating--2,
 .v2-type-rating--3,
-.v2-type-rating--4 {
+.v2-type-rating--4,
+.tip__rating-module--0 select,
+.tip__rating-module--1 select,
+.tip__rating-module--2 select,
+.tip__rating-module--3 select,
+.tip__rating-module--4 select {
   color: white;
 }
 .v2-type-rating--9,
@@ -210,20 +221,100 @@ input.edit-tip__rating {
 .tip__rating-module {
 	width: auto;
 	border: none;
+	color: black !important;
+	height: 31px;
 }
-.tip__rating-module--1,
-.tip__rating-module--2,
-.tip__rating-module--3,
-.tip__rating-module--4 {
-	background-color: #F37BA7;
+.tip__rating-module select {
+	border-radius: 32px !important;
 }
-.tip__rating-module--9,
-.tip__rating-module--10 {
+.tip__rating-module--0 select,
+.tip__rating-module--1 select,
+.tip__rating-module--2 select,
+.tip__rating-module--3 select,
+.tip__rating-module--4 select,
+.tip__rating-module--0 .tip__rating,
+.tip__rating-module--1 .tip__rating,
+.tip__rating-module--2 .tip__rating,
+.tip__rating-module--3 .tip__rating,
+.tip__rating-module--4 .tip__rating {
+	background-color: #FFA6B4;
+}
+.tip__rating-module--5 select,
+.tip__rating-module--6 select,
+.tip__rating-module--5 .tip__rating,
+.tip__rating-module--6 .tip__rating {
+	background-color: #D5E3E5;
+}
+.tip__rating-module--7 select,
+.tip__rating-module--7 .tip__rating,
+.tip__rating-module--8 select,
+.tip__rating-module--8 .tip__rating {
+	background-color: #B3FBFF;
+}
+.tip__rating-module--9 .tip__rating,
+.tip__rating-module--10 .tip__rating,
+.tip__rating-module--9 select,
+.tip__rating-module--10 select {
 	background-color: #6EFC98;
 }
-.tip__rating-module--5,
-.tip__rating-module--6,
-.tip__rating-module--7,
-.tip__rating-module--8 {
-	background-color: #D5E3E5;
+
+
+select {
+/*  height: 50px;
+  font-size: 20px;
+  background: transparent;
+  -webkit-border-radius: 5px !important;
+  -moz-border-radius: 5px !important;
+  border-radius: 2px !important;
+  border: 0;
+  outline: 1px inset rgba(0,0,0,.1);
+  outline-offset: -1px;
+  width: 80px;
+  text-indent: 14px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 0.5em;
+  padding-right: 1.5em;
+  background: linear-gradient(45deg, transparent 50%, black 50%), linear-gradient(135deg, black 50%, transparent 50%), linear-gradient(to right, transparent, transparent);
+  background-position: calc(100% - 21px) calc(1em + 2px), calc(100% - 16px) calc(1em + 2px), 100% 0;
+  background-size: 5px 5px, 5px 5px, 2.5em 2.5em;
+  background-repeat: no-repeat;*/
+/*
+  height: 48px;
+  font-size: 16px;
+  background: transparent;
+  border-radius: 2px !important;
+  border: 0;
+  width: 48px;
+  padding: 30px;
+  background-repeat: no-repeat;
+  text-indent: 6px;*/
+
+  height: 28px;
+  font-size: 14px;
+  background: transparent;
+  -webkit-border-radius: 32px !important;
+  -moz-border-radius: 32px !important;
+  border-radius: 32px !important;
+  border: 0;
+  outline: 0px inset rgba(0,0,0,0);
+  outline-offset: -1px;
+  width: 28px;
+  text-indent: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 0 4px;
+  background: linear-gradient(45deg, transparent 50%, transparent 50%), linear-gradient(135deg, transparent 50%, transparent 50%), linear-gradient(to right, transparent, transparent);
+  background-position: calc(100% - 0px) calc(0em + 0px), calc(100% - 0px) calc(0em + 0px), 100% 0;
+  background-size: 5px 5px, 5px 5px, 2.5em 2.5em;
+  background-repeat: no-repeat;
+  text-align: center;
+  text-align-last: center;
+  margin-right: 5px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+select:hover {
+  opacity: .8
 }

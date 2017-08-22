@@ -215,11 +215,11 @@ class ItineraryForm extends React.Component {
         return (
           <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--primary">
 
-            <i className="material-icons color--white md-36 mrgn-right-md">add</i>
+            <i className="material-icons color--white md-36 mrgn-right-md opa-50">add</i>
 
             <Geosuggest 
               className="input--underline w-100 color--white"
-              placeholder="Search for a place (e.g. 'Yosemite National Park' or 'W Hotel')"
+              placeholder="Search to add a place (e.g. 'Yosemite National Park' or 'W Hotel')"
               location={latLng}
               radius={1000}
               onSuggestSelect={suggestSelectTip}/>
@@ -228,10 +228,10 @@ class ItineraryForm extends React.Component {
       }
       else return (
         <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--primary">
-          <i className="material-icons color--white md-36 mrgn-right-md">add</i>
+          <i className="material-icons color--white md-36 mrgn-right-md opa-50">add</i>
           <Geosuggest 
             className="input--underline w-100 color--white"
-            placeholder="Search for a place (e.g. 'Yosemite National Park' or 'W Hotel')"
+            placeholder="Search to add a place (e.g. 'Yosemite National Park' or 'W Hotel')"
             onSuggestSelect={suggestSelectTip}/>
         </div>
       )
@@ -409,7 +409,7 @@ class ItineraryForm extends React.Component {
                                     { /** END Image **/ }
 
                                     { /** Rating **/ }
-                                    <div className={'tip__rating-module flx flx-row flx-align-start mrgn-top-sm w-100 tip__rating-module--' + tip.review.rating}>
+                                    <div className={'tip__rating-module flx flx-row flx flx-row flx-align-center flx-just-start mrgn-top-sm w-100 tip__rating-module--' + tip.review.rating}>
                                       <select value={tip.review.rating} onChange={this.changeRating(tip)}>
                                         <option value="-">-</option>
                                         <option value="0">0</option>
@@ -424,7 +424,7 @@ class ItineraryForm extends React.Component {
                                         <option value="9">9</option>
                                         <option value="10">10</option>
                                       </select>
-                                      <div className="v2-type-rating--total opa-50 weight-300"></div>
+                                      <i className="rating-star-icon material-icons color--black opa-40 md-14">star</i>
                                     </div>
                                     { /** END Rating **/ }
 
@@ -522,6 +522,11 @@ class ItineraryForm extends React.Component {
                               </div> { /** End photo / copy row **/ }
 
                               <div className="it-map-container">
+                                <div className="it-map-overlay flx flx-center-all">
+                                  <div className="v2-type-body2 color--white">
+                                    Map coming soon
+                                  </div>
+                                </div>
                               </div>
 
                           </div> { /** END Content-wrapper **/}
