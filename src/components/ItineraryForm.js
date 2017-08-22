@@ -109,7 +109,7 @@ class ItineraryForm extends React.Component {
 
     this.deleteTip = tip => ev => {
       ev.preventDefault();
-      this.props.onDeleteTip(this.props.authenticated, tip, this.props.itineraryId)
+      this.props.onDeleteTip(this.props.authenticated, tip, this.props.itineraryId, this.props.itinerary)
     }
 
     this.suggestSelectGeo = result => {

@@ -299,6 +299,7 @@ export default (state = initialState, action) => {
             newState.tips[i] = Object.assign({}, {key: action.tipId}, {priority: action.priority}, action.tip, subject, review, createdBy, comments, isLiked, images);
           }
         }
+        newState.tips.sort(Helpers.byPriority);
         return newState;
       }
       return state;
@@ -432,6 +433,7 @@ export default (state = initialState, action) => {
         coverPicProgress: action.progress
       }
     case ActionTypes.UPLOAD_COMPLETED:
+    case ActionTypes.TIP_DELETED:
       return state;
     default:
       return state;

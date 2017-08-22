@@ -3034,7 +3034,7 @@ export function addToItinerary(auth, tip, itinerary) {
     let itineraryId;
     // create the itinerary if this is a new itinerary
     if (!itinerary.itineraryId) {
-      itineraryId = Firebase.database().ref(Constants.ITINERARIES_PATH).push(Object.assign({}, itinerary, {createdOn: Firebase.database.ServerValue.TIMESTAMP})).key;
+      itineraryId = Firebase.database().ref(Constants.ITINERARIES_PATH).push(Object.assign({}, itinerary, {createdOn: Firebase.database.ServerValue.TIMESTAMP}, {maxPriority: 1})).key;
       let itineraryObject = Object.assign({}, itinerary, {createdOn: Firebase.database.ServerValue.TIMESTAMP});
       delete itineraryObject.userId;
       let newItinUpdates =  {};
@@ -3064,10 +3064,11 @@ export function addToItinerary(auth, tip, itinerary) {
             Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + auth).once('value', reviewSnapshot => {
               let geo = itinSnapshot.val().geo;
               let updates = {};
+              let priority = itinSnapshot.val().maxPriority ? itinSnapshot.val().maxPriority + 1 : (itinSnapshot.val().reviewsCount ? itinSnapshot.val().reviewsCount + 1 : 1);
               let tipData = {
                 subjectId: subjectId,
                 userId: auth,
-                priority: itinSnapshot.val().reviewsCount ? itinSnapshot.val().reviewsCount : 0
+                priority: priority
               }
               if (reviewSnapshot.exists() && reviewSnapshot.val().reviewId) {
                 tipData.reviewId = reviewSnapshot.val().reviewId;
@@ -3097,6 +3098,12 @@ export function addToItinerary(auth, tip, itinerary) {
               updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${geo.placeId}/${auth}/${itineraryId}/lastModified`] = lastModified;
               updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${geo.placeId}/${itineraryId}/lastModified`] = lastModified;
               updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}/lastModified`] = lastModified;
+
+              // update maxPriority on all itineraries
+              updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}/maxPriority`] = priority;
+              updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${geo.placeId}/${auth}/${itineraryId}/maxPriority`] = priority;
+              updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${geo.placeId}/${itineraryId}/maxPriority`] = priority;
+              updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}/maxPriority`] = priority;
 
               // increment reviewsCount counters on itinerary tables
               Helpers.incrementItineraryCount(Constants.REVIEWS_COUNT, itineraryId, geo, auth);

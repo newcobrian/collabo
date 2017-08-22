@@ -77,7 +77,7 @@ function subjectRemovedAction(subjectId, source) {
 }
 
 function reviewValueAction(reviewId, review, source) {
-  delete review.lastModified;
+  if (review) delete review.lastModified;
   return {
     type: ActionTypes.REVIEW_VALUE_ACTION,
     dataName: Constants.REVIEWS_DATA,
@@ -181,7 +181,7 @@ function defaultImagesRemovedAction(subjectId, source) {
 }
 
 export function watchTips(dispatch, itineraryId, itineraryUserId, source) {
-  Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).on('child_added', tipSnapshot => {
+  Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).orderByPriority().on('child_added', tipSnapshot => {
     if (tipSnapshot.val().userId && tipSnapshot.val().userId !== itineraryUserId) {
       watchUser(dispatch, tipSnapshot.val().userId, source)
     }
@@ -194,7 +194,7 @@ export function watchTips(dispatch, itineraryId, itineraryUserId, source) {
   })
 
   // on child changed, how do we unwatch old refs?
-  Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).on('child_changed', tipSnapshot => {
+  Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).orderByPriority().on('child_changed', tipSnapshot => {
     watchSubject(dispatch, tipSnapshot.key, tipSnapshot.val().subjectId, source);
     watchReview(dispatch, tipSnapshot.key, tipSnapshot.val().reviewId, source);
     watchComments(dispatch, tipSnapshot.key, source);
@@ -203,7 +203,7 @@ export function watchTips(dispatch, itineraryId, itineraryUserId, source) {
     dispatch(tipChangedAction(tipSnapshot.key, tipSnapshot.val(), source));
   })
 
-  Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).on('child_removed', tipSnapshot => {
+  Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).orderByPriority().on('child_removed', tipSnapshot => {
     unwatchSubject(dispatch, tipSnapshot.key, tipSnapshot.val().subjectId, source);
     unwatchReview(dispatch, tipSnapshot.key, tipSnapshot.val().reviewId, source);
     unwatchComments(dispatch, tipSnapshot.key, source);
@@ -500,7 +500,9 @@ export function onAddTip(auth, result, itinerary) {
       }
 
       let reviewsCount = itinerary.reviewsCount ? itinerary.reviewsCount : 0;
-      let tipObject = Object.assign({}, { subjectId: subjectId }, { reviewId: reviewId }, { userId: auth }, {priority: reviewsCount + 1});
+      let priority = itinerary.maxPriority ? itinerary.maxPriority + 1 : reviewsCount + 1;
+      let tipObject = Object.assign({}, { subjectId: subjectId }, { reviewId: reviewId }, { userId: auth }, {priority: priority});
+      
       let tipId = Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itinerary.id).push(tipObject).key;
 
       // update review counts on the itinerary
@@ -523,6 +525,12 @@ export function onAddTip(auth, result, itinerary) {
       updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${itinerary.geo.placeId}/${itinerary.userId}/${itinerary.id}/lastModified`] = lastModified;
       updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itinerary.id}/lastModified`] = lastModified;
 
+      // update maxPriority on all itineraries
+      updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${itinerary.userId}/${itinerary.id}/maxPriority`] = priority;
+      updates[`/${Constants.ITINERARIES_PATH}/${itinerary.id}/maxPriority`] = priority;
+      updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${itinerary.geo.placeId}/${itinerary.userId}/${itinerary.id}/maxPriority`] = priority;
+      updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itinerary.id}/maxPriority`] = priority;
+
       Firebase.database().ref().update(updates);
 
       // dispatch({
@@ -532,15 +540,17 @@ export function onAddTip(auth, result, itinerary) {
   }
 }
 
-export function onDeleteTip(auth, tip, itineraryId) {
+export function onDeleteTip(auth, tip, itineraryId, itinerary) {
   return dispatch => {
     // for every tip after deleted tip, subtract 1 from priority
-    // Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId + '/' tip.key).remove().then(
-    // response => {
-    //   Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).once('value', snap => {
-
-    //   })
-    // })
+    Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + tip.key).remove()
+    .then(response => {
+      // update tip counts
+      Helpers.decrementItineraryCount(Constants.REVIEWS_COUNT, itineraryId, itinerary.geo, itinerary.userId);
+      dispatch({
+        type: ActionTypes.TIP_DELETED
+      })
+    })
   }
 }
 
