@@ -9,7 +9,6 @@ import FlatButton from 'material-ui/FlatButton';
 
 const mapStateToProps = state => ({
   ...state.modal,
-  ...state.create,
   authenticated: state.common.authenticated
 });
 
@@ -19,32 +18,13 @@ class ReorderModal extends React.Component {
       this.props.hideModal();
     }
 
-    const submitForm = ev => {
-      ev.preventDefault();
-    }
-
     const actions = [
       <FlatButton
-        label="Cancel"
+        label="Close"
         className="vb fill--white vb--shadow-none"
         onTouchTap={handleClose}
         style={{
             color:'#2B3538'
-          }}
-      />,
-      <FlatButton
-        label="Save"
-        hoverColor="white"
-        onTouchTap={submitForm}
-        disableTouchRipple={true}
-        fullWidth={false}
-        className="vb vb--shadow-none color--white fill--primary"
-        labelStyle={{   fontWeight: '400',
-                        fontSize: '14px',
-                        letterSpacing: '2px',
-                        boxShadow: 'none'
-                    }}
-        style={{
           }}
       />
     ];
@@ -54,17 +34,52 @@ class ReorderModal extends React.Component {
         <Dialog
           actions={actions}
           modal={false}
-          open={(this.props.modalType === Constants.REORDER_MODAL) ? true : false}
+          open={(this.props.modalType === Constants.REORDER_ITINERARY_MODAL) ? true : false}
           autoScrollBodyContent={true}
           className="dialog-wrapper"
           style={{
               
             }}
+
+          contentStyle={{width: "100%", maxWidth: "600px"}}
         >
 
-        <div className="flx flx-col">
-          HIHOHOHOHO
+        <div className="dialog--save flx flx-col">
+          <div className="dialog--save__tip-name color--black tip__title v2-type-h3 v-row brdr-bottom">TITLE</div>
+           
+
+            <div className="flx flx-col mrgn-bottom-md pdding-bottom-sm brdr-bottom w-100">
+              <div className="flx flx-row flx-align-center mrgn-bottom-sm">
+                <i className="material-icons mrgn-right-md color--primary md-18">&#xE55F;</i>
+                <label>Address</label>
+              </div>
+              <div>
+                <div className="v2-type-body1">ADDY</div>
+              </div>
+            </div>
+
+           <div className="flx flx-col mrgn-bottom-md pdding-bottom-sm brdr-bottom w-100">
+              <div className="flx flx-row flx-align-center mrgn-bottom-sm">
+                <i className="material-icons mrgn-right-md color--primary md-18">phone</i>
+                <label>Phone</label>
+              </div>
+              <div>
+                <div className="v2-type-body1">PHONE NUM</div>
+              </div>
+            </div>
+
+            <div className="flx flx-col mrgn-bottom-md pdding-bottom-sm">
+              <div className="flx flx-row flx-align-center mrgn-bottom-sm md-18">
+                <i className="material-icons mrgn-right-md color--primary">schedule</i>
+                <label>Hours</label>
+              </div>
+              <div>
+              </div>
+            </div>
+
+         
         </div>
+
           {/*{JSON.stringify(this.props.review)}*/}
 
         </Dialog>

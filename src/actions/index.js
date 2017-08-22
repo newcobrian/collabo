@@ -3191,6 +3191,16 @@ export function showDeleteModal(itinerary, source) {
   }
 }
 
+export function showReorderModal(itinerary) {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.SHOW_REORDER_ITINERARY_MODAL,
+      modalType: Constants.REORDER_ITINERARY_MODAL,
+      itinerary: itinerary
+    })
+  }
+}
+
 export function showModal(type, review, images) {
   return dispatch => {
     const currentUser = Firebase.auth().currentUser;

@@ -109,7 +109,7 @@ class ItineraryForm extends React.Component {
 
     this.deleteTip = tip => ev => {
       ev.preventDefault();
-      this.props.onDeleteTip(this.props.authenticated, tip, this.props.itineraryId, this.props.itinerary)
+      this.props.onDeleteTip(this.props.authenticated, tip, this.props.itineraryId, this.props.data)
     }
 
     this.suggestSelectGeo = result => {
@@ -127,7 +127,7 @@ class ItineraryForm extends React.Component {
         })
       }
 
-      this.props.updateItineraryGeo(this.props.authenticated, this.props.itinerary, geoData);
+      this.props.updateItineraryGeo(this.props.authenticated, this.props.data, geoData);
     }
   }
 
@@ -170,6 +170,11 @@ class ItineraryForm extends React.Component {
     const onInfoClick = tip => ev => {
       ev.preventDefault();
       this.props.showModal(Constants.INFO_MODAL, tip);
+    }
+
+    const onReorderClick = ev => {
+      ev.preventDefault();
+      // this.props.showReorderModal(this.props.data);
     }
 
     const suggestSelectTip = result => {
@@ -328,6 +333,7 @@ class ItineraryForm extends React.Component {
                       deleteItinerary={this.props.showDeleteModal} 
                       redirectPath="/" />
 
+                    <Link onClick={onReorderClick} className="hide-in-list vb vb--sm vb--outline flx flx-row flx-align-center mrgn-right-sm">Reorder</Link>
                   </div>
 
 
@@ -335,7 +341,7 @@ class ItineraryForm extends React.Component {
                   <div className="cta-wrapper flx flx-row vb vb--sm vb--outline fill--white color--black">
                     <LikeReviewButton
                       authenticated={this.props.authenticated}
-                      isLiked={this.props.itinerary.isLiked}
+                      isLiked={itinerary.isLiked}
                       likesCount={itinerary.likesCount}
                       unLike={this.props.unLikeReview}
                       like={this.props.likeReview} 
@@ -510,7 +516,7 @@ class ItineraryForm extends React.Component {
                                             unLike={this.props.unLikeReview}
                                             like={this.props.likeReview} 
                                             likeObject={tip}
-                                            itineraryId={this.props.itinerary.id}
+                                            itineraryId={itinerary.id}
                                             type={Constants.REVIEW_TYPE} />
                                         </div>
                                       </div>
@@ -546,11 +552,11 @@ class ItineraryForm extends React.Component {
             authenticated={this.props.authenticated}
             userInfo={this.props.userInfo}
             type={Constants.ITINERARY_TYPE}
-            comments={Selectors.getItineraryComments(this.props.commentsData, this.props.itinerary.id) || []}
+            comments={Selectors.getItineraryComments(this.props.commentsData, itinerary.id) || []}
             errors={this.props.commentErrors}
             commentObject={itinerary}
             deleteComment={this.props.onDeleteComment}
-            itineraryId={this.props.itineraryId} />
+            itineraryId={itinerary.id} />
           </div>
         </div>
     );
