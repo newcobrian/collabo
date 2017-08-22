@@ -270,10 +270,9 @@ class ItineraryForm extends React.Component {
             
              
               {/** Flag and Geo **/}
-              {/** <Link to={`/places/${itinerary.geo.placeId}`}> **/}
+              
               <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm mrgn-top-xs w-100">
-                <div className={'itinerary__cover__flag flx-hold flag-' + itinerary.geo.country}>
-                </div>
+                <Link to={`/places/${itinerary.geo.placeId}`} className={'itinerary__cover__flag flx-hold flag-' + itinerary.geo.country} />
                 <div className="geo-type ellipsis w-100 flx flx-row flx-align-center flx-just-start">
                   <Geosuggest 
                     className="input--underline w-100"
@@ -284,7 +283,6 @@ class ItineraryForm extends React.Component {
                     onSuggestSelect={this.suggestSelectGeo}/>
                 </div>
               </div>
-              {/** </Link> **/}
 
               {/** TITLE **/}
               <div className="itinerary__cover__title ta-left v2-type-h2">
