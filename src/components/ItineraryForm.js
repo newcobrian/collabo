@@ -177,7 +177,7 @@ class ItineraryForm extends React.Component {
       // this.props.showReorderModal(this.props.data);
     }
 
-    const suggestSelectTip = result => {
+    const suggestSelectTip = geoSuggestRef => result => {
       let resultObject = {
         title: result.label,
         id: result.placeId,
@@ -206,9 +206,11 @@ class ItineraryForm extends React.Component {
             resultObject.defaultImage = [ place.photos[0].getUrl({'maxWidth': 1225, 'maxHeight': 500}) ];
           }
           addTipFun(auth, resultObject, itinerary)
+          geoSuggestRef._geoSuggest.clear()
         }
         else {
           addTipFun(auth, resultObject, itinerary)
+          geoSuggestRef._geoSuggest.clear()
         }
       })
     }
@@ -223,21 +225,23 @@ class ItineraryForm extends React.Component {
             <i className="material-icons color--white md-36 mrgn-right-md opa-50">add</i>
 
             <Geosuggest 
+              ref={el=>this._geoSuggest=el}
               className="input--underline w-100 color--white"
               placeholder="Search to add a place (e.g. 'Yosemite National Park' or 'W Hotel')"
               location={latLng}
               radius={1000}
-              onSuggestSelect={suggestSelectTip}/>
+              onSuggestSelect={suggestSelectTip(this)}/>
           </div>
         )
       }
       else return (
         <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--primary">
           <i className="material-icons color--white md-36 mrgn-right-md opa-50">add</i>
-          <Geosuggest 
+          <Geosuggest
+            ref={el=>this._geoSuggest=el}
             className="input--underline w-100 color--white"
             placeholder="Search to add a place (e.g. 'Yosemite National Park' or 'W Hotel')"
-            onSuggestSelect={suggestSelectTip}/>
+            onSuggestSelect={suggestSelectTip(this)}/>
         </div>
       )
     }
