@@ -1414,7 +1414,8 @@ body .back-to-top {
 }
 
 
-.content-wrapper.map-on {
+.content-wrapper.map-on,
+.itinerary__comments-module.map-on {
   width: 50%;
 }
 .content-wrapper.map-on .tip__image-module {
