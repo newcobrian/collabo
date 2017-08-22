@@ -1685,7 +1685,7 @@ export function findCommentMentions(dispatch, authenticated, commentBody, commen
     let username = found[i].substr(1);
     Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + username).once('value', snap => {
       if (snap.exists()) {
-        if (sentArray.indexOf(snap.val().userId) === -1) {
+        if (snap.val().userId !== authenticated && sentArray.indexOf(snap.val().userId) === -1) {
           Helpers.sendInboxMessage(authenticated, snap.val().userId, Constants.USER_MENTIONED_TYPE, commentObject, itineraryId);
           sentArray.push(snap.val().userId);
 
