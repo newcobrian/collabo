@@ -3193,10 +3193,13 @@ export function showDeleteModal(itinerary, source) {
 
 export function showReorderModal(itinerary) {
   return dispatch => {
-    dispatch({
-      type: ActionTypes.SHOW_REORDER_ITINERARY_MODAL,
-      modalType: Constants.REORDER_ITINERARY_MODAL,
-      itinerary: itinerary
+    Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itinerary.id).on('value', snap => {
+      dispatch({
+        type: ActionTypes.SHOW_REORDER_ITINERARY_MODAL,
+        modalType: Constants.REORDER_ITINERARY_MODAL,
+        itinerary: itinerary,
+        tips: snap.val()
+      })
     })
   }
 }

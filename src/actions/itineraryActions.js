@@ -554,10 +554,37 @@ export function onDeleteTip(auth, tip, itineraryId, itinerary) {
   }
 }
 
-export function onReorderTips(auth) {
+export function onReorderTips(itinerary, oldIndex, newIndex) {
   return dispatch => {
-    // move tip to correct priority, set priority of all tips after it
-  }
+    let updates = {};
+    let moveTipId = itinerary.tips[oldIndex].key;
+
+    // if moving to the last spot, set priority to 1 above priority of last item
+    if (newIndex === itinerary.tips.length-1) {
+      let newPriority = itinerary.tips[newIndex].priority;
+      // set new priority to same priority of last item
+      updates[`/${Constants.TIPS_BY_ITINERARY_PATH}/${itinerary.id}/${moveTipId}/priority`] = newPriority;
+      // set priority of last item to halfway between last item and the item before
+      updates[`/${Constants.TIPS_BY_ITINERARY_PATH}/${itinerary.id}/${itinerary.tips[newIndex].key}/priority`] = (newPriority + itinerary.tips[newIndex-1].priority)/2;
+      
+      // // set maxPriority on all itineraries
+      // updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${itinerary.userId}/${itinerary.id}/maxPriority`] = newPriority;
+      // updates[`/${Constants.ITINERARIES_PATH}/${itinerary.id}/maxPriority`] = newPriority;
+      // updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${itinerary.geo.placeId}/${itinerary.userId}/${itinerary.id}/maxPriority`] = newPriority;
+      // updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itinerary.id}/maxPriority`] = newPriority;
+    }
+    else if (newIndex === 0) {
+      // if moving to 1st spot, just set priority to half of 1st items priority
+      let newPriority = itinerary.tips[0].priority / 2;
+      updates[`/${Constants.TIPS_BY_ITINERARY_PATH}/${itinerary.id}/${moveTipId}/priority`] = newPriority;
+    }
+    else {
+      // otherwise, set priority to halfway between item before and item after's priorities
+      let newPriority = (itinerary.tips[newIndex].priority + itinerary.tips[newIndex-1].priority) / 2;
+      updates[`/${Constants.TIPS_BY_ITINERARY_PATH}/${itinerary.id}/${moveTipId}/priority`] = newPriority;
+    }
+    Firebase.database().ref().update(updates);
+  } 
 }
 
 // export function getItinerary(auth, itineraryId) {

@@ -174,7 +174,7 @@ class ItineraryForm extends React.Component {
 
     const onReorderClick = ev => {
       ev.preventDefault();
-      // this.props.showReorderModal(this.props.data);
+      this.props.showReorderModal(itinerary);
     }
 
     const suggestSelectTip = geoSuggestRef => result => {

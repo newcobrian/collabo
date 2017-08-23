@@ -6,6 +6,30 @@ import Dialog from 'material-ui/Dialog';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
+import {SortableContainer, SortableElement} from 'react-sortable-hoc';
+
+const SortableItem = SortableElement(({value, sortIndex}) => {
+  return (
+    <li>
+      <div>
+        <div>{sortIndex}. {value.subject.title}</div>
+        <div>Rating: {value.review.rating}</div>
+        <div>Caption: {value.review.caption}</div>
+      </div>
+
+    </li>
+    )
+});
+
+const SortableList = SortableContainer(({items}) => {
+  return (
+    <ul>
+      {items.map((value, index) => (
+        <SortableItem key={`item-${index}`} index={index} value={value} sortIndex={index+1} />
+      ))}
+    </ul>
+  );
+});
 
 const mapStateToProps = state => ({
   ...state.modal,
@@ -29,6 +53,15 @@ class ReorderModal extends React.Component {
       />
     ];
 
+    const onSortEnd = ({oldIndex, newIndex}) => {
+        if (oldIndex !== newIndex) {
+          this.props.onReorderTips(this.props.itinerary, oldIndex, newIndex);
+        }
+      // this.setState({
+      //   items: arrayMove(this.state.items, oldIndex, newIndex),
+      // });
+    };
+
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <Dialog
@@ -45,38 +78,9 @@ class ReorderModal extends React.Component {
         >
 
         <div className="dialog--save flx flx-col">
-          <div className="dialog--save__tip-name color--black tip__title v2-type-h3 v-row brdr-bottom">TITLE</div>
+          <div className="dialog--save__tip-name color--black tip__title v2-type-h3 v-row brdr-bottom">Reorder Your Guide</div>
            
-
-            <div className="flx flx-col mrgn-bottom-md pdding-bottom-sm brdr-bottom w-100">
-              <div className="flx flx-row flx-align-center mrgn-bottom-sm">
-                <i className="material-icons mrgn-right-md color--primary md-18">&#xE55F;</i>
-                <label>Address</label>
-              </div>
-              <div>
-                <div className="v2-type-body1">ADDY</div>
-              </div>
-            </div>
-
-           <div className="flx flx-col mrgn-bottom-md pdding-bottom-sm brdr-bottom w-100">
-              <div className="flx flx-row flx-align-center mrgn-bottom-sm">
-                <i className="material-icons mrgn-right-md color--primary md-18">phone</i>
-                <label>Phone</label>
-              </div>
-              <div>
-                <div className="v2-type-body1">PHONE NUM</div>
-              </div>
-            </div>
-
-            <div className="flx flx-col mrgn-bottom-md pdding-bottom-sm">
-              <div className="flx flx-row flx-align-center mrgn-bottom-sm md-18">
-                <i className="material-icons mrgn-right-md color--primary">schedule</i>
-                <label>Hours</label>
-              </div>
-              <div>
-              </div>
-            </div>
-
+          <SortableList items={this.props.itinerary.tips} onSortEnd={onSortEnd} />
          
         </div>
 

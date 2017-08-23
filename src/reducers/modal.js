@@ -38,7 +38,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
         modalType: Constants.REORDER_ITINERARY_MODAL,
-        itinerary: action.itinerary
+        itinerary: action.itinerary,
+        tips: action.tips
       }
     case UPDATE_FIELD_CREATE:
       if(action.source === NEW_ITINERARY_MODAL) {
