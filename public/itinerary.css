@@ -122,9 +122,9 @@
     left: 210px;
 
     position: absolute;
-    width: auto;
+    width: 80%;
     bottom: 85px;
-    left: 40px;
+    left: 45px;
     z-index: 3;
 }
 .comment-preview-bubble .comment-author-img {
@@ -219,7 +219,7 @@
 .home-page .itinerary__cover .v2-type-h2 {
     font-size: 26px;
     font-weight: 600;
-    line-height: 32px;
+    line-height: 30px;
     width: 100%;
     max-width: 460px;
     text-transform: uppercase;

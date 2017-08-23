@@ -30,7 +30,7 @@ const CommentPreview = props => {
     return (
       <Link to={`/guide/${props.itinerary.id}`}>
 
-        <div className="comment-preview-bubble flx flx-row flx-center-all">
+        <div className="comment-preview-bubble flx flx-row flx-just-start flx-align-center">
           <div className="comment-author-img mrgn-right-sm flx-hold">
             <Link
               to={`/${props.itinerary.lastComment.username}`}

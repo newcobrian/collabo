@@ -281,13 +281,11 @@ class ItineraryForm extends React.Component {
               </div>
              
 
-
             {/** <<<<<< CENTER INFO **/}
             <div className="it__title-module flx flx-col flx-just-start ta-center">
             
              
               {/** Flag and Geo **/}
-              
               <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm mrgn-top-xs w-100">
                 <Link to={`/places/${itinerary.geo.placeId}`} className={'itinerary__cover__flag flx-hold flag-' + itinerary.geo.country} />
                 <div className="geo-type ellipsis w-100 flx flx-row flx-align-center flx-just-start">
@@ -392,7 +390,6 @@ class ItineraryForm extends React.Component {
 
           <div className="itinerary__cover flx flx-row flx-just-start header-height">
             
-
             {/** Cover Image **/}
             <div className="itinerary__cover__image header-height">
               <ImagePicker images={itinerary.images ? [itinerary.images] : null} />
@@ -406,11 +403,10 @@ class ItineraryForm extends React.Component {
             </div>
 
         
-
             </div>
             {/** ----- Close itinerary__cover DIV ----- **/}  
             <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
-              
+
               {
                 itinerary.tips.map((tip, index) => {
                   return (
@@ -598,23 +594,31 @@ class ItineraryForm extends React.Component {
                                   </div>
                               </div> { /** End photo / copy row **/ }
 
-                              <div className="it-map-container">
-                                <div className="it-map-overlay flx flx-center-all">
-                                  <div className="v2-type-body2 color--white">
-                                    Map coming soon
-                                  </div>
-                                </div>
-                              </div>
+                             
 
                           </div> { /** END Content-wrapper **/}
+
+
                         </div>
+
+
                   );
                 })
               }
             </div>
             {renderGeoSuggestTip(itinerary.geo)}
           </div>
-          <div className="itinerary__comments-module flx flx-col flx-align-start flx-just-start w-max-2">
+
+          { /** Map block **/ }
+          <div className="it-map-container">
+            <div className="it-map-overlay flx flx-center-all">
+              <div className="v2-type-body2 color--white">
+                Map coming soon
+              </div>
+            </div>
+          </div>
+          { /** END Map block **/ }
+          <div className="itinerary__comments-module map-on flx flx-col flx-align-start flx-just-start w-max-2">
             <div className="v2-type-h3 mrgn-top-md mrgn-bottom-md ta-left w-100">
               Comments
             </div>

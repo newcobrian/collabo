@@ -199,6 +199,9 @@ body {
 .comments-preview-wrapper {
   width: 100%;
 }
+.comment-preview-bubble {
+  left: 35px;
+}
 .cta-wrapper .cta-icon {
 }
 .review-image-wrapper {
@@ -315,9 +318,7 @@ width: 100%;
 
 .profile-page .itinerary__cover .v2-type-h2,
 .home-page .itinerary__cover .v2-type-h2 {
-  font-size: 24px;
-  letter-spacing: 2px;
-  line-height: 26px;
+
 }
 .page-itinerary .itinerary__cover__topbar  {
   left: 10px;
