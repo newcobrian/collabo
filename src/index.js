@@ -41,7 +41,6 @@ ReactDOM.render((
         <Route path="settings" component={Settings} />
         <Route path="forgotPassword" component={ForgotPassword} />
         <Route path="review/:sid(/:rid)" component={Review} />
-        <Route path="edit/:iid" component={Editor} />
         <Route path="create" component={Create} />
         <Route path="inbox" component={Inbox} />
         <Route path="select" component={FriendSelector} />

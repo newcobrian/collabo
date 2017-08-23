@@ -1020,313 +1020,140 @@ export function uploadCoverPhoto(auth, imageFile, itinerary, itineraryId) {
 //   })
 // }
 
-export function onEditorSubmit(auth, itineraryId, itinerary) {
-  return dispatch => {
-    let updates = {};
-    let reviewsList = {};
-    const lastModified = { lastModified: Firebase.database.ServerValue.TIMESTAMP };
-    let reviews = itinerary.reviews;
+// export function onEditorSubmit(auth, itineraryId, itinerary) {
+//   return dispatch => {
+//     let updates = {};
+//     let reviewsList = {};
+//     const lastModified = { lastModified: Firebase.database.ServerValue.TIMESTAMP };
+//     let reviews = itinerary.reviews;
 
-    // create an itineraryId if it doesn't exist
-    if (!itineraryId) {
-      itineraryId = Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + auth).push(Object.assign({}, itinerary, {createdOn: Firebase.database.ServerValue.TIMESTAMP})).key;
-    }
-    for (var i = 0; i < reviews.length; i++) {
-      if (reviews[i].title) {
-        // create the reviewsList for the itinerary
-        let subject = Helpers.makeSubject(reviews[i], lastModified);
+//     // create an itineraryId if it doesn't exist
+//     if (!itineraryId) {
+//       itineraryId = Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + auth).push(Object.assign({}, itinerary, {createdOn: Firebase.database.ServerValue.TIMESTAMP})).key;
+//     }
+//     for (var i = 0; i < reviews.length; i++) {
+//       if (reviews[i].title) {
+//         // create the reviewsList for the itinerary
+//         let subject = Helpers.makeSubject(reviews[i], lastModified);
 
-        // if no subject id, create the subject
-        if (!reviews[i].subjectId) {
-          if (reviews[i].id) {
-            // if this is a search result from 4sq, use their id as the subject id
-            reviews[i].subjectId = reviews[i].id;
-            updates[`/${Constants.SUBJECTS_PATH}/${reviews[i].subjectId}`] = subject;
+//         // if no subject id, create the subject
+//         if (!reviews[i].subjectId) {
+//           if (reviews[i].id) {
+//             // if this is a search result from 4sq, use their id as the subject id
+//             reviews[i].subjectId = reviews[i].id;
+//             updates[`/${Constants.SUBJECTS_PATH}/${reviews[i].subjectId}`] = subject;
 
-            let reviewItem = Object.assign({}, reviews[i]);
-            // save the default image from google
-            if (reviews[i].defaultImage && reviews[i].defaultImage[0]) {
-              Firebase.database().ref(Constants.IMAGES_PATH + '/' + reviews[i].subjectId).once('value', imageCheckSnap => {
-                if (!imageCheckSnap.exists()) {
-                  let imageObject = {
-                    lastModified: Firebase.database.ServerValue.TIMESTAMP
-                  };
-                  imageObject.url = reviewItem.defaultImage[0];
-                  Firebase.database().ref(Constants.IMAGES_PATH + '/' + reviewItem.subjectId).push(imageObject);
-                }
-              })
-            }
-          }
-          else {
-            // new custom subject, so create it
-            reviews[i].subjectId = Firebase.database().ref(Constants.SUBJECTS_PATH).push(subject).key;
-          }
-        }
+//             let reviewItem = Object.assign({}, reviews[i]);
+//             // save the default image from google
+//             if (reviews[i].defaultImage && reviews[i].defaultImage[0]) {
+//               Firebase.database().ref(Constants.IMAGES_PATH + '/' + reviews[i].subjectId).once('value', imageCheckSnap => {
+//                 if (!imageCheckSnap.exists()) {
+//                   let imageObject = {
+//                     lastModified: Firebase.database.ServerValue.TIMESTAMP
+//                   };
+//                   imageObject.url = reviewItem.defaultImage[0];
+//                   Firebase.database().ref(Constants.IMAGES_PATH + '/' + reviewItem.subjectId).push(imageObject);
+//                 }
+//               })
+//             }
+//           }
+//           else {
+//             // new custom subject, so create it
+//             reviews[i].subjectId = Firebase.database().ref(Constants.SUBJECTS_PATH).push(subject).key;
+//           }
+//         }
 
-        let reviewBySubject = Helpers.makeReviewBySubjectEditor(reviews[i], reviews[i].subjectId, lastModified);
-        let review = Helpers.makeReviewEditor(reviews[i], reviews[i].subjectId, lastModified);
+//         let reviewBySubject = Helpers.makeReviewBySubjectEditor(reviews[i], reviews[i].subjectId, lastModified);
+//         let review = Helpers.makeReviewEditor(reviews[i], reviews[i].subjectId, lastModified);
 
-        let reviewCreator = reviews[i].userId ? reviews[i].userId : auth;
+//         let reviewCreator = reviews[i].userId ? reviews[i].userId : auth;
 
-        // if review doesnt exist, create it
-        if (!reviews[i].reviewId) {
-          reviews[i].reviewId = Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + auth).push(review).key;
-        }
-        else {
-          updates[`/${Constants.REVIEWS_BY_USER_PATH}/${reviewCreator}/${reviews[i].reviewId}/`] = review;
-        }
-        // update REVIEWS_BY_USER, REVIEWS_BY_SUBJECT, and REVIEWS tables
-        updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${reviews[i].subjectId}/${reviewCreator}/`] = reviewBySubject;
-        updates[`/${Constants.REVIEWS_PATH}/${reviews[i].reviewId}/`] = Object.assign({}, review, { userId: reviewCreator })
+//         // if review doesnt exist, create it
+//         if (!reviews[i].reviewId) {
+//           reviews[i].reviewId = Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + auth).push(review).key;
+//         }
+//         else {
+//           updates[`/${Constants.REVIEWS_BY_USER_PATH}/${reviewCreator}/${reviews[i].reviewId}/`] = review;
+//         }
+//         // update REVIEWS_BY_USER, REVIEWS_BY_SUBJECT, and REVIEWS tables
+//         updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${reviews[i].subjectId}/${reviewCreator}/`] = reviewBySubject;
+//         updates[`/${Constants.REVIEWS_PATH}/${reviews[i].reviewId}/`] = Object.assign({}, review, { userId: reviewCreator })
 
-        reviewsList[i] = Object.assign({}, { subjectId: reviews[i].subjectId }, { reviewId: reviews[i].reviewId }, { userId: reviewCreator });
-        // reviewsList[reviews[i].subjectId] = Object.assign({}, { reviewId: reviews[i].reviewId }, {priority: i});
+//         reviewsList[i] = Object.assign({}, { subjectId: reviews[i].subjectId }, { reviewId: reviews[i].reviewId }, { userId: reviewCreator });
+//         // reviewsList[reviews[i].subjectId] = Object.assign({}, { reviewId: reviews[i].reviewId }, {priority: i});
 
-        // save the custom images from each review
-        let subjectId = reviews[i].subjectId;
-        if (reviews[i].images && reviews[i].images.isNew) {
-          uploadCustomSubjectImages(auth, subjectId, reviews[i].images.files, itineraryId);
-        }
-      }
-    }
+//         // save the custom images from each review
+//         let subjectId = reviews[i].subjectId;
+//         if (reviews[i].images && reviews[i].images.isNew) {
+//           uploadCustomSubjectImages(auth, subjectId, reviews[i].images.files, itineraryId);
+//         }
+//       }
+//     }
 
-    Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).once('value', itinSnapshot => {
-      Firebase.database().ref(Constants.GEOS_PATH + '/' + itinerary.geo.placeId).once('value', geoSnapshot => { 
-        Firebase.database().ref(Constants.COUNTRIES_PATH + '/' + itinerary.geo.country + '/places/' + itinerary.geo.placeId).once('value', countrySnapshot => {
-          let itineraryByUserObject = Helpers.makeItineraryByUser(itinerary, lastModified);
-          Object.assign(itineraryByUserObject, { reviewsCount: reviews.length });
-          if (itinSnapshot.exists() && itinSnapshot.val().createdOn) itineraryByUserObject.createdOn = itinSnapshot.val().createdOn;
-          if (itinSnapshot.exists() && itinSnapshot.val().images) itineraryByUserObject.images = itinSnapshot.val().images;
+//     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).once('value', itinSnapshot => {
+//       Firebase.database().ref(Constants.GEOS_PATH + '/' + itinerary.geo.placeId).once('value', geoSnapshot => { 
+//         Firebase.database().ref(Constants.COUNTRIES_PATH + '/' + itinerary.geo.country + '/places/' + itinerary.geo.placeId).once('value', countrySnapshot => {
+//           let itineraryByUserObject = Helpers.makeItineraryByUser(itinerary, lastModified);
+//           Object.assign(itineraryByUserObject, { reviewsCount: reviews.length });
+//           if (itinSnapshot.exists() && itinSnapshot.val().createdOn) itineraryByUserObject.createdOn = itinSnapshot.val().createdOn;
+//           if (itinSnapshot.exists() && itinSnapshot.val().images) itineraryByUserObject.images = itinSnapshot.val().images;
 
           
-          let itineraryCreator = itinerary.userId ? itinerary.userId : auth;
-          let itineraryObject = Object.assign({}, itineraryByUserObject, { userId: itineraryCreator });
+//           let itineraryCreator = itinerary.userId ? itinerary.userId : auth;
+//           let itineraryObject = Object.assign({}, itineraryByUserObject, { userId: itineraryCreator });
 
-          // update all itinerary tables
-          updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${itineraryCreator}/${itineraryId}`] = itineraryByUserObject;
-          updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${itinerary.geo.placeId}/${itineraryCreator}/${itineraryId}/`] = itineraryByUserObject;
-          updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}/`] = itineraryObject;
-          updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itineraryId}/`] = itineraryObject;
+//           // update all itinerary tables
+//           updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${itineraryCreator}/${itineraryId}`] = itineraryByUserObject;
+//           updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${itinerary.geo.placeId}/${itineraryCreator}/${itineraryId}/`] = itineraryByUserObject;
+//           updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}/`] = itineraryObject;
+//           updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itineraryId}/`] = itineraryObject;
 
-          // udpate reviews-by-itinerary
-          updates[`/${Constants.TIPS_BY_ITINERARY_PATH}/${itineraryId}/`] = Object.assign({}, reviewsList);
+//           // udpate reviews-by-itinerary
+//           updates[`/${Constants.TIPS_BY_ITINERARY_PATH}/${itineraryId}/`] = Object.assign({}, reviewsList);
 
-          // add geo to geo table if its not there
-          if (!geoSnapshot.exists()) {
-            let geoObject = {
-              country: itinerary.geo.country,
-              location: itinerary.geo.location,
-              label: itinerary.geo.label
-            }
-            updates[`/${Constants.GEOS_PATH}/${itinerary.geo.placeId}`] = geoObject;
-          }
-
-          if (!countrySnapshot.exists()) {
-            updates[`/${Constants.COUNTRIES_PATH}/${itinerary.geo.country}/places/${itinerary.geo.placeId}`] = true;
-          }
-
-          Firebase.database().ref().update(updates, function(error) {
-            if (error) {
-              console.log("Error updating data:", error);
-            }
-          });
-
-          // upload itinerary images if they exist
-          if (itinerary.images && itinerary.images.isNew && itinerary.images.files && itinerary.images.files[0]) {
-            setTimeout(function() {
-              uploadCoverPhoto(auth, itinerary.images.files[0], itinerary, itineraryId);
-            }, 2000);
-          }
-
-          let message = itinerary.title + ' has been saved.';
-
-          dispatch({
-            type: ITINERARY_UPDATED,
-            itineraryId: itineraryId,
-            message: message,
-            meta: {
-              mixpanel: {
-                event: 'Itinerary updated',
-                props: {
-                  itineraryId: itineraryId,
-                }
-              }
-            }
-          })
-      })
-      })
-    })
-  }
-}
-
-// export function onEditorSubmit(subject, imageFile, review, tag) {
-//   return dispatch => {
-//     const updates = {};
-//     const uid = Firebase.auth().currentUser.uid;
-//     const lastModified = Firebase.database.ServerValue.TIMESTAMP;
-
-//     // save the subject
-//     let subjectId = Firebase.database().ref(Constants.SUBJECTS_PATH).push().key;
-//     let saveSubject = {};
-//     Object.assign(saveSubject, subject, {lastModified: lastModified});
-//     updates[`/${Constants.SUBJECTS_PATH}/${subjectId}/`] = saveSubject;
-
-//     // add the subject to the tags tree if there
-//     if (tag) {
-//       updates[`/${Constants.TAGS_PATH}/${tag}/${subjectId}/`] = true;
-//     }
-
-//     // save the review
-//     let reviewId = Firebase.database().ref(Constants.REVIEWS_PATH).push().key;
-    
-
-//     // create the reviewObject with the subject info for reviewsByUser and reviewsBySubject
-//     const reviewObject = {
-//         userId: Firebase.auth().currentUser.uid,
-//         subjectId: subjectId,
-//         lastModified: lastModified
-//     }
-
-//     Object.assign(reviewObject, review);
-
-//     updates[`/${Constants.REVIEWS_PATH}/${reviewId}/`] = reviewObject;
-
-//     let reviewsByUserObject = {
-//       rating: review.rating,
-//       caption: review.caption,
-//       lastModified: lastModified,
-//     }
-
-//     let subjectObject = subject;
-//     reviewsByUserObject.subjectId = subjectId;
-//     reviewsByUserObject.subject = subjectObject;
-
-//     updates[`/${Constants.REVIEWS_BY_USER_PATH}/${uid}/${reviewId}`] = reviewsByUserObject;
-//     updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${subjectId}/${uid}`] = {
-//       reviewId: reviewId,
-//       rating: review.rating,
-//       caption: review.caption,
-//       lastModified: lastModified
-//     };
-
-//     // reviewObject.id = reviewId;
-//     // reviewObject.subject = subjectObject;
-
-//     const payloadObject = {};
-//     Object.assign(payloadObject, reviewObject, {id: reviewId}, {subject: subjectObject});
-
-//     // save updates
-//     Firebase.database().ref().update(updates);
-
-//     // increment review count on the subject
-//     var reviewCountRef = Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId + '/reviewsCount');
-//     reviewCountRef.transaction(function (current_count) {
-//       return (current_count || 0) + 1;
-//     });
-
-//     // if user uploaded an image, save it
-//     if (imageFile) {
-//       const imageUpdates = {};
-//       const storageRef = Firebase.storage().ref();
-//       const metadata = {
-//         contentType: 'image/jpeg'
-//       }
-//       let fileName = generateImageFileName();
-//       const uploadTask = storageRef.child('images/' + fileName).put(imageFile, metadata);
-//       uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-//       function(snapshot) {
-//         }, function(error) {
-//           console.log(error.message)
-//       }, function() {
-//         const downloadURL = uploadTask.snapshot.downloadURL;
-//         if (downloadURL) {
-//           let imageObject = {
-//             url: downloadURL,
-//             lastModified: Firebase.database.ServerValue.TIMESTAMP,
-//             uploader: uid
+//           // add geo to geo table if its not there
+//           if (!geoSnapshot.exists()) {
+//             let geoObject = {
+//               country: itinerary.geo.country,
+//               location: itinerary.geo.location,
+//               label: itinerary.geo.label
+//             }
+//             updates[`/${Constants.GEOS_PATH}/${itinerary.geo.placeId}`] = geoObject;
 //           }
 
-//           let imageId = Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId + '/images').push().key;
-//           imageUpdates[`/${Constants.SUBJECTS_PATH}/${subjectId}/images/${imageId}`] = imageObject;
-//           imageUpdates[`/${Constants.REVIEWS_BY_USER_PATH}/${uid}/${reviewId}/subject/images/${imageId}`] = imageObject;
-//           // imageUpdates[`/${Constants.REVIEWS_PATH}/${reviewId}/images/${imageId}`] = imageObject;
-//           // imageUpdates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${subjectId}/${uid}/images/${imageId}`] = imageObject;
-
-//           payloadObject.subject.images = {
-//             imageId: imageObject,
-//             lastModified: lastModified
+//           if (!countrySnapshot.exists()) {
+//             updates[`/${Constants.COUNTRIES_PATH}/${itinerary.geo.country}/places/${itinerary.geo.placeId}`] = true;
 //           }
 
-//           Firebase.database().ref().update(imageUpdates).then(response => {
-//             dispatch({
-//               type: REVIEW_SUBMITTED,
-//               payload: payloadObject,
-//               meta: {
-//                 mixpanel: {
-//                   event: 'Review submitted',
-//                   props: {
-//                     rating: review.rating,
-//                     subjectId: subjectId,
-//                     location: 'Editor page'
-//                   }
+//           Firebase.database().ref().update(updates, function(error) {
+//             if (error) {
+//               console.log("Error updating data:", error);
+//             }
+//           });
+
+//           // upload itinerary images if they exist
+//           if (itinerary.images && itinerary.images.isNew && itinerary.images.files && itinerary.images.files[0]) {
+//             setTimeout(function() {
+//               uploadCoverPhoto(auth, itinerary.images.files[0], itinerary, itineraryId);
+//             }, 2000);
+//           }
+
+//           let message = itinerary.title + ' has been saved.';
+
+//           dispatch({
+//             type: ITINERARY_UPDATED,
+//             itineraryId: itineraryId,
+//             message: message,
+//             meta: {
+//               mixpanel: {
+//                 event: 'Itinerary updated',
+//                 props: {
+//                   itineraryId: itineraryId,
 //                 }
 //               }
-//             })
-//           });
-//         }
+//             }
+//           })
 //       })
-//     }
-//     else {
-//       dispatch({
-//         type: REVIEW_SUBMITTED,
-//         payload: payloadObject
-//       })
-//     }
-//   }
-// }
-
-// export function updateSubjectImages() {
-//   return dispatch => {
-//     Firebase.database().ref(Constants.SUBJECTS_PATH).once('value', snapshot => {
-//       snapshot.forEach(function(subjectChild) {
-//         // && subjectChild.key === '-KZOlUe8RIMnWMkll8bQ'
-//         // subjectChild.val().images && 
-//         if (subjectChild.val().images && subjectChild.val().images[0]) {
-//           let image = {
-//             url: subjectChild.val().images[0],
-//             lastModified: Firebase.database.ServerValue.TIMESTAMP
-//           };
-          
-//           Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectChild.key + '/images').remove().then(
-//             response => {
-//               Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectChild.key + '/images').push(image);  
-//             })          
-//         }
-//       })
-//     })
-//   }
-// }
-
-// export function updateReviewByUserImages() {
-//   return dispatch => {
-//     Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH).once('value', userSnap => {
-//       userSnap.forEach(function(user) {
-//         user.forEach(function(review) {
-//           let reviewSubject = review.val().subject;
-//           //review.key == '-KeGsFF9dqzzJja0dZI5' && 
-          
-//           if (reviewSubject.images && reviewSubject.images[0]) {
-//             let image = {
-//               url: reviewSubject.images[0],
-//               lastModified: Firebase.database.ServerValue.TIMESTAMP
-//             };
-            
-//             Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + user.key + '/' + review.key + '/subject/images').remove().then(
-//               response => {
-//                 Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + user.key + '/' + review.key + '/subject/images').push(image);  
-//               })          
-//           }
-//         })
 //       })
 //     })
 //   }
