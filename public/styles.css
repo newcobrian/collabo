@@ -6,6 +6,9 @@ body {
   /*background-color: #FAFAF8;*/
   font-family: 'Roboto', sans-serif !important;
 }
+html,body,#page,header { height:100%;}
+/**{ border: 1px solid red; }*/
+
 body a.active, 
 body a:active,
 body a:focus,
@@ -506,7 +509,6 @@ a.logo-module:focus {
   height: 32px;
   background: transparent;
   text-align: center;
-  margin: 0;
   display: inline-block; 
 }
 svg {
@@ -514,9 +516,9 @@ svg {
 }
 
 .navigation-bar .nav-icon img {
-  height: 32px;
+  height: 100%;
   border-radius: 50px;
-  width: 32px;
+  width: 100%;
 }
 .navigation-bar .nav-editor .nav-icon {
   /*box-shadow: 0 0 0px 2px rgba(107,255,78,.2);*/
@@ -646,6 +648,9 @@ svg {
 border-bottom: 1px solid rgba(0,0,0,.1);
 }
 
+.opa-100 {
+  opacity: 1;
+}
 .opa-90 {
   opacity: .9;
 }

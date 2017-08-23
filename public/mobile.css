@@ -54,6 +54,8 @@ body {
     margin: 0 auto;
     border-top: 1px solid rgba(0,0,0,.1);
     overflow: hidden;
+    bottom: 0;
+    z-index: 10;
 }
 .navigation-bar .nav-module.create-review {
 /*  background: white;
@@ -72,13 +74,34 @@ body {
 .navigation-bar .nav-text {
     font-size: 10px;
     letter-spacing: 1px;
+    -webkit-flex-direction: column;
+     flex-direction: column;
+     -webkit-align-items: center;
+      align-items: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+}
+.nav-module .nav-text .material-icons {
+  margin-right: 0;
+  margin-top: 0;
+  margin-bottom: 5px;
+  opacity: .6
+}
+.navigation-bar .nav-module.active .material-icons {
+  color: #45CAE6;
+  opacity: 1;
+}
+.navigation-bar .nav-icon,
+.navigation-bar .count-badge {
+  margin-bottom: 5px;
 }
 .navigation-bar .nav-module {
-  margin: 0 10px;
+  margin: 0;
+  padding: 0;
 }
 .navigation-bar .nav-icon {
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
 }
 .nav-pills .nav-item {
     font-size: 11px;
@@ -234,6 +257,9 @@ body {
 }
 
 .count-badge {
+  width: 24px;
+  height: 24px;
+  padding: 2px 0;
 }
 
 .article-page.page-common {
