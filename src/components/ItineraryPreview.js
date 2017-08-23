@@ -87,7 +87,7 @@ const GeoInfo = props => {
           {/** Flag and Geo **/}
           <div className={'itinerary__cover__flag flx-hold flag-' + props.geo.country}>
           </div>
-          <div className="geo-type ellipsis">
+          <div className="geo-type ellipsis opa-50">
             {props.geo.label}
           </div>
         </div>

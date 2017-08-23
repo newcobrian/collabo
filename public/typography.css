@@ -210,29 +210,17 @@ font-weight: 300;
 
 /* CHANGE ME FOR COLOR TEST!!!! */
 .color--primary {
-  color: #4DBDE9 !important;
-  color: #03675C !important; /*ALGAE GREEN*/
-  color: #8B6563 !important; /*COPPER EEL*/
-  color: #6DB6D4 !important; /*SILVER CLOUDS*/
-  color: #1A75CE !important; /*BLUE BERRY*/
-  color: #377037 !important; /*UBER */
-  color: #00B3CB !important; /*SEA TURTLE MOSS */
-  color: #45CAE6 !important; /*SEA TURTLE MOSS */
-  color: #6694E0 !important; /*SEA TURTLE MOSS */
 
+  color: #45CAE6 !important; /*SEA TURTLE MOSS */
+  /*color: #6694E0 !important;*/
 
 }
 
 /* CHANGE ME FOR COLOR TEST!!!! */
 .fill--primary {
 
-  background-color: #00B3CB !important; /*SEA TURTLE MOSS*/
   background-color: #45CAE6 !important; /*SEA TURTLE MOSS*/
-  background-color: #6694E0 !important; /*SEA TURTLE MOSS*/
-
-  /* Rectangle Copy: */
-  /*background-image: linear-gradient(213deg, #00FFE2 -40%, #02B1DA 50%);*/
-
+  /*background-color: #6694E0 !important;*/
 }
 /* CHANGE ME FOR COLOR TEST!!!! */
 .navigation-bar .nav-module.active,
@@ -243,31 +231,20 @@ font-weight: 300;
 .nav-pills.outline-active .nav-link.active,
 .nav-pills.outline-active .nav-link:hover  {
   border-bottom: 2px solid #00B3CB;
-  border-bottom: 2px solid #6694E0;
+  /*border-bottom: 2px solid #6694E0;*/
 
   color: #45CAE6;
-  color: #6694E0;
+  /*color: #6694E0;*/
 
   padding-top: 2px;
 }
 
 .vb {
-  background-color: #6694E0;
+  background-color: #45CAE6;
+  /*background-color: #6694E0;*/
 }
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: #4DBDE9;
-  color: #4DBDE9 !important;
-  color: #02706A !important;
-  color: #03675C !important; /*ALGAE GREEN*/
-  color: #8B6563 !important; /*COPPER EEL*/
-  color: #6DB6D4 !important; /*SILVER CLOUDS*/
-  color: #1A75CE !important; /*KING BLUE*/
-  color: #377037 !important; /*KING BLUE*/
-  color: #36B096 !important; /*KING BLUE*/
-  color: #01A4C8 !important; /*KING BLUE*/
-  color: #00B3CB !important; /*DARK BLUE*/
   color: #45CAE6 !important; /*DARK BLUE*/
-  color: #6694E0 !important; /*DARK BLUE*/
 
 
   opacity: .8;

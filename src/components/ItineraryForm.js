@@ -294,7 +294,7 @@ class ItineraryForm extends React.Component {
               </div>
 
               {/** TITLE **/}
-              <div className="itinerary__cover__title ta-left v2-type-h2">
+              <div className="itinerary__cover__title ta-left v2-type-h2 mrgn-bottom-xs">
                 <RenderDebounceInput
                   type="text"
                   value={this.props.data.title}

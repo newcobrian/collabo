@@ -348,6 +348,21 @@
 .it__author-wrapper {
 	margin:  10px 30px 0 0;
 }
+
+.page-edit-own .it__author-wrapper {
+	margin:  10px 20px 0 0;
+}
+
+.page-edit-own .tip-wrapper .tip__cta-box,
+.page-edit-own .tip-wrapper .cta-container,
+.page-edit-own .tip__order-count,
+.page-edit-own .it__tip-count,
+.page-edit-own .itinerary__cover__flag {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+
 .guide-text-wrapper {
 	height: 160px;
 }
@@ -501,7 +516,7 @@ textarea.edit-itinerary__name {
   background-color: transparent;
 }
 .page-edit-own .it-add-wrapper input:hover,
-.page-edit-own  .it-add-wrappertextarea:hover {
+.page-edit-own  .it-add-wrapper textarea:hover {
   border: none;
   background-color: transparent;
   /*background-color: rgba(102,144,224,.1);*/

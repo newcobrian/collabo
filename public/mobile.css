@@ -442,7 +442,7 @@ width: 100%;
   width: auto;
 }
 .tip__content-wrapper {
-  margin-left: 0;
+  padding-left: 10px;
 }
 .flx.tip__right-module {
   -webkit-align-items: flex-end;

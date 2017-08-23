@@ -17,7 +17,7 @@
 }
 
 .tip__title {
-	margin-right: 20px;
+	padding-right: 20px;
 	margin-bottom: 10px;
 }
 .tip__address {
@@ -27,15 +27,15 @@
 }
 .tip__header-wrapper {
 	margin-bottom: 10px;
-	margin-right: 20px;
+	margin-right: 0px;
 }
 
 .tip__image-rating {
 	margin-right: 30px;
 }
 .tip__image-module {
-	height: 140px;
-	width: 140px;
+	height: 100px;
+	width: 100px;
 	flex-shrink: 0;
 	position: relative;
 	/*box-shadow: 0 14px 24px 0 rgba(0,0,0,0.1);*/
@@ -58,7 +58,7 @@
     display: inline-block;
 }
 .tip__content-wrapper {
-	margin-left: 30px;
+	padding-left: 30px;
 	width:100%;
 }
 
@@ -215,6 +215,7 @@ input.edit-tip__rating {
 	height: 32px;
 	border-radius: 10px;
 	overflow: hidden;
+  border: 1px solid rgba(0,0,0,.05);
 }
 .tip__rating-module select {
 	border-radius: 0px !important;
@@ -230,6 +231,8 @@ input.edit-tip__rating {
 .tip__rating-module--3 .tip__rating,
 .tip__rating-module--4 .tip__rating {
 	background-color: #FFA6B4;
+  background-color: #FC8B87;
+	background-color: #FDAB9B;
 }
 .tip__rating-module--5 select,
 .tip__rating-module--6 select,
