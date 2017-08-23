@@ -57,7 +57,7 @@ const CommentPreview = props => {
           <div className="flx flx-row flx-just-end flx-align-center">
 
             <div className="cta-icon cta-comment comment-on"></div>
-            <div className="v2-type-body1">{props.itinerary.commentsCount}</div>
+            <div className="v2-type-body1 weight-500">{props.itinerary.commentsCount}</div>
 
           </div>
         </div>
@@ -69,7 +69,7 @@ const CommentPreview = props => {
       <Link to={`/guide/${props.itinerary.id}`}>
         <div className="vb vb--sm vb--outline cta-wrapper flx flx-row flx-center-all no-comments mrgn-right-sm">             
              <div className="cta-icon cta-comment"></div>
-             <div className="v2-type-body1">0</div>
+             <div className="v2-type-body1 weight-500">0</div>
         </div>
       </Link>
     )

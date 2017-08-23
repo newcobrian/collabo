@@ -13,8 +13,6 @@
     margin: 0 auto;
 }
 .edit-itinerary-link {
-	position: absolute;
-	right: 0;
 }
 .itinerary__summary__author-photo {
     width: 100px;
@@ -478,19 +476,21 @@ textarea.edit-itinerary__name {
 
 .it-add-wrapper {
 	height: 80px;
-	padding: 0px 50px;
+	padding: 0px;
+}
+.it-add-wrapper .geosuggest {
+	padding: 0 20px;
+}
+.it-add-wrapper .geosuggest:hover {
 }
 .it-add-wrapper .geosuggest__input {
 	height: 80px;
 }
-
-.it-add-wrapper .geosuggest {
-	margin-left: 44px;
-	cursor: pointer;
-}
-.it-add-wrapper .geosuggest:hover {
+.it-add-wrapper .geosuggest__input:hover {
 	opacity: .9;
 }
+
+
 
 .page-edit-own .it-add-wrapper input,
 .page-edit-own .it-add-wrapper textarea {

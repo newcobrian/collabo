@@ -17,6 +17,7 @@ input, button, select, textarea {
   padding: 0;
   border: none; 
   background-color: transparent;
+  text-transform: inherit;
 }
 .page-edit-own input:hover,
 .page-edit-own textarea:hover {
@@ -141,8 +142,8 @@ input.input--underline {
   padding: 0px 10px 0px;
   height: auto;
   border: 0;
-  font-size: 14px;
-  letter-spacing: 2px;
+  font-size: 12px;
+  letter-spacing: 1px;
   text-transform: uppercase;
   height: 32px;
   line-height: 22px;
@@ -204,7 +205,9 @@ input.input--underline {
   color: #ccc;
 }
 
-
+.vb.no-pad {
+  padding: 0 !important;
+}
 .vb--intro--register {
     padding: 5px 20px;
     background-color: rgba(255,255,255,.1);

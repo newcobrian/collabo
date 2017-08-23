@@ -88,14 +88,15 @@ const TipPreview = props => {
                 { /** END Image **/ }
 
                 { /** Rating **/ }
-                <div className={'tip__rating-module flx flx-row flx-align-center mrgn-top-sm w-100 tip__rating-module--' + tip.review.rating}>
+                <div className={'mobile-show tip__rating-module flx flx-row flx-align-center flx-item-right w-100 tip__rating-module--' + tip.review.rating}>
                   <div className={'tip__rating flx-hold flx flx-row flx-center-all v2-type-rating--' +  tip.review.rating}>
                     {tip.review.rating}
                   </div>
-                  <i className="rating-star-icon material-icons color--black opa-40 md-14">star</i>
+                  <i className="rating-star-icon material-icons color--black opa-40 md-14 DN">star</i>
                 </div>
                 { /** END Rating **/ }
 
+               
                 <div className="tip__timestamp v2-type-caption opa-20 mrgn-top-xs DN">
                   <DisplayTimestamp timestamp={tip.review.lastModified} />
                 </div>
@@ -107,19 +108,29 @@ const TipPreview = props => {
 
                   <div className="tip__title-wrapper flx flx-row flx-align-top w-100 hide-in-list">
                     <div className="tip__order-count DN v2-type-h3">{props.index}.</div>
-
-                  
-
                   </div>
+
                 <div className="tip__content-wrapper">
 
-                  { /** Title **/ }
-                  <Link to={`/review/${tip.subjectId}/${tip.id}`}>
-                  <div className="hide-in-list tip__title v2-type-h3 ta-left">
-                    <div className="tip__order-count">{props.index}.</div> {tip.subject.title} 
-                  </div>
-                  </Link>
-                  { /** END Title **/ }
+                  <div className="tip__header-wrapper flx flx-row flx-align-start flx-just-start">
+                    { /** Title **/ }
+                    <Link to={`/review/${tip.subjectId}/${tip.id}`}>
+                    <div className="hide-in-list tip__title v2-type-h3 ta-left">
+                      <div className="tip__order-count">{props.index}.</div> {tip.subject.title} 
+                    </div>
+                    </Link>
+                    { /** END Title **/ }
+
+                    { /** Rating **/ }
+                    <div className={'mobile-hide tip__rating-module flx flx-row flx-align-center flx-item-right w-100 tip__rating-module--' + tip.review.rating}>
+                      <div className={'tip__rating flx-hold flx flx-row flx-center-all v2-type-rating--' +  tip.review.rating}>
+                        {tip.review.rating}
+                      </div>
+                      <i className="rating-star-icon material-icons color--black opa-40 md-14 DN">star</i>
+                    </div>
+                    { /** END Rating **/ }
+                </div>
+
 
                   { /** Author **/ }
                   <Link
@@ -160,10 +171,10 @@ const TipPreview = props => {
                     <Link onClick={handleSaveClick} className="hide-in-list vb vb--sm vb--outline-none flx flx-row flx-align-center mrgn-right-sm color--white fill-primary">
                         {/*<img className="center-img mrgn-right-sm" src="/img/icons/i32_save.png"/>*/}
                         <i className="material-icons mrgn-right-sm color--white">playlist_add</i>
-                        <div className="color--white">SAVE</div>
+                        <div className="color--white">ADD TO...</div>
                     </Link>
                     <Link onClick={onInfoClick} className="hide-in-list vb vb--sm vb--outline flx flx-row flx-align-center mrgn-right-sm">
-                      <i className="material-icons mrgn-right-sm opa-50">info_outline</i>
+                      <i className="material-icons mrgn-right-sm">info_outline</i>
                       <div className="color--black">Info</div>
                     </Link>
                     <div className="vb__label v2-type-body0 opa-60 mrgn-top-sm DN">Save to</div>

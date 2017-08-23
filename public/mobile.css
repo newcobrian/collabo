@@ -19,6 +19,9 @@ body {
 .mobile-hide {
   display: none;
 }
+.mobile-show {
+  display: inline-block !important;
+}
 .header-container {
 }
 .header-wrapper {
