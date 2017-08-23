@@ -2,6 +2,28 @@ import Firebase from 'firebase';
 import * as Constants from './constants';
 import 'whatwg-fetch';
 
+export function updateAlgloiaUsersIndex(username, userId) {
+	let usernameSuffixes = [];
+	for(let i = 1; i < username.length - 1; i++) {
+	  usernameSuffixes.push(username.substr(i))
+	}
+
+	//update Algolia index
+	var algoliasearch = require('algoliasearch');
+	var client = algoliasearch('2OEMW8KEZS', '62e17a3113351343399fad062d3cbca5', {protocol:'https:'});
+	var index = client.initIndex('views-users');
+	index.saveObject({
+	  username: username,
+	  objectID: userId,
+	  suffixes: usernameSuffixes
+	}, function(err, content) {
+	  if (err) {
+	    console.error(err);
+	    return;
+	  }
+	});
+}
+
 export function byPriority(a, b) {
   if (a.priority < b.priority)
     return -1;

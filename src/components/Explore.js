@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
 import ProfilePic from './ProfilePic';
 import FollowUserButton from './FollowUserButton';
 import * as Selectors from '../selectors/exploreSelectors';
+import FirebaseSearchInput from './FirebaseSearchInput';
 
 const mapStateToProps = state => ({
   ...state.explore,
@@ -24,9 +25,20 @@ class Explore extends React.Component {
 
   render() {
     const users = Selectors.getAllUsers(this.props.usersData, this.props.isFollowingData);
+
+    const searchInputCallback = result => {
+      if (result.text) {
+        browserHistory.push('/' + result.text);
+      }
+    }
     
     return (
       <div className="flx flx-col page-common follow-page flx-just-start w-100">
+        <FirebaseSearchInput
+          name="searchInput"
+          callback={searchInputCallback}
+          placeholder="Search people"
+          className="input--search" />
         <div className="page-title-wrapper center-text">
           <div className="v2-type-page-header">Travelers</div>
           <div className="v2-type-body2 opa-60">All the special beta users right now</div>

@@ -85,6 +85,8 @@ export function signUpUser(username, email, password) {
               userId: userId
             })
 
+            Helpers.updateAlgloiaUsersIndex(username, userId);
+
             dispatch({
               type: ActionTypes.AUTH_USER,
               payload: userId,
@@ -163,12 +165,14 @@ export function signOutUser() {
   }
 }
 
-export function updateUsername(oldName, newName, userid) {
+export function updateUsername(oldName, newName, userId) {
   Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + newName + '/').update({
-    userId: userid
+    userId: userId
   })
 
   Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + oldName).remove();
+
+  Helpers.updateAlgloiaUsersIndex(newName, userId);
 }
 
 export function makeUser(newUser, currentUser) {

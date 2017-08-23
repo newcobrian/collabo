@@ -569,6 +569,7 @@ export function onCreateItinerary(auth, itinerary) {
   }
 }
 
+
 // export function onCreateSubmit(key, subject, review, rid, imageURL, imageFile, path=null) {
 //   return dispatch => {
 //     const updates = {};

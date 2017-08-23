@@ -10,7 +10,8 @@ import 'whatwg-fetch';
 var algoliasearch = require('algoliasearch');
 var client = algoliasearch('2OEMW8KEZS', '62e17a3113351343399fad062d3cbca5', {protocol:'https:'});
 
-var index = client.initIndex('whatsgood-subjects');
+// var index = client.initIndex('whatsgood-subjects');
+var index = client.initIndex('views-users');
 
 const mapStateToProps = state => ({
   ...state.editor,
@@ -59,7 +60,7 @@ class FirebaseSearchInput extends Component {
   }
 
   onNewRequest(chosenRequest) {
-    this.updateAlgoliaIndex(chosenRequest);
+    // this.updateAlgoliaIndex(chosenRequest);
     this.props.callback(chosenRequest);
   }
 
@@ -89,53 +90,63 @@ class FirebaseSearchInput extends Component {
         }
         content.hits.map(function(result) {
           let algoliaSearchObject = {};
-          if (result.title && result.objectID) {
-            algoliaSearchObject._service = 'algolia';
-            algoliaSearchObject.text = result.title;
-            algoliaSearchObject.value = result.title;
-            algoliaSearchObject.id = result.objectID;
-            if (result.description) algoliaSearchObject.description = result.description;
-
+          if(result.username) {
+            algoliaSearchObject.text = result.username;
+            algoliaSearchObject.value = result.username;
+            algoliaSearchObject.userId = result.objectID;
             retrievedSearchTerms.push(algoliaSearchObject);
-          }          
+          }
+          // if (result.title && result.objectID) {
+          //   algoliaSearchObject._service = 'algolia';
+          //   algoliaSearchObject.text = result.title;
+          //   algoliaSearchObject.value = result.title;
+          //   algoliaSearchObject.id = result.objectID;
+          //   if (result.description) algoliaSearchObject.description = result.description;
+
+          //   retrievedSearchTerms.push(algoliaSearchObject);
+          // }          
         })
-      });
-
-      // then use the search API
-      fetch(url).then(response => response.json())
-        .then(json => {
-        let searchResults;
-
-        if(json.error) return json.error;
-
-        searchResults = json.results;
-
-        searchResults.map(function(result) {
-          let searchObject = {};
-          switch (result._service) {
-            case '4sq':
-              if (result.name && result.id) {
-                searchObject.text = result.name;
-                searchObject.value = searchObject.title = result.name;
-                searchObject.id = '4sq:' + result.id;
-                if (result.url) searchObject.url = result.url;
-                if (result.location && result.location.formattedAddress) searchObject.address = result.location.formattedAddress.join(' ');
-                if (result.location && result.location.address + result.location.city) searchObject.text += ' - ' + result.location.address + ', ' + result.location.city;
-              }
-              break;
-            default:
-              break;
-          }
-          if (searchObject.text && searchObject.id) {
-            searchObject._service = result._service;
-            retrievedSearchTerms.push(searchObject);
-          }
-        });
 
         self.setState({
           dataSource: retrievedSearchTerms
         });
       });
+
+      // then use the search API
+      // fetch(url).then(response => response.json())
+      //   .then(json => {
+      //   let searchResults;
+
+      //   if(json.error) return json.error;
+
+      //   searchResults = json.results;
+
+      //   searchResults.map(function(result) {
+      //     let searchObject = {};
+      //     switch (result._service) {
+      //       case '4sq':
+      //         if (result.name && result.id) {
+      //           searchObject.text = result.name;
+      //           searchObject.value = searchObject.title = result.name;
+      //           searchObject.id = '4sq:' + result.id;
+      //           if (result.url) searchObject.url = result.url;
+      //           if (result.location && result.location.formattedAddress) searchObject.address = result.location.formattedAddress.join(' ');
+      //           if (result.location && result.location.address + result.location.city) searchObject.text += ' - ' + result.location.address + ', ' + result.location.city;
+      //         }
+      //         break;
+      //       default:
+      //         break;
+      //     }
+      //     if (searchObject.text && searchObject.id) {
+      //       searchObject._service = result._service;
+      //       retrievedSearchTerms.push(searchObject);
+      //     }
+      //   });
+
+      //   self.setState({
+      //     dataSource: retrievedSearchTerms
+      //   });
+      // });
     }
   }
 
