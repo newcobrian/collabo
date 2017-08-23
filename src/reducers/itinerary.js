@@ -432,9 +432,18 @@ export default (state = initialState, action) => {
         ...state,
         coverPicProgress: action.progress
       }
+    case ActionTypes.TIP_IMAGE_UPLOAD_RUNNING:
+    case ActionTypes.TIP_IMAGE_UPLOAD_PAUSED:
+      return {
+        ...state,
+        subjectId: action.subjectId,
+        tipImageProgress: action.progress
+      }
     case ActionTypes.UPLOAD_COMPLETED:
     case ActionTypes.TIP_DELETED:
+    case ActionTypes.TIP_IMAGE_UPLOAD_COMPLETED:
       return state;
+
     default:
       return state;
   }

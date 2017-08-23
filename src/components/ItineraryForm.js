@@ -246,6 +246,14 @@ class ItineraryForm extends React.Component {
       )
     }
 
+  const tipDropHandler = tip => (filesToUpload, e) => {
+    if (filesToUpload && tip && tip.subjectId) {
+      // console.log('tip = ' + JSON.stringify(tip))
+      // console.log(filesToUpload)
+      this.props.uploadCustomSubjectImages(this.props.authenticated, tip.subjectId, filesToUpload, itinerary.id);
+    }
+  }
+
     return (
       <div className="flx flx-col flx-align-start page-common page-itinerary page-edit-own">
 
@@ -424,6 +432,19 @@ class ItineraryForm extends React.Component {
                                     <div className="tip__image-module">
                                       <div className="tip__photo-count">{tip.images.length > 0 ? tip.images.length : null}</div>
                                       <ImagePicker images={tip.images} />
+                                    </div>
+                                    <div >
+                                      <Dropzone
+                                        onDrop={tipDropHandler(tip)}
+                                        disablePreview={false}
+                                        accept="image/*"
+                                        className="edit-tip__dropzone__touch flx flx-col flx-align-center flx-just-start ta-center">
+                                        <div className="vb vb--sm vb--shadow-none fill--white color--black opa-80">
+                                          <i className="material-icons color--primary md-24">add_a_photo</i>
+                                        </div>
+
+                                      </Dropzone>
+                                      
                                     </div>
                                     { /** END Image **/ }
 

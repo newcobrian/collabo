@@ -809,51 +809,74 @@ export function setInProgress() {
 //   }
 // }
 
-export function uploadImages(auth, objectId, objectType, images, itineraryId) {
-  if (images) {
-    let storagePath = (objectType === Constants.REVIEW_TYPE ? Constants.IMAGES_PATH : Constants.IMAGES_ITINERARIES_PATH);
-    let byUserPath = (objectType === Constants.REVIEW_TYPE ? Constants.IMAGES_BY_USER_PATH : Constants.IMAGES_ITINERARIES_BY_USER_PATH);
-    // let updates = {};
-    let imageId = '';
-    images.forEach(function(imageFile) {
-      let imageObject = {
-        lastModified: Firebase.database.ServerValue.TIMESTAMP
-      };
-      if (typeof imageFile === 'string' || imageFile instanceof String) {
-        // if its the URL path of the image, just save it
-        imageObject.url = imageFile;
-        Firebase.database().ref(byUserPath + '/' + auth + '/' + objectId).push(imageObject);
-        // updates[`/${storagePath}/${objectId}/${imageId}`] = Object.assign({}, imageObject, {userId: auth});
-      }
-      else {
-        // otherwise upload the file if we need to
-        const storageRef = Firebase.storage().ref();
-        
-        const metadata = {
-          contentType: imageFile.type
+export function uploadCustomSubjectImages(auth, objectId, images, itineraryId) {
+  return dispatch => {
+    if (images) {
+      let imageId = '';
+      images.forEach(function(imageFile) {
+        let imageObject = {
+          lastModified: Firebase.database.ServerValue.TIMESTAMP
+        };
+        if (typeof imageFile === 'string' || imageFile instanceof String) {
+          // if its the URL path of the image, just save it
+          imageObject.url = imageFile;
+          Firebase.database().ref(Constants.IMAGES_BY_USER_PATH + '/' + auth + '/' + objectId).push(imageObject);
         }
-        // save all the new images in Firebase storage, get all the image URLs
-        let fileName = Helpers.generateImageFileName();
-        const uploadTask = storageRef.child('images/' + fileName).put(imageFile, metadata);
-        uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-        function(snapshot) {
-          }, function(error) {
-            console.log(error.message)
-        }, function() {
-          const downloadURL = uploadTask.snapshot.downloadURL;
-          // let uploadUpdates = {};
-          if (downloadURL) {
-            imageObject.url = downloadURL;
-             // save images in images and images-by-user
-            Firebase.database().ref(byUserPath + '/' + auth + '/' + objectId).push(imageObject);
-            // uploadUpdates[`/${storagePath}/${objectId}/${imageId}`] = Object.assign({}, imageObject, {userId: auth});
-
-            // Firebase.database().ref().update(uploadUpdates);
+        else {
+          // otherwise upload the file if we need to
+          const storageRef = Firebase.storage().ref();
+          
+          const metadata = {
+            contentType: imageFile.type
           }
-        })
-      }
-    })
-    // Firebase.database().ref().update(updates);
+          // save all the new images in Firebase storage, get all the image URLs
+          let fileName = Helpers.generateImageFileName();
+          const uploadTask = storageRef.child('images/' + fileName).put(imageFile, metadata);
+          uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+          function(snapshot) {
+            let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              // console.log('Upload is ' + progress + '% done');
+              switch (snapshot.state) {
+                case Firebase.storage.TaskState.PAUSED: // or 'paused'
+                  // console.log('Upload is paused');
+                  dispatch({
+                    type: ActionTypes.TIP_IMAGE_UPLOAD_PAUSED,
+                    progress,
+                    subjectId: objectId
+                  })
+                  break;
+                case Firebase.storage.TaskState.RUNNING: // or 'running'
+                  // console.log('Upload is running');
+                  dispatch({
+                    type: ActionTypes.TIP_IMAGE_UPLOAD_RUNNING,
+                    progress,
+                    subjectId: objectId
+                  })
+                  break;
+              }
+            }, function(error) {
+              console.log(error.message)
+              dispatch({
+                type: ActionTypes.UPLOAD_ERROR,
+                error: error.message
+              })
+          }, function() {
+            const downloadURL = uploadTask.snapshot.downloadURL;
+            if (downloadURL) {
+              imageObject.url = downloadURL;
+               // save images in images and images-by-user
+              Firebase.database().ref(Constants.IMAGES_BY_USER_PATH + '/' + auth + '/' + objectId).push(imageObject);
+
+              dispatch({
+                type: ActionTypes.TIP_IMAGE_UPLOAD_COMPLETED,
+                subjectId: objectId
+              })
+            }
+          })
+        }
+      })
+      // Firebase.database().ref().update(updates);
+    }
   }
 }
 
@@ -1062,7 +1085,7 @@ export function onEditorSubmit(auth, itineraryId, itinerary) {
         // save the custom images from each review
         let subjectId = reviews[i].subjectId;
         if (reviews[i].images && reviews[i].images.isNew) {
-          let customImage = uploadImages(auth, subjectId, Constants.REVIEW_TYPE, reviews[i].images.files, itineraryId);
+          uploadCustomSubjectImages(auth, subjectId, reviews[i].images.files, itineraryId);
         }
       }
     }
