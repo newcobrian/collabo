@@ -123,6 +123,7 @@ class ItineraryForm extends React.Component {
         result.gmaps.address_components.forEach(function(resultItem) {
           if (resultItem.types && resultItem.types[0] && resultItem.types[0] === 'country') {
             if (resultItem.short_name) geoData.country = resultItem.short_name;
+            if (resultItem.long_name) geoData.fullCountry = resultItem.long_name;
           }
         })
       }
@@ -535,7 +536,7 @@ class ItineraryForm extends React.Component {
                                             cols="20"
                                             wrap="hard"
                                             value={tip.review.caption}
-                                            placeholder="Add a caption"
+                                            placeholder="Add a review"
                                             debounceFunction={this.changeCaption(tip)} />
                                         </div>
                                       </div>

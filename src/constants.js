@@ -25,6 +25,10 @@ export const AMAZON_SEARCH_URL = 'http://whatsgoooood.com/proxy/amazon/'
 export const TMDB_IMAGES_PATH = 'http://image.tmdb.org/t/p/original/'
 
 
+/*** Search Types ***/
+export const PEOPLE_SEARCH = 'PEOPLE_SEARCH'
+export const GEO_SEARCH = 'GEO_SEARCH'
+
 /*** Firebase Paths ***/
 export const USERS_PATH = '/users'
 export const USERNAMES_TO_USERIDS_PATH = '/usernames-to-userids'

@@ -215,7 +215,7 @@ export function watchTips(dispatch, itineraryId, itineraryUserId, source) {
 
 export function unwatchTips(dispatch, itineraryId, itineraryUserId, source) {
   Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).once('value', tipSnapshot => {
-    if (tipSnapshot.val().userId && tipSnapshot.val().userId !== itineraryUserId) {
+    if (tipSnapshot.exists() && tipSnapshot.val().userId !== itineraryUserId) {
       unwatchUser(dispatch, tipSnapshot.val().userId, source)
     }
     unwatchSubject(dispatch, tipSnapshot.key, tipSnapshot.val().subjectId, source);
@@ -343,43 +343,65 @@ export function updateItineraryGeo(auth, itinerary, newGeo) {
   return dispatch => {
     if (itinerary && itinerary.id && itinerary.userId && newGeo && newGeo.placeId) {
       if (!isEqual(itinerary.geo, newGeo)) {
-        let updates = {};
-        let timestamp = Firebase.database.ServerValue.TIMESTAMP;
+        Firebase.database().ref(Constants.GEOS_PATH + '/' + newGeo.placeId).once('value', geoSnapshot => {
+          Firebase.database().ref(Constants.COUNTRIES_PATH + '/' + newGeo.country + '/places/' + newGeo.placeId).once('value', countrySnapshot => {
+            let updates = {};
+            let timestamp = Firebase.database.ServerValue.TIMESTAMP;
 
-        // create an itinerary object to save at the new geo path
-        let itineraryObject = Object.assign({}, {lastModified: timestamp}, {geo: newGeo}, 
-          pick(itinerary, ['id', 'createdOn', 'description', 'images', 'reviewsCount', 'title']));
+            // create an itinerary object to save at the new geo path
+            let itineraryObject = Object.assign({}, {lastModified: timestamp}, {geo: newGeo}, 
+              pick(itinerary, ['id', 'createdOn', 'description', 'images', 'reviewsCount', 'title']));
 
-        // update all itinerary tables
-        updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${itinerary.userId}/${itinerary.id}/geo`] = newGeo;
-        updates[`/${Constants.ITINERARIES_PATH}/${itinerary.id}/geo`] = newGeo;
+            // update all itinerary tables
+            updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${itinerary.userId}/${itinerary.id}/geo`] = newGeo;
+            updates[`/${Constants.ITINERARIES_PATH}/${itinerary.id}/geo`] = newGeo;
 
-        // update new itinerary-by-geo locations with the full itinerary objects
-        updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${newGeo.placeId}/${itinerary.userId}/${itinerary.id}`] = itineraryObject;
-        updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${newGeo.placeId}/${itinerary.id}`] = Object.assign({}, itineraryObject, {userId: itinerary.userId});
+            // update new itinerary-by-geo locations with the full itinerary objects
+            updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${newGeo.placeId}/${itinerary.userId}/${itinerary.id}`] = itineraryObject;
+            updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${newGeo.placeId}/${itinerary.id}`] = Object.assign({}, itineraryObject, {userId: itinerary.userId});
 
-        // remove itineraries from old geo locations
-        updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${itinerary.geo.placeId}/${itinerary.userId}/${itinerary.id}`] = null;
-        updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itinerary.id}`] = null;
+            // remove itineraries from old geo locations
+            updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${itinerary.geo.placeId}/${itinerary.userId}/${itinerary.id}`] = null;
+            updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itinerary.id}`] = null;
 
-        // update lastModified timestamps
-        updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${itinerary.userId}/${itinerary.id}/lastModified`] = timestamp;
-        updates[`/${Constants.ITINERARIES_PATH}/${itinerary.id}/lastModified`] = timestamp;
+            // update lastModified timestamps
+            updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${itinerary.userId}/${itinerary.id}/lastModified`] = timestamp;
+            updates[`/${Constants.ITINERARIES_PATH}/${itinerary.id}/lastModified`] = timestamp;
 
-        Firebase.database().ref().update(updates);
-
-        dispatch({
-          type: ActionTypes.ITINERARY_UPDATED,
-          itineraryId: itinerary.id,
-          message: 'Your guide has been updated',
-          meta: {
-            mixpanel: {
-              event: 'Itinerary updated',
-              props: {
-                itineraryId: itinerary.id,
+            // add geo to the geo table if it doesnt exists
+            if (!geoSnapshot.exists() || !geoSnapshot.val().fulLCountry) {
+              let geoObject = {
+                location: newGeo.location,
+                label: newGeo.label
               }
+              if (newGeo.country) geoObject.country = newGeo.country;
+              if (newGeo.fullCountry) geoObject.fullCountry = newGeo.fullCountry;
+              updates[`/${Constants.GEOS_PATH}/${newGeo.placeId}`] = geoObject;
+
+              Helpers.updateAlgloiaGeosIndex(newGeo);
             }
-          }
+
+            // if place ID isn't in countries table, add it
+            if (!countrySnapshot.exists()) {
+              updates[`/${Constants.COUNTRIES_PATH}/${newGeo.country}/places/${newGeo.placeId}`] = true;
+            }
+
+            Firebase.database().ref().update(updates);
+
+            dispatch({
+              type: ActionTypes.ITINERARY_UPDATED,
+              itineraryId: itinerary.id,
+              message: 'Your guide has been updated',
+              meta: {
+                mixpanel: {
+                  event: 'Itinerary updated',
+                  props: {
+                    itineraryId: itinerary.id,
+                  }
+                }
+              }
+            })
+          })
         })
       }
     }

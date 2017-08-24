@@ -540,12 +540,13 @@ export function onCreateItinerary(auth, itinerary) {
         updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}`] = Object.assign({}, itineraryObject, {userId: auth});
 
         // add geo to the geo table if it doesnt exists
-        if (!geoSnapshot.exists()) {
+        if (!geoSnapshot.exists() || !geoSnapshot.val().fulLCountry) {
           let geoObject = {
-            country: itinerary.geo.country,
             location: itinerary.geo.location,
             label: itinerary.geo.label
           }
+          if (itinerary.geo.country) geoObject.country = itinerary.geo.country;
+          if (itinerary.geo.fullCountry) geoObject.fullCountry = itinerary.geo.fullCountry;
           updates[`/${Constants.GEOS_PATH}/${itinerary.geo.placeId}`] = geoObject;
         }
 

@@ -7,11 +7,8 @@ import * as Constants from '../constants';
 import * as Actions from '../actions';
 import 'whatwg-fetch';
 
-var algoliasearch = require('algoliasearch');
-var client = algoliasearch('2OEMW8KEZS', '62e17a3113351343399fad062d3cbca5', {protocol:'https:'});
-
-// var index = client.initIndex('whatsgood-subjects');
-var index = client.initIndex('views-users');
+const algoliasearch = require('algoliasearch');
+const client = algoliasearch('2OEMW8KEZS', '62e17a3113351343399fad062d3cbca5', {protocol:'https:'});
 
 const mapStateToProps = state => ({
   ...state.editor,
@@ -27,7 +24,25 @@ class FirebaseSearchInput extends Component {
     this.state = {
       dataSource : [],
       inputValue : '',
-      searchTimer: undefined
+      searchTimer: undefined,
+      index: {}
+    }
+  }
+
+  componentWillMount() {
+    switch(this.props.type) {
+      case Constants.PEOPLE_SEARCH:
+        this.setState({
+          index: client.initIndex('views-users')
+        })
+        break;
+      case Constants.GEO_SEARCH:
+        this.setState({
+          index: client.initIndex('views-geos')
+        })
+        break;
+      default:
+        break;
     }
   }
 
@@ -46,7 +61,7 @@ class FirebaseSearchInput extends Component {
 
   updateAlgoliaIndex(request) {
     if (request._service !== 'algolia') {
-      index.saveObject({
+      this.state.index.saveObject({
         name: request.value,
         description: request.description,
         objectID: request.id
@@ -66,10 +81,10 @@ class FirebaseSearchInput extends Component {
 
   performSearch() {
     const self = this;
-    let url = Constants.SUBJECT_SEARCH_URL + this.state.inputValue;
-      if (this.props.searchLocation && this.props.searchLocation.lat && this.props.searchLocation.lng) {
-        url = url + '&ll=' + this.props.searchLocation.lat + ',' + this.props.searchLocation.lng;
-      } 
+    // let url = Constants.SUBJECT_SEARCH_URL + this.state.inputValue;
+    //   if (this.props.searchLocation && this.props.searchLocation.lat && this.props.searchLocation.lng) {
+    //     url = url + '&ll=' + this.props.searchLocation.lat + ',' + this.props.searchLocation.lng;
+    //   } 
       // url = Constants.SUBJECT_SEARCH_URL + this.state.inputValue + '&near=' + this.props.searchLocation.label;
       
     // console.log(url)
@@ -81,21 +96,41 @@ class FirebaseSearchInput extends Component {
 
     if(this.state.inputValue !== '') {
       let retrievedSearchTerms = [];
+      let searchType = this.props.type;
 
       // search Firebase
-      index.search(this.state.inputValue, function(err, content) {
+      this.state.index.search(this.state.inputValue, function(err, content) {
         if (err) {
           console.error(err);
           return;
         }
         content.hits.map(function(result) {
-          let algoliaSearchObject = {};
-          if(result.username) {
-            algoliaSearchObject.text = result.username;
-            algoliaSearchObject.value = result.username;
-            algoliaSearchObject.userId = result.objectID;
-            retrievedSearchTerms.push(algoliaSearchObject);
+          switch (searchType) {
+            case Constants.PEOPLE_SEARCH: {
+              let algoliaSearchObject = {};
+              if(result.username) {
+                algoliaSearchObject.text = result.username;
+                algoliaSearchObject.value = result.username;
+                algoliaSearchObject.userId = result.objectID;
+                retrievedSearchTerms.push(algoliaSearchObject);
+              }
+              break;
+            }
+            case Constants.GEO_SEARCH: {
+              let algoliaSearchObject = {};
+              if(result.label) {
+                algoliaSearchObject.text = result.label;
+                algoliaSearchObject.value = result.label;
+                algoliaSearchObject.placeId = result.objectID;
+                algoliaSearchObject.fullCountry = result.fullCountry;
+                retrievedSearchTerms.push(algoliaSearchObject);
+              }
+              break;
+            }
+            default:
+              break;
           }
+          
           // if (result.title && result.objectID) {
           //   algoliaSearchObject._service = 'algolia';
           //   algoliaSearchObject.text = result.title;

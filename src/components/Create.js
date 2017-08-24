@@ -70,6 +70,7 @@ class Create extends React.Component {
 	    		result.gmaps.address_components.forEach(function(resultItem) {
 	    			if (resultItem.types && resultItem.types[0] && resultItem.types[0] === 'country') {
 	    				if (resultItem.short_name) geoData.country = resultItem.short_name;
+	    				if (resultItem.long_name) geoData.fullCountry = resultItem.long_name;
 	    			}
 	    		})
 	    	}

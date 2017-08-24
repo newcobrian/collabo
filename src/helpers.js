@@ -24,6 +24,23 @@ export function updateAlgloiaUsersIndex(username, userId) {
 	});
 }
 
+export function updateAlgloiaGeosIndex(geo) {
+	//update Algolia index
+	var algoliasearch = require('algoliasearch');
+	var client = algoliasearch('2OEMW8KEZS', '62e17a3113351343399fad062d3cbca5', {protocol:'https:'});
+	var index = client.initIndex('views-geos');
+	index.saveObject({
+	  objectID: geo.placeId,
+	  label: geo.label,
+	  fullCountry: geo.fullCountry
+	}, function(err, content) {
+	  if (err) {
+	    console.error(err);
+	    return;
+	  }
+	});
+}
+
 export function byPriority(a, b) {
   if (a.priority < b.priority)
     return -1;

@@ -4,7 +4,8 @@ import {BackToTop} from 'pui-react-back-to-top';
 import { connect } from 'react-redux';
 import * as Actions from '../../actions';
 import * as Constants from '../../constants';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
+import FirebaseSearchInput from '../FirebaseSearchInput'
 
 const mapStateToProps = state => ({
   ...state.home,
@@ -28,6 +29,12 @@ class Home extends React.Component {
     this.selectTab = tag => ev => {
       ev.preventDefault();
       this.props.applyTag(tag);
+    }
+
+    this.searchInputCallback = result => {
+      if (result.placeId) {
+        browserHistory.push('/places/' + result.placeId);
+      }
     }
   }
 
@@ -97,13 +104,21 @@ class Home extends React.Component {
           <div className="v2-type-page-header">Explore</div>
           <div className="v2-type-body2 opa-60">All the latest travel guides from your friends</div>
         </div>
-        <div className="toggle-wrapper DN">
-          {/*this.renderTabs()*/}
+        <div className="w-100 w-max">
+          <FirebaseSearchInput
+            name="searchInput"
+            callback={this.searchInputCallback}
+            placeholder="Search for a location"
+            type={Constants.GEO_SEARCH}
+            className="input--search input--underline v2-type-body3 mrgn-top-md pdding-left-md" />
+          <div className="toggle-wrapper DN">
+            {/*this.renderTabs()*/}
+          </div>
+          <div className="feed-wrapper fill--light-gray pdding-top-sm">
+            <MainView />
+          </div>
+          <BackToTop />
         </div>
-        <div className="feed-wrapper fill--light-gray pdding-top-sm">
-          <MainView />
-        </div>
-        <BackToTop />
       </div>
 
 
