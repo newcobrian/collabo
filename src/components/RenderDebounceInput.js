@@ -21,6 +21,13 @@ class RenderDebounceInput extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.value !== this.props.value) {
+      this.setState({value: nextProps.value});
+      this.lastPropValue = this.props.value;
+    }
+  }
+
   getValue() {
     const value = this.props.value !== this.lastPropValue ?
       this.props.value :
