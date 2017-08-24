@@ -171,7 +171,9 @@ class FirebaseSearchInput extends Component {
         textFieldStyle={{
           height: '50px',
           marginBottom: '40px',
-          border: '1px solid rgba(0,0,0,.1)'
+          border: '1px solid rgba(0,0,0,.2)',
+          color: 'blue',
+          fontWeight: '400'
         }}
         underlineStyle={{borderColor: '#5B9D3A'}}
         menuStyle={{
@@ -179,7 +181,8 @@ class FirebaseSearchInput extends Component {
           overflow: 'scroll'
         }}
         hintStyle={{
-          paddingLeft: '10px'
+          paddingLeft: '0px',
+          color: '#45CAE6'
         }}
      />
       </MuiThemeProvider>
