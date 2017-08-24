@@ -100,26 +100,27 @@ class Home extends React.Component {
 
         {this.LoggedOutIntro(this.props.authenticated)}
 
-        <div className="page-title-wrapper center-text">
+        <div className="page-title-wrapper center-text flx flx-col flx-align-center w-100">
           <div className="v2-type-page-header">Explore</div>
           <div className="v2-type-body2 opa-60">All the latest travel guides from your friends</div>
-        </div>
-        <div className="w-100 w-max">
-          <FirebaseSearchInput
-            name="searchInput"
-            callback={this.searchInputCallback}
-            placeholder="Search for a location"
-            type={Constants.GEO_SEARCH}
-            className="input--search input--underline v2-type-body3 mrgn-top-md pdding-left-md" />
-          <div className="toggle-wrapper DN">
-            {/*this.renderTabs()*/}
+          <div className="search-wrapper w-100">
+            <FirebaseSearchInput
+              name="searchInput"
+              callback={this.searchInputCallback}
+              placeholder="Search for a location"
+              type={Constants.GEO_SEARCH}
+              className="input--search input--underline v2-type-body3 mrgn-top-md pdding-left-md" />
           </div>
-          <div className="feed-wrapper fill--light-gray pdding-top-sm">
-            <MainView />
-          </div>
-          <BackToTop />
         </div>
+        <div className="toggle-wrapper DN">
+          {/*this.renderTabs()*/}
+        </div>
+        <div className="feed-wrapper fill--light-gray pdding-top-sm">
+          <MainView />
+        </div>
+        <BackToTop />
       </div>
+
 
 
     );

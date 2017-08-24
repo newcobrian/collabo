@@ -198,7 +198,6 @@ input.input--underline {
 }
 .vb--outline--gray {
   background-color: transparent;
-  height: auto;
   box-shadow: none;
   border: 1px solid rgba(0,0,0,.2);
   font-weight: 600;
@@ -218,6 +217,9 @@ input.input--underline {
 }
 .vb--following {
   color: #ccc;
+}
+.user-action .vb--sm {
+  width: 146px;
 }
 
 .vb.no-pad {
@@ -240,7 +242,12 @@ input.input--underline {
 
 
 
-
+.vb.fill--primary:active,
+.vb.fill--primary:hover {
+  color: white;
+  background-color: #46DFFF !important;
+  opacity: 1;
+}
 
 .vb.vb--add {
   border: none;

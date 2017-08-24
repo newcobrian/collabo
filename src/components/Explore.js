@@ -34,20 +34,21 @@ class Explore extends React.Component {
     
     return (
       <div className="flx flx-col page-common follow-page flx-just-start w-100">
-        <div className="page-title-wrapper center-text">
+        <div className="page-title-wrapper center-text flx flx-col flx-align-center w-100">
           <div className="v2-type-page-header">Travelers</div>
           <div className="v2-type-body2 opa-60">All the special beta users right now</div>
+          <div className="search-wrapper w-100">
+            <FirebaseSearchInput
+              name="searchInput"
+              callback={searchInputCallback}
+              placeholder="Search people"
+              type={Constants.PEOPLE_SEARCH}
+              className="input--search input--underline v2-type-body3 mrgn-top-md pdding-left-md" />
+          </div>
         </div>
 
-        <div className="w-100 w-max">
-          <FirebaseSearchInput
-            name="searchInput"
-            callback={searchInputCallback}
-            placeholder="Search people"
-            type={Constants.PEOPLE_SEARCH}
-            className="input--search input--underline v2-type-body3 mrgn-top-md pdding-left-md" />
 
-          <div className="flx flx-row flx-just-center flx-align-start flx-wrap w-100 pdding-top-md">
+          <div className="flx flx-row flx-just-center flx-align-start flx-wrap w-100">
             {
               users.map(user => {
                 const isUser = this.props.authenticated &&
@@ -86,7 +87,7 @@ class Explore extends React.Component {
                 )
               })
             }
-          </div>
+
         </div>
       </div>
     )

@@ -53,9 +53,10 @@
     box-shadow: 0 0 0 -1 rgba(0,0,0,.1) inset;
 }
 .tip__order-count {
-    font-weight: 600 !important;
-    margin-right: 5px;
-    display: inline-block;
+  font-weight: 600 !important;
+  margin-right: 10px;
+  display: inline-block;
+  opacity: .4;
 }
 .tip__content-wrapper {
 	padding-left: 30px;
@@ -148,6 +149,9 @@ input.edit-tip__rating {
 .edit-tip__caption {
 	border: none;
 	padding: 0;
+}
+.search-wrapper {
+  max-width: 300px;
 }
 .input--search {
 	margin-bottom: 0 !important;
