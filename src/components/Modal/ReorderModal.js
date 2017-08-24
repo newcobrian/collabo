@@ -10,24 +10,22 @@ import {SortableContainer, SortableElement} from 'react-sortable-hoc';
 
 const SortableItem = SortableElement(({value, sortIndex}) => {
   return (
-    <li>
-      <div>
-        <div>{sortIndex}. {value.subject.title}</div>
-        <div>Rating: {value.review.rating}</div>
-        <div>Caption: {value.review.caption}</div>
-      </div>
-
-    </li>
+    <div className="row--reorder w-100 brdr-bottom flx flx-row flx-align-center">
+        <i className="material-icons mrgn-right-sm color--gray">drag_handle</i>
+        <div className="v2-type-h4 color--black"><div className="tip__order-count color--primary">{sortIndex}</div> {value.subject.title}</div>
+        <div className="DN">Rating: {value.review.rating}</div>
+        <div className="DN">Caption: {value.review.caption}</div>
+    </div>
     )
 });
 
 const SortableList = SortableContainer(({items}) => {
   return (
-    <ul>
+    <div className="reorder w-100">
       {items.map((value, index) => (
-        <SortableItem key={`item-${index}`} index={index} value={value} sortIndex={index+1} />
+        <SortableItem helperClass='sortableHelper' key={`item-${index}`} index={index} value={value} sortIndex={index+1} />
       ))}
-    </ul>
+    </div>
   );
 });
 
@@ -44,12 +42,16 @@ class ReorderModal extends React.Component {
 
     const actions = [
       <FlatButton
-        label="Close"
-        className="vb fill--white vb--shadow-none"
+        label="Done"
+        className="vb vb--shadow-none fill--primary color--white"
         onTouchTap={handleClose}
         style={{
-            color:'#2B3538'
           }}
+          labelStyle={{   fontWeight: '500',
+                          fontSize: '14px',
+                          letterSpacing: '2px',
+                          boxShadow: 'none'
+                      }}
       />
     ];
 
@@ -70,6 +72,8 @@ class ReorderModal extends React.Component {
           open={(this.props.modalType === Constants.REORDER_ITINERARY_MODAL) ? true : false}
           autoScrollBodyContent={true}
           className="dialog-wrapper"
+          onRequestClose={handleClose}
+          lockToContainerEdges={true}
           style={{
               
             }}
@@ -80,7 +84,7 @@ class ReorderModal extends React.Component {
         <div className="dialog--save flx flx-col">
           <div className="dialog--save__tip-name color--black tip__title v2-type-h3 v-row brdr-bottom">Reorder Your Guide</div>
            
-          <SortableList items={this.props.itinerary.tips} onSortEnd={onSortEnd} />
+          <SortableList helperClass='sortableHelper' items={this.props.itinerary.tips} onSortEnd={onSortEnd} />
          
         </div>
 

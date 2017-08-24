@@ -53,8 +53,8 @@
     box-shadow: 0 0 0 -1 rgba(0,0,0,.1) inset;
 }
 .tip__order-count {
-    font-weight: 700 !important;
-    margin-right: 10px;
+    font-weight: 600 !important;
+    margin-right: 5px;
     display: inline-block;
 }
 .tip__content-wrapper {

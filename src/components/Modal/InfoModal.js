@@ -56,6 +56,7 @@ class InfoModal extends React.Component {
           modal={false}
           open={(this.props.modalType === Constants.INFO_MODAL) ? true : false}
           autoScrollBodyContent={true}
+          onRequestClose={handleClose}
           className="dialog-wrapper"
           style={{
               

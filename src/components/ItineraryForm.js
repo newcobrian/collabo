@@ -485,7 +485,7 @@ class ItineraryForm extends React.Component {
                                         { /** Title **/ }
                                         <Link to={`/review/${tip.subjectId}/${tip.id}`}>
                                         <div className="hide-in-list tip__title v2-type-h3 ta-left">
-                                          <div className="tip__order-count">{index+1}.</div> {tip.subject.title} 
+                                          <div className="tip__order-count">{index+1}</div> {tip.subject.title} 
                                         </div>
                                         </Link>
                                         { /** END Title **/ }

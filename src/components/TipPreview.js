@@ -118,7 +118,7 @@ const TipPreview = props => {
                     { /** Title **/ }
                     <Link to={`/review/${tip.subjectId}/${tip.id}`}>
                     <div className="hide-in-list tip__title v2-type-h3 ta-left">
-                      <div className="tip__order-count">{props.index}.</div> {tip.subject.title} 
+                      <div className="tip__order-count">{props.index}</div> {tip.subject.title} 
                     </div>
                     </Link>
                     { /** END Title **/ }

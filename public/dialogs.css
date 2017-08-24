@@ -128,3 +128,26 @@ li:hover .v-button--temp {
   position: relative;
   padding: 20px;
 }
+
+
+/** REORDER **/
+ul.reorder {
+  z-index: 2000;
+}
+.row--reorder {
+  padding: 10px 20px;
+  height: 50px;
+  z-index: 10000;
+  background-color: white;
+}
+.row--reorder:hover {
+  cursor: row-resize;
+}
+.row--reorder:active,
+.row--reorder:focus {
+  cursor: grabbing;
+}
+.sortableHelper {
+  cursor: row-resize !important;
+  box-shadow: 0 0 10px rgba(0,0,0,.1)
+}
