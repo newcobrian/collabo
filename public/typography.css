@@ -230,7 +230,7 @@ font-weight: 300;
 .navigation-bar .nav-module.nav-editor.active.create,
 .nav-pills.outline-active .nav-link.active,
 .nav-pills.outline-active .nav-link:hover  {
-  border-bottom: 2px solid #00B3CB;
+  border-bottom: 2px solid #45CAE6;
   /*border-bottom: 2px solid #6694E0;*/
 
   color: #45CAE6;

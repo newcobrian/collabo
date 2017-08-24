@@ -48,8 +48,8 @@ const UpdateCoverPhoto = props => {
         multiple={false}
         accept="image/*"
         className="edit-tip__dropzone__touch flx flx-col flx-align-center flx-just-start ta-center">
-        <div className="vb vb--sm vb--shadow-none fill--white color--black opa-80">
-          <i className="material-icons color--primary md-24">add_a_photo</i>
+        <div className="vb vb--sm vb--round vb--shadow-none fill--white color--black opa-80">
+          <i className="material-icons color--primary md-18">add_a_photo</i>
         </div>
       </Dropzone>
       
@@ -226,7 +226,7 @@ class ItineraryForm extends React.Component {
 
             <Geosuggest 
               ref={el=>this._geoSuggest=el}
-              className="input--underline w-100 color--white"
+              className="input--underline w-100 color--black"
               placeholder="Search to add a place (e.g. 'Yosemite National Park' or 'W Hotel')"
               location={latLng}
               radius={1000}
@@ -239,7 +239,7 @@ class ItineraryForm extends React.Component {
           <i className="material-icons color--white md-36 mrgn-right-md">add</i>
           <Geosuggest
             ref={el=>this._geoSuggest=el}
-            className="input--underline w-100 color--white"
+            className="input--underline w-100 color--black"
             placeholder="Search to add a place (e.g. 'Yosemite National Park' or 'W Hotel')"
             onSuggestSelect={suggestSelectTip(this)}/>
         </div>
@@ -424,26 +424,6 @@ class ItineraryForm extends React.Component {
                                   <div className="tip__right-module flx flx-col flx-align-end">
 
 
-                                    { /** Image **/ }
-                                    <div className="tip__image-module">
-                                      <div className="tip__photo-count">{tip.images.length > 0 ? tip.images.length : null}</div>
-                                      <ImagePicker images={tip.images} />
-                                    </div>
-                                    <div >
-                                      <Dropzone
-                                        onDrop={tipDropHandler(tip)}
-                                        disablePreview={false}
-                                        accept="image/*"
-                                        className="edit-tip__dropzone__touch flx flx-col flx-align-center flx-just-start ta-center">
-                                        <div className="vb vb--sm vb--shadow-none fill--white color--black opa-80">
-                                          <i className="material-icons color--primary md-24">add_a_photo</i>
-                                        </div>
-
-                                      </Dropzone>
-                                      
-                                    </div>
-                                    { /** END Image **/ }
-
                                     { /** Rating **/ }
                                     <div className={'mobile-show tip__rating-module flx flx-row flx-align-center flx-item-right w-100 tip__rating-module--' + tip.review.rating}>
                                       <select value={tip.review.rating} onChange={this.changeRating(tip)}>
@@ -462,6 +442,28 @@ class ItineraryForm extends React.Component {
                                       </select>
                                     </div>
                                     { /** END Rating **/ }
+
+
+                                    { /** Image **/ }
+                                    <div className="tip__image-module">
+                                      <div className="tip__photo-count">{tip.images.length > 0 ? tip.images.length : null}</div>
+                                      <ImagePicker images={tip.images} />
+                                    </div>
+                                    <div >
+                                      <Dropzone
+                                        onDrop={tipDropHandler(tip)}
+                                        disablePreview={false}
+                                        accept="image/*"
+                                        className="edit-tip__dropzone__touch flx flx-col flx-align-center flx-just-start ta-center">
+                                        <div className="vb vb--sm vb--shadow-none fill--white color--black opa-80 no-pad">
+                                          <i className="material-icons color--primary md-18">add_a_photo</i>
+                                        </div>
+
+                                      </Dropzone>
+                                      
+                                    </div>
+                                    { /** END Image **/ }
+
 
                                     <div className="tip__timestamp v2-type-caption opa-20 mrgn-top-xs DN">
                                       <DisplayTimestamp timestamp={tip.review.lastModified} />

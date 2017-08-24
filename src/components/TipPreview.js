@@ -80,6 +80,16 @@ const TipPreview = props => {
               <div className="tip__right-module flx flx-col flx-align-end">
 
 
+              { /** Rating **/ }
+              <div className={'mobile-show tip__rating-module flx flx-row flx-align-center flx-item-right w-100 tip__rating-module--' + tip.review.rating}>
+                <div className={'tip__rating flx-hold flx flx-row flx-center-all v2-type-rating--' +  tip.review.rating}>
+                  {tip.review.rating}
+                </div>
+                <i className="rating-star-icon material-icons color--black opa-40 md-14 DN">star</i>
+              </div>
+              { /** END Rating **/ }
+              
+
                 { /** Image **/ }
                 <div className="tip__image-module">
                   <div className="tip__photo-count">{tip.images.length > 0 ? tip.images.length : null}</div>
@@ -87,14 +97,6 @@ const TipPreview = props => {
                 </div>
                 { /** END Image **/ }
 
-                { /** Rating **/ }
-                <div className={'mobile-show tip__rating-module flx flx-row flx-align-center flx-item-right w-100 tip__rating-module--' + tip.review.rating}>
-                  <div className={'tip__rating flx-hold flx flx-row flx-center-all v2-type-rating--' +  tip.review.rating}>
-                    {tip.review.rating}
-                  </div>
-                  <i className="rating-star-icon material-icons color--black opa-40 md-14 DN">star</i>
-                </div>
-                { /** END Rating **/ }
 
                
                 <div className="tip__timestamp v2-type-caption opa-20 mrgn-top-xs DN">

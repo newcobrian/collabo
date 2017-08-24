@@ -160,6 +160,9 @@ input.input--underline {
   height: 40px;
   line-height: 22px;
 }
+.vb.vb--round {
+  border-radius: 32px !important;
+}
 
 .vb--link {
   letter-spacing: 0;
@@ -286,7 +289,7 @@ input.input--underline {
 ******/
 
 .geosuggest__input {
-  padding: 10px 0 10px 10px;
+  padding: 10px;
   width: 100%;
 }
 .page-edit-own .it__title-module .geosuggest__input {

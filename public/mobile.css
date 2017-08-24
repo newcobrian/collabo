@@ -132,7 +132,7 @@ body {
 .navigation-bar .nav-module.nav-editor.active.create {
   border-bottom: none;
   padding-top: 0;
-  border-top: 4px solid #00B3CB;
+  border-top: 4px solid #45CAE6;
   height: 56px;
   margin-top: -4px;
 }
@@ -533,7 +533,7 @@ width: 100%;
   padding: 10px 0;
 }
 .flx.tip__rating-module {
-  margin-top: 10px;
+  margin-bottom: 10px;
 }
 .page-itinerary .itinerary__cover__author-photo {
     width: 30px;

@@ -354,7 +354,7 @@
 }
 
 .page-edit-own .tip-wrapper .tip__cta-box,
-.page-edit-own .tip-wrapper .cta-container,
+
 .page-edit-own .tip__order-count,
 .page-edit-own .it__tip-count,
 .page-edit-own .itinerary__cover__flag {
@@ -490,16 +490,17 @@ textarea.edit-itinerary__name {
 }
 
 .it-add-wrapper {
-	height: 80px;
-	padding: 0px;
+	height: auto;
+	padding: 20px;
 }
 .it-add-wrapper .geosuggest {
 	padding: 0 20px;
+	background-color: white;
 }
 .it-add-wrapper .geosuggest:hover {
 }
 .it-add-wrapper .geosuggest__input {
-	height: 80px;
+	height: 50px;
 }
 .it-add-wrapper .geosuggest__input:hover {
 	opacity: .9;
@@ -530,5 +531,4 @@ textarea.edit-itinerary__name {
 }
 
 .page-edit-own .it-add-wrapper ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: white !important;
 }
