@@ -89,10 +89,10 @@ class ItineraryForm extends React.Component {
         key => ev => this.props.onUpdateCreateField(key, ev.target.value, ITINERARY_PAGE);
 
     const updateItineraryFieldEvent = (field, value) =>
-      this.props.updateItineraryField(this.props.authenticated, this.props.itinerary, field, value);
+      this.props.updateItineraryField(this.props.authenticated, this.props.data, field, value);
 
     const updateReviewFieldEvent = (field, value, tip) =>
-      this.props.updateReviewField(this.props.authenticated, this.props.itinerary, field, value, tip);
+      this.props.updateReviewField(this.props.authenticated, this.props.data, field, value, tip);
 
     this.changeDescription = value => updateItineraryFieldEvent('description', value)
     this.changeTitle = value => {
@@ -160,8 +160,8 @@ class ItineraryForm extends React.Component {
     const addTipFun = this.props.onAddTip;
     const auth = this.props.authenticated;
 
-    const createdByUsername = Selectors.getCreatedByUsername(this.props.itinerary);
-    const createdByImage = Selectors.getCreatedByUserImage(this.props.itinerary);
+    const createdByUsername = Selectors.getCreatedByUsername(itinerary);
+    const createdByImage = Selectors.getCreatedByUserImage(itinerary);
 
     const handleSaveClick = tip => ev => {
       ev.preventDefault();
@@ -339,7 +339,7 @@ class ItineraryForm extends React.Component {
 
                     
 
-                    <Link onClick={onReorderClick} className="hide-in-list vb vb--sm vb--outline flx flx-row flx-align-center mrgn-right-sm">Reorder</Link>
+                    <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list vb vb--sm vb--outline flx flx-row flx-align-center mrgn-right-sm">Reorder</Link>
                   </div>
 
 
@@ -352,7 +352,7 @@ class ItineraryForm extends React.Component {
                       unLike={this.props.unLikeReview}
                       like={this.props.likeReview} 
                       likeObject={itinerary}
-                      itineraryId={this.props.itineraryId}
+                      itineraryId={itinerary.id}
                       type={ITINERARY_TYPE} />
                   </div>
 
@@ -411,9 +411,8 @@ class ItineraryForm extends React.Component {
               {
                 itinerary.tips.map((tip, index) => {
                   return (
-                    <div className="tip-wrapper flx flx-col flx-col w-100 w-max" key={index+1}>
+                    <div className="tip-wrapper flx flx-col flx-col w-100 w-max" key={tip.key}>
                      
-                          
                           <div className="tip-container flx flx-col flx-center-all w-100">
                               
                             
@@ -547,7 +546,7 @@ class ItineraryForm extends React.Component {
                                             authenticated={this.props.authenticated}
                                             comments={tip.comments || []}
                                             commentObject={tip}
-                                            itineraryId={this.props.itineraryId}
+                                            itineraryId={itinerary.id}
                                             userInfo={this.props.userInfo}
                                             type={Constants.REVIEW_TYPE}
                                             deleteComment={this.props.onDeleteComment} />
