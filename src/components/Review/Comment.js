@@ -4,10 +4,20 @@ import React from 'react';
 import ProxyImage from './../ProxyImage';
 import DisplayTimestamp from './../DisplayTimestamp';
 
+const processString = require('react-process-string');
+
 const Comment = props => {
   const comment = props.comment;
   const show = props.authenticated &&
     props.authenticated === comment.userId;
+
+  let users = ['jordan', 'brian', '@jordan', '@brian']
+  const processed = processString([{
+    regex: /\@([a-z0-9_\-]+?)( |\,|$|\.)/gim, //regex to match a username 
+    fn: (key, result) => {
+        return <Link key={key} to={`/${result[1]}`}>@{result[1]} </Link>;
+      }
+  }]);
 
   return (
     <div className="card comment-wrapper">
@@ -26,7 +36,7 @@ const Comment = props => {
                 className="comment-author">
                 {comment.username}
               </Link>
-              {comment.body}
+              {processed(comment.body)}
 
               <div className="flx flx-row flx-just-start flx-align-center">
                 <div className="date-posted inline-block">
