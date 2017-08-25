@@ -1409,8 +1409,8 @@ export function getUserReview(auth, userId, subjectId) {
 
                     let images = imagesSnapshot.exists() ? Helpers.getImagePath(imagesSnapshot.val()) : Helpers.getImagePath(defaultImagesSnapshot.val());
 
-                    Object.assign(reviewObject, subjectSnapshot.val(), {subjectId: subjectSnapshot.key}, 
-                      reviewSnapshot.val(), {id: reviewSnapshot.val().reviewId},
+                    Object.assign(reviewObject, {subject: subjectSnapshot.val()}, {subjectId: subjectSnapshot.key}, 
+                      {review: reviewSnapshot.val()}, {id: reviewSnapshot.val().reviewId},
                       { createdBy: userSnapshot.val() }, likes, {comments: comments}, {images: images} );
                     
                     dispatch({

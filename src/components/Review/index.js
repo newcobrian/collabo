@@ -8,14 +8,14 @@ import TipPreview from '../TipPreview';
 import ImagePicker from '../ImagePicker'
 
 const DisplayAppUserReview = props => {
-  if (props.review && props.authenticated) {
+  if (props.tip && props.authenticated) {
     // if (props.currentReviewId !== props.review.reviewId) {
-      let review = props.review;
-      review.subject = props.subject;
-      review.reviewer = props.userInfo;
+      let tip = props.tip;
+      tip.subject = props.subject;
+      tip.reviewer = props.userInfo;
       return (
         <div className="reviewpreview-wrapper your-review roow roow-col-center">
-          <TipPreview review={review}
+          <TipPreview tip={tip}
             authenticated={props.authenticated} 
             like={props.like} 
             unLike={props.unLike}
@@ -250,7 +250,7 @@ class Review extends React.Component {
         <div className="itinerary__tipslist flx flx-col flx-align-center pdding-all-md w-100">
           <div className="w-100">
           <DisplayAppUserReview 
-            review={this.props.appUserReview}
+            tip={this.props.appUserReview}
             subject={this.props.subject}
             authenticated={this.props.authenticated}
             userInfo={this.props.userInfo}
