@@ -126,6 +126,9 @@
 .flex-wrap {
   flex-wrap: wrap;
 }
+.flex-wrap {
+  flex-wrap: nowrap;
+}
 .flx-item-right {
   margin-left: auto;
 }

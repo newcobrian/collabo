@@ -541,7 +541,7 @@ class ItineraryForm extends React.Component {
                                       </div>
 
                                       { /** Comments **/ }
-                                      <div className="flx flx-row flex-wrap cta-container">
+                                      <div className="flx flx-row flex-wrap cta-container mrgn-left-sm">
                                          <CommentContainer
                                             authenticated={this.props.authenticated}
                                             comments={tip.comments || []}

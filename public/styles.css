@@ -1256,7 +1256,6 @@ li.nav-divider {
   border: 1px solid rgba(0,0,0,.1);
 }
 .comments-module .comment-input-wrapper .comment-input {
-    display: block;
     font-size: 14px;
     line-height: 20px;
     font-weight: 300;

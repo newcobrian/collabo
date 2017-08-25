@@ -41,12 +41,18 @@ class CommentInput extends React.Component {
 
           <ProxyImage src={this.props.userInfo.image} className="comment-author-img center-img mrgn-right-md fill--primary flx-hold" />
 
-          <input className="comment-input input--overline w-100"
-            placeholder="Leave a comment..."
-            value={this.state.body}
-            onChange={this.setBody}
-            rows="1">
-          </input>
+
+            <input className="comment-input input--overline w-100"
+              placeholder="Leave a comment..."
+              value={this.state.body}
+              onChange={this.setBody}
+              rows="1">
+            </input>
+
+            <div className="comment-send vb vb--sm vb--outline--none fill-white">
+              <i className="material-icons color--primary md-18 color--primary">send</i>
+            </div>
+
 
 
         

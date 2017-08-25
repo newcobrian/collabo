@@ -160,16 +160,23 @@ input.edit-tip__rating {
 .search-icon {
   position: absolute;
   left: 30px;
-  top: 12px;
+  top: 13px;
   z-index: 2;
   pointer-events: none;
 }
 .input--search {
   margin-bottom: 0 !important;
-  border: 1px solid rgba(0,0,0,.1);
 }
 .input--search input {
   text-indent: 62px;
+  border: 1px solid rgba(0,0,0,.1) !important;
+}
+.input--search input:hover {
+  border: 1px solid rgba(0,199,205,.3) !important;
+  cursor: text;
+}
+.input--search input:focus {
+  border: 1px solid rgba(0,199,205,1) !important;
 }
 .tip__author-photo {
 /*	width: 40px;

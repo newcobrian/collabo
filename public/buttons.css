@@ -38,15 +38,24 @@ input, button, select, textarea {
 .page-edit-own textarea:focus {
   border-color: #6694E0;
   border-color: rgba(0,199,205,1);
-
-
-    background-color: rgba(251,255,205,.3);
-    /*background-color: rgba(102,144,224,.1);*/
+  background-color: rgba(251,255,205,.3);
+}
+.page-edit-own .comment-input {
+  border: 1px solid rgba(0,0,0,.1);
 }
 
 
 .page-edit-own textarea.has-error {
     border-color: rgba(255,0,0,1);
+}
+.vb.comment-send {
+  margin-left: -40px;
+  background: white;
+  z-index: 3;
+  border-left: 1px solid rgba(0,0,0,.1);
+}
+.comment-input:focus .vb.comment-send {
+  visibility: visible;
 }
 
 button {
