@@ -200,16 +200,12 @@ input.input--underline {
   background-color: transparent;
   box-shadow: none;
   border: 1px solid rgba(0,0,0,.2);
-  font-weight: 600;
 }
 .vb--outline--none {
   background-color: transparent;
-  height: auto;
   box-shadow: none;
   border: 0;
   color: black;
-  text-transform: none;
-  font-weight: 400 !important;
 }
 
 .vb--follow {

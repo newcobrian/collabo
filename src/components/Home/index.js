@@ -103,13 +103,14 @@ class Home extends React.Component {
         <div className="page-title-wrapper center-text flx flx-col flx-align-center w-100">
           <div className="v2-type-page-header">Explore</div>
           <div className="v2-type-body2 opa-60">All the latest travel guides from your friends</div>
-          <div className="search-wrapper w-100">
+          <div className="search-wrapper">
+            <i className="search-icon material-icons color--primary md-32 color--primary">search</i>
             <FirebaseSearchInput
               name="searchInput"
               callback={this.searchInputCallback}
-              placeholder="Search for a location"
+              placeholder="Search any city or country"
               type={Constants.GEO_SEARCH}
-              className="input--search input--underline v2-type-body3 mrgn-top-md pdding-left-md" />
+              className="input--search input--underline v2-type-body3" />
           </div>
         </div>
         <div className="toggle-wrapper DN">

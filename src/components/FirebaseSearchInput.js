@@ -187,6 +187,7 @@ class FirebaseSearchInput extends Component {
 
   render() {
     return <MuiThemeProvider name={this.props.name} muiTheme={getMuiTheme()}>
+
       <AutoComplete
         filter={function filter(searchText, key) {
           return key.toLowerCase().includes(searchText.toLowerCase());
@@ -198,17 +199,18 @@ class FirebaseSearchInput extends Component {
         onNewRequest={this.onNewRequest}
         className={this.props.className}
         style={{
-          backgroundColor: '',
+          backgroundColor: 'white',
         }}
         underlineFocusStyle={{
           borderColor: '#5B9D3A'
         }}
         textFieldStyle={{
+          backgroundColor: 'white',
           height: '50px',
           marginBottom: '40px',
-          border: '1px solid rgba(0,0,0,.2)',
           color: 'blue',
-          fontWeight: '400'
+          fontWeight: '400',
+          width: '300px'
         }}
         underlineStyle={{borderColor: '#5B9D3A'}}
         menuStyle={{
@@ -216,8 +218,8 @@ class FirebaseSearchInput extends Component {
           overflow: 'scroll'
         }}
         hintStyle={{
-          paddingLeft: '0px',
-          color: '#45CAE6'
+          paddingLeft: '62px',
+          color: 'rgba(0,0,0,.5)'
         }}
      />
       </MuiThemeProvider>

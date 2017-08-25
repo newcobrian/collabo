@@ -59,7 +59,7 @@ class SaveModal extends React.Component {
         label="+ Create New Guide"
         className="vb vb--shadow-none fill--primary color--white mrng-left-sm float-left"
         hoverColor="white"
-        onTouchTap={handleItineraryClick}
+        onTouchTap={handleItineraryClick} 
         labelStyle={{   fontWeight: '500',
                         fontSize: '14px',
                         letterSpacing: '2px',

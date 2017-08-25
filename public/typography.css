@@ -245,8 +245,6 @@ font-weight: 300;
 }
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #45CAE6 !important; /*DARK BLUE*/
-
-
   opacity: .8;
   font-weight: 300;
   font-family: 'Roboto', sans-serif;
