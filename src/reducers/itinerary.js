@@ -277,7 +277,7 @@ export default (state = initialState, action) => {
           let images = getImage(newState.userImagesData[action.tip.subjectId], newState.defaultImagesData[action.tip.subjectId]);
           // newState.tips[action.priority] = Object.assign({}, {key: action.priority}, {priority: action.priority}, action.tip, subject, review, createdBy, comments, isLiked, images);
           newState.tips = newState.tips.concat(Object.assign({}, {key: action.tipId}, {priority: action.priority}, action.tip, subject, review, createdBy, comments, isLiked, images));
-          newState.tips.sort(Helpers.byPriority);
+          // newState.tips.sort(Helpers.byPriority);
           return newState;
         }
       }
@@ -297,10 +297,10 @@ export default (state = initialState, action) => {
         for (let i = 0; i < newState.tips.length; i++) {
           if (newState.tips[i].key === action.tipId) {
             newState.tips[i] = Object.assign({}, {key: action.tipId}, {priority: action.priority}, action.tip, subject, review, createdBy, comments, isLiked, images);
+            newState.tips.sort(Helpers.byPriority);
+            return newState;
           }
         }
-        newState.tips.sort(Helpers.byPriority);
-        return newState;
       }
       return state;
     }

@@ -180,8 +180,18 @@ function defaultImagesRemovedAction(subjectId, source) {
   }
 }
 
+export function unloadReorderModal(itineraryId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).off();
+    // dispatch({
+    //   type: ActionTypes.UNLOAD_REORDER_MODAL,
+    //   itineraryId
+    // })
+  }
+}
+
 export function watchTips(dispatch, itineraryId, itineraryUserId, source) {
-  Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).orderByPriority().on('child_added', tipSnapshot => {
+  Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).orderByChild('priority').on('child_added', tipSnapshot => {
     if (tipSnapshot.val().userId && tipSnapshot.val().userId !== itineraryUserId) {
       watchUser(dispatch, tipSnapshot.val().userId, source)
     }
@@ -194,7 +204,7 @@ export function watchTips(dispatch, itineraryId, itineraryUserId, source) {
   })
 
   // on child changed, how do we unwatch old refs?
-  Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).orderByPriority().on('child_changed', tipSnapshot => {
+  Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).orderByChild('priority').on('child_changed', tipSnapshot => {
     watchSubject(dispatch, tipSnapshot.key, tipSnapshot.val().subjectId, source);
     watchReview(dispatch, tipSnapshot.key, tipSnapshot.val().reviewId, source);
     watchComments(dispatch, tipSnapshot.key, source);
@@ -203,7 +213,7 @@ export function watchTips(dispatch, itineraryId, itineraryUserId, source) {
     dispatch(tipChangedAction(tipSnapshot.key, tipSnapshot.val(), source));
   })
 
-  Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).orderByPriority().on('child_removed', tipSnapshot => {
+  Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).orderByChild('priority').on('child_removed', tipSnapshot => {
     unwatchSubject(dispatch, tipSnapshot.key, tipSnapshot.val().subjectId, source);
     unwatchReview(dispatch, tipSnapshot.key, tipSnapshot.val().reviewId, source);
     unwatchComments(dispatch, tipSnapshot.key, source);
