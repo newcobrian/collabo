@@ -88,7 +88,7 @@ export function signUpUser(username, email, password) {
             Helpers.updateAlgloiaUsersIndex(username, userId);
 
             dispatch({
-              type: ActionTypes.AUTH_USER,
+              type: ActionTypes.SIGN_UP_USER,
               payload: userId,
               meta: {
                 mixpanel: {
