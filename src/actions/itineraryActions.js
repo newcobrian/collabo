@@ -21,10 +21,15 @@ export function watchItinerary(auth, itineraryId) {
 
         // watch itinerary comments
         watchComments(dispatch, itineraryId, Constants.ITINERARY_PAGE);
-      }
 
-      // dispatch itinerary data
-      dispatch(itineraryValueAction(itinerarySnapshot.val(), itineraryId, itinerarySnapshot.val().userId, Constants.ITINERARY_PAGE));
+        // dispatch itinerary data
+        dispatch(itineraryValueAction(itinerarySnapshot.val(), itineraryId, itinerarySnapshot.val().userId, Constants.ITINERARY_PAGE));
+      }
+      else {
+        dispatch({
+          type: ActionTypes.ITINERARY_NOT_FOUND
+        })
+      }
 		})
 	}
 }

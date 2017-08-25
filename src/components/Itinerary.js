@@ -71,9 +71,6 @@ const mapStateToProps = state => ({
   userInfo: state.common.userInfo
 });
 
-
-
-
 class Itinerary extends React.Component {
   constructor() {
     super();
@@ -112,7 +109,7 @@ class Itinerary extends React.Component {
   }
 
   render() {
-    if (isEmpty(this.props.itinerary)) {
+    if (isEmpty(this.props.itinerary) || this.props.itineraryNotFound) {
       return (
         <div className="error-module flx flx-center-all v2-type-body3">
            <div>Itinerary doesn't exist</div>

@@ -183,6 +183,7 @@ export default (state = initialState, action) => {
           newState.itinerary = Object.assign({}, action.itinerary, { id: action.itineraryId }, {isLiked: isLiked}, {createdBy: createdBy});
           // newState.itinerary = Object.assign({}, action.itinerary, {isLiked: isLiked}, {createdBy: createdBy});
           newState.itineraryId = action.itineraryId;
+          newState.itineraryNotFound = false
           return newState;
         }
       }
@@ -443,7 +444,11 @@ export default (state = initialState, action) => {
     case ActionTypes.TIP_DELETED:
     case ActionTypes.TIP_IMAGE_UPLOAD_COMPLETED:
       return state;
-
+    case ActionTypes.ITINERARY_NOT_FOUND:
+      return {
+        ...state,
+        itineraryNotFound: true
+      }
     default:
       return state;
   }
