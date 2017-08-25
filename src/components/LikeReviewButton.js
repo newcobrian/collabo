@@ -17,7 +17,7 @@ const LikeReviewButton = props => {
   }
   // took out Likes and Like above for now
 
-  const handleClick = ev => {
+  const handleLikeClick = ev => {
     ev.preventDefault();
     if (props.isLiked) {
       props.unLike(props.authenticated, props.type, props.likeObject, props.itineraryId);
@@ -28,7 +28,7 @@ const LikeReviewButton = props => {
 
   return (
     <div className="cta-container flx flx-row flx-center-all">
-      <div onClick={handleClick} className={classes}></div>
+      <div onClick={handleLikeClick} className={classes}></div>
       <div className="v2-type-body1 weight-500 ta-left">{props.likesCount ? props.likesCount : 0} {likeText}</div>
     </div>
 

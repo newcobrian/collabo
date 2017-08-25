@@ -34,13 +34,18 @@ export default (state = initialState, action) => {
         auth: action.auth,
         review: action.review
       }
-    case ActionTypes.SHOW_REORDER_ITINERARY_MODAL: {
+    case ActionTypes.SHOW_REORDER_ITINERARY_MODAL: 
+      return {
+        ...state,
+        modalType: Constants.REORDER_ITINERARY_MODAL,
+        itinerary: action.itinerary
+      }
+    case ActionTypes.LOAD_REORDER_MODAL: {
       const newState = Object.assign({}, state);
       newState.itinerary = newState.itinerary || {};
       newState.itinerary = Object.assign({}, newState.itinerary);
       if (newState.itinerary !== action.itinerary) {
         newState.itinerary = Object.assign({}, action.itinerary);
-        newState.modalType = Constants.REORDER_ITINERARY_MODAL;
         return newState;
       }
       return state;
