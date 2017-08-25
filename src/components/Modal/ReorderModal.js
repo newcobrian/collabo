@@ -35,9 +35,6 @@ const mapStateToProps = state => ({
 });
 
 class ReorderModal extends React.Component {
-  componentWillUnmount() {
-    this.props.unloadReorderModal(this.props.itinerary.id);
-  }
   render() {
     const handleClose = () => {
       this.props.hideModal();

@@ -3046,12 +3046,22 @@ export function showDeleteModal(itinerary, source) {
 export function showReorderModal(itinerary) {
   return dispatch => {
     Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itinerary.id).on('value', snap => {
-      dispatch({
-        type: ActionTypes.SHOW_REORDER_ITINERARY_MODAL,
-        modalType: Constants.REORDER_ITINERARY_MODAL,
-        itinerary: itinerary,
-        tips: snap.val()
-      })
+      if (itinerary.tips) {
+        snap.forEach(function(tip) {
+          for (let i = 0; i < itinerary.tips.length; i++) {
+            if (itinerary.tips[i].key === tip.key) {
+              itinerary.tips[i].priority = tip.val().priority;
+              dispatch({
+                type: ActionTypes.SHOW_REORDER_ITINERARY_MODAL,
+                modalType: Constants.REORDER_ITINERARY_MODAL,
+                itinerary: itinerary
+              })
+              break;
+            }
+          }
+        })
+        
+      }
     })
   }
 }
