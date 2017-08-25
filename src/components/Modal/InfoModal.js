@@ -66,7 +66,7 @@ class InfoModal extends React.Component {
         >
 
         <div className="dialog--save flx flx-col">
-          <div className="dialog--save__tip-name color--black tip__title v2-type-h3 v-row brdr-bottom">{this.props.review.subject.title}</div>
+          <div className="dialog--save__tip-name color--black tip__title v2-type-h3 v-row brdr-bottom mrgn-bottom-sm">{this.props.review.subject.title}</div>
            
 
             <div className="flx flx-col mrgn-bottom-md pdding-bottom-sm brdr-bottom w-100">

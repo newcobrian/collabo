@@ -53,6 +53,7 @@ input, button, select, textarea {
   background: white;
   z-index: 3;
   border-left: 1px solid rgba(0,0,0,.1);
+  cursor: pointer;
 }
 .comment-input:focus .vb.comment-send {
   visibility: visible;

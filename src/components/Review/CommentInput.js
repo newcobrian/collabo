@@ -49,9 +49,9 @@ class CommentInput extends React.Component {
               rows="1">
             </input>
 
-            <div className="comment-send vb vb--sm vb--outline--none fill-white">
+            <button className="comment-send vb vb--sm vb--outline--none fill-white">
               <i className="material-icons color--primary md-18 color--primary">send</i>
-            </div>
+            </button>
 
 
 
