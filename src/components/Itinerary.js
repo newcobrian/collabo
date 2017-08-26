@@ -111,8 +111,10 @@ class Itinerary extends React.Component {
   render() {
     if (isEmpty(this.props.itinerary) || this.props.itineraryNotFound) {
       return (
-        <div className="error-module flx flx-center-all v2-type-body3">
-           <div>Itinerary doesn't exist</div>
+        <div className="error-module flx flx-col flx-center-all ta-center v2-type-body3 color--black">
+          <img className="center-img mrgn-bottom-md" width="80" src="/img/xiaog.png"/>
+          <div className="mrgn-bottom-md">The guide you're looking for doesn't exist, <br/>but here's a panda with chicken legs.</div>
+          <Link to="/" className="vb vb--sm fill--primary color--white">More guides</Link>
         </div>
       )
     }
