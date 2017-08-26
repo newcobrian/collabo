@@ -136,6 +136,10 @@ body {
   height: 56px;
   margin-top: -4px;
 }
+.navigation-bar .nav-module.active.create,
+.navigation-bar .nav-module.nav-editor.active.create { 
+  border-color: #00E2C8;
+}
 
 
 .navigation-bar .nav-module:hover {

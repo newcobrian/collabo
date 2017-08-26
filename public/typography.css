@@ -18,6 +18,7 @@ body a {
 }
 body a: hover {
   opacity: .9;
+  transition: all 0.23s ease-in-out 0s;
 }
 strong {
 
@@ -210,33 +211,32 @@ font-weight: 300;
 
 /* CHANGE ME FOR COLOR TEST!!!! */
 .color--primary {
-
-  color: #45CAE6 !important; /*SEA TURTLE MOSS */
-  /*color: #6694E0 !important;*/
-
+  color: #45CAE6 !important;
 }
-
+a.color--primary:hover,
+a.color--primary:focus {
+  color: #46DFFF !important;
+}
 /* CHANGE ME FOR COLOR TEST!!!! */
 .fill--primary {
-
-  background-color: #45CAE6 !important; /*SEA TURTLE MOSS*/
-  /*background-color: #6694E0 !important;*/
+  background-color: #45CAE6 !important;
 }
 /* CHANGE ME FOR COLOR TEST!!!! */
 .navigation-bar .nav-module.active,
 .navigation-bar .nav-module:hover,
 .navigation-bar .nav-module.nav-editor.active,
-.navigation-bar .nav-module.active.create,
-.navigation-bar .nav-module.nav-editor.active.create,
 .nav-pills.outline-active .nav-link.active,
 .nav-pills.outline-active .nav-link:hover  {
-  border-bottom: 2px solid #45CAE6;
-  /*border-bottom: 2px solid #6694E0;*/
-
+  border-bottom: 6px solid #45CAE6;
   color: #45CAE6;
-  /*color: #6694E0;*/
-
-  padding-top: 2px;
+  padding-top: 6px;
+  transition: all 0.23s ease-in-out 0s;
+}
+.navigation-bar .nav-module.active.create,
+.navigation-bar .nav-module.nav-editor.active.create {
+  border-bottom: 6px solid #00E2C8;
+  color: #00E2C8;
+  padding-top: 6px;
 }
 
 .vb {
@@ -305,7 +305,6 @@ body a.nav-module {
 .color--black {
   color: #292F3D;
   color: #121419;
-
 }
 
 

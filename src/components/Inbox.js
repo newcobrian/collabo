@@ -84,8 +84,9 @@ class Inbox extends React.Component {
     }
     if (this.props.inbox.length === 0) {
       return (
-        <div className="article-preview">
-          You have no messages in your inbox.
+        <div className="loading-module flx flx-col flx-center-all v2-type-body3">
+          <div>You don't have any messages from anyone yet</div>
+          <div>Go explore the site and maybe someone will find you interesting...</div>
         </div>
       );
     }

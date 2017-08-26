@@ -170,6 +170,9 @@ input.input--underline {
   height: 40px;
   line-height: 22px;
 }
+.vb--sm.tip-count {
+  font-size: 18px;
+}
 .vb.vb--round {
   border-radius: 32px !important;
 }
@@ -252,6 +255,13 @@ input.input--underline {
 .vb.fill--primary:hover {
   color: white;
   background-color: #46DFFF !important;
+  opacity: 1;
+}
+.vb.vb--outline:active,
+.vb.vb--outline:hover,
+.vb.vb--outline--none:active,
+.vb.vb--outline--none:hover {
+  background-color: #F4FDFF !important;
   opacity: 1;
 }
 

@@ -28,13 +28,11 @@ const CommentContainer = props => {
 		);
 	} else {
 		return (
-			<div className="col-xs-12 col-md-8 offset-md-2">
-				<p>
-					<Link to="/login">Sign in</Link>
+			<div className="w-100 v2-type-body1">
+					<Link to="/login">Log in</Link>
 					&nbsp;or&nbsp;
 					<Link to="/register">Sign up</Link>
 					&nbsp;to add comments to this article.
-				</p>
 
 				<CommentList
 					comments={props.comments}

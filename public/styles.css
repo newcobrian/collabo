@@ -14,6 +14,7 @@ body a:active,
 body a:focus,
 body a:hover {
   color: initial;
+  transition: all 0.23s ease-in-out 0s;
 }
 
 input[type="checkbox"] {
@@ -1254,13 +1255,14 @@ li.nav-divider {
 }
 .comments-module .comment-input-wrapper:focus {
   border: 1px solid rgba(0,0,0,.1);
+  transition: all 0.23s ease-in-out 0s;
 }
 .comments-module .comment-input-wrapper .comment-input {
     font-size: 14px;
     line-height: 20px;
     font-weight: 300;
     width: 100%;
-    padding: 10px 0 10px 10px;
+    padding: 10px 40px 10px 10px;
     outline-width: 0px;
     margin-top: 0px;
     box-shadow: none;
