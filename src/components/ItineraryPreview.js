@@ -220,8 +220,8 @@ const ItineraryPreview = props => {
           </div>
 
           {/** TIP COUNT **/}
-          <Link to={`/guide/${itinerary.id}`} className="vb vb--sm vb--outline tip-count color--primary v2-type-body3 flx flx-row flx-just-start flx-align-center color--primary flx-item-right">
-              <div>{itinerary.reviewsCount ? itinerary.reviewsCount : 0} {itinerary.reviewsCount === 1 ? ' tip' : ' tips'}</div>
+          <Link to={`/guide/${itinerary.id}`} className="vb vb--sm vb--outline tip-count color--primary v2-type-body3 flx flx-row flx-just-start flx-align-center color--primary flx-item-right no-uppercase">
+              <div>{itinerary.reviewsCount ? itinerary.reviewsCount : 0} {itinerary.reviewsCount === 1 ? ' Tip' : ' Tips'}</div>
               <i className="material-icons mrgn-left-sm color--primary md-24">playlist_play</i>
           </Link>
 

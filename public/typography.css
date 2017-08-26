@@ -31,7 +31,10 @@ form {
 .center-text {
   text-align: center !important;
 }
-
+.no-uppercase,
+.vb.no-uppercase {
+  text-transform: none !important;
+}
 textarea {
     resize: none;
 }

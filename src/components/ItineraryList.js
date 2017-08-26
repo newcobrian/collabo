@@ -46,7 +46,7 @@ const ItineraryList = props => {
 
 
       <Link to="/create" className="itinerary__cover cover--empty flx flx-col flx-center-all ta-center">
-        <img src="/img/icons/icon60--add--green.png" width="60" height="60" className="center-img mrgn-bottom-md"/>
+      <i className="material-icons color--success md-48 mrgn-bottom-md">add</i>
         <div className="color--success mrgn-bottom-lg pdding-bottom-lg pdding-bottom-md brdr-bottom">CREATE A NEW GUIDE</div>
         <div className="ta-center w-100 v2-type-body1 opa-50 mrgn-bottom-md">You could make...</div>
         <ul className="ta-left">
