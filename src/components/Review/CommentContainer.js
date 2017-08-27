@@ -28,10 +28,10 @@ const CommentContainer = props => {
 		);
 	} else {
 		return (
-			<div className="w-100 v2-type-body1">
-					<Link to="/login">Log in</Link>
+			<div className="w-100 v2-type-body1 pdding-top-sm pdding-bottom-md">
+					<Link className="color--primary" to="/login">Log in</Link>
 					&nbsp;or&nbsp;
-					<Link to="/register">Sign up</Link>
+					<Link className="color--primary" to="/register">Sign up</Link>
 					&nbsp;to add comments to this article.
 
 				<CommentList

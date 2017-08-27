@@ -8,7 +8,7 @@ const mapStateToProps = state => ({
   ...state.home,
   authenticated: state.common.authenticated
 });
-
+ 
 // const mapDispatchToProps = dispatch => ({
 //   onSetPage: (tab, p) => dispatch({
 //     type: 'SET_PAGE',

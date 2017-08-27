@@ -15,6 +15,20 @@ const InboxCounter = props => {
 const LoggedOutView = props => {
   if (!props.currentUser || props.currentUser.isAnonymous) {
     return (
+     <div className="header-container">
+      <div className="header-wrapper w-100 DN">
+        <Link to="/" className="logo-module flx flx-row flx-just-start flx-align-center">
+          <div className="logo-graphic">  
+            <img className="center-img" src="/img/logos/logo.horizon.png"/>
+          </div>
+            <div className="logo-main DN">
+              VIEWS
+            </div>
+            <div className="DN v2-type-caption opa-60 w-100 mrgn-top-xs mrgn-left-xs">
+              Alpha 1.2
+            </div>
+        </Link>
+      </div>
       <div className="navigation-bar flx flx-row flx-align-center flx-just-end pdding-right-md">
           <Link to="/login" className="nav-module nav-feed flx flx-center-all">
             <div className="nav-text">
@@ -29,6 +43,7 @@ const LoggedOutView = props => {
           </Link>
 
       </div>
+      </div>
     );
   }
   return null;
@@ -37,6 +52,24 @@ const LoggedOutView = props => {
 const LoggedInView = props => {
   if (props.currentUser && props.userInfo) {
     return (
+
+
+      <div className="header-container">
+        <div className="header-wrapper w-100">
+          <Link to="/" className="logo-module flx flx-row flx-just-start flx-align-center">
+            <div className="logo-graphic">  
+              <img className="center-img" src="/img/logos/logo.horizon.png"/>
+            </div>
+              <div className="logo-main DN">
+                VIEWS
+              </div>
+              <div className="DN v2-type-caption opa-60 w-100 mrgn-top-xs mrgn-left-xs">
+                Alpha 1.2
+              </div>
+          </Link>
+        </div>
+
+
       <div className="navigation-bar flx flx-row flx-align-center flx-just-end pdding-right-md">
         
         
@@ -80,6 +113,7 @@ const LoggedInView = props => {
 
 
       </div>
+    </div>
     );
   }
 
@@ -89,22 +123,7 @@ const LoggedInView = props => {
 class Header extends React.Component {
   render() {
     return (
-        <div className="header-container">
-          <div className="header-wrapper w-100">
-            <Link to="/" className="logo-module flx flx-row flx-just-start flx-align-center">
-              <div className="logo-graphic">  
-                <img className="center-img" src="/img/logos/logo.horizon.png"/>
-              </div>
-                <div className="logo-main DN">
-                  VIEWS
-                </div>
-                <div className="DN v2-type-caption opa-60 w-100 mrgn-top-xs mrgn-left-xs">
-                  Alpha 1.2
-                </div>
-            </Link>
-
-            
-          </div>
+      <div>
           <LoggedOutView currentUser={this.props.currentUser} />
 
           <LoggedInView currentUser={this.props.currentUser} userInfo={this.props.userInfo} unreadMessages={this.props.unreadMessages} />

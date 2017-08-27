@@ -74,7 +74,7 @@ class Home extends React.Component {
            A better way to plan your trips
           </div>
           <div className="v2-type-body3 color--white mrgn-bottom-md">
-           CREATE lists for places you want to visit. SHARE guides of your favorite spots
+           Hi
           </div>
           <Link to="/register" className="">
             <div className="vb vb--light vb--intro--register">

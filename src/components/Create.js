@@ -174,7 +174,6 @@ class Create extends React.Component {
 							
 							<div className="flx flx-col flx-center-all create-wrapper">
 						
-								<ListErrors errors={this.props.errors}></ListErrors>
 					            <div className="create-form-wrapper form-wrapper ta-left flx flx-col-left bx-shadow">
 						            
 						            <form>
@@ -213,6 +212,8 @@ class Create extends React.Component {
 					                        onChange={this.changeDescription} />
 					                    </fieldset>
 
+					                    <ListErrors errors={this.props.errors}></ListErrors>
+					                    
 					                    <div
 					                    className="vb vb--create w-100 mrgn-top-md fill--primary"
 					                    type="button"
