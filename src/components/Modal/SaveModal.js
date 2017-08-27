@@ -9,6 +9,58 @@ import FlatButton from 'material-ui/FlatButton';
 import { SAVE_MODAL } from '../../actions';
 import ImagePicker from './../ImagePicker';
  
+const GeoInfo = props => {
+  if (!props.geo) {
+    return null;
+  }
+  else {
+    return (
+      <Link to={`/places/${props.geo.placeId}`}>
+        <div className="flx flx-row flx-just-start flx-align-center">
+          {/** Flag and Geo **/}
+          <div className={'itinerary__cover__flag flx-hold flag-' + props.geo.country}>
+          </div>
+        </div>
+      </Link>
+      )
+  }
+}
+
+const RenderItinerariesList = props => {
+  if (!props.itinerariesList || props.itinerariesList.length === 0) {
+    return (
+      <div>You haven't created any guides yet.</div>
+    )
+  }
+  return (
+    <div>
+    {
+      props.itinerariesList.map(itinerary => {
+        return (
+          <li className="brdr-bottom" key={itinerary.itineraryId}>
+            <Link onClick={props.handleAdd(itinerary)}>
+              <div className="flx flx-row flx-just-start flx-align-center">
+                <div className="vb vb--md fill--primary mrgn-right-md DN">
+                  <img className="center-img mrgn-right-sm" src="../img/icons/icon40--save.png"/>
+                  Save
+                </div>
+
+                {/** GEO - START **/}
+                <GeoInfo geo={itinerary.geo} />          
+                {/** END - GEO ROW **/}
+                
+                <div className="option-title color--black">
+                  {itinerary.title}
+                </div>
+              </div>
+            </Link>
+          </li>
+        );
+     })}
+    </div>
+    )
+}
+
 
 
 const mapStateToProps = state => ({
@@ -34,23 +86,6 @@ class SaveModal extends React.Component {
     const handleItineraryClick = ev => {
       ev.preventDefault();
       this.props.showNewItineraryModal(this.props.authenticated, this.props.review);
-    }
-
-    const GeoInfo = props => {
-      if (!props.geo) {
-        return null;
-      }
-      else {
-        return (
-          <Link to={`/places/${props.geo.placeId}`}>
-            <div className="flx flx-row flx-just-start flx-align-center">
-              {/** Flag and Geo **/}
-              <div className={'itinerary__cover__flag flx-hold flag-' + props.geo.country}>
-              </div>
-            </div>
-          </Link>
-          )
-      }
     }
 
 
@@ -136,28 +171,7 @@ class SaveModal extends React.Component {
                   </div>
                 </Link>
               </li>
-    					{this.props.itinerariesList.map(itinerary => {
-				        return (
-  		            <li className="brdr-bottom" key={itinerary.itineraryId}>
-                    <Link onClick={handleAdd(itinerary)}>
-                      <div className="flx flx-row flx-just-start flx-align-center">
-                        <div className="vb vb--md fill--primary mrgn-right-md DN">
-                          <img className="center-img mrgn-right-sm" src="../img/icons/icon40--save.png"/>
-                          Save
-                        </div>
-
-                        {/** GEO - START **/}
-                        <GeoInfo geo={itinerary.geo} />          
-                        {/** END - GEO ROW **/}
-                        
-      						    	<div className="option-title color--black">
-      						    		{itinerary.title}
-      						    	</div>
-                      </div>
-                    </Link>
-  				        </li>
-				        );
-  				     })}
+    					<RenderItinerariesList itinerariesList={this.props.itinerariesList} handleAdd={handleAdd}/>
                   
     				</ul>
     			</div>
