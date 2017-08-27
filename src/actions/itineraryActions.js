@@ -592,6 +592,9 @@ export function onDeleteTip(auth, tip, itineraryId, itinerary) {
     // for every tip after deleted tip, subtract 1 from priority
     Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + tip.key).remove()
     .then(response => {
+      // update tips by subject
+      Firebase.database().ref(Constants.TIPS_BY_SUBJECT_PATH + '/' + tip.subjectId + '/' + auth + '/' + tip.key).remove();
+
       // update tip counts
       Helpers.decrementItineraryCount(Constants.REVIEWS_COUNT, itineraryId, itinerary.geo, itinerary.userId);
       dispatch({
