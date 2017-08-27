@@ -10,7 +10,7 @@ import CommentContainer from './Review/CommentContainer';
 import DisplayTimestamp from './DisplayTimestamp';
 
 const mapStateToProps = state => ({
-  ...state.itinerary,
+  ...state.review,
   currentUser: state.common.currentUser,
   authenticated: state.common.authenticated,
   userInfo: state.common.userInfo

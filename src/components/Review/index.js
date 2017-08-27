@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import * as Actions from '../../actions';
+import * as Constants from '../../constants';
 import TipList from '../TipList';
 import TipPreview from '../TipPreview';
 import ReviewList from '../ReviewList';
@@ -84,7 +85,7 @@ class Review extends React.Component {
 
     this.handleSaveClick = ev => {
       ev.preventDefault();
-      //props.showModal(SAVE_MODAL, props.review, props.review.images);
+      this.props.showModal(Constants.SAVE_MODAL, this.props.appUserReview, this.props.appUserReview.images);
     }
   }
   componentWillMount() {
