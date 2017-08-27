@@ -25,6 +25,9 @@ import Geosuggest from 'react-geosuggest';
 import * as Selectors from '../selectors/itinerarySelectors';
 import Textarea from 'react-textarea-autosize';
 
+const ReorderButton = props => {
+
+}
 
 const DisplayError = props => {
   if (!props.error) {
@@ -247,13 +250,22 @@ class ItineraryForm extends React.Component {
       )
     }
 
-  const tipDropHandler = tip => (filesToUpload, e) => {
-    if (filesToUpload && tip && tip.subjectId) {
-      // console.log('tip = ' + JSON.stringify(tip))
-      // console.log(filesToUpload)
-      this.props.uploadCustomSubjectImages(this.props.authenticated, tip.subjectId, filesToUpload, itinerary.id);
+    const tipDropHandler = tip => (filesToUpload, e) => {
+      if (filesToUpload && tip && tip.subjectId) {
+        // console.log('tip = ' + JSON.stringify(tip))
+        // console.log(filesToUpload)
+        this.props.uploadCustomSubjectImages(this.props.authenticated, tip.subjectId, filesToUpload, itinerary.id);
+      }
     }
-  }
+
+    const renderReorderButton = numTips => {
+      if(numTips > 0) {
+        return (
+          <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list vb vb--sm vb--outline flx flx-row flx-align-center mrgn-right-sm">Reorder</Link>
+        )
+      }
+      else return null;
+    }
 
     return (
       <div className="flx flx-col flx-align-start page-common page-itinerary page-edit-own">
@@ -337,9 +349,7 @@ class ItineraryForm extends React.Component {
                       {itinerary.reviewsCount} tips
                     </div>
 
-                    
-
-                    <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list vb vb--sm vb--outline flx flx-row flx-align-center mrgn-right-sm">Reorder</Link>
+                    {renderReorderButton(itinerary.tips.length)}
                   </div>
 
 
