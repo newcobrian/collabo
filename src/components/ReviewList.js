@@ -1,51 +1,48 @@
 import ReviewPreview from './ReviewPreview';
-import ListPagination from './ListPagination';
 import React from 'react';
 
-const ReviewList = props => { 
-  if (!props.reviews) {
+
+const mapStateToProps = state => ({
+  ...state.itinerary,
+  currentUser: state.common.currentUser,
+  authenticated: state.common.authenticated,
+  userInfo: state.common.userInfo
+});
+
+const ReviewList = props => {
+  if (!props.reviewList) {
     return (
-      <div className="status-module flx flx-row flx-just-center w-100 v2-type-body3">Loading...</div>
+      <div className="status-module flx flx-row flx-just-center w-100 v2-type-body3"></div>
     );
   }
 
-  if (props.reviews.length === 0) {
+  else if (props.reviewList.length === 0) {
     return (
-      <div className="status-module flx flx-row flx-just-center w-100 v2-type-body3">
-        No tips added yet
+      <div className="status-module flx flx-col flx-center-all v2-type-body3">
+          This is empty.
       </div>
     );
   }
 
   return (
-    <div>
+    <div className="w-100 flx flx-col flx-center-all">
       {
-        props.reviews.map(review => {
+        props.reviewList.map((reviewItem, index) => {
           return (
-            <ReviewPreview review={review}
-              key={review.reviewId} 
-              authenticated={props.authenticated} 
-
-              like={props.like} 
-              unLike={props.unLike}
-              save={props.save}
-              unSave={props.unSave}
-              updateRating={props.updateRating}
-              deleteReview={props.deleteReview}
-              showModal={props.showModal} />
-
+            <ReviewPreview tip={reviewItem}
+              key={reviewItem.reviewId} 
+              authenticated={props.authenticated}
+              userInfo={props.userInfo}
+              showModal={props.showModal}
+              itineraryId={props.itineraryId}
+              itinerary={props.itinerary}
+              index={index+1}
+            />
           );
         })
       }
-            <div className="no-results-module">
-              <div className="v2-type-body2 center-text">
-                <a href="/create.html"><p>Got any good {props.tag} recommendations?</p></a>
-              </div>
-            </div>
-
-      <ListPagination reviewsCount={props.reviewsCount} currentPage={props.currentPage} onSetPage={props.onSetPage} />
     </div>
   );
 };
 
-export default ReviewList;
+export default ReviewList; 

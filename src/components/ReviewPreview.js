@@ -3,275 +3,165 @@ import { Link } from 'react-router';
 import LikeReviewButton from './LikeReviewButton';
 import SaveReviewButton from './SaveReviewButton';
 import ProxyImage from './ProxyImage';
-import FORWARD from '../constants';
-import { FORWARD_MODAL, REVIEW_MODAL } from '../actions';
+import ProfilePic from './ProfilePic';
+import ImagePicker from './ImagePicker';
+import * as Constants from '../constants';
+import CommentContainer from './Review/CommentContainer';
+import DisplayTimestamp from './DisplayTimestamp';
 
-const RatingsButtons = props => {
-  const handleClick = rating => ev => {
-    ev.preventDefault();
-    props.updateRating(props.authenticated, props.review.id, props.review.subjectId, rating);
-  };
+const mapStateToProps = state => ({
+  ...state.itinerary,
+  currentUser: state.common.currentUser,
+  authenticated: state.common.authenticated,
+  userInfo: state.common.userInfo
+});
 
-  if (props.authenticated && props.authenticated === props.review.reviewer.userId) {
+/* Displays user entered caption -OR- empty message if user has not entered caption */ 
+const CaptionDisplay = props => {
+  if (props.tip.review.caption) {
     return (
-      <div className={'rating-container roow roow-row-center rating-wrapper-' + props.review.rating}>
-        <button className="rating-graphic rating-2" onClick={handleClick(2)}><ProxyImage src={props.review.reviewer.image}/></button>
-        <div className="rating-divider"></div>
-        <button className="rating-graphic rating-1" onClick={handleClick(1)}><ProxyImage src={props.review.reviewer.image}/></button>
-        <div className="rating-divider"></div>
-        <button className="rating-graphic rating-0" onClick={handleClick(0)}><ProxyImage src={props.review.reviewer.image}/></button>
-        <div className="rating-divider"></div>
-        <button className="rating-graphic rating--1" onClick={handleClick(-1)}><ProxyImage src={props.review.reviewer.image}/></button>
-        <div className="rating-divider"></div>
-        <button className="rating-graphic rating--2" onClick={handleClick(-2)}><ProxyImage src={props.review.reviewer.image}/></button>
-
-      </div>
+      <div className="inline">{props.tip.review.caption}</div>
     )
   }
   else {
     return (
-      <div className={'rating-container cannot-rate roow roow-row-center rating-wrapper-' + props.review.rating}>
-          
-        <div className="rating-graphic rating-2"><ProxyImage src={props.review.reviewer.image}/></div>
-        <div className="rating-divider"></div>  
-        <div className="rating-graphic rating-1"><ProxyImage src={props.review.reviewer.image}/></div>
-        <div className="rating-divider"></div>    
-        <div className="rating-graphic rating-0"><ProxyImage src={props.review.reviewer.image}/></div>
-        <div className="rating-divider"></div>    
-        <div className="rating-graphic rating--1"><ProxyImage src={props.review.reviewer.image}/></div>
-        <div className="rating-divider"></div>
-        <div className="rating-graphic rating--2"><ProxyImage src={props.review.reviewer.image}/></div>
-      </div>
+     <div className="inline opa-60">No review yet</div>
     )
-  }
-}
-const RatingsNumber= props => {
-  const handleClick = rating => ev => {
-    props.updateRatingNumber(props.authenticated, props.review.id, props.review.subjectId, rating);
-  };
-  return (
- <div>{props.review.rating + 3}</div>
- )
-}
-
-
-const CommentPreview = props => {
-  if (props.comments) {
-    return (
-      <Link to={`/review/${props.review.subjectId}/${props.review.id}`}>
-        <div className="cta-wrapper cta-wrapper-comment roow roow-col">
-          <div className="cta-icon cta-comment"></div>
-          {props.review.commentsCount} Comments
-        </div>
-      </Link>
-    )
-  }
-  else {
-    return (
-      <Link to={`/review/${props.review.subjectId}/${props.review.id}`}>
-        <div className="cta-wrapper cta-wrapper-comment roow roow-col">
-          <div className="cta-icon cta-comment comment-on"></div>
-          Comment
-        </div>
-      </Link>
-    )
-  }
-}
-
-const Hashtags = props => {
-  if (props.tags) {
-    return (
-      <div>
-        {props.tags.map(tag => {
-          return (
-            <span key={tag}> {tag} </span> 
-          )
-        })
-      }
-      </div>
-    )
-  }
-  return null;
+  } 
 }
 
 const ReviewPreview = props => {
-  const review = props.review;
-  const canModify = props.authenticated &&
-      props.authenticated === props.review.createdBy.userId;
-
-  const handleForwardClick = ev => {
+  const tip = props.tip;
+      
+  const handleSaveClick = ev => {
     ev.preventDefault();
-    props.showModal(FORWARD_MODAL, props.review);
+    props.showModal(Constants.SAVE_MODAL, props.tip, props.tip.images);
   }
 
-  const handleReviewClick = ev => {
+  const onInfoClick = ev => {
     ev.preventDefault();
-    props.showModal(REVIEW_MODAL, props.review);
+    props.showModal(Constants.INFO_MODAL, props.tip);
   }
 
   return (
-    <div className="reviews-wrapper roow roow-left roow-col-left mrgn-bottom-lg bx-shadow">
-      <div className="review-container roow roow-center roow-col-left bottom-divider default-card-white">
-        <div className="subject-name-container center-text">
-          <div className="roow roow-row-top pic-and-review">
-            <div className="review-data-container roow roow-col-center">
-                
-              <Link to={`/${review.createdBy.username}`}>
-                  <div className="reviewer-photo DN center-img mrgn-right-lg mrgn-top-sm"><ProxyImage src={review.createdBy.image}/></div>
-              </Link>
+    <div className="tip-wrapper flx flx-col flx-col w-100 w-max">
+      
+      <div className="tip-container flx flx-col flx-center-all w-100">
+          
+        
+            
+            { /** Title and Address **/ }
+            <div className="tip__title-module flx flx-row w-100">
 
-              <div className="subject-caption v2-type-body2 center-text pdding-top-sm">
-                {review.caption}
-              </div>
-              <Link to={`/${review.createdBy.username}`}>
-                <div className="reviewer-name v2-type-h3 center-text">
-                  <span className="dash">-</span> {review.createdBy.username}
+              <div className="tip__right-module flx flx-col flx-align-end">
+
+
+              { /** Rating **/ }
+              <div className={'mobile-show tip__rating-module flx flx-row flx-align-center flx-item-right w-100 tip__rating-module--' + tip.review.rating}>
+                <div className={'tip__rating flx-hold flx flx-row flx-center-all v2-type-rating--' +  tip.review.rating}>
+                  {tip.review.rating}
                 </div>
-              </Link>
-              <div className="review-timestamp">
-                {(new Date(review.lastModified)).toLocaleString()}
-              </div>  
-              {/*<Link className="bttn-style bttn-review inside mrgn-top-md" onClick={handleReviewClick}>
-                <i className="ion-plus"></i> Add Your Review
-              </Link>*/}
-            </div>
-
-
-          </div>
-
-          <div className="roow roow-row flex-wrap cta-container">
-            <div className="cta-box roow roow-row-space">
-              <CommentPreview comments={props.review.comments} review={props.review} />
+                <i className="rating-star-icon material-icons color--black opa-40 md-14 DN">star</i>
+              </div>
+              { /** END Rating **/ }
               
-              <div className="roow roow-row flex-item-right">
-                <LikeReviewButton
-                  authenticated={props.authenticated}
-                  isLiked={props.review.isLiked}
-                  likesCount={props.review.likesCount}
-                  unLike={props.unLike}
-                  like={props.like} 
-                  review={review} />
+
+                { /** Image **/ }
+                <div className="tip__image-module">
+                  <div className="tip__photo-count">{tip.images.length > 0 ? tip.images.length : null}</div>
+                  <ImagePicker images={tip.images} />
+                </div>
+                { /** END Image **/ }
+
+
+               
+                <div className="tip__timestamp v2-type-caption opa-20 mrgn-top-xs DN">
+                  <DisplayTimestamp timestamp={tip.review.lastModified} />
+                </div>
+                
               </div>
 
-            </div>
-                
-          </div>
+
+              <div className="flx flx-col w-100">
+
+                  <div className="tip__title-wrapper flx flx-row flx-align-top w-100 hide-in-list">
+                    <div className="tip__order-count DN v2-type-h3"></div>
+                  </div>
+
+                <div className="tip__content-wrapper">
+
+                  <div className="tip__header-wrapper flx flx-row flx-align-start flx-just-start">
+                    { /** Title **/ }
+                    <Link to={`/review/${tip.subjectId}/${tip.key}`}>
+                    <div className="hide-in-list tip__title v2-type-h3 ta-left">
+                      <div className="tip__order-count"></div> {tip.subject.title} 
+                    </div>
+                    </Link>
+                    { /** END Title **/ }
+
+                    { /** Rating **/ }
+                    <div className={'mobile-hide tip__rating-module flx flx-row flx-align-center flx-item-right w-100 flx-hold tip__rating-module--' + tip.review.rating}>
+                      <div className={'tip__rating flx-hold flx flx-row flx-center-all v2-type-rating--' +  tip.review.rating}>
+                        {tip.review.rating}
+                      </div>
+                      <i className="rating-star-icon material-icons color--black opa-40 md-14 DN">star</i>
+                    </div>
+                    { /** END Rating **/ }
+                </div>
+
+
+                  { /** Author **/ }
+                  <Link
+                      to={'/' + tip.createdBy.username}
+                      className="show-in-list">
+                    <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm">
+                        <div className="tip__author-photo flx-hold mrgn-right-sm">
+                          <ProfilePic src={tip.createdBy.image} className="user-image user-image-sm center-img" />
+                        </div> 
+                        <div className="color--black v2-type-body1">
+                          {tip.createdBy.username}
+                        </div>
+                    </div>
+                  </Link>
+                  { /** END Author **/ }
+
+                  { /** Caption **/ }
+                  <div className="tip__caption-module flx flx-col w-100 pdding-right-lg mrgn-bottom-sm">
+                    <div className="tip__caption v2-type-body2 ta-left opa-90">
+                      <CaptionDisplay tip={props.tip} />
+                    </div>
+                  </div>
+
+                  {/* Itinerary links */}
+                  <div>
+                    IN {tip.itineraries.length} ITINERARIES:
+                    {tip.itineraries.map((itinItem, index) => {
+                      return (
+                        <div key={index}>
+                          <Link to={'/guide/' + itinItem.itineraryId}>{itinItem.title}</Link>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              </div>
+
+             
 
 
 
 
-        </div> 
-      </div>
+           
+          </div> { /** End photo / copy row **/ }
+
+          
+ 
+
+
+
+      </div> 
     </div>
   );
-
-  // return (
-  //     <div className="reviews-wrapper roow roow-left roow-col-left mrgn-bottom-lg bx-shadow">
-
-  //         <Link to={`/review/${review.subjectId}/${review.id}`}>
-  //           <div className="subject-image">
-  //             <ProxyImage className="gray-border" src={review.subject.image ? review.subject.image : ""}/>
-  //           </div>
-  //         </Link>
-
-  //       <div className="review-container roow roow-center roow-col-left bottom-divider default-card-white">
-  //         <div className="subject-name-container center-text">
-  //           <div className="delete-wrapper">
-  //             <div className="delete-button">
-  //                 <ReviewActions review={review} authenticated={props.authenticated} 
-  //                 canModify={canModify} deleteReview={props.deleteReview} reviewDetailPath={props.reviewDetailPath} />
-  //             </div>
-  //           </div>
-  //           <div className="text-category v2-type-h4"><Hashtags tags={review.subject.tag}/></div>
-            
-  //           <Link to={`/review/${review.subjectId}/${review.id}`}>
-  //           <div className="text-subject-name v2-type-h2 center-text">
-  //             {review.subject.title}
-  //           </div>
-  //           </Link>
-  //             <div className="review-external-link">
-  //           <a title={'Open link: ' + review.subject.url} target="blank" href={review.subject.url}>
-  //             {review.subject.url}
-  //           </a>
-  //           </div>
-  //         </div>{/**END subject-name-container**/}
-  //         <div className="roow roow-row-top pic-and-review">
-  //           <div className="review-data-container roow roow-col-center">
-                
-  //               <Link to={`/${review.reviewer.username}`}>
-  //                     <div className="reviewer-photo DN center-img mrgn-right-lg mrgn-top-sm"><ProxyImage src={review.reviewer.image}/></div>
-  //                 </Link>
-
-  //               <div className="roow">
-  //                 {/* Rating Stars */}
-  //                 <div className="roow roow-col-left">
-  //                   <Link to={`/review/${review.subjectId}/${review.id}`}> 
-  //                     <RatingsButtons review={review} authenticated={props.authenticated} updateRating={props.updateRating} />
-  //                   </Link>
-  //                 </div>
-  //                 {/* Rating Number  */}
-  //                 <div className="v2-type-h1 mrgn-left-sm mrgn-right-sm">
-  //                     <RatingsNumber review={review} authenticated={props.authenticated} updateRatingNumber={props.updateRating} />
-  //                 </div>
-  //               </div>
-
-  //               <div className="subject-caption v2-type-body2 center-text pdding-top-sm">
-  //                 {review.caption}
-  //               </div>
-  //               <Link to={`/${review.reviewer.username}`}>
-  //                 <div className="reviewer-name v2-type-h3 center-text">
-  //                   <span className="dash">-</span> {review.reviewer.username}
-  //                 </div>
-  //               </Link>
-  //               <div className="review-timestamp">
-  //                 {(new Date(review.lastModified)).toLocaleString()}
-  //               </div>  
-  //               <Link className="bttn-style bttn-review inside mrgn-top-md" onClick={handleReviewClick}>
-  //                 <i className="ion-plus"></i> Add Your Review
-  //               </Link>
-  //           </div>
-
-
-  //         </div>
-
-  //         <div className="roow roow-row flex-wrap cta-container">
-  //             <div className="cta-box roow roow-row-space">
-  //               <div className="roow roow-col-left">
-                
-  //               </div>
-  //               <CommentPreview comments={props.review.comments} review={props.review} />
-                
-  //               <div className="roow roow-row flex-item-right">
-  //                 <LikeReviewButton
-  //                   authenticated={props.authenticated}
-  //                   isLiked={props.review.isLiked}
-  //                   likesCount={props.review.likesCount}
-  //                   unLike={props.unLike}
-  //                   like={props.like} 
-  //                   review={review} />
-  //                 <SaveReviewButton 
-  //                   authenticated={props.authenticated}
-  //                   isSaved={props.review.isSaved}
-  //                   unSave={props.unSave}
-  //                   save={props.save} 
-  //                   review={review} />
-  //               </div>
-
-  //               <Link className="cta-wrapper roow roow-col" onClick={handleForwardClick}>
-  //                   <div className="cta-icon cta-share"></div>
-  //                   Forward
-  //                 </Link>
-
-  //               </div>
-                
-  //           </div>
-
-
-
-
-  //       </div> 
-  //     </div>
-  // );
 }
 
 export default ReviewPreview;

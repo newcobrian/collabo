@@ -335,6 +335,13 @@ export function updateItineraryField(auth, itinerary, field, value) {
       updates[`/${Constants.ITINERARIES_PATH}/${itinerary.id}/lastModified`] = timestamp;
       updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itinerary.id}/lastModified`] = timestamp;
 
+      if (field === 'title') {
+        for (let i = 0; i < itinerary.tips.length; i++) {
+          let userId = itinerary.tips[i].userId ? itinerary.tips[i].userId : itinerary.userId;
+          updates[`/${Constants.TIPS_BY_SUBJECT_PATH}/${itinerary.tips[i].subjectId}/${userId}/${itinerary.tips[i].key}/title`] = value;
+        }
+      }
+
       Firebase.database().ref().update(updates);
 
       dispatch({
@@ -541,6 +548,9 @@ export function onAddTip(auth, result, itinerary) {
       let tipObject = Object.assign({}, { subjectId: subjectId }, { reviewId: reviewId }, { userId: auth }, {priority: priority});
       
       let tipId = Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itinerary.id).push(tipObject).key;
+
+      // update tips by subject
+      updates[`/${Constants.TIPS_BY_SUBJECT_PATH}/${subjectId}/${auth}/${tipId}/`] = Object.assign({}, {itineraryId: itinerary.id}, {title: itinerary.title});
 
       // update review counts on the itinerary
       Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + itinerary.userId + '/' + itinerary.id + '/reviewsCount').transaction(function (current_count) {

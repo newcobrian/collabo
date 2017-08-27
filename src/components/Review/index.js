@@ -5,25 +5,22 @@ import { Link } from 'react-router';
 import * as Actions from '../../actions';
 import TipList from '../TipList';
 import TipPreview from '../TipPreview';
+import ReviewList from '../ReviewList';
+import ReviewPreview from '../ReviewPreview';
 import ImagePicker from '../ImagePicker'
 
 const DisplayAppUserReview = props => {
   if (props.tip && props.authenticated) {
     // if (props.currentReviewId !== props.review.reviewId) {
       let tip = props.tip;
-      tip.subject = props.subject;
-      tip.reviewer = props.userInfo;
       return (
         <div className="reviewpreview-wrapper your-review roow roow-col-center">
-          <TipPreview tip={tip}
+          <ReviewPreview tip={tip}
             authenticated={props.authenticated} 
-            like={props.like} 
-            unLike={props.unLike}
             userInfo={props.userInfo}
             save={props.save}
             unSave={props.unSave}
-            showModal={props.showModal}
-            deleteComment={props.deleteComment} />
+            showModal={props.showModal} />
         </div>
       )
     // }
@@ -254,20 +251,15 @@ class Review extends React.Component {
             subject={this.props.subject}
             authenticated={this.props.authenticated}
             userInfo={this.props.userInfo}
-            like={this.props.likeReview} 
-            unLike={this.props.unLikeReview}
             save={this.props.saveReview}
             unSave={this.props.unSaveReview}
             showModal={this.props.showModal} />
-          <TipList
+          <ReviewList
               itinerary={this.props.itinerary}
-              tipList={this.props.followingReviews} 
+              reviewList={this.props.followingReviews} 
               authenticated={this.props.authenticated}
-              like={this.props.likeReview} 
-              unLike={this.props.unLikeReview}
               userInfo={this.props.userInfo}
               showModal={this.props.showModal}
-              deleteComment={this.props.onDeleteComment}
                />
           </div>
         </div>
