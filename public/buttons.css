@@ -114,8 +114,6 @@ input.input--underline {
 }
 
 .vb:hover {
-  opacity: .9;
-  transition: all 0.23s ease-in-out 0s;
 }
 
 .vb img {
@@ -200,7 +198,6 @@ input.input--underline {
   box-shadow: none;
   border: 1px solid rgba(0,0,0,.3);
   border: 1px solid #D7E3E5;
-  color: black;
   background: white;
 }
 .vb--outline--white {

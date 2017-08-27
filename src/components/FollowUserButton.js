@@ -8,9 +8,9 @@ const FollowUserButton = props => {
   let classes = 'vb vb--sm vb--follow mrgn-top-xs';
   // if (props.user.following) {
   if (props.user.isFollowing) {
-    classes += ' vb--following vb--outline--gray color--gray';
+    classes += ' vb--following vb--outline color--gray';
   } else {
-    classes += ' vb--outline--none color--white fill--primary';
+    classes += ' color--white fill--primary';
   }
 
   const handleClick = ev => {
