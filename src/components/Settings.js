@@ -74,7 +74,7 @@ class SettingsForm extends React.Component {
     return (
       <form onSubmit={this.submitForm}>
         <fieldset>
-          <div className="profile-image"><ProxyImage src={this.state.image ? this.state.image : ''} className="user-img" /></div>
+          <div className="profile-image flx flx-center-all"><ProxyImage src={this.state.image ? this.state.image : ''} className="center-img" /></div>
           <fieldset className="form-group">
             <div className="upload-wrapper">
                 <div className="upload-overlay">Upload Image</div>

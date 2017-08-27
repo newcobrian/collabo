@@ -220,7 +220,7 @@ class FirebaseSearchInput extends Component {
         hintStyle={{
           paddingLeft: '62px',
           color: 'rgba(0,0,0,.5)',
-          fontWeigt: '100'
+          fontWeight: '100'
         }}
      />
       </MuiThemeProvider>

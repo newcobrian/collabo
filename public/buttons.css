@@ -222,7 +222,7 @@ input.input--underline {
 }
 
 .vb--follow {
-  width: 146px;
+  min-width: 110px;
 }
 .vb--following {
   color: #ccc;
@@ -255,14 +255,14 @@ input.input--underline {
 .vb.fill--primary:hover {
   color: white;
   background-color: #46DFFF !important;
-  opacity: 1;
+  opacity: 1 !important;
 }
 .vb.vb--outline:active,
 .vb.vb--outline:hover,
 .vb.vb--outline--none:active,
 .vb.vb--outline--none:hover {
   background-color: #F4FDFF !important;
-  opacity: 1;
+  opacity: 1 !important;
 }
 
 .vb.vb--add {
