@@ -85,7 +85,7 @@ class Review extends React.Component {
 
     this.handleSaveClick = ev => {
       ev.preventDefault();
-      this.props.showModal(Constants.SAVE_MODAL, this.props.appUserReview, this.props.appUserReview.images);
+      this.props.showModal(Constants.SAVE_MODAL, Object.assign({}, {subjectId: this.props.params.sid}, {subject: this.props.subject}), this.props.subject.images);
     }
   }
   componentWillMount() {
