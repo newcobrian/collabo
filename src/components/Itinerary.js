@@ -109,7 +109,7 @@ class Itinerary extends React.Component {
   }
 
   render() {
-    if (isEmpty(this.props.itinerary) || this.props.itineraryNotFound) {
+    if (this.props.itineraryNotFound) {
       return (
         <div className="error-module flx flx-col flx-center-all ta-center v2-type-body3 color--black">
           <img className="center-img mrgn-bottom-md" width="80" src="/img/xiaog.png"/>
