@@ -170,7 +170,7 @@ class Create extends React.Component {
 	        	          <div className="v2-type-page-header">Create a New Guide</div>
 	        	          <div className="v2-type-body2 opa-60">This could be a list of top spots or plans for an upcoming trip</div>
 	        	        </div>
-			         	<div className="hero-content flx flx-col flx-center-all ta-center">
+			         	<div className="create-content flx flx-col flx-center-all ta-center">
 							
 							<div className="flx flx-col flx-center-all create-wrapper">
 						
@@ -234,11 +234,12 @@ class Create extends React.Component {
 						    </div>	
 
 					  	</div>
-
-					    <div className="hero-map opa-20">
-					    </div>
-					    <div className="hero-grid opa-10">
-					    </div>
+					  	<div className="hero-bg">
+						    <div className="hero-map opa-20">
+						    </div>
+						    <div className="hero-grid opa-10">
+						    </div>
+						</div>
 
 
 					</div>	

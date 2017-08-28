@@ -1,11 +1,17 @@
 .hero-container {
-	height: 300px;
+	height: auto;
 	width: 100%;
 	position: relative;
-	background-attachment: fixed;
-	/* Rectangle Copy 8: */
-	background-image: linear-gradient(121deg, #06A07C 0%, #83FFDA 100%);
 }
+.hero-container.logged-out {
+}
+.hero-content {
+	height: 360px;
+	width: 100%;
+	position: relative;
+	background-image: linear-gradient(0deg, #FF84A0 0%, #FFD983 90%);
+}
+
 .create-page .hero-container {
 	background-color: #D0F5FF;
 	width: 100%;
@@ -17,13 +23,40 @@
 	right: 0;
 	height: initial;
 }
-.hero-content {
+.homepage-logo {
+	width: 171px;
+	height: 96px;
+}
+.hero-ocean {
+	width: 100%;
+	height: 192px;
+	background-color: #45DAE6;
+	position: relative;
+	padding: 10px 10px 30px 10px;
+}
+
+
+.create-content {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 70px;
+    bottom: 70px;
+    z-index: 3;
+}
+
+.hero-bg {
+	height: 100%;
+	width: 100%;
 	position: absolute;
 	left: 0;
 	right: 0;
 	top: 0;
 	bottom: 0;
 	z-index: 2;
+	background-image: linear-gradient(121deg, #06A07C 0%, #83FFDA 100%);
 }
 .hero-map {
 	position: absolute;
@@ -34,7 +67,7 @@
 	background-image: url(img/bg/map_A.png);
 	background-attachment: fixed;
 	animation: animatedBackground 40s linear 1;
-	z-index: 1;
+	z-index: 3;
 	background-position: center;
 }
 .hero-grid {
@@ -45,9 +78,33 @@
 	bottom: 0;
 	background-attachment: fixed;
 	background-image: url(img/grids/80__white.png);
-	z-index: 1;
+	z-index: 3;
 }
+.header-container .navigation-bar {
+  background-color: white;
 
+}
+.header-container.logged-out .navigation-bar {
+}
+.about-intro {
+	padding: 20px;
+}
+.guide-diagram {
+	margin-top: -70px;
+    z-index: 1;
+}
+.feature-list-wrapper {
+	height: 600px;
+}
+.feature-list {
+	padding: 20px;
+}
+.feature-item {
+	margin-bottom: 40px;
+}
+.guide-diagram img {
+	max-width: 600px;
+}
 @keyframes animatedBackground {
 	from { background-position: -50% 0; }
 	to { background-position: 120% 0; }

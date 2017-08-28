@@ -169,7 +169,6 @@
 	width: 100%;
 	padding: 20px 0;
 	background: white;
-	/*box-shadow: 0 6px 0 0px rgba(0,0,0,.05);*/
 	position: relative;
 	background: transparent;
 	margin: 20px 2%;
@@ -201,7 +200,7 @@
 	width: 46%;
 	padding: 20px;
 	background: #FFFFFF;
-	border: 1px solid #D5E3E5;
+	border: 1px solid rgba(0,0,0,.05);
 	/*box-shadow: 0 2px 0 0 #D5E3E5;*/
 }
 	.my-profile-page .itinerary__cover__topbar {

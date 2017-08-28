@@ -41,6 +41,7 @@ textarea {
 .resize-ok textarea {
     resize: vertical;
 }
+.
 .weight-300 {
   font-weight: 300 !important;
 }
@@ -177,6 +178,12 @@ font-weight: 300;
     font-weight: 400;
     display: inline-block;
 }
+.v2-type-intro {
+  /* Make and share trave: */
+  font-family: 'Montserrat', sans-serif;
+  font-size: 32px;
+  letter-spacing: 1;
+}
 .geo-type {
   font-family: 'Roboto Condensed', sans-serif;;
   text-transform: uppercase;
@@ -216,6 +223,8 @@ font-weight: 300;
 .color--primary {
   color: #45CAE6 !important;
 }
+a.color--primary:hover i,
+a.color--primary:focus i,
 a.color--primary:hover,
 a.color--primary:focus {
   color: #46DFFF !important;
@@ -252,11 +261,7 @@ a.color--primary:focus {
   font-weight: 300;
   font-family: 'Roboto', sans-serif;
 }
-.header-container,
-.navigation-bar {
-  background-color: #ffffff;
 
-}
 .logo-main {
 
 }

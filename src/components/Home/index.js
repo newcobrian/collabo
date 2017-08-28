@@ -68,27 +68,95 @@ class Home extends React.Component {
   LoggedOutIntro(authenticated) {
     if (!authenticated) {
       return (
-       <div className="hero-container">
-        <div className="hero-content flx flx-col flx-center-all ta-center">
-          <div className="v2-type-h3 color--white mrgn-bottom-md">
-           A better way to plan your trips
+       <div className="hero-container logged-out flx flx-col">
+
+        <div className="hero-content flx flx-col flx-align-center flx-just-end ta-center">
+          <div className="homepage-logo mrgn-bottom-md">  
+            <img className="center-img w-100" src="/img/logos/homepage-logo.png"/>
           </div>
-          <div className="v2-type-body3 color--white mrgn-bottom-md">
-           Hi
+          <div className="v2-type-intro color--white opa-70 mrgn-bottom-lg">
+           Make and share travel guides
           </div>
+        </div>
+        
+        <div className="hero-ocean flx flx-col flx-center-all">
           <Link to="/register" className="">
-            <div className="vb vb--light vb--intro--register">
-              Get started
+            <div className="vb vb--light vb--intro--register flx flx-row flx-center-all ta-center">
+              <div className="flx-grow1 mrgn-left-md">MAKE YOUR FIRST TRAVEL GUIDE</div>
+              <i className="material-icons md-32 color--white flex-item-right mrgn-left-md">flight_takeoff</i>
             </div>
           </Link>
         </div>
 
+         
+         <div className="about-intro flx flx-row w-100">
+            <div className="guide-diagram flx flx-center-all w-50">
+              <img className="center-img w-100" src="/img/graphics/guide-tokyo.png"/>
+            </div>
 
-          <div className="hero-map opa-20">
+            <div className="feature-list-wrapper flx flx-col w-50 flx-center-all">
+              <div className="feature-list flx flx-col">
+                <div className="feature-item flx flx-row">
+                  <div className="feature-icon">
+                  </div>
+                  <div className="flx flx-col">
+                    <div className="tip__title v2-type-h3 ta-left">
+                      Find good tips
+                    </div>
+                    <div className="v2-type-body3 ta-left mrgn-top-sm opa-60">
+                      Collect recs from friends you trust
+                    </div>
+                  </div>
+                </div>
+                <div className="feature-item flx flx-row">
+                  <div className="feature-icon">
+                  </div>
+                  <div className="flx flx-col">
+                    <div className="tip__title v2-type-h3 ta-left">
+                      Build travel guides
+                    </div>
+                    <div className="v2-type-body3 ta-left mrgn-top-sm opa-60">
+                      Itineraries, city guides, to-eat lists...
+                    </div>
+                  </div>
+                </div>
+                <div className="feature-item flx flx-row">
+                  <div className="feature-icon">
+                  </div>
+                  <div className="flx flx-col">
+                    <div className="tip__title v2-type-h3 ta-left">
+                      Take it on your trip
+                    </div>
+                    <div className="v2-type-body3 ta-left mrgn-top-sm opa-60">
+                      Mobile maps and notepad
+                    </div>
+                  </div>
+                </div>
+                <div className="feature-item flx flx-row">
+                  <div className="feature-icon">
+                  </div>
+                  <div className="flx flx-col">
+                    <div className="tip__title v2-type-h3 ta-left">
+                      Share your experiences
+                    </div>
+                    <div className="v2-type-body3 ta-left mrgn-top-sm opa-60">
+                      Help your friends build their guides!
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> {/* END Feature Wrapper */}
+         </div> {/* END About Intro */}
+
+         <div className="about-intro flx flx-row w-100">
+          <div className="v2-type-h3 ta-center w-100">
+            Some cool guides people made:
           </div>
-          <div className="hero-grid opa-10">
-          </div>
-       </div>
+         </div>
+
+       </div> 
+
+
       );
     }
     return null;
@@ -113,12 +181,9 @@ class Home extends React.Component {
               className="input--search input--underline v2-type-body3" />
           </div>
         </div>
-        <div className="toggle-wrapper DN">
-          {/*this.renderTabs()*/}
-        </div>
-        <div className="feed-wrapper fill--light-gray pdding-top-sm">
-          <MainView />
-        </div>
+        
+        <MainView />
+
         <BackToTop />
       </div>
 

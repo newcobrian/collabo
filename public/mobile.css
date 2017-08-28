@@ -665,8 +665,31 @@ body .back-to-top {
   display: none;
 }
 
+
+.about-intro {
+    -webkit-flex-direction: column !important;
+    flex-direction: column !important;
+}
+.guide-diagram,
+.feature-list-wrapper {
+  width: 100%;
 }
 
+
+}
+
+
+
+
+
+
+
+
+/* MOBILE*/
+/* MOBILE*/
+/* MOBILE*/
+/* MOBILE*/
+/* MOBILE*/
 
 
 

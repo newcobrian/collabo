@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import * as Actions from '../../actions';
 import ItineraryList from './../ItineraryList';
 
+
+
 const mapStateToProps = state => ({
   ...state.home,
   authenticated: state.common.authenticated
@@ -22,12 +24,14 @@ const MainView = props => {
   const onSetPage = page => props.onSetPage(props.tab, page);
   return (
     <div>
+      <div className="feed-wrapper fill--light-gray pdding-top-sm">
        <ItineraryList
           itineraries={props.itineraries} 
           authenticated={props.authenticated} 
           like={props.likeReview} 
           unLike={props.unLikeReview}
           deleteItinerary={props.showDeleteModal} />
+        </div>
     </div>
   );
 };

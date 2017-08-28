@@ -88,14 +88,12 @@ input.input--underline {
 .vb {
   border: none;
   height: 60px;
-  color: white;
   text-align: center;
   letter-spacing: 3px;
   font-weight: 500;
   border-radius: 2px;
   font-size: 14px;
   cursor: pointer;
-  color: white;
   /*font-family: "Arimo", sans-serif !important;*/
   padding: 20px;
   text-transform: uppercase;
@@ -198,7 +196,6 @@ input.input--underline {
   box-shadow: none;
   border: 1px solid rgba(0,0,0,.3);
   border: 1px solid #D7E3E5;
-  background: white;
 }
 .vb--outline--white {
   background-color: rgba(255,255,255,.05);
@@ -232,17 +229,24 @@ input.input--underline {
   padding: 0 !important;
 }
 .vb--intro--register {
-    padding: 5px 20px;
-    background-color: rgba(255,255,255,.1);
+    padding: 15px 40px;
+    background-color: rgba(255,255,255,.2);
     height: auto;
     box-shadow: none;
-    border: 1px solid rgba(255,255,255,.6);
-    font-size: 14px;
+    font-size: 17px;
     color: white;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0 20px;
 }
 .vb--intro--register:hover {
   background-color: white;
   color: #292F3D;
+  opacity: 1;
+}
+
+
+.vb--intro--register:hover i {
+  color: #292F3D !important;
   opacity: 1;
 }
 
