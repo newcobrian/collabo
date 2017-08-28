@@ -369,3 +369,27 @@ select:hover {
 .v2-type-rating--8, {
   color: #0C0D10;
 }
+
+.reviewpreview-wrapper {
+  padding: 0px 20px;
+}
+.reviewpreview-wrapper .tip-container {
+    padding: 20px 20px;
+}
+.guide-list {
+  margin-top: 10px;
+}
+.guide-count-0 {
+  display: none;
+}
+.reviewpreview-wrapper .guide-link {
+  border-right: 1px solid rgba(0,0,0,.2);
+  margin-right: 10px;
+  padding-right: 10px;
+  margin-bottom: 10px;
+}
+.reviewpreview-wrapper .guide-link:last-child {
+  border-right: none;
+  margin-right: 0px;
+  padding-right: 20px;
+}

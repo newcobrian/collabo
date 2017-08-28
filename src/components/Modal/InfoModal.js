@@ -41,11 +41,15 @@ class InfoModal extends React.Component {
     const actions = [
       <FlatButton
         label="Close"
-        className="vb fill--white vb--shadow-none"
+        className="vb vb--shadow-none"
         onTouchTap={handleClose}
         style={{
-            color:'#2B3538'
           }}
+          labelStyle={{   fontWeight: '500',
+                          fontSize: '14px',
+                          letterSpacing: '2px',
+                          boxShadow: 'none'
+                      }}
       />
     ];
 
@@ -62,40 +66,48 @@ class InfoModal extends React.Component {
               
             }}
 
+          title={this.props.review.subject.title}
+          titleClassName="dialog__title v2-type-h2"
+          titleStyle={{}}
+
+          bodyClassName="dialog--save__body"
+          bodyStyle={{padding: "0px"}}
+
           contentStyle={{width: "100%", maxWidth: "600px"}}
         >
 
         <div className="dialog--save flx flx-col">
-          <div className="dialog--save__tip-name color--black tip__title v2-type-h3 v-row brdr-bottom mrgn-bottom-sm">{this.props.review.subject.title}</div>
+          <div className="dialog--save__tip-name color--black tip__title v2-type-h3 v-row brdr-bottom DN">{this.props.review.subject.title}</div>
            
+            <div className="mrgn-top-md w-100">
+              <div className="flx flx-col mrgn-bottom-md pdding-bottom-sm brdr-bottom w-100 pdding-left-md pdding-right-md">
+                <div className="flx flx-row flx-align-center mrgn-bottom-sm">
+                  <i className="material-icons mrgn-right-md color--primary md-18">&#xE55F;</i>
+                  <label>Address</label>
+                </div>
+                <div>
+                  <div className="v2-type-body1">{this.props.review.subject.address}</div>
+                </div>
+              </div>
 
-            <div className="flx flx-col mrgn-bottom-md pdding-bottom-sm brdr-bottom w-100">
-              <div className="flx flx-row flx-align-center mrgn-bottom-sm">
-                <i className="material-icons mrgn-right-md color--primary md-18">&#xE55F;</i>
-                <label>Address</label>
+             <div className="flx flx-col mrgn-bottom-md pdding-bottom-sm brdr-bottom w-100 pdding-left-md pdding-right-md">
+                <div className="flx flx-row flx-align-center mrgn-bottom-sm">
+                  <i className="material-icons mrgn-right-md color--primary md-18">phone</i>
+                  <label>Phone</label>
+                </div>
+                <div>
+                  <div className="v2-type-body1">{this.props.review.subject.internationalPhoneNumber}</div>
+                </div>
               </div>
-              <div>
-                <div className="v2-type-body1">{this.props.review.subject.address}</div>
-              </div>
-            </div>
 
-           <div className="flx flx-col mrgn-bottom-md pdding-bottom-sm brdr-bottom w-100">
-              <div className="flx flx-row flx-align-center mrgn-bottom-sm">
-                <i className="material-icons mrgn-right-md color--primary md-18">phone</i>
-                <label>Phone</label>
-              </div>
-              <div>
-                <div className="v2-type-body1">{this.props.review.subject.internationalPhoneNumber}</div>
-              </div>
-            </div>
-
-            <div className="flx flx-col mrgn-bottom-md pdding-bottom-sm">
-              <div className="flx flx-row flx-align-center mrgn-bottom-sm md-18">
-                <i className="material-icons mrgn-right-md color--primary">schedule</i>
-                <label>Hours</label>
-              </div>
-              <div>
-                <div className="v2-type-body1"><ShowWeekDayText subject={this.props.review.subject} /></div>
+              <div className="flx flx-col mrgn-bottom-md pdding-bottom-sm pdding-left-md pdding-right-md">
+                <div className="flx flx-row flx-align-center mrgn-bottom-sm md-18">
+                  <i className="material-icons mrgn-right-md color--primary">schedule</i>
+                  <label>Hours</label>
+                </div>
+                <div>
+                  <div className="v2-type-body1"><ShowWeekDayText subject={this.props.review.subject} /></div>
+                </div>
               </div>
             </div>
 

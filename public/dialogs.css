@@ -7,13 +7,12 @@ body div.dialog--save {
   width: 500px;
 }
 .dialog--save__content {
-  /*border: 2px red solid;*/
   height: 100%;
   position: relative;
-  margin-top: 60px;
 }
 .dialog--save__content ul {
   list-style-type: none;
+  margin: 0;
 }
 .dialog--save__content li {
   padding: 10px 20px;
@@ -28,15 +27,28 @@ body div.dialog--save {
   cursor: pointer;
 }
 .dialog__title {
-  color: black;
+  padding: 20px 30px;
+  font-weight: 700;
+  color: white !important;
   border-bottom: 1px solid #E7E7E7 !important;
+background-image: linear-gradient(-180deg, #FFD983 0%, #FF84A0 98%);
+
+    padding: 22px 20px 20px !important;
+    font-weight: 400 !important;
+    color: white !important;
+    border-bottom: 1px solid #E7E7E7 !important;
+    background-image: linear-gradient(-180deg, #FFD983 0%, #FF84A0 98%);
+    background: white;
+    color: black !important;
+    font-size: 24px !important;
+    text-transform: none;
+    letter-spacing: 0;
+    margin: 0 !important;
 }
 .dialog--save li {
   list-style: none;
 }
 .dialog--save__tip-item {
-  position: fixed;
-  top: 40px;
   left: 0;
   width: 100%;
   padding: 10px 20px;
@@ -60,7 +72,7 @@ body div.dialog--save {
 .option-title {
   font-size: 16px;
   letter-spacing: 0.5px;
-  font-weight: 400;
+  font-weight: 500;
   width: 100%;
   color: black;
 }
@@ -109,8 +121,8 @@ li:hover .v-button--temp {
 
 }
 .tip-preview-wrapper {
-  width: 97px;
-  height: 82px;
+  width: 60px;
+  height: 60px;
   overflow: hidden;
   margin-right: 21px;
 }

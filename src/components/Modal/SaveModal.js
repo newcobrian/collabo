@@ -92,7 +92,7 @@ class SaveModal extends React.Component {
     const actions = [
       <FlatButton
         label="+ Create New Guide"
-        className="vb vb--shadow-none fill--primary color--white mrng-left-sm float-left"
+        className="vb vb--shadow-none color--success fill--white mrng-left-sm float-left"
         hoverColor="white"
         onTouchTap={handleItineraryClick} 
         labelStyle={{   fontWeight: '500',
@@ -133,16 +133,16 @@ class SaveModal extends React.Component {
 
           overlayClassName="dialog__overlay"
           overlayStyle={{}}
-           
-          title="Choose a guide for..."
+            
+          title={'Add ' + this.props.review.subject.title + ' to...'}
           titleClassName="dialog__title v2-type-h2"
-          titleStyle={{padding: "10px 20px", fontWeight: "700", fontSize: "20px"}}
+          titleStyle={{}}
           
           contentClassName="dialog--save__wrapper"
           contentStyle={{width: "auto", maxWidth: "600px"}}
           
           bodyClassName="dialog--save__body"
-          bodyStyle={{padding: "30px 0px"}}
+          bodyStyle={{padding: "0px"}}
 
           actionsContainerClassName="dialog--save__actions"
           actionsContainerStyle={{
@@ -150,30 +150,30 @@ class SaveModal extends React.Component {
           }}
             >
             <div className="dialog--save__content">
-            <div className="dialog--save__tip-item">
-              <div className="flx flx-row flx-just-start flx-align-center">
-                <div className="tip-preview-wrapper">
-                   <ImagePicker images={this.props.images} />
-                </div>
-                <div className="dialog--save__tip-name">{this.props.review.subject.title}</div>
-              </div>
-            </div>
-    				<ul>
-              <li className="create-new DN">
-                <Link onClick={handleItineraryClick} >
-                  <div className="flx flx-row flx-just-start flx-align-center">
-                    <div className="vb vb--temp">
-                      <img className="center-img" src="../img/icon.add--green.png"/>
-                    </div>
-                    <div className="option-title create-new__title color--success">
-                      Create new guide
-                    </div>
+              <div className="dialog--save__tip-item DN">
+                <div className="flx flx-row flx-just-start flx-align-center">
+                  <div className="tip-preview-wrapper">
+                     <ImagePicker images={this.props.images} />
                   </div>
-                </Link>
-              </li>
-    					<RenderItinerariesList itinerariesList={this.props.itinerariesList} handleAdd={handleAdd}/>
-                  
-    				</ul>
+                  <div className="dialog--save__tip-name">{this.props.review.subject.title}</div>
+                </div>
+              </div>
+      				<ul>
+                <li className="create-new DN">
+                  <Link onClick={handleItineraryClick} >
+                    <div className="flx flx-row flx-just-start flx-align-center">
+                      <div className="vb vb--temp">
+                        <img className="center-img" src="../img/icon.add--green.png"/>
+                      </div>
+                      <div className="option-title create-new__title color--success">
+                        Create new guide
+                      </div>
+                    </div>
+                  </Link>
+                </li>
+      					<RenderItinerariesList itinerariesList={this.props.itinerariesList} handleAdd={handleAdd}/>
+                    
+      				</ul>
     			</div>
 
         </Dialog>

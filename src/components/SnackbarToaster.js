@@ -28,6 +28,7 @@ class SnackbarToaster extends React.Component {
               onActionTouchTap={handleOnActionTouchTap}
               autoHideDuration={this.props.duration || 5000}
               onRequestClose={this.props.onRequestClose}
+              className="ta-center"
               style={{opacity:"1", marginBottom:"20px"}}
               bodyStyle={{opacity:".95", backgroundColor: "#00E2C8"}}
 
@@ -44,6 +45,7 @@ class SnackbarToaster extends React.Component {
 	          message={this.props.message}
 	          autoHideDuration={this.props.duration || 5000}
 	          onRequestClose={this.props.onRequestClose}
+            className="ta-center"
             style={{opacity:"1", marginBottom:"20px"}}
             bodyStyle={{opacity:".95", backgroundColor: "#00E2C8"}}
 

@@ -75,18 +75,27 @@ class ReorderModal extends React.Component {
           modal={false}
           open={(this.props.modalType === Constants.REORDER_ITINERARY_MODAL) ? true : false}
           autoScrollBodyContent={true}
-          className="dialog-wrapper"
           onRequestClose={handleClose}
           lockToContainerEdges={true}
-          style={{
-              
-            }}
+
+          className="dialog dialog--save"
+          style={{}}
+
+          overlayClassName="dialog__overlay"
+          overlayStyle={{}}
+            
+          title="Reorder your tips"
+
+          titleStyle={{}}
+          titleClassName="dialog__title v2-type-h2"
+
+          bodyClassName="dialog--save__body"
+          bodyStyle={{padding: "0px"}}
 
           contentStyle={{width: "100%", maxWidth: "600px"}}
         >
 
         <div className="dialog--save flx flx-col">
-          <div className="dialog--save__tip-name color--black tip__title v2-type-h3 v-row brdr-bottom">Reorder Your Guide</div>
            
           <SortableList helperClass='sortableHelper' items={this.props.itinerary.tips} onSortEnd={onSortEnd} />
          

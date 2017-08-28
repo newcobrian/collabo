@@ -94,7 +94,9 @@
 	padding: 10px 20px;
 	padding: 0;
 }
-
+.page-subject .itinerary__tipslist {
+	margin-bottom: 120px;
+}
 
 .itinerary__tiplist {
 	width: 100%;

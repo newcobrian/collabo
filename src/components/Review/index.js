@@ -243,7 +243,7 @@ class Review extends React.Component {
 
           showModal={this.props.showModal} />
 */}
-          
+           
         </div>
         <div className="itinerary__tipslist flx flx-col flx-align-center pdding-all-md w-100">
           <div className="w-100">

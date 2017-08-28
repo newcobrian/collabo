@@ -493,6 +493,9 @@ width: 100%;
     flex-direction: column;
     padding: 40px 10px;
 }
+.reviewpreview-wrapper .tip-wrapper .tip-container {
+  padding: 20px 10px;
+}
 .tip-wrapper .tip__cta-box {
   -webkit-flex-direction: row;
   flex-direction: row;
