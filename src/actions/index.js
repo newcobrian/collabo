@@ -1521,26 +1521,28 @@ export function unloadComments(reviewId) {
 export function findCommentMentions(dispatch, authenticated, commentBody, commentObject, itineraryId, sentArray) {
   let pattern = /\B@[a-z0-9_-]+/gi;
   let found = commentBody.match(pattern);
-  for (let i = 0; i < found.length; i++) {
-    let username = found[i].substr(1);
-    Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + username).once('value', snap => {
-      if (snap.exists()) {
-        if (snap.val().userId !== authenticated && sentArray.indexOf(snap.val().userId) === -1) {
-          Helpers.sendInboxMessage(authenticated, snap.val().userId, Constants.USER_MENTIONED_TYPE, commentObject, itineraryId);
-          sentArray.push(snap.val().userId);
+  if (found) {
+    for (let i = 0; i < found.length; i++) {
+      let username = found[i].substr(1);
+      Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + username).once('value', snap => {
+        if (snap.exists()) {
+          if (snap.val().userId !== authenticated && sentArray.indexOf(snap.val().userId) === -1) {
+            Helpers.sendInboxMessage(authenticated, snap.val().userId, Constants.USER_MENTIONED_TYPE, commentObject, itineraryId);
+            sentArray.push(snap.val().userId);
 
-          dispatch({
-            type: MIXPANEL_EVENT,
-            mixpanel: {
-              event: SEND_INBOX_MESSAGE,
-              props: {
-                type: Constants.USER_MENTIONED_TYPE
+            dispatch({
+              type: MIXPANEL_EVENT,
+              mixpanel: {
+                event: SEND_INBOX_MESSAGE,
+                props: {
+                  type: Constants.USER_MENTIONED_TYPE
+                }
               }
-            }
-          })
+            })
+          }
         }
-      }
-    })    
+      })    
+    }
   }
 }
 
