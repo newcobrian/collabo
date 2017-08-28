@@ -1,6 +1,7 @@
 import { GET_USER, GET_REVIEWS_BY_USER, GET_FOLLOWING_COUNT, GET_FOLLOWER_COUNT, ITINERARIES_BY_USER_UNLOADED,
   GET_ITINERARIES_BY_USER, ITINERARY_DELETED, GET_LIKES_BY_USER, UNLOAD_LIKES_BY_USER, USER_DOESNT_EXIST,
    PROFILE_USER_UNLOADED, PROFILE_FOLLOWING_UNLOADED } from '../actions';
+import * as ActionTypes from '../actions/types';
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -45,6 +46,14 @@ export default (state = {}, action) => {
       return {
         ...state,
         followerCount: (action.payload > 0 ? action.payload : 0)
+      }
+    case ActionTypes.GET_PROFILE_COUNTS:
+      return {
+        ...state,
+        numFollowers: action.numFollowers,
+        numFollowing: action.numFollowing,
+        numGuides: action.numGuides,
+        numLikes: action.numLikes
       }
     case GET_REVIEWS_BY_USER:
       return {

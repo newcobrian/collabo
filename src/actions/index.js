@@ -201,6 +201,26 @@ export function getFollowerCount(userId) {
   }
 }
 
+export function getProfileCounts(userId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.HAS_FOLLOWERS_PATH + '/' + userId).once('value', followersSnap => {
+      Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + userId).once('value', followingSnap => {
+        Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + userId).once('value', guidesSnap => {
+          Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).once('value', likesSnap => {
+            dispatch({
+              type: ActionTypes.GET_PROFILE_COUNTS,
+              numFollowers: followersSnap.numChildren(),
+              numFollowing: followingSnap.numChildren(),
+              numGuides: guidesSnap.numChildren(),
+              numLikes: likesSnap.numChildren()
+            })
+          })
+        })
+      })
+    })
+  }
+}
+
 export function followUser(authenticated, follower) {
   return dispatch => {
     if (!authenticated) {

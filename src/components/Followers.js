@@ -22,6 +22,7 @@ class Followers extends React.Component {
 	        let userId = snapshot.val().userId;
 	        this.props.getFollowers(userId, Constants.HAS_FOLLOWERS_PATH);
 	        this.props.getProfileUser(userId);
+	        this.props.getProfileCounts(userId);
         	this.props.checkFollowing(userId);
 	      }
 	    });
@@ -47,7 +48,7 @@ class Followers extends React.Component {
 	            <Link
 	              className="nav-link"
 	              to={`/${this.props.profile.username}`}>
-	              Itineraries
+	              {this.props.numGuides} Guides
 	            </Link>
 	          </li>
 
@@ -55,7 +56,7 @@ class Followers extends React.Component {
 	            <Link
 	              className="nav-link"
 	              to={`/${this.props.profile.username}/likes`}>
-	              Likes
+	              {this.props.numLikes} Likes
 	            </Link>
 	          </li>
 
@@ -63,7 +64,7 @@ class Followers extends React.Component {
 	            <Link
 	              className="nav-link active"
 	              to={`/${this.props.profile.username}/followers`}>
-	              {this.props.followerCount} Followers
+	              {this.props.numFollowers} Followers
 	            </Link>
 	          </li>
 
@@ -71,7 +72,7 @@ class Followers extends React.Component {
 	            <Link
 	              className="nav-link"
 	              to={`/${this.props.profile.username}/isfollowing`}>
-	              Following {this.props.followingCount}
+	              Following {this.props.numFollowing}
 	            </Link>
 	          </li>
 

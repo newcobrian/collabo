@@ -56,8 +56,7 @@ class Profile extends React.Component {
           this.props.getProfileUser(userId);
           this.props.checkFollowing(this.props.authenticated, userId);
           this.props.getItinerariesByUser(this.props.authenticated, userId);
-          this.props.getFollowingCount(userId);
-          this.props.getFollowerCount(userId);
+          this.props.getProfileCounts(userId);
           this.props.sendMixpanelEvent('Profile page loaded');
         }
         else {
@@ -100,7 +99,7 @@ class Profile extends React.Component {
             <Link
               className="nav-link active"
               to={`/${this.props.profile.username}`}>
-              Guides
+              {this.props.numGuides} Guides
             </Link>
           </li>
 
@@ -108,7 +107,7 @@ class Profile extends React.Component {
             <Link
               className="nav-link"
               to={`/${this.props.profile.username}/likes`}>
-              Likes
+              {this.props.numLikes} Likes
             </Link>
           </li>
 
@@ -116,7 +115,7 @@ class Profile extends React.Component {
             <Link
               className="nav-link"
               to={`/${this.props.profile.username}/followers`}>
-              {this.props.followerCount} Followers
+              {this.props.numFollowers} Followers
             </Link>
           </li>
 
@@ -124,7 +123,7 @@ class Profile extends React.Component {
             <Link
               className="nav-link"
               to={`/${this.props.profile.username}/isfollowing`}>
-              Following {this.props.followingCount}
+              Following {this.props.numFollowing}
             </Link>
           </li>
 

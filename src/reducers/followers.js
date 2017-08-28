@@ -1,4 +1,5 @@
 import { GET_FOLLOWERS,  UNLOAD_FOLLOWERS, GET_USER, IS_FOLLOWING } from '../actions';
+import * as ActionTypes from '../actions/types';
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -16,6 +17,14 @@ export default (state = {}, action) => {
       return {
         ...state,
         isFollowing: action.payload
+      }
+    case ActionTypes.GET_PROFILE_COUNTS:
+      return {
+        ...state,
+        numFollowers: action.numFollowers,
+        numFollowing: action.numFollowing,
+        numGuides: action.numGuides,
+        numLikes: action.numLikes
       }
     case UNLOAD_FOLLOWERS:
       return {}
