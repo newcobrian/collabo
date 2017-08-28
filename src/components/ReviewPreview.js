@@ -28,7 +28,7 @@ const CaptionDisplay = props => {
      <div className="inline opa-60">No review yet</div>
     )
   } 
-}
+} 
 
 const ReviewPreview = props => {
   const tip = props.tip;
@@ -99,6 +99,22 @@ const ReviewPreview = props => {
                     </Link>
                     { /** END Title **/ }
 
+                    { /** Author **/ }
+                    <Link
+                        to={'/' + tip.createdBy.username}
+                        className="show-in-list">
+                      <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm">
+                          <div className="tip__author-photo flx-hold mrgn-right-sm">
+                            <ProfilePic src={tip.createdBy.image} className="user-image user-image-sm center-img" />
+                          </div> 
+                          <div className="color--black v2-type-body1">
+                            {tip.createdBy.username}
+                          </div>
+                      </div>
+                    </Link>
+                    { /** END Author **/ }
+                    
+
                     { /** Rating **/ }
                     <div className={'mobile-hide tip__rating-module flx flx-row flx-align-center flx-item-right w-100 flx-hold tip__rating-module--' + tip.review.rating}>
                       <div className={'tip__rating flx-hold flx flx-row flx-center-all v2-type-rating--' +  tip.review.rating}>
@@ -110,20 +126,7 @@ const ReviewPreview = props => {
                 </div>
 
 
-                  { /** Author **/ }
-                  <Link
-                      to={'/' + tip.createdBy.username}
-                      className="show-in-list">
-                    <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm">
-                        <div className="tip__author-photo flx-hold mrgn-right-sm">
-                          <ProfilePic src={tip.createdBy.image} className="user-image user-image-sm center-img" />
-                        </div> 
-                        <div className="color--black v2-type-body1">
-                          {tip.createdBy.username}
-                        </div>
-                    </div>
-                  </Link>
-                  { /** END Author **/ }
+                 
 
                   { /** Caption **/ }
                   <div className="tip__caption-module flx flx-col w-100 pdding-right-lg mrgn-bottom-sm">

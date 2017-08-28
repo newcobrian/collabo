@@ -264,7 +264,9 @@ class ItineraryForm extends React.Component {
           <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list vb vb--sm vb--outline flx flx-row flx-align-center mrgn-right-sm">Reorder</Link>
         )
       }
-      else return null;
+      else return (
+        <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list vb vb--sm vb--disabled vb--outline flx flx-row flx-align-center mrgn-right-sm">Reorder</Link>
+        )
     }
 
     return (

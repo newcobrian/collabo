@@ -295,6 +295,13 @@ input.input--underline {
   bottom: 20px;
   opacity: .8;
 }
+.vb.vb--disabled {
+  pointer-events: none;
+/*  background: rgba(0,0,0,.1);
+  color: rgba(0,0,0,.2);*/
+  opacity: .2;
+}
+
 .itinerary__cover__image:hover .vb--change-cover {
   opacity: 1;
 }
