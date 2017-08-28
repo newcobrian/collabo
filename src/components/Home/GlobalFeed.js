@@ -8,12 +8,14 @@ import MainView from './MainView';
 
 class GlobalFeed extends Home {
   componentWillMount() {
-    this.props.getGlobalFeed(this.props.authenticated, this.props.tag);
+    // this.props.getGlobalFeed(this.props.authenticated, this.props.tag);
+    this.props.loadSampleGuides(this.props.authenticated);
     this.props.sendMixpanelEvent('Global feed loaded');
   }
 
   componentWillUnmount() {
-    this.props.unloadGlobalFeed(this.props.authenticated);
+    // this.props.unloadGlobalFeed(this.props.authenticated);
+    this.props.unloadSampleGuides(this.props.authenticated);
   }
 
   // onSetPage(page) {

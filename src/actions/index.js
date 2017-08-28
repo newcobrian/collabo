@@ -2386,71 +2386,6 @@ export function getGlobalFeed(auth) {
   }
 }
 
-//   return dispatch => {   
-//     Firebase.database().ref(Constants.REVIEWS_PATH + '/').orderByChild('lastModified').on('value', reviewsSnapshot => {
-//       if (!reviewsSnapshot.exists()) {
-//         dispatch({
-//           type: GET_GLOBAL_FEED,
-//           payload: []
-//         })
-//       }
-//       let feedArray = [];
-//       reviewsSnapshot.forEach(function(review) {
-//         let reviewerId = review.val().userId;
-//         Firebase.database().ref(Constants.USERS_PATH + '/' + reviewerId).on('value', userSnapshot => {
-//           Firebase.database().ref(Constants.LIKES_PATH + '/' + review.key).on('value', likesSnapshot => {
-//             Firebase.database().ref(Constants.SAVES_BY_USER_PATH + '/' + uid + '/' + review.key).on('value', savesSnapshot => {
-//               Firebase.database().ref(Constants.COMMENTS_PATH + '/' + review.key).on('value', commentCountSnapshot => {
-//                 Firebase.database().ref(Constants.SUBJECTS_PATH +'/' + review.val().subjectId).on('value', subjectSnapshot => {
-//                   let reviewObject = {};
-//                   let key = { id: review.key };
-//                   let reviewer = { reviewer: userSnapshot.val() };
-//                   reviewer.createdBy.userId = reviewerId;
-//                   let isLiked = false;
-//                   if (likesSnapshot.exists()) {
-//                     isLiked = Helpers.searchLikes(uid, likesSnapshot.val());
-//                   }
-//                   let likes = { 
-//                     isLiked: isLiked
-//                   }
-//                   let saved = {
-//                     isSaved: savesSnapshot.exists()
-//                   }
-//                   let commentObject = {};
-//                   if (commentCountSnapshot.exists()) {
-//                     commentObject.comments = {
-//                           lastComment: '',
-//                           commentorImage: '',
-//                           username: ''                  
-//                     }
-//                   }
-
-//                   Object.assign(reviewObject, key, reviewer, review.val(), likes, saved, commentObject);
-//                   reviewObject.subject = subjectSnapshot.val();
-//                   reviewObject.subject.image = reviewObject.subject.images ? Helpers.getImagePath(reviewObject.subject.images) : '';
-
-//                    // get subject's tags
-//                     if (reviewObject.subject.tags) {
-//                       reviewObject.subject.tag = Helpers.getTagsArray(reviewObject.subject.tags);
-//                     }
-
-//                   feedArray = [reviewObject].concat(feedArray);
-//                   feedArray.sort(Helpers.lastModifiedDesc);
-
-//                   dispatch({
-//                     type: GET_GLOBAL_FEED,
-//                     payload: feedArray
-//                   })
-//                 })
-//               })
-//             })
-//           })
-//         })
-//       });
-//     })
-//   }
-// }
-
 export function unloadGlobalFeed(uid) {
   return dispatch => {
     Firebase.database().ref(Constants.REVIEWS_PATH + '/').orderByChild('lastModified').on('value', reviewsSnapshot => {
@@ -2464,6 +2399,50 @@ export function unloadGlobalFeed(uid) {
     })
     Firebase.database().ref(Constants.REVIEWS_PATH + '/').orderByChild('lastModified').off();
 
+    dispatch({
+      type: GLOBAL_FEED_UNLOADED
+    })
+  }
+}
+
+export function loadSampleGuides(auth) {
+  return dispatch => {
+    let feedArray = [];
+    for (let i = 0; i < Constants.HOMEPAGE_SAMPLE_GUIDES.length; i++) {
+      Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + Constants.HOMEPAGE_SAMPLE_GUIDES[i]).on('value', itinSnap => {
+        Firebase.database().ref(Constants.USERS_PATH + '/' + itinSnap.val().userId).on('value', userSnapshot => {
+          Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itinSnap.key).on('value', likesSnapshot => {
+            const itineraryObject = {};
+            const key = { id: itinSnap.key };
+            const createdBy = { createdBy: Object.assign({}, userSnapshot.val(), {userId: itinSnap.val().userId}) };
+            let likes = {
+              isLiked: likesSnapshot.exists()
+            }
+            
+            Object.assign(itineraryObject, itinSnap.val(), key, createdBy, likes);
+
+            feedArray = [itineraryObject].concat(feedArray);
+
+            dispatch({
+              type: GET_GLOBAL_FEED,
+              payload: feedArray
+            })
+          })
+        })
+      })
+    }
+  }
+}
+
+export function unloadSampleGuides(auth) {
+  return dispatch => {
+    for (let i = 0; i < Constants.HOMEPAGE_SAMPLE_GUIDES.length; i++) {
+      Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + Constants.HOMEPAGE_SAMPLE_GUIDES[i]).once('value', itinSnap => {
+        Firebase.database().ref(Constants.USERS_PATH + '/' + itinSnap.val().userId).off();
+        Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itinSnap.key).off();
+      })
+      Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + Constants.HOMEPAGE_SAMPLE_GUIDES[i]).off();
+    }
     dispatch({
       type: GLOBAL_FEED_UNLOADED
     })
