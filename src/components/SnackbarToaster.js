@@ -29,7 +29,7 @@ class SnackbarToaster extends React.Component {
               autoHideDuration={this.props.duration || 5000}
               onRequestClose={this.props.onRequestClose}
               style={{opacity:"1", marginBottom:"20px"}}
-              bodyStyle={{opacity:".95", backgroundColor: "#63A652"}}
+              bodyStyle={{opacity:".95", backgroundColor: "#00E2C8"}}
 
             />
         </MuiThemeProvider>
@@ -45,7 +45,7 @@ class SnackbarToaster extends React.Component {
 	          autoHideDuration={this.props.duration || 5000}
 	          onRequestClose={this.props.onRequestClose}
             style={{opacity:"1", marginBottom:"20px"}}
-            bodyStyle={{opacity:".95", backgroundColor: "#63A652"}}
+            bodyStyle={{opacity:".95", backgroundColor: "#00E2C8"}}
 
 	        />
 	    </MuiThemeProvider>

@@ -225,13 +225,13 @@ class ItineraryForm extends React.Component {
         
         return (
           <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--primary">
-
+            <div className="v2-type-h4 color--white flx-hold mrgn-right-md">ADD TIPS:</div>
             <i className="material-icons color--white md-36 mrgn-right-md DN">add</i>
 
             <Geosuggest 
               ref={el=>this._geoSuggest=el}
               className="input--underline w-100 color--black"
-              placeholder="Search to add a place (e.g. 'Yosemite National Park' or 'W Hotel')"
+              placeholder={'Search for any place in ' + itinerary.geo.label}
               location={latLng}
               radius={1000}
               onSuggestSelect={suggestSelectTip(this)}/>
@@ -244,7 +244,7 @@ class ItineraryForm extends React.Component {
           <Geosuggest
             ref={el=>this._geoSuggest=el}
             className="input--underline w-100 color--black"
-            placeholder="Search to add a place (e.g. 'Yosemite National Park' or 'W Hotel')"
+            placeholder={'Search for any place in ' + itinerary.geo.label}
             onSuggestSelect={suggestSelectTip(this)}/>
         </div>
       )

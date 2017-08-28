@@ -473,7 +473,7 @@ width: 100%;
   width: auto;
 }
 .tip__content-wrapper {
-  padding-left: 10px;
+  padding-left: 0px;
 }
 .flx.tip__right-module {
   -webkit-align-items: flex-end;
@@ -491,7 +491,7 @@ width: 100%;
 .tip-wrapper .tip-container {
     -webkit-flex-direction: column;
     flex-direction: column;
-    padding: 40px 20px;
+    padding: 40px 10px;
 }
 .tip-wrapper .tip__cta-box {
   -webkit-flex-direction: row;
@@ -652,9 +652,12 @@ body .back-to-top {
 
   .it-add-wrapper {
   padding: 20px;
+  -webkit-flex-direction: column !important;
+  flex-direction: column !important;
 }
 .it-add-wrapper .geosuggest {
   margin-left: 0;
+  margin-bottom: 20px;
 }
 
 
