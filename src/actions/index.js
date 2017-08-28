@@ -2960,6 +2960,7 @@ export function addToItinerary(auth, tip, itinerary) {
               dispatch({
                 type: ADDED_TO_ITINERARY,
                 message: message,
+                link: '/guide/' + itineraryId,
                 meta: {
                   mixpanel: {
                     event: 'Saved to itinerary'
