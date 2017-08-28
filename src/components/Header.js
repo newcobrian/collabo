@@ -1,4 +1,4 @@
-import { Link, IndexLink } from 'react-router';
+import { Link, IndexLink, browserHistory } from 'react-router';
 import React from 'react';
 
 const InboxCounter = props => {
@@ -13,7 +13,11 @@ const InboxCounter = props => {
 }
 
 const LoggedOutView = props => {
-  if (!props.currentUser || props.currentUser.isAnonymous) {
+  // if on global homepage for logged out user, don't show the header
+  if (browserHistory.getCurrentLocation().pathname === '/global' && (!props.currentUser || props.currentUser.isAnonymous)) {
+    return null;
+  }
+  else if (!props.currentUser || props.currentUser.isAnonymous) {
     return (
      <div className="header-container logged-out">
       <div className="header-wrapper w-100">
