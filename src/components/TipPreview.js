@@ -19,7 +19,7 @@ const mapStateToProps = state => ({
 const CommentPreview = props => {
   if (props.comments) {
     return (
-      <Link to={`/review/${props.tip.subjectId}/${props.tip.id}`}>
+      <Link to={`/review/${props.tip.subjectId}`}>
         <div className="cta-wrapper cta-wrapper-comment flx flx-col">
           <div className="cta-icon cta-comment"></div>
           {props.tip.commentsCount} Comments
@@ -29,7 +29,7 @@ const CommentPreview = props => {
   }
   else {
     return (
-      <Link to={`/review/${props.tip.subjectId}/${props.tip.id}`}>
+      <Link to={`/review/${props.tip.subjectId}`}>
         <div className="cta-wrapper cta-wrapper-comment flx flx-col">
           <div className="cta-icon cta-comment comment-on"></div>
           Comment
@@ -116,7 +116,7 @@ const TipPreview = props => {
 
                   <div className="tip__header-wrapper flx flx-row flx-align-start flx-just-start">
                     { /** Title **/ }
-                    <Link to={`/review/${tip.subjectId}/${tip.id}`}>
+                    <Link to={`/review/${tip.subjectId}`}>
                     <div className="hide-in-list tip__title v2-type-h3 ta-left">
                       <div className="tip__order-count">{props.index}</div> {tip.subject.title} 
                     </div>

@@ -495,7 +495,7 @@ class ItineraryForm extends React.Component {
                                     <div className="tip__content-wrapper">
                                       <div className="tip__header-wrapper flx flx-row flx-align-start flx-just-start">
                                         { /** Title **/ }
-                                        <Link to={`/review/${tip.subjectId}/${tip.id}`}>
+                                        <Link to={`/review/${tip.subjectId}`}>
                                         <div className="hide-in-list tip__title v2-type-h3 ta-left">
                                           <div className="tip__order-count">{index+1}</div> {tip.subject.title} 
                                         </div>
