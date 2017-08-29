@@ -36,7 +36,7 @@ const FeedList = props => {
           }
           else {
             return (
-              <TipPreview review={feedItem.review}
+              <TipPreview tip={feedItem.review}
                 key={feedItem.review.id} 
                 authenticated={props.authenticated}
                 like={props.like} 

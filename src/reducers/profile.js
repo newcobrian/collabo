@@ -65,6 +65,16 @@ export default (state = {}, action) => {
         ...state,
         feed: action.payload
       }
+    case ActionTypes.GET_GUIDE_LIKES_BY_USER:
+      return {
+        ...state,
+        guideFeed: action.guideFeed
+      }
+    case ActionTypes.GET_TIP_LIKES_BY_USER:
+      return {
+        ...state,
+        tipFeed: action.tipFeed
+      }
     case ITINERARY_DELETED:
       return {
         ...state
@@ -73,6 +83,11 @@ export default (state = {}, action) => {
       return {
         ...state,
         itineraries: action.payload
+      }
+    case ActionTypes.ON_LIKES_TAB_CLICK:
+      return {
+        ...state,
+        tipTabActive: action.tipTabActive
       }
     default:
       return state;

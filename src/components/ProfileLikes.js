@@ -8,6 +8,8 @@ import * as Constants from '../constants';
 import FollowUserButton from './FollowUserButton'
 import ProfileInfo from './ProfileInfo';
 import FeedList from './FeedList';
+import ItineraryList from './ItineraryList';
+import TipList from './TipList';
 
 class ProfileLikes extends Profile {
   componentWillMount() {
@@ -17,7 +19,9 @@ class ProfileLikes extends Profile {
         this.props.getProfileUser(userId);
         this.props.checkFollowing(userId);
         this.props.getProfileCounts(userId);
-        this.props.getLikesByUser(this.props.authenticated, userId);
+        // this.props.getLikesByUser(this.props.authenticated, userId);
+        this.props.getGuideLikesByUser(this.props.authenticated, userId);
+        // this.props.getTipLikesByUser(this.props.authenticated, userId);
       }
     });
     this.props.sendMixpanelEvent('Likes page loaded');
@@ -85,31 +89,100 @@ class ProfileLikes extends Profile {
     if (this.props.profile.length === 0) {
       return (<div className="error-module flx flx-center-all v2-type-body3">User does not exist.</div>);
     }
-    if (!this.props.feed) {
-      return null;
-    }
-    if (this.props.feed.length === 0) {
-      return (
-        <div className="flx flx-col page-common profile-page flx-align-center">
-          <ProfileInfo
-            authenticated={this.props.authenticated}
-            profile={this.props.profile}
-            follow={this.props.followUser}
-            unfollow={this.props.unfollowUser} />
+    // if (!this.props.feed) {
+    //   return null;
+    // }
+    // if (!this.props.guideFeed) {
+    //   return null;
+    // }
+    // if (this.props.guideFeed.length === 0) {
+    //   return (
+    //     <div className="flx flx-col page-common profile-page flx-align-center">
+    //       <ProfileInfo
+    //         authenticated={this.props.authenticated}
+    //         profile={this.props.profile}
+    //         follow={this.props.followUser}
+    //         unfollow={this.props.unfollowUser} />
 
-          {this.renderTabs()}
+    //       {this.renderTabs()}
           
-          <div className="status-module flx flx-row flx-just-center w-100 v2-type-body3">
-            <div>{this.props.profile.username} has not liked anything yet.</div>
-          </div>
-        </div>
-      )
-    }
+    //       <div className="status-module flx flx-row flx-just-center w-100 v2-type-body3">
+    //         <div>{this.props.profile.username} has not liked anything yet.</div>
+    //       </div>
+    //     </div>
+    //   )
+    // }
 
     const profile = this.props.profile;
     profile.isFollowing = this.props.isFollowing;
     const isUser = this.props.currentUser &&
       this.props.profile.userId === this.props.currentUser.uid;
+
+    const handleGuidesClick = ev => {
+      ev.preventDefault();
+      this.props.onLikesTabClick('guide')
+    }
+
+    const handleTipsClick = ev => {
+      ev.preventDefault(); 
+      this.props.onLikesTabClick('tip')
+    }
+
+    const renderLikesTabs = () => {
+      return (
+        <div className="feed-toggle flx flx-row flx-just-center w-100 w-max">
+          <ul className="nav nav-pills outline-active">
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                onClick={handleGuidesClick}>
+                Guides
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                onClick={handleTipsClick}>
+                Tips
+              </Link>
+            </li>
+          </ul>
+      </div>
+      )
+    }
+
+    const renderLikes = () => {
+      if (!this.props.tipTabActive) {
+        return (
+          <div className="flx flx-row flx-just-center w-100">
+            <ItineraryList
+              itineraries={this.props.guideFeed} 
+              authenticated={this.props.authenticated} 
+              like={this.props.likeReview} 
+              unLike={this.props.unLikeReview}
+              deleteItinerary={this.props.showDeleteModal} />
+          </div>
+        )
+      }
+      else {
+        console.log('tip array = ' + JSON.stringify(this.props.tipFeed))
+        return (
+          <div className="flx flx-row flx-just-center w-100">
+            <TipList
+              tipList={this.props.tipFeed} 
+              authenticated={this.props.authenticated}
+              like={this.props.likeReview} 
+              unLike={this.props.unLikeReview}
+              userInfo={this.props.userInfo}
+              showModal={this.props.showModal}
+              deleteComment={this.props.onDeleteComment}
+              itineraryId={this.props.itineraryId}
+              itinerary={this.props.itinerary} />
+          </div>
+        )
+      }
+    }
 
     return (
       <div className="flx flx-col page-common profile-page flx-align-center">
@@ -123,7 +196,9 @@ class ProfileLikes extends Profile {
         {this.renderTabs()}
         <div className="flx flx-row flx-just-center w-100 w-max">
      
-          <FeedList
+          {/*renderLikesTabs() */}
+          {renderLikes()}
+          {/*<FeedList
             feed={this.props.feed} 
             authenticated={this.props.authenticated} 
             userInfo={this.props.userInfo}
@@ -132,7 +207,7 @@ class ProfileLikes extends Profile {
             showModal={this.props.showModal}
             deleteItinerary={this.props.showDeleteModal}
             deleteComment={this.props.onDeleteComment}
-          />
+          />*/}
         </div>
       </div>
     )

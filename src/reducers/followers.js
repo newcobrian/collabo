@@ -1,5 +1,5 @@
 import { GET_FOLLOWERS,  UNLOAD_FOLLOWERS, GET_USER, IS_FOLLOWING } from '../actions';
-import * as ActionTypes from '../actions/types';
+import * as ActionTypes from '../actions/types';  
 
 export default (state = {}, action) => {
   switch (action.type) {
