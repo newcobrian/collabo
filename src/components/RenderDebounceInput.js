@@ -11,7 +11,7 @@ class RenderDebounceInput extends React.Component {
 
     this.debouncedOnChange = debounce(event => {
       props.debounceFunction(event.target.value)
-    }, 2000);
+    }, 3000);
 
     this.handleOnChange = event => {
       event.persist()
