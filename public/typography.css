@@ -127,12 +127,12 @@ font-weight: 300;
   font-size: 13px;
 }
 .v2-type-h1 {
-    font-weight: 700;
-  font-size: 32px;
+  /* H1 - Ratings: */
+  font-weight: 700;
+  font-size: 39px;
   letter-spacing: 1px;
-  line-height: 36px;
-  font-family: 'Montserrat', sans-serif;
-  text-transform: uppercase;
+  line-height: 48px;
+  /*font-family: 'Arimo', sans-serif;*/
 }
 .v2-type-h2 {
   font-weight: 700;
