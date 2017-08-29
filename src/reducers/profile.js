@@ -2,6 +2,7 @@ import { GET_USER, GET_REVIEWS_BY_USER, GET_FOLLOWING_COUNT, GET_FOLLOWER_COUNT,
   GET_ITINERARIES_BY_USER, ITINERARY_DELETED, GET_LIKES_BY_USER, UNLOAD_LIKES_BY_USER, USER_DOESNT_EXIST,
    PROFILE_USER_UNLOADED, PROFILE_FOLLOWING_UNLOADED } from '../actions';
 import * as ActionTypes from '../actions/types';
+import { isEqual } from 'lodash';
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -65,11 +66,18 @@ export default (state = {}, action) => {
         ...state,
         feed: action.payload
       }
-    case ActionTypes.GET_GUIDE_LIKES_BY_USER:
-      return {
-        ...state,
-        guideFeed: action.guideFeed
+    case ActionTypes.GET_GUIDE_LIKES_BY_USER: {
+      const newState = Object.assign({}, state);
+      
+      newState.guideFeed = newState.guideFeed || [];
+      newState.guideFeed = newState.guideFeed.slice();
+
+      if (!isEqual(action.guideFeed, newState.guideFeed)) {
+        newState.guideFeed = [].concat(action.guideFeed);
+        return newState;
       }
+      return state;
+    }
     case ActionTypes.GET_TIP_LIKES_BY_USER:
       return {
         ...state,
