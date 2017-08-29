@@ -100,7 +100,7 @@ class Register extends React.Component {
                   </fieldset>
 
                   <button
-                    className="vb fill--primary color--white w-100"
+                    className="vb fill--primary color--white w-100 ta-center"
                     type="submit"
                     disabled={this.props.inProgress}>
                     Sign in

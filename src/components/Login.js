@@ -81,13 +81,13 @@ class Login extends React.Component {
                   </fieldset>
 
                   <button
-                    className="vb fill--primary color--white w-100"
+                    className="vb fill--primary color--white w-100 ta-center"
                     type="submit"
                     disabled={this.props.inProgress}>
                     Log In
                   </button>
 
-                  <fieldset className="text-xs-center mrgn-bottom-sm mrgn-top-sm">
+                  <fieldset className="text-xs-center mrgn-bottom-sm mrgn-top-md">
                     <Link className="v2-type-body1 color--primary" to='/ForgotPassword'>Forgot password?</Link>
                   </fieldset>
                 </fieldset>

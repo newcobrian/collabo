@@ -71,13 +71,13 @@ class Home extends React.Component {
        <div className="hero-container logged-out flx flx-col">
         <div className="marketing-page navigation-bar flx flx-row flx-align-center flx-just-end pdding-right-md">
             <Link to="/login" className="nav-module nav-feed flx flx-center-all">
-              <div className="nav-text color--black">
+              <div className="nav-text">
                 Log in
               </div>
             </Link>
 
             <Link to="/register" className="nav-module nav-feed flx flx-center-all">
-              <div className="nav-text color--black">
+              <div className="nav-text">
                 Sign up
               </div>
             </Link>
@@ -96,7 +96,7 @@ class Home extends React.Component {
           <Link to="/register" className="">
             <div className="vb vb--light vb--intro--register flx flx-row flx-center-all ta-center">
               <div className="flx-grow1 mrgn-left-md">MAKE YOUR FIRST TRAVEL GUIDE</div>
-              <i className="material-icons md-32 color--white flex-item-right mrgn-left-md">flight_takeoff</i>
+              <i className="material-icons md-32 color--white flex-item-right mrgn-left-sm">flight_takeoff</i>
             </div>
           </Link>
         </div>
@@ -205,6 +205,9 @@ class Home extends React.Component {
         <div className="footer fill--black color--white flx flx-col flx-center-all">
           <div className="homepage-logo mrgn-bottom-md">  
             <img className="center-img w-100" src="/img/logos/homepage-logo.png"/>
+          </div>
+          <div className="v2-type-intro color--white opa-70 mrgn-bottom-lg">
+            Travel with the knowledge of your friends
           </div>
         </div>
       </div>

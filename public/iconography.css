@@ -103,8 +103,8 @@
 
 .itinerary__cover__flag,
 .itinerary__summary__flag {
-  height: 24px;
-  width: 32px;
+  height: 22px;
+  width: 30px;
   background: url(img/flags/US.png);
   background-size: contain;
   background-repeat: no-repeat;

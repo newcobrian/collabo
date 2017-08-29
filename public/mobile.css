@@ -164,7 +164,19 @@ body {
 .nav-module .header-badge {
 
 }
-
+.marketing-page.navigation-bar {
+  background: rgba(255,255,255,1);
+  border-radius: 0px;
+}
+.marketing-page.navigation-bar .nav-module {
+  border-bottom: none !important;
+}
+.feature-list {
+  padding: 20px 0;
+}
+.marketing-page.navigation-bar .nav-module .nav-text {
+  color: #121419 !important;
+}
 
 /******
 ******
@@ -594,7 +606,8 @@ width: 100%;
   width: 100%;
   padding: 10px 10px 20px;
   margin: 0;
-  border-bottom: 1px solid rgba(0,0,0,.1);
+  border-bottom: none;
+  box-shadow: none;
 }
 .itinerary__cover.cover--empty {
   padding: 10px 40px;

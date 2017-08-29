@@ -33,7 +33,7 @@ class Places extends React.Component {
       )
     }
     return (
-      <div className="home-page">
+      <div className="home-page page-common">
         <div className="page-title-wrapper center-text">
           <div className="v2-type-page-header flx flx-col flx-center-all">
             <div className={'itinerary__cover__flag mrgn-bottom-sm flx-hold flag-' + this.props.geo.country}>
