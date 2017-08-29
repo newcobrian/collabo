@@ -115,7 +115,7 @@ class Home extends React.Component {
                   </div>
                   <div className="flx flx-col">
                     <div className="tip__title v2-type-h3 ta-left">
-                      Find good tips
+                      Research things to do
                     </div>
                     <div className="v2-type-body3 ta-left mrgn-top-sm opa-60">
                       Collect recs from friends you trust
@@ -131,7 +131,7 @@ class Home extends React.Component {
                       Build travel guides
                     </div>
                     <div className="v2-type-body3 ta-left mrgn-top-sm opa-60">
-                      Itineraries, city guides, to-eat lists...
+                      Itineraries, city guides, favorites lists...
                     </div>
                   </div>
                 </div>
@@ -144,7 +144,7 @@ class Home extends React.Component {
                       Take it on your trip
                     </div>
                     <div className="v2-type-body3 ta-left mrgn-top-sm opa-60">
-                      Mobile maps and notepad
+                      Mobile maps and notes
                     </div>
                   </div>
                 </div>
@@ -157,7 +157,7 @@ class Home extends React.Component {
                       Share your experiences
                     </div>
                     <div className="v2-type-body3 ta-left mrgn-top-sm opa-60">
-                      Help your friends build their guides!
+                      Help your friends travel as well as you!
                     </div>
                   </div>
                 </div>
