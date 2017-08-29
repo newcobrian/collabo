@@ -113,7 +113,10 @@ input.input--underline {
 
 .vb:hover {
 }
-
+.vb--wide {
+  padding-left: 40px;
+  padding-right: 40px;
+}
 .vb img {
   margin-top: 0px;
   width: 24px;

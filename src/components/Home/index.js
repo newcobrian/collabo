@@ -165,10 +165,11 @@ class Home extends React.Component {
             </div> {/* END Feature Wrapper */}
          </div> {/* END About Intro */}
 
-         <div className="about-intro flx flx-row w-100">
-          <div className="v2-type-h3 ta-center w-100">
-            Some cool guides people made:
+         <div className="about-intro flx flx-col flx-center-all w-100 mrgn-top-md opa-30">
+          <div className="v2-type-intro color--black ta-center w-100">
+            Some recent travel guides we like
           </div>
+          <i className="material-icons color--black md-48 mrgn-top-lg mrgn-bottom-lg">arrow_downward</i>
          </div>
 
        </div> 
@@ -180,12 +181,13 @@ class Home extends React.Component {
   };
 
   render() {
-    const isLandingPage = (browserHistory.getCurrentLocation().pathname === '/global') && !this.props.authenticated;
-    console.log(isLandingPage)
+    const isLandingPage = (browserHistory.getCurrentLocation().pathname === '/global') && !this.props.authenticated ?
+      'page-landing' : ''
+
     return (
       <div>
         {this.LoggedOutIntro(this.props.authenticated)}
-        <div className="home-page page-common">
+        <div className={'home-page page-common ' + isLandingPage}>
           <div className="page-title-wrapper center-text flx flx-col flx-align-center w-100">
             <div className="v2-type-page-header">Explore</div>
             <div className="v2-type-body2 opa-60">All the latest travel guides from people you follow</div>
@@ -208,9 +210,12 @@ class Home extends React.Component {
           <div className="homepage-logo mrgn-bottom-md">  
             <img className="center-img w-100" src="/img/logos/homepage-logo.png"/>
           </div>
-          <div className="v2-type-intro color--white opa-70 mrgn-bottom-lg">
+          <div className="v2-type-intro color--white opa-70 mrgn-bottom-lg DN">
             Travel with the knowledge of your friends
           </div>
+          <Link to="/register" className="vb vb--intro--register fill--primary color--white vb--wide">
+            Sign up now
+          </Link>
         </div>
       </div>
 
