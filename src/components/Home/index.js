@@ -69,7 +69,20 @@ class Home extends React.Component {
     if (!authenticated) {
       return (
        <div className="hero-container logged-out flx flx-col">
+        <div className="marketing-page navigation-bar flx flx-row flx-align-center flx-just-end pdding-right-md">
+            <Link to="/login" className="nav-module nav-feed flx flx-center-all">
+              <div className="nav-text color--black">
+                Log in
+              </div>
+            </Link>
 
+            <Link to="/register" className="nav-module nav-feed flx flx-center-all">
+              <div className="nav-text color--black">
+                Sign up
+              </div>
+            </Link>
+
+        </div>
         <div className="hero-content flx flx-col flx-align-center flx-just-end ta-center">
           <div className="homepage-logo mrgn-bottom-md">  
             <img className="center-img w-100" src="/img/logos/homepage-logo.png"/>
@@ -95,9 +108,10 @@ class Home extends React.Component {
             </div>
 
             <div className="feature-list-wrapper flx flx-col w-50 flx-center-all">
-              <div className="feature-list flx flx-col">
+              <div className="feature-list w-100 flx flx-col">
                 <div className="feature-item flx flx-row">
                   <div className="feature-icon">
+                    <i className="material-icons color--primary md-48">find_in_page</i>
                   </div>
                   <div className="flx flx-col">
                     <div className="tip__title v2-type-h3 ta-left">
@@ -110,6 +124,7 @@ class Home extends React.Component {
                 </div>
                 <div className="feature-item flx flx-row">
                   <div className="feature-icon">
+                    <i className="material-icons color--primary md-48">chrome_reader_mode</i>
                   </div>
                   <div className="flx flx-col">
                     <div className="tip__title v2-type-h3 ta-left">
@@ -122,6 +137,7 @@ class Home extends React.Component {
                 </div>
                 <div className="feature-item flx flx-row">
                   <div className="feature-icon">
+                    <i className="material-icons color--primary md-48">airplanemode_active</i>
                   </div>
                   <div className="flx flx-col">
                     <div className="tip__title v2-type-h3 ta-left">
@@ -134,6 +150,7 @@ class Home extends React.Component {
                 </div>
                 <div className="feature-item flx flx-row">
                   <div className="feature-icon">
+                    <i className="material-icons color--primary md-48">favorite</i>
                   </div>
                   <div className="flx flx-col">
                     <div className="tip__title v2-type-h3 ta-left">
@@ -185,7 +202,11 @@ class Home extends React.Component {
 
           <BackToTop />
         </div>
-        <div className="footer fill--black color--white">browserHistory</div>
+        <div className="footer fill--black color--white flx flx-col flx-center-all">
+          <div className="homepage-logo mrgn-bottom-md">  
+            <img className="center-img w-100" src="/img/logos/homepage-logo.png"/>
+          </div>
+        </div>
       </div>
 
 
