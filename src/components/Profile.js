@@ -174,6 +174,7 @@ class Profile extends React.Component {
           <ProfileInfo
             authenticated={this.props.authenticated}
             profile={profile}
+            signOut={this.props.signOutUser}
             follow={this.props.followUser}
             unfollow={this.props.unfollowUser} />
 

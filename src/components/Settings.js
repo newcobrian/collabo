@@ -181,12 +181,6 @@ class Settings extends React.Component {
                 currentUser={this.props.firebaseUser}
                 onSubmitForm={this.props.saveSettings} />
 
-              <button
-                className="vb vb--sm vb--shadow-none fill--none color--primary w-100"
-                onClick={this.props.signOutUser}>
-                Or click here to logout.
-              </button>
-
             </div>
 
       </div>

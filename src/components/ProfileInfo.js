@@ -16,6 +16,19 @@ const EditProfileSettings = props => {
   return null;
 };
 
+const SignOutButton = props => {
+  if (props.isUser) {
+    return (
+      <button
+        className="vb vb--sm vb--shadow-none fill--none color--primary w-100"
+        onClick={props.signOut}>
+        Log out
+      </button>
+    )
+  }
+  return null;
+}
+
 const ProfileInfo = props => {
     if (!props.profile) {
       return null;
@@ -41,6 +54,7 @@ const ProfileInfo = props => {
           </div>
           <div className="user-action flx flx-col flx-just-start pdding-left-md pdding-right-md w-100">
             <EditProfileSettings isUser={isUser} />
+            <SignOutButton isUser={isUser} signOut={props.signOut}/>
             <FollowUserButton
             authenticated={props.authenticated}
             isUser={isUser}
