@@ -36,7 +36,7 @@ class Explore extends React.Component {
       <div className="flx flx-col page-common follow-page flx-just-start w-100">
         <div className="page-title-wrapper center-text flx flx-col flx-align-center w-100">
           <div className="v2-type-page-header">Travelers</div>
-          <div className="v2-type-body2 opa-60">Follow people to see them in Explore get updates on their guides.</div>
+          <div className="v2-type-body2 opa-60">Find some friends to follow</div>
           <div className="search-wrapper">
             <i className="search-icon material-icons color--primary md-32 color--primary">search</i>
             <FirebaseSearchInput
