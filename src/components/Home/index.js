@@ -180,6 +180,8 @@ class Home extends React.Component {
   };
 
   render() {
+    const isLandingPage = (browserHistory.getCurrentLocation().pathname === '/global') && !this.props.authenticated;
+    console.log(isLandingPage)
     return (
       <div>
         {this.LoggedOutIntro(this.props.authenticated)}
