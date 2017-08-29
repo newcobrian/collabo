@@ -527,7 +527,7 @@ export function onAddTip(auth, result, itinerary) {
     // see if user has reviewed this subject
     Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + auth).once('value', reviewsSnap => {
       let reviewId = '';
-      if (reviewsSnap.exists()) {
+      if (reviewsSnap.exists() && reviewSnap.val().reviewId) {
         reviewId = reviewsSnap.val().reviewId;
       }
       else {
