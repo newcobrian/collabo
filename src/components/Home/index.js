@@ -88,7 +88,7 @@ class Home extends React.Component {
             <img className="center-img w-100" src="/img/logos/homepage-logo.png"/>
           </div>
           <div className="v2-type-intro color--white opa-70 mrgn-bottom-lg">
-           Make and share travel guides
+           Create and share travel guides
           </div>
         </div>
         
