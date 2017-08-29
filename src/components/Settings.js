@@ -172,7 +172,7 @@ class Settings extends React.Component {
                <div className="v2-type-page-header">Settings</div>
                <div className="v2-type-body2 opa-60 mrgn-top-sm DN"></div>
              </div>
-            <div className="settings-wrapper roow roow-col-left">
+            <div className="settings-wrapper mrgn-top-md">
 
               <ListErrors errors={this.props.errors}></ListErrors>
 

@@ -111,7 +111,6 @@ class SaveModal extends React.Component {
         labelStyle={{fontWeight: '500',
                     fontSize: '14px',
                     letterSpacing: '2px',
-                    color:'rgba(0,0,0,.5)',
                     boxShadow: 'none'
                     }}
         style={{
@@ -134,7 +133,8 @@ class SaveModal extends React.Component {
           overlayClassName="dialog__overlay"
           overlayStyle={{}}
             
-          title={'Add ' + this.props.review.subject.title + ' to...'}
+          
+          title="Add tip to a guide"
           titleClassName="dialog__title v2-type-h2"
           titleStyle={{}}
           
@@ -150,7 +150,7 @@ class SaveModal extends React.Component {
           }}
             >
             <div className="dialog--save__content">
-              <div className="dialog--save__tip-item DN">
+              <div className="dialog--save__tip-item">
                 <div className="flx flx-row flx-just-start flx-align-center">
                   <div className="tip-preview-wrapper">
                      <ImagePicker images={this.props.images} />

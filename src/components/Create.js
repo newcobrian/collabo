@@ -215,7 +215,7 @@ class Create extends React.Component {
 					                    <ListErrors errors={this.props.errors}></ListErrors>
 					                    
 					                    <div
-					                    className="vb vb--create w-100 mrgn-top-md fill--primary"
+					                    className="vb vb--create w-100 mrgn-top-md color--white fill--primary"
 					                    type="button"
 					                    disabled={this.props.inProgress}
 					                    onClick={this.submitForm}>
@@ -246,6 +246,7 @@ class Create extends React.Component {
 					{/* END CONTAINER */}
 					
 			    </div>
+			    
 			</div>
 		)
 	}

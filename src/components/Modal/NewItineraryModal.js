@@ -101,10 +101,11 @@ class NewItineraryModal extends React.Component {
         hoverColor="white"
         className="vb vb--shadow-none mrgn-right-sm"
         onTouchTap={handleClose}
-        labelStyle={{   fontWeight: '400',
-                        fontSize: '14px',
-                        color:'rgba(0,0,0,.5)',
-                      boxShadow: 'none'
+        labelStyle={{   fontWeight: '500',
+                    fontSize: '14px',
+                    letterSpacing: '2px',
+                    color:'rgba(0,0,0,.5)',
+                    boxShadow: 'none'
                     }}
         style={{
           }}
@@ -151,14 +152,14 @@ class NewItineraryModal extends React.Component {
           overlayStyle={{}}
           
           title="Create new guide for..."
-          titleClassName="dialog--save__title v2-type-h2"
-          titleStyle={{padding: "10px 20px", fontWeight: "700", fontSize: "20px"}}
+          titleClassName="dialog__title v2-type-h2"
+          titleStyle={{}}
           
           contentClassName="dialog--save__wrapper"
           contentStyle={{width: "none", maxWidth: "none"}}
           
           bodyClassName="dialog--save__body"
-          bodyStyle={{padding: "30px 0px"}}
+          bodyStyle={{padding: "0px"}}
 
           actionsContainerClassName="dialog--save__actions">
             
@@ -168,7 +169,7 @@ class NewItineraryModal extends React.Component {
                 <div className="tip-preview-wrapper mrgn-right-md">
                    <ImagePicker images={this.props.images} />
                 </div>
-                <div className="dialog--save__tip-name">{this.props.review.title}</div>
+                <div className="dialog--save__tip-name">{this.props.review.subject.title}</div>
               </div>
             </div>
       <div className="flx flx-col flx-center-all new-itin-modal">

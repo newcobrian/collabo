@@ -34,8 +34,8 @@
 	margin-right: 30px;
 }
 .tip__image-module {
-	height: 100px;
-	width: 100px;
+	height: 110px;
+	width: 110px;
 	flex-shrink: 0;
 	position: relative;
 	/*box-shadow: 0 14px 24px 0 rgba(0,0,0,0.1);*/

@@ -2,7 +2,7 @@ body {
   color: #292F3D;
   color: #121419;
   letter-spacing:0px;
-  padding-top: 70px;
+
   /*background-color: #FAFAF8;*/
   font-family: 'Roboto', sans-serif !important;
 }
@@ -115,6 +115,7 @@ input[type="radio"]:checked + label span {
   text-align: center;
 }
 
+
 /****** 
 ******
 ************************************ DOM STYLING SHARED
@@ -213,7 +214,12 @@ input[type="radio"]:checked + label span {
   opacity: .4;
   pointer-events: none;
 }
-
+.footer {
+  background-color: black;
+  height: 300px;
+  width: 100%;
+  margin-top: 100px;
+}
 
 /****** 
 ******
@@ -600,9 +606,9 @@ svg {
 ******
 ******/
 .page-common {
-  padding-top: 0px;
   margin: 0px auto;
   background-color: white;
+  padding-top: 70px;
 }
 .page-common.page-itinerary {
   background-color: white;
@@ -611,8 +617,7 @@ svg {
   width: 100%;
 }
 .page-common.page-no-push {
-  margin: 0;
-  padding: 0;
+
 }
 .page-title-container {
   width: 100%;
@@ -938,12 +943,11 @@ li.nav-divider {
     font-family: 'Arimo', sans-serif;
 }
 .page-common.settings-page {
-  margin: 0;
-  padding: 0;
+
 }
 .settings-wrapper {
     width: 355px;
-    margin: 0 auto;
+    margin: 40px auto;
 }
 
 .profile-page .feed-toggle {
@@ -1444,7 +1448,7 @@ body .back-to-top {
 
 .content-wrapper.map-on,
 .itinerary__comments-module.map-on {
-  width: 50%;
+  width: 60%;
 }
 .content-wrapper.map-on .tip__image-module {
 }
@@ -1459,14 +1463,14 @@ body .back-to-top {
   position: fixed;
   right: 0;
   top: 0;
-  left: 50%;
+  left: 60%;
   bottom: 0;
 }
 .it-map-overlay {
   position: fixed;
   right: 0;
   top: 0;
-  left: 50%;
+  left: 60%;
   bottom: 0;
   background-color: rgba(0,0,0,.1);
   background-color: rgba(22,32,52,.5);
