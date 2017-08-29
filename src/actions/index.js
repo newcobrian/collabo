@@ -1185,7 +1185,7 @@ export function editorSubmitError(missingField) {
   return dispatch => {
     dispatch({
       type: EDITOR_SUBMIT_ERROR,
-      error: 'Please add a ' + missingField
+      error: 'Please add: ' + missingField
     })
   }
 }
