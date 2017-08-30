@@ -136,12 +136,12 @@ class SettingsForm extends React.Component {
               onChange={this.updateState('password')} />
           </fieldset> */}
 
-          <div
+          <button
             className="vb fill--primary color--white ta-center mrgn-bottom-sm w-100"
             type="submit"
             disabled={this.state.inProgress}>
             Update Profile
-          </div>
+          </button>
 
         </fieldset>
       </form>
