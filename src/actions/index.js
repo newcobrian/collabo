@@ -2357,7 +2357,6 @@ function likesByUserRemovedAction(objectId, source) {
 
 export function likeReview(authenticated, type, likeObject, itineraryId) {
   return dispatch => {
-    console.log('like')
     if (!authenticated) {
       dispatch({
         type: ASK_FOR_AUTH
@@ -2451,7 +2450,6 @@ export function likeReview(authenticated, type, likeObject, itineraryId) {
 
 export function unLikeReview(authenticated, type, unlikeObject, itineraryId) {
   return dispatch => {
-    console.log('unlike' + JSON.stringify(unlikeObject))
     if (!authenticated) {
       dispatch({
         type: ASK_FOR_AUTH
