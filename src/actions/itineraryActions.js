@@ -494,6 +494,7 @@ export function onAddTip(auth, result, itinerary) {
       lastModified: lastModified
     }
     if (result.address) subject.address = result.address;
+    if (result.location) subject.location = result.location;
     if (result.internationalPhoneNumber) subject.internationalPhoneNumber = result.formattedPhoneNumber;
     if (result.hours) subject.hours = result.hours;
     if (result.permanentlyClosed) subject.permanentlyClosed = result.permanentlyClosed;

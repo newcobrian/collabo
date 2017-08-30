@@ -12,6 +12,7 @@ import { ITINERARY_TYPE, ITINERARY_PAGE } from '../constants';
 import ItineraryActions from './ItineraryActions';
 import DisplayTimestamp from './DisplayTimestamp';
 import RenderDebounceInput from './RenderDebounceInput';
+import MapContainer from './MapContainer';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import IconMenu from 'material-ui/IconMenu';
@@ -625,13 +626,23 @@ class ItineraryForm extends React.Component {
 
           { /** Map block **/ }
           <div className="it-map-container">
-            <div className="it-map-overlay flx flx-center-all">
-              <div className="v2-type-body2 color--white">
-                Map coming soon
+          <div className="it-map-overlay flx flx-center-all">
+            <div className="v2-type-body2 color--white">
+            Map coming soon...
+              {/*<Map google={this.props.google} >
+                {/*itinerary.tips.map(tipItem, index) => {
+                  return (
+                    <Marker
+                      name={'# ' + index + ': ' tipItem.subject.title}
+                      position={tipItem.subject.}
+                  )
+                }
+              </Map>*/}
               </div>
             </div>
           </div>
           { /** END Map block **/ }
+
           <div className="itinerary__comments-module map-on flx flx-col flx-align-start flx-just-start w-max-2">
             <div className="v2-type-h3 mrgn-top-md mrgn-bottom-md ta-left w-100">
               Comments
