@@ -61,28 +61,25 @@ export default (state = {}, action) => {
         ...state,
         reviews: action.payload
       }
-    case GET_LIKES_BY_USER:
-      return {
-        ...state,
-        feed: action.payload
-      }
-    case ActionTypes.GET_GUIDE_LIKES_BY_USER: {
+    case GET_LIKES_BY_USER: {
       const newState = Object.assign({}, state);
       
       newState.guideFeed = newState.guideFeed || [];
       newState.guideFeed = newState.guideFeed.slice();
 
+      newState.tipFeed = newState.tipFeed || [];
+      newState.tipFeed = newState.tipFeed.slice();
+
       if (!isEqual(action.guideFeed, newState.guideFeed)) {
         newState.guideFeed = [].concat(action.guideFeed);
         return newState;
       }
+      else if (!isEqual(action.tipFeed, newState.tipFeed)) {
+        newState.tipFeed = [].concat(action.tipFeed);
+        return newState;
+      }
       return state;
     }
-    case ActionTypes.GET_TIP_LIKES_BY_USER:
-      return {
-        ...state,
-        tipFeed: action.tipFeed
-      }
     case ITINERARY_DELETED:
       return {
         ...state

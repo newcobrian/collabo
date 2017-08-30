@@ -1854,78 +1854,10 @@ export function unloadItinerariesByUser(auth, userId) {
   }
 }
 
-// export function getLikesByUser(auth, userId) {
-//   return dispatch => {
-//     let likesArray = [];
-//     Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).orderByChild('lastModified').on('value', likesByUserSnapshot => {
-//       if (!likesByUserSnapshot.exists()) {
-//         dispatch({
-//           type: GET_LIKES_BY_USER,
-//           payload: []
-//         })
-//       }
-//       else {
-//         likesByUserSnapshot.forEach(function(likeItem) {
-//           let objectPath = (likeItem.val().type === Constants.ITINERARY_TYPE ? Constants.ITINERARIES_PATH : Constants.REVIEWS_PATH);
-//           let imagePath = (likeItem.val().type === Constants.ITINERARY_TYPE ? 
-//             (Constants.IMAGES_ITINERARIES_PATH + '/' + likeItem.key) : 
-//             (Constants.IMAGES_PATH + '/' + likeItem.val().subjectId) );
-//           Firebase.database().ref(objectPath + '/' + likeItem.key).on('value', objectSnapshot => {
-//             if (objectSnapshot.exists()) {
-//               Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + likeItem.val().subjectId).on('value', subjectSnapshot => {
-//                 Firebase.database().ref(Constants.USERS_PATH + '/' + objectSnapshot.val().userId).on('value', userSnapshot => {
-//                   Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + likeItem.key).on('value', isLikedSnapshot => {
-//                     Firebase.database().ref(Constants.COMMENTS_PATH + '/' + likeItem.key).on('value', commentSnapshot => {
-//                       Firebase.database().ref(imagePath).on('value', imagesSnapshot => {
-//                         const containerObject = {};
-//                         const key = { id: likeItem.key };
-//                         const createdBy = { createdBy: userSnapshot.val(), userId: userSnapshot.key };
-//                         let likes = { 
-//                           isLiked: isLikedSnapshot.exists()
-//                         }
-
-//                         let itineraryObject = {};
-//                         let reviewObject = {};
-
-//                         let comments = [];
-//                         commentSnapshot.forEach(function(commentChild) {
-//                           const comment = Object.assign({}, { id: commentChild.key }, commentChild.val());
-//                           comments = comments.concat(comment);
-//                         })
-//                         comments.sort(Helpers.lastModifiedAsc);
-
-//                         if (likeItem.val().type === Constants.REVIEW_TYPE) {
-//                           let images = Helpers.getImagePath(imagesSnapshot.val());
-//                           Object.assign(reviewObject, key, {review: objectSnapshot.val()}, {subject: subjectSnapshot.val()}, {userId: userSnapshot.key}, createdBy, likes, {comments: comments}, {images: images})
-//                         }
-//                         else {
-//                           Object.assign(itineraryObject, objectSnapshot.val(), key, createdBy, likes, {comments: comments});
-//                         }
-
-//                         Object.assign(containerObject, {review: reviewObject}, {itinerary: itineraryObject});
-//                         likesArray = [containerObject].concat(likesArray);
-//                         likesArray.sort(Helpers.lastModifiedDesc);
-
-//                         dispatch({
-//                           type: GET_LIKES_BY_USER,
-//                           payload: likesArray
-//                         })
-//                       })
-//                     })
-//                   })
-//                 })
-//               })
-//             }
-//           })
-//         })
-//       }
-//     })
-//   }
-// }
-
-export function getGuideLikesByUser(auth, userId) {
+export function getLikesByUser(auth, userId) {
   return dispatch => {
-    let likesArray = [];
+    let tipFeed = [];
+    let guideFeed = [];
     Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).orderByChild('lastModified').on('value', likesByUserSnapshot => {
       if (!likesByUserSnapshot.exists()) {
         dispatch({
@@ -1939,36 +1871,83 @@ export function getGuideLikesByUser(auth, userId) {
             let objectPath = Constants.ITINERARIES_PATH
             let imagePath = Constants.IMAGES_ITINERARIES_PATH + '/' + likeItem.key
             Firebase.database().ref(objectPath + '/' + likeItem.key).on('value', objectSnapshot => {
+              if (objectSnapshot.exists() && objectSnapshot.val().userId) {
+                Firebase.database().ref(Constants.USERS_PATH + '/' + objectSnapshot.val().userId).on('value', userSnapshot => {
+                  Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + likeItem.key).on('value', isLikedSnapshot => {
+                    Firebase.database().ref(Constants.COMMENTS_PATH + '/' + likeItem.key).on('value', commentSnapshot => {
+                      Firebase.database().ref(imagePath).on('value', imagesSnapshot => {
+                        const containerObject = {};
+                        const key = { id: likeItem.key };
+                        const createdBy = { createdBy: userSnapshot.val(), userId: userSnapshot.key };
+                        let likes = { 
+                          isLiked: isLikedSnapshot.exists()
+                        }
+
+                        let itineraryObject = {};
+
+                        let comments = [];
+                        commentSnapshot.forEach(function(commentChild) {
+                          const comment = Object.assign({}, { id: commentChild.key }, commentChild.val());
+                          comments = comments.concat(comment);
+                        })
+                        comments.sort(Helpers.lastModifiedAsc);
+                       
+                        Object.assign(itineraryObject, objectSnapshot.val(), key, createdBy, likes, {comments: comments});
+                       
+                        guideFeed = [itineraryObject].concat(guideFeed);
+                        guideFeed.sort(Helpers.lastModifiedDesc);
+
+                        dispatch({
+                          type: ActionTypes.GET_LIKES_BY_USER,
+                          guideFeed: guideFeed,
+                          tipFeed: tipFeed
+                        })
+                      })
+                    })
+                  })
+                })
+              }
+            })
+          }
+          else if (likeItem.exists() && likeItem.val().type === Constants.REVIEW_TYPE && likeItem.val().subjectId && likeItem.val().reviewId && likeItem.val().tipCreatedByUserId) {
+            Firebase.database().ref(Constants.TIPS_BY_SUBJECT_PATH + '/' + likeItem.val().subjectId + '/' + likeItem.val().tipCreatedByUserId + '/' + likeItem.key).on('value', objectSnapshot => {
               if (objectSnapshot.exists()) {
                 Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + likeItem.val().subjectId).on('value', subjectSnapshot => {
-                  Firebase.database().ref(Constants.USERS_PATH + '/' + objectSnapshot.val().userId).on('value', userSnapshot => {
-                    Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + likeItem.key).on('value', isLikedSnapshot => {
-                      Firebase.database().ref(Constants.COMMENTS_PATH + '/' + likeItem.key).on('value', commentSnapshot => {
-                        Firebase.database().ref(imagePath).on('value', imagesSnapshot => {
-                          const containerObject = {};
-                          const key = { id: likeItem.key };
-                          const createdBy = { createdBy: userSnapshot.val(), userId: userSnapshot.key };
-                          let likes = { 
-                            isLiked: isLikedSnapshot.exists()
-                          }
+                  Firebase.database().ref(Constants.REVIEWS_PATH + '/' + likeItem.val().reviewId).on('value', reviewSnapshot => {
+                    Firebase.database().ref(Constants.USERS_PATH + '/' + likeItem.val().tipCreatedByUserId).on('value', userSnapshot => {
+                      Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + likeItem.key).on('value', isLikedSnapshot => {
+                        Firebase.database().ref(Constants.COMMENTS_PATH + '/' + likeItem.key).on('value', commentSnapshot => {
+                          Firebase.database().ref(Constants.IMAGES_PATH + '/' + likeItem.val().subjectId).on('value', imagesSnapshot => {
+                            const key = { key: likeItem.key };
+                            const createdBy = { createdBy: userSnapshot.val(), userId: userSnapshot.key };
+                            let likes = { 
+                              isLiked: isLikedSnapshot.exists()
+                            }
 
-                          let itineraryObject = {};
+                            let reviewObject = {};
 
-                          let comments = [];
-                          commentSnapshot.forEach(function(commentChild) {
-                            const comment = Object.assign({}, { id: commentChild.key }, commentChild.val());
-                            comments = comments.concat(comment);
-                          })
-                          comments.sort(Helpers.lastModifiedAsc);
-                         
-                          Object.assign(itineraryObject, objectSnapshot.val(), key, createdBy, likes, {comments: comments});
-                         
-                          likesArray = [itineraryObject].concat(likesArray);
-                          likesArray.sort(Helpers.lastModifiedDesc);
+                            let comments = [];
+                            commentSnapshot.forEach(function(commentChild) {
+                              const comment = Object.assign({}, { id: commentChild.key }, commentChild.val());
+                              comments = comments.concat(comment);
+                            })
+                            comments.sort(Helpers.lastModifiedAsc);
 
-                          dispatch({
-                            type: ActionTypes.GET_GUIDE_LIKES_BY_USER,
-                            guideFeed: likesArray
+                            let images = Helpers.getImagePath(imagesSnapshot.val());
+
+                            Object.assign(reviewObject, key, objectSnapshot.val(), {subjectId: likeItem.val().subjectId}, 
+                              {reviewId: likeItem.val().reviewId}, {subject: subjectSnapshot.val()}, 
+                              {review: reviewSnapshot.val()}, {userId: userSnapshot.key}, 
+                              createdBy, likes, {comments: comments}, {images: images});
+
+                            tipFeed = [reviewObject].concat(tipFeed);
+                            tipFeed.sort(Helpers.lastModifiedDesc);
+
+                            dispatch({
+                              type: ActionTypes.GET_LIKES_BY_USER,
+                              tipFeed: tipFeed,
+                              guideFeed: guideFeed
+                            })
                           })
                         })
                       })
@@ -1984,7 +1963,8 @@ export function getGuideLikesByUser(auth, userId) {
   }
 }
 
-// export function getTipLikesByUser(auth, userId) {
+
+// export function getGuideLikesByUser(auth, userId) {
 //   return dispatch => {
 //     let likesArray = [];
 //     Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).orderByChild('lastModified').on('value', likesByUserSnapshot => {
@@ -1996,57 +1976,114 @@ export function getGuideLikesByUser(auth, userId) {
 //       }
 //       else {
 //         likesByUserSnapshot.forEach(function(likeItem) {
-//           let objectPath = (likeItem.val().type === Constants.ITINERARY_TYPE ? Constants.ITINERARIES_PATH : Constants.REVIEWS_PATH);
-//           let imagePath = (likeItem.val().type === Constants.ITINERARY_TYPE ? 
-//             (Constants.IMAGES_ITINERARIES_PATH + '/' + likeItem.key) : 
-//             (Constants.IMAGES_PATH + '/' + likeItem.val().subjectId) );
-//           Firebase.database().ref(objectPath + '/' + likeItem.key).on('value', objectSnapshot => {
-//             if (objectSnapshot.exists()) {
-//               Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + likeItem.val().subjectId).on('value', subjectSnapshot => {
-//                 Firebase.database().ref(Constants.USERS_PATH + '/' + objectSnapshot.val().userId).on('value', userSnapshot => {
-//                   Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + likeItem.key).on('value', isLikedSnapshot => {
-//                     Firebase.database().ref(Constants.COMMENTS_PATH + '/' + likeItem.key).on('value', commentSnapshot => {
-//                       Firebase.database().ref(imagePath).on('value', imagesSnapshot => {
-//                         const containerObject = {};
-//                         const key = { id: likeItem.key };
-//                         const createdBy = { createdBy: userSnapshot.val(), userId: userSnapshot.key };
-//                         let likes = { 
-//                           isLiked: isLikedSnapshot.exists()
-//                         }
+//           if (likeItem.val().type === Constants.ITINERARY_TYPE) {
+//             let objectPath = Constants.ITINERARIES_PATH
+//             let imagePath = Constants.IMAGES_ITINERARIES_PATH + '/' + likeItem.key
+//             Firebase.database().ref(objectPath + '/' + likeItem.key).on('value', objectSnapshot => {
+//               if (objectSnapshot.exists()) {
+//                 Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + likeItem.val().subjectId).on('value', subjectSnapshot => {
+//                   Firebase.database().ref(Constants.USERS_PATH + '/' + objectSnapshot.val().userId).on('value', userSnapshot => {
+//                     Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + likeItem.key).on('value', isLikedSnapshot => {
+//                       Firebase.database().ref(Constants.COMMENTS_PATH + '/' + likeItem.key).on('value', commentSnapshot => {
+//                         Firebase.database().ref(imagePath).on('value', imagesSnapshot => {
+//                           const containerObject = {};
+//                           const key = { id: likeItem.key };
+//                           const createdBy = { createdBy: userSnapshot.val(), userId: userSnapshot.key };
+//                           let likes = { 
+//                             isLiked: isLikedSnapshot.exists()
+//                           }
 
-//                         let itineraryObject = {};
-//                         let reviewObject = {};
+//                           let itineraryObject = {};
 
-//                         let comments = [];
-//                         commentSnapshot.forEach(function(commentChild) {
-//                           const comment = Object.assign({}, { id: commentChild.key }, commentChild.val());
-//                           comments = comments.concat(comment);
-//                         })
-//                         comments.sort(Helpers.lastModifiedAsc);
-
-//                         if (likeItem.val().type === Constants.REVIEW_TYPE) {
-//                           let images = Helpers.getImagePath(imagesSnapshot.val());
-//                           Object.assign(reviewObject, key, {review: objectSnapshot.val()}, {subject: subjectSnapshot.val()}, {userId: userSnapshot.key}, createdBy, likes, {comments: comments}, {images: images})
-//                         }
-//                         else {
+//                           let comments = [];
+//                           commentSnapshot.forEach(function(commentChild) {
+//                             const comment = Object.assign({}, { id: commentChild.key }, commentChild.val());
+//                             comments = comments.concat(comment);
+//                           })
+//                           comments.sort(Helpers.lastModifiedAsc);
+                         
 //                           Object.assign(itineraryObject, objectSnapshot.val(), key, createdBy, likes, {comments: comments});
-//                         }
+                         
+//                           likesArray = [itineraryObject].concat(likesArray);
+//                           likesArray.sort(Helpers.lastModifiedDesc);
 
-//                         Object.assign(containerObject, {review: reviewObject}, {itinerary: itineraryObject});
-//                         likesArray = [containerObject].concat(likesArray);
-//                         likesArray.sort(Helpers.lastModifiedDesc);
-
-//                         dispatch({
-//                           type: GET_LIKES_BY_USER,
-//                           tipFeed: likesArray
+//                           dispatch({
+//                             type: ActionTypes.GET_GUIDE_LIKES_BY_USER,
+//                             guideFeed: likesArray
+//                           })
 //                         })
 //                       })
 //                     })
 //                   })
 //                 })
-//               })
-//             }
-//           })
+//               }
+//             })
+//           }
+//         })
+//       }
+//     })
+//   }
+// }
+
+// export function getTipLikesByUser(auth, userId) {
+//   return dispatch => {
+//     let likesArray = [];
+//     Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).orderByChild('lastModified').once('value', likesByUserSnapshot => {
+//       if (!likesByUserSnapshot.exists()) {
+//         dispatch({
+//           type: GET_LIKES_BY_USER,
+//           payload: []
+//         })
+//       }
+//       else {
+//         likesByUserSnapshot.forEach(function(likeItem) {
+//           if (likeItem.exists() && likeItem.val().type === Constants.REVIEW_TYPE && likeItem.val().subjectId && likeItem.val().reviewId && likeItem.val().tipCreatedByUserId) {
+//             Firebase.database().ref(Constants.TIPS_BY_SUBJECT_PATH + '/' + likeItem.val().subjectId + '/' + likeItem.val().tipCreatedByUserId + '/' + likeItem.key).on('value', objectSnapshot => {
+//               if (objectSnapshot.exists()) {
+//                 Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + likeItem.val().subjectId).on('value', subjectSnapshot => {
+//                   Firebase.database().ref(Constants.REVIEWS_PATH + '/' + likeItem.val().reviewId).on('value', reviewSnapshot => {
+//                     Firebase.database().ref(Constants.USERS_PATH + '/' + likeItem.val().tipCreatedByUserId).on('value', userSnapshot => {
+//                       Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + likeItem.key).on('value', isLikedSnapshot => {
+//                         Firebase.database().ref(Constants.COMMENTS_PATH + '/' + likeItem.key).on('value', commentSnapshot => {
+//                           Firebase.database().ref(Constants.IMAGES_PATH + '/' + likeItem.val().subjectId).on('value', imagesSnapshot => {
+//                             const key = { key: likeItem.key };
+//                             const createdBy = { createdBy: userSnapshot.val(), userId: userSnapshot.key };
+//                             let likes = { 
+//                               isLiked: isLikedSnapshot.exists()
+//                             }
+
+//                             let reviewObject = {};
+
+//                             let comments = [];
+//                             commentSnapshot.forEach(function(commentChild) {
+//                               const comment = Object.assign({}, { id: commentChild.key }, commentChild.val());
+//                               comments = comments.concat(comment);
+//                             })
+//                             comments.sort(Helpers.lastModifiedAsc);
+
+//                             let images = Helpers.getImagePath(imagesSnapshot.val());
+
+//                             Object.assign(reviewObject, key, objectSnapshot.val(), {subjectId: likeItem.val().subjectId}, 
+//                               {reviewId: likeItem.val().reviewId}, {subject: subjectSnapshot.val()}, 
+//                               {review: reviewSnapshot.val()}, {userId: userSnapshot.key}, 
+//                               createdBy, likes, {comments: comments}, {images: images});
+
+//                             likesArray = [reviewObject].concat(likesArray);
+//                             likesArray.sort(Helpers.lastModifiedDesc);
+
+//                             dispatch({
+//                               type: ActionTypes.GET_TIP_LIKES_BY_USER,
+//                               tipFeed: likesArray
+//                             })
+//                           })
+//                         })
+//                       })
+//                     })
+//                   })
+//                 })
+//               }
+//             })
+//           }
 //         })
 //       }
 //     })
@@ -2085,27 +2122,33 @@ export function unloadLikesByUser(auth, userId) {
     let likesArray = [];
     Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).orderByChild('lastModified').once('value', likesByUserSnapshot => {
       likesByUserSnapshot.forEach(function(likeItem) {
-        let objectPath = (likeItem.val().type === Constants.ITINERARY_TYPE ? Constants.ITINERARIES_PATH : Constants.REVIEWS_PATH);
-        let imagePath = (likeItem.val().type === Constants.ITINERARY_TYPE ? 
-          (Constants.IMAGES_ITINERARIES_PATH + '/' + likeItem.key) : 
-          (Constants.IMAGES_PATH + '/' + likeItem.val().subjectId) );
-        Firebase.database().ref(objectPath + '/' + likeItem.key).once('value', objectSnapshot => {
-          if (objectSnapshot.exists()) {
-            Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + likeItem.val().subjectId).off();
-            Firebase.database().ref(Constants.USERS_PATH + '/' + objectSnapshot.val().userId).off();
-            Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + likeItem.key).off();
-            Firebase.database().ref(Constants.COMMENTS_PATH + '/' + likeItem.key).off();
-            Firebase.database().ref(imagePath).off();
-          }
-        })
-        Firebase.database().ref(objectPath + '/' + likeItem.key).off();
+        if (likeItem.val().type === Constants.ITINERARY_TYPE) {
+          Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + likeItem.key).once('value', objectSnapshot => {
+            if (objectSnapshot.exists() && objectSnapshot.val().userId) {
+              Firebase.database().ref(Constants.USERS_PATH + '/' + objectSnapshot.val().userId).off();
+              Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + likeItem.key).off();
+              Firebase.database().ref(Constants.COMMENTS_PATH + '/' + likeItem.key).off();
+              Firebase.database().ref(Constants.IMAGES_ITINERARIES_PATH + '/' + likeItem.key).off();
+            }
+          })
+          Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + likeItem.key).off();
+        }
+        else if (likeItem.exists() && likeItem.val().type === Constants.REVIEW_TYPE && likeItem.val().subjectId && likeItem.val().reviewId && likeItem.val().tipCreatedByUserId) {
+          Firebase.database().ref(Constants.TIPS_BY_SUBJECT_PATH + '/' + likeItem.val().subjectId + '/' + likeItem.val().tipCreatedByUserId + '/' + likeItem.key).once('value', objectSnapshot => {
+            if (objectSnapshot.exists()) {
+              Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + likeItem.val().subjectId).off();
+              Firebase.database().ref(Constants.REVIEWS_PATH + '/' + likeItem.val().reviewId).off();
+              Firebase.database().ref(Constants.USERS_PATH + '/' + likeItem.val().tipCreatedByUserId).off();
+              Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + likeItem.key).off();
+              Firebase.database().ref(Constants.COMMENTS_PATH + '/' + likeItem.key).off();
+              Firebase.database().ref(Constants.IMAGES_PATH + '/' + likeItem.val().subjectId).off();
+            }
+          })
+          Firebase.database().ref(Constants.TIPS_BY_SUBJECT_PATH + '/' + likeItem.val().subjectId + '/' + likeItem.val().tipCreatedByUserId + '/' + likeItem.key).off();
+        }
       })
     })
     Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).off();
-
-    dispatch({
-      type: UNLOAD_LIKES_OR_SAVES_BY_USER
-    })
   }
 }
 
@@ -2314,6 +2357,7 @@ function likesByUserRemovedAction(objectId, source) {
 
 export function likeReview(authenticated, type, likeObject, itineraryId) {
   return dispatch => {
+    console.log('like')
     if (!authenticated) {
       dispatch({
         type: ASK_FOR_AUTH
@@ -2327,7 +2371,11 @@ export function likeReview(authenticated, type, likeObject, itineraryId) {
         type: type,
         lastModified: Firebase.database.ServerValue.TIMESTAMP
       }
-      if (type === Constants.REVIEW_TYPE) saveObject.subjectId = likeObject.subjectId;
+      if (type === Constants.REVIEW_TYPE) {
+        saveObject.subjectId = likeObject.subjectId;
+        saveObject.reviewId = likeObject.reviewId;
+        saveObject.tipCreatedByUserId = likeObject.userId;
+      }
 
       updates[`/${Constants.LIKES_BY_USER_PATH}/${authenticated}/${id}`] = saveObject;
       updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = saveObject;
@@ -2365,6 +2413,9 @@ export function likeReview(authenticated, type, likeObject, itineraryId) {
           Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + id + '/likesCount').transaction(function (current_count) {
             return (current_count || 0) + 1;
           });
+          Firebase.database().ref(Constants.TIPS_BY_SUBJECT_PATH + '/' + likeObject.subjectId + '/' + likeObject.userId + '/' + id + '/likesCount').transaction(function (current_count) {
+            return (current_count || 0) + 1;
+          });
           Helpers.sendInboxMessage(authenticated, likeObject.userId, Constants.LIKE_MESSAGE, likeObject, itineraryId);
 
           dispatch({
@@ -2400,6 +2451,7 @@ export function likeReview(authenticated, type, likeObject, itineraryId) {
 
 export function unLikeReview(authenticated, type, unlikeObject, itineraryId) {
   return dispatch => {
+    console.log('unlike' + JSON.stringify(unlikeObject))
     if (!authenticated) {
       dispatch({
         type: ASK_FOR_AUTH
@@ -2413,6 +2465,9 @@ export function unLikeReview(authenticated, type, unlikeObject, itineraryId) {
       if (type === Constants.REVIEW_TYPE) {
         // Helpers.decrementReviewCount(Constants.LIKES_COUNT, id, unlikeObject.subjectId, unlikeObject.createdBy.userId);
         Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + id + '/likesCount').transaction(function (current_count) {
+          return (current_count >= 1) ? current_count - 1 : 0;
+        });
+        Firebase.database().ref(Constants.TIPS_BY_SUBJECT_PATH + '/' + unlikeObject.subjectId + '/' + unlikeObject.userId + '/' + id + '/likesCount').transaction(function (current_count) {
           return (current_count >= 1) ? current_count - 1 : 0;
         });
       }

@@ -19,9 +19,7 @@ class ProfileLikes extends Profile {
         this.props.getProfileUser(userId);
         this.props.checkFollowing(userId);
         this.props.getProfileCounts(userId);
-        // this.props.getLikesByUser(this.props.authenticated, userId);
-        this.props.getGuideLikesByUser(this.props.authenticated, userId);
-        // this.props.getTipLikesByUser(this.props.authenticated, userId);
+        this.props.getLikesByUser(this.props.authenticated, userId);
       }
     });
     this.props.sendMixpanelEvent('Likes page loaded');
@@ -166,7 +164,6 @@ class ProfileLikes extends Profile {
         )
       }
       else {
-        console.log('tip array = ' + JSON.stringify(this.props.tipFeed))
         return (
           <div className="flx flx-row flx-just-center w-100">
             <TipList
@@ -194,9 +191,9 @@ class ProfileLikes extends Profile {
           unfollow={this.props.unfollowUser} />
 
         {this.renderTabs()}
+        {renderLikesTabs()}
         <div className="flx flx-row flx-just-center w-100 w-max">
      
-          {/*renderLikesTabs() */}
           {renderLikes()}
           {/*<FeedList
             feed={this.props.feed} 
