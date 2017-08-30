@@ -136,12 +136,12 @@ class SettingsForm extends React.Component {
               onChange={this.updateState('password')} />
           </fieldset> */}
 
-          <button
-            className="vb fill--primary color--white mrgn-bottom-sm w-100"
+          <div
+            className="vb fill--primary color--white ta-center mrgn-bottom-sm w-100"
             type="submit"
             disabled={this.state.inProgress}>
             Update Profile
-          </button>
+          </div>
 
         </fieldset>
       </form>
@@ -180,6 +180,14 @@ class Settings extends React.Component {
                 authenticated={this.props.authenticated}
                 currentUser={this.props.firebaseUser}
                 onSubmitForm={this.props.saveSettings} />
+
+
+              <div
+                className="vb vb--sm vb--shadow-none fill--none color--primary w-100"
+                onClick={this.props.signOutUser}>
+                Or click here to logout.
+              </div>
+
 
             </div>
 
