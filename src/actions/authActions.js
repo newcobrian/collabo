@@ -61,6 +61,12 @@ export function signUpUser(username, email, password) {
         error: {message: 'Username is already taken'}
       })
     }
+    else if (/\s/g.test(username)) {
+      dispatch({
+        type: ActionTypes.AUTH_ERROR,
+        error: {message: 'Username cannot contain spaces'}
+      })
+    }
     else {
       Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + username).once('value', snapshot => {
         if (snapshot.exists()) {
