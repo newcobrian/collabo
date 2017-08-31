@@ -145,17 +145,10 @@ class Profile extends React.Component {
   }
 
   render() {
-    if (!this.props.profile) {
-      return null;
-    }
-    if (this.props.profile.length === 0) {
+    if (!this.props.profile || this.props.profile.length === 0) {
       return (<div className="error-module flx flx-center-all v2-type-body3">This person does not exist.</div>);
     }
-
-    if (!this.props.itineraries) {
-      return null;
-    }
-    if (this.props.itineraries.length === 0) {
+    if (!this.props.itineraries || this.props.itineraries.length === 0) {
       return (
         <div className="flx flx-col page-common profile-page flx-align-center">
           <div className="w-100 w-max mrgn-bottom-md flx flx-row flx-m-col">
