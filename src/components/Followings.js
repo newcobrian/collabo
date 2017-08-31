@@ -17,7 +17,7 @@ class Followings extends Followers {
         this.props.getFollowers(userId, Constants.IS_FOLLOWING_PATH);
         this.props.getProfileUser(userId);
         this.props.getProfileCounts(userId);
-        this.props.checkFollowing(userId);
+        this.props.checkFollowing(this.props.authenticated, userId);
       }
     });
     this.props.sendMixpanelEvent('Followings page loaded');
@@ -29,7 +29,7 @@ class Followings extends Followers {
         let userId = snapshot.val().userId;
         this.props.unloadFollowers(userId, Constants.IS_FOLLOWING_PATH);
         this.props.unloadProfileUser(userId);
-        this.props.unloadProfileFollowing(userId);
+        this.props.unloadProfileFollowing(this.props.authenticated, userId);
       }
     });
     Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + this.props.params.username + '/').off();

@@ -23,7 +23,7 @@ class Followers extends React.Component {
 	        this.props.getFollowers(userId, Constants.HAS_FOLLOWERS_PATH);
 	        this.props.getProfileUser(userId);
 	        this.props.getProfileCounts(userId);
-        	this.props.checkFollowing(userId);
+        	this.props.checkFollowing(this.props.authenticated, userId);
 	      }
 	    });
 	    this.props.sendMixpanelEvent('Followers page loaded');
@@ -35,7 +35,7 @@ class Followers extends React.Component {
 	        let userId = snapshot.val().userId;
 	        this.props.unloadFollowers(userId, Constants.HAS_FOLLOWINGS_PATH);
 	        this.props.unloadProfileUser(userId);
-      		this.props.unloadProfileFollowing(userId);
+      		this.props.unloadProfileFollowing(this.props.authenticated, userId);
 	      }
 	    });
 	    Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + this.props.params.username + '/').off();

@@ -17,7 +17,7 @@ class ProfileLikes extends Profile {
       if (snapshot.exists()) {
         let userId = snapshot.val().userId;
         this.props.getProfileUser(userId);
-        this.props.checkFollowing(userId);
+        this.props.checkFollowing(this.props.authenticated, userId);
         this.props.getProfileCounts(userId);
         this.props.getLikesByUser(this.props.authenticated, userId);
       }
@@ -28,7 +28,7 @@ class ProfileLikes extends Profile {
   componentWillUnmount() {
     if (this.props.profile) {
       this.props.unloadProfileUser(this.props.profile.userId);
-      this.props.unloadProfileFollowing(this.props.profile.userId);
+      this.props.unloadProfileFollowing(this.props.authenticated, this.props.profile.userId);
       this.props.unloadLikesByUser(this.props.authenticated, this.props.profile.userId);
     }
     Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + this.props.params.username + '/').off();
@@ -125,6 +125,7 @@ class ProfileLikes extends Profile {
 
     const profile = this.props.profile;
     profile.isFollowing = this.props.isFollowing;
+
     const isUser = this.props.currentUser &&
       this.props.profile.userId === this.props.currentUser.uid;
 
@@ -200,6 +201,7 @@ class ProfileLikes extends Profile {
         <ProfileInfo
           authenticated={this.props.authenticated}
           profile={profile}
+          signOut={this.props.signOutUser}
           follow={this.props.followUser}
           unfollow={this.props.unfollowUser} />
 
