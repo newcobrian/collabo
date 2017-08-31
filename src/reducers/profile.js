@@ -4,7 +4,9 @@ import { GET_USER, GET_REVIEWS_BY_USER, GET_FOLLOWING_COUNT, GET_FOLLOWER_COUNT,
 import * as ActionTypes from '../actions/types';
 import { isEqual } from 'lodash';
 
-export default (state = {}, action) => {
+const initialState = { guideFeed: [], tipFeed: [] }
+
+export default (state = initialState, action) => {
   switch (action.type) {
     case 'PROFILE_PAGE_LOADED':
     case 'PROFILE_FAVORITES_PAGE_LOADED':
@@ -61,7 +63,7 @@ export default (state = {}, action) => {
         ...state,
         reviews: action.payload
       }
-    case GET_LIKES_BY_USER: {
+    case ActionTypes.GET_LIKES_BY_USER: {
       const newState = Object.assign({}, state);
       
       newState.guideFeed = newState.guideFeed || [];

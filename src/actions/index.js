@@ -1861,8 +1861,9 @@ export function getLikesByUser(auth, userId) {
     Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).orderByChild('lastModified').on('value', likesByUserSnapshot => {
       if (!likesByUserSnapshot.exists()) {
         dispatch({
-          type: GET_LIKES_BY_USER,
-          payload: []
+          type: ActionTypes.GET_LIKES_BY_USER,
+          guideFeed: [],
+          tipFeed: []
         })
       }
       else {
@@ -1894,7 +1895,8 @@ export function getLikesByUser(auth, userId) {
                        
                         Object.assign(itineraryObject, objectSnapshot.val(), key, createdBy, likes, {comments: comments});
                        
-                        guideFeed = [itineraryObject].concat(guideFeed);
+                        // guideFeed = [itineraryObject].concat(guideFeed);
+                        guideFeed = guideFeed.concat(itineraryObject)
                         guideFeed.sort(Helpers.lastModifiedDesc);
 
                         dispatch({
@@ -1940,7 +1942,8 @@ export function getLikesByUser(auth, userId) {
                               {review: reviewSnapshot.val()}, {userId: userSnapshot.key}, 
                               createdBy, likes, {comments: comments}, {images: images});
 
-                            tipFeed = [reviewObject].concat(tipFeed);
+                            // tipFeed = [reviewObject].concat(tipFeed);
+                            tipFeed = tipFeed.concat(reviewObject)
                             tipFeed.sort(Helpers.lastModifiedDesc);
 
                             dispatch({

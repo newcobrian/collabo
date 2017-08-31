@@ -6,7 +6,7 @@ import React from 'react';
 const ItineraryList = props => {
   if (!props.itineraries) {
     return (
-      <div className="loading-module flx flx-col flx-center-all v2-type-body3">
+       <div className="profile-feed flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap w-max">
         <div className="earth-graphic">  
           <img className="center-img" src="/img/logos/logo.earth.temp.png"/>
         </div>
@@ -15,13 +15,13 @@ const ItineraryList = props => {
     );
   }
 
-  // if (props.itineraries.length === 0) {
-  //   return (
-  //     <div className="status-module flx flx-center-all v2-type-body3">
-  //       Nothing here...
-  //     </div>
-  //   );
-  // }
+  if (props.itineraries.length === 0) {
+    return (
+      <div className="status-module flx flx-center-all v2-type-body3">
+        Nothing here...
+      </div>
+    );
+  }
 
   return (
     <div className="profile-feed flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap w-max">
