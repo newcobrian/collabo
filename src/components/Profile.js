@@ -93,42 +93,54 @@ class Profile extends React.Component {
 
   renderTabs() {
     return (
-      <div className="feed-toggle flx flx-row flx-center-all w-100 w-max">
-        <ul className="nav nav-pills outline-active">
-          <li className="nav-item">
-            <Link
-              className="nav-link active"
-              to={`/${this.props.profile.username}`}>
-              {this.props.numGuides} Guides
-            </Link>
-          </li>
+      <div className="feed-toggle">
+          <ul className="nav nav-pills  flx flx-row flx-just-space-around flx-align-space-around outline-active">
+            <li className="nav-item">
+              <Link
+                className="nav-link active flx flx-col flx-center-all ta-center"
+                to={`/${this.props.profile.username}`}>
+                <div className="stats-number">
+                  {this.props.numGuides}
+                </div>
+                Guides
+              </Link>
+            </li>
 
-          <li className="nav-item">
-            <Link
-              className="nav-link"
-              to={`/${this.props.profile.username}/likes`}>
-              {this.props.numLikes} Likes
-            </Link>
-          </li>
+            <li className="nav-item">
+              <Link
+                className="nav-link flx flx-col flx-center-all ta-center"
+                to={`/${this.props.profile.username}/likes`}>
+                <div className="stats-number">
+                {this.props.numLikes}
+                </div>
+                Likes
+              </Link>
+            </li>
 
-          <li className="nav-item">
-            <Link
-              className="nav-link"
-              to={`/${this.props.profile.username}/followers`}>
-              {this.props.numFollowers} Followers
-            </Link>
-          </li>
+            <li className="nav-item">
+              <Link
+                className="nav-link flx flx-col flx-center-all ta-center"
+                to={`/${this.props.profile.username}/followers`}>
+                <div className="stats-number">
+                  {this.props.numFollowers}
+                </div>
+                Followers
+              </Link>
+            </li>
 
-          <li className="nav-item">
-            <Link
-              className="nav-link"
-              to={`/${this.props.profile.username}/isfollowing`}>
-              Following {this.props.numFollowing}
-            </Link>
-          </li>
+            <li className="nav-item">
+              <Link
+                className="nav-link flx flx-col flx-center-all ta-center"
+                to={`/${this.props.profile.username}/isfollowing`}>
+                <div className="stats-number">
+                {this.props.numFollowing}
+                </div>
+                Following
+              </Link>
+            </li>
 
-        </ul>
-      </div>
+          </ul>
+        </div>
     );
   }
 
@@ -146,16 +158,16 @@ class Profile extends React.Component {
     if (this.props.itineraries.length === 0) {
       return (
         <div className="flx flx-col page-common profile-page flx-align-center">
-          <ProfileInfo
-            authenticated={this.props.authenticated}
-            profile={this.props.profile}
-            follow={this.props.followUser}
-            unfollow={this.props.unfollowUser} />
+          <div className="w-100 w-max mrgn-bottom-md flx flx-row flx-m-col">
+            <ProfileInfo
+              authenticated={this.props.authenticated}
+              profile={this.props.profile}
+              follow={this.props.followUser}
+              unfollow={this.props.unfollowUser} />
 
-          {this.renderTabs()}
-          
+            {this.renderTabs()}
+          </div>
           <div className="status-module flx flx-row flx-just-center w-100 v2-type-body3">
-
             <div className="ta-center pdding-all-md">{this.props.profile.username} has not created any guides...yet.</div>
           </div>
         </div>
@@ -170,7 +182,7 @@ class Profile extends React.Component {
 
       return (
         <div className="flx flx-col page-common profile-page flx-align-center">
-
+          <div className="w-100 w-max mrgn-bottom-md flx flx-row flx-m-col">
           <ProfileInfo
             authenticated={this.props.authenticated}
             profile={profile}
@@ -180,7 +192,7 @@ class Profile extends React.Component {
 
 
           {this.renderTabs()}
-          
+          </div>
           <div className="flx flx-row flx-just-center w-100">
        
             <ItineraryList

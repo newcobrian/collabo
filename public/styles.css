@@ -659,7 +659,16 @@ svg {
 }
 
 .brdr-bottom {
-border-bottom: 1px solid rgba(0,0,0,.1);
+  border-bottom: 1px solid rgba(0,0,0,.1);
+}
+.brdr-top {
+  border-top: 1px solid rgba(0,0,0,.1);
+}
+.brdr-right {
+  border-right: 1px solid rgba(0,0,0,.1);
+}
+.brdr-left {
+  border-left: 1px solid rgba(0,0,0,.1);
 }
 
 .opa-100 {
@@ -852,9 +861,7 @@ border-bottom: 1px solid rgba(0,0,0,.1);
   margin: 10px 20px 10px 0;
 }
 .profile-info {
-  padding: 0 20px;
-  max-width: 600px;
-  width: 600px;
+  padding: 0;
 }
 .user-action {
   max-width: 600px;
@@ -862,7 +869,8 @@ border-bottom: 1px solid rgba(0,0,0,.1);
 
 .profile-page .user-info {
   background: white;
-  padding: 20px 0 0;
+  padding: 20px;
+  width: 50%;
 }
 .profile-page .user-info .user-img {
   background: #E6E7E8;
@@ -890,7 +898,7 @@ border-bottom: 1px solid rgba(0,0,0,.1);
 }
 
 .nav-pills.outline-active .nav-link {
-  padding: 5px 0px;
+  padding: 6px 0px;
   margin-right: 20px;
   color: #526166;
   opacity: .5;
@@ -923,7 +931,9 @@ li.nav-divider {
 .nav-header-icon {
   margin-top: -1px;
 }
-
+.stats-number {
+  font-size: 42px;
+}
 
 /******
 ******
@@ -933,7 +943,8 @@ li.nav-divider {
 
 
 .profile-page .nav-pills.outline-active .nav-link {
-
+    width: auto;
+    margin: 0 10px;
 }
 .profile-page .nav-pills .nav-link {
     display: block;
@@ -948,12 +959,14 @@ li.nav-divider {
 }
 
 .profile-page .feed-toggle {
-  width: 100%;
+  width: 50%;
   margin: 0;
-  padding: 20px;
+  padding: 10px;
+  height: 140px;
+  padding-top: 40px;
 }
 .profile-page .feed-toggle .nav {
-  height: 26px;
+  height: 100px;
 }
 .profile-feed {
     width: 100%;

@@ -8,7 +8,7 @@ const EditProfileSettings = props => {
     return (
       <Link
         to="/settings"
-        className="vb vb--sm fill--primary mrgn-top-xs vb--mobile-full color--white">
+        className="vb vb--sm fill--primary mrgn-top-xs vb--mobile-full color--white mrgn-right-sm mrgn-right-m-none">
          <i className="material-icons mrgn-right-sm color--white md-18">mode_edit</i>Edit Profile
       </Link>
     );
@@ -20,7 +20,7 @@ const SignOutButton = props => {
   if (props.isUser) {
     return (
       <button
-        className="vb vb--sm vb--shadow-none fill--none color--primary w-100"
+        className="vb vb--sm vb--outline fill--white mrgn-top-xs color--primary w-100"
         onClick={props.signOut}>
         Log out
       </button>
@@ -39,7 +39,7 @@ const ProfileInfo = props => {
       props.profile.userId === props.authenticated;
 
     return (
-        <div className="user-info flx flx-col flx-just-start w-100 w-max">
+        <div className="user-info flx flx-col flx-just-start">
 
           <div className="profile-info flx flx-row flx-just-start mrgn-bottom-xs">
             <div className="flx flx-col flx-align-center mrgn-right-md">
@@ -50,9 +50,20 @@ const ProfileInfo = props => {
                 <div className="user-name">{profile.username}</div>
               </div>
               <div>{profile.bio}</div>
+              <div className="user-action flx flx-row flx-just-start w-100 mobile-hide mrgn-top-sm flx-wrap">
+                <EditProfileSettings isUser={isUser} />
+                <SignOutButton isUser={isUser} signOut={props.signOut}/>
+                <FollowUserButton
+                authenticated={props.authenticated}
+                isUser={isUser}
+                user={profile}
+                follow={props.follow}
+                unfollow={props.unfollow}
+                />
+              </div>
             </div>
           </div>
-          <div className="user-action flx flx-col flx-just-start pdding-left-md pdding-right-md w-100">
+          <div className="user-action flx flx-col flx-just-start pdding-left-md pdding-right-md w-100 mobile-show">
             <EditProfileSettings isUser={isUser} />
             <SignOutButton isUser={isUser} signOut={props.signOut}/>
             <FollowUserButton

@@ -65,13 +65,11 @@ class Explore extends React.Component {
                         </div>
                       </Link>
 
-                      <div>
                         <Link
                             to={`/${user.username}`}
                             className="color--black ">
                             {user.username}
                         </Link>
-                      </div>
                       <div className="flx-item-right">
                         <FollowUserButton
                           authenticated={this.props.authenticated}

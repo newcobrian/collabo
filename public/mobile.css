@@ -238,8 +238,6 @@ body {
 }
 
 .home-page {
-    margin: 0 auto;
-    padding: 0;
 }
 .feed-wrapper {
 }
@@ -391,6 +389,8 @@ width: 100%;
 
 .profile-page .feed-toggle {
     width: 100%;
+    height: 100px;
+    padding-top: 10px;
 }
 .profile-page .user-info {
   width: 100%;
@@ -417,6 +417,9 @@ width: 100%;
 }
 .user-action {
 
+}
+.profile-page .user-name {
+  margin: 0;
 }
 .bttn-style.bttn-subtle-gray {
   background: transparent;
@@ -695,8 +698,27 @@ body .back-to-top {
 }
 
 
+
+
+.flx.flx-row.flx-m-col {
+  -webkit-flex-direction: column !important;
+  flex-direction: column !important;
 }
 
+
+.m-margin-none {
+  margin: 0 !important;
+}
+.mrgn-left-m-none {
+  margin-left: 0 !important;
+}
+.mrgn-right-m-none {
+  margin-right: 0 !important;
+}
+.mrgn-bottom-m-none {
+  margin-bottom: 0 !important;
+}
+}
 
 
 

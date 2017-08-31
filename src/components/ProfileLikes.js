@@ -41,42 +41,54 @@ class ProfileLikes extends Profile {
 
   renderTabs() {
     return (
-      <div className="feed-toggle flx flx-row flx-just-center w-100 w-max">
-        <ul className="nav nav-pills outline-active">
+      <div className="feed-toggle">
+          <ul className="nav nav-pills  flx flx-row flx-just-space-around flx-align-space-around outline-active">
             <li className="nav-item">
               <Link
-                className="nav-link"
+                className="nav-link flx flx-col flx-center-all ta-center"
                 to={`/${this.props.profile.username}`}>
-                {this.props.numGuides} Guides
+                <div className="stats-number">
+                  {this.props.numGuides}
+                </div>
+                Guides
               </Link>
             </li>
 
             <li className="nav-item">
               <Link
-                className="nav-link active"
+                className="nav-link active flx flx-col flx-center-all ta-center"
                 to={`/${this.props.profile.username}/likes`}>
-                {this.props.numLikes} Likes
+                <div className="stats-number">
+                {this.props.numLikes}
+                </div>
+                Likes
               </Link>
             </li>
 
             <li className="nav-item">
               <Link
-                className="nav-link"
+                className="nav-link flx flx-col flx-center-all ta-center"
                 to={`/${this.props.profile.username}/followers`}>
-                {this.props.numFollowers} Followers
+                <div className="stats-number">
+                  {this.props.numFollowers}
+                </div>
+                Followers
               </Link>
             </li>
 
             <li className="nav-item">
               <Link
-                className="nav-link"
+                className="nav-link flx flx-col flx-center-all ta-center"
                 to={`/${this.props.profile.username}/isfollowing`}>
-                Following {this.props.numFollowing}
+                <div className="stats-number">
+                {this.props.numFollowing}
+                </div>
+                Following
               </Link>
             </li>
-         
+
           </ul>
-      </div>
+        </div>
     );
   }
 
@@ -183,6 +195,7 @@ class ProfileLikes extends Profile {
 
     return (
       <div className="flx flx-col page-common profile-page flx-align-center">
+          <div className="w-100 w-max mrgn-bottom-md flx flx-row flx-m-col">
 
         <ProfileInfo
           authenticated={this.props.authenticated}
@@ -191,8 +204,9 @@ class ProfileLikes extends Profile {
           unfollow={this.props.unfollowUser} />
 
         {this.renderTabs()}
-        {renderLikesTabs()}
-        <div className="flx flx-row flx-just-center w-100 w-max">
+        {/*{renderLikesTabs()}*/}
+        </div>
+        <div className="flx flx-row flx-just-center w-100">
      
           {renderLikes()}
           {/*<FeedList
