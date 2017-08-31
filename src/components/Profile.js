@@ -151,7 +151,7 @@ class Profile extends React.Component {
     if (!this.props.itineraries || this.props.itineraries.length === 0) {
       return (
         <div className="flx flx-col page-common profile-page flx-align-center">
-          <div className="w-100 w-max mrgn-bottom-md flx flx-row flx-m-col">
+          <div className="w-100 w-max flx flx-row flx-m-col">
             <ProfileInfo
               authenticated={this.props.authenticated}
               profile={this.props.profile}
@@ -175,7 +175,7 @@ class Profile extends React.Component {
 
       return (
         <div className="flx flx-col page-common profile-page flx-align-center">
-          <div className="w-100 w-max mrgn-bottom-md flx flx-row flx-m-col">
+          <div className="w-100 w-max flx flx-row flx-m-col">
           <ProfileInfo
             authenticated={this.props.authenticated}
             profile={profile}

@@ -141,7 +141,7 @@ class ProfileLikes extends Profile {
 
     const renderLikesTabs = () => {
       return (
-        <div className="feed-toggle flx flx-row flx-just-center w-100 w-max">
+        <div className="feed-toggle guide-tip-toggle flx flx-row flx-just-center w-100 w-max">
           <ul className="nav nav-pills outline-active">
             <li className="nav-item">
               <Link
@@ -196,7 +196,8 @@ class ProfileLikes extends Profile {
 
     return (
       <div className="flx flx-col page-common profile-page flx-align-center">
-          <div className="w-100 w-max mrgn-bottom-md flx flx-row flx-m-col">
+
+          <div className="w-100 w-max flx flx-row flx-m-col">
 
         <ProfileInfo
           authenticated={this.props.authenticated}
@@ -205,9 +206,9 @@ class ProfileLikes extends Profile {
           follow={this.props.followUser}
           unfollow={this.props.unfollowUser} />
 
-        {this.renderTabs()}
-        {/*{renderLikesTabs()}*/}
-        </div>
+            {this.renderTabs()}
+          </div>
+           {renderLikesTabs()}
         <div className="flx flx-row flx-just-center w-100">
      
           {renderLikes()}
