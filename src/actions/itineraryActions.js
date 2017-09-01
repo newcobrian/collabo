@@ -638,6 +638,37 @@ export function onReorderTips(itinerary, oldIndex, newIndex) {
   } 
 }
 
+// export function setInitialMapCenter(itinerary) {
+//   return dispatch => {
+//     // console.log('itin = ' + JSON.stringify(itinerary))
+//     let mapCenter = itinerary.geo.location;
+// // console.log('itin in action = ' + JSON.stringify(itinerary))
+//     if (itinerary && itinerary.tips) {
+//       for (let i = 0; i < itinerary.tips.length; i++) {
+//         console.log(JSON.stringify(itinerary.tips[i].subject))
+//         if (itinerary.tips[i].subject && itinerary.tips[i].subject.location) {
+//           console.log('in if')
+//           mapCenter = itinerary.tips[i].subject.location;
+//           console.log('map center action = ' + JSON.stringify(mapCenter))
+//           break;
+//         }
+//       }
+//     }
+//     dispatch({
+//       type: ActionTypes.SET_DEFAULT_MAP_VALUE,
+//       payload: mapCenter
+//     })
+//   }
+// }
+
+// export function unmountMap() {
+//   return dispatch => {
+//     dispatch({
+//       type: ActionTypes.UNMOUNT_MAP
+//     })
+//   }
+// }
+
 // export function getItinerary(auth, itineraryId) {
 //   return dispatch => {
 //     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).on('value', itinerarySnapshot => {

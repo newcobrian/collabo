@@ -20,15 +20,10 @@ import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreHorizIcon from 'material-ui/svg-icons/navigation/more-horiz';
 import Dropzone from 'react-dropzone';
-import {GoogleApiWrapper} from 'google-maps-react';
-import Map from 'google-maps-react';
+import { GoogleApiWrapper, Map, Marker } from 'google-maps-react'
 import Geosuggest from 'react-geosuggest';
 import * as Selectors from '../selectors/itinerarySelectors';
 import Textarea from 'react-textarea-autosize';
-
-const ReorderButton = props => {
-
-}
 
 const DisplayError = props => {
   if (!props.error) {
@@ -157,12 +152,25 @@ class ItineraryForm extends React.Component {
         </Map>
         );
     }
-// console.log(JSON.stringify(this.props.data))
-    
+
     const itinerary = this.props.data;
     const {google} = this.props;
-    const addTipFun = this.props.onAddTip;
+    const addTipFunc = this.props.onAddTip;
     const auth = this.props.authenticated;
+
+    let initialMapCenter = {};
+    if (itinerary.tips && itinerary.tips[0] && itinerary.tips[0].subject && itinerary.tips[0].subject.location) {
+      initialMapCenter =  itinerary.tips[0].subject.location
+    }
+    else if (navigator && navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((pos) => {
+        const coords = pos.coords;
+        initialMapCenter = { lat: coords.latitude, lng: coords.longitude }
+      })
+    }
+    else {
+      initialMapCenter = { lat: null, lng: null }
+    }
 
     const createdByUsername = Selectors.getCreatedByUsername(itinerary);
     const createdByImage = Selectors.getCreatedByUserImage(itinerary);
@@ -194,9 +202,9 @@ class ItineraryForm extends React.Component {
 
       let service = new google.maps.places.PlacesService(this.props.mapObject);
       let request = { placeId: result.placeId }
-
       service.getDetails(request, function(place, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
+
           if (place.name) resultObject.title = place.name;
           if (place.international_phone_number) resultObject.internationalPhoneNumber = place.international_phone_number;
           if (place.formatted_phone_number) resultObject.formattedPhoneNumber = place.formatted_phone_number;
@@ -210,11 +218,11 @@ class ItineraryForm extends React.Component {
           if (place.photos && place.photos[0]) {
             resultObject.defaultImage = [ place.photos[0].getUrl({'maxWidth': 1225, 'maxHeight': 500}) ];
           }
-          addTipFun(auth, resultObject, itinerary)
+          addTipFunc(auth, resultObject, itinerary)
           geoSuggestRef._geoSuggest.clear()
         }
         else {
-          addTipFun(auth, resultObject, itinerary)
+          addTipFunc(auth, resultObject, itinerary)
           geoSuggestRef._geoSuggest.clear()
         }
       })
@@ -624,22 +632,24 @@ class ItineraryForm extends React.Component {
             {renderGeoSuggestTip(itinerary.geo)}
           </div>
 
-          { /** Map block **/ }
           <div className="it-map-container">
-          <div className="it-map-overlay flx flx-center-all">
-            <div className="v2-type-body2 color--white">
-            Map coming soon...
-              {/*<Map google={this.props.google} >
-                {/*itinerary.tips.map(tipItem, index) => {
-                  return (
-                    <Marker
-                      name={'# ' + index + ': ' tipItem.subject.title}
-                      position={tipItem.subject.}
-                  )
-                }
-              </Map>*/}
-              </div>
-            </div>
+            <MapContainer itinerary={itinerary} google={this.props.google} />
+          </div>
+          { /** Map block 
+          <div className="it-map-container">
+            <Map google={this.props.google} >
+            {
+              itinerary.tips.map((tipItem, index) => {
+                return (
+                  <Marker
+                    key={index}
+                    name={tipItem.subject.title}
+                    title={'# ' + index + ': ' + tipItem.subject.title}
+                    position={tipItem.subject.location} />
+                )
+              })
+            }
+            </Map>
           </div>
           { /** END Map block **/ }
 

@@ -22,6 +22,7 @@ import Dropzone from 'react-dropzone';
 import ItineraryForm from './ItineraryForm';
 import * as Selectors from '../selectors/itinerarySelectors';
 import { isEmpty } from 'lodash';
+import MapContainer from './MapContainer';
  
 const UpdateCoverPhoto = props => {
   if (props.isUser) {
@@ -134,7 +135,7 @@ class Itinerary extends React.Component {
       itinerary.tips = this.props.tips;
       const createdByUsername = Selectors.getCreatedByUsername(this.props.itinerary);
       const createdByImage = Selectors.getCreatedByUserImage(this.props.itinerary);
-
+// console.log('itin = ' + JSON.stringify(itinerary))
       const isUser = this.props.authenticated &&
       this.props.itinerary.userId === this.props.authenticated;
 
@@ -324,12 +325,15 @@ class Itinerary extends React.Component {
 
             </div> {/*Content Wrapper*/}
             <div className="it-map-container">
+              <MapContainer itinerary={itinerary} google={this.props.google} />
+            </div>
+            {/*<div className="it-map-container">
               <div className="it-map-overlay flx flx-center-all">
                 <div className="v2-type-body2 color--white">
                   Map coming soon
                 </div>
               </div>
-            </div>
+            </div> */}
             {/*<BackToTop />*/}
           </div>
         )
