@@ -1478,7 +1478,7 @@ body .back-to-top {
   background-size: cover;
   position: fixed;
   right: 0;
-  top: 0;
+  top: 70px;
   left: 60%;
   bottom: 0;
 }
@@ -1491,5 +1491,8 @@ body .back-to-top {
   background-color: rgba(0,0,0,.1);
   background-color: rgba(22,32,52,.5);
 }
-
+.map-wrapper {
+  width: 100% !important;
+  height: 100% !important;
+}
 
