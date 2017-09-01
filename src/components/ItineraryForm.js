@@ -25,6 +25,9 @@ import Geosuggest from 'react-geosuggest';
 import * as Selectors from '../selectors/itinerarySelectors';
 import Textarea from 'react-textarea-autosize';
 
+var Scroll = require('react-scroll');
+var Element = Scroll.Element;
+
 const DisplayError = props => {
   if (!props.error) {
     return null;
@@ -432,199 +435,199 @@ class ItineraryForm extends React.Component {
               {
                 itinerary.tips.map((tip, index) => {
                   return (
-                    <div className="tip-wrapper flx flx-col flx-col w-100 w-max" key={tip.key}>
-                     
-                          <div className="tip-container flx flx-col flx-center-all w-100">
-                              
-                            
+                    <Element name={'tip:' + tip.key}>
+                      <div className="tip-wrapper flx flx-col flx-col w-100 w-max" id={'tip:' + tip.key} key={tip.key}>
+                       
+                            <div className="tip-container flx flx-col flx-center-all w-100">
                                 
-                                { /** Title and Address **/ }
-                                <div className="tip__title-module flx flx-row w-100">
+                              
+                                  
+                                  { /** Title and Address **/ }
+                                  <div className="tip__title-module flx flx-row w-100">
 
 
-                                  <div className="tip__right-module flx flx-col flx-align-end">
+                                    <div className="tip__right-module flx flx-col flx-align-end">
 
 
-                                    { /** Rating **/ }
-                                    <div className={'mobile-show tip__rating-module flx flx-row flx-align-center flx-item-right w-100 tip__rating-module--' + tip.review.rating}>
-                                      <select value={tip.review.rating} onChange={this.changeRating(tip)}>
-                                        <option value="-">-</option>
-                                        <option value="0">0</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
-                                        <option value="10">10</option>
-                                      </select>
-                                    </div>
-                                    { /** END Rating **/ }
+                                      { /** Rating **/ }
+                                      <div className={'mobile-show tip__rating-module flx flx-row flx-align-center flx-item-right w-100 tip__rating-module--' + tip.review.rating}>
+                                        <select value={tip.review.rating} onChange={this.changeRating(tip)}>
+                                          <option value="-">-</option>
+                                          <option value="0">0</option>
+                                          <option value="1">1</option>
+                                          <option value="2">2</option>
+                                          <option value="3">3</option>
+                                          <option value="4">4</option>
+                                          <option value="5">5</option>
+                                          <option value="6">6</option>
+                                          <option value="7">7</option>
+                                          <option value="8">8</option>
+                                          <option value="9">9</option>
+                                          <option value="10">10</option>
+                                        </select>
+                                      </div>
+                                      { /** END Rating **/ }
 
 
-                                    { /** Image **/ }
-                                    <div className="tip__image-module">
-                                      <div className="tip__photo-count">{tip.images.length > 0 ? tip.images.length : null}</div>
-                                      <ImagePicker images={tip.images} />
-                                    </div>
-                                    <div >
-                                      <Dropzone
-                                        onDrop={tipDropHandler(tip)}
-                                        disablePreview={false}
-                                        accept="image/*"
-                                        className="edit-tip__dropzone__touch flx flx-col flx-align-center flx-just-start ta-center">
-                                        <div className="vb vb--sm vb--shadow-none fill--white color--black opa-80 no-pad">
-                                          <i className="material-icons color--primary md-18">add_a_photo</i>
-                                        </div>
+                                      { /** Image **/ }
+                                      <div className="tip__image-module">
+                                        <div className="tip__photo-count">{tip.images.length > 0 ? tip.images.length : null}</div>
+                                        <ImagePicker images={tip.images} />
+                                      </div>
+                                      <div >
+                                        <Dropzone
+                                          onDrop={tipDropHandler(tip)}
+                                          disablePreview={false}
+                                          accept="image/*"
+                                          className="edit-tip__dropzone__touch flx flx-col flx-align-center flx-just-start ta-center">
+                                          <div className="vb vb--sm vb--shadow-none fill--white color--black opa-80 no-pad">
+                                            <i className="material-icons color--primary md-18">add_a_photo</i>
+                                          </div>
 
-                                      </Dropzone>
+                                        </Dropzone>
+                                        
+                                      </div>
+                                      { /** END Image **/ }
+
+
+                                      <div className="tip__timestamp v2-type-caption opa-20 mrgn-top-xs DN">
+                                        <DisplayTimestamp timestamp={tip.review.lastModified} />
+                                      </div>
                                       
                                     </div>
-                                    { /** END Image **/ }
 
 
-                                    <div className="tip__timestamp v2-type-caption opa-20 mrgn-top-xs DN">
-                                      <DisplayTimestamp timestamp={tip.review.lastModified} />
+                                    <div className="flx flx-col w-100">
+
+                                        <div className="tip__title-wrapper flx flx-row flx-align-top w-100 hide-in-list">
+                                          <div className="tip__order-count DN v2-type-h3">{index+1}.</div>
+
+                                        
+
+                                        </div>
+                                      <div className="tip__content-wrapper">
+                                        <div className="tip__header-wrapper flx flx-row flx-align-start flx-just-start">
+                                          { /** Title **/ }
+                                          <Link to={`/review/${tip.subjectId}`}>
+                                          <div className="hide-in-list tip__title v2-type-h3 ta-left">
+                                            <div className="tip__order-count">{index+1}</div> {tip.subject.title} 
+                                          </div>
+                                          </Link>
+                                          { /** END Title **/ }
+
+                                          { /** Rating **/ }
+                                          <div className={'mobile-hide tip__rating-module flx flx-row flx-align-center flx-item-right w-100 tip__rating-module--' + tip.review.rating}>
+                                            <select value={tip.review.rating} onChange={this.changeRating(tip)}>
+                                              <option value="-">-</option>
+                                              <option value="0">0</option>
+                                              <option value="1">1</option>
+                                              <option value="2">2</option>
+                                              <option value="3">3</option>
+                                              <option value="4">4</option>
+                                              <option value="5">5</option>
+                                              <option value="6">6</option>
+                                              <option value="7">7</option>
+                                              <option value="8">8</option>
+                                              <option value="9">9</option>
+                                              <option value="10">10</option>
+                                            </select>
+                                          </div>
+                                          { /** END Rating **/ }
+
+                                        </div>
+
+                                        { /** Author **/ }
+                                        <Link
+                                            to={'/' + tip.createdBy.username}
+                                            className="show-in-list">
+                                          <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm">
+                                              <div className="tip__author-photo flx-hold mrgn-right-sm">
+                                                <ProfilePic src={tip.createdBy.image} className="user-image user-image-sm center-img" />
+                                              </div> 
+                                              <div className="color--black v2-type-body1">
+                                                {tip.createdBy.username}
+                                              </div>
+                                          </div>
+                                        </Link>
+                                        { /** END Author **/ }
+
+                                        { /** Caption **/ }
+                                        <div className="tip__caption-module flx flx-col w-100 pdding-right-lg mrgn-bottom-sm">
+                                          <div className="tip__caption v2-type-body2 ta-left opa-90">
+                                            <RenderDebounceInput
+                                              type="textarea"
+                                              className="w-100"
+                                              cols="20"
+                                              wrap="hard"
+                                              value={tip.review.caption}
+                                              placeholder="Add a review"
+                                              debounceFunction={this.changeCaption(tip)} />
+                                          </div>
+                                        </div>
+
+                                        { /** Comments **/ }
+                                        <div className="flx flx-row flex-wrap cta-container mrgn-left-sm">
+                                           <CommentContainer
+                                              authenticated={this.props.authenticated}
+                                              comments={tip.comments || []}
+                                              commentObject={tip}
+                                              itineraryId={itinerary.id}
+                                              userInfo={this.props.userInfo}
+                                              type={Constants.REVIEW_TYPE}
+                                              deleteComment={this.props.onDeleteComment} />
+                                        </div> 
+                                        {/* Action Module */}
+                                        <div className="tip__cta-box w-100 flx flx-row flx-just-start flx-align-center mrgn-top-md">
+                                          <Link onClick={handleSaveClick(tip)} className="hide-in-list vb vb--sm fill--primary flx flx-row flx-align-center mrgn-right-sm color--white">
+                                              <i className="material-icons mrgn-right-sm color--white">playlist_add</i>
+                                              <div className="color--white">ADD TO...</div>
+                                          </Link>
+                                          <Link onClick={onInfoClick(tip)} className="hide-in-list vb vb--sm vb--outline flx flx-row flx-align-center mrgn-right-sm">
+                                            <i className="material-icons mrgn-right-sm">info_outline</i>
+                                            <div className="color--black">Info</div>
+                                          </Link>
+                                          <div className="cta-wrapper vb vb--sm vb--outline flx flx-row flx-align-center v2-type-body2 mrgn-right-sm">
+                                            <LikeReviewButton
+                                              authenticated={this.props.authenticated}
+                                              isLiked={tip.isLiked}
+                                              likesCount={tip.likesCount}
+                                              unLike={this.props.unLikeReview}
+                                              like={this.props.likeReview} 
+                                              likeObject={tip}
+                                              itineraryId={itinerary.id}
+                                              type={Constants.REVIEW_TYPE} />
+                                          </div>
+
+                                          {/* More Options button */}
+                                          <div className="edit-itinerary-link vb vb--sm no-pad vb--outline fill--white color--black">             
+                                            <MuiThemeProvider muiTheme={getMuiTheme()}>
+                                              <IconMenu
+                                                 iconButtonElement={<IconButton className=""><MoreHorizIcon /></IconButton>}
+                                                 anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+                                                 targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                                               >
+                                              <div className="vb vb--sm vb--shadow-none fill--white color--primary flx-item-right danger-hover"
+                                                onClick={this.deleteTip(tip)}>Delete Tip
+                                              </div>
+                                                
+                                               </IconMenu>
+                                             </MuiThemeProvider>
+                                          </div>
+                                          {/* END More Options button */}
+                                        
+                                        </div>
+                                        {/* END Action Module */}
+                                      </div>
                                     </div>
-                                    
-                                  </div>
+                                </div> { /** End photo / copy row **/ }
+
+                               
+
+                            </div> { /** END Content-wrapper **/}
 
 
-                                  <div className="flx flx-col w-100">
-
-                                      <div className="tip__title-wrapper flx flx-row flx-align-top w-100 hide-in-list">
-                                        <div className="tip__order-count DN v2-type-h3">{index+1}.</div>
-
-                                      
-
-                                      </div>
-                                    <div className="tip__content-wrapper">
-                                      <div className="tip__header-wrapper flx flx-row flx-align-start flx-just-start">
-                                        { /** Title **/ }
-                                        <Link to={`/review/${tip.subjectId}`}>
-                                        <div className="hide-in-list tip__title v2-type-h3 ta-left">
-                                          <div className="tip__order-count">{index+1}</div> {tip.subject.title} 
-                                        </div>
-                                        </Link>
-                                        { /** END Title **/ }
-
-                                        { /** Rating **/ }
-                                        <div className={'mobile-hide tip__rating-module flx flx-row flx-align-center flx-item-right w-100 tip__rating-module--' + tip.review.rating}>
-                                          <select value={tip.review.rating} onChange={this.changeRating(tip)}>
-                                            <option value="-">-</option>
-                                            <option value="0">0</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
-                                            <option value="10">10</option>
-                                          </select>
-                                        </div>
-                                        { /** END Rating **/ }
-
-                                      </div>
-
-                                      { /** Author **/ }
-                                      <Link
-                                          to={'/' + tip.createdBy.username}
-                                          className="show-in-list">
-                                        <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm">
-                                            <div className="tip__author-photo flx-hold mrgn-right-sm">
-                                              <ProfilePic src={tip.createdBy.image} className="user-image user-image-sm center-img" />
-                                            </div> 
-                                            <div className="color--black v2-type-body1">
-                                              {tip.createdBy.username}
-                                            </div>
-                                        </div>
-                                      </Link>
-                                      { /** END Author **/ }
-
-                                      { /** Caption **/ }
-                                      <div className="tip__caption-module flx flx-col w-100 pdding-right-lg mrgn-bottom-sm">
-                                        <div className="tip__caption v2-type-body2 ta-left opa-90">
-                                          <RenderDebounceInput
-                                            type="textarea"
-                                            className="w-100"
-                                            cols="20"
-                                            wrap="hard"
-                                            value={tip.review.caption}
-                                            placeholder="Add a review"
-                                            debounceFunction={this.changeCaption(tip)} />
-                                        </div>
-                                      </div>
-
-                                      { /** Comments **/ }
-                                      <div className="flx flx-row flex-wrap cta-container mrgn-left-sm">
-                                         <CommentContainer
-                                            authenticated={this.props.authenticated}
-                                            comments={tip.comments || []}
-                                            commentObject={tip}
-                                            itineraryId={itinerary.id}
-                                            userInfo={this.props.userInfo}
-                                            type={Constants.REVIEW_TYPE}
-                                            deleteComment={this.props.onDeleteComment} />
-                                      </div> 
-                                      {/* Action Module */}
-                                      <div className="tip__cta-box w-100 flx flx-row flx-just-start flx-align-center mrgn-top-md">
-                                        <Link onClick={handleSaveClick(tip)} className="hide-in-list vb vb--sm fill--primary flx flx-row flx-align-center mrgn-right-sm color--white">
-                                            <i className="material-icons mrgn-right-sm color--white">playlist_add</i>
-                                            <div className="color--white">ADD TO...</div>
-                                        </Link>
-                                        <Link onClick={onInfoClick(tip)} className="hide-in-list vb vb--sm vb--outline flx flx-row flx-align-center mrgn-right-sm">
-                                          <i className="material-icons mrgn-right-sm">info_outline</i>
-                                          <div className="color--black">Info</div>
-                                        </Link>
-                                        <div className="cta-wrapper vb vb--sm vb--outline flx flx-row flx-align-center v2-type-body2 mrgn-right-sm">
-                                          <LikeReviewButton
-                                            authenticated={this.props.authenticated}
-                                            isLiked={tip.isLiked}
-                                            likesCount={tip.likesCount}
-                                            unLike={this.props.unLikeReview}
-                                            like={this.props.likeReview} 
-                                            likeObject={tip}
-                                            itineraryId={itinerary.id}
-                                            type={Constants.REVIEW_TYPE} />
-                                        </div>
-
-                                        {/* More Options button */}
-                                        <div className="edit-itinerary-link vb vb--sm no-pad vb--outline fill--white color--black">             
-                                          <MuiThemeProvider muiTheme={getMuiTheme()}>
-                                            <IconMenu
-                                               iconButtonElement={<IconButton className=""><MoreHorizIcon /></IconButton>}
-                                               anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-                                               targetOrigin={{horizontal: 'left', vertical: 'top'}}
-                                             >
-                                            <div className="vb vb--sm vb--shadow-none fill--white color--primary flx-item-right danger-hover"
-                                              onClick={this.deleteTip(tip)}>Delete Tip
-                                            </div>
-                                              
-                                             </IconMenu>
-                                           </MuiThemeProvider>
-                                        </div>
-                                        {/* END More Options button */}
-                                      
-                                      </div>
-                                      {/* END Action Module */}
-                                    </div>
-                                  </div>
-                              </div> { /** End photo / copy row **/ }
-
-                             
-
-                          </div> { /** END Content-wrapper **/}
-
-
-                        </div>
-
-
+                          </div>
+                    </Element>
                   );
                 })
               }

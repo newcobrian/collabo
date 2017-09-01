@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
 import { GoogleApiWrapper, Map, Marker, InfoWindow } from 'google-maps-react';
-import { isEqual } from 'lodash'
+import { isEqual } from 'lodash';
+
+var Scroll = require('react-scroll');
+var scroller = Scroll.scroller;
 
 const mapStateToProps = state => ({
 	...state.itinerary,
@@ -11,6 +14,13 @@ const mapStateToProps = state => ({
 });
 
 class MapContainer extends React.Component {
+	constructor() {
+		super();
+
+		this.onMarkerClick = tip => ev => {
+			scroller.scrollTo('tip:' + tip.key, {duration: 400, offset: -70});
+		}
+	}
 	// componentWillMount() {
 	// 	if (this.props.itinerary) {
 	// 		this.props.setInitialMapCenter(this.props.itinerary);
@@ -79,7 +89,8 @@ class MapContainer extends React.Component {
 		                key={index}
 		                name={tipItem.subject.title}
 		                title={'# ' + index + ': ' + tipItem.subject.title}
-		                position={tipItem.subject.location} />
+		                position={tipItem.subject.location}
+		                onClick={this.onMarkerClick(tipItem)} />
 		            )
 		          })
 		        }
