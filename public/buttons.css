@@ -46,14 +46,15 @@ input, button, select, textarea {
 
 
 .page-edit-own textarea.has-error {
-    border-color: rgba(255,0,0,1);
+  border-color: rgba(255,0,0,1);
 }
 .vb.comment-send {
   margin-left: -40px;
   background: white;
   z-index: 3;
-  border-left: 1px solid rgba(0,0,0,.1);
   cursor: pointer;
+  margin-top: 1px;
+  height: 40px;
 }
 .comment-input:focus .vb.comment-send {
   visibility: visible;

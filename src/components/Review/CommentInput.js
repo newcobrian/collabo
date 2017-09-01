@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as Actions from '../../actions';
 import { REVIEW_TYPE } from '../../constants'
 import ProxyImage from './../ProxyImage'
+import Textarea from 'react-textarea-autosize';
 
 // const mapDispatchToProps = dispatch => ({
 //   onSubmit: payload =>
@@ -36,18 +37,20 @@ class CommentInput extends React.Component {
 
   render() {
     return (
-      <form className="comment-wrapper comment-form flx flx-row flx-just-start flx-align-center mrgn-bottom-sm" onSubmit={this.createComment}>
+      <form className="comment-wrapper comment-form flx flx-row flx-just-center flx-align-start mrgn-bottom-sm" onSubmit={this.createComment}>
           <div className="DN cta-icon cta-comment-sm mrgn-right-md"></div>
 
           <ProxyImage src={this.props.userInfo.image} className="comment-author-img center-img mrgn-right-md fill--primary flx-hold" />
 
 
-            <input className="comment-input input--overline w-100"
+            <Textarea className="comment-input input--overline w-100"
               placeholder="Leave a comment..."
               value={this.state.body}
               onChange={this.setBody}
-              rows="1">
-            </input>
+              rows="1"
+              cols="20"
+              wrap="hard">
+            </Textarea>
 
             <button className="comment-send vb vb--sm vb--outline--none fill-white">
               <i className="material-icons color--primary md-18 color--primary">send</i>
