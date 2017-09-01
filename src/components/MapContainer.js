@@ -44,7 +44,9 @@ class MapContainer extends React.Component {
   	render() {
 	  	if (!this.props.google) {
 	      return (
-	        <div>Loading...</div>
+	         <div className="flx flx-col flx-center-all v2-type-body3 fill--primary color--white">
+	          <div className="color--white">Loading Travel Guides...</div>
+	        </div>
 	        );
 	    }
 	 //    console.log('itin = ' + JSON.stringify(this.props.itinerary))
@@ -90,7 +92,13 @@ class MapContainer extends React.Component {
 		                name={tipItem.subject.title}
 		                title={'# ' + index + ': ' + tipItem.subject.title}
 		                position={tipItem.subject.location}
-		                onClick={this.onMarkerClick(tipItem)} />
+		                onClick={this.onMarkerClick(tipItem)}
+		                icon={{
+					      url: "/img/graphics/map-pin_normal.png",
+					      scaledSize: new this.props.google.maps.Size(24,38)
+					    }}
+					    />
+
 		            )
 		          })
 		        }

@@ -4,13 +4,15 @@ import ListPagination from './ListPagination';
 import React from 'react';
 
 const ItineraryList = props => {
-  if (!props.itineraries) {
+  if (!props.itineraries) { 
     return (
        <div className="profile-feed flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap w-max">
-        <div className="earth-graphic">  
-          <img className="center-img" src="/img/logos/logo.earth.temp.png"/>
+        <div className="loading-module flx flx-col flx-center-all v2-type-body3">
+          <div className="earth-graphic">  
+            <img className="center-img" src="/img/logos/logo.earth.temp.png"/>
+          </div>
+          <div>Loading Travel Guides...</div>
         </div>
-        <div>Loading Travel Guides...</div>
       </div>
     );
   }

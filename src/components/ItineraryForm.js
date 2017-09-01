@@ -435,8 +435,8 @@ class ItineraryForm extends React.Component {
               {
                 itinerary.tips.map((tip, index) => {
                   return (
-                    <Element name={'tip:' + tip.key}>
-                      <div className="tip-wrapper flx flx-col flx-col w-100 w-max" id={'tip:' + tip.key} key={tip.key}>
+                    <Element name={'tip:' + tip.key} className="tip-wrapper flx flx-col flx-col w-100 w-max" id={'tip:' + tip.key} key={tip.key}>
+
                        
                             <div className="tip-container flx flx-col flx-center-all w-100">
                                 
@@ -626,7 +626,6 @@ class ItineraryForm extends React.Component {
                             </div> { /** END Content-wrapper **/}
 
 
-                          </div>
                     </Element>
                   );
                 })
@@ -635,7 +634,7 @@ class ItineraryForm extends React.Component {
             {renderGeoSuggestTip(itinerary.geo)}
           </div>
 
-          <div className="it-map-container">
+          <div className="it-map-container fill--primary">
             <MapContainer itinerary={itinerary} google={this.props.google} />
           </div>
           { /** Map block 
