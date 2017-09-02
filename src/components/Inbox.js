@@ -78,7 +78,7 @@ class Inbox extends React.Component {
           <div className="earth-graphic w-100">  
             <img className="center-img" src="../img/logos/logo.earth.temp.png"/>
           </div>
-          <div>Hmmm what's new...?</div>
+          <div>Loading inbox...</div>
         </div>
       );
     }
