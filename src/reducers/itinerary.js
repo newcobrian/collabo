@@ -449,6 +449,18 @@ export default (state = initialState, action) => {
         ...state,
         itineraryNotFound: true
       }
+    case ActionTypes.ON_MARKER_CLICK:
+      return {
+        ...state,
+        selectedMarker: action.selectedMarker
+      }
+    case ActionTypes.ON_MAP_MARKER_MOUSEOVER:
+      return {
+        ...state,
+        infoWindowPosition: action.infoWindowPosition,
+        mouseoverTitle: action.mouseoverTitle,
+        showingInfoWindow: action.showingInfoWindow
+      }
     default:
       return state;
   }

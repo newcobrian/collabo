@@ -638,6 +638,35 @@ export function onReorderTips(itinerary, oldIndex, newIndex) {
   } 
 }
 
+export function onMapMarkerClick(tip) {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.ON_MARKER_CLICK,
+      selectedMarker: tip.key
+    })
+  }
+}
+
+export function onMapMarkerMouseover(tip, marker) {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.ON_MAP_MARKER_MOUSEOVER,
+      infoWindowPosition: tip.subject.location,
+      mouseoverTitle: tip.subject.title,
+      showingInfoWindow: true
+    })
+  }
+}
+
+// export function onCloseInfoWindow() {
+//   return dispatch => {
+//     dispatch({
+//       type: ActionTypes.CLOSE_INFO_WINDOW,
+//       showingInfoWindow: false
+//     })
+//   }
+// }
+
 // export function setInitialMapCenter(itinerary) {
 //   return dispatch => {
 //     // console.log('itin = ' + JSON.stringify(itinerary))

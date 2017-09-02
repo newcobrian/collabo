@@ -17,29 +17,15 @@ class MapContainer extends React.Component {
 	constructor() {
 		super();
 
-		this.onMarkerClick = tip => ev => {
+		this.onMarkerClick = tip => ev => {	
 			scroller.scrollTo('tip:' + tip.key, {duration: 400, offset: -70});
+			this.props.onMapMarkerClick(tip);
+		}
+
+		this.onMarkerMouseover = (tip) => ev => {
+			this.props.onMapMarkerMouseover(tip);
 		}
 	}
-	// componentWillMount() {
-	// 	if (this.props.itinerary) {
-	// 		this.props.setInitialMapCenter(this.props.itinerary);
-	// 	}
-	// }
-
-	// componentWillMount() {
-	// 	this.props.unmountMap();
-	// }
-
-	// componentDidUpdate(prevProps, prevState) {
-	// 	// console.log('next props = ' + JSON.stringify(nextProps.itinerary))
-	//  //    if (nextProps.itinerary && !isEqual(nextProps.itinerary, this.props.itinerary)) {
-	//  //      this.props.setInitialMapCenter(nextProps.itinerary);
-	//  //    }
-	//  if (!isEqual(prevProps.itinerary, this.props.itinerary)) {
- //      this.props.setInitialMapCenter(this.props.itinerary);
- //    }
-  // }
 
   	render() {
 	  	if (!this.props.google) {
@@ -97,16 +83,17 @@ class MapContainer extends React.Component {
 					      url: "/img/graphics/map-pin_normal.png",
 					      scaledSize: new this.props.google.maps.Size(24,38)
 					    }}
+					    onMouseover={this.onMarkerMouseover(tipItem)}
 					    />
-
 		            )
 		          })
 		        }
-		        {/*<InfoWindow {...this.props}
-	            marker={this.props.activeMarker}
-	            visible={this.props.showingInfoWindow}>
+		        {/*<InfoWindow
+		            onClose={this.props.closeInfoWindow}
+		            visible={this.props.showingInfoWindow}
+		            position={this.props.infoWindowPosition}>
 	              <div>
-	                <h4>{this.props.selectedTitle}</h4>
+	                <h4>{this.props.mouseoverTitle}</h4>
 	              </div>
 	          </InfoWindow>*/}
 
