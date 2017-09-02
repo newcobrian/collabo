@@ -23,7 +23,7 @@ class MapContainer extends React.Component {
 		}
 
 		this.onMarkerMouseover = (tip) => ev => {
-			this.props.onMapMarkerMouseover(tip);
+			// this.props.onMapMarkerMouseover(tip);
 		}
 	}
 
