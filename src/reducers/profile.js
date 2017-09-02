@@ -4,7 +4,7 @@ import { GET_USER, GET_REVIEWS_BY_USER, GET_FOLLOWING_COUNT, GET_FOLLOWER_COUNT,
 import * as ActionTypes from '../actions/types';
 import { isEqual } from 'lodash';
 
-const initialState = { guideFeed: [], tipFeed: [] }
+const initialState = {}
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -31,10 +31,6 @@ export default (state = initialState, action) => {
         ...state,
         profile: action.payload
       };
-    case USER_DOESNT_EXIST:
-      return {
-        profile: []
-      }
     case 'IS_FOLLOWING':
       return {
         ...state,

@@ -145,10 +145,16 @@ class Profile extends React.Component {
   }
 
   render() {
-    if (!this.props.profile || this.props.profile.length === 0) {
+    if (!this.props.profile) {
+      return (<div className="error-module flx flx-center-all v2-type-body3">Loading profile...</div>);
+    } 
+    if (!this.props.profile.username) {
       return (<div className="error-module flx flx-center-all v2-type-body3">This person does not exist.</div>);
     }
-    if (!this.props.itineraries || this.props.itineraries.length === 0) {
+    if (!this.props.itineraries) {
+      return (<div className="error-module flx flx-center-all v2-type-body3">Loading profile...</div>);
+    }
+    if (this.props.itineraries.length === 0) {
       return (
         <div className="flx flx-col page-common profile-page flx-align-center">
           <div className="w-100 w-max flx flx-row flx-m-col">
@@ -163,7 +169,7 @@ class Profile extends React.Component {
           <div className="status-module flx flx-row flx-just-center w-100 v2-type-body3">
             <div className="ta-center pdding-all-md">{this.props.profile.username} has not created any guides...yet.</div>
           </div>
-        </div>
+        </div>  
       )
     }
     else {
