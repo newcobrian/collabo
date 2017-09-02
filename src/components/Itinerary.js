@@ -324,7 +324,7 @@ class Itinerary extends React.Component {
               </div>
 
             </div> {/*Content Wrapper*/}
-            <div className="it-map-container">
+            <div className="it-map-container fill--primary">
               <MapContainer itinerary={itinerary} google={this.props.google} />
             </div>
             {/*<div className="it-map-container">

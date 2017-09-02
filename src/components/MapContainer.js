@@ -44,8 +44,8 @@ class MapContainer extends React.Component {
   	render() {
 	  	if (!this.props.google) {
 	      return (
-	         <div className="flx flx-col flx-center-all v2-type-body3 fill--primary color--white">
-	          <div className="color--white">Loading Travel Guides...</div>
+	         <div className="map-loading-wrapper flx flx-col flx-center-all v2-type-body3 fill--primary color--white">
+	          <div className="color--white">Loading Map</div>
 	        </div>
 	        );
 	    }

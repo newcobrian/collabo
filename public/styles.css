@@ -1493,4 +1493,11 @@ body .back-to-top {
   width: 100% !important;
   height: 100% !important;
 }
+.map-loading-wrapper {
+  height: 100%;
+  border: 2px solid red;
+  position: absolute;
+  top: 0; bottom: 0; right: 0;
+  left: 0;
+}
 

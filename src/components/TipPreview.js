@@ -70,8 +70,7 @@ const TipPreview = props => {
   }
 
   return (
-    <Element name={'tip:' + tip.key}>
-      <div className="tip-wrapper flx flx-col flx-col w-100 w-max" id={'tip:' + tip.key}>
+    <Element name={'tip:' + tip.key} className="tip-wrapper flx flx-col flx-col w-100 w-max" id={'tip:' + tip.key}>
         
         <div className="tip-container flx flx-col flx-center-all w-100">
             
@@ -214,7 +213,7 @@ const TipPreview = props => {
 
 
         </div> 
-      </div>
+
     </Element>
   );
 }
