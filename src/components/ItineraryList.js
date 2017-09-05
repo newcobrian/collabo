@@ -9,7 +9,7 @@ const ItineraryList = props => {
        <div className="profile-feed flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap w-max">
         <div className="loading-module flx flx-col flx-center-all v2-type-body3">
           <div className="earth-graphic">  
-            <img className="center-img" src="/img/logos/logo.earth.temp.png"/>
+            <img className="center-img" src="/img/loading-01.gif"/>
           </div>
           <div>Loading Travel Guides...</div>
         </div>

@@ -81,7 +81,7 @@ class MapContainer extends React.Component {
 		                onClick={this.onMarkerClick(tipItem)}
 		                icon={{
 					      url: "/img/graphics/map-pin_normal.png",
-					      scaledSize: new this.props.google.maps.Size(24,38)
+					      scaledSize: new this.props.google.maps.Size(40,48)
 					    }}
 					    onMouseover={this.onMarkerMouseover(tipItem)}
 					    />

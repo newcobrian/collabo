@@ -124,7 +124,7 @@ class Itinerary extends React.Component {
       return (
         <div className="loading-module flx flx-col flx-center-all v2-type-body3">
           <div className="earth-graphic w-100">  
-            <img className="center-img" src="/img/logos/logo.earth.temp.png"/>
+            <img className="center-img" src="/img/loading-01.gif"/>
           </div>
           <div>Loading Travel Guide...</div>
         </div>

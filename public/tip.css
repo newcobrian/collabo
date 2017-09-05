@@ -231,7 +231,7 @@ input.edit-tip__rating {
     height: 32px;
     margin: 0;
     margin-right: 0;
-    border-radius: 10px;
+    border-radius: 6px;
 }
 
 
@@ -241,7 +241,7 @@ input.edit-tip__rating {
 	border: none;
 	color: black !important;
 	height: 32px;
-	border-radius: 10px;
+	border-radius: 6px;
 	overflow: hidden;
   border: 1px solid rgba(0,0,0,.05);
 }
