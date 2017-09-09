@@ -375,7 +375,7 @@ img.user-image.user-image-md {
   height: 40px;
   width: 220px;
   font-weight: 700;
-  margin: 15px 0;
+  margin: 15px 20px;
   z-index: 2;
 
 }
@@ -484,16 +484,16 @@ a.logo-module:focus {
 }
 
 .logo-graphic {
-  width: 140px;
-  height: 70px;
+  width: 46px;
+  height: 40px;
   margin-top: 0px;
 /*  -webkit-animation:spin 4s linear 1;
   -moz-animation:spin 4s linear 1;
   animation:spin 4s linear 1;*/
 }
 .logo-graphic img {
-  width: 126px;
-  height: 70px;
+  width: 46px;
+  height: 40px;
 }
 
 .earth-graphic {

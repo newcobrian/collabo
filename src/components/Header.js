@@ -23,9 +23,9 @@ const LoggedOutView = props => {
       <div className="header-wrapper w-100">
         <Link to="/" className="logo-module flx flx-row flx-just-start flx-align-center">
           <div className="logo-graphic">  
-            <img className="center-img" src="/img/logos/logo.horizon.png"/>
+            <img className="center-img" src="/img/logos/logo_stripes.png"/>
           </div>
-            <div className="logo-main DN">
+            <div className="logo-main">
               VIEWS
             </div>
             <div className="DN v2-type-caption opa-60 w-100 mrgn-top-xs mrgn-left-xs">
@@ -62,9 +62,9 @@ const LoggedInView = props => {
         <div className="header-wrapper w-100">
           <Link to="/" className="logo-module flx flx-row flx-just-start flx-align-center">
             <div className="logo-graphic">  
-              <img className="center-img" src="/img/logos/logo.horizon.png"/>
+              <img className="center-img" src="/img/logos/logo_stripes.png"/>
             </div>
-              <div className="logo-main DN">
+              <div className="logo-main">
                 VIEWS
               </div>
               <div className="DN v2-type-caption opa-60 w-100 mrgn-top-xs mrgn-left-xs">
