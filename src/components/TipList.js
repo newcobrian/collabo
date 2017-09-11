@@ -47,6 +47,7 @@ const TipList = props => {
               itineraryId={props.itineraryId}
               itinerary={props.itinerary}
               index={index+1}
+              selectedMarker={props.selectedMarker}
             />
           );
         })

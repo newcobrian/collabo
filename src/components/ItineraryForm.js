@@ -193,6 +193,11 @@ class ItineraryForm extends React.Component {
       this.props.showReorderModal(itinerary);
     }
 
+    const isSelectedTip = tipId => {
+      if (tipId === this.props.selectedMarker) return ' selectedTip';
+      return '';
+    }
+
     const suggestSelectTip = geoSuggestRef => result => {
       let resultObject = {
         title: result.label,
@@ -441,7 +446,7 @@ class ItineraryForm extends React.Component {
               {
                 itinerary.tips.map((tip, index) => {
                   return (
-                    <Element name={'tip:' + tip.key} className="tip-wrapper flx flx-col flx-col w-100 w-max" id={'tip:' + tip.key} key={tip.key}>
+                    <Element name={'tip:' + tip.key} className={"tip-wrapper flx flx-col flx-col w-100 w-max" + isSelectedTip(tip.key)} id={'tip:' + tip.key} key={tip.key}>
 
                        
                             <div className="tip-container flx flx-col flx-center-all w-100">

@@ -69,8 +69,13 @@ const TipPreview = props => {
     props.showModal(Constants.INFO_MODAL, props.tip);
   }
 
+  const isSelectedTip = tipId => {
+    if (tipId === props.selectedMarker) return ' selectedTip';
+    return '';
+  }
+
   return (
-    <Element name={'tip:' + tip.key} className="tip-wrapper flx flx-col flx-col w-100 w-max" id={'tip:' + tip.key}>
+    <Element name={'tip:' + tip.key} className={"tip-wrapper flx flx-col flx-col w-100 w-max" + isSelectedTip(tip.key)} id={'tip:' + tip.key}>
         
         <div className="tip-container flx flx-col flx-center-all w-100">
             
