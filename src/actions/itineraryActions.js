@@ -642,17 +642,17 @@ export function onMapMarkerClick(tip) {
   return dispatch => {
     dispatch({
       type: ActionTypes.ON_MARKER_CLICK,
-      selectedMarker: tip.key
+      selectedMarker: tip
     })
   }
 }
 
-export function onMapMarkerMouseover(tip, marker) {
+export function onMapMarkerMouseover(marker, title) {
   return dispatch => {
     dispatch({
       type: ActionTypes.ON_MAP_MARKER_MOUSEOVER,
-      infoWindowPosition: tip.subject.location,
-      mouseoverTitle: tip.subject.title,
+      hoverMarker: marker,
+      mouseoverTitle: title,
       showingInfoWindow: true
     })
   }

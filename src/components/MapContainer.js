@@ -17,14 +17,16 @@ class MapContainer extends React.Component {
 	constructor() {
 		super();
 
-		this.onMarkerClick = tip => ev => {	
+		this.onMarkerMouseover = this.onMarkerMouseover.bind(this);
+
+		this.onMarkerClick = tip => ev => {
 			scroller.scrollTo('tip:' + tip.key, {duration: 400, offset: -70});
 			this.props.onMapMarkerClick(tip);
 		}
+	}
 
-		this.onMarkerMouseover = (tip) => ev => {
-			// this.props.onMapMarkerMouseover(tip);
-		}
+	onMarkerMouseover = (props, marker, e) => {
+		this.props.onMapMarkerMouseover(marker, props.name);
 	}
 
   	render() {
@@ -72,6 +74,7 @@ class MapContainer extends React.Component {
 				className="map-wrapper" >
 		        {
 		          this.props.itinerary.tips.map((tipItem, index) => {
+		          	let markerUrl = (tipItem.key === this.props.selectedMarker ? "/img/graphics/map-pin_hover.png": "/img/graphics/map-pin_normal.png")
 		            return (
 		              <Marker
 		                key={index}
@@ -80,22 +83,21 @@ class MapContainer extends React.Component {
 		                position={tipItem.subject.location}
 		                onClick={this.onMarkerClick(tipItem)}
 		                icon={{
-					      url: "/img/graphics/map-pin_normal.png",
+					      url: markerUrl,
 					      scaledSize: new this.props.google.maps.Size(40,48)
 					    }}
-					    onMouseover={this.onMarkerMouseover(tipItem)}
+					    onMouseover={this.onMarkerMouseover}
 					    />
 		            )
 		          })
 		        }
-		        {/*<InfoWindow
-		            onClose={this.props.closeInfoWindow}
+		        <InfoWindow
 		            visible={this.props.showingInfoWindow}
-		            position={this.props.infoWindowPosition}>
+		            marker={this.props.hoverMarker}>
 	              <div>
 	                <h4>{this.props.mouseoverTitle}</h4>
 	              </div>
-	          </InfoWindow>*/}
+	          </InfoWindow>
 
 	        </Map>
 	    );

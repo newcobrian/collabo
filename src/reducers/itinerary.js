@@ -457,7 +457,7 @@ export default (state = initialState, action) => {
     case ActionTypes.ON_MAP_MARKER_MOUSEOVER:
       return {
         ...state,
-        infoWindowPosition: action.infoWindowPosition,
+        hoverMarker: action.hoverMarker,
         mouseoverTitle: action.mouseoverTitle,
         showingInfoWindow: action.showingInfoWindow
       }
