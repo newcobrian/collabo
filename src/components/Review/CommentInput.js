@@ -52,8 +52,9 @@ class CommentInput extends React.Component {
               wrap="hard">
             </Textarea>
 
-            <button className="comment-send vb vb--sm vb--outline--none fill-white">
-              <i className="material-icons color--primary md-18 color--primary">send</i>
+            <button className="comment-send vb vb--sm vb--outline--none fill-white color--black opa-70">
+              Post
+              <i className="material-icons color--primary md-18 color--primary DN">send</i>
             </button>
 
 

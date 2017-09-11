@@ -194,7 +194,7 @@ class ItineraryForm extends React.Component {
     }
 
     const isSelectedTip = tipId => {
-      if (tipId === this.props.selectedMarker) return ' selectedTip';
+      if (tipId === this.props.selectedMarker) return ' tip-selected';
       return '';
     }
 
@@ -453,7 +453,7 @@ class ItineraryForm extends React.Component {
                                 
                               
                                   
-                                  { /** Title and Address **/ }
+                                  { /** Title **/ }
                                   <div className="tip__title-module flx flx-row w-100">
 
 
@@ -513,17 +513,15 @@ class ItineraryForm extends React.Component {
                                         <div className="tip__title-wrapper flx flx-row flx-align-top w-100 hide-in-list">
                                           <div className="tip__order-count DN v2-type-h3">{index+1}.</div>
 
-                                        
-
                                         </div>
                                       <div className="tip__content-wrapper">
                                         <div className="tip__header-wrapper flx flx-row flx-align-start flx-just-start">
                                           { /** Title **/ }
-                                          <Link to={`/review/${tip.subjectId}`}>
                                           <div className="hide-in-list tip__title v2-type-h3 ta-left">
-                                            <div className="tip__order-count">{index+1}</div> {tip.subject.title} 
+                                            <div className="tip__order-count">{index+1}</div> 
+                                            <Link to={`/review/${tip.subjectId}`} className=""> {tip.subject.title}</Link>
                                           </div>
-                                          </Link>
+                                          <div className="tip-map-marker"></div>
                                           { /** END Title **/ }
 
                                           { /** Rating **/ }
@@ -589,12 +587,12 @@ class ItineraryForm extends React.Component {
                                         </div> 
                                         {/* Action Module */}
                                         <div className="tip__cta-box w-100 flx flx-row flx-just-start flx-align-center mrgn-top-md">
-                                          <Link onClick={handleSaveClick(tip)} className="hide-in-list vb vb--sm fill--primary flx flx-row flx-align-center mrgn-right-sm color--white">
-                                              <i className="material-icons mrgn-right-sm color--white">playlist_add</i>
-                                              <div className="color--white">ADD TO...</div>
+                                          <Link onClick={handleSaveClick(tip)} className="hide-in-list vb vb--sm fill--white vb--outline flx flx-row flx-align-center mrgn-right-sm color--primary">
+                                              <i className="material-icons mrgn-right-sm color--primary">playlist_add</i>
+                                              <div className="color--black">Add to</div>
                                           </Link>
                                           <Link onClick={onInfoClick(tip)} className="hide-in-list vb vb--sm vb--outline flx flx-row flx-align-center mrgn-right-sm">
-                                            <i className="material-icons mrgn-right-sm">info_outline</i>
+                                            <i className="material-icons mrgn-right-sm opa-60">info_outline</i>
                                             <div className="color--black">Info</div>
                                           </Link>
                                           <div className="cta-wrapper vb vb--sm vb--outline flx flx-row flx-align-center v2-type-body2 mrgn-right-sm">

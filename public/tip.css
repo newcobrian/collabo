@@ -3,6 +3,32 @@
     margin: 0;
     border-bottom: 1px solid #D5E3E5;
 } 
+.tip-wrapper.tip-selected {
+
+}
+
+.tip-wrapper .tip-map-marker {
+  width: 32px;
+  height: 32px;
+  background-image: url(/img/graphics/tip-map-marker.png);
+  background-size: 32px 32px;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: .4;
+  margin-right: 10px;
+  display: none;
+}
+.tip-wrapper.tip-selected .tip-map-marker,
+.tip-wrapper .tip-map-marker:hover {
+  opacity: 1;
+  background-image: url(/img/graphics/tip-map-marker.png);
+  background-size: 32px 32px;
+}
+
+.tip-wrapper.tip-selected .tip__order-count {
+  color: #3DCBF3;
+  opacity: 1;
+}
 .tip-container {
 	width: 100%;
 	padding: 30px 20px;
@@ -17,7 +43,7 @@
 }
 
 .tip__title {
-	padding-right: 20px;
+	padding-right: 5px;
 	margin-bottom: 0px;
 }
 .tip__address {
@@ -56,7 +82,7 @@
   font-weight: 600 !important;
   margin-right: 10px;
   display: inline-block;
-  opacity: .4;
+  opacity: .3;
 }
 .tip__content-wrapper {
 	padding-left: 30px;

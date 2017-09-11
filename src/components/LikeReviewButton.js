@@ -8,7 +8,7 @@ const LikeReviewButton = props => {
     classes += 'cta-icon cta-liked';
   } else {
     // classes += ' btn-outline-secondary';
-    classes += 'cta-icon cta-like';
+    classes += 'cta-icon cta-like opa-60';
   }
 
   let likeText = '';
