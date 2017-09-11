@@ -273,11 +273,17 @@ class ItineraryForm extends React.Component {
     const renderReorderButton = numTips => {
       if(numTips > 0) {
         return (
-          <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list vb vb--sm vb--outline flx flx-row flx-align-center mrgn-right-sm">Reorder</Link>
+          <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list vb vb--sm vb--outline flx flx-row flx-align-center mrgn-right-sm">
+            <i className="material-icons color--black md-18 mrgn-right-sm">low_priority</i>
+            <div className="color--black">Reorder</div>
+          </Link>
         )
       }
       else return (
-        <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list vb vb--sm vb--disabled vb--outline flx flx-row flx-align-center mrgn-right-sm">Reorder</Link>
+        <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list vb vb--sm vb--disabled vb--outline flx flx-row flx-align-center mrgn-right-sm">
+          <i className="material-icons color--black md-18 mrgn-right-sm">low_priority</i>
+          <div className="color--black">Reorder</div>
+        </Link>
         )
     }
 
