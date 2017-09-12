@@ -17,13 +17,13 @@ const ItineraryList = props => {
     );
   }
 
-  if (props.itineraries.length === 0) {
-    return (
-      <div className="status-module flx flx-center-all v2-type-body3">
-        Nothing here...
-      </div>
-    );
-  }
+  // if (props.itineraries.length === 0) {
+  //   return (
+  //     <div className="status-module flx flx-center-all v2-type-body3">
+  //       Nothing here...
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="profile-feed flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap w-max">
