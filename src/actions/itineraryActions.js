@@ -642,7 +642,7 @@ export function onMapMarkerClick(tip) {
   return dispatch => {
     dispatch({
       type: ActionTypes.ON_MARKER_CLICK,
-      selectedMarker: tip
+      selectedMarker: tip.key
     })
   }
 }

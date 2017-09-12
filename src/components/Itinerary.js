@@ -288,7 +288,7 @@ class Itinerary extends React.Component {
 
               <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
                   <TipList
-                    tipList={this.props.tips} 
+                    tipList={this.props.tips}
                     reviewsCount={itinerary.reviewsCount}
                     authenticated={this.props.authenticated}
                     like={this.props.likeReview} 
