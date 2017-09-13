@@ -60,7 +60,7 @@ class Explore extends React.Component {
                       <Link
                         to={`/${user.username}`}
                         className="mrgn-right-md">
-                        <div className="">
+                        <div className="user-photo-wrapper">
                           <ProfilePic src={user.image} className="user-image center-img" />
                         </div>
                       </Link>

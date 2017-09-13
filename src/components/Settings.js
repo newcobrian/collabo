@@ -3,6 +3,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
 import ProxyImage from './ProxyImage';
+import ProfilePic from './ProfilePic';
+
 
 class SettingsForm extends React.Component {
   constructor() {
@@ -74,7 +76,7 @@ class SettingsForm extends React.Component {
     return (
       <form onSubmit={this.submitForm}>
         <fieldset>
-          <div className="profile-image flx flx-center-all"><ProxyImage src={this.state.image ? this.state.image : ''} className="center-img" /></div>
+          <div className="profile-image flx flx-center-all"><ProfilePic src={this.state.image ? this.state.image : ''} className="center-img" /></div>
           <fieldset className="form-group">
             <div className="upload-wrapper">
                 <div className="upload-overlay">Upload Image</div>
