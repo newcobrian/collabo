@@ -278,14 +278,14 @@ class ItineraryForm extends React.Component {
     const renderReorderButton = numTips => {
       if(numTips > 0) {
         return (
-          <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list vb vb--sm vb--outline flx flx-row flx-align-center mrgn-right-sm">
+          <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list vb vb--sm vb--outline flx flx-row flx-align-center">
             <i className="material-icons color--black md-18 mrgn-right-sm">low_priority</i>
             <div className="color--black">Reorder</div>
           </Link>
         )
       }
       else return (
-        <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list vb vb--sm vb--disabled vb--outline flx flx-row flx-align-center mrgn-right-sm">
+        <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list vb vb--sm vb--disabled vb--outline flx flx-row flx-align-center">
           <i className="material-icons color--black md-18 mrgn-right-sm">low_priority</i>
           <div className="color--black">Reorder</div>
         </Link>
@@ -379,7 +379,7 @@ class ItineraryForm extends React.Component {
 
 
                   {/* Like */}
-                  <div className="cta-wrapper flx flx-row vb vb--sm vb--outline fill--white color--black mrgn-right-sm">
+                  <div className="cta-wrapper flx flx-row vb vb--sm vb--outline fill--white color--black mrgn-left-n-1">
                     <LikeReviewButton
                       authenticated={this.props.authenticated}
                       isLiked={itinerary.isLiked}
@@ -391,7 +391,7 @@ class ItineraryForm extends React.Component {
                       type={ITINERARY_TYPE} />
                   </div>
 
-                  <div className="edit-itinerary-link vb vb--sm no-pad vb--outline fill--white color--black">             
+                  <div className="edit-itinerary-link vb vb--sm no-pad vb--outline fill--white color--black mrgn-left-n-1">             
                     <MuiThemeProvider muiTheme={getMuiTheme()}>
                       <IconMenu
                          iconButtonElement={<IconButton><MoreHorizIcon /></IconButton>}
@@ -587,15 +587,15 @@ class ItineraryForm extends React.Component {
                                         </div> 
                                         {/* Action Module */}
                                         <div className="tip__cta-box w-100 flx flx-row flx-just-start flx-align-center mrgn-top-md">
-                                          <Link onClick={handleSaveClick(tip)} className="hide-in-list vb vb--sm fill--white vb--outline flx flx-row flx-align-center mrgn-right-sm color--primary">
-                                              <i className="material-icons mrgn-right-sm color--primary">playlist_add</i>
-                                              <div className="color--black">Add to</div>
+                                          <Link onClick={handleSaveClick(tip)} className="hide-in-list vb vb--sm fill--primary flx flx-row flx-align-center mrgn-left-n-1 color--primary">
+                                              <i className="material-icons mrgn-right-sm color--white">playlist_add</i>
+                                              <div className="color--white">Add to</div>
                                           </Link>
-                                          <Link onClick={onInfoClick(tip)} className="hide-in-list vb vb--sm vb--outline flx flx-row flx-align-center mrgn-right-sm">
+                                          <Link onClick={onInfoClick(tip)} className="hide-in-list vb vb--sm vb--outline flx flx-row flx-align-center mrgn-left-n-1">
                                             <i className="material-icons mrgn-right-sm opa-60">info_outline</i>
                                             <div className="color--black">Info</div>
                                           </Link>
-                                          <div className="cta-wrapper vb vb--sm vb--outline flx flx-row flx-align-center v2-type-body2 mrgn-right-sm">
+                                          <div className="cta-wrapper vb vb--sm vb--outline flx flx-row flx-align-center v2-type-body2 mrgn-left-n-1">
                                             <LikeReviewButton
                                               authenticated={this.props.authenticated}
                                               isLiked={tip.isLiked}
@@ -608,7 +608,7 @@ class ItineraryForm extends React.Component {
                                           </div>
 
                                           {/* More Options button */}
-                                          <div className="edit-itinerary-link vb vb--sm no-pad vb--outline fill--white color--black">             
+                                          <div className="edit-itinerary-link vb vb--sm no-pad vb--outline fill--white color--black mrgn-left-n-1">             
                                             <MuiThemeProvider muiTheme={getMuiTheme()}>
                                               <IconMenu
                                                  iconButtonElement={<IconButton className=""><MoreHorizIcon /></IconButton>}

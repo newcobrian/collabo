@@ -4,7 +4,7 @@
     border-bottom: 1px solid #D5E3E5;
 } 
 .tip-wrapper.tip-selected {
-
+  background-color:  rgba(0,207, 235, .04)
 }
 
 .tip-wrapper .tip-map-marker {

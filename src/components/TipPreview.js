@@ -124,11 +124,12 @@ const TipPreview = props => {
 
                     <div className="tip__header-wrapper flx flx-row flx-align-start flx-just-start">
                       { /** Title **/ }
-                      <Link to={`/review/${tip.subjectId}`}>
+                      
                       <div className="hide-in-list tip__title v2-type-h3 ta-left">
-                        <div className="tip__order-count">{props.index}</div> {tip.subject.title} 
+                        <div className="tip__order-count">{props.index}</div>
+                        <Link to={`/review/${tip.subjectId}`}> {tip.subject.title}</Link>
                       </div>
-                      </Link>
+                      
                       { /** END Title **/ }
 
                       { /** Rating **/ }
@@ -178,17 +179,17 @@ const TipPreview = props => {
                     </div> 
                     {/* Action Module */}
                     <div className="tip__cta-box w-100 flx flx-row flx-just-start flx-align-center mrgn-top-md">
-                      <Link onClick={handleSaveClick} className="hide-in-list vb vb--sm vb--outline-none flx flx-row flx-align-center mrgn-right-sm color--white fill--primary">
+                      <Link onClick={handleSaveClick} className="hide-in-list vb vb--sm vb--outline-none flx flx-row flx-align-center color--white fill--primary">
                           {/*<img className="center-img mrgn-right-sm" src="/img/icons/i32_save.png"/>*/}
                           <i className="material-icons mrgn-right-sm color--white">playlist_add</i>
-                          <div className="color--white">ADD TO...</div>
+                          <div className="color--white">Add to</div>
                       </Link>
-                      <Link onClick={onInfoClick} className="hide-in-list vb vb--sm vb--outline flx flx-row flx-align-center mrgn-right-sm">
-                        <i className="material-icons mrgn-right-sm">info_outline</i>
+                      <Link onClick={onInfoClick} className="hide-in-list vb vb--sm vb--outline flx flx-row flx-align-center mrgn-left-n-1">
+                        <i className="material-icons mrgn-right-xs">info_outline</i>
                         <div className="color--black">Info</div>
                       </Link>
                       <div className="vb__label v2-type-body0 opa-60 mrgn-top-sm DN">Save to</div>
-                      <div className="cta-wrapper vb vb--sm vb--outline flx flx-row flx-align-center v2-type-body2 mrgn-right-sm">
+                      <div className="cta-wrapper vb vb--sm vb--outline flx flx-row flx-align-center v2-type-body2 mrgn-left-n-1">
                         <LikeReviewButton
                           authenticated={props.authenticated}
                           isLiked={props.tip.isLiked}
