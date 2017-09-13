@@ -514,7 +514,7 @@ class ItineraryForm extends React.Component {
                                           <div className="tip__order-count DN v2-type-h3">{index+1}.</div>
 
                                         </div>
-                                      <div className="tip__content-wrapper">
+                                      <div className="tip__content-wrapper pdding-right-md">
                                         <div className="tip__header-wrapper flx flx-row flx-align-start flx-just-start">
                                           { /** Title **/ }
                                           <div className="hide-in-list tip__title v2-type-h3 ta-left">
@@ -561,21 +561,21 @@ class ItineraryForm extends React.Component {
                                         { /** END Author **/ }
 
                                         { /** Caption **/ }
-                                        <div className="tip__caption-module flx flx-col w-100 pdding-right-lg mrgn-bottom-sm">
+                                        <div className="tip__caption-module flx flx-col w-100 pdding-bottom-sm mrgn-bottom-md">
                                           <div className="tip__caption v2-type-body2 ta-left opa-90">
                                             <RenderDebounceInput
                                               type="textarea"
-                                              className="w-100"
+                                              className="w-100 show-border"
                                               cols="20"
                                               wrap="hard"
                                               value={tip.review.caption}
-                                              placeholder="Add a review"
+                                              placeholder="Add your review"
                                               debounceFunction={this.changeCaption(tip)} />
                                           </div>
                                         </div>
 
                                         { /** Comments **/ }
-                                        <div className="flx flx-row flex-wrap cta-container mrgn-left-sm">
+                                        <div className="flx flx-row flex-wrap cta-container">
                                            <CommentContainer
                                               authenticated={this.props.authenticated}
                                               comments={tip.comments || []}

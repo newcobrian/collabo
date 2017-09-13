@@ -354,7 +354,9 @@
 	margin:  10px 20px 0 0;
 }
 
-.page-edit-own .tip-wrapper .tip__cta-box,
+.page-edit-own .tip-wrapper .tip__cta-box {
+	
+}
 
 .page-edit-own .tip__order-count,
 .page-edit-own .it__tip-count,

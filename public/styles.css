@@ -1016,7 +1016,6 @@ li.nav-divider {
 
 .comment-wrapper {
   border-radius: 0;
-  padding-right: 30px;
 }
 .article-page .text-subject-name {
     -webkit-align-items: center;
@@ -1228,7 +1227,7 @@ li.nav-divider {
   border: 1px solid white;
   overflow: hidden;
   margin-right: 15px;
-  margin-left: 2px;
+  margin-left: 0px;
 }
 .comment-author-img img {
   width: 100%;
