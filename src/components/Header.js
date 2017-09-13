@@ -1,5 +1,6 @@
 import { Link, IndexLink, browserHistory } from 'react-router';
 import React from 'react';
+import ProfilePic from './ProfilePic';
 
 const InboxCounter = props => {
   if (props.unreadMessages > 0) {
@@ -108,7 +109,7 @@ const LoggedInView = props => {
 
         <Link to={`/${props.userInfo.username}`} activeClassName="active" className="nav-module nav-profile flx flx-row flx-center-all">
          <div className="nav-text flx flx-row flx-align-center">
-          <div className="nav-icon"><img className="center-img" src={props.userInfo.image}/></div>
+          <div className="nav-icon"><ProfilePic className="center-img" src={props.userInfo.image}/></div>
           <div className="mobile-show">My Views</div>
         </div>
         </Link>

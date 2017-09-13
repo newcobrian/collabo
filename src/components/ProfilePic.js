@@ -3,7 +3,7 @@ import React from 'react';
 const ProfilePic = props => {
   if (!props.src) {
     return (
-    	<div className="">
+    	<div className="default-profile-wrapper">
     	 	<img src="../img/user_temp.png" className="user-image center-img"/>
     	</div>
     	);

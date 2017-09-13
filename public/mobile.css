@@ -557,10 +557,15 @@ width: 100%;
 .flx.tip__rating-module {
   margin-bottom: 10px;
 }
-.page-itinerary .itinerary__cover__author-photo {
+.page-itinerary .itinerary__cover__author-photo,
+.itinerary__cover__author-photo .default-profile-wrapper {
     width: 30px;
     height: 30px;
     margin: 0px 20px 0px 0;
+}
+.itinerary__cover__topbar .itinerary__cover__author-photo .default-profile-wrapper {
+    width: 46px;
+    height: 46px;
 }
 .tip__author-photo img.user-image.user-image-md,
 .tip__rating-module .tip__rating {

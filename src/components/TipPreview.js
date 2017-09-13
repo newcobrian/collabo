@@ -100,7 +100,7 @@ const TipPreview = props => {
 
                   { /** Image **/ }
                   <div className="tip__image-module">
-                    <div className="tip__photo-count">{tip.images.length > 0 ? tip.images.length : null}</div>
+                    <div className={"tip__photo-count tip-count-" + tip.images.length}>{tip.images.length > 0 ? tip.images.length : null}</div>
                     <ImagePicker images={tip.images} />
                   </div>
                   { /** END Image **/ }

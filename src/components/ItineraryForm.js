@@ -482,7 +482,7 @@ class ItineraryForm extends React.Component {
 
                                       { /** Image **/ }
                                       <div className="tip__image-module">
-                                        <div className="tip__photo-count">{tip.images.length > 0 ? tip.images.length : null}</div>
+                                        <div className={"tip__photo-count tip-count-" + tip.images.length}>{tip.images.length > 0 ? tip.images.length : null}</div>
                                         <ImagePicker images={tip.images} />
                                       </div>
                                       <div >
@@ -492,7 +492,7 @@ class ItineraryForm extends React.Component {
                                           accept="image/*"
                                           className="edit-tip__dropzone__touch flx flx-col flx-align-center flx-just-start ta-center">
                                           <div className="vb vb--sm vb--shadow-none fill--white color--black opa-80 no-pad">
-                                            <i className="material-icons color--primary md-18">add_a_photo</i>
+                                            <i className="material-icons color--black opa-40 md-18">add_a_photo</i>
                                           </div>
 
                                         </Dropzone>

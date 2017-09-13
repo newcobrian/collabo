@@ -238,11 +238,12 @@ a.color--primary:focus {
 .navigation-bar .nav-module.nav-editor.active,
 .nav-pills.outline-active .nav-link.active,
 .nav-pills.outline-active .nav-link:hover  {
-  border-bottom: 6px solid #3DCBF3;
   color: #3DCBF3;
-  padding-top: 6px;
+  border-bottom-color: #3DCBF3;
   transition: all 0.23s ease-in-out 0s;
 }
+.navigation-bar .nav-module.active.create:hover,
+.navigation-bar .nav-module.create:hover,
 .navigation-bar .nav-module.active.create,
 .navigation-bar .nav-module.nav-editor.active.create {
   border-bottom: 6px solid #00E2C8;
