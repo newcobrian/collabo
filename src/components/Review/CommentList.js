@@ -13,7 +13,8 @@ const CommentList = props => {
               userInfo={props.userInfo}
               commentObject={props.commentObject}
               key={comment.id}
-              deleteComment={props.deleteComment} />
+              deleteComment={props.deleteComment}
+              itineraryId={props.itineraryId} />
           );
         })
       }

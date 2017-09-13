@@ -253,6 +253,29 @@ export function decrementItineraryCount(counterType, itineraryId, geo, userId) {
     });
 }
 
+export function incrementGuideScore(itineraryId, score) {
+	// update guide popularity scores
+	Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).once('value', snap => {
+		Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId + '/popularityScore').transaction(function (current_count) {
+		  return (current_count || 0) + score;
+		});
+		Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH + '/' + snap.val().geo.placeId + '/' + itineraryId + '/popularityScore').transaction(function (current_count) {
+		  return (current_count || 0) + score;
+		});
+	})
+}
+
+export function decrementGuideScore(itineraryId, score) {
+	Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).once('value', snap => {
+		Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId + '/popularityScore').transaction(function (current_count) {
+		  return (current_count - score > 0) ? current_count - score : 0;
+		});
+		Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH + '/' + snap.val().geo.placeId + '/' + itineraryId + '/popularityScore').transaction(function (current_count) {
+		  return (current_count - score > 0) ? current_count - score : 0;
+		});
+	})
+}
+
 export function sendInboxMessage(senderId, recipientId, messageType, sendObject, itineraryId) {
 	const inboxObject = {
 		lastModified: Firebase.database.ServerValue.TIMESTAMP

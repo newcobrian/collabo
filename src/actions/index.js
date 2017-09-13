@@ -1646,6 +1646,9 @@ export function onCommentSubmit(authenticated, userInfo, type, commentObject, bo
       // send inbox messages to any usernames mentioned in the comment
       findCommentMentions(dispatch, authenticated, body, commentObject, itineraryId, sentArray);
 
+      // update guide popularity score
+      Helpers.incrementGuideScore(itineraryId, Constants.COMMENT_GUIDE_SCORE);
+
       const mixpanelProps = ( type === Constants.REVIEW_TYPE ? {subjectId: commentObject.subjectId} : {itineraryId: commentObject.id});
       dispatch({
         type: ADD_COMMENT,
@@ -1660,7 +1663,7 @@ export function onCommentSubmit(authenticated, userInfo, type, commentObject, bo
   }
 }
 
-export function onDeleteComment(commentObject, commentId) {
+export function onDeleteComment(commentObject, commentId, itineraryId) {
   return dispatch => {
     if (commentObject.subjectId) {
       // this is a review comment
@@ -1710,6 +1713,9 @@ export function onDeleteComment(commentObject, commentId) {
 
       Helpers.decrementItineraryCount(Constants.COMMENTS_COUNT, commentObject.id, commentObject.geo, commentObject.createdBy.userId);
     }
+
+    // update guide popularity score
+    Helpers.decrementGuideScore(itineraryId, Constants.COMMENT_GUIDE_SCORE);
 
     dispatch({
       type: DELETE_COMMENT
@@ -2381,6 +2387,7 @@ export function likeReview(authenticated, type, likeObject, itineraryId) {
 
       updates[`/${Constants.LIKES_BY_USER_PATH}/${authenticated}/${id}`] = saveObject;
       updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = saveObject;
+
       Firebase.database().ref().update(updates).then(response => {
         if (type === Constants.ITINERARY_TYPE) {
           Helpers.incrementItineraryCount(Constants.LIKES_COUNT, id, likeObject.geo, likeObject.createdBy.userId);
@@ -2443,6 +2450,9 @@ export function likeReview(authenticated, type, likeObject, itineraryId) {
             }
           })
         }
+
+        // update guide popularity score
+        Helpers.incrementGuideScore(itineraryId, Constants.LIKE_GUIDE_SCORE);
       })
       .catch(error => {
         console.log(error);
@@ -2475,6 +2485,10 @@ export function unLikeReview(authenticated, type, unlikeObject, itineraryId) {
       else if (type === Constants.ITINERARY_TYPE) {
         Helpers.decrementItineraryCount(Constants.LIKES_COUNT, id, unlikeObject.geo, unlikeObject.createdBy.userId);
       }
+
+      // update guide popularity score
+      Helpers.decrementGuideScore(itineraryId, Constants.LIKE_GUIDE_SCORE);
+
       dispatch({
         type: REVIEW_UNLIKED
       })
@@ -3146,6 +3160,14 @@ export function addToItinerary(auth, tip, itinerary) {
 
               // increment reviewsCount counters on itinerary tables
               Helpers.incrementItineraryCount(Constants.REVIEWS_COUNT, itineraryId, geo, auth);
+
+              // update guide popularity scores
+              Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId + '/popularityScore').transaction(function (current_count) {
+                return (current_count || 0) + Constants.ADD_TIP_GUIDE_SCORE;
+              });
+              Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH + '/' + geo.placeId + '/' + itineraryId + '/popularityScore').transaction(function (current_count) {
+                return (current_count || 0) + Constants.ADD_TIP_GUIDE_SCORE;
+              });
 
               Firebase.database().ref().update(updates);
 

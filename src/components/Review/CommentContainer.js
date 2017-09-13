@@ -13,6 +13,7 @@ const CommentContainer = props => {
 		          commentObject={props.commentObject}
 		          authenticated={props.authenticated}
 		          userInfo={props.userInfo}
+		          itineraryId={props.itineraryId}
 		          deleteComment={props.deleteComment} />
 		          
 		          <div className="comment-input-wrapper">
@@ -40,6 +41,7 @@ const CommentContainer = props => {
 					commentObject={props.commentObject}
 					authenticated={props.authenticated}
 					userInfo={props.userInfo}
+					itineraryId={props.itineraryId}
 					deleteComment={props.deleteComment} />
 			</div>
 		);
