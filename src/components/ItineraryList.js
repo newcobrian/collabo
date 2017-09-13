@@ -7,9 +7,9 @@ const ItineraryList = props => {
   if (!props.itineraries) { 
     return (
        <div className="profile-feed flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap w-max">
-        <div className="loading-module flx flx-col flx-center-all v2-type-body3">
+        <div className="loading-module flx flx-col flx-center-all v2-type-body3 fill--black">
           <div className="earth-graphic">  
-            <img className="center-img" src="/img/loading-01.gif"/>
+            <img className="center-img" src="/img/loading-02.png"/>
           </div>
           <div>Loading Travel Guides...</div>
         </div>

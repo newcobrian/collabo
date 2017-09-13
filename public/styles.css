@@ -81,7 +81,6 @@ input[type="radio"]:checked + label span {
   left: 0;
   right: 0;
   bottom: 0;
-  background: #45CAE6;
   /*background-image: linear-gradient(-270deg, #2EC299 0%, #00ACED 100%);*/
   color: white !important;
   font-size: 24px;
@@ -497,16 +496,17 @@ a.logo-module:focus {
 }
 
 .earth-graphic {
-  width: 100px;
-  height: 100px;
+  width: 46px;
+  height: 40px;
   margin-top: 0px;
+  margin: 0 20px 20px 20px;
 /*  -webkit-animation:spin 4s linear 1;
   -moz-animation:spin 4s linear 1;
   animation:spin 4s linear 1;*/
 }
 .earth-graphic img {
-  width: 100px;
-  height: 100px;
+  width: 46px;
+  height: 40px;
 }
 .loading-module .earth-graphicx {
   -webkit-animation:spin 2s linear infinite;
@@ -1469,7 +1469,11 @@ body .back-to-top {
     background-color: #68E4E7;
 }
 
-
+.gm-style .gm-style-iw {
+    margin-top: 6px;
+    text-align: center;
+    padding: 0 12px 0;
+}
 .content-wrapper.map-on,
 .itinerary__comments-module.map-on {
   width: 70%;

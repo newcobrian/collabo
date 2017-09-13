@@ -122,9 +122,9 @@ class Itinerary extends React.Component {
     // if (!this.props.itinerary || !this.props.itinerary.createdBy || !this.props.itinerary.geo) {
     else if (!this.props.itinerary || !this.props.itinerary.geo) {
       return (
-        <div className="loading-module flx flx-col flx-center-all v2-type-body3">
+        <div className="loading-module flx flx-col flx-center-all v2-type-body3 fill--black">
           <div className="earth-graphic w-100">  
-            <img className="center-img" src="/img/loading-01.gif"/>
+            <img className="center-img" src="/img/loading-02.png"/>
           </div>
           <div>Loading Travel Guide...</div>
         </div>

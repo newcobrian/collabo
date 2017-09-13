@@ -257,7 +257,6 @@ input.edit-tip__rating {
     height: 32px;
     margin: 0;
     margin-right: 0;
-    border-radius: 6px;
 }
 
 
@@ -267,9 +266,9 @@ input.edit-tip__rating {
 	border: none;
 	color: black !important;
 	height: 32px;
-	border-radius: 6px;
+	border-radius: 0px;
 	overflow: hidden;
-  border: 1px solid rgba(0,0,0,.05);
+  border: 2px solid rgba(0,0,0,.1);
 }
 .tip__rating-module select {
 	border-radius: 0px !important;
@@ -279,32 +278,41 @@ input.edit-tip__rating {
 .tip__rating-module--2 select,
 .tip__rating-module--3 select,
 .tip__rating-module--4 select,
+.tip__rating-module--0,
+.tip__rating-module--1,
+.tip__rating-module--2,
+.tip__rating-module--3,
+.tip__rating-module--4,
 .tip__rating-module--0 .tip__rating,
 .tip__rating-module--1 .tip__rating,
 .tip__rating-module--2 .tip__rating,
 .tip__rating-module--3 .tip__rating,
 .tip__rating-module--4 .tip__rating {
-	background-color: #FFA6B4;
-  background-color: #FC8B87;
-	background-color: #FDAB9B;
+	border-color: #FDAB9B;
 }
 .tip__rating-module--5 select,
 .tip__rating-module--6 select,
+.tip__rating-module--5,
+.tip__rating-module--6,
 .tip__rating-module--5 .tip__rating,
 .tip__rating-module--6 .tip__rating {
-	background-color: #D5E3E5;
+	border-color: #D5E3E5;
 }
 .tip__rating-module--7 select,
 .tip__rating-module--7 .tip__rating,
+.tip__rating-module--7,
 .tip__rating-module--8 select,
+.tip__rating-module--8,
 .tip__rating-module--8 .tip__rating {
-	background-color: #B3FBFF;
+	border-color: #B3FBFF;
 }
+.tip__rating-module--9,
+.tip__rating-module--10,
 .tip__rating-module--9 .tip__rating,
 .tip__rating-module--10 .tip__rating,
 .tip__rating-module--9 select,
 .tip__rating-module--10 select {
-	background-color: #6EFC98;
+	border-color: #6EFC98;
 }
 
 
@@ -383,7 +391,7 @@ select:hover {
 .tip__rating-module--2 select,
 .tip__rating-module--3 select,
 .tip__rating-module--4 select {
-  color: white;
+  color: #0C0D10;
 }
 .v2-type-rating--9,
 .v2-type-rating--10 {
