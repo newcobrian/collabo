@@ -10,6 +10,19 @@ const mapStateToProps = state => ({
   ...state.home,
   authenticated: state.common.authenticated
 });
+
+const RenderFeaturedPreview = props => {
+  if (props.featuredPreview) {
+    return (
+      <ItineraryPreview itinerary={props.featuredPreview}
+        authenticated={props.authenticated} 
+        like={props.like} 
+        unLike={props.unLike}
+        deleteItinerary={props.deleteItinerary}/>
+    )
+  }
+  return null;
+}
  
 // const mapDispatchToProps = dispatch => ({
 //   onSetPage: (tab, p) => dispatch({
@@ -25,12 +38,12 @@ const MainView = props => {
   return (
     <div>
       <div className="feed-wrapper fill--light-gray pdding-top-sm">
-        <ItineraryPreview itinerary={props.featuredPreview}
+        <RenderFeaturedPreview
+          featuredPreview={props.featuredPreview}
           authenticated={props.authenticated} 
           like={props.like} 
           unLike={props.unLike}
-          deleteItinerary={props.deleteItinerary}
-          type={Constants.LARGE_GUIDE_PREVIEW}/>
+          deleteItinerary={props.deleteItinerary} />
 
         <ItineraryList
           itineraries={props.itineraries} 
