@@ -106,9 +106,7 @@ const ItineraryPreview = props => {
       props.authenticated === props.itinerary.createdBy.userId;
 
   return (
-
-
-    <div className="itinerary__cover flx flx-col bx-shadow">
+    <div className={"itinerary__cover flx flx-col bx-shadow " + props.type}>
       
       {/** START USER PHOTO AND TIP COUNT **/}
       <div className="itinerary__cover__topbar flx flx-row flx-align-center w-100 w-max flx-just-start v2-type-body1 mrgn-bottom-md">

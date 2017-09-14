@@ -135,9 +135,9 @@ export const HOMEPAGE_SAMPLE_GUIDES = ['-KsHtCGxX10pSPFRFw6p','-KsaEC85tRyFPhyx_
 export const FEATURED_GUIDES = ['-KsHtCGxX10pSPFRFw6p','-KsaEC85tRyFPhyx_vRI', '-Kr6_OAy780JwQQKlmZE', '-KseiC5dp80TPD6EOnKk']
 
 /*** Guide preview sizes ***/
-export const SMALL_GUIDE_PREVIEW = 'SMALL_GUIDE_PREVIEW'
-export const MEDIUM_GUIDE_PREVIEW = 'MEDIUM_GUIDE_PREVIEW'
-export const LARGE_GUIDE_PREVIEW = 'LARGE_GUIDE_PREVIEW'
+export const SMALL_GUIDE_PREVIEW = 'small-guide'
+export const MEDIUM_GUIDE_PREVIEW = 'medium-guide'
+export const LARGE_GUIDE_PREVIEW = 'large-guide'
 
 // export const COUNTRY_FLAGS = {
 //     'AF' : 'Afghanistan',
