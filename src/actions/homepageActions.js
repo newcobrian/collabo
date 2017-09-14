@@ -24,7 +24,6 @@ export function getPopularPreview(auth) {
 	return dispatch => {
 		let popularArray = [];
 		Firebase.database().ref(Constants.ITINERARIES_PATH).orderByChild('popularityScore').limitToLast(3).once('value', snap => {
-			console.log('snap = ' + JSON.stringify(snap.val()))
 			Firebase.database().ref(Constants.USERS_PATH + '/' + snap.val().userId).once('value', userSnap => {
 				let itineraryObject = Object.assign({}, {itineraryId: snap.key}, snap.val(), {createdBy: userSnap.val()})
 				popularArray = [itineraryObject].concat(popularArray);

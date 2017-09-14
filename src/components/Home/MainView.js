@@ -18,7 +18,8 @@ const RenderFeaturedPreview = props => {
         authenticated={props.authenticated} 
         like={props.like} 
         unLike={props.unLike}
-        deleteItinerary={props.deleteItinerary}/>
+        deleteItinerary={props.deleteItinerary}
+        type={Constants.LARGE_GUIDE_PREVIEW} />
     )
   }
   return null;
