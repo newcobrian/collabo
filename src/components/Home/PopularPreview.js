@@ -1,5 +1,6 @@
-import ItineraryPreview from '.././ItineraryPreview';
 import React from 'react';
+import * as Constants from '../../constants';
+import ItineraryPreview from '.././ItineraryPreview';
 
 const PopularPreview = props => {
   if (props.popularList) {
