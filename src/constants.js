@@ -139,6 +139,9 @@ export const SMALL_GUIDE_PREVIEW = 'small-guide'
 export const MEDIUM_GUIDE_PREVIEW = 'medium-guide'
 export const LARGE_GUIDE_PREVIEW = 'large-guide'
 
+/** number of popular items to get for homepage ***/
+export const HOMEPAGE_POPULAR_COUNT = 2
+
 // export const COUNTRY_FLAGS = {
 //     'AF' : 'Afghanistan',
 //     'AX' : 'Aland Islands',
