@@ -6,7 +6,7 @@ import {BackToTop} from 'pui-react-back-to-top';
 import TipList from './TipList';
 import ProfilePic from './ProfilePic';
 import ImagePicker from './ImagePicker';
-import { Link } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import LikeReviewButton from './LikeReviewButton';
 import CommentContainer from './Review/CommentContainer'
 import { ITINERARY_TYPE, ITINERARY_PAGE } from '../constants';
@@ -23,7 +23,10 @@ import ItineraryForm from './ItineraryForm';
 import * as Selectors from '../selectors/itinerarySelectors';
 import { isEmpty } from 'lodash';
 import MapContainer from './MapContainer';
- 
+
+var Scroll = require('react-scroll');
+var scroller = Scroll.scroller;
+
 const UpdateCoverPhoto = props => {
   if (props.isUser) {
     const dropHandler = (fileToUpload, e) => {
@@ -96,6 +99,11 @@ class Itinerary extends React.Component {
 
   componentWillMount() {
     this.loadItinerary(this.props.params.iid);
+    this.jumpToHash();
+  }
+
+  componentDidUpdate() {
+    this.jumpToHash();
   }
 
   componentWillUnmount() {
@@ -106,6 +114,14 @@ class Itinerary extends React.Component {
     if (nextProps.params.iid !== this.props.params.iid) {
       this.unloadItinerary(this.props.itineraryId);
       this.loadItinerary(nextProps.params.iid);
+    }
+  }
+
+  jumpToHash = () => {
+    const hash = browserHistory.getCurrentLocation().hash;
+    if (hash) {
+      console.log('hash = ' + hash)
+      scroller.scrollTo(hash, {duration: 400, offset: -70});
     }
   }
 

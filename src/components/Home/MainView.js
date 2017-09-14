@@ -2,9 +2,9 @@ import ReviewList from '../ReviewList';
 import React from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../../actions';
+import * as Constants from '../../constants';
 import ItineraryList from './../ItineraryList';
-
-
+import ItineraryPreview from './../ItineraryPreview';
 
 const mapStateToProps = state => ({
   ...state.home,
@@ -25,7 +25,14 @@ const MainView = props => {
   return (
     <div>
       <div className="feed-wrapper fill--light-gray pdding-top-sm">
-       <ItineraryList
+        <ItineraryPreview itinerary={props.featuredPreview}
+          authenticated={props.authenticated} 
+          like={props.like} 
+          unLike={props.unLike}
+          deleteItinerary={props.deleteItinerary}
+          type={Constants.LARGE_GUIDE_PREVIEW}/>
+
+        <ItineraryList
           itineraries={props.itineraries} 
           authenticated={props.authenticated} 
           like={props.likeReview} 

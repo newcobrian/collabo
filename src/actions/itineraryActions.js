@@ -571,7 +571,6 @@ export function onAddTip(auth, result, itinerary) {
       Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itinerary.id + '/popularityScore').transaction(function (current_count) {
         return (current_count || 0) + Constants.ADD_TIP_GUIDE_SCORE;
       });
-
       Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH + '/' + itinerary.geo.placeId + '/' + itinerary.id + '/popularityScore').transaction(function (current_count) {
         return (current_count || 0) + Constants.ADD_TIP_GUIDE_SCORE;
       });
@@ -609,7 +608,6 @@ export function onDeleteTip(auth, tip, itineraryId, itinerary) {
       Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itinerary.id + '/popularityScore').transaction(function (current_count) {
         return (current_count - Constants.ADD_TIP_GUIDE_SCORE > 0) ? current_count - Constants.ADD_TIP_GUIDE_SCORE : 0;
       });
-
       Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH + '/' + itinerary.geo.placeId + '/' + itinerary.id + '/popularityScore').transaction(function (current_count) {
         return (current_count - Constants.ADD_TIP_GUIDE_SCORE >= 0) ? current_count - Constants.ADD_TIP_GUIDE_SCORE : 0;
       });

@@ -131,6 +131,14 @@ export const SHARED_ITINERARIES = ['-KpOQT2bgUyHNdcX662g', '-KpiW2sKdc81qIKD_iOO
 /** Sample guides for logged out view of homepage **/
 export const HOMEPAGE_SAMPLE_GUIDES = ['-KsHtCGxX10pSPFRFw6p','-KsaEC85tRyFPhyx_vRI', '-Kr6_OAy780JwQQKlmZE', '-KseiC5dp80TPD6EOnKk']
 
+/** Featured guides on homepage **/
+export const FEATURED_GUIDES = ['-KsHtCGxX10pSPFRFw6p','-KsaEC85tRyFPhyx_vRI', '-Kr6_OAy780JwQQKlmZE', '-KseiC5dp80TPD6EOnKk']
+
+/*** Guide preview sizes ***/
+export const SMALL_GUIDE_PREVIEW = 'SMALL_GUIDE_PREVIEW'
+export const MEDIUM_GUIDE_PREVIEW = 'MEDIUM_GUIDE_PREVIEW'
+export const LARGE_GUIDE_PREVIEW = 'LARGE_GUIDE_PREVIEW'
+
 // export const COUNTRY_FLAGS = {
 //     'AF' : 'Afghanistan',
 //     'AX' : 'Aland Islands',

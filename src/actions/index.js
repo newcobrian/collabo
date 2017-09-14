@@ -136,6 +136,7 @@ export const ITINERARIES_BY_USER_REMOVED_ACTION = 'ITINERARIES_BY_USER_REMOVED_A
 
 export * from './authActions';
 export * from './itineraryActions';
+export * from './homepageActions';
 
 export function unloadProfileUser(uid) {
   return dispatch => {

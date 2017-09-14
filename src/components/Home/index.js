@@ -41,6 +41,8 @@ class Home extends React.Component {
   componentWillMount() {
     // this.props.getUserFeed(this.props.authenticated);
     this.props.startFeedWatch(this.props.authenticated);
+    this.props.getFeaturedPreview(this.props.authenticated);
+    this.props.getPopularPreview(this.props.authenticated);
     this.props.sendMixpanelEvent('Friend feed loaded');
   } 
 

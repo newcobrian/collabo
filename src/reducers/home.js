@@ -185,6 +185,16 @@ export default (state = { usersData: {}, likesData: {} }, action) => {
           return !(action.userId === o.createdBy.userId) });
       return newState;
     }
+    case ActionTypes.GET_FEATURED_PREVIEW:
+      return {
+        ...state,
+        featuredPreview: action.featuredPreview
+      }
+    case ActionTypes.GET_POPULAR_PREVIEW:
+      return {
+        ...state,
+        popularPreview: action.popularPreview
+      }
     default:
       return state;
   }
