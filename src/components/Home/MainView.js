@@ -5,6 +5,7 @@ import * as Actions from '../../actions';
 import * as Constants from '../../constants';
 import ItineraryList from './../ItineraryList';
 import ItineraryPreview from './../ItineraryPreview';
+import PopularPreview from './PopularPreview';
 
 const mapStateToProps = state => ({
   ...state.home,
@@ -41,6 +42,13 @@ const MainView = props => {
       <div className="feed-wrapper fill--light-gray pdding-top-sm">
         <RenderFeaturedPreview
           featuredPreview={props.featuredPreview}
+          authenticated={props.authenticated} 
+          like={props.like} 
+          unLike={props.unLike}
+          deleteItinerary={props.deleteItinerary} />
+
+        <PopularPreview 
+          popularList={props.popularPreview}
           authenticated={props.authenticated} 
           like={props.like} 
           unLike={props.unLike}

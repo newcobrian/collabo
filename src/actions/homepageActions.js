@@ -24,12 +24,14 @@ export function getPopularPreview(auth) {
 	return dispatch => {
 		let popularArray = [];
 		Firebase.database().ref(Constants.ITINERARIES_PATH).orderByChild('popularityScore').limitToLast(3).once('value', snap => {
-			Firebase.database().ref(Constants.USERS_PATH + '/' + snap.val().userId).once('value', userSnap => {
-				let itineraryObject = Object.assign({}, {itineraryId: snap.key}, snap.val(), {createdBy: userSnap.val()})
-				popularArray = [itineraryObject].concat(popularArray);
-				dispatch ({
-					type: ActionTypes.GET_POPULAR_PREVIEW,
-					popularPreview: popularArray
+			snap.forEach(function(itin) {
+				Firebase.database().ref(Constants.USERS_PATH + '/' + itin.val().userId).once('value', userSnap => {
+					let itineraryObject = Object.assign({}, {itineraryId: itin.key}, itin.val(), {createdBy: userSnap.val()})
+					popularArray = [itineraryObject].concat(popularArray);
+					dispatch ({
+						type: ActionTypes.GET_POPULAR_PREVIEW,
+						popularPreview: popularArray
+					})
 				})
 			})
 		})
