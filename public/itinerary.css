@@ -2,17 +2,27 @@
 .itinerary {
 
 }
+
+.itinerary__big-photo {
+    width: 100%;
+    padding: 0;
+    position: relative;
+    background: transparent;
+    margin: 0;
+    height: 220px;
+}
+
+
+.itinerary__summary__wrapper {
+	position: relative;
+    margin: 0 auto;
+}
+
 .itinerary__summary {
 	width: 100%;
     padding: 0px;
     height: 100%;
     padding-bottom: 10px;
-}
-.itinerary__summary__wrapper {
-	position: relative;
-    margin: 0 auto;
-}
-.edit-itinerary-link {
 }
 .itinerary__summary__author-photo {
     width: 100px;
@@ -26,8 +36,6 @@
 	margin-right: 20px !important;
 }
 .itinerary__cover__author-photo {
-    width: 46px;
-    height: 46px;
     border-radius: 100px;
     overflow: hidden;
     flex-shrink: 0;
@@ -37,6 +45,28 @@
     height: 80px;
     margin: 0 10px 10px;
 }
+
+.page-itinerary .itinerary__cover__topbar  {
+	position: absolute;
+	margin: 0 auto;
+	left: 20px;
+	right: 0px;
+}
+
+
+
+.guide-title {
+	max-width: 800px;
+	font-weight: 700;
+	font-size: 38px;
+	letter-spacing: 1px;
+	line-height: 36px;
+	font-family: 'Montserrat', sans-serif;
+	text-transform: uppercase;
+}
+
+
+
 .itinerary__summary__author-photo img,
 .itinerary__cover__author-photo img {
 	width: 100%;
@@ -132,8 +162,6 @@
 .comment-preview-bubble .comment-author-img {
 	margin-right: 10px;
 	margin-left: 0;
-	width: 32px;
-	height: 32px;
 }
 .itinerary__edit-tip {
 
@@ -166,183 +194,8 @@
 
 
 
-/** TIP COVER **/
-.itinerary__cover {
-	width: 100%;
-	padding: 20px 0;
-	background: white;
-	position: relative;
-	background: transparent;
-	margin: 20px 2%;
-}
-.itinerary__cover:hover {
-	transition: all 0.23s ease-in-out 0s;
-}
-.itinerary__cover.cover--empty {
-	height: 667px;
-	border-color: #2ECBDB;
-}
-.itinerary__cover.cover--empty:hover {
-	border-color: #68E4E7;
-}
-.home-page .itinerary__cover:nth-of-type(odd) {
 
-}
-.home-page .itinerary__cover:nth-of-type(even) {
 
-}
-.home-pageX .itinerary__cover:nth-of-type(3n+0) {
-	/*width: 46%;*/
-	/*margin: 20px 2%;*/
-}
-.profile-page .itinerary__cover,
-.home-page .itinerary__cover {
-	margin: 20px;
-	width: 500px;
-	width: 46%;
-	padding: 20px;
-	background: #FFFFFF;
-	border: 1px solid rgba(0,0,0,.05);
-	/*box-shadow: 0 2px 0 0 #D5E3E5;*/
-}
-	.my-profile-page .itinerary__cover__topbar {
-		display: none;
-	}
-
-	.my-profile-page .itinerary__cover .itinerary__cover {
-		height: 370px;
-	}
-	.my-profile-page .itinerary__cover .itinerary__book {
-		top: 0;
-	}
-
-.profile-page .itinerary__cover .v2-type-h2,
-.home-page .itinerary__cover .v2-type-h2 {
-    font-size: 26px;
-    font-weight: 600;
-    line-height: 30px;
-    width: 100%;
-    max-width: 460px;
-    text-transform: uppercase;
-    max-height: 60px;
-    overflow: hidden;
-}
-.page-itinerary .itinerary__cover {
-	margin: 0;
-	padding: 0;
-}
-.itinerary__cover:hover {
-	/*margin-top:-1px !important;
-	margin-bottom: 41px;
-	box-shadow: 0px 11px 24px rgba(6,175,227,0.05);
-	-webkit-box-shadow: 0px 11px 24px rgba(6,175,227,0.05);
-	transition: box-shadow ease-in .1s;*/
-}
-.itinerary__cover__topbar {
-/*	position: absolute;
-	left: 0px;
-	top: 0px;
-	right: 0px;
-	margin: auto;*/
-}
-.page-itinerary .itinerary__cover__topbar  {
-	position: absolute;
-	margin: 0 auto;
-	left: 20px;
-	right: 0px;
-}
-.page-itinerary .itinerary__cover__title {
-	max-width: 800px;
-}
-
-.itinerary__cover__bottombar {
-	position: absolute;
-	left: 0px;
-	bottom: 10px;
-	right: 0px;
-}
-.itinerary__book.cover-height,
-.itinerary__book .cover-height {
-	height: 280px;
-}
-.cover-height {
-	height: 420px;
-}
-	.page-itinerary .itinerary__cover .header-height {
-		height: 420px;
-	}
-.tip-preview-wrapper .cover-height {
-	height: 100%;
-}
-.itinerary__cover__image .header-height {
-	height: 400px;
-}
-.itinerary__cover__timestamp {
-    font-size: 10px;
-    text-transform: uppercase;
-    font-weight: 300;
-    letter-spacing: 2px;
-    margin-top: 2px;
-}
-.itinerary__bookx {
-	box-shadow: 0px 11px 24px rgba(0,0,0,0.12);
-	transform: translate3d(0, 0, 0);
-	-webkit-transform: translate3d(0, 0, 0);
-	-webkit-transition: box-shadow 0.3s;
-	transition: box-shadow 0.3s;
-	width: 100%;
-}
-.itinerary__bookx:hover {
-	top: 70px;
-	box-shadow: 0 22px 43px rgba(0,0,0,0..08);
-	-webkit-box-shadow: 0 22px 43px rgba(0,0,0,0.08);
-	-webkit-transform: translateY(-1px);
-	transform: translateY(-1px);
-	-moz-transform: none;
-}
-.itinerary__cover__overlay {
-	overflow: hidden;
-	flex-shrink: 0;
-	position: absolute;
-    overflow: hidden;
-    flex-shrink: 0;
-    position: absolute;
-    width: 100%;
-    padding: 60px 10.125% 0px;
-    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0.66)));
-    background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, .6));
-    background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6));
-    background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6));
-    background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6));
-}
-.page-itinerary .itinerary__cover__overlay {
-    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0.6)));
-    background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, .6));
-    background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, .6));
-    background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, .6));
-    background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, .6));
-}
-.itinerary__cover__overlay img {
-	width: 100%;
-	object-fit: cover;
-	object-position: center;
-}
-.itinerary__cover__image {
-	overflow: hidden;
-	flex-shrink: 0;
-	/*position: absolute;*/
-	width: 100%;
-	opacity: 1;
-}
-.itinerary__cover__image img {
-	width: 100%;
-	object-fit: cover;
-	object-position: center;
-}
-.itinerary__cover__text {
-	padding: 20px;
-	z-index: 2;
-}
 .page-itinerary .itinerary__cover__text {
 	border-bottom: 1px solid #D5E3E5;
 }
@@ -366,9 +219,6 @@
 }
 
 
-.guide-text-wrapper {
-	height: 160px;
-}
 .itinerary__cover__descrip {
   height: auto;
   max-width: 480px;
@@ -378,7 +228,6 @@
 
  }
 .itinerary__cover .itinerary__cover__descrip {
-	border-bottom: 1px solid rgba(0,0,0,.05);
 	padding-bottom: 20px;
  }
  .page-edit-own .itinerary__cover__descrip {
@@ -461,15 +310,7 @@ textarea.edit-itinerary__name {
 .it__tip-count {
 
 }
-.it__hit-area {
-	background: transparent;
-	position: absolute;
-	left: 0;
-	top: 86px;
-	right: 0;
-	bottom: 0;
-	z-index: 1;
-}
+
 
 .cover__loading {
 	background: white;

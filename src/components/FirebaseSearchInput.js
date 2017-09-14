@@ -205,12 +205,9 @@ class FirebaseSearchInput extends Component {
           borderColor: '#5B9D3A'
         }}
         textFieldStyle={{
-          backgroundColor: 'white',
           height: '50px',
           marginBottom: '40px',
-          color: 'blue',
           fontWeight: '400',
-          width: '300px'
         }}
         underlineStyle={{borderColor: '#5B9D3A'}}
         menuStyle={{
@@ -218,8 +215,8 @@ class FirebaseSearchInput extends Component {
           overflow: 'scroll'
         }}
         hintStyle={{
-          paddingLeft: '62px',
-          color: 'rgba(0,0,0,.5)',
+          paddingLeft: '82px',
+          color: 'rgba(255,255,255,.8)',
           fontWeight: '100'
         }}
      />

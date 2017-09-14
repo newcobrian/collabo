@@ -4,10 +4,13 @@ import LikeReviewButton from './LikeReviewButton';
 import ProfilePic from './ProfilePic';
 import ImagePicker from './ImagePicker';
 import ItineraryActions from './ItineraryActions';
+import * as Constants from '../constants';
 import FORWARD from '../constants';
 import { FORWARD_MODAL, REVIEW_MODAL } from '../actions';
 import { ITINERARY_TYPE } from '../constants';
 import DisplayTimestamp from './DisplayTimestamp';
+
+
 
 /* Displays user entered caption -OR- empty message if user has not entered caption */ 
 const DescriptionPreview = props => {
@@ -30,7 +33,7 @@ const CommentPreview = props => {
     return (
       <Link to={`/guide/${props.itinerary.id}`}>
 
-        <div className="comment-preview-bubble flx flx-row flx-just-start flx-align-center">
+        <div className="comment-preview-bubble flx flx-row flx-just-start flx-align-center DN">
           <div className="comment-author-img mrgn-right-sm flx-hold">
             <Link
               to={`/${props.itinerary.lastComment.username}`}
@@ -104,139 +107,180 @@ const ItineraryPreview = props => {
   const itinerary = props.itinerary;
   const canModify = props.authenticated && props.itinerary.createdBy &&
       props.authenticated === props.itinerary.createdBy.userId;
-
-  return (
-    <div className={"itinerary__cover flx flx-col bx-shadow " + props.type}>
-      
-      {/** START USER PHOTO AND TIP COUNT **/}
-      <div className="itinerary__cover__topbar flx flx-row flx-align-center w-100 w-max flx-just-start v2-type-body1 mrgn-bottom-md">
-        
-        {/** USER PHOTO **/}
-        <div className="itinerary__cover__author-photo mrgn-right-md">
-            <Link
-            to={`/${itinerary.createdBy.username}`}
-            className="">
-            <ProfilePic src={itinerary.createdBy.image} className="center-img" />
-            </Link>
-        </div>
-
-        {/** USERNAME **/}
-
-          <div className="itinerary__cover__username mrgn-right-md">
-            <Link
-            to={`/${itinerary.createdBy.username}`}
-            className="color--primary">
-            {itinerary.createdBy.username}
-            </Link>
-          </div>
-
-        {/** TIMESTAMP **/}
-        <div className="itinerary__cover__timestamp flx-item-right ta-left opa-70">
-          <DisplayTimestamp timestamp={itinerary.lastModified} />
-        </div> 
-      
-      </div>
-      {/** END USER PHOTO AND TIP COUNT **/}
-
-      {/** START IMAGES **/}
-      <div className="itinerary__book cover-height w-100">
-
-        {/** Cover Image **/}
-        <div className="itinerary__cover__image cover-height">
-          <ImagePicker images={itinerary.images ? [itinerary.images]: null} />
-        </div>
-        {/** Cover Overlay **/}
-        <div className="itinerary__cover__overlay cover-height DN">
-          <img className="cover-height DN" src="../img/cover-overlay.png"/>
-        </div>
-        {/** Cover Hit Area **/}
-        <Link className="it__hit-area cover-height" to={`/guide/${itinerary.id}`}>
-          <div></div>
-        </Link>
-        {/** Cover Content **/}
-        
-      </div>
-      {/** END IMAGES **/}
-
-
-    <div className="itinerary__cover__text flx flx-col flx-align-start ta-left w-100">
-
-      {/** <<<<<< CENTER INFO **/}
-      <div className="it__center-info flx flx-col flx-align-start ta-left w-100">
-        
-        {/** CAPTION ROW - START **/}
-        <div className="geo-wrapper flx flx-row flx-just-start flx-align-center mrgn-bottom-sm w-100 mrgn-top-sm">
-
-          {/** GEO - START **/}
-          <GeoInfo geo={itinerary.geo} />          
-          {/** END - GEO ROW **/}
-
-        </div>
-        {/** END - CAPTION ROW **/}
-
-
-
-        {/** TEXT CONTAINER - START **/}
-        <div className="guide-text-wrapper w-100 flx flx-col">
-
-          {/** TITLE - START  **/}
-          <Link to={`/guide/${itinerary.id}`}>
-          <div className="itinerary__cover__title ta-left v2-type-h2 mrgn-top-xs mrgn-bottom-xs">
-            {itinerary.title}
-          </div>
-          </Link>
-          {/** END - TITLE **/}
-
-          {/** DESCRIPTION - START **/}
-          <div className="itinerary__cover__descrip v2-type-body2 opa-90">
-             <DescriptionPreview  itinerary={props.itinerary}/>
-          </div>
-          {/** END - DESCRIPTION **/}
-        
-        </div>
-        {/** END - TEXT CONTAINER **/}
-
-
-        {/** CTA - START **/}
-        <div className="flx flx-row flx-center-all w-100">
-
-          {/** LIKE AND COMMENTS **/}
-          <div className="it__cover__cta-module flx flx-row flx-just-end">
-            <CommentPreview itinerary={props.itinerary} />
-
-            <div className="vb vb--sm vb--outline flx flx-row flx-align-center mrgn-right-sm cta-wrapper flx flx-row flx-just-end flex-item-right">
-              <LikeReviewButton
-                authenticated={props.authenticated}
-                isLiked={props.itinerary.isLiked}
-                likesCount={props.itinerary.likesCount}
-                unLike={props.unLike}
-                like={props.like} 
-                likeObject={itinerary}
-                itineraryId={itinerary.id}
-                type={ITINERARY_TYPE} />
+  
+  if (props.type === Constants.SMALL_GUIDE_PREVIEW) {
+    return (
+      <div className={"pdding-top-sm pdding-bottom-sm mrgn-bottom-sm flx flx-row flx-align-center w-100 " + props.type}>
+          
+            {/** USER PHOTO **/}
+            <div className="itinerary__cover__author-photo mrgn-right-md">
+                <Link
+                to={`/${itinerary.createdBy.username}`}
+                className="">
+                <ProfilePic src={itinerary.createdBy.image} className="center-img" />
+                </Link>
             </div>
-          </div>
+            <div className="flx flx-col">
+              {/** TITLE - START  **/}
+              <Link to={`/guide/${itinerary.id}`}>
+              <div className="guide-preview-title ta-left mrgn-bottom-xs mrgn-top-xs">
+                {itinerary.title}
+              </div>
+              </Link>
+              {/** END - TITLE **/}
+              <div className="flx flx-row flx-just-start flx-align-center">
+                 <div className={'itinerary__cover__flag flx-hold flag-' + itinerary.geo.country}>
+                </div>
+                {/** USERNAME **/}
+                <div className="itinerary__cover__username mrgn-right-md">
+                  <Link
+                  to={`/${itinerary.createdBy.username}`}
+                  className="color--primary">
+                  {itinerary.createdBy.username}
+                  </Link>
+                </div>
+                {/** END USERNAME **/}
+                {/** TIP COUNT **/}
+                <div className="DN v2-type-caption opa-40">{itinerary.reviewsCount ? itinerary.reviewsCount : 0} {itinerary.reviewsCount === 1 ? ' Tip' : ' Tips'}</div>
+                {/** END TIP COUNT **/}
 
-          {/** TIP COUNT **/}
-          <Link to={`/guide/${itinerary.id}`} className="vb vb--sm vb--outline tip-count color--primary v2-type-body3 flx flx-row flx-just-start flx-align-center color--primary flx-item-right no-uppercase">
-              <div>{itinerary.reviewsCount ? itinerary.reviewsCount : 0} {itinerary.reviewsCount === 1 ? ' Tip' : ' Tips'}</div>
-              <i className="material-icons mrgn-left-sm color--primary md-24">playlist_play</i>
-          </Link>
+              </div>
+            </div>
 
-        </div>
-        {/** END - CTA ROW **/}
 
 
       </div>
-       
+      )
+  } 
+  else {
+    return (
+      <div className={"itinerary__cover flx flx-col bx-shadow " + props.type}>
+        
+        {/** START USER PHOTO AND TIP COUNT **/}
+        <div className="itinerary__cover__topbar flx flx-row flx-align-center w-100 w-max flx-hold flx-just-start v2-type-body1 mrgn-bottom-sm">
+          
+          {/** USER PHOTO **/}
+          <div className="itinerary__cover__author-photo mrgn-right-md">
+              <Link
+              to={`/${itinerary.createdBy.username}`}
+              className="">
+              <ProfilePic src={itinerary.createdBy.image} className="center-img" />
+              </Link>
+          </div>
 
-    </div> {/** ----- Close Cover Text DIV ----- **/}
+          {/** USERNAME **/}
+
+            <div className="itinerary__cover__username mrgn-right-md">
+              <Link
+              to={`/${itinerary.createdBy.username}`}
+              className="color--primary">
+              {itinerary.createdBy.username}
+              </Link>
+            </div>
+
+          {/** TIMESTAMP **/}
+          <div className="itinerary__cover__timestamp flx-item-right ta-left opa-70">
+            <DisplayTimestamp timestamp={itinerary.lastModified} />
+          </div> 
+        
+        </div>
+        {/** END USER PHOTO AND TIP COUNT **/}
+
+        <div className="itinerary__contents flx flx-col w-100">
+          {/** START IMAGES **/}
+          <div className="itinerary__book w-100 flx-hold">
+
+            {/** Cover Image **/}
+            <div className="itinerary__cover__image">
+              <ImagePicker images={itinerary.images ? [itinerary.images]: null} />
+            </div>
+            {/** Cover Hit Area **/}
+            <Link className="itinerary__hit-area" to={`/guide/${itinerary.id}`}>
+              <div></div>
+            </Link>
+            {/** Cover Content **/}
+            
+          </div>
+          {/** END IMAGES **/}
+
+
+          <div className="guide-preview-data-wrapper flx flx-col flx-align-start ta-left w-100">
+              
+              {/** CAPTION ROW - START **/}
+              <div className="geo-wrapper flx flx-row flx-just-start flx-align-center mrgn-bottom-xs w-100 mrgn-top-xs">
+
+                {/** GEO - START **/}
+                <GeoInfo geo={itinerary.geo} />          
+                {/** END - GEO ROW **/}
+
+              </div>
+              {/** END - CAPTION ROW **/}
 
 
 
+              {/** TEXT CONTAINER - START **/}
+              <div className="guide-preview-text-wrapper w-100 flx flx-col">
+
+                {/** TITLE - START  **/}
+                <Link to={`/guide/${itinerary.id}`}>
+                <div className="guide-preview-title ta-left mrgn-bottom-xs mrgn-top-xs">
+                  {itinerary.title}
+                </div>
+                </Link>
+                {/** END - TITLE **/}
+
+                {/** DESCRIPTION - START **/}
+                <div className="itinerary__cover__descrip v2-type-body2 opa-90">
+                   <DescriptionPreview  itinerary={props.itinerary}/>
+                </div>
+                {/** END - DESCRIPTION **/}
+              
+              </div>
+              {/** END - TEXT CONTAINER **/}
+
+
+              {/** CTA - START **/}
+              <div className="guide-cta-wrapper flx flx-row flx-center-all w-100">
+
+                {/** LIKE AND COMMENTS **/}
+                <div className="it__cover__cta-module flx flx-row flx-just-end">
+                  <CommentPreview itinerary={props.itinerary} />
+
+                  <div className="vb vb--sm vb--outline flx flx-row flx-align-center mrgn-right-sm cta-wrapper flx flx-row flx-just-end flex-item-right">
+                    <LikeReviewButton
+                      authenticated={props.authenticated}
+                      isLiked={props.itinerary.isLiked}
+                      likesCount={props.itinerary.likesCount}
+                      unLike={props.unLike}
+                      like={props.like} 
+                      likeObject={itinerary}
+                      itineraryId={itinerary.id}
+                      type={ITINERARY_TYPE} />
+                  </div>
+                </div>
+
+                {/** TIP COUNT **/}
+                <Link to={`/guide/${itinerary.id}`} className="vb vb--sm vb--outline tip-count color--primary v2-type-body3 flx flx-row flx-just-start flx-align-center color--primary flx-item-right no-uppercase">
+                    <div>{itinerary.reviewsCount ? itinerary.reviewsCount : 0} {itinerary.reviewsCount === 1 ? '' : ''}</div>
+                    <i className="material-icons mrgn-left-sm color--primary md-24">playlist_play</i>
+                </Link>
+
+              </div>
+              {/** END - CTA ROW **/}
+
+
+             
+
+          </div> {/** ----- Close Cover Text DIV ----- **/}
+        </div>
+
+
+
+      
+      </div>
     
-    </div>
   );
+}
 }
 
 export default ItineraryPreview;

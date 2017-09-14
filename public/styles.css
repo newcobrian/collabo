@@ -187,6 +187,9 @@ input[type="radio"]:checked + label span {
 .box-shadow {
   box-shadow: 0px 1px 44px rgba(0,0,0,0.07);
   -webkit-box-shadow: 0px 1px 44px rgba(0,0,0,0.07);
+  box-shadow: 0px 6px 38px rgba(0,0,0,0.03);
+  -webkit-box-shadow: 0px 6px 38px rgba(0,0,0,0.03);
+
 }
 
 .center-img {
@@ -292,6 +295,11 @@ input[type="radio"]:checked + label span {
   width: 60px;
   height: 60px;
 }
+.comment-author-img .default-profile-wrapper,
+.comment-author-img .user-photo-wrapper {
+width: 32px;
+  height: 32px;
+}
 .profile-info .default-profile-wrapper,
 .profile-info .user-photo-wrapper {
   width: 140px;
@@ -309,6 +317,11 @@ input[type="radio"]:checked + label span {
   width: 80px;
   height: 80px;
 }
+.small-guide .itinerary__cover__author-photo .default-profile-wrapper,
+.small-guide .itinerary__cover__author-photo .user-photo-wrapper {
+  width: 60px;
+  height: 60px;
+}
 .profile-image .default-profile-wrapper,
 .profile-image .user-photo-wrapper {
   width: 200px;
@@ -316,8 +329,8 @@ input[type="radio"]:checked + label span {
 }
 .itinerary__cover__topbar .itinerary__cover__author-photo .user-photo-wrapper,
 .itinerary__cover__topbar .itinerary__cover__author-photo .default-profile-wrapper {
-  width: 46px;
-  height: 46px;
+  width: 60px;
+  height: 60px;
 }
 .navigation-bar .default-profile-wrapper,
 .navigation-bar .user-photo-wrapper {
@@ -328,7 +341,7 @@ img.user-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50px;
+  border-radius: 100px;
   border: 1px solid rgba(0,0,0,.1);
 }
 img.user-image.user-image-sm {
@@ -469,9 +482,9 @@ a.logo-module:focus {
   font-size: 14px;
   letter-spacing: 1px;
   text-transform: uppercase;
-  height: 69px;
+  height: 70px;
   padding-top: 6px;
-  border-bottom: 6px solid white;
+  border-bottom: 6px solid transparent;
 }
 .navigation-bar .nav-module img {
   width: 28px;
@@ -700,6 +713,9 @@ svg {
   padding: 0 20px;
 }
 
+.brdr-all {
+  border: 1px solid rgba(0,0,0,.1);
+}
 .brdr-bottom {
   border-bottom: 1px solid rgba(0,0,0,.1);
 }
@@ -875,26 +891,7 @@ svg {
   float: left;
 }
 
-/******
-******
-************************************ 1. HOME PAGE / FEED
-******
-******/
-.home-page {
-  /*background-image: linear-gradient(to right, rgba(0,0,0,.05) 1px, transparent 1px),*/
-  /*linear-gradient(to bottom, rgba(0,0,0,.05) 1px, transparent 1px);*/
-  background-attachment: fixed;
-}
 
-.feed-toggle {
-  background-color: rgba(255,255,255,.95);
-}
-
-.no-results-module {
-  text-align: center;
-  padding: 40px;
-  opacity: .7;
-}
 /******
 ******
 ************************************ 2. PROFILE

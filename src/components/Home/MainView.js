@@ -15,12 +15,14 @@ const mapStateToProps = state => ({
 const RenderFeaturedPreview = props => {
   if (props.featuredPreview) {
     return (
-      <ItineraryPreview itinerary={props.featuredPreview}
-        authenticated={props.authenticated} 
-        like={props.like} 
-        unLike={props.unLike}
-        deleteItinerary={props.deleteItinerary}
-        type={Constants.LARGE_GUIDE_PREVIEW} />
+      
+        <ItineraryPreview itinerary={props.featuredPreview}
+          authenticated={props.authenticated} 
+          like={props.like} 
+          unLike={props.unLike}
+          deleteItinerary={props.deleteItinerary}
+          type={Constants.LARGE_GUIDE_PREVIEW} />
+
     )
   }
   return null;
@@ -39,27 +41,35 @@ const MainView = props => {
   const onSetPage = page => props.onSetPage(props.tab, page);
   return (
     <div>
-      <div className="feed-wrapper fill--light-gray pdding-top-sm">
-        <RenderFeaturedPreview
-          featuredPreview={props.featuredPreview}
-          authenticated={props.authenticated} 
-          like={props.like} 
-          unLike={props.unLike}
-          deleteItinerary={props.deleteItinerary} />
+      <div className="feed-wrapper fill--light-gray">
+        <div className="featured-wrapper w-100 w-max flx flx-row">
+           <RenderFeaturedPreview
+              featuredPreview={props.featuredPreview}
+              authenticated={props.authenticated} 
+              like={props.like} 
+              unLike={props.unLike}
+              deleteItinerary={props.deleteItinerary} />
 
-        <PopularPreview 
-          popularList={props.popularPreview}
-          authenticated={props.authenticated} 
-          like={props.like} 
-          unLike={props.unLike}
-          deleteItinerary={props.deleteItinerary} />
+            <div className="popular-box fill--white brdr-all mobile-hide brdr--primary">
+              <div className="color--black section-header mrgn-bottom-md opa-40">Popular Guides</div>
+              <PopularPreview 
+                popularList={props.popularPreview}
+                authenticated={props.authenticated} 
+                like={props.like} 
+                unLike={props.unLike}
+                deleteItinerary={props.deleteItinerary} />
+            </div>
+        </div>
 
-        <ItineraryList
-          itineraries={props.itineraries} 
-          authenticated={props.authenticated} 
-          like={props.likeReview} 
-          unLike={props.unLikeReview}
-          deleteItinerary={props.showDeleteModal} />
+        <div className="page-section page-section__friends w-100 w-max pdding-top-md">
+          <div className="section-header ta-center opa-40">Friends</div>
+          <ItineraryList
+            itineraries={props.itineraries} 
+            authenticated={props.authenticated} 
+            like={props.likeReview} 
+            unLike={props.unLikeReview}
+            deleteItinerary={props.showDeleteModal} />
+          </div>
         </div>
     </div>
   );

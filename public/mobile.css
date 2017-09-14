@@ -271,7 +271,17 @@ margin: 0;
 
 .reviews-wrapper {
 }
+.featured-wrapper {
+  padding-left: 0px;
+  padding-right: 0px;
+}
 
+
+.page-section__feature,
+.page-section__popular,
+.page-section__friends {
+  width: 100%;
+}
 .count-badge {
   width: 24px;
   height: 24px;
@@ -329,10 +339,7 @@ width: 100%;
   padding-left: 0;
 }
 
-.profile-page .itinerary__cover .v2-type-h2,
-.home-page .itinerary__cover .v2-type-h2 {
 
-}
 .page-itinerary .itinerary__cover__topbar  {
   left: 10px;
 }
@@ -611,7 +618,7 @@ width: 100%;
 .profile-page .itinerary__cover,
 .home-page .itinerary__cover {
   width: 100%;
-  padding: 10px 10px 20px;
+  padding: 10px;
   margin: 0;
   border-bottom: none;
   box-shadow: none;

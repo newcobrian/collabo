@@ -58,7 +58,7 @@ class ImagePicker extends React.Component {
     else {
       return (
         <div className="default-bg">
-          <img className="center-img cover-height" src="/img/cover__default.png"/>
+          <img className="center-img" src="/img/cover__default.png"/>
       </div>
       )
     }

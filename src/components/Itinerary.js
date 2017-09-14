@@ -210,7 +210,7 @@ class Itinerary extends React.Component {
 
                   {/** TITLE **/}
                   <Link to={`/guide/${this.props.itineraryId}`}>
-                  <div className="itinerary__cover__title ta-left v2-type-h2">
+                  <div className="guide-title ta-left">
                     {itinerary.title}
                   </div>
                   </Link>
@@ -276,11 +276,11 @@ class Itinerary extends React.Component {
 
 
 
-              <div className="itinerary__cover flx flx-row flx-just-start header-height">
+
                 
 
                 {/** Cover Image **/}
-                <div className="itinerary__cover__image header-height">
+                <div className="itinerary__big-photo fill--primary">
                   <ImagePicker images={itinerary.images ? [itinerary.images] : null} />
                   <div className={'flx flx-col flx-center-all v2-type-body3 cover__loading loading-done-' + this.props.coverPicProgress}>
                     Uploading New Cover Photo...
@@ -293,8 +293,6 @@ class Itinerary extends React.Component {
 
             
 
-              </div>
-              {/** ----- Close itinerary__cover DIV ----- **/}  
 
              
 
