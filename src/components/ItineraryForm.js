@@ -5,7 +5,7 @@ import * as Constants from '../constants';
 import TipList from './TipList';
 import ProfilePic from './ProfilePic';
 import ImagePicker from './ImagePicker';
-import { Link } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import LikeReviewButton from './LikeReviewButton';
 import CommentContainer from './Review/CommentContainer'
 import { ITINERARY_TYPE, ITINERARY_PAGE } from '../constants';
@@ -24,6 +24,7 @@ import { GoogleApiWrapper, Map, Marker } from 'google-maps-react'
 import Geosuggest from 'react-geosuggest';
 import * as Selectors from '../selectors/itinerarySelectors';
 import Textarea from 'react-textarea-autosize';
+import scrollToElement from 'scroll-to-element';
 
 var Scroll = require('react-scroll');
 var Element = Scroll.Element;
@@ -137,6 +138,19 @@ class ItineraryForm extends React.Component {
   componentWillMount() {
     if (this.props.initialValues) {
       this.props.updateItineraryForm('data', this.props.initialValues);
+    }
+    this.jumpToHash();
+  }
+
+  componentDidUpdate() {
+    this.jumpToHash();
+  }
+
+  jumpToHash = () => {
+    let hash = browserHistory.getCurrentLocation().hash;
+    if (hash) {
+      // scroller.scrollTo(hash, {duration: 400, offset: -70});
+      scrollToElement(hash, { offset: -70 });
     }
   }
 
@@ -446,7 +460,7 @@ class ItineraryForm extends React.Component {
               {
                 itinerary.tips.map((tip, index) => {
                   return (
-                    <Element name={'tip:' + tip.key} className={"tip-wrapper flx flx-col flx-col w-100 w-max" + isSelectedTip(tip.key)} id={'tip:' + tip.key} key={tip.key}>
+                    <Element name={'tip' + tip.key} className={"tip-wrapper flx flx-col flx-col w-100 w-max" + isSelectedTip(tip.key)} id={'tip' + tip.key} key={tip.key}>
 
                        
                             <div className="tip-container flx flx-col flx-center-all w-100">

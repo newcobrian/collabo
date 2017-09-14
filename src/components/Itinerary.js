@@ -23,6 +23,7 @@ import ItineraryForm from './ItineraryForm';
 import * as Selectors from '../selectors/itinerarySelectors';
 import { isEmpty } from 'lodash';
 import MapContainer from './MapContainer';
+import scrollToElement from 'scroll-to-element';
 
 var Scroll = require('react-scroll');
 var scroller = Scroll.scroller;
@@ -118,10 +119,10 @@ class Itinerary extends React.Component {
   }
 
   jumpToHash = () => {
-    const hash = browserHistory.getCurrentLocation().hash;
+    let hash = browserHistory.getCurrentLocation().hash;
     if (hash) {
-      console.log('hash = ' + hash)
-      scroller.scrollTo(hash, {duration: 400, offset: -70});
+      // scroller.scrollTo(hash, {duration: 3000, offset: -70});
+      scrollToElement(hash, { offset: -70 });
     }
   }
 

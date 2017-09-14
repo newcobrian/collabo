@@ -20,7 +20,7 @@ class MapContainer extends React.Component {
 		this.onMarkerMouseover = this.onMarkerMouseover.bind(this);
 
 		this.onMarkerClick = tip => ev => {
-			scroller.scrollTo('tip:' + tip.key, {duration: 400, offset: -70});
+			scroller.scrollTo('tip' + tip.key, {duration: 400, offset: -70});
 			this.props.onMapMarkerClick(tip);
 		}
 	}

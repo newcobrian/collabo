@@ -48,6 +48,7 @@
     "redux-mixpanel-middleware": "^1.0.1",
     "redux-react-firebase": "^2.3.3",
     "redux-thunk": "^2.2.0",
+    "scroll-to-element": "^2.0.0",
     "superagent": "^3.4.1",
     "superagent-promise": "^1.1.0",
     "superagent-promise-plugin": "^3.2.0",
