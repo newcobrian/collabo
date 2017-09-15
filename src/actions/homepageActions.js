@@ -10,10 +10,12 @@ export function getFeaturedPreview(auth) {
 
 		Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).once('value', snap => {
 			Firebase.database().ref(Constants.USERS_PATH + '/' + snap.val().userId).once('value', userSnap => {
-				let featuredObject = Object.assign({}, {id: itineraryId}, snap.val(), {createdBy: userSnap.val()})
-				dispatch ({
-					type: ActionTypes.GET_FEATURED_PREVIEW,
-					featuredPreview: featuredObject
+				Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itineraryId).on('value', likesSnapshot => {
+					let featuredObject = Object.assign({}, {id: itineraryId}, snap.val(), {createdBy: userSnap.val()}, {isLiked: likesSnapshot.exists()})
+					dispatch ({
+						type: ActionTypes.GET_FEATURED_PREVIEW,
+						featuredPreview: featuredObject
+					})
 				})
 			})
 		})

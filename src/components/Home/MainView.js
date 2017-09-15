@@ -46,8 +46,8 @@ const MainView = props => {
            <RenderFeaturedPreview
               featuredPreview={props.featuredPreview}
               authenticated={props.authenticated} 
-              like={props.like} 
-              unLike={props.unLike}
+              like={props.likeReview} 
+              unLike={props.unLikeReview}
               deleteItinerary={props.deleteItinerary} />
 
             <div className="popular-box fill--white brdr-all mobile-hide brdr--primary">
