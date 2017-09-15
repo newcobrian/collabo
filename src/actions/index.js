@@ -137,6 +137,7 @@ export const ITINERARIES_BY_USER_REMOVED_ACTION = 'ITINERARIES_BY_USER_REMOVED_A
 export * from './authActions';
 export * from './itineraryActions';
 export * from './homepageActions';
+export * from './inboxActions';
 
 export function unloadProfileUser(uid) {
   return dispatch => {
@@ -2862,90 +2863,6 @@ export function unmountFriendSelector(selectedFriends) {
       type: UNMOUNT_FREIND_SELECTOR,
       // payload: selectedFriends ? selectedFriends.clear() : new Set()
       payload: []
-    })
-  }
-}
-
-export function getInbox(authenticated) {
-  return dispatch => {
-    if (!authenticated) {
-      dispatch({
-        type: ASK_FOR_AUTH
-      })
-    }
-    let inboxArray = [];
-    Firebase.database().ref(Constants.INBOX_PATH + '/' + authenticated).on('value', inboxSnapshot => {
-      if (!inboxSnapshot.exists()) {
-        dispatch({
-          type: GET_INBOX,
-          payload: []
-        })
-      }
-
-      inboxSnapshot.forEach(function(inboxChild) {
-        Firebase.database().ref(Constants.USERS_PATH + '/' + inboxChild.val().senderId).on('value', senderSnapshot => {
-          let inboxObject = inboxChild.val();
-          inboxObject.key = inboxChild.key;
-          inboxObject.senderUsername = senderSnapshot.val().username;
-          inboxObject.senderImage = senderSnapshot.val().image;
-
-          inboxArray = [inboxObject].concat(inboxArray);
-          inboxArray.sort(Helpers.lastModifiedDesc);
-
-          dispatch({
-            type: GET_INBOX,
-            payload: inboxArray
-          })
-        })
-      })
-    })
-  }
-}
-
-export function unloadInbox(userId) {
-  return dispatch => {
-    Firebase.database().ref(Constants.INBOX_PATH + '/' + userId).once('value', inboxSnapshot => {
-      inboxSnapshot.forEach(function(inboxChild) {
-        Firebase.database().ref(Constants.USERS_PATH + '/' + inboxChild.val().senderId).off();
-      })
-    })
-    Firebase.database().ref(Constants.INBOX_PATH + '/' + userId).off();
-
-    dispatch({
-      type: INBOX_UNLOADED
-    })
-  }
-}
-
-export function getInboxCount(userId) {
-  return dispatch => {
-    Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + userId).on('value', inboxSnapshot => {
-      if (inboxSnapshot.exists()) {
-        const messageCount = inboxSnapshot.val().messageCount ? inboxSnapshot.val().messageCount : 0;
-        const messagesRead = inboxSnapshot.val().messagesRead ? inboxSnapshot.val().messagesRead : 0;
-        dispatch({
-          type: GET_INBOX_COUNT,
-          payload: messageCount - messagesRead
-        })
-      }
-      else dispatch({
-        type: GET_INBOX_COUNT,
-        payload: 0
-      })
-    })
-  }
-}
-
-export function updateInboxCount(userId) {
-  return dispatch => {
-    Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + userId + '/messageCount').once('value', countSnapshot => {
-      if (countSnapshot.exists()) {
-        const update = { messagesRead: countSnapshot.val() };
-        Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + userId).update(update);
-        dispatch({
-          type: INBOX_COUNT_UPDATED
-        })
-      }
     })
   }
 }

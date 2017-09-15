@@ -416,7 +416,6 @@ export function sendInboxMessage(senderId, recipientId, messageType, sendObject,
 				else if (sendObject && sendObject.subject && sendObject.subject.title) {
 					inboxObject.reviewTitle = sendObject.subject.title;
 				}
-				inboxObject.timestamp = Firebase.database.ServerValue.TIMESTAMP;
 
 				switch(messageType) {
 					case Constants.LIKE_TIP_MESSAGE:

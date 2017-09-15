@@ -1,4 +1,5 @@
 import { GET_INBOX, INBOX_COUNT_UPDATED, INBOX_UNLOADED } from '../actions'
+import { isEqual, isEmpty } from 'lodash'
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -6,7 +7,7 @@ export default (state = {}, action) => {
       return {
         ...state,
         inbox: action.payload
-      };
+      }
     case INBOX_COUNT_UPDATED:
       return {
         ...state

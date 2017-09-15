@@ -4,6 +4,7 @@ import ProfilePic from './ProfilePic';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
 import ProxyImage from './ProxyImage';
+import DisplayTimestamp from './DisplayTimestamp';
 
 const RightPic = props => {
   if (props.image) {
@@ -107,7 +108,7 @@ class Inbox extends React.Component {
                     <div className="flx flx-col mrgn-right-md">
                       <div className="v2-type-body1">
                         <strong><RenderUsername senderId={inboxItem.senderId} username={inboxItem.senderUsername} /></strong>
-                        {inboxItem.message}<Link to={inboxItem.link}><div className="color--primary inline">{inboxItem.reviewTitle}</div></Link>
+                        {inboxItem.message}<Link to={inboxItem.link}><div className="color--primary inline">{inboxItem.reviewTitle}</div></Link> <DisplayTimestamp timestamp={inboxItem.lastModified} />
                       </div>
                     </div>
                     <div className="feed-pic-wrapper mrgn-right-md flx-item-right"><RightPic link={inboxItem.link} image={inboxItem.reviewImage} /></div>
