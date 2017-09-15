@@ -49,6 +49,9 @@ class Home extends React.Component {
   componentWillUnmount() {
     // this.props.unloadUserFeed(this.props.authenticated);
     this.props.unloadFeedWatch(this.props.authenticated);
+    if (this.props.featuredPreview && this.props.featuredPreview.itinerary) {
+      this.props.unloadFeaturePreview(this.props.authenticated, this.props.featuredPreview.itinerary.id)
+    }
   }
 
   renderTabs() {

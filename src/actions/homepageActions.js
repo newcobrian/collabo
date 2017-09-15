@@ -22,6 +22,14 @@ export function getFeaturedPreview(auth) {
 	}
 }
 
+export function unloadFeaturePreview(auth, itineraryId) {
+	return dispatch => {
+		if (auth && itineraryId) {
+			Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itineraryId).off();
+		}
+	}
+}
+
 export function getPopularPreview(auth) {
 	return dispatch => {
 		let popularArray = [];
