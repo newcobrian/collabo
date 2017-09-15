@@ -50,7 +50,7 @@ const DisplayTimestamp = props => {
     }
   }
 
-  return (<span>{calcTimestamp(props.timestamp)}</span>);
+  return (<span className={props.className}>{calcTimestamp(props.timestamp)}</span>);
 }
 
 
