@@ -33,20 +33,16 @@ class Explore extends React.Component {
     }
     
     return (
-      <div className="flx flx-col page-common follow-page flx-just-start w-100">
-        <div className="page-title-wrapper center-text flx flx-col flx-align-center w-100">
-          <div className="v2-type-page-header">Travelers</div>
-          <div className="v2-type-body2 opa-60">Find some friends to follow</div>
-          <div className="search-wrapper">
-            <i className="search-icon material-icons color--primary md-32 color--primary">search</i>
+      <div className="flx flx-col page-common follow-page page-people flx-just-start w-100">
+          <div className="search-wrapper w-100 flx flx-row flx-align-center fill--primary">
+            <i className="search-icon material-icons md-32 color--black">search</i>
             <FirebaseSearchInput
               name="searchInput"
               callback={searchInputCallback}
               placeholder="Search for people on Views"
               type={Constants.PEOPLE_SEARCH}
-              className="input--search input--underline v2-type-body3" />
+              className="input--search full-width-search fill--white color--black input--underline v2-type-body3" />
           </div>
-        </div>
 
 
           <div className="flx flx-row flx-just-center flx-align-start flx-wrap w-100">

@@ -190,15 +190,16 @@ class Home extends React.Component {
       <div>
         {this.LoggedOutIntro(this.props.authenticated)}
         <div className={'home-page page-common ' + isLandingPage}>
-            <div className="search-wrapper w-100">
-              <i className="search-icon material-icons color--primary md-32 color--white">search</i>
-              <FirebaseSearchInput
-                name="searchInput"
-                callback={this.searchInputCallback}
-                placeholder="Search any city or country"
-                type={Constants.GEO_SEARCH}
-                className="input--search full-width-search fill--primary color--white input--underline v2-type-body3" />
-            </div>
+
+          <div className="search-wrapper w-100 flx-row flx-align-center fill--primary">
+            <i className="search-icon material-icons color--black md-32">search</i>
+            <FirebaseSearchInput
+              name="searchInput"
+              callback={this.searchInputCallback}
+              placeholder="Search any city or country"
+              type={Constants.GEO_SEARCH}
+              className="input--search full-width-search fill--white color--black input--underline v2-type-body3" />
+          </div>
           
           <MainView />
 

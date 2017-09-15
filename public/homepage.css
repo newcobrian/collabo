@@ -32,12 +32,19 @@
     letter-spacing: 0px;
 }
 .input--search.full-width-search {
-	width: 100%;
+  width: 100% !important;
+  border: none;
+}
+.input--search.short-width-search {
+	width: 50% !important;
 	border: none;
 }
-.home-page .search-wrapper {
+.home-page .search-wrapper,
+.page-people .search-wrapper {
 	margin-top: 0;
+  padding: 10px;
 }
+.page-people .input--search input,
 .home-page .input--search input {
   text-indent: 80px;
 }

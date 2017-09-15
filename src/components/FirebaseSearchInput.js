@@ -199,15 +199,16 @@ class FirebaseSearchInput extends Component {
         onNewRequest={this.onNewRequest}
         className={this.props.className}
         style={{
-          backgroundColor: 'white',
+          backgroundColor: 'transparent',
         }}
         underlineFocusStyle={{
           borderColor: '#5B9D3A'
         }}
         textFieldStyle={{
-          height: '50px',
+          height: '40px',
           marginBottom: '40px',
           fontWeight: '400',
+          lineHeight: '14px'
         }}
         underlineStyle={{borderColor: '#5B9D3A'}}
         menuStyle={{
@@ -217,6 +218,7 @@ class FirebaseSearchInput extends Component {
         hintStyle={{
           paddingLeft: '82px',
           color: 'rgba(255,255,255,.8)',
+          color: 'rgba(0,0,0,.4)',
           fontWeight: '100'
         }}
      />
