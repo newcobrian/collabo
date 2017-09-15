@@ -234,7 +234,7 @@ export function followUser(authenticated, follower) {
       updates[`/${Constants.HAS_FOLLOWERS_PATH}/${follower}/${authenticated}`] = true;
       updates[`/${Constants.IS_FOLLOWING_PATH}/${authenticated}/${follower}`] = true;
     }
-    // Helpers.sendInboxMessage(authenticated, follower, Constants.FOLLOW_MESSAGE, null, null);
+    Helpers.sendInboxMessage(authenticated, follower, Constants.FOLLOW_MESSAGE, null, null, null);
     Firebase.database().ref().update(updates);
 
     dispatch({
@@ -1539,7 +1539,7 @@ export function unloadComments(reviewId) {
   }
 }
 
-export function findCommentMentions(dispatch, authenticated, commentBody, commentObject, itineraryId, sentArray) {
+export function findCommentMentions(dispatch, authenticated, commentBody, commentObject, itineraryId, sentArray, commentId) {
   let pattern = /\B@[a-z0-9_-]+/gi;
   let found = commentBody.match(pattern);
   if (found) {
@@ -1548,7 +1548,7 @@ export function findCommentMentions(dispatch, authenticated, commentBody, commen
       Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + username).once('value', snap => {
         if (snap.exists()) {
           if (snap.val().userId !== authenticated && sentArray.indexOf(snap.val().userId) === -1) {
-            Helpers.sendInboxMessage(authenticated, snap.val().userId, Constants.USER_MENTIONED_TYPE, commentObject, itineraryId);
+            Helpers.sendInboxMessage(authenticated, snap.val().userId, Constants.USER_MENTIONED_TYPE, commentObject, itineraryId, Object.assign({commentId: commentId, message: commentBody}));
             sentArray.push(snap.val().userId);
 
             dispatch({
@@ -1611,7 +1611,7 @@ export function onCommentSubmit(authenticated, userInfo, type, commentObject, bo
       // send message to original review poster if they are not the commentor
       const sentArray = [];
       if (authenticated !== commentObject.userId) {
-        Helpers.sendInboxMessage(authenticated, commentObject.userId, inboxMessageType, commentObject, itineraryId);
+        Helpers.sendInboxMessage(authenticated, commentObject.userId, inboxMessageType, commentObject, itineraryId, Object.assign({commentId: commentId, message: body}));
         sentArray.push(commentObject.userId);
         dispatch({
           type: MIXPANEL_EVENT,
@@ -1629,7 +1629,7 @@ export function onCommentSubmit(authenticated, userInfo, type, commentObject, bo
           let commenterId = comment.val().userId;
           // if not commentor or in sent array, then send a message
           if (commenterId !== authenticated && (sentArray.indexOf(commenterId) === -1)) {
-            Helpers.sendInboxMessage(authenticated, commenterId, commentOnCommentType, commentObject, itineraryId);
+            Helpers.sendInboxMessage(authenticated, commenterId, commentOnCommentType, commentObject, itineraryId, Object.assign({commentId: commentId, message: body}));
             sentArray.push(commenterId);
             dispatch({
               type: MIXPANEL_EVENT,
@@ -1645,7 +1645,7 @@ export function onCommentSubmit(authenticated, userInfo, type, commentObject, bo
       })
 
       // send inbox messages to any usernames mentioned in the comment
-      findCommentMentions(dispatch, authenticated, body, commentObject, itineraryId, sentArray);
+      findCommentMentions(dispatch, authenticated, body, commentObject, itineraryId, sentArray, commentId);
 
       // update guide popularity score
       Helpers.incrementGuideScore(itineraryId, Constants.COMMENT_GUIDE_SCORE);
@@ -2392,7 +2392,8 @@ export function likeReview(authenticated, type, likeObject, itineraryId) {
       Firebase.database().ref().update(updates).then(response => {
         if (type === Constants.ITINERARY_TYPE) {
           Helpers.incrementItineraryCount(Constants.LIKES_COUNT, id, likeObject.geo, likeObject.createdBy.userId);
-          Helpers.sendInboxMessage(authenticated, likeObject.createdBy.userId, Constants.LIKE_ITINERARY_MESSAGE, likeObject, itineraryId);
+          Helpers.sendInboxMessage(authenticated, likeObject.createdBy.userId, Constants.LIKE_ITINERARY_MESSAGE, likeObject, itineraryId, null);
+
 
           dispatch({
             type: REVIEW_LIKED,
@@ -2426,7 +2427,7 @@ export function likeReview(authenticated, type, likeObject, itineraryId) {
           Firebase.database().ref(Constants.TIPS_BY_SUBJECT_PATH + '/' + likeObject.subjectId + '/' + likeObject.userId + '/' + id + '/likesCount').transaction(function (current_count) {
             return (current_count || 0) + 1;
           });
-          Helpers.sendInboxMessage(authenticated, likeObject.userId, Constants.LIKE_MESSAGE, likeObject, itineraryId);
+          Helpers.sendInboxMessage(authenticated, likeObject.userId, Constants.LIKE_TIP_MESSAGE, likeObject, itineraryId, null);
 
           dispatch({
             type: REVIEW_LIKED,

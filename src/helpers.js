@@ -276,7 +276,121 @@ export function decrementGuideScore(itineraryId, score) {
 	})
 }
 
-export function sendInboxMessage(senderId, recipientId, messageType, sendObject, itineraryId) {
+// export function sendInboxMessage(senderId, recipientId, messageType, sendObject, itineraryObject) {
+// 	const inboxObject = {
+// 		lastModified: Firebase.database.ServerValue.TIMESTAMP
+// 	};
+// 	let emailMessage = '';
+
+// 	if (sendObject || messageType === Constants.FOLLOW_MESSAGE) {
+// 		Firebase.database().ref(Constants.USERS_PATH + '/' + recipientId).once('value', recipientSnapshot => {
+// 			Firebase.database().ref(Constants.USERS_PATH + '/' + senderId).once('value', senderSnapshot => {
+// 				if (sendObject) inboxObject.reviewId = (sendObject.id ? sendObject.id : sendObject.reviewId);
+// 				inboxObject.image = image;
+// 				inboxObject.senderId = senderId;
+				
+// 				// get itinerary title or subject title
+// 				if (sendObject && sendObject.title) {
+// 					inboxObject.reviewTitle = sendObject.title;
+// 				}
+// 				else if (sendObject && sendObject.subject && sendObject.subject.title) {
+// 					inboxObject.reviewTitle = sendObject.subject.title;
+// 				}
+
+// 				switch(messageType) {
+// 					case Constants.LIKE_TIP_MESSAGE:
+// 						inboxObject.message = ' liked your tip: ';
+// 						inboxObject.link = '/guide/' + itineraryObject.id + '/tip' + sendObject.key 
+// 						emailMessage = senderSnapshot.val().username + 
+// 							' liked your tip. Click here to check it out: https://myviews.io' + inboxObject.link;
+// 						break;
+// 					// case Constants.LIKE_ITINERARY_MESSAGE:
+// 					// 	inboxObject.message = ' liked your guide: ';
+// 					// 	inboxObject.link = '/guide/' + sendObject.id;
+// 					// 	emailMessage = senderSnapshot.val().username + 
+// 					// 		' liked your guide. Click here to check it out: https://myviews.io' + inboxObject.link;
+// 					// 	break;
+// 					// case Constants.COMMENT_ON_REVIEW_MESSAGE:
+// 					// 	inboxObject.message = ' commented on your tip: ';
+// 					// 	inboxObject.link = itineraryId ? '/guide/' + itineraryId : '/review/' + sendObject.subjectId + '/' + sendObject.id;
+// 					// 	emailMessage = senderSnapshot.val().username + 
+// 					// 		' commented on your tip. Click here to check it out: https://myviews.io' + inboxObject.link;
+// 					// 	break;
+// 					// case Constants.COMMENT_ON_COMMENT_REVIEW_MESSAGE:
+// 					// 	inboxObject.message = ' also commented on the tip: ';
+// 					// 	inboxObject.link = itineraryId ? '/guide/' + itineraryId : '/review/' + sendObject.subjectId + '/' + sendObject.id;
+// 					// 	emailMessage = senderSnapshot.val().username + 
+// 					// 		' also commented on a tip you commented on. Click here to check it out: https://myviews.io' + inboxObject.link;
+// 					// 	break;
+// 					// case Constants.COMMENT_ON_ITINERARY_MESSAGE:
+// 					// 	inboxObject.message = ' commented on your guide: ';
+// 					// 	inboxObject.link = '/guide/' + sendObject.id;
+// 					// 	emailMessage = senderSnapshot.val().username + 
+// 					// 		' commented on your guide. Click here to check it out: https://myviews.io' + inboxObject.link;
+// 					// 	break;
+// 					// case Constants.COMMENT_ON_COMMENT_ITINERARY_MESSAGE:
+// 					// 	inboxObject.message = ' also commented on the guide: ';
+// 					// 	inboxObject.link = '/guide/' + sendObject.id;
+// 					// 	emailMessage = senderSnapshot.val().username + 
+// 					// 		' also commented on an guide you commented on. Click here to check it out: https://myviews.io' + inboxObject.link;
+// 					// 	break;
+// 					// case Constants.FOLLOW_MESSAGE:
+// 					// 	inboxObject.message = ' started following you.';
+// 					// 	inboxObject.link = '/' + senderSnapshot.val().username;
+// 					// 	emailMessage = senderSnapshot.val().username + 
+// 					// 		' followed you. Click here to see their profile: https://myviews.io' + inboxObject.link;
+// 					// 	break;
+// 					// case Constants.DIRECT_MESSAGE:
+// 					// 	inboxObject.message = ' sent you a personal review.'
+// 					// 	inboxObject.link = '/review/' + sendObject.subjectId + '/' + sendObject.id;
+// 					// 	emailMessage = senderSnapshot.val().username + 
+// 					// 		' sent you a personal review. Click here to see it: https://myviews.io' + inboxObject.link;
+// 					// 	break;
+// 					// case Constants.FORWARD_MESSAGE:
+// 					// 	inboxObject.message = ' forwared you a review.'
+// 					// 	inboxObject.link = '/review/' + sendObject.subjectId + '/' + sendObject.id;
+// 					// 	emailMessage = senderSnapshot.val().username + 
+// 					// 		' forwarded you a review. Click here to see it: https://myviews.io' + inboxObject.link;
+// 					// 	break;
+// 					// case Constants.SAVE_MESSAGE:
+// 					// 	inboxObject.message = ' saved your tip to their guide: ';
+// 					// 	inboxObject.link = '/guide/' + itineraryId;
+// 					// 	emailMessage = senderSnapshot.val().username + ' saved your tip to their guide. Click here to check out your inbox: https://myviews.io/inbox';
+// 					// 	break;
+// 					// case Constants.USER_MENTIONED_TYPE:
+// 					// 	inboxObject.message = ' mentioned you in a comment. ';
+// 					// 	inboxObject.link = '/guide/' + itineraryId;
+// 					// 	emailMessage = senderSnapshot.val().username + ' mentioned you in a comment. Click here to check out your inbox: https://myviews.io/inbox';
+// 					// 	break;
+// 				}
+// 				if (senderId !== recipientId) {
+// 					Firebase.database().ref(Constants.INBOX_PATH + '/' + recipientId).push().set(inboxObject);
+// 					Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + recipientId + '/messageCount').transaction(function (current_count) {
+// 			            return (current_count || 0) + 1;
+// 			        })
+// 		        	if (recipientSnapshot.exists()) {
+// 		        		let formData = new FormData();
+// 		        		formData.append("template-id", "7691e888-4b30-40e2-9d78-df815d5b8453");
+// 		        		formData.append("recipient", recipientSnapshot.val().email);
+// 		        		formData.append("data", JSON.stringify({ message: emailMessage }));
+// 				        fetch(Constants.INBOX_SEND_EMAIL_URL, {
+// 						  method: 'POST',
+// 						  body: formData
+// 						})
+// 						.catch(function(response) {
+// 							console.log(response)
+// 						})
+// 						.catch(function(error) {
+// 						    console.log('Content Manager email send request failed', error)
+// 						})
+// 				    }
+// 				}
+// 			})
+// 		})
+// 	}
+// }
+
+export function sendInboxMessage(senderId, recipientId, messageType, sendObject, itineraryId, commentObject) {
 	const inboxObject = {
 		lastModified: Firebase.database.ServerValue.TIMESTAMP
 	};
@@ -302,12 +416,13 @@ export function sendInboxMessage(senderId, recipientId, messageType, sendObject,
 				else if (sendObject && sendObject.subject && sendObject.subject.title) {
 					inboxObject.reviewTitle = sendObject.subject.title;
 				}
+				inboxObject.timestamp = Firebase.database.ServerValue.TIMESTAMP;
 
 				switch(messageType) {
-					case Constants.LIKE_MESSAGE:
+					case Constants.LIKE_TIP_MESSAGE:
 						inboxObject.senderId = senderId;
 						inboxObject.message = ' liked your tip: ';
-						inboxObject.link = itineraryId ? '/guide/' + itineraryId : '/review/' + sendObject.subjectId + '/' + sendObject.id;
+						inboxObject.link = itineraryId ? '/guide/' + itineraryId + '#tip' + sendObject.key : '/review/' + sendObject.subjectId + '/' + sendObject.id;
 						emailMessage = senderSnapshot.val().username + 
 							' liked your tip. Click here to check it out: https://myviews.io' + inboxObject.link;
 						break;
@@ -320,29 +435,35 @@ export function sendInboxMessage(senderId, recipientId, messageType, sendObject,
 						break;
 					case Constants.COMMENT_ON_REVIEW_MESSAGE:
 						inboxObject.senderId = senderId;
-						inboxObject.message = ' commented on your tip: ';
-						inboxObject.link = itineraryId ? '/guide/' + itineraryId : '/review/' + sendObject.subjectId + '/' + sendObject.id;
+						inboxObject.message = ' commented on your tip: ' + commentObject.message;
+						inboxObject.link = itineraryId ? '/guide/' + itineraryId + '#comment' + commentObject.commentId : 
+							'/review/' + sendObject.subjectId + '/' + sendObject.id;
+						inboxObject.reviewTitle = '';
 						emailMessage = senderSnapshot.val().username + 
 							' commented on your tip. Click here to check it out: https://myviews.io' + inboxObject.link;
 						break;
 					case Constants.COMMENT_ON_COMMENT_REVIEW_MESSAGE:
 						inboxObject.senderId = senderId;
-						inboxObject.message = ' also commented on the tip: ';
-						inboxObject.link = itineraryId ? '/guide/' + itineraryId : '/review/' + sendObject.subjectId + '/' + sendObject.id;
+						inboxObject.message = ' also commented: ' + commentObject.message;
+						inboxObject.link = itineraryId ? '/guide/' + itineraryId + '#comment' + commentObject.commentId : 
+							'/review/' + sendObject.subjectId + '/' + sendObject.id;
+						inboxObject.reviewTitle = '';
 						emailMessage = senderSnapshot.val().username + 
 							' also commented on a tip you commented on. Click here to check it out: https://myviews.io' + inboxObject.link;
 						break;
 					case Constants.COMMENT_ON_ITINERARY_MESSAGE:
 						inboxObject.senderId = senderId;
-						inboxObject.message = ' commented on your guide: ';
-						inboxObject.link = '/guide/' + sendObject.id;
+						inboxObject.message = ' commented on your guide: ' + commentObject.message;
+						inboxObject.link = '/guide/' + sendObject.id + '#comment' + commentObject.commentId;
+						inboxObject.reviewTitle = '';
 						emailMessage = senderSnapshot.val().username + 
 							' commented on your guide. Click here to check it out: https://myviews.io' + inboxObject.link;
 						break;
 					case Constants.COMMENT_ON_COMMENT_ITINERARY_MESSAGE:
 						inboxObject.senderId = senderId;
-						inboxObject.message = ' also commented on the guide: ';
-						inboxObject.link = '/guide/' + sendObject.id;
+						inboxObject.reviewTitle = '';
+						inboxObject.message = ' also commented on the guide: ' + commentObject.message;
+						inboxObject.link = '/guide/' + sendObject.id + '#comment' + commentObject.commentId;
 						emailMessage = senderSnapshot.val().username + 
 							' also commented on an guide you commented on. Click here to check it out: https://myviews.io' + inboxObject.link;
 						break;
@@ -350,34 +471,36 @@ export function sendInboxMessage(senderId, recipientId, messageType, sendObject,
 						inboxObject.senderId = senderId;
 						inboxObject.message = ' started following you.';
 						inboxObject.link = '/' + senderSnapshot.val().username;
+						inboxObject.reviewTitle = '';
 						emailMessage = senderSnapshot.val().username + 
-							' followed you. Click here to see their profile: https://myviews.io' + inboxObject.link;
+							' started following you. Click here to see their profile: https://myviews.io' + inboxObject.link;
 						break;
-					case Constants.DIRECT_MESSAGE:
-						inboxObject.senderId = senderId;
-						inboxObject.message = ' sent you a personal review.'
-						inboxObject.link = '/review/' + sendObject.subjectId + '/' + sendObject.id;
-						emailMessage = senderSnapshot.val().username + 
-							' sent you a personal review. Click here to see it: https://myviews.io' + inboxObject.link;
-						break;
-					case Constants.FORWARD_MESSAGE:
-						inboxObject.senderId = senderId;
-						inboxObject.message = ' forwared you a review.'
-						inboxObject.link = '/review/' + sendObject.subjectId + '/' + sendObject.id;
-						emailMessage = senderSnapshot.val().username + 
-							' forwarded you a review. Click here to see it: https://myviews.io' + inboxObject.link;
-						break;
+					// case Constants.DIRECT_MESSAGE:
+					// 	inboxObject.senderId = senderId;
+					// 	inboxObject.message = ' sent you a personal review.'
+					// 	inboxObject.link = '/review/' + sendObject.subjectId + '/' + sendObject.id;
+					// 	emailMessage = senderSnapshot.val().username + 
+					// 		' sent you a personal review. Click here to see it: https://myviews.io' + inboxObject.link;
+					// 	break;
+					// case Constants.FORWARD_MESSAGE:
+					// 	inboxObject.senderId = senderId;
+					// 	inboxObject.message = ' forwared you a review.'
+					// 	inboxObject.link = '/review/' + sendObject.subjectId + '/' + sendObject.id;
+					// 	emailMessage = senderSnapshot.val().username + 
+					// 		' forwarded you a review. Click here to see it: https://myviews.io' + inboxObject.link;
+					// 	break;
 					case Constants.SAVE_MESSAGE:
 						inboxObject.senderId = senderId;
 						inboxObject.message = ' saved your tip to their guide: ';
 						inboxObject.link = '/guide/' + itineraryId;
-						emailMessage = senderSnapshot.val().username + ' saved your tip to their guide. Click here to check out your inbox: https://myviews.io/inbox';
+						emailMessage = senderSnapshot.val().username + ' saved your tip to their guide. Click here to see it: https://myviews.io' + inboxObject.link;
 						break;
 					case Constants.USER_MENTIONED_TYPE:
 						inboxObject.senderId = senderId;
-						inboxObject.message = ' mentioned you in a comment. ';
-						inboxObject.link = '/guide/' + itineraryId;
-						emailMessage = senderSnapshot.val().username + ' mentioned you in a comment. Click here to check out your inbox: https://myviews.io/inbox';
+						inboxObject.reviewTitle = '';
+						inboxObject.message = ' mentioned you in a comment: ' + commentObject.message;
+						inboxObject.link = '/guide/' + itineraryId + '#comment' + commentObject.commentId;
+						emailMessage = senderSnapshot.val().username + ' mentioned you in a comment. Click here to see it: https://myviews.io' + inboxObject.link;
 						break;
 				}
 				if (senderId !== recipientId) {

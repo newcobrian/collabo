@@ -9,7 +9,7 @@ const RightPic = props => {
   if (props.image) {
     return (
       <Link
-      to={'/' + props.link}
+      to={props.link}
       className="">
         <div className="bx-shadow">
           <ProxyImage src={props.image} className="image--basic center-img" />
@@ -102,7 +102,7 @@ class Inbox extends React.Component {
               // const isUser = this.props.currentUser &&
               //   follower.userId === this.props.currentUser.uid;
                 return (
-                  <div className="flx flx-row flx-just-start brdr-bottom flx-align-center pdding-all-sm list-row w-100 w-max" key={inboxItem.key}>
+                  <Link className="flx flx-row flx-just-start brdr-bottom flx-align-center pdding-all-sm list-row w-100 w-max" key={inboxItem.key} to={inboxItem.link}>
                     <LeftSenderPic senderId={inboxItem.senderId} username={inboxItem.senderUsername} image={inboxItem.senderImage} />
                     <div className="flx flx-col mrgn-right-md">
                       <div className="v2-type-body1">
@@ -112,7 +112,7 @@ class Inbox extends React.Component {
                     </div>
                     <div className="feed-pic-wrapper mrgn-right-md flx-item-right"><RightPic link={inboxItem.link} image={inboxItem.reviewImage} /></div>
 
-                  </div>
+                  </Link>
                 )
             })
           }
