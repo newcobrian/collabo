@@ -10,7 +10,7 @@ export function getFeaturedPreview(auth) {
 
 		Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).once('value', snap => {
 			Firebase.database().ref(Constants.USERS_PATH + '/' + snap.val().userId).once('value', userSnap => {
-				let featuredObject = Object.assign({}, {itineraryId: itineraryId}, snap.val(), {createdBy: userSnap.val()})
+				let featuredObject = Object.assign({}, {id: itineraryId}, snap.val(), {createdBy: userSnap.val()})
 				dispatch ({
 					type: ActionTypes.GET_FEATURED_PREVIEW,
 					featuredPreview: featuredObject
@@ -26,7 +26,7 @@ export function getPopularPreview(auth) {
 		Firebase.database().ref(Constants.ITINERARIES_PATH).orderByChild('popularityScore').limitToLast(Constants.HOMEPAGE_POPULAR_COUNT).once('value', snap => {
 			snap.forEach(function(itin) {
 				Firebase.database().ref(Constants.USERS_PATH + '/' + itin.val().userId).once('value', userSnap => {
-					let itineraryObject = Object.assign({}, {itineraryId: itin.key}, itin.val(), {createdBy: userSnap.val()})
+					let itineraryObject = Object.assign({}, {id: itin.key}, itin.val(), {createdBy: userSnap.val()})
 					popularArray = [itineraryObject].concat(popularArray);
 					dispatch ({
 						type: ActionTypes.GET_POPULAR_PREVIEW,
