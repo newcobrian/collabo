@@ -135,14 +135,12 @@ const ItineraryPreview = props => {
                 <div className="itinerary__cover__username mrgn-right-md">
                   <Link
                   to={`/${itinerary.createdBy.username}`}
-                  className="color--primary">
-                  {itinerary.createdBy.username}
+                  className="color--black opa-40">
+                  {itinerary.createdBy.username} &middot; {itinerary.reviewsCount ? itinerary.reviewsCount : 0} {itinerary.reviewsCount === 1 ? ' Tip' : ' Tips'}
                   </Link>
                 </div>
                 {/** END USERNAME **/}
-                {/** TIP COUNT **/}
-                <div className="DN v2-type-caption opa-40">{itinerary.reviewsCount ? itinerary.reviewsCount : 0} {itinerary.reviewsCount === 1 ? ' Tip' : ' Tips'}</div>
-                {/** END TIP COUNT **/}
+
 
               </div>
             </div>
@@ -261,8 +259,8 @@ const ItineraryPreview = props => {
 
                 {/** TIP COUNT **/}
                 <Link to={`/guide/${itinerary.id}`} className="vb vb--sm vb--outline tip-count color--primary v2-type-body3 flx flx-row flx-just-start flx-align-center color--primary flx-item-right no-uppercase">
-                    <div>{itinerary.reviewsCount ? itinerary.reviewsCount : 0} {itinerary.reviewsCount === 1 ? '' : ''}</div>
-                    <i className="material-icons mrgn-left-sm color--primary md-24">playlist_play</i>
+                    <div>{itinerary.reviewsCount ? itinerary.reviewsCount : 0} {itinerary.reviewsCount === 1 ? ' Tip' : ' Tips'}</div>
+                    <i className="DN material-icons mrgn-left-sm color--primary md-24">playlist_play</i>
                 </Link>
 
               </div>

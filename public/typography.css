@@ -139,7 +139,7 @@ font-weight: 300;
   font-size: 38px;
   letter-spacing: 1px;
   line-height: 36px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Arimo', sans-serif;
   text-transform: uppercase;
 }
 .v2-type-page-header {
@@ -147,12 +147,12 @@ font-weight: 300;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: .6px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Arimo', sans-serif;
 }
 .v2-type-h3 {
     font-size: 28px;
     letter-spacing: 0;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Arimo', sans-serif;
     font-weight: 400;
     line-height: 30px;
     text-transform: none;
@@ -181,7 +181,7 @@ font-weight: 300;
 }
 .v2-type-intro {
   /* Make and share trave: */
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Arimo', sans-serif;
   font-size: 32px;
   letter-spacing: 1;
 }
@@ -195,6 +195,13 @@ font-weight: 300;
   letter-spacing: .5px;
   line-height: 18px;
   overflow: visible;
+}
+.label-big {
+  font-family: 'Arimo', sans-serif;
+  text-transform: uppercase;
+  font-size: 15px;
+  letter-spacing: 1.5px;
+  font-weight: 600;
 }
 
 .text-shadow {

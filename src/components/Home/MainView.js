@@ -15,6 +15,7 @@ const MainView = props => {
   return (
     <div>
       <div className="feed-wrapper fill--light-gray">
+
         <div className="page-section page-section__friends w-100 w-max pdding-top-md">
           <div className="section-header ta-center opa-40">Friends</div>
           <ItineraryList

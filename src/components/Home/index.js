@@ -235,28 +235,44 @@ class Home extends React.Component {
         {this.LoggedOutIntro(this.props.authenticated)}
         <div className={'home-page page-common ' + isLandingPage}>
 
-          <div className="search-wrapper w-100 flx-row flx-align-center fill--primary">
-            <i className="search-icon material-icons color--black md-32">search</i>
-            <FirebaseSearchInput
-              name="searchInput"
-              callback={this.searchInputCallback}
-              placeholder="Search any city or country"
-              type={Constants.GEO_SEARCH}
-              className="input--search full-width-search fill--white color--black input--underline v2-type-body3" />
+          <div className="search-wrapper-wrapper w-100 flx flx-row flx-m-col flx-align-center fill--black">
+            <div className="search-wrapper short-width-search w-100 flx flx-row flx-align-center fill--black">
+              <i className="search-icon material-icons color--white md-32">search</i>
+              <FirebaseSearchInput
+                name="searchInput"
+                callback={this.searchInputCallback}
+                placeholder="Search any city or country"
+                type={Constants.GEO_SEARCH}
+                className="input--search fill--black color--white input--underline v2-type-body3" />
+            </div>
+            <div className="search-detail-bar flx flx-row color--white flx-align-center flx-just-start ta-center pdding-left-md w-100 v2-type-body2 color--white">
+              <div className="label-big color--white flx-hold mrgn-right-lg">Top Cities:</div>
+                <div className="geo-type color--white opa-100">Paris</div>
+                <div className="mrgn-left-md mrgn-right-md">&middot;</div>
+                <div className="geo-type color--white opa-100">Madrid</div>
+                <div className="mrgn-left-md mrgn-right-md">&middot;</div>
+                <div className="geo-type color--white opa-100">Waikiki</div>
+                <div className="mrgn-left-md mrgn-right-md">&middot;</div>
+                <div className="geo-type color--white opa-100">New York</div>
+                <div className="mrgn-left-md mrgn-right-md">&middot;</div>
+                <div className="geo-type color--white opa-100">Seoul</div>
+                <div className="mrgn-left-md mrgn-right-md">&middot;</div>
+                <div className="geo-type color--white opa-100">Berlin</div>
+              </div>
           </div>
           {this.renderHomepageFeatures()}
           <MainView />
 
           <BackToTop />
         </div>
-        <div className="footer fill--black color--white flx flx-col flx-center-all">
+        <div className="DN footer fill--black color--white flx flx-col flx-center-all">
           <div className="homepage-logo mrgn-bottom-md">  
             <img className="center-img w-100" src="/img/logos/homepage-logo.png"/>
           </div>
           <div className="v2-type-intro color--white opa-70 mrgn-bottom-lg DN">
             Travel with the knowledge of your friends
           </div>
-          <Link to="/register" className="vb vb--intro--register fill--primary color--white vb--wide">
+          <Link to="/register" className="DN vb vb--intro--register fill--primary color--white vb--wide">
             Sign up now
           </Link>
         </div>

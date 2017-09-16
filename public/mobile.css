@@ -405,7 +405,9 @@ width: 100%;
   width: 100%;
 
 }
-.profile-page .user-info .user-img {
+.profile-page .user-info .user-img,
+.profile-info .default-profile-wrapper,
+.profile-info .user-photo-wrapper {
   width: 70px;
   height: 70px;
   margin: 0;

@@ -35,16 +35,21 @@
   width: 100% !important;
   border: none;
 }
-.input--search.short-width-search {
-	width: 50% !important;
+.short-width-search {
+	width: 40% !important;
 	border: none;
 }
 .home-page .search-wrapper,
 .page-people .search-wrapper {
 	margin-top: 0;
-  padding: 10px;
+  padding: 10px 20px;
 }
 .page-people .input--search input,
 .home-page .input--search input {
-  text-indent: 80px;
+  text-indent: 70px;
+  color: white !important
+}
+
+.search-detail-bar {
+  padding: 10px 20px 10px;
 }

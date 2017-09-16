@@ -13,7 +13,11 @@ const mapStateToProps = state => ({
   authenticated: state.common.authenticated
 });
 
+
+
 class Explore extends React.Component {
+
+
   componentWillMount() {
     this.props.watchAllUsers(this.props.authenticated, Constants.EXPLORE_PAGE)
     this.props.sendMixpanelEvent('Explore page loaded');
@@ -34,14 +38,16 @@ class Explore extends React.Component {
     
     return (
       <div className="flx flx-col page-common follow-page page-people flx-just-start w-100">
-          <div className="search-wrapper w-100 flx flx-row flx-align-center fill--primary">
-            <i className="search-icon material-icons md-32 color--black">search</i>
+          <div className="search-wrapper-wrapper w-100 flx flx-row flx-m-col flx-align-center fill--black">
+            <div className="search-wrapper short-width-search w-100 flx flx-row flx-align-center fill--black">
+            <i className="search-icon material-icons md-32 color--white">search</i>
             <FirebaseSearchInput
               name="searchInput"
               callback={searchInputCallback}
               placeholder="Search for people on Views"
               type={Constants.PEOPLE_SEARCH}
-              className="input--search full-width-search fill--white color--black input--underline v2-type-body3" />
+              className="input--search fill--black color--white input--underline v2-type-body3" />
+            </div>
           </div>
 
 

@@ -104,6 +104,7 @@
 .small-guide .itinerary__cover__flag {
 	width: 24px;
 	height: 18px;
+	margin-right: 10px;
 }
 .small-guide .guide-preview-title {
 	font-size: 16px;
@@ -143,7 +144,7 @@
 	transition: all 0.23s ease-in-out 0s;
 }
 .itinerary__cover.cover--empty {
-	height: 560px;
+	height: 420px;
 	border-color: #2ECBDB;
 }
 .itinerary__cover.cover--empty:hover {

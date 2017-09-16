@@ -199,7 +199,7 @@ class FirebaseSearchInput extends Component {
         onNewRequest={this.onNewRequest}
         className={this.props.className}
         style={{
-          backgroundColor: 'transparent',
+          backgroundColor: 'transparent'
         }}
         underlineFocusStyle={{
           borderColor: '#5B9D3A'
@@ -216,9 +216,9 @@ class FirebaseSearchInput extends Component {
           overflow: 'scroll'
         }}
         hintStyle={{
-          paddingLeft: '82px',
-          color: 'rgba(255,255,255,.8)',
+          paddingLeft: '72px',
           color: 'rgba(0,0,0,.4)',
+          color: 'rgba(255,255,255,.8)',
           fontWeight: '100'
         }}
      />
