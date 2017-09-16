@@ -41,6 +41,14 @@ export function updateAlgloiaGeosIndex(geo) {
 	});
 }
 
+export function byPopularity(a, b) {
+  if (a.popularityScore > b.popularityScore)
+    return -1;
+  if (a.popularityScore < b.popularityScore)
+    return 1;
+  return 0;
+}
+
 export function byPriority(a, b) {
   if (a.priority < b.priority)
     return -1;

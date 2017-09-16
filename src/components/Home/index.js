@@ -5,7 +5,9 @@ import { connect } from 'react-redux';
 import * as Actions from '../../actions';
 import * as Constants from '../../constants';
 import { Link, browserHistory } from 'react-router';
-import FirebaseSearchInput from '../FirebaseSearchInput'
+import FirebaseSearchInput from '../FirebaseSearchInput';
+import PopularPreview from './PopularPreview';
+import ItineraryPreview from '../ItineraryPreview';
 
 const mapStateToProps = state => ({
   ...state.home,
@@ -21,6 +23,22 @@ const mapStateToProps = state => ({
 //   onUnload: () =>
 //     dispatch({  type: 'HOME_PAGE_UNLOADED' })
 // });
+
+const RenderFeaturedPreview = props => {
+  if (props.featuredPreview) {
+    return (
+      
+        <ItineraryPreview itinerary={props.featuredPreview}
+          authenticated={props.authenticated} 
+          like={props.like} 
+          unLike={props.unLike}
+          deleteItinerary={props.deleteItinerary}
+          type={Constants.LARGE_GUIDE_PREVIEW} />
+
+    )
+  }
+  return null;
+}
 
 class Home extends React.Component {
   constructor() {
@@ -54,21 +72,44 @@ class Home extends React.Component {
     }
   }
 
-  renderTabs() {
-    return (         
-      <div className="feed-toggle w-max flx flx-row flx-just-start w-100 w-max">
-        <ul className="nav nav-pills outline-active flx flx-row">
-          <li className="nav-item">
-            <Link
-              className="nav-link active"
-              to="/">
-              Global
-            </Link>
-          </li>
-        </ul>
+  renderHomepageFeatures() {
+    return (
+      <div className="featured-wrapper w-100 w-max flx flx-row">
+         <RenderFeaturedPreview
+            featuredPreview={this.props.featuredPreview}
+            authenticated={this.props.authenticated} 
+            like={this.props.likeReview} 
+            unLike={this.props.unLikeReview}
+            deleteItinerary={this.props.deleteItinerary} />
+
+          <div className="popular-box fill--white brdr-all mobile-hide brdr--primary">
+            <div className="color--black section-header mrgn-bottom-md opa-40">Popular Guides</div>
+            <PopularPreview 
+              popularList={this.props.popularPreview}
+              authenticated={this.props.authenticated} 
+              like={this.props.like} 
+              unLike={this.props.unLike}
+              deleteItinerary={this.props.deleteItinerary} />
+          </div>
       </div>
-    );
+    )
   }
+
+  // renderTabs() {
+  //   return (         
+  //     <div className="feed-toggle w-max flx flx-row flx-just-start w-100 w-max">
+  //       <ul className="nav nav-pills outline-active flx flx-row">
+  //         <li className="nav-item">
+  //           <Link
+  //             className="nav-link active"
+  //             to="/">
+  //             Global
+  //           </Link>
+  //         </li>
+  //       </ul>
+  //     </div>
+  //   );
+  // }
 
   LoggedOutIntro(authenticated) {
     if (!authenticated) {
@@ -203,7 +244,7 @@ class Home extends React.Component {
               type={Constants.GEO_SEARCH}
               className="input--search full-width-search fill--white color--black input--underline v2-type-body3" />
           </div>
-          
+          {this.renderHomepageFeatures()}
           <MainView />
 
           <BackToTop />

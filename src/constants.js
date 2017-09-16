@@ -123,7 +123,7 @@ export const COMMENT_GUIDE_SCORE = 6
 export const INVALID_USERNAMES = ['account', 'send', 'message', 'inbox', 'notification', 'create', 'edit', 'editor',
  'itinerary', 'messenger', 'settings', 'admin', 'administrator', 'settings', 'global', 'saved', 'login', 'register',
   'review', 'followers', 'isfollowing', 'likes', 'saves', 'select', 'explore', 'search', 'user', 'location', 'city', 
-  'geo', 'attraction', 'subject', 'home', 'places', 'countries', 'api', 'guide']
+  'geo', 'attraction', 'subject', 'home', 'places', 'countries', 'api', 'guide', 'popular']
 
 
 /** Itineraries that everyone can edit (for testing shared itineraries feature) **/

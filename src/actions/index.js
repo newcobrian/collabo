@@ -2163,6 +2163,54 @@ export function unloadLikesByUser(auth, userId) {
   }
 }
 
+// export function getGlobalFeed(auth) {
+//   return dispatch => {
+//     let feedArray = [];
+//     Firebase.database().ref(Constants.ITINERARIES_PATH).orderByChild('popularityScore').on('value', itinerariesSnapshot => {
+//       itinerariesSnapshot.forEach(function(itin) {
+//         Firebase.database().ref(Constants.USERS_PATH + '/' + itin.val().userId).on('value', userSnapshot => {
+//           Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itin.key).on('value', likesSnapshot => {
+//             const itineraryObject = {};
+//             const key = { id: itin.key };
+//             const createdBy = { createdBy: Object.assign({}, userSnapshot.val(), {userId: itin.val().userId}) };
+//             let likes = {
+//               isLiked: likesSnapshot.exists()
+//             }
+            
+//             Object.assign(itineraryObject, itin.val(), key, createdBy, likes);
+
+//             feedArray = [itineraryObject].concat(feedArray);
+//             feedArray.sort(Helpers.byPopularity);
+//             dispatch({
+//               type: ActionTypes.GET_GLOBAL_FEED,
+//               payload: feedArray
+//             })
+//           })
+//         })
+//       })
+//     })
+//   }
+// }
+
+// export function unloadGlobalFeed(uid) {
+//   return dispatch => {
+//     Firebase.database().ref(Constants.REVIEWS_PATH + '/').orderByChild('lastModified').on('value', reviewsSnapshot => {
+//       reviewsSnapshot.forEach(function(review) {
+//         Firebase.database().ref(Constants.USERS_PATH + '/' + review.val().userId).off();
+//         Firebase.database().ref(Constants.LIKES_PATH + '/' + review.key).off();
+//         Firebase.database().ref(Constants.SAVES_BY_USER_PATH + '/' + uid + '/' + review.key).off();
+//         Firebase.database().ref(Constants.COMMENTS_PATH + '/' + review.key).off();
+//         Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + review.val().subjectId).off();
+//       })
+//     })
+//     Firebase.database().ref(Constants.REVIEWS_PATH + '/').orderByChild('lastModified').off();
+
+//     dispatch({
+//       type: ActionTypes.GLOBAL_FEED_UNLOADED
+//     })
+//   }
+// }
+
 // ORIGINAL VERSION on value
 // export function getUserFeed(auth) {
 //   return dispatch => {
@@ -2261,7 +2309,7 @@ export function watchItinerariesByUser(dispatch, userId) {
   watchUser(dispatch, userId, Constants.USER_FEED);
 
   Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + userId).on('child_added', addedSnap => {
-    dispatch(itineraryAddedAddedAction(addedSnap.key,userId,  addedSnap.val()));
+    dispatch(itineraryAddedAction(addedSnap.key, userId,  addedSnap.val()));
   })
   Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + userId).on('child_changed', changedSnap => {
     dispatch(itineraryChangedAction(changedSnap.key, changedSnap.val()));
@@ -2285,7 +2333,7 @@ function itineraryByUserRemovedAction(userId) {
   }
 }
 
-function itineraryAddedAddedAction(itineraryId, userId, itinerary) {
+function itineraryAddedAction(itineraryId, userId, itinerary) {
   return {
     type: ITINERARY_ADDED_ACTION,
     itineraryId,
@@ -2365,6 +2413,36 @@ function likesByUserRemovedAction(objectId, source) {
     source
   }
 }
+
+export function watchPopularFeed(auth) {
+  return dispatch => {
+    // watchUser(dispatch, auth, Constants.USER_FEED);
+    watchLikesByUser(dispatch, auth, Constants.USER_FEED);
+
+    Firebase.database().ref(Constants.ITINERARIES_PATH).orderByChild('popularityScore').limitToLast(10).on('child_added', addedSnap => {
+      watchUser(dispatch, addedSnap.val().userId, Constants.USER_FEED);
+      dispatch(itineraryAddedAction(addedSnap.key, addedSnap.val().userId,  addedSnap.val()));
+    })
+    Firebase.database().ref(Constants.ITINERARIES_PATH).on('child_changed', changedSnap => {
+      dispatch(itineraryChangedAction(changedSnap.key, changedSnap.val()));
+    })
+    Firebase.database().ref(Constants.ITINERARIES_PATH).on('child_removed', removedSnap => {
+      dispatch(itineraryRemovedAction(removedSnap.key));
+    })
+  }
+}
+
+export function unwatchPopularFeed(auth) {
+  return dispatch => {
+    unwatchLikesByUser(dispatch, auth, Constants.USER_FEED);
+
+    Firebase.database().ref(Constants.ITINERARIES_PATH).orderByChild('popularityScore').limitToLast(10).once('child_added', addedSnap => {
+      unwatchUser(dispatch, addedSnap.val().userId, Constants.USER_FEED);
+    })
+    Firebase.database().ref(Constants.ITINERARIES_PATH).orderByChild('popularityScore').limitToLast(10).off(); 
+  }   
+}
+
 
 export function likeReview(authenticated, type, likeObject, itineraryId) {
   return dispatch => {
@@ -2586,98 +2664,6 @@ export function unloadUserFeed(uid) {
     dispatch({
       type: USER_FEED_UNLOADED
     });
-  }
-}
-
-export function getGlobalFeed(auth) {
-  return dispatch => {
-    let feedArray = [];
-    Firebase.database().ref(Constants.ITINERARIES_PATH).on('value', itinerariesSnapshot => {
-      itinerariesSnapshot.forEach(function(itin) {
-        Firebase.database().ref(Constants.USERS_PATH + '/' + itin.val().userId).on('value', userSnapshot => {
-          Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itin.key).on('value', likesSnapshot => {
-            const itineraryObject = {};
-            const key = { id: itin.key };
-            const createdBy = { createdBy: Object.assign({}, userSnapshot.val(), {userId: itin.val().userId}) };
-            let likes = {
-              isLiked: likesSnapshot.exists()
-            }
-            
-            Object.assign(itineraryObject, itin.val(), key, createdBy, likes);
-
-            feedArray = [itineraryObject].concat(feedArray);
-            feedArray.sort(Helpers.lastModifiedDesc);
-            dispatch({
-              type: GET_GLOBAL_FEED,
-              payload: feedArray
-            })
-          })
-        })
-      })
-    })
-  }
-}
-
-export function unloadGlobalFeed(uid) {
-  return dispatch => {
-    Firebase.database().ref(Constants.REVIEWS_PATH + '/').orderByChild('lastModified').on('value', reviewsSnapshot => {
-      reviewsSnapshot.forEach(function(review) {
-        Firebase.database().ref(Constants.USERS_PATH + '/' + review.val().userId).off();
-        Firebase.database().ref(Constants.LIKES_PATH + '/' + review.key).off();
-        Firebase.database().ref(Constants.SAVES_BY_USER_PATH + '/' + uid + '/' + review.key).off();
-        Firebase.database().ref(Constants.COMMENTS_PATH + '/' + review.key).off();
-        Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + review.val().subjectId).off();
-      })
-    })
-    Firebase.database().ref(Constants.REVIEWS_PATH + '/').orderByChild('lastModified').off();
-
-    dispatch({
-      type: GLOBAL_FEED_UNLOADED
-    })
-  }
-}
-
-export function loadSampleGuides(auth) {
-  return dispatch => {
-    let feedArray = [];
-    for (let i = 0; i < Constants.HOMEPAGE_SAMPLE_GUIDES.length; i++) {
-      Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + Constants.HOMEPAGE_SAMPLE_GUIDES[i]).on('value', itinSnap => {
-        Firebase.database().ref(Constants.USERS_PATH + '/' + itinSnap.val().userId).on('value', userSnapshot => {
-          Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itinSnap.key).on('value', likesSnapshot => {
-            const itineraryObject = {};
-            const key = { id: itinSnap.key };
-            const createdBy = { createdBy: Object.assign({}, userSnapshot.val(), {userId: itinSnap.val().userId}) };
-            let likes = {
-              isLiked: likesSnapshot.exists()
-            }
-            
-            Object.assign(itineraryObject, itinSnap.val(), key, createdBy, likes);
-
-            feedArray = [itineraryObject].concat(feedArray);
-
-            dispatch({
-              type: GET_GLOBAL_FEED,
-              payload: feedArray
-            })
-          })
-        })
-      })
-    }
-  }
-}
-
-export function unloadSampleGuides(auth) {
-  return dispatch => {
-    for (let i = 0; i < Constants.HOMEPAGE_SAMPLE_GUIDES.length; i++) {
-      Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + Constants.HOMEPAGE_SAMPLE_GUIDES[i]).once('value', itinSnap => {
-        Firebase.database().ref(Constants.USERS_PATH + '/' + itinSnap.val().userId).off();
-        Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itinSnap.key).off();
-      })
-      Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + Constants.HOMEPAGE_SAMPLE_GUIDES[i]).off();
-    }
-    dispatch({
-      type: GLOBAL_FEED_UNLOADED
-    })
   }
 }
 

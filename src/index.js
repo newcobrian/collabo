@@ -7,6 +7,7 @@ import App from './components/App';
 import Review from './components/Review';
 import Home from './components/Home';
 import GlobalFeed from './components/Home/GlobalFeed';
+import PopularFeed from './components/Home/PopularFeed';
 import SavesFeed from './components/Home/SavesFeed';
 import Login from './components/Login';
 import Profile from './components/Profile';
@@ -49,6 +50,7 @@ ReactDOM.render((
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
         <Route path="global" component={GlobalFeed} />
+        <Route path="popular" component={PopularFeed} />
         <Route path="saved" component={SavesFeed} />
         <Route path="login" component={Login} />
         <Route path="register" component={Register} />
