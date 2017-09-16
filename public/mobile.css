@@ -731,6 +731,14 @@ body .back-to-top {
 .mrgn-bottom-m-none {
   margin-bottom: 0 !important;
 }
+
+
+.short-width-search {
+  width: 100%;
+}
+
+
+
 }
 
 

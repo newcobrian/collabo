@@ -17,7 +17,13 @@
 	position: relative;
     margin: 0 auto;
 }
-
+.itinerary__cover__image {
+	position: relative;
+	overflow: hidden;
+	flex-shrink: 0;
+	width: 100%;
+	opacity: 1;
+}
 .itinerary__summary {
 	width: 100%;
     padding: 0px;
@@ -52,8 +58,8 @@
 	left: 20px;
 	right: 0px;
 }
-.page-itinerary .itinerary__cover {
-	    width: 100%;
+.itinerary-image-wrapper {
+	width: 100%;
     padding: 0;
     margin: 0;
     border: 0;
@@ -319,7 +325,6 @@ textarea.edit-itinerary__name {
 
 
 .cover__loading {
-	background: white;
     height: 100%;
     width: 100%;
     position: absolute;

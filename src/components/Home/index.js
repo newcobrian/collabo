@@ -236,7 +236,7 @@ class Home extends React.Component {
         <div className={'home-page page-common ' + isLandingPage}>
 
           <div className="search-wrapper-wrapper w-100 flx flx-row flx-m-col flx-align-center fill--black">
-            <div className="search-wrapper short-width-search w-100 flx flx-row flx-align-center fill--black">
+            <div className="search-wrapper short-width-search w-100 flx flx-row flx-align-center fill--black flx-hold">
               <i className="search-icon material-icons color--white md-32">search</i>
               <FirebaseSearchInput
                 name="searchInput"
@@ -245,19 +245,19 @@ class Home extends React.Component {
                 type={Constants.GEO_SEARCH}
                 className="input--search fill--black color--white input--underline v2-type-body3" />
             </div>
-            <div className="search-detail-bar flx flx-row color--white flx-align-center flx-just-start ta-center pdding-left-md w-100 v2-type-body2 color--white">
-              <div className="label-big color--white flx-hold mrgn-right-lg">Top Cities:</div>
-                <div className="geo-type color--white opa-100">Paris</div>
-                <div className="mrgn-left-md mrgn-right-md">&middot;</div>
-                <div className="geo-type color--white opa-100">Madrid</div>
-                <div className="mrgn-left-md mrgn-right-md">&middot;</div>
-                <div className="geo-type color--white opa-100">Waikiki</div>
-                <div className="mrgn-left-md mrgn-right-md">&middot;</div>
-                <div className="geo-type color--white opa-100">New York</div>
-                <div className="mrgn-left-md mrgn-right-md">&middot;</div>
-                <div className="geo-type color--white opa-100">Seoul</div>
-                <div className="mrgn-left-md mrgn-right-md">&middot;</div>
-                <div className="geo-type color--white opa-100">Berlin</div>
+            <div className="search-detail-bar flx flx-row color--white flx-just-start flx-align-center ta-center pdding-left-md w-100 v2-type-body2 color--white">
+                <div className="label-big color--white flx-hold mrgn-right-lg opa-80">Top Cities:</div>
+                
+                <Link to="/places/ChIJ51cu8IcbXWARiRtXIothAS4" className="geo-type color--white opa-100">Tokyo</Link>
+                <div className="middle-dot">&middot;</div>
+                <Link to="/places/ChIJ5TCOcRaYpBIRCmZHTz37sEQ" className="geo-type color--white opa-100">Barcelona</Link>
+                <div className="middle-dot">&middot;</div>
+                 <Link to="/places/ChIJmQrivHKsQjQR4MIK3c41aj8" className="geo-type color--white opa-100">Taipei</Link>
+                 <div className="middle-dot">&middot;</div>
+                <Link to="/places/ChIJIQBpAG2ahYAR_6128GcTUEo" className="geo-type color--white opa-100">San Francisco</Link>
+                <div className="middle-dot">&middot;</div>
+                <Link to="/places/ChIJOwg_06VPwokRYv534QaPC8g" className="geo-type color--white opa-100">New York</Link>
+
               </div>
           </div>
           {this.renderHomepageFeatures()}
