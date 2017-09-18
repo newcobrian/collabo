@@ -144,6 +144,7 @@ input[type="radio"]:checked + label span {
 .w-max {
   max-width: 1025px;
   max-width: 1225px;
+  max-width: 1375px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -526,9 +527,8 @@ svg {
   border-bottom: 1px solid rgba(0,0,0,.1);
 }
 .feed-toggle {
-  background: white;
   z-index: 10;
-  padding: 10px;
+  padding: 10px 20px;
   width: 100%;
   margin: 0 auto;
 }
@@ -795,7 +795,7 @@ svg {
     width: auto;
     white-space: normal;
     float: none;
-    font-size: 12px;
+    font-size: 18px;
     text-transform: uppercase;
     letter-spacing: 1px;
 }

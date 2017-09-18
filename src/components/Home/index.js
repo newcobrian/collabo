@@ -42,13 +42,16 @@ const RenderFeaturedPreview = props => {
 }
 
 const RenderFollowCard = props => {
-  if (props) {
+  if (!props.itineraries) {
+    return null
+  }
+  if (props.itineraries.length === 0) {
     return (
       
        <div>
        <Link to="/explore" className="itinerary__cover cover--empty flx flx-col flx-center-all ta-center fill-success color--white">
               <div className="v2-type-h1 pdding-bottom-sm color--black">
-                Follow other travelers
+                Follow more travelers
               </div>
               <div className="v2-type-body1 pdding-bottom-md color--black opa-50">
                 To see their newest guides here
@@ -95,74 +98,6 @@ class Home extends React.Component {
       this.props.unloadFeaturePreview(this.props.authenticated, this.props.featuredPreview.itinerary.id)
     }
   }
-
-  renderHomepageFeatures() {
-    return (
-      <div className="featured-wrapper w-100 w-max flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap">
-          
-          <div className="popular-box DN">
-            <div className="color--black section-header mrgn-bottom-md">Popular Guides</div>
-            <PopularPreview 
-              popularList={this.props.popularPreview}
-              authenticated={this.props.authenticated} 
-              like={this.props.like} 
-              unLike={this.props.unLike}
-              deleteItinerary={this.props.deleteItinerary} />
-          </div>
-
-          <RenderFeaturedPreview
-             featuredPreview={this.props.featuredPreview}
-             authenticated={this.props.authenticated} 
-             like={this.props.likeReview} 
-             unLike={this.props.unLikeReview}
-             deleteItinerary={this.props.deleteItinerary} 
-             />
-
-          { this.props.itineraries && this.props.itineraries.length > 0 && 
-            this.props.itineraries.map(itinerary => {
-              return (
-                <ItineraryPreview itinerary={itinerary}
-                  key={itinerary.id}
-                  authenticated={this.props.authenticated}
-                  like={this.props.likeReviewl}
-                  unLike={this.props.unLikeReview}
-                  />
-               );
-            })
-            
-          }
-
-
-          <RenderFollowCard/>
-
-          <Link to="/create" className="itinerary__cover cover--empty flx flx-col flx-center-all ta-center fill-success color--white">
-         
-            <div className="v2-type-h1 pdding-bottom-lg color--black">
-              Make a travel guide
-            </div>
-            <div className="vb fill--success color--white">
-                <i className="material-icons md-32 color--white">add</i>
-            </div>
-          </Link>
-      </div>
-    )
-  }
-
-  // renderTabs() {
-  //   return (         
-  //     <div className="feed-toggle w-max flx flx-row flx-just-start w-100 w-max">
-  //       <ul className="nav nav-pills outline-active flx flx-row">
-  //         <li className="nav-item">
-  //           <Link
-  //             className="nav-link active"
-  //             to="/">
-  //             Global
-  //           </Link>
-  //         </li>
-  //       </ul>
-  //     </div>
-  //   );
-  // }
 
   LoggedOutIntro(authenticated) {
     if (!authenticated) {
@@ -287,7 +222,7 @@ class Home extends React.Component {
       <div>
         {this.LoggedOutIntro(this.props.authenticated)}
 
-        <div className="search-wrapper-wrapper w-100 flx flx-row flx-m-col flx-align-center">
+        <div className={"search-wrapper-wrapper w-100 flx flx-row flx-m-col flx-align-center " + isLandingPage}>
           <div className="search-wrapper short-width-search page-top-search w-100 flx flx-row flx-align-center flx-hold">
             <i className="search-icon material-icons color--white md-32">search</i>
             <FirebaseSearchInput
@@ -297,7 +232,7 @@ class Home extends React.Component {
               type={Constants.GEO_SEARCH}
               className="input--search fill--black color--white input--underline v2-type-body3" />
           </div>
-          <div className="search-detail-bar flx flx-row color--white flx-just-start flx-align-center ta-center pdding-left-md w-100 v2-type-body2 color--white">
+          <div className="search-detail-bar mobile-hide flx flx-row color--white flx-just-start flx-align-center ta-center pdding-left-md w-100 v2-type-body2 color--white">
               <div className="label-big color--white flx-hold mrgn-right-lg opa-80">Top Cities:</div>
               
               <Link to="/places/ChIJ51cu8IcbXWARiRtXIothAS4" className="geo-type color--white opa-100">Tokyo</Link>
@@ -316,65 +251,70 @@ class Home extends React.Component {
 
         <div className={'home-page page-common fill--light-gray ' + isLandingPage}>
 
-          <div className="featured-wrapper w-100 w-max flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap">
-         
-
-          <div className="popular-box DN">
-            <div className="color--black section-header mrgn-bottom-md">Popular Guides</div>
-            <PopularPreview 
-              popularList={this.props.popularPreview}
-              authenticated={this.props.authenticated} 
-              like={this.props.like} 
-              unLike={this.props.unLike}
-              deleteItinerary={this.props.deleteItinerary} />
+          <div className="feed-toggle flx flx-row flx-just-start w-100">
+            <ul className="nav nav-pills outline-active flx flx-row">
+              <li className="nav-item">
+                <Link
+                  className="nav-link active"
+                  to="/">
+                  Friends
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  className="nav-link"
+                  to="/popular">
+                  Popular
+                </Link>
+              </li>
+            </ul>
           </div>
 
-          <RenderFeaturedPreview
-             featuredPreview={this.props.featuredPreview}
-             authenticated={this.props.authenticated} 
-             like={this.props.likeReview} 
-             unLike={this.props.unLikeReview}
-             deleteItinerary={this.props.deleteItinerary} 
-             />
-
-          { this.props.itineraries && this.props.itineraries.length > 0 && 
-            this.props.itineraries.map(itinerary => {
-              return (
-                <ItineraryPreview itinerary={itinerary}
-                  key={'guide' + itinerary.id}
-                  authenticated={this.props.authenticated}
-                  like={this.props.likeReviewl}
-                  unLike={this.props.unLikeReview}
-                  />
-               );
-              })
-            
-          }
-          <Link to="/explore" className="DN itinerary__cover cover--empty flx flx-col flx-center-all ta-center fill-success color--white">
-            <div className="v2-type-h1 pdding-bottom-sm color--black">
-              Follow other travelers
+          <div className="w-100 w-max flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap">
+            <div className="popular-box DN">
+              <div className="color--black section-header mrgn-bottom-md">Popular Guides</div>
+              <PopularPreview 
+                popularList={this.props.popularPreview}
+                authenticated={this.props.authenticated} 
+                like={this.props.like} 
+                unLike={this.props.unLike}
+                deleteItinerary={this.props.deleteItinerary} />
             </div>
-            <div className="v2-type-body1 pdding-bottom-md color--black opa-50">
-              To see their newest guides here
-            </div>
-            <div className="vb fill--primary color--white">
-              Find travelers
-            </div>
-          </Link>
-
-          <Link to="/create" className="itinerary__cover cover--empty flx flx-col flx-center-all ta-center fill-success color--white">
-         
-            <div className="v2-type-h1 pdding-bottom-lg color--black">
-              Make a travel guide
-            </div>
-            <div className="vb fill--success color--white">
-                <i className="material-icons md-32 color--white">add</i>
-            </div>
-          </Link>
-        </div>
-
+            <RenderFeaturedPreview
+               featuredPreview={this.props.featuredPreview}
+               authenticated={this.props.authenticated} 
+               like={this.props.likeReview} 
+               unLike={this.props.unLikeReview}
+               deleteItinerary={this.props.deleteItinerary} 
+               />
+            { this.props.itineraries && this.props.itineraries.length > 0 && 
+              this.props.itineraries.map(itinerary => {
+                return (
+                  <ItineraryPreview itinerary={itinerary}
+                    key={'guide' + itinerary.id}
+                    authenticated={this.props.authenticated}
+                    like={this.props.likeReviewl}
+                    unLike={this.props.unLikeReview}
+                    />
+                 );
+                })
+            }
+            <RenderFollowCard
+              itineraries={this.props.itineraries}
+            />
+            <Link to="/create" className="itinerary__cover cover--empty flx flx-col flx-center-all ta-center fill-success color--white">
+              <div className="v2-type-h1 pdding-bottom-lg color--black">
+                Make a travel guide
+              </div>
+              <div className="vb fill--success color--white">
+                  <i className="material-icons md-32 color--white">add</i>
+              </div>
+            </Link>
+          </div>
           <BackToTop />
         </div>
+        
+
         <div className="DN footer fill--black color--white flx flx-col flx-center-all">
           <div className="homepage-logo mrgn-bottom-md">  
             <img className="center-img w-100" src="/img/logos/homepage-logo.png"/>

@@ -18,6 +18,7 @@ class PopularFeed extends Home {
     this.props.unwatchPopularFeed(this.props.authenticated);
   }
 
+
   loadMoreClick() {
     console.log('loade more !')
   }
@@ -37,7 +38,7 @@ class PopularFeed extends Home {
               type={Constants.GEO_SEARCH}
               className="input--search fill--black color--white input--underline v2-type-body3" />
           </div>
-          <div className="search-detail-bar flx flx-row color--white flx-just-start flx-align-center ta-center pdding-left-md w-100 v2-type-body2 color--white">
+          <div className="search-detail-bar mobile-hide flx flx-row color--white flx-just-start flx-align-center ta-center pdding-left-md w-100 v2-type-body2 color--white">
               <div className="label-big color--white flx-hold mrgn-right-lg opa-80">Top Cities:</div>
               
               <Link to="/places/ChIJ51cu8IcbXWARiRtXIothAS4" className="geo-type color--white opa-100">Tokyo</Link>
@@ -55,65 +56,62 @@ class PopularFeed extends Home {
 
 
         <div className={'home-page page-common fill--light-gray '}>
+         
 
-          <div className="featured-wrapper w-100 w-max flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap">
-            <div className="popular-box ">
-              <div className="color--black section-header mrgn-bottom-md">Popular Guides</div>
-                { 
-                  this.props.itineraries && this.props.itineraries.length > 0 && 
-                  this.props.itineraries.map(itinerary => {
-                    return (
-                      <ItineraryPreview itinerary={itinerary}
-                        key={"popular" + itinerary.id}
-                        authenticated={this.props.authenticated}
-                        like={this.props.likeReview}
-                        unLike={this.props.unLikeReview}
-                        />
-                     );
-                    })
-                }
-              </div>
-                <Link to="/explore" className="DN itinerary__cover cover--empty flx flx-col flx-center-all ta-center fill-success color--white">
-                  <div className="v2-type-h1 pdding-bottom-sm color--black">
-                    Follow other travelers
-                  </div>
-                  <div className="v2-type-body1 pdding-bottom-md color--black opa-50">
-                    To see their newest guides here
-                  </div>
-                  <div className="vb fill--primary color--white">
-                    Find travelers
-                  </div>
+          <div className="feed-toggle flx flx-row flx-just-start w-100">
+            <ul className="nav nav-pills outline-active flx flx-row">
+              <li className="nav-item">
+                <Link
+                  className="nav-link"
+                  to="/">
+                  Friends
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  className="nav-link active"
+                  to="/popular">
+                  Popular
                 </Link>
 
-                <Link to="/create" className="itinerary__cover cover--empty flx flx-col flx-center-all ta-center fill-success color--white">
-             
-                  <div className="v2-type-h1 pdding-bottom-lg color--black">
-                    Make a travel guide
-                  </div>
-                  <div className="vb fill--success color--white">
-                      <i className="material-icons md-32 color--white">add</i>
-                  </div>
-                </Link>
-              </div>
-              <BackToTop />
-            </div>
 
-            <div>
-              <button onClick={this.onLoadMoreClick}>Load more</button>
-            </div>
+              </li>
+            </ul>
 
-            <div className="DN footer fill--black color--white flx flx-col flx-center-all">
-              <div className="homepage-logo mrgn-bottom-md">  
-                <img className="center-img w-100" src="/img/logos/homepage-logo.png"/>
-              </div>
-              <div className="v2-type-intro color--white opa-70 mrgn-bottom-lg DN">
-                Travel with the knowledge of your friends
-              </div>
-              <Link to="/register" className="DN vb vb--intro--register fill--primary color--white vb--wide">
-                Sign up now
-              </Link>
-            </div>
           </div>
+
+          <div className="w-100 w-max flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap">
+              { this.props.itineraries && this.props.itineraries.length > 0 && 
+                this.props.itineraries.map(itinerary => {
+                  return (
+                    <ItineraryPreview itinerary={itinerary}
+                      key={"popular" + itinerary.id}
+                      authenticated={this.props.authenticated}
+                      like={this.props.likeReview}
+                      unLike={this.props.unLikeReview}
+                      />
+                   );
+                  })
+                
+              }
+          </div>
+                 <div>
+                   <button onClick={this.onLoadMoreClick}>Load more</button>
+                 </div>
+        </div>
+
+                 <BackToTop /> 
+
+                 </div>
+
+
+
+              
+
+     
+           
+            
+
 
 
 
