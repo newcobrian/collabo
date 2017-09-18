@@ -73,7 +73,7 @@
 	font-size: 38px;
 	letter-spacing: 1px;
 	line-height: 36px;
-	font-family: 'Montserrat', sans-serif;
+	font-family: 'Arimo', sans-serif;
 	text-transform: uppercase;
 }
 
@@ -159,22 +159,7 @@
 .itinerary__comments-module .comment-data {
 	margin-top: 10px;
 }
-.comment-preview-bubble {
-	position: absolute;
-    width: auto;
-    bottom: 44px;
-    left: 210px;
 
-    position: absolute;
-    width: 80%;
-    bottom: 85px;
-    left: 45px;
-    z-index: 3;
-}
-.comment-preview-bubble .comment-author-img {
-	margin-right: 10px;
-	margin-left: 0;
-}
 .itinerary__edit-tip {
 
 }

@@ -33,6 +33,7 @@ const RenderFeaturedPreview = props => {
           like={props.like} 
           unLike={props.unLike}
           deleteItinerary={props.deleteItinerary}
+          guideLabel={"label-popular"}
           type={Constants.MEDIUM_GUIDE_PREVIEW} />
 
     )
@@ -93,7 +94,6 @@ class Home extends React.Component {
              like={this.props.likeReview} 
              unLike={this.props.unLikeReview}
              deleteItinerary={this.props.deleteItinerary} 
-             className="poop-class"
              />
 
           { this.props.itineraries && this.props.itineraries.length > 0 && 
@@ -107,12 +107,12 @@ class Home extends React.Component {
                   />
                );
               })
-            }
+            
           }
 
 
 
-          <Link to="/explore" className="DN itinerary__cover cover--empty flx flx-col flx-center-all ta-center fill-success color--white">
+          <Link to="/explore" className="itinerary__cover cover--empty flx flx-col flx-center-all ta-center fill-success color--white">
             <div className="v2-type-h1 pdding-bottom-sm color--black">
               Follow other travelers
             </div>

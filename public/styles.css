@@ -1119,12 +1119,7 @@ li.nav-divider {
   margin-right: 10px;
   margin-top: 2px;
 }
-.comment-preview-wrapper {
-  /*background: rgba(255,255,255,1);*/
-  border-radius: 4px;
-  padding: 4px;
-  max-width: 280px;
-}
+
 .comment-text {
   max-width: 200px;
 }

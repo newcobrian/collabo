@@ -49,12 +49,12 @@ a.logo-module:focus {
   opacity: 1;
 }
 .logo-main {
-    font-size: 24px;
+    font-size: 19px;
     height: 38px;
     font-weight: 600;
     margin-left: 25px;
-    letter-spacing: .6px;
-    margin-top: 3px;
+    letter-spacing: 5px;
+    margin-top: 10px;
     font-family: 'Arimo', sans-serif;
     margin-right: 6px;
     opacity: 1;

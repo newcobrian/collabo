@@ -5,8 +5,8 @@
     padding: 10px;
     background: #FFFFFF;
     border: 1px solid rgba(0,0,0,.05);
-    overflow: hidden;
     height: 420px;
+    position: relative;
 }
 .itinerary__book {
 	position: relative;
@@ -38,6 +38,7 @@
     font-family: 'Arimo', sans-serif;
     max-height: 60px;
     overflow: hidden;
+    text-transform: uppercase;
 }
 .guide-preview-data-wrapper {
 	padding: 20px 20px 10px;
@@ -199,6 +200,39 @@
 	.my-profile-page .itinerary__cover .itinerary__book {
 		top: 0;
 	}
+
+
+.comment-preview-bubble {
+	position: absolute;
+    width: auto;
+    bottom: 44px;
+    left: 210px;
+
+    position: absolute;
+    width: 300px;
+    bottom: -15px;
+    left: 29px;
+    z-index: 3;
+    padding: 5px 20px;
+    opacity: .9;
+    border-radius: 42px;
+    background-color: rgba(15,20,25,.9);
+}
+.comment-preview-wrapper {
+  /*background: rgba(255,255,255,1);*/
+  border-radius: 4px;
+  padding: 4px 0;
+  max-width: 280px;
+}
+.new-bubble {
+	border-radius: 32px;
+	width: 6px; height: 6px;
+}
+.comment-preview-bubble .comment-author-img {
+	margin-right: 10px;
+	margin-left: 0;
+}
+
 
 
 .itinerary__cover:hover {

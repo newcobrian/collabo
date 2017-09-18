@@ -33,8 +33,8 @@ const CommentPreview = props => {
     return (
       <Link to={`/guide/${props.itinerary.id}`}>
 
-        <div className="comment-preview-bubble flx flx-row flx-just-start flx-align-center DN">
-          <div className="comment-author-img mrgn-right-sm flx-hold">
+        <div className="comment-preview-bubble flx flx-row flx-just-start flx-align-center color--white bx-shadow">
+          <div className="DN comment-author-img mrgn-right-sm flx-hold">
             <Link
               to={`/${props.itinerary.lastComment.username}`}
               >
@@ -42,10 +42,11 @@ const CommentPreview = props => {
             </Link>
           </div>
 
-          <div className="comment-preview-wrapper v2-type-body1 flx flx-row mrgn-left-n-1">
+          <div className="comment-preview-wrapper v2-type-body0 color--white flx flx-row flx-align-center">
+            <div className="new-bubble fill--success mrgn-right-sm flx-hold"></div>
             <Link
               to={`/${props.itinerary.lastComment.username}`}
-              className="comment-author">
+              className="comment-author color--white">
               {props.itinerary.lastComment.username}
             </Link>
             <div className="ellipsis comment-text">
@@ -55,13 +56,10 @@ const CommentPreview = props => {
         </div>
 
 
-        <div className="vb vb--sm vb--outline flx-align-center mrgn-right-sm cta-wrapper flx flx-row flx-just-end flex-item-right last-comment">
-          
+        <div className="vb vb--sm vb--outline flx-align-center mrgn-left-n-1 cta-wrapper flx flx-row flx-just-end flex-item-right last-comment">
           <div className="flx flx-row flx-just-end flx-align-center">
-
             <div className="cta-icon cta-comment comment-on"></div>
             <div className="v2-type-body1 weight-500">{props.itinerary.commentsCount}</div>
-
           </div>
         </div>
       </Link>
@@ -70,7 +68,7 @@ const CommentPreview = props => {
   else {
     return (
       <Link to={`/guide/${props.itinerary.id}`}>
-        <div className="vb vb--sm vb--outline cta-wrapper flx flx-row flx-center-all no-comments mrgn-right-sm">             
+        <div className="vb vb--sm vb--outline cta-wrapper flx flx-row flx-center-all no-comments">             
              <div className="cta-icon cta-comment"></div>
              <div className="v2-type-body1 weight-500">0</div>
         </div>
@@ -152,7 +150,7 @@ const ItineraryPreview = props => {
   } 
   else {
     return (
-      <div className={"itinerary__cover flx flx-col bx-shadow " + props.type}>
+      <div className={"itinerary__cover flx flx-col bx-shadow " + props.type + " " + props.guideLabel}>
         
         {/** START USER PHOTO AND TIP COUNT **/}
         <div className="itinerary__cover__topbar flx flx-row flx-align-center w-100 w-max flx-hold flx-just-start v2-type-body1 mrgn-bottom-sm">
@@ -244,7 +242,7 @@ const ItineraryPreview = props => {
                 <div className="it__cover__cta-module flx flx-row flx-just-end">
                   <CommentPreview itinerary={props.itinerary} />
 
-                  <div className="vb vb--sm vb--outline flx flx-row flx-align-center mrgn-right-sm cta-wrapper flx flx-row flx-just-end flex-item-right">
+                  <div className="vb vb--sm vb--outline flx flx-row flx-align-center mrgn-right-sm cta-wrapper flx flx-row flx-just-end flex-item-right mrgn-left-n-1">
                     <LikeReviewButton
                       authenticated={props.authenticated}
                       isLiked={props.itinerary.isLiked}

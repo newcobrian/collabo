@@ -215,7 +215,8 @@ margin: 0;
   width: 100%;
 }
 .comment-preview-bubble {
-  left: 35px;
+  left: 29px;
+  bottom: 6px;
 }
 .cta-wrapper .cta-icon {
 }
