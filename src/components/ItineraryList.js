@@ -37,7 +37,6 @@ const ItineraryList = props => {
               unLike={props.unLike}
               deleteItinerary={props.deleteItinerary}
               redirectPath={props.redirectPath}
-
               updateRating={props.updateRating}
               deleteReview={props.deleteReview}
               showModal={props.showModal} />
@@ -47,9 +46,9 @@ const ItineraryList = props => {
       }
 
 
-      <Link to="/create" className="itinerary__cover cover--empty flx flx-col flx-center-all ta-center">
-      <i className="material-icons color--success md-48 mrgn-bottom-md">add</i>
-        <div className="color--success mrgn-bottom-lg pdding-bottom-lg pdding-bottom-md brdr-bottom">CREATE A NEW GUIDE</div>
+      <Link to="/create" className="itinerary__cover cover--empty flx flx-col flx-center-all ta-center fill-success color--white">
+      <i className="material-icons md-48 mrgn-bottom-md">add</i>
+        <div className="mrgn-bottom-lg pdding-bottom-lg pdding-bottom-md brdr-bottom">CREATE A NEW GUIDE</div>
         <div className="ta-center w-100 v2-type-body1 opa-50 mrgn-bottom-md">You could make...</div>
         <ul className="ta-left mrgn-left-lg mrgn-right-lg">
           <li className="v2-type-body1 opa-50 mrgn-bottom-sm">A city guide or your fav spots for your friends?</li>

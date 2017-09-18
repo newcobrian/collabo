@@ -16,7 +16,7 @@ const PopularPreview = props => {
                 like={props.like} 
                 unLike={props.unLike}
                 deleteItinerary={props.deleteItinerary}
-                type={Constants.SMALL_GUIDE_PREVIEW} />
+                type={Constants.MEDIUM_GUIDE_PREVIEW} />
 
             );
           })

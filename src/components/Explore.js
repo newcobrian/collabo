@@ -38,9 +38,10 @@ class Explore extends React.Component {
     
     return (
       <div className="flx flx-col page-common follow-page page-people flx-just-start w-100">
-          <div className="search-wrapper-wrapper w-100 flx flx-row flx-m-col flx-align-center fill--black">
-            <div className="search-wrapper short-width-search w-100 flx flx-row flx-align-center fill--black">
-            <i className="search-icon material-icons md-32 color--white">search</i>
+          
+        <div className="search-wrapper-wrapper w-100 flx flx-row flx-m-col flx-align-center">
+          <div className="search-wrapper page-top-search short-width-search w-100 flx flx-row flx-align-center flx-hold">
+            <i className="search-icon material-icons color--white md-32">search</i>
             <FirebaseSearchInput
               name="searchInput"
               callback={searchInputCallback}
@@ -58,7 +59,7 @@ class Explore extends React.Component {
                   user.userId === this.props.authenticated;
 
                   return (
-                    <div className="flx flx-row w-100 flx-just-start flx-align-center ta-center pdding-all-md brdr-bottom" key={user.userId}>
+                    <div className="flx flx-row w-100 flx-just-start flx-align-center ta-center pdding-left-md pdding-right-md pdding-top-sm pdding-bottom-sm brdr-bottom" key={user.userId}>
                       <Link
                         to={`/${user.username}`}
                         className="mrgn-right-md">

@@ -184,7 +184,7 @@ input.edit-tip__rating {
 }
 .search-icon {
   position: absolute;
-  left: 30px;
+  left: 10px;
   top: 18px;
   z-index: 2;
   pointer-events: none;

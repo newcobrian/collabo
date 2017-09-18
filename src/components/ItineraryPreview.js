@@ -42,7 +42,7 @@ const CommentPreview = props => {
             </Link>
           </div>
 
-          <div className="comment-preview-wrapper v2-type-body1 flx flx-row mrgn-right-sm">
+          <div className="comment-preview-wrapper v2-type-body1 flx flx-row mrgn-left-n-1">
             <Link
               to={`/${props.itinerary.lastComment.username}`}
               className="comment-author">

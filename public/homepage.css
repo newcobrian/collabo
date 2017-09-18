@@ -3,10 +3,13 @@
 ************************************ 1. HOME PAGE / FEED
 ******
 ******/
-.home-page {
+.home-page.page-common,
+.page-people.page-common {
   /*background-image: linear-gradient(to right, rgba(0,0,0,.05) 1px, transparent 1px),*/
   /*linear-gradient(to bottom, rgba(0,0,0,.05) 1px, transparent 1px);*/
   background-attachment: fixed;
+  margin: 60px auto 200px;
+  min-height: 1000px;
 }
 
 .page-section {
@@ -21,35 +24,63 @@
 
 }
 .popular-box {
-    width: 360px;
-    height: 470px;
-    margin: 20px;
-    padding: 20px;
+  width: 360px;
+  height: 420px;
+  margin: 20px;
+  padding: 20px;
+  /*background-color: #87FFB4;*/
 }
 .section-header {
 	font-weight: 500;
-    font-size: 28px;
-    letter-spacing: 0px;
+  font-size: 28px;
+  letter-spacing: 0px;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 0px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-family: 'Arimo';
 }
 
+.search-wrapper-wrapper {
+  z-index: 10;
+  position: fixed;
+  top: 70px;
+  z-index: 10;
+  padding: 0 20px;
+  background-color: #2A2B30;
+  background-color: rgba(42, 43, 48, .95);
+}
 .short-width-search {
 	width: 32%;
 	border: none;
   overflow: hidden;
 }
-.home-page .search-wrapper,
-.page-people .search-wrapper {
-	margin-top: 0;
-  padding: 10px 20px;
+.search-wrapper {
+  margin-right: 40px;
 }
-.page-people .input--search input,
-.home-page .input--search input {
+.search-wrapper.page-top-search {
+	margin-top: 0;
+  padding: 10px 0;
+}
+
+
+.search-wrapper.page-top-search .input--search input {
+  color: white !important;
   text-indent: 70px;
-  color: white !important
+  border: 1px solid rgba(0,199,205,.6) !important;
+}
+.search-wrapper.page-top-search .input--search input:hover {
+  text-indent: 70px;
+  border: 1px solid rgba(0,199,205,.8) !important;
+}
+.search-wrapper.page-top-search .input--search input:focus {
+  text-indent: 70px;
+  border: 1px solid rgba(0,199,205,1) !important;
 }
 
 .search-detail-bar {
-  padding: 0 20px;
+  padding: 0;
   overflow: hidden;
 }
 .search-detail-bar .geo-type {

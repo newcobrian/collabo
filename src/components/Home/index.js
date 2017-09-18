@@ -33,7 +33,7 @@ const RenderFeaturedPreview = props => {
           like={props.like} 
           unLike={props.unLike}
           deleteItinerary={props.deleteItinerary}
-          type={Constants.LARGE_GUIDE_PREVIEW} />
+          type={Constants.MEDIUM_GUIDE_PREVIEW} />
 
     )
   }
@@ -74,16 +74,11 @@ class Home extends React.Component {
 
   renderHomepageFeatures() {
     return (
-      <div className="featured-wrapper w-100 w-max flx flx-row">
-         <RenderFeaturedPreview
-            featuredPreview={this.props.featuredPreview}
-            authenticated={this.props.authenticated} 
-            like={this.props.likeReview} 
-            unLike={this.props.unLikeReview}
-            deleteItinerary={this.props.deleteItinerary} />
+      <div className="featured-wrapper w-100 w-max flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap">
+         
 
-          <div className="popular-box fill--white brdr-all mobile-hide brdr--primary">
-            <div className="color--black section-header mrgn-bottom-md opa-40">Popular Guides</div>
+          <div className="popular-box DN">
+            <div className="color--black section-header mrgn-bottom-md">Popular Guides</div>
             <PopularPreview 
               popularList={this.props.popularPreview}
               authenticated={this.props.authenticated} 
@@ -91,6 +86,54 @@ class Home extends React.Component {
               unLike={this.props.unLike}
               deleteItinerary={this.props.deleteItinerary} />
           </div>
+
+          <RenderFeaturedPreview
+             featuredPreview={this.props.featuredPreview}
+             authenticated={this.props.authenticated} 
+             like={this.props.likeReview} 
+             unLike={this.props.unLikeReview}
+             deleteItinerary={this.props.deleteItinerary} 
+             className="poop-class"
+             />
+
+
+          { this.props.itineraries.map(itinerary => {
+          return (
+            <ItineraryPreview itinerary={itinerary}
+              key={itinerary.id}
+              authenticated={this.props.authenticated}
+              like={this.props.likeReviewl}
+              unLike={this.props.unLikeReview}
+              />
+           );
+            })
+          }
+
+
+
+          <Link to="/explore" className="DN itinerary__cover cover--empty flx flx-col flx-center-all ta-center fill-success color--white">
+            <div className="v2-type-h1 pdding-bottom-sm color--black">
+              Follow other travelers
+            </div>
+            <div className="v2-type-body1 pdding-bottom-md color--black opa-50">
+              To see their newest guides here
+            </div>
+            <div className="vb fill--primary color--white">
+              Find travelers
+            </div>
+          </Link>
+
+          <Link to="/create" className="itinerary__cover cover--empty flx flx-col flx-center-all ta-center fill-success color--white">
+         
+            <div className="v2-type-h1 pdding-bottom-lg color--black">
+              Make a travel guide
+            </div>
+            <div className="vb fill--success color--white">
+                <i className="material-icons md-32 color--white">add</i>
+            </div>
+          </Link>
+
+
       </div>
     )
   }
@@ -233,33 +276,36 @@ class Home extends React.Component {
     return (
       <div>
         {this.LoggedOutIntro(this.props.authenticated)}
-        <div className={'home-page page-common ' + isLandingPage}>
 
-          <div className="search-wrapper-wrapper w-100 flx flx-row flx-m-col flx-align-center fill--black">
-            <div className="search-wrapper short-width-search w-100 flx flx-row flx-align-center fill--black flx-hold">
-              <i className="search-icon material-icons color--white md-32">search</i>
-              <FirebaseSearchInput
-                name="searchInput"
-                callback={this.searchInputCallback}
-                placeholder="Search any city or country"
-                type={Constants.GEO_SEARCH}
-                className="input--search fill--black color--white input--underline v2-type-body3" />
-            </div>
-            <div className="search-detail-bar flx flx-row color--white flx-just-start flx-align-center ta-center pdding-left-md w-100 v2-type-body2 color--white">
-                <div className="label-big color--white flx-hold mrgn-right-lg opa-80">Top Cities:</div>
-                
-                <Link to="/places/ChIJ51cu8IcbXWARiRtXIothAS4" className="geo-type color--white opa-100">Tokyo</Link>
-                <div className="middle-dot">&middot;</div>
-                <Link to="/places/ChIJ5TCOcRaYpBIRCmZHTz37sEQ" className="geo-type color--white opa-100">Barcelona</Link>
-                <div className="middle-dot">&middot;</div>
-                 <Link to="/places/ChIJmQrivHKsQjQR4MIK3c41aj8" className="geo-type color--white opa-100">Taipei</Link>
-                 <div className="middle-dot">&middot;</div>
-                <Link to="/places/ChIJIQBpAG2ahYAR_6128GcTUEo" className="geo-type color--white opa-100">San Francisco</Link>
-                <div className="middle-dot">&middot;</div>
-                <Link to="/places/ChIJOwg_06VPwokRYv534QaPC8g" className="geo-type color--white opa-100">New York</Link>
-
-              </div>
+        <div className="search-wrapper-wrapper w-100 flx flx-row flx-m-col flx-align-center">
+          <div className="search-wrapper short-width-search page-top-search w-100 flx flx-row flx-align-center flx-hold">
+            <i className="search-icon material-icons color--white md-32">search</i>
+            <FirebaseSearchInput
+              name="searchInput"
+              callback={this.searchInputCallback}
+              placeholder="Search any city or country"
+              type={Constants.GEO_SEARCH}
+              className="input--search fill--black color--white input--underline v2-type-body3" />
           </div>
+          <div className="search-detail-bar flx flx-row color--white flx-just-start flx-align-center ta-center pdding-left-md w-100 v2-type-body2 color--white">
+              <div className="label-big color--white flx-hold mrgn-right-lg opa-80">Top Cities:</div>
+              
+              <Link to="/places/ChIJ51cu8IcbXWARiRtXIothAS4" className="geo-type color--white opa-100">Tokyo</Link>
+              <div className="middle-dot">&middot;</div>
+              <Link to="/places/ChIJ5TCOcRaYpBIRCmZHTz37sEQ" className="geo-type color--white opa-100">Barcelona</Link>
+              <div className="middle-dot">&middot;</div>
+               <Link to="/places/ChIJmQrivHKsQjQR4MIK3c41aj8" className="geo-type color--white opa-100">Taipei</Link>
+               <div className="middle-dot">&middot;</div>
+              <Link to="/places/ChIJIQBpAG2ahYAR_6128GcTUEo" className="geo-type color--white opa-100">San Francisco</Link>
+              <div className="middle-dot">&middot;</div>
+              <Link to="/places/ChIJOwg_06VPwokRYv534QaPC8g" className="geo-type color--white opa-100">New York</Link>
+
+            </div>
+        </div>
+
+
+        <div className={'home-page page-common fill--light-gray ' + isLandingPage}>
+
           {this.renderHomepageFeatures()}
           <MainView />
 

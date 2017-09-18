@@ -141,7 +141,7 @@ export const MEDIUM_GUIDE_PREVIEW = 'medium-guide'
 export const LARGE_GUIDE_PREVIEW = 'large-guide'
 
 /** number of popular items to get for homepage ***/
-export const HOMEPAGE_POPULAR_COUNT = 4
+export const HOMEPAGE_POPULAR_COUNT = 3
 
 // export const COUNTRY_FLAGS = {
 //     'AF' : 'Afghanistan',

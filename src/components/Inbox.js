@@ -75,9 +75,9 @@ class Inbox extends React.Component {
   render() {
 	  if (!this.props.inbox) {
       return (
-        <div className="loading-module flx flx-col flx-center-all v2-type-body3">
+        <div className="loading-module flx flx-col flx-center-all v2-type-body3 fill--black">
           <div className="earth-graphic w-100">  
-            <img className="center-img" src="../img/loading-01.gif"/>
+            <img className="center-img" src="../img/loading-02.png"/>
           </div>
           <div>Loading inbox...</div>
         </div>
