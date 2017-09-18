@@ -18,51 +18,8 @@ class PopularFeed extends Home {
     this.props.unwatchPopularFeed(this.props.authenticated);
   }
 
-  renderHomepageFeatures() {
-    return (
-      <div className="featured-wrapper w-100 w-max flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap">
-         
-          { this.props.itineraries && this.props.itineraries.length > 0 && 
-            this.props.itineraries.map(itinerary => {
-              return (
-                <ItineraryPreview itinerary={itinerary}
-                  key={itinerary.id}
-                  authenticated={this.props.authenticated}
-                  like={this.props.likeReviewl}
-                  unLike={this.props.unLikeReview}
-                  />
-               );
-              })
-            }
-          }
-
-
-
-          <Link to="/explore" className="DN itinerary__cover cover--empty flx flx-col flx-center-all ta-center fill-success color--white">
-            <div className="v2-type-h1 pdding-bottom-sm color--black">
-              Follow other travelers
-            </div>
-            <div className="v2-type-body1 pdding-bottom-md color--black opa-50">
-              To see their newest guides here
-            </div>
-            <div className="vb fill--primary color--white">
-              Find travelers
-            </div>
-          </Link>
-
-          <Link to="/create" className="itinerary__cover cover--empty flx flx-col flx-center-all ta-center fill-success color--white">
-         
-            <div className="v2-type-h1 pdding-bottom-lg color--black">
-              Make a travel guide
-            </div>
-            <div className="vb fill--success color--white">
-                <i className="material-icons md-32 color--white">add</i>
-            </div>
-          </Link>
-
-
-      </div>
-    )
+  loadMoreClick() {
+    console.log('loade more !')
   }
 
   render() {
@@ -102,7 +59,8 @@ class PopularFeed extends Home {
           <div className="featured-wrapper w-100 w-max flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap">
             <div className="popular-box ">
               <div className="color--black section-header mrgn-bottom-md">Popular Guides</div>
-                { this.props.itineraries && this.props.itineraries.length > 0 && 
+                { 
+                  this.props.itineraries && this.props.itineraries.length > 0 && 
                   this.props.itineraries.map(itinerary => {
                     return (
                       <ItineraryPreview itinerary={itinerary}
@@ -113,7 +71,6 @@ class PopularFeed extends Home {
                         />
                      );
                     })
-                  }
                 }
               </div>
                 <Link to="/explore" className="DN itinerary__cover cover--empty flx flx-col flx-center-all ta-center fill-success color--white">
@@ -139,6 +96,10 @@ class PopularFeed extends Home {
                 </Link>
               </div>
               <BackToTop />
+            </div>
+
+            <div>
+              <button onClick={this.onLoadMoreClick}>Load more</button>
             </div>
 
             <div className="DN footer fill--black color--white flx flx-col flx-center-all">

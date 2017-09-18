@@ -152,7 +152,7 @@ class Itinerary extends React.Component {
       itinerary.tips = this.props.tips;
       const createdByUsername = Selectors.getCreatedByUsername(this.props.itinerary);
       const createdByImage = Selectors.getCreatedByUserImage(this.props.itinerary);
-// console.log('itin = ' + JSON.stringify(itinerary))
+
       const isUser = this.props.authenticated &&
       this.props.itinerary.userId === this.props.authenticated;
 
