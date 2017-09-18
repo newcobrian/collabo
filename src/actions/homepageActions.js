@@ -107,9 +107,13 @@ export function startFeedWatch(auth) {
 
 export function unloadFeedWatch(auth) {
   return dispatch => {
-  unwatchLikesByUser(dispatch, auth, Constants.USER_FEED);
-  unwatchItinerariesByUser(dispatch, auth);
-  unwatchFollowingFeed(dispatch, auth);
+	  unwatchLikesByUser(dispatch, auth, Constants.USER_FEED);
+	  unwatchItinerariesByUser(dispatch, auth);
+	  unwatchFollowingFeed(dispatch, auth);
+
+	  dispatch({
+	  	type: ActionTypes.USER_FEED_UNLOADED
+	  })
   }
 }
 
@@ -276,5 +280,9 @@ export function unwatchPopularFeed(auth) {
       unwatchUser(dispatch, addedSnap.val().userId, Constants.USER_FEED);
     })
     Firebase.database().ref(Constants.ITINERARIES_PATH).orderByChild('popularityScore').limitToLast(10).off(); 
-  }   
+
+    dispatch({
+    	type: ActionTypes.UNLOAD_POPULAR_FEED
+    })
+  }
 }

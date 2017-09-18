@@ -18,8 +18,11 @@ class PopularFeed extends Home {
     this.props.unwatchPopularFeed(this.props.authenticated);
   }
 
+  onPrevPageClick() {
+    console.log('loade more !')
+  }
 
-  loadMoreClick() {
+  onNextPageClick() {
     console.log('loade more !')
   }
 
@@ -73,8 +76,6 @@ class PopularFeed extends Home {
                   to="/popular">
                   Popular
                 </Link>
-
-
               </li>
             </ul>
 
@@ -95,26 +96,15 @@ class PopularFeed extends Home {
                 
               }
           </div>
-                 <div>
-                   <button onClick={this.onLoadMoreClick}>Load more</button>
-                 </div>
+            <div>
+              {this.props.popularPage > 1 && <button onClick={this.onPrevPageClick}>Prev</button>}
+              <button onClick={this.onNextPageClick}>Next</button>
+            </div>
+          </div>
+
+          <BackToTop /> 
+
         </div>
-
-                 <BackToTop /> 
-
-                 </div>
-
-
-
-              
-
-     
-           
-            
-
-
-
-
     );
   }
 }

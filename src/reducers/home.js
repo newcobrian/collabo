@@ -7,7 +7,9 @@ const lastModifiedDesc = (a, b) => {
   return b.lastModified - a.lastModified;
 }
 
-export default (state = { usersData: {}, likesData: {} }, action) => {
+const initialState = { usersData: {}, likesData: {}, popularPage: 1 }
+
+export default (state = initialState, action) => {
   switch (action.type) {
     case ActionTypes.GET_USER_FEED:
     case ActionTypes.GET_GLOBAL_FEED:
@@ -53,7 +55,7 @@ export default (state = { usersData: {}, likesData: {} }, action) => {
     // }
     case ActionTypes.USER_FEED_UNLOADED:
     case ActionTypes.GLOBAL_FEED_UNLOADED:
-      return {};
+      return initialState;
     case ActionTypes.USER_VALUE_ACTION: {
       if (action.source === Constants.USER_FEED) {
         const newState = Object.assign({}, state);
@@ -195,6 +197,8 @@ export default (state = { usersData: {}, likesData: {} }, action) => {
         ...state,
         popularPreview: action.popularPreview
       }
+    case ActionTypes.UNLOAD_POPULAR_FEED:
+      return initialState;
     default:
       return state;
   }
