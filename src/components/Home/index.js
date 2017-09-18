@@ -341,7 +341,7 @@ class Home extends React.Component {
             this.props.itineraries.map(itinerary => {
               return (
                 <ItineraryPreview itinerary={itinerary}
-                  key={itinerary.id}
+                  key={'guide' + itinerary.id}
                   authenticated={this.props.authenticated}
                   like={this.props.likeReviewl}
                   unLike={this.props.unLikeReview}
