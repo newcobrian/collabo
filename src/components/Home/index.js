@@ -41,6 +41,29 @@ const RenderFeaturedPreview = props => {
   return null;
 }
 
+const RenderFollowCard = props => {
+  if (props) {
+    return (
+      
+       <div>
+       <Link to="/explore" className="itinerary__cover cover--empty flx flx-col flx-center-all ta-center fill-success color--white">
+              <div className="v2-type-h1 pdding-bottom-sm color--black">
+                Follow other travelers
+              </div>
+              <div className="v2-type-body1 pdding-bottom-md color--black opa-50">
+                To see their newest guides here
+              </div>
+              <div className="vb fill--primary color--white">
+                Find travelers
+              </div>
+            </Link>
+       </div>
+
+    )
+  }
+  return null;
+}
+
 class Home extends React.Component {
   constructor() {
     super();
@@ -76,6 +99,7 @@ class Home extends React.Component {
   renderHomepageFeatures() {
     return (
       <div className="featured-wrapper w-100 w-max flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap">
+          
           <div className="popular-box DN">
             <div className="color--black section-header mrgn-bottom-md">Popular Guides</div>
             <PopularPreview 
@@ -104,21 +128,12 @@ class Home extends React.Component {
                   unLike={this.props.unLikeReview}
                   />
                );
-              })
+            })
             
           }
 
-          <Link to="/explore" className="itinerary__cover cover--empty flx flx-col flx-center-all ta-center fill-success color--white">
-            <div className="v2-type-h1 pdding-bottom-sm color--black">
-              Follow other travelers
-            </div>
-            <div className="v2-type-body1 pdding-bottom-md color--black opa-50">
-              To see their newest guides here
-            </div>
-            <div className="vb fill--primary color--white">
-              Find travelers
-            </div>
-          </Link>
+
+          <RenderFollowCard/>
 
           <Link to="/create" className="itinerary__cover cover--empty flx flx-col flx-center-all ta-center fill-success color--white">
          
@@ -320,7 +335,6 @@ class Home extends React.Component {
              like={this.props.likeReview} 
              unLike={this.props.unLikeReview}
              deleteItinerary={this.props.deleteItinerary} 
-             className="poop-class"
              />
 
           { this.props.itineraries && this.props.itineraries.length > 0 && 
@@ -334,7 +348,7 @@ class Home extends React.Component {
                   />
                );
               })
-            }
+            
           }
           <Link to="/explore" className="DN itinerary__cover cover--empty flx flx-col flx-center-all ta-center fill-success color--white">
             <div className="v2-type-h1 pdding-bottom-sm color--black">
