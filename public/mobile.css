@@ -83,6 +83,14 @@ body {
   color: #45CAE6;
   opacity: 1;
 }
+.navigation-bar .default-profile-wrapper,
+.navigation-bar .user-photo-wrapper,
+.navigation-bar .default-profile-wrapper img,
+.navigation-bar .user-photo-wrapper img {
+  width: 24px;
+  height: 24px;
+}
+
 .navigation-bar .default-profile-wrapper {
   width: 24px;
   height: 24px;
@@ -156,6 +164,9 @@ margin: 0;
 .black.header-container .navigation-bar .nav-module.nav-editor.active.create {
   color: white;
   border-top-color: #00E2C8;
+}
+.black.header-container .navigation-bar {
+  border-top: none;
 }
 
 
