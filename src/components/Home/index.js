@@ -96,17 +96,18 @@ class Home extends React.Component {
              className="poop-class"
              />
 
-
-          { this.props.itineraries.map(itinerary => {
-          return (
-            <ItineraryPreview itinerary={itinerary}
-              key={itinerary.id}
-              authenticated={this.props.authenticated}
-              like={this.props.likeReviewl}
-              unLike={this.props.unLikeReview}
-              />
-           );
-            })
+          { this.props.itineraries && this.props.itineraries.length > 0 && 
+            this.props.itineraries.map(itinerary => {
+              return (
+                <ItineraryPreview itinerary={itinerary}
+                  key={itinerary.id}
+                  authenticated={this.props.authenticated}
+                  like={this.props.likeReviewl}
+                  unLike={this.props.unLikeReview}
+                  />
+               );
+              })
+            }
           }
 
 
