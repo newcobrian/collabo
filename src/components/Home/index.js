@@ -76,8 +76,6 @@ class Home extends React.Component {
   renderHomepageFeatures() {
     return (
       <div className="featured-wrapper w-100 w-max flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap">
-         
-
           <div className="popular-box DN">
             <div className="color--black section-header mrgn-bottom-md">Popular Guides</div>
             <PopularPreview 
@@ -110,8 +108,6 @@ class Home extends React.Component {
             
           }
 
-
-
           <Link to="/explore" className="itinerary__cover cover--empty flx flx-col flx-center-all ta-center fill-success color--white">
             <div className="v2-type-h1 pdding-bottom-sm color--black">
               Follow other travelers
@@ -133,8 +129,6 @@ class Home extends React.Component {
                 <i className="material-icons md-32 color--white">add</i>
             </div>
           </Link>
-
-
       </div>
     )
   }
@@ -307,8 +301,63 @@ class Home extends React.Component {
 
         <div className={'home-page page-common fill--light-gray ' + isLandingPage}>
 
-          {this.renderHomepageFeatures()}
-          <MainView />
+          <div className="featured-wrapper w-100 w-max flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap">
+         
+
+          <div className="popular-box DN">
+            <div className="color--black section-header mrgn-bottom-md">Popular Guides</div>
+            <PopularPreview 
+              popularList={this.props.popularPreview}
+              authenticated={this.props.authenticated} 
+              like={this.props.like} 
+              unLike={this.props.unLike}
+              deleteItinerary={this.props.deleteItinerary} />
+          </div>
+
+          <RenderFeaturedPreview
+             featuredPreview={this.props.featuredPreview}
+             authenticated={this.props.authenticated} 
+             like={this.props.likeReview} 
+             unLike={this.props.unLikeReview}
+             deleteItinerary={this.props.deleteItinerary} 
+             className="poop-class"
+             />
+
+          { this.props.itineraries && this.props.itineraries.length > 0 && 
+            this.props.itineraries.map(itinerary => {
+              return (
+                <ItineraryPreview itinerary={itinerary}
+                  key={itinerary.id}
+                  authenticated={this.props.authenticated}
+                  like={this.props.likeReviewl}
+                  unLike={this.props.unLikeReview}
+                  />
+               );
+              })
+            }
+          }
+          <Link to="/explore" className="DN itinerary__cover cover--empty flx flx-col flx-center-all ta-center fill-success color--white">
+            <div className="v2-type-h1 pdding-bottom-sm color--black">
+              Follow other travelers
+            </div>
+            <div className="v2-type-body1 pdding-bottom-md color--black opa-50">
+              To see their newest guides here
+            </div>
+            <div className="vb fill--primary color--white">
+              Find travelers
+            </div>
+          </Link>
+
+          <Link to="/create" className="itinerary__cover cover--empty flx flx-col flx-center-all ta-center fill-success color--white">
+         
+            <div className="v2-type-h1 pdding-bottom-lg color--black">
+              Make a travel guide
+            </div>
+            <div className="vb fill--success color--white">
+                <i className="material-icons md-32 color--white">add</i>
+            </div>
+          </Link>
+        </div>
 
           <BackToTop />
         </div>
@@ -324,9 +373,6 @@ class Home extends React.Component {
           </Link>
         </div>
       </div>
-
-
-
     );
   }
 }
