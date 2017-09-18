@@ -21,7 +21,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Dropzone from 'react-dropzone';
 import ItineraryForm from './ItineraryForm';
 import * as Selectors from '../selectors/itinerarySelectors';
-import { isEmpty } from 'lodash';
+import { isEmpty, find } from 'lodash';
 import MapContainer from './MapContainer';
 import scrollToElement from 'scroll-to-element';
 
@@ -156,8 +156,8 @@ class Itinerary extends React.Component {
       const isUser = this.props.authenticated &&
       this.props.itinerary.userId === this.props.authenticated;
 
-      const canModify = this.props.authenticated && 
-      this.props.authenticated === this.props.itinerary.userId;
+      const canModify = (this.props.authenticated && 
+      this.props.authenticated === this.props.itinerary.userId) || (Constants.SHARED_ITINERARIES.indexOf(itinerary.id) !== -1);
 
       if (canModify) {
         return (
@@ -236,7 +236,7 @@ class Itinerary extends React.Component {
                           {itinerary.reviewsCount ? itinerary.reviewsCount : 0} tips
                         </div>
 
-                        <EditItineraryLink isUser={isUser} itineraryId={this.props.itineraryId} />
+                        {/*<EditItineraryLink isUser={isUser} itineraryId={this.props.itineraryId} />*/}
 
                         <ItineraryActions 
                           itinerary={itinerary} 

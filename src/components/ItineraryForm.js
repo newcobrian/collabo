@@ -226,7 +226,7 @@ class ItineraryForm extends React.Component {
       let request = { placeId: result.placeId }
       service.getDetails(request, function(place, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
-
+console.log('place = ' + JSON.stringify(place))
           if (place.name) resultObject.title = place.name;
           if (place.international_phone_number) resultObject.internationalPhoneNumber = place.international_phone_number;
           if (place.formatted_phone_number) resultObject.formattedPhoneNumber = place.formatted_phone_number;
@@ -240,11 +240,11 @@ class ItineraryForm extends React.Component {
           if (place.photos && place.photos[0]) {
             resultObject.defaultImage = [ place.photos[0].getUrl({'maxWidth': 1225, 'maxHeight': 500}) ];
           }
-          addTipFunc(auth, resultObject, itinerary)
+          // addTipFunc(auth, resultObject, itinerary)
           geoSuggestRef._geoSuggest.clear()
         }
         else {
-          addTipFunc(auth, resultObject, itinerary)
+          // addTipFunc(auth, resultObject, itinerary)
           geoSuggestRef._geoSuggest.clear()
         }
       })
