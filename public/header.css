@@ -179,6 +179,7 @@ a.logo-module:focus {
 }
 .black.header-container .navigation-bar .nav-module {
   color: white;
+  border-top-color: #121419;
 }
 .black.header-container .navigation-bar .nav-module.active,
 .black.header-container .navigation-bar .nav-module:hover,
