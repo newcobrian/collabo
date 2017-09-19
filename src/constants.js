@@ -120,6 +120,8 @@ export const LIKE_GUIDE_SCORE = 3
 export const SAVE_TIP_GUIDE_SCORE = 6
 export const COMMENT_GUIDE_SCORE = 6
 
+export const POPULARITY_PAGE_COUNT = 15
+
 export const INVALID_USERNAMES = ['account', 'send', 'message', 'inbox', 'notification', 'create', 'edit', 'editor',
  'itinerary', 'messenger', 'settings', 'admin', 'administrator', 'settings', 'global', 'saved', 'login', 'register',
   'review', 'followers', 'isfollowing', 'likes', 'saves', 'select', 'explore', 'search', 'user', 'location', 'city', 

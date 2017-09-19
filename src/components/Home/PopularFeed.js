@@ -10,7 +10,7 @@ import ItineraryPreview from '../ItineraryPreview';
 
 class PopularFeed extends Home {
   componentWillMount() {
-    this.props.watchPopularFeed(this.props.authenticated);
+    this.props.watchPopularFeed(this.props.authenticated, this.props.popularPage, null, null, null);
     this.props.sendMixpanelEvent('Popular feed loaded');
   }
 
@@ -27,6 +27,18 @@ class PopularFeed extends Home {
   }
 
   render() {
+    const renderPagination = () => {
+      if (this.props.itineraries) {
+        return (
+          <div>
+            {this.props.popularPage > 1 && <button onClick={this.onPrevPageClick}>Prev</button>}
+            <button onClick={this.onNextPageClick}>Next</button>
+          </div>
+        )
+      return null;
+      }
+    }
+
     return (
       <div>
         {this.LoggedOutIntro(this.props.authenticated)}
@@ -97,10 +109,7 @@ class PopularFeed extends Home {
               }
           </div>
 
-            <div>
-              {this.props.popularPage > 1 && <button onClick={this.onPrevPageClick}>Prev</button>}
-              <button onClick={this.onNextPageClick}>Next</button>
-            </div>
+              {renderPagination()}
           </div>
 
 

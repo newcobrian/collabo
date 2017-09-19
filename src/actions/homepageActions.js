@@ -254,12 +254,12 @@ function likesByUserRemovedAction(objectId, source) {
   }
 }
 
-export function watchPopularFeed(auth) {
+export function watchPopularFeed(auth, page, currentScore, prevKey, lastKey) {
   return dispatch => {
     // watchUser(dispatch, auth, Constants.USER_FEED);
     watchLikesByUser(dispatch, auth, Constants.USER_FEED);
 
-    Firebase.database().ref(Constants.ITINERARIES_PATH).orderByChild('popularityScore').limitToLast(10).on('child_added', addedSnap => {
+    Firebase.database().ref(Constants.ITINERARIES_PATH).orderByChild('popularityScore').limitToLast(Constants.POPULARITY_PAGE_COUNT).on('child_added', addedSnap => {
       watchUser(dispatch, addedSnap.val().userId, Constants.USER_FEED);
       dispatch(itineraryAddedAction(addedSnap.key, addedSnap.val().userId,  addedSnap.val()));
     })

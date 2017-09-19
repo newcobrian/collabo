@@ -558,8 +558,8 @@ export function onCreateItinerary(auth, itinerary) {
         let itineraryId = Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + auth).push(itineraryObject).key;
 
         updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${itinerary.geo.placeId}/${auth}/${itineraryId}`] = itineraryObject;
-        updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itineraryId}`] = Object.assign({}, itineraryObject, {userId: auth});
-        updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}`] = Object.assign({}, itineraryObject, {userId: auth});
+        updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itineraryId}`] = Object.assign({}, itineraryObject, {userId: auth}, {popularityScore: 0});
+        updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}`] = Object.assign({}, itineraryObject, {userId: auth}, {popularityScore: 0});
 
         // add geo to the geo table if it doesnt exists
         if (!geoSnapshot.exists() || !geoSnapshot.val().fulLCountry) {
@@ -2878,13 +2878,7 @@ export function addToItinerary(auth, tip, itinerary) {
               // increment reviewsCount counters on itinerary tables
               Helpers.incrementItineraryCount(Constants.REVIEWS_COUNT, itineraryId, geo, auth);
 
-              // update guide popularity scores
-              Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId + '/popularityScore').transaction(function (current_count) {
-                return (current_count || 0) + Constants.ADD_TIP_GUIDE_SCORE;
-              });
-              Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH + '/' + geo.placeId + '/' + itineraryId + '/popularityScore').transaction(function (current_count) {
-                return (current_count || 0) + Constants.ADD_TIP_GUIDE_SCORE;
-              });
+              Helpers.incrementGuideScore(itineraryId, Constants.ADD_TIP_GUIDE_SCORE)
 
               Firebase.database().ref().update(updates);
 

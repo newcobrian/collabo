@@ -567,13 +567,7 @@ export function onAddTip(auth, result, itinerary) {
         return (current_count || 0) + 1;
       });
 
-      // update guide popularity scores
-      Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itinerary.id + '/popularityScore').transaction(function (current_count) {
-        return (current_count || 0) + Constants.ADD_TIP_GUIDE_SCORE;
-      });
-      Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH + '/' + itinerary.geo.placeId + '/' + itinerary.id + '/popularityScore').transaction(function (current_count) {
-        return (current_count || 0) + Constants.ADD_TIP_GUIDE_SCORE;
-      });
+      Helpers.incrementGuideScore(itinerary.id, Constants.ADD_TIP_GUIDE_SCORE)
 
       // update lastModified on all itineraries
       updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${itinerary.userId}/${itinerary.id}/lastModified`] = lastModified;
@@ -614,6 +608,9 @@ export function onDeleteTip(auth, tip, itineraryId, itinerary) {
 
       // update tip counts
       Helpers.decrementItineraryCount(Constants.REVIEWS_COUNT, itineraryId, itinerary.geo, itinerary.userId);
+
+      Helpers.decrementGuideScore(itineraryId, Constants.ADD_TIP_GUIDE_SCORE)
+
       dispatch({
         type: ActionTypes.TIP_DELETED
       })

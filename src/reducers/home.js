@@ -7,7 +7,7 @@ const lastModifiedDesc = (a, b) => {
   return b.lastModified - a.lastModified;
 }
 
-const initialState = { usersData: {}, likesData: {}, popularPage: 1 }
+const initialState = { usersData: {}, likesData: {}, popularPage: 0 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
