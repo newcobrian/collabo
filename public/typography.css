@@ -302,7 +302,7 @@ body a.nav-module {
   background-color: #ffffff !important;
 }
 .fill--light-gray {
-  background-color: #F7F7F7;
+  background-color: rgba(247,247,247,.4);
 
 }
 .color--success {

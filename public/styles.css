@@ -502,6 +502,7 @@ svg {
   margin: 0px auto 200px;
   background-color: white;
   padding-top: 70px;
+  padding-bottom: 100px;
 }
 .page-common.page-itinerary {
   background-color: white;
@@ -795,7 +796,7 @@ svg {
     width: auto;
     white-space: normal;
     float: none;
-    font-size: 18px;
+    font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 1px;
 }

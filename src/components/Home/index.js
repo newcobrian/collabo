@@ -251,7 +251,7 @@ class Home extends React.Component {
 
         <div className={'home-page page-common fill--light-gray ' + isLandingPage}>
 
-          <div className="feed-toggle flx flx-row flx-just-start w-100">
+          <div className="feed-toggle friend-popular-toggle flx flx-row flx-just-start w-100">
             <ul className="nav nav-pills outline-active flx flx-row">
               <li className="nav-item">
                 <Link
@@ -304,7 +304,7 @@ class Home extends React.Component {
             />
             <Link to="/create" className="itinerary__cover cover--empty flx flx-col flx-center-all ta-center fill-success color--white">
               <div className="v2-type-h1 pdding-bottom-lg color--black">
-                Make a travel guide
+                Start new travel guide
               </div>
               <div className="vb fill--success color--white">
                   <i className="material-icons md-32 color--white">add</i>

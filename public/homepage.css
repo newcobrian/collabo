@@ -49,7 +49,7 @@
   z-index: 10;
   padding: 0 20px;
   background-color: #2A2B30;
-  background-color: rgba(42, 43, 48, .95);
+  background-color: rgba(42, 43, 48, .99);
 }
   .page-landing.search-wrapper-wrapper {
     display: none;
@@ -66,7 +66,9 @@
 	margin-top: 0;
   padding: 10px 0;
 }
-
+.friend-popular-toggle .nav-pills .nav-item { 
+  font-size: 18px;
+}
 
 .search-wrapper.page-top-search .input--search input {
   color: white !important;
