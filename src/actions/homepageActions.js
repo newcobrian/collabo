@@ -33,7 +33,7 @@ export function unloadFeaturePreview(auth, itineraryId) {
 export function getPopularPreview(auth) {
 	return dispatch => {
 		let popularArray = [];
-		Firebase.database().ref(Constants.ITINERARIES_PATH).orderByChild('popularityScore').limitToLast(Constants.HOMEPAGE_POPULAR_COUNT).once('value', snap => {
+		Firebase.database().ref(Constants.ITINERARIES_PATH).orderByChild('popularityScore').limitToLast(Constants.POPULARITY_PAGE_COUNT).once('value', snap => {
 			snap.forEach(function(itin) {
 				Firebase.database().ref(Constants.USERS_PATH + '/' + itin.val().userId).once('value', userSnap => {
 					let itineraryObject = Object.assign({}, {id: itin.key}, itin.val(), {createdBy: userSnap.val()})
@@ -254,32 +254,61 @@ function likesByUserRemovedAction(objectId, source) {
   }
 }
 
-export function watchPopularFeed(auth, page, currentScore, prevKey, lastKey) {
+export function watchPopularFeed(auth, page, score, key) {
   return dispatch => {
     // watchUser(dispatch, auth, Constants.USER_FEED);
     watchLikesByUser(dispatch, auth, Constants.USER_FEED);
 
-    Firebase.database().ref(Constants.ITINERARIES_PATH).orderByChild('popularityScore').limitToLast(Constants.POPULARITY_PAGE_COUNT).on('child_added', addedSnap => {
-      watchUser(dispatch, addedSnap.val().userId, Constants.USER_FEED);
-      dispatch(itineraryAddedAction(addedSnap.key, addedSnap.val().userId,  addedSnap.val()));
-    })
-    Firebase.database().ref(Constants.ITINERARIES_PATH).on('child_changed', changedSnap => {
-      dispatch(itineraryChangedAction(changedSnap.key, changedSnap.val()));
-    })
-    Firebase.database().ref(Constants.ITINERARIES_PATH).on('child_removed', removedSnap => {
-      dispatch(itineraryRemovedAction(removedSnap.key));
-    })
-  }
+ //    if (score && key) {
+ //    	dispatch({
+	//     	type: ActionTypes.LOADED_POPULAR_FEED,
+	//     	popularPage: page
+	//     })
+ //    	// if we're doing pagination, then need to pass endAt
+	//     Firebase.database().ref(Constants.ITINERARIES_PATH)
+	//     	.orderByChild('popularityScore')
+	//     	.endAt(score, key)
+	//     	.limitToLast(Constants.POPULARITY_PAGE_COUNT)
+	//     	.on('child_added', addedSnap => {
+	//       watchUser(dispatch, addedSnap.val().userId, Constants.USER_FEED);
+	//       dispatch(itineraryAddedAction(addedSnap.key, addedSnap.val().userId,  addedSnap.val()));
+	//     })
+	//     Firebase.database().ref(Constants.ITINERARIES_PATH).on('child_changed', changedSnap => {
+	//       dispatch(itineraryChangedAction(changedSnap.key, changedSnap.val()));
+	//     })
+	//     Firebase.database().ref(Constants.ITINERARIES_PATH).on('child_removed', removedSnap => {
+	//       dispatch(itineraryRemovedAction(removedSnap.key));
+	//     })
+
+	    
+	// }
+	// else {
+		// otherwise this is the first call, so just get the first page
+		Firebase.database().ref(Constants.ITINERARIES_PATH)
+	    	.orderByChild('popularityScore')
+	    	.limitToLast(Constants.POPULARITY_PAGE_COUNT)
+	    	.on('child_added', addedSnap => {
+	      watchUser(dispatch, addedSnap.val().userId, Constants.USER_FEED);
+	      dispatch(itineraryAddedAction(addedSnap.key, addedSnap.val().userId,  addedSnap.val()));
+	    })
+	    Firebase.database().ref(Constants.ITINERARIES_PATH).on('child_changed', changedSnap => {
+	      dispatch(itineraryChangedAction(changedSnap.key, changedSnap.val()));
+	    })
+	    Firebase.database().ref(Constants.ITINERARIES_PATH).on('child_removed', removedSnap => {
+	      dispatch(itineraryRemovedAction(removedSnap.key));
+	    })
+	}
+  // }
 }
 
 export function unwatchPopularFeed(auth) {
   return dispatch => {
     unwatchLikesByUser(dispatch, auth, Constants.USER_FEED);
 
-    Firebase.database().ref(Constants.ITINERARIES_PATH).orderByChild('popularityScore').limitToLast(10).once('child_added', addedSnap => {
+    Firebase.database().ref(Constants.ITINERARIES_PATH).orderByChild('popularityScore').limitToLast(Constants.POPULARITY_PAGE_COUNT).once('child_added', addedSnap => {
       unwatchUser(dispatch, addedSnap.val().userId, Constants.USER_FEED);
     })
-    Firebase.database().ref(Constants.ITINERARIES_PATH).orderByChild('popularityScore').limitToLast(10).off(); 
+    Firebase.database().ref(Constants.ITINERARIES_PATH).orderByChild('popularityScore').limitToLast(Constants.POPULARITY_PAGE_COUNT).off(); 
 
     dispatch({
     	type: ActionTypes.UNLOAD_POPULAR_FEED

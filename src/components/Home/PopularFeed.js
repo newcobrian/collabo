@@ -9,8 +9,26 @@ import {BackToTop} from 'pui-react-back-to-top';
 import ItineraryPreview from '../ItineraryPreview';
 
 class PopularFeed extends Home {
+  constructor() {
+    super();
+
+    this.onPrevPageClick = () => {
+      let index = 0
+      let score = this.props.itineraries[index].popularityScore ? this.props.itineraries[index].popularityScore : 0
+      let key = this.props.itineraries[index].id;
+      this.props.watchPopularFeed(this.props.authenticated, this.props.popularPage - 1, score, key)
+    }
+
+    this.onNextPageClick = () => {
+      let index = this.props.itineraries.length - 1
+      let score = this.props.itineraries[index].popularityScore ? this.props.itineraries[index].popularityScore : 0
+      let key = this.props.itineraries[index].id;
+      this.props.watchPopularFeed(this.props.authenticated, this.props.popularPage + 1, score, key)
+    }
+  }
+
   componentWillMount() {
-    this.props.watchPopularFeed(this.props.authenticated, this.props.popularPage, null, null, null);
+    this.props.watchPopularFeed(this.props.authenticated, this.props.popularPage, null, null);
     this.props.sendMixpanelEvent('Popular feed loaded');
   }
 
@@ -18,17 +36,11 @@ class PopularFeed extends Home {
     this.props.unwatchPopularFeed(this.props.authenticated);
   }
 
-  onPrevPageClick() {
-    console.log('loade more !')
-  }
-
-  onNextPageClick() {
-    console.log('loade more !')
-  }
+  
 
   render() {
     const renderPagination = () => {
-      if (this.props.itineraries) {
+      if (this.props.itineraries && this.props.itineraries.length > 0) {        
         return (
           <div>
             {this.props.popularPage > 1 && <button onClick={this.onPrevPageClick}>Prev</button>}
@@ -109,7 +121,7 @@ class PopularFeed extends Home {
               }
           </div>
 
-              {renderPagination()}
+              {/*renderPagination() */}
           </div>
 
 

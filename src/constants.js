@@ -120,7 +120,7 @@ export const LIKE_GUIDE_SCORE = 3
 export const SAVE_TIP_GUIDE_SCORE = 6
 export const COMMENT_GUIDE_SCORE = 6
 
-export const POPULARITY_PAGE_COUNT = 15
+export const POPULARITY_PAGE_COUNT = 12
 
 export const INVALID_USERNAMES = ['account', 'send', 'message', 'inbox', 'notification', 'create', 'edit', 'editor',
  'itinerary', 'messenger', 'settings', 'admin', 'administrator', 'settings', 'global', 'saved', 'login', 'register',
@@ -141,9 +141,6 @@ export const FEATURED_GUIDES = ['-KsHtCGxX10pSPFRFw6p','-KsaEC85tRyFPhyx_vRI', '
 export const SMALL_GUIDE_PREVIEW = 'small-guide'
 export const MEDIUM_GUIDE_PREVIEW = 'medium-guide'
 export const LARGE_GUIDE_PREVIEW = 'large-guide'
-
-/** number of popular items to get for homepage ***/
-export const HOMEPAGE_POPULAR_COUNT = 3
 
 // export const COUNTRY_FLAGS = {
 //     'AF' : 'Afghanistan',

@@ -197,6 +197,12 @@ export default (state = initialState, action) => {
         ...state,
         popularPreview: action.popularPreview
       }
+    case ActionTypes.LOADED_POPULAR_FEED:
+      return {
+        ...state,
+        itineraries: [],
+        popularPage: action.popularPage
+      }
     case ActionTypes.UNLOAD_POPULAR_FEED:
       return initialState;
     default:

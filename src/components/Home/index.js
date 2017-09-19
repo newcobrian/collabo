@@ -304,7 +304,7 @@ class Home extends React.Component {
             />
             <Link to="/create" className="itinerary__cover cover--empty flx flx-col flx-center-all ta-center fill-success color--white">
               <div className="v2-type-h1 pdding-bottom-lg color--black">
-                Start new travel guide
+                Create a new travel guide
               </div>
               <div className="v2-type-body1 pdding-bottom-md color--black opa-50">
                 An itinerary or recommendations...
