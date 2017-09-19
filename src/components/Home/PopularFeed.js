@@ -73,7 +73,7 @@ class PopularFeed extends Home {
         <div className={'home-page page-common fill--light-gray '}>
          
 
-          <div className="feed-toggle friend-popular-toggle flx flx-row flx-just-start w-100">
+          <div className="feed-toggle friend-popular-toggle flx flx-row flx-just-center w-100">
             <ul className="nav nav-pills outline-active flx flx-row">
               <li className="nav-item">
                 <Link

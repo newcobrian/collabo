@@ -603,7 +603,7 @@ class ItineraryForm extends React.Component {
                                         </div> 
                                         {/* Action Module */}
                                         <div className="tip__cta-box w-100 flx flx-row flx-just-start flx-align-center mrgn-top-md">
-                                          <Link onClick={handleSaveClick(tip)} className="hide-in-list vb vb--sm fill--primary flx flx-row flx-align-center mrgn-left-n-1 color--primary">
+                                          <Link onClick={handleSaveClick(tip)} className="hide-in-list vb vb--sm vb--outline-none flx flx-row flx-align-center color--white fill--primary">
                                               <i className="material-icons mrgn-right-sm color--white">playlist_add</i>
                                               <div className="color--white">Add to</div>
                                           </Link>

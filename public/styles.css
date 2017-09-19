@@ -291,6 +291,10 @@ input[type="radio"]:checked + label span {
   
 }
 
+.xiao-img-wrapper {
+  width: 80px;
+  height: 100px;
+}
 .default-profile-wrapper,
 .user-photo-wrapper {
   width: 60px;
