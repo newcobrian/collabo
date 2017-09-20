@@ -698,7 +698,7 @@ export function loadRelatedItineraries(auth, itineraryId) {
                     for (let i = 0; i < maxItins; i++) {
                       Firebase.database().ref(Constants.USERS_PATH + '/' + allItineraries[i].userId).once('value', userSnap => {
                         let itinId = allItineraries[i].id;
-                        let isLiked = (likesSnap.exists() && likesSnap.val().itinId) ? true : false
+                        let isLiked = (likesSnap.exists() && likesSnap.val()[itinId]) ? true : false
                         showItineraries = showItineraries.concat(Object.assign({}, allItineraries[i], {isLiked: isLiked}, {createdBy: userSnap.val()}))
                         dispatchCounter++;
                         if (dispatchCounter === maxItins) {
