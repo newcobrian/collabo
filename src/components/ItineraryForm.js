@@ -317,14 +317,14 @@ class ItineraryForm extends React.Component {
           <div className="itinerary__cover__text w-100">
             <div className="it__cover__inner flx flx-row flx-just-start ta-left w-100 w-max">
               <div className="it__author-wrapper flx flx-col flx-center-all mrgn-bottom-sm">
-                <div className="itinerary__cover__author-photo">
+                <div className="itinerary__summary__author-photo">
                     <Link
                     to={`/${createdByUsername}`}
                     className="">
                     <ProfilePic src={createdByImage} className="center-img" />
                     </Link>
                 </div>
-                <div className="itinerary__cover__username">
+                <div className="itinerary-username">
                   <Link
                   to={`/${createdByUsername}`}
                   className="">
@@ -446,7 +446,7 @@ class ItineraryForm extends React.Component {
               <ImagePicker images={itinerary.images ? [itinerary.images] : null} />
               <div className={'flx flx-col flx-center-all v2-type-body3 fill--black color--white cover__loading fill--light-gray loading-done-' + this.props.coverPicProgress}>
                 <div className="earth-graphic w-100">  
-                  <img className="center-img" src="/img/loading-02.png"/>
+                  <img className="center-img" src="/img/globe01.gif"/>
                 </div>
                 Uploading New Cover Photo...
               </div> 
@@ -648,6 +648,7 @@ class ItineraryForm extends React.Component {
                                     </div>
                                 </div> { /** End photo / copy row **/ }
 
+
                                
 
                             </div> { /** END Content-wrapper **/}
@@ -660,7 +661,39 @@ class ItineraryForm extends React.Component {
               }
             </div>
             {renderGeoSuggestTip(itinerary.geo)}
+
+
+            <div className="itinerary__comments-module map-on flx flx-col flx-align-start flx-just-start w-max-2">
+              <div className="v2-type-h3 mrgn-bottom-md ta-left w-100">
+                Comments
+              </div>
+              <CommentContainer
+              authenticated={this.props.authenticated}
+              userInfo={this.props.userInfo}
+              type={Constants.ITINERARY_TYPE}
+              comments={Selectors.getItineraryComments(this.props.commentsData, itinerary.id) || []}
+              errors={this.props.commentErrors}
+              commentObject={itinerary}
+              deleteComment={this.props.onDeleteComment}
+              itineraryId={itinerary.id} />
+            </div>
+
+            <div className="itinerary__related-module flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
+              <RelatedItineraries
+                relatedItineraries={this.props.relatedItineraries} 
+                numRelated={this.props.numRelated}
+                authenticated={this.props.authenticated}
+                like={this.props.likeReview}
+                unLike={this.props.unLikeReview} />
+            </div>
+
           </div>
+
+         
+
+
+
+
 
           <div className="it-map-container fill--primary">
             <MapContainer itinerary={itinerary} google={this.props.google} />
@@ -683,32 +716,7 @@ class ItineraryForm extends React.Component {
           </div>
           { /** END Map block **/ }
 
-          <div className="itinerary__comments-module map-on flx flx-col flx-align-start flx-just-start w-max-2">
-            <div className="v2-type-h3 mrgn-top-md mrgn-bottom-md ta-left w-100">
-              Comments
-            </div>
-            <div className="v2-type-body2 mrgn-bottom-sm ta-left w-100 opa-40 DN">
-              What do you think about {createdByUsername}'s View?
-            </div>
-            <CommentContainer
-            authenticated={this.props.authenticated}
-            userInfo={this.props.userInfo}
-            type={Constants.ITINERARY_TYPE}
-            comments={Selectors.getItineraryComments(this.props.commentsData, itinerary.id) || []}
-            errors={this.props.commentErrors}
-            commentObject={itinerary}
-            deleteComment={this.props.onDeleteComment}
-            itineraryId={itinerary.id} />
-          </div>
-
-          <div className="flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
-            <RelatedItineraries
-              relatedItineraries={this.props.relatedItineraries} 
-              numRelated={this.props.numRelated}
-              authenticated={this.props.authenticated}
-              like={this.props.likeReview}
-              unLike={this.props.unLikeReview} />
-          </div>
+          
           <BackToTop />
         </div>
                   

@@ -608,12 +608,20 @@ width: 100%;
 .flx.tip__rating-module {
   margin-bottom: 10px;
 }
-.page-itinerary .itinerary__cover__author-photo,
-.itinerary__cover__author-photo .default-profile-wrapper {
-    width: 30px;
-    height: 30px;
-    margin: 0px 20px 0px 0;
+
+
+.itinerary__summary__author-photo .user-photo-wrapper {
+  width: 32px;
+  height: 32px;
+  margin-left: 10px;
+  margin-right: 20px;
 }
+.itinerary__summary__author-photo .user-photo-wrapper img {
+  width: 32px;
+  height: 32px;
+}
+
+
 .itinerary__cover__topbar .itinerary__cover__author-photo .default-profile-wrapper {
     width: 46px;
     height: 46px;
@@ -660,8 +668,7 @@ width: 100%;
   padding: 2px 6px;
 }
 
-.profile-page .itinerary__cover,
-.home-page .itinerary__cover {
+.page-common .itinerary__cover {
   width: 100%;
   padding: 10px;
   margin: 0;
@@ -718,6 +725,7 @@ width: 100%;
 
 .dialog--save__wrapper {
   width: 100%;
+  transform: none !important;
 }
 
 body .back-to-top {

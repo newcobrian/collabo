@@ -147,7 +147,7 @@ class Itinerary extends React.Component {
       return (
         <div className="loading-module flx flx-col flx-center-all v2-type-body3 fill--black">
           <div className="earth-graphic w-100">  
-            <img className="center-img" src="/img/loading-02.png"/>
+            <img className="center-img" src="/img/globe01.gif"/>
           </div>
           <div>Loading Travel Guide...</div>
         </div>
@@ -181,14 +181,14 @@ class Itinerary extends React.Component {
               <div className="itinerary__cover__text w-100">
                 <div className="it__cover__inner flx flx-row flx-just-start ta-left w-100 w-max">
                   <div className="it__author-wrapper flx flx-col flx-center-all mrgn-bottom-sm">
-                    <div className="itinerary__cover__author-photo">
+                    <div className="itinerary__summary__author-photo">
                         <Link
                         to={`/${createdByUsername}`}
                         className="">
                         <ProfilePic src={createdByImage} className="center-img" />
                         </Link>
                     </div>
-                    <div className="itinerary__cover__username">
+                    <div className="itinerary-username">
                       <Link
                       to={`/${createdByUsername}`}
                       className="">
@@ -328,12 +328,10 @@ class Itinerary extends React.Component {
               </div>
 
               <div className="itinerary__comments-module flx flx-col flx-align-start flx-just-start w-max-2">
-                <div className="v2-type-h3 mrgn-top-md mrgn-bottom-md ta-left w-100">
+                <div className="v2-type-h3 mrgn-bottom-md ta-left w-100">
                   Comments
                 </div>
-                <div className="v2-type-body2 mrgn-bottom-sm ta-left w-100 opa-40 DN">
-                  What do you think about {createdByUsername}'s guide?
-                </div>
+
                 <CommentContainer
                 authenticated={this.props.authenticated}
                 userInfo={this.props.userInfo}
@@ -343,8 +341,9 @@ class Itinerary extends React.Component {
                 commentObject={itinerary}
                 deleteComment={this.props.onDeleteComment}
                 itineraryId={this.props.itinerary.id} />
+                </div>
 
-                <div className="flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
+                <div className="itinerary__related-module flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
                   <RelatedItineraries
                     relatedItineraries={this.props.relatedItineraries} 
                     numRelated={this.props.numRelated}
@@ -352,7 +351,7 @@ class Itinerary extends React.Component {
                     like={this.props.likeReview}
                     unLike={this.props.unLikeReview} />
                 </div>
-              </div>
+
 
             </div> {/*Content Wrapper*/}
             

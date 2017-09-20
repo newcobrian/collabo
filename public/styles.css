@@ -299,6 +299,9 @@ input[type="radio"]:checked + label span {
 .user-photo-wrapper {
   width: 60px;
   height: 60px;
+  border-radius: 100px;
+  overflow: hidden;
+  background-color: #ccc;
 }
 .comment-author-img .default-profile-wrapper,
 .comment-author-img .user-photo-wrapper {
@@ -1350,8 +1353,7 @@ body .back-to-top {
     text-align: center;
     padding: 0 12px 0;
 }
-.content-wrapper.map-on,
-.itinerary__comments-module.map-on {
+.content-wrapper.map-on {
   width: 70%;
 }
 .content-wrapper.map-on .tip__image-module {
