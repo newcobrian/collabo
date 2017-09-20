@@ -26,6 +26,7 @@ import * as Selectors from '../selectors/itinerarySelectors';
 import Textarea from 'react-textarea-autosize';
 import scrollToElement from 'scroll-to-element';
 import RelatedItineraries from './RelatedItineraries';
+import {BackToTop} from 'pui-react-back-to-top';
 
 var Scroll = require('react-scroll');
 var Element = Scroll.Element;
@@ -708,7 +709,10 @@ class ItineraryForm extends React.Component {
               like={this.props.likeReview}
               unLike={this.props.unLikeReview} />
           </div>
+          <BackToTop />
         </div>
+                  
+
     );
   }
 }

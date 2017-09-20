@@ -98,8 +98,8 @@ a.logo-module:focus {
   border-bottom: 6px solid transparent;
 }
 .navigation-bar .nav-module img {
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
 }
 .navigation-bar .nav-module.create {
   /*color: #63A652;  Bright green */

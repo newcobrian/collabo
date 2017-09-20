@@ -138,7 +138,7 @@ class Followings extends Followers {
                 const isUser = this.props.currentUser &&
                   follower.userId === this.props.currentUser.uid;
                   return (
-                    <div className="w-100 ta-center pdding-top-md pdding-bottom-md brdr-bottom" key={follower.userId}>
+                    <div className="w-100 ta-center pdding-top-sm pdding-bottom-sm brdr-bottom" key={follower.userId}>
                       <div className="flx flx-row flx-just-start flx-align-center w-100 w-max pdding-left-md pdding-right-md">
                         <Link
                         to={`/${follower.username}`}

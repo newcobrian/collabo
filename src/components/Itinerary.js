@@ -366,7 +366,7 @@ class Itinerary extends React.Component {
                 </div>
               </div>
             </div> */}
-            {/*<BackToTop />*/}
+            <BackToTop />
           </div>
         )
       }
