@@ -686,8 +686,10 @@ export function loadRelatedItineraries(auth, itineraryId) {
                 let ic = 0;
                 fc++;
                 itinSnap.forEach(function(itin) {
-                  allItineraries = allItineraries.concat(Object.assign({}, {id: itin.key}, itin.val(), {userId: friend.key}))
                   ic++;
+                  if (itineraryId !== itin.key) {
+                    allItineraries = allItineraries.concat(Object.assign({}, {id: itin.key}, itin.val(), {userId: friend.key}))
+                  }
                   // if this is the last itinerary, then put together data to dispatch
                   if (fc === friendCount && ic === itinCount) {
                     allItineraries.sort(Helpers.lastModifiedDesc)
