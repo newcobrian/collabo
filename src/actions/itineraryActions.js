@@ -598,13 +598,8 @@ export function onDeleteTip(auth, tip, itineraryId, itinerary) {
       // update tips by subject
       Firebase.database().ref(Constants.TIPS_BY_SUBJECT_PATH + '/' + tip.subjectId + '/' + auth + '/' + tip.key).remove();
 
-      // update guide popularity scores
-      Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itinerary.id + '/popularityScore').transaction(function (current_count) {
-        return (current_count - Constants.ADD_TIP_GUIDE_SCORE > 0) ? current_count - Constants.ADD_TIP_GUIDE_SCORE : 0;
-      });
-      Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH + '/' + itinerary.geo.placeId + '/' + itinerary.id + '/popularityScore').transaction(function (current_count) {
-        return (current_count - Constants.ADD_TIP_GUIDE_SCORE >= 0) ? current_count - Constants.ADD_TIP_GUIDE_SCORE : 0;
-      });
+      // decerement popularity score
+      Helpers.decrementGuideScore(itinerary.id, Constants.ADD_TIP_GUIDE_SCORE)
 
       // update tip counts
       Helpers.decrementItineraryCount(Constants.REVIEWS_COUNT, itineraryId, itinerary.geo, itinerary.userId);
