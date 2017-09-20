@@ -56,28 +56,31 @@ class DeleteItineraryModal extends React.Component {
           open={(this.props.modalType === DELETE_ITINERARY_MODAL) ? true : false}
           autoScrollBodyContent={true}
           onRequestClose={handleClose}
+          
+          title="Permanently delete this guide?"
+                   titleClassName="dialog__title v2-type-h2"
+          titleStyle={{}}
 
-          className="dialog--save"
+          className="dialog dialog--save"
           style={{}}
 
           overlayClassName="dialog__overlay"
           overlayStyle={{}}
           
-          title="Permanently delete this itinerary?"
-          titleClassName="dialog__title v2-type-h2"
-          titleStyle={{padding: "10px 20px", fontWeight: "700", fontSize: "20px"}}
-          
           contentClassName="dialog--save__wrapper"
-          contentStyle={{width: "400px", maxWidth: "none"}}
+          contentStyle={{width: "auto", maxWidth: "600px"}}
           
           bodyClassName="dialog--save__body"
-          bodyStyle={{padding: "30px 0px"}}
+          bodyStyle={{padding: "0px"}}
 
-          actionsContainerClassName="dialog--save__actions">
+          actionsContainerClassName="dialog--save__actions"
+          actionsContainerStyle={{}}
+
+          >
             
             <div className="dialog--delete__content">
               <div className="flx flx-row flx-just-start flx-align-center">
-                <div className="dialog--save__tip-name">Are you sure you want to delete this guide? It will be lost forever</div>
+                <div className="dialog--save__tip-name">It will be lost forever...</div>
               </div>
               <div
                 className="vb w-100 vb--create mrgn-top-md DN"

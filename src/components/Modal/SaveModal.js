@@ -23,7 +23,7 @@ const GeoInfo = props => {
         </div>
       </Link>
       )
-  }
+  } 
 }
 
 const RenderItinerariesList = props => {
@@ -92,27 +92,19 @@ class SaveModal extends React.Component {
     const actions = [
       <FlatButton
         label="+ Create New Guide"
-        className="vb vb--shadow-none color--success fill--white mrng-left-sm float-left"
+        className="vb color--success fill--white mrng-left-sm float-left"
         hoverColor="white"
         onTouchTap={handleItineraryClick} 
-        labelStyle={{   fontWeight: '500',
-                        fontSize: '14px',
-                        letterSpacing: '2px',
-                        boxShadow: 'none'
-                    }}
+        labelStyle={{}}
         style={{
           }}
       />,
       <FlatButton
         label="Cancel"
         hoverColor="white"
-        className="vb vb--shadow-none"
+        className="vb"
         onTouchTap={handleClose}
-        labelStyle={{fontWeight: '500',
-                    fontSize: '14px',
-                    letterSpacing: '2px',
-                    boxShadow: 'none'
-                    }}
+        labelStyle={{}}
         style={{
           }}
       />
@@ -145,10 +137,9 @@ class SaveModal extends React.Component {
           bodyStyle={{padding: "0px"}}
 
           actionsContainerClassName="dialog--save__actions"
-          actionsContainerStyle={{
-            padding: "10px"
-          }}
+          actionsContainerStyle={{}}
             >
+            
             <div className="dialog--save__content">
               <div className="dialog--save__tip-item">
                 <div className="flx flx-row flx-just-start flx-align-center">

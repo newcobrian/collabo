@@ -99,28 +99,21 @@ class NewItineraryModal extends React.Component {
       <FlatButton
         label="Cancel"
         hoverColor="white"
-        className="vb vb--shadow-none mrgn-right-sm"
+        className="vb mrgn-right-sm"
         onTouchTap={handleClose}
-        labelStyle={{   fontWeight: '500',
-                    fontSize: '14px',
-                    letterSpacing: '2px',
-                    color:'rgba(0,0,0,.5)',
-                    boxShadow: 'none'
+        labelStyle={{  
                     }}
         style={{
           }}
       />,
       <FlatButton
-        label="Create"
+        label="Save"
         hoverColor="white"
         onTouchTap={submitForm}
         disableTouchRipple={true}
         fullWidth={false}
-        className="vb vb--shadow-none color--white fill--primary"
-        labelStyle={{   fontWeight: '400',
-                        fontSize: '14px',
-                        letterSpacing: '2px',
-                        boxShadow: 'none'
+        className="vb color--white fill--primary"
+        labelStyle={{ 
                     }}
         style={{
           }}
@@ -144,24 +137,28 @@ class NewItineraryModal extends React.Component {
           open={(this.props.modalType === NEW_ITINERARY_MODAL) ? true : false}
           autoScrollBodyContent={true}
           onRequestClose={handleClose}
-
-          className="dialog--save"
-          style={{}}
-
-          overlayClassName="dialog--save__overlay"
-          overlayStyle={{}}
           
           title="Create new guide for..."
+
           titleClassName="dialog__title v2-type-h2"
           titleStyle={{}}
+
+          className="dialog dialog--save"
+          style={{}}
+
+          overlayClassName="dialog__overlay"
+          overlayStyle={{}}
           
           contentClassName="dialog--save__wrapper"
-          contentStyle={{width: "none", maxWidth: "none"}}
+          contentStyle={{width: "auto", maxWidth: "600px"}}
           
           bodyClassName="dialog--save__body"
           bodyStyle={{padding: "0px"}}
 
-          actionsContainerClassName="dialog--save__actions">
+          actionsContainerClassName="dialog--save__actions"
+          actionsContainerStyle={{}}
+
+          >
             
             <div className="dialog--save__content">
             <div className="dialog--save__tip-item">

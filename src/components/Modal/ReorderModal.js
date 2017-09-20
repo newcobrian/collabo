@@ -49,13 +49,8 @@ class ReorderModal extends React.Component {
         label="Done"
         className="vb vb--shadow-none fill--primary color--white"
         onTouchTap={handleClose}
-        style={{
-          }}
-          labelStyle={{   fontWeight: '500',
-                          fontSize: '14px',
-                          letterSpacing: '2px',
-                          boxShadow: 'none'
-                      }}
+        style={{}}
+        labelStyle={{}}
       />
     ];
 
@@ -77,22 +72,26 @@ class ReorderModal extends React.Component {
           autoScrollBodyContent={true}
           onRequestClose={handleClose}
           lockToContainerEdges={true}
+            
+          title="Reorder your tips"
+
+          titleClassName="dialog__title v2-type-h2"
+          titleStyle={{}}
 
           className="dialog dialog--save"
           style={{}}
 
           overlayClassName="dialog__overlay"
           overlayStyle={{}}
-            
-          title="Reorder your tips"
-
-          titleStyle={{}}
-          titleClassName="dialog__title v2-type-h2"
-
+          
+          contentClassName="dialog--save__wrapper"
+          contentStyle={{width: "auto", maxWidth: "600px"}}
+          
           bodyClassName="dialog--save__body"
           bodyStyle={{padding: "0px"}}
 
-          contentStyle={{width: "100%", maxWidth: "600px"}}
+          actionsContainerClassName="dialog--save__actions"
+          actionsContainerStyle={{}}
         >
 
         <div className="dialog--save flx flx-col">

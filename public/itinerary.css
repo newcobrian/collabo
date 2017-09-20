@@ -372,3 +372,49 @@ textarea.edit-itinerary__name {
 
 .page-edit-own .it-add-wrapper ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
 }
+
+
+
+
+/**** MAP STUFF ****/
+
+.gm-style .gm-style-iw {
+    margin-top: 6px;
+    text-align: center;
+    padding: 0 12px 0;
+}
+.content-wrapper.map-on {
+  width: 50%;
+}
+
+.content-wrapper.map-on .itinerary__cover.header-height,
+.content-wrapper.map-on .itinerary__cover__image.header-height,
+.content-wrapper.map-on .itinerary__cover .header-height {
+  height: 180px;
+}
+.it-map-container {
+  position: fixed;
+  right: 0;
+  top: 70px;
+  left: 50%;
+  bottom: 0;
+}
+.it-map-overlay {
+  position: fixed;
+  right: 0;
+  top: 0;
+  left: 60%;
+  bottom: 0;
+  background-color: rgba(0,0,0,.1);
+  background-color: rgba(22,32,52,.5);
+}
+.map-wrapper {
+  width: 100% !important;
+  height: 100% !important;
+}
+.map-loading-wrapper {
+  height: 100%;
+  position: absolute;
+  top: 0; bottom: 0; right: 0;
+  left: 0;
+}

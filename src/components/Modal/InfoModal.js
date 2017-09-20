@@ -20,7 +20,7 @@ const ShowWeekDayText = props => {
                 <li key={index}>{day}</li>
                 )
             })
-          }
+          } 
         </ul>
       )
     }
@@ -41,14 +41,11 @@ class InfoModal extends React.Component {
     const actions = [
       <FlatButton
         label="Close"
-        className="vb vb--shadow-none"
+        className="vb"
         onTouchTap={handleClose}
         style={{
           }}
-          labelStyle={{   fontWeight: '500',
-                          fontSize: '14px',
-                          letterSpacing: '2px',
-                          boxShadow: 'none'
+          labelStyle={{   
                       }}
       />
     ];
@@ -70,10 +67,21 @@ class InfoModal extends React.Component {
           titleClassName="dialog__title v2-type-h2"
           titleStyle={{}}
 
+          className="dialog dialog--save"
+          style={{}}
+
+          overlayClassName="dialog__overlay"
+          overlayStyle={{}}
+          
+          contentClassName="dialog--save__wrapper"
+          contentStyle={{width: "auto", maxWidth: "600px"}}
+          
           bodyClassName="dialog--save__body"
           bodyStyle={{padding: "0px"}}
 
-          contentStyle={{width: "100%", maxWidth: "600px"}}
+          actionsContainerClassName="dialog--save__actions"
+          actionsContainerStyle={{}}
+          
         >
 
         <div className="dialog--save flx flx-col">
