@@ -3185,3 +3185,12 @@ export function unloadPlacesFeed(auth, locationId) {
     })
   }
 }
+
+export function setAuthRedirect(redirect) {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.SET_AUTH_REDIRECT,
+      redirect
+    })
+  }
+}

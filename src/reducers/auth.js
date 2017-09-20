@@ -1,4 +1,5 @@
 import { AUTH_USER, SIGN_OUT_USER, AUTH_ERROR, UNLOAD_AUTH, FORGOT_PASSWORD_SENT } from '../actions';
+import * as ActionTypes from '../actions/types'
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -43,6 +44,11 @@ export default (state = {}, action) => {
       return {}
     case UNLOAD_AUTH:
       return {};
+    case ActionTypes.SET_AUTH_REDIRECT:
+      return {
+        ...state,
+        authRedirect: action.redirect
+      }
     default:
       return state;
   }

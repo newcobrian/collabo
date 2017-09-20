@@ -28,7 +28,7 @@ class Login extends React.Component {
       // this.submitForm = (email, password) => {
       ev.preventDefault();
       // this.props.onSubmit(email, password);
-      this.props.signInUser(email, password);
+      this.props.signInUser(email, password, this.props.authRedirect);
     };
   }
 

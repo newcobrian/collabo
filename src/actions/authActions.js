@@ -47,7 +47,7 @@ export function onRedirect() {
   }
 }
 
-export function signUpUser(username, email, password) {
+export function signUpUser(username, email, password, redirect) {
   return dispatch => {
     if (username.length === 1) {
       dispatch({
@@ -96,6 +96,7 @@ export function signUpUser(username, email, password) {
             dispatch({
               type: ActionTypes.SIGN_UP_USER,
               payload: userId,
+              redirect: redirect,
               meta: {
                 mixpanel: {
                   event: 'Sign up'
@@ -113,7 +114,7 @@ export function signUpUser(username, email, password) {
   }
 }
 
-export function signInUser(email, password) {
+export function signInUser(email, password, redirect) {
   return function(dispatch) {
     if (!password || password === '') {
       dispatch({
@@ -126,6 +127,7 @@ export function signInUser(email, password) {
       .then(response => {
         dispatch({
           type: ActionTypes.AUTH_USER,
+          redirect: redirect,
           payload: response.uid,
           meta: {
             mixpanel: {

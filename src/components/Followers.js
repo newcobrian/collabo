@@ -39,6 +39,10 @@ class Followers extends React.Component {
 	      }
 	    });
 	    Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + this.props.params.username + '/').off();
+	    
+	    if (!this.props.authenticated) {
+      		this.props.setAuthRedirect(this.props.location.pathname);
+    	}
 	}
 	renderTabs() {
 	    return (

@@ -6,7 +6,8 @@ import * as ActionTypes from '../actions/types'
 const defaultState = {
   appName: 'Reccoon',
   authenticated: false,
-  token: null
+  token: null,
+  authRedirect: ''
 };
 
 export default (state = defaultState, action) => {
@@ -86,14 +87,14 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         authenticated: action.payload,
-        redirectTo: action.error ? null : '/',
+        redirectTo: action.error ? null : (action.redirect ? action.redirect : '/'),
         error: null
       };
     case ActionTypes.SIGN_UP_USER:
       return {
         ...state,
         authenticated: action.payload,
-        redirectTo: action.error ? null : '/',
+        redirectTo: action.error ? null : (action.redirect ? action.redirect : '/'),
         error: null
       }
     case SIGN_OUT_USER:

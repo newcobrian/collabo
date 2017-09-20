@@ -112,6 +112,9 @@ class Itinerary extends React.Component {
   componentWillUnmount() {
     this.unloadItinerary(this.props.itineraryId);
     this.props.unloadRelatedItineraries(this.props.authenticated);
+    if (!this.props.authenticated) {
+      this.props.setAuthRedirect(this.props.location.pathname);
+    }
   }
 
   componentWillReceiveProps(nextProps) {

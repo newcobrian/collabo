@@ -30,6 +30,10 @@ class ProfileLikes extends Profile {
       this.props.unloadProfileUser(this.props.profile.userId);
       this.props.unloadProfileFollowing(this.props.authenticated, this.props.profile.userId);
       this.props.unloadLikesByUser(this.props.authenticated, this.props.profile.userId);
+
+      if (!this.props.authenticated) {
+        this.props.setAuthRedirect(this.props.location.pathname);
+      }
     }
     Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + this.props.params.username + '/').off();
   }

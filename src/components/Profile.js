@@ -82,6 +82,10 @@ class Profile extends React.Component {
 
   componentWillUnmount() {
     this.unloadUser(this.props.params.username, this.props.profile.userId);
+
+    if (!this.props.authenticated) {
+      this.props.setAuthRedirect(this.props.location.pathname);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
