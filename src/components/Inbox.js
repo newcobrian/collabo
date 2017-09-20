@@ -28,7 +28,7 @@ const LeftSenderPic = props => {
         <Link
         to={`/${props.username}`}
         className="">
-          <ProfilePic src={props.image} className="user-image user-image-sm center-img" />
+          <ProfilePic src={props.image} className="center-img" />
         </Link>
       </div>
     )
@@ -36,7 +36,7 @@ const LeftSenderPic = props => {
   else {
     return (
       <div className="mrgn-left-sm mrgn-right-md">
-        <img className="user-image user-image-sm user-image-sm center-img" src="../img/someone_temp.png"/>
+        <img className="center-img" src="../img/someone_temp.png"/>
       </div>
     )
   }

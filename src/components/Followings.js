@@ -144,7 +144,7 @@ class Followings extends Followers {
                         to={`/${follower.username}`}
                         className="mrgn-right-md">
                           <div className="">
-                            <ProfilePic src={follower.image} className="user-image center-img" />
+                            <ProfilePic src={follower.image} className="center-img" />
                           </div>
                         </Link>
                         <Link
