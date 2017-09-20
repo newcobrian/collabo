@@ -24,6 +24,7 @@ import * as Selectors from '../selectors/itinerarySelectors';
 import { isEmpty, find } from 'lodash';
 import MapContainer from './MapContainer';
 import scrollToElement from 'scroll-to-element';
+import RelatedItineraries from './RelatedItineraries';
 
 var Scroll = require('react-scroll');
 var scroller = Scroll.scroller;
@@ -100,6 +101,7 @@ class Itinerary extends React.Component {
 
   componentWillMount() {
     this.loadItinerary(this.props.params.iid);
+    this.props.loadRelatedItineraries(this.props.authenticated, this.props.params.iid);
     this.jumpToHash();
   }
 
@@ -109,12 +111,14 @@ class Itinerary extends React.Component {
 
   componentWillUnmount() {
     this.unloadItinerary(this.props.itineraryId);
+    this.props.unloadRelatedItineraries(this.props.authenticated);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.iid !== this.props.params.iid) {
       this.unloadItinerary(this.props.itineraryId);
       this.loadItinerary(nextProps.params.iid);
+      this.props.loadRelatedItineraries(this.props.authenticated, nextProps.params.iid);
     }
   }
 
@@ -328,7 +332,7 @@ class Itinerary extends React.Component {
                   Comments
                 </div>
                 <div className="v2-type-body2 mrgn-bottom-sm ta-left w-100 opa-40 DN">
-                  What do you think about {createdByUsername}'s View?
+                  What do you think about {createdByUsername}'s guide?
                 </div>
                 <CommentContainer
                 authenticated={this.props.authenticated}
@@ -339,9 +343,19 @@ class Itinerary extends React.Component {
                 commentObject={itinerary}
                 deleteComment={this.props.onDeleteComment}
                 itineraryId={this.props.itinerary.id} />
+
+                <div className="flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
+                  <RelatedItineraries
+                    relatedItineraries={this.props.relatedItineraries} 
+                    numRelated={this.props.numRelated}
+                    authenticated={this.props.authenticated}
+                    like={this.props.likeReview}
+                    unLike={this.props.unLikeReview} />
+                </div>
               </div>
 
             </div> {/*Content Wrapper*/}
+            
             <div className="it-map-container fill--primary">
               <MapContainer itinerary={itinerary} google={this.props.google} />
             </div>

@@ -461,6 +461,18 @@ export default (state = initialState, action) => {
         mouseoverTitle: action.mouseoverTitle,
         showingInfoWindow: action.showingInfoWindow
       }
+    case ActionTypes.LOAD_RELATED_ITINERARIES:
+      return {
+        ...state,
+        relatedItineraries: action.relatedItineraries,
+        numRelated: action.numRelated
+      }
+    case ActionTypes.UNLOAD_RELATED_ITINERARIES:
+      return {
+        ...state,
+        relatedItineraries: [],
+        numRelated: 0
+      }
     default:
       return state;
   }

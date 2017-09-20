@@ -232,12 +232,12 @@ export function unwatchTips(dispatch, itineraryId, itineraryUserId, source) {
   Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).once('value', tipSnapshot => {
     if (tipSnapshot.exists() && tipSnapshot.val().userId !== itineraryUserId) {
       unwatchUser(dispatch, tipSnapshot.val().userId, source)
+      unwatchSubject(dispatch, tipSnapshot.key, tipSnapshot.val().subjectId, source);
+      unwatchReview(dispatch, tipSnapshot.key, tipSnapshot.val().reviewId, source);
+      unwatchComments(dispatch, tipSnapshot.key, source);
+      unwatchImagesByUser(dispatch, itineraryUserId, tipSnapshot.val().subjectId, source);
+      unwatchDefaultImages(dispatch, tipSnapshot.val().subjectId, source);
     }
-    unwatchSubject(dispatch, tipSnapshot.key, tipSnapshot.val().subjectId, source);
-    unwatchReview(dispatch, tipSnapshot.key, tipSnapshot.val().reviewId, source);
-    unwatchComments(dispatch, tipSnapshot.key, source);
-    unwatchImagesByUser(dispatch, itineraryUserId, tipSnapshot.val().subjectId, source);
-    unwatchDefaultImages(dispatch, tipSnapshot.val().subjectId, source);
   })
   Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).off();
 }
@@ -667,6 +667,65 @@ export function onMapMarkerMouseover(marker, title) {
       hoverMarker: marker,
       mouseoverTitle: title,
       showingInfoWindow: true
+    })
+  }
+}
+
+export function loadRelatedItineraries(auth, itineraryId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).once('value', currentItinSnap => {
+      if (currentItinSnap.exists() && currentItinSnap.val().geo && currentItinSnap.val().geo.placeId) {
+        Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth).on('value', likesSnap => {
+          Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + auth).once('value', followSnap => {
+            let allItineraries = [];
+            let friendCount = followSnap.numChildren();
+            let fc = 0;
+            followSnap.forEach(function(friend) {
+              Firebase.database().ref(Constants.ITINERARIES_BY_GEO_BY_USER_PATH + '/' + currentItinSnap.val().geo.placeId + '/' + friend.key).once('value', itinSnap => {
+                let itinCount = itinSnap.numChildren();
+                let ic = 0;
+                fc++;
+                itinSnap.forEach(function(itin) {
+                  allItineraries = allItineraries.concat(Object.assign({}, {id: itin.key}, itin.val(), {userId: friend.key}))
+                  ic++;
+                  // if this is the last itinerary, then put together data to dispatch
+                  if (fc === friendCount && ic === itinCount) {
+                    allItineraries.sort(Helpers.lastModifiedDesc)
+                    let numRelated = allItineraries.length;
+                    let showItineraries = [];
+                    let maxItins = allItineraries.length < 3 ? allItineraries.length : 3;
+                    let dispatchCounter = 0;
+                    for (let i = 0; i < maxItins; i++) {
+                      Firebase.database().ref(Constants.USERS_PATH + '/' + allItineraries[i].userId).once('value', userSnap => {
+                        let itinId = allItineraries[i].id;
+                        let isLiked = (likesSnap.exists() && likesSnap.val().itinId) ? true : false
+                        showItineraries = showItineraries.concat(Object.assign({}, allItineraries[i], {isLiked: isLiked}, {createdBy: userSnap.val()}))
+                        dispatchCounter++;
+                        if (dispatchCounter === maxItins) {
+                          dispatch({
+                            type: ActionTypes.LOAD_RELATED_ITINERARIES,
+                            relatedItineraries: showItineraries,
+                            numRelated: numRelated
+                          })
+                        }
+                      })
+                    }
+                  }
+                })
+              })
+            })
+          })
+        })
+      }
+    })
+  }
+}
+
+export function unloadRelatedItineraries(auth) {
+  return dispatch => {
+    Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth).off()
+    dispatch({
+      type: ActionTypes.UNLOAD_RELATED_ITINERARIES
     })
   }
 }

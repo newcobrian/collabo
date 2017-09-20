@@ -25,6 +25,7 @@ import Geosuggest from 'react-geosuggest';
 import * as Selectors from '../selectors/itinerarySelectors';
 import Textarea from 'react-textarea-autosize';
 import scrollToElement from 'scroll-to-element';
+import RelatedItineraries from './RelatedItineraries';
 
 var Scroll = require('react-scroll');
 var Element = Scroll.Element;
@@ -697,6 +698,15 @@ class ItineraryForm extends React.Component {
             commentObject={itinerary}
             deleteComment={this.props.onDeleteComment}
             itineraryId={itinerary.id} />
+          </div>
+
+          <div className="flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
+            <RelatedItineraries
+              relatedItineraries={this.props.relatedItineraries} 
+              numRelated={this.props.numRelated}
+              authenticated={this.props.authenticated}
+              like={this.props.likeReview}
+              unLike={this.props.unLikeReview} />
           </div>
         </div>
     );
