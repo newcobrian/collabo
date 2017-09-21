@@ -38,12 +38,8 @@ class InfoModal extends React.Component {
       this.props.hideModal();
     }
 
-    const onMapsClick = ev => {
-      ev.preventDefault()
-      let linkURL = (this.props.review.subject.googleMapsURL ? this.props.review.subject.googleMapsURL :
+    let googleMapLink = (this.props.review.subject.googleMapsURL ? this.props.review.subject.googleMapsURL :
         'https://maps.google.com/maps?q=' + this.props.review.subject.location.lat + ',' + this.props.review.subject.location.lng)
-      window.open(linkURL, '_blank')
-    }
 
     const actions = [
       <FlatButton
@@ -103,7 +99,7 @@ class InfoModal extends React.Component {
                 <div>
                   <div className="v2-type-body1">{this.props.review.subject.address}</div>
 
-                  <a onClick={onMapsClick}>WEBSITE LINK</a>
+                  <a target='_blank' href={googleMapLink}>WEBSITE LINK</a>
                 </div>
               </div>
 
