@@ -64,7 +64,6 @@
   width: 110px;
 	flex-shrink: 0;
 	position: relative;
-	/*box-shadow: 0 14px 24px 0 rgba(0,0,0,0.1);*/
 }
 .tip__image-module:hover {
 	cursor: pointer;
@@ -74,7 +73,6 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-
     object-position: center;
     box-shadow: 0 0 0 -1 rgba(0,0,0,.1) inset;
 }

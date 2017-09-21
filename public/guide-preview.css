@@ -10,7 +10,15 @@
 }
 .itinerary__book {
 	position: relative;
+	background-color: rgba(208,208,209,.4);
 }
+.itinerary__cover__image {
+	position: relative;
+	overflow: hidden;
+	flex-shrink: 0;
+	width: 100%;
+	opacity: 1;
+} 
 .itinerary__hit-area {
 	background: transparent;
 	position: absolute;
@@ -28,7 +36,20 @@
 	height: 120px;
 }
 
-
+.guide-label {
+	position: absolute;
+    top: 0;
+    left: 0;
+    padding: 3px 10px;
+    display: none;
+    z-index: 1;
+    font-size: 13px;
+    letter-spacing: 1px;
+	display: none;
+}
+.label-featured .guide-label {
+	display: inline-block;
+}
 .guide-preview-title {
     font-size: 20px;
     font-weight: 600;
@@ -41,14 +62,14 @@
     text-transform: uppercase;
 }
 .guide-preview-data-wrapper {
-	padding: 20px 20px 10px;
+	padding: 15px 20px 10px;
 	z-index: 2;
 	min-width: 0;
 	overflow: hidden;
 	height: 200px;
 }
 .guide-preview-text-wrapper {
-	height: 120px;
+	height: 80px;
 }
 .itinerary__cover .geo-type {
 	font-size: 14px;
@@ -56,6 +77,7 @@
 }
 .guide-cta-wrapper {
 	margin-top: auto;
+	padding-bottom: 20px;
 }
 
 .featured-wrapper {
@@ -108,7 +130,7 @@
 	margin-right: 10px;
 }
 .small-guide .guide-preview-title {
-	font-size: 22px;
+	font-size: 14px;
 	line-height: 24px;
 }
 .itinerary__cover.small-guide .v2-type-body2 {
@@ -207,16 +229,15 @@
     width: auto;
     bottom: 44px;
     left: 210px;
-
     position: absolute;
     width: 300px;
-    bottom: -15px;
+    bottom: 15px;
     left: 29px;
     z-index: 3;
-    padding: 5px 20px;
+    padding: 0px 10px;
     opacity: .9;
     border-radius: 42px;
-    background-color: rgba(15,20,25,1);
+    background-color: white;
 }
 .comment-preview-wrapper {
   /*background: rgba(255,255,255,1);*/
@@ -277,22 +298,6 @@
     font-weight: 300;
     letter-spacing: 2px;
     margin-top: 2px;
-}
-.itinerary__bookx {
-	box-shadow: 0px 11px 24px rgba(0,0,0,0.12);
-	transform: translate3d(0, 0, 0);
-	-webkit-transform: translate3d(0, 0, 0);
-	-webkit-transition: box-shadow 0.3s;
-	transition: box-shadow 0.3s;
-	width: 100%;
-}
-.itinerary__bookx:hover {
-	top: 70px;
-	box-shadow: 0 22px 43px rgba(0,0,0,0..08);
-	-webkit-box-shadow: 0 22px 43px rgba(0,0,0,0.08);
-	-webkit-transform: translateY(-1px);
-	transform: translateY(-1px);
-	-moz-transform: none;
 }
 .itinerary__cover__overlay {
 	overflow: hidden;

@@ -33,7 +33,7 @@ const RenderFeaturedPreview = props => {
           like={props.like} 
           unLike={props.unLike}
           deleteItinerary={props.deleteItinerary}
-          guideLabel={"label-popular"}
+          guideLabel={"label-featured"}
           type={Constants.MEDIUM_GUIDE_PREVIEW} />
 
     )
@@ -271,7 +271,7 @@ class Home extends React.Component {
           </div>
 
           <div className="w-100 w-max flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap">
-            <div className="popular-box">
+            <div className="popular-box brdr-all flx flx-col">
               <div className="color--black section-header mrgn-bottom-md">Popular Guides</div>
               <PopularPreview 
                 popularList={this.props.popularPreview}
@@ -279,6 +279,7 @@ class Home extends React.Component {
                 like={this.props.like} 
                 unLike={this.props.unLike}
                 deleteItinerary={this.props.deleteItinerary} />
+                <Link className="color--primary v2-type-body0 flx-item-bottom" to="/popular">See all popular guides</Link>
             </div>
             <RenderFeaturedPreview
                featuredPreview={this.props.featuredPreview}

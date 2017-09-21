@@ -5,7 +5,7 @@ import ItineraryPreview from '.././ItineraryPreview';
 const PopularPreview = props => {
   if (props.popularList) {
     return (
-      <div className="">
+      <div className="flx flx-col flx-just-space-around mrgn-bottom-sm">
         {
           props.popularList.slice(0,Constants.POPULARITY_MODULE_COUNT).map(itinerary => {
             return (

@@ -12,7 +12,7 @@ const RightPic = props => {
       <Link
       to={props.link}
       className="">
-        <div className="bx-shadow">
+        <div className="bx-shadow bg-loading">
           <ProxyImage src={props.image} className="image--basic center-img" />
         </div>
       </Link>

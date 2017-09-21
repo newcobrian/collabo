@@ -63,10 +63,12 @@
 .flx.flx-just-space-between {
    -webkit-justify-content: space-between;
    justify-content: space-between;
+   height: 100%;
 }
 .flx.flx-just-space-around {
    -webkit-justify-content: space-around;
    justify-content: space-around;
+   height: 100%;
 }
 
 
@@ -134,6 +136,9 @@
 }
 .flx-item-left {
   margin-right: auto;
+}
+.flx-item-bottom {
+  margin-top: auto;
 }
 .flx-grow1 {
   flex-grow:1;

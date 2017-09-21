@@ -393,11 +393,9 @@ width: 100%;
 }
 
 .itinerary__cover__image .header-height {
-  height: 280px;
+  height: 120px;
 }
-.page-itinerary .itinerary__cover .header-height {
-    height: 160px;
-}
+
 .itinerary__cover__author-photo {
   width: 46px;
   height: 46px;

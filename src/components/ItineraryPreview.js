@@ -33,7 +33,7 @@ const CommentPreview = props => {
     return (
       <Link to={`/guide/${props.itinerary.id}`}>
 
-        <div className="comment-preview-bubble flx flx-row flx-just-start flx-align-center color--white bx-shadow">
+        <div className="comment-preview-bubble flx flx-row flx-just-start flx-align-center color--black">
           <div className="DN comment-author-img mrgn-right-sm flx-hold">
             <Link
               to={`/${props.itinerary.lastComment.username}`}
@@ -42,11 +42,11 @@ const CommentPreview = props => {
             </Link>
           </div>
 
-          <div className="comment-preview-wrapper v2-type-body0 color--white flx flx-row flx-align-center">
-            <div className="new-bubble fill--success mrgn-right-sm flx-hold"></div>
+          <div className="comment-preview-wrapper v2-type-body0 color--black flx flx-row flx-align-center">
+            <div className="new-bubble fill--primary mrgn-right-sm flx-hold"></div>
             <Link
               to={`/${props.itinerary.lastComment.username}`}
-              className="comment-author color--white">
+              className="comment-author color--black">
               {props.itinerary.lastComment.username}
             </Link>
             <div className="ellipsis comment-text">
@@ -108,7 +108,7 @@ const ItineraryPreview = props => {
   
   if (props.type === Constants.SMALL_GUIDE_PREVIEW) {
     return (
-      <div className={"pdding-top-sm pdding-bottom-sm mrgn-bottom-sm flx flx-row flx-align-center w-100 " + props.type}>
+      <div className={"pdding-top-sm pdding-bottom-sm mrgn-bottom-md flx flx-row flx-align-center w-100 " + props.type}>
           
             {/** USER PHOTO **/}
             <div className="itinerary__cover__author-photo mrgn-right-md">
@@ -184,10 +184,13 @@ const ItineraryPreview = props => {
 
         <div className="itinerary__contents flx flx-col w-100">
           {/** START IMAGES **/}
-          <div className="itinerary__book w-100 flx-hold">
+          <div className="itinerary__book w-100 flx-hold bg-loading">
+            <div className="guide-label fill--primary color--white">
+              Featured
+            </div>
 
             {/** Cover Image **/}
-            <div className="itinerary__cover__image">
+            <div className="itinerary__cover__image bg-loading">
               <ImagePicker images={itinerary.images ? [itinerary.images]: null} />
             </div>
             {/** Cover Hit Area **/}

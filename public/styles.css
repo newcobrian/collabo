@@ -290,7 +290,11 @@ input[type="radio"]:checked + label span {
 .user-image {
   
 }
-
+.bg-loading {
+  background-color: rgba(229,229,229,1);
+  animation: colorchange .8s 8;
+  -webkit-animation: colorchange .8s 8;
+}
 .xiao-img-wrapper {
   width: 80px;
   height: 100px;
@@ -302,6 +306,9 @@ input[type="radio"]:checked + label span {
   border-radius: 100px;
   overflow: hidden;
   background-color: #ccc;
+  background-color: rgba(229,229,229,1);
+  animation: colorchange .8s 8;
+  -webkit-animation: colorchange .8s 8;
 }
 .comment-author-img .default-profile-wrapper,
 .comment-author-img .user-photo-wrapper {
@@ -345,21 +352,24 @@ width: 32px;
   width: 32px;
   height: 32px;
 }
-img.user-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 100px;
-  border: 1px solid rgba(0,0,0,.1);
-}
-img.user-image.user-image-sm {
-  width: 40px;
-  height: 40px;
-}
-img.user-image.user-image-md {
-  width: 60px;
-  height: 60px;
-}
+
+@keyframes colorchange
+    {
+      0%   {background-color: rgba(208,208,209,1);}
+      50%  {background-color: rgba(208,208,209,.5);}
+      100% {background-color: rgba(208,208,209,1);}
+    }
+
+    @-webkit-keyframes colorchange
+    {
+      0%   {background-color: rgba(208,208,209,1);}
+      50%  {background-color: rgba(208,208,209,.5);}
+      100% {background-color: rgba(208,208,209,1);}
+    }
+
+
+
+
 
 .caption-link-subtle {
   font-size: 12px;
@@ -371,24 +381,6 @@ img.user-image.user-image-md {
 .width-100 {
   width: 100% !important;
 }
-@keyframes colorchange
-    {
-      0%   {background: #51EBB7;}
-      25%  {background: #E96141;}
-      50%  {background: #BAB9A5;}
-      75%  {background: #96A6B6;}
-      100% {background: #5ADAF3;}
-    }
-
-    @-webkit-keyframes colorchange /* Safari and Chrome - necessary duplicate */
-    {
-      0%   {background: #51EBB7;}
-      25%  {background: #E96141;}
-      50%  {background: #BAB9A5;}
-      75%  {background: #96A6B6;}
-      100% {background: #5ADAF3;}
-    }
-
 
 
 
