@@ -40,7 +40,7 @@ class InfoModal extends React.Component {
 
     const onMapsClick = ev => {
       ev.preventDefault()
-      let linkURL = (this.props.subject.googleMapsURL ? this.props.subject.googleMapsURL :
+      let linkURL = (this.props.review.subject.googleMapsURL ? this.props.review.subject.googleMapsURL :
         'https://maps.google.com/maps?q=' + this.props.review.subject.location.lat + ',' + this.props.review.subject.location.lng)
       window.open(linkURL, '_blank')
     }
