@@ -12,7 +12,6 @@
     height: 220px;
 }
 
-
 .itinerary__summary__wrapper {
 	position: relative;
     margin: 0 auto;
@@ -384,7 +383,7 @@ textarea.edit-itinerary__name {
     padding: 0 12px 0;
 }
 .content-wrapper.map-on {
-  width: 50%;
+  width: 60%;
 }
 
 .content-wrapper.map-on .itinerary__cover.header-height,
@@ -396,7 +395,7 @@ textarea.edit-itinerary__name {
   position: fixed;
   right: 0;
   top: 70px;
-  left: 50%;
+  left: 60%;
   bottom: 0;
 }
 .it-map-overlay {

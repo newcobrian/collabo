@@ -9,7 +9,7 @@ import FlatButton from 'material-ui/FlatButton';
 
 const ShowWeekDayText = props => {
   if (!props.subject || !props.subject.hours || !props.subject.hours.weekdayText) {
-    return (<div className="v2-type-body2">N/A</div>);
+    return (<div className="v2-type-body2 opa-40">N/A</div>);
   }
     else {
       return (
@@ -22,6 +22,30 @@ const ShowWeekDayText = props => {
             })
           } 
         </ul>
+      )
+    }
+}
+
+const ShowWebsite = props => {
+  if (!props.subject || !props.subject.website) {
+    return (<div className="v2-type-body2 opa-40">N/A</div>);
+  }
+    else {
+      return (
+        <a href={props.subject.website} target='_blank' className="v2-type-body2 color--primary">{props.subject.website}</a>
+      )
+    }
+}
+
+const ShowPhoneNumber = props => {
+  if (!props.subject || !props.subject.internationalPhoneNumber) {
+    return (<div className="v2-type-body2 opa-40">N/A</div>);
+  }
+    else {
+      return (
+        <div className="v2-type-body2">
+          {props.subject.internationalPhoneNumber}
+        </div>
       )
     }
 }
@@ -92,39 +116,37 @@ class InfoModal extends React.Component {
            
             <div className="mrgn-top-md w-100">
               <div className="flx flx-col mrgn-bottom-md pdding-bottom-sm brdr-bottom w-100 pdding-left-md pdding-right-md">
-                <div className="flx flx-row flx-align-center mrgn-bottom-sm">
-                  <i className="material-icons mrgn-right-md color--primary md-18">&#xE55F;</i>
-                  <label>Address</label>
-                </div>
-                <div>
-                  <div className="v2-type-body1">{this.props.review.subject.address}</div>
-
-                  <a target='_blank' href={googleMapLink}>WEBSITE LINK</a>
-                </div>
-              </div>
-
-             <div className="flx flx-col mrgn-bottom-md pdding-bottom-sm brdr-bottom w-100 pdding-left-md pdding-right-md">
-                <div className="flx flx-row flx-align-center mrgn-bottom-sm">
-                  <i className="material-icons mrgn-right-md color--primary md-18">phone</i>
-                  <label>Phone</label>
-                </div>
-                <div>
-                  <div className="v2-type-body1">{this.props.review.subject.internationalPhoneNumber}</div>
-                </div>
-              </div>
-
-              <div className="flx flx-col mrgn-bottom-md pdding-bottom-sm pdding-left-md pdding-right-md">
-                <div className="flx flx-row flx-align-center mrgn-bottom-sm md-18">
-                  <i className="material-icons mrgn-right-md color--primary">schedule</i>
-                  <label>Hours</label>
-                </div>
-                <div>
-                  <div className="v2-type-body1"><ShowWeekDayText subject={this.props.review.subject} /></div>
+                <div className="flx flx-row flx-align-start mrgn-bottom-sm">
+                  <i className="material-icons mrgn-right-md color--black opa-60 md-24">&#xE55F;</i>
+                  <div>
+                  <div className="v2-type-body2">{this.props.review.subject.address}</div>
+                  <a target='_blank' className="color--primary v2-type-body2" href={googleMapLink}>Get Directions</a>
                 </div>
               </div>
             </div>
 
-         
+            <div className="flx flx-col mrgn-bottom-md pdding-bottom-sm brdr-bottom w-100 pdding-left-md pdding-right-md">
+              <div className="flx flx-row flx-align-start mrgn-bottom-sm">
+                <i className="material-icons mrgn-right-md color--black opa-60 md-24">link</i>
+                <div className="v2-type-body2"><ShowWebsite subject={this.props.review.subject} /></div>
+              </div>    
+            </div>
+
+            <div className="flx flx-col mrgn-bottom-md pdding-bottom-sm brdr-bottom w-100 pdding-left-md pdding-right-md">
+              <div className="flx flx-row flx-align-start mrgn-bottom-sm">
+                <i className="material-icons mrgn-right-md color--black opa-60 md-24">phone</i>
+                <div className="v2-type-body2"><ShowPhoneNumber subject={this.props.review.subject} /></div>
+              </div>    
+            </div>
+
+            <div className="flx flx-col mrgn-bottom-md pdding-bottom-sm pdding-left-md pdding-right-md">
+              <div className="flx flx-row flx-align-start mrgn-bottom-sm md-24">
+                <i className="material-icons mrgn-right-md color--black opa-60">schedule</i>
+                <div className="v2-type-body2"><ShowWeekDayText subject={this.props.review.subject} /></div>
+              </div>
+            </div>
+          
+          </div>
         </div>
 
           {/*{JSON.stringify(this.props.review)}*/}

@@ -42,7 +42,7 @@ class CommentInput extends React.Component {
       <form className="comment-wrapper comment-form flx flx-row flx-just-center flx-align-start mrgn-bottom-sm" onSubmit={this.createComment}>
           <div className="DN cta-icon cta-comment-sm mrgn-right-md"></div>
 
-          <ProfilePic src={this.props.userInfo.image} className="comment-author-img center-img mrgn-right-md fill--primary flx-hold" />
+          <ProfilePic src={this.props.userInfo.image} className="center-img" />
 
 
             <Textarea className="comment-input input--overline w-100"

@@ -271,7 +271,7 @@ class Home extends React.Component {
           </div>
 
           <div className="w-100 w-max flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap">
-            <div className="popular-box DN">
+            <div className="popular-box">
               <div className="color--black section-header mrgn-bottom-md">Popular Guides</div>
               <PopularPreview 
                 popularList={this.props.popularPreview}
@@ -299,9 +299,9 @@ class Home extends React.Component {
                  );
                 })
             }
-            <RenderFollowCard
+            {/*<RenderFollowCard
               itineraries={this.props.itineraries}
-            />
+            />*/}
             <Link to="/create" className="itinerary__cover cover--empty flx flx-col flx-center-all ta-center fill-success color--white">
               <div className="v2-type-h1 pdding-bottom-lg color--black">
                 Create a new travel guide

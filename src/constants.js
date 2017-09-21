@@ -121,6 +121,7 @@ export const SAVE_TIP_GUIDE_SCORE = 6
 export const COMMENT_GUIDE_SCORE = 6
 
 export const POPULARITY_PAGE_COUNT = 12
+export const POPULARITY_MODULE_COUNT = 3
 
 export const INVALID_USERNAMES = ['account', 'send', 'message', 'inbox', 'notification', 'create', 'edit', 'editor',
  'itinerary', 'messenger', 'settings', 'admin', 'administrator', 'settings', 'global', 'saved', 'login', 'register',

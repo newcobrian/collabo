@@ -7,16 +7,15 @@ const PopularPreview = props => {
     return (
       <div className="">
         {
-          props.popularList.map(itinerary => {
+          props.popularList.slice(0,Constants.POPULARITY_MODULE_COUNT).map(itinerary => {
             return (
-              
               <ItineraryPreview itinerary={itinerary}
                 key={itinerary.id} 
                 authenticated={props.authenticated} 
                 like={props.like} 
                 unLike={props.unLike}
                 deleteItinerary={props.deleteItinerary}
-                type={Constants.MEDIUM_GUIDE_PREVIEW} />
+                type={Constants.SMALL_GUIDE_PREVIEW} />
 
             );
           })
