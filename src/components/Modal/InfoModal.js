@@ -6,7 +6,6 @@ import Dialog from 'material-ui/Dialog';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
-import Link from 'react-router';
 
 const ShowWeekDayText = props => {
   if (!props.subject || !props.subject.hours || !props.subject.hours.weekdayText) {
