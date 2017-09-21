@@ -6,6 +6,7 @@ import Dialog from 'material-ui/Dialog';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
+import Link from 'react-router';
 
 const ShowWeekDayText = props => {
   if (!props.subject || !props.subject.hours || !props.subject.hours.weekdayText) {
@@ -36,6 +37,13 @@ class InfoModal extends React.Component {
   render() {
     const handleClose = () => {
       this.props.hideModal();
+    }
+
+    const onMapsClick = ev => {
+      ev.preventDefault()
+      let linkURL = (this.props.subject.googleMapsURL ? this.props.subject.googleMapsURL :
+        'https://maps.google.com/maps?q=' + this.props.review.subject.location.lat + ',' + this.props.review.subject.location.lng)
+      window.open(linkURL, '_blank')
     }
 
     const actions = [
@@ -95,6 +103,8 @@ class InfoModal extends React.Component {
                 </div>
                 <div>
                   <div className="v2-type-body1">{this.props.review.subject.address}</div>
+
+                  <a onClick={onMapsClick}>WEBSITE LINK</a>
                 </div>
               </div>
 
