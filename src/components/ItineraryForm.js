@@ -241,6 +241,7 @@ class ItineraryForm extends React.Component {
           if (place.photos && place.photos[0]) {
             resultObject.defaultImage = [ place.photos[0].getUrl({'maxWidth': 1225, 'maxHeight': 500}) ];
           }
+          if (place.url) resultObject.googleMapsURL = place.url;
           addTipFunc(auth, resultObject, itinerary)
           geoSuggestRef._geoSuggest.clear()
         }
