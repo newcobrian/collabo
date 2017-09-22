@@ -20,7 +20,7 @@ class Followings extends Followers {
         this.props.checkFollowing(this.props.authenticated, userId);
       }
     });
-    this.props.sendMixpanelEvent('Followings page loaded');
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'is following'});
   }
 
   componentWillUnmount() {

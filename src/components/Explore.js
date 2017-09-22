@@ -20,7 +20,7 @@ class Explore extends React.Component {
 
   componentWillMount() {
     this.props.watchAllUsers(this.props.authenticated, Constants.EXPLORE_PAGE)
-    this.props.sendMixpanelEvent('Explore page loaded');
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'explore'});
   }
 
   componentWillUnmount() {

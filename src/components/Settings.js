@@ -2,6 +2,7 @@ import ListErrors from './ListErrors';
 import React from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
+import * as Constants from '../constants';
 import ProxyImage from './ProxyImage';
 import ProfilePic from './ProfilePic';
 
@@ -55,6 +56,7 @@ class SettingsForm extends React.Component {
         email: this.props.currentUser.email
       });
     }
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'settings'});
   }
 
   // componentWillUnmount() {

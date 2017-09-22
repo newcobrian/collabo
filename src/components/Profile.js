@@ -57,7 +57,7 @@ class Profile extends React.Component {
           this.props.checkFollowing(this.props.authenticated, userId);
           this.props.getItinerariesByUser(this.props.authenticated, userId);
           this.props.getProfileCounts(userId);
-          this.props.sendMixpanelEvent('Profile page loaded');
+          this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'profile'});
         }
         else {
           this.props.userDoesntExist();

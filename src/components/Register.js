@@ -3,6 +3,7 @@ import ListErrors from './ListErrors';
 import React from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
+import * as Constants from '../constants';
 
 const mapStateToProps = state => ({ 
   ...state.auth,
@@ -42,7 +43,7 @@ class Register extends React.Component {
   }
 
   componentWillMount() {
-    this.props.sendMixpanelEvent('Register page loaded');
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'register'});
   }
 
   componentWillUnmount() {

@@ -132,7 +132,7 @@ class Create extends React.Component {
 	    	// this.props.onCreateLoad(this.props.authenticated);
 	    	this.getUserLocation();
     	}
-    	this.props.sendMixpanelEvent('Create itinerary page loaded');
+    	this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'create guide'});
 	}
 
 	componentWillUnmount() {

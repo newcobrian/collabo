@@ -99,7 +99,10 @@ export function signUpUser(username, email, password, redirect) {
               redirect: redirect,
               meta: {
                 mixpanel: {
-                  event: 'Sign up'
+                  event: 'Sign up', 
+                  props: {
+                    'account created': (new Date()).toISOString()
+                  }
                 }
               }
             })
@@ -131,7 +134,7 @@ export function signInUser(email, password, redirect) {
           payload: response.uid,
           meta: {
             mixpanel: {
-              event: 'Sign in'
+              event: 'Log in'
             }
           }
         });

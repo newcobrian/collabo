@@ -89,7 +89,7 @@ class Itinerary extends React.Component {
       if (iid) {
         this.props.watchItinerary(this.props.authenticated, iid);
       }
-      this.props.sendMixpanelEvent('Itinerary page loaded');
+      this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'itinerary'});
     }
 
     this.unloadItinerary = itineraryId => {

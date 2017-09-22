@@ -101,7 +101,7 @@ class Review extends React.Component {
     this.props.getSubject(this.props.params.sid);
     this.props.getUserReview(this.props.authenticated, this.props.authenticated, this.props.params.sid);
     this.props.getFollowingReviews(this.props.authenticated, this.props.params.sid);
-    this.props.sendMixpanelEvent('Review page loaded');
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'review page'});
   }
 
   componentWillUnmount() {

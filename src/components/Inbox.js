@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import ProfilePic from './ProfilePic';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
+import * as Constants from '../constants';
 import ProxyImage from './ProxyImage';
 import DisplayTimestamp from './DisplayTimestamp';
 
@@ -64,7 +65,7 @@ const mapStateToProps = state => ({
 class Inbox extends React.Component {
   componentWillMount() {
     this.props.getInbox(this.props.authenticated);
-    this.props.sendMixpanelEvent('Inbox page loaded');
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'inbox'});
   }
 
   componentWillUnmount() {

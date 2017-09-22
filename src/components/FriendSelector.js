@@ -2,6 +2,7 @@ import React  from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import * as Actions from '../actions';
+import * as Constants from '../constants';
 import ProxyImage from './ProxyImage';
 
 const mapStateToProps = state => ({
@@ -16,7 +17,7 @@ class FriendSelector extends React.Component {
 			this.props.emptyFriendSelector();
 		}
 		this.props.getFriends(this.props.authenticated);
-		this.props.sendMixpanelEvent('Friend selector page loaded');
+		this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'friend selector'});
 	}
 
 	componentWillUnmount() {

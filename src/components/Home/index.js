@@ -88,7 +88,7 @@ class Home extends React.Component {
     this.props.startFeedWatch(this.props.authenticated);
     this.props.getFeaturedPreview(this.props.authenticated);
     this.props.getPopularPreview(this.props.authenticated);
-    this.props.sendMixpanelEvent('Friend feed loaded');
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'home page'});
   } 
 
   componentWillUnmount() {

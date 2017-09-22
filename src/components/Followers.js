@@ -26,7 +26,7 @@ class Followers extends React.Component {
         	this.props.checkFollowing(this.props.authenticated, userId);
 	      }
 	    });
-	    this.props.sendMixpanelEvent('Followers page loaded');
+	    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'followers'});
 	}
 
 	componentWillUnmount() {

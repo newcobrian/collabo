@@ -22,7 +22,7 @@ class ProfileLikes extends Profile {
         this.props.getLikesByUser(this.props.authenticated, userId);
       }
     });
-    this.props.sendMixpanelEvent('Likes page loaded');
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'likes'});
   }
 
   componentWillUnmount() {

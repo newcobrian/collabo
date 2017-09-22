@@ -1,5 +1,6 @@
 import React from 'react';
 import * as Actions from '../actions';
+import * as Constants from '../constants';
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => ({ 
@@ -17,7 +18,7 @@ class ForgotPassword extends React.Component {
   }
 
   componentWillMount() {
-    this.props.sendMixpanelEvent('Forgot password page loaded');
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'forgot password page'});
   }
 
   componentWillUnmount() {

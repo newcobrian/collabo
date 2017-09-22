@@ -29,7 +29,7 @@ class PopularFeed extends Home {
 
   componentWillMount() {
     this.props.watchPopularFeed(this.props.authenticated, this.props.popularPage, null, null);
-    this.props.sendMixpanelEvent('Popular feed loaded');
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'popular feed'});
   }
 
   componentWillUnmount() {

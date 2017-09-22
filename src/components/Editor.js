@@ -41,7 +41,7 @@ class Editor extends React.Component {
         //   this.props.setWatchPositionId(watchId);
         // }
     }
-    this.props.sendMixpanelEvent('Editor page loaded');
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'editor'});
   }
 
   componentWillUnmount() {
