@@ -666,6 +666,16 @@ export function onMapMarkerMouseover(marker, title) {
   }
 }
 
+export function onSelectActiveTip(subject) {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.SELECT_ACTIVE_TIP,
+      activeTipTitle: subject.title,
+      activeTipPosition: subject.location
+    })
+  }
+}
+
 export function loadRelatedItineraries(auth, itineraryId) {
   return dispatch => {
     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).once('value', currentItinSnap => {

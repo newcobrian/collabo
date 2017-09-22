@@ -473,6 +473,14 @@ export default (state = initialState, action) => {
         relatedItineraries: [],
         numRelated: 0
       }
+    case ActionTypes.SELECT_ACTIVE_TIP:
+      return {
+        ...state,
+        showingActiveInfoWindow: true,
+        activeTipPosition: action.activeTipPosition,
+        activeTipTitle: action.activeTipTitle,
+        activeTipMarker: action.activeTipMarker
+      }
     default:
       return state;
   }

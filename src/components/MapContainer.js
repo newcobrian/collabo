@@ -101,6 +101,13 @@ class MapContainer extends React.Component {
 	                <h4>{this.props.mouseoverTitle}</h4>
 	              </div>
 	          </InfoWindow>
+	          <InfoWindow
+		            visible={this.props.showingActiveInfoWindow}
+		            position={this.props.activeTipPosition}>
+	              <div>
+	                <h4>{this.props.activeTipTitle}</h4>
+	              </div>
+	          </InfoWindow>
 
 	        </Map>
 	    );

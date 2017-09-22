@@ -308,6 +308,11 @@ class ItineraryForm extends React.Component {
         )
     }
 
+    const onTipClick = (subject) => ev => {
+      ev.preventDefault();
+      // this.props.onSelectActiveTip(subject);
+    }
+
     return (
       <div className="flx flx-col flx-align-start page-common page-itinerary page-edit-own">
 
@@ -465,7 +470,7 @@ class ItineraryForm extends React.Component {
               {
                 itinerary.tips.map((tip, index) => {
                   return (
-                    <Element name={'tip' + tip.key} className={"tip-wrapper flx flx-col flx-col w-100 w-max" + isSelectedTip(tip.key)} id={'tip' + tip.key} key={tip.key}>
+                    <Element name={'tip' + tip.key} className={"tip-wrapper flx flx-col flx-col w-100 w-max" + isSelectedTip(tip.key)} id={'tip' + tip.key} key={tip.key} onClick={onTipClick(tip.subject)}>
 
                        
                             <div className="tip-container flx flx-col flx-center-all w-100">
