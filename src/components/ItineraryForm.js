@@ -392,7 +392,7 @@ class ItineraryForm extends React.Component {
                 <div className="w-100 w-max flx flx-row flx-just-start flx-align-center ta-center pdding-right-md">
                   <div className="flx flx-row flx-center-all">
                     <div className="it__tip-count flx flx-row flx-just-end flx-align-center opa-60 mrgn-right-md">
-                      {itinerary.reviewsCount} tips
+                      {itinerary.reviewsCount ? itinerary.reviewsCount : 0} tips
                     </div>
 
                     {renderReorderButton(itinerary.tips.length)}
