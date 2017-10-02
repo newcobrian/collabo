@@ -1578,10 +1578,11 @@ export function onCommentSubmit(authenticated, userInfo, type, commentObject, bo
     const comment = {
       userId: authenticated,
       username: userInfo.username,
-      image: userInfo.image,
-      body: body,
+      body: body ? body : '',
       lastModified: Firebase.database.ServerValue.TIMESTAMP
     }
+
+    if (userInfo.image) comment.image = userInfo.image;
 
     let inboxMessageType = ( type === Constants.REVIEW_TYPE ? Constants.COMMENT_ON_REVIEW_MESSAGE : Constants.COMMENT_ON_ITINERARY_MESSAGE );
     let commentOnCommentType = ( type === Constants.REVIEW_TYPE ? Constants.COMMENT_ON_COMMENT_REVIEW_MESSAGE : Constants.COMMENT_ON_COMMENT_ITINERARY_MESSAGE );
