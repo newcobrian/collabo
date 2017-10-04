@@ -105,7 +105,7 @@ class MapContainer extends React.Component {
 		            visible={this.props.showingActiveInfoWindow}
 		            position={this.props.activeTipPosition}
 		            options={{
-		            	pixelOffset: new this.props.google.maps.Size(0,-30)
+		            	pixelOffset: new this.props.google.maps.Size(0,-48)
 		            }} >
 	              <div>
 	                <h4>{this.props.activeTipTitle}</h4>
