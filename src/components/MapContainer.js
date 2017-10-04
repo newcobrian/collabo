@@ -95,7 +95,7 @@ class MapContainer extends React.Component {
 		          })
 		        }
 		        <InfoWindow
-		            visible={this.props.showingInfoWindow}
+		            visible={this.props.showingHoverInfoWindow}
 		            marker={this.props.hoverMarker}>
 	              <div>
 	                <h4>{this.props.mouseoverTitle}</h4>
@@ -103,7 +103,10 @@ class MapContainer extends React.Component {
 	          </InfoWindow>
 	          <InfoWindow
 		            visible={this.props.showingActiveInfoWindow}
-		            position={this.props.activeTipPosition}>
+		            position={this.props.activeTipPosition}
+		            options={{
+		            	pixelOffset: new this.props.google.maps.Size(0,-30)
+		            }} >
 	              <div>
 	                <h4>{this.props.activeTipTitle}</h4>
 	              </div>

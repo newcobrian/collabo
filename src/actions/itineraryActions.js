@@ -660,8 +660,7 @@ export function onMapMarkerMouseover(marker, title) {
     dispatch({
       type: ActionTypes.ON_MAP_MARKER_MOUSEOVER,
       hoverMarker: marker,
-      mouseoverTitle: title,
-      showingInfoWindow: true
+      mouseoverTitle: title
     })
   }
 }

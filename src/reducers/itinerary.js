@@ -459,7 +459,8 @@ export default (state = initialState, action) => {
         ...state,
         hoverMarker: action.hoverMarker,
         mouseoverTitle: action.mouseoverTitle,
-        showingInfoWindow: action.showingInfoWindow
+        showingHoverInfoWindow: true,
+        showingActiveInfoWindow: false
       }
     case ActionTypes.LOAD_RELATED_ITINERARIES:
       return {
@@ -477,9 +478,9 @@ export default (state = initialState, action) => {
       return {
         ...state,
         showingActiveInfoWindow: true,
+        showingHoverInfoWindow: false,
         activeTipPosition: action.activeTipPosition,
-        activeTipTitle: action.activeTipTitle,
-        activeTipMarker: action.activeTipMarker
+        activeTipTitle: action.activeTipTitle
       }
     default:
       return state;
