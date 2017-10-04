@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
-import TipList from './TipList';
 import ProfilePic from './ProfilePic';
 import ImagePicker from './ImagePicker';
 import { browserHistory, Link } from 'react-router';

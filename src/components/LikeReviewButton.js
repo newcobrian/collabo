@@ -1,38 +1,49 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import * as Actions from '../actions';
 
-const LikeReviewButton = props => {
-  // let classes = 'btn btn-sm action-btn';
-  let classes = '';
-  if (props.isLiked) {
-    // classes += ' btn-secondary';
-    classes += 'cta-icon cta-liked';
-  } else {
-    // classes += ' btn-outline-secondary';
-    classes += 'cta-icon cta-like opa-60';
+const mapStateToProps = state => ({
+});
+
+class LikeReviewButton extends React.Component {
+  constructor() {
+    super();
   }
 
-  let likeText = '';
-  if (props.likesCount === 1) {
-    likeText = ''
-  }
-  // took out Likes and Like above for now
-
-  const handleLikeClick = ev => {
-    ev.preventDefault();
-    if (props.isLiked) {
-      props.unLike(props.authenticated, props.type, props.likeObject, props.itineraryId);
+  render() {
+    // let classes = 'btn btn-sm action-btn';
+    let classes = '';
+    if (this.props.isLiked) {
+      // classes += ' btn-secondary';
+      classes += 'cta-icon cta-liked';
     } else {
-      props.like(props.authenticated, props.type, props.likeObject, props.itineraryId);
+      // classes += ' btn-outline-secondary';
+      classes += 'cta-icon cta-like opa-60';
     }
-  };
 
-  return (
-    <div className="cta-container flx flx-row flx-center-all">
-      <div onClick={handleLikeClick} className={classes}></div>
-      <div className="v2-type-body1 weight-500 ta-left">{props.likesCount ? props.likesCount : 0} {likeText}</div>
-    </div>
+    let likeText = '';
+    if (this.props.likesCount === 1) {
+      likeText = ''
+    }
+    // took out Likes and Like above for now
 
-  );
+    const handleLikeClick = ev => {
+      ev.preventDefault();
+      if (this.props.isLiked) {
+        this.props.unLikeReview(this.props.authenticated, this.props.type, this.props.likeObject, this.props.itineraryId);
+      } else {
+        this.props.likeReview(this.props.authenticated, this.props.type, this.props.likeObject, this.props.itineraryId);
+      }
+    };
+
+    return (
+      <div className="cta-container flx flx-row flx-center-all">
+        <div onClick={handleLikeClick} className={classes}></div>
+        <div className="v2-type-body1 weight-500 ta-left">{this.props.likesCount ? this.props.likesCount : 0} {likeText}</div>
+      </div>
+
+    );
+  }
 };
 
-export default LikeReviewButton;
+export default connect(mapStateToProps, Actions)(LikeReviewButton);

@@ -174,8 +174,6 @@ class ProfileLikes extends Profile {
             <ItineraryList
               itineraries={this.props.guideFeed} 
               authenticated={this.props.authenticated} 
-              like={this.props.likeReview} 
-              unLike={this.props.unLikeReview}
               deleteItinerary={this.props.showDeleteModal} />
           </div>
         )
@@ -186,8 +184,6 @@ class ProfileLikes extends Profile {
             <TipList
               tipList={this.props.tipFeed} 
               authenticated={this.props.authenticated}
-              like={this.props.likeReview} 
-              unLike={this.props.unLikeReview}
               userInfo={this.props.userInfo}
               showModal={this.props.showModal}
               deleteComment={this.props.onDeleteComment}

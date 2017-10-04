@@ -201,8 +201,6 @@ const TipPreview = props => {
                           authenticated={props.authenticated}
                           isLiked={props.tip.isLiked}
                           likesCount={props.tip.likesCount}
-                          unLike={props.unLike}
-                          like={props.like} 
                           likeObject={tip}
                           itineraryId={props.itineraryId}
                           type={Constants.REVIEW_TYPE} />

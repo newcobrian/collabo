@@ -250,8 +250,6 @@ const ItineraryPreview = props => {
                       authenticated={props.authenticated}
                       isLiked={props.itinerary.isLiked}
                       likesCount={props.itinerary.likesCount}
-                      unLike={props.unLike}
-                      like={props.like} 
                       likeObject={itinerary}
                       itineraryId={itinerary.id}
                       type={ITINERARY_TYPE} />

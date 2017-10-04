@@ -39,8 +39,6 @@ const TipList = props => {
             <TipPreview tip={tipItem}
               key={tipItem.priority || tipItem.key} 
               authenticated={props.authenticated}
-              like={props.like} 
-              unLike={props.unLike}
               userInfo={props.userInfo}
               showModal={props.showModal}
               deleteComment={props.deleteComment}

@@ -112,8 +112,6 @@ class PopularFeed extends Home {
                     <ItineraryPreview itinerary={itinerary}
                       key={"popular" + itinerary.id}
                       authenticated={this.props.authenticated}
-                      like={this.props.likeReview}
-                      unLike={this.props.unLikeReview}
                       />
                    );
                   })

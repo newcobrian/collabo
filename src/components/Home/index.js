@@ -30,8 +30,6 @@ const RenderFeaturedPreview = props => {
       
         <ItineraryPreview itinerary={props.featuredPreview}
           authenticated={props.authenticated} 
-          like={props.like} 
-          unLike={props.unLike}
           deleteItinerary={props.deleteItinerary}
           guideLabel={"label-featured"}
           type={Constants.MEDIUM_GUIDE_PREVIEW} />
@@ -276,16 +274,12 @@ class Home extends React.Component {
               <PopularPreview 
                 popularList={this.props.popularPreview}
                 authenticated={this.props.authenticated} 
-                like={this.props.like} 
-                unLike={this.props.unLike}
                 deleteItinerary={this.props.deleteItinerary} />
                 <Link className="color--primary v2-type-body0 flx-item-bottom" to="/popular">See all popular guides</Link>
             </div>
             <RenderFeaturedPreview
                featuredPreview={this.props.featuredPreview}
                authenticated={this.props.authenticated} 
-               like={this.props.likeReview} 
-               unLike={this.props.unLikeReview}
                deleteItinerary={this.props.deleteItinerary} 
                />
             { this.props.itineraries && this.props.itineraries.length > 0 && 
@@ -294,8 +288,6 @@ class Home extends React.Component {
                   <ItineraryPreview itinerary={itinerary}
                     key={'guide' + itinerary.id}
                     authenticated={this.props.authenticated}
-                    like={this.props.likeReviewl}
-                    unLike={this.props.unLikeReview}
                     />
                  );
                 })

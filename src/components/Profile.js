@@ -201,8 +201,6 @@ class Profile extends React.Component {
             <ItineraryList
               itineraries={this.props.itineraries} 
               authenticated={this.props.authenticated} 
-              like={this.props.likeReview} 
-              unLike={this.props.unLikeReview}
               deleteItinerary={this.props.showDeleteModal}
 
               currentPage={this.props.currentPage}
