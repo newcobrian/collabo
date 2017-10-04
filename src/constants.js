@@ -132,7 +132,8 @@ export const INVALID_USERNAMES = ['account', 'send', 'message', 'inbox', 'notifi
 
 
 /** Itineraries that everyone can edit (for testing shared itineraries feature) **/
-export const SHARED_ITINERARIES = ['-KpOQT2bgUyHNdcX662g', '-KpiW2sKdc81qIKD_iOO', '-KqURO44kTCwkDyISjBe', '-KuM-90vgN_wWHSZvlKu','-KuaQCOTUBL8_NDoiKem','-KuaQosck60hUhKH1BX0']
+export const SHARED_ITINERARIES = ['-KpOQT2bgUyHNdcX662g', '-KpiW2sKdc81qIKD_iOO', '-KqURO44kTCwkDyISjBe', 
+'-KuM-90vgN_wWHSZvlKu','-KuaQCOTUBL8_NDoiKem','-KuaQosck60hUhKH1BX0', '-KufYkqOAT7OxCadeFXH']
 
 /** Sample guides for logged out view of homepage **/
 export const HOMEPAGE_SAMPLE_GUIDES = ['-KsHtCGxX10pSPFRFw6p','-KsaEC85tRyFPhyx_vRI', '-Kr6_OAy780JwQQKlmZE', '-KseiC5dp80TPD6EOnKk']
