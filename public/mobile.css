@@ -702,6 +702,9 @@ width: 100%;
   height: 40px;
   padding: 10px;
 }
+.vb.vb--sm {
+  padding: 0 10px;
+}
 .vb.vb--save {
   -webkit-flex-direction: row;
   flex-direction: row;
