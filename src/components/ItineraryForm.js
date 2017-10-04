@@ -250,6 +250,9 @@ class ItineraryForm extends React.Component {
           geoSuggestRef._geoSuggest.clear()
         }
       })
+      // setTimeout(function() {
+        scrollToElement('#guidecommentcontainer', { offset: -170 });
+      // }, 500);
     }
 
     const renderGeoSuggestTip = geo => {
@@ -672,7 +675,7 @@ class ItineraryForm extends React.Component {
             {renderGeoSuggestTip(itinerary.geo)}
 
 
-            <div className="itinerary__comments-module map-on flx flx-col flx-align-start flx-just-start w-max-2">
+            <Element className="itinerary__comments-module map-on flx flx-col flx-align-start flx-just-start w-max-2" id='guidecommentcontainer' name='guidecommentcontainer'>
               <div className="v2-type-h3 mrgn-bottom-md ta-left w-100">
                 Comments
               </div>
@@ -685,7 +688,7 @@ class ItineraryForm extends React.Component {
               commentObject={itinerary}
               deleteComment={this.props.onDeleteComment}
               itineraryId={itinerary.id} />
-            </div>
+            </Element>
 
             <div className="itinerary__related-module flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
               <RelatedItineraries
