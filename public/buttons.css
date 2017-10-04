@@ -58,7 +58,7 @@ input, button, select, textarea {
 .vb.comment-send {
   margin-left: -50px;
   background: transparent;
-  z-index: 3;
+  z-index: 0;
   cursor: pointer;
   margin-top: 1px;
   height: 40px;

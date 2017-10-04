@@ -1334,6 +1334,7 @@ body .back-to-top {
     background-repeat: no-repeat;
     background-position: center;
     background-color: #009BCB;
+    overflow: hidden;
 }
 .back-to-top:hover {
     background-color: #68E4E7;

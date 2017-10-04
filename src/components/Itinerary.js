@@ -180,6 +180,22 @@ class Itinerary extends React.Component {
             <div className="content-wrapper itinerary flx flx-col flx-align-center map-on">
 
 
+
+              {/** Cover Image **/}
+              <div className="itinerary__big-photo fill--primary">
+                <ImagePicker images={itinerary.images ? [itinerary.images] : null} />
+                <div className={'flx flx-col flx-center-all v2-type-body3 cover__loading loading-done-' + this.props.coverPicProgress}>
+                  Uploading New Cover Photo...
+                </div> 
+                <div className="vb--change-cover">
+                <UpdateCoverPhoto isUser={isUser} itinerary={itinerary} itineraryId={itinerary.id} 
+                  uploadCoverPhoto={this.props.uploadCoverPhoto} authenticated={this.props.authenticated} />
+                </div>
+              </div>
+
+
+              
+
               {/** Cover Content **/}
               <div className="itinerary__cover__text w-100">
                 <div className="it__cover__inner flx flx-row flx-just-start ta-left w-100 w-max">
@@ -288,17 +304,7 @@ class Itinerary extends React.Component {
 
                 
 
-                {/** Cover Image **/}
-                <div className="itinerary__big-photo fill--primary">
-                  <ImagePicker images={itinerary.images ? [itinerary.images] : null} />
-                  <div className={'flx flx-col flx-center-all v2-type-body3 cover__loading loading-done-' + this.props.coverPicProgress}>
-                    Uploading New Cover Photo...
-                  </div> 
-                  <div className="vb--change-cover">
-                  <UpdateCoverPhoto isUser={isUser} itinerary={itinerary} itineraryId={itinerary.id} 
-                    uploadCoverPhoto={this.props.uploadCoverPhoto} authenticated={this.props.authenticated} />
-                  </div>
-                </div>
+             
 
             
 

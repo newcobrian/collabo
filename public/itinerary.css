@@ -324,16 +324,31 @@ textarea.edit-itinerary__name {
 
 .it-add-wrapper {
 	height: auto;
-	padding: 20px;
+	padding: 10px;
+	position: fixed;
+	z-index: 10;
+	top: 70px;
+	left: 0;
+	right: 40%;
+	width: auto;
+}
+.it-add-wrapper .material-icons {
+	margin: 0 10px;
+	padding: 10px;
+	border-radius: 50px;
+	position: absolute;
+	pointer-events: none;
+	left: 11px;
+	top: 12px;
 }
 .it-add-wrapper .geosuggest {
-	padding: 0 20px;
 	background-color: white;
 }
 .it-add-wrapper .geosuggest:hover {
 }
 .it-add-wrapper .geosuggest__input {
 	height: 50px;
+	text-indent: 80px;
 }
 .it-add-wrapper .geosuggest__input:hover {
 	opacity: .9;
@@ -378,6 +393,9 @@ textarea.edit-itinerary__name {
 }
 .content-wrapper.map-on {
   width: 60%;
+}
+.page-edit-own .content-wrapper {
+	margin-top: 60px;
 }
 
 .content-wrapper.map-on .itinerary__cover.header-height,

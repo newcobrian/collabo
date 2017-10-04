@@ -257,14 +257,13 @@ class ItineraryForm extends React.Component {
         let latLng = new this.props.googleObject.maps.LatLng(geo.location.lat, geo.location.lng);
         
         return (
-          <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--primary">
-            <div className="v2-type-h4 color--white flx-hold mrgn-right-md">ADD TIPS:</div>
-            <i className="material-icons color--white md-36 mrgn-right-md DN">add</i>
+          <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--white brdr-bottom">
+            <i className="material-icons fill--primary color--white md-24">add</i>
 
             <Geosuggest 
               ref={el=>this._geoSuggest=el}
               className="input--underline w-100 color--black"
-              placeholder={'Search for any place in ' + itinerary.geo.label}
+              placeholder={'Search here to add to your guide'}
               location={latLng}
               radius={1000}
               onSuggestSelect={suggestSelectTip(this)}/>
@@ -317,6 +316,28 @@ class ItineraryForm extends React.Component {
       <div className="flx flx-col flx-align-start page-common page-itinerary page-edit-own">
 
         <div className="content-wrapper itinerary flx flx-col flx-align-center map-on">
+
+
+          <div className="itinerary-image-wrapper flx flx-row flx-just-start header-height">
+            
+            {/** Cover Image **/}
+            <div className="itinerary__big-photo header-height bg-loading">
+              <ImagePicker images={itinerary.images ? [itinerary.images] : null} />
+              <div className={'flx flx-col flx-center-all v2-type-body3 fill--black color--white cover__loading fill--light-gray loading-done-' + this.props.coverPicProgress}>
+                <div className="earth-graphic w-100">  
+                  <img className="center-img" src="/img/globe01.gif"/>
+                </div>
+                Uploading New Cover Photo...
+              </div> 
+              <div className="vb--change-cover">
+                <UpdateCoverPhoto itinerary={itinerary} itineraryId={itinerary.id} 
+                  uploadCoverPhoto={this.props.uploadCoverPhoto} authenticated={this.props.authenticated} />
+              </div>
+            </div>
+
+          
+          </div>
+
 
 
           {/** Cover Content **/}
@@ -445,25 +466,7 @@ class ItineraryForm extends React.Component {
 
 
 
-          <div className="itinerary-image-wrapper flx flx-row flx-just-start header-height">
             
-            {/** Cover Image **/}
-            <div className="itinerary__big-photo header-height bg-loading">
-              <ImagePicker images={itinerary.images ? [itinerary.images] : null} />
-              <div className={'flx flx-col flx-center-all v2-type-body3 fill--black color--white cover__loading fill--light-gray loading-done-' + this.props.coverPicProgress}>
-                <div className="earth-graphic w-100">  
-                  <img className="center-img" src="/img/globe01.gif"/>
-                </div>
-                Uploading New Cover Photo...
-              </div> 
-              <div className="vb--change-cover">
-                <UpdateCoverPhoto itinerary={itinerary} itineraryId={itinerary.id} 
-                  uploadCoverPhoto={this.props.uploadCoverPhoto} authenticated={this.props.authenticated} />
-              </div>
-            </div>
-
-        
-            </div>
             {/** ----- Close itinerary__cover DIV ----- **/}  
             <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
 

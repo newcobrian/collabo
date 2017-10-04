@@ -555,7 +555,7 @@ width: 100%;
 .tip-wrapper .tip-container {
     -webkit-flex-direction: column;
     flex-direction: column;
-    padding: 40px 10px;
+    padding: 10px 10px;
 }
 .reviewpreview-wrapper .tip-wrapper .tip-container {
   padding: 20px 10px;
@@ -732,13 +732,13 @@ body .back-to-top {
   }
 
   .it-add-wrapper {
-  padding: 20px;
-  -webkit-flex-direction: column !important;
-  flex-direction: column !important;
+  right: 0;
+}
+.it-add-wrapper .v2-type-h4 {
+  margin-bottom: 10px;
 }
 .it-add-wrapper .geosuggest {
   margin-left: 0;
-  margin-bottom: 20px;
 }
 
 
