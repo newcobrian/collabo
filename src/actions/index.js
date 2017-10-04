@@ -577,6 +577,9 @@ export function onCreateItinerary(auth, itinerary) {
         }
         Firebase.database().ref().update(updates);
 
+        // update Algolia index
+        Helpers.updateAlgloiaGeosIndex(itinerary.geo)
+
         dispatch({
           type: ITINERARY_CREATED,
           payload: itineraryObject,
