@@ -6,7 +6,7 @@ const RelatedItineraries = props => {
 	
 	return (
 		<div className="w-100 flx flx-col">
-			<div className="comments-section-title">Recommended Guides</div>
+			<div className="comments-section-title mrgn-bottom-md">Recommended Guides</div>
 			<div className="w-100 flx flx-row flx-wrap">
 				{
 					props.relatedItineraries.map(itinerary => {

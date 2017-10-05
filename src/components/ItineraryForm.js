@@ -686,7 +686,7 @@ class ItineraryForm extends React.Component {
 
 
             <Element className="itinerary__comments-module map-on flx flx-col flx-align-start flx-just-start w-max-2" id='guidecommentcontainer' name='guidecommentcontainer'>
-              <div className="comments-section-header mrgn-bottom-md ta-left w-100">
+              <div className="comments-section-title mrgn-bottom-md ta-left w-100">
                 Comments
               </div>
               <CommentContainer

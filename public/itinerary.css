@@ -122,7 +122,6 @@
 	padding: 10px 20px;
 	padding: 0;
 	min-height: 80px;
-	border-bottom: 1px solid #D5E3E5;
 }
 .page-subject .itinerary__tipslist {
 	margin-bottom: 120px;
@@ -144,14 +143,15 @@
 
 .itinerary__comments-module {
 	width: 100%;
-	padding: 20px;
+	padding: 60px 40px;
 }
 .itinerary__comments-module .comment-data {
 	margin-top: 10px;
 }
 .itinerary__related-module {
 	width: 100%;
-	padding: 20px;
+	padding: 60px 40px;
+	border-top: 1px solid #D5E3E5;
 }
 .itinerary__related-module .itinerary__cover {
 	margin: 10px;
