@@ -423,7 +423,7 @@ width: 100%;
 .flx.it__cover__inner  .it__author-wrapper  {
   -webkit-flex-direction: row;
   flex-direction: row;
-  margin: 0 0 10px 0;
+  margin: 0;
 }
 
 .geo-wrapper {

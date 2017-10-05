@@ -123,16 +123,13 @@ const TipPreview = props => {
 
                 <div className="flx flx-col w-100">
 
-                    <div className="tip__title-wrapper flx flx-row flx-align-top w-100 hide-in-list">
-                      <div className="tip__order-count DN v2-type-h3">{props.index}.</div>
-                    </div>
 
                   <div className="tip__content-wrapper">
 
                     <div className="tip__header-wrapper flx flx-row flx-align-start flx-just-start">
                       { /** Title **/ }
                       
-                      <div className="hide-in-list tip__title v2-type-h3 ta-left">
+                      <div className="hide-in-list tip__title tip-title ta-left">
                         <div className="tip__order-count">{props.index}</div>
                         <Link to={`/review/${tip.subjectId}`}> {tip.subject.title}</Link>
                       </div>

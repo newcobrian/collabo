@@ -52,7 +52,7 @@
 .tip__right-module {
 }
 .tip__header-wrapper {
-	margin-bottom: 10px;
+	margin-bottom: 0px;
 	margin-right: 0px;
 }
 
@@ -92,6 +92,7 @@
 	width: 100%;
 }
 .tip__caption-module {
+  margin-top: 5px;
 }
 
 .tip__timestamp {
@@ -345,7 +346,7 @@ select {
   background-repeat: no-repeat;
   text-indent: 6px;*/
 
-  height: 32px;
+  height: 20px;
   font-size: 14px;
   background: transparent;
   -webkit-border-radius: 32px !important;

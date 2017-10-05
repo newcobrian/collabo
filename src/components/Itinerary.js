@@ -241,7 +241,7 @@ class Itinerary extends React.Component {
                   </Link>
 
                   {/** DESCRIPTION **/}
-                  <div className="itinerary__cover__descrip v2-type-body3 ta-left mrgn-top-sm opa-80">
+                  <div className="itinerary__cover__descrip v2-type-body2 ta-left mrgn-top-sm opa-80">
                      {itinerary.description}
                   </div>
 
@@ -257,8 +257,8 @@ class Itinerary extends React.Component {
                   <div className="it-author-controls w-100 w-max flx flx-row flx-just-start flx-align-center ta-center pdding-top-sm pdding-bottom-sm">
                     <div className="w-100 w-max flx flx-row flx-just-start flx-align-center ta-center pdding-right-md">
                       <div className="flx flx-row flx-center-all">
-                        <div className="it__tip-count flx flx-row flx-just-end flx-align-center opa-60 mrgn-right-md">
-                          {itinerary.reviewsCount ? itinerary.reviewsCount : 0} tips
+                        <div className="it__tip-count right-md">
+                          {itinerary.reviewsCount ? itinerary.reviewsCount : 0}
                         </div>
 
                         {/*<EditItineraryLink isUser={isUser} itineraryId={this.props.itineraryId} />*/}
@@ -336,7 +336,7 @@ class Itinerary extends React.Component {
               </div>
 
               <div className="itinerary__comments-module flx flx-col flx-align-start flx-just-start w-max-2">
-                <div className="v2-type-h3 mrgn-bottom-md ta-left w-100">
+                <div className="comments-section-title mrgn-bottom-md ta-left w-100">
                   Comments
                 </div>
 

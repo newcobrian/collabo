@@ -389,7 +389,7 @@ class ItineraryForm extends React.Component {
             
              
               {/** Flag and Geo **/}
-              <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm mrgn-top-xs w-100">
+              <div className="flx flx-row flx-just-start flx-align-center mrgn-top-xs w-100">
                 <Link to={`/places/${itinerary.geo.placeId}`} className={'itinerary__cover__flag flx-hold flag-' + itinerary.geo.country} />
                 <div className="geo-type ellipsis w-100 flx flx-row flx-align-center flx-just-start">
                   <Geosuggest 
@@ -403,7 +403,7 @@ class ItineraryForm extends React.Component {
               </div>
 
               {/** TITLE **/}
-              <div className="itinerary__cover__title ta-left v2-type-h2 mrgn-bottom-xs">
+              <div className="itinerary__cover__title ta-left guide-title">
                 <RenderDebounceInput
                   type="text"
                   value={this.props.data.title}
@@ -414,7 +414,7 @@ class ItineraryForm extends React.Component {
               </div>
 
               {/** DESCRIPTION **/}
-              <div className="itinerary__cover__descrip v2-type-body3 ta-left mrgn-top-sm opa-80">
+              <div className="itinerary__cover__descrip v2-type-body2 ta-left mrgn-top-sm opa-80">
                  <RenderDebounceInput
                     type="text"
                     className="w-100"
@@ -555,14 +555,10 @@ class ItineraryForm extends React.Component {
 
                                     <div className="flx flx-col w-100">
 
-                                        <div className="tip__title-wrapper flx flx-row flx-align-top w-100 hide-in-list">
-                                          <div className="tip__order-count DN v2-type-h3">{index+1}.</div>
-
-                                        </div>
                                       <div className="tip__content-wrapper pdding-right-md">
                                         <div className="tip__header-wrapper flx flx-row flx-align-start flx-just-start">
                                           { /** Title **/ }
-                                          <div className="hide-in-list tip__title v2-type-h3 ta-left">
+                                          <div className="hide-in-list tip__title tip-title ta-left">
                                             <div className="tip__order-count">{index+1}</div> 
                                             <Link to={`/review/${tip.subjectId}`} className=""> {tip.subject.title}</Link>
                                           </div>
@@ -690,7 +686,7 @@ class ItineraryForm extends React.Component {
 
 
             <Element className="itinerary__comments-module map-on flx flx-col flx-align-start flx-just-start w-max-2" id='guidecommentcontainer' name='guidecommentcontainer'>
-              <div className="v2-type-h3 mrgn-bottom-md ta-left w-100">
+              <div className="comments-section-header mrgn-bottom-md ta-left w-100">
                 Comments
               </div>
               <CommentContainer
