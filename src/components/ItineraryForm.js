@@ -27,6 +27,9 @@ import scrollToElement from 'scroll-to-element';
 import RelatedItineraries from './RelatedItineraries';
 import {BackToTop} from 'pui-react-back-to-top';
 
+
+
+
 var Scroll = require('react-scroll');
 var Element = Scroll.Element;
 
@@ -66,6 +69,9 @@ const mapStateToProps = state => ({
   authenticated: state.common.authenticated,
   userInfo: state.common.userInfo
 });
+
+
+
 
 class ItineraryForm extends React.Component {
   constructor() {
@@ -259,8 +265,9 @@ class ItineraryForm extends React.Component {
         let latLng = new this.props.googleObject.maps.LatLng(geo.location.lat, geo.location.lng);
         
         return (
-          <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--white brdr-bottom">
-            <i className="material-icons fill--primary color--white md-24">add</i>
+          <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--white">
+            <i className="material-icons color--primary md-24 DN">add_circle_outline</i>
+            <i className="material-icons color--primary md-24">play_arrow</i>
 
             <Geosuggest 
               ref={el=>this._geoSuggest=el}
@@ -295,14 +302,14 @@ class ItineraryForm extends React.Component {
     const renderReorderButton = numTips => {
       if(numTips > 0) {
         return (
-          <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list vb vb--sm vb--outline flx flx-row flx-align-center">
+          <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list vb vb--sm vb--outline flx flx-row flx-align-center mrgn-left-sm">
             <i className="material-icons color--black md-18 mrgn-right-sm">low_priority</i>
             <div className="color--black">Reorder</div>
           </Link>
         )
       }
       else return (
-        <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list vb vb--sm vb--disabled vb--outline flx flx-row flx-align-center">
+        <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list vb vb--sm vb--disabled vb--outline flx flx-row flx-align-center mrgn-left-sm">
           <i className="material-icons color--black md-18 mrgn-right-sm">low_priority</i>
           <div className="color--black">Reorder</div>
         </Link>
@@ -320,10 +327,22 @@ class ItineraryForm extends React.Component {
         <div className="content-wrapper itinerary flx flx-col flx-align-center map-on">
 
 
+
+
+          <div className="it-add-container flx flx-row flx-align-center brdr-bottom">
+            <div className="it__tip-count">
+              {itinerary.reviewsCount ? itinerary.reviewsCount : 0}
+            </div>
+            {renderGeoSuggestTip(itinerary.geo)}
+            {renderReorderButton(itinerary.tips.length)}
+          </div>
+
+
+
           <div className="itinerary-image-wrapper flx flx-row flx-just-start header-height">
             
             {/** Cover Image **/}
-            <div className="itinerary__big-photo header-height bg-loading">
+            <div className="itinerary__big-photo bg-loading">
               <ImagePicker images={itinerary.images ? [itinerary.images] : null} />
               <div className={'flx flx-col flx-center-all v2-type-body3 fill--black color--white cover__loading fill--light-gray loading-done-' + this.props.coverPicProgress}>
                 <div className="earth-graphic w-100">  
@@ -340,7 +359,9 @@ class ItineraryForm extends React.Component {
           
           </div>
 
-
+              
+           
+               
 
           {/** Cover Content **/}
           <div className="itinerary__cover__text w-100">
@@ -413,13 +434,6 @@ class ItineraryForm extends React.Component {
               {/** -------- AUTHOR CONTROLS **/}
               <div className="it-author-controls w-100 w-max flx flx-row flx-just-start flx-align-center ta-center pdding-top-sm pdding-bottom-sm">
                 <div className="w-100 w-max flx flx-row flx-just-start flx-align-center ta-center pdding-right-md">
-                  <div className="flx flx-row flx-center-all">
-                    <div className="it__tip-count flx flx-row flx-just-end flx-align-center opa-60 mrgn-right-md">
-                      {itinerary.reviewsCount ? itinerary.reviewsCount : 0} tips
-                    </div>
-
-                    {renderReorderButton(itinerary.tips.length)}
-                  </div>
 
 
                   {/* Like */}
@@ -466,6 +480,8 @@ class ItineraryForm extends React.Component {
           {/** Close Cover Text DIV >>>>>> **/}  
 
 
+
+    
 
 
             
@@ -598,7 +614,7 @@ class ItineraryForm extends React.Component {
                                               cols="20"
                                               wrap="hard"
                                               value={tip.review.caption}
-                                              placeholder="Add your review"
+                                              placeholder="Add notes here"
                                               debounceFunction={this.changeCaption(tip)} />
                                           </div>
                                         </div>
@@ -671,7 +687,6 @@ class ItineraryForm extends React.Component {
                 })
               }
             </div>
-            {renderGeoSuggestTip(itinerary.geo)}
 
 
             <Element className="itinerary__comments-module map-on flx flx-col flx-align-start flx-just-start w-max-2" id='guidecommentcontainer' name='guidecommentcontainer'>
@@ -731,6 +746,7 @@ class ItineraryForm extends React.Component {
           <BackToTop />
         </div>
                   
+                   
 
     );
   }

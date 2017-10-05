@@ -302,7 +302,9 @@ textarea.edit-itinerary__name {
 	margin-top: auto !important;
 }
 .it__tip-count {
-
+	width: 60px;
+    text-align: center;
+    margin: 0 10px;
 }
 
 
@@ -318,32 +320,31 @@ textarea.edit-itinerary__name {
 	display: none;
 }
 
-
-
 .geosuggest__suggests-wrapper {
 	position: absolute;
 	z-index: 1;
 	color: #121419;
 }
-
-.it-add-wrapper {
+.it-add-container {
 	height: auto;
-	padding: 10px;
-	position: fixed;
-	z-index: 10;
-	top: 70px;
-	left: 0;
-	right: 40%;
-	width: auto;
+    padding: 10px;
+    position: fixed;
+    top: 70px;
+    z-index: 10;
+    left: 0;
+    width: 60%;
+    background-color: white;
+}
+.it-add-wrapper {
+	position: relative;
 }
 .it-add-wrapper .material-icons {
-	margin: 0 10px;
-	padding: 10px;
-	border-radius: 50px;
-	position: absolute;
-	pointer-events: none;
-	left: 11px;
-	top: 12px;
+ border-radius: 50px;
+    position: absolute;
+    pointer-events: none;
+    left: 10px;
+    top: 8px;
+
 }
 .it-add-wrapper .geosuggest {
 	background-color: white;
@@ -351,8 +352,8 @@ textarea.edit-itinerary__name {
 .it-add-wrapper .geosuggest:hover {
 }
 .it-add-wrapper .geosuggest__input {
-	height: 50px;
-	text-indent: 80px;
+	height: 40px;
+	text-indent: 40px;
 }
 .it-add-wrapper .geosuggest__input:hover {
 	opacity: .9;
@@ -365,19 +366,17 @@ textarea.edit-itinerary__name {
   border-color: white;
   /*margin-left: -10px;*/
   padding: 0;
-  border: none; 
+  border: 1px solid #3DCBF3;
   background-color: transparent;
 }
 .page-edit-own .it-add-wrapper input:hover,
 .page-edit-own  .it-add-wrapper textarea:hover {
-  border: none;
   background-color: transparent;
   /*background-color: rgba(102,144,224,.1);*/
 }
 
 .page-edit-own .it-add-wrapper input:focus,
 .page-edit-own .it-add-wrapper textarea:focus {
-    border: none;
     background-color: transparent;
     /*background-color: rgba(102,144,224,.1);*/
 }
@@ -399,7 +398,7 @@ textarea.edit-itinerary__name {
   width: 60%;
 }
 .page-edit-own .content-wrapper {
-	margin-top: 60px;
+	margin-top: 40px;
 }
 
 .content-wrapper.map-on .itinerary__cover.header-height,

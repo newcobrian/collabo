@@ -182,7 +182,7 @@ class Itinerary extends React.Component {
 
 
               {/** Cover Image **/}
-              <div className="itinerary__big-photo fill--primary">
+              <div className="itinerary__big-photo bg-loading">
                 <ImagePicker images={itinerary.images ? [itinerary.images] : null} />
                 <div className={'flx flx-col flx-center-all v2-type-body3 cover__loading loading-done-' + this.props.coverPicProgress}>
                   Uploading New Cover Photo...

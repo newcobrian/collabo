@@ -188,6 +188,17 @@ input.input--underline {
       height: 40px;
       line-height: 18px;
 }
+.vb--xs {
+  padding: 0px 10px 0px;
+  height: auto;
+  border: 0;
+  font-size: 14px;
+  letter-spacing: 0px;
+  text-transform: none;
+  height: 32px;
+  line-height: 18px;
+}
+
 .vb--sm.tip-count {
   font-size: 16px;
   font-weight: 400;

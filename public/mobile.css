@@ -381,7 +381,9 @@ width: 100%;
   padding-right: 0;
   padding-left: 0;
 }
-
+.it-add-container {
+  width: 100%;
+}
 
 .page-itinerary .itinerary__cover__topbar  {
   left: 10px;
