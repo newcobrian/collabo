@@ -55,7 +55,7 @@ const UpdateCoverPhoto = props => {
         multiple={false}
         accept="image/*"
         className="edit-tip__dropzone__touch flx flx-col flx-align-center flx-just-start ta-center">
-        <div className="vb vb--sm vb--shadow-none fill--white color--primary">
+        <div className="vb vb--xs vb--shadow-none fill--white color--black vb--outline">
           <i className="material-icons color--primary md-18">add_a_photo</i>
           <div className="mrgn-left-sm mobile-hide">Upload Cover</div>
         </div>
@@ -386,7 +386,7 @@ class ItineraryForm extends React.Component {
              
 
             {/** <<<<<< CENTER INFO **/}
-            <div className="it__title-module flx flx-col flx-just-start ta-center">
+            <div className="it__title-module flx flx-col flx-just-start ta-center w-100">
             
              
               {/** Flag and Geo **/}
@@ -434,7 +434,7 @@ class ItineraryForm extends React.Component {
 
               {/** -------- AUTHOR CONTROLS **/}
               <div className="it-author-controls w-100 w-max flx flx-row flx-just-start flx-align-center ta-center pdding-top-sm pdding-bottom-sm">
-                <div className="w-100 w-max flx flx-row flx-just-start flx-align-center ta-center pdding-right-md">
+                <div className="w-100 w-max flx flx-row flx-just-start flx-align-center ta-center">
 
 
                   {/* Like */}
@@ -465,6 +465,11 @@ class ItineraryForm extends React.Component {
                           redirectPath="/" />
                        </IconMenu>
                      </MuiThemeProvider>
+                  </div>
+
+                  <div className="vb vb--sm vb--outline fill--white color--black flx-item-right">
+                    <div className="mrgn-right-sm">Share Guide</div>
+                    <i className="material-icons color--primary md-18">share</i>
                   </div>
 
                 </div>{/** END MAX div **/}

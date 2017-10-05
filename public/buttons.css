@@ -322,7 +322,7 @@ input.input--underline {
 
 .vb--change-cover {
   position: absolute;
-  right: 20px;
+  left: 20px;
   bottom: 20px;
 }
 .vb.vb--disabled {

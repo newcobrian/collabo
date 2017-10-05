@@ -219,7 +219,7 @@ class Itinerary extends React.Component {
 
 
                 {/** <<<<<< CENTER INFO **/}
-                <div className="it__title-module flx flx-col flx-just-start ta-center">
+                <div className="it__title-module flx flx-col flx-just-start ta-center w-100">
                 
                  
                   {/** Flag and Geo **/}
@@ -255,7 +255,7 @@ class Itinerary extends React.Component {
 
                   {/** -------- AUTHOR CONTROLS **/}
                   <div className="it-author-controls w-100 w-max flx flx-row flx-just-start flx-align-center ta-center pdding-top-sm pdding-bottom-sm">
-                    <div className="w-100 w-max flx flx-row flx-just-start flx-align-center ta-center pdding-right-md">
+                    <div className="w-100 w-max flx flx-row flx-just-start flx-align-center ta-center">
                       <div className="flx flx-row flx-center-all">
                         <div className="it__tip-count right-md">
                           {itinerary.reviewsCount ? itinerary.reviewsCount : 0}
@@ -285,6 +285,13 @@ class Itinerary extends React.Component {
                           itineraryId={this.props.itineraryId}
                           type={ITINERARY_TYPE} />
                       </div>
+
+                      <div className="vb vb--sm vb--outline fill--white color--black flx-item-right">
+                        <div className="mrgn-right-sm">Share Guide</div>
+                        <i className="material-icons color--primary md-18">share</i>
+                      </div>
+
+
                     </div>{/** END MAX div **/}
 
                   </div>
