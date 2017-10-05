@@ -538,6 +538,9 @@ width: 100%;
 .tip__order-count {
   width: auto;
 }
+.tip__caption-module {
+  margin-top: 20px;
+}
 .tip__content-wrapper {
   padding-left: 0px;
 }
@@ -557,7 +560,7 @@ width: 100%;
 .tip-wrapper .tip-container {
     -webkit-flex-direction: column;
     flex-direction: column;
-    padding: 10px 10px;
+    padding: 20px;
 }
 .reviewpreview-wrapper .tip-wrapper .tip-container {
   padding: 20px 10px;

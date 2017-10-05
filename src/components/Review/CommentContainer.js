@@ -7,7 +7,7 @@ import ListErrors from '../ListErrors';
 const CommentContainer = props => {
 	if (props.authenticated && props.userInfo) {
 		return (
-			<div className="comments-module pdding-right-md">
+			<div className="comments-module">
 		        <CommentList
 		          comments={props.comments}
 		          commentObject={props.commentObject}

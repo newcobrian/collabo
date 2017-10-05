@@ -64,6 +64,10 @@ body div.dialog--save {
 .dialog--save__tip-name {
   padding-top: 0;
 }
+.dialog .tip__order-count {
+  width: 40px;
+  text-align: right;
+}
 
 .option-title {
   font-size: 16px;

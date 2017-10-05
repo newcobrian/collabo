@@ -55,8 +55,9 @@ const UpdateCoverPhoto = props => {
         multiple={false}
         accept="image/*"
         className="edit-tip__dropzone__touch flx flx-col flx-align-center flx-just-start ta-center">
-        <div className="vb vb--sm vb--round vb--shadow-none fill--white color--black opa-80">
+        <div className="vb vb--sm vb--shadow-none fill--white color--primary">
           <i className="material-icons color--primary md-18">add_a_photo</i>
+          <div className="mrgn-left-sm mobile-hide">Upload Cover</div>
         </div>
       </Dropzone>
       
@@ -303,15 +304,15 @@ class ItineraryForm extends React.Component {
       if(numTips > 0) {
         return (
           <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list vb vb--sm vb--outline flx flx-row flx-align-center mrgn-left-sm">
-            <i className="material-icons color--black md-18 mrgn-right-sm">low_priority</i>
-            <div className="color--black">Reorder</div>
+            <i className="material-icons color--black md-18">low_priority</i>
+            <div className="color--black mrgn-left-sm mobile-hide">Reorder</div>
           </Link>
         )
       }
       else return (
         <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list vb vb--sm vb--disabled vb--outline flx flx-row flx-align-center mrgn-left-sm">
           <i className="material-icons color--black md-18 mrgn-right-sm">low_priority</i>
-          <div className="color--black">Reorder</div>
+          <div className="color--black mrgn-left-sm mobile-hide">Reorder</div>
         </Link>
         )
     }
@@ -389,7 +390,7 @@ class ItineraryForm extends React.Component {
             
              
               {/** Flag and Geo **/}
-              <div className="flx flx-row flx-just-start flx-align-center mrgn-top-xs w-100">
+              <div className="flx flx-row flx-just-start flx-align-center mrgn-top-xs mrgn-bottom-xs w-100">
                 <Link to={`/places/${itinerary.geo.placeId}`} className={'itinerary__cover__flag flx-hold flag-' + itinerary.geo.country} />
                 <div className="geo-type ellipsis w-100 flx flx-row flx-align-center flx-just-start">
                   <Geosuggest 
@@ -633,8 +634,8 @@ class ItineraryForm extends React.Component {
                                               <div className="color--white">Add to</div>
                                           </Link>
                                           <Link onClick={onInfoClick(tip)} className="hide-in-list vb vb--sm vb--outline flx flx-row flx-align-center mrgn-left-n-1">
-                                            <i className="material-icons mrgn-right-sm opa-60">info_outline</i>
-                                            <div className="color--black">Info</div>
+                                            <i className="material-icons opa-60">info_outline</i>
+                                            <div className="color--black mrgn-left-sm mobile-hide">Info</div>
                                           </Link>
                                           <div className="cta-wrapper vb vb--sm vb--outline flx flx-row flx-align-center v2-type-body2 mrgn-left-n-1">
                                             <LikeReviewButton
@@ -656,7 +657,7 @@ class ItineraryForm extends React.Component {
                                                  anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
                                                  targetOrigin={{horizontal: 'left', vertical: 'top'}}
                                                >
-                                              <div className="vb vb--sm vb--shadow-none fill--white color--primary flx-item-right danger-hover"
+                                              <div className="vb vb--sm vb--shadow-none fill--white color--primary danger-hover"
                                                 onClick={this.deleteTip(tip)}>Delete Tip
                                               </div>
                                                 
@@ -687,7 +688,7 @@ class ItineraryForm extends React.Component {
 
             <Element className="itinerary__comments-module map-on flx flx-col flx-align-start flx-just-start w-max-2" id='guidecommentcontainer' name='guidecommentcontainer'>
               <div className="comments-section-title mrgn-bottom-md ta-left w-100">
-                Comments
+                Discussion
               </div>
               <CommentContainer
               authenticated={this.props.authenticated}
