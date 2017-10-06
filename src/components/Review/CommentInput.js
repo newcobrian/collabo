@@ -31,9 +31,11 @@ class CommentInput extends React.Component {
       ev.preventDefault();
       // const payload = agent.Comments.create(this.props.reviewId,
       //   { body: this.state.body });
-      const commentBody = ''.concat(this.state.body);
-      this.setState({ body: '' });
-      this.props.onCommentSubmit(this.props.authenticated, this.props.userInfo, this.props.type, this.props.commentObject, commentBody, this.props.itineraryId);
+      if (this.state.body !== '') {
+        const commentBody = ''.concat(this.state.body);
+        this.setState({ body: '' });
+        this.props.onCommentSubmit(this.props.authenticated, this.props.userInfo, this.props.type, this.props.commentObject, commentBody, this.props.itineraryId);
+      }
     };
   }
 
