@@ -216,6 +216,17 @@ class Home extends React.Component {
     const isLandingPage = (browserHistory.getCurrentLocation().pathname === '/global') && !this.props.authenticated ?
       'page-landing' : ''
 
+    if (!this.props.itineraries) {
+      return (
+        <div className="loading-module flx flx-col flx-center-all v2-type-body3 fill--black">
+          <div className="earth-graphic w-100">  
+            <img className="center-img" src="/img/globe01.gif"/>
+          </div>
+          <div>Loading Travel Guide...</div>
+        </div>
+        )
+    }
+
     return (
       <div>
         {this.LoggedOutIntro(this.props.authenticated)}
