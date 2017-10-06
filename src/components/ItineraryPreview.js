@@ -3,7 +3,6 @@ import { Link } from 'react-router';
 import LikeReviewButton from './LikeReviewButton';
 import ProfilePic from './ProfilePic';
 import ImagePicker from './ImagePicker';
-import ItineraryActions from './ItineraryActions';
 import * as Constants from '../constants';
 import FORWARD from '../constants';
 import { FORWARD_MODAL, REVIEW_MODAL } from '../actions';

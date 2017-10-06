@@ -8,7 +8,7 @@ import { browserHistory, Link } from 'react-router';
 import LikeReviewButton from './LikeReviewButton';
 import CommentContainer from './Review/CommentContainer'
 import { ITINERARY_TYPE, ITINERARY_PAGE } from '../constants';
-import ItineraryActions from './ItineraryActions';
+import ItineraryActionsButton from './ItineraryActionsButton';
 import DisplayTimestamp from './DisplayTimestamp';
 import RenderDebounceInput from './RenderDebounceInput';
 import MapContainer from './MapContainer';
@@ -457,7 +457,7 @@ class ItineraryForm extends React.Component {
                          anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
                          targetOrigin={{horizontal: 'left', vertical: 'top'}}
                        >
-                         <ItineraryActions 
+                         <ItineraryActionsButton 
                           itinerary={itinerary} 
                           authenticated={this.props.authenticated} 
                           canModify={true} 

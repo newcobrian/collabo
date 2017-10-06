@@ -10,7 +10,7 @@ import { browserHistory, Link } from 'react-router';
 import LikeReviewButton from './LikeReviewButton';
 import CommentContainer from './Review/CommentContainer'
 import { ITINERARY_TYPE, ITINERARY_PAGE } from '../constants';
-import ItineraryActions from './ItineraryActions';
+import ItineraryActionsButton from './ItineraryActionsButton';
 import DisplayTimestamp from './DisplayTimestamp';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -263,7 +263,7 @@ class Itinerary extends React.Component {
 
                         {/*<EditItineraryLink isUser={isUser} itineraryId={this.props.itineraryId} />*/}
 
-                        <ItineraryActions 
+                        <ItineraryActionsButton 
                           itinerary={itinerary} 
                           authenticated={this.props.authenticated} 
                           canModify={canModify} 

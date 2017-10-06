@@ -2,7 +2,7 @@ import React from 'react';
 import * as Actions from '../actions';
 import { connect } from 'react-redux';
 
-const ItineraryActions = props => {
+const ItineraryActionsButton = props => {
   const del = () => {
     props.deleteModal(props.itinerary, props.redirectPath);
   };
@@ -25,4 +25,4 @@ const ItineraryActions = props => {
   );
 };
 
-export default connect(() => ({}), Actions)(ItineraryActions);
+export default connect(() => ({}), Actions)(ItineraryActionsButton);
