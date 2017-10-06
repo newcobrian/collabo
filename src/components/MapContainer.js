@@ -21,6 +21,7 @@ class MapContainer extends React.Component {
 
 		this.onMarkerClick = tip => ev => {
 			scroller.scrollTo('tip' + tip.key, {duration: 400, offset: -70});
+			this.props.onSelectTipFromList(tip.subject)
 		}
 	}
 
@@ -99,17 +100,17 @@ class MapContainer extends React.Component {
 	              <div>
 	                <h4>{this.props.mouseoverTitle}</h4>
 	              </div>
-	          </InfoWindow>
-	          <InfoWindow
-		            visible={this.props.showingActiveInfoWindow}
-		            position={this.props.activeTipPosition}
-		            options={{
-		            	pixelOffset: new this.props.google.maps.Size(0,-48)
-		            }} >
-	              <div>
-	                <h4>{this.props.activeTipTitle}</h4>
-	              </div>
-	          </InfoWindow>
+		        </InfoWindow>
+		        <InfoWindow
+			        visible={this.props.showingActiveInfoWindow}
+			        position={this.props.activeTipPosition}
+			        options={{
+			        pixelOffset: new this.props.google.maps.Size(0,-48)
+			        }} >
+		            <div>
+		                <h4>{this.props.activeTipTitle}</h4>
+		            </div>
+		        </InfoWindow>
 
 	        </Map>
 	    );

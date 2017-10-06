@@ -459,8 +459,8 @@ export default (state = initialState, action) => {
         ...state,
         hoverMarker: action.hoverMarker,
         mouseoverTitle: action.mouseoverTitle,
-        showingHoverInfoWindow: true,
-        showingActiveInfoWindow: false
+        // showingHoverInfoWindow: true,
+        // showingActiveInfoWindow: false
       }
     case ActionTypes.LOAD_RELATED_ITINERARIES:
       return {

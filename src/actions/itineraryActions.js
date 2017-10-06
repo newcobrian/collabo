@@ -658,11 +658,11 @@ export function onMapMarkerClick(tip) {
 
 export function onMapMarkerMouseover(marker, title) {
   return dispatch => {
-    dispatch({
-      type: ActionTypes.ON_MAP_MARKER_MOUSEOVER,
-      hoverMarker: marker,
-      mouseoverTitle: title
-    })
+    // dispatch({
+    //   type: ActionTypes.ON_MAP_MARKER_MOUSEOVER,
+    //   hoverMarker: marker,
+    //   mouseoverTitle: title
+    // })
   }
 }
 
