@@ -94,14 +94,28 @@ class Followings extends Followers {
 
     render() {
       if (!this.props.profile) {
-        return null;
+        return (
+          <div className="loading-module flx flx-col flx-center-all v2-type-body3 fill--black">
+            <div className="earth-graphic w-100">  
+              <img className="center-img" src="/img/globe01.gif"/>
+            </div>
+            <div>Loading...</div>
+          </div>
+          )
       }
       if (this.props.profile.length === 0) {
         return (<div>User does not exist.</div>);
       }
 
       if (!this.props.followers) {
-        return null;
+        return (
+          <div className="loading-module flx flx-col flx-center-all v2-type-body3 fill--black">
+            <div className="earth-graphic w-100">  
+              <img className="center-img" src="/img/globe01.gif"/>
+            </div>
+            <div>Loading...</div>
+          </div>
+        )
       }
       if (this.props.followers.length === 0) {
         return (

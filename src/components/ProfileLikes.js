@@ -98,7 +98,14 @@ class ProfileLikes extends Profile {
 
   render() {
     if (!this.props.profile) {
-      return null;
+      return (
+        <div className="loading-module flx flx-col flx-center-all v2-type-body3 fill--black">
+          <div className="earth-graphic w-100">  
+            <img className="center-img" src="/img/globe01.gif"/>
+          </div>
+          <div>Loading User...</div>
+        </div>
+        )
     }
     if (this.props.profile.length === 0) {
       return (<div className="error-module flx flx-center-all v2-type-body3">User does not exist.</div>);

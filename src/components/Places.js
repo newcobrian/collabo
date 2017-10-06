@@ -35,7 +35,16 @@ class Places extends React.Component {
   }
 
   render() {
-    if (!this.props.geo || !this.props.feed) return null;
+    if (!this.props.geo || !this.props.feed) {
+      return (
+        <div className="loading-module flx flx-col flx-center-all v2-type-body3 fill--black">
+          <div className="earth-graphic w-100">  
+            <img className="center-img" src="/img/globe01.gif"/>
+          </div>
+          <div>Loading...</div>
+        </div>
+        )
+    }
     else if (this.props.feed.length === 0) {
       return (
         <div> No itineraries created for {this.props.geo.label}.</div>

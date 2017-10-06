@@ -222,7 +222,7 @@ class Home extends React.Component {
           <div className="earth-graphic w-100">  
             <img className="center-img" src="/img/globe01.gif"/>
           </div>
-          <div>Loading Travel Guide...</div>
+          <div>Loading...</div>
         </div>
         )
     }
