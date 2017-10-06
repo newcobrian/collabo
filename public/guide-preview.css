@@ -55,7 +55,7 @@
 	display: inline-block;
 }
 .guide-preview-title {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 600;
     line-height: 26px;
     width: 100%;
@@ -63,7 +63,7 @@
     font-family: 'Arimo', sans-serif;
     max-height: 60px;
     overflow: hidden;
-    letter-spacing: .2px;
+    letter-spacing: 0px;
 }
 .guide-preview-data-wrapper {
 	padding: 15px 20px 10px;

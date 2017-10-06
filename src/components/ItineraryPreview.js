@@ -228,7 +228,7 @@ const ItineraryPreview = props => {
                 {/** END - TITLE **/}
 
                 {/** DESCRIPTION - START **/}
-                <div className="itinerary__cover__descrip v2-type-body2 opa-90">
+                <div className="itinerary__cover__descrip v2-type-body1 opa-90">
                    <DescriptionPreview  itinerary={props.itinerary}/>
                 </div>
                 {/** END - DESCRIPTION **/}
