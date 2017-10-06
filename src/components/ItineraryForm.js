@@ -319,7 +319,7 @@ class ItineraryForm extends React.Component {
 
     const onTipClick = (subject) => ev => {
       ev.preventDefault();
-      this.props.onSelectActiveTip(subject);
+      this.props.onSelectTipFromList(subject);
     }
 
     return (

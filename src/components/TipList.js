@@ -46,7 +46,7 @@ const TipList = props => {
               itinerary={props.itinerary}
               index={index+1}
               selectedMarker={props.selectedMarker}
-              onSelectActiveTip={props.onSelectActiveTip}
+              onSelectTipFromList={props.onSelectTipFromList}
             />
           );
         })

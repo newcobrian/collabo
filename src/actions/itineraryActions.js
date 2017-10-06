@@ -650,7 +650,8 @@ export function onMapMarkerClick(tip) {
   return dispatch => {
     dispatch({
       type: ActionTypes.ON_MARKER_CLICK,
-      selectedMarker: tip.key
+      selectedMarker: tip.key,
+      mouseoverTitle: tip.subject.title
     })
   }
 }
@@ -665,7 +666,7 @@ export function onMapMarkerMouseover(marker, title) {
   }
 }
 
-export function onSelectActiveTip(subject) {
+export function onSelectTipFromList(subject) {
   return dispatch => {
     dispatch({
       type: ActionTypes.SELECT_ACTIVE_TIP,

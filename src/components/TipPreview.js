@@ -76,8 +76,8 @@ const TipPreview = props => {
 
   const onTipClick = (subject) => ev => {
       ev.preventDefault();
-      if (props.onSelectActiveTip) {
-        props.onSelectActiveTip(subject);
+      if (props.onSelectTipFromList) {
+        props.onSelectTipFromList(subject);
       }
     }
   
