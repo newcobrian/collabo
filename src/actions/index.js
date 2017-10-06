@@ -1731,18 +1731,33 @@ export function onDeleteComment(commentObject, commentId, itineraryId) {
 
 export function onDeleteItinerary(userId, itineraryId, geo, redirectPath) {
   return dispatch => {
-    Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).remove();
-    Firebase.database().ref(Constants.ITINERARIES_BY_GEO_BY_USER_PATH + '/' + geo + '/' + userId + '/' + itineraryId).remove();
-    Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH + '/' + geo + '/' + itineraryId).remove();
-    Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + userId + '/' + itineraryId).remove();
-    Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).remove();
-    Firebase.database().ref(Constants.LIKES_PATH + '/' + itineraryId).remove();
-    Firebase.database().ref(Constants.COMMENTS_PATH + '/' + itineraryId).remove();
-    Firebase.database().ref(Constants.LIKES_BY_USER_PATH).once('value', likesSnapshot => {
-      likesSnapshot.forEach(function(userChild) {
-        Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userChild.key + '/' + itineraryId).remove();
+    // first delete all tips in guide in TIPS_BY_SUBJECT
+    // paths are TIPS_BY_SUBJECT/subjectId/userId/tipId
+    Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).once('value', tipsSnap => {
+      tipsSnap.forEach(function(tipItem) {
+        let tip = tipItem.val();
+        Firebase.database().ref(Constants.TIPS_BY_SUBJECT_PATH + '/' + tip.subjectId + '/' + tip.userId + '/' + tipItem.key).remove();
       })
     })
+
+    // then delete any likes on the guide
+    // LEAVING THIS COMMENTED OUT FOR NOW
+    // Firebase.database().ref(Constants.LIKES_BY_USER_PATH).once('value', likesSnapshot => {
+    //   likesSnapshot.forEach(function(userChild) {
+    //     Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userChild.key + '/' + itineraryId).remove();
+    //   })
+    // })
+
+    let updates = {};
+    updates[Constants.ITINERARIES_PATH + '/' + itineraryId] = null;
+    updates[Constants.ITINERARIES_BY_GEO_BY_USER_PATH + '/' + geo + '/' + userId + '/' + itineraryId] = null;
+    updates[Constants.ITINERARIES_BY_GEO_PATH + '/' + geo + '/' + itineraryId] = null;
+    updates[Constants.ITINERARIES_BY_USER_PATH + '/' + userId + '/' + itineraryId] = null;
+    updates[Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId] = null;
+    updates[Constants.LIKES_PATH + '/' + itineraryId] = null;
+    updates[Constants.COMMENTS_PATH + '/' + itineraryId] = null;
+
+    Firebase.database().ref().update(updates);
 
     let message = 'Your itinerary has been deleted.'
     dispatch({

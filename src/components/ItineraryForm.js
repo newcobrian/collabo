@@ -461,7 +461,7 @@ class ItineraryForm extends React.Component {
                           itinerary={itinerary} 
                           authenticated={this.props.authenticated} 
                           canModify={true} 
-                          deleteItinerary={this.props.showDeleteModal} 
+                          deleteModal={this.props.showDeleteModal} 
                           redirectPath="/" />
                        </IconMenu>
                      </MuiThemeProvider>

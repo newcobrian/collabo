@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 const ItineraryActions = props => {
   const del = () => {
-    props.deleteItinerary(props.itinerary, props.redirectPath);
+    props.deleteModal(props.itinerary, props.redirectPath);
   };
 
   if (props.canModify) {
