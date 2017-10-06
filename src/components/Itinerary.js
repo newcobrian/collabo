@@ -335,7 +335,7 @@ class Itinerary extends React.Component {
                     itinerary={itinerary}
                     canModify={canModify}
                     selectedMarker={this.props.selectedMarker}
-                    onSelectTipFromList={this.props.onSelectTipFromList}
+                    onSelectActiveTip={this.props.onSelectActiveTip}
 
                     updateRating={this.props.onUpdateRating}
                     onSetPage={this.onSetPage}

@@ -449,19 +449,6 @@ export default (state = initialState, action) => {
         ...state,
         itineraryNotFound: true
       }
-    case ActionTypes.ON_MARKER_CLICK:
-      return {
-        ...state,
-        selectedMarker: action.selectedMarker
-      }
-    case ActionTypes.ON_MAP_MARKER_MOUSEOVER:
-      return {
-        ...state,
-        hoverMarker: action.hoverMarker,
-        mouseoverTitle: action.mouseoverTitle,
-        // showingHoverInfoWindow: true,
-        // showingActiveInfoWindow: false
-      }
     case ActionTypes.LOAD_RELATED_ITINERARIES:
       return {
         ...state,
@@ -478,7 +465,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         showingActiveInfoWindow: true,
-        showingHoverInfoWindow: false,
         activeTipPosition: action.activeTipPosition,
         activeTipTitle: action.activeTipTitle
       }

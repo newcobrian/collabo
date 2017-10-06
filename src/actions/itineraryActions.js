@@ -646,27 +646,7 @@ export function onReorderTips(itinerary, oldIndex, newIndex) {
   } 
 }
 
-export function onMapMarkerClick(tip) {
-  return dispatch => {
-    dispatch({
-      type: ActionTypes.ON_MARKER_CLICK,
-      selectedMarker: tip.key,
-      mouseoverTitle: tip.subject.title
-    })
-  }
-}
-
-export function onMapMarkerMouseover(marker, title) {
-  return dispatch => {
-    // dispatch({
-    //   type: ActionTypes.ON_MAP_MARKER_MOUSEOVER,
-    //   hoverMarker: marker,
-    //   mouseoverTitle: title
-    // })
-  }
-}
-
-export function onSelectTipFromList(subject) {
+export function onSelectActiveTip(subject) {
   return dispatch => {
     dispatch({
       type: ActionTypes.SELECT_ACTIVE_TIP,

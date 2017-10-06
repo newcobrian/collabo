@@ -17,16 +17,14 @@ class MapContainer extends React.Component {
 	constructor() {
 		super();
 
-		this.onMarkerMouseover = this.onMarkerMouseover.bind(this);
-
 		this.onMarkerClick = tip => ev => {
-			scroller.scrollTo('tip' + tip.key, {duration: 400, offset: -70});
-			this.props.onSelectTipFromList(tip.subject)
+			scroller.scrollTo('tip' + tip.key, {duration: 400, offset: -134});
+			this.props.onSelectActiveTip(tip.subject)
 		}
-	}
 
-	onMarkerMouseover = (props, marker, e) => {
-		this.props.onMapMarkerMouseover(marker, props.name);
+		this.onMarkerMouseover = tip => ev => {
+			this.props.onSelectActiveTip(tip.subject)
+		}
 	}
 
   	render() {
@@ -89,7 +87,7 @@ class MapContainer extends React.Component {
 					      url: markerUrl,
 					      scaledSize: new this.props.google.maps.Size(40,48)
 					    }}
-					    onMouseover={this.onMarkerMouseover}
+					    onMouseover={this.onMarkerMouseover(tipItem)}
 					    />
 		            )
 		          })
