@@ -331,7 +331,7 @@ class ItineraryForm extends React.Component {
 
 
           <div className="it-add-container flx flx-row flx-align-center brdr-bottom">
-            <div className="it__tip-count">
+            <div className="it__tip-count mrgn-right-sm mrgn-left-sm">
               {itinerary.reviewsCount ? itinerary.reviewsCount : 0}
             </div>
             {renderGeoSuggestTip(itinerary.geo)}

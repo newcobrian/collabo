@@ -257,7 +257,7 @@ class Itinerary extends React.Component {
                   <div className="it-author-controls w-100 w-max flx flx-row flx-just-start flx-align-center ta-center pdding-top-sm pdding-bottom-sm">
                     <div className="w-100 w-max flx flx-row flx-just-start flx-align-center ta-center">
                       <div className="flx flx-row flx-center-all">
-                        <div className="it__tip-count right-md">
+                        <div className="vb vb--outline vb--round it__tip-count vb--sm mrgn-right-sm">
                           {itinerary.reviewsCount ? itinerary.reviewsCount : 0}
                         </div>
 

@@ -6,10 +6,10 @@
 .hero-container.logged-out {
 }
 .hero-content {
-	height: 500px;
+	height: 280px;
 	width: 100%;
 	position: relative;
-	background-image: linear-gradient(0deg, #FF84A0 0%, #FFD983 90%);
+	background-image: white;
 }
 .marketing-page.navigation-bar {
     background-color: rgba(255, 217, 131, .8);
@@ -41,13 +41,13 @@
 	height: initial;
 }
 .homepage-logo {
-	width: 171px;
-	height: 96px;
+    width: 70px;
+    height: 60px;
 }
 .hero-ocean {
 	width: 100%;
-	height: 192px;
-	background-color: #45DAE6;
+	height: 132px;
+	background-color: white;
 	position: relative;
 	padding: 10px 10px 30px 10px;
 }
@@ -101,7 +101,8 @@
   background-color: white;
 
 }
-.header-container.logged-out .navigation-bar {
+.logged-out .navigation-bar {
+	display: none;
 }
 .about-intro {
 	padding: 20px;

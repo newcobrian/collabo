@@ -395,7 +395,7 @@ width: 100%;
 }
 
 .itinerary__cover__image .header-height {
-  height: 120px;
+  height: 180px;
 }
 
 .itinerary__cover__author-photo {
@@ -561,6 +561,10 @@ width: 100%;
     -webkit-flex-direction: column;
     flex-direction: column;
     padding: 20px;
+}
+.tip-wrapper .tip__cta-box .vb {
+    margin-right: 5px;
+    padding: 10px 15px;
 }
 .reviewpreview-wrapper .tip-wrapper .tip-container {
   padding: 20px 10px;

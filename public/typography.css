@@ -180,10 +180,15 @@ font-weight: 300;
     display: inline-block;
 }
 .v2-type-intro {
-  /* Make and share trave: */
   font-family: 'Arimo', sans-serif;
-  font-size: 32px;
-  letter-spacing: 1;
+  font-size: 21px;
+  letter-spacing: 1px;
+  margin: 10px;
+}
+.v2-type-intro-2 {
+  font-size: 16px;
+  letter-spacing: 0;
+  opacity: .5;
 }
 .geo-type {
   font-family: 'Roboto Condensed', sans-serif;;

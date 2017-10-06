@@ -55,7 +55,7 @@ const CommentPreview = props => {
         </div>
 
 
-        <div className="vb vb--sm vb--outline flx-align-center mrgn-left-n-1 cta-wrapper flx flx-row flx-just-end flex-item-right last-comment">
+        <div className="vb vb--xs vb--outline flx-align-center mrgn-left-n-1 cta-wrapper flx flx-row flx-just-end flex-item-right last-comment">
           <div className="flx flx-row flx-just-end flx-align-center">
             <div className="cta-icon cta-comment comment-on"></div>
             <div className="v2-type-body1 weight-500">{props.itinerary.commentsCount}</div>
@@ -67,8 +67,8 @@ const CommentPreview = props => {
   else {
     return (
       <Link to={`/guide/${props.itinerary.id}`}>
-        <div className="vb vb--sm vb--outline cta-wrapper flx flx-row flx-center-all no-comments">             
-             <div className="cta-icon cta-comment"></div>
+        <div className="vb vb--xs vb--outline cta-wrapper flx flx-row flx-center-all no-comments">             
+             <div className="cta-icon cta-comment opa-60"></div>
              <div className="v2-type-body1 weight-500">0</div>
         </div>
       </Link>
@@ -149,7 +149,7 @@ const ItineraryPreview = props => {
   } 
   else {
     return (
-      <div className={"itinerary__cover flx flx-col bx-shadow " + props.type + " " + props.guideLabel}>
+      <div className={"itinerary__cover flx flx-col " + props.type + " " + props.guideLabel}>
         
         {/** START USER PHOTO AND TIP COUNT **/}
         <div className="itinerary__cover__topbar flx flx-row flx-align-center w-100 w-max flx-hold flx-just-start v2-type-body1 mrgn-bottom-sm">
@@ -164,7 +164,7 @@ const ItineraryPreview = props => {
           </div>
 
           {/** USERNAME **/}
-
+          <div className="flx flx-col flx-just-start">
             <div className="itinerary__cover__username mrgn-right-md">
               <Link
               to={`/${itinerary.createdBy.username}`}
@@ -173,11 +173,11 @@ const ItineraryPreview = props => {
               </Link>
             </div>
 
-          {/** TIMESTAMP **/}
-          <div className="itinerary__cover__timestamp flx-item-right ta-left opa-70">
-            <DisplayTimestamp timestamp={itinerary.lastModified} />
-          </div> 
-        
+            {/** TIMESTAMP **/}
+            <div className="itinerary__cover__timestamp ta-left opa-70">
+              <DisplayTimestamp timestamp={itinerary.lastModified} />
+            </div> 
+          </div>
         </div>
         {/** END USER PHOTO AND TIP COUNT **/}
 
@@ -244,7 +244,7 @@ const ItineraryPreview = props => {
                 <div className="it__cover__cta-module flx flx-row flx-just-end">
                   <CommentPreview itinerary={props.itinerary} />
 
-                  <div className="vb vb--sm vb--outline flx flx-row flx-align-center mrgn-right-sm cta-wrapper flx flx-row flx-just-end flex-item-right mrgn-left-n-1">
+                  <div className="vb vb--xs vb--outline flx flx-row flx-align-center mrgn-right-sm cta-wrapper flx flx-row flx-just-end flex-item-right mrgn-left-n-1">
                     <LikeReviewButton
                       authenticated={props.authenticated}
                       isLiked={props.itinerary.isLiked}
@@ -256,8 +256,8 @@ const ItineraryPreview = props => {
                 </div>
 
                 {/** TIP COUNT **/}
-                <Link to={`/guide/${itinerary.id}`} className="vb vb--sm vb--outline tip-count color--primary v2-type-body3 flx flx-row flx-just-start flx-align-center color--primary flx-item-right no-uppercase">
-                    <div>{itinerary.reviewsCount ? itinerary.reviewsCount : 0} {itinerary.reviewsCount === 1 ? ' Tip' : ' Tips'}</div>
+                <Link to={`/guide/${itinerary.id}`} className="vb vb--xs vb--outline vb--round tip-count color--primary v2-type-body3 flx flx-row flx-just-start flx-align-center color--primary flx-item-right no-uppercase">
+                    <div>{itinerary.reviewsCount ? itinerary.reviewsCount : 0} {itinerary.reviewsCount === 1 ? '' : ''}</div>
                     <i className="DN material-icons mrgn-left-sm color--primary md-24">playlist_play</i>
                 </Link>
 

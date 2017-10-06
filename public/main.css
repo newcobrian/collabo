@@ -4967,7 +4967,9 @@ footer {
 
 .home-page .feed-toggle {
   margin-bottom: 0px; }
-
+.page-landing .friend-popular-toggle {
+  display: none;
+}
 .home-page .sidebar {
   padding: 5px 10px 10px 10px;
   background: #f3f3f3;

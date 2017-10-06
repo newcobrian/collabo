@@ -2,11 +2,15 @@
 .itinerary__cover {
 	margin: 20px;
     width: 360px;
-    padding: 10px;
-    background: #FFFFFF;
-    border: 1px solid rgba(0,0,0,.05);
-    height: 420px;
+    padding: 0px;
+/*    background: #FFFFFF;
+    border: 1px solid rgba(0,0,0,.05);*/
+    height: 480px;
     position: relative;
+}
+.guide-preview-inner-wrapper {
+	background: #FFFFFF;
+    border: 1px solid rgba(0,0,0,.05);
 }
 .itinerary__book {
 	position: relative;
@@ -33,7 +37,7 @@
 .itinerary__hit-area
 
  {
-	height: 120px;
+	height: 180px;
 }
 
 .guide-label {
@@ -51,15 +55,15 @@
 	display: inline-block;
 }
 .guide-preview-title {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 600;
-    line-height: 24px;
+    line-height: 26px;
     width: 100%;
     max-width: 460px;
     font-family: 'Arimo', sans-serif;
     max-height: 60px;
     overflow: hidden;
-    text-transform: uppercase;
+    letter-spacing: .2px;
 }
 .guide-preview-data-wrapper {
 	padding: 15px 20px 10px;
@@ -72,12 +76,13 @@
 	height: 80px;
 }
 .itinerary__cover .geo-type {
-	font-size: 14px;
-	font-weight: 400;
+	font-size: 12px;
+    font-weight: 600;
+    opacity: .5;
 }
 .guide-cta-wrapper {
 	margin-top: auto;
-	padding-bottom: 20px;
+	padding-bottom: 15px;
 }
 
 .featured-wrapper {
@@ -130,8 +135,8 @@
 	margin-right: 10px;
 }
 .small-guide .guide-preview-title {
-	font-size: 14px;
-	line-height: 24px;
+    font-size: 16px;
+    line-height: 20px;
 }
 .itinerary__cover.small-guide .v2-type-body2 {
 }
@@ -184,6 +189,11 @@
 	/*margin: 20px 2%;*/
 }
 
+.itinerary__contents {
+	background: #FFFFFF;
+    border: 1px solid rgba(0,0,0,.05);
+    padding-bottom: 20px;
+}
 .itinerary__cover.large-guide .itinerary__contents,
 .itinerary__cover.small-guide .itinerary__contents {
 /*	-webkit-flex-direction: row;
@@ -231,7 +241,7 @@
     left: 210px;
     position: absolute;
     width: 300px;
-    bottom: 15px;
+    bottom: 20px;
     left: 29px;
     z-index: 3;
     padding: 0px 10px;
@@ -294,10 +304,10 @@
 
 .itinerary__cover__timestamp {
     font-size: 10px;
-    text-transform: uppercase;
     font-weight: 300;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     margin-top: 2px;
+    opacity: .5;
 }
 .itinerary__cover__overlay {
 	overflow: hidden;

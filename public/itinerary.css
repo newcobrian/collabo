@@ -57,11 +57,11 @@
 .guide-title {
 	max-width: 800px;
 	font-weight: 700;
-	font-size: 26px;
+	font-size: 28px;
 	letter-spacing: 1px;
 	line-height: 32px;
 	font-family: 'Arimo', sans-serif;
-	text-transform: uppercase;
+	width: 100%;
 }
 
 
@@ -217,7 +217,7 @@
   height: auto;
   max-width: 480px;
   width: 100%;
-  max-width: 600px;
+  max-width: 800px;
   font-family: 'Roboto', sans-serif;
 
  }
@@ -304,7 +304,6 @@ textarea.edit-itinerary__name {
 .it__tip-count {
 	width: 60px;
     text-align: center;
-    margin: 0 10px;
 }
 
 

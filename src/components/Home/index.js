@@ -117,24 +117,29 @@ class Home extends React.Component {
         </div>
         <div className="hero-content flx flx-col flx-align-center flx-just-end ta-center">
           <div className="homepage-logo mrgn-bottom-md">  
-            <img className="center-img w-100" src="/img/logos/homepage-logo.png"/>
+            <img className="center-img w-100" src="/img/logos/logo_stripes_lg.png"/>
           </div>
-          <div className="v2-type-intro color--white opa-70 mrgn-bottom-lg">
-           Create and share travel guides
+          <div className="v2-type-intro color--black mrgn-bottom-lg">
+           Save and share travel guides
           </div>
         </div>
         
         <div className="hero-ocean flx flx-col flx-center-all">
           <Link to="/register" className="">
-            <div className="vb vb--light vb--intro--register flx flx-row flx-center-all ta-center">
-              <div className="flx-grow1 mrgn-left-md">MAKE YOUR FIRST TRAVEL GUIDE</div>
-              <i className="material-icons md-32 color--white flex-item-right mrgn-left-sm">flight_takeoff</i>
+            <div className="vb vb--light vb--intro--register fill--primary color--white flx flx-row flx-center-all ta-center bx-shadow">
+              <div className="flx-grow1 mrgn-left-md">Get Started</div>
+              <i className="material-icons md-32 color--white flex-item-right mrgn-left-sm DN">flight_takeoff</i>
             </div>
           </Link>
+          <div className="flx flx-row flx-align-center v2-type-body1 mrgn-top-md">
+            <Link to="/login" className="color--primary">
+                Login
+            </Link>
+          </div>
         </div>
 
          
-         <div className="about-intro flx flx-row w-100">
+         <div className="about-intro flx flx-row w-100 DN">
             <div className="guide-diagram flx flx-center-all w-50">
               <img className="center-img w-100" src="/img/graphics/guide-tokyo.png"/>
             </div>
@@ -197,11 +202,11 @@ class Home extends React.Component {
             </div> {/* END Feature Wrapper */}
          </div> {/* END About Intro */}
 
-         <div className="about-intro flx flx-col flx-center-all w-100 mrgn-top-md opa-30">
-          <div className="v2-type-intro color--black ta-center w-100">
-            Some recent travel guides we like
+         <div className="about-intro flx flx-col flx-center-all w-100 mrgn-top-md opa-100">
+          <div className="v2-type-intro-2 color--black ta-center w-100 DN">
+            Some cool guides we like
           </div>
-          <i className="material-icons color--black md-48 mrgn-top-lg mrgn-bottom-lg">arrow_downward</i>
+          <i className="material-icons color--black md-48 mrgn-top-lg mrgn-bottom-lg DN">arrow_downward</i>
          </div>
 
        </div> 
@@ -257,7 +262,7 @@ class Home extends React.Component {
             </div>
         </div>
 
-
+ 
         <div className={'home-page page-common fill--light-gray ' + isLandingPage}>
 
           <div className="feed-toggle friend-popular-toggle flx flx-row flx-just-center w-100">
@@ -280,7 +285,7 @@ class Home extends React.Component {
           </div>
 
           <div className="w-100 w-max flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap">
-            <div className="popular-box brdr-all flx flx-col">
+            <div className="popular-box brdr-all flx flx-col DN">
               <div className="color--black section-header mrgn-bottom-md">Popular Guides</div>
               <PopularPreview 
                 popularList={this.props.popularPreview}
@@ -324,7 +329,7 @@ class Home extends React.Component {
 
         <div className="DN footer fill--black color--white flx flx-col flx-center-all">
           <div className="homepage-logo mrgn-bottom-md">  
-            <img className="center-img w-100" src="/img/logos/homepage-logo.png"/>
+            <img className="center-img w-100" src="/img/logos/logo_stripes_lg.png"/>
           </div>
           <div className="v2-type-intro color--white opa-70 mrgn-bottom-lg DN">
             Travel with the knowledge of your friends
