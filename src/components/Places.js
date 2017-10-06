@@ -26,6 +26,14 @@ class Places extends React.Component {
     this.props.unloadPlacesFeed(this.props.authenticated, this.props.params.pid);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.params.pid !== this.props.params.pid) {
+      this.props.unloadPlacesFeed(this.props.authenticated, this.props.params.pid);
+      this.props.loadPlaces(nextProps.params.pid);
+      this.props.getPlacesFeed(this.props.authenticated, nextProps.params.pid);
+    }
+  }
+
   render() {
     if (!this.props.geo || !this.props.feed) return null;
     else if (this.props.feed.length === 0) {
