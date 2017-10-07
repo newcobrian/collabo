@@ -505,14 +505,14 @@ class ItineraryForm extends React.Component {
                               
                                   
                                   { /** Title **/ }
-                                  <div className="tip__title-module flx flx-row w-100">
+                                  <div className="tip__title-module flx flx-row flx-m-col w-100">
 
 
-                                    <div className="tip__right-module flx flx-col flx-align-end">
+                                    <div className="tip__right-module flx flx-col flx-m-row">
 
 
                                       { /** Rating **/ }
-                                      <div className={'mobile-show tip__rating-module flx flx-row flx-align-center flx-item-right w-100 tip__rating-module--' + tip.review.rating}>
+                                      <div className={'DN tip__rating-module flx flx-row flx-align-center flx-item-right w-100 tip__rating-module--' + tip.review.rating}>
                                         <select value={tip.review.rating} onChange={this.changeRating(tip)}>
                                           <option value="-">-</option>
                                           <option value="0">0</option>
@@ -535,19 +535,16 @@ class ItineraryForm extends React.Component {
                                       <div className="tip__image-module">
                                         <div className={"tip__photo-count tip-count-" + tip.images.length}>{tip.images.length > 0 ? tip.images.length : null}</div>
                                         <ImagePicker images={tip.images} />
-                                      </div>
-                                      <div >
                                         <Dropzone
                                           onDrop={tipDropHandler(tip)}
                                           disablePreview={false}
                                           accept="image/*"
-                                          className="edit-tip__dropzone__touch flx flx-col flx-align-center flx-just-start ta-center">
-                                          <div className="vb vb--sm vb--shadow-none fill--white color--black opa-80 no-pad">
-                                            <i className="material-icons color--black opa-40 md-18">add_a_photo</i>
+                                          className="add-photo-wrapper flx flx-col flx-align-center flx-just-start ta-center">
+                                          <div className="vb vb--xs vb--shadow-none fill--none">
+                                            <i className="material-icons color--white md-18">add_a_photo</i>
                                           </div>
 
                                         </Dropzone>
-                                        
                                       </div>
                                       { /** END Image **/ }
 
@@ -572,7 +569,7 @@ class ItineraryForm extends React.Component {
                                           { /** END Title **/ }
 
                                           { /** Rating **/ }
-                                          <div className={'mobile-hide tip__rating-module flx flx-row flx-align-center flx-item-right w-100 tip__rating-module--' + tip.review.rating}>
+                                          <div className={'tip__rating-module flx flx-row flx-align-center flx-item-right w-100 tip__rating-module--' + tip.review.rating}>
                                             <select value={tip.review.rating} onChange={this.changeRating(tip)}>
                                               <option value="-">-</option>
                                               <option value="0">0</option>

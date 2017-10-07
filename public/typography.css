@@ -60,7 +60,7 @@ textarea {
   font-size: 12px;
   letter-spacing: 0.5px;
   line-height: 12px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Rokkitt', sans-serif;
 }
 .v2-type-body1 {
   /* “The almond milk ice: */
@@ -68,14 +68,14 @@ textarea {
   font-size: 14px;
   letter-spacing: 0.5px;
   line-height: 18px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Rokkitt', sans-serif;
 }
 .v2-type-body2 {
 font-weight: 300;
-    font-size: 16px;
+    font-size: 14px;
     letter-spacing: 0;
     line-height: 24px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Rokkitt', sans-serif;
 }
 .strong--400.v2-type-body0,
 .strong--400.v2-type-body1,
@@ -91,21 +91,21 @@ font-weight: 300;
   font-size: 18px;
   letter-spacing: 0;
   line-height: 28px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Rokkitt', sans-serif;
 }
 .v2-type-body4 {
   font-weight: 400;
   font-size: 20px;
   letter-spacing: 0.5px;
   line-height: 28px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Rokkitt', sans-serif;
 }
 .v2-type-caption {
   font-weight: 400;
   font-size: 12px;
   letter-spacing: 1px;
   line-height: 14px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Rokkitt', sans-serif;
 }
 .mod-options .v2-type-caption {
   cursor: pointer;
@@ -191,15 +191,15 @@ font-weight: 300;
   opacity: .5;
 }
 .geo-type {
-  font-family: 'Roboto Condensed', sans-serif;;
-  text-transform: uppercase;
-  font-weight: 400;
-  letter-spacing: 3px;
-  width: 100%;
-  font-size: 16px;
-  letter-spacing: .5px;
-  line-height: 18px;
-  overflow: visible;
+    font-family: 'Roboto Condensed', sans-serif;
+    text-transform: uppercase;
+    font-weight: 500;
+    width: 100%;
+    font-size: 14px;
+    letter-spacing: .5px;
+    line-height: 18px;
+    overflow: visible;
+    opacity: .4;
 }
 .label-big {
   font-family: 'Arimo', sans-serif;
@@ -276,7 +276,7 @@ a.color--primary:focus {
   color: black !important; /*DARK BLUE*/
   opacity: .2;
   font-weight: 300;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Rokkitt', sans-serif;
 }
 
 .logo-main {
@@ -308,7 +308,7 @@ body a.nav-module {
 }
 .fill--light-gray {
   background-color: rgba(247,247,247,.4);
-
+  background-color: #F1F1F2;
 }
 .color--success {
   color: #00E2C8 !important;
@@ -350,12 +350,12 @@ body a.nav-module {
 }
 .tip-title,
 h4 {
-    font-size: 20px;
-    letter-spacing: .5px;
+    font-size: 18px;
+    letter-spacing: 1px;
     font-family: 'Arimo', sans-serif;
     font-weight: 600;
     line-height: 20px;
-    text-transform: none;
+    text-transform: uppercase;
 }
 
 /******
@@ -368,19 +368,19 @@ h4 {
   color: black !important; /*DARK BLUE*/
   opacity: .4;
   font-weight: 300;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Rokkitt', sans-serif;
 }
 :-ms-input-placeholder { /* IE 10+ */
   color: black !important; /*DARK BLUE*/
   opacity: .4;
   font-weight: 300;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Rokkitt', sans-serif;
 }
 :-moz-placeholder { /* Firefox 18- */
   color: black !important; /*DARK BLUE*/
   opacity: .4;
   font-weight: 300;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Rokkitt', sans-serif;
 }
 
 
@@ -391,25 +391,25 @@ h4 {
   color: #2ECBDB;
   opacity: .4;
   font-weight: 300;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Rokkitt', sans-serif;
 }
 .page-itinerary ::-moz-placeholder { /* Firefox 19+ */
   color: #2ECBDB;
   opacity: .4;
   font-weight: 300;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Rokkitt', sans-serif;
 }
 .page-itinerary :-ms-input-placeholder { /* IE 10+ */
   color: #2ECBDB;
   opacity: .4;
   font-weight: 300;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Rokkitt', sans-serif;
 }
 .page-itinerary :-moz-placeholder { /* Firefox 18- */
   color: #2ECBDB;
   opacity: .4;
   font-weight: 300;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Rokkitt', sans-serif;
 }
 .article-page .comment-form .card-block textarea:focus {
   outline: -webkit-focus-ring-color auto 1px;

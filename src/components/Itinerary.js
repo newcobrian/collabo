@@ -241,7 +241,7 @@ class Itinerary extends React.Component {
                   </Link>
 
                   {/** DESCRIPTION **/}
-                  <div className="itinerary__cover__descrip v2-type-body2 ta-left mrgn-top-sm opa-80">
+                  <div className="itinerary__cover__descrip v2-type-body2 ta-left mrgn-top-xs mrgn-bottom-xs opa-80">
                      {itinerary.description}
                   </div>
 

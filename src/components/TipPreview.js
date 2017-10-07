@@ -89,39 +89,39 @@ const TipPreview = props => {
           
               
               { /** Title and Address **/ }
-              <div className="tip__title-module flx flx-row w-100">
+              <div className="tip__title-module flx flx-col w-100">
 
 
-                <div className="tip__right-module flx flx-col flx-align-end">
+
+                <div className="flx flx-row flx-m-col w-100">
+
+                  <div className="tip__right-module flx flx-col flx-m-row">
 
 
-                { /** Rating **/ }
-                <div className={'mobile-show tip__rating-module flx flx-row flx-align-center flx-item-right w-100 tip__rating-module--' + tip.review.rating}>
-                  <div className={'tip__rating flx-hold flx flx-row flx-center-all v2-type-rating--' +  tip.review.rating}>
-                    {tip.review.rating}
+                    { /** Image **/ }
+                    <div className="tip__image-module bg-loading">
+                      <div className={"tip__photo-count tip-count-" + tip.images.length}>{tip.images.length > 0 ? tip.images.length : null}</div>
+                      <ImagePicker images={tip.images} />
+                    </div>
+                    { /** END Image **/ }
+
+
+                    { /** Rating **/ }
+                    <div className={'DN tip__rating-module flx flx-row flx-align-center flx-item-right w-100 tip__rating-module--' + tip.review.rating}>
+                      <div className={'tip__rating flx-hold flx flx-row flx-center-all v2-type-rating--' +  tip.review.rating}>
+                        {tip.review.rating}
+                      </div>
+                      <i className="rating-star-icon material-icons color--black opa-40 md-14 DN">star</i>
+                    </div>
+                    { /** END Rating **/ }
+                    
+                     
+                    <div className="tip__timestamp v2-type-caption opa-20 mrgn-top-xs DN">
+                      <DisplayTimestamp timestamp={tip.review.lastModified} />
+                    </div>
+                    
                   </div>
-                  <i className="rating-star-icon material-icons color--black opa-40 md-14 DN">star</i>
-                </div>
-                { /** END Rating **/ }
-                
 
-                  { /** Image **/ }
-                  <div className="tip__image-module bg-loading">
-                    <div className={"tip__photo-count tip-count-" + tip.images.length}>{tip.images.length > 0 ? tip.images.length : null}</div>
-                    <ImagePicker images={tip.images} />
-                  </div>
-                  { /** END Image **/ }
-
-
-                 
-                  <div className="tip__timestamp v2-type-caption opa-20 mrgn-top-xs DN">
-                    <DisplayTimestamp timestamp={tip.review.lastModified} />
-                  </div>
-                  
-                </div>
-
-
-                <div className="flx flx-col w-100">
 
 
                   <div className="tip__content-wrapper">
@@ -137,7 +137,7 @@ const TipPreview = props => {
                       { /** END Title **/ }
 
                       { /** Rating **/ }
-                      <div className={'mobile-hide tip__rating-module flx flx-row flx-align-center flx-item-right w-100 flx-hold tip__rating-module--' + tip.review.rating}>
+                      <div className={'tip__rating-module flx flx-row flx-align-center flx-item-right w-100 flx-hold tip__rating-module--' + tip.review.rating}>
                         <div className={'tip__rating flx-hold flx flx-row flx-center-all v2-type-rating--' +  tip.review.rating}>
                           {tip.review.rating}
                         </div>

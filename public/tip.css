@@ -1,8 +1,15 @@
 .tip-wrapper {
-	background: #FFFFFF;
+	background: transparent;
     margin: 0;
-    border-bottom: 1px solid #D5E3E5;
+    /*border-bottom: 1px solid #D5E3E5;*/
+    padding: 10px 20px;
 } 
+.tip-wrapper:first-child {
+  padding-top: 20px;
+}
+.tip-wrapper:last-child {
+  padding-bottom: 20px;
+}
 .tip-wrapper.tip-selected {
   background-color:  rgba(0,207, 235, .04)
 }
@@ -32,6 +39,7 @@
 .tip-container {
 	width: 100%;
 	padding: 30px 20px;
+  background-color: white;
 }
 .tip-inner {
 }
@@ -141,6 +149,14 @@
 }
 .edit-tip__dropzone__touch {
 	width: 100%;
+  
+}
+.add-photo-wrapper {
+    position: absolute;
+  left: 0;
+  bottom: 0;
+  width: auto;
+  background-color: rgba(0,0,0,.4)
 }
 .edit-tip__dropzone ul {
 	color: black;
