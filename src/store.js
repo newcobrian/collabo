@@ -59,27 +59,50 @@ const reducer = combineReducers({
   // firebase: firebaseStateReducer
 });
 
-const config = {
-    apiKey: "AIzaSyDVRupOyUI_19kCWMbggJEcuJnKfRfoSis",
-    authDomain: "views-18a9f.firebaseapp.com",
-    databaseURL: "https://views-18a9f.firebaseio.com",
-    projectId: "views-18a9f",
-    storageBucket: "views-18a9f.appspot.com",
-    messagingSenderId: "750421710091"
-  };
-
-Firebase.initializeApp(config);
-
 // init mixpanel and pass mixpanel client to middleware 
 var productionHost = 'whatsgoooood.com';
 var devToken = 'e731aa1cb95e57349cd2e339f35ccd8a';
 var prodToken = '3474a67ba992a7b76e04807d6820f125';
 
+let firebaseConfig = {};
+
 if (window.location.hostname.toLowerCase().search(productionHost) < 0) {
+    // use dev mixpanel and firebase
+    // firebaseConfig = Object.assign({}, {
+    //   apiKey: "AIzaSyApHTdIwxdDNAsrvH6cZ_tsqCax7tKB8KU",
+    //   authDomain: "views-dev.firebaseapp.com",
+    //   databaseURL: "https://views-dev.firebaseio.com",
+    //   projectId: "views-dev",
+    //   storageBucket: "views-dev.appspot.com",
+    //   messagingSenderId: "606123329981"
+    // });
+
+    firebaseConfig = Object.assign({}, {
+      apiKey: "AIzaSyDVRupOyUI_19kCWMbggJEcuJnKfRfoSis",
+      authDomain: "views-18a9f.firebaseapp.com",
+      databaseURL: "https://views-18a9f.firebaseio.com",
+      projectId: "views-18a9f",
+      storageBucket: "views-18a9f.appspot.com",
+      messagingSenderId: "750421710091"
+    });
+
     mixpanel.init(devToken);
 } else {
+    // use prod mixpanel and firebase
+    firebaseConfig = Object.assign({}, {
+      apiKey: "AIzaSyDVRupOyUI_19kCWMbggJEcuJnKfRfoSis",
+      authDomain: "views-18a9f.firebaseapp.com",
+      databaseURL: "https://views-18a9f.firebaseio.com",
+      projectId: "views-18a9f",
+      storageBucket: "views-18a9f.appspot.com",
+      messagingSenderId: "750421710091"
+    });
+
     mixpanel.init(prodToken);
 }
+
+Firebase.initializeApp(firebaseConfig);
+
 const mixpanelMiddleware = new MixpanelMiddleware(mixpanel)
 
 // const createStoreWithFirebase = compose(
