@@ -27,6 +27,10 @@ class MapContainer extends React.Component {
 		}
 	}
 
+	componentWillMount() {
+		this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'map container'});
+	}
+
   	render() {
 	  	if (!this.props.google) {
 	      return (

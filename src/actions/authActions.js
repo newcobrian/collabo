@@ -2,6 +2,7 @@ import Firebase from 'firebase';
 import * as Constants from '../constants'
 import * as Helpers from '../helpers'
 import * as ActionTypes from './types'
+import mixpanel from 'mixpanel-browser'
 
 export function askForAuth() {
   return dispatch => {
@@ -93,6 +94,15 @@ export function signUpUser(username, email, password, redirect) {
 
             Helpers.updateAlgloiaUsersIndex(username, userId);
 
+            // set account created date super property
+            mixpanel.register({
+              'account created': (new Date()).toISOString()
+            });
+
+            // set acount created date people property
+            mixpanel.people.set({ "account created": (new Date()).toISOString() });
+            mixpanel.identify(userId);
+
             dispatch({
               type: ActionTypes.SIGN_UP_USER,
               payload: userId,
@@ -128,6 +138,17 @@ export function signInUser(email, password, redirect) {
     else {
       Firebase.auth().signInWithEmailAndPassword(email, password)
       .then(response => {
+
+        // set last login date super property
+        mixpanel.register({
+          'last login': (new Date()).toISOString(),
+        });
+
+        // set acount created date people property
+        mixpanel.people.set({ "last login": (new Date()).toISOString() });
+        mixpanel.people.increment("total logins");
+        mixpanel.identify(response.uid);
+
         dispatch({
           type: ActionTypes.AUTH_USER,
           redirect: redirect,

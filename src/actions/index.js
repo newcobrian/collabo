@@ -2,6 +2,7 @@ import Firebase from 'firebase';
 import * as Constants from '../constants'
 import * as Helpers from '../helpers'
 import * as ActionTypes from './types'
+import mixpanel from 'mixpanel-browser'
 import 'whatwg-fetch';
 
 export const AUTH_ERROR = 'AUTH_ERROR';
@@ -238,6 +239,8 @@ export function followUser(authenticated, follower) {
     Helpers.sendInboxMessage(authenticated, follower, Constants.FOLLOW_MESSAGE, null, null, null);
     Firebase.database().ref().update(updates);
 
+    mixpanel.people.increment("total follows");
+
     dispatch({
       type: FOLLOWED_USER,
       meta: {
@@ -278,6 +281,20 @@ export function unfollowUser(authenticated, following) {
       updates[`/${Constants.IS_FOLLOWING_PATH}/${follower}/${following}`] = null;
     }
     Firebase.database().ref().update(updates);
+
+    mixpanel.people.increment("total follows", -1);
+
+    dispatch({
+      type: ActionTypes.UNFOLLOWED_USER,
+      meta: {
+        mixpanel: {
+          event: 'Followed user',
+          props: {
+            userId: following
+          },
+        }
+      }
+    });
   }
 }
 
@@ -580,13 +597,19 @@ export function onCreateItinerary(auth, itinerary) {
         // update Algolia index
         Helpers.updateAlgloiaGeosIndex(itinerary.geo)
 
+        mixpanel.people.increment("total itineraries");
+        mixpanel.people.set({ "last itinerary created": (new Date()).toISOString() });
+        mixpanel.identify(auth);
+
         dispatch({
           type: ITINERARY_CREATED,
           payload: itineraryObject,
           itineraryId: itineraryId,
           meta: {
             mixpanel: {
-              event: 'Itinerary created'
+              event: 'Itinerary created',
+              itineraryId: itineraryId,
+              geo: itinerary.geo.placeId
             }
           }
         })
@@ -896,7 +919,15 @@ export function uploadCustomSubjectImages(auth, objectId, images, itineraryId) {
 
               dispatch({
                 type: ActionTypes.TIP_IMAGE_UPLOAD_COMPLETED,
-                subjectId: objectId
+                subjectId: objectId,
+                meta: {
+                mixpanel: {
+                  event: 'Upload custom subject photos',
+                  itineraryId: itineraryId,
+                  subjectId: objectId,
+                  numImages: images ? images.length : 0
+                }
+              }
               })
             }
           })
@@ -977,7 +1008,15 @@ export function uploadCoverPhoto(auth, imageFile, itinerary, itineraryId) {
             Firebase.database().ref().update(updates);
 
             dispatch({
-              type: ActionTypes.UPLOAD_COMPLETED
+              type: ActionTypes.UPLOAD_COMPLETED,
+              meta: {
+                mixpanel: {
+                  event: 'Upload cover photo',
+                  itineraryId: itineraryId,
+                  geo: itinerary.geo.placeId,
+                  numTips: itinerary.tips ? itinerary.tips.length : 0
+                }
+              }
             })
           }
         })
@@ -1665,6 +1704,10 @@ export function onCommentSubmit(authenticated, userInfo, type, commentObject, bo
           }
         }
       })
+
+      mixpanel.people.increment("total comments");
+      mixpanel.people.set({ "last comment date": (new Date()).toISOString() });
+      mixpanel.identify(authenticated);
     }
   }
 }
@@ -1723,6 +1766,8 @@ export function onDeleteComment(commentObject, commentId, itineraryId) {
     // update guide popularity score
     Helpers.decrementGuideScore(itineraryId, Constants.COMMENT_GUIDE_SCORE);
 
+    mixpanel.people.increment("total comments", -1);
+
     dispatch({
       type: DELETE_COMMENT
     })
@@ -1765,6 +1810,9 @@ export function onDeleteItinerary(userId, itineraryId, geo, redirectPath) {
       redirect: redirectPath,
       message: message
     })
+
+    mixpanel.people.increment("total itineraries");
+    mixpanel.identify(userId);
   }
 }
 
@@ -1815,7 +1863,16 @@ export function onUpdateRating(userId, reviewId, subjectId, rating) {
     Firebase.database().ref().update(updates);
 
     dispatch({
-      type: RATING_UPDATED
+      type: RATING_UPDATED,
+      meta: {
+        mixpanel: {
+          event: 'rating updated',
+          props: {
+            subject: subjectId,
+            rating: rating
+          }
+        }
+      }
     })
   }
 }
@@ -2304,6 +2361,7 @@ export function likeReview(authenticated, type, likeObject, itineraryId) {
           Helpers.incrementItineraryCount(Constants.LIKES_COUNT, id, likeObject.geo, likeObject.createdBy.userId);
           Helpers.sendInboxMessage(authenticated, likeObject.createdBy.userId, Constants.LIKE_ITINERARY_MESSAGE, likeObject, itineraryId, null);
 
+          mixpanel.people.increment("total likes");
 
           dispatch({
             type: REVIEW_LIKED,
@@ -2339,13 +2397,15 @@ export function likeReview(authenticated, type, likeObject, itineraryId) {
           });
           Helpers.sendInboxMessage(authenticated, likeObject.userId, Constants.LIKE_TIP_MESSAGE, likeObject, itineraryId, null);
 
+          mixpanel.people.increment("total likes");
+
           dispatch({
             type: REVIEW_LIKED,
             meta: {
               mixpanel: {
                 event: 'Liked review',
                 props: {
-                  subjectId: likeObject.subjectId
+                  tipId: id
                 }
               }
             }
@@ -2401,6 +2461,8 @@ export function unLikeReview(authenticated, type, unlikeObject, itineraryId) {
       // update guide popularity score
       Helpers.decrementGuideScore(itineraryId, Constants.LIKE_GUIDE_SCORE);
 
+      mixpanel.people.increment("total likes", -1);
+
       dispatch({
         type: REVIEW_UNLIKED
       })
@@ -2425,13 +2487,15 @@ export function saveReview(authenticated, review) {
         Helpers.incrementCount(Constants.SAVES_COUNT, review.id, review.subjectId, review.reviewer.userId);
         Helpers.sendInboxMessage(authenticated, review.reviewer.userId, Constants.SAVE_MESSAGE, review);
 
+        mixpanel.people.increment("total saves");
+
         dispatch({
           type: REVIEW_SAVED,
           meta: {
             mixpanel: {
               event: 'Saved review',
               props: {
-                subjectId: review.subjectId
+                subjectId: review.subjectId,
               }
             }
           }
@@ -2466,6 +2530,9 @@ export function unSaveReview(authenticated, review) {
       updates[`/${Constants.SAVES_BY_USER_PATH}/${authenticated}/${review.id}`] = null;
       Firebase.database().ref().update(updates).then(response => {
         Helpers.decrementCount(Constants.SAVES_COUNT, review.id, review.subjectId, review.reviewer.userId);
+
+        mixpanel.people.increment("total saves", -1);
+
         dispatch({
           type: REVIEW_UNSAVED
         })
@@ -2905,13 +2972,20 @@ export function addToItinerary(auth, tip, itinerary) {
 
               Helpers.sendInboxMessage(auth, tip.userId, Constants.SAVE_MESSAGE, Object.assign({}, itinerary, {id: itineraryId}), itineraryId)
 
+              mixpanel.people.increment("total saves");
+
               dispatch({
                 type: ADDED_TO_ITINERARY,
                 message: message,
                 link: '/guide/' + itineraryId,
                 meta: {
                   mixpanel: {
-                    event: 'Saved to itinerary'
+                    event: 'Saved to itinerary',
+                    props: {
+                      itineraryId: itineraryId,
+                      tipId: tip.key,
+                      userId: tip.userId
+                    },
                   }
                 }
               })
@@ -3093,7 +3167,12 @@ export function openLightbox(images) {
   return dispatch => {
     dispatch({
       type: OPEN_LIGHTBOX,
-      images: images
+      images: images,
+      meta: {
+        mixpanel: {
+          event: 'Opened Lightbox',
+        }
+      }
     })
   }
 }

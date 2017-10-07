@@ -19,7 +19,7 @@ class Places extends React.Component {
   componentWillMount() {
     this.props.loadPlaces(this.props.params.pid);
     this.props.getPlacesFeed(this.props.authenticated, this.props.params.pid);
-    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'location'});
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'places'});
   }
 
   componentWillUnmount() {

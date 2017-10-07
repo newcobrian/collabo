@@ -353,6 +353,7 @@ export function updateItineraryField(auth, itinerary, field, value) {
             event: 'Itinerary updated',
             props: {
               itineraryId: itinerary.id,
+              field: field
             }
           }
         }
@@ -419,6 +420,7 @@ export function updateItineraryGeo(auth, itinerary, newGeo) {
                   event: 'Itinerary updated',
                   props: {
                     itineraryId: itinerary.id,
+                    field: 'geo'
                   }
                 }
               }
@@ -461,9 +463,9 @@ export function updateReviewField(auth, itinerary, field, value, tip) {
         message: 'Updated your review for ' + tip.subject.title,
         meta: {
           mixpanel: {
-            event: 'Itinerary updated',
+            event: 'review updated',
             props: {
-              itineraryId: itinerary.id,
+              subject: tip.subjectId
             }
           }
         }
@@ -583,9 +585,21 @@ export function onAddTip(auth, result, itinerary) {
 
       Firebase.database().ref().update(updates);
 
-      // dispatch({
-      //   type: ActionTypes.ITINERARY_UPDATED
-      // })
+      dispatch({
+        type: ActionTypes.ITINERARY_UPDATED,
+        itineraryId: itinerary.id,
+        message: 'Tip added',
+        meta: {
+          mixpanel: {
+            event: 'tip added to itinerary',
+            props: {
+              itinerary: itinerary.id,
+              tip: tipId,
+              subject: subjectId
+            }
+          }
+        }
+      })
     })
   }
 }
@@ -607,7 +621,17 @@ export function onDeleteTip(auth, tip, itineraryId, itinerary) {
       Helpers.decrementGuideScore(itineraryId, Constants.ADD_TIP_GUIDE_SCORE)
 
       dispatch({
-        type: ActionTypes.TIP_DELETED
+        type: ActionTypes.TIP_DELETED,
+        meta: {
+          mixpanel: {
+            event: 'tip deleted from itinerary',
+            props: {
+              itinerary: itinerary.id,
+              tip: tip.key,
+              subject: tip.subjectId
+            }
+          }
+        }
       })
     })
   }
@@ -643,6 +667,19 @@ export function onReorderTips(itinerary, oldIndex, newIndex) {
       updates[`/${Constants.TIPS_BY_ITINERARY_PATH}/${itinerary.id}/${moveTipId}/priority`] = newPriority;
     }
     Firebase.database().ref().update(updates);
+
+    dispatch({
+      type: ActionTypes.ITINERARY_REORDERED,
+      meta: {
+        mixpanel: {
+          event: 'reordered itinerary',
+          props: {
+            itinerary: itinerary.id,
+            numTips: itinerary.tips.length
+          }
+        }
+      }
+    })
   } 
 }
 
