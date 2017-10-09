@@ -97,6 +97,10 @@ class Itinerary extends React.Component {
       // this.props.onItineraryUnload(this.props.authenticated, itineraryId);
       // this.props.unloadItineraryComments(itineraryId);
     }
+
+    this.onMapToggle = ev => {
+      this.props.toggleMapView()
+    }
   }
 
   componentWillMount() {
@@ -287,7 +291,7 @@ class Itinerary extends React.Component {
                       </div>
 
                       <div className="vb vb--sm vb--outline fill--white color--black flx-item-right">
-                        <div className="mrgn-right-sm">Share Guide</div>
+                        <div className="mrgn-right-sm" onClick={this.onMapToggle}>Share Guide</div>
                         <i className="material-icons color--primary md-18">share</i>
                       </div>
 

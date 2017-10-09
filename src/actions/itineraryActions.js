@@ -754,6 +754,14 @@ export function unloadRelatedItineraries(auth) {
   }
 }
 
+export function toggleMapView() {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.TOGGLE_MAP_VIEW
+    })
+  }
+}
+
 // export function onCloseInfoWindow() {
 //   return dispatch => {
 //     dispatch({

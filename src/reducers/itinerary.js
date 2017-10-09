@@ -468,6 +468,11 @@ export default (state = initialState, action) => {
         activeTipPosition: action.activeTipPosition,
         activeTipTitle: action.activeTipTitle
       }
+    case ActionTypes.TOGGLE_MAP_VIEW:
+      return {
+        ...state,
+        mapViewToggle: !state.mapViewToggle
+      }
     default:
       return state;
   }

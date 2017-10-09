@@ -123,6 +123,10 @@ class ItineraryForm extends React.Component {
       this.props.onDeleteTip(this.props.authenticated, tip, this.props.itineraryId, this.props.data)
     }
 
+    this.onMapToggle = ev => {
+      this.props.toggleMapView()
+    }
+
     this.suggestSelectGeo = result => {
       let geoData = {
         label: result.label,
@@ -468,7 +472,7 @@ class ItineraryForm extends React.Component {
                   </div>
 
                   <div className="vb vb--sm vb--outline fill--white color--black flx-item-right">
-                    <div className="mrgn-right-sm">Share Guide</div>
+                    <div className="mrgn-right-sm" onClick={this.onMapToggle}>Share Guide</div>
                     <i className="material-icons color--primary md-18">share</i>
                   </div>
 
