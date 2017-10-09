@@ -101,14 +101,14 @@ class Home extends React.Component {
     if (!authenticated) {
       return (
        <div className="hero-container logged-out flx flx-col">
-        <div className="marketing-page navigation-bar flx flx-row flx-align-center flx-just-end pdding-right-md">
-            <Link to="/login" className="nav-module nav-feed flx flx-center-all">
+        <div className="marketing-page navigation-bar flx flx-row flx-align-center flx-just-end pdding-right-md DN">
+            <Link to="/login" className="nav-module nav-feed flx flx-center-all vb vb--sm fill--white color--black">
               <div className="nav-text">
                 Log in
               </div>
             </Link>
 
-            <Link to="/register" className="nav-module nav-feed flx flx-center-all">
+            <Link to="/register" className="nav-module nav-feed flx flx-center-all vb vb--sm color--white">
               <div className="nav-text">
                 Sign up
               </div>
@@ -119,6 +119,9 @@ class Home extends React.Component {
           <div className="homepage-logo mrgn-bottom-md">  
             <img className="center-img w-100" src="/img/logos/logo_stripes_lg.png"/>
           </div>
+          <div className="logo-main">
+            VIEWS
+          </div>
           <div className="v2-type-intro color--black mrgn-bottom-lg">
            Save and share travel guides
           </div>
@@ -127,7 +130,7 @@ class Home extends React.Component {
         <div className="hero-ocean flx flx-col flx-center-all">
           <Link to="/register" className="">
             <div className="vb vb--light vb--intro--register fill--primary color--white flx flx-row flx-center-all ta-center bx-shadow">
-              <div className="flx-grow1 mrgn-left-md">Get Started</div>
+              <div className="flx-grow1">Get Started</div>
               <i className="material-icons md-32 color--white flex-item-right mrgn-left-sm DN">flight_takeoff</i>
             </div>
           </Link>
@@ -327,9 +330,9 @@ class Home extends React.Component {
         </div>
         
 
-        <div className="DN footer fill--black color--white flx flx-col flx-center-all">
+        <div className="footer fill--black color--white flx flx-col flx-center-all flx-item-bottom">
           <div className="homepage-logo mrgn-bottom-md">  
-            <img className="center-img w-100" src="/img/logos/logo_stripes_lg.png"/>
+            <img className="center-img w-100" src="/img/logos/logo_stripes_on-black.png"/>
           </div>
           <div className="v2-type-intro color--white opa-70 mrgn-bottom-lg DN">
             Travel with the knowledge of your friends

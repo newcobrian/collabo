@@ -18,6 +18,7 @@ body a:hover {
   transition: all 0.23s ease-in-out 0s;
 }
 
+
 input[type="checkbox"] {
     display:none;
 }

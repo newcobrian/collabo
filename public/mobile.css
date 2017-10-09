@@ -174,7 +174,13 @@ margin: 0;
 
 }
 
-
+.logged-out .navigation-bar .nav-module {
+    width: 50%;
+    margin: 0 !important;
+    margin-top: 0 !important;
+    padding: 0;
+    border-top: 0;
+}
 
 
 .navigation-bar .nav-editor .nav-icon {

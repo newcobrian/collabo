@@ -105,6 +105,13 @@ a.logo-module:focus {
   /*color: #63A652;  Bright green */
   /*color: #4F7A39;*/
 }
+.logged-out .navigation-bar .nav-module {
+  padding: 0 40px;
+  border-bottom: 0;
+  margin: 0;
+  text-transform: none;
+  height: 69px;
+}
 .nav-module.nav-editor {
   order: 1;
 }
