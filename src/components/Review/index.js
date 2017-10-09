@@ -197,21 +197,21 @@ class Review extends React.Component {
                             <i className="material-icons mrgn-right-md color--primary md-18">&#xE55F;</i>
                             <label>Address</label>
                           </div>
-                          <div className="v2-type-body1">{subject.address}</div>
+                          <div className="v2-type-body2">{subject.address}</div>
                         </div>
                         <div className="tip__data tip__phone flx flx-col flx-align-start v2-type-body1 ta-left">
                           <div className="flx flx-row flx-align-center mrgn-bottom-sm">
                             <i className="material-icons mrgn-right-md color--primary md-18">phone</i>
                             <label>Phone</label>
                           </div>
-                          <div className="v2-type-body1">{subject.internationalPhoneNumber}</div>
+                          <div className="v2-type-body2">{subject.internationalPhoneNumber}</div>
                         </div>
                         <div className="tip__data tip__hours flx flx-col flx-align-start v2-type-body1 ta-left">
                           <div className="flx flx-row flx-align-center mrgn-bottom-sm">
                             <i className="material-icons mrgn-right-md color--primary">schedule</i>
                             <label>Hours</label>
                           </div>
-                          <div className="v2-type-body1">{showWeekdayText(subject)}</div>
+                          <div className="v2-type-body2">{showWeekdayText(subject)}</div>
                         </div>
                       </div>
 
