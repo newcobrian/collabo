@@ -1286,6 +1286,7 @@ li.nav-divider {
 .comments-module {
   width: 100%;
   max-width: 800px;
+  font-family: 'Rokkitt', sans-serif;
 }
 .delete-wrapper {
  position: relative;

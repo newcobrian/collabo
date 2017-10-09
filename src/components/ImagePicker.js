@@ -26,7 +26,7 @@ class ImagePicker extends React.Component {
         +  encodeURIComponent(images[0].url.replace(/^https?\:\/\//i, ""))) : images[0].url;
 
         return (
-            <div>
+            <div className="default-bg">
               <img src={imgSrc} className="center-img header-height" onClick={this.handleClick} />
                 <MetaTags>
                   <meta id="og-image" property="og:image" content={imgSrc} />
@@ -45,7 +45,7 @@ class ImagePicker extends React.Component {
       // }
       else if (images[0].preview) {
         return (
-            <div>
+            <div className="default-bg">
               <img src={images[0].preview} className="center-img header-height" onClick={this.handleClick} />
                 <MetaTags>
                     <meta id="og-image" property="og:image" content={images[0].preview} />
