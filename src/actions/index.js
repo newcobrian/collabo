@@ -3292,3 +3292,11 @@ export function setAuthRedirect(redirect) {
     })
   }
 }
+
+export function userDoesntExist() {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.USER_DOESNT_EXIST
+    })
+  }
+}

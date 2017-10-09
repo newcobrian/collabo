@@ -19,6 +19,9 @@ class Followings extends Followers {
         this.props.getProfileCounts(userId);
         this.props.checkFollowing(this.props.authenticated, userId);
       }
+      else {
+        this.props.userDoesntExist();
+      }
     });
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'is following'});
   }
@@ -93,6 +96,16 @@ class Followings extends Followers {
   }
 
     render() {
+      if (this.props.userNotFound) {
+        return (
+          <div className="error-module flx flx-col flx-center-all ta-center v2-type-body3 color--black">
+            <div className="xiao-img-wrapper mrgn-bottom-sm">
+              <img className="center-img" src="/img/xiaog.png"/>
+            </div>
+            <div className="mrgn-bottom-md">Sorry, we couldn't find this user.</div>
+          </div>
+        );
+      }
       if (!this.props.profile) {
         return (
           <div className="loading-module flx flx-col flx-center-all v2-type-body3 fill--black">
@@ -104,7 +117,14 @@ class Followings extends Followers {
           )
       }
       if (this.props.profile.length === 0) {
-        return (<div>User does not exist.</div>);
+        return (
+          <div className="error-module flx flx-col flx-center-all ta-center v2-type-body3 color--black">
+            <div className="xiao-img-wrapper mrgn-bottom-sm">
+              <img className="center-img" src="/img/xiaog.png"/>
+            </div>
+            <div className="mrgn-bottom-md">Sorry, we couldn't find this user.</div>
+          </div>
+        );
       }
 
       if (!this.props.followers) {

@@ -17,6 +17,9 @@ class ProfileSaves extends Profile {
         this.props.getFollowerCount(userId);
         this.props.getLikesOrSavesByUser(this.props.authenticated, userId, Constants.SAVES_BY_USER_PATH);
       }
+      else {
+        this.props.userDoesntExist();
+      }
     });
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'saves'});
   }

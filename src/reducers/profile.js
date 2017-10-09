@@ -92,6 +92,11 @@ export default (state = initialState, action) => {
         ...state,
         tipTabActive: action.tipTabActive
       }
+    case ActionTypes.USER_DOESNT_EXIST:
+      return {
+        ...state,
+        userNotFound: true
+      }
     default:
       return state;
   }

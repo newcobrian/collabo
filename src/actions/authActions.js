@@ -367,11 +367,3 @@ export function logout() {
     type: ActionTypes.SIGN_OUT_USER
   }
 }
-
-export function userDoesntExist() {
-  return dispatch => {
-    dispatch({
-      type: ActionTypes.USER_DOESNT_EXIST
-    })
-  }
-}

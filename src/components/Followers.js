@@ -25,6 +25,9 @@ class Followers extends React.Component {
 	        this.props.getProfileCounts(userId);
         	this.props.checkFollowing(this.props.authenticated, userId);
 	      }
+	      else {
+	      	this.props.userDoesntExist();
+	      }
 	    });
 	    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'followers'});
 	}
@@ -99,6 +102,16 @@ class Followers extends React.Component {
 
 
 	render() {
+		if (this.props.userNotFound) {
+	      return (
+	        <div className="error-module flx flx-col flx-center-all ta-center v2-type-body3 color--black">
+	          <div className="xiao-img-wrapper mrgn-bottom-sm">
+	            <img className="center-img" src="/img/xiaog.png"/>
+	          </div>
+	          <div className="mrgn-bottom-md">Sorry, we couldn't find this user.</div>
+	        </div>
+	      );
+	    }
 	    if (!this.props.profile) {
 	      return (
 	        <div className="loading-module flx flx-col flx-center-all v2-type-body3 fill--black">
@@ -110,7 +123,14 @@ class Followers extends React.Component {
 	        )
 	    }
 	    if (this.props.profile.length === 0) {
-	      return (<div>User does not exist.</div>);
+	      return (
+	        <div className="error-module flx flx-col flx-center-all ta-center v2-type-body3 color--black">
+	          <div className="xiao-img-wrapper mrgn-bottom-sm">
+	            <img className="center-img" src="/img/xiaog.png"/>
+	          </div>
+	          <div className="mrgn-bottom-md">Sorry, we couldn't find this user.</div>
+	        </div>
+	      );
 	    }
 
 	    if (!this.props.followers) {
