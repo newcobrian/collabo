@@ -151,6 +151,7 @@ class Followers extends React.Component {
 		            authenticated={this.props.authenticated}
 		            profile={this.props.profile}
 		            follow={this.props.followUser}
+		            signOut={this.props.signOutUser}
 		            unfollow={this.props.unfollowUser} />
 
 		          {this.renderTabs()}

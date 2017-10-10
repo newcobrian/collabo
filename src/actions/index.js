@@ -2610,7 +2610,7 @@ export function getFollowers(userId, followPath) {
 
 export function unloadFollowers(userId, followPath) {
   return dispatch => {
-    const current = Firebase.auth().currentUser.uid;
+    const current = Firebase.auth().currentUser ? Firebase.auth().currentUser.uid : null;
     Firebase.database().ref(followPath + '/' + userId).on('value', followersSnapshot => {
       followersSnapshot.forEach(function(follower) {
         let followerId = follower.key;
