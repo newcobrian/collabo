@@ -683,12 +683,13 @@ export function onReorderTips(itinerary, oldIndex, newIndex) {
   } 
 }
 
-export function onSelectActiveTip(subject) {
+export function onSelectActiveTip(tip) {
   return dispatch => {
     dispatch({
       type: ActionTypes.SELECT_ACTIVE_TIP,
-      activeTipTitle: subject.title,
-      activeTipPosition: subject.location
+      activeTipTitle: tip.subject.title,
+      activeTipPosition: tip.subject.location,
+      selectedMarker: tip.key
     })
   }
 }

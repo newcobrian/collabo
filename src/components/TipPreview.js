@@ -74,15 +74,15 @@ const TipPreview = props => {
     return '';
   }
 
-  const onTipClick = (subject) => ev => {
+  const onTipClick = (tip) => ev => {
       ev.preventDefault();
       if (props.onSelectActiveTip) {
-        props.onSelectActiveTip(subject);
+        props.onSelectActiveTip(tip);
       }
     }
   
   return (
-    <Element name={'tip' + tip.key} className={"tip-wrapper flx flx-col flx-col w-100 w-max" + isSelectedTip(tip.key)} id={'tip' + tip.key} onClick={onTipClick(tip.subject)}>
+    <Element name={'tip' + tip.key} className={"tip-wrapper flx flx-col flx-col w-100 w-max" + isSelectedTip(tip.key)} id={'tip' + tip.key} onClick={onTipClick(tip)}>
         
         <div className="tip-container flx flx-col flx-center-all w-100">
             
