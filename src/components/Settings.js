@@ -6,7 +6,6 @@ import * as Constants from '../constants';
 import ProxyImage from './ProxyImage';
 import ProfilePic from './ProfilePic';
 
-
 class SettingsForm extends React.Component {
   constructor() {
     super();
@@ -56,7 +55,6 @@ class SettingsForm extends React.Component {
         email: this.props.currentUser.email
       });
     }
-    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'settings'});
   }
 
   // componentWillUnmount() {
@@ -162,7 +160,7 @@ const mapStateToProps = state => ({
 class Settings extends React.Component {
   componentWillMount() {
     this.props.getProfileUser(this.props.authenticated);
-    this.props.sendMixpanelEvent('Settings page loaded');
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'settings'});
   }
 
   componentWillUnmount() {
