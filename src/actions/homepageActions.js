@@ -102,6 +102,9 @@ export function startFeedWatch(auth) {
     watchLikesByUser(dispatch, auth, Constants.USER_FEED);
     watchFollowingFeed(dispatch, auth);
     watchItinerariesByUser(dispatch, auth)
+    dispatch({
+      type: ActionTypes.FEED_WATCH_LOADED
+    })
   }
 }
 

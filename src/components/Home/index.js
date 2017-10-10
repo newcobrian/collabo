@@ -224,7 +224,7 @@ class Home extends React.Component {
     const isLandingPage = (browserHistory.getCurrentLocation().pathname === '/global') && !this.props.authenticated ?
       'page-landing' : ''
 
-    if (!this.props.itineraries) {
+    if (!this.props.itineraries || (this.props.itineraries.length === 0 && !this.props.feedWatchLoaded)) {
       return (
         <div className="loading-module flx flx-col flx-center-all v2-type-body3 fill--black">
           <div className="earth-graphic w-100">  

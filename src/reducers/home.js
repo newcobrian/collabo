@@ -205,6 +205,11 @@ export default (state = initialState, action) => {
       }
     case ActionTypes.UNLOAD_POPULAR_FEED:
       return initialState;
+    case ActionTypes.FEED_WATCH_LOADED:
+      return {
+        ...state,
+        feedWatchLoaded: true
+      }
     default:
       return state;
   }
