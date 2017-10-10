@@ -36,7 +36,7 @@ class MapContainer extends React.Component {
 	      return (
 	         <div className="map-loading-wrapper flx flx-col flx-center-all v2-type-body3 fill--black color--white">
 	          <div className="earth-graphic">  
-	            <img className="center-img" src="/img/loading-02.png"/>
+	            <img className="center-img" src="/img/logos/logo_stripes_on-black.png"/>
 	          </div>
 	          <div className="color--white">Loading Map</div>
 	        </div>
@@ -79,7 +79,7 @@ class MapContainer extends React.Component {
 				className="map-wrapper" >
 		        {
 		          this.props.itinerary.tips.map((tipItem, index) => {
-		          	let markerUrl = (tipItem.key === this.props.selectedMarker ? "/img/graphics/map-pin_hover.png": "/img/graphics/map-pin_hover.png")
+		          	let markerUrl = (tipItem.key === this.props.selectedMarker ? "/img/graphics/map-pin_normal.png": "/img/graphics/map-pin_hover.png")
 		            return (
 		              <Marker
 		                key={index}
@@ -110,7 +110,7 @@ class MapContainer extends React.Component {
 			        pixelOffset: new this.props.google.maps.Size(0,-48)
 			        }} >
 		            <div>
-		                <h4>{this.props.activeTipTitle}</h4>
+		                <h4>{this.props.index} {this.props.activeTipTitle}</h4>
 		            </div>
 		        </InfoWindow>
 

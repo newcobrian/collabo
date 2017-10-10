@@ -353,7 +353,7 @@ input.input--underline {
   width: 100%;
 }
 .page-edit-own .it__title-module .geosuggest__input {
-  opacity: .5;
+  opacity: 1;
   text-transform: uppercase;
   padding: 6px 5px 2px;
 }

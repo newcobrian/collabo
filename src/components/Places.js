@@ -86,7 +86,7 @@ class Places extends React.Component {
             </div>
             {this.props.geo.label}
           </div>
-          <div className="v2-type-body2 opa-60 mrgn-top-sm"></div>
+          <div className="v2-type-body2 opa-60"></div>
         </div>
         <div className="toggle-wrapper DN">
         </div>

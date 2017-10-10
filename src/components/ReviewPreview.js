@@ -107,7 +107,7 @@ const ReviewPreview = props => {
                           <div className="tip__author-photo flx-hold mrgn-right-sm">
                             <ProfilePic src={tip.createdBy.image} className="user-image user-image-sm center-img" />
                           </div> 
-                          <div className="color--black weight-400 v2-type-body1">
+                          <div className="color--black weight-400 user-name color--primary">
                             {tip.createdBy.username}
                           </div>
                       </div>
@@ -140,8 +140,8 @@ const ReviewPreview = props => {
                     <div className="v2-type-caption color--black opa-60 DN">in {tip.itineraries.length} guides:</div>
                     {tip.itineraries.map((itinItem, index) => {
                       return (
-                        <div className="guide-link v2-type-caption" key={index}>
-                          <Link className="v2-type-caption color--primary" to={'/guide/' + itinItem.itineraryId}>{itinItem.title}</Link>
+                        <div className="guide-link" key={index}>
+                          <Link className="color--primary" to={'/guide/' + itinItem.itineraryId}>{itinItem.title}</Link>
                         </div>
                       )
                     })}

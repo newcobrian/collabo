@@ -10,8 +10,16 @@
 .tip-wrapper:last-child {
   padding-bottom: 20px;
 }
+
+.page-itinerary .tip-container {
+  border: 1px solid white;
+}
+.page-itinerary .tip-container:hover {
+  border: 1px solid #3DCBF3;
+  cursor: pointer;
+}
 .tip-wrapper.tip-selected {
-  background-color:  rgba(0,207, 235, .04)
+  background-color: #F4FAFC;
 }
 
 .tip-wrapper .tip-map-marker {
@@ -439,6 +447,8 @@ select:hover {
   margin-right: 10px;
   padding-right: 10px;
   margin-bottom: 10px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 13px;
 }
 .reviewpreview-wrapper .guide-link:last-child {
   border-right: none;

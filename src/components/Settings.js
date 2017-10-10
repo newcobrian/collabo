@@ -185,9 +185,9 @@ class Settings extends React.Component {
 
 
               <div
-                className="vb vb--sm vb--shadow-none fill--none color--primary w-100"
+                className="fill--none color--primary w-100 mrgn-top-md ta-center w-100"
                 onClick={this.props.signOutUser}>
-                Or click here to logout.
+                Logout
               </div>
 
 

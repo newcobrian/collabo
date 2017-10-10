@@ -30,7 +30,7 @@ const CommentContainer = props => {
 	} else {
 		return (
 			<div className="v2-type-body2 pdding-top-sm pdding-bottom-md">
-				<div className="mrgn-top-md mrgn-bottom-md">
+				<div className="mrgn-top-md mrgn-bottom-md brdr-all fill--light-gray pdding-all-sm ta-center">
 					<Link className="color--primary" to="/login">Log in</Link>
 					&nbsp;or&nbsp;
 					<Link className="color--primary" to="/register">Sign up</Link>

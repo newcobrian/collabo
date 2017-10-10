@@ -314,12 +314,12 @@ class Home extends React.Component {
             {/*<RenderFollowCard
               itineraries={this.props.itineraries}
             />*/}
-            <Link to="/create" className="itinerary__cover cover--empty flx flx-col flx-center-all ta-center fill-success color--white">
+            <Link to="/create" className="itinerary__cover cover--empty flx flx-col flx-center-all ta-center fill-success color--white brdr-all">
               <div className="v2-type-h1 pdding-bottom-lg color--black">
                 Create a new travel guide
               </div>
-              <div className="v2-type-body1 pdding-bottom-md color--black opa-50">
-                An itinerary or recommendations...
+              <div className="v2-type-body2 pdding-bottom-md color--black opa-50">
+                Upcoming trip or recommendations for friends?
               </div>
               <div className="vb fill--success color--white">
                   <i className="material-icons md-32 color--white">add</i>

@@ -192,7 +192,6 @@ const TipPreview = props => {
                         <i className="material-icons mrgn-right-xs">info_outline</i>
                         <div className="color--black">Info</div>
                       </Link>
-                      <div className="vb__label v2-type-body0 opa-60 mrgn-top-sm DN">Save to</div>
                       <div className="cta-wrapper vb vb--sm vb--outline flx flx-row flx-align-center v2-type-body2 mrgn-left-n-1">
                         <LikeReviewButton
                           authenticated={props.authenticated}
