@@ -235,7 +235,6 @@ class Home extends React.Component {
         )
     }
 
-    console.log('itins = ' + JSON.stringify(this.props.itineraries))
     return (
       <div>
         {this.LoggedOutIntro(this.props.authenticated)}
