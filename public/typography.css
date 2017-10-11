@@ -146,6 +146,9 @@ textarea {
   font-size: 32px;
   font-weight: 600;
   letter-spacing: 1px;
+  font-family: 'Roboto Condensed', sans-serif;
+  text-transform: uppercase;
+
 }
 .v2-type-h3 {
     font-size: 24px;
