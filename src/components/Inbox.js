@@ -77,10 +77,15 @@ class Inbox extends React.Component {
 	  if (!this.props.inbox) {
       return (
         <div className="loading-module flx flx-col flx-center-all v2-type-body3 fill--black">
-          <div className="earth-graphic w-100">  
-            <img className="center-img" src="../img/globe01.gif"/>
+          <div className="loader-wrapper flx flx-col flx-center-all fill--black">
+            <div className="loader-bird"></div>
+            <div className="loader">
+              <div className="bar1"></div>
+              <div className="bar2"></div>
+              <div className="bar3"></div>
+            </div>
+            <div className="v2-type-body2 color--white">Loading guide</div>
           </div>
-          <div>Loading inbox...</div>
         </div>
       );
     }

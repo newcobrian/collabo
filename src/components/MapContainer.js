@@ -35,10 +35,15 @@ class MapContainer extends React.Component {
 	  	if (!this.props.google) {
 	      return (
 	         <div className="map-loading-wrapper flx flx-col flx-center-all v2-type-body3 fill--black color--white">
-	          <div className="earth-graphic">  
-	            <img className="center-img" src="/img/logos/logo_stripes_on-black.png"/>
-	          </div>
-	          <div className="color--white">Loading Map</div>
+                <div className="loader-wrapper flx flx-col flx-center-all fill--black">
+                  <div className="loader-bird"></div>
+                  <div className="loader">
+                    <div className="bar1"></div>
+                    <div className="bar2"></div>
+                    <div className="bar3"></div>
+                  </div>
+                  <div className="v2-type-body2 color--white">Loading map</div>
+                </div>
 	        </div>
 	        );
 	    }

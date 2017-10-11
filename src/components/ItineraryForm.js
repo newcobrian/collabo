@@ -350,10 +350,15 @@ class ItineraryForm extends React.Component {
             <div className="itinerary__big-photo bg-loading">
               <ImagePicker images={itinerary.images ? [itinerary.images] : null} />
               <div className={'flx flx-col flx-center-all v2-type-body3 fill--black color--white cover__loading fill--light-gray loading-done-' + this.props.coverPicProgress}>
-                <div className="earth-graphic w-100">  
-                  <img className="center-img" src="/img/globe01.gif"/>
-                </div>
-                Uploading New Cover Photo...
+                  <div className="loader-wrapper flx flx-col flx-center-all fill--black">
+                    <div className="loader-bird"></div>
+                    <div className="loader">
+                      <div className="bar1"></div>
+                      <div className="bar2"></div>
+                      <div className="bar3"></div>
+                    </div>
+                    <div className="v2-type-body2 color--white">Loading guide</div>
+                  </div>
               </div> 
               <div className="vb--change-cover">
                 <UpdateCoverPhoto itinerary={itinerary} itineraryId={itinerary.id} 
