@@ -4,7 +4,7 @@ body {
   letter-spacing:0px;
 
   /*background-color: #FAFAF8;*/
-  font-family: 'Roboto', sans-serif !important;
+  font-family: 'Arimo', 'Roboto', sans-serif;
 }
 html,body,#page { height:100%;}
 /**{ border: 1px solid red; }*/
@@ -475,7 +475,6 @@ svg {
   color: white;
   line-height: inherit;
   height: 32px;
-  font-family: 'Roboto', sans-serif;
   padding: 6px 12px 12px 12px;
   font-size: 14px;
 }
@@ -779,7 +778,6 @@ svg {
     .user-bio {
       font-size: 16px;
       font-weight: 300;
-      font-family: Helvetica, sans-serif;
     }
 .profile-page .profile-followers-wrapper {
   font-size: 13px;
@@ -941,7 +939,7 @@ li.nav-divider {
 ******
 ******/
 .auth-page {
-  margin: 20px 40px;
+  margin: 100px 40px;
 }
 
 
@@ -1233,7 +1231,6 @@ li.nav-divider {
   font-size: 14px;
   margin-bottom: 0;
   padding: 0;
-  font-family: 'Roboto', sans-serif;
   text-transform: none;
   color: red !important;
   height: auto;
@@ -1351,3 +1348,65 @@ body .back-to-top {
 }
 
 
+.loader-wrapper {
+width: 100%;
+height: auto;
+padding: 20px;
+}
+.loader-bird {
+    width: 50px;
+    height: 18px;
+    background: url(img/logos/loader_bird_white.png) no-repeat;
+    position: relative;
+    margin: 0 auto;
+    background-size: 50px;
+}
+
+.loader {
+  margin: 0 auto;
+  width: 50px;
+  height: 30px;
+  text-align: center;
+  font-size: 10px;
+}
+.loader > div {
+  height: 3px;
+  width: 50px;
+  display: inline-block;
+  float: left;
+  margin-top: 4px;
+  -webkit-animation: delay 0.8s infinite ease-in-out;
+  animation: delay 0.8s infinite ease-in-out;
+}
+.loader .bar1 {
+  background-color: #FF85A6;
+}
+.loader .bar2 {
+  background-color: #3DCBF3;
+  -webkit-animation-delay: -0.6s;
+  animation-delay: -0.6s;
+}
+.loader .bar3 {
+  background-color: #4DEB88;
+  -webkit-animation-delay: -0.5s;
+  animation-delay: -0.5s;
+}
+
+@-webkit-keyframes delay {
+  0%, 40%, 100% {
+    -webkit-transform: scaleX(0.05);
+  }
+  20% {
+    -webkit-transform: scaleX(1);
+  }
+}
+@keyframes delay {
+  0%, 40%, 100% {
+    transform: scaleX(0.05);
+    -webkit-transform: scaleX(0.05);
+  }
+  20% {
+    transform: scaleX(1);
+    -webkit-transform: scaleX(1);
+  }
+}

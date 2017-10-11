@@ -396,7 +396,7 @@ class ItineraryForm extends React.Component {
               {/** Flag and Geo **/}
               <div className="flx flx-row flx-just-start flx-align-center mrgn-top-xs mrgn-bottom-xs w-100">
                 <Link to={`/places/${itinerary.geo.placeId}`} className={'itinerary__cover__flag flx-hold flag-' + itinerary.geo.country} />
-                <div className="geo-type ellipsis w-100 flx flx-row flx-align-center flx-just-start opa-60">
+                <div className="geo-type ellipsis w-100 flx flx-row flx-align-center flx-just-start">
                   <Geosuggest 
                     className="input--underline w-100"
                     types={['(regions)']}

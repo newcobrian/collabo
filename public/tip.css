@@ -14,13 +14,12 @@
 .page-itinerary .tip-container {
   border: 1px solid white;
 }
-.page-itinerary .tip-container:hover {
+.page-itinerary .tip-container:hover,
+.page-itinerary .tip-selected .tip-container {
   border: 1px solid #3DCBF3;
   cursor: pointer;
 }
-.tip-wrapper.tip-selected {
-  background-color: #F4FAFC;
-}
+
 
 .tip-wrapper .tip-map-marker {
   width: 32px;

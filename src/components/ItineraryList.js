@@ -8,10 +8,14 @@ const ItineraryList = props => {
     return (
        <div className="profile-feed flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap">
         <div className="loading-module flx flx-col flx-center-all v2-type-body3 fill--black">
-          <div className="earth-graphic">  
-            <img className="center-img" src="/img/globe01.gif"/>
+          <div className="loader-wrapper flx flx-col flx-center-all fill--black">
+            <div className="loader-bird"></div>
+            <div className="loader">
+              <div className="bar1"></div>
+              <div className="bar2"></div>
+              <div className="bar3"></div>
+            </div>
           </div>
-          <div>Loading Travel Guides...</div>
         </div>
       </div>
     );

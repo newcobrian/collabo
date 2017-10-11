@@ -333,7 +333,8 @@ textarea.edit-itinerary__name {
     z-index: 10;
     left: 0;
     width: 60%;
-    background-color: white;
+    background-color: rgba(18,20,25,.8);
+    background-color: rgba(255,255,255,.95);
 }
 .it-add-wrapper {
 	position: relative;
@@ -398,7 +399,7 @@ textarea.edit-itinerary__name {
   width: 60%;
 }
 .page-edit-own .content-wrapper {
-	margin-top: 40px;
+	/*margin-top: 40px;*/
 }
 
 .content-wrapper.map-on .itinerary__cover.header-height,

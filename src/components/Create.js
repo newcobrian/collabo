@@ -182,6 +182,7 @@ class Create extends React.Component {
 						            
 						            <form>
 						            	<div className="v2-type-page-header mrgn-bottom-sm">Create a New Guide</div>
+
 						            	<fieldset className="field-wrapper">
 					                    	<label>Location</label>
 					                    	<Geosuggest 
