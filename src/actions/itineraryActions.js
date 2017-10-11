@@ -395,7 +395,8 @@ export function updateItineraryGeo(auth, itinerary, newGeo) {
             if (!geoSnapshot.exists() || !geoSnapshot.val().fulLCountry) {
               let geoObject = {
                 location: newGeo.location,
-                label: newGeo.label
+                label: newGeo.label,
+                itineraryCount: 1
               }
               if (newGeo.country) geoObject.country = newGeo.country;
               if (newGeo.fullCountry) geoObject.fullCountry = newGeo.fullCountry;
