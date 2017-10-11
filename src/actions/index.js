@@ -3108,7 +3108,7 @@ export function unloadPlacesFeed(auth, locationId) {
 
 export function getPopularGeos() {
   return dispatch => {
-    Firebase.database().ref(Constants.GEOS_PATH).orderByChild('itineraryCount').limitToFirst(5).once('value', snap => {
+    Firebase.database().ref(Constants.GEOS_PATH).orderByChild('itineraryCount').limitToLast(5).once('value', snap => {
       let geosArray = [];
       snap.forEach(function(geo) {
         let geoObject = Object.assign({}, {id: geo.key}, {label: geo.val().label}, {shortName: geo.val().shortName})
