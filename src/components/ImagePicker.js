@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../actions'
 import { EDITOR_PAGE } from '../actions'
-import MetaTags from 'react-meta-tags';
 
 const mapStateToProps = state => ({
   authenticated: state.common.authenticated
@@ -28,9 +27,6 @@ class ImagePicker extends React.Component {
         return (
             <div className="default-bg">
               <img src={imgSrc} className="center-img header-height" onClick={this.handleClick} />
-                <MetaTags>
-                  <meta id="og-image" property="og:image" content={imgSrc} />
-                </MetaTags>
             </div>
           )
       }
@@ -47,9 +43,6 @@ class ImagePicker extends React.Component {
         return (
             <div className="default-bg">
               <img src={images[0].preview} className="center-img header-height" onClick={this.handleClick} />
-                <MetaTags>
-                    <meta id="og-image" property="og:image" content={images[0].preview} />
-                </MetaTags>
             </div>
           )
       }
@@ -63,9 +56,6 @@ class ImagePicker extends React.Component {
           Photo
           </div>
           <img className="DN" src="/img/profile_temp.png"/>
-          <MetaTags>
-            <meta id="og-image" property="og:image" content="/img/profile_temp.png" />
-          </MetaTags>
       </div>
       )
     }
@@ -73,9 +63,6 @@ class ImagePicker extends React.Component {
       return (
         <div className="default-bg">
           <img className="center-img" src="/img/cover__default.png"/>
-          <MetaTags>
-            <meta id="og-image" property="og:image" content="/img/cover__default.png" />
-          </MetaTags>
       </div>
       )
     }
