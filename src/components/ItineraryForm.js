@@ -26,9 +26,7 @@ import Textarea from 'react-textarea-autosize';
 import scrollToElement from 'scroll-to-element';
 import RelatedItineraries from './RelatedItineraries';
 import {BackToTop} from 'pui-react-back-to-top';
-
-
-
+import SEO from './SEO';
 
 var Scroll = require('react-scroll');
 var Element = Scroll.Element;
@@ -752,6 +750,16 @@ class ItineraryForm extends React.Component {
 
           
           <BackToTop />
+
+          <SEO
+            schema="Guide"
+            title={itinerary.title}
+            description={itinerary.description}
+            path={`/guides/${this.props.itineraryId}`}
+            contentType="article"
+            twitter={{}}
+          />
+
         </div>
                   
                    

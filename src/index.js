@@ -25,6 +25,7 @@ import Itinerary from './components/Itinerary';
 import Explore from './components/Explore';
 import Places from './components/Places';
 import ForgotPassword from './components/ForgotPassword';
+import SEO from './components/SEO';
 import store from './store';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
@@ -61,6 +62,7 @@ ReactDOM.render((
         <Route path="inbox" component={Inbox} />
         <Route path="select" component={FriendSelector} />
         <Route path="explore" component={Explore} />
+        <Route path="seo" component={SEO} />
         <Route path="places/:pid" component={Places} />
         <Route path="guide/:iid" component={Itinerary} />
         <Route path=":username/followers" component={Followers} />

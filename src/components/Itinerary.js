@@ -25,6 +25,7 @@ import { isEmpty, find } from 'lodash';
 import MapContainer from './MapContainer';
 import scrollToElement from 'scroll-to-element';
 import RelatedItineraries from './RelatedItineraries';
+import SEO from './SEO';
 
 var Scroll = require('react-scroll');
 var scroller = Scroll.scroller;
@@ -390,6 +391,20 @@ class Itinerary extends React.Component {
               </div>
             </div> */}
             <BackToTop />
+
+            <SEO
+              schema="Guide"
+              title={itinerary.title}
+              description={itinerary.description}
+              path={`/guides/${this.props.itineraryId}`}
+              contentType="article"
+              published={{}}
+              updated={{}}
+              category={{}}
+              tags={{}}
+              twitter={{}}
+            />
+
           </div>
         )
       }
