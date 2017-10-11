@@ -128,7 +128,8 @@ export const MIXPANEL_PAGE_VIEWED = 'page viewed'
 export const INVALID_USERNAMES = ['account', 'send', 'message', 'inbox', 'notification', 'create', 'edit', 'editor',
  'itinerary', 'messenger', 'settings', 'admin', 'administrator', 'settings', 'global', 'saved', 'login', 'register',
   'review', 'followers', 'isfollowing', 'likes', 'saves', 'select', 'explore', 'search', 'user', 'location', 'city', 
-  'geo', 'attraction', 'subject', 'home', 'places', 'countries', 'api', 'guide', 'popular']
+  'geo', 'attraction', 'subject', 'home', 'places', 'countries', 'api', 'guide', 'popular', 'privacy', 'terms', 'about',
+  'contact']
 
 /** Top Cities for homepage and explore page searchbar **/
 export const POPULAR_CITIES = [
