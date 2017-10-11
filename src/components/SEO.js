@@ -79,14 +79,14 @@ const SEO = ({
     title={ title }
     link={[
       // { rel: 'canonical', href: seoURL(path) },
-      { rel: 'canonical', href: 'myviews.io/' + path },
+      { rel: 'canonical', href: 'myviews.io' + path },
     ]}
     meta={getMetaTags({
       title,
       description,
       contentType,
       // url: seoURL(path),
-      url: 'myviews.io/' + path,
+      url: 'myviews.io' + path,
       published,
       updated,
       category,
