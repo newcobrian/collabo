@@ -308,12 +308,18 @@ class Home extends React.Component {
           <div className="homepage-logo mrgn-bottom-md">  
             <img className="center-img w-100" src="/img/logos/logo_stripes_on-black.png"/>
           </div>
-          <div className="v2-type-intro color--white opa-70 mrgn-bottom-lg DN">
-            Travel with the knowledge of your friends
+          <div className="v2-type-body0 color--white opa-70 mrgn-bottom-md">
+            &copy;2017 Views, LLC All Rights Reserved
           </div>
-          <Link to="/register" className="DN vb vb--intro--register fill--primary color--white vb--wide">
-            Sign up now
-          </Link>
+          <div className="flx flx-row flx-center-all mrgn-bottom-lg">
+            <Link to="/terms.html" target="blank" className="v2-type-body0 color--white opa-70">
+              Terms of Service
+            </Link>
+            <div className="middle-dot color--white flx-hold">&middot;</div>
+            <Link to="/privacy.html" target="blank" className="v2-type-body0 color--white opa-70">
+              Privacy Policy
+            </Link>
+          </div>
         </div>
       </div>
     );

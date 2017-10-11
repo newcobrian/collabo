@@ -41,7 +41,7 @@ const CommentPreview = props => {
             </Link>
           </div>
 
-          <div className="comment-preview-wrapper v2-type-body0 color--black flx flx-row flx-align-center">
+          <div className="comment-preview-wrapper v2-type-body1 color--black flx flx-row flx-align-center">
             <div className="new-bubble fill--primary mrgn-right-sm flx-hold"></div>
             <Link
               to={`/${props.itinerary.lastComment.username}`}

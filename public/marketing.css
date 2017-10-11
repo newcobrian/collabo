@@ -141,6 +141,7 @@
 }
 .page-landing.page-common {
 	padding-top: 0;
+	margin: 0 auto;
 }
 @keyframes animatedBackground {
 	from { background-position: -50% 0; }

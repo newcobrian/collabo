@@ -243,7 +243,7 @@
     left: 210px;
     position: absolute;
     width: auto;
-    bottom: 20px;
+    bottom: 15px;
     left: 29px;
     z-index: 3;
     padding: 0px 10px;
@@ -256,6 +256,7 @@
   border-radius: 4px;
   padding: 4px 0;
   max-width: 280px;
+  font-family: 'Rokkitt', sans-serif;
 }
 .new-bubble {
 	border-radius: 32px;
