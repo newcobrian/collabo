@@ -29,7 +29,7 @@ const seoImages = {
 // const seoURL = path => Meteor.absoluteUrl(path);
 
 const getMetaTags = ({
-  title, description, url, contentType, published, updated, category, tags, twitter, image
+  title, description, path, contentType, published, updated, category, tags, twitter, image
 }) => {
   
   // let imageUrl = image ? image : 'https://myviews.io/img/meta/fb_971x509.png';
@@ -47,7 +47,7 @@ const getMetaTags = ({
     // { name: 'twitter:image:src', content: imageUrl },
     { name: 'og:title', content: `${title} | Views` },
     { name: 'og:type', content: 'contentType' },
-    { name: 'og:url', content: url },
+    { name: 'og:url', content: 'myviews.io' + path },
     // { name: 'og:image', content: imageUrl },
     { name: 'og:description', content: description },
     { name: 'og:site_name', content: 'Views' },
