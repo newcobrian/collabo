@@ -223,9 +223,11 @@
  }
 .itinerary__cover .itinerary__cover__descrip {
 	padding-bottom: 20px;
+	font-family: 'Rokkitt', 'Roboto', sans-serif;
  }
  .page-edit-own .itinerary__cover__descrip {
  	margin-top: -5px;
+ 	font-family: 'Rokkitt', 'Roboto', sans-serif;
  }
 
 .itinerary__cover__flag,

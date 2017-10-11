@@ -84,7 +84,7 @@ class Inbox extends React.Component {
               <div className="bar2"></div>
               <div className="bar3"></div>
             </div>
-            <div className="v2-type-body2 color--white">Loading guide</div>
+            <div className="v2-type-body2 color--white">Loading inbox</div>
           </div>
         </div>
       );

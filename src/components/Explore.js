@@ -38,6 +38,21 @@ class Explore extends React.Component {
         browserHistory.push('/' + result.text);
       }
     }
+    if (this.props.user) {
+      return (
+        <div className="loading-module flx flx-col flx-center-all v2-type-body3 fill--black">
+          <div className="loader-wrapper flx flx-col flx-center-all fill--black">
+            <div className="loader-bird"></div>
+            <div className="loader">
+              <div className="bar1"></div>
+              <div className="bar2"></div>
+              <div className="bar3"></div>
+            </div>
+            <div className="v2-type-body2 color--white">Loading people</div>
+          </div>
+        </div>
+      );
+    }
     
     return (
       <div className="flx flx-col page-common follow-page page-people flx-just-start w-100">

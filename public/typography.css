@@ -60,7 +60,6 @@ textarea {
   font-size: 12px;
   letter-spacing: 0.5px;
   line-height: 12px;
-  font-family: 'Rokkitt', sans-serif;
 }
 .v2-type-body1 {
   /* “The almond milk ice: */
@@ -68,14 +67,12 @@ textarea {
   font-size: 14px;
   letter-spacing: 0.5px;
   line-height: 18px;
-  font-family: 'Rokkitt', sans-serif;
 }
 .v2-type-body2 {
   font-weight: 300;
   font-size: 16px;
   letter-spacing: 0;
   line-height: 24px;
-  font-family: 'Rokkitt', sans-serif;
 }
 .strong--400.v2-type-body0,
 .strong--400.v2-type-body1,
@@ -146,9 +143,10 @@ textarea {
   font-size: 32px;
   font-weight: 600;
   letter-spacing: 1px;
-  font-family: 'Roboto Condensed', sans-serif;
   text-transform: uppercase;
-
+}
+.page-places .v2-type-page-header {
+  font-family: 'Roboto Condensed', sans-serif;
 }
 .v2-type-h3 {
     font-size: 24px;
