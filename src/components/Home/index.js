@@ -86,6 +86,7 @@ class Home extends React.Component {
     this.props.startFeedWatch(this.props.authenticated);
     this.props.getFeaturedPreview(this.props.authenticated);
     this.props.getPopularPreview(this.props.authenticated);
+    this.props.getPopularGeos();
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'home page'});
   } 
 
@@ -220,6 +221,43 @@ class Home extends React.Component {
     return null;
   };
 
+  renderPopularCities(popularCities) {
+    if (popularCities && popularCities.length > 1) {
+      return (
+        <div className="search-detail-bar mobile-hide flx flx-row color--white flx-just-start flx-align-center ta-center pdding-left-md w-100 v2-type-body2 color--white">
+          <div className="label-big color--white flx-hold mrgn-right-lg opa-80">Top Cities:</div>
+
+        {popularCities.map(geo => {
+          let title = geo.shortName ? geo.shortName : geo.label;
+          return (
+            <div>
+              <Link to={"/places/" + geo.id} className="geo-type color--white opa-100">{title}</Link>
+              <div className="middle-dot">&middot;</div>
+            </div>
+          )
+        })}
+        </div>
+      )
+    }
+    else {
+      return (
+        <div className="search-detail-bar mobile-hide flx flx-row color--white flx-just-start flx-align-center ta-center pdding-left-md w-100 v2-type-body2 color--white">
+          <div className="label-big color--white flx-hold mrgn-right-lg opa-80">Top Cities:</div>
+
+        {Constants.POPULAR_CITIES.map(geo => {
+          let title = geo.shortName ? geo.shortName : geo.label;
+          return (
+            <div>
+              <Link to={"/places/" + geo.id} className="geo-type color--white opa-100">{title}</Link>
+              <div className="middle-dot">&middot;</div>
+            </div>
+          )
+        })}
+        </div>
+      )
+    }
+  }
+
   render() {
     const isLandingPage = (browserHistory.getCurrentLocation().pathname === '/global') && !this.props.authenticated ?
       'page-landing' : ''
@@ -249,20 +287,7 @@ class Home extends React.Component {
               type={Constants.GEO_SEARCH}
               className="input--search fill--black color--white input--underline v2-type-body3" />
           </div>
-          <div className="search-detail-bar mobile-hide flx flx-row color--white flx-just-start flx-align-center ta-center pdding-left-md w-100 v2-type-body2 color--white">
-              <div className="label-big color--white flx-hold mrgn-right-lg opa-80">Top Cities:</div>
-              
-              <Link to="/places/ChIJ51cu8IcbXWARiRtXIothAS4" className="geo-type color--white opa-100">Tokyo</Link>
-              <div className="middle-dot">&middot;</div>
-              <Link to="/places/ChIJ5TCOcRaYpBIRCmZHTz37sEQ" className="geo-type color--white opa-100">Barcelona</Link>
-              <div className="middle-dot">&middot;</div>
-               <Link to="/places/ChIJmQrivHKsQjQR4MIK3c41aj8" className="geo-type color--white opa-100">Taipei</Link>
-               <div className="middle-dot">&middot;</div>
-              <Link to="/places/ChIJIQBpAG2ahYAR_6128GcTUEo" className="geo-type color--white opa-100">San Francisco</Link>
-              <div className="middle-dot">&middot;</div>
-              <Link to="/places/ChIJOwg_06VPwokRYv534QaPC8g" className="geo-type color--white opa-100">New York</Link>
-
-            </div>
+          {this.renderPopularCities(this.props.popularGeos)}
         </div>
 
  

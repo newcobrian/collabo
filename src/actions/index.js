@@ -580,14 +580,23 @@ export function onCreateItinerary(auth, itinerary) {
         updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}`] = Object.assign({}, itineraryObject, {userId: auth}, {popularityScore: 0});
 
         // add geo to the geo table if it doesnt exists
-        if (!geoSnapshot.exists() || !geoSnapshot.val().fulLCountry) {
+        if (!geoSnapshot.exists() || !geoSnapshot.val().fullCountry) {
           let geoObject = {
             location: itinerary.geo.location,
-            label: itinerary.geo.label
+            label: itinerary.geo.label,
+            itineraryCount: 1
           }
           if (itinerary.geo.country) geoObject.country = itinerary.geo.country;
           if (itinerary.geo.fullCountry) geoObject.fullCountry = itinerary.geo.fullCountry;
+          if (itinerary.geo.shortName) geoObject.shortName = itinerary.geo.shortName;
           updates[`/${Constants.GEOS_PATH}/${itinerary.geo.placeId}`] = geoObject;
+        }
+        // otherwise just increment itineraryCount for geo
+        else {
+          // increment itinerary count on geo
+          Firebase.database().ref(Constants.GEOS_PATH + '/' + itinerary.geo.placeId + '/itineraryCount').transaction(function (current_count) {
+            return (current_count || 0) + 1;
+          });
         }
 
         if (!countrySnapshot.exists()) {
@@ -1611,6 +1620,11 @@ export function onDeleteItinerary(userId, itineraryId, geo, redirectPath) {
     updates[Constants.COMMENTS_PATH + '/' + itineraryId] = null;
 
     Firebase.database().ref().update(updates);
+
+    // decrement itineraryCount for the geo
+    Firebase.database().ref(Constants.GEOS_PATH + '/' + geo + '/itineraryCount').transaction(function (current_count) {
+      return (current_count - 1 >= 0) ? current_count - 1 : 0;
+    });
 
     let message = 'Your itinerary has been deleted.'
     dispatch({
@@ -3088,6 +3102,22 @@ export function unloadPlacesFeed(auth, locationId) {
 
     dispatch({
       type: UNLOAD_PLACES_FEED
+    })
+  }
+}
+
+export function getPopularGeos() {
+  return dispatch => {
+    Firebase.database().ref(Constants.GEOS_PATH).orderByChild('itineraryCount').limitToFirst(5).once('value', snap => {
+      let geosArray = [];
+      snap.forEach(function(geo) {
+        let geoObject = Object.assign({}, {id: geo.key}, {label: geo.val().label}, {shortName: geo.val().shortName})
+        geosArray = geosArray.concat(geoObject)
+      })
+      dispatch({
+        type: ActionTypes.GET_POPULAR_GEOS,
+        popularGeos: geosArray
+      })
     })
   }
 }

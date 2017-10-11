@@ -65,12 +65,16 @@ class Create extends React.Component {
 	    		placeId: result.placeId,
 	    		location: result.location
 	    	}
-
 	    	if (result.gmaps && result.gmaps.address_components) {
 	    		result.gmaps.address_components.forEach(function(resultItem) {
+	    			// get country name if there
 	    			if (resultItem.types && resultItem.types[0] && resultItem.types[0] === 'country') {
 	    				if (resultItem.short_name) geoData.country = resultItem.short_name;
 	    				if (resultItem.long_name) geoData.fullCountry = resultItem.long_name;
+	    			}
+	    			// get short name if its there
+	    			if (resultItem.types && resultItem.types[0] && resultItem.types[0] === 'locality' && resultItem.types[1] && resultItem.types[1] === 'political') {
+	    				if (resultItem.short_name) geoData.shortName = resultItem.short_name;
 	    			}
 	    		})
 	    	}

@@ -66,7 +66,6 @@ class App extends React.Component {
         this.props.onLoad(null, false);
       }
     });
-    // this.props.onLoad(token ? agent.Auth.current() : null, token);
   }
 
   componentWillReceiveProps(nextProps) {

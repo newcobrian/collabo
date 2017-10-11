@@ -130,6 +130,14 @@ export const INVALID_USERNAMES = ['account', 'send', 'message', 'inbox', 'notifi
   'review', 'followers', 'isfollowing', 'likes', 'saves', 'select', 'explore', 'search', 'user', 'location', 'city', 
   'geo', 'attraction', 'subject', 'home', 'places', 'countries', 'api', 'guide', 'popular']
 
+/** Top Cities for homepage and explore page searchbar **/
+export const POPULAR_CITIES = [
+	{id: 'ChIJ51cu8IcbXWARiRtXIothAS4', label: 'Tokyo, Japan', shortName: 'Tokyo'},
+	{id: 'ChIJ5TCOcRaYpBIRCmZHTz37sEQ', label: 'Barcelona', shortName: 'Barcelona'},
+	{id: 'ChIJmQrivHKsQjQR4MIK3c41aj8', label: 'Taipei', shortName: 'Taipei'},
+	{id: 'ChIJIQBpAG2ahYAR_6128GcTUEo', label: 'San Francisco', shortName: 'San Francisco'},
+	{id: 'ChIJOwg_06VPwokRYv534QaPC8g', label: 'New York', shortName: 'New York'}
+]
 
 /** Itineraries that everyone can edit (for testing shared itineraries feature) **/
 export const SHARED_ITINERARIES = ['-KpOQT2bgUyHNdcX662g', '-KpiW2sKdc81qIKD_iOO', '-KqURO44kTCwkDyISjBe', 
