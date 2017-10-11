@@ -306,24 +306,6 @@ class Itinerary extends React.Component {
               </div>
               {/** Close Cover Text DIV >>>>>> **/}  
 
-
-
-
-
-                
-
-             
-
-            
-
-
-             
-
-
-
-
-
-
               <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
                   <TipList
                     tipList={this.props.tips}
@@ -389,11 +371,12 @@ class Itinerary extends React.Component {
               description={itinerary.description}
               path={`/guides/${this.props.itineraryId}`}
               contentType="article"
-              published={{}}
-              updated={{}}
-              category={{}}
-              tags={{}}
-              twitter={{}}
+              published={itinerary.createdOn ? (new Date(itinerary.createdOn)).toISOString() : (new Date(itinerary.lastModified)).toISOString()}
+              updated={(new Date(itinerary.lastModified)).toISOString()}
+              category={''}
+              tags={[]}
+              twitter={''}
+              image={itinerary.images.url}
             />
 
           </div>

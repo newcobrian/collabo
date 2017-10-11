@@ -757,7 +757,12 @@ class ItineraryForm extends React.Component {
             description={itinerary.description}
             path={`/guides/${this.props.itineraryId}`}
             contentType="article"
-            twitter={{}}
+            published={itinerary.createdOn ? (new Date(itinerary.createdOn)).toISOString() : (new Date(itinerary.lastModified)).toISOString()}
+            updated={(new Date(itinerary.lastModified)).toISOString()}
+            category={''}
+            tags={[]}
+            twitter={''}
+            image={itinerary && itinerary.images && itinerary.images.url ? itinerary.images.url : null }
           />
 
         </div>

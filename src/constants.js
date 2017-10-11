@@ -155,6 +155,12 @@ export const SMALL_GUIDE_PREVIEW = 'small-guide'
 export const MEDIUM_GUIDE_PREVIEW = 'medium-guide'
 export const LARGE_GUIDE_PREVIEW = 'large-guide'
 
+/*** Meta tag info ***/
+export const DEFAULT_META_TITLE = 'Views'
+export const DEFAULT_META_DESCRIPTION = 'Save and Share Travel Guides'
+export const DEFAULT_META_URL = 'http://www.myviews.io'
+
+
 // export const COUNTRY_FLAGS = {
 //     'AF' : 'Afghanistan',
 //     'AX' : 'Aland Islands',
