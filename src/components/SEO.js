@@ -46,7 +46,7 @@ const getMetaTags = ({
     { name: 'twitter:creator', content: twitter || '@viewsguides' },
     // { name: 'twitter:image:src', content: imageUrl },
     { name: 'og:title', content: `${title} | Views` },
-    { name: 'og:type', content: 'contentType' },
+    { name: 'og:type', content: 'website' },
     { name: 'og:url', content: 'myviews.io' + path },
     // { name: 'og:image', content: imageUrl },
     { name: 'og:description', content: description },
