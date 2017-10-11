@@ -1410,3 +1410,11 @@ padding: 20px;
     -webkit-transform: scaleX(1);
   }
 }
+
+.pop-city-wrapper {
+  
+}
+.pop-city-wrapper:last-child .middle-dot {
+  display: none;
+
+}

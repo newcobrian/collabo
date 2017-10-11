@@ -230,9 +230,9 @@ class Home extends React.Component {
         {popularCities.map(geo => {
           let title = geo.shortName ? geo.shortName : geo.label;
           return (
-            <div>
-              <Link to={"/places/" + geo.id} className="geo-type color--white opa-100">{title}</Link>
-              <div className="middle-dot">&middot;</div>
+            <div className="pop-city-wrapper flx flx-row flx-center-all flx-hold">
+              <Link to={"/places/" + geo.id} className="geo-type color--white opa-100 flx-hold">{title}</Link>
+              <div className="middle-dot flx-hold">&middot;</div>
             </div>
           )
         })}
