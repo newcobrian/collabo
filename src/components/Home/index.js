@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import * as Actions from '../../actions';
 import * as Constants from '../../constants';
 import { Link, browserHistory } from 'react-router';
-import FirebaseSearchInput from '../FirebaseSearchInput';
 import PopularPreview from './PopularPreview';
 import ItineraryPreview from '../ItineraryPreview';
+import UniversalSearchBar from '../UniversalSearchBar';
 
 const mapStateToProps = state => ({
   ...state.home,
@@ -73,12 +73,6 @@ class Home extends React.Component {
       ev.preventDefault();
       this.props.applyTag(tag);
     }
-
-    this.searchInputCallback = result => {
-      if (result.placeId) {
-        browserHistory.push('/places/' + result.placeId);
-      }
-    }
   }
 
   componentWillMount() {
@@ -86,7 +80,6 @@ class Home extends React.Component {
     this.props.startFeedWatch(this.props.authenticated);
     this.props.getFeaturedPreview(this.props.authenticated);
     this.props.getPopularPreview(this.props.authenticated);
-    this.props.getPopularGeos();
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'home page'});
   } 
 
@@ -221,43 +214,6 @@ class Home extends React.Component {
     return null;
   };
 
-  renderPopularCities(popularCities) {
-    if (popularCities && popularCities.length > 1) {
-      return (
-        <div className="search-detail-bar mobile-hide flx flx-row color--white flx-just-start flx-align-center ta-center pdding-left-md w-100 v2-type-body2 color--white">
-          <div className="label-big color--white flx-hold mrgn-right-lg opa-80">Top Cities:</div>
-
-        {popularCities.map(geo => {
-          let title = geo.shortName ? geo.shortName : geo.label;
-          return (
-            <div className="pop-city-wrapper flx flx-row flx-center-all flx-hold">
-              <Link to={"/places/" + geo.id} className="geo-type color--white opa-100 flx-hold">{title}</Link>
-              <div className="middle-dot flx-hold">&middot;</div>
-            </div>
-          )
-        })}
-        </div>
-      )
-    }
-    else {
-      return (
-        <div className="search-detail-bar mobile-hide flx flx-row color--white flx-just-start flx-align-center ta-center pdding-left-md w-100 v2-type-body2 color--white">
-          <div className="label-big color--white flx-hold mrgn-right-lg opa-80">Top Cities:</div>
-
-        {Constants.POPULAR_CITIES.map(geo => {
-          let title = geo.shortName ? geo.shortName : geo.label;
-          return (
-            <div>
-              <Link to={"/places/" + geo.id} className="geo-type color--white opa-100">{title}</Link>
-              <div className="middle-dot">&middot;</div>
-            </div>
-          )
-        })}
-        </div>
-      )
-    }
-  }
-
   render() {
     const isLandingPage = (browserHistory.getCurrentLocation().pathname === '/global') && !this.props.authenticated ?
       'page-landing' : ''
@@ -282,19 +238,7 @@ class Home extends React.Component {
       <div>
         {this.LoggedOutIntro(this.props.authenticated)}
 
-        <div className={"search-wrapper-wrapper w-100 flx flx-row flx-m-col flx-align-center " + isLandingPage}>
-          <div className="search-wrapper short-width-search page-top-search w-100 flx flx-row flx-align-center flx-hold">
-            <i className="search-icon material-icons color--white md-32">search</i>
-            <FirebaseSearchInput
-              name="searchInput"
-              callback={this.searchInputCallback}
-              placeholder="Search any city or country"
-              type={Constants.GEO_SEARCH}
-              className="input--search fill--black color--white input--underline v2-type-body3" />
-          </div>
-          {this.renderPopularCities(this.props.popularGeos)}
-        </div>
-
+        <UniversalSearchBar />
  
         <div className={'home-page page-common fill--light-gray ' + isLandingPage}>
 

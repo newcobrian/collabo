@@ -109,6 +109,11 @@ export default (state = defaultState, action) => {
         ...state,
         redirectTo: '/guide/' + action.itineraryId
       }
+    case ActionTypes.GET_POPULAR_GEOS:
+      return {
+        ...state,
+        popularGeos: action.popularGeos
+      }
     default: 
       return state;
   }

@@ -187,11 +187,6 @@ export default (state = initialState, action) => {
           return !(action.userId === o.createdBy.userId) });
       return newState;
     }
-    case ActionTypes.GET_POPULAR_GEOS:
-      return {
-        ...state,
-        popularGeos: action.popularGeos
-      }
     case ActionTypes.GET_FEATURED_PREVIEW:
       return {
         ...state,
