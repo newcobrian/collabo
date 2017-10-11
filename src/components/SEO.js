@@ -46,7 +46,7 @@ const getMetaTags = ({
     { name: 'twitter:creator', content: twitter || '@viewsguides' },
     // { name: 'twitter:image:src', content: imageUrl },
     { name: 'og:title', content: `${title} | Views` },
-    { name: 'og:type', content: contentType },
+    { name: 'og:type', content: 'contentType' },
     { name: 'og:url', content: url },
     // { name: 'og:image', content: imageUrl },
     { name: 'og:description', content: description },
@@ -59,9 +59,9 @@ const getMetaTags = ({
   if (category) metaTags.push({ name: 'article:section', content: category });
   if (tags) metaTags.push({ name: 'article:tag', content: tags });
   if (image) {
+    metaTags.push({ name: 'og:image', content: image });
     metaTags.push({ itemprop: 'image', content: image });
     metaTags.push({ name: 'twitter:image:src', content: image });
-    metaTags.push({ name: 'og:image', content: image });
   }
 
   return metaTags;
