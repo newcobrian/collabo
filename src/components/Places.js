@@ -35,6 +35,16 @@ class Places extends React.Component {
   }
 
   render() {
+    if (this.props.placeNotFoundError) {
+      return (
+        <div className="error-module flx flx-col flx-center-all ta-center v2-type-body3 color--black">
+          <div className="xiao-img-wrapper mrgn-bottom-sm">
+            <img className="center-img" src="/img/xiaog.png"/>
+          </div>
+          <div className="mrgn-bottom-md">Sorry, we couldn't find this location.</div>
+        </div>
+      )
+    }
     if (!this.props.geo || !this.props.feed) {
       return (
         <div className="loading-module flx flx-col flx-center-all v2-type-body3 fill--black">
