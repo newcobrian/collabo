@@ -60,6 +60,9 @@ body {
 .navigation-bar .nav-module.create-review {
 
 }
+.logged-out .navigation-bar .nav-text {
+  font-size: 15px;
+}
 .navigation-bar .nav-text {
     font-size: 10px;
     letter-spacing: 1px;

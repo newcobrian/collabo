@@ -446,6 +446,7 @@ svg {
   box-shadow: 0 0 0 2px rgba(255,255,255,.5);
 }
 .navigation-bar .nav-text {
+  text-transform: uppercase;
   width: 100%;
 }
 .nav-module.nav-user-image {
