@@ -69,6 +69,7 @@ class InfoModal extends React.Component {
       <FlatButton
         label="Close"
         className="vb"
+        hoverColor="rgba(247,247,247,.2)"
         onTouchTap={handleClose}
         style={{
           }}
@@ -111,16 +112,15 @@ class InfoModal extends React.Component {
           
         >
 
-        <div className="dialog--save flx flx-col">
-          <div className="dialog--save__tip-name color--black tip__title v2-type-h3 v-row brdr-bottom DN">{this.props.review.subject.title}</div>
+        <div className="dialog--save flx flx-col color--black font--alpha">
            
             <div className="mrgn-top-md w-100">
               <div className="flx flx-col mrgn-bottom-md pdding-bottom-sm brdr-bottom w-100 pdding-left-md pdding-right-md">
                 <div className="flx flx-row flx-align-start mrgn-bottom-sm">
                   <i className="material-icons mrgn-right-md color--black opa-60 md-24">&#xE55F;</i>
-                  <div>
-                  <div className="v2-type-body2">{this.props.review.subject.address}</div>
-                  <a target='_blank' className="color--primary v2-type-body2" href={googleMapLink}>Get Directions</a>
+                <div>
+                <div className="v2-type-body2">{this.props.review.subject.address}</div>
+                <a target='_blank' className="color--primary v2-type-body2" href={googleMapLink}>Get Directions</a>
                 </div>
               </div>
             </div>

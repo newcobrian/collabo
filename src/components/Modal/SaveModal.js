@@ -92,8 +92,8 @@ class SaveModal extends React.Component {
     const actions = [
       <FlatButton
         label="+ Create New Guide"
-        className="vb color--success fill--white mrng-left-sm float-left"
-        hoverColor="white"
+        className="vb color--primary fill--white mrng-left-sm float-left"
+        hoverColor="rgba(247,247,247,.4)"
         onTouchTap={handleItineraryClick} 
         labelStyle={{}}
         style={{
@@ -101,7 +101,7 @@ class SaveModal extends React.Component {
       />,
       <FlatButton
         label="Cancel"
-        hoverColor="white"
+        hoverColor="rgba(247,247,247,.24"
         className="vb"
         onTouchTap={handleClose}
         labelStyle={{}}
@@ -126,7 +126,7 @@ class SaveModal extends React.Component {
           overlayStyle={{}}
             
           
-          title="Add tip to a guide"
+          title="Save to a guide"
           titleClassName="dialog__title v2-type-h2"
           titleStyle={{}}
           
@@ -146,7 +146,7 @@ class SaveModal extends React.Component {
                   <div className="tip-preview-wrapper">
                      <ImagePicker images={this.props.images} />
                   </div>
-                  <div className="dialog--save__tip-name">{this.props.review.subject.title}</div>
+                  <div className="dialog--save__tip-name color--black tip-title">{this.props.review.subject.title}</div>
                 </div>
               </div>
       				<ul>

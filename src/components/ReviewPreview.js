@@ -68,16 +68,11 @@ const ReviewPreview = props => {
 
                 { /** Image **/ }
                 <div className="tip__image-module">
-                  <div className="tip__photo-count">{tip.images.length > 0 ? tip.images.length : null}</div>
+                  <div className={"tip__photo-count tip-count-" + tip.images.length}>{tip.images.length > 0 ? tip.images.length : null}</div>
                   <ImagePicker images={tip.images} />
                 </div>
                 { /** END Image **/ }
 
-
-               
-                <div className="tip__timestamp v2-type-caption opa-20 mrgn-top-xs DN">
-                  <DisplayTimestamp timestamp={tip.review.lastModified} />
-                </div>
                 
               </div>
 
@@ -91,6 +86,7 @@ const ReviewPreview = props => {
                 <div className="tip__content-wrapper">
 
                   <div className="tip__header-wrapper flx flx-row flx-align-start flx-just-start">
+
                     { /** Title **/ }
                     <Link to={`/review/${tip.subjectId}/${tip.key}`}>
                     <div className="hide-in-list tip__title v2-type-h3 ta-left">
@@ -129,11 +125,17 @@ const ReviewPreview = props => {
                  
 
                   { /** Caption **/ }
-                  <div className="tip__caption-module flx flx-col w-100 pdding-right-lg mrgn-bottom-sm">
-                    <div className="tip__caption v2-type-body2 ta-left opa-90">
+                  <div className="tip__caption-module flx flx-col w-100 pdding-right-lg">
+                    <div className="tip__caption v2-type-body2 opa-80 ta-left font--beta">
                       <CaptionDisplay tip={props.tip} />
                     </div>
                   </div>
+
+                  { /** Timestamp **/ }
+                  <div className="tip__timestamp v2-type-caption opa-30 font--beta">
+                    <DisplayTimestamp timestamp={tip.review.lastModified} />
+                  </div>
+                  { /** END Timestamp **/ }
 
                   {/* Itinerary links */}
                   <div className={'flx flx-row flx-align-center flx-just-start flx-wrap guide-list guide-count-' + tip.itineraries.length}>

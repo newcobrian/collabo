@@ -5,8 +5,6 @@
 ******/
 
 body a {
-  color: #1D2E58;
-  color: #2ECBDB;
   color: #292F3D;
 
   -webkit-transition: none;
@@ -28,6 +26,17 @@ form {
   width: 100%;
   background-color: transparent;
 }
+
+
+
+.font--alpha {
+  font-family: 'Arimo', sans-serif;
+}
+.font--beta {
+  font-family: 'Rokkitt', sans-serif;
+}
+
+
 .center-text {
   text-align: center !important;
 }
@@ -54,15 +63,18 @@ textarea {
 .v2-type--italic {
   font-style: italic;
 }
+
+
+
+
+
 .v2-type-body0 {
-  /* “The almond milk ice: */
   font-weight: 300;
   font-size: 12px;
   letter-spacing: 0.5px;
   line-height: 12px;
 }
 .v2-type-body1 {
-  /* “The almond milk ice: */
   font-weight: 300;
   font-size: 14px;
   letter-spacing: 0.5px;
@@ -70,10 +82,12 @@ textarea {
 }
 .v2-type-body2 {
   font-weight: 300;
-  font-size: 16px;
+  font-size: 15px;
   letter-spacing: 0;
   line-height: 24px;
 }
+
+
 .strong--400.v2-type-body0,
 .strong--400.v2-type-body1,
 .strong--400.v2-type-body2,
@@ -88,21 +102,18 @@ textarea {
   font-size: 18px;
   letter-spacing: 0;
   line-height: 28px;
-  font-family: 'Rokkitt', sans-serif;
 }
 .v2-type-body4 {
   font-weight: 400;
   font-size: 20px;
   letter-spacing: 0.5px;
   line-height: 28px;
-  font-family: 'Rokkitt', sans-serif;
 }
 .v2-type-caption {
   font-weight: 400;
   font-size: 12px;
   letter-spacing: 1px;
   line-height: 14px;
-  font-family: 'Rokkitt', sans-serif;
 }
 .mod-options .v2-type-caption {
   cursor: pointer;
@@ -116,8 +127,7 @@ textarea {
   font-weight: 300;
   font-size: 18px;
   letter-spacing: 0.5px;
-  line-height: 26px;http://localhost:3000/guide/-Kw-XN-uC1Lbz0yvq8LC
-  /*font-family: 'Inconsolata', monospace;*/
+  line-height: 26px;
   color: black;
 }
 .v2-type-mono.mono-sm {
@@ -143,10 +153,10 @@ textarea {
   font-size: 32px;
   font-weight: 600;
   letter-spacing: 1px;
-  text-transform: uppercase;
 }
 .page-places .v2-type-page-header {
   font-family: 'Roboto Condensed', sans-serif;
+  text-transform: uppercase;
 }
 .v2-type-h3 {
     font-size: 24px;
@@ -199,7 +209,6 @@ textarea {
     overflow: visible;
 }
 .label-big {
-  font-family: 'Arimo', sans-serif;
   text-transform: uppercase;
   font-size: 15px;
   letter-spacing: 1.5px;
@@ -339,9 +348,16 @@ body a.nav-module {
     line-height: 24px;
     text-transform: uppercase;
 }
-.tip-title,
-h4 {
+.tip-title {
     font-size: 18px;
+    letter-spacing: 1px;
+    font-family: 'Arimo', sans-serif;
+    font-weight: 600;
+    line-height: 20px;
+    text-transform: uppercase;
+}
+h4 {
+    font-size: 12px;
     letter-spacing: 1px;
     font-family: 'Arimo', sans-serif;
     font-weight: 600;
@@ -387,25 +403,29 @@ h4 {
 
 
 
-.tip-wrapper ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+.tip-wrapper ::-webkit-input-placeholder,
+.comment-wrapper  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #2ECBDB;
   opacity: .5;
   font-weight: 300;
   font-family: 'Rokkitt', sans-serif;
 }
-.tip-wrapper ::-moz-placeholder { /* Firefox 19+ */
+.tip-wrapper ::-moz-placeholder,
+.comment-wrapper ::-moz-placeholder { /* Firefox 19+ */
   color: #2ECBDB;
   opacity: .5;
   font-weight: 300;
   font-family: 'Rokkitt', sans-serif;
 }
-.tip-wrapper :-ms-input-placeholder { /* IE 10+ */
+.tip-wrapper :-ms-input-placeholder,
+.comment-wrapper :-ms-input-placeholder { /* IE 10+ */
   color: #2ECBDB;
   opacity: .5;
   font-weight: 300;
   font-family: 'Rokkitt', sans-serif;
 }
-.tip-wrapper :-moz-placeholder { /* Firefox 18- */
+.tip-wrapper :-moz-placeholder,
+.comment-wrapper :-moz-placeholder { /* Firefox 18- */
   color: #2ECBDB;
   opacity: .5;
   font-weight: 300;

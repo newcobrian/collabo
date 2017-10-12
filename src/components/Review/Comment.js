@@ -30,7 +30,7 @@ const Comment = props => {
           </Link>
           &nbsp;
           <div className="comment-data flx flx-row flx-just-start">
-            <div className="comment-row">
+            <div className="comment-row font--beta">
               <Link
                 to={`/${comment.username}`}
                 className="comment-author">

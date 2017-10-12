@@ -10,6 +10,52 @@ import ReviewList from '../ReviewList';
 import ReviewPreview from '../ReviewPreview';
 import ImagePicker from '../ImagePicker'
 
+
+const ShowWeekDayText = props => {
+  if (!props.subject || !props.subject.hours || !props.subject.hours.weekdayText) {
+    return (<div className="v2-type-body2 opa-40">N/A</div>);
+  }
+    else {
+      return (
+        <ul className="v2-type-body2">
+          {
+            props.subject.hours.weekdayText.map((day, index) => {
+              return (
+                <li key={index}>{day}</li>
+                )
+            })
+          } 
+        </ul>
+      )
+    }
+}
+
+const ShowWebsite = props => {
+  if (!props.subject || !props.subject.website) {
+    return (<div className="v2-type-body2 opa-40">N/A</div>);
+  }
+    else {
+      return (
+        <a href={props.subject.website} target='_blank' className="v2-type-body2 color--primary">{props.subject.website}</a>
+      )
+    }
+}
+
+const ShowPhoneNumber = props => {
+  if (!props.subject || !props.subject.internationalPhoneNumber) {
+    return (<div className="v2-type-body2 opa-40">N/A</div>);
+  }
+    else {
+      return (
+        <div className="v2-type-body2">
+          {props.subject.internationalPhoneNumber}
+        </div>
+      )
+    }
+}
+
+
+
 const DisplayAppUserReview = props => {
   if (props.tip && props.authenticated) {
     // if (props.currentReviewId !== props.review.reviewId) {
@@ -88,6 +134,8 @@ class Review extends React.Component {
       this.props.showModal(Constants.SAVE_MODAL, Object.assign({}, {subjectId: this.props.params.sid}, {subject: this.props.subject}), this.props.subject.images);
     }
   }
+
+
   componentWillMount() {
     // this.props.getSubject(this.props.params.sid);
     // if (this.props.params.rid) {
@@ -125,6 +173,9 @@ class Review extends React.Component {
     }
     let subject = this.props.subject;
 
+    let googleMapLink = (this.props.subject.googleMapsURL ? this.props.subject.googleMapsURL :
+        'https://maps.google.com/maps?q=' + this.props.subject.location.lat + ',' + this.props.subject.location.lng)
+
     const showWeekdayText = subject => {
       if (!subject || !subject.hours || !subject.weekdayText) return null;
       subject.hours.weekdayText.map(hoursItem => {
@@ -160,7 +211,7 @@ class Review extends React.Component {
       </div>
       */}
 
-          <div className="tip-info-col flx flx-row flx-just-start w-100">
+          <div className="tip-info-col flx flx-row flx-just-start w-100 flx-hold">
             <div className="tip-container tip-subject flx flx-col flx-align-center">
               <div className="tip-inner flx flx-row flx-just-start w-100 w-max">
 
@@ -178,40 +229,49 @@ class Review extends React.Component {
                     
                     <div className="flx flx-col w-100">
                       
-                      <div className="tip__title-module flx flx-row flx-just-start flx-align-center w-100 mrgn-bottom-md">
-                        <div className="tip__title v2-type-h2 ta-left">
-                          {subject.title}
+                      <div className="pdding-all-md w-100">
+                        <div className="tip__title-module flx flx-row flx-just-start flx-align-center w-100 mrgn-bottom-md">
+                          <div className="tip__title v2-type-h2 ta-left">
+                            {subject.title}
+                          </div>
                         </div>
-                      </div>
-                      
-                        <Link onClick={this.handleSaveClick} className="vb vb--save fill--primary flx flx-col flx-align-center flx-just-center mrgn-bottom-md vb--mobile-full">
-                          <i className="material-icons mrgn-right-sm color--white">playlist_add</i>
-                          <div className="color--white">ADD TO A GUIDE</div>
+                        
+                        <Link onClick={this.handleSaveClick} className="vb vb--md fill--primary flx flx-row flx-align-center flx-just-center vb--mobile-full">
+                          <i className="material-icons mrgn-right-sm color--white">get_app</i>
+                          <div className="color--white">Save to a guide</div>
                         </Link>
+                      </div>
 
 
 
-                      <div className="tip__info-module flx flx-col w-100">
-                        <div className="tip__data tip__address flx flx-col flx-align-start v2-type-body1 ta-left">
-                          <div className="flx flx-row flx-align-center mrgn-bottom-sm">
-                            <i className="material-icons mrgn-right-md color--primary md-18">&#xE55F;</i>
-                            <label>Address</label>
+                      <div className="tip__info-module flx flx-col w-100 font--alpha">
+
+                        <div className="tip__data tip__address flx flx-col flx-align-start v2-type-body2 ta-left">
+                          <div className="flx flx-row flx-align-start">
+                            <i className="material-icons mrgn-right-md color--black opa-60 md-24">&#xE55F;</i>
+                            <div className="flx flx-col">
+                              <div className="v2-type-body2">{subject.address}</div>
+                              <a target='_blank' className="color--primary v2-type-body2" href={googleMapLink}>Get Directions</a>
+                            </div>
                           </div>
-                          <div className="v2-type-body2">{subject.address}</div>
                         </div>
-                        <div className="tip__data tip__phone flx flx-col flx-align-start v2-type-body1 ta-left">
-                          <div className="flx flx-row flx-align-center mrgn-bottom-sm">
-                            <i className="material-icons mrgn-right-md color--primary md-18">phone</i>
-                            <label>Phone</label>
+                        <div className="tip__data tip__address flx flx-col flx-align-start v2-type-body2 ta-left">
+                          <div className="flx flx-row flx-align-start">
+                            <i className="material-icons mrgn-right-md color--black opa-60 md-24">link</i>
+                            <div className="v2-type-body2"><ShowWebsite subject={subject} /></div>
                           </div>
-                          <div className="v2-type-body2">{subject.internationalPhoneNumber}</div>
                         </div>
-                        <div className="tip__data tip__hours flx flx-col flx-align-start v2-type-body1 ta-left">
-                          <div className="flx flx-row flx-align-center mrgn-bottom-sm">
-                            <i className="material-icons mrgn-right-md color--primary">schedule</i>
-                            <label>Hours</label>
+                        <div className="tip__data tip__phone flx flx-col flx-align-start v2-type-body2 ta-left">
+                          <div className="flx flx-row flx-align-start">
+                            <i className="material-icons mrgn-right-md color--black opa-60 md-24">phone</i>
+                            <div className="v2-type-body2"><ShowPhoneNumber subject={subject} /></div>
                           </div>
-                          <div className="v2-type-body2">{showWeekdayText(subject)}</div>
+                        </div>
+                        <div className="tip__data tip__hours flx flx-col flx-align-start v2-type-body2 ta-left">
+                          <div className="flx flx-row flx-align-start">
+                            <i className="material-icons mrgn-right-md color--black opa-60 md-24">schedule</i>
+                          <div className="v2-type-body2"><ShowWeekDayText subject={subject} /></div>
+                          </div>
                         </div>
                       </div>
 

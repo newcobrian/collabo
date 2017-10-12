@@ -12,7 +12,8 @@ const mapStateToProps = state => ({
 const TipList = props => {
   if (!props.tipList) {
     return (
-      <div className="status-module flx flx-row flx-just-center w-100 v2-type-body3"></div>
+      <div className="status-module flx flx-row flx-just-center w-100 v2-type-body3">
+      No list</div>
     );
   }
 
@@ -26,7 +27,7 @@ const TipList = props => {
   else if (props.tipList.length === 0) {
     return (
       <div className="status-module flx flx-col flx-center-all v2-type-body3">
-          This guide is empty.
+          0 tips
       </div>
     );
   }

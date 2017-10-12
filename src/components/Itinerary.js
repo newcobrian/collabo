@@ -208,7 +208,7 @@ class Itinerary extends React.Component {
                         <ProfilePic src={createdByImage} className="center-img" />
                         </Link>
                     </div>
-                    <div className="itinerary-username">
+                    <div className="itinerary-username v2-type-body1">
                       <Link
                       to={`/${createdByUsername}`}
                       className="">
@@ -242,7 +242,7 @@ class Itinerary extends React.Component {
                   </Link>
 
                   {/** DESCRIPTION **/}
-                  <div className="itinerary__cover__descrip v2-type-body3 ta-left mrgn-top-xs mrgn-bottom-xs opa-80">
+                  <div className="itinerary__cover__descrip font--beta v2-type-body3 ta-left mrgn-top-xs mrgn-bottom-xs opa-80">
                      {itinerary.description}
                   </div>
 
@@ -341,7 +341,7 @@ class Itinerary extends React.Component {
                 itineraryId={this.props.itinerary.id} />
                 </div>
 
-                <div className="itinerary__related-module flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
+                <div className="itinerary__related-module flx flx-col flx-align-center fill--white w-100 pdding-bottom-lg">
                   <RelatedItineraries
                     relatedItineraries={this.props.relatedItineraries} 
                     numRelated={this.props.numRelated}

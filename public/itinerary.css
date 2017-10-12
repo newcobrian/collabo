@@ -143,7 +143,7 @@
 
 .itinerary__comments-module {
 	width: 100%;
-	padding: 30px 20px 60px;
+	padding: 30px 40px 60px;
 }
 .itinerary__comments-module .comment-data {
 	margin-top: 10px;
@@ -223,11 +223,9 @@
  }
 .itinerary__cover .itinerary__cover__descrip {
 	padding-bottom: 20px;
-	font-family: 'Rokkitt', 'Roboto', sans-serif;
  }
  .page-edit-own .itinerary__cover__descrip {
  	margin-top: -5px;
- 	font-family: 'Rokkitt', 'Roboto', sans-serif;
  }
 
 .itinerary__cover__flag,
@@ -395,7 +393,7 @@ textarea.edit-itinerary__name {
 .gm-style .gm-style-iw {
     margin-top: 6px;
     text-align: center;
-    padding: 0 12px 0;
+    padding: 0;
 }
 .content-wrapper.map-on {
   width: 60%;

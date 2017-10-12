@@ -163,8 +163,8 @@ const TipPreview = props => {
                     { /** END Author **/ }
 
                     { /** Caption **/ }
-                    <div className="tip__caption-module flx flx-col w-100 pdding-right-lg mrgn-bottom-md">
-                      <div className="tip__caption v2-type-body3 ta-left opa-90">
+                    <div className="tip__caption-module flx flx-col w-100 mrgn-bottom-md">
+                      <div className="tip__caption font--beta v2-type-body2 ta-left opa-90">
                         <CaptionDisplay tip={props.tip} />
                       </div>
                     </div>
@@ -185,8 +185,8 @@ const TipPreview = props => {
                     <div className="tip__cta-box w-100 flx flx-row flx-just-start flx-align-center mrgn-top-md">
                       <Link onClick={handleSaveClick} className="hide-in-list vb vb--sm vb--outline-none flx flx-row flx-align-center color--white fill--primary">
                           {/*<img className="center-img mrgn-right-sm" src="/img/icons/i32_save.png"/>*/}
-                          <i className="material-icons mrgn-right-sm color--white">playlist_add</i>
-                          <div className="color--white">Add to</div>
+                          <i className="material-icons mrgn-right-sm color--white">get_app</i>
+                          <div className="color--white">Save</div>
                       </Link>
                       <Link onClick={onInfoClick} className="hide-in-list vb vb--sm vb--outline flx flx-row flx-align-center mrgn-left-n-1">
                         <i className="material-icons mrgn-right-xs">info_outline</i>

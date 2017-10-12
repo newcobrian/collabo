@@ -12,7 +12,7 @@ const SortableItem = SortableElement(({value, sortIndex}) => {
   return (
     <div className="row--reorder w-100 brdr-bottom flx flx-row flx-align-center">
         <i className="material-icons mrgn-right-sm color--gray">drag_handle</i>
-        <div className="v2-type-h4 color--black"><div className="tip__order-count color--primary">{sortIndex}</div> {value.subject.title}</div>
+        <div className="v2-type-body2 font--alpha color--black"><div className="tip__order-count color--primary">{sortIndex}</div> {value.subject.title}</div>
         <div className="DN">Rating: {value.review.rating}</div>
         <div className="DN">Caption: {value.review.caption}</div>
     </div>
@@ -47,7 +47,7 @@ class ReorderModal extends React.Component {
     const actions = [
       <FlatButton
         label="Done"
-        className="vb vb--shadow-none fill--primary color--white"
+        className="vb vb--outline-none fill--primary color--white"
         onTouchTap={handleClose}
         style={{}}
         labelStyle={{}}
