@@ -82,8 +82,8 @@ class ItineraryForm extends React.Component {
     }
 
     this.onTextChange = event => {
-    const curText = event.target.value;
-    this.props.updateItineraryForm('curText', curText);
+      const curText = event.target.value;
+      this.props.updateItineraryForm('curText', curText);
 
     // // Throttle updates so we don't go to minimongo and then the server
     // // on every keystroke.
@@ -92,7 +92,7 @@ class ItineraryForm extends React.Component {
     // }, 300);
 
     // this.updateText(curText);
-  }
+    }
 
     const updateFieldEvent =
         key => ev => this.props.onUpdateCreateField(key, ev.target.value, ITINERARY_PAGE);
@@ -123,6 +123,11 @@ class ItineraryForm extends React.Component {
 
     this.onMapToggle = ev => {
       this.props.toggleMapView()
+    }
+
+    this.shareGuide = ev => {
+      ev.preventDefault();
+      // this.props.showModal(Constants.SAVE_MODAL, tip, tip.images);
     }
 
     this.suggestSelectGeo = result => {
@@ -475,7 +480,7 @@ class ItineraryForm extends React.Component {
                   </div>
 
                   <div className="vb vb--sm vb--outline fill--white color--black flx-item-right">
-                    <div className="mrgn-right-sm" onClick={this.onMapToggle}>Share Guide</div>
+                    <div className="mrgn-right-sm" onClick={this.shareGuide}>Share Guide</div>
                     <i className="material-icons color--primary md-18">share</i>
                   </div>
 

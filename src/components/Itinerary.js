@@ -103,6 +103,11 @@ class Itinerary extends React.Component {
     this.onMapToggle = ev => {
       this.props.toggleMapView()
     }
+
+    this.shareGuide = ev => {
+      ev.preventDefault();
+      
+    }
   }
 
   componentWillMount() {
@@ -288,7 +293,7 @@ class Itinerary extends React.Component {
                       </div>
 
                       <div className="vb vb--sm vb--outline fill--white color--black flx-item-right">
-                        <div className="mrgn-right-sm" onClick={this.onMapToggle}>Share Guide</div>
+                        <div className="mrgn-right-sm" onClick={this.shareGuide}>Share Guide</div>
                         <i className="material-icons color--primary md-18">share</i>
                       </div>
 

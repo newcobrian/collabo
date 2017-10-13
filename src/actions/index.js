@@ -2961,6 +2961,14 @@ export function showModal(type, review, images) {
   }
 }
 
+export function hideModal(type) {
+  return dispatch => {
+    dispatch({
+      type: HIDE_MODAL
+    })
+  }
+}
+
 export function openLightbox(images) {
   return dispatch => {
     dispatch({
@@ -2997,14 +3005,6 @@ export function nextLightbox(index) {
     dispatch({
       type: NEXT_LIGHTBOX,
       index: index
-    })
-  }
-}
-
-export function hideModal(type) {
-  return dispatch => {
-    dispatch({
-      type: HIDE_MODAL
     })
   }
 }
