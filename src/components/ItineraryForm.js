@@ -495,10 +495,9 @@ class ItineraryForm extends React.Component {
 
                   <div className="vb vb--sm vb--outline fill--white color--black flx-item-right">
                     <FacebookShareButton
-                      url={`/guides/${this.props.itineraryId}`}
-                      title={itinerary.title}
-                      description={itinerary.description}
-                      picture={itinerary && itinerary.images && itinerary.images.url ? itinerary.images.url : Constants.DEFAULT_SHARE_PIC }
+                      url={Constants.VIEWS_URL + `/guides/${this.props.itineraryId}`}
+                      quote={'Check out my travel guide "' + itinerary.title + '" for ' + shortName}
+                      hashtag={'#views'}
                       className="Demo__some-network__share-button">
                       <FacebookIcon
                         size={32}
