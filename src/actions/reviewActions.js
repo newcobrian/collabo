@@ -4,6 +4,33 @@ import * as Helpers from '../helpers'
 import * as ActionTypes from './types'
 import mixpanel from 'mixpanel-browser'
 
+export function getSubject(subjectId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId).on('value', subjectSnapshot => {
+      Firebase.database().ref(Constants.IMAGES_PATH + '/' + subjectId).on('value', imageSnapshot => {
+        let subject = Object.assign({}, subjectSnapshot.val(), 
+          { images: Helpers.getImagePath(imageSnapshot.val()) } );
+        
+        dispatch({
+          type: ActionTypes.GET_SUBJECT,
+          payload: subject
+        })
+      })
+    })
+  }
+}
+
+export function unloadSubject(subjectId) {
+  Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId).off();
+  Firebase.database().ref(Constants.IMAGES_PATH + '/' + subjectId).off();
+  
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.SUBJECT_UNLOADED
+    });
+  }
+}
+
 export function getAppUserReview(authenticated, currentUserInfo, subjectId) {
   return dispatch => {
     if (!authenticated) {
@@ -125,6 +152,90 @@ export function unloadFollowingReviews(auth, subjectId) {
       })
       Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + auth).off();
     })
+
+    dispatch({
+      type: ActionTypes.FOLLOWING_REVIEWS_UNLOADED
+    })
+  }
+}
+
+export function getAllReviews(auth, subjectId) {
+  return dispatch => {
+    if (!auth) {
+      dispatch({
+        type: ActionTypes.GET_ALL_REVIEWS,
+        payload: []
+      })
+    }
+    let reviewArray = [];
+    Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId).on('value', subjectSnapshot => {
+      Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + auth).on('value', followingSnapshot => {
+        let isFollowingCheck = {};
+        followingSnapshot.forEach(function(followingChild) {
+          isFollowingCheck[followingChild.key] = true;
+        })
+        Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId).on('value', reviewSnapshot => {
+          reviewSnapshot.forEach(function(userReview) {
+            if (!isFollowingCheck[userReview.key] && userReview.key !== auth) {
+              Firebase.database().ref(Constants.USERS_PATH + '/' + userReview.key).once('value', userSnapshot => {
+                Firebase.database().ref(Constants.TIPS_BY_SUBJECT_PATH + '/' + subjectId + '/' + userReview.key).on('value', tipsByUserSnap => {
+                  Firebase.database().ref(Constants.IMAGES_BY_USER_PATH + '/' + userReview.key + '/' + subjectId).on('value', imagesSnapshot => {
+                    Firebase.database().ref(Constants.IMAGES_PATH + '/' + subjectId).on('value', defaultImagesSnapshot => {
+                      let reviewObject = {};
+
+                      let itineraries = [];
+                      if (tipsByUserSnap.exists()) {
+                        tipsByUserSnap.forEach(function(tip) {
+                          itineraries = itineraries.concat(Object.assign({}, {tipId: tip.key}, tip.val()));
+                        })
+                      }
+
+                      let images = imagesSnapshot.exists() ? Helpers.getImagePath(imagesSnapshot.val()) : Helpers.getImagePath(defaultImagesSnapshot.val());
+
+                      Object.assign(reviewObject, {subject: subjectSnapshot.val()}, {subjectId: subjectSnapshot.key}, 
+                        {review: reviewSnapshot.val()}, {reviewId: reviewSnapshot.val().reviewId},
+                        { createdBy: userSnapshot.val() }, {itineraries: itineraries}, {images: images} );
+                      reviewArray = [reviewObject].concat(reviewArray);
+                      reviewArray.sort(Helpers.lastModifiedDesc);
+
+                      dispatch({
+                        type: ActionTypes.GET_ALL_REVIEWS,
+                        payload: reviewArray
+                      })
+                    })
+                  })
+                })
+              })
+            }
+          })
+        })
+      })
+    })
+  }
+}
+
+export function unloadAllReviews(auth, subjectId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId).off();
+    Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + auth).once('value', followingSnapshot => {
+      let isFollowingCheck = {};
+      followingSnapshot.forEach(function(followingChild) {
+        isFollowingCheck[followingChild.key] = true;
+      })
+      Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId).once('value', reviewSnapshot => {
+        reviewSnapshot.forEach(function(userReview) {
+          if (!isFollowingCheck[userReview.key] && userReview.key !== auth) {
+            Firebase.database().ref(Constants.USERS_PATH + '/' + userReview.key).off()
+            Firebase.database().ref(Constants.TIPS_BY_SUBJECT_PATH + '/' + subjectId + '/' + userReview.key).off()
+            Firebase.database().ref(Constants.IMAGES_BY_USER_PATH + '/' + userReview.key + '/' + subjectId).off()
+            Firebase.database().ref(Constants.IMAGES_PATH + '/' + subjectId).off()
+          }
+        })
+      })
+    })
+
+    Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId).off();
+    Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + auth).off();
 
     dispatch({
       type: ActionTypes.FOLLOWING_REVIEWS_UNLOADED

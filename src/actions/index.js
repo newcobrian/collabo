@@ -1255,21 +1255,7 @@ export function createSubmitError(missingField, source) {
   }
 }
 
-export function getSubject(subjectId) {
-  return dispatch => {
-    Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId).on('value', subjectSnapshot => {
-      Firebase.database().ref(Constants.IMAGES_PATH + '/' + subjectId).on('value', imageSnapshot => {
-        let subject = Object.assign({}, subjectSnapshot.val(), 
-          { images: Helpers.getImagePath(imageSnapshot.val()) } );
-        
-        dispatch({
-          type: GET_SUBJECT,
-          payload: subject
-        })
-      })
-    })
-  }
-}
+
 
 export function getReview(authenticated, reviewId) {
   return dispatch => {
@@ -1351,17 +1337,6 @@ export function getComments(reviewId) {
           })
         });
       }
-    });
-  }
-}
-
-export function unloadSubject(subjectId) {
-  Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId).off();
-  Firebase.database().ref(Constants.IMAGES_PATH + '/' + subjectId).off();
-  
-  return dispatch => {
-    dispatch({
-      type: SUBJECT_UNLOADED
     });
   }
 }

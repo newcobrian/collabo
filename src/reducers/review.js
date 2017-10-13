@@ -1,6 +1,7 @@
 import { GET_SUBJECT, GET_REVIEW, SUBJECT_UNLOADED, REVIEW_UNLOADED, GET_COMMENTS, GET_APP_USER_REVIEW, 
   COMMENTS_UNLOADED, ADD_COMMENT, DELETE_COMMENT, RATING_UPDATED, REVIEW_LIKED, REVIEW_UNLIKED, APP_USER_REVIEW_UNLOADED,
   GET_FOLLOWING_REVIEWS, FOLLOWING_REVIEWS_UNLOADED, REVIEW_SAVED, REVIEW_UNSAVED, UNLOAD_USER_REVIEW, GET_USER_REVIEW } from '../actions'
+import * as ActionTypes from '../actions/types';
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -41,6 +42,11 @@ export default (state = {}, action) => {
         ...state,
         followingReviews: action.payload
       }
+    case ActionTypes.GET_ALL_REVIEWS:
+      return {
+        ...state,
+        allReviews: action.payload
+      }
     case GET_COMMENTS:
       return {
         ...state,
@@ -61,6 +67,7 @@ export default (state = {}, action) => {
     case COMMENTS_UNLOADED:
     case APP_USER_REVIEW_UNLOADED:
     case FOLLOWING_REVIEWS_UNLOADED:
+    case ActionTypes.ALL_REVIEWS_UNLOADED:
       return {};
     default:
       return state;

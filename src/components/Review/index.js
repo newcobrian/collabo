@@ -149,6 +149,7 @@ class Review extends React.Component {
     this.props.getSubject(this.props.params.sid);
     this.props.getUserReview(this.props.authenticated, this.props.authenticated, this.props.params.sid);
     this.props.getFollowingReviews(this.props.authenticated, this.props.params.sid);
+    this.props.getAllReviews(this.props.authenticated, this.props.params.sid);
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'review page'});
   }
 
@@ -165,6 +166,7 @@ class Review extends React.Component {
     this.props.unloadSubject(this.props.params.sid);
     this.props.unloadUserReview(this.props.authenticated, this.props.authenticated, this.props.params.sid);
     this.props.unloadFollowingReviews(this.props.authenticated, this.props.params.sid);
+    this.props.unloadAllReviews(this.props.authenticated, this.props.params.sid);
   }
 
   render() {
@@ -322,12 +324,21 @@ class Review extends React.Component {
             unSave={this.props.unSaveReview}
             showModal={this.props.showModal} />
           <ReviewList
-              itinerary={this.props.itinerary}
-              reviewList={this.props.followingReviews} 
-              authenticated={this.props.authenticated}
-              userInfo={this.props.userInfo}
-              showModal={this.props.showModal}
-               />
+            itinerary={this.props.itinerary}
+            reviewList={this.props.followingReviews} 
+            authenticated={this.props.authenticated}
+            userInfo={this.props.userInfo}
+            showModal={this.props.showModal}
+             />
+
+          Remaining reviews
+          <ReviewList
+            itinerary={this.props.itinerary}
+            reviewList={this.props.allReviews} 
+            authenticated={this.props.authenticated}
+            userInfo={this.props.userInfo}
+            showModal={this.props.showModal}
+             />
           </div>
         </div>
       </div>
