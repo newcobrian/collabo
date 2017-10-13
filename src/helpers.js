@@ -58,7 +58,11 @@ export function byPriority(a, b) {
 }
 
 export function lastModifiedDesc(a, b) {
-  return b.lastModified - a.lastModified;
+  if (a.lastModified > b.lastModified)
+    return -1;
+  if (a.lastModified < b.lastModified)
+    return 1;
+  return 0;
 }
 
 export function lastModifiedAsc(a, b) {

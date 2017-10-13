@@ -8,14 +8,23 @@ import MainView from './MainView';
 
 class GlobalFeed extends Home {
   componentWillMount() {
-    // this.props.getGlobalFeed(this.props.authenticated, this.props.tag);
-    this.props.loadSampleGuides(this.props.authenticated);
+    if (this.props.authenticated) {
+      this.props.watchGlobalFeed(this.props.authenticated, this.props.tag);
+    }
+    else {
+      this.props.loadSampleGuides(this.props.authenticated);
+    }
+
     this.props.sendMixpanelEvent('Global feed loaded');
   }
 
   componentWillUnmount() {
-    // this.props.unloadGlobalFeed(this.props.authenticated);
-    this.props.unloadSampleGuides(this.props.authenticated);
+    if (this.props.authenticated) {
+      this.props.unwatchGlobalFeed(this.props.authenticated);
+    }
+    else {
+      this.props.unloadSampleGuides(this.props.authenticated);
+    }
   }
 
   // onSetPage(page) {
@@ -24,60 +33,26 @@ class GlobalFeed extends Home {
   // }
 
   renderTabs() {
-    if (this.props.authenticated) {
-      return (
-        <div className="page-title-container">
-          <div className="page-title-wrapper center-text">
-            <div className="v2-type-h2 subtitle"></div>
-          </div>
-          <ul className="nav nav-pills outline-active tag-bar">
-            <li className="nav-item">
-              <Link
-                className="nav-link"
-                to={`/`}>
-                Friends
-              </Link>
-            </li>
-
-            <li className="nav-item">
-              <Link
-                className="nav-link active"
-                to={`/global`}>
-                Everyone
-              </Link>
-            </li>
-            <li className="nav-item">
-              <a href='#'
-                className={"nav-link " + (this.props.tag ? '' : 'active')}
-                onClick={this.selectTab(null)}>
-                All
-              </a>
-            </li>
-            {Constants.TAG_LIST.map(item => {
-              return (
-                    <li className="nav-item">
-                      <a href='#'
-                        className={"nav-link " + (this.props.tag === item ? 'active' : '')}
-                        onClick={this.selectTab(item)}>
-                        {item}
-                      </a>
-                    </li>
-                );
-            })}
-          </ul>
-        </div> 
-      );
-    }
-    else {
-      return (
-        <div className="page-title-container">
-          <div className="page-title-wrapper center-text">
-            <div className="v2-type-page-header"><div className="location-dropdown">World</div> Views</div>
-            <div className="v2-type-body2 opa-60 mrgn-top-md">Get solid reviews from dope people you trust.</div>
-          </div>
-        </div>
-      )
-    }
+    return (
+      <div className="feed-toggle friend-popular-toggle flx flx-row flx-just-center w-100">
+        <ul className="nav nav-pills outline-active flx flx-row">
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              to="/">
+              Friends
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link
+              className="nav-link active"
+              to="/global">
+              Everyone
+            </Link>
+          </li>
+        </ul>
+      </div>
+    )
   }
 }
 

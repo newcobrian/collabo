@@ -2064,7 +2064,7 @@ export function unloadLikesByUser(auth, userId) {
 // export function getGlobalFeed(auth) {
 //   return dispatch => {
 //     let feedArray = [];
-//     Firebase.database().ref(Constants.ITINERARIES_PATH).orderByChild('popularityScore').on('value', itinerariesSnapshot => {
+//     Firebase.database().ref(Constants.ITINERARIES_PATH).orderByChild('lastModified').limitToLast(20).on('value', itinerariesSnapshot => {
 //       itinerariesSnapshot.forEach(function(itin) {
 //         Firebase.database().ref(Constants.USERS_PATH + '/' + itin.val().userId).on('value', userSnapshot => {
 //           Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itin.key).on('value', likesSnapshot => {
@@ -2078,7 +2078,8 @@ export function unloadLikesByUser(auth, userId) {
 //             Object.assign(itineraryObject, itin.val(), key, createdBy, likes);
 
 //             feedArray = [itineraryObject].concat(feedArray);
-//             feedArray.sort(Helpers.byPopularity);
+//             // feedArray.sort(Helpers.byPopularity);
+//             feedArray.sort(Helpers.byLastModifiedAsc);
 //             dispatch({
 //               type: ActionTypes.GET_GLOBAL_FEED,
 //               payload: feedArray

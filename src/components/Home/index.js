@@ -214,6 +214,29 @@ class Home extends React.Component {
     return null;
   };
 
+  renderTabs() {
+    return (
+      <div className="feed-toggle friend-popular-toggle flx flx-row flx-just-center w-100">
+        <ul className="nav nav-pills outline-active flx flx-row">
+          <li className="nav-item">
+            <Link
+              className="nav-link active"
+              to="/">
+              Friends
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              to="/global">
+              Everyone
+            </Link>
+          </li>
+        </ul>
+      </div>
+    )
+  }
+
   render() {
     const isLandingPage = (browserHistory.getCurrentLocation().pathname === '/global') && !this.props.authenticated ?
       'page-landing' : ''
@@ -242,24 +265,7 @@ class Home extends React.Component {
  
         <div className={'home-page page-common fill--light-gray ' + isLandingPage}>
 
-          <div className="feed-toggle friend-popular-toggle flx flx-row flx-just-center w-100">
-            <ul className="nav nav-pills outline-active flx flx-row">
-              <li className="nav-item">
-                <Link
-                  className="nav-link active"
-                  to="/">
-                  Friends
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  className="nav-link"
-                  to="/popular">
-                  Popular
-                </Link>
-              </li>
-            </ul>
-          </div>
+          {this.renderTabs()}
 
           <div className="w-100 w-max flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap">
             <div className="popular-box brdr-all flx flx-col DN">
