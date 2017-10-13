@@ -210,9 +210,20 @@ class FirebaseSearchInput extends Component {
           fontWeight: '400',
           lineHeight: '14px'
         }}
+        menuItemStyle={{
+          borderBottom: '1px solid #ccc !important',
+          padding: '20px !important'
+        }}
+        selectedMenuItemStyle={{
+          backgroundColor:'#3DCBF3 !important',
+          color: 'white'
+        }}
+        innerDivStyle={{
+          borderBottom: '1px solid #ccc !important',
+          padding: '20px !important'
+        }}
         underlineStyle={{borderColor: '#5B9D3A'}}
         menuStyle={{
-          height: '400px',
           overflow: 'scroll'
         }}
         hintStyle={{

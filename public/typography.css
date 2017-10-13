@@ -402,6 +402,33 @@ h4 {
 
 
 
+.it-add-container ::-moz-placeholder { /* Firefox 19+ */
+  color: #3DCBF3 !important; /*DARK BLUE*/
+  opacity: 1;
+  font-weight: 300;
+  font-family: 'Arimo', sans-serif;
+}
+.it-add-container :-ms-input-placeholder { /* IE 10+ */
+  color: #3DCBF3 !important; /*DARK BLUE*/
+  opacity: 1;
+  font-weight: 300;
+  font-family: 'Arimo', sans-serif;
+}
+.it-add-container :-moz-placeholder { /* Firefox 18- */
+  color: #3DCBF3 !important; /*DARK BLUE*/
+  opacity: 1;
+  font-weight: 300;
+  font-family: 'Arimo', sans-serif;
+}
+.it-add-container ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #3DCBF3 !important; /*DARK BLUE*/
+  opacity: 1;
+  font-weight: 300;
+  font-family: 'Arimo', sans-serif;
+}
+
+
+
 
 .tip-wrapper ::-webkit-input-placeholder,
 .comment-wrapper  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -431,6 +458,10 @@ h4 {
   font-weight: 300;
   font-family: 'Rokkitt', sans-serif;
 }
+
+
+
+
 .article-page .comment-form .card-block textarea:focus {
   outline: -webkit-focus-ring-color auto 1px;
   outline-offset: -2px;

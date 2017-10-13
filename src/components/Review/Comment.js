@@ -39,7 +39,7 @@ const Comment = props => {
               {processed(comment.body)}
 
               <div className="flx flx-row flx-just-start flx-align-center">
-                <div className="date-posted inline-block">
+                <div className="date-posted inline-block font--alpha">
                   <DisplayTimestamp timestamp={comment.lastModified} />
                 </div>
                 <DeleteButton show={show} commentObject={props.commentObject} commentId={comment.id} deleteComment={props.deleteComment} itineraryId={props.itineraryId} />

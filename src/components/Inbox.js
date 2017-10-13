@@ -112,10 +112,10 @@ class Inbox extends React.Component {
                   <Link className="flx flx-row flx-just-start brdr-bottom flx-align-center pdding-all-sm list-row w-100 w-max" key={inboxItem.key} to={inboxItem.link}>
                     <LeftSenderPic senderId={inboxItem.senderId} username={inboxItem.senderUsername} image={inboxItem.senderImage} />
                     <div className="flx flx-col mrgn-right-md">
-                      <div className="v2-type-body1">
+                      <div className="v2-type-body1 font--alpha">
                         <strong><RenderUsername senderId={inboxItem.senderId} username={inboxItem.senderUsername} /></strong>
                         {inboxItem.message}<Link to={inboxItem.link}><div className="color--primary inline">{inboxItem.reviewTitle}</div></Link>
-                         <div className="itinerary__cover__timestamp"><DisplayTimestamp timestamp={inboxItem.lastModified} /></div>
+                         <div className="itinerary__cover__timestamp font--alpha"><DisplayTimestamp timestamp={inboxItem.lastModified} /></div>
                       </div>
                     </div>
                     <div className="feed-pic-wrapper mrgn-right-md flx-item-right"><RightPic link={inboxItem.link} image={inboxItem.reviewImage} /></div>

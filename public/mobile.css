@@ -142,6 +142,7 @@ margin: 0;
   border-top-color: #45CAE6;
   margin-top: 0;
   border-bottom: none;
+  padding-top: 0;
 }
 .navigation-bar .nav-module.active.create,
 .navigation-bar .nav-module.create:hover,

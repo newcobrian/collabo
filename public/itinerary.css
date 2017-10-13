@@ -348,12 +348,11 @@ textarea.edit-itinerary__name {
 
 }
 .it-add-wrapper .geosuggest {
-	background-color: white;
 }
 .it-add-wrapper .geosuggest:hover {
 }
 .it-add-wrapper .geosuggest__input {
-	height: 40px;
+	height: 42px;
 	text-indent: 40px;
 }
 .it-add-wrapper .geosuggest__input:hover {

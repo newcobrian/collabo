@@ -54,7 +54,7 @@ class Login extends React.Component {
               <div className="v2-type-page-header ta-center">Log In</div>
               <div className="text-xs-center mrgn-bottom-sm">
                 <Link className="v2-type-body1 color--primary" to="register">
-                  Need an account?
+                  Create an account
                 </Link>
               </div>
 

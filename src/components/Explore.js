@@ -77,7 +77,7 @@ class Explore extends React.Component {
                   user.userId === this.props.authenticated;
 
                   return (
-                    <div className="flx flx-row w-100 flx-just-start flx-align-center ta-center pdding-left-md pdding-right-md pdding-top-sm pdding-bottom-sm brdr-bottom" key={user.userId}>
+                    <div className="flx flx-row w-100 flx-just-start flx-align-center ta-left pdding-left-md pdding-right-md pdding-top-sm pdding-bottom-sm brdr-bottom list-row w-100 w-max" key={user.userId}>
                       <Link
                         to={`/${user.username}`}
                         className="mrgn-right-md">
@@ -85,12 +85,16 @@ class Explore extends React.Component {
                           <ProfilePic src={user.image} className="center-img" />
                         </div>
                       </Link>
-
+                      <div className="flx flx-col">
                         <Link
                             to={`/${user.username}`}
-                            className="color--black ">
+                            className="color--primary v2-type-body1">
                             {user.username}
                         </Link>
+                        <div className="v2-type-body1 font--beta mrgn-right-sm">
+                          {user.bio}
+                        </div>
+                      </div>
                       <div className="flx-item-right">
                         <FollowUserButton
                           authenticated={this.props.authenticated}
