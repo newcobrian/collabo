@@ -315,30 +315,32 @@ class Review extends React.Component {
         </div>
         <div className="itinerary__tipslist flx flx-col flx-align-center pdding-all-md w-100">
           <div className="w-100">
-          <DisplayAppUserReview 
-            tip={this.props.appUserReview}
-            subject={this.props.subject}
-            authenticated={this.props.authenticated}
-            userInfo={this.props.userInfo}
-            save={this.props.saveReview}
-            unSave={this.props.unSaveReview}
-            showModal={this.props.showModal} />
-          <ReviewList
-            itinerary={this.props.itinerary}
-            reviewList={this.props.followingReviews} 
-            authenticated={this.props.authenticated}
-            userInfo={this.props.userInfo}
-            showModal={this.props.showModal}
-             />
+            <DisplayAppUserReview 
+              tip={this.props.appUserReview}
+              subject={this.props.subject}
+              authenticated={this.props.authenticated}
+              userInfo={this.props.userInfo}
+              save={this.props.saveReview}
+              unSave={this.props.unSaveReview}
+              showModal={this.props.showModal} />
+            <div className="label-big pdding-left-lg mrgn-top-md opa-40 DN">Friends</div>
 
-          Remaining reviews
-          <ReviewList
-            itinerary={this.props.itinerary}
-            reviewList={this.props.allReviews} 
-            authenticated={this.props.authenticated}
-            userInfo={this.props.userInfo}
-            showModal={this.props.showModal}
-             />
+            <ReviewList
+              itinerary={this.props.itinerary}
+              reviewList={this.props.followingReviews} 
+              authenticated={this.props.authenticated}
+              userInfo={this.props.userInfo}
+              showModal={this.props.showModal}
+               />
+
+            <div className="label-big pdding-left-lg opa-40">More reviews</div>
+            <ReviewList
+              itinerary={this.props.itinerary}
+              reviewList={this.props.allReviews} 
+              authenticated={this.props.authenticated}
+              userInfo={this.props.userInfo}
+              showModal={this.props.showModal}
+               />
           </div>
         </div>
       </div>

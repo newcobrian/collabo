@@ -55,19 +55,10 @@ const ReviewPreview = props => {
 
               <div className="tip__right-module flx flx-col flx-align-end">
 
-
-              { /** Rating **/ }
-              <div className={'mobile-show tip__rating-module flx flx-row flx-align-center flx-item-right w-100 tip__rating-module--' + tip.review.rating}>
-                <div className={'tip__rating flx-hold flx flx-row flx-center-all v2-type-rating--' +  tip.review.rating}>
-                  {tip.review.rating}
-                </div>
-                <i className="rating-star-icon material-icons color--black opa-40 md-14 DN">star</i>
-              </div>
-              { /** END Rating **/ }
               
 
                 { /** Image **/ }
-                <div className="tip__image-module">
+                <div className="tip__image-module DN">
                   <div className={"tip__photo-count tip-count-" + tip.images.length}>{tip.images.length > 0 ? tip.images.length : null}</div>
                   <ImagePicker images={tip.images} />
                 </div>
@@ -85,7 +76,7 @@ const ReviewPreview = props => {
 
                 <div className="tip__content-wrapper">
 
-                  <div className="tip__header-wrapper flx flx-row flx-align-start flx-just-start">
+                  <div className="tip__header-wrapper flx flx-row flx-align-center flx-just-start">
 
                     { /** Title **/ }
                     <Link to={`/review/${tip.subjectId}/${tip.key}`}>
@@ -112,7 +103,7 @@ const ReviewPreview = props => {
                     
 
                     { /** Rating **/ }
-                    <div className={'mobile-hide tip__rating-module flx flx-row flx-align-center flx-item-right w-100 flx-hold tip__rating-module--' + tip.review.rating}>
+                    <div className={'tip__rating-module flx flx-row flx-align-center flx-item-right w-100 flx-hold tip__rating-module--' + tip.review.rating}>
                       <div className={'tip__rating flx-hold flx flx-row flx-center-all v2-type-rating--' +  tip.review.rating}>
                         {tip.review.rating}
                       </div>

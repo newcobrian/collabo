@@ -112,6 +112,9 @@
 	padding-left: 30px;
 	width:100%;
 }
+.page-subject .tip__content-wrapper {
+  padding-left: 0;
+}
 
 .tip__caption {
 	width: 100%;
