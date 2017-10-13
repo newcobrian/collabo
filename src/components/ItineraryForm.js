@@ -27,6 +27,19 @@ import scrollToElement from 'scroll-to-element';
 import RelatedItineraries from './RelatedItineraries';
 import {BackToTop} from 'pui-react-back-to-top';
 import SEO from './SEO';
+import { ShareButtons, ShareCounts, generateShareIcon } from 'react-share';
+
+const {
+  FacebookShareButton,
+  TwitterShareButton
+} = ShareButtons;
+
+const {
+  FacebookShareCount
+} = ShareCounts;
+
+const FacebookIcon = generateShareIcon('facebook');
+const TwitterIcon = generateShareIcon('twitter');
 
 var Scroll = require('react-scroll');
 var Element = Scroll.Element;
@@ -186,6 +199,7 @@ class ItineraryForm extends React.Component {
     }
 
     const itinerary = this.props.data;
+    const shortName = itinerary && itinerary.geo && itinerary.geo.shortName ? itinerary.geo.shortName : itinerary.geo.label;
     const {google} = this.props;
     const addTipFunc = this.props.onAddTip;
     const auth = this.props.authenticated;
@@ -480,7 +494,35 @@ class ItineraryForm extends React.Component {
                   </div>
 
                   <div className="vb vb--sm vb--outline fill--white color--black flx-item-right">
-                    <div className="mrgn-right-sm" onClick={this.shareGuide}>Share Guide</div>
+                    <FacebookShareButton
+                      url={`/guides/${this.props.itineraryId}`}
+                      title={itinerary.title}
+                      description={itinerary.description}
+                      picture={itinerary && itinerary.images && itinerary.images.url ? itinerary.images.url : Constants.DEFAULT_SHARE_PIC }
+                      className="Demo__some-network__share-button">
+                      <FacebookIcon
+                        size={32}
+                        round />
+                    </FacebookShareButton>
+
+                    <FacebookShareCount
+                      url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
+                      className="Demo__some-network__share-count">
+                      {count => count}
+                    </FacebookShareCount>
+                  </div>
+
+                  <div className="Demo__some-network">
+                    <TwitterShareButton
+                      url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
+                      title={'Check out my travel guide "' + itinerary.title + '" for ' + shortName + ':'}
+                      hashtags={['views']}
+                      className="Demo__some-network__share-button">
+                      <TwitterIcon
+                        size={32}
+                        round />
+                    </TwitterShareButton>
+                    <div className="mrgn-right-sm DN" onClick={this.shareGuide}>Share Guide</div>
                     <i className="material-icons color--primary md-18">share</i>
                   </div>
 

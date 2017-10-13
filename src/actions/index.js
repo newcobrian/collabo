@@ -2823,9 +2823,9 @@ export function watchFollowingPath(dispatch, auth, userId) {
     }
     else {
       dispatch({
-      type: ActionTypes.IS_FOLLOWING_REMOVED,
-      userId
-    })
+        type: ActionTypes.IS_FOLLOWING_REMOVED,
+        userId
+      })
     }
   })
 }

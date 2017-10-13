@@ -106,7 +106,7 @@ class Itinerary extends React.Component {
 
     this.shareGuide = ev => {
       ev.preventDefault();
-      
+
     }
   }
 
@@ -293,7 +293,7 @@ class Itinerary extends React.Component {
                       </div>
 
                       <div className="vb vb--sm vb--outline fill--white color--black flx-item-right">
-                        <div className="mrgn-right-sm" onClick={this.shareGuide}>Share Guide</div>
+                        <div className="mrgn-right-sm DN" onClick={this.shareGuide}>Share Guide</div>
                         <i className="material-icons color--primary md-18">share</i>
                       </div>
 
