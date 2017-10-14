@@ -611,7 +611,7 @@ class ItineraryForm extends React.Component {
 
                                     <div className="flx flx-col w-100">
 
-                                      <div className="tip__content-wrapper pdding-right-md">
+                                      <div className="tip__content-wrapper">
                                         <div className="tip__header-wrapper flx flx-row flx-align-start flx-just-start">
                                           { /** Title **/ }
                                           <div className="hide-in-list tip__title tip-title ta-left">

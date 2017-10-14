@@ -12,8 +12,8 @@ const mapStateToProps = state => ({
 const ReviewList = props => {
   if (!props.reviewList) {
     return (
-      <div className="status-module flx flx-row flx-just-center w-100 v2-type-body2 opa-40 pdding-all-lg mrgn-top-lg ta-center">
-        No one has saved this place to a guide yet. You could be the first...
+      <div className="status-module flx flx-row w-100 v2-type-body2 opa-40 pdding-all-lg mrgn-top-lg ta-left">
+        None of your friends have this on a guide yet
       </div>
     );
   }

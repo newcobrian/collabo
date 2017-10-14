@@ -48,8 +48,7 @@
   top: 70px;
   z-index: 10;
   padding: 0 20px;
-  background-color: #2A2B30;
-  background-color: rgba(42, 43, 48, .99);
+  background-color: #121419;
 }
   .page-landing.search-wrapper-wrapper {
     display: none;
