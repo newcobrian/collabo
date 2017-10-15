@@ -493,7 +493,7 @@ class ItineraryForm extends React.Component {
                      </MuiThemeProvider>
                   </div>
 
-                  <div className="vb vb--sm vb--outline fill--white color--black flx-item-right">
+                  <div className="vb vb--sm vb--outline fill--white color--black flx-item-right DN">
                     <FacebookShareButton
                       url={Constants.VIEWS_URL + `/guides/${this.props.itineraryId}`}
                       quote={'Check out my travel guide "' + itinerary.title + '" for ' + shortName}
@@ -511,7 +511,7 @@ class ItineraryForm extends React.Component {
                     </FacebookShareCount>
                   </div>
 
-                  <div className="Demo__some-network">
+                  <div className="Demo__some-network DN">
                     <TwitterShareButton
                       url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
                       title={'Check out my travel guide "' + itinerary.title + '" for ' + shortName + ':'}
