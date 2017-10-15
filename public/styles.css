@@ -423,9 +423,7 @@ width: 32px;
   text-align: center;
   display: inline-block; 
 }
-svg {
-  fill: red;
-}
+
 
 .navigation-bar .nav-icon img {
   height: 100%;

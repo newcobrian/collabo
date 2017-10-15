@@ -492,39 +492,39 @@ class ItineraryForm extends React.Component {
                        </IconMenu>
                      </MuiThemeProvider>
                   </div>
+                  <div className="flx-item-right flx flx-row">
+                    <div className="vb vb--sm vb--outline fill--white color--black">
+                      <FacebookShareButton
+                        url={Constants.VIEWS_URL + `/guides/${this.props.itineraryId}`}
+                        quote={'Check out my travel guide "' + itinerary.title + '" for ' + shortName}
+                        hashtag={'#views'}
+                        className="Demo__some-network__share-button">
+                        <FacebookIcon
+                          size={24}
+                          round />
+                      </FacebookShareButton>
 
-                  <div className="vb vb--sm vb--outline fill--white color--black flx-item-right DN">
-                    <FacebookShareButton
-                      url={Constants.VIEWS_URL + `/guides/${this.props.itineraryId}`}
-                      quote={'Check out my travel guide "' + itinerary.title + '" for ' + shortName}
-                      hashtag={'#views'}
-                      className="Demo__some-network__share-button">
-                      <FacebookIcon
-                        size={32}
-                        round />
-                    </FacebookShareButton>
+                      <FacebookShareCount
+                        url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
+                        className="mrgn-left-sm">
+                        {count => count}
+                      </FacebookShareCount>
+                    </div>
+                    <div className="vb vb--sm vb--outline fill--white color--black mrgn-left-n-1">
+                      <TwitterShareButton
+                        url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
+                        title={'Check out my travel guide "' + itinerary.title + '" for ' + shortName + ':'}
+                        hashtags={['views']}
+                        className="Demo__some-network__share-button">
+                        <TwitterIcon
+                          size={24}
+                          round />
+                      </TwitterShareButton>
+                      <div className="mrgn-right-sm DN" onClick={this.shareGuide}>Share Guide</div>
+                      <i className="material-icons color--primary md-18 DN">share</i>
+                    </div>
 
-                    <FacebookShareCount
-                      url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
-                      className="Demo__some-network__share-count">
-                      {count => count}
-                    </FacebookShareCount>
                   </div>
-
-                  <div className="Demo__some-network DN">
-                    <TwitterShareButton
-                      url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
-                      title={'Check out my travel guide "' + itinerary.title + '" for ' + shortName + ':'}
-                      hashtags={['views']}
-                      className="Demo__some-network__share-button">
-                      <TwitterIcon
-                        size={32}
-                        round />
-                    </TwitterShareButton>
-                    <div className="mrgn-right-sm DN" onClick={this.shareGuide}>Share Guide</div>
-                    <i className="material-icons color--primary md-18">share</i>
-                  </div>
-
                 </div>{/** END MAX div **/}
 
               </div>

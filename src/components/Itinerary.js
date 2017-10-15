@@ -27,6 +27,20 @@ import scrollToElement from 'scroll-to-element';
 import RelatedItineraries from './RelatedItineraries';
 import SEO from './SEO';
 import LoadingSpinner from './LoadingSpinner';
+import { ShareButtons, ShareCounts, generateShareIcon } from 'react-share';
+
+const {
+  FacebookShareButton,
+  TwitterShareButton
+} = ShareButtons;
+
+const {
+  FacebookShareCount
+} = ShareCounts;
+
+const FacebookIcon = generateShareIcon('facebook');
+const TwitterIcon = generateShareIcon('twitter');
+
 
 var Scroll = require('react-scroll');
 var scroller = Scroll.scroller;
@@ -292,9 +306,38 @@ class Itinerary extends React.Component {
                           type={ITINERARY_TYPE} />
                       </div>
 
-                      <div className="vb vb--sm vb--outline fill--white color--black flx-item-right">
-                        <div className="mrgn-right-sm DN" onClick={this.shareGuide}>Share Guide</div>
-                        <i className="material-icons color--primary md-18">share</i>
+                      <div className="flx-item-right flx flx-row">
+                        <div className="vb vb--sm vb--outline fill--white color--black">
+                          <FacebookShareButton
+                            url={Constants.VIEWS_URL + `/guides/${this.props.itineraryId}`}
+                            quote={'Check out my travel guide "' + itinerary.title + '" for '}
+                            hashtag={'#views'}
+                            className="Demo__some-network__share-button">
+                            <FacebookIcon
+                              size={24}
+                              round />
+                          </FacebookShareButton>
+
+                          <FacebookShareCount
+                            url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
+                            className="mrgn-left-sm">
+                            {count => count}
+                          </FacebookShareCount>
+                        </div>
+
+                        <div className="vb vb--sm vb--outline fill--white color--black mrgn-left-n-1">
+                          <TwitterShareButton
+                            url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
+                            title={'Check out my travel guide "' + itinerary.title + '" for ' + ':'}
+                            hashtags={['views']}
+                            className="Demo__some-network__share-button">
+                            <TwitterIcon
+                              size={24}
+                              round />
+                          </TwitterShareButton>
+                          <div className="mrgn-right-sm DN" onClick={this.shareGuide}>Share Guide</div>
+                          <i className="material-icons color--primary md-18 DN">share</i>
+                        </div>
                       </div>
 
 
