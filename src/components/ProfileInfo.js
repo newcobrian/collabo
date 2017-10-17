@@ -49,7 +49,7 @@ const ProfileInfo = props => {
               <div className="flx flx-row flx-just-start flx-align-center">
                 <div className="user-name">{profile.username}</div>
               </div>
-              <div className="v2-type-body2">{profile.bio}</div>
+              <div className="v2-type-body3 font--beta">{profile.bio}</div>
               <div className="user-action flx flx-row flx-just-start w-100 mobile-hide mrgn-top-sm flx-wrap">
                 <EditProfileSettings isUser={isUser} />
                 <SignOutButton isUser={isUser} signOut={props.signOut}/>

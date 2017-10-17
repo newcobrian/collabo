@@ -492,6 +492,8 @@ class ItineraryForm extends React.Component {
                        </IconMenu>
                      </MuiThemeProvider>
                   </div>
+
+                  
                   <div className="flx-item-right flx flx-row">
                     <div className="vb vb--sm vb--outline fill--white color--black">
                       <FacebookShareButton

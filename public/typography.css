@@ -86,6 +86,12 @@ textarea {
   letter-spacing: 0;
   line-height: 24px;
 }
+.v2-type-body3 {
+  font-weight: 300;
+  font-size: 17px;
+  letter-spacing: 0;
+  line-height: 24px;
+}
 
 
 .strong--400.v2-type-body0,
