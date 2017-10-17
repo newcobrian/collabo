@@ -93,9 +93,9 @@ const TipPreview = props => {
 
 
 
-                <div className="flx flx-row flx-m-col w-100">
+                <div className="flx flx-col w-100">
 
-                  <div className="tip__right-module flx flx-col flx-m-row">
+                  <div className="tip__right-module flx flx-col w-100">
 
 
                     { /** Image **/ }
@@ -164,7 +164,7 @@ const TipPreview = props => {
 
                     { /** Caption **/ }
                     <div className="tip__caption-module flx flx-col w-100 mrgn-bottom-md">
-                      <div className="tip__caption font--beta v2-type-body2 ta-left opa-90">
+                      <div className="tip__caption font--beta v2-type-body3 ta-left opa-90">
                         <CaptionDisplay tip={props.tip} />
                       </div>
                     </div>

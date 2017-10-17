@@ -560,10 +560,10 @@ class ItineraryForm extends React.Component {
                               
                                   
                                   { /** Title **/ }
-                                  <div className="tip__title-module flx flx-row flx-m-col w-100">
+                                  <div className="tip__title-module flx flx-col w-100">
 
 
-                                    <div className="tip__right-module flx flx-col flx-m-row">
+                                    <div className="tip__right-module flx flx-col flx-m-row w-100">
 
 
                                       { /** Rating **/ }
@@ -661,7 +661,7 @@ class ItineraryForm extends React.Component {
 
                                         { /** Caption **/ }
                                         <div className="tip__caption-module flx flx-col w-100 pdding-bottom-sm mrgn-bottom-md">
-                                          <div className="tip__caption v2-type-body2 ta-left opa-90">
+                                          <div className="tip__caption v2-type-body3 ta-left opa-90">
                                             <RenderDebounceInput
                                               type="textarea"
                                               className="w-100 show-border"

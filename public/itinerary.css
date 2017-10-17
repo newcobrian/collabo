@@ -332,7 +332,7 @@ textarea.edit-itinerary__name {
     top: 70px;
     z-index: 10;
     left: 0;
-    width: 60%;
+    width: 50%;
     background-color: rgba(18,20,25,.8);
     background-color: rgba(255,255,255,.95);
 }
@@ -395,7 +395,7 @@ textarea.edit-itinerary__name {
     padding: 0;
 }
 .content-wrapper.map-on {
-  width: 60%;
+  width: 50%;
 }
 .page-edit-own .content-wrapper {
 	margin-top: 60px;
@@ -410,14 +410,14 @@ textarea.edit-itinerary__name {
   position: fixed;
   right: 0;
   top: 70px;
-  left: 60%;
+  left: 50%;
   bottom: 0;
 }
 .it-map-overlay {
   position: fixed;
   right: 0;
   top: 0;
-  left: 60%;
+  left: 50%;
   bottom: 0;
   background-color: rgba(0,0,0,.1);
   background-color: rgba(22,32,52,.5);
