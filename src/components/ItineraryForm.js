@@ -444,7 +444,7 @@ class ItineraryForm extends React.Component {
               <div className="itinerary__cover__descrip font--beta v2-type-body3 ta-left mrgn-top-sm opa-80">
                  <RenderDebounceInput
                     type="text"
-                    className="w-100"
+                    className="w-100 font--beta"
                     value={this.props.data.description}
                     placeholder="Description"
                     debounceFunction={this.changeDescription} />

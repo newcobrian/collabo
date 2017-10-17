@@ -436,6 +436,7 @@ h4 {
 
 
 
+.font--beta::-webkit-input-placeholder,
 .tip-wrapper ::-webkit-input-placeholder,
 .comment-wrapper  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #2ECBDB;
@@ -443,6 +444,7 @@ h4 {
   font-weight: 300;
   font-family: 'Rokkitt', sans-serif;
 }
+.font--beta::-moz-placeholder,
 .tip-wrapper ::-moz-placeholder,
 .comment-wrapper ::-moz-placeholder { /* Firefox 19+ */
   color: #2ECBDB;
@@ -450,6 +452,7 @@ h4 {
   font-weight: 300;
   font-family: 'Rokkitt', sans-serif;
 }
+.font--beta:-ms-input-placeholder,
 .tip-wrapper :-ms-input-placeholder,
 .comment-wrapper :-ms-input-placeholder { /* IE 10+ */
   color: #2ECBDB;
@@ -457,6 +460,7 @@ h4 {
   font-weight: 300;
   font-family: 'Rokkitt', sans-serif;
 }
+.font--beta:-moz-placeholder,
 .tip-wrapper :-moz-placeholder,
 .comment-wrapper :-moz-placeholder { /* Firefox 18- */
   color: #2ECBDB;
