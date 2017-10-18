@@ -70,16 +70,14 @@
 }
 
 .page-edit-own .it-add-wrapper input {
-  text-indent: 70px;
+  text-indent: 40px;
   border: 1px solid rgba(0,199,205,1) !important;
   background-color: #121419;
 }
 .page-edit-own .it-add-wrapper input:hover {
-  text-indent: 70px;
   border: 1px solid #00C7FF !important;
 }
 .page-edit-own .it-add-wrapper input:focus {
-  text-indent: 70px;
   border: 1px solid #00EBFF !important;
 }
 

@@ -107,7 +107,7 @@ const TipPreview = props => {
 
 
                     { /** Rating **/ }
-                    <div className={'DN tip__rating-module flx flx-row flx-align-center flx-item-right w-100 tip__rating-module--' + tip.review.rating}>
+                    <div className={'DN tip__rating-module flx flx-row flx-align-center flx-item-right w-100 font--alpha tip__rating-module--' + tip.review.rating}>
                       <div className={'tip__rating flx-hold flx flx-row flx-center-all v2-type-rating--' +  tip.review.rating}>
                         {tip.review.rating}
                       </div>

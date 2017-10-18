@@ -289,12 +289,12 @@ class ItineraryForm extends React.Component {
         return (
           <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--white">
             <i className="material-icons color--primary md-24 DN">add_circle_outline</i>
-            <i className="material-icons color--primary md-24">play_arrow</i>
+            <i className="material-icons color--primary md-24">search</i>
 
             <Geosuggest 
               ref={el=>this._geoSuggest=el}
               className="input--underline w-100 color--black"
-              placeholder={'Search here to add to your guide'}
+              placeholder={'Search and add to your guide'}
               location={latLng}
               radius={1000}
               onSuggestSelect={suggestSelectTip(this)}/>
@@ -325,14 +325,14 @@ class ItineraryForm extends React.Component {
       if(numTips > 0) {
         return (
           <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list vb vb--sm vb--outline flx flx-row flx-align-center mrgn-left-sm">
-            <i className="material-icons color--black md-18">low_priority</i>
+            <i className="material-icons color--black md-18 opa-80">low_priority</i>
             <div className="color--black mrgn-left-sm mobile-hide">Reorder</div>
           </Link>
         )
       }
       else return (
         <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list vb vb--sm vb--disabled vb--outline flx flx-row flx-align-center mrgn-left-sm">
-          <i className="material-icons color--black md-18 mrgn-right-sm">low_priority</i>
+          <i className="material-icons color--black md-18 opa-80 mrgn-right-sm">low_priority</i>
           <div className="color--black mrgn-left-sm mobile-hide">Reorder</div>
         </Link>
         )
@@ -344,21 +344,25 @@ class ItineraryForm extends React.Component {
     }
 
     return (
-      <div className="flx flx-col flx-align-start page-common page-itinerary page-edit-own">
+      <div className={this.props.mapViewToggle ? 'flx flx-col flx-align-start page-common page-itinerary page-edit-own show-map' : 'flx flx-col flx-align-start page-common page-itinerary page-edit-own'}>
+
+
+        <div className="it-add-container flx flx-row flx-align-center brdr-bottom">
+          <div className="it__tip-count color--black mrgn-right-sm mrgn-left-sm">
+            {itinerary.reviewsCount ? itinerary.reviewsCount : 0}
+          </div>
+          {renderGeoSuggestTip(itinerary.geo)}
+          {renderReorderButton(itinerary.tips.length)}
+          <button className="vb vb--sm vb--outline flx flx-row flx-align-center fill--white color--black mrgn-left-n-1 button-map-toggle"
+            onClick={this.onMapToggle}>
+            <i className="material-icons color--black md-18 opa-80">map</i>
+            <div className="mobile-hide color--black mrgn-left-sm">Full Map</div>
+          </button>
+        </div>
 
         <div className="content-wrapper itinerary flx flx-col flx-align-center map-on">
 
-
-
-
-          <div className="it-add-container flx flx-row flx-align-center brdr-bottom">
-            <div className="it__tip-count mrgn-right-sm mrgn-left-sm">
-              {itinerary.reviewsCount ? itinerary.reviewsCount : 0}
-            </div>
-            {renderGeoSuggestTip(itinerary.geo)}
-            {renderReorderButton(itinerary.tips.length)}
-          </div>
-
+      
 
 
           <div className="itinerary-image-wrapper flx flx-row flx-just-start header-height">
@@ -567,7 +571,7 @@ class ItineraryForm extends React.Component {
 
 
                                       { /** Rating **/ }
-                                      <div className={'DN tip__rating-module flx flx-row flx-align-center flx-item-right w-100 tip__rating-module--' + tip.review.rating}>
+                                      <div className={'DN tip__rating-module flx flx-row flx-align-center flx-item-right font--alpha w-100 tip__rating-module--' + tip.review.rating}>
                                         <select value={tip.review.rating} onChange={this.changeRating(tip)}>
                                           <option value="-">-</option>
                                           <option value="0">0</option>

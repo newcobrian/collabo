@@ -768,7 +768,11 @@ body .back-to-top {
   width: 100%;
 }
 .it-map-container {
-  display: none;
+  visibility: hidden;
+  bottom: 60px;
+}
+.page-itinerary.show-map .it-map-container {
+  visibility: visible;
 }
 
 

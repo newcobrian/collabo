@@ -195,11 +195,16 @@ class Itinerary extends React.Component {
       }
       else {
         return (
-          <div className="flx flx-col flx-align-start page-common page-itinerary">
+          <div className={this.props.mapViewToggle ? 'flx flx-col flx-align-start page-common page-itinerary show-map' : 'flx flx-col flx-align-start page-common page-itinerary'}>
+
+            <button className="floating-map-toggle vb vb--sm vb--round vb--outline flx flx-row flx-align-center fill--white color--black mrgn-left-n-1 button-map-toggle"
+              onClick={this.onMapToggle}>
+              <i className="material-icons color--black md-18 opa-80">map</i>
+              <div className="mobile-hide color--black mrgn-left-sm">Full Map</div>
+            </button>
+
 
             <div className="content-wrapper itinerary flx flx-col flx-align-center map-on">
-
-
 
               {/** Cover Image **/}
               <div className="itinerary__big-photo bg-loading">
@@ -305,6 +310,8 @@ class Itinerary extends React.Component {
                           itineraryId={this.props.itineraryId}
                           type={ITINERARY_TYPE} />
                       </div>
+
+
 
                       <div className="flx-item-right flx flx-row">
                         <div className="vb vb--sm vb--outline fill--white color--black">

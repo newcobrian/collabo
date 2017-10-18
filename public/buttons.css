@@ -20,6 +20,9 @@ input, select, textarea {
   text-transform: inherit;
   background-color: white;
 }
+.page-edit-own .it-add-wrapper input {
+  font-size: 14px;
+}
 .page-edit-own .tip-container input,
 .page-edit-own .tip-container textarea,
 .page-edit-own .itinerary__cover__descrip textarea {
