@@ -300,6 +300,10 @@ export function watchPopularFeed(auth, page, score, key) {
     Firebase.database().ref(Constants.ITINERARIES_PATH).on('child_removed', removedSnap => {
       dispatch(itineraryRemovedAction(removedSnap.key));
     })
+
+    dispatch({
+      type: ActionTypes.FEED_WATCH_LOADED
+    })
 	}
   // }
 }
@@ -325,7 +329,8 @@ export function watchGlobalFeed(auth) {
 
     Firebase.database().ref(Constants.ITINERARIES_PATH)
       .orderByChild('lastModified')
-      .limitToLast(Constants.POPULARITY_PAGE_COUNT)
+      .limitToLast(Constants.POPULARITY_PAGE_COUNT).
+      endAt(null)
       .on('child_added', addedSnap => {
       watchUser(dispatch, addedSnap.val().userId, Constants.USER_FEED);
       dispatch(itineraryAddedAction(addedSnap.key, addedSnap.val().userId,  addedSnap.val()));
@@ -335,6 +340,10 @@ export function watchGlobalFeed(auth) {
     })
     Firebase.database().ref(Constants.ITINERARIES_PATH).on('child_removed', removedSnap => {
       dispatch(itineraryRemovedAction(removedSnap.key));
+    })
+
+    dispatch({
+      type: ActionTypes.FEED_WATCH_LOADED
     })
   }
 }
