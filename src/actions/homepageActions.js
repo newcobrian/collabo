@@ -329,8 +329,7 @@ export function watchGlobalFeed(auth) {
 
     Firebase.database().ref(Constants.ITINERARIES_PATH)
       .orderByChild('lastModified')
-      .limitToLast(Constants.POPULARITY_PAGE_COUNT).
-      endAt(null)
+      .limitToLast(Constants.POPULARITY_PAGE_COUNT)
       .on('child_added', addedSnap => {
       watchUser(dispatch, addedSnap.val().userId, Constants.USER_FEED);
       dispatch(itineraryAddedAction(addedSnap.key, addedSnap.val().userId,  addedSnap.val()));
