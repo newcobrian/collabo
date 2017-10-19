@@ -431,7 +431,7 @@ class Itinerary extends React.Component {
               category={''}
               tags={[]}
               twitter={''}
-              image={itinerary.images.url}
+              image={itinerary.images ? itinerary.images.url : null}
             />
 
           </div>
