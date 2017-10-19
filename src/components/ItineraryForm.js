@@ -347,7 +347,7 @@ class ItineraryForm extends React.Component {
       <div className={this.props.mapViewToggle ? 'flx flx-col flx-align-start page-common page-itinerary page-edit-own show-map' : 'flx flx-col flx-align-start page-common page-itinerary page-edit-own'}>
 
 
-        <div className="it-add-container flx flx-row flx-align-center">
+        <div className="it-add-container flx flx-row flx-align-center brdr-bottom">
           <div className="it__tip-count color--black mrgn-right-sm mrgn-left-sm DN">
             {itinerary.reviewsCount ? itinerary.reviewsCount : 0}
           </div>
