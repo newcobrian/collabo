@@ -9,7 +9,7 @@ import MainView from './MainView';
 class GlobalFeed extends Home {
   componentWillMount() {
     if (this.props.authenticated) {
-      this.props.watchGlobalFeed(this.props.authenticated, this.props.tag);
+      this.props.watchGlobalFeed(this.props.authenticated, null);
     }
     else {
       this.props.loadSampleGuides(this.props.authenticated);
@@ -25,6 +25,16 @@ class GlobalFeed extends Home {
     else {
       this.props.unloadSampleGuides(this.props.authenticated);
     }
+  }
+
+  onPrevClick = ev => {
+    this.props.unwatchGlobalFeed(this.props.authenticated, this.props.currentValue)
+    this.props.watchGlobalFeed(this.props.authenticated, this.props.prevValue)
+  }
+
+  onNextClick = ev => {
+    this.props.unwatchGlobalFeed(this.props.authenticated, this.props.currentValue)
+    this.props.watchGlobalFeedStartAt(this.props.authenticated, this.props.currentValue)
   }
 
   // onSetPage(page) {

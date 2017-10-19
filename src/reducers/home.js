@@ -7,7 +7,7 @@ const lastModifiedDesc = (a, b) => {
   return b.lastModified - a.lastModified;
 }
 
-const initialState = { usersData: {}, likesData: {}, popularPage: 0 }
+const initialState = { usersData: {}, likesData: {} }
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -209,6 +209,13 @@ export default (state = initialState, action) => {
       return {
         ...state,
         feedWatchLoaded: true
+      }
+    case ActionTypes.SET_PAGINATION_VALUES:
+      return {
+        ...state,
+        currentValue: action.currentValue,
+        prevValue: action.prevValue,
+        nextValue: action.nextValue
       }
     default:
       return state;

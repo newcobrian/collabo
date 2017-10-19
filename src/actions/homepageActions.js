@@ -323,16 +323,45 @@ export function unwatchPopularFeed(auth) {
   }
 }
 
-export function watchGlobalFeed(auth) {
+export function watchGlobalFeed(auth, endAt) {
   return dispatch => {
+    const currentEndAt = endAt ? endAt : Firebase.database.ServerValue.TIMESTAMP.toString();
+
+    Firebase.database().ref(Constants.ITINERARIES_PATH)
+      .orderByChild('lastModified')
+      .limitToLast(Constants.POPULARITY_PAGE_COUNT)
+      .endAt(currentEndAt)
+      .once('value', pageSnap => {
+        let i = 1;
+        let prev = null;
+        let next = null;
+        pageSnap.forEach(function(itin) {
+          if (i === 1) {
+            prev = itin.val().lastModified;
+          }
+          else if (i === pageSnap.numChildren()) {
+            next = itin.val().lastModified
+          }
+          
+          i++;
+        })
+        dispatch({
+          type: ActionTypes.SET_PAGINATION_VALUES,
+          currentValue: next,
+          prevValue: prev - 1
+        })
+    })
+
+    
     watchLikesByUser(dispatch, auth, Constants.USER_FEED);
 
     Firebase.database().ref(Constants.ITINERARIES_PATH)
       .orderByChild('lastModified')
       .limitToLast(Constants.POPULARITY_PAGE_COUNT)
+      .endAt(currentEndAt)
       .on('child_added', addedSnap => {
-      watchUser(dispatch, addedSnap.val().userId, Constants.USER_FEED);
-      dispatch(itineraryAddedAction(addedSnap.key, addedSnap.val().userId,  addedSnap.val()));
+        watchUser(dispatch, addedSnap.val().userId, Constants.USER_FEED);
+        dispatch(itineraryAddedAction(addedSnap.key, addedSnap.val().userId,  addedSnap.val()));
     })
     Firebase.database().ref(Constants.ITINERARIES_PATH).on('child_changed', changedSnap => {
       dispatch(itineraryChangedAction(changedSnap.key, changedSnap.val()));
@@ -347,12 +376,71 @@ export function watchGlobalFeed(auth) {
   }
 }
 
-export function unwatchGlobalFeed(auth) {
+export function watchGlobalFeedStartAt(auth, startAt) {
+  return dispatch => {
+    const currentStartAt = startAt ? startAt : Firebase.database.ServerValue.TIMESTAMP.toString();
+
+    Firebase.database().ref(Constants.ITINERARIES_PATH)
+      .orderByChild('lastModified')
+      .limitToFirst(Constants.POPULARITY_PAGE_COUNT)
+      .startAt(currentStartAt + 1)
+      .once('value', pageSnap => {
+        let i = 1;
+        let prev = null;
+        let next = null;
+        pageSnap.forEach(function(itin) {
+          if (i === 1) {
+            prev = itin.val().lastModified;
+          }
+          else if (i === pageSnap.numChildren()) {
+            next = itin.val().lastModified
+          }
+          
+          i++;
+        })
+        dispatch({
+          type: ActionTypes.SET_PAGINATION_VALUES,
+          currentValue: next,
+          prevValue: prev - 1
+        })
+    })
+
+    
+    watchLikesByUser(dispatch, auth, Constants.USER_FEED);
+
+    Firebase.database().ref(Constants.ITINERARIES_PATH)
+      .orderByChild('lastModified')
+      .limitToFirst(Constants.POPULARITY_PAGE_COUNT)
+      .startAt(currentStartAt + 1)
+      .on('child_added', addedSnap => {
+        watchUser(dispatch, addedSnap.val().userId, Constants.USER_FEED);
+        dispatch(itineraryAddedAction(addedSnap.key, addedSnap.val().userId,  addedSnap.val()));
+    })
+    Firebase.database().ref(Constants.ITINERARIES_PATH).on('child_changed', changedSnap => {
+      dispatch(itineraryChangedAction(changedSnap.key, changedSnap.val()));
+    })
+    Firebase.database().ref(Constants.ITINERARIES_PATH).on('child_removed', removedSnap => {
+      dispatch(itineraryRemovedAction(removedSnap.key));
+    })
+
+    dispatch({
+      type: ActionTypes.FEED_WATCH_LOADED
+    })
+  }
+}
+
+export function unwatchGlobalFeed(auth, endAt) {
+  const currentEndAt = endAt ? endAt : Firebase.database.ServerValue.TIMESTAMP.toString();
+
   return dispatch => {
     unwatchLikesByUser(dispatch, auth, Constants.USER_FEED);
 
-    Firebase.database().ref(Constants.ITINERARIES_PATH).orderByChild('lastModified').limitToLast(Constants.POPULARITY_PAGE_COUNT).once('child_added', addedSnap => {
-      unwatchUser(dispatch, addedSnap.val().userId, Constants.USER_FEED);
+    Firebase.database().ref(Constants.ITINERARIES_PATH)
+      .orderByChild('lastModified')
+      .endAt(currentEndAt)
+      .limitToLast(Constants.POPULARITY_PAGE_COUNT)
+      .once('child_added', addedSnap => {
+        unwatchUser(dispatch, addedSnap.val().userId, Constants.USER_FEED);
     })
     Firebase.database().ref(Constants.ITINERARIES_PATH).orderByChild('popularityScore').limitToLast(Constants.POPULARITY_PAGE_COUNT).off(); 
 

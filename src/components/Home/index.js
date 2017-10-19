@@ -238,6 +238,8 @@ class Home extends React.Component {
   }
 
   render() {
+    console.log('prev = ' + (this.props.prevValue ? new Date(this.props.prevValue) : '') + 
+      ' current: ' + (this.props.currentValue ?  new Date(this.props.currentValue) : ''))
     const isLandingPage = (browserHistory.getCurrentLocation().pathname === '/global') && !this.props.authenticated ?
       'page-landing' : ''
 
@@ -308,7 +310,10 @@ class Home extends React.Component {
           </div>
           <BackToTop />
         </div>
-        
+        <div>
+          <button onClick={this.onNextClick}>Newer Posts</button>
+          <button onClick={this.onPrevClick}>Older Posts</button>
+        </div>
 
         <div className="footer fill--black color--white flx flx-col flx-center-all flx-item-bottom">
           <div className="homepage-logo mrgn-bottom-md">  
