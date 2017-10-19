@@ -287,14 +287,13 @@ class ItineraryForm extends React.Component {
         let latLng = new this.props.googleObject.maps.LatLng(geo.location.lat, geo.location.lng);
         
         return (
-          <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--white">
-            <i className="material-icons color--primary md-24 DN">add_circle_outline</i>
-            <i className="material-icons color--primary md-24">search</i>
-
+          <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--primary">
+            <i className="material-icons color--white md-24">add</i>
+            
             <Geosuggest 
               ref={el=>this._geoSuggest=el}
-              className="input--underline w-100 color--black"
-              placeholder={'Search and add to your guide'}
+              className="input--underline w-100 color--white"
+              placeholder={'Add to your guide'}
               location={latLng}
               radius={1000}
               onSuggestSelect={suggestSelectTip(this)}/>
@@ -302,11 +301,12 @@ class ItineraryForm extends React.Component {
         )
       }
       else return (
-        <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--primary">
+        <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--primary color--white">
           <i className="material-icons color--white md-36 mrgn-right-md">add</i>
+         
           <Geosuggest
             ref={el=>this._geoSuggest=el}
-            className="input--underline w-100 color--black"
+            className="input--underline w-100 color--white"
             placeholder={'Search for any place in ' + itinerary.geo.label}
             onSuggestSelect={suggestSelectTip(this)}/>
         </div>
@@ -324,14 +324,14 @@ class ItineraryForm extends React.Component {
     const renderReorderButton = numTips => {
       if(numTips > 0) {
         return (
-          <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list vb vb--sm vb--outline flx flx-row flx-align-center mrgn-left-sm">
+          <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list vb vb--sm vb--outline-none fill--white flx flx-row flx-align-center">
             <i className="material-icons color--black md-18 opa-80">low_priority</i>
             <div className="color--black mrgn-left-sm mobile-hide">Reorder</div>
           </Link>
         )
       }
       else return (
-        <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list vb vb--sm vb--disabled vb--outline flx flx-row flx-align-center mrgn-left-sm">
+        <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list vb vb--sm vb--disabled fill--white vb--outline-none flx flx-row flx-align-center">
           <i className="material-icons color--black md-18 opa-80 mrgn-right-sm">low_priority</i>
           <div className="color--black mrgn-left-sm mobile-hide">Reorder</div>
         </Link>
@@ -347,13 +347,13 @@ class ItineraryForm extends React.Component {
       <div className={this.props.mapViewToggle ? 'flx flx-col flx-align-start page-common page-itinerary page-edit-own show-map' : 'flx flx-col flx-align-start page-common page-itinerary page-edit-own'}>
 
 
-        <div className="it-add-container flx flx-row flx-align-center brdr-bottom">
-          <div className="it__tip-count color--black mrgn-right-sm mrgn-left-sm">
+        <div className="it-add-container flx flx-row flx-align-center">
+          <div className="it__tip-count color--black mrgn-right-sm mrgn-left-sm DN">
             {itinerary.reviewsCount ? itinerary.reviewsCount : 0}
           </div>
           {renderGeoSuggestTip(itinerary.geo)}
           {renderReorderButton(itinerary.tips.length)}
-          <button className="vb vb--sm vb--outline flx flx-row flx-align-center fill--white color--black mrgn-left-n-1 button-map-toggle"
+          <button className="vb vb--sm vb--outline-none flx flx-row flx-align-center fill--white color--black mrgn-left-n-1 button-map-toggle brdr-left"
             onClick={this.onMapToggle}>
             <i className="material-icons color--black md-18 opa-80">map</i>
             <div className="mobile-hide color--black mrgn-left-sm">Full Map</div>
@@ -621,7 +621,7 @@ class ItineraryForm extends React.Component {
                                         <div className="tip__header-wrapper flx flx-row flx-align-start flx-just-start">
                                           { /** Title **/ }
                                           <div className="hide-in-list tip__title tip-title ta-left">
-                                            <div className="tip__order-count">{index+1}</div> 
+                                            <div className="tip__order-count color--primary">{index+1}</div> 
                                             <Link to={`/review/${tip.subjectId}`} className=""> {tip.subject.title}</Link>
                                           </div>
                                           <div className="tip-map-marker"></div>
@@ -779,7 +779,7 @@ class ItineraryForm extends React.Component {
 
 
 
-          <div className="it-map-container fill--primary">
+          <div className="it-map-container fill--light-gray">
             <MapContainer itinerary={itinerary} google={this.props.google} />
           </div>
           { /** Map block 

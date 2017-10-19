@@ -50,11 +50,10 @@ a.logo-module:focus {
 }
 .logo-main {
     font-size: 19px;
-    height: 38px;
+    height: auto;
     font-weight: 600;
     margin-left: 25px;
     letter-spacing: 5px;
-    margin-top: 10px;
     font-family: 'Arimo', sans-serif;
     margin-right: 6px;
     opacity: 1;
@@ -155,8 +154,8 @@ a.logo-module:focus {
 }
 
 .logo-graphic {
-  width: 46px;
-  height: 40px;
+  width: auto;
+  height: auto;
   margin-top: 0px;
 /*  -webkit-animation:spin 4s linear 1;
   -moz-animation:spin 4s linear 1;

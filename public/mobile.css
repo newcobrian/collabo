@@ -23,6 +23,7 @@ body {
   display: inline-block !important;
 }
 .header-container {
+  height: 40px;
 }
 .header-wrapper {
 
@@ -30,8 +31,17 @@ body {
 .logo-graphic {
 }
 .logo-main {
+  margin-left: 16px;
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+.logo-graphic img {
+  width: 32px;
+  height: 26px;
 }
 .logo-module {
+  height: 40px;
+  margin: 0px 8px;
 }
 .flx.navigation-bar {
     bottom: 0;
@@ -286,11 +296,15 @@ margin: 0;
 
 
 .home-page.page-common {
+  margin: 100px auto 0px;
 }
 .search-wrapper.page-top-search {
   margin-right: 0;
 }
-
+.search-wrapper-wrapper {
+    top: 40px;
+    padding: 0 8px;
+}
 
 
 
@@ -388,10 +402,11 @@ width: 100%;
 
 .flx.it-author-controls {
   padding-right: 0;
-  padding-left: 0;
 }
 .it-add-container {
   width: 100%;
+  top: 40px;
+  padding: 0;
 }
 
 .page-itinerary .itinerary__cover__topbar  {
@@ -567,6 +582,9 @@ width: 100%;
   -webkit-flex-direction: row;
   flex-direction: row;
 }
+.page-itinerary .tip-container {
+  border: 1px solid rgba(0,0,0,0);
+}
 .tip-wrapper .tip-container {
     -webkit-flex-direction: column;
     flex-direction: column;
@@ -575,9 +593,16 @@ width: 100%;
 .tip-wrapper .tip__cta-box .vb {
     margin-right: 5px;
     padding: 10px 15px;
+    height: 36px;
 }
 .reviewpreview-wrapper .tip-wrapper .tip-container {
   padding: 20px 10px;
+}
+.tip-wrapper {
+  padding: 5px 0px;
+}
+.tip-wrapper:first-child {
+  padding-top: 10px;
 }
 .tip-wrapper .tip__cta-box {
   -webkit-flex-direction: row;
@@ -636,7 +661,13 @@ width: 100%;
   height: 32px;
 }
 
+.page-edit-own .it__title-module {
+  margin-left: -5px;
+}
 
+.itinerary__cover__text {
+  padding: 10px;
+}
 .itinerary__cover__topbar .itinerary__cover__author-photo .default-profile-wrapper {
     width: 46px;
     height: 46px;
@@ -647,6 +678,7 @@ width: 100%;
 .tip__rating-module .tip__rating {
 
 }
+
 .tip-info-col {
   width: 100%;
   /*position: relative;*/
@@ -763,6 +795,9 @@ body .back-to-top {
   margin-left: 0;
 }
 
+.itinerary__comments-module {
+  padding: 30px 20px 60px;
+}
 
 .content-wrapper.map-on {
   width: 100%;

@@ -355,11 +355,11 @@ body a.nav-module {
     text-transform: uppercase;
 }
 .tip-title {
-    font-size: 18px;
+    font-size: 24px;
     letter-spacing: 1px;
     font-family: 'Arimo', sans-serif;
     font-weight: 600;
-    line-height: 20px;
+    line-height: 30px;
     text-transform: uppercase;
 }
 h4 {
@@ -378,28 +378,24 @@ h4 {
 ******/
 
 ::-moz-placeholder { /* Firefox 19+ */
-  color: #121419 !important; /*DARK BLUE*/
   color: #3DCBF3 !important; /*DARK BLUE*/
   opacity: .5;
   font-weight: 300;
   font-family: 'Arimo', sans-serif;
 }
 :-ms-input-placeholder { /* IE 10+ */
-  color: #121419 !important; /*DARK BLUE*/
   color: #3DCBF3 !important; /*DARK BLUE*/
   opacity: .5;
   font-weight: 300;
   font-family: 'Arimo', sans-serif;
 }
 :-moz-placeholder { /* Firefox 18- */
-  color: #121419 !important; /*DARK BLUE*/
   color: #3DCBF3 !important; /*DARK BLUE*/
   opacity: .5;
   font-weight: 300;
   font-family: 'Arimo', sans-serif;
 }
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: #121419 !important; /*DARK BLUE*/
   color: #3DCBF3 !important; /*DARK BLUE*/
   opacity: .5;
   font-weight: 300;
@@ -407,67 +403,60 @@ h4 {
 }
 
 
-
-.it-add-container ::-moz-placeholder { /* Firefox 19+ */
-  color: #3DCBF3 !important; /*DARK BLUE*/
-  opacity: 1;
-  font-weight: 300;
-  font-family: 'Arimo', sans-serif;
-}
-.it-add-container :-ms-input-placeholder { /* IE 10+ */
-  color: #3DCBF3 !important; /*DARK BLUE*/
-  opacity: 1;
-  font-weight: 300;
-  font-family: 'Arimo', sans-serif;
-}
-.it-add-container :-moz-placeholder { /* Firefox 18- */
-  color: #3DCBF3 !important; /*DARK BLUE*/
-  opacity: 1;
-  font-weight: 300;
-  font-family: 'Arimo', sans-serif;
-}
-.it-add-container ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: #3DCBF3 !important; /*DARK BLUE*/
-  opacity: 1;
-  font-weight: 300;
-  font-family: 'Arimo', sans-serif;
-}
-
-
-
-
-.font--beta::-webkit-input-placeholder,
+.font--beta ::-webkit-input-placeholder,
 .tip-wrapper ::-webkit-input-placeholder,
-.comment-wrapper  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: #2ECBDB;
+.comment-wrapper ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   opacity: .5;
   font-weight: 300;
-  font-family: 'Rokkitt', sans-serif;
+  font-family: 'Rokkitt', sans-serif !important;
 }
-.font--beta::-moz-placeholder,
+.font--beta ::-moz-placeholder,
 .tip-wrapper ::-moz-placeholder,
 .comment-wrapper ::-moz-placeholder { /* Firefox 19+ */
-  color: #2ECBDB;
   opacity: .5;
   font-weight: 300;
-  font-family: 'Rokkitt', sans-serif;
+  font-family: 'Rokkitt', sans-serif !important;
 }
-.font--beta:-ms-input-placeholder,
+.font--beta :-ms-input-placeholder,
 .tip-wrapper :-ms-input-placeholder,
 .comment-wrapper :-ms-input-placeholder { /* IE 10+ */
-  color: #2ECBDB;
   opacity: .5;
   font-weight: 300;
-  font-family: 'Rokkitt', sans-serif;
+  font-family: 'Rokkitt', sans-serif !important;
 }
-.font--beta:-moz-placeholder,
+.font--beta :-moz-placeholder,
 .tip-wrapper :-moz-placeholder,
 .comment-wrapper :-moz-placeholder { /* Firefox 18- */
-  color: #2ECBDB;
   opacity: .5;
   font-weight: 300;
-  font-family: 'Rokkitt', sans-serif;
+  font-family: 'Rokkitt', sans-serif !important;
 }
+
+
+
+
+.it-add-container input::-moz-placeholder { /* Firefox 19+ */
+  color: #ffffff !important;
+  opacity: 1;
+
+}
+.it-add-container input:-ms-input-placeholder { /* IE 10+ */
+  color: #ffffff !important;
+  opacity: 1;
+}
+.it-add-container input:-moz-placeholder { /* Firefox 18- */
+  color: #ffffff !important;
+  opacity: 1;
+}
+.it-add-container input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #ffffff !important;
+  opacity: 1;
+}
+
+
+
+
+
 
 
 

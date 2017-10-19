@@ -57,9 +57,9 @@
 .guide-title {
 	max-width: 800px;
 	font-weight: 700;
-	font-size: 28px;
+	font-size: 32px;
 	letter-spacing: 1px;
-	line-height: 32px;
+	line-height: 36px;
 	font-family: 'Arimo', sans-serif;
 	width: 100%;
 }
@@ -292,7 +292,8 @@ textarea.edit-itinerary__name {
 }
 
 
-.page-itinerary .it-author-controls {
+.page-itinerary.page-edit-own .it-author-controls {
+	padding-left: 10px;
 }
 
 
@@ -364,7 +365,7 @@ textarea.edit-itinerary__name {
 .page-edit-own .it-add-wrapper input,
 .page-edit-own .it-add-wrapper textarea {
   border-color: white;
-  text-indent: 40px;
+  text-indent: 30px;
   padding: 0;
   border: 1px solid #3DCBF3;
   background-color: transparent;
@@ -381,9 +382,6 @@ textarea.edit-itinerary__name {
     /*background-color: rgba(102,144,224,.1);*/
 }
 
-.page-edit-own .it-add-wrapper ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-}
-
 
 
 
@@ -398,7 +396,7 @@ textarea.edit-itinerary__name {
   width: 50%;
 }
 .page-edit-own .content-wrapper {
-	margin-top: 60px;
+	margin-top: 40px;
 }
 
 .content-wrapper.map-on .itinerary__cover.header-height,
@@ -458,7 +456,7 @@ textarea.edit-itinerary__name {
 
 .floating-map-toggle {
 	position: fixed;
-	top: 80px;
+	top: 50px;
 	right: 10px;
 	z-index: 100;
 }

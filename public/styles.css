@@ -556,19 +556,19 @@ width: 32px;
 }
 
 .brdr-all {
-  border: 1px solid rgba(0,0,0,.1);
+  border: 1px solid rgba(0,0,0,.1) !important;
 }
 .brdr-bottom {
-  border-bottom: 1px solid rgba(0,0,0,.1);
+  border-bottom: 1px solid rgba(0,0,0,.1) !important;
 }
 .brdr-top {
-  border-top: 1px solid rgba(0,0,0,.1);
+  border-top: 1px solid rgba(0,0,0,.1) !important;
 }
 .brdr-right {
-  border-right: 1px solid rgba(0,0,0,.1);
+  border-right: 1px solid rgba(0,0,0,.1) !important;
 }
 .brdr-left {
-  border-left: 1px solid rgba(0,0,0,.1);
+  border-left: 1px solid rgba(0,0,0,.1) !important;
 }
 
 .opa-100 {

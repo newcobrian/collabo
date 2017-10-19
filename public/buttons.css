@@ -22,6 +22,7 @@ input, select, textarea {
 }
 .page-edit-own .it-add-wrapper input {
   font-size: 14px;
+  padding-left: 10px;
 }
 .page-edit-own .tip-container input,
 .page-edit-own .tip-container textarea,

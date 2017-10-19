@@ -13,10 +13,11 @@
 
 .page-itinerary .tip-container {
 /*.reviewpreview-wrapper .tip-container*/ 
-  border: 1px solid rgba(0,0,0,.1);
+  border: 1px solid rgba(0,0,0,.2);
 }
 .page-itinerary .tip-container:hover,
-.page-itinerary .tip-selected .tip-container {  border: 1px solid #3DCBF3;
+.page-itinerary .tip-selected .tip-container {
+  /*border: 1px solid #3DCBF3;*/
   cursor: pointer;
 }
 
@@ -110,7 +111,7 @@
   font-weight: 600 !important;
   margin-right: 10px;
   display: inline-block;
-  opacity: .3;
+  opacity: 1;
 }
 .tip__content-wrapper {
 	padding-left: 0;
