@@ -347,8 +347,8 @@ export function watchGlobalFeed(auth, endAt) {
         })
         dispatch({
           type: ActionTypes.SET_PAGINATION_VALUES,
-          currentValue: next,
-          prevValue: prev - 1
+          currentDateIndex: next,
+          previousDateIndex: prev - 1
         })
     })
 
@@ -400,8 +400,8 @@ export function watchGlobalFeedStartAt(auth, startAt) {
         })
         dispatch({
           type: ActionTypes.SET_PAGINATION_VALUES,
-          currentValue: next,
-          prevValue: prev - 1
+          currentDateIndex: next,
+          previousDateIndex: prev - 1
         })
     })
 

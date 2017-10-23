@@ -213,9 +213,8 @@ export default (state = initialState, action) => {
     case ActionTypes.SET_PAGINATION_VALUES:
       return {
         ...state,
-        currentValue: action.currentValue,
-        prevValue: action.prevValue,
-        nextValue: action.nextValue
+        currentDateIndex: action.currentDateIndex,
+        previousDateIndex: action.previousDateIndex
       }
     default:
       return state;

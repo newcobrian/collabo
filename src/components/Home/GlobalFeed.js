@@ -28,13 +28,13 @@ class GlobalFeed extends Home {
   }
 
   onPrevClick = ev => {
-    this.props.unwatchGlobalFeed(this.props.authenticated, this.props.currentValue)
-    this.props.watchGlobalFeed(this.props.authenticated, this.props.prevValue)
+    this.props.unwatchGlobalFeed(this.props.authenticated, this.props.currentDateIndex)
+    this.props.watchGlobalFeed(this.props.authenticated, this.props.previousDateIndex)
   }
 
   onNextClick = ev => {
-    this.props.unwatchGlobalFeed(this.props.authenticated, this.props.currentValue)
-    this.props.watchGlobalFeedStartAt(this.props.authenticated, this.props.currentValue)
+    this.props.unwatchGlobalFeed(this.props.authenticated, this.props.currentDateIndex)
+    this.props.watchGlobalFeedStartAt(this.props.authenticated, this.props.currentDateIndex)
   }
 
   // onSetPage(page) {
