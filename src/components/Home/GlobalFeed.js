@@ -9,6 +9,7 @@ import MainView from './MainView';
 class GlobalFeed extends Home {
   componentWillMount() {
     if (this.props.authenticated) {
+      this.props.startLikesByUserWatch(this.props.authenticated);
       this.props.watchGlobalFeed(this.props.authenticated, null);
     }
     else {
@@ -20,6 +21,7 @@ class GlobalFeed extends Home {
 
   componentWillUnmount() {
     if (this.props.authenticated) {
+      this.props.stopLikesByUserWatch(this.props.authenticated);
       this.props.unwatchGlobalFeed(this.props.authenticated);
     }
     else {

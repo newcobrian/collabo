@@ -379,13 +379,23 @@ export function setPaginationValues(dispatch, direction, dateIndex) {
   }
 }
 
+export function startLikesByUserWatch(auth) {
+  return dispatch => {
+    watchLikesByUser(dispatch, auth, Constants.USER_FEED);
+  }
+}
+
+export function stopLikesByUserWatch(auth) {
+  return dispatch => {
+    unwatchLikesByUser(dispatch, auth, Constants.USER_FEED);
+  }
+}
+
 export function watchGlobalFeed(auth, endAt) {
   return dispatch => {
     const currentEndAt = endAt ? endAt : Firebase.database.ServerValue.TIMESTAMP.toString();
 
     setPaginationValues(dispatch, 'END_AT', currentEndAt);
-    
-    watchLikesByUser(dispatch, auth, Constants.USER_FEED);
 
     Firebase.database().ref(Constants.ITINERARIES_PATH)
       .orderByChild('lastModified')
@@ -413,8 +423,6 @@ export function watchGlobalFeedStartAt(auth, startAt) {
     const currentStartAt = startAt ? startAt : Firebase.database.ServerValue.TIMESTAMP.toString();
 
     setPaginationValues(dispatch, 'START_AT', currentStartAt);
-    
-    watchLikesByUser(dispatch, auth, Constants.USER_FEED);
 
     Firebase.database().ref(Constants.ITINERARIES_PATH)
       .orderByChild('lastModified')
@@ -438,16 +446,14 @@ export function watchGlobalFeedStartAt(auth, startAt) {
 }
 
 export function unwatchGlobalFeed(auth, endAt) {
-  const currentEndAt = endAt ? endAt : Firebase.database.ServerValue.TIMESTAMP.toString();
-
   return dispatch => {
-    unwatchLikesByUser(dispatch, auth, Constants.USER_FEED);
+    const currentEndAt = endAt ? endAt : Firebase.database.ServerValue.TIMESTAMP.toString();
 
     Firebase.database().ref(Constants.ITINERARIES_PATH)
       .orderByChild('lastModified')
       .endAt(currentEndAt)
       .limitToLast(Constants.POPULARITY_PAGE_COUNT)
-      .once('child_added', addedSnap => {
+      .once('value', addedSnap => {
         unwatchUser(dispatch, addedSnap.val().userId, Constants.USER_FEED);
     })
     Firebase.database().ref(Constants.ITINERARIES_PATH).orderByChild('popularityScore').limitToLast(Constants.POPULARITY_PAGE_COUNT).off(); 
