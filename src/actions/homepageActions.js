@@ -323,14 +323,12 @@ export function unwatchPopularFeed(auth) {
   }
 }
 
-export function watchGlobalFeed(auth, endAt) {
-  return dispatch => {
-    const currentEndAt = endAt ? endAt : Firebase.database.ServerValue.TIMESTAMP.toString();
-
+export function setPaginationValues(dispatch, direction, dateIndex) {
+  if (direction === 'END_AT') {
     Firebase.database().ref(Constants.ITINERARIES_PATH)
       .orderByChild('lastModified')
       .limitToLast(Constants.POPULARITY_PAGE_COUNT)
-      .endAt(currentEndAt)
+      .endAt(dateIndex)
       .once('value', pageSnap => {
         let i = 1;
         let prev = null;
@@ -351,7 +349,41 @@ export function watchGlobalFeed(auth, endAt) {
           previousDateIndex: prev - 1
         })
     })
+  }
+  else {
+    // direction == 'START_AT'
+    Firebase.database().ref(Constants.ITINERARIES_PATH)
+      .orderByChild('lastModified')
+      .limitToFirst(Constants.POPULARITY_PAGE_COUNT)
+      .startAt(dateIndex + 1)
+      .once('value', pageSnap => {
+        let i = 1;
+        let prev = null;
+        let next = null;
+        pageSnap.forEach(function(itin) {
+          if (i === 1) {
+            prev = itin.val().lastModified;
+          }
+          else if (i === pageSnap.numChildren()) {
+            next = itin.val().lastModified
+          }
+          
+          i++;
+        })
+        dispatch({
+          type: ActionTypes.SET_PAGINATION_VALUES,
+          currentDateIndex: next,
+          previousDateIndex: prev - 1
+        })
+    })
+  }
+}
 
+export function watchGlobalFeed(auth, endAt) {
+  return dispatch => {
+    const currentEndAt = endAt ? endAt : Firebase.database.ServerValue.TIMESTAMP.toString();
+
+    setPaginationValues(dispatch, 'END_AT', currentEndAt);
     
     watchLikesByUser(dispatch, auth, Constants.USER_FEED);
 
@@ -380,31 +412,7 @@ export function watchGlobalFeedStartAt(auth, startAt) {
   return dispatch => {
     const currentStartAt = startAt ? startAt : Firebase.database.ServerValue.TIMESTAMP.toString();
 
-    Firebase.database().ref(Constants.ITINERARIES_PATH)
-      .orderByChild('lastModified')
-      .limitToFirst(Constants.POPULARITY_PAGE_COUNT)
-      .startAt(currentStartAt + 1)
-      .once('value', pageSnap => {
-        let i = 1;
-        let prev = null;
-        let next = null;
-        pageSnap.forEach(function(itin) {
-          if (i === 1) {
-            prev = itin.val().lastModified;
-          }
-          else if (i === pageSnap.numChildren()) {
-            next = itin.val().lastModified
-          }
-          
-          i++;
-        })
-        dispatch({
-          type: ActionTypes.SET_PAGINATION_VALUES,
-          currentDateIndex: next,
-          previousDateIndex: prev - 1
-        })
-    })
-
+    setPaginationValues(dispatch, 'START_AT', currentStartAt);
     
     watchLikesByUser(dispatch, auth, Constants.USER_FEED);
 
