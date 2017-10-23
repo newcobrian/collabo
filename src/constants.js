@@ -121,7 +121,7 @@ export const LIKE_GUIDE_SCORE = 3
 export const SAVE_TIP_GUIDE_SCORE = 6
 export const COMMENT_GUIDE_SCORE = 6
 
-export const POPULARITY_PAGE_COUNT = 5
+export const POPULARITY_PAGE_COUNT = 9
 export const POPULARITY_MODULE_COUNT = 3
 
 export const MIXPANEL_PAGE_VIEWED = 'page viewed'
