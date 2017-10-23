@@ -456,7 +456,7 @@ textarea.edit-itinerary__name {
 
 .floating-map-toggle {
 	position: fixed;
-	top: 50px;
+	top: 80px;
 	right: 10px;
 	z-index: 100;
 }

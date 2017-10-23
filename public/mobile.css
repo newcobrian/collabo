@@ -454,6 +454,11 @@ width: 100%;
   margin-top: 5px;
   margin-bottom: 5px;
 }
+
+body .back-to-top {
+    left: unset;
+    right: 10px;
+}
 /******
 ******
 ************************************ PROFILE
@@ -781,8 +786,8 @@ width: 100%;
 }
 
 body .back-to-top {
-    bottom: 80px;
-    right: 20px;
+    bottom: 70px;
+    right: 10px;
   }
 
   .it-add-wrapper {
@@ -803,11 +808,15 @@ body .back-to-top {
   width: 100%;
 }
 .it-map-container {
-  visibility: hidden;
+  display: none;
   bottom: 60px;
+  top: 40px;
 }
 .page-itinerary.show-map .it-map-container {
-  visibility: visible;
+  display: inline-block;
+}
+.floating-map-toggle {
+  top: 50px;
 }
 
 
@@ -823,15 +832,7 @@ body .back-to-top {
 
 
 
-.flx.flx-row.flx-m-col {
-  -webkit-flex-direction: column !important;
-  flex-direction: column !important;
-}
-.flx.flx-col.flx-m-row {
-  -webkit-flex-direction: row !important;
-  flex-direction: row !important;
-}
-
+`
 
 .m-margin-none {
   margin: 0 !important;

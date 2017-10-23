@@ -405,20 +405,15 @@ class Itinerary extends React.Component {
                     unLike={this.props.unLikeReview} />
                 </div>
 
-
+                <BackToTop />
+                
             </div> {/*Content Wrapper*/}
             
             <div className="it-map-container fill--primary">
               <MapContainer itinerary={itinerary} google={this.props.google} />
             </div>
-            {/*<div className="it-map-container">
-              <div className="it-map-overlay flx flx-center-all">
-                <div className="v2-type-body2 color--white">
-                  Map coming soon
-                </div>
-              </div>
-            </div> */}
-            <BackToTop />
+
+        
 
             <SEO
               schema="Guide"

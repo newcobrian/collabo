@@ -1322,7 +1322,7 @@ body .back-to-top {
     font-size: 20px;
     bottom: 20px;
     position: fixed;
-    right: 40px;
+    left: 44%;
     display: none;
     padding-top: 13px;
     height: 40px;
@@ -1335,7 +1335,7 @@ body .back-to-top {
     background-size: 18px 18px;
     background-repeat: no-repeat;
     background-position: center;
-    background-color: #009BCB;
+    background-color: #3DCBF3;
     overflow: hidden;
 }
 .back-to-top:hover {
