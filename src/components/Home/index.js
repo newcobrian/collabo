@@ -309,8 +309,8 @@ class Home extends React.Component {
           <BackToTop />
         </div>
         <div>
-          <button onClick={this.onNextClick}>Newer Posts</button>
-          <button onClick={this.onPrevClick}>Older Posts</button>
+          <button className="DN" onClick={this.onNextClick}>Newer Posts</button>
+          <button className="DN" onClick={this.onPrevClick}>Older Posts</button>
         </div>
 
         <div className="footer fill--black color--white flx flx-col flx-center-all flx-item-bottom">
