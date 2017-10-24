@@ -1,4 +1,12 @@
 
+input[type=text],
+textarea[type=text] {
+      /* Remove First */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
 input, select, textarea {
   margin: 0;
   line-height: inherit;
@@ -7,7 +15,6 @@ input, select, textarea {
   padding: 10px;
   font-family: 'Arimo', sans-serif;
 }
-
 
 .page-edit-own input,
 .page-edit-own textarea {
