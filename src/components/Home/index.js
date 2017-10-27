@@ -307,11 +307,20 @@ class Home extends React.Component {
             </Link>
           </div>
           <BackToTop />
+
+          <div className="w-100 flx flx-row flx-center-all mrgn-top-lg">
+            <button className="vb vb--sm vb--outline-none fill--none" onClick={this.onNextClick}>
+              <i className="material-icons color--primary md-32">keyboard_arrow_left</i>
+              <div className="mobile-hide mrgn-left-sm">Newer Guides</div>
+            </button>
+            <button className="vb vb--sm vb--outline-none fill--none" onClick={this.onPrevClick}>
+              <div className="mobile-hide mrgn-right-sm">Older Guides</div>
+              <i className="material-icons color--primary md-32">keyboard_arrow_right</i>
+            </button>
+          </div>
+
         </div>
-        <div>
-          <button onClick={this.onNextClick}>Newer Posts</button>
-          <button onClick={this.onPrevClick}>Older Posts</button>
-        </div>
+        
 
         <div className="footer fill--black color--white flx flx-col flx-center-all flx-item-bottom">
           <div className="homepage-logo mrgn-bottom-md">  
