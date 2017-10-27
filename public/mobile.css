@@ -665,6 +665,10 @@ body .back-to-top {
   width: 32px;
   height: 32px;
 }
+.itinerary__cover__author-photo img {
+    width: 50px;
+    height: 50px;
+}
 
 .page-edit-own .it__title-module {
   margin-left: -5px;
