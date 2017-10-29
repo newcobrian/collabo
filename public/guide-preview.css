@@ -5,7 +5,7 @@
     padding: 0px;
 /*    background: #FFFFFF;
     border: 1px solid rgba(0,0,0,.05);*/
-    height: 470px;
+    height: 440px;
     position: relative;
 }
 .guide-preview-inner-wrapper {
@@ -194,7 +194,9 @@
 .itinerary__contents {
 	background: #FFFFFF;
     border: 1px solid rgba(0,0,0,.05);
-    padding-bottom: 20px;
+    padding-bottom: 0px;
+    box-shadow: none;
+    border-bottom: 1px solid rgba(0,0,0,.1);
 }
 .itinerary__cover.large-guide .itinerary__contents,
 .itinerary__cover.small-guide .itinerary__contents {

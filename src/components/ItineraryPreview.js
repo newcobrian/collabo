@@ -32,7 +32,7 @@ const CommentPreview = props => {
     return (
       <Link to={`/guide/${props.itinerary.id}`}>
 
-        <div className="comment-preview-bubble flx flx-row flx-just-start flx-align-center color--black">
+        <div className="comment-preview-bubble flx flx-row flx-just-start flx-align-center color--black DN">
           <div className="DN comment-author-img mrgn-right-sm flx-hold">
             <Link
               to={`/${props.itinerary.lastComment.username}`}
@@ -41,7 +41,7 @@ const CommentPreview = props => {
             </Link>
           </div>
 
-          <div className="comment-preview-wrapper v2-type-body0 color--black flx flx-row flx-align-center">
+          <div className="comment-preview-wrapper v2-type-body0 color--black flx flx-row flx-align-center DN">
             <div className="new-bubble fill--primary mrgn-right-sm flx-hold"></div>
             <Link
               to={`/${props.itinerary.lastComment.username}`}
@@ -55,7 +55,7 @@ const CommentPreview = props => {
         </div>
 
 
-        <div className="vb vb--xs vb--outline flx-align-center mrgn-left-n-1 cta-wrapper flx flx-row flx-just-end flex-item-right last-comment">
+        <div className="vb vb--xs vb--outline flx-align-center cta-wrapper flx flx-row flx-just-end flex-item-right last-comment">
           <div className="flx flx-row flx-just-end flx-align-center">
             <div className="cta-icon cta-comment comment-on"></div>
             <div className="v2-type-body1 weight-500">{props.itinerary.commentsCount}</div>
@@ -183,7 +183,7 @@ const ItineraryPreview = props => {
 
         <div className="itinerary__contents bx-shadow flx flx-col w-100">
           {/** START IMAGES **/}
-          <div className="itinerary__book w-100 flx-hold bg-loading">
+          <div className="itinerary__book w-100 flx-hold bg-loading mobile-hide">
             <div className="guide-label fill--primary color--white">
               Featured
             </div>

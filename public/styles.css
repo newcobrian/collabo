@@ -348,8 +348,8 @@ width: 32px;
 }
 .itinerary__cover__topbar .itinerary__cover__author-photo .user-photo-wrapper,
 .itinerary__cover__topbar .itinerary__cover__author-photo .default-profile-wrapper {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
 }
 .navigation-bar .default-profile-wrapper,
 .navigation-bar .user-photo-wrapper {

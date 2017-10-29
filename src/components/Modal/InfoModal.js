@@ -96,16 +96,16 @@ class InfoModal extends React.Component {
           titleStyle={{}}
 
           className="dialog dialog--save"
-          style={{}}
+          style={{height: "100%"}}
 
           overlayClassName="dialog__overlay"
           overlayStyle={{}}
           
           contentClassName="dialog--save__wrapper"
-          contentStyle={{width: "auto", maxWidth: "600px"}}
+          contentStyle={{width: "auto", maxWidth: "600px", height: "100%"}}
           
           bodyClassName="dialog--save__body"
-          bodyStyle={{padding: "0px"}}
+          bodyStyle={{padding: "0px", height: "100%"}}
 
           actionsContainerClassName="dialog--save__actions"
           actionsContainerStyle={{}}

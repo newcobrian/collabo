@@ -263,7 +263,7 @@ class Home extends React.Component {
 
         <UniversalSearchBar />
  
-        <div className={'home-page page-common fill--light-gray ' + isLandingPage}>
+        <div className={'home-page page-common fill--white ' + isLandingPage}>
 
           {this.renderTabs()}
 
