@@ -287,13 +287,13 @@ class ItineraryForm extends React.Component {
         let latLng = new this.props.googleObject.maps.LatLng(geo.location.lat, geo.location.lng);
         
         return (
-          <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--primary">
-            <i className="material-icons color--white md-24">add</i>
+          <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--white">
+            <i className="material-icons color--primary md-24">add_circle</i>
             
             <Geosuggest 
               ref={el=>this._geoSuggest=el}
-              className="input--underline w-100 color--white"
-              placeholder={'Add to your guide'}
+              className="input--underline w-100 color--black"
+              placeholder={'Search here to add stuff'}
               location={latLng}
               radius={1000}
               onSuggestSelect={suggestSelectTip(this)}/>
@@ -324,7 +324,7 @@ class ItineraryForm extends React.Component {
     const renderReorderButton = numTips => {
       if(numTips > 0) {
         return (
-          <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list vb vb--sm vb--outline-none fill--white flx flx-row flx-align-center">
+          <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list brdr-left vb vb--sm vb--outline-none fill--white flx flx-row flx-align-center">
             <i className="material-icons color--black md-18 opa-80">low_priority</i>
             <div className="color--black mrgn-left-sm mobile-hide">Reorder</div>
           </Link>

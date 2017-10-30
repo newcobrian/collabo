@@ -229,7 +229,7 @@ class FirebaseSearchInput extends Component {
         hintStyle={{
           paddingLeft: '72px',
           color: 'rgba(0,0,0,.4)',
-          color: 'rgba(255,255,255,.8)',
+          color: 'rgba(0,0,0,.8)',
           fontWeight: '100'
         }}
      />

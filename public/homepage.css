@@ -49,6 +49,7 @@
   z-index: 10;
   padding: 0 20px;
   background-color: #121419;
+  background-color: white;
 }
   .page-landing.search-wrapper-wrapper {
     display: none;
@@ -82,18 +83,15 @@
 }
 
 .search-wrapper.page-top-search .input--search input {
-  color: white !important;
   text-indent: 70px;
   border: 1px solid rgba(0,199,205,1) !important;
   background-color: #121419;
 }
 .search-wrapper.page-top-search .input--search input:hover {
-  color: white !important;
   text-indent: 70px;
   border: 1px solid #00C7FF !important;
 }
 .search-wrapper.page-top-search .input--search input:focus {
-  color: white !important;
   text-indent: 70px;
   border: 1px solid #00EBFF !important;
 }
@@ -103,9 +101,10 @@
   overflow: hidden;
 }
 .search-detail-bar .geo-type {
-  font-size: 14px;
+  font-size: 13px;
   flex-shrink: 0;
   width: auto;
+  opacity: .4;
 }
 .search-detail-bar .geo-type:hover {
   opacity: .6;

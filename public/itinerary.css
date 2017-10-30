@@ -328,7 +328,7 @@ textarea.edit-itinerary__name {
 }
 .it-add-container {
 	height: auto;
-    padding: 10px;
+    padding: 0px;
     position: fixed;
     top: 70px;
     z-index: 10;
@@ -339,12 +339,13 @@ textarea.edit-itinerary__name {
 }
 .it-add-wrapper {
 	position: relative;
+	border: 10px 10px 10px 20px;
 }
 .it-add-wrapper .material-icons {
  border-radius: 50px;
     position: absolute;
     pointer-events: none;
-    left: 10px;
+    left: 32px;
     top: 8px;
 
 }
@@ -365,20 +366,25 @@ textarea.edit-itinerary__name {
 .page-edit-own .it-add-wrapper input,
 .page-edit-own .it-add-wrapper textarea {
   border-color: white;
-  text-indent: 30px;
+  text-indent: 80px;
   padding: 0;
-  border: 1px solid #3DCBF3;
+  border: 0px solid #3DCBF3;
+  border: none !important;
   background-color: transparent;
 }
 .page-edit-own .it-add-wrapper input:hover,
 .page-edit-own  .it-add-wrapper textarea:hover {
   background-color: transparent;
+  border: none !important;
+  background-color: rgba(61,203,243,.1);
   /*background-color: rgba(102,144,224,.1);*/
 }
 
 .page-edit-own .it-add-wrapper input:focus,
 .page-edit-own .it-add-wrapper textarea:focus {
     background-color: transparent;
+    border: none !important;
+    background-color: rgba(251,255,205,.3);
     /*background-color: rgba(102,144,224,.1);*/
 }
 

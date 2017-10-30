@@ -677,7 +677,14 @@ body .back-to-top {
 .page-edit-own .it__title-module {
   margin-left: -5px;
 }
-
+.page-edit-own .it-add-wrapper input,
+.page-edit-own .it-add-wrapper textarea {
+  border-color: white;
+  text-indent: 30px;
+}
+.it-add-wrapper .material-icons {
+  left: 10px;
+}
 .itinerary__cover__text {
   padding: 10px;
 }
