@@ -140,7 +140,7 @@ class ItineraryForm extends React.Component {
 
     this.shareGuide = ev => {
       ev.preventDefault();
-      // this.props.showModal(Constants.SAVE_MODAL, tip, tip.images);
+      this.props.showShareModal(this.props.itinerary);
     }
 
     this.suggestSelectGeo = result => {
@@ -480,6 +480,12 @@ class ItineraryForm extends React.Component {
                       type={ITINERARY_TYPE} />
                   </div>
 
+                  {/* Share */}
+                  <div className="cta-wrapper flx flx-row vb vb--sm vb--outline fill--white color--black"
+                    onClick={this.shareGuide} >
+                    Share Guide
+                  </div>
+
                   <div className="edit-itinerary-link vb vb--sm no-pad vb--outline fill--white color--black mrgn-left-n-1">             
                     <MuiThemeProvider muiTheme={getMuiTheme()}>
                       <IconMenu
@@ -526,7 +532,6 @@ class ItineraryForm extends React.Component {
                           size={24}
                           round />
                       </TwitterShareButton>
-                      <div className="mrgn-right-sm DN" onClick={this.shareGuide}>Share Guide</div>
                       <i className="material-icons color--primary md-18 DN">share</i>
                     </div>
 

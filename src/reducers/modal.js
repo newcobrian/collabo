@@ -40,6 +40,12 @@ export default (state = initialState, action) => {
         modalType: Constants.REORDER_ITINERARY_MODAL,
         itinerary: action.itinerary
       }
+    case ActionTypes.SHOW_SHARE_MODAL:
+      return {
+        ...state,
+        modalType: Constants.SHARE_MODAL,
+        itinerary: action.itinerary
+      }
     case ActionTypes.LOAD_REORDER_MODAL: {
       const newState = Object.assign({}, state);
       newState.itinerary = newState.itinerary || {};

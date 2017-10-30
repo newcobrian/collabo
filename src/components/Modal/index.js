@@ -10,6 +10,7 @@ import NewItineraryModal from './NewItineraryModal'
 import DeleteItineraryModal from './DeleteItineraryModal'
 import InfoModal from './InfoModal'
 import ReorderModal from './ReorderModal'
+import ShareModal from './ShareModal'
 
 const MODAL_COMPONENTS = {
   FORWARD_MODAL: ForwardModal,
@@ -18,7 +19,8 @@ const MODAL_COMPONENTS = {
   NEW_ITINERARY_MODAL: NewItineraryModal,
   DELETE_ITINERARY_MODAL: DeleteItineraryModal,
   INFO_MODAL: InfoModal,
-  REORDER_ITINERARY_MODAL: ReorderModal
+  REORDER_ITINERARY_MODAL: ReorderModal,
+  SHARE_MODAL: ShareModal,
 }
 
 const mapStateToProps = state => ({

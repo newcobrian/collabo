@@ -120,7 +120,7 @@ class Itinerary extends React.Component {
 
     this.shareGuide = ev => {
       ev.preventDefault();
-
+      this.props.showShareModal(this.props.itinerary);
     }
   }
 
@@ -309,6 +309,12 @@ class Itinerary extends React.Component {
                           likeObject={itinerary}
                           itineraryId={this.props.itineraryId}
                           type={ITINERARY_TYPE} />
+                      </div>
+
+                      {/* Share */}
+                      <div className="cta-wrapper flx flx-row vb vb--sm vb--outline fill--white color--black"
+                        onClick={this.shareGuide} >
+                        Share Guide
                       </div>
 
 

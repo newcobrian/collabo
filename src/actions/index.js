@@ -2864,6 +2864,15 @@ export function showReorderModal(itinerary) {
   }
 }
 
+export function showShareModal(itinerary) {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.SHOW_SHARE_MODAL,
+      itinerary
+    })
+  }
+}
+
 export function loadReorderModal(itinerary) {
   return dispatch => {
     Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itinerary.id).on('value', snap => {
