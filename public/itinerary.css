@@ -371,6 +371,7 @@ textarea.edit-itinerary__name {
   border: 0px solid #3DCBF3;
   border: none !important;
   background-color: transparent;
+  box-shadow: inset 0px 0px 14px 4px rgba(0,0,0,.05);
 }
 .page-edit-own .it-add-wrapper input:hover,
 .page-edit-own  .it-add-wrapper textarea:hover {

@@ -680,10 +680,10 @@ body .back-to-top {
 .page-edit-own .it-add-wrapper input,
 .page-edit-own .it-add-wrapper textarea {
   border-color: white;
-  text-indent: 30px;
+  text-indent: 46px;
 }
 .it-add-wrapper .material-icons {
-  left: 10px;
+  left: 13px;
 }
 .itinerary__cover__text {
   padding: 10px;
@@ -698,7 +698,20 @@ body .back-to-top {
 .tip__rating-module .tip__rating {
 
 }
+.tip-title {
+    font-size: 16px;
+    letter-spacing: 0px;
+    font-family: 'Roboto';
+    font-weight: 500;
+}
 
+.v2-type-body3 {
+  font-size: 16px;
+}
+.guide-title {
+  font-size: 24px;
+  line-height: 32px;
+}
 .tip-info-col {
   width: 100%;
   /*position: relative;*/
