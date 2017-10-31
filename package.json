@@ -39,6 +39,7 @@
     "react-process-string": "^1.2.0",
     "react-redux": "^4.4.8",
     "react-redux-form": "^1.5.4",
+    "react-responsive": "^3.0.0",
     "react-router": "^3.0.2",
     "react-scroll": "^1.5.4",
     "react-share": "^1.16.0",

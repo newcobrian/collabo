@@ -28,6 +28,7 @@ import RelatedItineraries from './RelatedItineraries';
 import {BackToTop} from 'pui-react-back-to-top';
 import SEO from './SEO';
 import { ShareButtons, ShareCounts, generateShareIcon } from 'react-share';
+import MediaQuery from 'react-responsive';
 
 const {
   FacebookShareButton,
@@ -595,21 +596,37 @@ class ItineraryForm extends React.Component {
                                       { /** END Rating **/ }
 
 
-                                      { /** Image 
-                                      <div className="tip__image-module mobile-hide">
-                                        <div className={"tip__photo-count tip-count-" + tip.images.length}>{tip.images.length > 0 ? tip.images.length : null}</div>
-                                        <ImagePicker images={tip.images} />
+                                      { /** Image shown if own web **/}
+                                      <MediaQuery query="(min-device-width: 1224px)">
+                                        <div className="tip__image-module mobile-hide">
+                                            <div className={"tip__photo-count tip-count-" + tip.images.length}>{tip.images.length > 0 ? tip.images.length : null}</div>
+                                            <ImagePicker images={tip.images} />
+                                          <Dropzone
+                                            onDrop={tipDropHandler(tip)}
+                                            disablePreview={false}
+                                            accept="image/*"
+                                            className="add-photo-wrapper flx flx-col flx-align-center flx-just-start ta-center">
+                                            <div className="vb vb--xs vb--shadow-none fill--none">
+                                              <i className="material-icons color--white md-18">add_a_photo</i>
+                                            </div>
+
+                                          </Dropzone>
+                                        </div>
+                                      </MediaQuery>
+
+                                      {/** EXAMPLE: on mobile, just show the dropzone **/}
+                                      <MediaQuery query="(max-device-width: 1224px)">
                                         <Dropzone
-                                          onDrop={tipDropHandler(tip)}
-                                          disablePreview={false}
-                                          accept="image/*"
-                                          className="add-photo-wrapper flx flx-col flx-align-center flx-just-start ta-center">
-                                          <div className="vb vb--xs vb--shadow-none fill--none">
-                                            <i className="material-icons color--white md-18">add_a_photo</i>
-                                          </div>
+                                            onDrop={tipDropHandler(tip)}
+                                            disablePreview={false}
+                                            accept="image/*"
+                                            className="add-photo-wrapper flx flx-col flx-align-center flx-just-start ta-center">
+                                            <div className="vb vb--xs vb--shadow-none fill--none">
+                                              <i className="material-icons color--white md-18">add_a_photo</i>
+                                            </div>
 
                                         </Dropzone>
-                                      </div>
+                                      </MediaQuery>
                                       { /** END Image **/ }
 
 
