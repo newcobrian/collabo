@@ -482,7 +482,7 @@ class ItineraryForm extends React.Component {
                   </div>
 
                   {/* Share */}
-                  <div className="cta-wrapper flx flx-row vb vb--sm vb--outline fill--white color--black "
+                  <div className="cta-wrapper flx flx-row vb vb--sm vb--outline fill--white color--black DN"
                     onClick={this.shareGuide} >
                     Share Guide
                   </div>
