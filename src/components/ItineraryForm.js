@@ -677,17 +677,17 @@ class ItineraryForm extends React.Component {
                                             <div className={'tip__rating-module flx flx-row flx-align-center flx-hold w-100 tip__rating-module--' + tip.review.rating}>
                                               <select value={tip.review.rating} onChange={this.changeRating(tip)}>
                                                 <option value="-">Add Rating</option>
-                                                <option value="0">0/10 Do Not Go</option>
-                                                <option value="1">1/10 Pretty Bad</option>
-                                                <option value="2">2/10 Bad</option>
-                                                <option value="3">3/10</option>
-                                                <option value="4">4/10</option>
+                                                <option value="0">0/10 Run away</option>
+                                                <option value="1">1/10 Stay away</option>
+                                                <option value="2">2/10 Just bad</option>
+                                                <option value="3">3/10 Don't go</option>
+                                                <option value="4">4/10 Meh</option>
                                                 <option value="5">5/10 Average</option>
-                                                <option value="6">6/10</option>
-                                                <option value="7">7/10</option>
-                                                <option value="8">8/10 </option>
-                                                <option value="9">9/10 Dope</option>
-                                                <option value="10">10/10 Must Go</option>
+                                                <option value="6">6/10 Solid</option>
+                                                <option value="7">7/10 Go here</option>
+                                                <option value="8">8/10 Really good</option>
+                                                <option value="9">9/10 Must go</option>
+                                                <option value="10">10/10 The best</option>
                                               </select>
                                             </div>
                                             { /** END Rating **/ }
