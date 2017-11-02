@@ -132,7 +132,10 @@ input.input--underline {
 .vb.vb--shadow-none {
   box-shadow: none;
 }
-
+.vb--tip--sm {
+  height: 20px;
+  font-size: 14px;
+}
 .vb:hover {
 }
 .vb--wide {

@@ -337,8 +337,8 @@ textarea.edit-itinerary__name {
 	position: relative;
 	border: 10px 10px 10px 20px;
 }
-.it-add-wrapper .material-icons {
- border-radius: 50px;
+.it-add-search-icon {
+ 	border-radius: 50px;
     position: absolute;
     pointer-events: none;
     left: 22px;

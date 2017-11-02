@@ -203,9 +203,12 @@ const TipPreview = props => {
                         type={Constants.REVIEW_TYPE} />
                     </div>
 
-                    <Link onClick={onInfoClick} className="w-20 hide-in-list vb vb--tip vb--outline--none flx flx-row flx-align-center brdr-top">
+                    <Link onClick={onInfoClick} className="w-20 hide-in-list vb vb--tip vb--outline--none flx flx-row flx-align-center brdr-top brdr-right">
                       <i className="material-icons md-24">info_outline</i>
                     </Link>
+                    {/*<Link to={googleMapLink} className="w-20 hide-in-list vb vb--tip vb--outline--none flx flx-row flx-align-center brdr-top">
+                      <i className="material-icons md-24">place</i>
+                    </Link> */}
 
                   </div>
                   {/* END Action Module */}

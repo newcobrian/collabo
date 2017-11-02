@@ -293,7 +293,7 @@ class ItineraryForm extends React.Component {
         
         return (
           <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--transparent bx-shadow">
-            <i className="material-icons color--primary md-24">add_circle</i>
+            <i className="it-add-search-icon material-icons color--primary md-24">add_circle</i>
             
             <Geosuggest 
               ref={el=>this._geoSuggest=el}
@@ -303,8 +303,9 @@ class ItineraryForm extends React.Component {
               radius={1000}
               onSuggestSelect={suggestSelectTip(this)}/>
               {!this.props.userInfo.tutorialCompleted && 
-                <div>
-                  Add a place to your guide by searching here and selecting your place from the dropdown
+                <div className="help--add-tip flx flx-row flx-center-all fill--black color--white opa-90 bx-shadow">
+                  <i className="material-icons color--white md-24 mrgn-left-xs">arrow_upward</i>
+                  <div className="v2-type-body2 mrgn-left-md">Add a place to your guide by searching here and selecting your place from the dropdown</div>
                 </div>
               }
           </div>

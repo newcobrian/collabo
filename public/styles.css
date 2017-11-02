@@ -163,6 +163,9 @@ input[type="radio"]:checked + label span {
 .w-50 {
   width: 50%;
 }
+.w-40 {
+  width: 40%;
+}
 .w-30 {
   width: 30% !important;
 }
@@ -1418,3 +1421,12 @@ padding: 20px;
   display: none;
 
 }
+
+
+.help--add-tip {
+  position: absolute;
+  top: 50px;
+  left: 0px;
+  width: 300px;
+  padding: 20px 18px;
+  border-radius: 7px;
