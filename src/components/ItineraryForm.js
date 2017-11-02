@@ -304,7 +304,7 @@ class ItineraryForm extends React.Component {
               onSuggestSelect={suggestSelectTip(this)}/>
               {!this.props.userInfo.tutorialCompleted && 
                 <div>
-                  Tutorial Tooltip
+                  Add a place to your guide by searching here and selecting your place from the dropdown
                 </div>
               }
           </div>
