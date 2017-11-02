@@ -84,7 +84,7 @@ class SettingsForm extends React.Component {
                   <input
                   className="form-control upload-image-button"
                   type="file"
-                  accept="image/*" 
+                  accept="image/jpeg,image/png,application/pdf"
                   onChange={this.changeFile} />
 
                   </div>

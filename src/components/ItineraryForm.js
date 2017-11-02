@@ -65,7 +65,7 @@ const UpdateCoverPhoto = props => {
         onDrop={dropHandler}
         disablePreview={false}
         multiple={false}
-        accept="image/*"
+        accept="image/jpeg,image/png,application/pdf"
         className="edit-tip__dropzone__touch flx flx-col flx-align-center flx-just-start ta-center">
         <div className="vb vb--xs vb--shadow-none fill--white color--black vb--outline">
           <i className="material-icons color--black opa-80 md-18">add_a_photo</i>
@@ -597,7 +597,7 @@ class ItineraryForm extends React.Component {
                                           <Dropzone
                                             onDrop={tipDropHandler(tip)}
                                             disablePreview={false}
-                                            accept="image/*"
+                                            accept="image/jpeg,image/png,application/pdf"
                                             className="add-photo-wrapper flx flx-col flx-align-center flx-just-start ta-center">
                                             <div className="vb vb--xs vb--shadow-none fill--none">
                                               <i className="material-icons color--white md-18">add_a_photo</i>
@@ -612,7 +612,7 @@ class ItineraryForm extends React.Component {
                                         <Dropzone
                                             onDrop={tipDropHandler(tip)}
                                             disablePreview={false}
-                                            accept="image/*"
+                                            accept="image/jpeg,image/png,application/pdf"
                                             className="add-photo-wrapper flx flx-col flx-align-center flx-just-start ta-center">
                                             <div className="vb vb--xs vb--shadow-none fill--none">
                                               <i className="material-icons color--white md-18">add_a_photo</i>
