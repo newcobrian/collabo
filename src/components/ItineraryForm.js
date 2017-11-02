@@ -252,6 +252,10 @@ class ItineraryForm extends React.Component {
         resultObject.address = result.gmaps.formatted_address;
       }
 
+      if (!this.props.userInfo.tutorialCompleted) {
+        this.props.completeTutorial(this.props.authenticated);
+      }
+
       let service = new google.maps.places.PlacesService(this.props.mapObject);
       let request = { placeId: result.placeId }
       service.getDetails(request, function(place, status) {
@@ -294,10 +298,15 @@ class ItineraryForm extends React.Component {
             <Geosuggest 
               ref={el=>this._geoSuggest=el}
               className="input--underline w-100 color--black"
-              placeholder={'Search here to add stuff'}
+              placeholder={'Search to add a place'}
               location={latLng}
               radius={1000}
               onSuggestSelect={suggestSelectTip(this)}/>
+              {!this.props.userInfo.tutorialCompleted && 
+                <div>
+                  Tutorial Tooltip
+                </div>
+              }
           </div>
         )
       }
