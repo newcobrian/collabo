@@ -1180,6 +1180,7 @@ li.nav-divider {
     margin-top: 0px;
     box-shadow: none;
     background-color: white;
+    text-align: left;
 }
 .comments-module .comment-input:focus {
   background-color: #FFFEF6 !important;
@@ -1425,8 +1426,8 @@ padding: 20px;
 
 .help--add-tip {
   position: absolute;
-  top: 50px;
-  left: 0px;
+  top: 60px;
+  left: 10px;
   width: 300px;
   padding: 20px 18px;
   border-radius: 7px;

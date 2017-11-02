@@ -1,4 +1,5 @@
 
+* .country-color-FR .invert,
 * .country-color-CN .invert,
 * .country-color-DE .invert,
 * .country-color-US .invert,
@@ -14,6 +15,9 @@
 * .it__cover__inner .invert textarea,
 * .it__cover__inner .invert input {
 	border: none !important;
+}
+* .country-color-FR { /** France **/
+	background-color: #123ab4 !important;
 }
 * .country-color-ES { /** Spain **/
 	background-color: #f9d156 !important;

@@ -220,7 +220,7 @@ const ItineraryPreview = props => {
               <div className="guide-preview-text-wrapper w-100 flx flx-col">
 
                 {/** TITLE - START  **/}
-                <Link to={`/guide/${itinerary.id}`} className="guide-preview-title ta-center mrgn-bottom-xs mrgn-top-xs w-100 invert">
+                <Link to={`/guide/${itinerary.id}`} className="guide-preview-title ta-center mrgn-bottom-xs mrgn-top-xs w-100 flx flx-col flx-center-all invert">
                   {itinerary.title}
                 </Link>
                 {/** END - TITLE **/}

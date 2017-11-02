@@ -404,8 +404,10 @@ width: 100%;
   padding-right: 0;
 }
 .it-add-container {
-    top: 50px;
+    top: 40px;
     padding: 0;
+    right: 50px;
+    width: unset;
 }
 
 .page-itinerary .itinerary__cover__topbar  {
@@ -665,7 +667,7 @@ body .back-to-top {
   text-indent: 46px;
 }
 .it-add-wrapper .material-icons {
-  left: 13px;
+  left: 23px;
 }
 .itinerary__cover__text {
 }

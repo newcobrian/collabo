@@ -198,7 +198,7 @@ class ItineraryForm extends React.Component {
         </Map>
         );
     }
-
+    
     const itinerary = this.props.data;
     const shortName = itinerary && itinerary.geo && itinerary.geo.shortName ? itinerary.geo.shortName : itinerary.geo.label;
     const {google} = this.props;
@@ -365,12 +365,7 @@ class ItineraryForm extends React.Component {
       <div className={this.props.mapViewToggle ? 'flx flx-col flx-align-start page-common page-itinerary page-edit-own show-map' : 'flx flx-col flx-align-start page-common page-itinerary page-edit-own'}>
 
 
-        <div className="it-add-container flx flx-row flx-align-center fill--none">
-          <div className="it__tip-count color--black mrgn-right-sm mrgn-left-sm DN">
-            {itinerary.reviewsCount ? itinerary.reviewsCount : 0}
-          </div>
-          {renderGeoSuggestTip(itinerary.geo)}
-        </div>
+        
         
         <button className="vb vb--sm vb--outline vb--round flx flx-row flx-align-center fill--white color--black mrgn-left-n-1 button-map-toggle bx-shadow brdr-left"
           onClick={this.onMapToggle}>
@@ -382,8 +377,16 @@ class ItineraryForm extends React.Component {
 
         <div className="content-wrapper itinerary flx flx-col flx-align-center map-on">
 
-      
+          
           <div className="itinerary-image-wrapper flx flx-row flx-just-start header-height">
+            
+            <div className="it-add-container flx flx-row flx-align-center fill--none">
+              <div className="it__tip-count color--black mrgn-right-sm mrgn-left-sm DN">
+                {itinerary.reviewsCount ? itinerary.reviewsCount : 0}
+              </div>
+              {renderGeoSuggestTip(itinerary.geo)}
+            </div>
+
             
             {/** Cover Image **/}
             <div className="itinerary__big-photo bg-loading">

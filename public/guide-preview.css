@@ -66,6 +66,7 @@
     overflow: hidden;
     letter-spacing: 0px;
     padding: 10px 0;
+    height: 100px;
 }
 .guide-preview-data-wrapper {
 	padding: 15px 20px 20px;

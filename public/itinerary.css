@@ -222,6 +222,7 @@
  }
 .itinerary__cover .itinerary__cover__descrip {
 	padding-bottom: 20px;
+	height: 40px;
  }
  .page-edit-own .itinerary__cover__descrip {
  	margin-top: -5px;
@@ -291,7 +292,6 @@ textarea.edit-itinerary__name {
 
 
 .page-itinerary.page-edit-own .it-author-controls {
-	padding-left: 10px;
 }
 
 
@@ -327,22 +327,22 @@ textarea.edit-itinerary__name {
 .it-add-container {
     padding: 0px;
     position: fixed;
-    top: 80px;
+    top: 70px;
     z-index: 10;
-    left: 10px;
-    background-color: rgba(255,255,255,1);
-    width: 320px;
+    left: 0px;
+    width: 50%;
 }
 .it-add-wrapper {
 	position: relative;
 	border: 10px 10px 10px 20px;
+	padding: 10px;
 }
 .it-add-search-icon {
  	border-radius: 50px;
     position: absolute;
     pointer-events: none;
-    left: 22px;
-    top: 8px;
+    left: 32px;
+    top: 18px;
 
 }
 .it-add-wrapper .geosuggest {
