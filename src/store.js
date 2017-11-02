@@ -61,7 +61,7 @@ const reducer = combineReducers({
 
 // init mixpanel and pass mixpanel client to middleware 
 var productionHost = 'myviews.io';
-var devToken = '';
+var devToken = 'e731aa1cb95e57349cd2e339f35ccd8a';
 var prodToken = '3474a67ba992a7b76e04807d6820f125';
 
 let firebaseConfig = {};
