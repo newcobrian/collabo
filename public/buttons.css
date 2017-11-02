@@ -13,7 +13,6 @@ input, select, textarea {
   border-radius: 2px;
   border: 1px solid rgba(0,0,0,.1);
   padding: 10px;
-  font-family: 'Arimo', sans-serif;
 }
 
 .page-edit-own input,
@@ -23,19 +22,26 @@ input, select, textarea {
   background-color: transparent;
   text-transform: inherit;
   border-color: white;
-  padding: 7px 10px 5px;
+  padding: 10px;
   text-transform: inherit;
   background-color: white;
+  text-align: center;
 }
 .page-edit-own .it-add-wrapper input {
   font-size: 16px;
   padding-left: 10px;
+  text-align: left
 }
 .page-edit-own .tip-container input,
-.page-edit-own .tip-container textarea,
+.page-edit-own .tip-container textarea {
+  font-family: 'Rokkitt', 'Roboto', sans-serif;
+  text-align: left;
+}
 .page-edit-own .itinerary__cover__descrip textarea {
   font-family: 'Rokkitt', 'Roboto', sans-serif;
+  text-align: center;
 }
+
 .page-edit-own input.show-border,
 .page-edit-own textarea.show-border {
   border: 1px solid rgba(0,0,0,.1);
@@ -90,7 +96,6 @@ input.input--underline {
   border-radius: 2px;
   padding: 10px;
   width: 100%;
-  font-family: 'Arimo', sans-serif;
 }
 
 
@@ -195,6 +200,7 @@ input.input--underline {
   line-height: 18px;
 }
 
+
 .vb--sm.tip-count {
   font-size: 16px;
   font-weight: 400;
@@ -282,7 +288,7 @@ input.input--underline {
 }
 
 .vb:hover {
-  background-color: rgba(247,247,247,.4);
+  background-color: #FCFCFC !important;
 }
 
 .vb.fill--primary:active,

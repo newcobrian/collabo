@@ -223,50 +223,51 @@ class Itinerary extends React.Component {
 
               {/** Cover Content **/}
               <div className="itinerary__cover__text w-100">
-                <div className="it__cover__inner flx flx-row flx-just-start ta-left w-100 w-max">
-                  <div className="it__author-wrapper flx flx-col flx-center-all mrgn-bottom-sm">
-                    <div className="itinerary__summary__author-photo">
+                <div className="it__cover__inner flx flx-col flx-just-start ta-left w-100 w-max">
+                  <div className="flx flx-row w-100 flx-center-all mrgn-bottom-sm">
+
+                    <div className="it__author-wrapper flx flx-col flx-center-all mrgn-bottom-sm w-50">
+                      <div className="itinerary__summary__author-photo">
+                          <Link
+                          to={`/${createdByUsername}`}
+                          className="">
+                          <ProfilePic src={createdByImage} className="center-img" />
+                          </Link>
+                      </div>
+                      <div className="itinerary-username v2-type-body1">
                         <Link
                         to={`/${createdByUsername}`}
                         className="">
-                        <ProfilePic src={createdByImage} className="center-img" />
+                        {createdByUsername}
                         </Link>
+                      </div>
                     </div>
-                    <div className="itinerary-username v2-type-body1">
-                      <Link
-                      to={`/${createdByUsername}`}
-                      className="">
-                      {createdByUsername}
-                      </Link>
-                    </div>
+                   
+                    {/** Flag and Geo **/}
+                      <div Link to={`/places/${itinerary.geo.placeId}`} className="flx flx-col flx-just-start flx-align-center mrgn-bottom-sm mrgn-top-xs w-50">
+                        <div className={'itinerary__cover__flag mrgn-bottom-sm flx-hold flag-' + itinerary.geo.country}>
+                        </div>
+                        <div className="geo-type ellipsis ta-center">
+                        {itinerary.geo.label}
+                        </div>
+                      </div>
+
                   </div>
-                 
 
 
                 {/** <<<<<< CENTER INFO **/}
                 <div className="it__title-module flx flx-col flx-just-start ta-center w-100">
                 
                  
-                  {/** Flag and Geo **/}
-                  <Link to={`/places/${itinerary.geo.placeId}`}>
-                  <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm mrgn-top-xs">
-                    <div className={'itinerary__cover__flag flx-hold flag-' + itinerary.geo.country}>
-                    </div>
-                    <div className="geo-type ellipsis opa-30">
-                    {itinerary.geo.label}
-                    </div>
-                  </div>
-                  </Link>
 
                   {/** TITLE **/}
-                  <Link to={`/guide/${this.props.itineraryId}`}>
-                  <div className="guide-title ta-left">
+                  
+                  <Link to={`/guide/${this.props.itineraryId}`} className="guide-title ta-center w-100">
                     {itinerary.title}
-                  </div>
                   </Link>
 
                   {/** DESCRIPTION **/}
-                  <div className="itinerary__cover__descrip font--beta v2-type-body3 ta-left mrgn-top-xs mrgn-bottom-xs opa-80">
+                  <div className="itinerary__cover__descrip v2-type-body3 font--beta ta-center mrgn-top-xs mrgn-bottom-xs opa-80">
                      {itinerary.description}
                   </div>
 
@@ -368,6 +369,9 @@ class Itinerary extends React.Component {
               {/** Close Cover Text DIV >>>>>> **/}  
 
               <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
+                  <div className="flx flx-row w-100 flx-align-center pdding-left-md pdding-right-md pdding-top-md">
+                    <div className="v2-type-body1 color--black">{itinerary.reviewsCount ? itinerary.reviewsCount : 0} Items</div>
+                  </div>
                   <TipList
                     tipList={this.props.tips}
                     reviewsCount={itinerary.reviewsCount}

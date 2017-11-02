@@ -404,9 +404,8 @@ width: 100%;
   padding-right: 0;
 }
 .it-add-container {
-  width: 100%;
-  top: 40px;
-  padding: 0;
+    top: 50px;
+    padding: 0;
 }
 
 .page-itinerary .itinerary__cover__topbar  {
@@ -434,8 +433,6 @@ width: 100%;
   font-size: 14px;
 }
 .itinerary__cover__flag, .itinerary__summary__flag {
-    height: 22px;
-    width: 29px;
 }
 .itinerary__cover__topbar {
   margin-bottom: 10px;
@@ -445,8 +442,6 @@ width: 100%;
     flex-direction: column;
 }
 .flx.it__cover__inner  .it__author-wrapper  {
-  -webkit-flex-direction: row;
-  flex-direction: row;
   margin: 0;
 }
 
@@ -568,7 +563,7 @@ body .back-to-top {
   width: auto;
 }
 .tip__caption-module {
-  margin-top: 10px;
+  margin-top: 0px;
 }
 .tip__content-wrapper {
   padding-left: 0px;
@@ -588,23 +583,18 @@ body .back-to-top {
   flex-direction: row;
 }
 .page-itinerary .tip-container {
-  border: 1px solid rgba(0,0,0,0);
 }
 .tip-wrapper .tip-container {
     -webkit-flex-direction: column;
     flex-direction: column;
-    padding: 20px;
 }
 .tip-wrapper .tip__cta-box .vb {
-    margin-right: 5px;
-    padding: 10px 15px;
-    height: 36px;
 }
 .reviewpreview-wrapper .tip-wrapper .tip-container {
   padding: 20px 10px;
 }
 .tip-wrapper {
-  padding: 5px 0px;
+  padding: 5px 10px 30px;
 }
 .tip-wrapper:first-child {
   padding-top: 10px;
@@ -660,14 +650,9 @@ body .back-to-top {
    flex-direction: column;
 }
 .itinerary__summary__author-photo .user-photo-wrapper {
-  width: 32px;
-  height: 32px;
   margin-left: 0px;
-  margin-right: 20px;
 }
 .itinerary__summary__author-photo .user-photo-wrapper img {
-  width: 32px;
-  height: 32px;
 }
 .itinerary__cover__author-photo img {
     width: 50px;
@@ -675,7 +660,6 @@ body .back-to-top {
 }
 
 .page-edit-own .it__title-module {
-  margin-left: -5px;
 }
 .page-edit-own .it-add-wrapper input,
 .page-edit-own .it-add-wrapper textarea {
@@ -686,7 +670,6 @@ body .back-to-top {
   left: 13px;
 }
 .itinerary__cover__text {
-  padding: 10px;
 }
 .itinerary__cover__topbar .itinerary__cover__author-photo .default-profile-wrapper {
     width: 46px;
@@ -699,7 +682,7 @@ body .back-to-top {
 
 }
 .tip-title {
-    font-size: 16px;
+    font-size: 22px;
     letter-spacing: 0px;
     font-family: 'Roboto';
     font-weight: 500;
@@ -709,8 +692,6 @@ body .back-to-top {
   font-size: 16px;
 }
 .guide-title {
-  font-size: 24px;
-  line-height: 32px;
 }
 .tip-info-col {
   width: 100%;
@@ -825,6 +806,9 @@ body .back-to-top {
   width: 100%;
   transform: none !important;
 }
+.dialog--save__body {
+  max-height: unset !important;
+}
 
 body .back-to-top {
     bottom: 70px;
@@ -856,6 +840,12 @@ body .back-to-top {
 .page-itinerary.show-map .it-map-container {
   display: inline-block;
 }
+.page-itinerary .button-map-toggle {
+  position: fixed;
+  right: 10px;
+  top: 50px;
+}
+
 .floating-map-toggle {
   top: 50px;
 }

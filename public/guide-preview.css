@@ -222,7 +222,7 @@
 	object-position: center;
 }
 .itinerary__cover__text {
-	padding: 10px 20px;
+	padding: 20px;
 	z-index: 2;
 	min-width: 0;
 	overflow: hidden;

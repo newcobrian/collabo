@@ -4,7 +4,7 @@ body {
   letter-spacing:0px;
 
   /*background-color: #FAFAF8;*/
-  font-family: 'Arimo', 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 html,body,#page { height:100%;}
 /**{ border: 1px solid red; }*/
@@ -163,8 +163,11 @@ input[type="radio"]:checked + label span {
 .w-50 {
   width: 50%;
 }
-.w-third {
-  width: 30%;
+.w-30 {
+  width: 30% !important;
+}
+.w-20 {
+  width: 20% !important;
 }
 
 .default-card-white {
@@ -192,7 +195,7 @@ input[type="radio"]:checked + label span {
   box-shadow: 0px 1px 44px rgba(0,0,0,0.07);
   -webkit-box-shadow: 0px 1px 44px rgba(0,0,0,0.07);
   box-shadow: 0px 6px 38px rgba(0,0,0,0.03);
-  -webkit-box-shadow: 0px 6px 38px rgba(0,0,0,0.03);
+  -webkit-box-shadow: 0px 6px 38px rgba(0,0,0,0.08);
 
 }
 
@@ -634,7 +637,7 @@ width: 32px;
   margin-top: 10px;
 }
 .mrgn-right-sm  {
-  margin-right: 10px;
+  margin-right: 10px !important;
 }
 .mrgn-bottom-sm  {
   margin-bottom: 10px;

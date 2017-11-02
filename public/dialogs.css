@@ -52,8 +52,13 @@ body div.dialog--save {
   z-index: 2;
 }
 .dialog--save__body {
-  padding: 40px;
-  max-height: unset !important;
+  padding: 0px 0 50px !important;
+}
+.itinerary__contents .itinerary__cover__flag,
+.dialog--save__body .itinerary__cover__flag {
+    height: 30px;
+    width: 43px;
+    margin-right: 20px;
 }
 .dialog__overlay {
 }
