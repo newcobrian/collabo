@@ -8,6 +8,7 @@ import FORWARD from '../constants';
 import { FORWARD_MODAL, REVIEW_MODAL } from '../actions';
 import { ITINERARY_TYPE } from '../constants';
 import DisplayTimestamp from './DisplayTimestamp';
+import MediaQuery from 'react-responsive';
 
 
 
@@ -184,24 +185,26 @@ const ItineraryPreview = props => {
 
         <div className="itinerary__contents bx-shadow flx flx-col w-100">
 
-          {/** START IMAGES 
+          <MediaQuery query="(min-device-width: 1224px)">
+          {/** START IMAGES **/}
           <div className="itinerary__book w-100 flx-hold bg-loading mobile-hide">
             <div className="guide-label fill--primary color--white">
               Featured
             </div>
 
-            {/** Cover Image 
+            {/** Cover Image **/}
             <div className="itinerary__cover__image bg-loading">
               <ImagePicker images={itinerary.images ? [itinerary.images]: null} />
             </div>
-            {/** Cover Hit Area 
+            {/** Cover Hit Area **/}
             <Link className="itinerary__hit-area" to={`/guide/${itinerary.id}`}>
               <div></div>
             </Link>
-            {/** Cover Content 
+
             
           </div>
           {/** END IMAGES **/}
+          </MediaQuery>
 
 
           <div className="guide-preview-data-wrapper flx flx-col flx-align-start ta-left w-100">
