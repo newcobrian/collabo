@@ -807,6 +807,12 @@ body .back-to-top {
 .dialog--save__body {
   max-height: unset !important;
 }
+.dialog--save__wrapper > div {
+  box-shadow: none !important;
+}
+.dialog__overlay {
+    background-color: white !important;
+}
 
 body .back-to-top {
     bottom: 70px;
