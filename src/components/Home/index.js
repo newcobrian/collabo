@@ -267,7 +267,7 @@ class Home extends React.Component {
 
           {this.renderTabs()}
 
-          <div className="w-100 w-max flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap">
+          <div className="w-100 w-max flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap pdding-all-md">
             <div className="popular-box brdr-all flx flx-col DN">
               <div className="color--black section-header mrgn-bottom-md">Popular Guides</div>
               <PopularPreview 

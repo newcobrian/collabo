@@ -422,12 +422,10 @@ width: 100%;
 }
 
 .itinerary__cover__author-photo {
-  width: 46px;
-  height: 46px;
+  width: 50px;
+  height: 50px;
 }
 .itinerary__cover__username {
-  margin-top: 0;
-  text-align: left !important;
 }
 .geo-type {
   font-size: 14px;
@@ -733,17 +731,15 @@ body .back-to-top {
 
 .page-common .itinerary__cover {
   width: 100%;
-  padding: 10px;
-  margin: 0;
+  margin: 10px 0;
   border-bottom: none;
-  box-shadow: none;
 }
 .itinerary__cover {
   height: auto;
 }
 .itinerary__contents {
   border: none;
-  border-bottom: 1px solid rgba(0,0,0,.1);
+  padding: 20px;
 }
 .itinerary__cover.cover--empty {
   padding: 10px 40px;

@@ -222,7 +222,7 @@ class Itinerary extends React.Component {
               
 
               {/** Cover Content **/}
-              <div className="itinerary__cover__text w-100">
+              <div className={"itinerary__cover__text w-100 country-color-" + itinerary.geo.country}>
                 <div className="it__cover__inner flx flx-col flx-just-start ta-left w-100 w-max">
                   <div className="flx flx-row w-100 flx-center-all mrgn-bottom-sm">
 
@@ -230,14 +230,14 @@ class Itinerary extends React.Component {
                       <div className="itinerary__summary__author-photo">
                           <Link
                           to={`/${createdByUsername}`}
-                          className="">
+                          className="invert">
                           <ProfilePic src={createdByImage} className="center-img" />
                           </Link>
                       </div>
                       <div className="itinerary-username v2-type-body1">
                         <Link
                         to={`/${createdByUsername}`}
-                        className="">
+                        className="invert">
                         {createdByUsername}
                         </Link>
                       </div>
@@ -245,9 +245,9 @@ class Itinerary extends React.Component {
                    
                     {/** Flag and Geo **/}
                       <div Link to={`/places/${itinerary.geo.placeId}`} className="flx flx-col flx-just-start flx-align-center mrgn-bottom-sm mrgn-top-xs w-50">
-                        <div className={'itinerary__cover__flag mrgn-bottom-sm flx-hold flag-' + itinerary.geo.country}>
+                        <div className={'itinerary__cover__flag mrgn-bottom-sm flx-hold invert flag-' + itinerary.geo.country}>
                         </div>
-                        <div className="geo-type ellipsis ta-center">
+                        <div className="geo-type ellipsis ta-center invert">
                         {itinerary.geo.label}
                         </div>
                       </div>
@@ -262,12 +262,12 @@ class Itinerary extends React.Component {
 
                   {/** TITLE **/}
                   
-                  <Link to={`/guide/${this.props.itineraryId}`} className="guide-title ta-center w-100">
+                  <Link to={`/guide/${this.props.itineraryId}`} className="guide-title ta-center w-100 invert">
                     {itinerary.title}
                   </Link>
 
                   {/** DESCRIPTION **/}
-                  <div className="itinerary__cover__descrip v2-type-body3 font--beta ta-center mrgn-top-xs mrgn-bottom-xs opa-80">
+                  <div className="itinerary__cover__descrip v2-type-body3 font--beta ta-center mrgn-top-xs mrgn-bottom-xs opa-80 invert">
                      {itinerary.description}
                   </div>
 
@@ -283,12 +283,7 @@ class Itinerary extends React.Component {
                   <div className="it-author-controls w-100 w-max flx flx-row flx-just-start flx-align-center ta-center pdding-top-sm pdding-bottom-sm">
                     <div className="w-100 w-max flx flx-row flx-just-start flx-align-center ta-center">
                       <div className="flx flx-row flx-center-all">
-                        <div className="vb vb--outline vb--round it__tip-count vb--sm mrgn-right-sm">
-                          {itinerary.reviewsCount ? itinerary.reviewsCount : 0}
-                        </div>
-
-                        {/*<EditItineraryLink isUser={isUser} itineraryId={this.props.itineraryId} />*/}
-
+                      
                         <ItineraryActionsButton 
                           itinerary={itinerary} 
                           authenticated={this.props.authenticated} 

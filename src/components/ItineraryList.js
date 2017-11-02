@@ -6,7 +6,7 @@ import React from 'react';
 const ItineraryList = props => {
   if (!props.itineraries) { 
     return (
-       <div className="profile-feed flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap">
+       <div className="profile-feed flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap fill--light-gray">
         <div className="loading-module flx flx-col flx-center-all v2-type-body3 fill--black">
           <div className="loader-wrapper flx flx-col flx-center-all fill--black">
             <div className="loader-bird"></div>

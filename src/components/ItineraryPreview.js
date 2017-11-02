@@ -56,7 +56,7 @@ const CommentPreview = props => {
         </div>
 
 
-        <div className="vb vb--xs vb--outline flx-align-center cta-wrapper flx flx-row flx-just-end flex-item-right last-comment">
+        <div className="vb vb--sm vb--outline--none flx-align-center cta-wrapper flx flx-row flx-just-end flex-item-right last-comment">
           <div className="flx flx-row flx-just-end flx-align-center">
             <div className="cta-icon cta-comment comment-on"></div>
             <div className="v2-type-body1 weight-500">{props.itinerary.commentsCount}</div>
@@ -68,7 +68,7 @@ const CommentPreview = props => {
   else {
     return (
       <Link to={`/guide/${props.itinerary.id}`}>
-        <div className="vb vb--xs vb--outline cta-wrapper flx flx-row flx-center-all no-comments">             
+        <div className="vb vb--sm vb--outline--none cta-wrapper flx flx-row flx-center-all no-comments">             
              <div className="cta-icon cta-comment opa-60"></div>
              <div className="v2-type-body1 weight-500">0</div>
         </div>
@@ -83,15 +83,13 @@ const GeoInfo = props => {
   }
   else {
     return (
-      <Link to={`/places/${props.geo.placeId}`}>
-        <div className="flx flx-row flx-just-start flx-align-center">
+      <Link to={`/places/${props.geo.placeId}`} className="flx flx-col flx-just-start flx-align-center w-50">
           {/** Flag and Geo **/}
-          <div className={'itinerary__cover__flag flx-hold flag-' + props.geo.country}>
+          <div className={'itinerary__cover__flag mrgn-bottom-sm flx-hold invert flag-' + props.geo.country}>
           </div>
-          <div className="geo-type ellipsis opa-50">
+          <div className="geo-type ellipsis ta-center invert">
             {props.geo.label}
           </div>
-        </div>
       </Link>
       )
   }
@@ -111,26 +109,23 @@ const ItineraryPreview = props => {
       <div className={"pdding-top-sm pdding-bottom-sm mrgn-bottom-md flx flx-row flx-align-center w-100 " + props.type}>
           
             {/** USER PHOTO **/}
-            <div className="itinerary__cover__author-photo mrgn-right-md">
-                <Link
-                to={`/${itinerary.createdBy.username}`}
-                className="">
+            <Link
+              to={`/${itinerary.createdBy.username}`}
+              className="itinerary__cover__author-photo w-50 ta-center flx flx-center-all">
                 <ProfilePic src={itinerary.createdBy.image} className="center-img" />
-                </Link>
-            </div>
+            </Link>
+
             <div className="flx flx-col">
               {/** TITLE - START  **/}
-              <Link to={`/guide/${itinerary.id}`}>
-              <div className="guide-preview-title ta-left mrgn-bottom-xs mrgn-top-xs">
+              <Link to={`/guide/${itinerary.id}`} className="guide-preview-title ta-left mrgn-bottom-xs mrgn-top-xs">
                 {itinerary.title}
-              </div>
               </Link>
               {/** END - TITLE **/}
               <div className="flx flx-row flx-just-start flx-align-center">
                  <div className={'itinerary__cover__flag flx-hold flag-' + itinerary.geo.country}>
                 </div>
                 {/** USERNAME **/}
-                <div className="itinerary__cover__username mrgn-right-md">
+                <div className="itinerary__cover__username ta-center">
                   <Link
                   to={`/${itinerary.createdBy.username}`}
                   className="color--black opa-40">
@@ -150,40 +145,19 @@ const ItineraryPreview = props => {
   } 
   else {
     return (
-      <div className={"itinerary__cover flx flx-col " + props.type + " " + props.guideLabel}>
+      <div className={"itinerary__cover flx bx-shadow brdr-all flx-col" + " " + props.type + " " + props.guideLabel}>
         
         {/** START USER PHOTO AND TIP COUNT **/}
-        <div className="itinerary__cover__topbar flx flx-row flx-align-center w-100 w-max flx-hold flx-just-start v2-type-body1 mrgn-bottom-sm">
-          
-          {/** USER PHOTO **/}
-          <div className="itinerary__cover__author-photo mrgn-right-md">
-              <Link
-              to={`/${itinerary.createdBy.username}`}
-              className="">
-              <ProfilePic src={itinerary.createdBy.image} className="center-img" />
-              </Link>
-          </div>
-
-          {/** USERNAME **/}
-          <div className="flx flx-col flx-just-start">
-            <div className="itinerary__cover__username mrgn-right-md">
-              <Link
-              to={`/${itinerary.createdBy.username}`}
-              className="color--primary">
-              {itinerary.createdBy.username}
-              </Link>
-            </div>
-
-            {/** TIMESTAMP **/}
-            <div className="itinerary__cover__timestamp ta-left opa-70">
-              <DisplayTimestamp timestamp={itinerary.lastModified} />
-            </div> 
-          </div>
+        <div className="DN itinerary__cover__topbar flx flx-row flx-align-center w-100 w-max flx-hold flx-just-start v2-type-body1 mrgn-bottom-sm">
+          {/** TIMESTAMP **/}
+          <div className="itinerary__cover__timestamp ta-left opa-70">
+            <DisplayTimestamp timestamp={itinerary.lastModified} />
+          </div> 
         </div>
         {/** END USER PHOTO AND TIP COUNT **/}
 
 
-        <div className="itinerary__contents bx-shadow flx flx-col w-100">
+        <div className={"itinerary__contents bx-shadow flx flx-col w-100 country-color-" + itinerary.geo.country}>
 
           <MediaQuery query="(min-device-width: 1224px)">
           {/** START IMAGES **/}
@@ -209,8 +183,29 @@ const ItineraryPreview = props => {
 
           <div className="guide-preview-data-wrapper flx flx-col flx-align-start ta-left w-100">
               
+
               {/** CAPTION ROW - START **/}
               <div className="geo-wrapper flx flx-row flx-just-start flx-align-center mrgn-bottom-xs w-100 mrgn-top-xs">
+                <div className="flx flx-col w-50 flx-align-center">
+                  {/** USER PHOTO **/}
+                    <Link
+                      to={`/${itinerary.createdBy.username}`}
+                      className="itinerary__cover__author-photo w-50 ta-center flx flx-center-all">
+                      <ProfilePic src={itinerary.createdBy.image} className="center-img invert" />
+                    </Link>
+
+
+                  {/** USERNAME **/}
+                  <div className="flx flx-col flx-just-start">
+                    <div className="itinerary__cover__username mrgn-top-sm ta-center">
+                      <Link
+                      to={`/${itinerary.createdBy.username}`}
+                      className="color--black invert">
+                      {itinerary.createdBy.username}
+                      </Link>
+                    </div>
+                  </div>
+                </div>
 
                 {/** GEO - START **/}
                 <GeoInfo geo={itinerary.geo} />          
@@ -225,15 +220,13 @@ const ItineraryPreview = props => {
               <div className="guide-preview-text-wrapper w-100 flx flx-col">
 
                 {/** TITLE - START  **/}
-                <Link to={`/guide/${itinerary.id}`}>
-                <div className="guide-preview-title ta-left mrgn-bottom-xs mrgn-top-xs">
+                <Link to={`/guide/${itinerary.id}`} className="guide-preview-title ta-center mrgn-bottom-xs mrgn-top-xs w-100 invert">
                   {itinerary.title}
-                </div>
                 </Link>
                 {/** END - TITLE **/}
 
                 {/** DESCRIPTION - START **/}
-                <div className="itinerary__cover__descrip font--beta v2-type-body1 opa-90">
+                <div className="itinerary__cover__descrip ta-center font--beta v2-type-body1 opa-90 invert">
                    <DescriptionPreview  itinerary={props.itinerary}/>
                 </div>
                 {/** END - DESCRIPTION **/}
@@ -243,13 +236,13 @@ const ItineraryPreview = props => {
 
 
               {/** CTA - START **/}
-              <div className="guide-cta-wrapper flx flx-row flx-center-all w-100">
+              <div className="guide-cta-wrapper flx flx-row flx-center-all w-100 fill--white brdr-all">
 
                 {/** LIKE AND COMMENTS **/}
                 <div className="it__cover__cta-module flx flx-row flx-just-end">
                   <CommentPreview itinerary={props.itinerary} />
 
-                  <div className="vb vb--xs vb--outline flx flx-row flx-align-center mrgn-right-sm cta-wrapper flx flx-row flx-just-end flex-item-right mrgn-left-n-1">
+                  <div className="vb vb--sm vb--outline--none flx flx-row flx-align-center mrgn-right-sm cta-wrapper flx flx-row flx-just-end flex-item-right">
                     <LikeReviewButton
                       authenticated={props.authenticated}
                       isLiked={props.itinerary.isLiked}
@@ -261,8 +254,8 @@ const ItineraryPreview = props => {
                 </div>
 
                 {/** TIP COUNT **/}
-                <Link to={`/guide/${itinerary.id}`} className="vb vb--xs vb--outline-none vb--round tip-count flx flx-row flx-just-start flx-align-center color--white fill--primary flx-item-right no-uppercase">
-                    <div>{itinerary.reviewsCount ? itinerary.reviewsCount : 0} {itinerary.reviewsCount === 1 ? '' : ''}</div>
+                <Link to={`/guide/${itinerary.id}`} className="vb vb--xs vb--outline--none tip-count flx flx-row flx-just-start flx-align-center color--primary flx-item-right no-uppercase">
+                    <div>{itinerary.reviewsCount ? itinerary.reviewsCount : 0} {itinerary.reviewsCount === 1 ? '' : ''} items</div>
                     <i className="DN material-icons mrgn-left-sm color--primary md-24">playlist_play</i>
                 </Link>
 

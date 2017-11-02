@@ -37,7 +37,6 @@
 }
 .itinerary__cover .itinerary__cover__author-photo {
 	margin-left: 0; 
-	margin-right: 20px !important;
 }
 .itinerary__cover__author-photo {
     border-radius: 100px;
@@ -367,7 +366,7 @@ textarea.edit-itinerary__name {
     padding: 0;
     border: 1px solid #D7E3E5;
     background-color: white;
-    border-radius: 2px;
+    border-radius: 7px;
 }
 .page-edit-own .it-add-wrapper input:hover,
 .page-edit-own  .it-add-wrapper textarea:hover {

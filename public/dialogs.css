@@ -54,11 +54,13 @@ body div.dialog--save {
 .dialog--save__body {
   padding: 0px 0 50px !important;
 }
-.itinerary__contents .itinerary__cover__flag,
+.itinerary__contents .itinerary__cover__flag {
+
+}
 .dialog--save__body .itinerary__cover__flag {
     height: 30px;
     width: 43px;
-    margin-right: 20px;
+    margin-right: 38px;
 }
 .dialog__overlay {
 }

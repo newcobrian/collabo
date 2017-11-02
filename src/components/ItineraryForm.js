@@ -292,7 +292,7 @@ class ItineraryForm extends React.Component {
         let latLng = new this.props.googleObject.maps.LatLng(geo.location.lat, geo.location.lng);
         
         return (
-          <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--transparent">
+          <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--transparent bx-shadow">
             <i className="material-icons color--primary md-24">add_circle</i>
             
             <Geosuggest 
@@ -364,7 +364,7 @@ class ItineraryForm extends React.Component {
           {renderGeoSuggestTip(itinerary.geo)}
         </div>
         
-        <button className="vb vb--sm vb--outline vb--round flx flx-row flx-align-center fill--white color--black mrgn-left-n-1 button-map-toggle brdr-left"
+        <button className="vb vb--sm vb--outline vb--round flx flx-row flx-align-center fill--white color--black mrgn-left-n-1 button-map-toggle bx-shadow brdr-left"
           onClick={this.onMapToggle}>
           <i className="material-icons color--black md-18 opa-80">map</i>
           <div className="mobile-hide color--black mrgn-left-sm">Full Map</div>
@@ -405,7 +405,7 @@ class ItineraryForm extends React.Component {
                
 
           {/** Cover Content **/}
-          <div className="itinerary__cover__text w-100">
+          <div className={"itinerary__cover__text w-100 country-color-" + itinerary.geo.country}>
             
             <div className="it__cover__inner flx flx-col flx-just-start ta-left w-100 w-max">
               <div className="flx flx-row w-100 flx-center-all mrgn-bottom-sm">
@@ -414,14 +414,14 @@ class ItineraryForm extends React.Component {
                   <div className="itinerary__summary__author-photo">
                       <Link
                       to={`/${createdByUsername}`}
-                      className="">
+                      className="invert">
                       <ProfilePic src={createdByImage} className="center-img" />
                       </Link>
                   </div>
                   <div className="itinerary-username v2-type-body1">
                     <Link
                     to={`/${createdByUsername}`}
-                    className="">
+                    className="invert">
                     {createdByUsername}
                     </Link>
                   </div>
@@ -429,10 +429,10 @@ class ItineraryForm extends React.Component {
 
                 {/** Flag and Geo **/}
                 <div className="flx flx-col flx-just-start flx-align-center mrgn-top-xs mrgn-bottom-xs w-50">
-                  <Link to={`/places/${itinerary.geo.placeId}`} className={'itinerary__cover__flag flx-hold flag-' + itinerary.geo.country} />
+                  <Link to={`/places/${itinerary.geo.placeId}`} className={'itinerary__cover__flag flx-hold invert flag-' + itinerary.geo.country} />
                   <div className="geo-type ellipsis w-100 flx flx-row flx-align-center flx-just-start">
                     <Geosuggest 
-                      className="input--underline w-100"
+                      className="input--underline w-100 invert"
                       types={['(regions)']}
                       placeholder="Search for a location (e.g. 'New York' or 'Japan')"
                       required
@@ -450,7 +450,7 @@ class ItineraryForm extends React.Component {
              
 
               {/** TITLE **/}
-              <div className="itinerary__cover__title ta-center guide-title">
+              <div className="itinerary__cover__title ta-center guide-title invert">
                 <RenderDebounceInput
                   type="text"
                   value={this.props.data.title}
@@ -464,7 +464,7 @@ class ItineraryForm extends React.Component {
               <div className="itinerary__cover__descrip font--beta v2-type-body3 ta-center mrgn-top-sm opa-80">
                  <RenderDebounceInput
                     type="text"
-                    className="w-100 font--beta"
+                    className="w-100 font--beta invert"
                     value={this.props.data.description}
                     placeholder="Description"
                     debounceFunction={this.changeDescription} />

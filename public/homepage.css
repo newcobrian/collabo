@@ -69,6 +69,9 @@
 .friend-popular-toggle .nav-pills .nav-item { 
   font-size: 16px;
 }
+.friend-popular-toggle .nav-pills .nav-item:first-child {
+  margin-right: 20px;
+}
 
 .page-edit-own .it-add-wrapper input {
   text-indent: 40px;

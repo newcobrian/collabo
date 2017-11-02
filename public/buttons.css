@@ -24,7 +24,7 @@ input, select, textarea {
   border-color: white;
   padding: 10px;
   text-transform: inherit;
-  background-color: white;
+  background-color: transparent;
   text-align: center;
 }
 .page-edit-own .it-add-wrapper input {
@@ -51,6 +51,7 @@ input, select, textarea {
 .page-edit-own input:hover,
 .page-edit-own textarea:hover {
   border-color: rgba(0,199,205,.6);
+  background-color: rgba(251,255,205,.2);
 
   /*background-color: rgba(251,255,205,.5);*/
   /*background-color: rgba(102,144,224,.1);*/

@@ -316,6 +316,7 @@ input[type="radio"]:checked + label span {
   background-color: rgba(229,229,229,1);
   animation: colorchange .8s 8;
   -webkit-animation: colorchange .8s 8;
+  border: 1px solid rgba(0,0,0,.4);
 }
 .comment-author-img .default-profile-wrapper,
 .comment-author-img .user-photo-wrapper {
@@ -336,8 +337,8 @@ width: 32px;
 }
 .itinerary__cover__author-photo .default-profile-wrapper,
 .itinerary__cover__author-photo .user-photo-wrapper {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
 }
 .small-guide .itinerary__cover__author-photo .default-profile-wrapper,
 .small-guide .itinerary__cover__author-photo .user-photo-wrapper {
@@ -789,7 +790,7 @@ width: 32px;
 
 .nav-pills.outline-active .nav-link {
   padding: 6px 0px;
-  margin-right: 20px;
+  margin-right: 0px;
   color: #526166;
   opacity: .5;
 }
@@ -867,6 +868,7 @@ li.nav-divider {
 .profile-feed {
     width: 100%;
     margin: 0 auto;
+    padding: 20px;
 }
 .profile-image {
 }
