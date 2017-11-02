@@ -63,7 +63,8 @@ class InfoModal extends React.Component {
     }
 
     let googleMapLink = (this.props.review.subject.googleMapsURL ? this.props.review.subject.googleMapsURL :
-        'https://maps.google.com/maps?q=' + this.props.review.subject.location.lat + ',' + this.props.review.subject.location.lng)
+        'https://www.google.com/maps/search/?api=1&query=' + this.props.review.subject.title.split(' ').join('%20') + 
+        '&query_place_id=' + this.props.review.subjectId)
 
     const actions = [
       <FlatButton
@@ -120,7 +121,7 @@ class InfoModal extends React.Component {
                   <i className="material-icons mrgn-right-md color--black opa-60 md-24">&#xE55F;</i>
                 <div>
                 <div className="v2-type-body2">{this.props.review.subject.address}</div>
-                <a target='_blank' className="color--primary v2-type-body2" href={googleMapLink}>Get Directions</a>
+                <a target='_blank' className="color--primary v2-type-body2" href={googleMapLink}>Open in Maps</a>
                 </div>
               </div>
             </div>
