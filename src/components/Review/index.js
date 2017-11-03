@@ -333,7 +333,7 @@ class Review extends React.Component {
               showModal={this.props.showModal}
                />
 
-            <div className="label-big pdding-left-lg">More reviews</div>
+            <div className="label-big pdding-left-md DN">More reviews</div>
             <ReviewList
               itinerary={this.props.itinerary}
               reviewList={this.props.allReviews} 

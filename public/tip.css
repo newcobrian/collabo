@@ -132,6 +132,10 @@
 	width: 100%;
   font-family: 'Rokkitt', sans-serif !important;
 }
+.page-subject .tip__caption {
+  font-size: 22px;
+  line-height: 30px;
+}
 .tip__caption-module {
   margin-top: 10px;
 }

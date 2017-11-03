@@ -461,7 +461,7 @@ class ItineraryForm extends React.Component {
              
 
               {/** TITLE **/}
-              <div className="itinerary__cover__title ta-center guide-title invert">
+              <div className="itinerary__cover__title ta-center guide-title font--alpha invert">
                 <RenderDebounceInput
                   type="text"
                   value={this.props.data.title}

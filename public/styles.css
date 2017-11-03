@@ -4,7 +4,7 @@ body {
   letter-spacing:0px;
 
   /*background-color: #FAFAF8;*/
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif !important;
 }
 html,body,#page { height:100%;}
 /**{ border: 1px solid red; }*/
@@ -16,6 +16,7 @@ body a:hover {
   color: initial;
   opacity: 1;
   transition: all 0.23s ease-in-out 0s;
+  font-family: 'Roboto', sans-serif !important;
 }
 
 .butt {
@@ -616,38 +617,38 @@ width: 32px;
   margin: 0;
 }
 .mrgn-all-xs {
-  margin: 5px;
+  margin: 5px !important;
 }
 .mrgn-top-xs {
-  margin-top: 5px;
+  margin-top: 5px !important;
 }
 .mrgn-right-xs  {
-  margin-right: 5px;
+  margin-right: 5px !important;
 }
 .mrgn-bottom-xs  {
-  margin-bottom: 5px;
+  margin-bottom: 5px !important;
 }
 .mrgn-left-xs  {
-  margin-left: 5px;
+  margin-left: 5px !important;
 }
 .mrgn-left-n-1 {
-  margin-left: -1px;
+  margin-left: -1px !important;
 }
 
 .mrgn-all-sm {
-  margin: 10px;
+  margin: 10px !important;
 }
 .mrgn-top-sm {
-  margin-top: 10px;
+  margin-top: 10px !important;
 }
 .mrgn-right-sm  {
   margin-right: 10px !important;
 }
 .mrgn-bottom-sm  {
-  margin-bottom: 10px;
+  margin-bottom: 10px !important;
 }
 .mrgn-left-sm  {
-  margin-left: 10px;
+  margin-left: 10px !important;
 }
 
 .mrgn-all-md {
@@ -1347,8 +1348,9 @@ body .back-to-top {
     background-color: #3DCBF3;
     overflow: hidden;
 }
-.back-to-top:hover {
-    background-color: #68E4E7;
+body .back-to-top:hover,
+body .back-to-top:focus {
+    background-color: #46DFFF !important;
 }
 
 

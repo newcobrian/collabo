@@ -702,6 +702,9 @@ body .back-to-top {
   flex-direction: column;
   margin-top: 70px;
 }
+.page-subject .itinerary__tipslist {
+  padding: 0;
+}
 
 /* TIP PREVIEW */
 .v2-type-h3 {

@@ -12,7 +12,7 @@ const mapStateToProps = state => ({
 const ReviewList = props => {
   if (!props.reviewList) {
     return (
-      <div className="status-module flx flx-row w-100 v2-type-body2 opa-40 pdding-all-lg mrgn-top-lg ta-left">
+      <div className="status-module flx flx-row w-100 v2-type-body2 opa-40 pdding-all-lg mrgn-top-lg ta-left DN">
         None of your friends have this on a guide yet
       </div>
     );
