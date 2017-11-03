@@ -324,7 +324,7 @@ class ItineraryForm extends React.Component {
           {!this.props.userInfo.tutorialCompleted && 
             <div className="help--add-tip flx flx-row flx-center-all fill--black color--white opa-90 bx-shadow">
               <i className="material-icons color--white md-24 mrgn-left-xs">arrow_upward</i>
-              <div className="v2-type-body2 mrgn-left-md">Start adding to your guide by searching here and selecting your place from the dropdown</div>
+              <div className="v2-type-body2 mrgn-left-md">Start adding to your guide by searching here and selecting a place from the dropdown</div>
             </div>
           }
         </div>
