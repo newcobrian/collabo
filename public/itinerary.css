@@ -222,6 +222,7 @@
 
  }
 .itinerary__cover .itinerary__cover__descrip {
+	padding-bottom: 10px;
 	padding-bottom: 20px;
 	height: 40px;
  }
