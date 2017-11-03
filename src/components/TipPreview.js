@@ -107,6 +107,16 @@ const TipPreview = props => {
                       { /** END Image **/ }
                     </MediaQuery>
 
+                    {/* Tags list */}
+                      <div>
+                        { 
+                          Object.keys(tip.tags || {}).map(function (tagName) {
+                            return (
+                              <span key={tagName}>{tagName} </span>
+                            )
+                          }, this)}
+                      </div>
+
                     { /** Rating **/ }
                     <div className={'DN tip__rating-module flx flx-row flx-align-center flx-item-right w-100 font--alpha tip__rating-module--' + tip.review.rating}>
                       <div className={'tip__rating flx-hold flx flx-row flx-center-all v2-type-rating--' +  tip.review.rating}>

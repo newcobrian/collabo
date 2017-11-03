@@ -773,6 +773,60 @@ export function completeTutorial(auth) {
   }
 }
 
+export function onAddTag(auth, tip, itineraryId, placeId, tag) {
+  return dispatch => {
+    let updates = {};
+    
+    updates[Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + tip.key + '/tags/' + tag] = true;
+    updates[Constants.TIPS_BY_SUBJECT_PATH + '/' + tip.subjectId + '/' + tip.userId + '/' + tip.key + '/tags/' + tag] = true;
+    updates[Constants.TAGS_PATH + '/' + tag + '/' + tip.key] = true;
+    updates[Constants.TAGS_BY_USER_PATH + '/' + auth + '/' + tag + '/' + tip.key] = true;
+    updates[Constants.TAGS_BY_GEO_PATH + '/' + placeId + '/' + tag + '/' + tip.key] = true;
+
+    Firebase.database().ref().update(updates)
+
+    dispatch({
+      type: ActionTypes.TAG_ADDED,
+      meta: {
+        mixpanel: {
+          event: 'Tag added',
+          props: {
+            itineraryId: itineraryId,
+            tag: tag
+          }
+        }
+      }
+    })
+  }
+}
+
+export function onRemoveTag(auth, tip, itineraryId, placeId, tag) {
+  return dispatch => {
+    let updates = {};
+
+    updates[Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + tip.key + '/tags/' + tag] = null;
+    updates[Constants.TIPS_BY_SUBJECT_PATH + '/' + tip.subjectId + '/' + tip.userId + '/' + tip.key + '/tags/' + tag] = null;
+    updates[Constants.TAGS_PATH + '/' + tag + '/' + tip.key] = null;
+    updates[Constants.TAGS_BY_USER_PATH + '/' + auth + '/' + tag + '/' + tip.key] = null;
+    updates[Constants.TAGS_BY_GEO_PATH + '/' + placeId + '/' + tag + '/' + tip.key] = null;
+
+    Firebase.database().ref().update(updates)
+
+    dispatch({
+      type: ActionTypes.TAG_REMOVED,
+      meta: {
+        mixpanel: {
+          event: 'Tag removed',
+          props: {
+            itineraryId: itineraryId,
+            tag: tag
+          }
+        }
+      }
+    })
+  }
+}
+
 // export function onCloseInfoWindow() {
 //   return dispatch => {
 //     dispatch({

@@ -29,6 +29,7 @@ import {BackToTop} from 'pui-react-back-to-top';
 import SEO from './SEO';
 import { ShareButtons, ShareCounts, generateShareIcon } from 'react-share';
 import MediaQuery from 'react-responsive';
+import AddTagInput from './AddTagInput';
 
 const {
   FacebookShareButton,
@@ -82,9 +83,6 @@ const mapStateToProps = state => ({
   authenticated: state.common.authenticated,
   userInfo: state.common.userInfo
 });
-
-
-
 
 class ItineraryForm extends React.Component {
   constructor() {
@@ -359,6 +357,11 @@ class ItineraryForm extends React.Component {
     const onTipClick = (tip) => ev => {
       ev.preventDefault();
       this.props.onSelectActiveTip(tip);
+    }
+
+    const onRemoveTag = (auth, tip, itineraryId, placeId, tag) => ev => {
+      ev.preventDefault();
+      this.props.onRemoveTag(auth, tip, itineraryId, placeId, tag);
     }
 
     return (
@@ -681,6 +684,20 @@ class ItineraryForm extends React.Component {
                                                  </MuiThemeProvider>
                                               </div>
                                               {/* END More Options button */}
+                                            </div>
+
+                                            {/* Tags list */}
+                                            <div>
+                                              { 
+                                                Object.keys(tip.tags || {}).map(function (tagName) {
+                                                  return (
+                                                    <Link key={tagName} onClick={onRemoveTag(this.props.authenticated, tip, itinerary.id, itinerary.geo.placeId, tagName)}>{tagName} </Link>
+                                                  )
+                                                }, this)}
+                                            </div>
+
+                                            <div>
+                                              <AddTagInput tip={tip} itineraryId={itinerary.id} placeId={itinerary.geo.placeId} />
                                             </div>
 
 
