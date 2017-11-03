@@ -627,7 +627,7 @@ class ItineraryForm extends React.Component {
                                         </div>
                                       </MediaQuery>
 
-                                      {/** EXAMPLE: on mobile, just show the dropzone **/}
+                                      {/** EXAMPLE: on mobile, just show the dropzone 
                                       <MediaQuery query="(max-device-width: 1224px)">
                                         <Dropzone
                                             onDrop={tipDropHandler(tip)}
