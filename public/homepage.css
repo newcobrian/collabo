@@ -8,10 +8,15 @@
   /*background-image: linear-gradient(to right, rgba(0,0,0,.05) 1px, transparent 1px),*/
   /*linear-gradient(to bottom, rgba(0,0,0,.05) 1px, transparent 1px);*/
   background-attachment: fixed;
-  margin: 130px auto 0px;
   min-height: 1000px;
 }
-
+.home-page.page-common .input--search {
+  opacity: .3;
+}
+.home-page.page-common .input--search:focus,
+.home-page.page-common .input--search:hover {
+  opacity: 1;
+}
 .page-section {
 }
 .page-section__feature {
@@ -44,12 +49,11 @@
 
 .search-wrapper-wrapper {
   z-index: 10;
-  position: fixed;
-  top: 70px;
-  z-index: 10;
+  margin-top: 40px;
   padding: 0 20px;
   background-color: #121419;
   background-color: white;
+  max-width: 860px;
 }
   .page-landing.search-wrapper-wrapper {
     display: none;
@@ -60,17 +64,22 @@
   overflow: hidden;
 }
 .search-wrapper {
-  margin-right: 40px;
 }
 .search-wrapper.page-top-search {
-	margin-top: 0;
+  margin-top: 0;
   padding: 10px 0;
+  width: 100%;
+  overflow: visible;
+  height: auto;
 }
 .friend-popular-toggle .nav-pills .nav-item { 
-  font-size: 16px;
+  font-size: 14px;
+  margin: 0 10px;
+  width: auto;
+  text-align: center;
 }
 .friend-popular-toggle .nav-pills .nav-item:first-child {
-  margin-right: 20px;
+
 }
 
 .page-edit-own .it-add-wrapper input {
@@ -86,17 +95,22 @@
 }
 
 .search-wrapper.page-top-search .input--search input {
-  text-indent: 70px;
-  border: 1px solid rgba(0,199,205,1) !important;
-  background-color: #121419;
+  border: none !important;
+  border-bottom: 1px solid rgba(0,199,205,1) !important;
+  font-family: 'Roboto Condensed', sans-serif !important;
+  color: #121419;
+  text-transform: uppercase;
+  font-weight: 600 !important;
+  font-size: 32px !important;
+  line-height: 30px !important;
+  height: auto !important;
+  text-align: center;
 }
 .search-wrapper.page-top-search .input--search input:hover {
-  text-indent: 70px;
-  border: 1px solid #00C7FF !important;
+  border-bottom: 1px solid rgba(0,199,205,1) !important;
 }
 .search-wrapper.page-top-search .input--search input:focus {
-  text-indent: 70px;
-  border: 1px solid #00EBFF !important;
+  border-bottom: 1px solid rgba(0,199,205,1) !important;
 }
 
 .search-detail-bar {
@@ -104,10 +118,11 @@
   overflow: hidden;
 }
 .search-detail-bar .geo-type {
-  font-size: 13px;
+  font-size: 10px;
   flex-shrink: 0;
   width: auto;
-  opacity: .4;
+  opacity: 1;
+  font-weight: 100;
 }
 .search-detail-bar .geo-type:hover {
   opacity: .6;

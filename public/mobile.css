@@ -296,14 +296,14 @@ margin: 0;
 
 
 .home-page.page-common {
-  margin: 100px auto 0px;
+  margin: 0 auto 0px;
 }
 .search-wrapper.page-top-search {
   margin-right: 0;
 }
 .search-wrapper-wrapper {
-    top: 40px;
-    padding: 0 8px;
+    padding: 8px;
+    margin-top: 20px;
 }
 
 

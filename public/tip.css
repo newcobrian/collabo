@@ -240,13 +240,15 @@ input.edit-tip__rating {
 }
 .search-icon {
   position: absolute;
-  left: 10px;
+  left: 0px;
   top: 18px;
   z-index: 2;
   pointer-events: none;
+  opacity: .5;
 }
 .input--search {
   margin-bottom: 0 !important;
+  height: auto !important
 }
 .input--search input {
   text-indent: 62px;

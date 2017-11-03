@@ -55,11 +55,11 @@ class Explore extends React.Component {
     }
     
     return (
-      <div className="flx flx-col page-common follow-page page-people flx-just-start w-100">
+      <div className="flx flx-col page-common follow-page page-people flx-align-center flx-just-start w-100">
           
         <div className="search-wrapper-wrapper w-100 flx flx-row flx-m-col flx-align-center">
           <div className="search-wrapper page-top-search short-width-search w-100 flx flx-row flx-align-center flx-hold">
-            <i className="search-icon material-icons color--white md-32">search</i>
+            <i className="search-icon material-icons color--black md-32">search</i>
             <FirebaseSearchInput
               name="searchInput"
               callback={searchInputCallback}
@@ -70,7 +70,7 @@ class Explore extends React.Component {
           </div>
 
 
-          <div className="flx flx-row flx-just-center flx-align-start flx-wrap w-100">
+          <div className="flx flx-row flx-just-center flx-align-start flx-wrap w-100 mrgn-top-lg">
             {
               users.map(user => {
                 const isUser = this.props.authenticated &&
@@ -81,9 +81,7 @@ class Explore extends React.Component {
                       <Link
                         to={`/${user.username}`}
                         className="mrgn-right-md">
-                        <div className="user-photo-wrapper">
                           <ProfilePic src={user.image} className="center-img" />
-                        </div>
                       </Link>
                       <div className="flx flx-col">
                         <Link

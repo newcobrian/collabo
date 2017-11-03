@@ -301,6 +301,12 @@ input.input--underline {
   background-color: #46DFFF !important;
   opacity: 1 !important;
 }
+.vb.fill--success:active,
+.vb.fill--success:hover {
+  color: white;
+  background-color: #00FFE2 !important;
+  opacity: 1 !important;
+}
 .vb.vb--outline:active,
 .vb.vb--outline:hover,
 .vb.vb--outline--none:active,

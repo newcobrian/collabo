@@ -57,7 +57,7 @@ const ItineraryList = props => {
         <div className="v2-type-body1 pdding-bottom-md color--black opa-50">
           Upcoming trip or recommendations for friends?
         </div>
-        <div className="vb fill--success color--white">
+        <div className="vb fill--success color--white vb--round">
            <i className="material-icons md-32 color--white">add</i>
         </div>
         <div className="ta-center w-100 v2-type-body1 opa-50 mrgn-bottom-md DN">You could make...</div>
