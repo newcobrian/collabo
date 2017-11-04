@@ -2,7 +2,12 @@
   "name": "trippy",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://newcobrian.github.io/whatsgood",
+  "homepage": "https://myviews.io",
+  "babel": {
+    "presets": [
+      "react-app"
+    ]
+  },
   "devDependencies": {
     "babel-core": "^6.22.1",
     "babel-loader": "^6.4.1",
@@ -21,6 +26,7 @@
   },
   "dependencies": {
     "algoliasearch": "^3.22.1",
+    "copy-to-clipboard": "^3.0.8",
     "express": "^4.16.2",
     "firebase": "^3.6.9",
     "google-maps-react": "^1.1.0",
@@ -68,7 +74,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "deploy": "gh-pages -d build",
-    "server": "create-react-server --createRoutes src/routes.js --createStore src/store.js --ap src/components/App.js"
+    "server": "create-react-server --debug --createRoutes src/routes.js --createStore src/store.js --app src/components/App.js"
   },
   "description": "% npm install",
   "main": ".eslintrc.js",

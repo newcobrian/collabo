@@ -2,8 +2,11 @@ import Firebase from 'firebase';
 import * as Constants from '../constants'
 import * as Helpers from '../helpers'
 import * as ActionTypes from './types'
-import mixpanel from 'mixpanel-browser'
 import 'whatwg-fetch';
+
+// SSR: mixpanel-browser is not compatible. see https://github.com/mixpanel/mixpanel-js/issues/119
+const mixpanel = typeof document === 'undefined' ? { track: () => {} } : require('mixpanel-browser');
+// END SSR
 
 export const AUTH_ERROR = 'AUTH_ERROR';
 export const AUTH_USER = 'AUTH_USER';

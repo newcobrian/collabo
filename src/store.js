@@ -21,10 +21,14 @@ import lightboxComponent from './reducers/lightboxComponent';
 import explore from './reducers/explore';
 import places from './reducers/places';
 import Firebase from 'firebase';
-import mixpanel from 'mixpanel-browser';
 import MixpanelMiddleware from 'redux-mixpanel-middleware';
 import { reducer as formReducer } from 'redux-form';
 import { combineForms } from 'react-redux-form';
+
+// SSR: mixpanel-browser is not compatible. see https://github.com/mixpanel/mixpanel-js/issues/119
+const mixpanel = typeof document === 'undefined' ? { track: () => {} } : require('mixpanel-browser');
+// END SSR
+
 
 const initialItinerary = {
   itinerary: {

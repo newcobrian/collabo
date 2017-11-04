@@ -2,7 +2,10 @@ import Firebase from 'firebase';
 import * as Constants from '../constants'
 import * as Helpers from '../helpers'
 import * as ActionTypes from './types'
-import mixpanel from 'mixpanel-browser'
+
+// SSR: mixpanel-browser is not compatible. see https://github.com/mixpanel/mixpanel-js/issues/119
+const mixpanel = typeof document === 'undefined' ? { track: () => {} } : require('mixpanel-browser');
+// END SSR
 
 export function getSubject(subjectId) {
   return dispatch => {

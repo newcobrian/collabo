@@ -4,10 +4,13 @@ import agent from '../agent';
 import { connect } from 'react-redux';
 import Firebase from 'firebase';
 import * as Actions from '../actions';
-import mixpanel from 'mixpanel-browser';
 import RootModal from './Modal';
 import SnackbarToaster from './SnackbarToaster';
 import LightboxComponent from './LightboxComponent';
+
+// SSR: mixpanel-browser is not compatible. see https://github.com/mixpanel/mixpanel-js/issues/119
+const mixpanel = typeof document === 'undefined' ? { track: () => {} } : require('mixpanel-browser');
+// END SSR
 
 const mapStateToProps = state => ({
   appLoaded: state.common.appLoaded,
