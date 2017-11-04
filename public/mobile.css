@@ -28,6 +28,9 @@ body {
 .header-wrapper {
 
 }
+.header-container.logged-out {
+  display: none;
+}
 .logo-graphic {
 }
 .logo-main {
