@@ -356,7 +356,7 @@ input.edit-tip__rating {
   color: #8BE0F8 !important;
   font-weight: normal !important;
 }
-.tip__rating-module--undefined .tip__rating {
+.not-my-guide .tip__rating-module--undefined {
   display: none !important;
 }
 .tip__rating-module--undefined select,

@@ -132,7 +132,7 @@ const TipPreview = props => {
 
 
                         {/* Tags Wrapper **/ }
-                        <div className="flx flx-row flx-align-center flx-wrap">
+                        <div className="flx flx-row flx-align-center flx-wrap pdding-top-sm pdding-bottom-sm">
 
                           { /** Rating **/ }
                           <div className={'tip__rating-module flx flx-row flx-align-center w-100 flx-hold tip__rating-module--' + tip.review.rating}>

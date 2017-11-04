@@ -688,7 +688,7 @@ class ItineraryForm extends React.Component {
 
 
                                             {/* Tags Wrapper **/ }
-                                            <div className="flx flx-row flx-align-center flx-wrap">
+                                            <div className="flx flx-row flx-align-center flx-wrap pdding-top-sm pdding-bottom-sm">
 
                                               { /** Rating **/ }
                                               <div className={'tip__rating-module flx flx-row flx-align-center flx-hold w-100 tip__rating-module--' + tip.review.rating}>
