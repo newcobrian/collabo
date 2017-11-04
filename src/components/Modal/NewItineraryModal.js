@@ -33,7 +33,8 @@ class NewItineraryModal extends React.Component {
   }
 
   render() {
-    const handleClose = () => {
+    const handleClose = ev => {
+      ev.preventDefault();
       this.props.hideModal();
     }
 
@@ -100,7 +101,7 @@ class NewItineraryModal extends React.Component {
         label="Cancel"
         hoverColor="white"
         className="vb mrgn-right-sm"
-        onTouchTap={handleClose}
+        onClick={handleClose}
         labelStyle={{  
                     }}
         style={{
@@ -109,7 +110,7 @@ class NewItineraryModal extends React.Component {
       <FlatButton
         label="Save"
         hoverColor="white"
-        onTouchTap={submitForm}
+        onClick={submitForm}
         disableTouchRipple={true}
         fullWidth={false}
         className="vb color--white fill--primary"

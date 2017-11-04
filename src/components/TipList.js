@@ -20,14 +20,14 @@ const TipList = props => {
   if (props.tipList.length === 0 && props.canModify) {
     return (
       <div className="status-module flx flx-col flx-center-all v2-type-body3">
-          Add some tips!
+          
       </div>
     );
   }
   else if (props.tipList.length === 0) {
     return (
       <div className="status-module flx flx-col flx-center-all v2-type-body3">
-          0 tips
+      
       </div>
     );
   }

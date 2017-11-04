@@ -261,13 +261,14 @@ class Home extends React.Component {
       <div>
         {this.LoggedOutIntro(this.props.authenticated)}
 
-        <UniversalSearchBar />
- 
-        <div className={'home-page page-common fill--white ' + isLandingPage}>
+        
+        <div className={'home-page page-common fill--white flx flx-col flx-align-center ' + isLandingPage}>
 
+        <UniversalSearchBar />
+        
           {this.renderTabs()}
 
-          <div className="w-100 w-max flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap">
+          <div className="w-100 w-max flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap pdding-left-md pdding-right-md">
             <div className="popular-box brdr-all flx flx-col DN">
               <div className="color--black section-header mrgn-bottom-md">Popular Guides</div>
               <PopularPreview 

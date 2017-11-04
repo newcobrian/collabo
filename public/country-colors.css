@@ -1,0 +1,523 @@
+
+* .country-color-FR .invert,
+* .country-color-CN .invert,
+* .country-color-DE .invert,
+* .country-color-US .invert,
+* .country-color-JP .invert,
+* .country-color-KR .invert,
+* .country-color-TW .invert {
+	color: white !important;
+	border-color: white !important;
+}
+
+* .it__cover__inner textarea.invert,
+* .it__cover__inner input.invert,
+* .it__cover__inner .invert textarea,
+* .it__cover__inner .invert input {
+	border: none !important;
+}
+* .country-color-FR { /** France **/
+	background-color: #123ab4 !important;
+}
+* .country-color-ES { /** Spain **/
+	background-color: #f9d156 !important;
+}
+* .country-color-CO { /** Coloumbia **/
+	background-color: #FFD935 !important;
+}
+* .country-color-CN { /** China INVERTED **/
+	background-color: #F1351C !important;
+}
+* .country-color-DE { /** Berlin INVERTED **/
+	background-color: black !important;
+}
+* .country-color-US { /** USA INVERTED **/
+	background-color: #2e3d6e !important;
+}
+* .country-color-JP { /** Japan INVERTED **/
+	background-color: #C70025 !important;
+}
+* .country-color-KR { /** Korea INVERTED **/
+	background-color: #0E4B9C !important;
+}
+* .country-color-TW { /** Taiwan INVERTED **/
+	background-color: #FE3031 !important;
+}
+
+
+* .country-color-AF { background-color: #ffffff;
+}
+* .country-color-AX { background-color: #ffffff;
+}
+* .country-color-AL { background-color: #ffffff;
+}
+* .country-color-DZ { background-color: #ffffff;
+}
+* .country-color-AS { background-color: #ffffff;
+}
+* .country-color-AD { background-color: #ffffffAD;
+}
+* .country-color-AO { background-color: #ffffffAO;
+}
+* .country-color-AI { background-color: #ffffffAI;
+}
+* .country-color-AQ { background-color: #ffffffAQ;
+}
+* .country-color-AG { background-color: #ffffffAG;
+}
+* .country-color-AR { background-color: #ffffffAR;
+}
+* .country-color-AM { background-color: #ffffffAM;
+}
+* .country-color-AW { background-color: #ffffffAW;
+}
+* .country-color-AU { background-color: #ffffffAU;
+}
+* .country-color-AT { background-color: #ffffffAT;
+}
+* .country-color-AZ { background-color: #ffffffAZ;
+}
+* .country-color-BS { background-color: #ffffffBS;
+}
+* .country-color-BH { background-color: #ffffffBH;
+}
+* .country-color-BD { background-color: #ffffffBD;
+}
+* .country-color-BB { background-color: #ffffffBB;
+}
+* .country-color-BY { background-color: #ffffffBY;
+}
+* .country-color-BE { background-color: #ffffffBE;
+}
+* .country-color-BZ { background-color: #ffffffBZ;
+}
+* .country-color-BJ { background-color: #ffffffBJ;
+}
+* .country-color-BM { background-color: #ffffffBM;
+}
+* .country-color-BT { background-color: #ffffffBT;
+}
+* .country-color-BO { background-color: #ffffffBO;
+}
+* .country-color-BA { background-color: #ffffffBA;
+}
+
+
+
+* .country-color-BW { background-color: #ffffffBW;
+}
+* .country-color-BV { background-color: #ffffffBV;
+}
+* .country-color-BR { background-color: #ffffffBR;
+}
+* .country-color-IO { background-color: #ffffffIO;
+}
+* .country-color-IT { background-color: #ffffffIT;
+}
+* .country-color-BN { background-color: #ffffffBN;
+}
+* .country-color-BG { background-color: #ffffffBG;
+}
+* .country-color-BF { background-color: #ffffffBF;
+}
+* .country-color-BI { background-color: #ffffffBI;
+}
+* .country-color-KH { background-color: #ffffffKH;
+}
+* .country-color-CM { background-color: #ffffffCM;
+}
+* .country-color-CA { background-color: #ffffffCA;
+}
+* .country-color-CV { background-color: #ffffffCV;
+}
+* .country-color-CV { background-color: #ffffffCV;
+}
+
+* .country-color-KY { background-color: #ffffffKY;
+}
+* .country-color-CF { background-color: #ffffffCF;
+}
+* .country-color-TD { background-color: #ffffffTD;
+}
+* .country-color-CL { background-color: #ffffffCL;
+}
+* .country-color-CN { background-color: #ffffffCN;
+}
+* .country-color-CX { background-color: #ffffffCX;
+}
+* .country-color-CC { background-color: #ffffffCC;
+}
+* .country-color-CO { background-color: #ffffffCO;
+}
+* .country-color-KM { background-color: #ffffffKM;
+}
+* .country-color-CG { background-color: #ffffffCG;
+}
+* .country-color-CD { background-color: #ffffffCD;
+}
+* .country-color-CK { background-color: #ffffffCK;
+}
+* .country-color-CR { background-color: #ffffffCR;
+}
+
+
+* .country-color-CI { background-color: #ffffffCI;
+}
+* .country-color-HR { background-color: #ffffffHR;
+}
+* .country-color-CU { background-color: #ffffffCU;
+}
+* .country-color-CY { background-color: #ffffffCY;
+}
+* .country-color-CZ { background-color: #ffffffCZ;
+}
+* .country-color-DK { background-color: #ffffffDK;
+}
+* .country-color-DJ { background-color: #ffffffDJ;
+}
+* .country-color-DM { background-color: #ffffffDM;
+}
+* .country-color-DO { background-color: #ffffffDO;
+}
+* .country-color-EC { background-color: #ffffffEC;
+}
+* .country-color-EG { background-color: #ffffffEG;
+}
+* .country-color-SV { background-color: #ffffffSV;
+}
+* .country-color-GQ { background-color: #ffffffGQ;
+}
+
+
+* .country-color-ER { background-color: #ffffffER;
+}
+* .country-color-EE { background-color: #ffffffEE;
+}
+* .country-color-FK { background-color: #ffffffFK;
+}
+* .country-color-FO { background-color: #ffffffFO;
+}
+* .country-color-FJ { background-color: #ffffffFJ;
+}
+* .country-color-FI { background-color: #ffffffFI;
+}
+* .country-color-FR { background-color: #ffffffFR;
+}
+* .country-color-GF { background-color: #ffffffGF;
+}
+* .country-color-PF { background-color: #ffffffPF;
+}
+* .country-color-TF { background-color: #ffffffTF;
+}
+* .country-color-GA { background-color: #ffffffGA;
+}
+* .country-color-GM { background-color: #ffffffGM;
+}
+* .country-color-GE { background-color: #ffffffGE;
+}
+
+* .country-color-DE { background-color: #ffffffDE;
+}
+* .country-color-GH { background-color: #ffffffGH;
+}
+* .country-color-GI { background-color: #ffffffGI;
+}
+* .country-color-GR { background-color: #ffffffGR;
+}
+* .country-color-GL { background-color: #ffffffGL;
+}
+* .country-color-GD { background-color: #ffffffGD;
+}
+* .country-color-GP { background-color: #ffffffGP;
+}
+* .country-color-GU { background-color: #ffffffGU;
+}
+* .country-color-GT { background-color: #ffffffGT;
+}
+* .country-color-GG { background-color: #ffffffGG;
+}
+* .country-color-GN { background-color: #ffffffGB;
+}
+* .country-color-GW { background-color: #ffffffGW;
+}
+* .country-color-GY { background-color: #ffffffGY;
+}
+* .country-color-HT { background-color: #ffffffHT;
+}
+* .country-color-HM { background-color: #ffffffHM;
+}
+* .country-color-VA { background-color: #ffffffVA;
+}
+* .country-color-HN { background-color: #ffffffHN;
+}
+* .country-color-HK { background-color: #ffffffHK;
+}
+* .country-color-HU { background-color: #ffffffHU;
+}
+* .country-color-IS { background-color: #ffffffIS;
+}
+* .country-color-IN { background-color: #ffffffIN;
+}
+* .country-color-ID { background-color: #ffffffID;
+}
+* .country-color-IR { background-color: #ffffffIR;
+}
+* .country-color-IQ { background-color: #ffffffIQ;
+}
+* .country-color-IE { background-color: #ffffffIE;
+}
+* .country-color-IM { background-color: #ffffffIM;
+}
+
+* .country-color-LY { background-color: #ffffffLY;
+}
+* .country-color-LI { background-color: #ffffffLI;
+}
+* .country-color-LT { background-color: #ffffffLT;
+}
+* .country-color-LU { background-color: #ffffffLU;
+}
+* .country-color-MO { background-color: #ffffffMO;
+}
+* .country-color-MK { background-color: #ffffffMK;
+}
+* .country-color-MG { background-color: #ffffffMG;
+}
+* .country-color-MW { background-color: #ffffffMW;
+}
+* .country-color-MY { background-color: #ffffffMY;
+}
+* .country-color-MV { background-color: #ffffffMV;
+}
+* .country-color-ML { background-color: #ffffffML;
+}
+* .country-color-MT { background-color: #ffffffMT;
+}
+* .country-color-MH { background-color: #ffffffMH;
+}
+* .country-color-MQ { background-color: #ffffffMQ;
+}
+* .country-color-MR { background-color: #ffffffMR;
+}
+* .country-color-MU { background-color: #ffffffMU;
+}
+* .country-color-YT { background-color: #ffffffYT;
+}
+* .country-color-MX { background-color: #ffffffMX;
+}
+* .country-color-FM { background-color: #ffffffFM;
+}
+* .country-color-MD { background-color: #ffffffMD;
+}
+* .country-color-MC { background-color: #ffffffMC;
+}
+* .country-color-MN { background-color: #ffffffMN;
+}
+* .country-color-ME { background-color: #ffffffME;
+}
+* .country-color-MS { background-color: #ffffffMS;
+}
+* .country-color-MA { background-color: #ffffffMA;
+}
+* .country-color-MZ { background-color: #ffffffMZ;
+}
+* .country-color-MM { background-color: #ffffffMM;
+}
+* .country-color-NA { background-color: #ffffffNA;
+}
+
+
+* .country-color-NP { background-color: #ffffffNP;
+}
+* .country-color-NL { background-color: #ffffffNL;
+}
+* .country-color-AN { background-color: #ffffffAN;
+}
+* .country-color-NC { background-color: #ffffffNC;
+}
+* .country-color-NZ { background-color: #ffffffNZ;
+}
+* .country-color-NI { background-color: #ffffffNI;
+}
+* .country-color-NE { background-color: #ffffffNE;
+}
+* .country-color-NG { background-color: #ffffffNG;
+}
+* .country-color-NU { background-color: #ffffffNU;
+}
+* .country-color-NF { background-color: #ffffffNF;
+}
+* .country-color-MP { background-color: #ffffffMP;
+}
+* .country-color-NO { background-color: #ffffffNO;
+}
+* .country-color-OM { background-color: #ffffffOM;
+}
+* .country-color-PK { background-color: #ffffffPK;
+}
+* .country-color-PW { background-color: #ffffffPW;
+}
+* .country-color-PS { background-color: #ffffffPS;
+}
+* .country-color-PA { background-color: #ffffffPA;
+}
+* .country-color-PG { background-color: #ffffffPG;
+}
+* .country-color-PY { background-color: #ffffffPY;
+}
+* .country-color-PW { background-color: #ffffffPW;
+}
+* .country-color-PS { background-color: #ffffffPS;
+}
+* .country-color-PA { background-color: #ffffffPA;
+}
+* .country-color-PG { background-color: #ffffffPG;
+}
+* .country-color-PY { background-color: #ffffffPY;
+}
+* .country-color-PE { background-color: #ffffffPE;
+}
+* .country-color-PH { background-color: #ffffffPH;
+}
+* .country-color-PN { background-color: #ffffffPN;
+}
+* .country-color-PL { background-color: #ffffffPL;
+}
+
+* .country-color-PT { background-color: #ffffffPT;
+}
+* .country-color-PR { background-color: #ffffffPR;
+}
+* .country-color-QA { background-color: #ffffffQA;
+}
+* .country-color-RE { background-color: #ffffffRE;
+}
+* .country-color-RO { background-color: #ffffffRO;
+}
+* .country-color-RU { background-color: #ffffffRU;
+}
+* .country-color-RW { background-color: #ffffffRW;
+}
+* .country-color-BL { background-color: #ffffffBL;
+}
+* .country-color-SH { background-color: #ffffffSH;
+}
+* .country-color-KN { background-color: #ffffffKN;
+}
+* .country-color-LC { background-color: #ffffffLC;
+}
+* .country-color-MF { background-color: #ffffffMF;
+}
+* .country-color-PM { background-color: #ffffffPM;
+}
+* .country-color-VC { background-color: #ffffffVC;
+}
+* .country-color-WS { background-color: #ffffffWS;
+}
+* .country-color-SM { background-color: #ffffffSM;
+}
+* .country-color-ST { background-color: #ffffffST;
+}
+* .country-color-SA { background-color: #ffffffSA;
+}
+* .country-color-SN { background-color: #ffffffSN;
+}
+* .country-color-RS { background-color: #ffffffRS;
+}
+* .country-color-SC { background-color: #ffffffSC;
+}
+* .country-color-SL { background-color: #ffffffSL;
+}
+* .country-color-SG { background-color: #ffffffSG;
+}
+* .country-color-SK { background-color: #ffffffSK;
+}
+* .country-color-SI { background-color: #ffffffSI;
+}
+* .country-color-SB { background-color: #ffffffSB;
+}
+* .country-color-SO { background-color: #ffffffSO;
+}
+* .country-color-ZA { background-color: #ffffffZA;
+}
+
+* .country-color-GS { background-color: #ffffffGS;
+}
+* .country-color-ES { background-color: #ffffffES;
+}
+* .country-color-LK { background-color: #ffffffLK;
+}
+* .country-color-SD { background-color: #ffffffSD;
+}
+* .country-color-SR { background-color: #ffffffSR;
+}
+* .country-color-SJ { background-color: #ffffffSJ;
+}
+* .country-color-SZ { background-color: #ffffffSZ;
+}
+* .country-color-SE { background-color: #ffffffSE;
+}
+* .country-color-CH { background-color: #ffffffCH;
+}
+* .country-color-SY { background-color: #ffffffSY;
+}
+* .country-color-TJ { background-color: #ffffffTJ;
+}
+* .country-color-TZ { background-color: #ffffffTZ;
+}
+* .country-color-TH { background-color: #ffffffTH;
+}
+* .country-color-TL { background-color: #ffffffTL;
+}
+* .country-color-TG { background-color: #ffffffTG;
+}
+* .country-color-TK { background-color: #ffffffTK;
+}
+* .country-color-TO { background-color: #ffffffTO;
+}
+* .country-color-TT { background-color: #ffffffTT;
+}
+* .country-color-TN { background-color: #ffffffTN;
+}
+* .country-color-TR { background-color: #ffffffTR;
+}
+* .country-color-TM { background-color: #ffffffTM;
+}
+* .country-color-TC { background-color: #ffffffTC;
+}
+* .country-color-TV { background-color: #ffffffTV;
+}
+* .country-color-UG { background-color: #ffffffUG;
+}
+* .country-color-UA { background-color: #ffffffUA;
+}
+* .country-color-AE { background-color: #ffffffAE;
+}
+* .country-color-GB { background-color: #ffffffGB;
+}
+* .country-color-UM { background-color: #ffffffUM;
+}
+* .country-color-UY { background-color: #ffffffUY;
+}
+* .country-color-UZ { background-color: #ffffffUZ;
+}
+* .country-color-VU { background-color: #ffffffVU;
+}
+* .country-color-VE { background-color: #ffffffVE;
+}
+* .country-color-VN { background-color: #ffffffVN;
+}
+* .country-color-VG { background-color: #ffffffVG;
+}
+* .country-color-VI { background-color: #ffffffVI;
+}
+* .country-color-WF { background-color: #ffffffWF;
+}
+* .country-color-EH { background-color: #ffffffEH;
+}
+* .country-color-YE { background-color: #ffffffYE;
+}
+* .country-color-ZM { background-color: #ffffffZM;
+}
+* .country-color-ZW { background-color: #ffffffZW;
+}

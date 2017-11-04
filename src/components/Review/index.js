@@ -238,9 +238,9 @@ class Review extends React.Component {
                           </div>
                         </div>
                         
-                        <Link onClick={this.handleSaveClick} className="vb vb--md fill--primary flx flx-row flx-align-center flx-just-center vb--mobile-full">
-                          <i className="material-icons mrgn-right-sm color--white">get_app</i>
-                          <div className="color--white">Save to a guide</div>
+                        <Link onClick={this.handleSaveClick} className="vb vb--md vb--outline fill--white flx flx-row flx-align-center flx-just-center vb--mobile-full">
+                          <i className="material-icons color--primary mrgn-right-sm md-24e">add_circle</i>
+                          <div className="color--black">Save</div>
                         </Link>
                       </div>
 
@@ -333,7 +333,7 @@ class Review extends React.Component {
               showModal={this.props.showModal}
                />
 
-            <div className="label-big pdding-left-lg">More reviews</div>
+            <div className="label-big pdding-left-md DN">More reviews</div>
             <ReviewList
               itinerary={this.props.itinerary}
               reviewList={this.props.allReviews} 

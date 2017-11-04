@@ -2,9 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
-import { Link } from 'react-router';
 import ItineraryList from './ItineraryList'; 
-import UniversalSearchBar from './UniversalSearchBar';
+import { Link, browserHistory } from 'react-router';
+import FirebaseSearchInput from './FirebaseSearchInput';
+
 
 const mapStateToProps = state => ({
   ...state.places,
@@ -14,6 +15,14 @@ const mapStateToProps = state => ({
 class Places extends React.Component {
   constructor() {
     super();
+
+    this.searchInputCallback = result => {
+        if (result.placeId) {
+          browserHistory.push('/places/' + result.placeId);
+        }
+      }
+    
+
   }
 
   componentWillMount() {
@@ -67,10 +76,24 @@ class Places extends React.Component {
     }
     return (
     <div>
-      <UniversalSearchBar />
 
-      <div className="home-page page-common page-places">
-        <div className="page-title-wrapper center-text">
+      <div className="page-common page-places flx flx-col flx-align-center">
+
+        <div className="search-wrapper-wrapper w-100 flx flx-row flx-m-col">
+          <div className="search-wrapper page-top-search w-100 flx flx-row flx-hold">
+            <i className="search-icon material-icons color--black md-24">search</i>
+            <FirebaseSearchInput
+              name="searchInput"
+              callback={this.searchInputCallback}
+              placeholder={this.props.geo.label}
+              type={Constants.GEO_SEARCH}
+              className="input--search fill--black color--black input--underline v2-type-body3" />
+          </div>
+
+        </div>
+
+
+        <div className="page-title-wrapper center-text DN">
           <div className="v2-type-page-header flx flx-col flx-center-all">
             <div className={'itinerary__cover__flag mrgn-bottom-sm flx-hold flag-' + this.props.geo.country}>
             </div>

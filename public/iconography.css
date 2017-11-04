@@ -106,13 +106,13 @@
 
 .itinerary__cover__flag,
 .itinerary__summary__flag {
-  height: 22px;
-  width: 30px;
+  height: 40px;
+  width: 55px;
   background: url(img/flags/US.png);
   background-size: cover;
   background-repeat: no-repeat;
-  margin-right: 20px;
-  border: 1px solid rgba(0,0,0,.08);
+  margin-right: 0px;
+  border: 1px solid rgba(0,0,0,.4);
 }
 
 

@@ -7,6 +7,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
 import { ShareButtons, ShareCounts, generateShareIcon } from 'react-share';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 const {
   FacebookShareButton,
@@ -27,7 +28,8 @@ const mapStateToProps = state => ({
 
 class ShareModal extends React.Component {
   render() {
-    const handleClose = () => {
+    const handleClose = ev => {
+      ev.preventDefault();
       this.props.hideModal();
     }
 
@@ -36,7 +38,7 @@ class ShareModal extends React.Component {
         label="Close"
         className="vb"
         hoverColor="rgba(247,247,247,.2)"
-        onTouchTap={handleClose}
+        onClick={handleClose}
         style={{
           }}
           labelStyle={{   
@@ -80,40 +82,72 @@ class ShareModal extends React.Component {
           actionsContainerStyle={{}}
           
         >
-        {itinerary.title}
-        <div className="dialog--save flx flx-col color--black font--alpha">
-           <div className="flx-item-right flx flx-row">
-              <div className="vb vb--sm vb--outline fill--white color--black">
-                <FacebookShareButton
-                  url={Constants.VIEWS_URL + `/guides/${this.props.itinerary.id}`}
-                  quote={'Check out my travel guide "' + itinerary.title + '" for ' + shortName}
-                  hashtag={'#views'}
-                  className="Demo__some-network__share-button">
-                  <FacebookIcon
-                    size={24}
-                    round />
-                </FacebookShareButton>
-
-                <FacebookShareCount
-                  url={Constants.VIEWS_URL + `/guide/${this.props.itinerary.id}`}
-                  className="mrgn-left-sm">
-                  {count => count}
-                </FacebookShareCount>
+          <div className="dialog--save flx flx-col color--black font--alpha">
+           
+            <div className="mrgn-top-md w-100">
+              <div className="flx flx-col mrgn-bottom-md pdding-bottom-sm brdr-bottom w-100 pdding-left-md pdding-right-md">
+                <div className="flx flx-row flx-align-start mrgn-bottom-sm">
+                  <i className="material-icons mrgn-right-md color--black opa-60 md-24">&#xE55F;</i>
+                <div>
+                  <div className="v2-type-body2">{itinerary.title}</div>
+                </div>
               </div>
-              <div className="vb vb--sm vb--outline fill--white color--black mrgn-left-n-1">
-                <TwitterShareButton
-                  url={Constants.VIEWS_URL + `/guide/${this.props.itinerary.id}`}
-                  title={'Check out my travel guide "' + itinerary.title + '" for ' + shortName + ':'}
-                  hashtags={['views']}
-                  className="Demo__some-network__share-button">
-                  <TwitterIcon
-                    size={24}
-                    round />
-                </TwitterShareButton>
-              </div>
-
             </div>
-            
+
+            <div className="flx flx-col mrgn-bottom-md pdding-bottom-sm brdr-bottom w-100 pdding-left-md pdding-right-md">
+              <div className="flx flx-row flx-align-start mrgn-bottom-sm">
+                <i className="material-icons mrgn-right-md color--black opa-60 md-24">link</i>
+                <div className="v2-type-body2">
+                  <FacebookShareButton
+                        url={Constants.VIEWS_URL + `/guides/${itinerary.id}`}
+                        quote={'Check out my travel guide "' + itinerary.title + '" for ' + shortName}
+                        hashtag={'#views'}
+                        className="Demo__some-network__share-button">
+                        <FacebookIcon
+                          size={24}
+                          round />
+                      </FacebookShareButton>
+
+                      <FacebookShareCount
+                        url={Constants.VIEWS_URL + `/guide/${itinerary.id}`}
+                        className="mrgn-left-sm">
+                        {count => count}
+                      </FacebookShareCount>
+                </div>
+              </div>    
+            </div>
+
+            <div className="flx flx-col mrgn-bottom-md pdding-bottom-sm brdr-bottom w-100 pdding-left-md pdding-right-md">
+              <div className="flx flx-row flx-align-start mrgn-bottom-sm">
+                <i className="material-icons mrgn-right-md color--black opa-60 md-24">phone</i>
+                <div className="v2-type-body2">
+                  <TwitterShareButton
+                        url={Constants.VIEWS_URL + `/guide/${itinerary.id}`}
+                        title={'Check out my travel guide "' + itinerary.title + '" for ' + shortName + ':'}
+                        hashtags={['views']}
+                        className="Demo__some-network__share-button">
+                        <TwitterIcon
+                          size={24}
+                          round />
+                      </TwitterShareButton>
+                </div>
+              </div>    
+            </div>
+
+            <div className="flx flx-col mrgn-bottom-md pdding-bottom-sm pdding-left-md pdding-right-md">
+              <div className="flx flx-row flx-align-start mrgn-bottom-sm md-24">
+                <i className="material-icons mrgn-right-md color--black opa-60">link</i>
+                <div className="v2-type-body2">
+                  <CopyToClipboard text={'https://myviews.io/guide/' + itinerary.id}
+                    onCopy={() => this.setState({copied: true})}>
+                    <button>Copy link to clipboard</button>
+                  </CopyToClipboard>
+                  {'https://myviews.io/guide/' + itinerary.id}
+                </div>
+              </div>
+            </div>
+          
+          </div>
         </div>
 
         </Dialog>

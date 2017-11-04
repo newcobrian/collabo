@@ -74,7 +74,8 @@ class SaveModal extends React.Component {
   } 
 
   render() {
-    const handleClose = () => {
+    const handleClose = ev => {
+      ev.preventDefault();
       this.props.hideModal();
     }
 
@@ -94,7 +95,7 @@ class SaveModal extends React.Component {
         label="+ Create New Guide"
         className="vb color--primary fill--white mrng-left-sm float-left"
         hoverColor="rgba(247,247,247,.4)"
-        onTouchTap={handleItineraryClick} 
+        onClick={handleItineraryClick} 
         labelStyle={{}}
         style={{
           }}
@@ -103,7 +104,7 @@ class SaveModal extends React.Component {
         label="Cancel"
         hoverColor="rgba(247,247,247,.24"
         className="vb"
-        onTouchTap={handleClose}
+        onClick={handleClose}
         labelStyle={{}}
         style={{
           }}

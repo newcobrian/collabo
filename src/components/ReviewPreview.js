@@ -76,7 +76,7 @@ const ReviewPreview = props => {
 
                 <div className="tip__content-wrapper">
 
-                  <div className="tip__header-wrapper flx flx-row flx-align-center flx-just-start">
+                  <div className="tip__header-wrapper flx flx-col flx-just-start">
 
                     { /** Title **/ }
                     <Link to={`/review/${tip.subjectId}/${tip.key}`}>
@@ -103,7 +103,7 @@ const ReviewPreview = props => {
                     
 
                     { /** Rating **/ }
-                    <div className={'tip__rating-module flx flx-row flx-align-center flx-item-right w-100 flx-hold tip__rating-module--' + tip.review.rating}>
+                    <div className={'tip__rating-module flx flx-row flx-align-center w-100 mrgn-top-sm flx-hold tip__rating-module--' + tip.review.rating}>
                       <div className={'tip__rating flx-hold flx flx-row flx-center-all v2-type-rating--' +  tip.review.rating}>
                         {tip.review.rating}
                       </div>
@@ -117,7 +117,7 @@ const ReviewPreview = props => {
 
                   { /** Caption **/ }
                   <div className="tip__caption-module flx flx-col w-100 pdding-right-lg">
-                    <div className="tip__caption v2-type-body2 opa-80 ta-left font--beta">
+                    <div className="tip__caption v2-type-body3 ta-left font--beta">
                       <CaptionDisplay tip={props.tip} />
                     </div>
                   </div>

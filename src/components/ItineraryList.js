@@ -6,7 +6,7 @@ import React from 'react';
 const ItineraryList = props => {
   if (!props.itineraries) { 
     return (
-       <div className="profile-feed flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap">
+       <div className="profile-feed flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap fill--light-gray">
         <div className="loading-module flx flx-col flx-center-all v2-type-body3 fill--black">
           <div className="loader-wrapper flx flx-col flx-center-all fill--black">
             <div className="loader-bird"></div>
@@ -57,7 +57,7 @@ const ItineraryList = props => {
         <div className="v2-type-body1 pdding-bottom-md color--black opa-50">
           Upcoming trip or recommendations for friends?
         </div>
-        <div className="vb fill--success color--white">
+        <div className="vb fill--success color--white vb--round">
            <i className="material-icons md-32 color--white">add</i>
         </div>
         <div className="ta-center w-100 v2-type-body1 opa-50 mrgn-bottom-md DN">You could make...</div>

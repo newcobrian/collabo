@@ -4,7 +4,7 @@ body {
   letter-spacing:0px;
 
   /*background-color: #FAFAF8;*/
-  font-family: 'Arimo', 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif !important;
 }
 html,body,#page { height:100%;}
 /**{ border: 1px solid red; }*/
@@ -163,8 +163,14 @@ input[type="radio"]:checked + label span {
 .w-50 {
   width: 50%;
 }
-.w-third {
-  width: 30%;
+.w-40 {
+  width: 40%;
+}
+.w-30 {
+  width: 30% !important;
+}
+.w-20 {
+  width: 20% !important;
 }
 
 .default-card-white {
@@ -192,7 +198,7 @@ input[type="radio"]:checked + label span {
   box-shadow: 0px 1px 44px rgba(0,0,0,0.07);
   -webkit-box-shadow: 0px 1px 44px rgba(0,0,0,0.07);
   box-shadow: 0px 6px 38px rgba(0,0,0,0.03);
-  -webkit-box-shadow: 0px 6px 38px rgba(0,0,0,0.03);
+  -webkit-box-shadow: 0px 6px 38px rgba(0,0,0,0.15) !important;
 
 }
 
@@ -313,6 +319,7 @@ input[type="radio"]:checked + label span {
   background-color: rgba(229,229,229,1);
   animation: colorchange .8s 8;
   -webkit-animation: colorchange .8s 8;
+  border: 1px solid rgba(0,0,0,.4);
 }
 .comment-author-img .default-profile-wrapper,
 .comment-author-img .user-photo-wrapper {
@@ -333,8 +340,8 @@ width: 32px;
 }
 .itinerary__cover__author-photo .default-profile-wrapper,
 .itinerary__cover__author-photo .user-photo-wrapper {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
 }
 .small-guide .itinerary__cover__author-photo .default-profile-wrapper,
 .small-guide .itinerary__cover__author-photo .user-photo-wrapper {
@@ -532,7 +539,7 @@ width: 32px;
 }
 .feed-toggle {
   z-index: 10;
-  padding: 10px 20px;
+  padding: 40px 20px 0px;
   width: 100%;
   margin: 0 auto;
 }
@@ -609,38 +616,38 @@ width: 32px;
   margin: 0;
 }
 .mrgn-all-xs {
-  margin: 5px;
+  margin: 5px !important;
 }
 .mrgn-top-xs {
-  margin-top: 5px;
+  margin-top: 5px !important;
 }
 .mrgn-right-xs  {
-  margin-right: 5px;
+  margin-right: 5px !important;
 }
 .mrgn-bottom-xs  {
-  margin-bottom: 5px;
+  margin-bottom: 5px !important;
 }
 .mrgn-left-xs  {
-  margin-left: 5px;
+  margin-left: 5px !important;
 }
 .mrgn-left-n-1 {
-  margin-left: -1px;
+  margin-left: -1px !important;
 }
 
 .mrgn-all-sm {
-  margin: 10px;
+  margin: 10px !important;
 }
 .mrgn-top-sm {
-  margin-top: 10px;
+  margin-top: 10px !important;
 }
 .mrgn-right-sm  {
-  margin-right: 10px;
+  margin-right: 10px !important;
 }
 .mrgn-bottom-sm  {
-  margin-bottom: 10px;
+  margin-bottom: 10px !important;
 }
 .mrgn-left-sm  {
-  margin-left: 10px;
+  margin-left: 10px !important;
 }
 
 .mrgn-all-md {
@@ -748,7 +755,6 @@ width: 32px;
   padding: 0;
 }
 .user-action {
-  max-width: 600px;
 }
 
 .profile-page .user-info {
@@ -786,7 +792,7 @@ width: 32px;
 
 .nav-pills.outline-active .nav-link {
   padding: 6px 0px;
-  margin-right: 20px;
+  margin-right: 0px;
   color: #526166;
   opacity: .5;
 }
@@ -803,7 +809,7 @@ width: 32px;
     white-space: normal;
     float: none;
     font-size: 12px;
-    text-transform: uppercase;
+    text-transform: none;
     letter-spacing: 1px;
 }
 li.nav-divider {
@@ -864,6 +870,7 @@ li.nav-divider {
 .profile-feed {
     width: 100%;
     margin: 0 auto;
+    padding: 20px;
 }
 .profile-image {
 }
@@ -1172,6 +1179,7 @@ li.nav-divider {
     margin-top: 0px;
     box-shadow: none;
     background-color: white;
+    text-align: left;
 }
 .comments-module .comment-input:focus {
   background-color: #FFFEF6 !important;
@@ -1338,8 +1346,9 @@ body .back-to-top {
     background-color: #3DCBF3;
     overflow: hidden;
 }
-.back-to-top:hover {
-    background-color: #68E4E7;
+body .back-to-top:hover,
+body .back-to-top:focus {
+    background-color: #46DFFF !important;
 }
 
 
@@ -1413,3 +1422,12 @@ padding: 20px;
   display: none;
 
 }
+
+
+.help--add-tip {
+  position: absolute;
+  top: 60px;
+  left: 10px;
+  width: 300px;
+  padding: 20px 18px;
+  border-radius: 7px;

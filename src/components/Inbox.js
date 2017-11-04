@@ -23,7 +23,7 @@ const RightPic = props => {
 }
 
 const LeftSenderPic = props => {
-  if (props.senderId) {
+  if (props.senderId && props.image) {
     return (
       <div className="mrgn-left-sm mrgn-right-md">
         <Link

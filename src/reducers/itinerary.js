@@ -2,7 +2,7 @@ import * as ActionTypes from '../actions/types';
 import * as Constants from '../constants';
 import * as Helpers from '../helpers';
 import { findIndexByValue } from '../helpers';
-import { filter, isEqual, find, omit } from 'lodash';
+import { filter, isEqual, find, omit, countBy } from 'lodash';
 
 const initialState = { usersData: {}, reviewsData: {}, subjectsData: {}, itinerary: {}, commentsData: {}, 
   userImagesData: {}, defaultImagesData: {}, likesData: {}, tips: [], formErrors: { title: false, geo: false } };
@@ -279,6 +279,12 @@ export default (state = initialState, action) => {
           // newState.tips[action.priority] = Object.assign({}, {key: action.priority}, {priority: action.priority}, action.tip, subject, review, createdBy, comments, isLiked, images);
           newState.tips = newState.tips.concat(Object.assign({}, {key: action.tipId}, {priority: action.priority}, action.tip, subject, review, createdBy, comments, isLiked, images));
           // newState.tips.sort(Helpers.byPriority);
+
+          // newState.tagsFilter = newState.tagsFilter || {};
+          // newState.tagsFilter = Object.assign({}, newState.tagsFilter);
+          // newState.tagsFilter = countBy(Object.keys(action.tip.tags || {}));
+          // console.log('tags Filter = ' + JSON.stringify(newState.tagsFilter))
+
           return newState;
         }
       }

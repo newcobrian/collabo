@@ -621,6 +621,15 @@ export function onDeleteTip(auth, tip, itineraryId, itinerary) {
 
       Helpers.decrementGuideScore(itineraryId, Constants.ADD_TIP_GUIDE_SCORE)
 
+      // update tag counts on itinerary
+      for (var tagName in tip.tags) {
+        if(tip.tags.hasOwnProperty(tagName)) {
+          Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId + '/tags/' + tagName).transaction(function (current_count) {
+            return current_count && current_count > 1 ? current_count - 1 : 0;
+          });
+        }
+      }
+
       dispatch({
         type: ActionTypes.TIP_DELETED,
         meta: {
@@ -760,6 +769,79 @@ export function toggleMapView() {
   return dispatch => {
     dispatch({
       type: ActionTypes.TOGGLE_MAP_VIEW
+    })
+  }
+}
+
+export function completeTutorial(auth) {
+  return dispatch => {
+    Firebase.database().ref(Constants.USERS_PATH + '/' + auth).update({ tutorialCompleted: true });
+    dispatch({
+      type: ActionTypes.TUTORIAL_COMPLETED
+    })
+  }
+}
+
+export function onAddTag(auth, tip, itineraryId, placeId, tag) {
+  return dispatch => {
+    let updates = {};
+    
+    updates[Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + tip.key + '/tags/' + tag] = true;
+    updates[Constants.TIPS_BY_SUBJECT_PATH + '/' + tip.subjectId + '/' + tip.userId + '/' + tip.key + '/tags/' + tag] = true;
+    updates[Constants.TAGS_PATH + '/' + tag + '/' + tip.key] = true;
+    updates[Constants.TAGS_BY_USER_PATH + '/' + auth + '/' + tag + '/' + tip.key] = true;
+    updates[Constants.TAGS_BY_GEO_PATH + '/' + placeId + '/' + tag + '/' + tip.key] = true;
+
+    Firebase.database().ref().update(updates)
+
+    // also increment count on that tag on itineraries
+    Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId + '/tags/' + tag).transaction(function (current_count) {
+      return (current_count || 0) + 1;
+    });
+
+    dispatch({
+      type: ActionTypes.TAG_ADDED,
+      meta: {
+        mixpanel: {
+          event: 'Tag added',
+          props: {
+            itineraryId: itineraryId,
+            tag: tag
+          }
+        }
+      }
+    })
+  }
+}
+
+export function onRemoveTag(auth, tip, itineraryId, placeId, tag) {
+  return dispatch => {
+    let updates = {};
+
+    updates[Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + tip.key + '/tags/' + tag] = null;
+    updates[Constants.TIPS_BY_SUBJECT_PATH + '/' + tip.subjectId + '/' + tip.userId + '/' + tip.key + '/tags/' + tag] = null;
+    updates[Constants.TAGS_PATH + '/' + tag + '/' + tip.key] = null;
+    updates[Constants.TAGS_BY_USER_PATH + '/' + auth + '/' + tag + '/' + tip.key] = null;
+    updates[Constants.TAGS_BY_GEO_PATH + '/' + placeId + '/' + tag + '/' + tip.key] = null;
+
+    Firebase.database().ref().update(updates)
+
+    // also decrement count on that tag on itineraries
+    Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId + '/tags/' + tag).transaction(function (current_count) {
+      return current_count && current_count > 1 ? current_count - 1 : 0;
+    });
+
+    dispatch({
+      type: ActionTypes.TAG_REMOVED,
+      meta: {
+        mixpanel: {
+          event: 'Tag removed',
+          props: {
+            itineraryId: itineraryId,
+            tag: tag
+          }
+        }
+      }
     })
   }
 }

@@ -13,7 +13,6 @@ input, select, textarea {
   border-radius: 2px;
   border: 1px solid rgba(0,0,0,.1);
   padding: 10px;
-  font-family: 'Arimo', sans-serif;
 }
 
 .page-edit-own input,
@@ -23,19 +22,26 @@ input, select, textarea {
   background-color: transparent;
   text-transform: inherit;
   border-color: white;
-  padding: 7px 10px 5px;
+  padding: 10px;
   text-transform: inherit;
-  background-color: white;
+  background-color: transparent;
+  text-align: center;
 }
 .page-edit-own .it-add-wrapper input {
   font-size: 16px;
   padding-left: 10px;
+  text-align: left
 }
 .page-edit-own .tip-container input,
-.page-edit-own .tip-container textarea,
+.page-edit-own .tip-container textarea {
+  font-family: 'Rokkitt', 'Roboto', sans-serif;
+  text-align: left;
+}
 .page-edit-own .itinerary__cover__descrip textarea {
   font-family: 'Rokkitt', 'Roboto', sans-serif;
+  text-align: center;
 }
+
 .page-edit-own input.show-border,
 .page-edit-own textarea.show-border {
   border: 1px solid rgba(0,0,0,.1);
@@ -45,6 +51,7 @@ input, select, textarea {
 .page-edit-own input:hover,
 .page-edit-own textarea:hover {
   border-color: rgba(0,199,205,.6);
+  background-color: rgba(251,255,205,.2);
 
   /*background-color: rgba(251,255,205,.5);*/
   /*background-color: rgba(102,144,224,.1);*/
@@ -90,7 +97,6 @@ input.input--underline {
   border-radius: 2px;
   padding: 10px;
   width: 100%;
-  font-family: 'Arimo', sans-serif;
 }
 
 
@@ -126,7 +132,10 @@ input.input--underline {
 .vb.vb--shadow-none {
   box-shadow: none;
 }
-
+.vb--tip--sm {
+  height: 20px;
+  font-size: 14px;
+}
 .vb:hover {
 }
 .vb--wide {
@@ -194,6 +203,7 @@ input.input--underline {
   height: 32px;
   line-height: 18px;
 }
+
 
 .vb--sm.tip-count {
   font-size: 16px;
@@ -282,13 +292,19 @@ input.input--underline {
 }
 
 .vb:hover {
-  background-color: rgba(247,247,247,.4);
+  background-color: #FCFCFC !important;
 }
 
 .vb.fill--primary:active,
 .vb.fill--primary:hover {
   color: white;
   background-color: #46DFFF !important;
+  opacity: 1 !important;
+}
+.vb.fill--success:active,
+.vb.fill--success:hover {
+  color: white;
+  background-color: #00FFE2 !important;
   opacity: 1 !important;
 }
 .vb.vb--outline:active,

@@ -222,15 +222,25 @@ class FirebaseSearchInput extends Component {
           borderBottom: '1px solid #ccc !important',
           padding: '20px !important'
         }}
-        underlineStyle={{borderColor: '#5B9D3A'}}
+        underlineStyle={{
+          border: 'none',
+          borderBottom: '1px solid #3DCBF3'
+        }}
         menuStyle={{
           overflow: 'scroll'
         }}
         hintStyle={{
-          paddingLeft: '72px',
-          color: 'rgba(0,0,0,.4)',
-          color: 'rgba(0,0,0,.8)',
-          fontWeight: '100'
+          fontFamily: 'Roboto Condensed',
+          bottom: '5px',
+          color: '#121419',
+          textTransform: 'uppercase',
+          fontWeight: '600',
+          fontSize: '32px',
+          lineHeight: '30px',
+          width: '100%',
+          overflow:'hidden',
+          textAlign: 'center',
+          padding: '0 40px'
         }}
      />
       </MuiThemeProvider>

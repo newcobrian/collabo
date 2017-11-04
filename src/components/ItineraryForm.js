@@ -28,6 +28,8 @@ import RelatedItineraries from './RelatedItineraries';
 import {BackToTop} from 'pui-react-back-to-top';
 import SEO from './SEO';
 import { ShareButtons, ShareCounts, generateShareIcon } from 'react-share';
+import MediaQuery from 'react-responsive';
+import AddTagInput from './AddTagInput';
 
 const {
   FacebookShareButton,
@@ -64,10 +66,10 @@ const UpdateCoverPhoto = props => {
         onDrop={dropHandler}
         disablePreview={false}
         multiple={false}
-        accept="image/*"
+        accept="image/jpeg,image/png,application/pdf"
         className="edit-tip__dropzone__touch flx flx-col flx-align-center flx-just-start ta-center">
         <div className="vb vb--xs vb--shadow-none fill--white color--black vb--outline">
-          <i className="material-icons color--primary md-18">add_a_photo</i>
+          <i className="material-icons color--black opa-80 md-18">add_a_photo</i>
           <div className="mrgn-left-sm mobile-hide">Upload Cover</div>
         </div>
       </Dropzone>
@@ -81,9 +83,6 @@ const mapStateToProps = state => ({
   authenticated: state.common.authenticated,
   userInfo: state.common.userInfo
 });
-
-
-
 
 class ItineraryForm extends React.Component {
   constructor() {
@@ -197,7 +196,6 @@ class ItineraryForm extends React.Component {
         </Map>
         );
     }
-
     const itinerary = this.props.data;
     const shortName = itinerary && itinerary.geo && itinerary.geo.shortName ? itinerary.geo.shortName : itinerary.geo.label;
     const {google} = this.props;
@@ -251,6 +249,10 @@ class ItineraryForm extends React.Component {
         resultObject.address = result.gmaps.formatted_address;
       }
 
+      if (!this.props.userInfo.tutorialCompleted) {
+        this.props.completeTutorial(this.props.authenticated);
+      }
+
       let service = new google.maps.places.PlacesService(this.props.mapObject);
       let request = { placeId: result.placeId }
       service.getDetails(request, function(place, status) {
@@ -287,16 +289,22 @@ class ItineraryForm extends React.Component {
         let latLng = new this.props.googleObject.maps.LatLng(geo.location.lat, geo.location.lng);
         
         return (
-          <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--white">
-            <i className="material-icons color--primary md-24">add_circle</i>
+          <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--transparent">
+            <i className="it-add-search-icon material-icons color--primary md-24">add_circle</i>
             
             <Geosuggest 
               ref={el=>this._geoSuggest=el}
-              className="input--underline w-100 color--black"
-              placeholder={'Search here to add stuff'}
+              className="input--underline w-100 color--black bx-shadow"
+              placeholder={'Search to add a place'}
               location={latLng}
               radius={1000}
               onSuggestSelect={suggestSelectTip(this)}/>
+              {!this.props.userInfo.tutorialCompleted && 
+                <div className="help--add-tip flx flx-row flx-center-all fill--black color--white opa-90 bx-shadow">
+                  <i className="material-icons color--white md-24 mrgn-left-xs">arrow_upward</i>
+                  <div className="v2-type-body2 mrgn-left-md">Start adding to your guide by searching here and selecting a place from the dropdown</div>
+                </div>
+              }
           </div>
         )
       }
@@ -309,6 +317,13 @@ class ItineraryForm extends React.Component {
             className="input--underline w-100 color--white"
             placeholder={'Search for any place in ' + itinerary.geo.label}
             onSuggestSelect={suggestSelectTip(this)}/>
+
+          {!this.props.userInfo.tutorialCompleted && 
+            <div className="help--add-tip flx flx-row flx-center-all fill--black color--white opa-90 bx-shadow">
+              <i className="material-icons color--white md-24 mrgn-left-xs">arrow_upward</i>
+              <div className="v2-type-body2 mrgn-left-md">Start adding to your guide by searching here and selecting a place from the dropdown</div>
+            </div>
+          }
         </div>
       )
     }
@@ -324,16 +339,16 @@ class ItineraryForm extends React.Component {
     const renderReorderButton = numTips => {
       if(numTips > 0) {
         return (
-          <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list brdr-left vb vb--sm vb--outline-none fill--white flx flx-row flx-align-center">
+          <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list vb vb--xs vb--outline-none fill--none flx flx-row flx-align-center">
             <i className="material-icons color--black md-18 opa-80">low_priority</i>
-            <div className="color--black mrgn-left-sm mobile-hide">Reorder</div>
+            <div className="color--black mrgn-left-sm">Reorder</div>
           </Link>
         )
       }
       else return (
-        <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list vb vb--sm vb--disabled fill--white vb--outline-none flx flx-row flx-align-center">
+        <Link name="reorderLink" onClick={onReorderClick} className="vb--disabled hide-in-list vb vb--xs vb--outline-none fill--none flx flx-row flx-align-center">
           <i className="material-icons color--black md-18 opa-80 mrgn-right-sm">low_priority</i>
-          <div className="color--black mrgn-left-sm mobile-hide">Reorder</div>
+          <div className="color--black mrgn-left-sm">Reorder</div>
         </Link>
         )
     }
@@ -343,29 +358,37 @@ class ItineraryForm extends React.Component {
       this.props.onSelectActiveTip(tip);
     }
 
+    const onRemoveTag = (auth, tip, itineraryId, placeId, tag) => ev => {
+      ev.preventDefault();
+      this.props.onRemoveTag(auth, tip, itineraryId, placeId, tag);
+    }
+
     return (
       <div className={this.props.mapViewToggle ? 'flx flx-col flx-align-start page-common page-itinerary page-edit-own show-map' : 'flx flx-col flx-align-start page-common page-itinerary page-edit-own'}>
 
 
-        <div className="it-add-container flx flx-row flx-align-center brdr-bottom">
-          <div className="it__tip-count color--black mrgn-right-sm mrgn-left-sm DN">
-            {itinerary.reviewsCount ? itinerary.reviewsCount : 0}
-          </div>
-          {renderGeoSuggestTip(itinerary.geo)}
-          {renderReorderButton(itinerary.tips.length)}
-          <button className="vb vb--sm vb--outline-none flx flx-row flx-align-center fill--white color--black mrgn-left-n-1 button-map-toggle brdr-left"
-            onClick={this.onMapToggle}>
-            <i className="material-icons color--black md-18 opa-80">map</i>
-            <div className="mobile-hide color--black mrgn-left-sm">Full Map</div>
-          </button>
-        </div>
+        
+        
+        <button className="vb vb--sm vb--outline vb--round flx flx-row flx-align-center fill--white color--black mrgn-left-n-1 button-map-toggle bx-shadow brdr-left"
+          onClick={this.onMapToggle}>
+          <i className="material-icons color--black md-18 opa-80">map</i>
+          <div className="mobile-hide color--black mrgn-left-sm">Full Map</div>
+        </button>
+
+
 
         <div className="content-wrapper itinerary flx flx-col flx-align-center map-on">
 
-      
-
-
+          
           <div className="itinerary-image-wrapper flx flx-row flx-just-start header-height">
+            
+            <div className="it-add-container flx flx-row flx-align-center fill--none">
+              <div className="it__tip-count color--black mrgn-right-sm mrgn-left-sm DN">
+                {itinerary.reviewsCount ? itinerary.reviewsCount : 0}
+              </div>
+              {renderGeoSuggestTip(itinerary.geo)}
+            </div>
+
             
             {/** Cover Image **/}
             <div className="itinerary__big-photo bg-loading">
@@ -395,46 +418,52 @@ class ItineraryForm extends React.Component {
                
 
           {/** Cover Content **/}
-          <div className="itinerary__cover__text w-100">
-            <div className="it__cover__inner flx flx-row flx-just-start ta-left w-100 w-max">
-              <div className="it__author-wrapper flx flx-col flx-center-all mrgn-bottom-sm">
-                <div className="itinerary__summary__author-photo">
+          <div className={"itinerary__cover__text w-100 country-color-" + itinerary.geo.country}>
+            
+            <div className="it__cover__inner flx flx-col flx-just-start ta-left w-100 w-max">
+              <div className="flx flx-row w-100 flx-center-all mrgn-bottom-sm">
+
+                <div className="it__author-wrapper flx flx-col flx-center-all w-50">
+                  <div className="itinerary__summary__author-photo">
+                      <Link
+                      to={`/${createdByUsername}`}
+                      className="invert">
+                      <ProfilePic src={createdByImage} className="center-img" />
+                      </Link>
+                  </div>
+                  <div className="itinerary-username v2-type-body1">
                     <Link
                     to={`/${createdByUsername}`}
-                    className="">
-                    <ProfilePic src={createdByImage} className="center-img" />
+                    className="invert">
+                    {createdByUsername}
                     </Link>
+                  </div>
                 </div>
-                <div className="itinerary-username v2-type-body1">
-                  <Link
-                  to={`/${createdByUsername}`}
-                  className="">
-                  {createdByUsername}
-                  </Link>
+
+                {/** Flag and Geo **/}
+                <div className="flx flx-col flx-just-start flx-align-center mrgn-top-xs mrgn-bottom-xs w-50">
+                  <Link to={`/places/${itinerary.geo.placeId}`} className={'itinerary__cover__flag flx-hold invert flag-' + itinerary.geo.country} />
+                  <div className="geo-type ellipsis w-100 flx flx-row flx-align-center flx-just-start">
+                    <Geosuggest 
+                      className="input--underline w-100 invert"
+                      types={['(regions)']}
+                      placeholder="Search for a location (e.g. 'New York' or 'Japan')"
+                      required
+                      initialValue={itinerary.geo.label}
+                      onSuggestSelect={this.suggestSelectGeo}/>
+                  </div>
                 </div>
               </div>
+
              
 
             {/** <<<<<< CENTER INFO **/}
             <div className="it__title-module flx flx-col flx-just-start ta-center w-100">
             
              
-              {/** Flag and Geo **/}
-              <div className="flx flx-row flx-just-start flx-align-center mrgn-top-xs mrgn-bottom-xs w-100">
-                <Link to={`/places/${itinerary.geo.placeId}`} className={'itinerary__cover__flag flx-hold flag-' + itinerary.geo.country} />
-                <div className="geo-type ellipsis w-100 flx flx-row flx-align-center flx-just-start">
-                  <Geosuggest 
-                    className="input--underline w-100"
-                    types={['(regions)']}
-                    placeholder="Search for a location (e.g. 'New York' or 'Japan')"
-                    required
-                    initialValue={itinerary.geo.label}
-                    onSuggestSelect={this.suggestSelectGeo}/>
-                </div>
-              </div>
 
               {/** TITLE **/}
-              <div className="itinerary__cover__title ta-left guide-title">
+              <div className="itinerary__cover__title ta-center guide-title font--alpha invert">
                 <RenderDebounceInput
                   type="text"
                   value={this.props.data.title}
@@ -445,10 +474,10 @@ class ItineraryForm extends React.Component {
               </div>
 
               {/** DESCRIPTION **/}
-              <div className="itinerary__cover__descrip font--beta v2-type-body3 ta-left mrgn-top-sm opa-80">
+              <div className="itinerary__cover__descrip font--beta v2-type-body3 ta-center mrgn-top-sm opa-80">
                  <RenderDebounceInput
                     type="text"
-                    className="w-100 font--beta"
+                    className="w-100 font--beta invert"
                     value={this.props.data.description}
                     placeholder="Description"
                     debounceFunction={this.changeDescription} />
@@ -481,7 +510,7 @@ class ItineraryForm extends React.Component {
                   </div>
 
                   {/* Share */}
-                  <div className="cta-wrapper flx flx-row vb vb--sm vb--outline fill--white color--black"
+                  <div className="cta-wrapper flx flx-row vb vb--sm vb--outline fill--white color--black DN"
                     onClick={this.shareGuide} >
                     Share Guide
                   </div>
@@ -557,6 +586,10 @@ class ItineraryForm extends React.Component {
             
             {/** ----- Close itinerary__cover DIV ----- **/}  
             <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
+              <div className="flx flx-row w-100 flx-align-center pdding-left-md pdding-right-md pdding-top-sm">
+                <div className="v2-type-body1 color--black">{itinerary.reviewsCount ? itinerary.reviewsCount : 0} Items</div>
+                <div className="flx-item-right">{renderReorderButton(itinerary.tips.length)}</div>
+              </div>
 
               {
                 itinerary.tips.map((tip, index) => {
@@ -564,7 +597,7 @@ class ItineraryForm extends React.Component {
                     <Element name={'tip' + tip.key} className={"tip-wrapper flx flx-col flx-col w-100 w-max" + isSelectedTip(tip.key)} id={'tip' + tip.key} key={tip.key} onClick={onTipClick(tip)}>
 
                        
-                            <div className="tip-container flx flx-col flx-center-all w-100">
+                            <div className="tip-container flx flx-col flx-center-all w-100 bx-shadow">
                                 
                               
                                   
@@ -572,44 +605,43 @@ class ItineraryForm extends React.Component {
                                   <div className="tip__title-module flx flx-col w-100">
 
 
-                                    <div className="tip__right-module flx flx-col flx-m-row w-100">
+                                      <div className="tip__right-module flx flx-col flx-m-row w-100">
 
 
-                                      { /** Rating **/ }
-                                      <div className={'DN tip__rating-module flx flx-row flx-align-center flx-item-right font--alpha w-100 tip__rating-module--' + tip.review.rating}>
-                                        <select value={tip.review.rating} onChange={this.changeRating(tip)}>
-                                          <option value="-">-</option>
-                                          <option value="0">0</option>
-                                          <option value="1">1</option>
-                                          <option value="2">2</option>
-                                          <option value="3">3</option>
-                                          <option value="4">4</option>
-                                          <option value="5">5</option>
-                                          <option value="6">6</option>
-                                          <option value="7">7</option>
-                                          <option value="8">8</option>
-                                          <option value="9">9</option>
-                                          <option value="10">10</option>
-                                        </select>
-                                      </div>
-                                      { /** END Rating **/ }
 
 
-                                      { /** Image **/ }
-                                      <div className="tip__image-module mobile-hide">
-                                        <div className={"tip__photo-count tip-count-" + tip.images.length}>{tip.images.length > 0 ? tip.images.length : null}</div>
-                                        <ImagePicker images={tip.images} />
+
+                                      { /** Image shown if own web **/}
+                                      <MediaQuery query="(min-device-width: 1224px)">
+                                        <div className="tip__image-module mobile-hide">
+                                            <div className={"tip__photo-count tip-count-" + tip.images.length}>{tip.images.length > 0 ? tip.images.length : null}</div>
+                                            <ImagePicker images={tip.images} />
+                                          <Dropzone
+                                            onDrop={tipDropHandler(tip)}
+                                            disablePreview={false}
+                                            accept="image/jpeg,image/png,application/pdf"
+                                            className="add-photo-wrapper flx flx-col flx-align-center flx-just-start ta-center">
+                                            <div className="vb vb--xs vb--shadow-none fill--none">
+                                              <i className="material-icons color--white md-18">add_a_photo</i>
+                                            </div>
+
+                                          </Dropzone>
+                                        </div>
+                                      </MediaQuery>
+
+                                      {/** EXAMPLE: on mobile, just show the dropzone 
+                                      <MediaQuery query="(max-device-width: 1224px)">
                                         <Dropzone
-                                          onDrop={tipDropHandler(tip)}
-                                          disablePreview={false}
-                                          accept="image/*"
-                                          className="add-photo-wrapper flx flx-col flx-align-center flx-just-start ta-center">
-                                          <div className="vb vb--xs vb--shadow-none fill--none">
-                                            <i className="material-icons color--white md-18">add_a_photo</i>
-                                          </div>
+                                            onDrop={tipDropHandler(tip)}
+                                            disablePreview={false}
+                                            accept="image/jpeg,image/png,application/pdf"
+                                            className="add-photo-wrapper flx flx-col flx-align-center flx-just-start ta-center">
+                                            <div className="vb vb--xs vb--shadow-none fill--none">
+                                              <i className="material-icons color--white md-18">add_a_photo</i>
+                                            </div>
 
                                         </Dropzone>
-                                      </div>
+                                      </MediaQuery>
                                       { /** END Image **/ }
 
 
@@ -623,87 +655,138 @@ class ItineraryForm extends React.Component {
                                     <div className="flx flx-col w-100">
 
                                       <div className="tip__content-wrapper">
-                                        <div className="tip__header-wrapper flx flx-row flx-align-start flx-just-start">
-                                          { /** Title **/ }
-                                          <div className="hide-in-list tip__title tip-title ta-left">
-                                            <div className="tip__order-count color--primary">{index+1}</div> 
-                                            <Link to={`/review/${tip.subjectId}`} className=""> {tip.subject.title}</Link>
-                                          </div>
-                                          <div className="tip-map-marker"></div>
-                                          { /** END Title **/ }
-
-                                          { /** Rating **/ }
-                                          <div className={'tip__rating-module flx flx-row flx-align-center flx-item-right w-100 tip__rating-module--' + tip.review.rating}>
-                                            <select value={tip.review.rating} onChange={this.changeRating(tip)}>
-                                              <option value="-">-</option>
-                                              <option value="0">0</option>
-                                              <option value="1">1</option>
-                                              <option value="2">2</option>
-                                              <option value="3">3</option>
-                                              <option value="4">4</option>
-                                              <option value="5">5</option>
-                                              <option value="6">6</option>
-                                              <option value="7">7</option>
-                                              <option value="8">8</option>
-                                              <option value="9">9</option>
-                                              <option value="10">10</option>
-                                            </select>
-                                          </div>
-                                          { /** END Rating **/ }
-
-                                        </div>
-
-                                        { /** Author **/ }
-                                        <Link
-                                            to={'/' + tip.createdBy.username}
-                                            className="show-in-list">
-                                          <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm">
-                                              <div className="tip__author-photo flx-hold mrgn-right-sm">
-                                                <ProfilePic src={tip.createdBy.image} className="user-image user-image-sm center-img" />
-                                              </div> 
-                                              <div className="color--black v2-type-body1">
-                                                {tip.createdBy.username}
+                                        <div className="tip__content-inner">
+                                          <div className="tip__header-wrapper flx flx-col flx-align-start flx-just-start">
+                                            
+                                            <div className="flx flx-row w-100 flx-align-center">
+                                              { /** Title **/ }
+                                              <div className="hide-in-list tip__title tip-title ta-left">
+                                                <div className="tip__order-count color--black">{index+1}.</div> 
+                                                <Link to={`/review/${tip.subjectId}`} className=""> {tip.subject.title}</Link>
                                               </div>
-                                          </div>
-                                        </Link>
-                                        { /** END Author **/ }
+                                              <div className="tip-map-marker"></div>
+                                              { /** END Title **/ }
 
-                                        { /** Caption **/ }
-                                        <div className="tip__caption-module flx flx-col w-100 pdding-bottom-sm mrgn-bottom-md">
-                                          <div className="tip__caption v2-type-body3 ta-left opa-90">
-                                            <RenderDebounceInput
-                                              type="textarea"
-                                              className="w-100 show-border"
-                                              cols="20"
-                                              wrap="hard"
-                                              value={tip.review.caption}
-                                              placeholder="Add notes here"
-                                              debounceFunction={this.changeCaption(tip)} />
+                                              {/* More Options button */}
+                                              <div className="edit-itinerary-link vb vb--xs flx-item-right no-pad vb--outline--none opa-20 fill--white color--black">             
+                                                <MuiThemeProvider muiTheme={getMuiTheme()}>
+                                                  <IconMenu
+                                                     iconButtonElement={<IconButton className=""><MoreHorizIcon /></IconButton>}
+                                                     anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+                                                     targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                                                   >
+                                                  <div className="vb vb--sm vb--shadow-none fill--white color--primary danger-hover"
+                                                    onClick={this.deleteTip(tip)}>Delete Tip
+                                                  </div>
+                                                    
+                                                   </IconMenu>
+                                                 </MuiThemeProvider>
+                                              </div>
+                                              {/* END More Options button */}
+                                            </div>
+
+
+
+                                            {/* Tags Wrapper **/ }
+                                            <div className="flx flx-row flx-align-center flx-wrap pdding-top-sm pdding-bottom-sm">
+
+                                              { /** Rating **/ }
+                                              <div className={'tip__rating-module flx flx-row flx-align-center flx-hold w-100 tip__rating-module--' + tip.review.rating}>
+                                                <select className="color--black" value={tip.review.rating} onChange={this.changeRating(tip)}>
+                                                  <option value="-">Add Rating</option>
+                                                  <option value="0">0/10 Run away</option>
+                                                  <option value="1">1/10 Stay away</option>
+                                                  <option value="2">2/10 Just bad</option>
+                                                  <option value="3">3/10 Don't go</option>
+                                                  <option value="4">4/10 Meh</option>
+                                                  <option value="5">5/10 Average</option>
+                                                  <option value="6">6/10 Solid</option>
+                                                  <option value="7">7/10 Go here</option>
+                                                  <option value="8">8/10 Really good</option>
+                                                  <option value="9">9/10 Must go</option>
+                                                  <option value="10">10/10 The best</option>
+                                                </select>
+                                              </div>
+                                              { /** END Rating **/ }
+
+                                              {/* Tags list **/ }
+                                              
+                                               { 
+                                                Object.keys(tip.tags || {}).map(function (tagName) {
+                                                  return (
+                                                    <Link key={tagName} className="tip-tag fill--light-gray" onClick={onRemoveTag(this.props.authenticated, tip, itinerary.id, itinerary.geo.placeId, tagName)}>{tagName} </Link>
+                                                  )
+                                                }, this)}
+
+                                                  <div className="tag-input-wrapper">
+                                                    <AddTagInput tip={tip} itineraryId={itinerary.id} placeId={itinerary.geo.placeId} />
+                                                  </div>
+
+
+
+
+                                              
+                                            {/* END Tags list **/ }
+                                            </div>
+                                          {/* END tags wrapper **/ }
+
+
+                                           
+
                                           </div>
+
+                                          { /** Author **/ }
+                                          <Link
+                                              to={'/' + tip.createdBy.username}
+                                              className="show-in-list">
+                                            <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm">
+                                                <div className="tip__author-photo flx-hold mrgn-right-sm">
+                                                  <ProfilePic src={tip.createdBy.image} className="user-image user-image-sm center-img" />
+                                                </div> 
+                                                <div className="color--black v2-type-body1">
+                                                  {tip.createdBy.username}
+                                                </div>
+                                            </div>
+                                          </Link>
+                                          { /** END Author **/ }
+
+                                          { /** Caption **/ }
+                                          <div className="tip__caption-module flx flx-col w-100 pdding-bottom-sm mrgn-bottom-md">
+                                            <div className="tip__caption v2-type-body3 font--beta  ta-left opa-90">
+                                              <RenderDebounceInput
+                                                type="textarea"
+                                                className="w-100 show-border"
+                                                cols="20"
+                                                wrap="hard"
+                                                value={tip.review.caption}
+                                                placeholder="Add notes here"
+                                                debounceFunction={this.changeCaption(tip)} />
+                                            </div>
+                                          </div>
+
+                                          { /** Comments **/ }
+                                          <div className="flx flx-row flex-wrap cta-container">
+                                             <CommentContainer
+                                                authenticated={this.props.authenticated}
+                                                comments={tip.comments || []}
+                                                commentObject={tip}
+                                                itineraryId={itinerary.id}
+                                                userInfo={this.props.userInfo}
+                                                type={Constants.REVIEW_TYPE}
+                                                deleteComment={this.props.onDeleteComment} />
+                                          </div> 
+
                                         </div>
 
-                                        { /** Comments **/ }
-                                        <div className="flx flx-row flex-wrap cta-container">
-                                           <CommentContainer
-                                              authenticated={this.props.authenticated}
-                                              comments={tip.comments || []}
-                                              commentObject={tip}
-                                              itineraryId={itinerary.id}
-                                              userInfo={this.props.userInfo}
-                                              type={Constants.REVIEW_TYPE}
-                                              deleteComment={this.props.onDeleteComment} />
-                                        </div> 
                                         {/* Action Module */}
                                         <div className="tip__cta-box w-100 flx flx-row flx-just-start flx-align-center mrgn-top-md">
-                                          <Link onClick={handleSaveClick(tip)} className="hide-in-list vb vb--sm vb--outline-none flx flx-row flx-align-center color--white fill--primary">
-                                              <i className="material-icons mrgn-right-sm color--white">get_app</i>
-                                              <div className="color--white">Save</div>
+
+                                          <Link onClick={handleSaveClick(tip)} className="w-50 hide-in-list vb vb--tip vb--outlin--none flx flx-row flx-align-center brdr-top brdr-right color--black fill--white">
+                                              <i className="material-icons color--primary mrgn-right-sm md-24">add_circle</i>
+                                              <div className="color--black">Save</div>
                                           </Link>
-                                          <Link onClick={onInfoClick(tip)} className="hide-in-list vb vb--sm vb--outline flx flx-row flx-align-center mrgn-left-n-1">
-                                            <i className="material-icons opa-60">info_outline</i>
-                                            <div className="color--black mrgn-left-sm mobile-hide">Info</div>
-                                          </Link>
-                                          <div className="cta-wrapper vb vb--sm vb--outline flx flx-row flx-align-center v2-type-body2 mrgn-left-n-1">
+
+                                          <div className="w-30 cta-wrapper vb vb--tip vb--outline--none flx flx-row flx-align-center v2-type-body2 brdr-top brdr-right">
                                             <LikeReviewButton
                                               authenticated={this.props.authenticated}
                                               isLiked={tip.isLiked}
@@ -715,22 +798,10 @@ class ItineraryForm extends React.Component {
                                               type={Constants.REVIEW_TYPE} />
                                           </div>
 
-                                          {/* More Options button */}
-                                          <div className="edit-itinerary-link vb vb--sm no-pad vb--outline fill--white color--black mrgn-left-n-1">             
-                                            <MuiThemeProvider muiTheme={getMuiTheme()}>
-                                              <IconMenu
-                                                 iconButtonElement={<IconButton className=""><MoreHorizIcon /></IconButton>}
-                                                 anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-                                                 targetOrigin={{horizontal: 'left', vertical: 'top'}}
-                                               >
-                                              <div className="vb vb--sm vb--shadow-none fill--white color--primary danger-hover"
-                                                onClick={this.deleteTip(tip)}>Delete Tip
-                                              </div>
-                                                
-                                               </IconMenu>
-                                             </MuiThemeProvider>
-                                          </div>
-                                          {/* END More Options button */}
+                                          <Link onClick={onInfoClick(tip)} className="w-20 hide-in-list vb vb--tip vb--outline--none flx flx-row flx-align-center brdr-top">
+                                            <i className="material-icons md-24">info_outline</i>
+                                          </Link>
+                                         
                                         
                                         </div>
                                         {/* END Action Module */}
