@@ -251,7 +251,6 @@ input.edit-tip__rating {
   height: auto !important
 }
 .input--search input {
-  text-indent: 62px;
   border: 1px solid rgba(0,0,0,.1) !important;
 }
 .input--search input:hover {

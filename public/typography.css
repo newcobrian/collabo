@@ -34,7 +34,7 @@ form {
 }
 .font--beta {
   font-family: 'Roboto', sans-serif;
-  /*font-family: 'Rokkitt', sans-serif;*/
+  font-family: 'Rokkitt', sans-serif;
 }
 
 
@@ -208,7 +208,7 @@ textarea {
     font-size: 14px;
     letter-spacing: .5px;
     line-height: 18px;
-    overflow: visible;
+    overflow: hidden;
 }
 .label-big {
   text-transform: uppercase;

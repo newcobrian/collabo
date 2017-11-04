@@ -107,6 +107,7 @@ const TipPreview = props => {
                       { /** END Image **/ }
                     </MediaQuery>
 
+
                     {/* Tags list 
                       <div>
                         { 
@@ -116,6 +117,7 @@ const TipPreview = props => {
                             )
                           }, this)}
                       </div>
+
 
                     { /** Rating **/ }
                     <div className={'DN tip__rating-module flx flx-row flx-align-center flx-item-right w-100 font--alpha tip__rating-module--' + tip.review.rating}>
@@ -213,7 +215,7 @@ const TipPreview = props => {
                         type={Constants.REVIEW_TYPE} />
                     </div>
 
-                    <Link onClick={onInfoClick} className="w-20 hide-in-list vb vb--tip vb--outline--none flx flx-row flx-align-center brdr-top brdr-right">
+                    <Link onClick={onInfoClick} className="w-20 hide-in-list vb vb--tip vb--outline--none flx flx-row flx-align-center brdr-top">
                       <i className="material-icons md-24">info_outline</i>
                     </Link>
                     {/*<Link to={googleMapLink} className="w-20 hide-in-list vb vb--tip vb--outline--none flx flx-row flx-align-center brdr-top">
