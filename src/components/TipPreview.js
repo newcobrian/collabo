@@ -108,7 +108,7 @@ const TipPreview = props => {
                     </MediaQuery>
 
 
-                    {/* Tags list 
+                    {/* Tags list */}
                       <div>
                         { 
                           Object.keys(tip.tags || {}).map(function (tagName) {

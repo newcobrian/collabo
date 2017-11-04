@@ -196,7 +196,6 @@ class ItineraryForm extends React.Component {
         </Map>
         );
     }
-    
     const itinerary = this.props.data;
     const shortName = itinerary && itinerary.geo && itinerary.geo.shortName ? itinerary.geo.shortName : itinerary.geo.label;
     const {google} = this.props;
@@ -686,7 +685,7 @@ class ItineraryForm extends React.Component {
                                               {/* END More Options button */}
                                             </div>
 
-                                            {/* Tags list
+                                            {/* Tags list */}
                                             <div>
                                               { 
                                                 Object.keys(tip.tags || {}).map(function (tagName) {

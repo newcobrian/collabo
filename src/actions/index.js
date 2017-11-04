@@ -2700,6 +2700,7 @@ export function addToItinerary(auth, tip, itinerary) {
 
     Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).once('value', reviewsByItinSnapshot => {
       let subjectId = tip.subjectId;
+      // if itinerary already contains the subject, show a message that its already there
       if (reviewsByItinSnapshot.exists() && findSubject(subjectId, reviewsByItinSnapshot.val())) {
       // if (itinSnapshot.val().reviews && itinSnapshot.val().reviews[subjectId]) {
         let message = itinerary.title + ' already contains ' + tip.subject.title;
@@ -2720,6 +2721,9 @@ export function addToItinerary(auth, tip, itinerary) {
                 subjectId: subjectId,
                 userId: auth,
                 priority: priority
+              }
+              if (tip.tags) {
+                tipData.tags = Object.assign({}, tip.tags);
               }
               if (reviewSnapshot.exists() && reviewSnapshot.val().reviewId) {
                 tipData.reviewId = reviewSnapshot.val().reviewId;
@@ -2765,6 +2769,15 @@ export function addToItinerary(auth, tip, itinerary) {
               Helpers.incrementGuideScore(itineraryId, Constants.ADD_TIP_GUIDE_SCORE)
 
               Firebase.database().ref().update(updates);
+
+              // update tag counts on itinerary
+              for (var tagName in tip.tags) {
+                if(tip.tags.hasOwnProperty(tagName)) {
+                  Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId + '/tags/' + tagName).transaction(function (current_count) {
+                    return (current_count || 0) + 1;
+                  });
+                }
+              }
 
               let message = tip.subject.title + ' successfully added to ' + itinerary.title;
 
