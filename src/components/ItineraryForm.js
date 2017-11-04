@@ -289,12 +289,12 @@ class ItineraryForm extends React.Component {
         let latLng = new this.props.googleObject.maps.LatLng(geo.location.lat, geo.location.lng);
         
         return (
-          <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--transparent bx-shadow">
+          <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--transparent">
             <i className="it-add-search-icon material-icons color--primary md-24">add_circle</i>
             
             <Geosuggest 
               ref={el=>this._geoSuggest=el}
-              className="input--underline w-100 color--black"
+              className="input--underline w-100 color--black bx-shadow"
               placeholder={'Search to add a place'}
               location={latLng}
               radius={1000}

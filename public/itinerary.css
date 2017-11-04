@@ -348,6 +348,8 @@ textarea.edit-itinerary__name {
 
 }
 .it-add-wrapper .geosuggest {
+	background: transparent;
+	border-radius: 7px;
 }
 .it-add-wrapper .geosuggest:hover {
 }
