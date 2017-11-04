@@ -831,7 +831,10 @@ body .back-to-top {
 .it-add-wrapper .geosuggest {
   margin-left: 0;
 }
-
+.pop-city-wrapper {
+    margin-left: 10px;
+    margin-right: 10px;
+}
 .itinerary__comments-module {
   padding: 30px 20px 60px;
 }
