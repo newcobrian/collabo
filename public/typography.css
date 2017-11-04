@@ -403,30 +403,59 @@ h4 {
 .font--beta ::-webkit-input-placeholder,
 .tip-wrapper ::-webkit-input-placeholder,
 .comment-wrapper ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  opacity: .5;
+  opacity: .6;
   font-weight: 300;
   font-family: 'Rokkitt', sans-serif !important;
 }
 .font--beta ::-moz-placeholder,
 .tip-wrapper ::-moz-placeholder,
 .comment-wrapper ::-moz-placeholder { /* Firefox 19+ */
-  opacity: .5;
+  opacity: .6;
   font-weight: 300;
   font-family: 'Rokkitt', sans-serif !important;
 }
 .font--beta :-ms-input-placeholder,
 .tip-wrapper :-ms-input-placeholder,
 .comment-wrapper :-ms-input-placeholder { /* IE 10+ */
-  opacity: .5;
+  opacity: .6;
   font-weight: 300;
   font-family: 'Rokkitt', sans-serif !important;
 }
 .font--beta :-moz-placeholder,
 .tip-wrapper :-moz-placeholder,
 .comment-wrapper :-moz-placeholder { /* Firefox 18- */
-  opacity: .5;
+  opacity: .6;
   font-weight: 300;
   font-family: 'Rokkitt', sans-serif !important;
+}
+
+
+.tag-input-wrapper .comment-wrapper ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  opacity: .4;
+  font-weight: 400;
+  font-family: 'Roboto', sans-serif !important;
+  font-size: 13px;
+}
+
+.tag-input-wrapper .comment-wrapper ::-moz-placeholder { /* Firefox 19+ */
+  opacity: .4;
+  font-weight: 400;
+  font-family: 'Roboto', sans-serif !important;
+  font-size: 13px;
+}
+
+.tag-input-wrapper .comment-wrapper :-ms-input-placeholder { /* IE 10+ */
+  opacity: .4;
+  font-weight: 400;
+  font-family: 'Roboto', sans-serif !important;
+  font-size: 13px;
+}
+
+.tag-input-wrapper .comment-wrapper :-moz-placeholder { /* Firefox 18- */
+  opacity: .4;
+  font-weight: 400;
+  font-family: 'Roboto', sans-serif !important;
+  font-size: 13px;
 }
 
 

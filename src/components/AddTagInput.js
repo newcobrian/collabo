@@ -29,12 +29,12 @@ class AddTagInput extends React.Component {
 
   render() {
     return (
-      <form className="comment-wrapper comment-form flx flx-row flx-just-center flx-align-start mrgn-bottom-sm" onSubmit={this.onFormSubmit}>
+      <form className="comment-wrapper comment-form flx flx-row flx-just-center flx-align-start" onSubmit={this.onFormSubmit}>
         <input type="text" 
           value={this.state.tagInput} 
           onChange={this.onUpdateField} 
-          placeholder="Add categories here" />
-        <button className="comment-send vb vb--sm vb--outline fill--white color--black" onClick={this.onFormSubmit}>
+          placeholder="+ tags" />
+        <button className="comment-send vb vb--sm vb--outline fill--white color--black DN" onClick={this.onFormSubmit}>
           Add
           <i className="material-icons color--primary md-18 color--primary DN">send</i>
         </button>

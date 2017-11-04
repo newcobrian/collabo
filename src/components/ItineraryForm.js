@@ -668,7 +668,7 @@ class ItineraryForm extends React.Component {
                                               { /** END Title **/ }
 
                                               {/* More Options button */}
-                                              <div className="edit-itinerary-link vb vb--xs flx-item-right no-pad vb--outline--none opa-20 fill--white color--black mrgn-left-n-1">             
+                                              <div className="edit-itinerary-link vb vb--xs flx-item-right no-pad vb--outline--none opa-20 fill--white color--black">             
                                                 <MuiThemeProvider muiTheme={getMuiTheme()}>
                                                   <IconMenu
                                                      iconButtonElement={<IconButton className=""><MoreHorizIcon /></IconButton>}
@@ -685,39 +685,53 @@ class ItineraryForm extends React.Component {
                                               {/* END More Options button */}
                                             </div>
 
-                                            {/* Tags list */}
-                                            <div>
-                                              { 
+
+
+                                            {/* Tags Wrapper **/ }
+                                            <div className="flx flx-row flx-align-center flx-wrap">
+
+                                              { /** Rating **/ }
+                                              <div className={'tip__rating-module flx flx-row flx-align-center flx-hold w-100 tip__rating-module--' + tip.review.rating}>
+                                                <select className="color--black" value={tip.review.rating} onChange={this.changeRating(tip)}>
+                                                  <option value="-">Add Rating</option>
+                                                  <option value="0">0/10 Run away</option>
+                                                  <option value="1">1/10 Stay away</option>
+                                                  <option value="2">2/10 Just bad</option>
+                                                  <option value="3">3/10 Don't go</option>
+                                                  <option value="4">4/10 Meh</option>
+                                                  <option value="5">5/10 Average</option>
+                                                  <option value="6">6/10 Solid</option>
+                                                  <option value="7">7/10 Go here</option>
+                                                  <option value="8">8/10 Really good</option>
+                                                  <option value="9">9/10 Must go</option>
+                                                  <option value="10">10/10 The best</option>
+                                                </select>
+                                              </div>
+                                              { /** END Rating **/ }
+
+                                              {/* Tags list **/ }
+                                              
+                                               { 
                                                 Object.keys(tip.tags || {}).map(function (tagName) {
                                                   return (
-                                                    <Link key={tagName} onClick={onRemoveTag(this.props.authenticated, tip, itinerary.id, itinerary.geo.placeId, tagName)}>{tagName} </Link>
+                                                    <Link key={tagName} className="tip-tag fill--light-gray" onClick={onRemoveTag(this.props.authenticated, tip, itinerary.id, itinerary.geo.placeId, tagName)}>{tagName} </Link>
                                                   )
                                                 }, this)}
-                                            </div>
 
-                                            <div>
-                                              <AddTagInput tip={tip} itineraryId={itinerary.id} placeId={itinerary.geo.placeId} />
-                                            </div>
+                                                  <div className="tag-input-wrapper">
+                                                    <AddTagInput tip={tip} itineraryId={itinerary.id} placeId={itinerary.geo.placeId} />
+                                                  </div>
 
 
-                                            { /** Rating **/ }
-                                            <div className={'tip__rating-module flx flx-row flx-align-center flx-hold w-100 tip__rating-module--' + tip.review.rating}>
-                                              <select value={tip.review.rating} onChange={this.changeRating(tip)}>
-                                                <option value="-">Add Rating</option>
-                                                <option value="0">0/10 Run away</option>
-                                                <option value="1">1/10 Stay away</option>
-                                                <option value="2">2/10 Just bad</option>
-                                                <option value="3">3/10 Don't go</option>
-                                                <option value="4">4/10 Meh</option>
-                                                <option value="5">5/10 Average</option>
-                                                <option value="6">6/10 Solid</option>
-                                                <option value="7">7/10 Go here</option>
-                                                <option value="8">8/10 Really good</option>
-                                                <option value="9">9/10 Must go</option>
-                                                <option value="10">10/10 The best</option>
-                                              </select>
+
+
+                                              
+                                            {/* END Tags list **/ }
                                             </div>
-                                            { /** END Rating **/ }
+                                          {/* END tags wrapper **/ }
+
+
+                                           
 
                                           </div>
 

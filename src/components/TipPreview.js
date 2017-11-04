@@ -108,26 +108,7 @@ const TipPreview = props => {
                     </MediaQuery>
 
 
-                    {/* Tags list */}
-                      <div>
-                        { 
-                          Object.keys(tip.tags || {}).map(function (tagName) {
-                            return (
-                              <span key={tagName}>{tagName} </span>
-                            )
-                          }, this)}
-                      </div>
 
-
-                    { /** Rating **/ }
-                    <div className={'DN tip__rating-module flx flx-row flx-align-center flx-item-right w-100 font--alpha tip__rating-module--' + tip.review.rating}>
-                      <div className={'tip__rating flx-hold flx flx-row flx-center-all v2-type-rating--' +  tip.review.rating}>
-                        {tip.review.rating}
-                      </div>
-                      <i className="rating-star-icon material-icons color--black opa-40 md-14 DN">star</i>
-                    </div>
-                    { /** END Rating **/ }
-                    
                      
                     <div className="tip__timestamp v2-type-caption opa-20 mrgn-top-xs DN">
                       <DisplayTimestamp timestamp={tip.review.lastModified} />
@@ -149,14 +130,30 @@ const TipPreview = props => {
                         
                         { /** END Title **/ }
 
-                        { /** Rating **/ }
-                        <div className={'tip__rating-module flx flx-row flx-align-centerw-100 flx-hold tip__rating-module--' + tip.review.rating}>
-                          <div className={'tip__rating flx-hold flx flx-row flx-center-all v2-type-rating--' +  tip.review.rating}>
-                            {tip.review.rating}
+
+                        {/* Tags Wrapper **/ }
+                        <div className="flx flx-row flx-align-center flx-wrap">
+
+                          { /** Rating **/ }
+                          <div className={'tip__rating-module flx flx-row flx-align-center w-100 flx-hold tip__rating-module--' + tip.review.rating}>
+                            <div className={'tip__rating flx-hold flx flx-row flx-center-all v2-type-rating--' +  tip.review.rating}>
+                              {tip.review.rating}
+                            </div>
+                            <i className="rating-star-icon material-icons color--black opa-40 md-14 DN">star</i>
                           </div>
-                          <i className="rating-star-icon material-icons color--black opa-40 md-14 DN">star</i>
+                          { /** END Rating **/ }
+
+                          {/* Tags list **/ }
+                            { 
+                              Object.keys(tip.tags || {}).map(function (tagName) {
+                                return (
+                                  <span className="tip-tag fill--light-gray" key={tagName}>{tagName} </span>
+                                )
+                              }, this)}
+
                         </div>
-                        { /** END Rating **/ }
+                      {/* END Tags Wrapper **/ }
+                       
                     </div>
 
 
