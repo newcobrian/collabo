@@ -14,11 +14,13 @@ const mapStateToProps = state => ({
 
 class DeleteItineraryModal extends React.Component {
   render() {
-    const handleClose = () => {
+    const handleClose = ev => {
+      ev.preventDefault();
       this.props.hideModal();
     }
 
-    const deleteClick = () => {
+    const deleteClick = ev => {
+      ev.preventDefault();
       this.props.onDeleteItinerary(this.props.authenticated, this.props.itinerary.id, this.props.itinerary.geo.placeId, this.props.source);
     }
 
@@ -26,7 +28,7 @@ class DeleteItineraryModal extends React.Component {
       <FlatButton
         label="Cancel"
         hoverColor="white"
-        onTouchTap={handleClose}
+        onClick={handleClose}
         disableTouchRipple={true}
         fullWidth={false}
         labelStyle={{}}
@@ -36,7 +38,7 @@ class DeleteItineraryModal extends React.Component {
       <FlatButton
         label="Delete"
         hoverColor="white"
-        onTouchTap={deleteClick}
+        onClick={deleteClick}
         disableTouchRipple={true}
         fullWidth={false}
         className="vb vb--light"

@@ -17,14 +17,15 @@ const mapStateToProps = state => ({
 
 class ForwardModal extends React.Component {
   render() {
-    const handleClose = () => {
+    const handleClose = ev => {
+      ev.preventDefault();
       this.props.hideModal();
     }
 
     const actions = [
       <FlatButton
         label="Cancel"
-        onTouchTap={handleClose}
+        onClick={handleClose}
         style={{
             color:'#2B3538'
           }}

@@ -40,7 +40,8 @@ class ReorderModal extends React.Component {
   }
 
   render() {
-    const handleClose = () => {
+    const handleClose = ev => {
+      ev.preventDefault();
       this.props.hideModal();
     }
 
@@ -48,7 +49,7 @@ class ReorderModal extends React.Component {
       <FlatButton
         label="Done"
         className="vb vb--outline-none fill--primary color--white"
-        onTouchTap={handleClose}
+        onClick={handleClose}
         style={{}}
         labelStyle={{}}
       />
