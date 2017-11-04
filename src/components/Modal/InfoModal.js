@@ -58,7 +58,8 @@ const mapStateToProps = state => ({
 
 class InfoModal extends React.Component {
   render() {
-    const handleClose = () => {
+    const handleClose = ev => {
+      ev.preventDefault();
       this.props.hideModal();
     }
 
@@ -71,7 +72,7 @@ class InfoModal extends React.Component {
         label="Close"
         className="vb"
         hoverColor="rgba(247,247,247,.2)"
-        onTouchTap={handleClose}
+        onClick={handleClose}
         style={{
           }}
           labelStyle={{   

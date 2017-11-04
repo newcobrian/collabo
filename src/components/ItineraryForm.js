@@ -686,7 +686,7 @@ class ItineraryForm extends React.Component {
                                               {/* END More Options button */}
                                             </div>
 
-                                            {/* Tags list */}
+                                            {/* Tags list
                                             <div>
                                               { 
                                                 Object.keys(tip.tags || {}).map(function (tagName) {
