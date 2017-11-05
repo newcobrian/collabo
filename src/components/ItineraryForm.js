@@ -585,8 +585,11 @@ class ItineraryForm extends React.Component {
 
 
 
-            <div>
-              <Link onClick={openFilter}>Filter</Link>
+            <div className="w-100 flx flx-row flx-center-all pdding-all-sm">
+              <Link className="vb vb--md fill--white color--black w-100 flx flx-row flx-center-all vb--outline ta-center" onClick={openFilter}>
+                <i className="material-icons color--black opa-60 mrgn-right-sm">filter_list</i>
+                Showing 4/10 Categories
+              </Link>
             </div>
 
 
@@ -618,9 +621,9 @@ class ItineraryForm extends React.Component {
 
 
 
-                                      { /** Image shown if own web **/}
-                                      <MediaQuery query="(min-device-width: 1224px)">
-                                        <div className="tip__image-module mobile-hide">
+                                      { /** Image shown if own web 
+                                      <MediaQuery query="(min-device-width: 1224px)">**/}
+                                        <div className="tip__image-module">
                                             <div className={"tip__photo-count tip-count-" + tip.images.length}>{tip.images.length > 0 ? tip.images.length : null}</div>
                                             <ImagePicker images={tip.images} />
                                           <Dropzone
@@ -634,9 +637,11 @@ class ItineraryForm extends React.Component {
 
                                           </Dropzone>
                                         </div>
+                                      
+                                      {/** 
                                       </MediaQuery>
 
-                                      {/** EXAMPLE: on mobile, just show the dropzone 
+                                      EXAMPLE: on mobile, just show the dropzone 
                                       <MediaQuery query="(max-device-width: 1224px)">
                                         <Dropzone
                                             onDrop={tipDropHandler(tip)}

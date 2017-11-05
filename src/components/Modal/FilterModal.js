@@ -6,11 +6,14 @@ import Dialog from 'material-ui/Dialog';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
+import Checkbox from 'material-ui/Checkbox';
+
+
 
 const mapStateToProps = state => ({
   ...state.modal,
   authenticated: state.common.authenticated
-});
+}); 
 
 class FilterModal extends React.Component {
   render() {
@@ -27,11 +30,20 @@ class FilterModal extends React.Component {
     const toggleCheckbox = label => {
       console.log('toggle ' + label)
     }
+    const styles = {
+      block: {
+        maxWidth: 1000,
+      },
+      radioButton: {
+        marginBottom: 0,
+      },
+    };
+
 
     const actions = [
       <FlatButton
-        label="Close"
-        className="vb"
+        label="Cancel"
+        className="vb mrgn-right-sm"
         hoverColor="rgba(247,247,247,.2)"
         onClick={handleClose}
         style={{
@@ -45,8 +57,8 @@ class FilterModal extends React.Component {
         onClick={applyClick}
         disableTouchRipple={true}
         fullWidth={false}
-        className="vb vb--light"
-        labelStyle={{color: "red"}}
+        className="vb vb--outline--none fill--primary color--white"
+        labelStyle={{color: ""}}
         style={{
           }}
       />
@@ -87,22 +99,49 @@ class FilterModal extends React.Component {
         >
 
         <div className="dialog--save flx flx-col color--black font--alpha">
-          <form>
-            {
-              Object.keys(this.props.itinerary.tags || {}).map(function (tagName) {
-                if (this.props.itinerary.tags[tagName] > 0) {
-                  return (
-                    <div>
-                      {tagName} ({this.props.itinerary.tags[tagName]})
-                      
-                    </div>
-                  )
-                }
-                else return null;
-              }, this)
-            }
-          </form>
-          
+
+          <div className="dialog--save__content w-100">
+            <div className="flx flx-row flx-align-center pdding-all-sm pdding-left-md brdr-bottom">
+            <Checkbox
+                label="All"
+                style={styles.checkbox}
+              />
+            
+            </div>
+            <form>
+
+              {
+
+
+                Object.keys(this.props.itinerary.tags || {}).map(function (tagName) {
+
+
+                  if (this.props.itinerary.tags[tagName] > 0) {
+                    return (
+                      <li className="flx flx-row flx-just-start flx-align-center brdr-bottom">
+
+                        <Checkbox
+                            label={tagName + " " + "(" + this.props.itinerary.tags[tagName] + ")"}
+                            style={styles.checkbox}
+                          />
+
+                      </li>
+                    )
+
+                  }
+
+                  else return null;
+
+
+                }, this)
+
+
+              }
+
+            </form>
+
+          </div>
+
         </div>
 
           {/*{JSON.stringify(this.props.review)}*/}

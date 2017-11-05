@@ -159,9 +159,9 @@ const ItineraryPreview = props => {
 
         <div className={"itinerary__contents bx-shadow flx flx-col w-100 country-color-" + itinerary.geo.country}>
 
-          <MediaQuery query="(min-device-width: 1224px)">
-          {/** START IMAGES **/}
-          <div className="itinerary__book w-100 flx-hold bg-loading mobile-hide">
+          {/** START IMAGES
+          <MediaQuery query="(min-device-width: 1224px)"> **/}
+          <div className="itinerary__book w-100 flx-hold bg-loading">
             <div className="guide-label fill--primary color--white">
               Featured
             </div>
@@ -177,8 +177,8 @@ const ItineraryPreview = props => {
 
             
           </div>
-          {/** END IMAGES **/}
-          </MediaQuery>
+          {/** END IMAGES
+          </MediaQuery> **/}
 
 
           <div className="guide-preview-data-wrapper flx flx-col flx-align-start ta-left w-100">
