@@ -33,8 +33,10 @@ class ImagePicker extends React.Component {
           var withoutParams = url.split('?')[0]
           var bits = withoutParams.split('/')
           var key = bits[bits.length-1]
+          var width = this.props['max-w'] ? this.props['max-w'] : IMAGE_WIDTH
+          var height = this.props.h ? this.props.h : IMAGE_HEIGHT
           
-          url = 'https://myviews.imgix.net/images/' + key + '?fit=crop&h=' + IMAGE_HEIGHT + '&max-w=' + IMAGE_WIDTH
+          url = 'https://myviews.imgix.net/images/' + key + '?fit=crop&h=' + height + '&max-w=' + width
         }  
         
         return (

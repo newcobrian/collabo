@@ -1,5 +1,10 @@
-all:
+build: FORCE
 	npm run build
+
+local: build
+	dev_appserver.py .
+
+deploy: build
 	cp etc/pydistutils.cfg.orig ~/.pydistutils.cfg
 	pip install six
 	pip install six -t lib
@@ -9,3 +14,6 @@ all:
 libs:
 	pip install -r requirements.txt -t lib/
 	pip install -r requirements.txt
+
+FORCE: ;
+
