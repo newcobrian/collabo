@@ -9,12 +9,22 @@ const ProfilePic = props => {
     	);
   }
 
-  // const imgSrc = 'https://images.weserv.nl/?url=' + props.src.replace(/^https?\:\/\//i, "");
-  const imgSrc = props.src.indexOf('http://') == 0 ? ("https://images.weserv.nl/?url=" 
-  	+  encodeURIComponent(props.src.replace(/^https?\:\/\//i, ""))) : props.src;
+  var url = props.src
+
+  console.log(url)
+  
+  if (url.indexOf('https://firebasestorage.googleapis.com') != -1) {
+    url = decodeURIComponent(url)
+    var withoutParams = url.split('?')[0]
+    var bits = withoutParams.split('/')
+    var key = bits[bits.length-1]
+    
+    url = 'https://myviews.imgix.net/images/' + key + '?fit=crop&h=64&max-w=64'
+  }
+  
   return (
     <div className="user-photo-wrapper flx-hold invert">
-    <img src={imgSrc} className={props.className} />
+      <img src={url} className={props.className} />
     </div>
   );
 }

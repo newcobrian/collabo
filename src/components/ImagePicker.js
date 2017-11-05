@@ -7,6 +7,9 @@ const mapStateToProps = state => ({
   authenticated: state.common.authenticated
 });
 
+const IMAGE_WIDTH = 400
+const IMAGE_HEIGHT = 200
+
 class ImagePicker extends React.Component {
   constructor() {
     super();
@@ -20,33 +23,28 @@ class ImagePicker extends React.Component {
   render() {
     let images = this.props.images;
     if (images && images.length > 0) {
-      if (images[0].url) {
-        const imgSrc = images[0].url.indexOf('http://') == 0 ? ("https://images.weserv.nl/?url=" 
-        +  encodeURIComponent(images[0].url.replace(/^https?\:\/\//i, ""))) : images[0].url;
+      var url = images[0].url ? images[0].url : (images[0].preview ? images[0].preview : null)
 
+      console.log(url)
+      
+      if (url) {
+        if (url.indexOf('https://firebasestorage.googleapis.com') != -1) {
+          url = decodeURIComponent(url)
+          var withoutParams = url.split('?')[0]
+          var bits = withoutParams.split('/')
+          var key = bits[bits.length-1]
+          
+          url = 'https://myviews.imgix.net/images/' + key + '?fit=crop&h=' + IMAGE_HEIGHT + '&max-w=' + IMAGE_WIDTH
+        }  
+        
         return (
-            <div className="default-bg">
-              <img src={imgSrc} className="center-img header-height" onClick={this.handleClick} />
-            </div>
-          )
+          <div className="default-bg">
+            <img src={url} className="center-img header-height" onClick={this.handleClick} />
+          </div>
+        )        
       }
-      // else if ((typeof images[0] === 'string' || images[0] instanceof String)) {
-      //   const imgSrc = images[0].indexOf('http://') == 0 ? ("https://images.weserv.nl/?url=" 
-      //   +  encodeURIComponent(images[0].replace(/^https?\:\/\//i, ""))) : images[0];
-      //   // let index = Math.floor(Math.random() * (props.images.length-1));
-
-      //     return (
-      //        <img src={imgSrc} className="center-img cover-height" onClick={this.handleClick} />
-      //     )
-      // }
-      else if (images[0].preview) {
-        return (
-            <div className="default-bg">
-              <img src={images[0].preview} className="center-img header-height" onClick={this.handleClick} />
-            </div>
-          )
-      }
-      else return null;
+      
+      return null;
     }
     else if (this.props.source === EDITOR_PAGE) {
       return (
