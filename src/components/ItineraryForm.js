@@ -363,6 +363,11 @@ class ItineraryForm extends React.Component {
       this.props.onRemoveTag(auth, tip, itineraryId, placeId, tag);
     }
 
+    const openFilter = ev => {
+      ev.preventDefault()
+      this.props.showFilterModal(itinerary);
+    }
+
     return (
       <div className={this.props.mapViewToggle ? 'flx flx-col flx-align-start page-common page-itinerary page-edit-own show-map' : 'flx flx-col flx-align-start page-common page-itinerary page-edit-own'}>
 
@@ -580,7 +585,9 @@ class ItineraryForm extends React.Component {
 
 
 
-    
+            <div>
+              <Link onClick={openFilter}>Filter</Link>
+            </div>
 
 
             

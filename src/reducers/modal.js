@@ -40,6 +40,12 @@ export default (state = initialState, action) => {
         modalType: Constants.REORDER_ITINERARY_MODAL,
         itinerary: action.itinerary
       }
+    case ActionTypes.SHOW_FILTER_MODAL: 
+      return {
+        ...state,
+        modalType: Constants.FILTER_MODAL,
+        itinerary: action.itinerary
+      }
     case ActionTypes.SHOW_SHARE_MODAL:
       return {
         ...state,
