@@ -22,11 +22,11 @@ body a:hover {
 
 }
 input[type="checkbox"] {
-    display:none;
+    /*display:none;*/
 }
 
 input[type="checkbox"] + label {
-    color:#f2f2f2;
+    /*color:#f2f2f2;*/
 }
 
 input[type="checkbox"] + label span {

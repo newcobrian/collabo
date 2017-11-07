@@ -133,15 +133,15 @@ class FilterModal extends React.Component {
                             onCheck={this.handleCheck}
                           />*/}
                         
-                        <label>
-                          {tagName + " " + "(" + this.props.itinerary.tags[tagName] + ")"}
+                        
                           <input
                             name={tagName}
                             style={styles.checkbox}
                             type="checkbox"
                             checked={this.props.appliedFilters[tagName]}
                             onChange={handleCheck(tagName)} />
-                        </label>
+                        <label>
+                          {tagName + " " + "(" + this.props.itinerary.tags[tagName] + ")"}</label>
 
                       </li>
                     )
