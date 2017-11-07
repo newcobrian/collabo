@@ -308,14 +308,15 @@ class Itinerary extends React.Component {
                       </div>
 
                       {/* Share */}
-                      <div className="cta-wrapper flx flx-row vb vb--sm vb--outline fill--white color--black DN"
+                      <div className="cta-wrapper flx flx-row vb vb--sm vb--outline fill--white color--black flx-item-right"
                         onClick={this.shareGuide} >
-                        Share Guide
+                        <div className="color--black mrgn-right-sm">Share Guide</div>
+                        <i className="material-icons color--primary">play_arrow</i>
+                        <i className="material-icons color--primary">accessibility</i>
                       </div>
 
 
-
-                      <div className="flx-item-right flx flx-row">
+                      <div className="flx-item-right flx flx-row DN">
                         <div className="vb vb--sm vb--outline fill--white color--black">
                           <FacebookShareButton
                             url={Constants.VIEWS_URL + `/guides/${this.props.itineraryId}`}

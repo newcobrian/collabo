@@ -1,15 +1,21 @@
 
 * .country-color-FR .invert,
+* .country-color-FR .invert svg,
 * .country-color-CN .invert,
+* .country-color-CN .invert svg,
 * .country-color-DE .invert,
+* .country-color-DE .invert svg,
 * .country-color-US .invert,
+* .country-color-US .invert svg,
 * .country-color-JP .invert,
+* .country-color-JP .invert svg,
 * .country-color-KR .invert,
-* .country-color-TW .invert {
+* .country-color-KR .invert svg,
+* .country-color-TW .invert,
+* .country-color-TW .invert svg {
 	color: white !important;
 	border-color: white !important;
 }
-
 * .it__cover__inner textarea.invert,
 * .it__cover__inner input.invert,
 * .it__cover__inner .invert textarea,

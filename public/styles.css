@@ -698,6 +698,22 @@ width: 32px;
   padding-left: 10px;
 }
 
+.pdding-all-xs {
+  padding: 5px;
+}
+.pdding-top-xs {
+  padding-top: 5px;
+}
+.pdding-right-xs  {
+  padding-right: 5px;
+}
+.pdding-bottom-xs  {
+  padding-bottom: 5px;
+}
+.pdding-left-xs  {
+  padding-left: 5px;
+}
+
 .pdding-all-md {
   padding: 20px;
 }

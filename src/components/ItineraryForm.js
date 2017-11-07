@@ -514,23 +514,20 @@ class ItineraryForm extends React.Component {
                       type={ITINERARY_TYPE} />
                   </div>
 
-                  {/* Share */}
-                  <div className="cta-wrapper flx flx-row vb vb--sm vb--outline fill--white color--black DN"
-                    onClick={this.shareGuide} >
-                    Share Guide
-                  </div>
 
-                  <div className="edit-itinerary-link vb vb--sm no-pad vb--outline fill--white color--black mrgn-left-n-1">             
+                  <div className="edit-itinerary-link vb vb--sm no-pad vb--outline--none fill--none color--black opa-60 mrgn-left-n-1">             
                     <MuiThemeProvider muiTheme={getMuiTheme()}>
                       <IconMenu
                          iconButtonElement={<IconButton><MoreHorizIcon /></IconButton>}
+                         className="invert"
                          anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
                          targetOrigin={{horizontal: 'left', vertical: 'top'}}
-                       >
+                        >
                          <ItineraryActionsButton 
                           itinerary={itinerary} 
                           authenticated={this.props.authenticated} 
                           canModify={true} 
+                          className="invert vb vb--outline--none fill--none"
                           deleteModal={this.props.showDeleteModal} 
                           redirectPath="/" />
                        </IconMenu>
@@ -538,7 +535,16 @@ class ItineraryForm extends React.Component {
                   </div>
 
                   
-                  <div className="flx-item-right flx flx-row">
+                  {/* Share */}
+                  <div className="cta-wrapper flx flx-row vb vb--sm vb--outline fill--white color--black flx-item-right"
+                    onClick={this.shareGuide} >
+                    <div className="color--black mrgn-right-sm">Share Guide</div>
+                    <i className="material-icons color--primary">play_arrow</i>
+                    <i className="material-icons color--primary">accessibility</i>
+                  </div>
+
+
+                  <div className="flx-item-right flx flx-row DN">
                     <div className="vb vb--sm vb--outline fill--white color--black">
                       <FacebookShareButton
                         url={Constants.VIEWS_URL + `/guides/${this.props.itineraryId}`}

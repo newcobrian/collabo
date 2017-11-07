@@ -8,7 +8,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
 import { SAVE_MODAL } from '../../actions';
 import ImagePicker from './../ImagePicker';
- 
+  
 const GeoInfo = props => {
   if (!props.geo) {
     return null;
