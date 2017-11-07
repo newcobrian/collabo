@@ -8,15 +8,19 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
 import Checkbox from 'material-ui/Checkbox';
 
-
-
 const mapStateToProps = state => ({
   ...state.modal,
+  ...state.itinerary,
   authenticated: state.common.authenticated
 }); 
 
 class FilterModal extends React.Component {
+  constructor() {
+    super();
+  }
+
   render() {
+    console.log(JSON.stringify(this.props.appliedFilters))
     const handleClose = ev => {
       ev.preventDefault();
       this.props.hideModal();
@@ -24,12 +28,14 @@ class FilterModal extends React.Component {
 
     const applyClick = ev => {
       ev.preventDefault();
-      console.log('appl yfilter click')
+      console.log('apply filter click')
     }
 
-    const toggleCheckbox = label => {
-      console.log('toggle ' + label)
+    const handleCheck = label => ev => {
+      ev.preventDefault();
+      this.props.toggleItineraryFilter(label);
     }
+
     const styles = {
       block: {
         maxWidth: 1000,
@@ -114,16 +120,28 @@ class FilterModal extends React.Component {
 
 
                 Object.keys(this.props.itinerary.tags || {}).map(function (tagName) {
-
-
+//checked={this.props.appliedFilters.has(tagName)}
                   if (this.props.itinerary.tags[tagName] > 0) {
                     return (
-                      <li className="flx flx-row flx-just-start flx-align-center brdr-bottom">
+                      <li key={tagName} className="flx flx-row flx-just-start flx-align-center brdr-bottom">
 
-                        <Checkbox
+                        {/*<Checkbox
                             label={tagName + " " + "(" + this.props.itinerary.tags[tagName] + ")"}
                             style={styles.checkbox}
-                          />
+                            checked={true}
+                            
+                            onCheck={this.handleCheck}
+                          />*/}
+                        
+                        <label>
+                          {tagName + " " + "(" + this.props.itinerary.tags[tagName] + ")"}
+                          <input
+                            name={tagName}
+                            style={styles.checkbox}
+                            type="checkbox"
+                            checked={this.props.appliedFilters[tagName]}
+                            onChange={handleCheck(tagName)} />
+                        </label>
 
                       </li>
                     )

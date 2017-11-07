@@ -5,7 +5,8 @@ import { findIndexByValue } from '../helpers';
 import { filter, isEqual, find, omit, countBy } from 'lodash';
 
 const initialState = { usersData: {}, reviewsData: {}, subjectsData: {}, itinerary: {}, commentsData: {}, 
-  userImagesData: {}, defaultImagesData: {}, likesData: {}, tips: [], formErrors: { title: false, geo: false } };
+  userImagesData: {}, defaultImagesData: {}, likesData: {}, tips: [], formErrors: { title: false, geo: false },
+  appliedFilters: {} };
 
 const getImage = (userImages, defaultImages) => {
   let defaultImage = defaultImages ? defaultImages : [];
@@ -479,6 +480,14 @@ export default (state = initialState, action) => {
       return {
         ...state,
         mapViewToggle: !state.mapViewToggle
+      }
+    case ActionTypes.TOGGLE_ITINERARY_FILTER: {
+      const newState = Object.assign({}, state);
+      newState.appliedFilters = newState.appliedFilters || {};
+      newState.appliedFilters = Object.assign({}, newState.appliedFilters);
+      newState.appliedFilters[action.tag] = !newState.appliedFilters[action.tag]
+
+      return newState;
       }
     default:
       return state;

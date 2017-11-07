@@ -855,6 +855,15 @@ export function showFilterModal(itinerary) {
   }
 }
 
+export function toggleItineraryFilter(tag) {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.TOGGLE_ITINERARY_FILTER,
+      tag
+    })
+  }
+}
+
 // export function onCloseInfoWindow() {
 //   return dispatch => {
 //     dispatch({
