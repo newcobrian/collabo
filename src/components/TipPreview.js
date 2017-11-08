@@ -115,7 +115,7 @@ const TipPreview = props => {
                     </div>
                     
                   </div>
-
+ 
 
 
                   <div className="tip__content-wrapper">
@@ -147,7 +147,11 @@ const TipPreview = props => {
                             { 
                               Object.keys(tip.tags || {}).map(function (tagName) {
                                 return (
-                                  <span className="tip-tag fill--light-gray" key={tagName}>{tagName} </span>
+                                  <div className="tip-tag fill--light-gray flx flx-row flx-align-center" key={tagName}>
+                                    <div className="opa-50">
+                                      {tagName}
+                                    </div>
+                                  </div>
                                 )
                               }, this)}
 

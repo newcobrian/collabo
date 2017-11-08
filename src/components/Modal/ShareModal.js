@@ -103,7 +103,7 @@ class ShareModal extends React.Component {
                       className=""
                       round />
                   </div>
-                  <div className="color--white w-100">Share to Facebook</div>
+                  <div className="color--white w-100">Share on Facebook</div>
                   <FacebookShareCount
                     url={Constants.VIEWS_URL + `/guide/${itinerary.id}`}
                     className="color--white flx-item-right">
@@ -127,7 +127,7 @@ class ShareModal extends React.Component {
                       className=""
                       round />
                   </div>
-                    <div className="color--white w-100">Share to Twitter</div>
+                    <div className="color--white w-100">Share on Twitter</div>
                 </TwitterShareButton>
             </div>
 

@@ -732,7 +732,12 @@ class ItineraryForm extends React.Component {
                                                { 
                                                 Object.keys(tip.tags || {}).map(function (tagName) {
                                                   return (
-                                                    <Link key={tagName} className="tip-tag fill--light-gray" onClick={onRemoveTag(this.props.authenticated, tip, itinerary.id, itinerary.geo.placeId, tagName)}>{tagName} </Link>
+                                                    <div key={tagName} className="tip-tag fill--light-gray flx flx-row flx-align-center">
+                                                      <div className="opa-50">{tagName}</div>
+                                                      <Link className="flx-item-right flx flx-center-all" onClick={onRemoveTag(this.props.authenticated, tip, itinerary.id, itinerary.geo.placeId, tagName)}>
+                                                        <i className="material-icons color--black mrgn-left-xs md-16">close</i>
+                                                      </Link>
+                                                    </div>
                                                   )
                                                 }, this)}
 
