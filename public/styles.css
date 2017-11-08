@@ -1366,7 +1366,9 @@ body .back-to-top:hover,
 body .back-to-top:focus {
     background-color: #46DFFF !important;
 }
-
+.home-page.page-common.page-landing .back-to-top {
+  left: 49.5%;
+}
 
 .loader-wrapper {
 width: 100%;
