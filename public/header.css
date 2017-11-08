@@ -96,8 +96,8 @@ a.logo-module:focus {
   border-bottom: 6px solid transparent;
 }
 .navigation-bar .nav-module img {
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
 }
 .navigation-bar .nav-module.create {
   /*color: #63A652;  Bright green */

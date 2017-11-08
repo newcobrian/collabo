@@ -846,6 +846,24 @@ export function onRemoveTag(auth, tip, itineraryId, placeId, tag) {
   }
 }
 
+export function showFilterModal(itinerary) {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.SHOW_FILTER_MODAL,
+      itinerary
+    })
+  }
+}
+
+export function toggleItineraryFilter(tag) {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.TOGGLE_ITINERARY_FILTER,
+      tag
+    })
+  }
+}
+
 // export function onCloseInfoWindow() {
 //   return dispatch => {
 //     dispatch({

@@ -224,11 +224,11 @@ input.input--underline {
   padding: 10px 30px;
   height: 50px;
   box-shadow: none;
-  border: 0;
   font-weight: 400;
   font-size: 14px;
   letter-spacing: 1px;
   text-transform: none;
+  line-height: 20px;
 }
 
 
@@ -270,6 +270,10 @@ input.input--underline {
 .vb.no-pad {
   padding: 0 !important;
 }
+.vb.vb--outline--none:active,
+.vb.vb--outline--none:hover {
+  background-color: rgba(255,255,255,.1) !important;
+}
 .vb--intro--register {
     padding: 15px 20px;
     background-color: rgba(255,255,255,.2);
@@ -308,11 +312,9 @@ input.input--underline {
   opacity: 1 !important;
 }
 .vb.vb--outline:active,
-.vb.vb--outline:hover,
-.vb.vb--outline--none:active,
-.vb.vb--outline--none:hover {
+.vb.vb--outline:hover {
   opacity: 1 !important;
-  background-color: rgba(247,247,247,.4);
+  background-color: rgba(247,247,247,.1);
 }
 
 .vb.vb--add {
@@ -354,6 +356,20 @@ input.input--underline {
   opacity: 1;
 }
 
+.vb--fb {
+  background-color: #3b5998 !important;
+}
+.vb.vb--outline--none.vb--fb:hover,
+.vb.vb--outline--none.vb--fb:active {
+  background-color: #627aac !important;
+}
+.vb.vb--tw {
+  background-color: #00aced !important;
+}
+.vb.vb--outline--none.vb--tw:hover,
+.vb.vb--outline--none.vb--tw:active {
+  background-color: #1dcaff !important;
+}
 
 
 
@@ -442,15 +458,13 @@ input.input--overline {
 
 label {
   cursor: pointer;
-  font-size: 10px;
+  font-size: 14px;
   margin-bottom: 0;
-  letter-spacing: 2px;
-  text-transform: uppercase;
   opacity: 1;
-  font-weight: 600;
+  font-weight: 400;
   width: 100%;
   color: #292F3D;
-  font-family: 'Arimo', sans-serif;
+  line-height: 26px !important;
 }
 
 .field-wrapper {

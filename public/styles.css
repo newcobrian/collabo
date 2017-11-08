@@ -22,11 +22,11 @@ body a:hover {
 
 }
 input[type="checkbox"] {
-    display:none;
+    /*display:none;*/
 }
 
 input[type="checkbox"] + label {
-    color:#f2f2f2;
+    /*color:#f2f2f2;*/
 }
 
 input[type="checkbox"] + label span {
@@ -696,6 +696,22 @@ width: 32px;
 }
 .pdding-left-sm  {
   padding-left: 10px;
+}
+
+.pdding-all-xs {
+  padding: 5px;
+}
+.pdding-top-xs {
+  padding-top: 5px;
+}
+.pdding-right-xs  {
+  padding-right: 5px;
+}
+.pdding-bottom-xs  {
+  padding-bottom: 5px;
+}
+.pdding-left-xs  {
+  padding-left: 5px;
 }
 
 .pdding-all-md {

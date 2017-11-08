@@ -109,6 +109,7 @@ export const DELETE_ITINERARY_MODAL = 'DELETE_ITINERARY_MODAL'
 export const INFO_MODAL = 'INFO_MODAL'
 export const REORDER_ITINERARY_MODAL = 'REORDER_ITINERARY_MODAL'
 export const SHARE_MODAL = 'SHARE_MODAL'
+export const FILTER_MODAL = 'FILTER_MODAL'
 
 /*** Page Sources ***/
 export const USER_FEED = 'USER_FEED'

@@ -35,8 +35,8 @@ class ShareModal extends React.Component {
 
     const actions = [
       <FlatButton
-        label="Close"
-        className="vb"
+        label="Cancel"
+        className="vb vb--md w-100"
         hoverColor="rgba(247,247,247,.2)"
         onClick={handleClose}
         style={{
@@ -62,9 +62,11 @@ class ShareModal extends React.Component {
               
             }}
 
-          title={"Share Modal"}
+          title="Share this Guide"
           titleClassName="dialog__title v2-type-h2"
-          titleStyle={{}}
+          titleStyle={{
+            textAlign: "center"
+          }}
 
           className="dialog dialog--save"
           style={{height: "100%"}}
@@ -83,72 +85,69 @@ class ShareModal extends React.Component {
           
         >
           <div className="dialog--save flx flx-col color--black font--alpha">
-           
-            <div className="mrgn-top-md w-100">
-              <div className="flx flx-col mrgn-bottom-md pdding-bottom-sm brdr-bottom w-100 pdding-left-md pdding-right-md">
-                <div className="flx flx-row flx-align-start mrgn-bottom-sm">
-                  <i className="material-icons mrgn-right-md color--black opa-60 md-24">&#xE55F;</i>
-                <div>
-                  <div className="v2-type-body2">{itinerary.title}</div>
-                </div>
-              </div>
+                         
+            <div className="w-100 ta-center pdding-left-md pdding-right-md pdding-top-md flx flx-col flx-center-all">
+              <div className="pdding-all-sm">{itinerary.title}</div>
+              <i className="material-icons color--black opa-20">arrow_downward</i>
+            </div>
+            <div className="pdding-left-md pdding-right-md pdding-top-md pdding-bottom-xs w-100">
+
+                <FacebookShareButton
+                  url={Constants.VIEWS_URL + `/guides/${itinerary.id}`}
+                  quote={'Check out my travel guide "' + itinerary.title + '" for ' + shortName}
+                  hashtag={'#views'}
+                  className="flx flx-row flx-center-all w-100 vb vb--md vb--outline--none vb--fb">
+                  <div className="flx-item-left">
+                    <FacebookIcon
+                      size={24}
+                      className=""
+                      round />
+                  </div>
+                  <div className="color--white w-100">Share to Facebook</div>
+                  <FacebookShareCount
+                    url={Constants.VIEWS_URL + `/guide/${itinerary.id}`}
+                    className="color--white flx-item-right">
+                    {count => count}
+                  </FacebookShareCount>
+
+                </FacebookShareButton>
+               
+                
+            </div>   
+
+            <div className="pdding-left-md pdding-right-md pdding-top-xs pdding-bottom-xs w-100"> 
+                <TwitterShareButton
+                  url={Constants.VIEWS_URL + `/guide/${itinerary.id}`}
+                  title={'Check out my travel guide "' + itinerary.title + '" for ' + shortName + ':'}
+                  hashtags={['views']}
+                  className="flx flx-row flx-center-all w-100 vb vb--md vb--outline--none vb--tw">
+                  <div className="flx-item-left">
+                    <TwitterIcon
+                      size={24}
+                      className=""
+                      round />
+                  </div>
+                    <div className="color--white w-100">Share to Twitter</div>
+                </TwitterShareButton>
             </div>
 
-            <div className="flx flx-col mrgn-bottom-md pdding-bottom-sm brdr-bottom w-100 pdding-left-md pdding-right-md">
-              <div className="flx flx-row flx-align-start mrgn-bottom-sm">
-                <i className="material-icons mrgn-right-md color--black opa-60 md-24">link</i>
-                <div className="v2-type-body2">
-                  <FacebookShareButton
-                        url={Constants.VIEWS_URL + `/guides/${itinerary.id}`}
-                        quote={'Check out my travel guide "' + itinerary.title + '" for ' + shortName}
-                        hashtag={'#views'}
-                        className="Demo__some-network__share-button">
-                        <FacebookIcon
-                          size={24}
-                          round />
-                      </FacebookShareButton>
 
-                      <FacebookShareCount
-                        url={Constants.VIEWS_URL + `/guide/${itinerary.id}`}
-                        className="mrgn-left-sm">
-                        {count => count}
-                      </FacebookShareCount>
-                </div>
-              </div>    
-            </div>
 
-            <div className="flx flx-col mrgn-bottom-md pdding-bottom-sm brdr-bottom w-100 pdding-left-md pdding-right-md">
-              <div className="flx flx-row flx-align-start mrgn-bottom-sm">
-                <i className="material-icons mrgn-right-md color--black opa-60 md-24">phone</i>
-                <div className="v2-type-body2">
-                  <TwitterShareButton
-                        url={Constants.VIEWS_URL + `/guide/${itinerary.id}`}
-                        title={'Check out my travel guide "' + itinerary.title + '" for ' + shortName + ':'}
-                        hashtags={['views']}
-                        className="Demo__some-network__share-button">
-                        <TwitterIcon
-                          size={24}
-                          round />
-                      </TwitterShareButton>
-                </div>
-              </div>    
-            </div>
-
-            <div className="flx flx-col mrgn-bottom-md pdding-bottom-sm pdding-left-md pdding-right-md">
-              <div className="flx flx-row flx-align-start mrgn-bottom-sm md-24">
-                <i className="material-icons mrgn-right-md color--black opa-60">link</i>
-                <div className="v2-type-body2">
-                  <CopyToClipboard text={'https://myviews.io/guide/' + itinerary.id}
-                    onCopy={() => this.setState({copied: true})}>
-                    <button>Copy link to clipboard</button>
-                  </CopyToClipboard>
-                  {'https://myviews.io/guide/' + itinerary.id}
-                </div>
-              </div>
+            <div className="pdding-left-md pdding-right-md pdding-top-xs pdding-bottom-xs w-100">
+              <CopyToClipboard 
+                className="flx flx-row flx-center-all w-100 vb vb--md vb--outline--none color--white fill--success"
+                text={'https://myviews.io/guide/' + itinerary.id}
+                onCopy={() => this.setState({copied: true})}>
+                  <div className="flx flx-row flx-center-all w-100">
+                    <i className="material-icons color--white opa-60 flx-item-left">link</i>
+                    <div className="w-100">Copy link to clipboard</div>
+                  </div>
+              </CopyToClipboard>
+              <div className="v2-type-caption pdding-all-md ta-center opa-40">{'https://myviews.io/guide/' + itinerary.id}</div>
             </div>
           
           </div>
-        </div>
+
 
         </Dialog>
       </MuiThemeProvider>

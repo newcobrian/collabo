@@ -1,6 +1,7 @@
 body div.dialog--save {
   padding-top: 0 !important;
   overflow: scroll;
+  padding: 0 0 40px;
 }
 .dialog--save__wrapper {
   margin: 0;
@@ -70,7 +71,7 @@ body div.dialog--save {
   left: 0;
   right: 0;
   background: white;
-
+  padding: 10px 20px !important;
 }
 .dialog--save__actions button {
   text-align: center !important;

@@ -11,7 +11,7 @@ const ProxyImage = props => {
   // decode "https://firebasestorage.googleapis.com/v0/b/views-18a9f.appspot.com/o/images/OUpGACDsYmcvIHm?alt=media&token=fb3c148f-2016-41cf-aa81-23d5a2cccd9c"
   var url = props.src
 
-  console.log(url)
+  // console.log(url)
   
   if (url.indexOf('https://firebasestorage.googleapis.com') != -1) {
     url = decodeURIComponent(url)

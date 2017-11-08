@@ -11,7 +11,7 @@ const ProfilePic = props => {
 
   var url = props.src
 
-  console.log(url)
+  // console.log(url)
   
   if (url.indexOf('https://firebasestorage.googleapis.com') != -1) {
     url = decodeURIComponent(url)

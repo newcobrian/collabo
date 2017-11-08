@@ -25,7 +25,7 @@ class ImagePicker extends React.Component {
     if (images && images.length > 0) {
       var url = images[0].url ? images[0].url : (images[0].preview ? images[0].preview : null)
 
-      console.log(url)
+      // console.log(url)
       
       if (url) {
         if (url.indexOf('https://firebasestorage.googleapis.com') != -1) {

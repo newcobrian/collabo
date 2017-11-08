@@ -363,6 +363,11 @@ class ItineraryForm extends React.Component {
       this.props.onRemoveTag(auth, tip, itineraryId, placeId, tag);
     }
 
+    const openFilter = ev => {
+      ev.preventDefault()
+      this.props.showFilterModal(itinerary);
+    }
+
     return (
       <div className={this.props.mapViewToggle ? 'flx flx-col flx-align-start page-common page-itinerary page-edit-own show-map' : 'flx flx-col flx-align-start page-common page-itinerary page-edit-own'}>
 
@@ -509,23 +514,20 @@ class ItineraryForm extends React.Component {
                       type={ITINERARY_TYPE} />
                   </div>
 
-                  {/* Share */}
-                  <div className="cta-wrapper flx flx-row vb vb--sm vb--outline fill--white color--black DN"
-                    onClick={this.shareGuide} >
-                    Share Guide
-                  </div>
 
-                  <div className="edit-itinerary-link vb vb--sm no-pad vb--outline fill--white color--black mrgn-left-n-1">             
+                  <div className="edit-itinerary-link vb vb--sm no-pad vb--outline--none fill--none color--black opa-60 mrgn-left-n-1">             
                     <MuiThemeProvider muiTheme={getMuiTheme()}>
                       <IconMenu
                          iconButtonElement={<IconButton><MoreHorizIcon /></IconButton>}
+                         className="invert"
                          anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
                          targetOrigin={{horizontal: 'left', vertical: 'top'}}
-                       >
+                        >
                          <ItineraryActionsButton 
                           itinerary={itinerary} 
                           authenticated={this.props.authenticated} 
                           canModify={true} 
+                          className="invert vb vb--outline--none fill--none"
                           deleteModal={this.props.showDeleteModal} 
                           redirectPath="/" />
                        </IconMenu>
@@ -533,7 +535,16 @@ class ItineraryForm extends React.Component {
                   </div>
 
                   
-                  <div className="flx-item-right flx flx-row">
+                  {/* Share */}
+                  <div className="cta-wrapper flx flx-row vb vb--sm vb--outline fill--white color--black flx-item-right"
+                    onClick={this.shareGuide} >
+                    <div className="color--black mrgn-right-sm">Share Guide</div>
+                    <i className="material-icons color--primary">play_arrow</i>
+                    <i className="material-icons color--primary">accessibility</i>
+                  </div>
+
+
+                  <div className="flx-item-right flx flx-row DN">
                     <div className="vb vb--sm vb--outline fill--white color--black">
                       <FacebookShareButton
                         url={Constants.VIEWS_URL + `/guides/${this.props.itineraryId}`}
@@ -580,7 +591,12 @@ class ItineraryForm extends React.Component {
 
 
 
-    
+            <div className="w-100 flx flx-row flx-center-all pdding-all-sm">
+              <Link className="vb vb--md fill--white color--black w-100 flx flx-row flx-center-all vb--outline ta-center" onClick={openFilter}>
+                <i className="material-icons color--black opa-60 mrgn-right-sm">filter_list</i>
+                Showing 4/10 Categories
+              </Link>
+            </div>
 
 
             
@@ -611,9 +627,9 @@ class ItineraryForm extends React.Component {
 
 
 
-                                      { /** Image shown if own web **/}
-                                      <MediaQuery query="(min-device-width: 1224px)">
-                                        <div className="tip__image-module mobile-hide">
+                                      { /** Image shown if own web 
+                                      <MediaQuery query="(min-device-width: 1224px)">**/}
+                                        <div className="tip__image-module">
                                             <div className={"tip__photo-count tip-count-" + tip.images.length}>{tip.images.length > 0 ? tip.images.length : null}</div>
                                             <ImagePicker images={tip.images} />
                                           <Dropzone
@@ -627,9 +643,11 @@ class ItineraryForm extends React.Component {
 
                                           </Dropzone>
                                         </div>
+                                      
+                                      {/** 
                                       </MediaQuery>
 
-                                      {/** EXAMPLE: on mobile, just show the dropzone 
+                                      EXAMPLE: on mobile, just show the dropzone 
                                       <MediaQuery query="(max-device-width: 1224px)">
                                         <Dropzone
                                             onDrop={tipDropHandler(tip)}
