@@ -203,6 +203,12 @@ class Itinerary extends React.Component {
               <div className="mobile-hide color--black mrgn-left-sm">Full Map</div>
             </button>
 
+            {/**<button className="mobile-show vb vb--sm vb--outline vb--round flx flx-row flx-align-center fill--white color--black button-filter-map bx-shadow"
+             onClick={openFilter}>
+              <i className="material-icons color--black md-18 opa-80 DN">filter_list</i>
+              <div className="color--black">Filter</div>
+            </button>**/}
+
 
             <div className="content-wrapper itinerary flx flx-col flx-align-center map-on">
 
