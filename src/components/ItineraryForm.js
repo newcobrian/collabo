@@ -199,6 +199,7 @@ class ItineraryForm extends React.Component {
     }
     
     const itinerary = this.props.data;
+    const visibleTips = this.props.visibleTips;
     const shortName = itinerary && itinerary.geo && itinerary.geo.shortName ? itinerary.geo.shortName : itinerary.geo.label;
     const {google} = this.props;
     const addTipFunc = this.props.onAddTip;
@@ -369,25 +370,6 @@ class ItineraryForm extends React.Component {
       ev.preventDefault()
       this.props.showFilterModal(itinerary, this.props.visibleTags, this.props.showAllFilters);
     }
-
-    const getVisibleTips = (tips, visibleTags) => {
-      if (this.props.showAllFilters) {
-        return tips;
-      }
-      else {
-        return tips.filter(function(tip) {
-          for (var tagName in tip.tags) {
-            if (visibleTags.hasOwnProperty(tagName) && visibleTags[tagName].checked) {
-              return true;
-            }
-          }
-          return false;
-        })
-      }
-    }
-    // console.log('visible tags = ' + JSON.stringify(this.props.visibleTags))
-    // console.log('show allfilter = ' + JSON.stringify(this.props.showAllFilters))
-    const visibleTips = getVisibleTips(itinerary.tips, this.props.visibleTags);
 
     return (
       <div className={this.props.mapViewToggle ? 'flx flx-col flx-align-start page-common page-itinerary page-edit-own show-map' : 'flx flx-col flx-align-start page-common page-itinerary page-edit-own'}>
