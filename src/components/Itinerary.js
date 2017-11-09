@@ -359,7 +359,7 @@ class Itinerary extends React.Component {
                           </FacebookShareButton>
 
                           <FacebookShareCount
-                            url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
+                            url={Constants.VIEWS_SHARE_FACEBOOK_URL + `/${this.props.itineraryId}`}
                             className="mrgn-left-sm">
                             {count => count}
                           </FacebookShareCount>

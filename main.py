@@ -14,7 +14,7 @@ xhttp.send();
 """
 import base64, datetime, json, hashlib, hmac, logging, pprint, urllib, zlib
 
-from flask import Flask, request, Response
+from flask import Flask, redirect, request, Response
 app = Flask(__name__)
 
 import lxml.etree # !@#%! amazon
@@ -501,23 +501,42 @@ def share_facebook(itinerary_id):
     '''
         arguments: 
             itinerary_id: firebase object ID to share
+            
+        return: an OpenGraph share page
     
         test:
             curl -v \
                 'http://localhost:8080/share/facebook/-KsHtCGxX10pSPFRFw6p'
     '''
-    rc = {'ok': True}
     try:
-        pass
+        ref = db.reference('itineraries/{0}'.format(itinerary_id)).get()
+        if not ref:
+            raise Exception('NotFound: %s' % itinerary_id)
+
+        title = ref['title']
+        description = ref['description']
+        image = ref['images']['url']
+
+        resp = Response('''
+<html>
+    <head>
+        <meta property="og:url"         content="https://myviews.io/guide/%(itinerary_id)s" />
+        <meta property="og:type"        content="article" />
+        <meta property="og:title"       content="%(title)s" />
+        <meta property="og:description" content="%(description)s" />
+        <meta property="og:image"       content="%(image)s" />
+    </head>
+    <body>
+        
+    </body>
+</html>
+        ''' % locals())
+        resp.headers['Access-Control-Allow-Origin'] = '*'
+        return resp
     except Exception, e:
-        rc = {'ok': False, 'err': str(e)}
+        # smart thing i think on error is to redirect to the regular site
+        return redirect('https://myviews.io/guide/{0}'.format(itinerary_id), code=301)
 
-    ref = db.reference('itineraries/{0}'.format(itinerary_id)).get()
-    rc['result'] = ref
-
-    resp = Response(json.dumps(rc))
-    resp.headers['Access-Control-Allow-Origin'] = '*'
-    return resp
 
 @app.errorhandler(404)
 def page_not_found(e):
