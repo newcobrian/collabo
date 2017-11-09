@@ -7,5 +7,7 @@
 Flask==0.10
 lxml
 six
+requests
+requests-toolbelt
 createsend==4.2.1
-python-firebase==1.2
+firebase-admin
