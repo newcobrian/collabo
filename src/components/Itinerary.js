@@ -21,7 +21,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Dropzone from 'react-dropzone';
 import ItineraryForm from './ItineraryForm';
 import * as Selectors from '../selectors/itinerarySelectors';
-import { isEmpty, find } from 'lodash';
+import { isEmpty, find, filter } from 'lodash';
 import MapContainer from './MapContainer';
 import scrollToElement from 'scroll-to-element';
 import RelatedItineraries from './RelatedItineraries';
@@ -208,13 +208,23 @@ class Itinerary extends React.Component {
         })
       }
     }
+
+    const getTagFilterCounts = tips => {
+
+    }
     // console.log('visible tags = ' + JSON.stringify(this.props.visibleTags))
     // console.log('show allfilter = ' + JSON.stringify(this.props.showAllFilters))
     const visibleTips = getVisibleTips(itinerary.tips, this.props.visibleTags);
+    const numTotalTags = Object.keys(itinerary.tips).length;
+    const numVisibleTags = this.props.showAllFilters ? numTotalTags : Object.keys(filter(this.props.visibleTags, ['checked', true])).length;
 
       if (canModify) {
         return (
-          <ItineraryForm initialValues={itinerary} visibleTips={visibleTips} />
+          <ItineraryForm 
+            initialValues={itinerary} 
+            visibleTips={visibleTips} 
+            numVisibleTags={numVisibleTags} 
+            numTotalTags={numTotalTags} />
           )
       }
       else {
@@ -397,7 +407,7 @@ class Itinerary extends React.Component {
               <div className="w-100 flx flx-row flx-center-all pdding-all-sm">
                 <Link className="vb vb--md fill--white color--black w-100 flx flx-row flx-center-all vb--outline ta-center" onClick={openFilter}>
                   <i className="material-icons color--black opa-60 mrgn-right-sm">filter_list</i>
-                    Filter by tags {/*Showing 4/10 Categories */}
+                    Filter (Showing {numVisibleTags}/{numTotalTags} tags) {/*Showing 4/10 Categories */}
                 </Link>
               </div>
 
