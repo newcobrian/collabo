@@ -12,7 +12,7 @@ xhttp.open("GET", url, true);
 xhttp.send();
 
 """
-import base64, datetime, json, hashlib, hmac, logging, pprint, urllib, zlib
+import base64, datetime, json, hashlib, hmac, logging, pprint, urllib, urllib2, zlib
 
 from flask import Flask, redirect, request, Response
 app = Flask(__name__)
@@ -507,6 +507,9 @@ def share_facebook(itinerary_id):
         test:
             curl -v \
                 'http://localhost:8080/share/facebook/-KsHtCGxX10pSPFRFw6p'
+                
+            for raw markup debugging, deploy live and use
+            https://developers.facebook.com/tools/debug/sharing/?q=http%3A%2F%2Fmyviews.io%2Fshare%2Ffacebook%2F-KsHtCGxX10pSPFRFw6p
     '''
     try:
         ref = db.reference('itineraries/{0}'.format(itinerary_id)).get()
@@ -517,17 +520,28 @@ def share_facebook(itinerary_id):
         description = ref['description']
         image = ref['images']['url']
 
+        # same problem as in React, we have these huge images on Firebase's slow ass CDN
+        if image.startswith('https://firebasestorage.googleapis.com'):
+            proxied = urllib2.unquote(image)
+            proxied = proxied.split('?')[0]
+            proxied = proxied.split('/')[-1]
+            # 1200x630 desired
+            image = 'https://myviews.imgix.net/images/' + proxied + '?fit=crop&h=630&max-w=1200'
+
+
         resp = Response('''
 <html>
     <head>
-        <meta property="og:url"         content="https://myviews.io/guide/%(itinerary_id)s" />
+        <meta property="og:url"         content="https://myviews.io/share/%(itinerary_id)s" />
         <meta property="og:type"        content="article" />
         <meta property="og:title"       content="%(title)s" />
         <meta property="og:description" content="%(description)s" />
         <meta property="og:image"       content="%(image)s" />
+        
+        <meta http-equiv="refresh" content="0; url=https://myviews.io/guide/%(itinerary_id)s">
     </head>
     <body>
-        
+        Please wait while your guide is loaded...
     </body>
 </html>
         ''' % locals())
