@@ -93,7 +93,7 @@ class ShareModal extends React.Component {
             <div className="pdding-left-md pdding-right-md pdding-top-md pdding-bottom-xs w-100">
 
                 <FacebookShareButton
-                  url={Constants.VIEWS_URL + `/guides/${itinerary.id}`}
+                  url={Constants.VIEWS_SHARE_FACEBOOK_URL + `/${itinerary.id}`}
                   quote={'Check out my travel guide "' + itinerary.title + '" for ' + shortName}
                   hashtag={'#views'}
                   className="flx flx-row flx-center-all w-100 vb vb--md vb--outline--none vb--fb">
