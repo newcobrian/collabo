@@ -30,6 +30,7 @@ import SEO from './SEO';
 import { ShareButtons, ShareCounts, generateShareIcon } from 'react-share';
 import MediaQuery from 'react-responsive';
 import AddTagInput from './AddTagInput';
+import { filter } from 'lodash'
 
 const {
   FacebookShareButton,
@@ -196,6 +197,7 @@ class ItineraryForm extends React.Component {
         </Map>
         );
     }
+    
     const itinerary = this.props.data;
     const shortName = itinerary && itinerary.geo && itinerary.geo.shortName ? itinerary.geo.shortName : itinerary.geo.label;
     const {google} = this.props;
@@ -365,8 +367,27 @@ class ItineraryForm extends React.Component {
 
     const openFilter = ev => {
       ev.preventDefault()
-      this.props.showFilterModal(itinerary);
+      this.props.showFilterModal(itinerary, this.props.visibleTags, this.props.showAllFilters);
     }
+
+    const getVisibleTips = (tips, visibleTags) => {
+      if (this.props.showAllFilters) {
+        return tips;
+      }
+      else {
+        return tips.filter(function(tip) {
+          for (var tagName in tip.tags) {
+            if (visibleTags.hasOwnProperty(tagName) && visibleTags[tagName].checked) {
+              return true;
+            }
+          }
+          return false;
+        })
+      }
+    }
+    // console.log('visible tags = ' + JSON.stringify(this.props.visibleTags))
+    // console.log('show allfilter = ' + JSON.stringify(this.props.showAllFilters))
+    const visibleTips = getVisibleTips(itinerary.tips, this.props.visibleTags);
 
     return (
       <div className={this.props.mapViewToggle ? 'flx flx-col flx-align-start page-common page-itinerary page-edit-own show-map' : 'flx flx-col flx-align-start page-common page-itinerary page-edit-own'}>
@@ -600,7 +621,7 @@ class ItineraryForm extends React.Component {
             <div className="w-100 flx flx-row flx-center-all pdding-all-sm">
               <Link className="vb vb--md fill--white color--black w-100 flx flx-row flx-center-all vb--outline ta-center" onClick={openFilter}>
                 <i className="material-icons color--black opa-60 mrgn-right-sm">filter_list</i>
-                Showing 4/10 Categories
+                  Filter by tags {/*Showing 4/10 Categories */}
               </Link>
             </div>
 
@@ -614,7 +635,7 @@ class ItineraryForm extends React.Component {
               </div>
 
               {
-                itinerary.tips.map((tip, index) => {
+                visibleTips.map((tip, index) => {
                   return (
                     <Element name={'tip' + tip.key} className={"tip-wrapper flx flx-col flx-col w-100 w-max" + isSelectedTip(tip.key)} id={'tip' + tip.key} key={tip.key} onClick={onTipClick(tip)}>
 
@@ -885,7 +906,7 @@ class ItineraryForm extends React.Component {
 
 
           <div className="it-map-container fill--light-gray">
-            <MapContainer itinerary={itinerary} google={this.props.google} />
+            <MapContainer itinerary={itinerary} visibleTips={visibleTips} google={this.props.google} />
           </div>
           { /** Map block 
           <div className="it-map-container">

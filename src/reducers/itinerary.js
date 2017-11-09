@@ -6,7 +6,7 @@ import { filter, isEqual, find, omit, countBy } from 'lodash';
 
 const initialState = { usersData: {}, reviewsData: {}, subjectsData: {}, itinerary: {}, commentsData: {}, 
   userImagesData: {}, defaultImagesData: {}, likesData: {}, tips: [], formErrors: { title: false, geo: false },
-  appliedFilters: {} };
+  visibleTags: {}, showAllFilters: true };
 
 const getImage = (userImages, defaultImages) => {
   let defaultImage = defaultImages ? defaultImages : [];
@@ -481,13 +481,22 @@ export default (state = initialState, action) => {
         ...state,
         mapViewToggle: !state.mapViewToggle
       }
-    case ActionTypes.TOGGLE_ITINERARY_FILTER: {
-      const newState = Object.assign({}, state);
-      newState.appliedFilters = newState.appliedFilters || {};
-      newState.appliedFilters = Object.assign({}, newState.appliedFilters);
-      newState.appliedFilters[action.tag] = !newState.appliedFilters[action.tag]
+    // case ActionTypes.TOGGLE_ITINERARY_FILTER: {
+    //   const newState = Object.assign({}, state);
+    //   newState.appliedFilters = newState.appliedFilters || {};
+    //   newState.appliedFilters = Object.assign({}, newState.appliedFilters);
+    //   newState.appliedFilters[action.tag] = !newState.appliedFilters[action.tag]
+    //   // if (!newState.appledFilters[action.tag]) {
+    //   //   newState.showAllTags = false;
+    //   // }
 
-      return newState;
+    //   return newState;
+    //   }
+    case ActionTypes.SET_ITINERARY_FILTERS:
+      return {
+        ...state,
+        visibleTags: action.visibleTags,
+        showAllFilters: action.showAllFilters
       }
     default:
       return state;

@@ -33,7 +33,7 @@ class AddTagInput extends React.Component {
         <input type="text" 
           value={this.state.tagInput} 
           onChange={this.onUpdateField} 
-          placeholder="+ cat." />
+          placeholder="+Add tag" />
         <button className="comment-send vb vb--sm vb--outline fill--white color--black DN" onClick={this.onFormSubmit}>
           Add
           <i className="material-icons color--primary md-18 color--primary DN">send</i>
