@@ -8,3 +8,4 @@ Flask==0.10
 lxml
 six
 createsend==4.2.1
+python-firebase==1.2

@@ -4,15 +4,13 @@ build: FORCE
 local: build
 	dev_appserver.py .
 
-deploy: build
-	cp etc/pydistutils.cfg.orig ~/.pydistutils.cfg
-	pip install six
-	pip install six -t lib
-	pip install -r requirements.txt -t lib/
+deploy: build libs
 	yes | gcloud app deploy --verbosity=info --stop-previous-version --project views-18a9f
 
 libs:
+	cp etc/pydistutils.cfg.orig setup.cfg
 	pip install -r requirements.txt -t lib/
+	rm -f setup.cfg
 	pip install -r requirements.txt
 
 FORCE: ;

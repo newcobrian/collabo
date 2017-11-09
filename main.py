@@ -467,6 +467,26 @@ def send_mail():
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp
 
+@app.route('/share/facebook/<itinerary_id>', methods=['GET'])
+def share_facebook(itinerary_id):
+    '''
+        arguments: 
+            itinerary_id: firebase object ID to share
+    
+        test:
+            curl -v \
+                'http://localhost:8080/share/facebook/-KsHtCGxX10pSPFRFw6p'
+    '''
+    rc = {'ok': True}
+    try:
+        pass
+    except Exception, e:
+        rc = {'ok': False, 'err': str(e)}
+
+    resp = Response(json.dumps(rc))
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
+
 @app.errorhandler(404)
 def page_not_found(e):
     """Return a custom 404 error."""

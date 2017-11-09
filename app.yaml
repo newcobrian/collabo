@@ -22,8 +22,10 @@ handlers:
 - url: /proxy.*  # amazon api proxy
   script: main.app
 
-
 - url: /mail.*  # send mail
+  script: main.app
+
+- url: /share.*  # send mail
   script: main.app
 
 # App Engine serves and caches static files contained in the listed directories
