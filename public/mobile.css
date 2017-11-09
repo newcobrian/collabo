@@ -846,14 +846,19 @@ body .back-to-top {
   visibility: hidden;
   bottom: 60px;
   top: 40px;
+  pointer-events: none;
 }
 .page-itinerary.show-map .it-map-container {
   visibility: visible;
+  pointer-events: unset;
 }
 .page-itinerary .button-map-toggle {
   position: fixed;
   right: 10px;
   top: 50px;
+}
+.page-itinerary .button-filter-map {
+  display: inline-block;
 }
 
 .floating-map-toggle {

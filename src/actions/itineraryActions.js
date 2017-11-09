@@ -846,20 +846,22 @@ export function onRemoveTag(auth, tip, itineraryId, placeId, tag) {
   }
 }
 
-export function showFilterModal(itinerary) {
+export function showFilterModal(itinerary, appliedFilters, showAllFilters) {
   return dispatch => {
     dispatch({
       type: ActionTypes.SHOW_FILTER_MODAL,
-      itinerary
+      itinerary,
+      appliedFilters,
+      showAllFilters
     })
   }
 }
-
-export function toggleItineraryFilter(tag) {
+export function setItineraryFilters(visibleTags, showAllFilters) {
   return dispatch => {
     dispatch({
-      type: ActionTypes.TOGGLE_ITINERARY_FILTER,
-      tag
+      type: ActionTypes.SET_ITINERARY_FILTERS,
+      visibleTags,
+      showAllFilters
     })
   }
 }

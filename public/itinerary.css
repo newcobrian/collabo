@@ -451,6 +451,13 @@ textarea.edit-itinerary__name {
 	top: 80px;
 	z-index: 10;
 }
+.page-itinerary .button-filter-map {
+	position: fixed;
+	right: 60px; 
+	top: 50px;
+	z-index: 10;
+	display: none;
+}
 .page-itinerary.show-map .button-map-toggle .material-icons {
 	color: #3DCBF3;
 	opacity: 1 !important;

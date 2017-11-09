@@ -541,17 +541,24 @@ select:hover {
   padding-right: 20px;
 }
 .tip-tag {
-  border-radius: 7px;
-  padding: 5px 10px;
-  font-size: 12px;
-  margin-right: 5px;
-  }
+  border-radius: 3px;
+  height: 28px;
+  padding: 5px 8px 5px 10px;
+  font-size: 14px;
+  margin: 3px 5px 3px 0;
+  border: 1px solid #EDEDED;
+  background: white;
+  /*background: #F6F6F6;*/
+  /*-webkit-box-shadow: 0px 3px 15px rgba(0,0,0,0.02) !important;*/
+}
 
-
-
-
-
-
+.tip-tag i {
+  color: #121419;
+  opacity: .1;
+}
+.tip-tag i:hover {
+  color: red;
+  opacity: 1;
 }
 .tag-list {
 
@@ -561,10 +568,18 @@ select:hover {
 }
 .tag-input-wrapper input,
 .tag-input-wrapper textarea {
-  padding: 5px;
+  padding: 5px 5px 5px 10px;
   font-family: 'Roboto', sans-serif !important;
   font-size: 14px;
   text-align: left;
-  margin: 2px 0 0;
+  margin: 0;
   width: 100px;
+/*  border-color: #EDEDED;
+  border: 1px solid #EDEDED;*/
+  height: 28px;
+  border-radius: 3px;
+}
+.tag-input-wrapper input:focus,
+.tag-input-wrapper input:hover {
+
 }

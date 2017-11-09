@@ -17,10 +17,47 @@ const mapStateToProps = state => ({
 class FilterModal extends React.Component {
   constructor() {
     super();
+
+    this.state = {
+      filters: {},
+      showAllFilters: false
+    }
+  }
+
+  componentWillMount() {
+    // if showAllFilters, this might be the first time opening dialog, so construct filter object
+    // with any tag that has at least 1 tip
+    if (this.props.showAllFilters) {
+      let filters = {}
+      Object.keys(this.props.itinerary.tags || {}).map(function (tagName) {
+        if (this.props.itinerary.tags[tagName] > 0) {
+          filters[tagName] = { checked: true, count: this.props.itinerary.tags[tagName] };
+        }
+      }, this)
+
+      this.setState({
+        showAllFilters: true,
+        filters: filters
+      })
+    }
+    // otherwise just set filters and showAllFilters from what's passed in
+    else {
+      let filters = {}
+      Object.keys(this.props.itinerary.tags || {}).map(function (tagName) {
+        if (this.props.itinerary.tags[tagName] > 0) {
+          filters[tagName] = this.props.visibleTags[tagName] ? Object.assign({}, this.props.visibleTags[tagName]) :
+            { checked: false, count: this.props.itinerary.tags[tagName] }
+        }
+      }, this)
+
+      this.setState({
+        filters: this.props.visibleTags,
+        showAllFilters: false
+      })
+    }
   }
 
   render() {
-    console.log(JSON.stringify(this.props.appliedFilters))
     const handleClose = ev => {
       ev.preventDefault();
       this.props.hideModal();
@@ -28,12 +65,51 @@ class FilterModal extends React.Component {
 
     const applyClick = ev => {
       ev.preventDefault();
-      console.log('apply filter click')
+      this.props.setItineraryFilters(this.state.filters, this.state.showAllFilters);
+      this.props.hideModal();
     }
 
     const handleCheck = label => ev => {
       ev.preventDefault();
-      this.props.toggleItineraryFilter(label);
+      // this.props.toggleItineraryFilter(label);
+      let newFilters = Object.assign({}, this.state.filters);
+      newFilters[label].checked = !newFilters[label].checked;
+      this.setState({
+        filters: newFilters
+      })
+
+      if (!newFilters[label].checked) {
+        this.setState({
+          showAllFilters: false
+        })
+      }
+    }
+
+    const handleAllCheck = ev => {
+      ev.preventDefault();
+      if (this.state.showAllFilters) {
+        // clear all checked fields
+        let filters = Object.assign({}, this.state.filters)
+        Object.keys(this.state.filters || {}).map(function (tagName) {
+          filters[tagName].checked = false;
+        }, this)
+
+        this.setState({
+          showAllFilters: false
+        })
+      }
+      else {
+        // set all visible fields to true
+        let filters = Object.assign({}, this.state.filters)
+        Object.keys(this.state.filters || {}).map(function (tagName) {
+          filters[tagName].checked = true;
+        }, this)
+
+        this.setState({
+          showAllFilters: true,
+          filters: filters
+        })
+      }
     }
 
     const styles = {
@@ -62,7 +138,6 @@ class FilterModal extends React.Component {
         hoverColor="white"
         onClick={applyClick}
         disableTouchRipple={true}
-        fullWidth={false}
         className="vb vb--outline--none fill--primary color--white"
         labelStyle={{color: ""}}
         style={{
@@ -109,7 +184,9 @@ class FilterModal extends React.Component {
           <div className="dialog--save__content w-100">
             <div className="flx flx-row flx-align-center pdding-all-sm pdding-left-md brdr-bottom">
             <Checkbox
-                label="All"
+                label="Show All"
+                checked={this.state.showAllFilters}
+                onCheck={handleAllCheck}
                 style={styles.checkbox}
               />
             
@@ -119,37 +196,31 @@ class FilterModal extends React.Component {
               {
 
 
-                Object.keys(this.props.itinerary.tags || {}).map(function (tagName) {
+                Object.keys(this.state.filters || {}).map(function (tagName) {
 //checked={this.props.appliedFilters.has(tagName)}
-                  if (this.props.itinerary.tags[tagName] > 0) {
-                    return (
-                      <li key={tagName} className="flx flx-row flx-just-start flx-align-center brdr-bottom">
+                  return (
+                    <li key={tagName} className="flx flx-row flx-just-start flx-align-center brdr-bottom">
 
-                        {/*<Checkbox
-                            label={tagName + " " + "(" + this.props.itinerary.tags[tagName] + ")"}
-                            style={styles.checkbox}
-                            checked={true}
-                            
-                            onCheck={this.handleCheck}
-                          />*/}
-                        
-                        
-                          <input
-                            name={tagName}
-                            style={styles.checkbox}
-                            type="checkbox"
-                            checked={this.props.appliedFilters[tagName]}
-                            onChange={handleCheck(tagName)} />
-                        <label>
-                          {tagName + " " + "(" + this.props.itinerary.tags[tagName] + ")"}</label>
+                      <Checkbox
+                          label={tagName + " " + "(" + this.state.filters[tagName].count + ")"}
+                          style={styles.checkbox}
+                          checked={this.state.filters[tagName].checked}
+                          
+                          onCheck={handleCheck(tagName)}
+                        />
+                      
+                      
+                       {/*} <input
+                          name={tagName}
+                          style={styles.checkbox}
+                          type="checkbox"
+                          checked={this.props.appliedFilters[tagName]}
+                          onChange={handleCheck(tagName)} />
+                      <label>
+                        {tagName + " " + "(" + this.props.itinerary.tags[tagName] + ")"}</label>*/}
 
-                      </li>
-                    )
-
-                  }
-
-                  else return null;
-
+                    </li>
+                  )
 
                 }, this)
 

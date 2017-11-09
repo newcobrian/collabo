@@ -83,7 +83,7 @@ class MapContainer extends React.Component {
 				style={{width: '100%', height: '100%'}}
 				className="map-wrapper" >
 		        {
-		          this.props.itinerary.tips.map((tipItem, index) => {
+		          this.props.visibleTips.map((tipItem, index) => {
 		          	let markerUrl = (tipItem.key === this.props.selectedMarker ? "/img/graphics/map-pin_hover.png": "/img/graphics/map-pin_normal.png")
 		            return (
 		              <Marker

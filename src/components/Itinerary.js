@@ -188,9 +188,33 @@ class Itinerary extends React.Component {
       const canModify = (this.props.authenticated && 
       this.props.authenticated === this.props.itinerary.userId) || (Constants.SHARED_ITINERARIES.indexOf(itinerary.id) !== -1);
 
+      const openFilter = ev => {
+        ev.preventDefault()
+        this.props.showFilterModal(itinerary, this.props.visibleTags, this.props.showAllFilters);
+      }
+
+      const getVisibleTips = (tips, visibleTags) => {
+      if (this.props.showAllFilters) {
+        return tips;
+      }
+      else {
+        return tips.filter(function(tip) {
+          for (var tagName in tip.tags) {
+            if (visibleTags.hasOwnProperty(tagName) && visibleTags[tagName].checked) {
+              return true;
+            }
+          }
+          return false;
+        })
+      }
+    }
+    // console.log('visible tags = ' + JSON.stringify(this.props.visibleTags))
+    // console.log('show allfilter = ' + JSON.stringify(this.props.showAllFilters))
+    const visibleTips = getVisibleTips(itinerary.tips, this.props.visibleTags);
+
       if (canModify) {
         return (
-          <ItineraryForm initialValues={itinerary} />
+          <ItineraryForm initialValues={itinerary} visibleTips={visibleTips} />
           )
       }
       else {
@@ -202,6 +226,12 @@ class Itinerary extends React.Component {
               <i className="material-icons color--black md-18 opa-80">map</i>
               <div className="mobile-hide color--black mrgn-left-sm">Full Map</div>
             </button>
+
+            {/*<button className="mobile-show vb vb--sm vb--outline vb--round flx flx-row flx-align-center fill--white color--black button-filter-map bx-shadow"
+             onClick={openFilter}>
+              <i className="material-icons color--black md-18 opa-80 DN">filter_list</i>
+              <div className="color--black">Filter</div>
+            </button>*/}
 
 
             <div className="content-wrapper itinerary flx flx-col flx-align-center map-on">
@@ -244,13 +274,13 @@ class Itinerary extends React.Component {
                     </div>
                    
                     {/** Flag and Geo **/}
-                      <div Link to={`/places/${itinerary.geo.placeId}`} className="flx flx-col flx-just-start flx-align-center mrgn-bottom-sm mrgn-top-xs w-50">
+                      <Link to={`/places/${itinerary.geo.placeId}`} className="flx flx-col flx-just-start flx-align-center mrgn-bottom-sm mrgn-top-xs w-50">
                         <div className={'itinerary__cover__flag mrgn-bottom-sm flx-hold invert flag-' + itinerary.geo.country}>
                         </div>
                         <div className="geo-type ellipsis ta-center invert">
                         {itinerary.geo.label}
                         </div>
-                      </div>
+                      </Link>
 
                   </div>
 
@@ -362,14 +392,21 @@ class Itinerary extends React.Component {
                 {/** >>>>>> CLOSE CENTER INFO **/}
 
               </div>
-              {/** Close Cover Text DIV >>>>>> **/}  
+              {/** Close Cover Text DIV >>>>>> **/}
+
+              <div className="w-100 flx flx-row flx-center-all pdding-all-sm">
+                <Link className="vb vb--md fill--white color--black w-100 flx flx-row flx-center-all vb--outline ta-center" onClick={openFilter}>
+                  <i className="material-icons color--black opa-60 mrgn-right-sm">filter_list</i>
+                    Filter by tags {/*Showing 4/10 Categories */}
+                </Link>
+              </div>
 
               <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
                   <div className="flx flx-row w-100 flx-align-center pdding-left-md pdding-right-md pdding-top-md">
                     <div className="v2-type-body1 color--black">{itinerary.reviewsCount ? itinerary.reviewsCount : 0} Items</div>
                   </div>
                   <TipList
-                    tipList={this.props.tips}
+                    tipList={visibleTips}
                     reviewsCount={itinerary.reviewsCount}
                     authenticated={this.props.authenticated}
                     userInfo={this.props.userInfo}
@@ -416,7 +453,7 @@ class Itinerary extends React.Component {
             </div> {/*Content Wrapper*/}
             
             <div className="it-map-container fill--primary">
-              <MapContainer itinerary={itinerary} google={this.props.google} />
+              <MapContainer itinerary={itinerary} visibleTips={visibleTips} google={this.props.google} />
             </div>
 
         
