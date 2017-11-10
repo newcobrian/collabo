@@ -532,11 +532,13 @@ def share_facebook(itinerary_id):
         resp = Response('''
 <html>
     <head>
-        <meta property="og:url"         content="https://myviews.io/share/%(itinerary_id)s" />
-        <meta property="og:type"        content="article" />
-        <meta property="og:title"       content="%(title)s" />
-        <meta property="og:description" content="%(description)s" />
-        <meta property="og:image"       content="%(image)s" />
+        <meta property="og:url"          content="https://myviews.io/share/%(itinerary_id)s" />
+        <meta property="og:type"         content="article" />
+        <meta property="og:title"        content="%(title)s" />
+        <meta property="og:description"  content="%(description)s" />
+        <meta property="og:image"        content="%(image)s" />
+        <meta property="og:image:width"  content="1200" />
+        <meta property="og:image:height" content="630" />
         
         <meta http-equiv="refresh" content="0; url=https://myviews.io/guide/%(itinerary_id)s">
     </head>
