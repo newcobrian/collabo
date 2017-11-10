@@ -1,4 +1,4 @@
-/*
+
 * .country-color-FR .invert,
 * .country-color-FR .invert svg,
 * .country-color-CN .invert,
@@ -22,33 +22,33 @@
 * .it__cover__inner .invert input {
 	border: none !important;
 }
-* .country-color-FR { /** France 
+* .country-color-FR { /** France  */
 	background-color: #123ab4 !important;
 }
-* .country-color-ES { /** Spain 
+* .country-color-ES { /** Spain  */
 	background-color: #f9d156 !important;
 }
-* .country-color-CO { /** Coloumbia 
+* .country-color-CO { /** Coloumbia  */
 	background-color: #FFD935 !important;
 }
-* .country-color-CN { /** China INVERTED 
+* .country-color-CN { /** China INVERTED */ 
 	background-color: #F1351C !important;
 }
-* .country-color-DE { /** Berlin INVERTED 
+* .country-color-DE { /** Berlin INVERTED */
 	background-color: black !important;
 }
-* .country-color-US { /** USA INVERTED 
+* .country-color-US { /** USA INVERTED */
 	background-color: #2e3d6e !important;
 }
-* .country-color-JP { /** Japan INVERTED 
+* .country-color-JP { /** Japan INVERTED  */
 	background-color: #C70025 !important;
 }
-* .country-color-KR { /** Korea INVERTED 
+* .country-color-KR { /** Korea INVERTED  */
 	background-color: #0E4B9C !important;
 }
-* .country-color-TW { /** Taiwan INVERTED 
+* .country-color-TW { /** Taiwan INVERTED  */
 	background-color: #FE3031 !important;
-}*/
+}
 
 
 * .country-color-AF { background-color: #ffffff;
