@@ -45,7 +45,9 @@ body {
 .logo-module {
   height: 40px;
   margin: 0px 8px;
+  width: 120px;
 }
+/**
 .flx.navigation-bar {
     bottom: 0;
     top: initial;
@@ -70,9 +72,7 @@ body {
     bottom: 0;
     z-index: 10;
 }
-.navigation-bar .nav-module.create-review {
 
-}
 .logged-out .navigation-bar .nav-text {
   font-size: 15px;
 }
@@ -221,6 +221,32 @@ margin: 0;
 .marketing-page.navigation-bar .nav-module {
   border-bottom: none !important;
 }
+
+*/
+
+.navigation-bar {
+  height: 39px;
+}
+.navigation-bar .nav-module {
+  margin: 0 10px;
+  height: 39px;
+}
+.navigation-bar .nav-module img {
+    width: 23px;
+    height: 22px;
+}
+.navigation-bar .nav-icon {
+    width: 24px;
+    height: 24px;
+}
+.navigation-bar .default-profile-wrapper, .navigation-bar .user-photo-wrapper {
+    width: 24px;
+    height: 24px;
+}
+
+
+
+
 .feature-list {
   padding: 20px 0;
 }
@@ -404,7 +430,6 @@ width: 100%;
 
 
 .flx.it-author-controls {
-  padding-right: 0;
 }
 .it-add-container {
     top: 40px;
@@ -782,7 +807,6 @@ body .back-to-top {
   padding: 10px;
 }
 .vb.vb--sm {
-  padding: 0 10px;
 }
 .vb.vb--save {
   -webkit-flex-direction: row;
@@ -899,6 +923,13 @@ body .back-to-top {
 }
 
 
+
+
+
+.test00.it-author-controls {
+  right: 0;
+  width: 100%;
+}
 
 }
 

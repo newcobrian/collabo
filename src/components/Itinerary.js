@@ -263,6 +263,8 @@ class Itinerary extends React.Component {
 
               {/** Cover Content **/}
               <div className={"itinerary__cover__text w-100 country-color-" + itinerary.geo.country}>
+                
+
                 <div className="it__cover__inner flx flx-col flx-just-start ta-left w-100 w-max">
                   <div className="flx flx-row w-100 flx-center-all mrgn-bottom-sm">
 
@@ -298,7 +300,6 @@ class Itinerary extends React.Component {
                 {/** <<<<<< CENTER INFO **/}
                 <div className="it__title-module flx flx-col flx-just-start ta-center w-100">
                 
-                 
 
                   {/** TITLE **/}
                   
@@ -320,18 +321,8 @@ class Itinerary extends React.Component {
 
 
                   {/** -------- AUTHOR CONTROLS **/}
-                  <div className="it-author-controls w-100 w-max flx flx-row flx-just-start flx-align-center ta-center pdding-top-sm pdding-bottom-sm">
-                    <div className="w-100 w-max flx flx-row flx-just-start flx-align-center ta-center">
-                      <div className="flx flx-row flx-center-all">
-                      
-                        <ItineraryActionsButton 
-                          itinerary={itinerary} 
-                          authenticated={this.props.authenticated} 
-                          canModify={canModify} 
-                          deleteItinerary={this.props.showDeleteModal} 
-                          redirectPath="/" />
-
-                      </div>
+                  <div className="test00 brdr-top it-author-controls w-max flx flx-row flx-just-start flx-align-center ta-center pdding-top-sm pdding-bottom-sm">
+                      <div className="w-100 w-max flx flx-row flx-just-start flx-align-center ta-center">
 
 
                       {/* Like */}
@@ -348,11 +339,11 @@ class Itinerary extends React.Component {
                       </div>
 
                       {/* Share */}
-                      <div className="cta-wrapper flx flx-row vb vb--sm vb--outline fill--white color--black flx-item-right"
+                      <div className="cta-wrapper flx flx-row vb vb--sm vb--outline--none fill--primary color--white flx-item-right pdding-right-lg pdding-left-lg"
                         onClick={this.shareGuide} >
-                        <div className="color--black mrgn-right-sm">Share Guide</div>
-                        <i className="material-icons color--primary">play_arrow</i>
-                        <i className="material-icons color--primary">accessibility</i>
+                        <div className="color--white mrgn-right-sm">SHARE GUIDE</div>
+                        <i className="material-icons mrgn-left-sm color--white flip-h">reply</i>
+                        <i className="material-icons color--white DN">accessibility</i>
                       </div>
 
 

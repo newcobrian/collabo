@@ -613,7 +613,7 @@ width: 32px;
 }
 
 .mrgn-none {
-  margin: 0;
+  margin: 0 !important;
 }
 .mrgn-all-xs {
   margin: 5px !important;
@@ -746,6 +746,14 @@ width: 32px;
   padding-left: 40px;
 }
 
+.flip-h {
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+}
 ::-webkit-scrollbar {
     width: 0px;  /* remove scrollbar space */
     background: transparent;  /* optional: just make scrollbar invisible */

@@ -60,7 +60,7 @@
 	letter-spacing: 1px;
 	line-height: 36px;
 	width: 100%;
-	padding: 20px 0;
+	padding: 20px 0 0;
 }
 
 
@@ -85,6 +85,12 @@
 
 .itinerary__summary__like {
 	margin-top: -2px;
+}
+.like-text {
+	display: none;
+}
+.it-author-controls .like-text {
+	display: inline-block;
 }
 
 .tip-count {
@@ -192,6 +198,9 @@
 
 .page-itinerary .itinerary__cover__text {
 	border-bottom: 1px solid #D5E3E5;
+}
+.page-itinerary.page-edit-own .itinerary__cover__text {
+	padding: 0 20px 20px 20px;
 }
 .it__author-wrapper {
 	margin:  0;
@@ -473,4 +482,15 @@ textarea.edit-itinerary__name {
 	top: 80px;
 	right: 10px;
 	z-index: 100;
+}
+
+.it-actions-row {
+}
+.test00.it-author-controls {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 50%;
+	background: white;
+	padding: 10px;
 }
