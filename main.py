@@ -12,7 +12,7 @@ xhttp.open("GET", url, true);
 xhttp.send();
 
 """
-import base64, datetime, json, hashlib, hmac, logging, pprint, urllib, urllib2, zlib
+import base64, datetime, json, hashlib, hmac, logging, os, pprint, urllib, urllib2, zlib
 
 from flask import Flask, redirect, request, Response
 app = Flask(__name__)
@@ -495,9 +495,19 @@ def send_mail():
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp
 
+GUIDE_META_TEMPLATE = '''
+    <meta property="og:url"          content="https://myviews.io/guide/%(itinerary_id)s" />
+    <meta property="og:type"         content="article" />
+    <meta property="og:title"        content="%(title)s" />
+    <meta property="og:description"  content="%(description)s" />
+    <meta property="og:image"        content="%(image)s" />
+    <meta property="og:image:width"  content="1200" />
+    <meta property="og:image:height" content="630" />
+'''
 
 @app.route('/share/facebook/<itinerary_id>', methods=['GET'])
-def share_facebook(itinerary_id):
+@app.route('/guide/<itinerary_id>', methods=['GET'])
+def guide(itinerary_id):
     '''
         arguments: 
             itinerary_id: firebase object ID to share
@@ -528,31 +538,37 @@ def share_facebook(itinerary_id):
             # 1200x630 desired
             image = 'https://myviews.imgix.net/images/' + proxied + '?fit=crop&h=630&max-w=1200'
 
-
-        resp = Response('''
-<html>
-    <head>
-        <meta property="og:url"          content="https://myviews.io/share/%(itinerary_id)s" />
-        <meta property="og:type"         content="article" />
-        <meta property="og:title"        content="%(title)s" />
-        <meta property="og:description"  content="%(description)s" />
-        <meta property="og:image"        content="%(image)s" />
-        <meta property="og:image:width"  content="1200" />
-        <meta property="og:image:height" content="630" />
+        meta = GUIDE_META_TEMPLATE % locals()
         
-        <meta http-equiv="refresh" content="0; url=https://myviews.io/guide/%(itinerary_id)s">
-    </head>
-    <body>
-        Please wait while your guide is loaded...
-    </body>
-</html>
-        ''' % locals())
+        template = os.path.join(os.path.split(__file__)[0], 'build/index.html')
+        content = open(template).read().replace(INDEX_META_SLUG, meta)        
+        resp = Response(content)
         resp.headers['Access-Control-Allow-Origin'] = '*'
         return resp
     except Exception, e:
         # smart thing i think on error is to redirect to the regular site
-        return redirect('https://myviews.io/guide/{0}'.format(itinerary_id), code=301)
+        # actually we can't do that now that we are handling /guide/ with Python... home page I guess?
+        return redirect('https://myviews.io/', code=301)
 
+INDEX_META_SLUG = '''<meta property="SLUG" content="SLUG"/>'''
+INDEX_META_TAGS = '''
+    <meta property="og:url"          content="http://www.myviews.io" />
+    <meta property="og:type"         content="article" />
+    <meta property="og:description"  content="Make and Share Travel Guides with friends" />
+    <meta property="og:image"        content="https://myviews.io/img/meta/fb_1200x630.png" />
+    <meta property="og:image:width"  content="1200" />
+    <meta property="og:image:height" content="630" />
+'''
+
+
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def index(path):
+    template = os.path.join(os.path.split(__file__)[0], 'build/index.html')
+    content = open(template).read().replace(INDEX_META_SLUG, INDEX_META_TAGS)
+    resp = Response(content)
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
 
 @app.errorhandler(404)
 def page_not_found(e):

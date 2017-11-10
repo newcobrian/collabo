@@ -5,6 +5,7 @@ local: build
 	dev_appserver.py .
 
 deploy: build libs
+	find . -name \*.pyc -delete
 	yes | gcloud app deploy --verbosity=info --stop-previous-version --project views-18a9f
 
 libs:

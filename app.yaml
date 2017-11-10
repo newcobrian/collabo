@@ -30,31 +30,32 @@ handlers:
 
 # App Engine serves and caches static files contained in the listed directories
 # (and subdirectories). Uncomment and set the directory as needed.
-- url: /
-  static_files: build/index.html
-  upload: build/index.html
-  secure: always
-
-- url: /whatsgood/(.*)
-  static_files: build/\1
-  upload: build/(.*)
+- url: /build
+  static_dir: build
+  application_readable: true
 
 - url: /img/(.*)
   static_files: build/img/\1
   upload: build/img/(.*)
 
+- url: /static/(.*)
+  static_files: build/static/\1
+  upload: build/static/(.*)
+
 - url: /(.*\.(css))$
   static_files: build/\1
   upload: build/.*\.(css)$
-
-- url: /(.*)
-  static_files: build/index.html
-  upload: build/index.html
 
 # deferred execution queue setup
 - url: /_ah/queue/deferred
   script: google.appengine.ext.deferred.deferred.application
   login: admin
+
+# catch-all rule to the app
+- url: /(.*)
+  secure: always
+  script: main.app
+
 
 # Third party libraries that are included in the App Engine SDK must be listed
 # here if you want to use them.  See
