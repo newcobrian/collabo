@@ -434,6 +434,30 @@ class ItineraryForm extends React.Component {
           {/** Cover Content **/}
           <div className={"itinerary__cover__text w-100 country-color-" + itinerary.geo.country}>
             
+            <div className="it-actions-row flx flx-row w-100">
+              <div className="edit-itinerary-link vb vb--sm no-pad vb--outline--none fill--none color--black opa-40 flx-item-right">             
+                <MuiThemeProvider muiTheme={getMuiTheme()}>
+                  <IconMenu
+                     iconButtonElement={<IconButton><MoreHorizIcon /></IconButton>}
+                     className="invert"
+                     anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+                     targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                    >
+                     <ItineraryActionsButton 
+                      itinerary={itinerary} 
+                      authenticated={this.props.authenticated} 
+                      canModify={true} 
+                      className="invert vb vb--outline--none fill--none mrgn-none"
+                      deleteModal={this.props.showDeleteModal}
+                      style={{
+                        margin: '0'
+                      }} 
+                      redirectPath="/" />
+                   </IconMenu>
+                 </MuiThemeProvider>
+              </div>
+            </div>
+
             <div className="it__cover__inner flx flx-col flx-just-start ta-left w-100 w-max">
               <div className="flx flx-row w-100 flx-center-all mrgn-bottom-sm">
 
@@ -473,7 +497,8 @@ class ItineraryForm extends React.Component {
 
             {/** <<<<<< CENTER INFO **/}
             <div className="it__title-module flx flx-col flx-just-start ta-center w-100">
-            
+              
+
              
 
               {/** TITLE **/}
@@ -506,7 +531,7 @@ class ItineraryForm extends React.Component {
 
 
               {/** -------- AUTHOR CONTROLS **/}
-              <div className="it-author-controls w-100 w-max flx flx-row flx-just-start flx-align-center ta-center pdding-top-sm pdding-bottom-sm">
+              <div className="test00 brdr-top it-author-controls w-max flx flx-row flx-just-start flx-align-center ta-center pdding-top-sm pdding-bottom-sm">
                 <div className="w-100 w-max flx flx-row flx-just-start flx-align-center ta-center">
 
 
@@ -523,33 +548,13 @@ class ItineraryForm extends React.Component {
                       type={ITINERARY_TYPE} />
                   </div>
 
-
-                  <div className="edit-itinerary-link vb vb--sm no-pad vb--outline--none fill--none color--black opa-60 mrgn-left-n-1">             
-                    <MuiThemeProvider muiTheme={getMuiTheme()}>
-                      <IconMenu
-                         iconButtonElement={<IconButton><MoreHorizIcon /></IconButton>}
-                         className="invert"
-                         anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-                         targetOrigin={{horizontal: 'left', vertical: 'top'}}
-                        >
-                         <ItineraryActionsButton 
-                          itinerary={itinerary} 
-                          authenticated={this.props.authenticated} 
-                          canModify={true} 
-                          className="invert vb vb--outline--none fill--none"
-                          deleteModal={this.props.showDeleteModal} 
-                          redirectPath="/" />
-                       </IconMenu>
-                     </MuiThemeProvider>
-                  </div>
-
                   
                   {/* Share */}
-                  <div className="cta-wrapper flx flx-row vb vb--sm vb--outline fill--white color--black flx-item-right"
+                  <div className="cta-wrapper flx flx-row vb vb--sm vb--outline--none fill--primary color--white flx-item-right pdding-right-lg pdding-left-lg"
                     onClick={this.shareGuide} >
-                    <div className="color--black mrgn-right-sm">Share Guide</div>
-                    <i className="material-icons color--primary">play_arrow</i>
-                    <i className="material-icons color--primary">accessibility</i>
+                    <div className="color--white mrgn-right-sm">SHARE GUIDE</div>
+                    <i className="material-icons mrgn-left-sm color--white flip-h">reply</i>
+                    <i className="material-icons color--white DN">accessibility</i>
                   </div>
 
 
@@ -603,7 +608,7 @@ class ItineraryForm extends React.Component {
             <div className="w-100 flx flx-row flx-center-all pdding-all-sm">
               <Link className="vb vb--md fill--white color--black w-100 flx flx-row flx-center-all vb--outline ta-center" onClick={openFilter}>
                 <i className="material-icons color--black opa-60 mrgn-right-sm">filter_list</i>
-                  Filter by tags {/*Showing 4/10 Categories */}
+                  Filter (Showing {this.props.numVisibleTags}/{this.props.numTotalTags} tags) {/*Showing 4/10 Categories */}
               </Link>
             </div>
 

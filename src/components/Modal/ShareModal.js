@@ -136,7 +136,7 @@ class ShareModal extends React.Component {
             <div className="pdding-left-md pdding-right-md pdding-top-xs pdding-bottom-xs w-100">
               <CopyToClipboard 
                 className="flx flx-row flx-center-all w-100 vb vb--md vb--outline--none color--white fill--success"
-                text={'https://myviews.io/guide/' + itinerary.id}
+                text={Constants.VIEWS_SHARE_FACEBOOK_URL + '/' + itinerary.id}
                 onCopy={() => this.setState({copied: true})}>
                   <div className="flx flx-row flx-center-all w-100">
                     <i className="material-icons color--white opa-60 flx-item-left">link</i>

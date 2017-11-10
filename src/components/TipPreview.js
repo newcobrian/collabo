@@ -100,7 +100,7 @@ const TipPreview = props => {
 
                     { /** Image 
                     <MediaQuery query="(min-device-width: 1224px)">**/ }
-                      <div className="tip__image-module bg-loading mobile-hide">
+                      <div className="tip__image-module bg-loading">
                         <div className={"tip__photo-count tip-count-" + tip.images.length}>{tip.images.length > 0 ? tip.images.length : null}</div>
                         <ImagePicker images={tip.images} />
                       </div>

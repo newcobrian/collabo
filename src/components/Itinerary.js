@@ -21,7 +21,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Dropzone from 'react-dropzone';
 import ItineraryForm from './ItineraryForm';
 import * as Selectors from '../selectors/itinerarySelectors';
-import { isEmpty, find } from 'lodash';
+import { isEmpty, find, filter } from 'lodash';
 import MapContainer from './MapContainer';
 import scrollToElement from 'scroll-to-element';
 import RelatedItineraries from './RelatedItineraries';
@@ -208,13 +208,23 @@ class Itinerary extends React.Component {
         })
       }
     }
+
+    const getTagFilterCounts = tips => {
+
+    }
     // console.log('visible tags = ' + JSON.stringify(this.props.visibleTags))
     // console.log('show allfilter = ' + JSON.stringify(this.props.showAllFilters))
     const visibleTips = getVisibleTips(itinerary.tips, this.props.visibleTags);
+    const numTotalTags = Object.keys(itinerary.tips).length;
+    const numVisibleTags = this.props.showAllFilters ? numTotalTags : Object.keys(filter(this.props.visibleTags, ['checked', true])).length;
 
       if (canModify) {
         return (
-          <ItineraryForm initialValues={itinerary} visibleTips={visibleTips} />
+          <ItineraryForm 
+            initialValues={itinerary} 
+            visibleTips={visibleTips} 
+            numVisibleTags={numVisibleTags} 
+            numTotalTags={numTotalTags} />
           )
       }
       else {
@@ -253,6 +263,8 @@ class Itinerary extends React.Component {
 
               {/** Cover Content **/}
               <div className={"itinerary__cover__text w-100 country-color-" + itinerary.geo.country}>
+                
+
                 <div className="it__cover__inner flx flx-col flx-just-start ta-left w-100 w-max">
                   <div className="flx flx-row w-100 flx-center-all mrgn-bottom-sm">
 
@@ -288,7 +300,6 @@ class Itinerary extends React.Component {
                 {/** <<<<<< CENTER INFO **/}
                 <div className="it__title-module flx flx-col flx-just-start ta-center w-100">
                 
-                 
 
                   {/** TITLE **/}
                   
@@ -310,18 +321,8 @@ class Itinerary extends React.Component {
 
 
                   {/** -------- AUTHOR CONTROLS **/}
-                  <div className="it-author-controls w-100 w-max flx flx-row flx-just-start flx-align-center ta-center pdding-top-sm pdding-bottom-sm">
-                    <div className="w-100 w-max flx flx-row flx-just-start flx-align-center ta-center">
-                      <div className="flx flx-row flx-center-all">
-                      
-                        <ItineraryActionsButton 
-                          itinerary={itinerary} 
-                          authenticated={this.props.authenticated} 
-                          canModify={canModify} 
-                          deleteItinerary={this.props.showDeleteModal} 
-                          redirectPath="/" />
-
-                      </div>
+                  <div className="test00 brdr-top it-author-controls w-max flx flx-row flx-just-start flx-align-center ta-center pdding-top-sm pdding-bottom-sm">
+                      <div className="w-100 w-max flx flx-row flx-just-start flx-align-center ta-center">
 
 
                       {/* Like */}
@@ -338,11 +339,11 @@ class Itinerary extends React.Component {
                       </div>
 
                       {/* Share */}
-                      <div className="cta-wrapper flx flx-row vb vb--sm vb--outline fill--white color--black flx-item-right"
+                      <div className="cta-wrapper flx flx-row vb vb--sm vb--outline--none fill--primary color--white flx-item-right pdding-right-lg pdding-left-lg"
                         onClick={this.shareGuide} >
-                        <div className="color--black mrgn-right-sm">Share Guide</div>
-                        <i className="material-icons color--primary">play_arrow</i>
-                        <i className="material-icons color--primary">accessibility</i>
+                        <div className="color--white mrgn-right-sm">SHARE GUIDE</div>
+                        <i className="material-icons mrgn-left-sm color--white flip-h">reply</i>
+                        <i className="material-icons color--white DN">accessibility</i>
                       </div>
 
 
@@ -397,7 +398,7 @@ class Itinerary extends React.Component {
               <div className="w-100 flx flx-row flx-center-all pdding-all-sm">
                 <Link className="vb vb--md fill--white color--black w-100 flx flx-row flx-center-all vb--outline ta-center" onClick={openFilter}>
                   <i className="material-icons color--black opa-60 mrgn-right-sm">filter_list</i>
-                    Filter by tags {/*Showing 4/10 Categories */}
+                    Filter (Showing {numVisibleTags}/{numTotalTags} tags) {/*Showing 4/10 Categories */}
                 </Link>
               </div>
 
