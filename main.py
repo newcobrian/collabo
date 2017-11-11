@@ -506,6 +506,9 @@ GUIDE_META_TEMPLATE = '''
 '''
 
 @app.route('/share/facebook/<itinerary_id>', methods=['GET'])
+def old_share_fb(itinerary_id):
+    return redirect('https://myviews.io/guide/%(itinerary_id)s' % locals(), code=301)
+
 @app.route('/guide/<itinerary_id>', methods=['GET'])
 def guide(itinerary_id):
     '''
@@ -550,7 +553,7 @@ def guide(itinerary_id):
         # smart thing i think on error is to redirect to the regular site
         # actually we can't do that now that we are handling /guide/ with Python... home page I guess?
         logging.exception(dict(ref))
-        return redirect('https://myviews.io/', code=301)
+        return redirect('https://myviews.io/', code=302)
 
 INDEX_META_SLUG = '''<meta property="SLUG" content="SLUG"/>'''
 INDEX_META_TAGS = '''
