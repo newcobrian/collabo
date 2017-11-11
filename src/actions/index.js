@@ -239,6 +239,7 @@ export function followUser(authenticated, follower) {
     }
     Helpers.sendInboxMessage(authenticated, follower, Constants.FOLLOW_MESSAGE, null, null, null);
     Firebase.database().ref().update(updates);
+    Helpers.fanOutFollowUser(authenticated, follower);
 
     mixpanel.people.increment("total follows");
 
@@ -282,6 +283,7 @@ export function unfollowUser(authenticated, following) {
       updates[`/${Constants.IS_FOLLOWING_PATH}/${follower}/${following}`] = null;
     }
     Firebase.database().ref().update(updates);
+    Helpers.fanOutUnFollowUser(authenticated, following);
 
     mixpanel.people.increment("total follows", -1);
 

@@ -302,6 +302,30 @@ export function fanOutToFollowersFeed(senderId, itineraryId, lastModified) {
 	})
 }
 
+export function fanOutFollowUser(isFollowing, theFollowed) {
+	Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + theFollowed).once('value', snap => {
+		let updates = {}
+		snap.forEach(function(itin) {
+			updates[Constants.USERS_FEED_PATH + '/' + isFollowing + '/' + itin.key] = itin.val().lastModified
+		})
+
+		// console.log(JSON.stringify(updates))
+		Firebase.database().ref().update(updates)
+	})
+}
+
+export function fanOutUnFollowUser(isFollowing, theFollowed) {
+	Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + theFollowed).once('value', snap => {
+		let updates = {}
+		snap.forEach(function(itin) {
+			updates[Constants.USERS_FEED_PATH + '/' + isFollowing + '/' + itin.key] = null
+		})
+
+		// console.log(JSON.stringify(updates))
+		Firebase.database().ref().update(updates)
+	})
+}
+
 export function sendInboxMessage(senderId, recipientId, messageType, sendObject, itineraryId, commentObject) {
 	const inboxObject = {
 		lastModified: Firebase.database.ServerValue.TIMESTAMP
