@@ -555,7 +555,8 @@ def guide(itinerary_id):
     except Exception, e:
         # smart thing i think on error is to redirect to the regular site
         # actually we can't do that now that we are handling /guide/ with Python... home page I guess?
-        logging.exception(dict(ref))
+        # or we can emit the 404/not found page
+        logging.exception(dict(ref or {}))
         return redirect('https://myviews.io/', code=302)
 
 INDEX_META_SLUG = '''<meta property="SLUG" content="SLUG"/>'''
