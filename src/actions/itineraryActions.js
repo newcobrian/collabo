@@ -343,6 +343,7 @@ export function updateItineraryField(auth, itinerary, field, value) {
       }
 
       Firebase.database().ref().update(updates);
+      Helpers.fanOutToFollowersFeed(auth, itinerary.id, timestamp);
 
       dispatch({
         type: ActionTypes.ITINERARY_UPDATED,
@@ -411,6 +412,7 @@ export function updateItineraryGeo(auth, itinerary, newGeo) {
             }
 
             Firebase.database().ref().update(updates);
+            Helpers.fanOutToFollowersFeed(auth, itinerary.id, timestamp);
 
             dispatch({
               type: ActionTypes.ITINERARY_UPDATED,
@@ -457,6 +459,7 @@ export function updateReviewField(auth, itinerary, field, value, tip) {
       updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itinerary.id}/lastModified`] = timestamp;
 
       Firebase.database().ref().update(updates);
+      Helpers.fanOutToFollowersFeed(auth, itinerary.id, timestamp);
 
       dispatch({
         type: ActionTypes.ITINERARY_UPDATED,
@@ -585,6 +588,7 @@ export function onAddTip(auth, result, itinerary) {
       updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itinerary.id}/maxPriority`] = priority;
 
       Firebase.database().ref().update(updates);
+      Helpers.fanOutToFollowersFeed(auth, itinerary.id, lastModified);
 
       dispatch({
         type: ActionTypes.ITINERARY_UPDATED,
@@ -629,6 +633,8 @@ export function onDeleteTip(auth, tip, itineraryId, itinerary) {
           });
         }
       }
+
+      Helpers.fanOutToFollowersFeed(auth, itineraryId, Firebase.database.ServerValue.TIMESTAMP);
 
       dispatch({
         type: ActionTypes.TIP_DELETED,

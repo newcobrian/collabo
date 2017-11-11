@@ -71,6 +71,7 @@ export const TIPS_BY_SUBJECT_PATH = '/tips-by-subject'
 	// stored subjectId -> userid -> tip object
 export const GEOS_PATH = '/geos'
 export const COUNTRIES_PATH = '/countries'
+export const USERS_FEED_PATH = '/users-feed'
 
 /*** Counter Type Constants ***/
 export const LIKES_COUNT = 'likesCount'

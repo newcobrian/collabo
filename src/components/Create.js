@@ -87,7 +87,7 @@ class Create extends React.Component {
 
 		this.submitForm = ev => {
 	      ev.preventDefault();
-
+	      
 	      if (!this.props.title) {
 	        this.props.createSubmitError('itinerary name', CREATE_PAGE);
 	      }

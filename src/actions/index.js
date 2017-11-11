@@ -602,7 +602,9 @@ export function onCreateItinerary(auth, itinerary) {
         if (!countrySnapshot.exists()) {
           updates[`/${Constants.COUNTRIES_PATH}/${itinerary.geo.country}/places/${itinerary.geo.placeId}`] = true;
         }
+
         Firebase.database().ref().update(updates);
+        Helpers.fanOutToFollowersFeed(auth, itineraryId, serverTimestamp)
 
         // update Algolia index
         Helpers.updateAlgloiaGeosIndex(itinerary.geo)
@@ -1595,6 +1597,7 @@ export function onDeleteItinerary(userId, itineraryId, geo, redirectPath) {
     updates[Constants.COMMENTS_PATH + '/' + itineraryId] = null;
 
     Firebase.database().ref().update(updates);
+    Helpers.fanOutToFollowersFeed(userId, itineraryId, null);
 
     // decrement itineraryCount for the geo
     Firebase.database().ref(Constants.GEOS_PATH + '/' + geo + '/itineraryCount').transaction(function (current_count) {
@@ -2769,6 +2772,7 @@ export function addToItinerary(auth, tip, itinerary) {
               Helpers.incrementGuideScore(itineraryId, Constants.ADD_TIP_GUIDE_SCORE)
 
               Firebase.database().ref().update(updates);
+              Helpers.fanOutToFollowersFeed(auth, itineraryId, lastModified);
 
               // update tag counts on itinerary
               for (var tagName in tip.tags) {
