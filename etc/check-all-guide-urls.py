@@ -2,7 +2,7 @@
 # use: just run it to check every guide on the live site to make sure the response is 200 OK and not the home page redirect
 #
 
-import urllib, urllib2
+import sys, urllib, urllib2
 
 import firebase_admin
 from firebase_admin import db
@@ -22,9 +22,11 @@ firebase_admin.initialize_app(credentials, {
     'databaseURL' : 'https://views-18a9f.firebaseio.com'
 })
 
-ref = db.reference('itineraries').get()
-if not ref:
-    raise Exception('NotFound: %s' % itinerary_id)
+ref = {}
+if not sys.argv[1:]:
+    ref = db.reference('itineraries').get()
+    if not ref:
+        raise Exception('NotFound: %s' % itinerary_id)
 
 class NoRedirectHandler(urllib2.HTTPRedirectHandler):
     def http_error_302(self, req, fp, code, msg, headers):
@@ -41,11 +43,16 @@ opener = urllib2.build_opener(NoRedirectHandler())
 urllib2.install_opener(opener)
 
 err = ok = count = 0
-for k in ref.iterkeys():
+for k in sys.argv[1:] or ref.iterkeys():
     #url = 'https://myviews.io/guide/%(k)s' % locals()
     url = 'http://localhost:8080/guide/%(k)s' % locals()
-    result = urllib2.urlopen(url)
-    code = result.getcode()
+    code = 0
+    try:
+        result = urllib2.urlopen(url)
+        code = result.getcode()
+    except urllib2.HTTPError, e:
+        code = e.code
+        
     if code != 200:
         print 'ERR %s' % k
         err += 1
