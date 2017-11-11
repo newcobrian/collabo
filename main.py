@@ -521,13 +521,14 @@ def guide(itinerary_id):
             for raw markup debugging, deploy live and use
             https://developers.facebook.com/tools/debug/sharing/?q=http%3A%2F%2Fmyviews.io%2Fshare%2Ffacebook%2F-KsHtCGxX10pSPFRFw6p
     '''
+    ref = {}
     try:
         ref = db.reference('itineraries/{0}'.format(itinerary_id)).get()
         if not ref:
             raise Exception('NotFound: %s' % itinerary_id)
 
         title = ref['title']
-        description = ref['description']
+        description = ref.get('description', '')
         image = ref['images']['url']
 
         # same problem as in React, we have these huge images on Firebase's slow ass CDN
@@ -548,6 +549,7 @@ def guide(itinerary_id):
     except Exception, e:
         # smart thing i think on error is to redirect to the regular site
         # actually we can't do that now that we are handling /guide/ with Python... home page I guess?
+        logging.exception(dict(ref))
         return redirect('https://myviews.io/', code=301)
 
 INDEX_META_SLUG = '''<meta property="SLUG" content="SLUG"/>'''
