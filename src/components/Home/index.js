@@ -76,16 +76,16 @@ class Home extends React.Component {
   }
 
   componentWillMount() {
-    // this.props.getUserFeed(this.props.authenticated);
-    this.props.startFeedWatch(this.props.authenticated);
+    // this.props.startFeedWatch(this.props.authenticated);
+    this.props.startUsersFeedWatch(this.props.authenticated);
     this.props.getFeaturedPreview(this.props.authenticated);
     this.props.getPopularPreview(this.props.authenticated);
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'home page'});
   } 
 
   componentWillUnmount() {
-    // this.props.unloadUserFeed(this.props.authenticated);
-    this.props.unloadFeedWatch(this.props.authenticated);
+    // this.props.unloadFeedWatch(this.props.authenticated);
+    this.props.stopUsersFeedWatch(this.props.authenticated);
     if (this.props.featuredPreview && this.props.featuredPreview.itinerary) {
       this.props.unloadFeaturePreview(this.props.authenticated, this.props.featuredPreview.itinerary.id)
     }

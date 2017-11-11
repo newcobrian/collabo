@@ -463,3 +463,71 @@ export function unwatchGlobalFeed(auth, endAt) {
     })
   }
 }
+
+export function startUsersFeedWatch(auth) {
+  return dispatch => {
+    if (!auth) {
+      dispatch({
+        type: ActionTypes.HOME_PAGE_NO_AUTH
+      })
+    }
+    watchLikesByUser(dispatch, auth, Constants.USER_FEED);
+
+    Firebase.database().ref(Constants.USERS_FEED_PATH + '/' + auth)
+      .orderByChild('lastModified')
+      .on('child_added', snap => {
+        watchItineraryValue(dispatch, snap.key);
+    })
+
+    Firebase.database().ref(Constants.USERS_FEED_PATH + '/' + auth)
+      .on('child_removed', removedSnap => {
+        unwatchItineraryValue(dispatch, removedSnap.key)
+    })
+
+    dispatch({
+      type: ActionTypes.FEED_WATCH_LOADED
+    })
+  }
+}
+
+export function stopUsersFeedWatch(auth) {
+  return dispatch => {
+    unwatchLikesByUser(dispatch, auth, Constants.USER_FEED);
+    
+    Firebase.database().ref(Constants.USERS_FEED_PATH + '/' + auth)
+      .orderByChild('lastModified')
+      .once('value', snap => {
+        snap.forEach(function(itin) {
+          Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itin.key).once('value', itinSnap => {
+            unwatchUser(dispatch, itinSnap.val().userId, Constants.USER_FEED);
+          })
+          Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itin.key).off();
+        })
+    })
+
+    dispatch({
+      type: ActionTypes.USER_FEED_UNLOADED
+    })
+  }
+}
+
+export function watchItineraryValue(dispatch, itineraryId) {
+  Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).on('value', snap => {
+    watchUser(dispatch, snap.val().userId, Constants.USER_FEED);
+    dispatch(feedItineraryValueAction(snap.key, snap.val().userId,  snap.val()))
+  })
+}
+
+export function unwatchItineraryValue(dispatch, itineraryId) {
+  Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).off();
+  dispatch(itineraryRemovedAction(itineraryId));
+}
+
+function feedItineraryValueAction(itineraryId, userId, itinerary) {
+  return {
+    type: ActionTypes.FEED_ITINERARY_VALUE_ACTION,
+    itineraryId,
+    userId,
+    itinerary
+  }
+}

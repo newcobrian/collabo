@@ -178,6 +178,38 @@ export default (state = initialState, action) => {
       newState.itineraries = filter(newState.itineraries, ['id', !action.itineraryId]);
       return newState;
     }
+    case ActionTypes.FEED_ITINERARY_VALUE_ACTION: {
+      const newState = Object.assign({}, state);
+      newState.itineraries = newState.itineraries || [];
+      newState.itineraries = newState.itineraries.slice();
+
+      // if itinerary is in the feed, update it with new itinerary data
+      let changedFlag = false;
+      for (let i = 0; i < newState.itineraries.length; i++) {
+        if (newState.itineraries[i].id === action.itineraryId) {
+          let iid = newState.itineraries[i].id;
+          let isLiked = newState.likesData[iid];
+          let createdBy = Object.assign({}, newState.itineraries[i].createdBy);
+          newState.itineraries[i] = Object.assign({}, {id: iid}, action.itinerary, {isLiked: isLiked}, {createdBy: createdBy});
+          changedFlag = true;
+        }
+      }
+
+      if (changedFlag) {
+        return newState;
+      }
+      else {
+        // itinerary was not already in state.itineraries, so add it
+        newState.usersData = newState.usersData || {};
+        newState.likesData = newState.likesData || {};
+        let itineraryObject = 
+        createItineraryObject(action.itineraryId, action.itinerary, action.userId, Object.assign({}, 
+          newState.usersData[action.userId]), Object.assign({}, newState.likesData));
+        newState.itineraries.push(itineraryObject);
+        newState.itineraries.sort(lastModifiedDesc);
+        return newState;
+      }
+    }
     case ActionTypes.ITINERARIES_BY_USER_REMOVED_ACTION: {
       // remove all itineraries that were created by action.userId
       const newState = Object.assign({}, state);
