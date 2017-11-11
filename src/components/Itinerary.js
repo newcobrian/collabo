@@ -350,7 +350,7 @@ class Itinerary extends React.Component {
                       <div className="flx-item-right flx flx-row DN">
                         <div className="vb vb--sm vb--outline fill--white color--black">
                           <FacebookShareButton
-                            url={Constants.VIEWS_SHARE_FACEBOOK_URL + `/${this.props.itineraryId}`}
+                            url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
                             quote={'Check out my travel guide "' + itinerary.title + '" for '}
                             hashtag={'#views'}
                             className="Demo__some-network__share-button">
@@ -360,7 +360,7 @@ class Itinerary extends React.Component {
                           </FacebookShareButton>
 
                           <FacebookShareCount
-                            url={Constants.VIEWS_SHARE_FACEBOOK_URL + `/${this.props.itineraryId}`}
+                            url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
                             className="mrgn-left-sm">
                             {count => count}
                           </FacebookShareCount>

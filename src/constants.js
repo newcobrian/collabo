@@ -1,6 +1,5 @@
 export const SUBJECT_SEARCH_URL = 'https://myviews.io/search?q='
 export const VIEWS_URL = 'http://myviews.io'
-export const VIEWS_SHARE_FACEBOOK_URL = 'http://myviews.io/share/facebook'
 // export const SUBJECT_SEARCH_URL = 'https://localhost:8000/search?q='
 
 export const INBOX_SEND_EMAIL_URL = 'https://myviews.io/mail/send'
