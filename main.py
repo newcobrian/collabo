@@ -532,15 +532,18 @@ def guide(itinerary_id):
 
         title = ref['title']
         description = ref.get('description', '')
-        image = ref['images']['url']
+        image = ''
+        
+        if ref.get('images'):
+            image = ref['images']['url']
 
-        # same problem as in React, we have these huge images on Firebase's slow ass CDN
-        if image.startswith('https://firebasestorage.googleapis.com'):
-            proxied = urllib2.unquote(image)
-            proxied = proxied.split('?')[0]
-            proxied = proxied.split('/')[-1]
-            # 1200x630 desired
-            image = 'https://myviews.imgix.net/images/' + proxied + '?fit=crop&h=630&max-w=1200'
+            # same problem as in React, we have these huge images on Firebase's slow ass CDN
+            if image.startswith('https://firebasestorage.googleapis.com'):
+                proxied = urllib2.unquote(image)
+                proxied = proxied.split('?')[0]
+                proxied = proxied.split('/')[-1]
+                # 1200x630 desired
+                image = 'https://myviews.imgix.net/images/' + proxied + '?fit=crop&h=630&max-w=1200'
 
         meta = GUIDE_META_TEMPLATE % locals()
         
