@@ -475,7 +475,9 @@ textarea.edit-itinerary__name {
 	color: #3DCBF3;
 	opacity: 1 !important;
 }
-
+.page-itinerary .test00 .cta-wrapper {
+ width: 50%;
+}
 
 .floating-map-toggle {
 	position: fixed;

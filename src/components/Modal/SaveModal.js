@@ -15,13 +15,11 @@ const GeoInfo = props => {
   }
   else {
     return (
-      <Link to={`/places/${props.geo.placeId}`}>
-        <div className="flx flx-row flx-just-start flx-align-center">
-          {/** Flag and Geo **/}
-          <div className={'itinerary__cover__flag flx-hold flag-' + props.geo.country}>
-          </div>
+      <div className="flx flx-row flx-just-start flx-align-center">
+        {/** Flag and Geo **/}
+        <div className={'itinerary__cover__flag flx-hold flag-' + props.geo.country}>
         </div>
-      </Link>
+      </div>
       )
   } 
 }

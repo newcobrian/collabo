@@ -81,7 +81,7 @@ const LoggedInView = props => {
         <Link to="/" onlyActiveOnIndex activeClassName="active" className={"nav-module nav-feed flx flx-center-all " + (browserHistory.getCurrentLocation().pathname === '/popular' ? ' active' : '')}>
           <div className="nav-text flx flx-row flx-align-center">
             <i className="material-icons color--black md-24 mobile-show">language</i>
-            <div className="nav-text mobile-hide mrgn-left-sm">Places</div>
+            <div className="nav-text mobile-hide">Places</div>
           </div>
         </Link>
 
@@ -94,7 +94,7 @@ const LoggedInView = props => {
 
         <Link to="/create" activeClassName="active" className="nav-module create nav-editor flx flx-center-all">  
           <div className="nav-text flx flx-row flx-align-center">
-            <i className="material-icons color--success md-24 opa-100">add</i>
+            <i className="material-icons color--success md-24 opa-100 mrgn-right-xs">add</i>
             <div className="mobile-hide">New Guide</div>
           </div>
         </Link>

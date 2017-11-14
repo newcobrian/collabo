@@ -377,7 +377,7 @@ class ItineraryForm extends React.Component {
 
         
         
-        <button className="vb vb--sm vb--outline vb--round flx flx-row flx-align-center fill--white color--black button-map-toggle bx-shadow"
+        <button className="vb vb--xs vb--outline vb--round mrgn-top-xs flx flx-row flx-align-center fill--white color--black button-map-toggle bx-shadow"
           onClick={this.onMapToggle}>
           <i className="material-icons color--black md-18 opa-80">map</i>
           <div className="mobile-hide color--black mrgn-left-sm">Full Map</div>
@@ -536,7 +536,7 @@ class ItineraryForm extends React.Component {
 
 
                   {/* Like */}
-                  <div className="cta-wrapper flx flx-row vb vb--sm vb--outline fill--white color--black mrgn-left-n-1">
+                  <div className="cta-wrapper flx flx-row vb vb--sm vb--outline--none fill--white color--black">
                     <LikeReviewButton
                       authenticated={this.props.authenticated}
                       isLiked={itinerary.isLiked}
