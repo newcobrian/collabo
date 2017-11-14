@@ -346,7 +346,9 @@ input.input--underline {
   text-transform: none;
   background-image: linear-gradient(90deg, #61F2ED 4%, #C1FDE0 98%);
 }
-
+.vb.vb--radius--none {
+  border-radius: 0 !important;
+}
 
 .vb--change-cover {
   position: absolute;
