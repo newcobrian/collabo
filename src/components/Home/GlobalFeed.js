@@ -22,7 +22,7 @@ class GlobalFeed extends Home {
   componentWillUnmount() {
     if (this.props.authenticated) {
       this.props.stopLikesByUserWatch(this.props.authenticated);
-      this.props.unwatchGlobalFeed(this.props.authenticated);
+      this.props.unwatchGlobalFeed(this.props.authenticated, this.props.previousDateIndex);
     }
     else {
       this.props.unloadSampleGuides(this.props.authenticated);
@@ -31,15 +31,15 @@ class GlobalFeed extends Home {
 
   onPrevClick = ev => {
     ev.preventDefault()
-    this.props.unwatchGlobalFeed(this.props.authenticated, this.props.currentDateIndex)
+    // this.props.unwatchGlobalFeed(this.props.authenticated, this.props.currentDateIndex)
     this.props.watchGlobalFeed(this.props.authenticated, this.props.previousDateIndex)
   }
 
-  onNextClick = ev => {
-    ev.preventDefault()
-    this.props.unwatchGlobalFeed(this.props.authenticated, this.props.currentDateIndex)
-    this.props.watchGlobalFeedStartAt(this.props.authenticated, this.props.currentDateIndex)
-  }
+  // onNextClick = ev => {
+  //   ev.preventDefault()
+  //   this.props.unwatchGlobalFeed(this.props.authenticated, this.props.currentDateIndex)
+  //   this.props.watchGlobalFeedStartAt(this.props.authenticated, this.props.currentDateIndex)
+  // }
 
   // onSetPage(page) {
   // 	// const promise = agent.Articles.favoritedBy(this.props.profile.username, page);

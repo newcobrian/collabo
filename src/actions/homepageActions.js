@@ -451,8 +451,7 @@ export function unwatchGlobalFeed(auth, endAt) {
 
     Firebase.database().ref(Constants.ITINERARIES_PATH)
       .orderByChild('lastModified')
-      .endAt(currentEndAt)
-      .limitToLast(Constants.POPULARITY_PAGE_COUNT)
+      .startAt(currentEndAt)
       .once('value', addedSnap => {
         unwatchUser(dispatch, addedSnap.val().userId, Constants.USER_FEED);
     })
@@ -526,39 +525,6 @@ export function checkForEnd(dispatch, auth, dateIndex) {
   })
 }
 
-// export function setHomepagePagination(dispatch, auth, dateIndex) {
-//   const endAt = dateIndex ? dateIndex : Firebase.database.ServerValue.TIMESTAMP.toString();
-  
-//   Firebase.database().ref(Constants.USERS_FEED_PATH + '/' + auth)
-//     .orderByValue()
-//     .endAt(endAt)
-//     .limitToLast(Constants.HOME_PAGE_FEED_COUNT)
-//     .once('value', pageSnap => {
-//       let endOfFeed = pageSnap.numChildren < Constants.HOME_PAGE_FEED_COUNT ? true : false
-//       let i = 1;
-//       let prev = dateIndex;
-//       let next = null;
-//       pageSnap.forEach(function(itin) {
-//         // if (i === 1) {
-//         //   prev = itin.val()
-//         // }
-//         // else if (i === pageSnap.numChildren()) {
-//         //   next = itin.val()
-//         // }
-
-//         prev = !prev || itin.val() < prev ? itin.val() : prev
-        
-//         i++;
-//       })
-      
-//       dispatch({
-//         type: ActionTypes.SET_HOMEPAGE_PAGINATION_VALUES,
-//         dateIndex: prev - 1,
-//         endOfFeed: endOfFeed
-//       })
-//   })
-// }
-
 export function startUsersFeedWatchScroller(auth, dateIndex) {
   return dispatch => {
     if (!auth) {
@@ -621,6 +587,8 @@ export function stopUsersFeedWatchScroller(auth, dateIndex) {
         })
       })
     }
+
+    Firebase.database().ref(Constants.USERS_FEED_PATH + '/' + auth).off();
 
     dispatch({
       type: ActionTypes.USER_FEED_UNLOADED
