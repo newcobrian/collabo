@@ -399,7 +399,7 @@ export function watchGlobalFeed(auth, endAt) {
 
     Firebase.database().ref(Constants.ITINERARIES_PATH)
       .orderByChild('lastModified')
-      .limitToLast(Constants.POPULARITY_PAGE_COUNT)
+      .limitToLast(Constants.HOME_PAGE_FEED_COUNT)
       .endAt(currentEndAt)
       .on('child_added', addedSnap => {
         watchUser(dispatch, addedSnap.val().userId, Constants.USER_FEED);
@@ -426,7 +426,7 @@ export function watchGlobalFeedStartAt(auth, startAt) {
 
     Firebase.database().ref(Constants.ITINERARIES_PATH)
       .orderByChild('lastModified')
-      .limitToFirst(Constants.POPULARITY_PAGE_COUNT)
+      .limitToFirst(Constants.HOME_PAGE_FEED_COUNT)
       .startAt(currentStartAt + 1)
       .on('child_added', addedSnap => {
         watchUser(dispatch, addedSnap.val().userId, Constants.USER_FEED);
