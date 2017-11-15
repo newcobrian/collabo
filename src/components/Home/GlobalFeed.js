@@ -30,11 +30,13 @@ class GlobalFeed extends Home {
   }
 
   onPrevClick = ev => {
+    ev.preventDefault()
     this.props.unwatchGlobalFeed(this.props.authenticated, this.props.currentDateIndex)
     this.props.watchGlobalFeed(this.props.authenticated, this.props.previousDateIndex)
   }
 
   onNextClick = ev => {
+    ev.preventDefault()
     this.props.unwatchGlobalFeed(this.props.authenticated, this.props.currentDateIndex)
     this.props.watchGlobalFeedStartAt(this.props.authenticated, this.props.currentDateIndex)
   }

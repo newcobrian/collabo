@@ -7,7 +7,7 @@ const lastModifiedDesc = (a, b) => {
   return b.lastModified - a.lastModified;
 }
 
-const initialState = { usersData: {}, likesData: {} }
+const initialState = { usersData: {}, likesData: {}, endOfFeed: false }
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -183,6 +183,11 @@ export default (state = initialState, action) => {
       newState.itineraries = newState.itineraries || [];
       newState.itineraries = newState.itineraries.slice();
 
+      // set dateIndex if it doesn't exist or if lastModified is before current dateIndex
+      newState.dateIndex = !newState.dateIndex || 
+        (action.itinerary && action.itinerary.lastModified && (action.itinerary.lastModified < newState.dateIndex)) 
+        ? action.itinerary.lastModified : newState.dateIndex;
+
       // if itinerary is in the feed, update it with new itinerary data
       let changedFlag = false;
       for (let i = 0; i < newState.itineraries.length; i++) {
@@ -247,6 +252,17 @@ export default (state = initialState, action) => {
         ...state,
         currentDateIndex: action.currentDateIndex,
         previousDateIndex: action.previousDateIndex
+      }
+    case ActionTypes.SET_HOMEPAGE_PAGINATION_VALUES:
+      return {
+        ...state,
+        dateIndex: action.dateIndex,
+        endOfFeed: action.endOfFeed
+      }
+    case ActionTypes.END_OF_FEED: 
+      return {
+        ...state,
+        endOfFeed: true
       }
     default:
       return state;

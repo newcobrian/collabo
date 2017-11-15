@@ -76,19 +76,28 @@ class Home extends React.Component {
   }
 
   componentWillMount() {
-    this.props.startFeedWatch(this.props.authenticated);
-    // this.props.startUsersFeedWatch(this.props.authenticated);
+    // this.props.startFeedWatch(this.props.authenticated);
+    this.props.startLikesByUserWatch(this.props.authenticated);
+    this.props.startUsersFeedWatchScroller(this.props.authenticated, this.props.dateIndex);
     this.props.getFeaturedPreview(this.props.authenticated);
     this.props.getPopularPreview(this.props.authenticated);
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'home page'});
   } 
 
   componentWillUnmount() {
-    this.props.unloadFeedWatch(this.props.authenticated);
+    // this.props.unloadFeedWatch(this.props.authenticated);
     // this.props.stopUsersFeedWatch(this.props.authenticated);
+    this.props.stopLikesByUserWatch(this.props.authenticated);
+    this.props.stopUsersFeedWatchScroller(this.props.authenticated, this.props.dateIndex);
     if (this.props.featuredPreview && this.props.featuredPreview.itinerary) {
       this.props.unloadFeaturePreview(this.props.authenticated, this.props.featuredPreview.itinerary.id)
     }
+  }
+
+  onPrevClick = ev => {
+    ev.preventDefault()
+    // this.props.unwatchGlobalFeed(this.props.authenticated, this.props.currentDateIndex)
+    this.props.startUsersFeedWatchScroller(this.props.authenticated, this.props.dateIndex)
   }
 
   LoggedOutIntro(authenticated) {
@@ -310,14 +319,14 @@ class Home extends React.Component {
           <BackToTop />
 
           <div className="w-100 flx flx-row flx-center-all mrgn-top-lg">
-            <button className="vb vb--sm vb--outline-none fill--none" onClick={this.onNextClick}>
+            {/*<button className="vb vb--sm vb--outline-none fill--none" onClick={this.onNextClick}>
               <i className="material-icons color--primary md-32">keyboard_arrow_left</i>
               <div className="mobile-hide mrgn-left-sm">Newer Guides</div>
-            </button>
-            <button className="vb vb--sm vb--outline-none fill--none" onClick={this.onPrevClick}>
-              <div className="mobile-hide mrgn-right-sm">Older Guides</div>
+            </button>*/}
+            {!this.props.endOfFeed && <button className="vb vb--sm vb--outline-none fill--none" onClick={this.onPrevClick}>
+              <div className="mobile-hide mrgn-right-sm">Show more guides</div>
               <i className="material-icons color--primary md-32">keyboard_arrow_right</i>
-            </button>
+            </button>}
           </div>
 
         </div>

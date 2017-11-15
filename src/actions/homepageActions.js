@@ -511,6 +511,123 @@ export function stopUsersFeedWatch(auth) {
   }
 }
 
+export function checkForEnd(dispatch, auth, dateIndex) {
+  const endAt = dateIndex ? dateIndex : Firebase.database.ServerValue.TIMESTAMP.toString();
+  Firebase.database().ref(Constants.USERS_FEED_PATH + '/' + auth)
+    .orderByValue()
+    .endAt(endAt)
+    .limitToLast(Constants.HOME_PAGE_FEED_COUNT)
+    .once('value', snap => {
+      if (snap.numChildren() < Constants.HOME_PAGE_FEED_COUNT) {
+        dispatch({
+          type: ActionTypes.END_OF_FEED
+        })
+      }
+  })
+}
+
+// export function setHomepagePagination(dispatch, auth, dateIndex) {
+//   const endAt = dateIndex ? dateIndex : Firebase.database.ServerValue.TIMESTAMP.toString();
+  
+//   Firebase.database().ref(Constants.USERS_FEED_PATH + '/' + auth)
+//     .orderByValue()
+//     .endAt(endAt)
+//     .limitToLast(Constants.HOME_PAGE_FEED_COUNT)
+//     .once('value', pageSnap => {
+//       let endOfFeed = pageSnap.numChildren < Constants.HOME_PAGE_FEED_COUNT ? true : false
+//       let i = 1;
+//       let prev = dateIndex;
+//       let next = null;
+//       pageSnap.forEach(function(itin) {
+//         // if (i === 1) {
+//         //   prev = itin.val()
+//         // }
+//         // else if (i === pageSnap.numChildren()) {
+//         //   next = itin.val()
+//         // }
+
+//         prev = !prev || itin.val() < prev ? itin.val() : prev
+        
+//         i++;
+//       })
+      
+//       dispatch({
+//         type: ActionTypes.SET_HOMEPAGE_PAGINATION_VALUES,
+//         dateIndex: prev - 1,
+//         endOfFeed: endOfFeed
+//       })
+//   })
+// }
+
+export function startUsersFeedWatchScroller(auth, dateIndex) {
+  return dispatch => {
+    if (!auth) {
+      dispatch({
+        type: ActionTypes.HOME_PAGE_NO_AUTH
+      })
+    }
+    // watchLikesByUser(dispatch, auth, Constants.USER_FEED);
+
+    const endAt = dateIndex ? dateIndex : Firebase.database.ServerValue.TIMESTAMP.toString();
+
+    // setHomepagePagination(dispatch, auth, dateIndex);
+    checkForEnd(dispatch, auth, endAt);
+
+    Firebase.database().ref(Constants.USERS_FEED_PATH + '/' + auth)
+      .orderByValue()
+      .limitToLast(Constants.HOME_PAGE_FEED_COUNT)
+      .endAt(endAt)
+      .on('child_added', snap => {
+        watchItineraryValue(dispatch, snap.key);
+    })
+
+    Firebase.database().ref(Constants.USERS_FEED_PATH + '/' + auth)
+      .on('child_removed', removedSnap => {
+        unwatchItineraryValue(dispatch, removedSnap.key)
+    })
+
+    dispatch({
+      type: ActionTypes.FEED_WATCH_LOADED
+    })
+  }
+}
+
+export function stopUsersFeedWatchScroller(auth, dateIndex) {
+  return dispatch => {
+    if (dateIndex) {
+      Firebase.database().ref(Constants.USERS_FEED_PATH + '/' + auth)
+        .orderByValue()
+        .startAt(dateIndex)
+        .once('value', snap => {
+          snap.forEach(function(itin) {
+          Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itin.key).once('value', itinSnap => {
+            unwatchUser(dispatch, itinSnap.val().userId, Constants.USER_FEED);
+          })
+          Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itin.key).off();
+        })
+      })
+    }
+    else {
+      const index = Firebase.database.ServerValue.TIMESTAMP.toString();
+      Firebase.database().ref(Constants.USERS_FEED_PATH + '/' + auth)
+        .orderByValue()
+        .endAt(index)
+        .once('value', snap => {
+          snap.forEach(function(itin) {
+          Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itin.key).once('value', itinSnap => {
+            unwatchUser(dispatch, itinSnap.val().userId, Constants.USER_FEED);
+          })
+          Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itin.key).off();
+        })
+      })
+    }
+
+    dispatch({
+      type: ActionTypes.USER_FEED_UNLOADED
+    })
+  }
+}
+
 export function watchItineraryValue(dispatch, itineraryId) {
   Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).on('value', snap => {
     watchUser(dispatch, snap.val().userId, Constants.USER_FEED);
