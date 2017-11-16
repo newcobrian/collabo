@@ -244,6 +244,74 @@ class Itinerary extends React.Component {
             </button>*/}
 
 
+            {/** -------- AUTHOR CONTROLS **/}
+            <div className="test00 brdr-top it-author-controls w-max flx flx-row flx-just-start flx-align-center ta-center pdding-top-sm pdding-bottom-sm">
+                <div className="w-100 w-max flx flx-row flx-just-start flx-align-center ta-center">
+
+
+                {/* Like */}
+                <div className="cta-wrapper flx flx-row vb vb--sm vb--outline--none fill--white color--black">
+                  <LikeReviewButton
+                    authenticated={this.props.authenticated}
+                    isLiked={this.props.itinerary.isLiked}
+                    likesCount={itinerary.likesCount}
+                    unLike={this.props.unLikeReview}
+                    like={this.props.likeReview} 
+                    likeObject={itinerary}
+                    itineraryId={this.props.itineraryId}
+                    type={ITINERARY_TYPE} />
+                </div>
+
+                {/* Share */}
+                <div className="cta-wrapper flx flx-row vb vb--sm vb--outline--none fill--primary color--white flx-item-right pdding-right-lg pdding-left-lg"
+                  onClick={this.shareGuide} >
+                  <div className="color--white mrgn-right-sm">SHARE GUIDE</div>
+                  <i className="material-icons mrgn-left-sm color--white flip-h">reply</i>
+                  <i className="material-icons color--white DN">accessibility</i>
+                </div>
+
+
+                <div className="flx-item-right flx flx-row DN">
+                  <div className="vb vb--sm vb--outline fill--white color--black">
+                    <FacebookShareButton
+                      url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
+                      quote={'Check out my travel guide "' + itinerary.title + '" for '}
+                      hashtag={'#views'}
+                      className="Demo__some-network__share-button">
+                      <FacebookIcon
+                        size={24}
+                        round />
+                    </FacebookShareButton>
+
+                    <FacebookShareCount
+                      url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
+                      className="mrgn-left-sm">
+                      {count => count}
+                    </FacebookShareCount>
+                  </div>
+
+                  <div className="vb vb--sm vb--outline fill--white color--black mrgn-left-n-1">
+                    <TwitterShareButton
+                      url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
+                      title={'Check out my travel guide "' + itinerary.title + '" for ' + ':'}
+                      hashtags={['views']}
+                      className="Demo__some-network__share-button">
+                      <TwitterIcon
+                        size={24}
+                        round />
+                    </TwitterShareButton>
+                    <div className="mrgn-right-sm DN" onClick={this.shareGuide}>Share Guide</div>
+                    <i className="material-icons color--primary md-18 DN">share</i>
+                  </div>
+                </div>
+
+
+              </div>{/** END MAX div **/}
+
+            </div>
+            {/** AUTHOR CONTROLS >>>>>> **/}
+
+            
             <div className="content-wrapper itinerary flx flx-col flx-align-center map-on">
 
               {/** Cover Image **/}
@@ -318,74 +386,6 @@ class Itinerary extends React.Component {
                     {/*(new Date(itinerary.lastModified)).toLocaleString()*/}
                   </div> 
 
-
-
-                  {/** -------- AUTHOR CONTROLS **/}
-                  <div className="test00 brdr-top it-author-controls w-max flx flx-row flx-just-start flx-align-center ta-center pdding-top-sm pdding-bottom-sm">
-                      <div className="w-100 w-max flx flx-row flx-just-start flx-align-center ta-center">
-
-
-                      {/* Like */}
-                      <div className="cta-wrapper flx flx-row vb vb--sm vb--outline--none fill--white color--black">
-                        <LikeReviewButton
-                          authenticated={this.props.authenticated}
-                          isLiked={this.props.itinerary.isLiked}
-                          likesCount={itinerary.likesCount}
-                          unLike={this.props.unLikeReview}
-                          like={this.props.likeReview} 
-                          likeObject={itinerary}
-                          itineraryId={this.props.itineraryId}
-                          type={ITINERARY_TYPE} />
-                      </div>
-
-                      {/* Share */}
-                      <div className="cta-wrapper flx flx-row vb vb--sm vb--outline--none fill--primary color--white flx-item-right pdding-right-lg pdding-left-lg"
-                        onClick={this.shareGuide} >
-                        <div className="color--white mrgn-right-sm">SHARE GUIDE</div>
-                        <i className="material-icons mrgn-left-sm color--white flip-h">reply</i>
-                        <i className="material-icons color--white DN">accessibility</i>
-                      </div>
-
-
-                      <div className="flx-item-right flx flx-row DN">
-                        <div className="vb vb--sm vb--outline fill--white color--black">
-                          <FacebookShareButton
-                            url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
-                            quote={'Check out my travel guide "' + itinerary.title + '" for '}
-                            hashtag={'#views'}
-                            className="Demo__some-network__share-button">
-                            <FacebookIcon
-                              size={24}
-                              round />
-                          </FacebookShareButton>
-
-                          <FacebookShareCount
-                            url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
-                            className="mrgn-left-sm">
-                            {count => count}
-                          </FacebookShareCount>
-                        </div>
-
-                        <div className="vb vb--sm vb--outline fill--white color--black mrgn-left-n-1">
-                          <TwitterShareButton
-                            url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
-                            title={'Check out my travel guide "' + itinerary.title + '" for ' + ':'}
-                            hashtags={['views']}
-                            className="Demo__some-network__share-button">
-                            <TwitterIcon
-                              size={24}
-                              round />
-                          </TwitterShareButton>
-                          <div className="mrgn-right-sm DN" onClick={this.shareGuide}>Share Guide</div>
-                          <i className="material-icons color--primary md-18 DN">share</i>
-                        </div>
-                      </div>
-
-
-                    </div>{/** END MAX div **/}
-
-                  </div>
-                  {/** AUTHOR CONTROLS >>>>>> **/}
 
                   </div>
 
