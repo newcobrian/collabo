@@ -217,7 +217,8 @@ const TipPreview = props => {
                     </div>
 
                     <Link onClick={onInfoClick} className="w-20 hide-in-list vb vb--tip vb--outline--none flx flx-row flx-align-center brdr-top">
-                      <i className="material-icons md-24">info_outline</i>
+                      <i className="material-icons md-24 DN">info_outline</i>
+                      <div className="color--black v2-type-body2 weight-500">Info</div>
                     </Link>
                     {/*<Link to={googleMapLink} className="w-20 hide-in-list vb vb--tip vb--outline--none flx flx-row flx-align-center brdr-top">
                       <i className="material-icons md-24">place</i>

@@ -1,4 +1,16 @@
 
+* .country-color-SG .invert,
+* .country-color-SG .invert svg,
+* .country-color-TR .invert,
+* .country-color-TR .invert svg,
+* .country-color-MY .invert,
+* .country-color-MY .invert svg,
+* .country-color-GB .invert,
+* .country-color-GB .invert svg,
+* .country-color-HK .invert,
+* .country-color-HK .invert svg,
+* .country-color-TH .invert,
+* .country-color-TH .invert svg,
 * .country-color-FR .invert,
 * .country-color-FR .invert svg,
 * .country-color-CN .invert,
@@ -22,6 +34,25 @@
 * .it__cover__inner .invert input {
 	border: none !important;
 }
+
+* .country-color-SG {
+	background-color: #fb433e !important;
+}
+* .country-color-TR { /** TURKEY **/
+	background-color: #8a303a !important;
+}
+* .country-color-MY { /** MALAYSIA **/
+	background-color: #be2542 !important;
+}
+* .country-color-GB { /** LONDON **/
+	background-color: #5d2541 !important;
+}
+* .country-color-HK { /** JAPAN **/
+	background-color: #001c54 !important;
+}
+* .country-color-TH { /** Thailand  */
+	background-color: #751f23 !important;
+}
 * .country-color-FR { /** France  */
 	background-color: #123ab4 !important;
 }
@@ -39,8 +70,10 @@
 }
 * .country-color-US { /** USA INVERTED */
 	background-color: #2e3d6e !important;
+	background-color: #1e345b !important;
 }
 * .country-color-JP { /** Japan INVERTED  */
+	background-color: #8f0818 !important;
 	background-color: #C70025 !important;
 }
 * .country-color-KR { /** Korea INVERTED  */
@@ -256,8 +289,6 @@
 }
 * .country-color-HN { background-color: #ffffffHN;
 }
-* .country-color-HK { background-color: #ffffffHK;
-}
 * .country-color-HU { background-color: #ffffffHU;
 }
 * .country-color-IS { background-color: #ffffffIS;
@@ -290,8 +321,6 @@
 * .country-color-MG { background-color: #ffffffMG;
 }
 * .country-color-MW { background-color: #ffffffMW;
-}
-* .country-color-MY { background-color: #ffffffMY;
 }
 * .country-color-MV { background-color: #ffffffMV;
 }
@@ -434,8 +463,6 @@
 }
 * .country-color-SL { background-color: #ffffffSL;
 }
-* .country-color-SG { background-color: #ffffffSG;
-}
 * .country-color-SK { background-color: #ffffffSK;
 }
 * .country-color-SI { background-color: #ffffffSI;
@@ -471,8 +498,6 @@
 }
 * .country-color-TZ { background-color: #ffffffTZ;
 }
-* .country-color-TH { background-color: #ffffffTH;
-}
 * .country-color-TL { background-color: #ffffffTL;
 }
 * .country-color-TG { background-color: #ffffffTG;
@@ -498,8 +523,6 @@
 * .country-color-UA { background-color: #ffffffUA;
 }
 * .country-color-AE { background-color: #ffffffAE;
-}
-* .country-color-GB { background-color: #ffffffGB;
 }
 * .country-color-UM { background-color: #ffffffUM;
 }
