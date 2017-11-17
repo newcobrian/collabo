@@ -117,6 +117,7 @@ class ItineraryForm extends React.Component {
       this.props.updateReviewField(this.props.authenticated, this.props.data, field, value, tip);
 
     this.changeDescription = value => updateItineraryFieldEvent('description', value)
+    this.changeLink = value => updateItineraryFieldEvent('link', value)
     this.changeTitle = value => {
       if (value.length >= 1) {
         updateItineraryFieldEvent('title', value)
@@ -586,6 +587,19 @@ class ItineraryForm extends React.Component {
                     placeholder="Description"
                     debounceFunction={this.changeDescription} />
               </div>
+
+            {/** LINK - only for admins **/}
+              {
+                Constants.ADMIN_USERS.includes(this.props.authenticated) && 
+                <div className="itinerary__cover__descrip font--beta v2-type-body3 ta-center mrgn-top-sm opa-80">
+                   <RenderDebounceInput
+                      type="text"
+                      className="w-100 font--beta invert"
+                      value={this.props.data.link}
+                      placeholder="Link"
+                      debounceFunction={this.changeLink} />
+                </div>
+              }
 
               {/** TIMESTAMP **/}
               <div className="itinerary__cover__timestamp ta-center pdding-top-sm opa-30 DN">

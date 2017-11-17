@@ -138,6 +138,8 @@ export const INVALID_USERNAMES = ['account', 'send', 'message', 'inbox', 'notifi
   'geo', 'attraction', 'subject', 'home', 'places', 'countries', 'api', 'guide', 'popular', 'privacy', 'terms', 'about',
   'contact']
 
+export const ADMIN_USERS = ['WZPmzQzrHtPxMk3DyXpUDn0HU513', 'Pv4pCJ7a11TxXTU28mcUmxgyXc92', 'HZ1g4L39qnW3rdrhduUwUbGnUx82']
+
 /** Top Cities for homepage and explore page searchbar **/
 export const POPULAR_CITIES = [
 	{id: 'ChIJ51cu8IcbXWARiRtXIothAS4', label: 'Tokyo, Japan', shortName: 'Tokyo'},
