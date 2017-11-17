@@ -85,12 +85,12 @@ class App extends React.Component {
             userInfo={this.props.userInfo} 
             unreadMessages={this.props.unreadMessages} />
           {this.props.children}
-          <RootModal/>
           <SnackbarToaster 
             {...this.props.snackbarToaster}
             duration={4000} 
             onRequestClose={this.props.closeSnackbar} />
             <LightboxComponent/>
+          <RootModal/>
         </div>
       );
     }

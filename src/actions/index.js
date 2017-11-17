@@ -3041,7 +3041,7 @@ export function openSnackbar(message) {
   return dispatch => {
     dispatch({
       type: SHOW_SNACKBAR,
-      payload: message
+      message: message
     })
   }
 }

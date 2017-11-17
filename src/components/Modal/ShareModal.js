@@ -49,6 +49,10 @@ class ShareModal extends React.Component {
     const itinerary = this.props.itinerary;
     const shortName = itinerary && itinerary.geo && itinerary.geo.shortName ? itinerary.geo.shortName : itinerary.geo.label;
 
+    const onCopyClick = () => {
+      this.props.openSnackbar('Share link copied to clipboard');
+    }
+
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <Dialog
@@ -137,7 +141,7 @@ class ShareModal extends React.Component {
               <CopyToClipboard 
                 className="flx flx-row flx-center-all w-100 vb vb--md vb--outline--none color--white fill--success"
                 text={Constants.VIEWS_URL + '/guide/' + itinerary.id}
-                onCopy={() => this.setState({copied: true})}>
+                onCopy={onCopyClick}>
                   <div className="flx flx-row flx-center-all w-100">
                     <i className="material-icons color--white opa-60 flx-item-left">link</i>
                     <div className="w-100">Copy link to clipboard</div>
