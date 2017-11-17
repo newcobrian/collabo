@@ -1,4 +1,6 @@
 
+* .country-color-NL .invert,
+* .country-color-NL .invert svg,
 * .country-color-AR .invert,
 * .country-color-AR .invert svg,
 * .country-color-SG .invert,
@@ -37,7 +39,9 @@
 	border: none !important;
 }
 
-
+* .country-color-NL {
+	background-color: #8f394f !important;
+}
 * .country-color-AR { /** ARGENTINA **/
 	background-color: #6ca7dc !important;
 }
@@ -368,8 +372,7 @@
 
 * .country-color-NP { background-color: #ffffffNP;
 }
-* .country-color-NL { background-color: #ffffffNL;
-}
+
 * .country-color-AN { background-color: #ffffffAN;
 }
 * .country-color-NC { background-color: #ffffffNC;

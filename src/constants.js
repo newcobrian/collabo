@@ -139,7 +139,14 @@ export const INVALID_USERNAMES = ['account', 'send', 'message', 'inbox', 'notifi
   'geo', 'attraction', 'subject', 'home', 'places', 'countries', 'api', 'guide', 'popular', 'privacy', 'terms', 'about',
   'contact']
 
-export const ADMIN_USERS = ['WZPmzQzrHtPxMk3DyXpUDn0HU513', 'Pv4pCJ7a11TxXTU28mcUmxgyXc92', 'HZ1g4L39qnW3rdrhduUwUbGnUx82']
+export const ADMIN_USERS = [
+
+'WZPmzQzrHtPxMk3DyXpUDn0HU513',
+'Pv4pCJ7a11TxXTU28mcUmxgyXc92', 
+'HZ1g4L39qnW3rdrhduUwUbGnUx82', 
+'S0kpgk8Gk5dlsEvUbGj6QmV40Wl2' /** agent4 **/
+
+]
 
 /** Top Cities for homepage and explore page searchbar **/
 export const POPULAR_CITIES = [

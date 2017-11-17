@@ -235,6 +235,7 @@ class Profile extends React.Component {
             follow={this.props.followUser}
             unfollow={this.props.unfollowUser} />
 
+          {/**console.log(this.props.currentUser)**/}
 
           {this.renderTabs()}
           </div>
