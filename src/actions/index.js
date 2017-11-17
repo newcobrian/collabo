@@ -2892,6 +2892,14 @@ export function showShareModal(itinerary) {
   }
 }
 
+export function showChangeEmailModal() {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.SHOW_CHANGE_EMAIL_MODAL
+    })
+  }
+}
+
 export function loadReorderModal(itinerary) {
   return dispatch => {
     Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itinerary.id).on('value', snap => {

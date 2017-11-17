@@ -41,6 +41,11 @@ class SettingsForm extends React.Component {
 
       this.props.onSubmitForm(this.props.authenticated, user, this.props.currentUser, this.state.imageFile);
     };
+
+    this.changeEmailClick = ev => {
+      ev.preventDefault();
+      this.props.showChangeEmailModal();
+    }
   }
 
   componentWillMount() {
@@ -119,14 +124,16 @@ class SettingsForm extends React.Component {
           </fieldset>
 
           <fieldset className="form-group">
-            <input
+            {/*<input
               className="form-control form-control-lg"
               type="email"
               placeholder="Email"
               required
               value={this.state.email}
-              onChange={this.updateState('email')} />
+              onChange={this.updateState('email')} />*/}
+              Email: {this.state.email}
           </fieldset>
+          <a onClick={this.changeEmailClick}>Change email address</a>
 
          {/*} <fieldset className="form-group">
             <input
@@ -181,7 +188,8 @@ class Settings extends React.Component {
               <SettingsForm
                 authenticated={this.props.authenticated}
                 currentUser={this.props.firebaseUser}
-                onSubmitForm={this.props.saveSettings} />
+                onSubmitForm={this.props.saveSettings}
+                showChangeEmailModal={this.props.showChangeEmailModal} />
 
 
               <div

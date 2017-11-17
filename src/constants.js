@@ -111,6 +111,7 @@ export const INFO_MODAL = 'INFO_MODAL'
 export const REORDER_ITINERARY_MODAL = 'REORDER_ITINERARY_MODAL'
 export const SHARE_MODAL = 'SHARE_MODAL'
 export const FILTER_MODAL = 'FILTER_MODAL'
+export const CHANGE_EMAIL_MODAL = 'CHANGE_EMAIL_MODAL'
 
 /*** Page Sources ***/
 export const USER_FEED = 'USER_FEED'

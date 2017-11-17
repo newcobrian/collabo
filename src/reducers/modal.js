@@ -52,6 +52,16 @@ export default (state = initialState, action) => {
         modalType: Constants.SHARE_MODAL,
         itinerary: action.itinerary
       }
+    case ActionTypes.SHOW_CHANGE_EMAIL_MODAL:
+      return {
+        ...state,
+        modalType: Constants.CHANGE_EMAIL_MODAL
+      }
+    case ActionTypes.EMAIL_UPDATE_ERROR:
+      return {
+        ...state,
+        errors: [action.error]
+      }
     case ActionTypes.LOAD_REORDER_MODAL: {
       const newState = Object.assign({}, state);
       newState.itinerary = newState.itinerary || {};

@@ -305,6 +305,16 @@ export function saveSettings(auth, user, currentUser, imageFile) {
                 else {
                   // no image, but still save the user 
                   Firebase.database().ref(Constants.USERS_PATH + '/' + uid + '/').set(userObject);
+
+                  dispatch({
+                    type: ActionTypes.SETTINGS_SAVED,
+                    message: 'Your profile has been saved.',
+                    meta: {
+                      mixpanel: {
+                        event: 'Settings saved'
+                      }
+                    }
+                  });
                 }
               }
             })
@@ -327,6 +337,69 @@ export function saveSettings(auth, user, currentUser, imageFile) {
         }
       })
     }
+  }
+}
+
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+
+export function changeEmailAddress(email, password) {
+  return dispatch => {
+    // check for valid email?
+    if (!password) {
+      dispatch({
+        type: ActionTypes.EMAIL_UPDATE_ERROR,
+        error: 'Password is required'
+      })
+    }
+    if (!validateEmail(email)) {
+      dispatch({
+        type: ActionTypes.EMAIL_UPDATE_ERROR,
+        error: 'Please enter a valid email address'
+      })
+    }
+    else {
+      // check that email is not already taken
+      // re-auth
+      let user = Firebase.auth().currentUser;
+      Firebase.auth().signInWithEmailAndPassword(user.email, password).then(function() {
+        user.updateEmail(email).then(function() {
+
+          Firebase.database().ref(Constants.USERS_PATH + '/' + user.uid).update({email: email});
+          
+          dispatch({
+            type: ActionTypes.SHOW_SNACKBAR,
+            message: 'Email update successful'
+          })
+
+          dispatch({
+            type: ActionTypes.HIDE_MODAL
+          })
+        }).catch(function(error) {
+          // error updating email address
+          dispatch({
+            type: ActionTypes.EMAIL_UPDATE_ERROR,
+            error: error.message
+          })
+        });
+      }).catch(error => {
+        // did not auth user correctly
+        dispatch({
+          type: ActionTypes.EMAIL_UPDATE_ERROR,
+          error: error.message
+        })
+      });
+    }
+
+    
+
+    // re-auth
+
+    // if succsess, update
+
+    // if fail, update listErrors
   }
 }
 
