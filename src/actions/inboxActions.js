@@ -3,18 +3,43 @@ import * as Constants from '../constants'
 import * as Helpers from '../helpers'
 import * as ActionTypes from './types'
 
-export function getInbox(authenticated) {
+export function checkEndOfInbox(dispatch, auth, dateIndex) {
+  let endAt = dateIndex ? dateIndex : Firebase.database.ServerValue.TIMESTAMP.toString();
+
+  Firebase.database().ref(Constants.INBOX_PATH + '/' + auth)
+    .orderByChild('lastModified')
+    .limitToLast(Constants.INBOX_FEED_COUNT)
+    .endAt(endAt)
+    .once('value', snap => {
+      if (snap.numChildren() < Constants.INBOX_FEED_COUNT) {
+        dispatch({
+          type: ActionTypes.END_OF_INBOX_FEED
+        })
+      }
+  })
+}
+
+export function getInbox(authenticated, dateIndex) {
   return dispatch => {
+    console.log('in action di = ' + dateIndex)
     if (!authenticated) {
       dispatch({
         type: ActionTypes.ASK_FOR_AUTH
       })
     }
+    let endAt = dateIndex ? dateIndex : Firebase.database.ServerValue.TIMESTAMP.toString();
     let inboxArray = [];
-    Firebase.database().ref(Constants.INBOX_PATH + '/' + authenticated).orderByChild('lastModified').on('child_added', inboxSnapshot => {
+
+    checkEndOfInbox(dispatch, authenticated, endAt)
+
+    Firebase.database().ref(Constants.INBOX_PATH + '/' + authenticated)
+    .orderByChild('lastModified')
+    .limitToLast(Constants.INBOX_FEED_COUNT)
+    .endAt(endAt)
+    .on('child_added', inboxSnapshot => {
       if (!inboxSnapshot.exists()) {
         dispatch({
-          type: ActionTypes.GET_INBOX,
+          type: ActionTypes.GET_INBOX_ITEM,
           payload: []
         })
       }
@@ -29,8 +54,9 @@ export function getInbox(authenticated) {
         inboxArray.sort(Helpers.lastModifiedDesc);
 
         dispatch({
-          type: ActionTypes.GET_INBOX,
-          payload: inboxArray
+          type: ActionTypes.GET_INBOX_ITEM,
+          // payload: inboxArray,
+          payload: inboxObject
         })
       })
     })

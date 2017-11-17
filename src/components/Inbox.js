@@ -64,13 +64,18 @@ const mapStateToProps = state => ({
 
 class Inbox extends React.Component {
   componentWillMount() {
-    this.props.getInbox(this.props.authenticated);
+    this.props.getInbox(this.props.authenticated, null);
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'inbox'});
   }
 
   componentWillUnmount() {
     this.props.updateInboxCount(this.props.authenticated);
     this.props.unloadInbox(this.props.authenticated);
+  }
+
+  onLoadMoreClick = ev => {
+    ev.preventDefault()
+    this.props.getInbox(this.props.authenticated, this.props.dateIndex)
   }
 
   render() {
@@ -97,7 +102,6 @@ class Inbox extends React.Component {
         </div>
       );
     }
-
     return (
       <div className="page-common no-feed-toggle inbox-page flx flx-col flx-just-start">
         <div className="page-title-wrapper center-text">
@@ -124,7 +128,14 @@ class Inbox extends React.Component {
                 )
             })
           }
+            <div className="w-100 flx flx-row flx-center-all mrgn-top-lg">
+            {!this.props.endOfInbox && <button className="vb vb--sm vb--outline-none fill--none" onClick={this.onLoadMoreClick}>
+              <div className="mobile-hide mrgn-right-sm">Load more messages</div>
+              <i className="material-icons color--primary md-32">keyboard_arrow_right</i>
+            </button>}
+          </div>
         </div>
+        
 
     );
   }
