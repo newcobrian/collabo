@@ -238,6 +238,11 @@
  .page-edit-own .itinerary__cover__descrip {
  	margin-top: -5px;
  }
+ .itinerary__cover__descrip.itinerary__cover__source {
+ 	max-width: 200px;
+ 	opacity: .5;
+ 	padding: 0 0 10px;
+ }
 
 .itinerary__cover__flag,
 .itinerary__summary__flag {
@@ -495,5 +500,5 @@ textarea.edit-itinerary__name {
 	width: 50%;
 	background: white;
 	padding: 10px;
-	z-index: 100000;
+	z-index: 10;
 }

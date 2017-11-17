@@ -1,4 +1,6 @@
 
+* .country-color-AR .invert,
+* .country-color-AR .invert svg,
 * .country-color-SG .invert,
 * .country-color-SG .invert svg,
 * .country-color-TR .invert,
@@ -35,7 +37,11 @@
 	border: none !important;
 }
 
-* .country-color-SG {
+
+* .country-color-AR { /** ARGENTINA **/
+	background-color: #6ca7dc !important;
+}
+* .country-color-SG { /** SINGAPORE**/
 	background-color: #fb433e !important;
 }
 * .country-color-TR { /** TURKEY **/
@@ -103,8 +109,6 @@
 * .country-color-AQ { background-color: #ffffffAQ;
 }
 * .country-color-AG { background-color: #ffffffAG;
-}
-* .country-color-AR { background-color: #ffffffAR;
 }
 * .country-color-AM { background-color: #ffffffAM;
 }

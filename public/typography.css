@@ -93,6 +93,12 @@ textarea {
   letter-spacing: 0;
   line-height: 24px;
 }
+.v2-type-body4 {
+  font-weight: 300;
+  font-size: 19px;
+  letter-spacing: 0;
+  line-height: 26px;
+}
 
 
 .strong--400.v2-type-body0,
@@ -106,10 +112,6 @@ textarea {
 }
 
 .v2-type-body4 {
-  font-weight: 400;
-  font-size: 20px;
-  letter-spacing: 0.5px;
-  line-height: 28px;
 }
 .v2-type-caption {
   font-weight: 400;

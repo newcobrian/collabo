@@ -85,7 +85,7 @@ const GeoInfo = props => {
     return (
       <Link to={`/places/${props.geo.placeId}`} className="flx flx-col flx-just-start flx-align-center w-50">
           {/** Flag and Geo **/}
-          <div className={'itinerary__cover__flag mrgn-bottom-sm flx-hold invert flag-' + props.geo.country}>
+          <div className={'itinerary__cover__flag flx-hold invert flag-' + props.geo.country}>
           </div>
           <div className="geo-type ellipsis ta-center invert">
             {props.geo.label}
@@ -197,7 +197,7 @@ const ItineraryPreview = props => {
 
                   {/** USERNAME **/}
                   <div className="flx flx-col flx-just-start">
-                    <div className="itinerary__cover__username mrgn-top-sm ta-center">
+                    <div className="itinerary__cover__username ta-center">
                       <Link
                       to={`/${itinerary.createdBy.username}`}
                       className="color--black invert">

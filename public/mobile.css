@@ -29,6 +29,9 @@ body {
 
 }
 .header-container.logged-out {
+
+}
+.header-container .navigation-bar {
   display: none;
 }
 .logo-graphic {

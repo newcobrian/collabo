@@ -7,8 +7,8 @@ const mapStateToProps = state => ({
   authenticated: state.common.authenticated
 });
 
-const IMAGE_WIDTH = 400
-const IMAGE_HEIGHT = 200
+const IMAGE_WIDTH = 700
+const IMAGE_HEIGHT = 350
 
 class ImagePicker extends React.Component {
   constructor() {
