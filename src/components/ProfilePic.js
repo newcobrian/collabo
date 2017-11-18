@@ -19,7 +19,7 @@ const ProfilePic = props => {
     var bits = withoutParams.split('/')
     var key = bits[bits.length-1]
     
-    url = 'https://myviews.imgix.net/images/' + key + '?fit=crop&h=120&max-w=120'
+    url = 'https://myviews.imgix.net/images/' + key + '?fit=crop&h=180&max-w=180'
   }
   
   return (
