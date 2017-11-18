@@ -242,11 +242,14 @@ export default (state = initialState, action) => {
       }
     case ActionTypes.UNLOAD_POPULAR_FEED:
       return initialState;
-    case ActionTypes.FEED_WATCH_LOADED:
-      return {
-        ...state,
-        feedWatchLoaded: true
-      }
+    case ActionTypes.FEED_WATCH_LOADED: {
+      const newState = Object.assign({}, state);
+      newState.itineraries = newState.itineraries || [];
+      newState.itineraries = newState.itineraries.slice();
+
+      newState.feedWatchLoaded = true;
+      return newState;
+    }
     case ActionTypes.SET_PAGINATION_VALUES:
       return {
         ...state,
