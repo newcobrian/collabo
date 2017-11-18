@@ -227,6 +227,10 @@ margin: 0;
 
 */
 
+.nav-module.create .material-icons {
+  margin-right: 0 !important;
+}
+
 .navigation-bar {
   height: 39px;
 }

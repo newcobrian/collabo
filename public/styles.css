@@ -716,19 +716,19 @@ width: 32px;
 }
 
 .pdding-all-md {
-  padding: 20px;
+  padding: 20px !important;
 }
 .pdding-top-md {
-  padding-top: 20px;
+  padding-top: 20px !important;
 }
 .pdding-right-md {
-  padding-right: 20px;
+  padding-right: 20px !important;
 }
 .pdding-bottom-md {
-  padding-bottom: 20px;
+  padding-bottom: 20px !important;
 }
 .pdding-left-md {
-  padding-left: 20px;
+  padding-left: 20px !important;
 }
 
 .pdding-all-lg {

@@ -123,7 +123,7 @@ class SettingsForm extends React.Component {
             </textarea>
           </fieldset>
 
-          <fieldset className="form-group">
+          <fieldset className="form-group pdding-all-md">
             {/*<input
               className="form-control form-control-lg"
               type="email"
@@ -131,9 +131,10 @@ class SettingsForm extends React.Component {
               required
               value={this.state.email}
               onChange={this.updateState('email')} />*/}
-              Email: {this.state.email}
+              <div className="">{this.state.email}</div>
+              <a className="color--primary v2-type-body1" onClick={this.changeEmailClick}>Change email address</a>
+
           </fieldset>
-          <a onClick={this.changeEmailClick}>Change email address</a>
 
          {/*} <fieldset className="form-group">
             <input
@@ -149,7 +150,7 @@ class SettingsForm extends React.Component {
             className="vb fill--primary color--white ta-center mrgn-bottom-sm w-100"
             type="submit"
             disabled={this.state.inProgress}>
-            Update Profile
+            Save Changes
           </button>
 
         </fieldset>
@@ -193,7 +194,7 @@ class Settings extends React.Component {
 
 
               <div
-                className="fill--none color--primary w-100 mrgn-top-md ta-center w-100"
+                className="fill--none color--black opa-60 w-100 mrgn-top-md ta-center w-100"
                 onClick={this.props.signOutUser}>
                 Logout
               </div>

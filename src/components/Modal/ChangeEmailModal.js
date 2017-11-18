@@ -45,7 +45,7 @@ class ChangeEmailModal extends React.Component {
     const actions = [
       <FlatButton
         label="Close"
-        className="vb"
+        className="vb mrgn-right-sm"
         hoverColor="rgba(247,247,247,.2)"
         onClick={handleClose}
         style={{
@@ -102,20 +102,12 @@ class ChangeEmailModal extends React.Component {
         >
 
             <div className="dialog--save__content">
-              <div className="dialog--save__tip-item">
-                <div className="flx flx-row flx-just-start flx-align-center">
-                  <div className="tip-preview-wrapper mrgn-right-md">
-                     
-                  </div>
-                  <div className="dialog--save__tip-name"></div>
-                </div>
-              </div>
               <div className="flx flx-col flx-center-all new-itin-modal">
                 <div className="page-title-wrapper center-text DN">
                   <div className="v2-type-page-header">Change Your Email Address</div>
                   <div className="v2-type-body2 opa-60 mrgn-top-sm DN"></div>
                 </div>
-                <div className="flx flx-col flx-center-all create-wrapper mrgn-top-sm">
+                <div className="flx flx-col flx-center-all create-wrapper mrgn-top-md">
                   <ListErrors errors={this.props.errors}></ListErrors>
                       <div className="form-wrapper flx flx-col-left">
                         <form>

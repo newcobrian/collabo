@@ -515,22 +515,22 @@ h4 {
 
 
 .font--beta.invert::-moz-placeholder { /* Firefox 19+ */
-  color: white !important; /*DARK BLUE*/
+  color: #ccc !important; /*DARK BLUE*/
   opacity: .8;
   font-weight: 300;
 }
 .font--beta.invert:-ms-input-placeholder { /* IE 10+ */
-  color: white !important; /*DARK BLUE*/
+  color: #ccc !important; /*DARK BLUE*/
   opacity: .8;
   font-weight: 300;
 }
 .font--beta.invert:-moz-placeholder { /* Firefox 18- */
-  color: white !important; /*DARK BLUE*/
+  color: #ccc !important; /*DARK BLUE*/
   opacity: .8;
   font-weight: 300;
 }
 .invert.font--beta::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: white !important; /*DARK BLUE*/
+  color: #ccc !important; /*DARK BLUE*/
   opacity: .8;
   font-weight: 300;
 }

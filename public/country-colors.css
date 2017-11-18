@@ -1,4 +1,10 @@
 
+* .country-color-CA .invert,
+* .country-color-CA .invert svg,
+* .country-color-MX .invert,
+* .country-color-MX .invert svg,
+* .country-color-HU .invert,
+* .country-color-HU .invert svg,
 * .country-color-NL .invert,
 * .country-color-NL .invert svg,
 * .country-color-AR .invert,
@@ -39,7 +45,16 @@
 	border: none !important;
 }
 
-* .country-color-NL {
+* .country-color-CA {
+	background-color: #28292d !important;
+}
+* .country-color-MX {
+	background-color: #1e3231 !important;
+}
+* .country-color-HU { /** HUNGARY **/
+	background-color: #3e5a42 !important;
+}
+* .country-color-NL { /** ARGENTINA **/
 	background-color: #8f394f !important;
 }
 * .country-color-AR { /** ARGENTINA **/
@@ -172,8 +187,6 @@
 * .country-color-KH { background-color: #ffffffKH;
 }
 * .country-color-CM { background-color: #ffffffCM;
-}
-* .country-color-CA { background-color: #ffffffCA;
 }
 * .country-color-CV { background-color: #ffffffCV;
 }
@@ -346,8 +359,7 @@
 }
 * .country-color-YT { background-color: #ffffffYT;
 }
-* .country-color-MX { background-color: #ffffffMX;
-}
+
 * .country-color-FM { background-color: #ffffffFM;
 }
 * .country-color-MD { background-color: #ffffffMD;

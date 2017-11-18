@@ -3,7 +3,7 @@ import React from 'react';
 const ProfilePic = props => {
   if (!props.src) {
     return (
-    	<div className="default-profile-wrapper">
+    	<div className="default-profile-wrapper flx-hold">
     	 	<img src="../img/user_temp.png" className="center-img"/>
     	</div>
     	);
@@ -19,7 +19,7 @@ const ProfilePic = props => {
     var bits = withoutParams.split('/')
     var key = bits[bits.length-1]
     
-    url = 'https://myviews.imgix.net/images/' + key + '?fit=crop&h=64&max-w=64'
+    url = 'https://myviews.imgix.net/images/' + key + '?fit=crop&h=120&max-w=120'
   }
   
   return (
