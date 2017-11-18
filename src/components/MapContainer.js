@@ -50,15 +50,15 @@ class MapContainer extends React.Component {
 	 //    console.log('itin = ' + JSON.stringify(this.props.itinerary))
 	    // console.log('initial map cetner = ' + JSON.stringify(this.props.initialMapCenter))
 
-	    const getMapCenter = itinerary => {
+	    const getMapCenter = (itinerary, tips) => {
 
 	    	let mapCenter = {}
 	    	if (itinerary && itinerary.geo && itinerary.geo.location) mapCenter = itinerary.geo.location;
 
-	    	if (itinerary && itinerary.tips) {
-		      for (let i = 0; i < itinerary.tips.length; i++) {
-		        if (itinerary.tips[i].subject && itinerary.tips[i].subject.location) {
-		          mapCenter = itinerary.tips[i].subject.location;
+	    	if (tips) {
+		      for (let i = 0; i < tips.length; i++) {
+		        if (tips[i].subject && tips[i].subject.location) {
+		          mapCenter = tips[i].subject.location;
 		          break;
 		        }
 		      }
@@ -75,7 +75,7 @@ class MapContainer extends React.Component {
 		    return mapCenter;
 	    }
 		
-		let initialMapCenter = getMapCenter(this.props.itinerary);
+		let initialMapCenter = getMapCenter(this.props.itinerary, this.props.visibleTips);
 
 	    return (	
 			<Map google={this.props.google}
