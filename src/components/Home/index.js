@@ -100,6 +100,11 @@ class Home extends React.Component {
     this.props.startUsersFeedWatchScroller(this.props.authenticated, this.props.dateIndex)
   }
 
+  onAskForRecsClick = ev => {
+    ev.preventDefault();
+    this.props.showCreateRecs(null);
+  }
+
   LoggedOutIntro(authenticated) {
     if (!authenticated) {
       return (
@@ -276,6 +281,8 @@ class Home extends React.Component {
         <UniversalSearchBar />
         
           {this.renderTabs()}
+
+          <button className="DN" onClick={this.onAskForRecsClick}>Hi</button>
 
           <div className="w-100 w-max flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap pdding-left-md pdding-right-md">
             <div className="popular-box brdr-all flx flx-col DN">

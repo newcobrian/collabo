@@ -57,6 +57,11 @@ export default (state = initialState, action) => {
         ...state,
         modalType: Constants.CHANGE_EMAIL_MODAL
       }
+    case ActionTypes.SHOW_CREATE_RECS_MODAL:
+      return {
+        ...state,
+        modalType: Constants.CREATE_RECS_MODAL
+      }
     case ActionTypes.EMAIL_UPDATE_ERROR:
       return {
         ...state,

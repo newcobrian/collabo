@@ -3157,3 +3157,12 @@ export function userDoesntExist() {
     })
   }
 }
+
+export function showCreateRecs(recId) {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.SHOW_CREATE_RECS_MODAL,
+      recId: recId
+    })
+  }
+}

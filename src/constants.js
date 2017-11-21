@@ -112,6 +112,7 @@ export const REORDER_ITINERARY_MODAL = 'REORDER_ITINERARY_MODAL'
 export const SHARE_MODAL = 'SHARE_MODAL'
 export const FILTER_MODAL = 'FILTER_MODAL'
 export const CHANGE_EMAIL_MODAL = 'CHANGE_EMAIL_MODAL'
+export const CREATE_RECS_MODAL = 'CREATE_RECS_MODAL'
 
 /*** Page Sources ***/
 export const USER_FEED = 'USER_FEED'
@@ -138,7 +139,7 @@ export const INVALID_USERNAMES = ['account', 'send', 'message', 'inbox', 'notifi
  'itinerary', 'messenger', 'settings', 'admin', 'administrator', 'settings', 'global', 'saved', 'login', 'register',
   'review', 'followers', 'isfollowing', 'likes', 'saves', 'select', 'explore', 'search', 'user', 'location', 'city', 
   'geo', 'attraction', 'subject', 'home', 'places', 'countries', 'api', 'guide', 'popular', 'privacy', 'terms', 'about',
-  'contact']
+  'contact', 'recommend']
 
 export const ADMIN_USERS = [
 
