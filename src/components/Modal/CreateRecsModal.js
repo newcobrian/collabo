@@ -7,10 +7,12 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
 import ListErrors from './../ListErrors';
+import {GoogleApiWrapper} from 'google-maps-react';
+import Map from 'google-maps-react';
+import Geosuggest from 'react-geosuggest';
 
 const mapStateToProps = state => ({
   ...state.modal,
-  ...state.settings,
   currentUser: state.common.currentUser,
   authenticated: state.common.authenticated
 });
@@ -19,24 +21,88 @@ class CreateRecsModal extends React.Component {
   constructor() {
     super();
 
-    this.state = {
-      email: '',
-      password: ''
-    };
+    this.initMap = (mapProps, map) => {
+      const {google} = this.props;
+      this.props.loadGoogleMaps(google, map, Constants.CREATE_RECS_MODAL);
+    }
 
-    this.updateState = field => ev => {
+    // this.updateState = field => ev => {
+    //   const state = this.state;
+    //   const newState = Object.assign({}, state, { [field]: ev.target.value });
+    //   this.setState(newState);
+    // };
+
+    const updateFieldEvent =
+      key => ev => this.props.onUpdateCreateField(key, ev.target.value, Constants.CREATE_RECS_MODAL);
+
+    this.changeGeo = value => {
+      this.props.onUpdateCreateField('geo', value, Constants.CREATE_RECS_MODAL) ;
+    }
+
+    this.changeTitle = updateFieldEvent('title');
+
+    this.updateGeo = value => ev => {
+      ev.preventDefault();
       const state = this.state;
-      const newState = Object.assign({}, state, { [field]: ev.target.value });
+      const newState = Object.assign({}, state, { 'geo': value });
       this.setState(newState);
-    };
+    }
+
+    this.suggestSelect = result => {
+        var request = {
+        placeId: result.placeId
+      };
+
+      // let service = new google.maps.places.PlacesService(document.createElement('div'));
+      // service.getDetails(request, callback);
+
+      // function callback(place, status) {
+      //   if (status == google.maps.places.PlacesServiceStatus.OK) {
+      //     console.log(place.photos[0])
+      //     console.log('url = ' + place.url)
+      //   }
+      // }
+
+        let geoData = {
+          label: result.label,
+          placeId: result.placeId,
+          location: result.location
+        }
+        if (result.gmaps && result.gmaps.address_components) {
+          result.gmaps.address_components.forEach(function(resultItem) {
+            // get country name if there
+            if (resultItem.types && resultItem.types[0] && resultItem.types[0] === 'country') {
+              if (resultItem.short_name) geoData.country = resultItem.short_name;
+              if (resultItem.long_name) geoData.fullCountry = resultItem.long_name;
+            }
+            // get short name if its there
+            if (resultItem.types && resultItem.types[0] && resultItem.types[0] === 'locality' && resultItem.types[1] && resultItem.types[1] === 'political') {
+              if (resultItem.short_name) geoData.shortName = resultItem.short_name;
+            }
+          })
+        }
+        this.props.onUpdateCreateField('geo', geoData, Constants.CREATE_RECS_MODAL);
+        // const state = this.state;
+        // const newState = Object.assign({}, state, { 'geo': geoData });
+        // this.setState(newState);
+      }
 
     this.submitForm = ev => {
       ev.preventDefault();
-      // this.props.changeEmailAddress(this.state.email, this.state.password)
+      this.props.onCreateRecsSubmit(this.props.authenticated, this.props.geo, this.props.title);
     }
   }
 
   render() {
+    if (!this.props.googleObject) {
+      return (
+        <Map google={window.google}
+          onReady={this.initMap}
+          visible={false} >
+        </Map>
+        );
+    }
+
     const handleClose = ev => {
       ev.preventDefault();
       this.props.hideModal();
@@ -54,7 +120,7 @@ class CreateRecsModal extends React.Component {
                       }}
       />,
       <FlatButton
-        label="Update"
+        label="Next"
         hoverColor="white"
         onClick={this.submitForm}
         disableTouchRipple={true}
@@ -112,29 +178,29 @@ class CreateRecsModal extends React.Component {
                       <div className="form-wrapper flx flx-col-left">
                         <form>
                           <fieldset className="field-wrapper">
-                          Current email address: {this.props.currentUser.email}
+                            Ask your friends for travel recommendations.
                           </fieldset>
 
                     <fieldset className="field-wrapper">
-                      <label></label>
-                        <input
-                          className="input--underline edit-itinerary__name"
-                          type="text"
+                      <label>First, pick a location</label>
+                        <Geosuggest 
+                          className="input--underline v2-type-body3"
+                          types={['(regions)']}
+                          placeholder="Paris, Madrid, Waikiki..."
                           required
-                          placeholder="New email address"
-                          value={this.state.email}
-                          onChange={this.updateState('email')} />
+                          onChange={this.changeGeo}
+                          onSuggestSelect={this.suggestSelect}/>
                       </fieldset>
                       
                     <fieldset className="field-wrapper">
                       <label></label>
                         <input
                           className="input--underline edit-itinerary__name"
-                          type="password"
+                          type="input"
                           required
-                          placeholder="Re-enter your password"
-                          value={this.state.password}
-                          onChange={this.updateState('password')} />
+                          placeholder="Title"
+                          value={this.props.title}
+                          onChange={this.changeTitle} />
                       </fieldset>
 
                     <div
@@ -157,4 +223,8 @@ class CreateRecsModal extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, Actions)(CreateRecsModal);
+export default GoogleApiWrapper({
+  apiKey: Constants.GOOGLE_API_KEY
+}) (connect(mapStateToProps, Actions)(CreateRecsModal));
+
+// export default connect(mapStateToProps, Actions)(CreateRecsModal);

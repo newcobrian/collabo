@@ -62,6 +62,20 @@ export default (state = initialState, action) => {
         ...state,
         modalType: Constants.CREATE_RECS_MODAL
       }
+    case ActionTypes.UPDATE_FIELD_CREATE:
+      if(action.source === Constants.CREATE_RECS_MODAL) {
+        return { ...state, [action.key]: action.value };
+      }
+      else return {...state}
+    case ActionTypes.GOOGLE_MAP_LOADED:
+      if (action.source === Constants.CREATE_RECS_MODAL) {
+        return {
+          ...state,
+          googleObject: action.googleObject,
+          mapObject: action.mapObject
+        }
+      }
+      else return {...state}
     case ActionTypes.EMAIL_UPDATE_ERROR:
       return {
         ...state,
