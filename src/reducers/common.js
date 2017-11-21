@@ -64,7 +64,7 @@ export default (state = defaultState, action) => {
     case 'SETTINGS_SAVED':
       return {
         ...state,
-        redirectTo: action.error ? null : '/',
+        redirectTo: action.error ? null : '/' + action.username,
         // currentUser: action.error ? null : action.payload.user
       };
     case REVIEW_DELETED:

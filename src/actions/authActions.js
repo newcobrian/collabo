@@ -294,6 +294,7 @@ export function saveSettings(auth, user, currentUser, imageFile) {
 
                   dispatch({
                     type: ActionTypes.SETTINGS_SAVED,
+                    username: user.username,
                     message: 'Your profile has been saved.',
                     meta: {
                       mixpanel: {
@@ -308,6 +309,7 @@ export function saveSettings(auth, user, currentUser, imageFile) {
 
                   dispatch({
                     type: ActionTypes.SETTINGS_SAVED,
+                    username: user.username,
                     message: 'Your profile has been saved.',
                     meta: {
                       mixpanel: {
@@ -326,6 +328,7 @@ export function saveSettings(auth, user, currentUser, imageFile) {
 
             dispatch({
               type: ActionTypes.SETTINGS_SAVED,
+              username: user.username,
               message: 'Your profile has been saved.',
               meta: {
                 mixpanel: {
