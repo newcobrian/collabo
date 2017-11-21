@@ -159,10 +159,78 @@ export function onCreateRecsSubmit(auth, geo, title) {
 		console.log('geo = ' + JSON.stringify(geo))
 		console.log('title = ' + title)
 
-		// create itinerary
+		// // create itinerary
+		// Firebase.database().ref(Constants.GEOS_PATH + '/' + itinerary.geo.placeId).once('value', geoSnapshot => {
+	 //      Firebase.database().ref(Constants.COUNTRIES_PATH + '/' + itinerary.geo.country + '/places/' + itinerary.geo.placeId).once('value', countrySnapshot => {
+	 //        let serverTimestamp = Firebase.database.ServerValue.TIMESTAMP;
+	 //        let itineraryObject = {
+	 //          lastModified: serverTimestamp,
+	 //          createdOn: serverTimestamp
+	 //        }
+	 //        let updates = {};
+	 //        Object.assign(itineraryObject, itinerary)
 
-		// create recommedation entry
+	 //        let itineraryId = Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + auth).push(itineraryObject).key;
+
+	 //        updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${itinerary.geo.placeId}/${auth}/${itineraryId}`] = itineraryObject;
+	 //        updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itineraryId}`] = Object.assign({}, itineraryObject, {userId: auth}, {popularityScore: 0});
+	 //        updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}`] = Object.assign({}, itineraryObject, {userId: auth}, {popularityScore: 0});
+
+	 //        // add geo to the geo table if it doesnt exists
+	 //        if (!geoSnapshot.exists() || !geoSnapshot.val().fullCountry) {
+	 //          let geoObject = {
+	 //            location: itinerary.geo.location,
+	 //            label: itinerary.geo.label,
+	 //            itineraryCount: 1
+	 //          }
+	 //          if (itinerary.geo.country) geoObject.country = itinerary.geo.country;
+	 //          if (itinerary.geo.fullCountry) geoObject.fullCountry = itinerary.geo.fullCountry;
+	 //          if (itinerary.geo.shortName) geoObject.shortName = itinerary.geo.shortName;
+	 //          updates[`/${Constants.GEOS_PATH}/${itinerary.geo.placeId}`] = geoObject;
+	 //        }
+	 //        // otherwise just increment itineraryCount for geo
+	 //        else {
+	 //          // increment itinerary count on geo
+	 //          Firebase.database().ref(Constants.GEOS_PATH + '/' + itinerary.geo.placeId + '/itineraryCount').transaction(function (current_count) {
+	 //            return (current_count || 0) + 1;
+	 //          });
+	 //        }
+
+	 //        if (!countrySnapshot.exists()) {
+	 //          updates[`/${Constants.COUNTRIES_PATH}/${itinerary.geo.country}/places/${itinerary.geo.placeId}`] = true;
+	 //        }
+
+	 //        // create recommedation entry
+
+
+	 //        // make the update and update all of user's followers with the new guide
+	 //        Firebase.database().ref().update(updates);
+	 //        Helpers.fanOutToFollowersFeed(auth, itineraryId, serverTimestamp)
+
+	 //        // update Algolia index
+	 //        Helpers.updateAlgloiaGeosIndex(itinerary.geo)
+
+	 //        mixpanel.people.increment("total itineraries");
+	 //        mixpanel.people.set({ "last itinerary created": (new Date()).toISOString() });
+	 //        mixpanel.identify(auth);
+
+	 //        dispatch({
+	 //          type: ActionTypes.RECOMMENDATION_ITINERARY_CREATED,
+	 //          payload: itineraryObject,
+	 //          itineraryId: itineraryId,
+	 //          meta: {
+	 //            mixpanel: {
+	 //              event: 'Itinerary created',
+	 //              itineraryId: itineraryId,
+	 //              geo: itinerary.geo.placeId
+	 //            }
+	 //          }
+	 //        })
+	 //      })
+	 //    })
+		
 
 		// take user to next modal with recID
+
 	}
 }
