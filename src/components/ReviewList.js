@@ -27,7 +27,7 @@ const ReviewList = props => {
   }
 
   return (
-    <div className="reviewpreview-wrapper w-100 flx flx-col flx-center-all">
+    <div className="reviewpreview-wrapper w-100 flx flx-col flx-just-start flx-align-start">
       {
         props.reviewList.map((reviewItem, index) => {
           return (

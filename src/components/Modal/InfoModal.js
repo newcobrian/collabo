@@ -84,7 +84,7 @@ class InfoModal extends React.Component {
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <Dialog
           actions={actions}
-          modal={false}
+          modal={true}
           open={(this.props.modalType === Constants.INFO_MODAL) ? true : false}
           autoScrollBodyContent={true}
           onRequestClose={handleClose}

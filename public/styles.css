@@ -1353,9 +1353,9 @@ body .back-to-top {
     color: #fff;
     text-align: center;
     font-size: 20px;
-    bottom: 20px;
+    bottom: 80px;
     position: fixed;
-    left: 44%;
+    left: 48%;
     display: none;
     padding-top: 13px;
     height: 40px;
@@ -1370,6 +1370,9 @@ body .back-to-top {
     background-position: center;
     background-color: #3DCBb3;
     overflow: hidden;
+}
+body .page-itinerary .back-to-top {
+    opacity: 1 !important;
 }
 body .back-to-top:hover,
 body .back-to-top:focus {

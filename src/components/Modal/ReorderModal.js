@@ -68,12 +68,12 @@ class ReorderModal extends React.Component {
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <Dialog
           actions={actions}
-          modal={false}
           open={(this.props.modalType === Constants.REORDER_ITINERARY_MODAL) ? true : false}
           autoScrollBodyContent={true}
           onRequestClose={handleClose}
-          lockToContainerEdges={true}
-            
+          // lockToContainerEdges={true}
+          modal={false}
+          
           title="Reorder your tips"
 
           titleClassName="dialog__title v2-type-h2"

@@ -34,7 +34,7 @@ const LoggedOutView = props => {
             </div>
         </Link>
       </div>
-      <div className="navigation-bar flx flx-row flx-align-center flx-just-end pdding-right-md">
+      <div className="navigation-bar flx flx-row flx-align-center flx-just-end">
           <Link to="/login" className="nav-module nav-feed flx flx-center-all fill--white color--black">
             <div className="nav-text">
               Log in
@@ -74,7 +74,7 @@ const LoggedInView = props => {
         </div>
 
 
-      <div className="navigation-bar flx flx-row flx-align-center flx-just-end pdding-right-md">
+      <div className="navigation-bar flx flx-row flx-align-center flx-just-end">
         
         
 
