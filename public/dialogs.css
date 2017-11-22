@@ -1,7 +1,7 @@
 body div.dialog--save {
   padding-top: 0 !important;
   overflow: scroll;
-  padding: 0 0 40px;
+  padding: 0 0 100px;
 }
 .dialog--save__wrapper {
   margin: 0;
