@@ -286,7 +286,7 @@ class Home extends React.Component {
 
         <UniversalSearchBar />
           
-          <div className="w-100 pdding-all-md flx flx-row flx-center-all w-max-2 mrgn-top-md">
+          <div className="w-100 pdding-all-md flx flx-row flx-center-all w-max-2 mrgn-top-md DN">
             <button className="ask-for-recs-button vb vb--sm fill--primary color--white mobile-w-100" onClick={this.onAskForRecsClick}>
               <i className="material-icons color--white md-24 mrgn-right-sm DN">flare</i>
                 Ask for Recs
