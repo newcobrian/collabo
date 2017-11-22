@@ -115,6 +115,7 @@ class CreateRecsModal extends React.Component {
         hoverColor="rgba(247,247,247,.2)"
         onClick={handleClose}
         style={{
+          float: "left"
           }}
           labelStyle={{   
                       }}
@@ -177,12 +178,12 @@ class CreateRecsModal extends React.Component {
                   <ListErrors errors={this.props.errors}></ListErrors>
                       <div className="form-wrapper flx flx-col-left">
                         <form>
-                          <fieldset className="field-wrapper">
-                            Ask your friends for travel recommendations.
+                          <fieldset className="field-wrapper mrgn-bottom-md">
+                            Let's create a place to gather all your friends' tips and recs.
                           </fieldset>
 
-                    <fieldset className="field-wrapper">
-                      <label>First, pick a location</label>
+                    <fieldset className="field-wrapper mrgn-bottom-md">
+                      <label>Where are you going?</label>
                         <Geosuggest 
                           className="input--underline v2-type-body3"
                           types={['(regions)']}
@@ -192,13 +193,13 @@ class CreateRecsModal extends React.Component {
                           onSuggestSelect={this.suggestSelect}/>
                       </fieldset>
                       
-                    <fieldset className="field-wrapper">
-                      <label></label>
+                    <fieldset className="field-wrapper mrgn-bottom-md">
+                      <label>Name your trip</label>
                         <input
                           className="input--underline edit-itinerary__name"
                           type="input"
                           required
-                          placeholder="Title"
+                          placeholder="My Next Vacation"
                           value={this.props.title}
                           onChange={this.changeTitle} />
                       </fieldset>

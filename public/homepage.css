@@ -127,3 +127,6 @@
 .search-detail-bar .geo-type:hover {
   opacity: .6;
 }
+.guide-feed-wrapper {
+  min-height: 600px;
+}

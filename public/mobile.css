@@ -909,7 +909,9 @@ body .back-to-top {
 
 
 
-`
+.mobile-w-100 {
+  width: 100% !important;
+}
 
 .m-margin-none {
   margin: 0 !important;

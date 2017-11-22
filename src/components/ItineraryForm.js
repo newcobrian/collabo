@@ -931,7 +931,7 @@ class ItineraryForm extends React.Component {
           { /** END Map block **/ }
 
           
-          <BackToTop />
+          <BackToTop /> 
 
           <SEO
             schema="Guide"

@@ -79,7 +79,7 @@ body div.dialog--save {
   font-size: 14px !important;
   cursor: pointer !important;
   flex-shrink: 0 !important;
-  border-radius: 0px !important;
+  border-radius: 3px !important;
   -webkit-align-items: center !important;
    align-items: center !important;
    -webkit-justify-content: center !important;

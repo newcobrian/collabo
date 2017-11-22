@@ -230,8 +230,14 @@ class Home extends React.Component {
 
   renderTabs() {
     return (
-      <div className="feed-toggle friend-popular-toggle flx flx-row flx-just-center w-100">
-        <ul className="nav nav-pills outline-active flx flx-row">
+      <div className="feed-toggle friend-popular-toggle flx flx-col flx-align-center w-100 brdr-top">
+
+
+        <div className="w-100 pdding-all-sm mrgn-bottom-sm flx flx-row">
+          <div className="v2-type-h3 flx-item-center">Latest Travel Guides</div>
+        </div>
+
+        <ul className="nav nav-pills outline-active flx flx-row ta-center flx-center-all mrgn-bottom-md w-100">
           <li className="nav-item">
             <Link
               className="nav-link active"
@@ -279,12 +285,18 @@ class Home extends React.Component {
         <div className={'home-page page-common fill--white flx flx-col flx-align-center ' + isLandingPage}>
 
         <UniversalSearchBar />
-        
+          
+          <div className="w-100 pdding-all-md flx flx-row flx-center-all w-max-2 mrgn-top-md">
+            <button className="ask-for-recs-button vb vb--sm fill--primary color--white mobile-w-100" onClick={this.onAskForRecsClick}>
+              <i className="material-icons color--white md-24 mrgn-right-sm DN">flare</i>
+                Ask for Recs
+              <i className="material-icons color--white md-24 mrgn-left-sm">room_service</i>
+            </button>
+          </div>
+
           {this.renderTabs()}
 
-          <button className="DN" onClick={this.onAskForRecsClick}>Hi</button>
-
-          <div className="w-100 w-max flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap pdding-left-md pdding-right-md">
+          <div className="guide-feed-wrapper w-100 w-max flx flx-row flx-just-center flx-self-end flx-align-center flx-wrap pdding-left-md pdding-right-md">
             <div className="popular-box brdr-all flx flx-col DN">
               <div className="color--black section-header mrgn-bottom-md">Popular Guides</div>
               <PopularPreview 

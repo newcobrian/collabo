@@ -134,6 +134,10 @@
 .flx-item-right {
   margin-left: auto;
 }
+.flx-item-center {
+  margin-left: auto;
+  margin-right: auto;
+}
 .flx-item-left {
   margin-right: auto;
 }

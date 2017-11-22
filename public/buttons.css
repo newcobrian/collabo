@@ -15,6 +15,13 @@ input, select, textarea {
   padding: 10px;
 }
 
+.dialog input, .dialog select, .dialog textarea {
+  border: 1px solid rgba(0,0,0,.1);
+  padding: 10px;
+  background-color: #FFFEE8;
+  color: black;
+}
+
 .page-edit-own input,
 .page-edit-own textarea {
   border-color: white;
@@ -114,24 +121,24 @@ input.input--underline {
 ******/
 
 .vb {
-  border: none;
-  height: 60px;
-  text-align: center;
-  letter-spacing: 3px;
-  font-weight: 500;
-  border-radius: 2px;
-  font-size: 14px;
-  cursor: pointer;
-  padding: 20px;
-  text-transform: uppercase;
-  flex-shrink: 0;
-  border-radius: 3px;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-align-items: center;
-   align-items: center;
-   -webkit-justify-content: center;
-   justify-content: center;
+    border: none;
+    height: 60px;
+    text-align: center;
+    letter-spacing: 1px;
+    font-weight: 500;
+    border-radius: 2px;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 20px;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    border-radius: 3px;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
 }
 .vb.vb--shadow-none {
   box-shadow: none;
@@ -467,14 +474,14 @@ input.input--overline {
 }
 
 label {
-  cursor: pointer;
-  font-size: 14px;
-  margin-bottom: 0;
-  opacity: 1;
-  font-weight: 400;
-  width: 100%;
-  color: #292F3D;
-  line-height: 26px !important;
+    cursor: pointer;
+    font-size: 18px;
+    margin-bottom: 10px;
+    opacity: 1;
+    font-weight: 400;
+    width: 100%;
+    color: #292F3D;
+    line-height: 15px !important;
 }
 
 .field-wrapper {
@@ -484,6 +491,11 @@ label {
   min-width: 100px;
   background-color: white;
   width: 100%;
+  margin-bottom: 20px;
+  opacity: 1;
+  color: black;
+  font-weight: 300;
+  font-size: 16px;
 }
 .field-wrapper.field-wrapper--dropzone {
   margin-left: -1px;
@@ -527,6 +539,9 @@ label {
 
 }
 
+.ask-for-recs-button {
+
+}
 
 
 

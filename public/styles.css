@@ -157,6 +157,9 @@ input[type="radio"]:checked + label span {
 .w-max-2 {
   max-width: 1200px;
 }
+.w-max-3 {
+  max-width: 1180px;
+}
 .w-100 {
   width: 100%;
 }

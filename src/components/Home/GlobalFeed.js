@@ -48,8 +48,12 @@ class GlobalFeed extends Home {
 
   renderTabs() {
     return (
-      <div className="feed-toggle friend-popular-toggle flx flx-row flx-just-center w-100">
-        <ul className="nav nav-pills outline-active flx flx-row">
+      <div className="feed-toggle friend-popular-toggle flx flx-col flx-align-center w-100 brdr-top">
+        <div className="w-100 pdding-all-sm mrgn-bottom-sm flx flx-row">
+          <div className="v2-type-h3 flx-item-center">Latest Travel Guides</div>
+        </div>
+
+        <ul className="nav nav-pills outline-active flx flx-row ta-center flx-center-all mrgn-bottom-md w-100">
           <li className="nav-item">
             <Link
               className="nav-link"
