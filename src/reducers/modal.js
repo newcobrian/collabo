@@ -63,7 +63,7 @@ export default (state = initialState, action) => {
         modalType: Constants.CREATE_RECS_MODAL
       }
     case CREATE_SUBMIT_ERROR:
-      if (action.source === Constants.CREATE_RECS_MODAL) {
+      if (action.source === Constants.CREATE_RECS_MODAL || action.source === Constants.NEW_ITINERARY_MODAL) {
         return {
           ...state,
           errors: [action.error],
@@ -72,12 +72,12 @@ export default (state = initialState, action) => {
       }
       else return {...state}
     case ActionTypes.UPDATE_FIELD_CREATE:
-      if(action.source === Constants.CREATE_RECS_MODAL) {
+      if(action.source === Constants.CREATE_RECS_MODAL || action.source === Constants.NEW_ITINERARY_MODAL) {
         return { ...state, [action.key]: action.value };
       }
       else return {...state}
     case ActionTypes.GOOGLE_MAP_LOADED:
-      if (action.source === Constants.CREATE_RECS_MODAL) {
+      if (action.source === Constants.CREATE_RECS_MODAL || action.source === Constants.NEW_ITINERARY_MODAL) {
         return {
           ...state,
           googleObject: action.googleObject,

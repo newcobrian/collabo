@@ -2676,16 +2676,6 @@ export function findSubject(subjectId, reviewsList) {
   return false;
 }
 
-export function showNewItineraryModal(auth, review) {
-  return dispatch => {
-    dispatch({
-      type: SHOW_NEW_ITINERARY_MODAL,
-      auth: auth,
-      review: review
-    })
-  }
-}
-
 export function addToItinerary(auth, tip, itinerary) {
   return dispatch => {
     let itineraryId;

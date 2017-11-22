@@ -62,6 +62,16 @@ export function loadReorderModal(itinerary) {
   }
 }
 
+export function showNewItineraryModal(auth, review) {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.SHOW_NEW_ITINERARY_MODAL,
+      auth: auth,
+      review: review
+    })
+  }
+}
+
 export function showModal(type, review, images) {
   return dispatch => {
     const currentUser = Firebase.auth().currentUser;
