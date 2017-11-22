@@ -14,6 +14,7 @@ import Geosuggest from 'react-geosuggest';
 const mapStateToProps = state => ({
   ...state.modal,
   currentUser: state.common.currentUser,
+  userInfo: state.common.userInfo,
   authenticated: state.common.authenticated
 });
 
@@ -40,13 +41,6 @@ class CreateRecsModal extends React.Component {
     }
 
     this.changeTitle = updateFieldEvent('title');
-
-    this.updateGeo = value => ev => {
-      ev.preventDefault();
-      const state = this.state;
-      const newState = Object.assign({}, state, { 'geo': value });
-      this.setState(newState);
-    }
 
     this.suggestSelect = result => {
         var request = {
@@ -89,8 +83,20 @@ class CreateRecsModal extends React.Component {
 
     this.submitForm = ev => {
       ev.preventDefault();
+
+      if (!this.props.title) {
+        this.props.createSubmitError('itinerary name', Constants.CREATE_RECS_MODAL);
+      }
+      else if (!this.props.geo || !this.props.geo.placeId) {
+        this.props.createSubmitError('location', Constants.CREATE_RECS_MODAL);
+      }
+
       this.props.onCreateRecsSubmit(this.props.authenticated, this.props.geo, this.props.title);
     }
+  }
+
+  componentWillMount() {
+    this.props.onUpdateCreateField('title', 'Recommendations for ' + this.props.userInfo.username, Constants.CREATE_RECS_MODAL);
   }
 
   render() {
@@ -187,7 +193,7 @@ class CreateRecsModal extends React.Component {
                         <Geosuggest 
                           className="input--underline v2-type-body3"
                           types={['(regions)']}
-                          placeholder="Paris, Madrid, Waikiki..."
+                          placeholder="Location"
                           required
                           onChange={this.changeGeo}
                           onSuggestSelect={this.suggestSelect}/>

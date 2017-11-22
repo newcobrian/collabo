@@ -20,6 +20,7 @@ import snackbarToaster from './reducers/snackbarToaster';
 import lightboxComponent from './reducers/lightboxComponent';
 import explore from './reducers/explore';
 import places from './reducers/places';
+import recommend from './reducers/recommend';
 import Firebase from 'firebase';
 import mixpanel from 'mixpanel-browser';
 import MixpanelMiddleware from 'redux-mixpanel-middleware';
@@ -52,6 +53,7 @@ const reducer = combineReducers({
   lightboxComponent,
   explore,
   places,
+  recommend,
   // editForm: combineForms({
   //   editForm: initialItinerary
   // }, 'editForm')

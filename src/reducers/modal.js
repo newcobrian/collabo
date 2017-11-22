@@ -62,6 +62,15 @@ export default (state = initialState, action) => {
         ...state,
         modalType: Constants.CREATE_RECS_MODAL
       }
+    case CREATE_SUBMIT_ERROR:
+      if (action.source === Constants.CREATE_RECS_MODAL) {
+        return {
+          ...state,
+          errors: [action.error],
+          inProgress: null
+        }
+      }
+      else return {...state}
     case ActionTypes.UPDATE_FIELD_CREATE:
       if(action.source === Constants.CREATE_RECS_MODAL) {
         return { ...state, [action.key]: action.value };
@@ -80,6 +89,13 @@ export default (state = initialState, action) => {
       return {
         ...state,
         errors: [action.error]
+      }
+    case ActionTypes.RECOMMENDATION_ITINERARY_CREATED:
+      return {
+        ...state,
+        modalType: Constants.SEND_RECS_MODAL,
+        recObject: action.recObject,
+        recId: action.recId
       }
     case ActionTypes.LOAD_REORDER_MODAL: {
       const newState = Object.assign({}, state);

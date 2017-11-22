@@ -3016,3 +3016,15 @@ export function userDoesntExist() {
     })
   }
 }
+
+export function loadRecommendPage(rid) {
+  return dispatch => {
+    Firebase.database().ref(Constants.RECOMMENDATIONS_PATH + '/' + rid).on('value', snap => {
+      dispatch({
+        type: ActionTypes.LOAD_RECOMMEND_PAGE,
+        recId: rid,
+        recObject: snap.val()
+      })
+    })
+  }
+}

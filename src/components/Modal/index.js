@@ -14,6 +14,7 @@ import ShareModal from './ShareModal'
 import FilterModal from './FilterModal'
 import ChangeEmailModal from './ChangeEmailModal'
 import CreateRecsModal from './CreateRecsModal'
+import SendRecsModal from './SendRecsModal'
 
 const MODAL_COMPONENTS = {
   FORWARD_MODAL: ForwardModal,
@@ -26,7 +27,8 @@ const MODAL_COMPONENTS = {
   SHARE_MODAL: ShareModal,
   FILTER_MODAL: FilterModal,
   CHANGE_EMAIL_MODAL: ChangeEmailModal,
-  CREATE_RECS_MODAL: CreateRecsModal
+  CREATE_RECS_MODAL: CreateRecsModal,
+  SEND_RECS_MODAL: SendRecsModal
 }
 
 const mapStateToProps = state => ({
