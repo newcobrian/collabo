@@ -193,7 +193,7 @@ export function getAllReviews(auth, subjectId) {
                       let images = imagesSnapshot.exists() ? Helpers.getImagePath(imagesSnapshot.val()) : Helpers.getImagePath(defaultImagesSnapshot.val());
 
                       Object.assign(reviewObject, {subject: subjectSnapshot.val()}, {subjectId: subjectSnapshot.key}, 
-                        {review: reviewSnapshot.val()}, {reviewId: reviewSnapshot.val().reviewId},
+                        {review: userReview.val()}, {reviewId: reviewSnapshot.val().reviewId},
                         { createdBy: userSnapshot.val() }, {itineraries: itineraries}, {images: images} );
                       reviewArray = [reviewObject].concat(reviewArray);
                       reviewArray.sort(Helpers.lastModifiedDesc);
