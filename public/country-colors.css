@@ -1,4 +1,6 @@
 
+* .country-color-PE .invert,
+* .country-color-PE .invert svg,
 * .country-color-CA .invert,
 * .country-color-CA .invert svg,
 * .country-color-MX .invert,
@@ -45,6 +47,9 @@
 	border: none !important;
 }
 
+* .country-color-PE {
+	background-color: #7b2f2e !important;
+}
 * .country-color-CA {
 	background-color: #28292d !important;
 }
@@ -428,8 +433,6 @@
 * .country-color-PG { background-color: #ffffffPG;
 }
 * .country-color-PY { background-color: #ffffffPY;
-}
-* .country-color-PE { background-color: #ffffffPE;
 }
 * .country-color-PH { background-color: #ffffffPH;
 }
