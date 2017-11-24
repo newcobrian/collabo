@@ -85,19 +85,20 @@ a.logo-module:focus {
   text-align: center;
   width: auto;
   height: auto;
-  font-weight: 600;
+  font-weight: 500;
   margin: 0 20px;
   padding: 0;
   font-size: 14px;
   letter-spacing: 1px;
   text-transform: uppercase;
   height: 70px;
-  padding-top: 6px;
-  border-bottom: 6px solid transparent;
+  padding-top: 0px;
+  border-bottom: 2px solid transparent;
 }
 .navigation-bar .nav-module img {
-  width: 30px;
-  height: 30px;
+  width: 70px;
+  height: 70px;
+  border-radius: 0;
 }
 .navigation-bar .nav-module.create {
   /*color: #63A652;  Bright green */
@@ -124,6 +125,8 @@ a.logo-module:focus {
 }
 .nav-module.nav-profile {
   order: 6;
+  margin-right: 0;
+  margin-left: 10px;
 }
 
 .nav-module.nav-notifs {
@@ -134,7 +137,7 @@ a.logo-module:focus {
 .navigation-bar .nav-module.active,
 .navigation-bar .nav-module.nav-editor.active {
   opacity: 1;
-  padding-top: 6px;
+  padding-top: 0px;
 }
 .navigation-bar .nav-module.active.create,
 .navigation-bar .nav-module.nav-editor.active.create {
@@ -167,6 +170,15 @@ a.logo-module:focus {
 }
 
 
+.nav-text.vb.vb--sm {
+  padding: 0 10px;
+}
+.nav-text.vb.vb--sm.fill--success {
+  padding: 0 20px;
+}
+.nav-text.vb.vb--sm:hover {
+  background-color: white;
+}
 
 .black.header-container {
   background-color: #121419;

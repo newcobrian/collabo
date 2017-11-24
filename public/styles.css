@@ -364,8 +364,11 @@ width: 32px;
 }
 .navigation-bar .default-profile-wrapper,
 .navigation-bar .user-photo-wrapper {
-  width: 32px;
-  height: 32px;
+  width: 70px;
+  height: 70px;
+  border-radius: 0;
+  border: 0;
+  border-left: 1px solid #D5E3E5;
 }
 
 @keyframes colorchange
@@ -428,8 +431,8 @@ width: 32px;
 
 
 .navigation-bar .nav-icon {
-  width: 32px;
-  height: 32px;
+  width: 70px;
+  height: 70px;
   background: transparent;
   text-align: center;
   display: inline-block; 

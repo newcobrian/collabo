@@ -175,7 +175,6 @@
 	transition: all 0.23s ease-in-out 0s;
 }
 .itinerary__cover.cover--empty {
-	background: white;
 	height: 470px;
 	border-color: #2ECBDB;
 	padding: 20px;
