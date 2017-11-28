@@ -6,6 +6,11 @@ import * as Constants from '../../constants';
 import { Link } from 'react-router';
 import MainView from './MainView';
 
+
+const RenderFriendEmpty = props => {
+  return null;
+}
+
 class GlobalFeed extends Home {
   componentWillMount() {
     if (this.props.authenticated) {
@@ -18,6 +23,8 @@ class GlobalFeed extends Home {
 
     this.props.sendMixpanelEvent('Global feed loaded');
   }
+
+
 
   componentWillUnmount() {
     if (this.props.authenticated) {

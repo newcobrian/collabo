@@ -39,6 +39,7 @@ const RenderFeaturedPreview = props => {
   return null;
 }
 
+
 const RenderFollowCard = props => {
   if (!props.itineraries) {
     return null
@@ -46,19 +47,15 @@ const RenderFollowCard = props => {
   if (props.itineraries.length === 0) {
     return (
       
-       <div>
-       <Link to="/explore" className="itinerary__cover cover--empty flx flx-col flx-center-all ta-center fill-success color--white">
-              <div className="v2-type-h1 pdding-bottom-sm color--black">
-                Follow more travelers
-              </div>
-              <div className="v2-type-body1 pdding-bottom-md color--black opa-50">
-                To see their newest guides here
-              </div>
-              <div className="vb fill--primary color--white">
-                Find travelers
-              </div>
-            </Link>
+     <div className="itinerary__cover cover--empty flx flx-col flx-center-all ta-center color--black brdr-all fill--light-gray">
+       <div className="v2-type-body4 pdding-bottom-md color--black mrgn-right-lg mrgn-left-lg">
+         Your friends' travel guides show up here
        </div>
+       <div className="vb vb--sm vb--outline fill--white color--black">
+         <i className="material-icons md-32 color--black opa-70 mrgn-right-sm">person_add</i>
+         <Link to="/explore" className="color--black">Find friends</Link>
+       </div>
+     </div>
 
     )
   }
@@ -257,6 +254,8 @@ class Home extends React.Component {
     )
   }
 
+
+
   render() {
     const isLandingPage = (browserHistory.getCurrentLocation().pathname === '/global') && !this.props.authenticated ?
       'page-landing' : ''
@@ -297,6 +296,7 @@ class Home extends React.Component {
           {this.renderTabs()}
 
           <div className="guide-feed-wrapper w-100 w-max flx flx-row flx-just-center flx-self-end flx-align-start flx-wrap pdding-left-md pdding-right-md">
+            
             <div className="popular-box brdr-all flx flx-col DN">
               <div className="color--black section-header mrgn-bottom-md">Popular Guides</div>
               <PopularPreview 
@@ -305,11 +305,14 @@ class Home extends React.Component {
                 deleteItinerary={this.props.deleteItinerary} />
                 <Link className="color--primary v2-type-body0 flx-item-bottom" to="/popular">See all popular guides</Link>
             </div>
+
             {/**<RenderFeaturedPreview
                featuredPreview={this.props.featuredPreview}
                authenticated={this.props.authenticated} 
                deleteItinerary={this.props.deleteItinerary} 
                />**/}
+
+
             { this.props.itineraries && this.props.itineraries.length > 0 && 
               this.props.itineraries.map(itinerary => {
                 return (
@@ -320,10 +323,12 @@ class Home extends React.Component {
                  );
                 })
             }
-            {/*<RenderFollowCard
+
+            {<RenderFollowCard
               itineraries={this.props.itineraries}
-            />*/}
-            <div className="itinerary__cover cover--empty flx flx-col flx-center-all ta-center color--black brdr-all fill--light-gray">
+            />}
+
+            <div className="DN itinerary__cover cover--empty flx flx-col flx-center-all ta-center color--black brdr-all fill--light-gray">
               <div className="v2-type-body4 pdding-bottom-md color--black mrgn-right-lg mrgn-left-lg">
                 Your friends' travel guides show up here
               </div>
@@ -345,6 +350,7 @@ class Home extends React.Component {
               </div>
             </Link>
           </div>
+
           <BackToTop />
 
           <div className="w-100 flx flx-row flx-center-all mrgn-top-lg">
