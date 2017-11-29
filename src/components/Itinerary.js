@@ -403,16 +403,24 @@ class Itinerary extends React.Component {
               </div>
               {/** Close Cover Text DIV >>>>>> **/}
 
-              <div className="w-100 flx flx-row flx-center-all pdding-all-sm">
+              <div className="w-100 flx flx-row flx-center-all pdding-all-sm DN">
                 <Link className="vb vb--md fill--white color--black w-100 flx flx-row flx-center-all vb--outline ta-center" onClick={openFilter}>
                   <i className="material-icons color--black opa-60 mrgn-right-sm">filter_list</i>
-                    Filter (Showing {numVisibleTags}/{numTotalTags} tags) {/*Showing 4/10 Categories */}
+                    
                 </Link>
               </div>
 
               <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
-                  <div className="flx flx-row w-100 flx-align-center pdding-left-md pdding-right-md pdding-top-md">
-                    <div className="v2-type-body1 color--black">{itinerary.reviewsCount ? itinerary.reviewsCount : 0} Items</div>
+                  <div className="flx flx-row w-100 flx-align-center flx-just-space-between pdding-left-md pdding-right-md pdding-top-sm">
+                    
+                    <div className="vb vb--sm fill--none v2-type-body1 color--black">{itinerary.reviewsCount ? itinerary.reviewsCount : 0} Items</div>
+                    
+                    <Link className="vb vb--xs flx flx-row fill--white flx-center-all vb--outline-white ta-center" onClick={openFilter}>
+                      <i className="material-icons color--black opa-80 mrgn-right-sm">label_outline</i>
+                      <div className="v2-type-body1 color--black">{numVisibleTags}/{numTotalTags} {/*Showing 4/10 Categories */}</div>
+                    </Link>
+
+
                   </div>
                   <TipList
                     tipList={visibleTips}

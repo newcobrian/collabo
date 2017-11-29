@@ -476,12 +476,13 @@ input.input--overline {
 label {
     cursor: pointer;
     font-size: 18px;
-    margin-bottom: 10px;
     opacity: 1;
     font-weight: 400;
     width: 100%;
     color: #292F3D;
-    line-height: 15px !important;
+/*    line-height: 15px !important;*/
+  margin-bottom: 0;
+
 }
 
 .field-wrapper {
