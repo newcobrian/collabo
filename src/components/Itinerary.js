@@ -215,16 +215,16 @@ class Itinerary extends React.Component {
     // console.log('visible tags = ' + JSON.stringify(this.props.visibleTags))
     // console.log('show allfilter = ' + JSON.stringify(this.props.showAllFilters))
     const visibleTips = getVisibleTips(itinerary.tips, this.props.visibleTags);
-    const numTotalTags = Object.keys(itinerary.tips).length;
-    const numVisibleTags = this.props.showAllFilters ? numTotalTags : Object.keys(filter(this.props.visibleTags, ['checked', true])).length;
+    const numVisibleTips = visibleTips.length
+    const numTotalTips = Object.keys(itinerary.tips).length
+    // const numVisibleTags = this.props.showAllFilters ? numTotalTags : Object.keys(filter(this.props.visibleTags, ['checked', true])).length;
 
       if (canModify) {
         return (
           <ItineraryForm 
             initialValues={itinerary} 
             visibleTips={visibleTips} 
-            numVisibleTags={numVisibleTags} 
-            numTotalTags={numTotalTags} />
+            numTotalTips={numTotalTips} />
           )
       }
       else {
@@ -413,11 +413,12 @@ class Itinerary extends React.Component {
               <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
                   <div className="flx flx-row w-100 flx-align-center flx-just-space-between pdding-left-md pdding-right-md pdding-top-sm">
                     
-                    <div className="vb vb--sm fill--none v2-type-body1 color--black">{itinerary.reviewsCount ? itinerary.reviewsCount : 0} Items</div>
+                    <div className="vb vb--sm fill--none v2-type-body1 color--black">{/*itinerary.reviewsCount ? itinerary.reviewsCount : 0*/}
+                    {visibleTips.length}/{numTotalTips} Items</div>
                     
                     <Link className="vb vb--xs flx flx-row fill--white flx-center-all vb--outline-white ta-center" onClick={openFilter}>
                       <i className="material-icons color--black opa-80 mrgn-right-sm">label_outline</i>
-                      <div className="v2-type-body1 color--black">{numVisibleTags}/{numTotalTags} {/*Showing 4/10 Categories */}</div>
+                      <div className="v2-type-body1 color--black">Filter{/*numVisibleTags}/{numTotalTips*/} {/*Showing 4/10 Categories */}</div>
                     </Link>
 
 

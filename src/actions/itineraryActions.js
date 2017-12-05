@@ -864,6 +864,8 @@ export function showFilterModal(itinerary, appliedFilters, showAllFilters) {
 }
 export function setItineraryFilters(visibleTags, showAllFilters) {
   return dispatch => {
+    console.log('visible tags = ' + visibleTags)
+    console.log('showallfilters = ' + showAllFilters)
     dispatch({
       type: ActionTypes.SET_ITINERARY_FILTERS,
       visibleTags,

@@ -624,7 +624,7 @@ class ItineraryForm extends React.Component {
             <div className="w-100 flx flx-row flx-center-all pdding-all-sm DN">
               <Link className="vb vb--md fill--white color--black w-100 flx flx-row flx-center-all vb--outline ta-center" onClick={openFilter}>
                 <i className="material-icons color--black opa-60 mrgn-right-sm">filter_list</i>
-                  Filter (Showing {this.props.numVisibleTags}/{this.props.numTotalTags} tags) {/*Showing 4/10 Categories */}
+                  Filter (Showing {this.props.visibleTips.length}/{this.props.numTotalTips} tags) {/*Showing 4/10 Categories */}
               </Link>
             </div>
 
@@ -633,11 +633,12 @@ class ItineraryForm extends React.Component {
             {/** ----- Close itinerary__cover DIV ----- **/}  
             <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
               <div className="flx flx-row w-100 flx-align-center  flx-just-space-between pdding-left-md pdding-right-md pdding-top-sm pdding-bottom-sm">
-                <div className="vb vb--sm fill--none v2-type-body1 color--black">{itinerary.reviewsCount ? itinerary.reviewsCount : 0} Items</div>
+                <div className="vb vb--sm fill--none v2-type-body1 color--black DN">{itinerary.reviewsCount ? itinerary.reviewsCount : 0} Items</div>
+                <div className="vb vb--sm fill--none v2-type-body1 color--black">{this.props.visibleTips.length}/{this.props.numTotalTips} Items</div>
 
                 <Link className="vb vb--xs flx flx-row fill--white flx-center-all vb--outline-white ta-center" onClick={openFilter}>
                   <i className="material-icons color--black opa-80 mrgn-right-sm">label_outline</i>
-                  <div className="v2-type-body1 color--black">{this.props.numVisibleTags}/{this.props.numTotalTags} {/*Showing 4/10 Categories */}</div>
+                  <div className="v2-type-body1 color--black">Filter {/*this.props.numVisibleTags}/{this.props.numTotalTags*/} {/*Showing 4/10 Categories */}</div>
                 </Link>
 
 
