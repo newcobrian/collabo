@@ -842,8 +842,8 @@ class ItineraryForm extends React.Component {
                                         <div className="tip__cta-box w-100 flx flx-row flx-just-start flx-align-center mrgn-top-md">
 
                                           <Link onClick={handleSaveClick(tip)} className="w-50 hide-in-list vb vb--tip vb--outlin--none flx flx-row flx-align-center brdr-top brdr-right color--black fill--white">
-                                              <i className="material-icons color--primary mrgn-right-sm md-24">add_circle</i>
-                                              <div className="color--black">Save</div>
+                                              <i className="material-icons color--primary mrgn-right-sm md-24">playlist_add</i>
+                                              <div className="color--black">Copy to</div>
                                           </Link>
 
                                           <div className="w-30 cta-wrapper vb vb--tip vb--outline--none flx flx-row flx-align-center v2-type-body2 brdr-top brdr-right">
