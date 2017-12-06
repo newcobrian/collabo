@@ -32,12 +32,12 @@ const LeftSenderPic = props => {
           <ProfilePic src={props.image} className="center-img" />
         </Link>
       </div>
-    )
+    ) 
   }
   else {
     return (
-      <div className="mrgn-left-sm mrgn-right-md">
-        <img className="center-img" src="../img/someone_temp.png"/>
+      <div className="mrgn-left-sm mrgn-right-md default-profile-wrapper flx-hold">
+        <img src="../img/user_temp.png" className="center-img"/>
       </div>
     )
   }
