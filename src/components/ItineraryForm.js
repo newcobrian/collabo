@@ -473,7 +473,7 @@ class ItineraryForm extends React.Component {
 
                 <div className="v2-type-h4 mrgn-right-md mobile-hide">Share this Guide:</div>
 
-                <div className="vb vb--sm vb--outline-nonr color--black color--white mrgn-right-xs vb--fb">
+                <div className="vb vb--sm vb--outline--none color--black color--white mrgn-right-xs vb--fb">
                   <FacebookShareButton
                     url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
                     quote={'Check out my travel guide "' + itinerary.title + '" for ' + shortName}
@@ -492,7 +492,7 @@ class ItineraryForm extends React.Component {
 
                 </div>
 
-                <div className="vb vb--sm vb--outline-none color--black mrgn-right-xs vb--tw">
+                <div className="vb vb--sm vb--outline--none color--black mrgn-right-xs vb--tw">
                   <TwitterShareButton
                     url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
                     title={'Check out my travel guide "' + itinerary.title + '" for ' + shortName + ':'}
