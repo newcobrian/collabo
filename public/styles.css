@@ -1374,7 +1374,7 @@ body .back-to-top {
     background-size: 18px 18px;
     background-repeat: no-repeat;
     background-position: center;
-    background-color: #3DCBb3;
+    background-color: #121419;
     overflow: hidden;
 }
 body .page-itinerary .back-to-top {
@@ -1383,6 +1383,8 @@ body .page-itinerary .back-to-top {
 body .back-to-top:hover,
 body .back-to-top:focus {
     background-color: #46DFFF !important;
+    background-color: #121419 !important;
+    opacity: .9 !important;
 }
 .home-page.page-common.page-landing .back-to-top {
   left: 49.5%;

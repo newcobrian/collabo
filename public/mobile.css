@@ -818,6 +818,7 @@ body .back-to-top {
   padding: 10px;
 }
 .vb.vb--sm {
+  /*padding: 0 10px;*/
 }
 .vb.vb--save {
   -webkit-flex-direction: row;
@@ -864,7 +865,7 @@ body .back-to-top {
 }
 
 body .back-to-top {
-    bottom: 70px;
+    bottom: 74px;
     right: 10px;
   }
 

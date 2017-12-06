@@ -338,6 +338,15 @@ body a.nav-module {
   background-color: #121419;
 }
 
+.fill--facebook {
+  background-color: rgb(59, 89, 152) !important;
+}
+.fill--twitter {
+  background-color: rgb(0, 172, 237) !important;
+}
+.border-top--primary--4 {
+  border-top: 4px solid #3DCBF3 !important;
+}
 
 
 

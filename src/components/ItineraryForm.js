@@ -31,6 +31,8 @@ import { ShareButtons, ShareCounts, generateShareIcon } from 'react-share';
 import MediaQuery from 'react-responsive';
 import AddTagInput from './AddTagInput';
 import { filter } from 'lodash'
+import {CopyToClipboard} from 'react-copy-to-clipboard';
+
 
 const {
   FacebookShareButton,
@@ -43,6 +45,7 @@ const {
 
 const FacebookIcon = generateShareIcon('facebook');
 const TwitterIcon = generateShareIcon('twitter');
+
 
 var Scroll = require('react-scroll');
 var Element = Scroll.Element;
@@ -106,6 +109,8 @@ class ItineraryForm extends React.Component {
 
     // this.updateText(curText);
     }
+
+
 
     const updateFieldEvent =
         key => ev => this.props.onUpdateCreateField(key, ev.target.value, ITINERARY_PAGE);
@@ -205,6 +210,11 @@ class ItineraryForm extends React.Component {
     const {google} = this.props;
     const addTipFunc = this.props.onAddTip;
     const auth = this.props.authenticated;
+
+    const onCopyClick = () => {
+          this.props.openSnackbar('Share link copied to clipboard');
+        }
+
 
     let initialMapCenter = {};
     if (itinerary.tips && itinerary.tips[0] && itinerary.tips[0].subject && itinerary.tips[0].subject.location) {
@@ -432,8 +442,8 @@ class ItineraryForm extends React.Component {
            
                
           {/** -------- AUTHOR CONTROLS **/}
-          <div className="test00 brdr-top it-author-controls w-max flx flx-row flx-just-start flx-align-center ta-center pdding-top-sm pdding-bottom-sm">
-            <div className="w-100 w-max flx flx-row flx-just-start flx-align-center ta-center">
+          <div className="border-top--primary--4 test00 brdr-top it-author-controls w-max flx flx-row flx-just-start flx-align-center ta-center pdding-top-sm pdding-bottom-sm">
+            <div className="w-100 flx flx-row flx-just-start flx-align-center ta-center">
 
 
               {/* Like */}
@@ -451,7 +461,7 @@ class ItineraryForm extends React.Component {
 
               
               {/* Share */}
-              <div className="cta-wrapper flx flx-row vb vb--sm vb--outline--none fill--primary color--white flx-item-right pdding-right-lg pdding-left-lg"
+              <div className="DN cta-wrapper flx flx-row vb vb--sm vb--outline--none fill--primary color--white flx-item-right pdding-right-lg pdding-left-lg"
                 onClick={this.shareGuide} >
                 <div className="color--white mrgn-right-sm">SHARE GUIDE</div>
                 <i className="material-icons mrgn-left-sm color--white flip-h">reply</i>
@@ -459,8 +469,11 @@ class ItineraryForm extends React.Component {
               </div>
 
 
-              <div className="flx-item-right flx flx-row DN">
-                <div className="vb vb--sm vb--outline fill--white color--black">
+              <div className="flx-item-right flx flx-row flx-align-center">
+
+                <div className="v2-type-h4 mrgn-right-md mobile-hide">Share this Guide:</div>
+
+                <div className="vb vb--sm vb--outline-nonr color--black color--white mrgn-right-xs vb--fb">
                   <FacebookShareButton
                     url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
                     quote={'Check out my travel guide "' + itinerary.title + '" for ' + shortName}
@@ -476,8 +489,10 @@ class ItineraryForm extends React.Component {
                     className="mrgn-left-sm">
                     {count => count}
                   </FacebookShareCount>
+
                 </div>
-                <div className="vb vb--sm vb--outline fill--white color--black mrgn-left-n-1">
+
+                <div className="vb vb--sm vb--outline-none color--black mrgn-right-xs vb--tw">
                   <TwitterShareButton
                     url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
                     title={'Check out my travel guide "' + itinerary.title + '" for ' + shortName + ':'}
@@ -489,6 +504,18 @@ class ItineraryForm extends React.Component {
                   </TwitterShareButton>
                   <i className="material-icons color--primary md-18 DN">share</i>
                 </div>
+
+                <CopyToClipboard 
+                  className="flx flx-row flx-center-all vb vb--sm vb--outline fill--white color--black"
+                  text={Constants.VIEWS_URL + '/guide/' + itinerary.id}
+                  onCopy={onCopyClick}>
+                    <div className="flx flx-row flx-center-all w-100">
+                      <i className="material-icons color--black opa-60 flx-item-left DN">link</i>
+                      <div className="mobile-hide">Copy&nbsp;</div>
+                      <div className="">URL</div>
+                    </div>
+                </CopyToClipboard>
+
 
               </div>
             </div>{/** END MAX div **/}
@@ -562,7 +589,7 @@ class ItineraryForm extends React.Component {
              
 
             {/** <<<<<< CENTER INFO **/}
-            <div className="it__title-module flx flx-col flx-just-start ta-center w-100">
+            <div className="it__title-module flx flx-col flx-just-start ta-center w-100 flx-align-center">
               
 
              
@@ -632,9 +659,9 @@ class ItineraryForm extends React.Component {
             
             {/** ----- Close itinerary__cover DIV ----- **/}  
             <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
-              <div className="flx flx-row w-100 flx-align-center  flx-just-space-between pdding-left-md pdding-right-md pdding-top-sm pdding-bottom-sm">
+              <div className="flx flx-row w-100 flx-align-center  flx-just-space-between pdding-left-sm pdding-right-sm pdding-top-sm pdding-bottom-sm">
                 <div className="vb vb--sm fill--none v2-type-body1 color--black DN">{itinerary.reviewsCount ? itinerary.reviewsCount : 0} Items</div>
-                <div className="vb vb--sm fill--none v2-type-body1 color--black">{this.props.visibleTips.length}/{this.props.numTotalTips} Items</div>
+                <div className="vb vb--xs fill--none v2-type-body1 color--black mrgn-right-xs">{this.props.visibleTips.length}/{this.props.numTotalTips} Items</div>
 
                 <Link className="vb vb--xs flx flx-row fill--white flx-center-all vb--outline-white ta-center" onClick={openFilter}>
                   <i className="material-icons color--black opa-80 mrgn-right-sm">label_outline</i>
@@ -844,7 +871,7 @@ class ItineraryForm extends React.Component {
 
                                           <Link onClick={handleSaveClick(tip)} className="w-50 hide-in-list vb vb--tip vb--outlin--none flx flx-row flx-align-center brdr-top brdr-right color--black fill--white">
                                               <i className="material-icons color--primary mrgn-right-sm md-24">playlist_add</i>
-                                              <div className="color--black">Add to guide</div>
+                                              <div className="color--black">Add to Guide</div>
                                           </Link>
 
                                           <div className="w-30 cta-wrapper vb vb--tip vb--outline--none flx flx-row flx-align-center v2-type-body2 brdr-top brdr-right">
@@ -882,6 +909,14 @@ class ItineraryForm extends React.Component {
                   );
                 })
               }
+
+              <div className="bx-shadow big-share-button cta-wrapper flx flx-col flx-center-all vb vb--sm vb--outline--none fill--primary color--white"
+                onClick={this.shareGuide} >
+                <i className="material-icons color--white flip-h md-36 mrgn-bottom-md">reply</i>
+                <i className="material-icons color--white DN">accessibility</i>
+                <div className="color--white v2-type-h3">Share this Guide</div>
+              </div>
+
             </div>
 
 

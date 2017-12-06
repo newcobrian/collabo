@@ -203,7 +203,7 @@ const TipPreview = props => {
                     <Link onClick={handleSaveClick} className="w-50 hide-in-list vb vb--tip vb--outlin--none flx flx-row flx-align-center brdr-top brdr-right color--black fill--white">
                         {/*<img className="center-img mrgn-right-sm" src="/img/icons/i32_save.png"/>*/}
                         <i className="material-icons color--primary mrgn-right-sm md-24e">playlist_add</i>
-                        <div className="color--black">Add to guide</div>
+                        <div className="color--black">Add to Guide</div>
                     </Link>
                     
                     <div className="w-30 cta-wrapper vb vb--tip vb--outline--none flx flx-row flx-align-center v2-type-body2 brdr-top brdr-right">

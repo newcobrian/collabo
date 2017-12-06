@@ -424,7 +424,7 @@ textarea.edit-itinerary__name {
   right: 0;
   top: 70px;
   left: 50%;
-  bottom: 0;
+  bottom: 66px;
 }
 .it-map-overlay {
   position: fixed;
@@ -481,7 +481,7 @@ textarea.edit-itinerary__name {
 	opacity: 1 !important;
 }
 .page-itinerary .test00 .cta-wrapper {
- width: 50%;
+ /*width: 40%;*/
 }
 
 .floating-map-toggle {
@@ -495,10 +495,11 @@ textarea.edit-itinerary__name {
 }
 .test00.it-author-controls {
 	position: fixed;
-	bottom: 0;
-	left: 0;
-	width: 50%;
-	background: white;
-	padding: 10px;
-	z-index: 10;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    padding: 10px;
+    z-index: 10;
+    max-width: none;
 }
