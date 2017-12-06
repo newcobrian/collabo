@@ -85,7 +85,6 @@ export function showModal(type, review, images) {
       switch (type) {
         case Constants.SAVE_MODAL:
           Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + uid).orderByChild('lastModified').once('value', snapshot => {
-            console.log(JSON.stringify(snapshot.val()))
             let itineraryList = [];
             snapshot.forEach(function(itinerary) {
               let item = {
