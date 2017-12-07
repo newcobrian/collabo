@@ -2676,6 +2676,42 @@ export function findSubject(subjectId, reviewsList) {
   return false;
 }
 
+function createGeo(itinerary) {
+  // adds geo to the geo table if it doesnt exists
+  if (itinerary && itinerary.geo && itinerary.geo.location && itinerary.geo.label && itinerary.geo.placeId) {
+    Firebase.database().ref(Constants.GEOS_PATH + '/' + itinerary.geo.placeId).once('value', geoSnapshot => {
+      Firebase.database().ref(Constants.COUNTRIES_PATH + '/' + itinerary.geo.country + '/places/' + itinerary.geo.placeId).once('value', countrySnapshot => {
+        let updates = {}
+        
+        if (!geoSnapshot.exists() || !geoSnapshot.val().fullCountry) {
+          let geoObject = {
+            location: itinerary.geo.location,
+            label: itinerary.geo.label,
+            itineraryCount: 1
+          }
+          if (itinerary.geo.country) geoObject.country = itinerary.geo.country;
+          if (itinerary.geo.fullCountry) geoObject.fullCountry = itinerary.geo.fullCountry;
+          if (itinerary.geo.shortName) geoObject.shortName = itinerary.geo.shortName;
+          updates[`/${Constants.GEOS_PATH}/${itinerary.geo.placeId}`] = geoObject;
+        }
+        // otherwise just increment itineraryCount for geo
+        else {
+          // increment itinerary count on geo
+          Firebase.database().ref(Constants.GEOS_PATH + '/' + itinerary.geo.placeId + '/itineraryCount').transaction(function (current_count) {
+            return (current_count || 0) + 1;
+          });
+        }
+
+        if (!countrySnapshot.exists()) {
+          updates[`/${Constants.COUNTRIES_PATH}/${itinerary.geo.country}/places/${itinerary.geo.placeId}`] = true;
+        }
+
+        Firebase.database().ref().update(updates);
+      })
+    })
+  }
+}
+
 export function addToItinerary(auth, tip, itinerary) {
   return dispatch => {
     let itineraryId;
@@ -2689,6 +2725,7 @@ export function addToItinerary(auth, tip, itinerary) {
       newItinUpdates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itineraryId}`] = Object.assign({}, itineraryObject, {userId: auth});
       newItinUpdates[`/${Constants.ITINERARIES_BY_USER_PATH}/${auth}/${itineraryId}`] = Object.assign({}, itineraryObject);
       Firebase.database().ref().update(newItinUpdates);
+      createGeo(itinerary);
     }
     else {
       itineraryId = itinerary.itineraryId;
