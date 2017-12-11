@@ -24,15 +24,16 @@ class SnackbarToaster extends React.Component {
             <Snackbar
               open={this.props.open}
               message={this.props.message}
-              action="GO"
+              action="View now"
               onActionTouchTap={handleOnActionTouchTap}
-              autoHideDuration={this.props.duration || 500000}
+              autoHideDuration={this.props.duration || 800000}
               onRequestClose={this.props.onRequestClose}
               className="ta-center"
-              style={{opacity:"1", marginBottom:"20px", padding: "20px"}}
+              style={{opacity:"1", marginBottom:"0px"}}
               bodyStyle={{opacity:".95", backgroundColor: "#121419"}}
+              contentStyle={{}}
 
-            />
+            /> 
         </MuiThemeProvider>
         </span>
       ) ;
@@ -43,11 +44,12 @@ class SnackbarToaster extends React.Component {
 	        <Snackbar
 	          open={this.props.open}
 	          message={this.props.message}
-	          autoHideDuration={this.props.duration || 500000}
+	          autoHideDuration={this.props.duration || 800000}
 	          onRequestClose={this.props.onRequestClose}
             className="ta-center"
-            style={{opacity:"1", marginBottom:"20px", padding: "20px"}}
-            bodyStyle={{opacity:".95", backgroundColor: "#121419"}}
+            style={{opacity:"1", height:"90px", marginBottom:"20px"}}
+            bodyStyle={{opacity:".95", backgroundColor: "#121419", marginBottom:"20px", height:"90px", padding: "20px", border:"2px solid #00E2C8"}}
+            contentStyle={{fontWeight: "bold;", fontSize: "16px"}}
 
 	        />
 	    </MuiThemeProvider>

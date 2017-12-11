@@ -150,7 +150,8 @@ export const ADMIN_USERS = [
 'HZ1g4L39qnW3rdrhduUwUbGnUx82', 
 'S0kpgk8Gk5dlsEvUbGj6QmV40Wl2', /** agent4 - jordan++4@futurehumans.co **/
 'uarrgwLgVdQ2P2oyj5goPcfi2KY2', /** agent7 - jordan++7@futurehumans.co - culturetrip **/
-'9rzXLUFdnWRzZXxEv3ZSuVDeI7P2' /** agent6 - jordan++6@futurehumans.co - eater **/
+'9rzXLUFdnWRzZXxEv3ZSuVDeI7P2', /** agent6 - jordan++6@futurehumans.co - eater **/
+'C9bHnCTVVzVzIIkm3tdT84jNQRT2' /** agent8 - jordan++8@futurehumans.co - globehopper - jetset and hostel **/
 
 ]
 

@@ -442,7 +442,7 @@ class ItineraryForm extends React.Component {
            
                
           {/** -------- AUTHOR CONTROLS **/}
-          <div className="border-top--primary--4 test00 brdr-top it-author-controls w-max flx flx-row flx-just-start flx-align-center ta-center pdding-top-sm pdding-bottom-sm">
+          <div className="border-top--primary--3 test00 brdr-top it-author-controls w-max flx flx-row flx-just-start flx-align-center ta-center pdding-top-sm pdding-bottom-sm">
             <div className="w-100 flx flx-row flx-just-start flx-align-center ta-center">
 
 
@@ -471,7 +471,7 @@ class ItineraryForm extends React.Component {
 
               <div className="flx-item-right flx flx-row flx-align-center">
 
-                <div className="v2-type-h4 mrgn-right-md mobile-hide">Share this Guide:</div>
+                <div className="v2-type-h4 weight-700 mrgn-right-md mobile-hide">Share this Guide:</div>
 
                 <div className="vb vb--sm vb--outline--none color--black color--white mrgn-right-xs vb--fb">
                   <FacebookShareButton

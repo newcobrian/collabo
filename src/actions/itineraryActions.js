@@ -593,10 +593,10 @@ export function onAddTip(auth, result, itinerary) {
       dispatch({
         type: ActionTypes.ITINERARY_UPDATED,
         itineraryId: itinerary.id,
-        message: 'Tip added',
+        message: 'New item added',
         meta: {
           mixpanel: {
-            event: 'tip added to itinerary',
+            event: 'new item added to guide',
             props: {
               itinerary: itinerary.id,
               tip: tipId,

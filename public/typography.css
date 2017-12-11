@@ -61,6 +61,9 @@ textarea {
 .weight-500 {
   font-weight: 500 !important;
 }
+.weight-700 {
+  font-weight: 700 !important;
+}
 .v2-type--italic {
   font-style: italic;
 }
@@ -346,6 +349,9 @@ body a.nav-module {
 }
 .border-top--primary--4 {
   border-top: 4px solid #3DCBF3 !important;
+}
+.border-top--primary--3 {
+  border-top: 3px solid #3DCBF3 !important;
 }
 
 

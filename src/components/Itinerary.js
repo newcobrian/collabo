@@ -251,7 +251,7 @@ class Itinerary extends React.Component {
 
 
             {/** -------- AUTHOR CONTROLS **/}
-                      <div className="border-top--primary--4 test00 brdr-top it-author-controls w-max flx flx-row flx-just-start flx-align-center ta-center pdding-top-sm pdding-bottom-sm">
+                      <div className="border-top--primary--3 test00 brdr-top it-author-controls w-max flx flx-row flx-just-start flx-align-center ta-center pdding-top-sm pdding-bottom-sm">
                         <div className="w-100 flx flx-row flx-just-start flx-align-center ta-center">
 
 
@@ -466,7 +466,7 @@ class Itinerary extends React.Component {
                       onClick={this.shareGuide} >
                       <i className="material-icons color--white flip-h md-36 mrgn-bottom-md">reply</i>
                       <i className="material-icons color--white DN">accessibility</i>
-                      <div className="color--white v2-type-h3">Share this Guide</div>
+                      <div className="color--white weight-700 v2-type-h3">Share this Guide</div>
                     </div>
 
 
