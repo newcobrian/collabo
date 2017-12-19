@@ -77,7 +77,7 @@ class UniversalSearchBar extends React.Component {
 			    <FirebaseSearchInput
 			      name="searchInput"
 			      callback={this.searchInputCallback}
-			      placeholder="Search for a city or country"
+			      placeholder="Where are you going next?"
 			      type={Constants.GEO_SEARCH}
 			      className="input--search fill--black color--black input--underline v2-type-body3" />
 			  </div>
