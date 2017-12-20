@@ -82,6 +82,30 @@ const UpdateCoverPhoto = props => {
   );
 }
 
+const ImDoneButton = props => {
+  const onDoneClick = ev => {
+    ev.preventDefault();
+    props.onImDoneClick(props.itinerary);
+  }
+
+  if (props.itinerary.imDoneClicked === true) {
+    return (
+      <div className="bx-shadow big-share-button cta-wrapper flx flx-col flx-center-all vb vb--sm vb--outline--none fill--primary color--white"
+        onClick={props.shareGuide} >
+        <i className="material-icons color--white flip-h md-36 mrgn-bottom-md">reply</i>
+        <i className="material-icons color--white DN">accessibility</i>
+        <div className="color--white v2-type-h3">Share this Guide</div>
+      </div>
+    )
+  }
+  else return (
+    <button className="bx-shadow big-share-button cta-wrapper flx flx-col flx-center-all vb vb--sm vb--outline--none fill--primary color--white"
+      onClick={onDoneClick} >
+      I'm done!
+    </button>
+  )
+}
+
 const mapStateToProps = state => ({
   ...state.itinerary,
   authenticated: state.common.authenticated,
@@ -910,7 +934,14 @@ class ItineraryForm extends React.Component {
                 })
               }
 
-              <div className="bx-shadow big-share-button cta-wrapper flx flx-col flx-center-all vb vb--sm vb--outline--none fill--primary color--white"
+              {/** Big share button **/}
+              <ImDoneButton
+                itinerary={itinerary}
+                onImDoneClick={this.props.onImDoneClick} />
+
+
+              {/** Big share button **/}
+              <div className="bx-shadow big-share-button cta-wrapper flx flx-col flx-center-all vb vb--sm vb--outline--none fill--primary color--white DN"
                 onClick={this.shareGuide} >
                 <i className="material-icons color--white flip-h md-36 mrgn-bottom-md">reply</i>
                 <i className="material-icons color--white DN">accessibility</i>
