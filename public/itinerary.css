@@ -200,7 +200,7 @@
 	border-bottom: 1px solid #D5E3E5;
 }
 .page-itinerary.page-edit-own .itinerary__cover__text {
-	padding: 0 20px 20px 20px;
+	padding: 0 0px 20px 0px;
 }
 .it__author-wrapper {
 	margin:  0;
@@ -481,7 +481,8 @@ textarea.edit-itinerary__name {
 	opacity: 1 !important;
 }
 .page-itinerary .test00 .cta-wrapper {
- /*width: 40%;*/
+	max-width: 400px;
+	margin: 0 auto;
 }
 
 .floating-map-toggle {

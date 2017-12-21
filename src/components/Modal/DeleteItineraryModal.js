@@ -31,6 +31,7 @@ class DeleteItineraryModal extends React.Component {
         onClick={handleClose}
         disableTouchRipple={true}
         fullWidth={false}
+        className="vb vb--light mrgn-right-sm"
         labelStyle={{}}
         style={{
           }}
@@ -70,18 +71,18 @@ class DeleteItineraryModal extends React.Component {
           overlayStyle={{}}
           
           contentClassName="dialog--save__wrapper"
-          contentStyle={{width: "auto", maxWidth: "600px"}}
+          contentStyle={{width: "auto", maxWidth: "600px", height: "100%"}}
           
           bodyClassName="dialog--save__body"
-          bodyStyle={{padding: "0px"}}
+          bodyStyle={{padding: "0px", height: "300px"}}
 
           actionsContainerClassName="dialog--save__actions"
           actionsContainerStyle={{}}
 
           >
             
-            <div className="dialog--delete__content">
-              <div className="flx flx-row flx-just-start flx-align-center">
+            <div className="dialog--save flx flx-col">
+              <div className="dialog--save__content w-100 flx flx-row flx-center-all flx-align-center pdding-all-lg">
                 <div className="dialog--save__tip-name">It will be lost forever...</div>
               </div>
               <div
