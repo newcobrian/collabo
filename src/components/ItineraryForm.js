@@ -306,7 +306,14 @@ class ItineraryForm extends React.Component {
         props.onImDoneClick(props.itinerary);
       }
 
-      if (props.itinerary.imDoneClicked === true) {
+      let twoDaysAgo = new Date();
+      twoDaysAgo.setMonth(twoDaysAgo.getDate() <= 2 ? twoDaysAgo.getMonth() - 1 : twoDaysAgo.getMonth());
+      twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
+
+      // don't show the I'm done button if it's already been clicked
+      // OR if guide has been created over 2 days ago and has at least 2 tips
+      if (props.itinerary.imDoneClicked === true || 
+        (props.itinerary.createdOn && props.itinerary.createdOn < twoDaysAgo && props.itinerary.tips && props.itinerary.tips.length >= 2)) {
         return (
           <div className="w-100 flx flx-row flx-just-start flx-align-center ta-center">
             {/* Like */}
