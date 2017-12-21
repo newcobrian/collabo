@@ -474,6 +474,7 @@ export default (state = initialState, action) => {
         showingActiveInfoWindow: true,
         activeTipPosition: action.activeTipPosition,
         activeTipTitle: action.activeTipTitle,
+        activeTipSubjectId: action.activeTipSubjectId,
         selectedMarker: action.selectedMarker
       }
     case ActionTypes.TOGGLE_MAP_VIEW:

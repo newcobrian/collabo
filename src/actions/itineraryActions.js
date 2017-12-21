@@ -705,6 +705,7 @@ export function onSelectActiveTip(tip) {
       type: ActionTypes.SELECT_ACTIVE_TIP,
       activeTipTitle: tip.subject.title,
       activeTipPosition: tip.subject.location,
+      activeTipSubjectId: tip.subjectId,
       selectedMarker: tip.key
     })
   }

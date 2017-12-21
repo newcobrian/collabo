@@ -105,7 +105,7 @@ class MapContainer extends React.Component {
 		            visible={this.props.showingHoverInfoWindow}
 		            marker={this.props.hoverMarker}>
 	              <div>
-	                <h4>{this.props.mouseoverTitle}</h4>
+	                <a href="google.com">{this.props.mouseoverTitle}</a>
 	              </div>
 		        </InfoWindow>
 		        <InfoWindow
@@ -115,7 +115,7 @@ class MapContainer extends React.Component {
 			        pixelOffset: new this.props.google.maps.Size(0,-48),
 			        }} >
 		            <div className="butt">
-		                <h4>{this.props.index} {this.props.activeTipTitle}</h4>
+		                <h4><a href={'/review/' + this.props.activeTipSubjectId}>{this.props.index} {this.props.activeTipTitle}</a></h4>
 		            </div>
 		        </InfoWindow>
 
