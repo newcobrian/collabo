@@ -176,7 +176,7 @@ export function getAllReviews(auth, subjectId) {
         })
         Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId).on('value', reviewSnapshot => {
           reviewSnapshot.forEach(function(userReview) {
-            if (!isFollowingCheck[userReview.key] && userReview.key !== auth) {
+            if (!isFollowingCheck[userReview.key] && userReview.key && userReview.key !== auth) {
               Firebase.database().ref(Constants.USERS_PATH + '/' + userReview.key).once('value', userSnapshot => {
                 Firebase.database().ref(Constants.TIPS_BY_SUBJECT_PATH + '/' + subjectId + '/' + userReview.key).on('value', tipsByUserSnap => {
                   Firebase.database().ref(Constants.IMAGES_BY_USER_PATH + '/' + userReview.key + '/' + subjectId).on('value', imagesSnapshot => {
