@@ -213,11 +213,6 @@ class ItineraryForm extends React.Component {
     const addTipFunc = this.props.onAddTip;
     const auth = this.props.authenticated;
 
-    const onCopyClick = () => {
-          this.props.openSnackbar('Share link copied to clipboard');
-        }
-
-
     let initialMapCenter = {};
     if (itinerary.tips && itinerary.tips[0] && itinerary.tips[0].subject && itinerary.tips[0].subject.location) {
       initialMapCenter =  itinerary.tips[0].subject.location
@@ -306,6 +301,14 @@ class ItineraryForm extends React.Component {
         props.onImDoneClick(props.itinerary);
       }
 
+      const onCopyClick = () => {
+        this.props.openSnackbar('Share link copied to clipboard');
+      }
+
+      const onPostClick = type => ev => {
+        this.props.sendMixpanelEvent(Constants.MIXPANEL_SHARE_EVENT, { 'type' : type, 'source': Constants.ITINERARY_PAGE });
+      }
+
       let twoDaysAgo = new Date();
       twoDaysAgo.setMonth(twoDaysAgo.getDate() <= 2 ? twoDaysAgo.getMonth() - 1 : twoDaysAgo.getMonth());
       twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
@@ -348,6 +351,7 @@ class ItineraryForm extends React.Component {
                   url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
                   quote={'Check out my travel guide "' + itinerary.title + '" for ' + shortName}
                   hashtag={'#views'}
+                  onClick={onPostClick(Constants.FACEBOOK_POST)}
                   className="Demo__some-network__share-button">
                   <FacebookIcon
                     size={24}
@@ -367,6 +371,7 @@ class ItineraryForm extends React.Component {
                   url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
                   title={'Check out my travel guide "' + itinerary.title + '" for ' + shortName + ':'}
                   hashtags={['views']}
+                  onClick={onPostClick(Constants.TWITTER_POST)}
                   className="Demo__some-network__share-button">
                   <TwitterIcon
                     size={24}

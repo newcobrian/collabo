@@ -54,7 +54,12 @@ class ShareModal extends React.Component {
     const shortName = itinerary && itinerary.geo && itinerary.geo.shortName ? itinerary.geo.shortName : itinerary.geo.label;
 
     const onCopyClick = () => {
+      this.props.sendMixpanelEvent(Constants.MIXPANEL_SHARE_EVENT, { 'type' : Constants.COPY_URL_TO_CLIPBOARD, 'source': Constants.SHARE_MODAL });
       this.props.openSnackbar('Share link copied to clipboard');
+    }
+
+    const onPostClick = type => ev => {
+      this.props.sendMixpanelEvent(Constants.MIXPANEL_SHARE_EVENT, { 'type' : type, 'source': Constants.SHARE_MODAL });
     }
 
     return (
@@ -104,6 +109,7 @@ class ShareModal extends React.Component {
                   url={Constants.VIEWS_URL + `/guide/${itinerary.id}`}
                   quote={'Check out my travel guide "' + itinerary.title + '" for ' + shortName}
                   hashtag={'#views'}
+                  onClick={onPostClick(Constants.FACEBOOK_POST)}
                   className="flx flx-row flx-center-all w-100 vb vb--md vb--outline--none vb--fb">
                   <div className="flx-item-left">
                     <FacebookIcon
@@ -128,6 +134,7 @@ class ShareModal extends React.Component {
                   url={Constants.VIEWS_URL + `/guide/${itinerary.id}`}
                   title={'Check out my travel guide "' + itinerary.title + '" for ' + shortName + ':'}
                   hashtags={['views']}
+                  onClick={onPostClick(Constants.TWITTER_POST)}
                   className="flx flx-row flx-center-all w-100 vb vb--md vb--outline--none vb--tw">
                   <div className="flx-item-left">
                     <TwitterIcon

@@ -185,8 +185,12 @@ class Itinerary extends React.Component {
       const createdByImage = Selectors.getCreatedByUserImage(this.props.itinerary);
 
       const onCopyClick = () => {
-            this.props.openSnackbar('Share link copied to clipboard');
-          }
+        this.props.openSnackbar('Share link copied to clipboard');
+      }
+
+      const onPostClick = type => ev => {
+        this.props.sendMixpanelEvent(Constants.MIXPANEL_SHARE_EVENT, { 'type' : type, 'source': Constants.ITINERARY_PAGE });
+      }
 
       const isUser = this.props.authenticated &&
       this.props.itinerary.userId === this.props.authenticated;
@@ -287,6 +291,7 @@ class Itinerary extends React.Component {
                                 url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
                                 quote={'Check out my travel guide "' + itinerary.title + '" for '}
                                 hashtag={'#views'}
+                                onClick={onPostClick(Constants.FACEBOOK_POST)}
                                 className="Demo__some-network__share-button">
                                 <FacebookIcon
                                   size={24}
@@ -306,6 +311,7 @@ class Itinerary extends React.Component {
                                 url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
                                 title={'Check out my travel guide "' + itinerary.title + '" for ' + ':'}
                                 hashtags={['views']}
+                                onClick={onPostClick(Constants.TWITTER_POST)}
                                 className="Demo__some-network__share-button">
                                 <TwitterIcon
                                   size={24}

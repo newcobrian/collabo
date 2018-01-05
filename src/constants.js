@@ -135,7 +135,13 @@ export const POPULARITY_MODULE_COUNT = 3
 export const HOME_PAGE_FEED_COUNT = 15
 export const INBOX_FEED_COUNT = 20
 
+/*** Mixpanel events ***/
 export const MIXPANEL_PAGE_VIEWED = 'page viewed'
+export const MIXPANEL_CLICK_EVENT = 'click event'
+export const MIXPANEL_SHARE_EVENT = 'share event'
+export const FACEBOOK_POST = 'facebook post'
+export const TWITTER_POST = 'twitter post'
+export const COPY_URL_TO_CLIPBOARD = 'copy URL to clipboard'
 
 export const INVALID_USERNAMES = ['account', 'send', 'message', 'inbox', 'notification', 'create', 'edit', 'editor',
  'itinerary', 'messenger', 'settings', 'admin', 'administrator', 'settings', 'global', 'saved', 'login', 'register',

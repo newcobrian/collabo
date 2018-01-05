@@ -33,25 +33,6 @@ export function showShareModal(itinerary) {
   }
 }
 
-export function onImDoneClick(itinerary) {
-  return dispatch => {
-    Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itinerary.id).update({imDoneClicked: true})
-
-    dispatch({
-      type: ActionTypes.SHOW_SHARE_MODAL,
-      itinerary,
-      meta: {
-        mixpanel: {
-          event: 'click event',
-          props: {
-            type: 'Im Done button'
-          },
-        }
-      }
-    })
-  }
-}
-
 export function showChangeEmailModal() {
   return dispatch => {
     dispatch({
