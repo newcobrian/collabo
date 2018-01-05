@@ -25,6 +25,7 @@ class FilterModal extends React.Component {
   }
 
   componentWillMount() {
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'filter modal' });
     // if showAllFilters, this might be the first time opening dialog, so construct filter object
     // with any tag that has at least 1 tip
     if (this.props.showAllFilters) {

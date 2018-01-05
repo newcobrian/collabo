@@ -1,5 +1,6 @@
 import React from 'react';
 import * as Actions from '../../actions';
+import * as Constants from '../../constants';
 import { connect } from 'react-redux';
 import Dialog from 'material-ui/Dialog';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -15,6 +16,10 @@ const mapStateToProps = state => ({
 });
 
 class ReviewModal extends React.Component {
+  componentWillMount() {
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'review modal' });
+  }
+
   render() {
     const handleClose = ev => {
       ev.preventDefault();

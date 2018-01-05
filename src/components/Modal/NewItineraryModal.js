@@ -29,7 +29,7 @@ class NewItineraryModal extends React.Component {
   }
 
   componentWillMount() {
-    this.props.sendMixpanelEvent('New Itinerary Modal');
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'new itinerary modal' });
   }
 
   render() {

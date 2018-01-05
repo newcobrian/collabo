@@ -57,6 +57,10 @@ const mapStateToProps = state => ({
 });
 
 class InfoModal extends React.Component {
+  componentWillMount() {
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'info modal' });
+  }
+
   render() {
     const handleClose = ev => {
       ev.preventDefault();

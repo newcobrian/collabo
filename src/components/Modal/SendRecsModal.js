@@ -27,6 +27,10 @@ const mapStateToProps = state => ({
 });
 
 class SendRecsModal extends React.Component {
+  componentWillMount() {
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'send recs modal' });
+  }
+
   render() {
     const handleClose = ev => {
       ev.preventDefault();

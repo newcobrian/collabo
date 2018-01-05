@@ -39,7 +39,15 @@ export function onImDoneClick(itinerary) {
 
     dispatch({
       type: ActionTypes.SHOW_SHARE_MODAL,
-      itinerary
+      itinerary,
+      meta: {
+        mixpanel: {
+          event: 'click event',
+          props: {
+            type: 'Im Done button'
+          },
+        }
+      }
     })
   }
 }

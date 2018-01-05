@@ -39,10 +39,6 @@ const mapStateToProps = state => ({
 });
 
 class RootModal extends React.Component {
-    componentWillMount() {
-      this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : this.props.modalType });
-    }
-
   	render () {
   		if (!this.props.modalType) {
 	    	return null

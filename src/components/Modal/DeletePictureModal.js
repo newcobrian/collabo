@@ -13,6 +13,10 @@ const mapStateToProps = state => ({
 });
 
 class DeletePictureModal extends React.Component {
+  componentWillMount() {
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'delete picture modal' });
+  }
+
   render() {
     const handleClose = ev => {
       ev.preventDefault();

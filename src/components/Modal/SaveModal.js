@@ -1,5 +1,6 @@
 import React from 'react';
 import * as Actions from '../../actions';
+import * as Constants from '../../constants';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import Dialog from 'material-ui/Dialog';
@@ -68,8 +69,8 @@ const mapStateToProps = state => ({
 
 class SaveModal extends React.Component {
   componentWillMount() {
-    this.props.sendMixpanelEvent('Save Modal');
-  } 
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'save modal' });
+  }
 
   render() {
     const handleClose = ev => {

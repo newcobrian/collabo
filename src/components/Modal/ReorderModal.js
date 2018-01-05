@@ -37,6 +37,7 @@ const mapStateToProps = state => ({
 class ReorderModal extends React.Component {
   componentWillMount() {
     this.props.loadReorderModal(this.props.itinerary);
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'reorder modal' });
   }
 
   render() {

@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../../actions';
+import * as Constants from '../../constants';
 import Dialog from 'material-ui/Dialog';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
 import FriendSelector from '../FriendSelector';
 import { FORWARD_MODAL } from '../../actions';
-
 
 const mapStateToProps = state => ({
   ...state.modal,
@@ -16,6 +16,10 @@ const mapStateToProps = state => ({
 });
 
 class ForwardModal extends React.Component {
+  componentWillMount() {
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'forward modal' });
+  }
+
   render() {
     const handleClose = ev => {
       ev.preventDefault();
