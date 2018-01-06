@@ -443,7 +443,7 @@ export function sendInboxMessage(senderId, recipientId, messageType, sendObject,
 					Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + recipientId + '/messageCount').transaction(function (current_count) {
 			            return (current_count || 0) + 1;
 			        })
-		        	if (recipientSnapshot.exists()) {
+		        	if (recipientSnapshot.exists() && recipientSnapshot.val().email) {
 		        		let formData = new FormData();
 		        		formData.append("template-id", "7691e888-4b30-40e2-9d78-df815d5b8453");
 		        		formData.append("recipient", recipientSnapshot.val().email);
@@ -460,6 +460,44 @@ export function sendInboxMessage(senderId, recipientId, messageType, sendObject,
 						})
 				    }
 				}
+			})
+		})
+	}
+}
+
+export function sendItineraryUpdateEmails(auth, itinerary, lastUpdate) {
+	// if itinerary hasnt been updated in the last 24 hours, then send the email to all followers
+	let yesterday = new Date();
+      yesterday.setMonth(yesterday.getDate() <= 1 ? yesterday.getMonth() - 1 : yesterday.getMonth());
+      yesterday.setDate(yesterday.getDate() - 1);
+
+	if (!lastUpdate || lastUpdate < yesterday) {
+		Firebase.database().ref(Constants.USERS_PATH + '/' + auth).once('value', senderSnap => {
+			let emailMessage = senderSnap.val().username + ' updated their guide "' + itinerary.title + 
+				'". Click here to check it out: https://myviews.io/guide/' + itinerary.id;
+
+			Firebase.database().ref(Constants.HAS_FOLLOWERS_PATH + '/' + auth).once('value', followersSnap => {
+				followersSnap.forEach(function(user) {
+					Firebase.database().ref(Constants.USERS_PATH + '/' + user.key).once('value', recipientSnap => {
+						if (recipientSnap.exists() && recipientSnap.val().email) {
+							// && user.key === 'haO90mWZ07VgwiTnawGovd1RNbx1'
+							let formData = new FormData();
+			        		formData.append("template-id", "4cf0f88a-221c-4a1f-95ed-5a8543ba42a8");
+			        		formData.append("recipient", recipientSnap.val().email);
+			        		formData.append("data", JSON.stringify({ message: emailMessage, senderName: senderSnap.val().username }));
+					        fetch(Constants.INBOX_SEND_EMAIL_URL, {
+							  method: 'POST',
+							  body: formData
+							})
+							.catch(function(response) {
+								console.log(response)
+							})
+							.catch(function(error) {
+							    console.log('Content Manager email send request failed', error)
+							})
+						}
+					})
+				})
 			})
 		})
 	}

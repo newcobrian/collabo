@@ -587,8 +587,11 @@ export function onAddTip(auth, result, itinerary) {
       updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${itinerary.geo.placeId}/${itinerary.userId}/${itinerary.id}/maxPriority`] = priority;
       updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itinerary.id}/maxPriority`] = priority;
 
+      let lastUpdate = itinerary.lastModified;
+
       Firebase.database().ref().update(updates);
       Helpers.fanOutToFollowersFeed(auth, itinerary.id, lastModified);
+      Helpers.sendItineraryUpdateEmails(auth, itinerary, lastUpdate);
 
       dispatch({
         type: ActionTypes.ITINERARY_UPDATED,
