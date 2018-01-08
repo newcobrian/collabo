@@ -561,6 +561,9 @@ width: 32px;
   margin: 0 auto;
   width: 100%;
 }
+.page-places .feed-wrapper {
+    margin-top: 20px;
+}
 .tag-bar {
   overflow: scroll;
   margin: 0 auto;
