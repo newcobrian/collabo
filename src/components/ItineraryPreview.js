@@ -83,9 +83,9 @@ const GeoInfo = props => {
   }
   else {
     return (
-      <Link to={`/places/${props.geo.placeId}`} className="flx flx-col flx-just-start flx-align-center w-50">
+      <Link to={`/places/${props.geo.placeId}`} className="flx flx-row flx-just-start flx-align-center w-50">
           {/** Flag and Geo **/}
-          <div className={'itinerary__cover__flag flx-hold invert flag-' + props.geo.country}>
+          <div className={'itinerary__cover__flag flx-hold invert mrgn-right-sm flag-' + props.geo.country}>
           </div>
           <div className="geo-type ellipsis ta-center invert">
             {props.geo.label}
@@ -111,7 +111,7 @@ const ItineraryPreview = props => {
             {/** USER PHOTO **/}
             <Link
               to={`/${itinerary.createdBy.username}`}
-              className="itinerary__cover__author-photo w-50 ta-center flx flx-center-all">
+              className="itinerary__cover__author-photo ta-left flx flx-just-start mrgn-right-sm">
                 <ProfilePic src={itinerary.createdBy.image} className="center-img" />
             </Link>
 
@@ -185,18 +185,18 @@ const ItineraryPreview = props => {
               
 
               {/** CAPTION ROW - START **/}
-              <div className="geo-wrapper flx flx-row flx-just-start flx-align-center mrgn-bottom-xs w-100 mrgn-top-xs">
-                <div className="flx flx-col w-50 flx-align-center">
+              <div className="geo-wrapper flx flx-row flx-just-start flx-align-center w-100 mrgn-bottom-sm">
+                <div className="flx flx-row w-50 flx-align-center">
                   {/** USER PHOTO **/}
                     <Link
                       to={`/${itinerary.createdBy.username}`}
-                      className="itinerary__cover__author-photo w-50 ta-center flx flx-center-all">
+                      className="itinerary__cover__author-photo ta-left flx flx-just-start mrgn-right-sm">
                       <ProfilePic src={itinerary.createdBy.image} className="center-img invert" />
                     </Link>
 
 
                   {/** USERNAME **/}
-                  <div className="flx flx-col flx-just-start">
+                  <div className="flx flx-row flx-just-start">
                     <div className="itinerary__cover__username ta-center">
                       <Link
                       to={`/${itinerary.createdBy.username}`}
@@ -220,13 +220,13 @@ const ItineraryPreview = props => {
               <div className="guide-preview-text-wrapper w-100 flx flx-col">
 
                 {/** TITLE - START  **/}
-                <Link to={`/guide/${itinerary.id}`} className="guide-preview-title ta-center mrgn-bottom-xs mrgn-top-xs w-100 flx flx-col flx-center-all invert">
+                <Link to={`/guide/${itinerary.id}`} className="guide-preview-title ta-left mrgn-bottom-xs mrgn-top-xs w-100 flx flx-col invert">
                   {itinerary.title}
                 </Link>
                 {/** END - TITLE **/}
 
                 {/** DESCRIPTION - START **/}
-                <div className="itinerary__cover__descrip ta-center font--beta v2-type-body1 opa-90 invert">
+                <div className="itinerary__cover__descrip ta-left font--beta v2-type-body1 opa-90 invert">
                    <DescriptionPreview  itinerary={props.itinerary}/>
                 </div>
                 {/** END - DESCRIPTION **/}
@@ -235,32 +235,6 @@ const ItineraryPreview = props => {
               {/** END - TEXT CONTAINER **/}
 
 
-              {/** CTA - START **/}
-              <div className="guide-cta-wrapper flx flx-row flx-center-all w-100 fill--white brdr-all">
-
-                {/** LIKE AND COMMENTS **/}
-                <div className="it__cover__cta-module flx flx-row flx-just-end">
-                  <CommentPreview itinerary={props.itinerary} />
-
-                  <div className="vb vb--sm vb--outline--none flx flx-row flx-align-center mrgn-right-sm cta-wrapper flx flx-row flx-just-end flex-item-right">
-                    <LikeReviewButton
-                      authenticated={props.authenticated}
-                      isLiked={props.itinerary.isLiked}
-                      likesCount={props.itinerary.likesCount}
-                      likeObject={itinerary}
-                      itineraryId={itinerary.id}
-                      type={ITINERARY_TYPE} />
-                  </div>
-                </div>
-
-                {/** TIP COUNT **/}
-                <Link to={`/guide/${itinerary.id}`} className="vb vb--xs vb--outline--none tip-count flx flx-row flx-just-start flx-align-center color--primary flx-item-right no-uppercase">
-                    <div>{itinerary.reviewsCount ? itinerary.reviewsCount : 0} {itinerary.reviewsCount === 1 ? '' : ''} items</div>
-                    <i className="DN material-icons mrgn-left-sm color--primary md-24">playlist_play</i>
-                </Link>
-
-              </div>
-              {/** END - CTA ROW **/}
 
 
              
@@ -268,6 +242,33 @@ const ItineraryPreview = props => {
           </div> {/** ----- Close Cover Text DIV ----- **/}
         </div>
 
+
+        {/** CTA - START **/}
+        <div className="guide-cta-wrapper flx flx-row flx-center-all w-100 fill--white brdr-top">
+
+          {/** LIKE AND COMMENTS **/}
+          <div className="it__cover__cta-module flx flx-row flx-just-end">
+            <CommentPreview itinerary={props.itinerary} />
+
+            <div className="vb vb--sm vb--outline--none flx flx-row flx-align-center mrgn-right-sm cta-wrapper flx flx-row flx-just-end flex-item-right">
+              <LikeReviewButton
+                authenticated={props.authenticated}
+                isLiked={props.itinerary.isLiked}
+                likesCount={props.itinerary.likesCount}
+                likeObject={itinerary}
+                itineraryId={itinerary.id}
+                type={ITINERARY_TYPE} />
+            </div>
+          </div>
+
+          {/** TIP COUNT **/}
+          <Link to={`/guide/${itinerary.id}`} className="vb vb--xs vb--outline--none tip-count flx flx-row flx-just-start flx-align-center color--black flx-item-right no-uppercase">
+              <div>{itinerary.reviewsCount ? itinerary.reviewsCount : 0} {itinerary.reviewsCount === 1 ? '' : ''} items</div>
+              <i className="DN material-icons mrgn-left-sm color--primary md-24">playlist_play</i>
+          </Link>
+
+        </div>
+        {/** END - CTA ROW **/}
 
 
       

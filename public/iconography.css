@@ -105,14 +105,14 @@
 
 .itinerary__cover__flag,
 .itinerary__summary__flag {
-  height: 40px;
-  width: 55px;
+  height: 24px;
+  width: 34px;
   background: url(img/flags/US.png);
   background-size: cover;
   background-repeat: no-repeat;
   margin-right: 0px;
   border: 1px solid rgba(0,0,0,.4);
-  margin: 12px 0;
+  margin: 0;
 }
 
 

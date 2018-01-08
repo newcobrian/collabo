@@ -103,7 +103,7 @@
   width: 110px;
 	flex-shrink: 0;
 	position: relative;
-  height: 220px;
+  height: 160px;
   width: 100%;
 }
 .tip__image-module:hover {
@@ -242,11 +242,11 @@ input.edit-tip__rating {
 }
 .search-icon {
   position: absolute;
-  left: 0px;
-  top: 18px;
-  z-index: 2;
-  pointer-events: none;
-  opacity: .5;
+      left: 10px;
+      top: 11px;
+      z-index: 2;
+      pointer-events: none;
+      opacity: 1;
 }
 .input--search {
   margin-bottom: 0 !important;

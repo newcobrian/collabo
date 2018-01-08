@@ -340,10 +340,15 @@ margin: 0;
 }
 .search-wrapper.page-top-search {
   margin-right: 0;
+  width: 100%;
 }
 .search-wrapper-wrapper {
-    padding: 8px;
-    margin-top: 40px;
+    padding: 0;
+}
+.search-detail-bar {
+  padding-left: 0;
+  -webkit-align-items: center;
+  align-items: center;
 }
 
 
@@ -366,10 +371,14 @@ margin: 0;
   padding: 15px;
 }
 .home-page .feed-toggle {
-  top: 50px;
+  margin-top: 80px;
 }
 .feed-toggle.tags-toggle {
   top: 80px;
+}
+
+.page-places .feed-wrapper {
+    margin-top: 40px;
 }
 .home-page .feed-toggle .nav-link:first-child {
   margin-left: 0px;
@@ -463,8 +472,8 @@ width: 100%;
 }
 
 .itinerary__cover__author-photo {
-  width: 60px;
-  height: 60px;
+  width: 36px;
+  height: 36px;
 }
 .itinerary__cover__username {
 }
@@ -748,7 +757,8 @@ body .back-to-top {
 
 /* TIP PREVIEW */
 .v2-type-h3 {
-  font-size: 24px;
+  font-size: 20px;
+  line-height: 24px;
 }
 .v2-type-mono.mono-sm {
   font-size: 11px;

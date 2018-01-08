@@ -230,17 +230,14 @@ class FirebaseSearchInput extends Component {
           overflow: 'scroll'
         }}
         hintStyle={{
-          fontFamily: 'Roboto Condensed',
-          bottom: '5px',
+          bottom: '0px',
           color: '#121419',
-          textTransform: 'uppercase',
-          fontWeight: '600',
-          fontSize: '32px',
-          lineHeight: '30px',
+          fontSize: '16px',
+          lineHeight: '24px',
           width: '100%',
           overflow:'hidden',
-          textAlign: 'center',
-          padding: '0 40px'
+          textAlign: 'left',
+          padding: '0 0 0 70px'
         }}
      />
       </MuiThemeProvider>

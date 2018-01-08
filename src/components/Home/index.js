@@ -227,7 +227,7 @@ class Home extends React.Component {
 
   renderTabs() {
     return (
-      <div className="feed-toggle friend-popular-toggle flx flx-col flx-align-center w-100 brdr-top">
+      <div className="feed-toggle friend-popular-toggle flx flx-col flx-align-center w-100">
 
 
         <div className="w-100 pdding-all-sm mrgn-bottom-sm flx flx-row">
