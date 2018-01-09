@@ -68,8 +68,11 @@ class Inbox extends React.Component {
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'inbox'});
   }
 
-  componentWillUnmount() {
+  componentDidMount() {
     this.props.updateInboxCount(this.props.authenticated);
+  }
+
+  componentWillUnmount() {
     this.props.unloadInbox(this.props.authenticated);
   }
 
