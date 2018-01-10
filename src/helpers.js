@@ -470,8 +470,7 @@ export function sendItineraryUpdateEmails(auth, itinerary, lastUpdate) {
 	let yesterday = new Date();
       yesterday.setMonth(yesterday.getDate() <= 1 ? yesterday.getMonth() - 1 : yesterday.getMonth());
       yesterday.setDate(yesterday.getDate() - 1);
-
-	if (!lastUpdate || lastUpdate < yesterday) {
+	if (!lastUpdate || !itinerary.reviewsCount || itinerary.reviewsCount === 0 || lastUpdate < yesterday) {
 		Firebase.database().ref(Constants.USERS_PATH + '/' + auth).once('value', senderSnap => {
 			let emailMessage = senderSnap.val().username + ' updated their guide "' + itinerary.title + 
 				'". Click here to check it out: https://myviews.io/guide/' + itinerary.id;
