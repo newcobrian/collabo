@@ -21,6 +21,10 @@ class UniversalSearchBar extends React.Component {
 	    }
 
 		this.renderPopularCities = () => {
+			const onCityClick = () => {
+				this.props.sendMixpanelEvent(Constants.MIXPANEL_CLICK_EVENT, { 'type' : 'search bar popular cities' });
+			}
+
 		    if (this.props.popularGeos && this.props.popularGeos.length > 1) {
 		      return (
 		        <div className="search-detail-bar flx flx-col color--black flx-just-center ta-center w-100 v2-type-body2 color--black">
@@ -30,7 +34,7 @@ class UniversalSearchBar extends React.Component {
 		          let title = geo.shortName ? geo.shortName : geo.label;
 		          return (
 		            <div className="pop-city-wrapper flx flx-row flx-center-all flx-hold  mrgn-left-md mrgn-right-md">
-		              <Link to={"/places/" + geo.id} className="geo-type color--black opa-100 flx-hold">{title}</Link>
+		              <Link to={"/places/" + geo.id} onClick={onCityClick} className="geo-type color--black opa-100 flx-hold">{title}</Link>
 		              <div className="middle-dot flx-hold DN">&middot;</div>
 		            </div>
 		          )
@@ -48,7 +52,7 @@ class UniversalSearchBar extends React.Component {
 			          let title = geo.shortName ? geo.shortName : geo.label;
 			          return (
 			            <div className="pop-city-wrapper flx flx-row flx-center-all flx-hold mrgn-left-md mrgn-right-md">
-			              <Link to={"/places/" + geo.id} className="geo-type color--primary opa-100 flx-hold">{title}</Link>
+			              <Link to={"/places/" + geo.id} onClick={onCityClick} className="geo-type color--primary opa-100 flx-hold">{title}</Link>
 			              <div className="middle-dot flx-hold DN">&middot;</div>
 			            </div>
 
