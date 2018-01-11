@@ -163,6 +163,9 @@ input[type="radio"]:checked + label span {
 .w-100 {
   width: 100%;
 }
+.w-60 {
+  width: 60%;
+}
 .w-50 {
   width: 50%;
 }
@@ -314,8 +317,8 @@ input[type="radio"]:checked + label span {
 }
 .default-profile-wrapper,
 .user-photo-wrapper {
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
   border-radius: 100px;
   overflow: hidden;
   background-color: #ccc;
@@ -875,7 +878,6 @@ li.nav-divider {
 }
 .profile-page .nav-pills .nav-link {
     display: block;
-    font-family: 'Arimo', sans-serif;
 }
 .page-common.settings-page {
 
@@ -1204,7 +1206,7 @@ li.nav-divider {
   transition: all 0.23s ease-in-out 0s;
 }
 .comments-module .comment-input-wrapper .comment-input {
-    font-size: 14px;
+    font-size: 13px;
     line-height: 20px;
     font-weight: 300;
     width: 100%;
@@ -1238,7 +1240,7 @@ li.nav-divider {
 
 .comment-row {
     line-height: 18px;
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 300;
 }
 

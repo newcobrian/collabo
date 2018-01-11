@@ -29,10 +29,14 @@ input, select, textarea {
   background-color: transparent;
   text-transform: inherit;
   border-color: white;
-  padding: 10px;
+  padding: 5px 0;
   text-transform: inherit;
   background-color: transparent;
-  text-align: center;
+  text-align: left;
+}
+.page-edit-own .tip__caption  input,
+.page-edit-own .tip__caption textarea {
+ padding: 10px;
 }
 .page-edit-own .it-add-wrapper input {
   font-size: 16px;
@@ -41,12 +45,12 @@ input, select, textarea {
 }
 .page-edit-own .tip-container input,
 .page-edit-own .tip-container textarea {
-  font-family: 'Rokkitt', 'Roboto', sans-serif;
-  text-align: left;
+  /*font-family: 'Rokkitt', 'Roboto', sans-serif;*/
+
 }
 .page-edit-own .itinerary__cover__descrip textarea {
-  font-family: 'Rokkitt', 'Roboto', sans-serif;
-  text-align: center;
+  /*font-family: 'Rokkitt', 'Roboto', sans-serif;*/
+
 }
 
 .page-edit-own input.show-border,

@@ -173,12 +173,12 @@ const TipPreview = props => {
                               {tip.createdBy.username}
                             </div>
                         </div>
-                      </Link>
+                      </Link> 
                       { /** END Author **/ }
 
                       { /** Caption **/ }
                       <div className="tip__caption-module flx flx-col w-100 mrgn-bottom-md">
-                        <div className="tip__caption font--beta v2-type-body3 ta-left opa-90">
+                        <div className="tip__caption font--beta v2-type-body3 ta-left opa-70">
                           <CaptionDisplay tip={props.tip} />
                         </div>
                       </div>

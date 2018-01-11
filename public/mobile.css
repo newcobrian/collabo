@@ -478,7 +478,7 @@ width: 100%;
 .itinerary__cover__username {
 }
 .geo-type {
-  font-size: 14px;
+  font-size: 12px;
 }
 .itinerary__cover__flag, .itinerary__summary__flag {
 }
@@ -737,7 +737,6 @@ body .back-to-top {
 }
 
 .v2-type-body3 {
-  font-size: 16px;
 }
 .guide-title {
 }

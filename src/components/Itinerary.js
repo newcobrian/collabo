@@ -364,7 +364,7 @@ class Itinerary extends React.Component {
                 <div className="it__cover__inner flx flx-col flx-just-start ta-left w-100 w-max">
                   <div className="flx flx-row w-100 flx-center-all mrgn-bottom-sm">
 
-                    <div className="it__author-wrapper flx flx-col flx-center-all mrgn-bottom-sm w-50">
+                    <div className="it__author-wrapper flx flx-row flx-just-start flx-align-center w-50">
                       <div className="itinerary__summary__author-photo">
                           <Link
                           to={`/${createdByUsername}`}
@@ -372,7 +372,7 @@ class Itinerary extends React.Component {
                           <ProfilePic src={createdByImage} className="center-img" />
                           </Link>
                       </div>
-                      <div className="itinerary-username v2-type-body1">
+                      <div className="itinerary-username v2-type-body2 ta-left mrgn-left-sm">
                         <Link
                         to={`/${createdByUsername}`}
                         className="invert">
@@ -382,10 +382,10 @@ class Itinerary extends React.Component {
                     </div>
                    
                     {/** Flag and Geo **/}
-                      <Link to={`/places/${itinerary.geo.placeId}`} className="flx flx-col flx-just-start flx-align-center mrgn-bottom-sm mrgn-top-xs w-50">
+                      <Link to={`/places/${itinerary.geo.placeId}`} className="flx flx-row flx-just-start flx-align-center w-50">
                         <div className={'itinerary__cover__flag flx-hold invert flag-' + itinerary.geo.country}>
                         </div>
-                        <div className="geo-type ellipsis mrgn-top-sm ta-center invert">
+                        <div className="geo-type ellipsis mrgn-left-sm ta-left invert">
                         {itinerary.geo.label}
                         </div>
                       </Link>
@@ -399,28 +399,37 @@ class Itinerary extends React.Component {
 
                   {/** TITLE **/}
                   
-                  <Link to={`/guide/${this.props.itineraryId}`} className="guide-title ta-center w-100 invert">
+                  <Link to={`/guide/${this.props.itineraryId}`} className="guide-title ta-left w-100 invert">
                     {itinerary.title}
                   </Link>
 
                   {/** DESCRIPTION **/}
-                  <div className="itinerary__cover__descrip v2-type-body4 font--beta ta-center mrgn-top-md mrgn-bottom-xs opa-80 invert">
+                  <div className="itinerary__cover__descrip v2-type-body2 font--beta ta-left mrgn-top-xs mrgn-bottom-xs opa-80 invert">
                      {itinerary.description}
                   </div>
 
-                   {/** DESCRIPTION **/}
-                  { itinerary.link &&
-                  <a href={itinerary.link} target="blank" className="itinerary__cover__descrip itinerary__cover__source v2-type-body2 font--beta ta-center mrgn-top-xs opa-80 invert">
-                     <div className="ellipsis">Go to original: {itinerary.link}</div>
-                  </a>
-                  }
+                  
 
 
-                  {/** TIMESTAMP **/}
-                  <div className="itinerary__cover__timestamp ta-center pdding-top-sm opa-30 DN">
-                    <DisplayTimestamp timestamp={itinerary.lastModified} />
-                    {/*(new Date(itinerary.lastModified)).toLocaleString()*/}
-                  </div> 
+                 
+
+                  <div className="it-actions-row w-100 flx flx-row flx-align-center flx-just-start ta-left opa-50">
+                    {/** TIMESTAMP **/}
+                    <div className="itinerary__cover__timestamp v2-type-caption ta-left invert color--black">
+                      Updated &nbsp;
+                      <DisplayTimestamp timestamp={itinerary.lastModified} />
+                      {/*(new Date(itinerary.lastModified)).toLocaleString()*/}
+                    </div> 
+
+                     {/** DESCRIPTION **/}
+                    { itinerary.link &&
+                    <a href={itinerary.link} target="blank" className="itinerary__cover__descrip itinerary__cover__source v2-type-caption mrgn-left-lg color--black opa-50 invert">
+                       <div className="ellipsis">Source Link</div>
+                    </a>
+                    }
+                  </div>
+
+
                 
 
                   </div>

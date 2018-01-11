@@ -87,7 +87,7 @@ const GeoInfo = props => {
           {/** Flag and Geo **/}
           <div className={'itinerary__cover__flag flx-hold invert mrgn-right-sm flag-' + props.geo.country}>
           </div>
-          <div className="geo-type ellipsis ta-center invert">
+          <div className="geo-type ellipsis ta-left invert">
             {props.geo.label}
           </div>
       </Link>

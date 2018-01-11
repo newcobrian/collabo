@@ -9,11 +9,11 @@ const ItineraryActionsButton = props => {
 
   if (props.canModify) {
     return (
-      <div className="mrgn-left-sm mrgn-right-sm">
+      <div className="">
 
-      <button className="vb vb--sm vb--shadow-none fill--white color--primary danger-hover" onClick={del}>
+      <div className="v2-type-caption color--white make-link" onClick={del}>
       Delete this Guide
-      </button>
+      </div>
       </div>
 
     );

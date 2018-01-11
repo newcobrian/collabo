@@ -569,34 +569,12 @@ class ItineraryForm extends React.Component {
           {/** Cover Content **/}
           <div className={"itinerary__cover__text w-100 country-color-" + itinerary.geo.country}>
             
-            <div className="it-actions-row flx flx-row w-100">
-              <div className="edit-itinerary-link vb vb--sm no-pad vb--outline--none fill--none color--black opa-40 flx-item-right">             
-                <MuiThemeProvider muiTheme={getMuiTheme()}>
-                  <IconMenu
-                     iconButtonElement={<IconButton><MoreHorizIcon /></IconButton>}
-                     className="invert"
-                     anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-                     targetOrigin={{horizontal: 'left', vertical: 'top'}}
-                    >
-                     <ItineraryActionsButton 
-                      itinerary={itinerary} 
-                      authenticated={this.props.authenticated} 
-                      canModify={true} 
-                      className="invert vb vb--outline--none fill--none mrgn-none"
-                      deleteModal={this.props.showDeleteModal}
-                      style={{
-                        margin: '0'
-                      }} 
-                      redirectPath="/" />
-                   </IconMenu>
-                 </MuiThemeProvider>
-              </div>
-            </div>
+            
 
             <div className="it__cover__inner flx flx-col flx-just-start ta-left w-100 w-max">
               <div className="flx flx-row w-100 flx-center-all mrgn-bottom-sm">
 
-                <div className="it__author-wrapper flx flx-col flx-center-all w-50">
+                <div className="it__author-wrapper flx flx-row flx-just-start flx-align-center w-40">
                   <div className="itinerary__summary__author-photo">
                       <Link
                       to={`/${createdByUsername}`}
@@ -604,7 +582,7 @@ class ItineraryForm extends React.Component {
                       <ProfilePic src={createdByImage} className="center-img" />
                       </Link>
                   </div>
-                  <div className="itinerary-username v2-type-body1">
+                  <div className="itinerary-username v2-type-body2 ta-left mrgn-left-sm">
                     <Link
                     to={`/${createdByUsername}`}
                     className="invert">
@@ -614,9 +592,9 @@ class ItineraryForm extends React.Component {
                 </div>
 
                 {/** Flag and Geo **/}
-                <div className="flx flx-col flx-just-start flx-align-center mrgn-top-xs mrgn-bottom-xs w-50">
+                <div className="flx flx-row flx-just-start flx-align-center w-60">
                   <Link to={`/places/${itinerary.geo.placeId}`} className={'itinerary__cover__flag flx-hold invert flag-' + itinerary.geo.country} />
-                  <div className="geo-type ellipsis w-100 flx flx-row flx-align-center flx-just-start">
+                  <div className="geo-type ellipsis w-100 flx flx-row flx-align-center mrgn-left-sm flx-just-start">
                     <Geosuggest 
                       className="input--underline w-100 invert"
                       types={['(regions)']}
@@ -637,7 +615,7 @@ class ItineraryForm extends React.Component {
              
 
               {/** TITLE **/}
-              <div className="itinerary__cover__title ta-center guide-title font--alpha invert">
+              <div className="itinerary__cover__title ta-left guide-title font--alpha invert">
                 <RenderDebounceInput
                   type="text"
                   value={this.props.data.title}
@@ -648,7 +626,7 @@ class ItineraryForm extends React.Component {
               </div>
 
               {/** DESCRIPTION **/}
-              <div className="itinerary__cover__descrip font--beta v2-type-body3 ta-center mrgn-top-sm opa-80">
+              <div className="itinerary__cover__descrip font--beta v2-type-body2 ta-left opa-80">
                  <RenderDebounceInput
                     type="text"
                     className="w-100 font--beta invert"
@@ -660,7 +638,7 @@ class ItineraryForm extends React.Component {
             {/** LINK - only for admins **/}
               {
                 Constants.ADMIN_USERS.includes(this.props.authenticated) && 
-                <div className="itinerary__cover__descrip font--beta v2-type-body3 ta-center mrgn-top-sm opa-80">
+                <div className="itinerary__cover__descrip font--beta v2-type-body1 ta-left opa-80">
                    <RenderDebounceInput
                       type="text"
                       className="w-100 font--beta invert"
@@ -670,11 +648,30 @@ class ItineraryForm extends React.Component {
                 </div>
               }
 
-              {/** TIMESTAMP **/}
-              <div className="itinerary__cover__timestamp ta-center pdding-top-sm opa-30 DN">
-                <DisplayTimestamp timestamp={this.props.data.lastModified} />
-                {/*(new Date(itinerary.lastModified)).toLocaleString()*/}
-              </div> 
+              <div className="it-actions-row w-100 flx flx-row flx-align-center flx-just-start ta-left opa-50">
+                {/** TIMESTAMP **/}
+                <div className="itinerary__cover__timestamp v2-type-caption ta-left invert color--black">
+                  Updated &nbsp;
+                  <DisplayTimestamp timestamp={this.props.data.lastModified} />
+                  {/*(new Date(itinerary.lastModified)).toLocaleString()*/}
+                </div> 
+                <div className="edit-itinerary-link mrgn-left-lg color--black invert">             
+                  <MuiThemeProvider muiTheme={getMuiTheme()}>
+
+                       <ItineraryActionsButton 
+                        itinerary={itinerary} 
+                        authenticated={this.props.authenticated} 
+                        canModify={true} 
+                        className="invert color--black"
+                        deleteModal={this.props.showDeleteModal}
+                        style={{
+                          margin: '0',
+                          padding: '0'
+                        }} 
+                        redirectPath="/" />
+                   </MuiThemeProvider>
+                </div>
+              </div>
 
 
 
@@ -882,7 +879,7 @@ class ItineraryForm extends React.Component {
 
                                           { /** Caption **/ }
                                           <div className="tip__caption-module flx flx-col w-100 pdding-bottom-sm mrgn-bottom-md">
-                                            <div className="tip__caption v2-type-body3 font--beta  ta-left opa-90">
+                                            <div className="tip__caption v2-type-body2 font--beta  ta-left opa-90">
                                               <RenderDebounceInput
                                                 type="textarea"
                                                 className="w-100 show-border"
