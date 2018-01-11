@@ -2983,7 +2983,7 @@ export function getPlacesFeed(auth, locationId) {
             Object.assign(itineraryObject, itin.val(), key, createdBy, likes);
 
             feedArray = [itineraryObject].concat(feedArray);
-            feedArray.sort(Helpers.lastModifiedDesc);
+            feedArray.sort(Helpers.byPopularity);
             dispatch({
               type: GET_PLACES_FEED,
               payload: feedArray
