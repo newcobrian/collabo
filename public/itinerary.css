@@ -123,8 +123,7 @@
 
 .itinerary__tipslist {
 	/*border-top: 1px solid #D5E3E5;*/
-	padding: 10px 20px;
-	padding: 0;
+	padding: 0 10px 60px;
 	min-height: 80px;
 }
 .page-subject .itinerary__tipslist {

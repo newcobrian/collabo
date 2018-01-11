@@ -122,20 +122,23 @@ class Home extends React.Component {
         </div>
         <div className="hero-content flx flx-col flx-align-center flx-just-end ta-center">
           <div className="homepage-logo mrgn-bottom-md">  
-            <img className="center-img w-100" src="/img/logos/logo_stripes_lg.png"/>
+            <img className="center-img w-100" src="/img/logos/logo_2018_400.png"/>
           </div>
           <div className="logo-main">
             VIEWS
           </div>
-          <div className="v2-type-intro color--black mrgn-bottom-lg">
-           Save and share travel guides
+          <div className="v2-type-intro color--black mrgn-bottom-sm">
+           Travel tips from trusted friends
+          </div>
+          <div className="v2-type-body4 color--black mrgn-bottom-sm opa-80">
+           Easily build and share travel guides from a network of your friends and like-minded travelers
           </div>
         </div>
         
         <div className="hero-ocean flx flx-col flx-center-all">
           <Link to="/register" className="">
             <div className="vb vb--light vb--intro--register fill--primary color--white flx flx-row flx-center-all ta-center bx-shadow">
-              <div className="flx-grow1">Get Started</div>
+              <div className="flx-grow1">JOIN NOW</div>
               <i className="material-icons md-32 color--white flex-item-right mrgn-left-sm DN">flight_takeoff</i>
             </div>
           </Link>
@@ -368,8 +371,8 @@ class Home extends React.Component {
         
 
         <div className="footer fill--black color--white flx flx-col flx-center-all flx-item-bottom">
-          <div className="homepage-logo mrgn-bottom-md">  
-            <img className="center-img w-100" src="/img/logos/logo_stripes_on-black.png"/>
+          <div className="homepage-logo mrgn-bottom-lg">  
+            <img className="center-img w-100" src="/img/logos/logo_2018_400_white.png"/>
           </div>
           <div className="v2-type-body0 color--white opa-70 mrgn-bottom-md">
             &copy;2017 Views, LLC All Rights Reserved

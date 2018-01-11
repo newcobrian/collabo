@@ -85,14 +85,14 @@
 
 .page-edit-own .it-add-wrapper input {
   text-indent: 40px;
-  border: 3px solid #3DCBF3 !important;
+  border: 2px solid #121419 !important;
   background-color: #121419;
 }
 .page-edit-own .it-add-wrapper input:hover {
-  border: 3px solid #00C7FF !important;
+  /*border: 3px solid #00C7FF !important;*/
 }
 .page-edit-own .it-add-wrapper input:focus {
-  border: 3px solid #00EBFF !important;
+  border: 2px solid #00EBFF !important;
 }
 
 .search-wrapper.page-top-search .input--search input {

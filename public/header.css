@@ -38,7 +38,7 @@
   height: 40px;
   width: 220px;
   font-weight: 700;
-  margin: 15px 20px;
+  margin: 15px 10px;
   z-index: 2;
 
 }
@@ -52,7 +52,7 @@ a.logo-module:focus {
     font-size: 19px;
     height: auto;
     font-weight: 600;
-    margin-left: 25px;
+    margin-left: 15px;
     letter-spacing: 5px;
     font-family: 'Arimo', sans-serif;
     margin-right: 6px;
@@ -105,11 +105,16 @@ a.logo-module:focus {
   /*color: #4F7A39;*/
 }
 .logged-out .navigation-bar .nav-module {
-  padding: 0 40px;
+  padding: 0 20px;
   border-bottom: 0;
   margin: 0;
   text-transform: none;
   height: 69px;
+}
+.logged-out .navigation-bar .nav-text {
+  width: 100%;
+  letter-spacing: 0;
+  text-transform: none;
 }
 .nav-module.nav-editor {
   order: 1;
@@ -159,14 +164,14 @@ a.logo-module:focus {
 .logo-graphic {
   width: auto;
   height: auto;
-  margin-top: 0px;
+  margin-top: -1px;
 /*  -webkit-animation:spin 4s linear 1;
   -moz-animation:spin 4s linear 1;
   animation:spin 4s linear 1;*/
 }
 .logo-graphic img {
-  width: 46px;
-  height: 40px;
+  width: 72px;
+  height: auto;
 }
 
 

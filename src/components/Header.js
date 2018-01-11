@@ -24,7 +24,7 @@ const LoggedOutView = props => {
       <div className="header-wrapper w-100">
         <Link to="/" className="logo-module flx flx-row flx-just-start flx-align-center">
           <div className="logo-graphic flx flx-row flx-center-all">  
-            <img className="center-img" src="/img/logos/logo_stripes.png"/>
+            <img className="center-img" src="/img/logos/logo_2018.png"/>
           </div>
             <div className="logo-main">
               VIEWS
@@ -35,13 +35,13 @@ const LoggedOutView = props => {
         </Link>
       </div>
       <div className="navigation-bar flx flx-row flx-align-center flx-just-end">
-          <Link to="/login" className="nav-module nav-feed flx flx-center-all fill--white color--black">
+          <Link to="/login" className="nav-module nav-feed flx vb vb--xs flx-center-all fill--white color--black">
             <div className="nav-text">
               Log in
             </div>
           </Link>
 
-          <Link to="/register" className="nav-module nav-feed flx flx-center-all vb vb--sm fill--primary color--white vb--sm vb--radius--none">
+          <Link to="/register" className="nav-module nav-feed flx flx-center-all vb vb--xs fill--white color--primary vb--sm vb--radius--none mrgn-right-sm">
             <div className="nav-text">
               Sign up
             </div>
@@ -62,7 +62,7 @@ const LoggedInView = props => {
         <div className="header-wrapper w-100">
           <Link to="/" className="logo-module flx flx-row flx-just-start flx-align-center">
             <div className="logo-graphic flx flx-row flx-center-all">  
-              <img className="center-img" src="/img/logos/logo_stripes.png"/>
+              <img className="center-img" src="/img/logos/logo_2018.png"/>
             </div>
               <div className="logo-main">
                 VIEWS

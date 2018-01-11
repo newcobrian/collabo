@@ -416,7 +416,7 @@ class ItineraryForm extends React.Component {
         
         return (
           <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--transparent">
-            <i className="it-add-search-icon material-icons color--primary md-24">search</i>
+            <i className="it-add-search-icon material-icons color--black opa-70 md-24">search</i>
             
             <Geosuggest 
               ref={el=>this._geoSuggest=el}
