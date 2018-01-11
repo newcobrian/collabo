@@ -72,9 +72,9 @@ const UpdateCoverPhoto = props => {
         multiple={false}
         accept="image/jpeg,image/png,application/pdf"
         className="edit-tip__dropzone__touch flx flx-col flx-align-center flx-just-start ta-center">
-        <div className="vb vb--xs vb--shadow-none fill--white color--black vb--outline">
-          <i className="material-icons color--black opa-80 md-18">add_a_photo</i>
-          <div className="mrgn-left-sm mobile-hide">Upload Cover</div>
+        <div className="add-photo-wrapper vb vb--xs vb--shadow-none color--white vb--outline--none">
+          <i className="material-icons color--white md-18">add_a_photo</i>
+          <div className="mrgn-left-sm mobile-hide DN">Upload Cover</div>
         </div>
       </Dropzone>
       
@@ -725,7 +725,7 @@ class ItineraryForm extends React.Component {
                                   <div className="tip__title-module flx flx-col w-100">
 
 
-                                      <div className="tip__right-module flx flx-col flx-m-row w-100">
+                                      <div className="tip__right-module flx flx-row flx-align-center w-100">
 
 
 
@@ -751,6 +751,8 @@ class ItineraryForm extends React.Component {
                                       {/** 
                                       </MediaQuery>
 
+
+
                                       EXAMPLE: on mobile, just show the dropzone 
                                       <MediaQuery query="(max-device-width: 1224px)">
                                         <Dropzone
@@ -766,6 +768,35 @@ class ItineraryForm extends React.Component {
                                       </MediaQuery>
                                       { /** END Image **/ }
 
+                                        { /** Title **/ }
+                                        <div className="hide-in-list tip__title tip-title ta-left mrgn-left-md">
+                                          <div className="tip__order-count color--black">{index+1}.</div> 
+                                          <Link to={`/review/${tip.subjectId}`} className=""> {tip.subject.title}</Link>
+                                        </div>
+                                        <div className="tip-map-marker"></div>
+                                        { /** END Title **/ }
+
+
+
+
+                                          {/* More Options button */}
+                                          <div className="edit-itinerary-link vb vb--xs flx-item-right no-pad vb--outline--none opa-20 fill--white color--black">             
+                                            <MuiThemeProvider muiTheme={getMuiTheme()}>
+                                              <IconMenu
+                                                 iconButtonElement={<IconButton className=""><MoreHorizIcon /></IconButton>}
+                                                 anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+                                                 targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                                               >
+                                              <div className="vb vb--sm vb--shadow-none fill--white color--primary danger-hover"
+                                                onClick={this.deleteTip(tip)}>Delete Tip
+                                              </div>
+                                                
+                                               </IconMenu>
+                                             </MuiThemeProvider>
+                                          </div>
+                                          {/* END More Options button */}
+
+
 
                                       <div className="tip__timestamp v2-type-caption opa-20 mrgn-top-xs DN">
                                         <DisplayTimestamp timestamp={tip.review.lastModified} />
@@ -780,37 +811,13 @@ class ItineraryForm extends React.Component {
                                         <div className="tip__content-inner">
                                           <div className="tip__header-wrapper flx flx-col flx-align-start flx-just-start">
                                             
-                                            <div className="flx flx-row w-100 flx-align-center">
-                                              { /** Title **/ }
-                                              <div className="hide-in-list tip__title tip-title ta-left">
-                                                <div className="tip__order-count color--black">{index+1}.</div> 
-                                                <Link to={`/review/${tip.subjectId}`} className=""> {tip.subject.title}</Link>
-                                              </div>
-                                              <div className="tip-map-marker"></div>
-                                              { /** END Title **/ }
+                                          
 
-                                              {/* More Options button */}
-                                              <div className="edit-itinerary-link vb vb--xs flx-item-right no-pad vb--outline--none opa-20 fill--white color--black">             
-                                                <MuiThemeProvider muiTheme={getMuiTheme()}>
-                                                  <IconMenu
-                                                     iconButtonElement={<IconButton className=""><MoreHorizIcon /></IconButton>}
-                                                     anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-                                                     targetOrigin={{horizontal: 'left', vertical: 'top'}}
-                                                   >
-                                                  <div className="vb vb--sm vb--shadow-none fill--white color--primary danger-hover"
-                                                    onClick={this.deleteTip(tip)}>Delete Tip
-                                                  </div>
-                                                    
-                                                   </IconMenu>
-                                                 </MuiThemeProvider>
-                                              </div>
-                                              {/* END More Options button */}
-                                            </div>
 
 
 
                                             {/* Tags Wrapper **/ }
-                                            <div className="flx flx-row flx-align-center flx-wrap pdding-top-sm pdding-bottom-sm">
+                                            <div className="flx flx-row flx-align-center flx-wrap pdding-top-sm pdding-bottom-xs">
 
                                               { /** Rating **/ }
                                               <div className={'tip__rating-module flx flx-row flx-align-center flx-hold w-100 tip__rating-module--' + tip.review.rating}>
@@ -878,7 +885,7 @@ class ItineraryForm extends React.Component {
                                           { /** END Author **/ }
 
                                           { /** Caption **/ }
-                                          <div className="tip__caption-module flx flx-col w-100 pdding-bottom-sm mrgn-bottom-md">
+                                          <div className="tip__caption-module flx flx-col w-100 pdding-bottom-sm">
                                             <div className="tip__caption v2-type-body2 font--beta  ta-left opa-90">
                                               <RenderDebounceInput
                                                 type="textarea"
@@ -903,12 +910,14 @@ class ItineraryForm extends React.Component {
                                                 deleteComment={this.props.onDeleteComment} />
                                           </div> 
 
+                                         
+
                                         </div>
 
                                         {/* Action Module */}
                                         <div className="tip__cta-box w-100 flx flx-row flx-just-start flx-align-center mrgn-top-md">
 
-                                          <Link onClick={handleSaveClick(tip)} className="w-50 hide-in-list vb vb--tip vb--outlin--none flx flx-row flx-align-center brdr-top brdr-right color--black fill--white">
+                                          <Link onClick={handleSaveClick(tip)} className="w-40 hide-in-list vb vb--tip vb--outlin--none flx flx-row flx-align-center brdr-top brdr-right color--black fill--white">
                                               <i className="material-icons color--primary mrgn-right-sm md-24">playlist_add</i>
                                               <div className="color--black">Add to...</div>
                                           </Link>
@@ -925,8 +934,8 @@ class ItineraryForm extends React.Component {
                                               type={Constants.REVIEW_TYPE} />
                                           </div>
 
-                                          <Link onClick={onInfoClick(tip)} className="w-20 hide-in-list vb vb--tip vb--outline--none flx flx-row flx-align-center brdr-top">
-                                            <i className="material-icons md-24 DN">info_outline</i>
+                                          <Link onClick={onInfoClick(tip)} className="w-30 hide-in-list vb vb--tip vb--outline--none flx flx-row flx-align-center brdr-top">
+                                            <i className="material-icons md-24 mrgn-right-sm opa-60">info_outline</i>
                                             <div className="color--black v2-type-body2 weight-500">Info</div>
                                           </Link>
                                          

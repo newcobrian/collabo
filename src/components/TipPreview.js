@@ -95,7 +95,7 @@ const TipPreview = props => {
 
                 <div className="flx flx-col w-100">
 
-                  <div className="tip__right-module flx flx-col w-100">
+                  <div className="tip__right-module flx flx-row w-100 flx-align-center">
 
 
                     { /** Image 
@@ -107,7 +107,12 @@ const TipPreview = props => {
                       { /** END Image
                     </MediaQuery> **/ }
 
-
+                    { /** Title **/ }
+                    <div className="hide-in-list tip__title tip-title ta-left mrgn-left-md">
+                      <div className="tip__order-count color--black">{props.index}.</div>
+                      <Link to={`/review/${tip.subjectId}`}> {tip.subject.title}</Link>
+                    </div>
+                    { /** END Title **/ }
 
                      
                     <div className="tip__timestamp v2-type-caption opa-20 mrgn-top-xs DN">
@@ -121,18 +126,11 @@ const TipPreview = props => {
                   <div className="tip__content-wrapper">
                     <div className="tip__content-inner">
                       <div className="tip__header-wrapper flx flx-col flx-align-start flx-just-start">
-                        { /** Title **/ }
-                        
-                        <div className="hide-in-list tip__title tip-title ta-left">
-                          <div className="tip__order-count color--black">{props.index}.</div>
-                          <Link to={`/review/${tip.subjectId}`}> {tip.subject.title}</Link>
-                        </div>
-                        
-                        { /** END Title **/ }
+                       
 
 
                         {/* Tags Wrapper **/ }
-                        <div className="flx flx-row flx-align-center flx-wrap pdding-top-sm pdding-bottom-sm">
+                        <div className="flx flx-row flx-align-center flx-wrap pdding-top-sm pdding-bottom-xs">
 
                           { /** Rating **/ }
                           <div className={'tip__rating-module flx flx-row flx-align-center w-100 flx-hold tip__rating-module--' + tip.review.rating}>
@@ -148,7 +146,7 @@ const TipPreview = props => {
                               Object.keys(tip.tags || {}).map(function (tagName) {
                                 return (
                                   <div className="tip-tag fill--light-gray flx flx-row flx-align-center" key={tagName}>
-                                    <div className="opa-50">
+                                    <div className="opa-60">
                                       {tagName}
                                     </div>
                                   </div>
@@ -200,9 +198,9 @@ const TipPreview = props => {
 
                   {/* Action Module */}
                   <div className="tip__cta-box w-100 flx flx-row flx-just-start flx-align-center mrgn-top-md">
-                    <Link onClick={handleSaveClick} className="w-50 hide-in-list vb vb--tip vb--outlin--none flx flx-row flx-align-center brdr-top brdr-right color--black fill--white">
+                    <Link onClick={handleSaveClick} className="w-40 hide-in-list vb vb--tip vb--outlin--none flx flx-row flx-align-center brdr-top brdr-right color--black fill--white">
                         {/*<img className="center-img mrgn-right-sm" src="/img/icons/i32_save.png"/>*/}
-                        <i className="material-icons color--primary mrgn-right-sm md-24e">playlist_add</i>
+                        <i className="material-icons color--primary mrgn-right-sm md-24">playlist_add</i>
                         <div className="color--black">Add to...</div>
                     </Link>
                     
@@ -216,9 +214,9 @@ const TipPreview = props => {
                         type={Constants.REVIEW_TYPE} />
                     </div>
 
-                    <Link onClick={onInfoClick} className="w-20 hide-in-list vb vb--tip vb--outline--none flx flx-row flx-align-center brdr-top">
-                      <i className="material-icons md-24 DN">info_outline</i>
-                      <div className="color--black v2-type-body2 weight-500">Info</div>
+                    <Link onClick={onInfoClick} className="w-30 hide-in-list vb vb--tip vb--outline--none flx flx-row flx-align-center brdr-top">
+                      <i className="material-icons opa-60 mrgn-right-sm">info_outline</i>
+                      <div className="color--black">Info</div>
                     </Link>
                     {/*<Link to={googleMapLink} className="w-20 hide-in-list vb vb--tip vb--outline--none flx flx-row flx-align-center brdr-top">
                       <i className="material-icons md-24">place</i>

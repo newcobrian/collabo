@@ -1206,9 +1206,9 @@ li.nav-divider {
   transition: all 0.23s ease-in-out 0s;
 }
 .comments-module .comment-input-wrapper .comment-input {
-    font-size: 13px;
+    font-size: 12px;
     line-height: 20px;
-    font-weight: 300;
+    font-weight: 400;
     width: 100%;
     padding: 10px;
     outline-width: 0px;
@@ -1241,7 +1241,6 @@ li.nav-divider {
 .comment-row {
     line-height: 18px;
     font-size: 13px;
-    font-weight: 300;
 }
 
 .no-click {

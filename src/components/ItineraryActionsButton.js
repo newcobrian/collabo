@@ -11,7 +11,7 @@ const ItineraryActionsButton = props => {
     return (
       <div className="">
 
-      <div className="v2-type-caption color--white make-link" onClick={del}>
+      <div className="v2-type-caption make-link" onClick={del}>
       Delete this Guide
       </div>
       </div>

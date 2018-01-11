@@ -363,8 +363,8 @@ input.input--underline {
 
 .vb--change-cover {
   position: absolute;
-  left: 20px;
-  bottom: 20px;
+  left: 0px;
+  bottom: 0px;
 }
 .vb.vb--disabled {
   pointer-events: none;
