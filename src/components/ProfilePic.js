@@ -23,7 +23,7 @@ const ProfilePic = props => {
   }
   
   return (
-    <div className="user-photo-wrapper flx-hold invert">
+    <div className="user-photo-wrapper default-profile-wrapper flx-hold invert">
       <img src={url} className={props.className} />
     </div>
   );

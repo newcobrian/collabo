@@ -885,8 +885,11 @@ class ItineraryForm extends React.Component {
                                           { /** END Author **/ }
 
                                           { /** Caption **/ }
-                                          <div className="tip__caption-module flx flx-col w-100 pdding-bottom-sm">
-                                            <div className="tip__caption v2-type-body2 font--beta  ta-left opa-90">
+                                          <div className="tip__caption-module flx flx-row w-100 pdding-bottom-sm">
+                                            <div className="tip__author-photo flx-hold mrgn-right-sm">
+                                              <ProfilePic src={tip.createdBy.image} className="user-image user-image-sm center-img" />
+                                            </div> 
+                                            <div className="tip__caption v2-type-body2 font--beta  ta-left opa-70">
                                               <RenderDebounceInput
                                                 type="textarea"
                                                 className="w-100 show-border"

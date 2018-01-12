@@ -46,12 +46,12 @@ const CommentPreview = props => {
 const CaptionDisplay = props => {
   if (props.tip.review.caption) {
     return (
-      <div className="inline">{props.tip.review.caption}</div>
+      <div className="inline opa-70">{props.tip.review.caption}</div>
     )
   }
   else {
     return (
-     <div className="inline opa-60">No review yet</div>
+     <div className="inline opa-50">No review yet</div>
     )
   } 
 }
@@ -114,10 +114,11 @@ const TipPreview = props => {
                     </div>
                     { /** END Title **/ }
 
-                     
+                    { /** Timestamp **/ }
                     <div className="tip__timestamp v2-type-caption opa-20 mrgn-top-xs DN">
                       <DisplayTimestamp timestamp={tip.review.lastModified} />
                     </div>
+                    { /** END Timestamp **/ }
                     
                   </div>
  
@@ -174,10 +175,20 @@ const TipPreview = props => {
                       </Link> 
                       { /** END Author **/ }
 
+
                       { /** Caption **/ }
-                      <div className="tip__caption-module flx flx-col w-100 mrgn-bottom-md">
-                        <div className="tip__caption font--beta v2-type-body3 ta-left opa-70">
+                      <div className="tip__caption-module flx flx-row w-100 mrgn-bottom-sm">
+                        <Link to={'/' + tip.createdBy.username} className="tip__author-photo flx-hold mrgn-right-sm">
+                          <ProfilePic src={tip.createdBy.image} className="user-image user-image-sm center-img" />
+                        </Link> 
+                        <div className="tip__caption font--beta v2-type-body2 ta-left">
+                          <Link to={'/' + tip.createdBy.username} className="strong">{tip.createdBy.username} </Link>
                           <CaptionDisplay tip={props.tip} />
+                        </div>
+                        <div className="flx flx-row flx-just-start flx-align-center">
+                          <div className="date-posted inline-block color--black font--alpha">
+                            <DisplayTimestamp timestamp={tip.review.lastModified} />
+                          </div>
                         </div>
                       </div>
 

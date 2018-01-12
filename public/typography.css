@@ -18,8 +18,8 @@ body a: hover {
   opacity: .9;
   transition: all 0.23s ease-in-out 0s;
 }
-strong {
-
+.strong {
+font-weight: 500;
 }
 
 form {

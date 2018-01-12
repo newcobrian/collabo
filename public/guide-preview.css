@@ -8,7 +8,7 @@
     height: 440px;
     height: auto;
     position: relative;
-    border-radius: 12px;
+    border-radius: 7px;
     overflow: hidden;
 }
 .guide-preview-inner-wrapper {
@@ -34,6 +34,9 @@
 	right: 0;
 	bottom: 0;
 	z-index: 1;
+}
+.geo-wrapper {
+	
 }
 .itinerary__book,
 .itinerary__cover__image,

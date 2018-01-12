@@ -26,7 +26,7 @@ class CommentInput extends React.Component {
     this.setBody = ev => {
       this.setState({ body: ev.target.value });
     };
-
+ 
     this.createComment = ev => {
       ev.preventDefault();
       // const payload = agent.Comments.create(this.props.reviewId,
@@ -43,10 +43,10 @@ class CommentInput extends React.Component {
     return (
       <form className="comment-wrapper comment-form flx flx-row flx-just-center flx-align-start mrgn-bottom-sm" onSubmit={this.createComment}>
 
-          <ProfilePic src={this.props.userInfo.image} className="center-img" />
+          <ProfilePic src={this.props.userInfo.image} className="user-image user-image-sm center-img" />
 
             <Textarea className="comment-input font--beta input--overline w-100"
-              placeholder="Leave a comment..."
+              placeholder="Add a note..."
               value={this.state.body}
               onChange={this.setBody}
               rows="1"

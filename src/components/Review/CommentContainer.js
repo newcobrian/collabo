@@ -16,7 +16,7 @@ const CommentContainer = props => {
 		          itineraryId={props.itineraryId}
 		          deleteComment={props.deleteComment} />
 		          
-		          <div className="comment-input-wrapper">
+		          <div className="comment-input-wrapper mrgn-top-sm">
 		            <ListErrors errors={props.errors}></ListErrors>
 		            <CommentInput 
 		            	commentObject={props.commentObject} 

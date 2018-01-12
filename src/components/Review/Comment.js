@@ -1,6 +1,7 @@
 import DeleteButton from './DeleteButton';
 import { Link } from 'react-router';
 import React from 'react';
+import ProfilePic from './../ProfilePic';
 import ProxyImage from './../ProxyImage';
 import DisplayTimestamp from './../DisplayTimestamp';
 
@@ -19,24 +20,26 @@ const Comment = props => {
       }
   }]);
 
-  return (
+  return ( 
     <div className="card comment-wrapper" id={'comment' + comment.id}>
       <div className="">
         <div className="flx flx-row flx-just-start">
           <Link
             to={`${comment.username}`}
-            className="">
-            <ProxyImage src={comment.image} className="comment-author-img center-img mrgn-right-md" />
+            className="mrgn-right-sm">
+            <ProfilePic src={comment.image} className="user-image user-image-sm center-img" />
           </Link>
           &nbsp;
           <div className="comment-data flx flx-row flx-just-start">
-            <div className="comment-row font--beta">
+            <div className="comment-row v2-type-body2 font--beta">
               <Link
                 to={`/${comment.username}`}
                 className="comment-author">
                 {comment.username}
               </Link>
-              {processed(comment.body)}
+              <span className="opa-70">
+                {processed(comment.body)}
+              </span>
 
               <div className="flx flx-row flx-just-start flx-align-center">
                 <div className="date-posted inline-block font--alpha">
