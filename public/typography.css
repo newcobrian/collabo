@@ -322,10 +322,12 @@ body a.nav-module {
 }
 .color--success {
   color: #00E2C8 !important;
+  color: #06D4AD !important;
   /*color: #73FF96 !important;*/
 }
 .fill--success {
   background-color: #00E2C8 !important;
+  background-color: #06D4AD !important;
   /*color: #73FF96 !important;*/
 }
 .fill--success.gradient {

@@ -456,7 +456,7 @@ class Itinerary extends React.Component {
                   {/* Share */}
                   <div className="cta-wrapper flx flx-row vb vb--xs vb--outline--none vb--nohover fill--none color--black invert flx-item-right pdding-left-lg"
                     onClick={this.shareGuide} >
-                    <div className="color--black mrgn-right-xs">Share</div>
+                    <div className="color--black mrgn-right-xs">Share this guide</div>
                     <i className="material-icons mrgn-left-xs color--black flip-h">reply</i>
                     <i className="material-icons color--white DN">accessibility</i>
                   </div>
@@ -475,14 +475,14 @@ class Itinerary extends React.Component {
               </div>
 
               <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
-                  <div className="flx flx-row w-100 flx-align-center flx-just-space-between pdding-left-sm pdding-right-sm pdding-top-sm">
+                  <div className="flx flx-row w-100 flx-align-center flx-just-space-between pdding-left-xs pdding-right-xs pdding-top-xs">
                     
-                    <div className="vb vb--xs fill--none v2-type-body1 color--black">{/*itinerary.reviewsCount ? itinerary.reviewsCount : 0*/}
+                    <div className="pdding-all-sm fill--none v2-type-body1 color--black mrgn-right-xs">{/*itinerary.reviewsCount ? itinerary.reviewsCount : 0*/}
                     {visibleTips.length}/{numTotalTips} Items</div>
                     
-                    <Link className="vb vb--xs flx flx-row fill--white flx-center-all vb--outline-white ta-center" onClick={openFilter}>
-                      <i className="material-icons color--black opa-80 mrgn-right-sm">label_outline</i>
-                      <div className="v2-type-body1 color--black">Filter{/*numVisibleTags}/{numTotalTips*/} {/*Showing 4/10 Categories */}</div>
+                    <Link className="vb vb--xs flx flx-row fill--none flx-center-all ta-center" onClick={openFilter}>
+                      <i className="material-icons color--black opa-80 mrgn-right-sm md-18">filter_list</i>
+                      <div className="color--black">Filter{/*numVisibleTags}/{numTotalTips*/} {/*Showing 4/10 Categories */}</div>
                     </Link>
 
 

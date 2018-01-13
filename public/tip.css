@@ -6,7 +6,7 @@
     max-width: 640px;
 } 
 .tip-wrapper:first-child {
-  padding-top: 20px;
+  padding-top: 5px;
 }
 .tip-wrapper:last-child {
   padding-bottom: 20px;

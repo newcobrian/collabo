@@ -93,9 +93,9 @@ const LoggedInView = props => {
         </Link>
 
         <Link to="/create" activeClassName="active" className="nav-module create nav-editor flx flx-center-all">  
-          <div className="vb vb--sm fill--success color--white nav-text flx flx-row flx-align-center">
-            <i className="material-icons color--white md-24 opa-100 mrgn-right-xs">add</i>
-            <div className="mobile-hide">New Guide</div>
+          <div className="nav-text flx flx-row flx-align-center">
+            <i className="material-icons color--success md-24 opa-100 mrgn-right-xs">add_circle</i>
+            <div className="mobile-hide mrgn-left-xs">New Guide</div>
           </div>
         </Link>
 

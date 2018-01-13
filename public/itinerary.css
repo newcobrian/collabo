@@ -86,7 +86,6 @@
 	margin-top: -2px;
 }
 .like-text {
-	display: none;
 }
 .it-author-controls .like-text {
 	display: inline-block;
@@ -501,4 +500,5 @@ textarea.edit-itinerary__name {
     padding: 10px;
     z-index: 10;
     max-width: none;
+    background-color: rgba(0,0,0,.9);
 }

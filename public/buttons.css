@@ -156,6 +156,9 @@ input.input--underline {
 .vb.vb--nohover {
   
 }
+.vb.vb--noclick {
+  cursor: default;
+}
 .vb.vb--nohover:hover {
   background-color: transparent !important;
 }
@@ -218,7 +221,7 @@ input.input--underline {
   padding: 0px 10px 0px;
   height: auto;
   border: 0;
-  font-size: 14px;
+  font-size: 13px;
   letter-spacing: 0px;
   text-transform: none;
   height: 32px;

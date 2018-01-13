@@ -399,12 +399,12 @@ class ItineraryForm extends React.Component {
         )
       }
       else return (
-        <div className="border-top--primary--3 test00 brdr-top it-author-controls w-max flx flx-row flx-just-start flx-align-center ta-center pdding-top-sm pdding-bottom-sm">
+        <div className="test00 brdr-top it-author-controls w-max flx flx-row flx-just-start flx-align-center ta-center pdding-top-sm pdding-bottom-sm">
           <div className="w-100 flx flx-row flx-just-start flx-align-center ta-center">
-            <button className="bx-shadow cta-wrapper flx flx-row flx-center-all vb vb--sm vb--outline--none fill--primary color--white w-50 mobile-w-100"
+            <button className="bx-shadow cta-wrapper flx flx-row flx-center-all vb vb--sm vb--outline--none fill--success color--white w-50 mobile-w-100"
               onClick={onDoneClick} >
-                <i className="material-icons color--white mrgn-right-md">check</i>
-                <div className="">I'M DONE</div>
+                <i className="material-icons color--white flx-item-left">check</i>
+                <div className="flx-item-left">I'M DONE</div>
             </button>
           </div>
         </div>
@@ -469,7 +469,7 @@ class ItineraryForm extends React.Component {
     const renderReorderButton = numTips => {
       if(numTips > 0) {
         return (
-          <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list vb vb--xs vb--outline-none fill--white flx flx-row flx-align-center">
+          <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list vb vb--xs vb--outline-none fill--none flx flx-row flx-align-center">
             <i className="material-icons color--black md-18 opa-80">low_priority</i>
             <div className="color--black mrgn-left-sm">Reorder</div>
           </Link>
@@ -510,7 +510,7 @@ class ItineraryForm extends React.Component {
           <div className="mobile-hide color--black mrgn-left-sm">Full Map</div>
         </button>
 
-        <button className="mobile-show vb vb--sm vb--outline vb--round flx flx-row flx-align-center fill--white color--black button-filter-map bx-shadow"
+        <button className="mobile-show vb vb--xs vb--outline vb--round flx flx-row flx-align-center fill--white color--black button-filter-map bx-shadow"
          onClick={openFilter}>
           <i className="material-icons color--black md-18 opa-80 DN">filter_list</i>
           <div className="color--black">Filter</div>
@@ -699,17 +699,17 @@ class ItineraryForm extends React.Component {
             
             {/** ----- Close itinerary__cover DIV ----- **/}  
             <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
-              <div className="flx flx-row w-100 flx-align-center  flx-just-space-between pdding-left-sm pdding-right-sm pdding-top-sm pdding-bottom-sm">
+              <div className="flx flx-row w-100 flx-align-center  flx-just-space-between pdding-left-xs pdding-right-xs pdding-top-xs">
                 <div className="vb vb--sm fill--none v2-type-body1 color--black DN">{itinerary.reviewsCount ? itinerary.reviewsCount : 0} Items</div>
                 <div className="pdding-all-sm fill--none v2-type-body1 color--black mrgn-right-xs">{this.props.visibleTips.length}/{this.props.numTotalTips} Items</div>
 
-                <Link className="vb vb--xs flx flx-row fill--white flx-center-all vb--outline-white ta-center" onClick={openFilter}>
-                  <i className="material-icons color--black opa-80 mrgn-right-sm">label_outline</i>
-                  <div className="v2-type-body1 color--black">Filter {/*this.props.numVisibleTags}/{this.props.numTotalTags*/} {/*Showing 4/10 Categories */}</div>
-                </Link>
-
-
-                <div className="flx-item-right">{renderReorderButton(itinerary.tips.length)}</div>
+                <div className="flx-item-right flx flx-row flx-align-center">
+                  <div className="flx-item-right">{renderReorderButton(itinerary.tips.length)}</div>
+                  <Link className="vb vb--xs flx flx-row fill--none flx-center-all vb--outline-white ta-center" onClick={openFilter}>
+                    <i className="material-icons color--black opa-80 mrgn-right-sm md-18">filter_list</i>
+                    <div className="color--black">Filter {/*this.props.numVisibleTags}/{this.props.numTotalTags*/} {/*Showing 4/10 Categories */}</div>
+                  </Link>
+                </div>
               </div>
 
               {
