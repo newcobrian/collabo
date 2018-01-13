@@ -422,7 +422,7 @@ textarea.edit-itinerary__name {
   right: 0;
   top: 70px;
   left: 50%;
-  bottom: 65px;
+  bottom: 0;
 }
 .it-map-overlay {
   position: fixed;

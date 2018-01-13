@@ -35,7 +35,7 @@ class LikeReviewButton extends React.Component {
         this.props.likeReview(this.props.authenticated, this.props.type, this.props.likeObject, this.props.itineraryId);
       }
     };
-
+ 
     return (
       <div className="cta-container flx flx-row flx-center-all">
         <div onClick={handleLikeClick} className={classes}></div>

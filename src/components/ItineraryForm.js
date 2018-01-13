@@ -318,7 +318,7 @@ class ItineraryForm extends React.Component {
       if (props.itinerary.imDoneClicked === true || 
         (props.itinerary.createdOn && props.itinerary.createdOn < twoDaysAgo && props.itinerary.tips && props.itinerary.tips.length >= 2)) {
         return (
-          <div className="w-100 flx flx-row flx-just-start flx-align-center ta-center">
+          <div className="w-100 flx flx-row flx-just-start flx-align-center ta-center DN">
             {/* Like */}
             <div className="cta-wrapper flx flx-row vb vb--sm vb--outline--none fill--white color--black">
               <LikeReviewButton
@@ -336,7 +336,7 @@ class ItineraryForm extends React.Component {
             {/* Share */}
             <div className="DN cta-wrapper flx flx-row vb vb--sm vb--outline--none fill--primary color--white flx-item-right pdding-right-lg pdding-left-lg"
               onClick={this.shareGuide} >
-              <div className="color--white mrgn-right-sm">SHARE GUIDE</div>
+              <div className="color--white mrgn-right-sm">Share</div>
               <i className="material-icons mrgn-left-sm color--white flip-h">reply</i>
               <i className="material-icons color--white DN">accessibility</i>
             </div>
@@ -399,11 +399,15 @@ class ItineraryForm extends React.Component {
         )
       }
       else return (
-        <button className="bx-shadow cta-wrapper flx flx-row flx-center-all vb vb--sm vb--outline--none fill--primary color--white w-50 mobile-w-100"
-          onClick={onDoneClick} >
-            <i className="material-icons color--white mrgn-right-md">check</i>
-            <div className="">I'M DONE</div>
-        </button>
+        <div className="border-top--primary--3 test00 brdr-top it-author-controls w-max flx flx-row flx-just-start flx-align-center ta-center pdding-top-sm pdding-bottom-sm">
+          <div className="w-100 flx flx-row flx-just-start flx-align-center ta-center">
+            <button className="bx-shadow cta-wrapper flx flx-row flx-center-all vb vb--sm vb--outline--none fill--primary color--white w-50 mobile-w-100"
+              onClick={onDoneClick} >
+                <i className="material-icons color--white mrgn-right-md">check</i>
+                <div className="">I'M DONE</div>
+            </button>
+          </div>
+        </div>
       )
     }
 
@@ -554,15 +558,12 @@ class ItineraryForm extends React.Component {
            
                
           {/** -------- AUTHOR CONTROLS **/}
-          <div className="border-top--primary--3 test00 brdr-top it-author-controls w-max flx flx-row flx-just-start flx-align-center ta-center pdding-top-sm pdding-bottom-sm">
-            <div className="w-100 flx flx-row flx-just-start flx-align-center ta-center">
+          
 
               <ImDoneButton
                 itinerary={itinerary}
                 onImDoneClick={this.props.onImDoneClick} />
               
-            </div>{/** END MAX div **/}
-          </div>
           {/** AUTHOR CONTROLS >>>>>> **/}
 
           

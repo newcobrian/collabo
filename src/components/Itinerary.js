@@ -255,7 +255,7 @@ class Itinerary extends React.Component {
 
 
             {/** -------- AUTHOR CONTROLS **/}
-                      <div className="border-top--primary--3 test00 brdr-top it-author-controls w-max flx flx-row flx-just-start flx-align-center ta-center pdding-top-sm pdding-bottom-sm">
+                      <div className="border-top--primary--3 test00 brdr-top it-author-controls w-max flx flx-row flx-just-start flx-align-center ta-center pdding-top-sm pdding-bottom-sm DN">
                         <div className="w-100 flx flx-row flx-just-start flx-align-center ta-center">
 
 
@@ -274,7 +274,7 @@ class Itinerary extends React.Component {
 
                           
                           {/* Share */}
-                          <div className="DN cta-wrapper flx flx-row vb vb--sm vb--outline--none fill--primary color--white flx-item-right pdding-right-lg pdding-left-lg"
+                          <div className="cta-wrapper flx flx-row vb vb--sm vb--outline--none fill--primary color--white flx-item-right pdding-right-lg pdding-left-lg"
                             onClick={this.shareGuide} >
                             <div className="color--white mrgn-right-sm">SHARE GUIDE</div>
                             <i className="material-icons mrgn-left-sm color--white flip-h">reply</i>
@@ -399,9 +399,9 @@ class Itinerary extends React.Component {
 
                   {/** TITLE **/}
                   
-                  <Link to={`/guide/${this.props.itineraryId}`} className="guide-title ta-left w-100 invert">
+                  <div className="guide-title ta-left w-100 invert">
                     {itinerary.title}
-                  </Link>
+                  </div>
 
                   {/** DESCRIPTION **/}
                   <div className="itinerary__cover__descrip v2-type-body2 font--beta ta-left mrgn-top-xs mrgn-bottom-xs opa-80 invert">
@@ -429,6 +429,7 @@ class Itinerary extends React.Component {
                     }
                   </div>
 
+                  
 
                 
 
@@ -436,6 +437,32 @@ class Itinerary extends React.Component {
 
                 </div>
                 {/** >>>>>> CLOSE CENTER INFO **/}
+
+                <div className="flx flx-row flx-align-center w-100 pdding-all-sm pdding-top-xs pdding-bottom-xs brdr-top fill--white">
+                  {/** LIKE BUTTON **/}
+                  <div className="cta-wrapper flx flx-row vb vb--xs vb--outline--none vb--nohover fill--none color--black">
+                    <LikeReviewButton
+                      authenticated={this.props.authenticated}
+                      isLiked={itinerary.isLiked}
+                      likesCount={itinerary.likesCount}
+                      unLike={this.props.unLikeReview}
+                      like={this.props.likeReview} 
+                      likeObject={itinerary}
+                      itineraryId={itinerary.id}
+                      type={ITINERARY_TYPE} />
+                  </div>
+                  {/** END LIKE BUTTON **/}
+
+                  {/* Share */}
+                  <div className="cta-wrapper flx flx-row vb vb--xs vb--outline--none vb--nohover fill--none color--black invert flx-item-right pdding-left-lg"
+                    onClick={this.shareGuide} >
+                    <div className="color--black mrgn-right-xs">Share</div>
+                    <i className="material-icons mrgn-left-xs color--black flip-h">reply</i>
+                    <i className="material-icons color--white DN">accessibility</i>
+                  </div>
+                </div>
+
+
 
               </div>
               {/** Close Cover Text DIV >>>>>> **/}

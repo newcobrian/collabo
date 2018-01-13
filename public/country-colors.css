@@ -36,7 +36,9 @@
 * .country-color-KR .invert,
 * .country-color-KR .invert svg,
 * .country-color-TW .invert,
-* .country-color-TW .invert svg {
+* .country-color-TW .invert svg,
+* .fill--black .invert,
+* .fill--black .invert svg {
 	color: white !important;
 	border-color: white !important;
 }

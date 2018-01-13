@@ -14,7 +14,7 @@ body a:active,
 body a:focus,
 body a:hover {
   color: initial;
-  opacity: .6;
+  opacity: .8;
   transition: all 0.23s ease-in-out 0s;
 }
 
