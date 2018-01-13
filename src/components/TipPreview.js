@@ -51,7 +51,7 @@ const CaptionDisplay = props => {
   }
   else {
     return (
-     <div className="inline opa-50">No review yet</div>
+     <div className="inline opa-30">no review yet</div>
     )
   } 
 }
