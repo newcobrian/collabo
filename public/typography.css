@@ -278,7 +278,7 @@ a.color--primary:focus {
 .navigation-bar .nav-module.create:hover,
 .navigation-bar .nav-module.active.create,
 .navigation-bar .nav-module.nav-editor.active.create {
-  border-bottom: 2px solid transparent;
+  border-bottom: 2px solid #00E2C8;
   color: #00E2C8;
   padding-top: 0px;
 }

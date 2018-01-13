@@ -1364,7 +1364,7 @@ body .back-to-top {
     font-size: 20px;
     bottom: 80px;
     position: fixed;
-    left: 48%;
+    left: 10px;
     display: none;
     padding-top: 13px;
     height: 40px;
@@ -1399,12 +1399,15 @@ height: auto;
 padding: 20px;
 }
 .loader-bird {
-    width: 50px;
+    width: 100px;
     height: 18px;
+    /*old height for just bird solo*/
+    height: 100px;
     background: url(img/logos/loader_bird_white.png) no-repeat;
+    background: url(img/logos/logo_2018_200_white.png) no-repeat;
     position: relative;
     margin: 0 auto;
-    background-size: 50px;
+    background-size: 100px;
 }
 
 .loader {
@@ -1413,6 +1416,8 @@ padding: 20px;
   height: 30px;
   text-align: center;
   font-size: 10px;
+  display: none; 
+  /*hide old animation*/
 }
 .loader > div {
   height: 3px;
