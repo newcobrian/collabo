@@ -175,6 +175,9 @@ input[type="radio"]:checked + label span {
 .w-30 {
   width: 30% !important;
 }
+.w-33 {
+  width: 33.333333333% !important;
+}
 .w-20 {
   width: 20% !important;
 }

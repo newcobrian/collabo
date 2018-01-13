@@ -204,18 +204,18 @@ const TipPreview = props => {
                             type={Constants.REVIEW_TYPE}
                             deleteComment={props.deleteComment} />
                       </div> 
-                    </div>
+                    </div> 
                   { /** END tip__content-inner **/}
 
                   {/* Action Module */}
                   <div className="tip__cta-box w-100 flx flx-row flx-just-start flx-align-center mrgn-top-md">
-                    <Link onClick={handleSaveClick} className="w-40 hide-in-list vb vb--tip vb--outlin--none flx flx-row flx-align-center brdr-top brdr-right color--black fill--white">
+                    <Link onClick={handleSaveClick} className="w-33 hide-in-list vb vb--tip vb--outlin--none flx flx-row flx-align-center brdr-top brdr-right color--black fill--white">
                         {/*<img className="center-img mrgn-right-sm" src="/img/icons/i32_save.png"/>*/}
                         <i className="material-icons color--primary mrgn-right-sm md-24">playlist_add</i>
-                        <div className="color--black">Add to...</div>
+                        <div className="color--black v2-type-body0 weight-500">Add to</div>
                     </Link>
                     
-                    <div className="w-30 cta-wrapper vb vb--tip vb--outline--none flx flx-row flx-align-center v2-type-body2 brdr-top brdr-right">
+                    <div className="w-33 cta-wrapper vb vb--tip vb--outline--none flx flx-row flx-align-center v2-type-body2 brdr-top brdr-right">
                       <LikeReviewButton
                         authenticated={props.authenticated}
                         isLiked={props.tip.isLiked}
@@ -225,9 +225,9 @@ const TipPreview = props => {
                         type={Constants.REVIEW_TYPE} />
                     </div>
 
-                    <Link onClick={onInfoClick} className="w-30 hide-in-list vb vb--tip vb--outline--none flx flx-row flx-align-center brdr-top">
+                    <Link onClick={onInfoClick} className="w-33 hide-in-list vb vb--tip vb--outline--none flx flx-row flx-align-center brdr-top">
                       <i className="material-icons opa-60 mrgn-right-sm">info_outline</i>
-                      <div className="color--black">Info</div>
+                      <div className="color--black v2-type-body0 weight-500">Info</div>
                     </Link>
                     {/*<Link to={googleMapLink} className="w-20 hide-in-list vb vb--tip vb--outline--none flx flx-row flx-align-center brdr-top">
                       <i className="material-icons md-24">place</i>
