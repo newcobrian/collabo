@@ -480,20 +480,23 @@ export function sendItineraryUpdateEmails(auth, itinerary, lastUpdate) {
 					Firebase.database().ref(Constants.USERS_PATH + '/' + user.key).once('value', recipientSnap => {
 						if (recipientSnap.exists() && recipientSnap.val().email) {
 							// && user.key === 'haO90mWZ07VgwiTnawGovd1RNbx1'
-							let formData = new FormData();
-			        		formData.append("template-id", "4cf0f88a-221c-4a1f-95ed-5a8543ba42a8");
-			        		formData.append("recipient", recipientSnap.val().email);
-			        		formData.append("data", JSON.stringify({ message: emailMessage, senderName: senderSnap.val().username }));
-					        fetch(Constants.INBOX_SEND_EMAIL_URL, {
-							  method: 'POST',
-							  body: formData
-							})
-							.catch(function(response) {
-								console.log(response)
-							})
-							.catch(function(error) {
-							    console.log('Content Manager email send request failed', error)
-							})
+							// for the sterlingtheshiba test account, only email leung.b@gmail.com
+							if (auth !== 'HZ1g4L39qnW3rdrhduUwUbGnUx82' || (auth === 'HZ1g4L39qnW3rdrhduUwUbGnUx82' && user.key === 'haO90mWZ07VgwiTnawGovd1RNbx1')) {
+								let formData = new FormData();
+				        		formData.append("template-id", "4cf0f88a-221c-4a1f-95ed-5a8543ba42a8");
+				        		formData.append("recipient", recipientSnap.val().email);
+				        		formData.append("data", JSON.stringify({ message: emailMessage, senderName: senderSnap.val().username }));
+						        fetch(Constants.INBOX_SEND_EMAIL_URL, {
+								  method: 'POST',
+								  body: formData
+								})
+								.catch(function(response) {
+									console.log(response)
+								})
+								.catch(function(error) {
+								    console.log('Content Manager email send request failed', error)
+								})
+							}
 						}
 					})
 				})
