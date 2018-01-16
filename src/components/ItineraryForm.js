@@ -677,6 +677,34 @@ class ItineraryForm extends React.Component {
             </div>
             {/** >>>>>> CLOSE CENTER INFO **/}
 
+            <div className="flx flx-row flx-align-center w-100 pdding-all-sm pdding-top-xs pdding-bottom-xs brdr-top fill--white">
+              {/** LIKE BUTTON **/}
+              <div className="cta-wrapper flx flx-row vb vb--xs vb--outline--none vb--nohover fill--none color--black">
+                <LikeReviewButton
+                  authenticated={this.props.authenticated}
+                  isLiked={itinerary.isLiked}
+                  likesCount={itinerary.likesCount}
+                  unLike={this.props.unLikeReview}
+                  like={this.props.likeReview} 
+                  likeObject={itinerary}
+                  itineraryId={itinerary.id}
+                  type={ITINERARY_TYPE} />
+              </div>
+
+              
+              {/** END LIKE BUTTON **/}
+
+              {/* Share */}
+              <div className="cta-wrapper flx flx-row vb vb--xs vb--outline--none vb--nohover fill--none color--black invert flx-item-right pdding-left-lg"
+                onClick={this.shareGuide} >
+                <div className="color--black mrgn-right-xs">Share this guide</div>
+                <i className="material-icons mrgn-left-xs color--black flip-h">reply</i>
+                <i className="material-icons color--white DN">accessibility</i>
+              </div>
+            </div>
+
+
+
           </div>
           {/** Close Cover Text DIV >>>>>> **/}  
 
