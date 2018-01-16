@@ -1,4 +1,5 @@
 
+/*
 * .country-color-PE .invert,
 * .country-color-PE .invert svg,
 * .country-color-CA .invert,
@@ -37,6 +38,10 @@
 * .country-color-KR .invert svg,
 * .country-color-TW .invert,
 * .country-color-TW .invert svg,
+* .country-color-ID .invert,
+* .country-color-ID .invert svg,
+* .country-color-VN .invert,
+* .country-color-VN .invert svg,
 * .fill--black .invert,
 * .fill--black .invert svg {
 	color: white !important;
@@ -48,7 +53,12 @@
 * .it__cover__inner .invert input {
 	border: none !important;
 }
-
+* .country-color-ID {
+	background-color: #043B44 !important;
+}
+* .country-color-VN {
+	background-color: #022913 !important;
+}
 * .country-color-PE {
 	background-color: #7b2f2e !important;
 }
@@ -58,61 +68,63 @@
 * .country-color-MX {
 	background-color: #1e3231 !important;
 }
-* .country-color-HU { /** HUNGARY **/
+* .country-color-HU { 
 	background-color: #3e5a42 !important;
 }
-* .country-color-NL { /** ARGENTINA **/
+* .country-color-NL { 
 	background-color: #8f394f !important;
 }
-* .country-color-AR { /** ARGENTINA **/
+* .country-color-AR { 
 	background-color: #6ca7dc !important;
 }
-* .country-color-SG { /** SINGAPORE**/
+* .country-color-SG { 
 	background-color: #fb433e !important;
 }
-* .country-color-TR { /** TURKEY **/
+* .country-color-TR { 
 	background-color: #8a303a !important;
 }
-* .country-color-MY { /** MALAYSIA **/
+* .country-color-MY { 
 	background-color: #be2542 !important;
 }
-* .country-color-GB { /** LONDON **/
+* .country-color-GB { 
 	background-color: #5d2541 !important;
 }
-* .country-color-HK { /** JAPAN **/
+* .country-color-HK { 
 	background-color: #001c54 !important;
 }
-* .country-color-TH { /** Thailand  */
+* .country-color-TH { 
 	background-color: #751f23 !important;
 }
-* .country-color-FR { /** France  */
+* .country-color-FR { 
 	background-color: #123ab4 !important;
 }
-* .country-color-ES { /** Spain  */
+* .country-color-ES { 
 	background-color: #f9d156 !important;
 }
-* .country-color-CO { /** Coloumbia  */
+* .country-color-CO { 
 	background-color: #FFD935 !important;
 }
-* .country-color-CN { /** China INVERTED */ 
+* .country-color-CN { 
 	background-color: #F1351C !important;
 }
-* .country-color-DE { /** Berlin INVERTED */
+* .country-color-DE { 
 	background-color: black !important;
 }
-* .country-color-US { /** USA INVERTED */
+* .country-color-US { 
 	background-color: #2e3d6e !important;
 	background-color: #1e345b !important;
 }
-* .country-color-JP { /** Japan INVERTED  */
+* .country-color-JP { 
 	background-color: #8f0818 !important;
 	background-color: #C70025 !important;
+	background-color: #5C0026 !important;
 }
-* .country-color-KR { /** Korea INVERTED  */
+* .country-color-KR { 
 	background-color: #0E4B9C !important;
 }
-* .country-color-TW { /** Taiwan INVERTED  */
+* .country-color-TW { 
 	background-color: #FE3031 !important;
+	background-color: #6C001F !important;
 }
 
 
@@ -557,8 +569,6 @@
 * .country-color-VU { background-color: #ffffffVU;
 }
 * .country-color-VE { background-color: #ffffffVE;
-}
-* .country-color-VN { background-color: #ffffffVN;
 }
 * .country-color-VG { background-color: #ffffffVG;
 }
