@@ -21,7 +21,7 @@ const Comment = props => {
   }]);
 
   return ( 
-    <div className="card comment-wrapper" id={'comment' + comment.id}>
+    <div className="card comment-wrapper flx flx-align-center" id={'comment' + comment.id}>
       <div className="">
         <div className="flx flx-row flx-just-start">
           <Link

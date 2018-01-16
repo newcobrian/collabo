@@ -29,6 +29,8 @@ import SEO from './SEO';
 import LoadingSpinner from './LoadingSpinner';
 import { ShareButtons, ShareCounts, generateShareIcon } from 'react-share';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
+import Geosuggest from 'react-geosuggest';
+
 
 
 const {
@@ -239,7 +241,7 @@ class Itinerary extends React.Component {
       }
       else {
         return (
-          <div className={this.props.mapViewToggle ? 'flx flx-col flx-align-start page-common page-itinerary not-my-guide show-map' : 'flx flx-col flx-align-start page-common not-my-guide page-itinerary'}>
+          <div className={this.props.mapViewToggle ? 'flx flx-col flx-align-start page-common page-itinerary not-my-guide page-edit-own show-map' : 'flx flx-col flx-align-start page-common not-my-guide page-edit-own page-itinerary'}>
 
             <button className="floating-map-toggle vb vb--xs vb--round mrgn-top-xs vb--outline flx flx-row bx-shadow flx-align-center fill--white color--black mrgn-left-n-1 button-map-toggle"
               onClick={this.onMapToggle}>
@@ -475,6 +477,23 @@ class Itinerary extends React.Component {
               </div>
 
               <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
+
+                  <div className="it-add-container flx flx-row flx-align-center fill--none disable DN">
+                    <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--transparent">
+                      <i className="it-add-search-icon material-icons color--black opa-70 md-24">search</i>
+
+                      <Geosuggest 
+                        ref={el=>this._geoSuggest=el}
+                        className="input--underline w-100 color--black bx-shadow"
+                        placeholder={'Add a recommendation'}
+                        radius={1000}
+                        />
+
+                    </div>
+
+                  </div>
+
+
                   <div className="flx flx-row w-100 flx-align-center flx-just-space-between pdding-left-xs pdding-right-xs pdding-top-xs">
                     
                     <div className="pdding-all-sm fill--none v2-type-body1 color--black mrgn-right-xs">{/*itinerary.reviewsCount ? itinerary.reviewsCount : 0*/}
