@@ -340,16 +340,13 @@ textarea.edit-itinerary__name {
 }
 .it-add-container {
     padding: 0px;
-    position: fixed;
-    top: 70px;
     z-index: 10;
-    left: 0px;
-    width: 50%;
+    width: 100%;
 }
 .it-add-wrapper {
 	position: relative;
-	border: 10px 10px 10px 20px;
-	padding: 10px;
+	border: 10px 10px 0px 20px;
+	padding: 10px 10px 0;
 }
 .it-add-search-icon {
  	border-radius: 50px;
@@ -378,11 +375,12 @@ textarea.edit-itinerary__name {
 .page-edit-own .it-add-wrapper input,
 .page-edit-own .it-add-wrapper textarea {
     border-color: white;
-    text-indent: 66px;
-    padding: 0;
+    font-size: 14px;
+    padding-left: 40px;
+    text-align: left;
     border: 1px solid #D7E3E5;
     background-color: white;
-    border-radius: 7px;
+    border-radius: 5px;
 }
 .page-edit-own .it-add-wrapper input:hover,
 .page-edit-own  .it-add-wrapper textarea:hover {
@@ -396,6 +394,16 @@ textarea.edit-itinerary__name {
     border: 1px solid #D7E3E5;
 }
 
+.page-edit-own .it-add-wrapper input {
+  text-indent: 10px;
+  border: 2px solid #121419 !important;
+}
+.page-edit-own .it-add-wrapper input:hover {
+  border: 2px solid #00EBFF !important;
+}
+.page-edit-own .it-add-wrapper input:focus {
+  border: 2px solid #5EF2FF !important;
+}
 
 
 

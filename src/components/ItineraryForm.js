@@ -523,12 +523,6 @@ class ItineraryForm extends React.Component {
           
           <div className="itinerary-image-wrapper flx flx-row flx-just-start header-height">
             
-            <div className="it-add-container flx flx-row flx-align-center fill--none">
-              <div className="it__tip-count color--black mrgn-right-sm mrgn-left-sm DN">
-                {itinerary.reviewsCount ? itinerary.reviewsCount : 0}
-              </div>
-              {renderGeoSuggestTip(itinerary.geo)}
-            </div>
 
             
             {/** Cover Image **/}
@@ -688,17 +682,19 @@ class ItineraryForm extends React.Component {
 
 
 
-            <div className="w-100 flx flx-row flx-center-all pdding-all-sm DN">
-              <Link className="vb vb--md fill--white color--black w-100 flx flx-row flx-center-all vb--outline ta-center" onClick={openFilter}>
-                <i className="material-icons color--black opa-60 mrgn-right-sm">filter_list</i>
-                  Filter (Showing {this.props.visibleTips.length}/{this.props.numTotalTips} tags) {/*Showing 4/10 Categories */}
-              </Link>
-            </div>
-
-
+         
             
             {/** ----- Close itinerary__cover DIV ----- **/}  
             <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
+
+              <div className="it-add-container flx flx-row flx-align-center fill--none">
+                <div className="it__tip-count color--black mrgn-right-sm mrgn-left-sm DN">
+                  {itinerary.reviewsCount ? itinerary.reviewsCount : 0}
+                </div>
+                {renderGeoSuggestTip(itinerary.geo)}
+              </div>
+
+
               <div className="flx flx-row w-100 flx-align-center  flx-just-space-between pdding-left-xs pdding-right-xs pdding-top-xs">
                 <div className="vb vb--sm fill--none v2-type-body1 color--black DN">{itinerary.reviewsCount ? itinerary.reviewsCount : 0} Items</div>
                 <div className="pdding-all-sm fill--none v2-type-body1 color--black mrgn-right-xs">{this.props.visibleTips.length}/{this.props.numTotalTips} Items</div>

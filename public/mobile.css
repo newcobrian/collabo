@@ -460,10 +460,7 @@ width: 100%;
 .flx.it-author-controls {
 }
 .it-add-container {
-    top: 40px;
-    padding: 0;
-    right: 50px;
-    width: unset;
+
 }
 
 .page-itinerary .itinerary__cover__topbar  {
@@ -717,10 +714,10 @@ body .back-to-top {
 .page-edit-own .it-add-wrapper input,
 .page-edit-own .it-add-wrapper textarea {
   border-color: white;
-  text-indent: 46px;
+  text-indent: 16px;
 }
 .it-add-wrapper .material-icons {
-  left: 23px;
+  left: 33px;
 }
 .itinerary__cover__text {
 }
@@ -754,6 +751,9 @@ body .back-to-top {
 }
 .page-subject .itinerary__tipslist {
   padding: 0;
+}
+.itinerary__tipslist {
+  padding: 0 0 60px;
 }
 
 /* TIP PREVIEW */
@@ -885,7 +885,6 @@ body .back-to-top {
   margin-bottom: 10px;
 }
 .it-add-wrapper .geosuggest {
-  margin-left: 0;
 }
 .pop-city-wrapper {
     margin-left: 10px;

@@ -38,11 +38,7 @@ input, select, textarea {
 .page-edit-own .tip__caption textarea {
  padding: 10px;
 }
-.page-edit-own .it-add-wrapper input {
-  font-size: 14px;
-  padding-left: 10px;
-  text-align: left
-}
+
 .page-edit-own .tip-container input,
 .page-edit-own .tip-container textarea {
   /*font-family: 'Rokkitt', 'Roboto', sans-serif;*/
