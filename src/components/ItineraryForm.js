@@ -32,6 +32,7 @@ import MediaQuery from 'react-responsive';
 import AddTagInput from './AddTagInput';
 import { filter } from 'lodash'
 import {CopyToClipboard} from 'react-copy-to-clipboard';
+import Sticky from 'react-sticky-el';
 
 
 const {
@@ -715,12 +716,14 @@ class ItineraryForm extends React.Component {
             {/** ----- Close itinerary__cover DIV ----- **/}  
             <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
 
-              <div className="it-add-container flx flx-row flx-align-center fill--none">
-                <div className="it__tip-count color--black mrgn-right-sm mrgn-left-sm DN">
-                  {itinerary.reviewsCount ? itinerary.reviewsCount : 0}
+                <Sticky bottomOffset={140} className={'sticky-class'}>
+                <div className="it-add-container flx flx-row flx-align-center fill--none">
+                  <div className="it__tip-count color--black mrgn-right-sm mrgn-left-sm DN">
+                    {itinerary.reviewsCount ? itinerary.reviewsCount : 0}
+                  </div>
+                  {renderGeoSuggestTip(itinerary.geo)}
                 </div>
-                {renderGeoSuggestTip(itinerary.geo)}
-              </div>
+                </Sticky>
 
 
               <div className="flx flx-row w-100 flx-align-center  flx-just-space-between pdding-left-xs pdding-right-xs pdding-top-xs">

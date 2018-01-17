@@ -881,6 +881,11 @@ body .back-to-top {
   .it-add-wrapper {
   right: 0;
 }
+.sticky-class.sticky {
+    width: 70% !important;
+    left: 0;
+    top: 40px !important;
+}
 .it-add-wrapper .v2-type-h4 {
   margin-bottom: 10px;
 }
@@ -914,6 +919,7 @@ body .back-to-top {
 }
 .page-itinerary .button-filter-map {
   display: inline-block;
+  top: 55px;
 }
 
 .floating-map-toggle {
