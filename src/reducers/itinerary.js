@@ -502,7 +502,8 @@ export default (state = initialState, action) => {
     case ActionTypes.GET_ITINERARY_FOLLOW:
       return {
         ...state,
-        isFollowingItinerary: action.isFollowingItinerary
+        isFollowingItinerary: action.isFollowingItinerary,
+        numGuideFollows: action.numGuideFollows
       }
     case ActionTypes.UNMOUNT_ITINERARY_FOLLOW:
       return {

@@ -901,10 +901,13 @@ export function onImDoneClick(itinerary) {
 export function getItineraryFollow(auth, itineraryId) {
   return dispatch => {
     Firebase.database().ref(Constants.FOLLOWED_ITINERARIES_PATH + '/' + itineraryId + '/' + auth).on('value', snap => {
-      dispatch({
-        type: ActionTypes.GET_ITINERARY_FOLLOW,
-        isFollowingItinerary: snap.exists()
-      })
+      Firebase.database().ref(Constants.FOLLOWED_ITINERARIES_PATH + '/' + itineraryId).on('value', countSnap => {
+        dispatch({
+          type: ActionTypes.GET_ITINERARY_FOLLOW,
+          isFollowingItinerary: snap.exists(),
+          numGuideFollows: countSnap.numChildren()
+        })
+      }) 
     })
   }
 }
@@ -912,6 +915,7 @@ export function getItineraryFollow(auth, itineraryId) {
 export function unmountItineraryFollow(auth, itineraryId) {
   return dispatch => {
     Firebase.database().ref(Constants.FOLLOWED_ITINERARIES_PATH + '/' + itineraryId + '/' + auth).off();
+    Firebase.database().ref(Constants.FOLLOWED_ITINERARIES_PATH + '/' + itineraryId).off();
     dispatch ({
       type: ActionTypes.UNMOUNT_ITINERARY_FOLLOW
     })
