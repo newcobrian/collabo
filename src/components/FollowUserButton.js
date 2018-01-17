@@ -5,12 +5,12 @@ const FollowUserButton = props => {
     return null;
   }
   
-  let classes = 'vb vb--sm vb--follow mrgn-top-xs ta-center';
+  let classes = 'vb vb--sm vb--follow  ta-center';
   // if (props.user.following) {
   if (props.user.isFollowing) {
     classes += ' vb--following vb--outline color--gray';
   } else {
-    classes += ' color--white fill--primary';
+    classes += ' color--white fill--black';
   }
 
   const handleClick = ev => {
@@ -26,7 +26,7 @@ const FollowUserButton = props => {
     <button
       className={classes}
       onClick={handleClick}>
-      <i className="ion-plus-round DN"></i>
+      <i className="material-icons mrgn-right-sm color--primary">directions_walk</i>
       {props.user.isFollowing ? 'Unsubscribe' : 'Subscribe'} {/*props.user.username*/}
     </button>
   );

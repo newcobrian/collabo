@@ -406,24 +406,17 @@ class Itinerary extends React.Component {
                     {itinerary.title}
                   </div>
 
-                  <FollowItineraryButton
-                    authenticated={this.props.authenticated}
-                    canModify={canModify}
-                    itinerary={itinerary}
-                    isFollowingItinerary={this.props.isFollowingItinerary}
-                    />
+                
 
                   {/** DESCRIPTION **/}
-                  <div className="itinerary__cover__descrip v2-type-body2 font--beta ta-left mrgn-top-xs mrgn-bottom-xs opa-80 invert">
+                  <div className="itinerary__cover__descrip v2-type-body2 font--beta ta-left mrgn-top-xs mrgn-bottom-xs opa-80 invert w-100">
                      {itinerary.description}
                   </div>
 
-                  
-
-
+                
                  
 
-                  <div className="it-actions-row w-100 flx flx-row flx-align-center flx-just-start ta-left opa-50">
+                  <div className="it-actions-row w-100 flx flx-row flx-align-center flx-just-start ta-left opa-40">
                     {/** TIMESTAMP **/}
                     <div className="itinerary__cover__timestamp v2-type-caption ta-left invert color--black">
                       Updated &nbsp;
@@ -431,12 +424,34 @@ class Itinerary extends React.Component {
                       {/*(new Date(itinerary.lastModified)).toLocaleString()*/}
                     </div> 
 
-                     {/** DESCRIPTION **/}
+                     {/** Source Link **/}
                     { itinerary.link &&
-                    <a href={itinerary.link} target="blank" className="itinerary__cover__descrip itinerary__cover__source v2-type-caption mrgn-left-lg color--black opa-50 invert">
+                    <a href={itinerary.link} target="blank" className="itinerary__cover__source v2-type-caption mrgn-left-sm color--black invert">
                        <div className="ellipsis">Source Link</div>
                     </a>
                     }
+                  </div>
+
+
+                  <div className="flx flx-row flx-just-start flx-align-center w-100 mrgn-top-sm">
+                    <FollowItineraryButton
+                      authenticated={this.props.authenticated}
+                      canModify={canModify}
+                      itinerary={itinerary}
+                      isFollowingItinerary={this.props.isFollowingItinerary}
+                      />
+                      <div className="color--black v2-type-caption mrgn-left-sm">{this.props.numGuideFollows} subscribers</div>
+                  </div>
+
+                  <div className="flx flx-col flx-just-start flx-align-start w-100 mrgn-top-xs">
+                    <div className="flx flx-col flx-center-all mrgn-left-md">
+                      <div className="icon-circle fill--red"></div>
+                      <div className="vertical-line fill--black"></div>
+                    </div>
+
+                      <div className="user-note fill--light-gray bx-shadow color--black v2-type-caption pdding-all-md ta-left brdr-all">
+                        Subscribe to guides you care about. We'll let you know whenever they get updated with a new tip.
+                      </div>
                   </div>
 
                   

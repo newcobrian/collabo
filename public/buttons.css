@@ -126,13 +126,12 @@ input.input--underline {
     text-align: center;
     letter-spacing: 1px;
     font-weight: 500;
-    border-radius: 2px;
     font-size: 16px;
     cursor: pointer;
     padding: 20px;
     text-transform: uppercase;
     flex-shrink: 0;
-    border-radius: 3px;
+    border-radius: 2px;
     display: -webkit-flex;
     display: flex;
     -webkit-align-items: center;
@@ -214,7 +213,7 @@ input.input--underline {
   line-height: 18px;
 }
 .vb--xs {
-  padding: 0px 10px 0px;
+  padding: 0px 12px 0px;
   height: auto;
   border: 0;
   font-size: 13px;
@@ -340,7 +339,14 @@ input.input--underline {
   opacity: 1 !important;
   background-color: rgba(247,247,247,.1);
 }
-
+.vb.fill--black {
+  
+}
+.vb.fill--black:active,
+.vb.fill--black:hover {
+  color: white;
+  background-color: #315761 !important;
+}
 .vb.vb--add {
   border: none;
   /* box-shadow: 0 0 0 2px rgba(107, 255, 78,.4); */
@@ -536,7 +542,10 @@ label {
   height: auto;
   display: none;
 }
-
+.user-note {
+  max-width: 300px;
+  width: auto;
+}
 .react-textselect-input {
     border: 1px solid #ccc;
     padding: 20px !important;
@@ -546,9 +555,17 @@ label {
     background: white;
     font-family: 'Arimo', sans-serif;
     color: #161F34;
-
 }
-
+.icon-circle {
+  border: 1px solid inhert;
+  border-radius: 60px;
+  width: 5px;
+  height: 5px;
+}
+.vertical-line {
+  width:1px;
+  height: 14px;
+}
 .ask-for-recs-button {
 
 }
@@ -556,7 +573,7 @@ label {
 
 
 .big-share-button {
-  width: 200px;
+  width: 200px !important;
   height: 200px;
   border-radius: 140px;
   margin: 20px 20px 50px;

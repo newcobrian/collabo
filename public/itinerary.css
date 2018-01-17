@@ -236,7 +236,7 @@
   max-width: 480px;
   width: 100%;
   max-width: 800px;
-  padding: 0 0 10px;
+  padding: 0;
 
  }
 .itinerary__cover .itinerary__cover__descrip {
@@ -382,6 +382,12 @@ textarea.edit-itinerary__name {
 	opacity: 1;
 }
 
+.vb--following .material-icons {
+	color: #06D4AD !important; /* Success */
+	color: #121419 !important; /* Black */
+	opacity: .5;
+}
+
 
 
 .page-edit-own .it-add-wrapper input,
@@ -392,7 +398,7 @@ textarea.edit-itinerary__name {
     text-align: left;
     border: 1px solid #D7E3E5;
     background-color: white;
-    border-radius: 5px;
+    border-radius: 3px;
 }
 .page-edit-own .it-add-wrapper input:hover,
 .page-edit-own  .it-add-wrapper textarea:hover {

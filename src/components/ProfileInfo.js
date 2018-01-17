@@ -8,7 +8,7 @@ const EditProfileSettings = props => {
     return (
       <Link
         to="/settings"
-        className="vb vb--sm fill--primary mrgn-top-xs vb--mobile-full color--white mrgn-right-sm mrgn-right-m-none">
+        className="vb vb--sm fill--black mrgn-top-xs vb--mobile-full color--white mrgn-right-sm mrgn-right-m-none">
          <i className="material-icons mrgn-right-sm color--white md-18">mode_edit</i>Edit Profile
       </Link>
     );
@@ -20,7 +20,7 @@ const SignOutButton = props => {
   if (props.isUser) {
     return (
       <button
-        className="vb vb--sm vb--outline fill--white mrgn-top-xs color--primary w-100"
+        className="vb vb--sm vb--outline fill--white mrgn-top-xs color--black w-100"
         onClick={props.signOut}>
         Log out
       </button>
