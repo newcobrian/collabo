@@ -499,6 +499,16 @@ export default (state = initialState, action) => {
         visibleTags: action.visibleTags,
         showAllFilters: action.showAllFilters
       }
+    case ActionTypes.GET_ITINERARY_FOLLOW:
+      return {
+        ...state,
+        isFollowingItinerary: action.isFollowingItinerary
+      }
+    case ActionTypes.UNMOUNT_ITINERARY_FOLLOW:
+      return {
+        ...state,
+        isFollowingItinerary: null
+      }
     default:
       return state;
   }

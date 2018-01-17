@@ -30,8 +30,7 @@ import LoadingSpinner from './LoadingSpinner';
 import { ShareButtons, ShareCounts, generateShareIcon } from 'react-share';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import Geosuggest from 'react-geosuggest';
-
-
+import FollowItineraryButton from './FollowItineraryButton'
 
 const {
   FacebookShareButton,
@@ -108,12 +107,14 @@ class Itinerary extends React.Component {
       // }
       if (iid) {
         this.props.watchItinerary(this.props.authenticated, iid);
+        this.props.getItineraryFollow(this.props.authenticated, iid);
       }
       this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'itinerary'});
     }
 
     this.unloadItinerary = itineraryId => {
       this.props.unwatchItinerary(this.props.authenticated, itineraryId);
+      this.props.unmountItineraryFollow(this.props.authenticated, itineraryId);
       // this.props.onItineraryUnload(this.props.authenticated, itineraryId);
       // this.props.unloadItineraryComments(itineraryId);
     }
@@ -404,6 +405,13 @@ class Itinerary extends React.Component {
                   <div className="guide-title ta-left w-100 invert">
                     {itinerary.title}
                   </div>
+
+                  <FollowItineraryButton
+                    authenticated={this.props.authenticated}
+                    canModify={canModify}
+                    itinerary={itinerary}
+                    isFollowingItinerary={this.props.isFollowingItinerary}
+                    />
 
                   {/** DESCRIPTION **/}
                   <div className="itinerary__cover__descrip v2-type-body2 font--beta ta-left mrgn-top-xs mrgn-bottom-xs opa-80 invert">

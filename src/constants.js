@@ -72,6 +72,8 @@ export const GEOS_PATH = '/geos'
 export const COUNTRIES_PATH = '/countries'
 export const USERS_FEED_PATH = '/users-feed'
 export const RECOMMENDATIONS_PATH = '/recommendations'
+export const FOLLOWED_ITINERARIES_PATH = '/followed-itineraries'
+export const FOLLOWED_ITINERARIES_BY_USER_PATH = '/followed-itineraries-by-user'
 
 /*** Counter Type Constants ***/
 export const LIKES_COUNT = 'likesCount'
@@ -92,6 +94,7 @@ export const COMMENT_ON_ITINERARY_MESSAGE = 'COMMENT_ON_ITINERARY_MESSAGE'
 export const DIRECT_MESSAGE = 'DIRECT_MESSAGE'
 export const FORWARD_MESSAGE = 'FORWARD_MESSAGE'
 export const USER_MENTIONED_TYPE = 'USER_MENTIONED_TYPE'
+export const FOLLOW_ITINERARY_MESSAGE = 'FOLLOW_ITINERARY_MESSAGE'
 
 export const ITINERARY_TYPE = 'itinerary'
 export const REVIEW_TYPE = 'review'

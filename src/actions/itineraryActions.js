@@ -4,6 +4,7 @@ import * as Helpers from '../helpers'
 import * as ActionTypes from './types'
 import { watchLikesByUser, unwatchLikesByUser, watchUser, unwatchUser } from './index'
 import { isEqual, pick } from 'lodash'
+import mixpanel from 'mixpanel-browser'
 
 export function watchItinerary(auth, itineraryId) {
 	return (dispatch, getState) => {
@@ -894,6 +895,86 @@ export function onImDoneClick(itinerary) {
         }
       }
     })
+  }
+}
+
+export function getItineraryFollow(auth, itineraryId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.FOLLOWED_ITINERARIES_PATH + '/' + itineraryId + '/' + auth).on('value', snap => {
+      dispatch({
+        type: ActionTypes.GET_ITINERARY_FOLLOW,
+        isFollowingItinerary: snap.exists()
+      })
+    })
+  }
+}
+
+export function unmountItineraryFollow(auth, itineraryId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.FOLLOWED_ITINERARIES_PATH + '/' + itineraryId + '/' + auth).off();
+    dispatch ({
+      type: ActionTypes.UNMOUNT_ITINERARY_FOLLOW
+    })
+  }
+}
+
+export function followItinerary(auth, itinerary) {
+  return dispatch => {
+    if (!auth) {
+      dispatch({
+        type: ActionTypes.ASK_FOR_AUTH
+      })
+    }
+    if (itinerary && itinerary.id) {
+      let updates = {};
+      updates[Constants.FOLLOWED_ITINERARIES_PATH + '/' + itinerary.id + '/' + auth] = true;
+      updates[Constants.FOLLOWED_ITINERARIES_BY_USER_PATH + '/' + auth + '/' + itinerary.id] = true;
+
+      Firebase.database().ref().update(updates);
+      Helpers.sendInboxMessage(auth, itinerary.createdBy.userId, Constants.FOLLOW_ITINERARY_MESSAGE, itinerary, itinerary.id, null);
+
+      mixpanel.people.increment("total follows");
+
+      dispatch({
+        type: ActionTypes.FOLLOWED_ITINERARY,
+        meta: {
+          mixpanel: {
+            event: 'Followed itinerary',
+            props: {
+              userId: auth,
+              itineraryId: itinerary.id
+            },
+          }
+        }
+      })
+    }
+  }
+}
+
+export function unfollowItinerary(auth, itineraryId) {
+  return dispatch => {
+    if (auth && itineraryId) {
+      let updates = {};
+      updates[Constants.FOLLOWED_ITINERARIES_PATH + '/' + itineraryId + '/' + auth] = null;
+      updates[Constants.FOLLOWED_ITINERARIES_BY_USER_PATH + '/' + auth + '/' + itineraryId] = null;
+
+      Firebase.database().ref().update(updates);
+
+      mixpanel.people.increment("total follows", -1);
+
+      dispatch({
+        type: ActionTypes.UNFOLLOWED_ITINERARY,
+        meta: {
+          mixpanel: {
+            event: 'Unfollowed itinerary',
+            props: {
+              userId: auth,
+              itineraryId: itineraryId
+            },
+          }
+        }
+      })
+    }
   }
 }
 

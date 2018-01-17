@@ -437,6 +437,12 @@ export function sendInboxMessage(senderId, recipientId, messageType, sendObject,
 						inboxObject.link = '/guide/' + itineraryId + '#comment' + commentObject.commentId;
 						emailMessage = senderSnapshot.val().username + ' mentioned you in a comment. Click here to see it: https://myviews.io' + inboxObject.link;
 						break;
+					case Constants.FOLLOW_ITINERARY_MESSAGE:
+						inboxObject.senderId = senderId;
+						inboxObject.message = ' started following your guide: ';
+						inboxObject.link = '/guide/' + itineraryId;
+						emailMessage = senderSnapshot.val().username + ' followed your guide "' + sendObject.title + '." Click here to see it: https://myviews.io' + inboxObject.link;
+						break;
 				}
 				if (senderId !== recipientId) {
 					Firebase.database().ref(Constants.INBOX_PATH + '/' + recipientId).push().set(inboxObject);
