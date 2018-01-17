@@ -326,6 +326,23 @@ export function fanOutUnFollowUser(isFollowing, theFollowed) {
 	})
 }
 
+export function sendContentManagerEmail(templateId, recipientEmail, data) {
+	let formData = new FormData();
+	formData.append("template-id", templateId);
+	formData.append("recipient", recipientEmail);
+	formData.append("data", JSON.stringify(data));
+    fetch(Constants.INBOX_SEND_EMAIL_URL, {
+	  method: 'POST',
+	  body: formData
+	})
+	.catch(function(response) {
+		console.log(response)
+	})
+	.catch(function(error) {
+	    console.log('Content Manager email send request failed', error)
+	})
+}
+
 export function sendInboxMessage(senderId, recipientId, messageType, sendObject, itineraryId, commentObject) {
 	const inboxObject = {
 		lastModified: Firebase.database.ServerValue.TIMESTAMP
@@ -450,20 +467,8 @@ export function sendInboxMessage(senderId, recipientId, messageType, sendObject,
 			            return (current_count || 0) + 1;
 			        })
 		        	if (recipientSnapshot.exists() && recipientSnapshot.val().email) {
-		        		let formData = new FormData();
-		        		formData.append("template-id", "7691e888-4b30-40e2-9d78-df815d5b8453");
-		        		formData.append("recipient", recipientSnapshot.val().email);
-		        		formData.append("data", JSON.stringify({ message: emailMessage }));
-				        fetch(Constants.INBOX_SEND_EMAIL_URL, {
-						  method: 'POST',
-						  body: formData
-						})
-						.catch(function(response) {
-							console.log(response)
-						})
-						.catch(function(error) {
-						    console.log('Content Manager email send request failed', error)
-						})
+		        		let data = Object.assign({}, {message: emailMessage});
+		        		sendContentManagerEmail("7691e888-4b30-40e2-9d78-df815d5b8453", recipientSnapshot.val().email, data);
 				    }
 				}
 			})
@@ -482,30 +487,34 @@ export function sendItineraryUpdateEmails(auth, itinerary, lastUpdate) {
 				'". Click here to check it out: https://myviews.io/guide/' + itinerary.id;
 
 			Firebase.database().ref(Constants.HAS_FOLLOWERS_PATH + '/' + auth).once('value', followersSnap => {
-				followersSnap.forEach(function(user) {
-					Firebase.database().ref(Constants.USERS_PATH + '/' + user.key).once('value', recipientSnap => {
-						if (recipientSnap.exists() && recipientSnap.val().email) {
-							// && user.key === 'haO90mWZ07VgwiTnawGovd1RNbx1'
-							// for the sterlingtheshiba test account, only email leung.b@gmail.com
-							if (auth !== 'HZ1g4L39qnW3rdrhduUwUbGnUx82' || (auth === 'HZ1g4L39qnW3rdrhduUwUbGnUx82' && user.key === 'haO90mWZ07VgwiTnawGovd1RNbx1')) {
-								let formData = new FormData();
-				        		formData.append("template-id", "4cf0f88a-221c-4a1f-95ed-5a8543ba42a8");
-				        		formData.append("recipient", recipientSnap.val().email);
-				        		formData.append("data", JSON.stringify({ message: emailMessage, senderName: senderSnap.val().username }));
-						        fetch(Constants.INBOX_SEND_EMAIL_URL, {
-								  method: 'POST',
-								  body: formData
-								})
-								.catch(function(response) {
-									console.log(response)
-								})
-								.catch(function(error) {
-								    console.log('Content Manager email send request failed', error)
-								})
+				// Firebase.database().ref(Constants.FOLLOWED_ITINERARIES_PATH + '/' + itinerary.id).once('value', followedItinsSnap => {
+					let sendList = {};
+					followersSnap.forEach(function(user) {
+						Firebase.database().ref(Constants.USERS_PATH + '/' + user.key).once('value', recipientSnap => {
+							if (recipientSnap.exists() && recipientSnap.val().email) {
+								sendList[user.key] = true;
+								// && user.key === 'haO90mWZ07VgwiTnawGovd1RNbx1'
+								// for the sterlingtheshiba test account, only email leung.b@gmail.com
+								if (auth !== 'HZ1g4L39qnW3rdrhduUwUbGnUx82' || (auth === 'HZ1g4L39qnW3rdrhduUwUbGnUx82' && user.key === 'haO90mWZ07VgwiTnawGovd1RNbx1')) {
+									let data = Object.assign({}, {message: emailMessage}, {senderName: senderSnap.val().username });
+									sendContentManagerEmail("4cf0f88a-221c-4a1f-95ed-5a8543ba42a8", recipientSnap.val().email, data);
+								}
 							}
-						}
+						})
 					})
-				})
+
+					// followedItinsSnap.forEach(function(user) {
+					// 	if (!sendList[user.key]) {
+					// 		Firebase.database().ref(Constants.USERS_PATH + '/' + user.key).once('value', recipientSnap => {
+					// 			// for the sterlingtheshiba test account, only email leung.b@gmail.com
+					// 			if (auth !== 'HZ1g4L39qnW3rdrhduUwUbGnUx82' || (auth === 'HZ1g4L39qnW3rdrhduUwUbGnUx82' && user.key === 'haO90mWZ07VgwiTnawGovd1RNbx1')) {
+					// 				let data = Object.assign({}, {message: emailMessage}, {senderName: senderSnap.val().username });
+					// 				sendContentManagerEmail("4cf0f88a-221c-4a1f-95ed-5a8543ba42a8", recipientSnap.val().email, data);
+					// 			}
+					// 		})
+					// 	}
+					// })
+				// })
 			})
 		})
 	}

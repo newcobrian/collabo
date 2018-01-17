@@ -174,7 +174,7 @@ export const POPULAR_CITIES = [
 ]
 
 /** Itineraries that everyone can edit (for testing shared itineraries feature) **/
-export const SHARED_ITINERARIES = ['-KpOQT2bgUyHNdcX662g', '-KpiW2sKdc81qIKD_iOO', '-KqURO44kTCwkDyISjBe', 
+export const SHARED_ITINERARIES = ['-KpiW2sKdc81qIKD_iOO', '-KqURO44kTCwkDyISjBe', 
 '-KuM-90vgN_wWHSZvlKu','-KuaQCOTUBL8_NDoiKem','-KuaQosck60hUhKH1BX0', '-KufYkqOAT7OxCadeFXH', '-KzQyXDw3nzTeuXRbYMl', 
 '-KxxGWFNNkZtgpGeUj4C', '-Kwyr30538oLpC-WUgDG', '-L-0Sen8H68WqsmGKgNG']
 
