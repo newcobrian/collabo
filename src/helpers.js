@@ -486,8 +486,9 @@ export function sendItineraryUpdateEmails(auth, itinerary, lastUpdate) {
 			let emailMessage = senderSnap.val().username + ' updated their guide "' + itinerary.title + 
 				'". Click here to check it out: https://myviews.io/guide/' + itinerary.id;
 
+			// first send to anyone following the user
 			Firebase.database().ref(Constants.HAS_FOLLOWERS_PATH + '/' + auth).once('value', followersSnap => {
-				// Firebase.database().ref(Constants.FOLLOWED_ITINERARIES_PATH + '/' + itinerary.id).once('value', followedItinsSnap => {
+				Firebase.database().ref(Constants.FOLLOWED_ITINERARIES_PATH + '/' + itinerary.id).once('value', followedItinsSnap => {
 					let sendList = {};
 					followersSnap.forEach(function(user) {
 						Firebase.database().ref(Constants.USERS_PATH + '/' + user.key).once('value', recipientSnap => {
@@ -503,18 +504,21 @@ export function sendItineraryUpdateEmails(auth, itinerary, lastUpdate) {
 						})
 					})
 
-					// followedItinsSnap.forEach(function(user) {
-					// 	if (!sendList[user.key]) {
-					// 		Firebase.database().ref(Constants.USERS_PATH + '/' + user.key).once('value', recipientSnap => {
-					// 			// for the sterlingtheshiba test account, only email leung.b@gmail.com
-					// 			if (auth !== 'HZ1g4L39qnW3rdrhduUwUbGnUx82' || (auth === 'HZ1g4L39qnW3rdrhduUwUbGnUx82' && user.key === 'haO90mWZ07VgwiTnawGovd1RNbx1')) {
-					// 				let data = Object.assign({}, {message: emailMessage}, {senderName: senderSnap.val().username });
-					// 				sendContentManagerEmail("4cf0f88a-221c-4a1f-95ed-5a8543ba42a8", recipientSnap.val().email, data);
-					// 			}
-					// 		})
-					// 	}
-					// })
-				// })
+					// then send to anyone following the guide but dont send duplicate emails
+					setTimeout(function() {
+						followedItinsSnap.forEach(function(user) {
+							if (!sendList[user.key]) {
+								Firebase.database().ref(Constants.USERS_PATH + '/' + user.key).once('value', recipientSnap => {
+									// for the sterlingtheshiba test account, only email leung.b@gmail.com
+									if (auth !== 'HZ1g4L39qnW3rdrhduUwUbGnUx82' || (auth === 'HZ1g4L39qnW3rdrhduUwUbGnUx82' && user.key === 'haO90mWZ07VgwiTnawGovd1RNbx1')) {
+										let data = Object.assign({}, {message: emailMessage}, {senderName: senderSnap.val().username });
+										sendContentManagerEmail("4cf0f88a-221c-4a1f-95ed-5a8543ba42a8", recipientSnap.val().email, data);
+									}
+								})
+							}
+						})
+					}, 2000)
+				})
 			})
 		})
 	}
