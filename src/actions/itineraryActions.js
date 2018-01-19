@@ -786,7 +786,7 @@ export function toggleMapView() {
 
 export function completeTutorial(auth) {
   return dispatch => {
-    Firebase.database().ref(Constants.USERS_PATH + '/' + auth).update({ tutorialCompleted: true });
+    Firebase.database().ref(Constants.USERS_PATH + '/' + auth + '/flags').update({ tutorialCompleted: true });
     dispatch({
       type: ActionTypes.TUTORIAL_COMPLETED
     })
