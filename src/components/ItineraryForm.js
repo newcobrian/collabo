@@ -430,7 +430,7 @@ class ItineraryForm extends React.Component {
               location={latLng}
               radius={1000}
               onSuggestSelect={suggestSelectTip(this)}/>
-              {!this.props.userInfo.tutorialCompleted && 
+              {(!this.props.userInfo.flags || !this.props.userInfo.flags.tutorialCompleted) && 
                 <div className="help--add-tip flx flx-row flx-center-all fill--black color--white opa-90 bx-shadow">
                   <i className="material-icons color--white md-24 mrgn-left-xs">arrow_upward</i>
                   <div className="v2-type-body2 mrgn-left-md">Start adding to your guide by searching here and selecting a place from the dropdown</div>
