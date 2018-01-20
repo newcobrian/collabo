@@ -277,7 +277,7 @@ input.input--underline {
 }
 
 .vb--follow {
-  min-width: 110px;
+  min-width: 170px;
 }
 .vb--following {
   color: #ccc;
@@ -490,7 +490,6 @@ input.input--overline {
 
 label {
     cursor: pointer;
-    font-size: 18px;
     opacity: 1;
     font-weight: 400;
     width: 100%;

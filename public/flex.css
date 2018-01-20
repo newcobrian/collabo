@@ -139,7 +139,7 @@
   margin-right: auto;
 }
 .flx-item-left {
-  margin-right: auto;
+  margin-right: auto !important;
 }
 .flx-item-bottom {
   margin-top: auto;

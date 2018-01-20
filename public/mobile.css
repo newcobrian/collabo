@@ -237,6 +237,7 @@ margin: 0;
 
 .nav-module.create .material-icons {
   margin-right: 0 !important;
+  margin-top: 0;
 }
 
 .navigation-bar {

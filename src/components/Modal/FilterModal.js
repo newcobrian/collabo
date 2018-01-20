@@ -180,7 +180,7 @@ class FilterModal extends React.Component {
           
         >
 
-        <div className="dialog--save flx flx-col color--black font--alpha">
+        <div className="dialog--save flx flx-col color--black font--alpha v2-type-body3">
 
           <div className="dialog--save__content w-100">
             <div className="flx flx-row flx-align-center pdding-all-sm pdding-left-md brdr-bottom">

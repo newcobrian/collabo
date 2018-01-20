@@ -80,14 +80,14 @@ const LoggedInView = props => {
 
         <Link to="/" onlyActiveOnIndex activeClassName="active" className={"nav-module nav-feed flx flx-center-all " + (browserHistory.getCurrentLocation().pathname === '/popular' ? ' active' : '')}>
           <div className="nav-text flx flx-row flx-align-center">
-            <i className="material-icons color--black md-24 mobile-show">language</i>
+            <i className="material-icons color--black md-24 mobile-show opa-60">public</i>
             <div className="nav-text mobile-hide">Places</div>
           </div>
         </Link>
 
         <Link to="/explore" activeClassName="active" className="nav-module nav-feed flx flx-center-all">
           <div className="nav-text flx flx-row flx-align-center">
-            <i className="material-icons color--black md-24 mobile-show">people</i>
+            <i className="material-icons color--black md-24 mobile-show opa-60">people</i>
             <div className="nav-text mobile-hide">People</div>
           </div>
         </Link>

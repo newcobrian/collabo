@@ -253,6 +253,7 @@ textarea {
 }
 .color--primary {
   color: #3DCBF3 !important;
+  /*color: #1A4C0A !important;*/
 }
 a.color--primary:hover i,
 a.color--primary:focus i,
@@ -263,6 +264,7 @@ a.color--primary:focus {
 /* CHANGE ME FOR COLOR TEST!!!! */
 .fill--primary {
   background-color: #3DCBF3 !important;
+  /*background-color: #1A4C0A !important;*/
 }
 /* CHANGE ME FOR COLOR TEST!!!! */
 .navigation-bar .nav-module.active,
@@ -304,6 +306,7 @@ body a.nav-module {
 
 .fill--yellow {
   background-color: #FFFDE2 !important;
+  background-color: #FFFA5A !important;
 }
 .fill--none {
   background-color: transparent;

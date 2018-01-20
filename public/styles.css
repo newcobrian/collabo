@@ -1473,7 +1473,9 @@ padding: 20px;
 
 }
 
-
+.people-list {
+  margin-top: 45px;
+}
 .help--add-tip {
   position: absolute;
   top: 60px;

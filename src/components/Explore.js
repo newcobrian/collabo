@@ -57,7 +57,7 @@ class Explore extends React.Component {
     return (
       <div className="flx flx-col page-common follow-page page-people flx-align-center flx-just-start w-100">
           
-        <div className="search-wrapper-wrapper w-100 flx flx-row flx-m-col flx-align-center">
+        <div className="search-wrapper-wrapper w-100 flx flx-row flx-m-col flx-align-center brdr-bottom">
           <div className="search-wrapper page-top-search short-width-search w-100 flx flx-row flx-align-center flx-hold">
             <i className="search-icon material-icons color--black md-32">search</i>
             <FirebaseSearchInput
@@ -70,7 +70,7 @@ class Explore extends React.Component {
           </div>
 
 
-          <div className="flx flx-row flx-just-center flx-align-start flx-wrap w-100 mrgn-top-lg">
+          <div className="people-list flx flx-row flx-just-center flx-align-start flx-wrap w-100">
             {
               users.map(user => {
                 const isUser = this.props.authenticated &&

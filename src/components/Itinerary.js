@@ -440,12 +440,13 @@ class Itinerary extends React.Component {
                       itinerary={itinerary}
                       isFollowingItinerary={this.props.isFollowingItinerary}
                       />
-                      <div className="color--black v2-type-caption mrgn-left-sm">{this.props.numGuideFollows} subscribers</div>
+                      <div className="color--black v2-type-caption mrgn-left-sm invert">{this.props.numGuideFollows} subscribers</div>
                   </div>
 
-                  <div className="flx flx-col flx-just-start flx-align-start w-100 mrgn-top-xs">
+                {/** >>>>>> SUBSCRIBE EXPLANATION TOOLTIP**/}
+                  <div className="DN flx flx-col flx-just-start flx-align-start w-100 mrgn-top-xs">
                     <div className="flx flx-col flx-center-all mrgn-left-md">
-                      <div className="icon-circle fill--red"></div>
+                      <div className="icon-circle fill--primary"></div>
                       <div className="vertical-line fill--black"></div>
                     </div>
 
@@ -453,6 +454,7 @@ class Itinerary extends React.Component {
                         Subscribe to guides you care about. We'll let you know whenever they get updated with a new tip.
                       </div>
                   </div>
+                  {/** >>>>>> END SUBSCRIBE EXPLANATION TOOLTIP**/}
 
                   
 

@@ -36,7 +36,7 @@ class FollowItineraryButton extends React.Component {
       <button
         className={classes}
         onClick={handleClick}>
-        <i className="material-icons mrgn-right-sm color--primary">playlist_add_check</i>
+        <i className="material-icons mrgn-right-sm color--primary">add</i>
         {this.props.isFollowingItinerary ? 'Subscribed' : 'Subscribe to this guide'} {/*props.user.username*/}
       </button>
     );

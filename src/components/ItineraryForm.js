@@ -605,7 +605,7 @@ class ItineraryForm extends React.Component {
              
 
             {/** <<<<<< CENTER INFO **/}
-            <div className="it__title-module flx flx-col flx-just-start ta-center w-100 flx-align-center">
+            <div className="it__title-module flx flx-col flx-just-start ta-center w-100 flx-align-start">
               
 
              

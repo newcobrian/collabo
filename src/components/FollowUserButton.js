@@ -26,8 +26,8 @@ const FollowUserButton = props => {
     <button
       className={classes}
       onClick={handleClick}>
-      <i className="material-icons mrgn-right-sm color--primary">directions_walk</i>
-      {props.user.isFollowing ? 'Unsubscribe' : 'Subscribe'} {/*props.user.username*/}
+      <i className="material-icons mrgn-right-sm color--primary flx-item-left">add</i>
+      <div className="flx-item-left">{props.user.isFollowing ? 'Unsubscribe' : 'Subscribe'} {/*props.user.username*/}</div>
     </button>
   );
 }
