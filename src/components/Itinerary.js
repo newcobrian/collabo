@@ -450,8 +450,8 @@ class Itinerary extends React.Component {
                       <div className="vertical-line fill--black"></div>
                     </div>
 
-                      <div className="user-note fill--light-gray bx-shadow color--black v2-type-caption pdding-all-md ta-left brdr-all">
-                        Subscribe to guides you care about. We'll let you know whenever they get updated with a new tip.
+                      <div className="DN user-note fill--light-gray bx-shadow color--black v2-type-caption pdding-all-md ta-left brdr-all">
+                        Subscribe to guides you care about. We'll let you know whenever they get updated with new tips.
                       </div>
                   </div>
                   {/** >>>>>> END SUBSCRIBE EXPLANATION TOOLTIP**/}
