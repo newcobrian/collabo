@@ -837,65 +837,7 @@ class ItineraryForm extends React.Component {
 
                                       <div className="tip__content-wrapper">
                                         <div className="tip__content-inner">
-                                          <div className="tip__header-wrapper flx flx-col flx-align-start flx-just-start">
-                                            
-                                          
 
-
-
-
-                                            {/* Tags Wrapper **/ }
-                                            <div className="flx flx-row flx-align-center flx-wrap pdding-top-sm pdding-bottom-xs">
-
-                                              { /** Rating **/ }
-                                              <div className={'tip__rating-module flx flx-row flx-align-center flx-hold w-100 tip__rating-module--' + tip.review.rating}>
-                                                <select className="color--black" value={tip.review.rating} onChange={this.changeRating(tip)}>
-                                                  <option value="-">Add Rating</option>
-                                                  <option value="0">0/10 Run away</option>
-                                                  <option value="1">1/10 Stay away</option>
-                                                  <option value="2">2/10 Just bad</option>
-                                                  <option value="3">3/10 Don't go</option>
-                                                  <option value="4">4/10 Meh</option>
-                                                  <option value="5">5/10 Average</option>
-                                                  <option value="6">6/10 Solid</option>
-                                                  <option value="7">7/10 Go here</option>
-                                                  <option value="8">8/10 Really good</option>
-                                                  <option value="9">9/10 Must go</option>
-                                                  <option value="10">10/10 The best</option>
-                                                </select>
-                                              </div>
-                                              { /** END Rating **/ }
-
-                                              {/* Tags list **/ }
-                                              
-                                               { 
-                                                Object.keys(tip.tags || {}).map(function (tagName) {
-                                                  return (
-                                                    <div key={tagName} className="tip-tag fill--light-gray flx flx-row flx-align-center">
-                                                      <div className="opa-50">{tagName}</div>
-                                                      <Link className="flx-item-right flx flx-center-all" onClick={onRemoveTag(this.props.authenticated, tip, itinerary.id, itinerary.geo.placeId, tagName)}>
-                                                        <i className="material-icons color--black mrgn-left-xs md-16">close</i>
-                                                      </Link>
-                                                    </div>
-                                                  )
-                                                }, this)}
-
-                                                  <div className="tag-input-wrapper">
-                                                    <AddTagInput tip={tip} itineraryId={itinerary.id} placeId={itinerary.geo.placeId} />
-                                                  </div>
-
-
-
-
-                                              
-                                            {/* END Tags list **/ }
-                                            </div>
-                                          {/* END tags wrapper **/ }
-
-
-                                           
-
-                                          </div>
 
                                           { /** Author **/ }
                                           <Link
@@ -912,21 +854,73 @@ class ItineraryForm extends React.Component {
                                           </Link>
                                           { /** END Author **/ }
 
+                                          
+
+
                                           { /** Caption **/ }
                                           <div className="tip__caption-module flx flx-row w-100 pdding-bottom-sm">
                                             <div className="tip__author-photo flx-hold mrgn-right-sm">
                                               <ProfilePic src={tip.createdBy.image} className="user-image user-image-sm center-img" />
-                                            </div> 
-                                            <div className="tip__caption v2-type-body2 font--beta  ta-left opa-70">
-                                              <RenderDebounceInput
-                                                type="textarea"
-                                                className="w-100 show-border"
-                                                cols="20"
-                                                wrap="hard"
-                                                value={tip.review.caption}
-                                                placeholder="Add notes here"
-                                                debounceFunction={this.changeCaption(tip)} />
                                             </div>
+                                            <div className="flx flx-col flx-align-start w-100">
+                                                {/* Tags Wrapper **/ }
+                                                <div className="flx flx-row flx-align-center flx-wrap pdding-bottom-xs">
+
+                                                  { /** Rating **/ }
+                                                  <div className={'tip__rating-module flx flx-row flx-align-center flx-hold w-100 tip__rating-module--' + tip.review.rating}>
+                                                    <select className="color--black" value={tip.review.rating} onChange={this.changeRating(tip)}>
+                                                      <option value="-">Add Rating</option>
+                                                      <option value="0">0/10 Run away</option>
+                                                      <option value="1">1/10 Stay away</option>
+                                                      <option value="2">2/10 Just bad</option>
+                                                      <option value="3">3/10 Don't go</option>
+                                                      <option value="4">4/10 Meh</option>
+                                                      <option value="5">5/10 Average</option>
+                                                      <option value="6">6/10 Solid</option>
+                                                      <option value="7">7/10 Go here</option>
+                                                      <option value="8">8/10 Really good</option>
+                                                      <option value="9">9/10 Must go</option>
+                                                      <option value="10">10/10 The best</option>
+                                                    </select>
+                                                  </div>
+                                                  { /** END Rating **/ }
+
+                                                  {/* Tags list **/ }
+                                                  
+                                                   { 
+                                                    Object.keys(tip.tags || {}).map(function (tagName) {
+                                                      return (
+                                                        <div key={tagName} className="tip-tag fill--light-gray flx flx-row flx-align-center">
+                                                          <div className="opa-50">{tagName}</div>
+                                                          <Link className="flx-item-right flx flx-center-all" onClick={onRemoveTag(this.props.authenticated, tip, itinerary.id, itinerary.geo.placeId, tagName)}>
+                                                            <i className="material-icons color--black mrgn-left-xs md-16">close</i>
+                                                          </Link>
+                                                        </div>
+                                                      )
+                                                    }, this)}
+
+                                                      <div className="tag-input-wrapper">
+                                                        <AddTagInput tip={tip} itineraryId={itinerary.id} placeId={itinerary.geo.placeId} />
+                                                      </div>
+                                                  
+                                                {/* END Tags list **/ }
+                                                </div>
+                                              {/* END tags wrapper **/ }
+
+                                              <div className="tip__caption v2-type-body2 font--beta  ta-left opa-70">
+                                                <RenderDebounceInput
+                                                  type="textarea"
+                                                  className="w-100 show-border"
+                                                  cols="20"
+                                                  wrap="hard"
+                                                  value={tip.review.caption}
+                                                  placeholder="Add notes here"
+                                                  debounceFunction={this.changeCaption(tip)} />
+                                              </div>
+
+                                            </div>
+
+                                            
                                           </div>
 
                                           { /** Comments **/ }

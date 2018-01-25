@@ -126,40 +126,6 @@ const TipPreview = props => {
 
                   <div className="tip__content-wrapper">
                     <div className="tip__content-inner">
-                      <div className="tip__header-wrapper flx flx-col flx-align-start flx-just-start">
-                       
-
-
-                        {/* Tags Wrapper **/ }
-                        <div className="flx flx-row flx-align-center flx-wrap pdding-top-sm pdding-bottom-xs">
-
-                          { /** Rating **/ }
-                          <div className={'tip__rating-module flx flx-row flx-align-center w-100 flx-hold tip__rating-module--' + tip.review.rating}>
-                            <div className={'tip__rating flx-hold flx flx-row flx-center-all v2-type-rating--' +  tip.review.rating}>
-                              {tip.review.rating}
-                            </div>
-                            <i className="rating-star-icon material-icons color--black opa-40 md-14 DN">star</i>
-                          </div>
-                          { /** END Rating **/ }
-
-                          {/* Tags list **/ }
-                            { 
-                              Object.keys(tip.tags || {}).map(function (tagName) {
-                                return (
-                                  <div className="tip-tag fill--light-gray flx flx-row flx-align-center" key={tagName}>
-                                    <div className="opa-60">
-                                      {tagName}
-                                    </div>
-                                  </div>
-                                )
-                              }, this)}
-
-                        </div>
-                      {/* END Tags Wrapper **/ }
-                       
-                    </div>
-
-
                       { /** Author **/ }
                       <Link
                           to={'/' + tip.createdBy.username}
@@ -181,15 +147,43 @@ const TipPreview = props => {
                         <Link to={'/' + tip.createdBy.username} className="tip__author-photo flx-hold mrgn-right-sm">
                           <ProfilePic src={tip.createdBy.image} className="user-image user-image-sm center-img" />
                         </Link> 
-                        <div className="tip__caption font--beta v2-type-body2 ta-left">
-                          <Link to={'/' + tip.createdBy.username} className="strong">{tip.createdBy.username} </Link>
-                          <CaptionDisplay tip={props.tip} />
-                        </div>
-                        <div className="flx flx-row flx-just-start flx-align-center">
-                          <div className="date-posted inline-block color--black font--alpha">
-                            <DisplayTimestamp timestamp={tip.review.lastModified} />
+                        <div className="flx flx-col flx-align-start">
+                            {/* Tags Wrapper **/ }
+                            <div className="flx flx-row flx-align-center flx-wrap pdding-bottom-xs">
+
+                              { /** Rating **/ }
+                              <div className={'tip__rating-module flx flx-row flx-align-center w-100 flx-hold tip__rating-module--' + tip.review.rating}>
+                                <div className={'tip__rating flx-hold flx flx-row flx-center-all v2-type-rating--' +  tip.review.rating}>
+                                  {tip.review.rating}
+                                </div>
+                                <i className="rating-star-icon material-icons color--black opa-40 md-14 DN">star</i>
+                              </div>
+                              { /** END Rating **/ }
+
+                              {/* Tags list **/ }
+                                { 
+                                  Object.keys(tip.tags || {}).map(function (tagName) {
+                                    return (
+                                      <div className="tip-tag fill--light-gray flx flx-row flx-align-center" key={tagName}>
+                                        <div className="opa-60">
+                                          {tagName}
+                                        </div>
+                                      </div>
+                                    )
+                                  }, this)}
+
+                            </div>
+                            {/* END Tags Wrapper **/ }
+                            <div className="tip__caption font--beta v2-type-body2 ta-left">
+                              <Link to={'/' + tip.createdBy.username} className="strong">{tip.createdBy.username} </Link>
+                              <CaptionDisplay tip={props.tip} />
+                            </div>
+                            <div className="flx flx-row flx-just-start flx-align-center">
+                              <div className="date-posted inline-block color--black font--alpha">
+                                <DisplayTimestamp timestamp={tip.review.lastModified} />
+                              </div>
+                            </div>
                           </div>
-                        </div>
                       </div>
 
                       { /** Comments **/ }
