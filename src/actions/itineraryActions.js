@@ -793,6 +793,15 @@ export function completeTutorial(auth) {
   }
 }
 
+export function closeSubscribeTooltip(auth) {
+  return dispatch => {
+    Firebase.database().ref(Constants.USERS_PATH + '/' + auth + '/flags').update({ hideSubscribeTip: true });
+    dispatch({
+      type: ActionTypes.TUTORIAL_COMPLETED
+    })
+  }
+}
+
 export function onAddTag(auth, tip, itineraryId, placeId, tag) {
   return dispatch => {
     let updates = {};

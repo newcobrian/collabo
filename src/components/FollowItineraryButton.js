@@ -25,6 +25,9 @@ class FollowItineraryButton extends React.Component {
 
     const handleClick = ev => {
       ev.preventDefault();
+      if (!this.props.hideSubscribeTip) {
+        this.props.closeSubscribeTooltip(this.props.authenticated)
+      }
       if (this.props.isFollowingItinerary) {
         this.props.unfollowItinerary(this.props.authenticated, this.props.itinerary.id);
       } else {

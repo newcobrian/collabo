@@ -206,6 +206,13 @@ class Itinerary extends React.Component {
         this.props.showFilterModal(itinerary, this.props.visibleTags, this.props.showAllFilters);
       }
 
+      const onSubscribeTooltipOkay = ev => {
+        ev.preventDefault();
+        if (!this.props.userInfo.flags || !this.props.userInfo.flags.hideSubscribeTip) {
+          this.props.closeSubscribeTooltip(this.props.authenticated)
+        }
+      }
+
       const getVisibleTips = (tips, visibleTags) => {
       if (this.props.showAllFilters) {
         return tips;
@@ -440,13 +447,14 @@ class Itinerary extends React.Component {
                         canModify={canModify}
                         itinerary={itinerary}
                         isFollowingItinerary={this.props.isFollowingItinerary}
+                        hideSubscribeTip={this.props.userInfo.flags && this.props.userInfo.flags.hideSubscribeTip}
                         />
-                        {!this.props.userInfo.tutorialCompleted && 
+                        {(!this.props.userInfo.flags || !this.props.userInfo.flags.hideSubscribeTip) && 
                           <div className="help-- arrow-up help--subscribe flx flx-row flx-align-start color--white bx-shadow">
                             <i className="material-icons color--white md-24 mrgn-left-xs DN">arrow_upward</i>
                             <div className="flx flx-col flx-just-start color--black">
                               <div className="v2-type-body2 ta-left">Subscribe to guides you care about. We'll let you know whenever they get updated with new tips.</div>
-                              <Link className="vb vb--xs vb--outline--none fill--none hover--white10 flx-item-right">Okay</Link>
+                              <Link className="vb vb--xs vb--outline--none fill--none hover--white10 flx-item-right" onClick={onSubscribeTooltipOkay}>Okay</Link>
                             </div>
                           </div>
                         }

@@ -206,7 +206,7 @@ class ItineraryForm extends React.Component {
         </Map>
         );
     }
-    
+
     const itinerary = this.props.data;
     const visibleTips = this.props.visibleTips;
     const shortName = itinerary && itinerary.geo && itinerary.geo.shortName ? itinerary.geo.shortName : itinerary.geo.label;
@@ -261,7 +261,7 @@ class ItineraryForm extends React.Component {
         resultObject.address = result.gmaps.formatted_address;
       }
 
-      if (!this.props.userInfo.tutorialCompleted) {
+      if (!this.props.userInfo.flags || !this.props.userInfo.flags.tutorialCompleted) {
         this.props.completeTutorial(this.props.authenticated);
       }
 
@@ -456,7 +456,7 @@ class ItineraryForm extends React.Component {
                 placeholder={'Search for any place in ' + itinerary.geo.label}
                 onSuggestSelect={suggestSelectTip(this)}/>
 
-              {!this.props.userInfo.tutorialCompleted && 
+              {(!this.props.userInfo.flags || !this.props.userInfo.flags.tutorialCompleted) && 
                 <div className="help-- arrow-up help--add-tip flx flx-row flx-center-all color--white bx-shadow">
                   <i className="material-icons color--white md-24 mrgn-left-xs DN">arrow_upward</i>
                   <div className="v2-type-body2">Start adding to your travel guide by searching here and selecting a place from the dropdown</div>
