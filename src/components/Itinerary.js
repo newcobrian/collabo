@@ -409,14 +409,14 @@ class Itinerary extends React.Component {
                 
 
                   {/** DESCRIPTION **/}
-                  <div className="itinerary__cover__descrip v2-type-body2 font--beta ta-left mrgn-top-xs mrgn-bottom-xs opa-80 invert w-100">
+                  <div className="itinerary__cover__descrip v2-type-body2 font--beta ta-left mrgn-top-xs mrgn-bottom-sm opa-60 invert w-100">
                      {itinerary.description}
                   </div>
 
                 
                  
 
-                  <div className="it-actions-row w-100 flx flx-row flx-align-center flx-just-start ta-left opa-40">
+                  <div className="it-actions-row w-100 flx flx-row flx-align-center flx-just-start ta-left opa-40 mrgn-bottom-sm">
                     {/** TIMESTAMP **/}
                     <div className="itinerary__cover__timestamp v2-type-caption ta-left invert color--black">
                       Updated &nbsp;
@@ -434,27 +434,27 @@ class Itinerary extends React.Component {
 
 
                   <div className="flx flx-row flx-just-start flx-align-center w-100 mrgn-top-sm">
-                    <FollowItineraryButton
-                      authenticated={this.props.authenticated}
-                      canModify={canModify}
-                      itinerary={itinerary}
-                      isFollowingItinerary={this.props.isFollowingItinerary}
-                      />
+                    <div className="tooltip-wrapper">
+                      <FollowItineraryButton
+                        authenticated={this.props.authenticated}
+                        canModify={canModify}
+                        itinerary={itinerary}
+                        isFollowingItinerary={this.props.isFollowingItinerary}
+                        />
+                        {!this.props.userInfo.tutorialCompleted && 
+                          <div className="help-- arrow-up help--subscribe flx flx-row flx-align-start color--white bx-shadow">
+                            <i className="material-icons color--white md-24 mrgn-left-xs DN">arrow_upward</i>
+                            <div className="flx flx-col flx-just-start color--black">
+                              <div className="v2-type-body2 ta-left">Subscribe to guides you care about. We'll let you know whenever they get updated with new tips.</div>
+                              <Link className="vb vb--xs vb--outline--none fill--none hover--white10 flx-item-right">Okay</Link>
+                            </div>
+                          </div>
+                        }
+                      </div>
+
                       <div className="color--black v2-type-caption mrgn-left-sm invert">{this.props.numGuideFollows} subscribers</div>
                   </div>
 
-                {/** >>>>>> SUBSCRIBE EXPLANATION TOOLTIP**/}
-                  <div className="DN flx flx-col flx-just-start flx-align-start w-100 mrgn-top-xs">
-                    <div className="flx flx-col flx-center-all mrgn-left-md">
-                      <div className="icon-circle fill--primary"></div>
-                      <div className="vertical-line fill--black"></div>
-                    </div>
-
-                      <div className="DN user-note fill--light-gray bx-shadow color--black v2-type-caption pdding-all-md ta-left brdr-all">
-                        Subscribe to guides you care about. We'll let you know whenever they get updated with new tips.
-                      </div>
-                  </div>
-                  {/** >>>>>> END SUBSCRIBE EXPLANATION TOOLTIP**/}
 
                   
 

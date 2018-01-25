@@ -342,8 +342,8 @@ width: 32px;
 }
 .comment-input-wrapper .default-profile-wrapper,
 .comment-input-wrapper .user-photo-wrapper {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   margin-right: 10px;
 }
 .itinerary__cover__author-photo .default-profile-wrapper,
@@ -1476,11 +1476,31 @@ padding: 20px;
 .people-list {
   margin-top: 45px;
 }
-.help--add-tip {
+.help-- {
   position: absolute;
   top: 60px;
-  left: 10px;
+  left: 0px;
   width: 300px;
   padding: 20px 18px;
-  border-radius: 7px;
+  border-radius: 3px;
   z-index: 2;
+  background-color: rgba(18,20,25,.9);
+  background-color: rgba(3,255,191,.95);
+}
+.help--.arrow-up:after {
+  content: '';
+  display: block;  
+  position: absolute;
+  left: 19px;
+  bottom: 100%;
+  width: 0;
+  height: 0;
+  border-bottom: 10px solid rgba(18,20,25,.9);
+  border-bottom: 10px solid rgba(3,255,191,.95);
+  border-top: 10px solid transparent;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+}
+.help--.help--subscribe {
+  top: 50px;
+}

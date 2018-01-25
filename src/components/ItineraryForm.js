@@ -420,41 +420,49 @@ class ItineraryForm extends React.Component {
         let latLng = new this.props.googleObject.maps.LatLng(geo.location.lat, geo.location.lng);
         
         return (
-          <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--transparent">
-            <i className="it-add-search-icon material-icons color--black opa-70 md-24">search</i>
-            
-            <Geosuggest 
-              ref={el=>this._geoSuggest=el}
-              className="input--underline w-100 color--black bx-shadow"
-              placeholder={'Search to add a place'}
-              location={latLng}
-              radius={1000}
-              onSuggestSelect={suggestSelectTip(this)}/>
-              {(!this.props.userInfo.flags || !this.props.userInfo.flags.tutorialCompleted) && 
-                <div className="help--add-tip flx flx-row flx-center-all fill--black color--white opa-90 bx-shadow">
-                  <i className="material-icons color--white md-24 mrgn-left-xs">arrow_upward</i>
-                  <div className="v2-type-body2 mrgn-left-md">Start adding to your guide by searching here and selecting a place from the dropdown</div>
-                </div>
-              }
-          </div>
+
+          
+
+          
+            <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--transparent">
+              <div className="tooltip-wrapper w-100">
+                <i className="it-add-search-icon material-icons color--black opa-70 md-24">search</i>
+                <Geosuggest 
+                  ref={el=>this._geoSuggest=el}
+                  className="input--underline w-100 color--black bx-shadow"
+                  placeholder={'Search to add a place'}
+                  location={latLng}
+                  radius={1000}
+                  onSuggestSelect={suggestSelectTip(this)}/>
+                  {(!this.props.userInfo.flags || !this.props.userInfo.flags.tutorialCompleted) && 
+                    <div className="help-- arrow-up help--add-tip flx flx-row flx-center-all color-- bx-shadow">
+                      <i className="material-icons color--white md-24 mrgn-left-xs DN">arrow_upward</i>
+                      <div className="v2-type-body2">Start adding to your guide by searching here and selecting a place from the dropdown</div>
+                    </div>
+                  }
+                 </div>
+            </div>
+         
         )
       }
       else return (
-        <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--primary color--white">
-          <i className="material-icons color--white md-36 mrgn-right-md">add</i>
-         
-          <Geosuggest
-            ref={el=>this._geoSuggest=el}
-            className="input--underline w-100 color--white"
-            placeholder={'Search for any place in ' + itinerary.geo.label}
-            onSuggestSelect={suggestSelectTip(this)}/>
+        
+          <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--primary color--white">
+            <div className="tooltip-wrapper w-100">
+              <i className="material-icons color--white md-36 mrgn-right-md">add</i>
+              <Geosuggest
+                ref={el=>this._geoSuggest=el}
+                className="input--underline w-100 color--white"
+                placeholder={'Search for any place in ' + itinerary.geo.label}
+                onSuggestSelect={suggestSelectTip(this)}/>
 
-          {!this.props.userInfo.tutorialCompleted && 
-            <div className="help--add-tip flx flx-row flx-center-all fill--black color--white opa-90 bx-shadow">
-              <i className="material-icons color--white md-24 mrgn-left-xs">arrow_upward</i>
-              <div className="v2-type-body2 mrgn-left-md">Start adding to your guide by searching here and selecting a place from the dropdown</div>
+              {!this.props.userInfo.tutorialCompleted && 
+                <div className="help-- arrow-up help--add-tip flx flx-row flx-center-all color--white bx-shadow">
+                  <i className="material-icons color--white md-24 mrgn-left-xs DN">arrow_upward</i>
+                  <div className="v2-type-body2">Start adding to your travel guide by searching here and selecting a place from the dropdown</div>
+                </div>
+              }
             </div>
-          }
         </div>
       )
     }

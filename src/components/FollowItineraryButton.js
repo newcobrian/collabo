@@ -20,7 +20,7 @@ class FollowItineraryButton extends React.Component {
     if (this.props.isFollowingItinerary) {
       classes += ' vb--following vb--outline color--gray';
     } else {
-      classes += ' color--white fill--black';
+      classes += ' vb--outline fill--white color--black';
     }
 
     const handleClick = ev => {
@@ -36,8 +36,8 @@ class FollowItineraryButton extends React.Component {
       <button
         className={classes}
         onClick={handleClick}>
-        <i className="material-icons mrgn-right-sm color--primary">add</i>
-        {this.props.isFollowingItinerary ? 'Subscribed' : 'Subscribe to this guide'} {/*props.user.username*/}
+        <i className="material-icons mrgn-right-sm flx-item-left color--primary">add</i>
+        <div className="flx-item-left mrgn-left-sm">{this.props.isFollowingItinerary ? 'Subscribed' : 'Subscribe to this guide'} {/*props.user.username*/}</div>
       </button>
     );
   }

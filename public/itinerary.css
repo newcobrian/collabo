@@ -55,7 +55,7 @@
 .guide-title {
 	max-width: 800px;
     font-weight: 700;
-    font-size: 24px;
+    font-size: 28px;
     letter-spacing: 0px;
     line-height: 32px;
     width: 100%;
@@ -203,6 +203,10 @@
 	left: 0;
 	top: 70px !important;
 }
+.tooltip-wrapper {
+	position: relative;
+	overflow: visible;
+}
 
 
 .page-itinerary .itinerary__cover__text {
@@ -210,6 +214,7 @@
 }
 .page-itinerary.page-edit-own .itinerary__cover__text {
 	padding: 0px;
+	overflow: visible;
 }
 .it__author-wrapper {
 	margin:  0;
@@ -364,8 +369,8 @@ textarea.edit-itinerary__name {
  	border-radius: 50px;
     position: absolute;
     pointer-events: none;
-    left: 24px;
-    top: 18px;
+    left: 14px;
+    top: 8px;
 
 }
 .it-add-wrapper .geosuggest {
