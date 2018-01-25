@@ -33,7 +33,7 @@ import AddTagInput from './AddTagInput';
 import { filter } from 'lodash'
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import Sticky from 'react-sticky-el';
-
+import LoadingSpinner from './LoadingSpinner';
 
 const {
   FacebookShareButton,
@@ -211,12 +211,18 @@ class ItineraryForm extends React.Component {
   }
 
   render() {
-    if (!this.props.googleObject) {
+    // if (!this.props.googleObject) {
+    //   return (
+    //     <Map google={window.google}
+    //       onReady={this.initMap}
+    //       visible={false} >
+    //     </Map>
+    //     );
+    // }
+
+    if (!this.props.google || !this.props.data) {
       return (
-        <Map google={window.google}
-          onReady={this.initMap}
-          visible={false} >
-        </Map>
+         <LoadingSpinner message="Loading guide" />
         );
     }
 
@@ -1101,8 +1107,8 @@ class ItineraryForm extends React.Component {
   }
 }
 
-// export default connect(mapStateToProps, Actions)(ItineraryForm);
+export default connect(mapStateToProps, Actions)(ItineraryForm);
 
-export default GoogleApiWrapper({
-  apiKey: Constants.GOOGLE_API_KEY
-}) (connect(mapStateToProps, Actions)(ItineraryForm));
+// export default GoogleApiWrapper({
+//   apiKey: Constants.GOOGLE_API_KEY
+// }) (connect(mapStateToProps, Actions)(ItineraryForm));

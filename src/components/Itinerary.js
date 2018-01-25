@@ -31,6 +31,7 @@ import { ShareButtons, ShareCounts, generateShareIcon } from 'react-share';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import Geosuggest from 'react-geosuggest';
 import FollowItineraryButton from './FollowItineraryButton'
+import { GoogleApiWrapper, Map, Marker } from 'google-maps-react'
 
 const {
   FacebookShareButton,
@@ -100,6 +101,11 @@ class Itinerary extends React.Component {
   constructor() {
     super();
 
+    this.initMap = (mapProps, map) => {
+      const {google} = this.props;
+      this.props.loadGoogleMaps(google, map, ITINERARY_PAGE);
+    }
+
     this.loadItinerary = iid => {
       // if (iid) {
       //   this.props.getItinerary(this.props.authenticated, iid);
@@ -164,6 +170,14 @@ class Itinerary extends React.Component {
   }
 
   render() {
+    if (!this.props.googleObject) {
+      return (
+        <Map google={window.google}
+          onReady={this.initMap}
+          visible={false} >
+        </Map>
+        );
+    }
     if (this.props.itineraryNotFound) {
       return (
         <div className="error-module flx flx-col flx-center-all ta-center v2-type-body3 color--black">
@@ -182,6 +196,7 @@ class Itinerary extends React.Component {
       );
     }
     else {
+      const {google} = this.props;
       const itinerary = this.props.itinerary;
       itinerary.tips = this.props.tips;
       const createdByUsername = Selectors.getCreatedByUsername(this.props.itinerary);
@@ -229,9 +244,78 @@ class Itinerary extends React.Component {
       }
     }
 
-    const getTagFilterCounts = tips => {
+    const suggestSelectTip = geoSuggestRef => result => {
+      let resultObject = {
+        title: result.label,
+        id: result.placeId,
+        location: result.location
+      }
+      if (result.gmaps && result.gmaps.formatted_address) {
+        resultObject.address = result.gmaps.formatted_address;
+      }
 
+      let service = new google.maps.places.PlacesService(this.props.mapObject);
+      // let request = { placeId: result.placeId }
+      // service.getDetails(request, function(place, status) {
+      //   if (status == google.maps.places.PlacesServiceStatus.OK) {
+      //     if (place.name) resultObject.title = place.name;
+      //     if (place.international_phone_number) resultObject.internationalPhoneNumber = place.international_phone_number;
+      //     if (place.formatted_phone_number) resultObject.formattedPhoneNumber = place.formatted_phone_number;
+      //     if (place.opening_hours) {
+      //       resultObject.hours = {};
+      //       if (place.opening_hours.periods) resultObject.hours.periods = place.opening_hours.periods;
+      //       if (place.opening_hours.weekday_text) resultObject.hours.weekdayText = place.opening_hours.weekday_text;
+      //     }
+      //     if (place.permanently_closed) resultObject.permanently_closed = true;
+      //     if (place.website) resultObject.website = place.website;
+      //     if (place.photos && place.photos[0]) {
+      //       resultObject.defaultImage = [ place.photos[0].getUrl({'maxWidth': 1225, 'maxHeight': 500}) ];
+      //     }
+      //     if (place.url) resultObject.googleMapsURL = place.url;
+      //     addTipFunc(auth, resultObject, itinerary)
+      //     geoSuggestRef._geoSuggest.clear()
+      //   }
+      //   else {
+      //     addTipFunc(auth, resultObject, itinerary)
+      //     geoSuggestRef._geoSuggest.clear()
+      //   }
+      // })
+      // // setTimeout(function() {
+      //   scrollToElement('#guidecommentcontainer', { offset: -170 });
+      // // }, 500);
     }
+
+    const renderGeoSuggestTip = geo => {
+      if (geo.location) {
+        let latLng = new this.props.googleObject.maps.LatLng(geo.location.lat, geo.location.lng);
+        
+        return (
+          <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--transparent">
+            <i className="it-add-search-icon material-icons color--black opa-70 md-24">search</i>
+            
+            <Geosuggest 
+              ref={el=>this._geoSuggest=el}
+              className="input--underline w-100 color--black bx-shadow"
+              placeholder={'Search to add a place'}
+              location={latLng}
+              radius={1000}
+              onSuggestSelect={suggestSelectTip(this)}/>
+          </div>
+        )
+      }
+      else return (
+        <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--primary color--white">
+          <i className="material-icons color--white md-36 mrgn-right-md">add</i>
+         
+          <Geosuggest
+            ref={el=>this._geoSuggest=el}
+            className="input--underline w-100 color--white"
+            placeholder={'Search for any place in ' + itinerary.geo.label}
+            onSuggestSelect={suggestSelectTip(this)}/>
+        </div>
+      )
+    }
+
     // console.log('visible tags = ' + JSON.stringify(this.props.visibleTags))
     // console.log('show allfilter = ' + JSON.stringify(this.props.showAllFilters))
     const visibleTips = getVisibleTips(itinerary.tips, this.props.visibleTags);
@@ -244,7 +328,9 @@ class Itinerary extends React.Component {
           <ItineraryForm 
             initialValues={itinerary} 
             visibleTips={visibleTips} 
-            numTotalTips={numTotalTips} />
+            numTotalTips={numTotalTips}
+            google={google}
+             />
           )
       }
       else {
@@ -511,13 +597,13 @@ class Itinerary extends React.Component {
 
               <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
 
-                  <div className="it-add-container flx flx-row flx-align-center fill--none disable DN">
+                  <div className="it-add-container flx flx-row flx-align-center fill--none disable">
                     <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--transparent">
                       <i className="it-add-search-icon material-icons color--black opa-70 md-24">search</i>
 
                       <Geosuggest 
                         ref={el=>this._geoSuggest=el}
-                        className="input--underline w-100 color--black bx-shadow"
+                        className="input--underline w-100 color--black bx-shadow DN"
                         placeholder={'Add a recommendation'}
                         radius={1000}
                         />
@@ -596,7 +682,7 @@ class Itinerary extends React.Component {
             </div> {/*Content Wrapper*/}
             
             <div className="it-map-container fill--primary">
-              <MapContainer itinerary={itinerary} visibleTips={visibleTips} google={this.props.google} />
+              <MapContainer itinerary={itinerary} visibleTips={visibleTips} google={google} />
             </div>
 
         
@@ -622,4 +708,8 @@ class Itinerary extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, Actions)(Itinerary);
+export default GoogleApiWrapper({
+  apiKey: Constants.GOOGLE_API_KEY
+}) (connect(mapStateToProps, Actions)(Itinerary));
+
+// export default connect(mapStateToProps, Actions)(Itinerary);
