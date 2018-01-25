@@ -6,7 +6,7 @@ import { filter, isEqual, find, omit, countBy } from 'lodash';
 
 const initialState = { usersData: {}, reviewsData: {}, subjectsData: {}, itinerary: {}, commentsData: {}, 
   userImagesData: {}, defaultImagesData: {}, likesData: {}, tips: [], formErrors: { title: false, geo: false },
-  visibleTags: {}, showAllFilters: true };
+  visibleTags: {}, showAllFilters: true, showShareGuide: false };
 
 const getImage = (userImages, defaultImages) => {
   let defaultImage = defaultImages ? defaultImages : [];
@@ -509,6 +509,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isFollowingItinerary: null
+      }
+    case ActionTypes.SHOW_SHARE_GUIDE_TOOLTIP:
+      return {
+        ...state,
+        showShareGuide: true
+      }
+    case ActionTypes.CLOSE_SHARE_GUIDE_TOOLTIP:
+      return {
+        ...state,
+        closeShareGuide: false
       }
     default:
       return state;

@@ -83,7 +83,20 @@ const UpdateCoverPhoto = props => {
   );
 }
 
-
+const ShareGuideTooltip = props => {
+  if (props.showShareGuide) {
+    return (
+       <div className="help-- arrow-up help--subscribe flx flx-row flx-align-start color--white bx-shadow">
+        <i className="material-icons color--white md-24 mrgn-left-xs DN">arrow_upward</i>
+        <div className="flx flx-col flx-just-start color--black">
+          <div className="v2-type-body2 ta-left">Subscribe to guides you care about. We'll let you know whenever they get updated with new tips.</div>
+          <Link className="vb vb--xs vb--outline--none fill--none hover--white10 flx-item-right" onClick={props.closeTooltip}>Close</Link>
+        </div>
+      </div>
+    )
+  }
+  else return null
+}
 
 const mapStateToProps = state => ({
   ...state.itinerary,
@@ -231,7 +244,7 @@ class ItineraryForm extends React.Component {
     const createdByUsername = Selectors.getCreatedByUsername(itinerary);
     const createdByImage = Selectors.getCreatedByUserImage(itinerary);
 
-    const handleSaveClick = tip => ev => {
+    const handleAddToGuideClick = tip => ev => {
       ev.preventDefault();
       this.props.showModal(Constants.SAVE_MODAL, tip, tip.images);
     }
@@ -505,6 +518,11 @@ class ItineraryForm extends React.Component {
     const openFilter = ev => {
       ev.preventDefault()
       this.props.showFilterModal(itinerary, this.props.visibleTags, this.props.showAllFilters);
+    }
+
+    const onSaveButtonClick = ev => {
+      ev.preventDefault()
+      this.props.onSaveGuideClick();
     }
 
     return (
@@ -950,7 +968,7 @@ class ItineraryForm extends React.Component {
                                         {/* Action Module */}
                                         <div className="tip__cta-box w-100 flx flx-row flx-just-start flx-align-center mrgn-top-md">
 
-                                          <Link onClick={handleSaveClick(tip)} className="w-40 hide-in-list vb vb--tip vb--outlin--none flx flx-row flx-align-center brdr-top brdr-right color--black fill--white">
+                                          <Link onClick={handleAddToGuideClick(tip)} className="w-40 hide-in-list vb vb--tip vb--outlin--none flx flx-row flx-align-center brdr-top brdr-right color--black fill--white">
                                               <i className="material-icons color--primary mrgn-right-sm md-24">playlist_add</i>
                                               <div className="color--black">Add to...</div>
                                           </Link>
@@ -1030,13 +1048,12 @@ class ItineraryForm extends React.Component {
                 unLike={this.props.unLikeReview} />
             </div>
 
+            <Link onClick={onSaveButtonClick}>
+              SAVE
+            </Link>
+            <ShareGuideTooltip showShareGuide={this.props.showShareGuide} closeTooltip={this.props.closeShareGuide}/>
+
           </div>
-
-         
-
-
-
-
 
           <div className="it-map-container fill--light-gray">
             <MapContainer itinerary={itinerary} visibleTips={visibleTips} google={this.props.google} />

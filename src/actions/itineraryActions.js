@@ -802,6 +802,28 @@ export function closeSubscribeTooltip(auth) {
   }
 }
 
+export function onSaveGuideClick() {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.SHOW_SHARE_GUIDE_TOOLTIP,
+      meta: {
+        mixpanel: {
+          event: Constants.MIXPANEL_CLICK_EVENT,
+          props: {
+            type: 'Save guide button'
+          },
+        }
+      }
+    })
+  }
+}
+
+export function closeShareGuide() {
+  return disaptch => {
+    type: ActionTypes.CLOSE_SHARE_GUIDE_TOOLTIP
+  }
+}
+
 export function onAddTag(auth, tip, itineraryId, placeId, tag) {
   return dispatch => {
     let updates = {};
