@@ -489,7 +489,7 @@ export function updateItineraryFormErrors(field, value) {
   }
 }
 
-export function onAddTip(auth, result, itinerary) {
+export function onAddTip(auth, result, itinerary, type) {
   return dispatch => {
     let lastModified = Firebase.database.ServerValue.TIMESTAMP;
     // let subject = Helpers.makeSubject(Object.assign({}, result), lastModified);
@@ -553,62 +553,88 @@ export function onAddTip(auth, result, itinerary) {
 
       let reviewsCount = itinerary.reviewsCount ? itinerary.reviewsCount : 0;
       let priority = itinerary.maxPriority ? itinerary.maxPriority + 1 : reviewsCount + 1;
-      let tipObject = Object.assign({}, { subjectId: subjectId }, { reviewId: reviewId }, { userId: auth }, {priority: priority});
+      let tipObject = Object.assign({}, { subjectId: subjectId }, { reviewId: reviewId }, { userId: auth });
+
+      // if this is a tip, do the tip stuff
+      if (type === Constants.REVIEW_TYPE) {
+        Object.assign(tipObject, {priority: priority})
       
-      let tipId = Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itinerary.id).push(tipObject).key;
+        let tipId = Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itinerary.id).push(tipObject).key;
 
-      // update tips by subject
-      updates[`/${Constants.TIPS_BY_SUBJECT_PATH}/${subjectId}/${auth}/${tipId}/`] = Object.assign({}, {itineraryId: itinerary.id}, {title: itinerary.title});
+        // update tips by subject
+        updates[`/${Constants.TIPS_BY_SUBJECT_PATH}/${subjectId}/${auth}/${tipId}/`] = Object.assign({}, {itineraryId: itinerary.id}, {title: itinerary.title});
 
-      // update review counts on the itinerary
-      Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + itinerary.userId + '/' + itinerary.id + '/reviewsCount').transaction(function (current_count) {
-        return (current_count || 0) + 1;
-      });
-      Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itinerary.id + '/reviewsCount').transaction(function (current_count) {
-        return (current_count || 0) + 1;
-      });
-      Firebase.database().ref(Constants.ITINERARIES_BY_GEO_BY_USER_PATH + '/' + itinerary.geo.placeId + '/' + itinerary.userId + '/' + itinerary.id + '/reviewsCount').transaction(function (current_count) {
-        return (current_count || 0) + 1;
-      });
-      Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH + '/' + itinerary.geo.placeId + '/' + itinerary.id + '/reviewsCount').transaction(function (current_count) {
-        return (current_count || 0) + 1;
-      });
+        // update review counts on the itinerary
+        Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + itinerary.userId + '/' + itinerary.id + '/reviewsCount').transaction(function (current_count) {
+          return (current_count || 0) + 1;
+        });
+        Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itinerary.id + '/reviewsCount').transaction(function (current_count) {
+          return (current_count || 0) + 1;
+        });
+        Firebase.database().ref(Constants.ITINERARIES_BY_GEO_BY_USER_PATH + '/' + itinerary.geo.placeId + '/' + itinerary.userId + '/' + itinerary.id + '/reviewsCount').transaction(function (current_count) {
+          return (current_count || 0) + 1;
+        });
+        Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH + '/' + itinerary.geo.placeId + '/' + itinerary.id + '/reviewsCount').transaction(function (current_count) {
+          return (current_count || 0) + 1;
+        });
 
-      Helpers.incrementGuideScore(itinerary.id, Constants.ADD_TIP_GUIDE_SCORE)
+        Helpers.incrementGuideScore(itinerary.id, Constants.ADD_TIP_GUIDE_SCORE)
 
-      // update lastModified on all itineraries
-      updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${itinerary.userId}/${itinerary.id}/lastModified`] = lastModified;
-      updates[`/${Constants.ITINERARIES_PATH}/${itinerary.id}/lastModified`] = lastModified;
-      updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${itinerary.geo.placeId}/${itinerary.userId}/${itinerary.id}/lastModified`] = lastModified;
-      updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itinerary.id}/lastModified`] = lastModified;
+        // update lastModified on all itineraries
+        updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${itinerary.userId}/${itinerary.id}/lastModified`] = lastModified;
+        updates[`/${Constants.ITINERARIES_PATH}/${itinerary.id}/lastModified`] = lastModified;
+        updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${itinerary.geo.placeId}/${itinerary.userId}/${itinerary.id}/lastModified`] = lastModified;
+        updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itinerary.id}/lastModified`] = lastModified;
 
-      // update maxPriority on all itineraries
-      updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${itinerary.userId}/${itinerary.id}/maxPriority`] = priority;
-      updates[`/${Constants.ITINERARIES_PATH}/${itinerary.id}/maxPriority`] = priority;
-      updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${itinerary.geo.placeId}/${itinerary.userId}/${itinerary.id}/maxPriority`] = priority;
-      updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itinerary.id}/maxPriority`] = priority;
+        // update maxPriority on all itineraries
+        updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${itinerary.userId}/${itinerary.id}/maxPriority`] = priority;
+        updates[`/${Constants.ITINERARIES_PATH}/${itinerary.id}/maxPriority`] = priority;
+        updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${itinerary.geo.placeId}/${itinerary.userId}/${itinerary.id}/maxPriority`] = priority;
+        updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itinerary.id}/maxPriority`] = priority;
 
-      let lastUpdate = itinerary.lastModified;
+        let lastUpdate = itinerary.lastModified;
 
-      Firebase.database().ref().update(updates);
-      Helpers.fanOutToFollowersFeed(auth, itinerary.id, lastModified);
-      Helpers.sendItineraryUpdateEmails(auth, itinerary, lastUpdate);
+        Firebase.database().ref().update(updates);
+        Helpers.fanOutToFollowersFeed(auth, itinerary.id, lastModified);
+        Helpers.sendItineraryUpdateEmails(auth, itinerary, lastUpdate);
 
-      dispatch({
-        type: ActionTypes.ITINERARY_UPDATED,
-        itineraryId: itinerary.id,
-        message: 'New item added',
-        meta: {
-          mixpanel: {
-            event: 'new item added to guide',
-            props: {
-              itinerary: itinerary.id,
-              tip: tipId,
-              subject: subjectId
+        dispatch({
+          type: ActionTypes.ITINERARY_UPDATED,
+          itineraryId: itinerary.id,
+          message: 'New item added',
+          meta: {
+            mixpanel: {
+              event: 'new item added to guide',
+              props: {
+                itinerary: itinerary.id,
+                tip: tipId,
+                subject: subjectId
+              }
             }
           }
-        }
-      })
+        })
+      }
+      // otherwise if this is a recommendation, save to recommendation table
+      else {
+        Object.assign(tipObject, {lastModified: lastModified})
+        let recId = Firebase.database().ref(Constants.RECS_BY_ITINERARY_PATH + '/' + itinerary.id).push(tipObject).key;
+
+        dispatch({
+          type: ActionTypes.RECOMMENDATION_ADDED,
+          itineraryId: itinerary.id,
+          message: 'New item added',
+          meta: {
+            mixpanel: {
+              event: 'recommendation added to guide',
+              props: {
+                itinerary: itinerary.id,
+                rec: recId,
+                subject: subjectId
+              }
+            }
+          }
+        })
+      }
     })
   }
 }

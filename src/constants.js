@@ -72,6 +72,7 @@ export const GEOS_PATH = '/geos'
 export const COUNTRIES_PATH = '/countries'
 export const USERS_FEED_PATH = '/users-feed'
 export const RECOMMENDATIONS_PATH = '/recommendations'
+export const RECS_BY_ITINERARY_PATH = '/recs-by-itinerary'
 export const FOLLOWED_ITINERARIES_PATH = '/followed-itineraries'
 export const FOLLOWED_ITINERARIES_BY_USER_PATH = '/followed-itineraries-by-user'
 
@@ -98,6 +99,7 @@ export const FOLLOW_ITINERARY_MESSAGE = 'FOLLOW_ITINERARY_MESSAGE'
 
 export const ITINERARY_TYPE = 'itinerary'
 export const REVIEW_TYPE = 'review'
+export const RECOMMENDATION_TYPE = 'recommendation'
 
 export const SUBJECTS_DATA = 'subjectsData'
 export const REVIEWS_DATA = 'reviewsData'

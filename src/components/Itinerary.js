@@ -201,6 +201,8 @@ class Itinerary extends React.Component {
       itinerary.tips = this.props.tips;
       const createdByUsername = Selectors.getCreatedByUsername(this.props.itinerary);
       const createdByImage = Selectors.getCreatedByUserImage(this.props.itinerary);
+      const addTipFunc = this.props.onAddTip;
+      const auth = this.props.authenticated;
 
       const onCopyClick = () => {
         this.props.openSnackbar('Share link copied to clipboard');
@@ -255,37 +257,37 @@ class Itinerary extends React.Component {
       }
 
       let service = new google.maps.places.PlacesService(this.props.mapObject);
-      // let request = { placeId: result.placeId }
-      // service.getDetails(request, function(place, status) {
-      //   if (status == google.maps.places.PlacesServiceStatus.OK) {
-      //     if (place.name) resultObject.title = place.name;
-      //     if (place.international_phone_number) resultObject.internationalPhoneNumber = place.international_phone_number;
-      //     if (place.formatted_phone_number) resultObject.formattedPhoneNumber = place.formatted_phone_number;
-      //     if (place.opening_hours) {
-      //       resultObject.hours = {};
-      //       if (place.opening_hours.periods) resultObject.hours.periods = place.opening_hours.periods;
-      //       if (place.opening_hours.weekday_text) resultObject.hours.weekdayText = place.opening_hours.weekday_text;
-      //     }
-      //     if (place.permanently_closed) resultObject.permanently_closed = true;
-      //     if (place.website) resultObject.website = place.website;
-      //     if (place.photos && place.photos[0]) {
-      //       resultObject.defaultImage = [ place.photos[0].getUrl({'maxWidth': 1225, 'maxHeight': 500}) ];
-      //     }
-      //     if (place.url) resultObject.googleMapsURL = place.url;
-      //     addTipFunc(auth, resultObject, itinerary)
-      //     geoSuggestRef._geoSuggest.clear()
-      //   }
-      //   else {
-      //     addTipFunc(auth, resultObject, itinerary)
-      //     geoSuggestRef._geoSuggest.clear()
-      //   }
-      // })
-      // // setTimeout(function() {
-      //   scrollToElement('#guidecommentcontainer', { offset: -170 });
-      // // }, 500);
+      let request = { placeId: result.placeId }
+      service.getDetails(request, function(place, status) {
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+          if (place.name) resultObject.title = place.name;
+          if (place.international_phone_number) resultObject.internationalPhoneNumber = place.international_phone_number;
+          if (place.formatted_phone_number) resultObject.formattedPhoneNumber = place.formatted_phone_number;
+          if (place.opening_hours) {
+            resultObject.hours = {};
+            if (place.opening_hours.periods) resultObject.hours.periods = place.opening_hours.periods;
+            if (place.opening_hours.weekday_text) resultObject.hours.weekdayText = place.opening_hours.weekday_text;
+          }
+          if (place.permanently_closed) resultObject.permanently_closed = true;
+          if (place.website) resultObject.website = place.website;
+          if (place.photos && place.photos[0]) {
+            resultObject.defaultImage = [ place.photos[0].getUrl({'maxWidth': 1225, 'maxHeight': 500}) ];
+          }
+          if (place.url) resultObject.googleMapsURL = place.url;
+          addTipFunc(auth, resultObject, itinerary, Constants.RECOMMENDATION_TYPE)
+          geoSuggestRef._geoSuggest.clear()
+        }
+        else {
+          addTipFunc(auth, resultObject, itinerary, Constants.RECOMMENDATION_TYPE)
+          geoSuggestRef._geoSuggest.clear()
+        }
+      })
+      // setTimeout(function() {
+        scrollToElement('#guidecommentcontainer', { offset: -170 });
+      // }, 500);
     }
 
-    const renderGeoSuggestTip = geo => {
+    const renderGeoSuggestRec = geo => {
       if (geo.location) {
         let latLng = new this.props.googleObject.maps.LatLng(geo.location.lat, geo.location.lng);
         
@@ -296,7 +298,7 @@ class Itinerary extends React.Component {
             <Geosuggest 
               ref={el=>this._geoSuggest=el}
               className="input--underline w-100 color--black bx-shadow"
-              placeholder={'Search to add a place'}
+              placeholder={'Add a recommendation'}
               location={latLng}
               radius={1000}
               onSuggestSelect={suggestSelectTip(this)}/>
@@ -310,7 +312,7 @@ class Itinerary extends React.Component {
           <Geosuggest
             ref={el=>this._geoSuggest=el}
             className="input--underline w-100 color--white"
-            placeholder={'Search for any place in ' + itinerary.geo.label}
+            placeholder={'Add a recommendation'}
             onSuggestSelect={suggestSelectTip(this)}/>
         </div>
       )
@@ -597,57 +599,47 @@ class Itinerary extends React.Component {
 
               <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
 
-                  <div className="it-add-container flx flx-row flx-align-center fill--none disable">
-                    <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--transparent">
-                      <i className="it-add-search-icon material-icons color--black opa-70 md-24">search</i>
+                {/*renderGeoSuggestRec(itinerary.geo)*/}
 
-                      <Geosuggest 
-                        ref={el=>this._geoSuggest=el}
-                        className="input--underline w-100 color--black bx-shadow DN"
-                        placeholder={'Add a recommendation'}
-                        radius={1000}
-                        />
+                <div className="flx flx-row w-100 flx-align-center flx-just-space-between pdding-left-xs pdding-right-xs pdding-top-xs">
+                  
+                  <div className="pdding-all-sm fill--none v2-type-body1 color--black mrgn-right-xs">{/*itinerary.reviewsCount ? itinerary.reviewsCount : 0*/}
+                  {visibleTips.length}/{numTotalTips} Items</div>
+                  
+                  <Link className="vb vb--xs flx flx-row fill--none flx-center-all ta-center" onClick={openFilter}>
+                    <i className="material-icons color--black opa-80 mrgn-right-sm md-18">filter_list</i>
+                    <div className="color--black">Filter{/*numVisibleTags}/{numTotalTips*/} {/*Showing 4/10 Categories */}</div>
+                  </Link>
 
-                    </div>
 
+                </div>
+                <TipList
+                  tipList={visibleTips}
+                  reviewsCount={itinerary.reviewsCount}
+                  authenticated={this.props.authenticated}
+                  userInfo={this.props.userInfo}
+                  showModal={this.props.showModal}
+                  deleteComment={this.props.onDeleteComment}
+                  itineraryId={this.props.itinerary.id}
+                  itinerary={itinerary}
+                  canModify={canModify}
+                  selectedMarker={this.props.selectedMarker}
+                  onSelectActiveTip={this.props.onSelectActiveTip}
+
+                  updateRating={this.props.onUpdateRating}
+                  onSetPage={this.onSetPage}
+                  deleteReview={this.props.onDeleteReview} />
+
+                  <div>
+                    Recommendations from friends
                   </div>
 
-
-                  <div className="flx flx-row w-100 flx-align-center flx-just-space-between pdding-left-xs pdding-right-xs pdding-top-xs">
-                    
-                    <div className="pdding-all-sm fill--none v2-type-body1 color--black mrgn-right-xs">{/*itinerary.reviewsCount ? itinerary.reviewsCount : 0*/}
-                    {visibleTips.length}/{numTotalTips} Items</div>
-                    
-                    <Link className="vb vb--xs flx flx-row fill--none flx-center-all ta-center" onClick={openFilter}>
-                      <i className="material-icons color--black opa-80 mrgn-right-sm md-18">filter_list</i>
-                      <div className="color--black">Filter{/*numVisibleTags}/{numTotalTips*/} {/*Showing 4/10 Categories */}</div>
-                    </Link>
-
-
+                  <div className="DN bx-shadow big-share-button cta-wrapper flx flx-col flx-center-all vb vb--sm vb--outline--none fill--primary color--white"
+                    onClick={this.shareGuide} >
+                    <i className="material-icons color--white flip-h md-36 mrgn-bottom-md">reply</i>
+                    <i className="material-icons color--white DN">accessibility</i>
+                    <div className="color--white weight-700 v2-type-h3">Share this Guide</div>
                   </div>
-                  <TipList
-                    tipList={visibleTips}
-                    reviewsCount={itinerary.reviewsCount}
-                    authenticated={this.props.authenticated}
-                    userInfo={this.props.userInfo}
-                    showModal={this.props.showModal}
-                    deleteComment={this.props.onDeleteComment}
-                    itineraryId={this.props.itinerary.id}
-                    itinerary={itinerary}
-                    canModify={canModify}
-                    selectedMarker={this.props.selectedMarker}
-                    onSelectActiveTip={this.props.onSelectActiveTip}
-
-                    updateRating={this.props.onUpdateRating}
-                    onSetPage={this.onSetPage}
-                    deleteReview={this.props.onDeleteReview} />
-
-                    <div className="bx-shadow big-share-button cta-wrapper flx flx-col flx-center-all vb vb--sm vb--outline--none fill--primary color--white"
-                      onClick={this.shareGuide} >
-                      <i className="material-icons color--white flip-h md-36 mrgn-bottom-md">reply</i>
-                      <i className="material-icons color--white DN">accessibility</i>
-                      <div className="color--white weight-700 v2-type-h3">Share this Guide</div>
-                    </div>
 
 
               </div>

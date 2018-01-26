@@ -302,11 +302,11 @@ class ItineraryForm extends React.Component {
             resultObject.defaultImage = [ place.photos[0].getUrl({'maxWidth': 1225, 'maxHeight': 500}) ];
           }
           if (place.url) resultObject.googleMapsURL = place.url;
-          addTipFunc(auth, resultObject, itinerary)
+          addTipFunc(auth, resultObject, itinerary, Constants.REVIEW_TYPE)
           geoSuggestRef._geoSuggest.clear()
         }
         else {
-          addTipFunc(auth, resultObject, itinerary)
+          addTipFunc(auth, resultObject, itinerary, Constants.REVIEW_TYPE)
           geoSuggestRef._geoSuggest.clear()
         }
       })
@@ -439,10 +439,6 @@ class ItineraryForm extends React.Component {
         let latLng = new this.props.googleObject.maps.LatLng(geo.location.lat, geo.location.lng);
         
         return (
-
-          
-
-          
             <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--transparent">
               <div className="tooltip-wrapper w-100">
                 <i className="it-add-search-icon material-icons color--black opa-70 md-24">search</i>
@@ -461,7 +457,6 @@ class ItineraryForm extends React.Component {
                   }
                  </div>
             </div>
-         
         )
       }
       else return (
