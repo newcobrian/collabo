@@ -14,7 +14,8 @@ const CommentContainer = props => {
 		          authenticated={props.authenticated}
 		          userInfo={props.userInfo}
 		          itineraryId={props.itineraryId}
-		          deleteComment={props.deleteComment} />
+		          deleteComment={props.deleteComment}
+		          type={props.type} />
 		          
 		          <div className="comment-input-wrapper mrgn-top-sm">
 		            <ListErrors errors={props.errors}></ListErrors>
@@ -42,7 +43,8 @@ const CommentContainer = props => {
 					authenticated={props.authenticated}
 					userInfo={props.userInfo}
 					itineraryId={props.itineraryId}
-					deleteComment={props.deleteComment} />
+					deleteComment={props.deleteComment}
+					type={props.type} />
 			</div>
 		);
 	}

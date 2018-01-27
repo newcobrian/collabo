@@ -1423,9 +1423,9 @@ export function onCommentSubmit(authenticated, userInfo, type, commentObject, bo
 
     if (userInfo.image) comment.image = userInfo.image;
 
-    let inboxMessageType = ( type === Constants.REVIEW_TYPE ? Constants.COMMENT_ON_REVIEW_MESSAGE : Constants.COMMENT_ON_ITINERARY_MESSAGE );
-    let commentOnCommentType = ( type === Constants.REVIEW_TYPE ? Constants.COMMENT_ON_COMMENT_REVIEW_MESSAGE : Constants.COMMENT_ON_COMMENT_ITINERARY_MESSAGE );
-    let objectId = ( type === Constants.REVIEW_TYPE ? commentObject.key : commentObject.id );
+    let inboxMessageType = ( type === Constants.ITINERARY_TYPE ? Constants.COMMENT_ON_ITINERARY_MESSAGE : Constants.COMMENT_ON_REVIEW_MESSAGE );
+    let commentOnCommentType = ( type === Constants.ITINERARY_TYPE ? Constants.COMMENT_ON_COMMENT_ITINERARY_MESSAGE : Constants.COMMENT_ON_COMMENT_REVIEW_MESSAGE );
+    let objectId = ( type === Constants.ITINERARY_TYPE ? commentObject.id : commentObject.key );
 
     if (objectId) {
       let commentId = Firebase.database().ref(Constants.COMMENTS_PATH + '/' + objectId).push(comment).key;
@@ -1435,7 +1435,12 @@ export function onCommentSubmit(authenticated, userInfo, type, commentObject, bo
           return (current_count || 0) + 1;
         });
       }
-      else {
+      // else if (type === Constants.RECOMMENDATIONS_TYPE) {
+      //   Firebase.database().ref(Constants.RECS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + objectId + '/commentsCount').transaction(function (current_count) {
+      //     return (current_count || 0) + 1;
+      //   });
+      // }
+      else if (type === Constants.ITINERARY_TYPE) {
       // this is a comment on an itinerary
         Helpers.incrementItineraryCount(Constants.COMMENTS_COUNT, objectId, commentObject.geo, commentObject.userId); 
 
@@ -1509,15 +1514,18 @@ export function onCommentSubmit(authenticated, userInfo, type, commentObject, bo
   }
 }
 
-export function onDeleteComment(commentObject, commentId, itineraryId) {
+export function onDeleteComment(commentObject, commentId, itineraryId, type) {
   return dispatch => {
     if (commentObject.subjectId) {
-      // this is a review comment
+      // this is a review or recommendation comment
       Firebase.database().ref(Constants.COMMENTS_PATH + '/' + commentObject.key + '/' + commentId).remove();
       // Helpers.decrementReviewCount(Constants.COMMENTS_COUNT, commentObject.id, commentObject.subjectId, commentObject.createdBy.userId);
-      Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + commentObject.key + '/commentsCount').transaction(function (current_count) {
-        return current_count && current_count > 1 ? current_count - 1 : 0;
-      })
+
+      if (type === Constants.REVIEW_TYPE) {
+        Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + commentObject.key + '/commentsCount').transaction(function (current_count) {
+          return current_count && current_count > 1 ? current_count - 1 : 0;
+        })
+      }
     }
     // else this is an itinerary comment
     else {
@@ -2137,6 +2145,7 @@ export function unloadLikesByUser(auth, userId) {
 // } 
 
 export function likeReview(authenticated, type, likeObject, itineraryId) {
+  console.log('type in likeReview action = ' + type)
   return dispatch => {
     if (!authenticated) {
       dispatch({
@@ -2144,14 +2153,14 @@ export function likeReview(authenticated, type, likeObject, itineraryId) {
       })
     }
 
-    let id = (type === Constants.REVIEW_TYPE ? likeObject.key : likeObject.id);
+    let id = (type === Constants.ITINERARY_TYPE ? likeObject.id : likeObject.key);
     if (id) {
       const updates = {};
       let saveObject = {
         type: type,
         lastModified: Firebase.database.ServerValue.TIMESTAMP
       }
-      if (type === Constants.REVIEW_TYPE) {
+      if (type === Constants.REVIEW_TYPE || type === Constants.RECOMMENDATIONS_TYPE) {
         saveObject.subjectId = likeObject.subjectId;
         saveObject.reviewId = likeObject.reviewId;
         saveObject.tipCreatedByUserId = likeObject.userId;
@@ -2209,7 +2218,8 @@ export function likeReview(authenticated, type, likeObject, itineraryId) {
               mixpanel: {
                 event: 'Liked review',
                 props: {
-                  tipId: id
+                  tipId: id,
+                  itineraryId: itineraryId
                 }
               }
             }
@@ -2221,6 +2231,24 @@ export function likeReview(authenticated, type, likeObject, itineraryId) {
                 event: SEND_INBOX_MESSAGE,
                 props: {
                   type: Constants.LIKE_MESSAGE
+                }
+              }
+            }
+          })
+        }
+        else if (type === Constants.RECOMMENDATIONS_TYPE) {
+          Firebase.database().ref(Constants.RECS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + id + '/likesCount').transaction(function (current_count) {
+            return (current_count || 0) + 1;
+          });
+
+          dispatch({
+            type: ActionTypes.RECOMMENDATION_LIKED,
+            meta: {
+              mixpanel: {
+                event: 'Liked recommendation',
+                props: {
+                  tipId: id,
+                  itineraryId: itineraryId
                 }
               }
             }
@@ -2244,7 +2272,7 @@ export function unLikeReview(authenticated, type, unlikeObject, itineraryId) {
         type: ASK_FOR_AUTH
       })
     }
-    let id = (type === Constants.REVIEW_TYPE ? unlikeObject.key : unlikeObject.id);
+    let id = (type === Constants.ITINERARY_TYPE ? unlikeObject.id : unlikeObject.key);
     const updates = {};
     updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = null;
     updates[`/${Constants.LIKES_BY_USER_PATH}/${authenticated}/${id}`] = null;
@@ -2255,6 +2283,11 @@ export function unLikeReview(authenticated, type, unlikeObject, itineraryId) {
           return (current_count >= 1) ? current_count - 1 : 0;
         });
         Firebase.database().ref(Constants.TIPS_BY_SUBJECT_PATH + '/' + unlikeObject.subjectId + '/' + unlikeObject.userId + '/' + id + '/likesCount').transaction(function (current_count) {
+          return (current_count >= 1) ? current_count - 1 : 0;
+        });
+      }
+      else if (type === Constants.RECOMMENDATIONS_TYPE) {
+        Firebase.database().ref(Constants.RECS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + id + '/likesCount').transaction(function (current_count) {
           return (current_count >= 1) ? current_count - 1 : 0;
         });
       }

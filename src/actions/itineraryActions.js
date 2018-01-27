@@ -23,6 +23,9 @@ export function watchItinerary(auth, itineraryId) {
         // watch itinerary comments
         watchComments(dispatch, itineraryId, Constants.ITINERARY_PAGE);
 
+        // get all recommendations in the itinerary, note dataType is RECOMMENDATIONS_TYPE
+        watchTips(dispatch, itineraryId, itinerarySnapshot.val().userId, Constants.ITINERARY_PAGE, Constants.RECOMMENDATIONS_TYPE);
+
         // dispatch itinerary data
         dispatch(itineraryValueAction(itinerarySnapshot.val(), itineraryId, itinerarySnapshot.val().userId, Constants.ITINERARY_PAGE));
       }
@@ -41,8 +44,9 @@ export function unwatchItinerary(auth, itineraryId) {
     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).once('value', itinerarySnapshot => {
       if (itinerarySnapshot.exists()) {
         unwatchUser(dispatch, itinerarySnapshot.val().userId, Constants.ITINERARY_PAGE);
-        unwatchTips(dispatch, itineraryId, itinerarySnapshot.val().userId, Constants.ITINERARY_PAGE);
-        unwatchComments(dispatch, itineraryId, Constants.ITINERARY_PAGE);
+        unwatchTips(dispatch, itineraryId, itinerarySnapshot.val().userId, Constants.ITINERARY_PAGE, Constants.TIPS_TYPE);
+        watchTips(dispatch, itineraryId, itinerarySnapshot.val().userId, Constants.ITINERARY_PAGE, Constants.RECOMMENDATIONS_TYPE);
+        unwatchComments(dispatch, itineraryId, Constants.ITINERARY_PAGE, );
       }
     })
     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).off();
@@ -244,8 +248,9 @@ export function watchTips(dispatch, itineraryId, itineraryUserId, source, dataTy
   })
 }
 
-export function unwatchTips(dispatch, itineraryId, itineraryUserId, source) {
-  Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).once('value', tipSnapshot => {
+export function unwatchTips(dispatch, itineraryId, itineraryUserId, source, dataType) {
+  let path = (dataType && dataType === Constants.RECOMMENDATIONS_TYPE) ? Constants.RECS_BY_ITINERARY_PATH : Constants.TIPS_BY_ITINERARY_PATH;
+  Firebase.database().ref(path + '/' + itineraryId).once('value', tipSnapshot => {
     if (tipSnapshot.exists() && tipSnapshot.val().userId !== itineraryUserId) {
       unwatchUser(dispatch, tipSnapshot.val().userId, source)
       unwatchSubject(dispatch, tipSnapshot.key, tipSnapshot.val().subjectId, source);
@@ -255,7 +260,7 @@ export function unwatchTips(dispatch, itineraryId, itineraryUserId, source) {
       unwatchDefaultImages(dispatch, tipSnapshot.val().subjectId, source);
     }
   })
-  Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).off();
+  Firebase.database().ref(path + '/' + itineraryId).off();
 }
 
 export function watchSubject(dispatch, priority, subjectId, source, dataType = Constants.TIPS_TYPE) {

@@ -623,6 +623,7 @@ class Itinerary extends React.Component {
                   itineraryId={this.props.itinerary.id}
                   itinerary={itinerary}
                   canModify={canModify}
+                  dataType={Constants.REVIEW_TYPE}
                   selectedMarker={this.props.selectedMarker}
                   onSelectActiveTip={this.props.onSelectActiveTip}
 
@@ -632,6 +633,20 @@ class Itinerary extends React.Component {
 
                   <div className="DN">
                     Recommendations from friends
+
+                  {/* Tip List for recommendations */}
+                    <TipList
+                      tipList={this.props.recommendations}
+                      authenticated={this.props.authenticated}
+                      userInfo={this.props.userInfo}
+                      showModal={this.props.showModal}
+                      deleteComment={this.props.onDeleteComment}
+                      itineraryId={this.props.itinerary.id}
+                      itinerary={itinerary}
+                      dataType={Constants.RECOMMENDATIONS_TYPE}
+                      canModify={false}
+                      selectedMarker={this.props.selectedMarker}
+                      onSelectActiveTip={this.props.onSelectActiveTip} />
                   </div>
 
                   <div className="DN bx-shadow big-share-button cta-wrapper flx flx-col flx-center-all vb vb--sm vb--outline--none fill--primary color--white"

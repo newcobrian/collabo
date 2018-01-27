@@ -48,6 +48,7 @@ const TipList = props => {
               index={index+1}
               selectedMarker={props.selectedMarker}
               onSelectActiveTip={props.onSelectActiveTip}
+              dataType={props.dataType}
             />
           );
         })

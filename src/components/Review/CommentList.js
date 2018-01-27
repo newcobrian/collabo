@@ -14,7 +14,8 @@ const CommentList = props => {
               commentObject={props.commentObject}
               key={comment.id}
               deleteComment={props.deleteComment}
-              itineraryId={props.itineraryId} />
+              itineraryId={props.itineraryId}
+              type={props.type} />
           );
         })
       }

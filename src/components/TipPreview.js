@@ -80,7 +80,7 @@ const TipPreview = props => {
         props.onSelectActiveTip(tip);
       }
     }
-  
+
   return (
     <Element name={'tip' + tip.key} className={"tip-wrapper flx flx-col flx-col w-100 w-max" + isSelectedTip(tip.key)} id={'tip' + tip.key} onClick={onTipClick(tip)}>
         
@@ -195,7 +195,7 @@ const TipPreview = props => {
                             commentObject={tip}
                             itineraryId={props.itineraryId}
                             userInfo={props.userInfo}
-                            type={Constants.REVIEW_TYPE}
+                            type={props.dataType}
                             deleteComment={props.deleteComment} />
                       </div> 
                     </div> 
@@ -216,7 +216,7 @@ const TipPreview = props => {
                         likesCount={props.tip.likesCount}
                         likeObject={tip}
                         itineraryId={props.itineraryId}
-                        type={Constants.REVIEW_TYPE} />
+                        type={props.dataType} />
                     </div>
 
                     <Link onClick={onInfoClick} className="w-33 hide-in-list vb vb--tip vb--outline--none flx flx-row flx-align-center brdr-top">

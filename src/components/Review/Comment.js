@@ -45,7 +45,13 @@ const Comment = props => {
                 <div className="date-posted inline-block font--alpha">
                   <DisplayTimestamp timestamp={comment.lastModified} />
                 </div>
-                <DeleteButton show={show} commentObject={props.commentObject} commentId={comment.id} deleteComment={props.deleteComment} itineraryId={props.itineraryId} />
+                <DeleteButton 
+                  show={show} 
+                  commentObject={props.commentObject} 
+                  commentId={comment.id} 
+                  deleteComment={props.deleteComment} 
+                  itineraryId={props.itineraryId} 
+                  type={props.type} />
               </div>
             </div>
             
