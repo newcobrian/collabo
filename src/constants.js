@@ -99,7 +99,8 @@ export const FOLLOW_ITINERARY_MESSAGE = 'FOLLOW_ITINERARY_MESSAGE'
 
 export const ITINERARY_TYPE = 'itinerary'
 export const REVIEW_TYPE = 'review'
-export const RECOMMENDATION_TYPE = 'recommendation'
+export const RECOMMENDATIONS_TYPE = 'recommendations'
+export const TIPS_TYPE = 'tips'
 
 export const SUBJECTS_DATA = 'subjectsData'
 export const REVIEWS_DATA = 'reviewsData'

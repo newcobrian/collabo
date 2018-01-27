@@ -17,8 +17,8 @@ export function watchItinerary(auth, itineraryId) {
   			// watch the itinerary creator
   			watchUser(dispatch, itinerarySnapshot.val().userId, Constants.ITINERARY_PAGE);
 
-  			// get all tips in the itinerary
-  			watchTips(dispatch, itineraryId, itinerarySnapshot.val().userId, Constants.ITINERARY_PAGE);
+  			// get all tips in the itinerary, note dataType is TIPS_TYPE
+  			watchTips(dispatch, itineraryId, itinerarySnapshot.val().userId, Constants.ITINERARY_PAGE, Constants.TIPS_TYPE);
 
         // watch itinerary comments
         watchComments(dispatch, itineraryId, Constants.ITINERARY_PAGE);
@@ -62,127 +62,140 @@ function itineraryValueAction(itinerary, itineraryId, userId, source) {
   }
 }
 
-function subjectValueAction(subjectId, subject, source) {
+function subjectValueAction(subjectId, subject, source, dataType = Constants.TIPS_TYPE) {
   if (subject) delete subject.lastModified;
   return {
     type: ActionTypes.SUBJECT_VALUE_ACTION,
     dataName: Constants.SUBJECTS_DATA,
     id: subjectId,
     payload: subject,
-    source
+    source,
+    dataType
   }
 }
 
-function subjectRemovedAction(subjectId, source) {
+function subjectRemovedAction(subjectId, source, dataType = Constants.TIPS_TYPE) {
   return {
     type: ActionTypes.SUBJECT_REMOVED_ACTION,
     dataName: Constants.SUBJECTS_DATA,
     id: subjectId,
-    source
+    source,
+    dataType
   }
 }
 
-function reviewValueAction(reviewId, review, source) {
+function reviewValueAction(reviewId, review, source, dataType = Constants.TIPS_TYPE) {
   if (review) delete review.lastModified;
   return {
     type: ActionTypes.REVIEW_VALUE_ACTION,
     dataName: Constants.REVIEWS_DATA,
     id: reviewId,
     payload: review,
-    source
+    source,
+    dataType
   }
 }
 
-function reviewRemovedAction(reviewId, source) {
+function reviewRemovedAction(reviewId, source, dataType = Constants.TIPS_TYPE) {
   return {
     type: ActionTypes.REVIEW_REMOVED_ACTION,
     dataName: Constants.REVIEWS_DATA,
     id: reviewId,
-    source
+    source,
+    dataType
   }
 }
 
-function tipAddedAction(tipId, tip, source) {
+function tipAddedAction(tipId, tip, source, dataType = Constants.TIPS_TYPE) {
   delete tip.lastModified;
   return {
     type: ActionTypes.TIP_ADDED_ACTION,
     tipId,
     tip,
-    source
+    source,
+    dataType
   }
 }
 
-function tipChangedAction(tipId, tip, source) {
+function tipChangedAction(tipId, tip, source, dataType = Constants.TIPS_TYPE) {
   delete tip.lastModified;
   return {
     type: ActionTypes.TIP_CHANGED_ACTION,
     tipId,
     tip,
-    source
+    source,
+    dataType
   }
 }
 
-function tipRemovedAction(tipId, source) {
+function tipRemovedAction(tipId, source, dataType = Constants.TIPS_TYPE) {
   return {
     type: ActionTypes.TIP_REMOVED_ACTION,
     dataName: Constants.TIPS_DATA,
     tipId,
-    source
+    source,
+    dataType
   }
 }
 
-function commentAddedAction(objectId, commentId, comment, source) {
+function commentAddedAction(objectId, commentId, comment, source, dataType = Constants.TIPS_TYPE) {
   return {
     type: ActionTypes.COMMENT_ADDED_ACTION,
     objectId,
     commentId,
     comment,
-    source
+    source,
+    dataType
   }
 }
 
-function commentRemovedAction(objectId, commentId, source) {
+function commentRemovedAction(objectId, commentId, source, dataType = Constants.TIPS_TYPE) {
   return {
     type: ActionTypes.COMMENT_REMOVED_ACTION,
     objectId,
     commentId,
-    source
+    source,
+    dataType
   }
 }
 
-function imagesByUserValueAction(subjectId, images, source) {
+function imagesByUserValueAction(subjectId, images, source, dataType = Constants.TIPS_TYPE) {
   return {
     type: ActionTypes.IMAGES_BY_USER_VALUE_ACTION,
     subjectId,
     images: Helpers.getImagePath(images),
-    source
+    source,
+    dataType
   }
 }
 
-function imagesByUserRemovedAction(subjectId, source) {
+function imagesByUserRemovedAction(subjectId, source, dataType = Constants.TIPS_TYPE) {
   return {
     type: ActionTypes.IMAGES_BY_USER_REMOVED_ACTION,
     dataName: Constants.USER_IMAGES_DATA,
     id: subjectId,
-    source
+    source,
+    dataType
   }
 }
 
-function defaultImagesValueAction(subjectId, images, source) {
+function defaultImagesValueAction(subjectId, images, source, dataType = Constants.TIPS_TYPE) {
   return {
     type: ActionTypes.DEFAULT_IMAGES_VALUE_ACTION,
     subjectId,
     images: Helpers.getImagePath(images),
-    source
+    source,
+    dataType
   }
 }
 
-function defaultImagesRemovedAction(subjectId, source) {
+function defaultImagesRemovedAction(subjectId, source, dataType = Constants.TIPS_TYPE) {
   return {
     type: ActionTypes.DEFAULT_IMAGES_REMOVED_ACTION,
     dataName: Constants.DEFAULT_IMAGES_DATA,
     id: subjectId,
-    source
+    source,
+    dataType
   }
 }
 
@@ -196,36 +209,38 @@ export function unloadReorderModal(itineraryId) {
   }
 }
 
-export function watchTips(dispatch, itineraryId, itineraryUserId, source) {
-  Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).orderByChild('priority').on('child_added', tipSnapshot => {
+export function watchTips(dispatch, itineraryId, itineraryUserId, source, dataType) {
+  let path = (dataType && dataType === Constants.RECOMMENDATIONS_TYPE) ? Constants.RECS_BY_ITINERARY_PATH : Constants.TIPS_BY_ITINERARY_PATH;
+
+  Firebase.database().ref(path + '/' + itineraryId).orderByChild('priority').on('child_added', tipSnapshot => {
     if (tipSnapshot.val().userId && tipSnapshot.val().userId !== itineraryUserId) {
-      watchUser(dispatch, tipSnapshot.val().userId, source)
+      watchUser(dispatch, tipSnapshot.val().userId, source, dataType)
     }
-    watchSubject(dispatch, tipSnapshot.key, tipSnapshot.val().subjectId, source);
-    watchReview(dispatch, tipSnapshot.key, tipSnapshot.val().reviewId, source);
-    watchComments(dispatch, tipSnapshot.key, source);
-    watchImagesByUser(dispatch, itineraryUserId, tipSnapshot.val().subjectId, source);
-    watchDefaultImages(dispatch, tipSnapshot.val().subjectId, source);
-    dispatch(tipAddedAction(tipSnapshot.key, tipSnapshot.val(), source));
+    watchSubject(dispatch, tipSnapshot.key, tipSnapshot.val().subjectId, source, dataType);
+    watchReview(dispatch, tipSnapshot.key, tipSnapshot.val().reviewId, source, dataType);
+    watchComments(dispatch, tipSnapshot.key, source, dataType);
+    watchImagesByUser(dispatch, itineraryUserId, tipSnapshot.val().subjectId, source, dataType);
+    watchDefaultImages(dispatch, tipSnapshot.val().subjectId, source, dataType);
+    dispatch(tipAddedAction(tipSnapshot.key, tipSnapshot.val(), source, dataType));
   })
 
   // on child changed, how do we unwatch old refs?
-  Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).orderByChild('priority').on('child_changed', tipSnapshot => {
-    watchSubject(dispatch, tipSnapshot.key, tipSnapshot.val().subjectId, source);
-    watchReview(dispatch, tipSnapshot.key, tipSnapshot.val().reviewId, source);
-    watchComments(dispatch, tipSnapshot.key, source);
-    watchImagesByUser(dispatch, itineraryUserId, tipSnapshot.val().subjectId, source);
-    watchDefaultImages(dispatch, tipSnapshot.val().subjectId, source);
-    dispatch(tipChangedAction(tipSnapshot.key, tipSnapshot.val(), source));
+  Firebase.database().ref(path + '/' + itineraryId).orderByChild('priority').on('child_changed', tipSnapshot => {
+    watchSubject(dispatch, tipSnapshot.key, tipSnapshot.val().subjectId, source, dataType);
+    watchReview(dispatch, tipSnapshot.key, tipSnapshot.val().reviewId, source, dataType);
+    watchComments(dispatch, tipSnapshot.key, source, dataType);
+    watchImagesByUser(dispatch, itineraryUserId, tipSnapshot.val().subjectId, source, dataType);
+    watchDefaultImages(dispatch, tipSnapshot.val().subjectId, source, dataType);
+    dispatch(tipChangedAction(tipSnapshot.key, tipSnapshot.val(), source, dataType));
   })
 
-  Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).orderByChild('priority').on('child_removed', tipSnapshot => {
-    unwatchSubject(dispatch, tipSnapshot.key, tipSnapshot.val().subjectId, source);
-    unwatchReview(dispatch, tipSnapshot.key, tipSnapshot.val().reviewId, source);
-    unwatchComments(dispatch, tipSnapshot.key, source);
-    unwatchImagesByUser(dispatch, itineraryUserId, tipSnapshot.val().subjectId, source);
-    unwatchDefaultImages(dispatch, tipSnapshot.val().subjectId, source);
-    dispatch(tipRemovedAction(tipSnapshot.key, source));
+  Firebase.database().ref(path + '/' + itineraryId).orderByChild('priority').on('child_removed', tipSnapshot => {
+    unwatchSubject(dispatch, tipSnapshot.key, tipSnapshot.val().subjectId, source, dataType);
+    unwatchReview(dispatch, tipSnapshot.key, tipSnapshot.val().reviewId, source, dataType);
+    unwatchComments(dispatch, tipSnapshot.key, source, dataType);
+    unwatchImagesByUser(dispatch, itineraryUserId, tipSnapshot.val().subjectId, source, dataType);
+    unwatchDefaultImages(dispatch, tipSnapshot.val().subjectId, source, dataType);
+    dispatch(tipRemovedAction(tipSnapshot.key, source, dataType));
   })
 }
 
@@ -243,9 +258,9 @@ export function unwatchTips(dispatch, itineraryId, itineraryUserId, source) {
   Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).off();
 }
 
-export function watchSubject(dispatch, priority, subjectId, source) {
+export function watchSubject(dispatch, priority, subjectId, source, dataType = Constants.TIPS_TYPE) {
   Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId).on('value', subjectSnap => {
-    dispatch(subjectValueAction(subjectId, subjectSnap.val(), source));
+    dispatch(subjectValueAction(subjectId, subjectSnap.val(), source, dataType));
   })
 }
 
@@ -254,9 +269,9 @@ export function unwatchSubject(dispatch, priority, subjectId, source) {
     dispatch(subjectRemovedAction(subjectId, source));
 }
 
-export function watchReview(dispatch, priority, reviewId, source) {
+export function watchReview(dispatch, priority, reviewId, source, dataType = Constants.TIPS_TYPE) {
   Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewId).on('value', reviewSnap => {
-    dispatch(reviewValueAction(reviewId, reviewSnap.val(), source));
+    dispatch(reviewValueAction(reviewId, reviewSnap.val(), source, dataType));
   })
 }
 
@@ -266,9 +281,9 @@ export function unwatchReview(dispatch, priority, reviewId, source) {
 }
 
 
-export function watchComments(dispatch, objectId, source) {
+export function watchComments(dispatch, objectId, source, dataType = Constants.TIPS_TYPE) {
   Firebase.database().ref(Constants.COMMENTS_PATH + '/' + objectId).on('child_added', commentSnap => {
-    dispatch(commentAddedAction(objectId, commentSnap.key, commentSnap.val(), source));
+    dispatch(commentAddedAction(objectId, commentSnap.key, commentSnap.val(), source, dataType));
   })
 
   // Firebase.database().ref(Constants.COMMENTS_PATH + '/' + reviewId).on('child_changed', commentSnap => {
@@ -276,7 +291,7 @@ export function watchComments(dispatch, objectId, source) {
   // })
 
   Firebase.database().ref(Constants.COMMENTS_PATH + '/' + objectId).on('child_removed', commentSnap => {
-    dispatch(commentRemovedAction(objectId, commentSnap.key, source));
+    dispatch(commentRemovedAction(objectId, commentSnap.key, source, dataType));
   })
 }
 
@@ -284,10 +299,10 @@ export function unwatchComments(dispatch, objectId, source) {
   Firebase.database().ref(Constants.COMMENTS_PATH + '/' + objectId).off();
 }
 
-export function watchImagesByUser(dispatch, userId, subjectId, source) {
+export function watchImagesByUser(dispatch, userId, subjectId, source, dataType = Constants.TIPS_TYPE) {
   Firebase.database().ref(Constants.IMAGES_BY_USER_PATH + '/' + userId + '/' + subjectId).on('value', imagesSnap => {
     if (imagesSnap.exists()) {
-      dispatch(imagesByUserValueAction(subjectId, imagesSnap.val(), source));
+      dispatch(imagesByUserValueAction(subjectId, imagesSnap.val(), source, dataType));
     }
   })
 }
@@ -297,9 +312,9 @@ export function unwatchImagesByUser(dispatch, userId, subjectId, source) {
   dispatch(imagesByUserRemovedAction(subjectId, source));
 }
 
-export function watchDefaultImages(dispatch, subjectId, source) {
+export function watchDefaultImages(dispatch, subjectId, source, dataType = Constants.TIPS_TYPE) {
   Firebase.database().ref(Constants.IMAGES_PATH + '/' + subjectId).on('value', defaultImagesSnap => {
-    dispatch(defaultImagesValueAction(subjectId, defaultImagesSnap.val(), source));
+    dispatch(defaultImagesValueAction(subjectId, defaultImagesSnap.val(), source, dataType));
   })
 }
 
@@ -615,7 +630,7 @@ export function onAddTip(auth, result, itinerary, type) {
         })
       }
       // otherwise if this is a recommendation, save to recommendation table
-      else {
+      else if (type === Constants.RECOMMENDATIONS_TYPE) {
         Object.assign(tipObject, {lastModified: lastModified})
         let recId = Firebase.database().ref(Constants.RECS_BY_ITINERARY_PATH + '/' + itinerary.id).push(tipObject).key;
 

@@ -274,11 +274,11 @@ class Itinerary extends React.Component {
             resultObject.defaultImage = [ place.photos[0].getUrl({'maxWidth': 1225, 'maxHeight': 500}) ];
           }
           if (place.url) resultObject.googleMapsURL = place.url;
-          addTipFunc(auth, resultObject, itinerary, Constants.RECOMMENDATION_TYPE)
+          addTipFunc(auth, resultObject, itinerary, Constants.RECOMMENDATIONS_TYPE)
           geoSuggestRef._geoSuggest.clear()
         }
         else {
-          addTipFunc(auth, resultObject, itinerary, Constants.RECOMMENDATION_TYPE)
+          addTipFunc(auth, resultObject, itinerary, Constants.RECOMMENDATIONS_TYPE)
           geoSuggestRef._geoSuggest.clear()
         }
       })
@@ -630,7 +630,7 @@ class Itinerary extends React.Component {
                   onSetPage={this.onSetPage}
                   deleteReview={this.props.onDeleteReview} />
 
-                  <div>
+                  <div className="DN">
                     Recommendations from friends
                   </div>
 

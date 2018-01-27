@@ -200,9 +200,9 @@ function itineraryRemovedAction(itineraryId) {
   }
 }
 
-export function watchUser(dispatch, userId, source) {
+export function watchUser(dispatch, userId, source, dataType = Constants.TIPS_TYPE) {
   Firebase.database().ref(Constants.USERS_PATH + '/' + userId).on('value', snap => {
-    dispatch(userAddedAction(userId, snap.val(), source));
+    dispatch(userAddedAction(userId, snap.val(), source, dataType));
   })
 }
 
@@ -211,12 +211,13 @@ export function unwatchUser(dispatch, userId, source) {
   Firebase.database().ref(Constants.USERS_PATH + '/' + userId).off();
 }
 
-function userAddedAction(userId, user, source) {
+function userAddedAction(userId, user, source, dataType = Constants.TIPS_TYPE) {
   return {
     type: ActionTypes.USER_VALUE_ACTION,
     userInfo: user,
     userId: userId,
-    source: source
+    source: source,
+    dataType: dataType
   }
 }
 
@@ -228,12 +229,12 @@ function userRemovedAction(userId, source) {
   }
 }
 
-export function watchLikesByUser(dispatch, userId, source) {
+export function watchLikesByUser(dispatch, userId, source, dataType = Constants.TIPS_TYPE) {
   Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).on('child_added', snap => {
-    dispatch(likesByUserAddedAction(snap.key, source));
+    dispatch(likesByUserAddedAction(snap.key, source, dataType));
   })
   Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).on('child_removed', snap => {
-    dispatch(likesByUserRemovedAction(snap.key, source));
+    dispatch(likesByUserRemovedAction(snap.key, source, dataType));
   })
 }
 
@@ -241,19 +242,21 @@ export function unwatchLikesByUser(dispatch, userId) {
   Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).off();
 }
 
-function likesByUserAddedAction(objectId, source) {
+function likesByUserAddedAction(objectId, source, dataType = Constants.TIPS_TYPE) {
   return {
     type: ActionTypes.LIKES_BY_USER_ADDED_ACTION,
     objectId,
-    source
+    source,
+    dataType
   }
 }
 
-function likesByUserRemovedAction(objectId, source) {
+function likesByUserRemovedAction(objectId, source, dataType = Constants.TIPS_TYPE) {
   return {
     type: ActionTypes.LIKES_BY_USER_REMOVED_ACTION,
     objectId,
-    source
+    source,
+    dataType
   }
 }
 
