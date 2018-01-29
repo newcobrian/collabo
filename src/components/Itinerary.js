@@ -561,7 +561,7 @@ class Itinerary extends React.Component {
                 </div>
                 {/** >>>>>> CLOSE CENTER INFO **/}
 
-                <div className="flx flx-row flx-align-center w-100 pdding-all-sm pdding-top-xs pdding-bottom-xs brdr-top fill--white">
+                <div className="flx flx-row flx-align-center w-100 pdding-all-sm pdding-top-xs pdding-bottom-sm fill--white">
                   {/** LIKE BUTTON **/}
                   <div className="cta-wrapper flx flx-row vb vb--xs vb--outline--none vb--nohover fill--none color--black">
                     <LikeReviewButton

@@ -188,7 +188,7 @@ class Review extends React.Component {
     }
 
     return (
-      <div className="page-subject page-common flx flx-row">
+      <div className="page-subject page-common flx flx-row fill--light-gray">
           
 
           {/*}      <ReviewPreview review={reviewObject} 
@@ -214,7 +214,7 @@ class Review extends React.Component {
       */}
 
           <div className="tip-info-col flx flx-row flx-just-start w-100 flx-hold">
-            <div className="tip-container tip-subject flx flx-col flx-align-center">
+            <div className="tip-subject flx flx-col flx-align-center">
               <div className="tip-inner flx flx-row flx-just-start w-100 w-max">
 
                 { /** Image **/ }
@@ -225,7 +225,7 @@ class Review extends React.Component {
      
 
                 {/* Non-image module on right */}
-                <div className="flx flx-col flx-align-start w-100">
+                <div className="flx flx-col flx-align-start w-100 fill--white">
 
                   { /** Title and Add **/ }
                     
@@ -239,8 +239,8 @@ class Review extends React.Component {
                         </div>
                         
                         <Link onClick={this.handleSaveClick} className="vb vb--md vb--outline fill--white flx flx-row flx-align-center flx-just-center vb--mobile-full">
-                          <i className="material-icons color--primary mrgn-right-sm md-24e">add_circle</i>
-                          <div className="color--black">Save</div>
+                          <i className="material-icons color--primary mrgn-right-sm md-24e">add</i>
+                          <div className="color--black weight-500">Add to your guide</div>
                         </Link>
                       </div>
 
@@ -313,7 +313,7 @@ class Review extends React.Component {
 */}
            
         </div>
-        <div className="itinerary__tipslist flx flx-col flx-align-center pdding-all-md w-100">
+        <div className="itinerary__tipslist flx flx-col flx-align-center pdding-all-md w-100 fill--light-gray">
           <div className="w-100">
             <DisplayAppUserReview 
               tip={this.props.appUserReview}

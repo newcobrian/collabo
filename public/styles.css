@@ -593,6 +593,22 @@ width: 32px;
   border-left: 1px solid rgba(0,0,0,.1) !important;
 }
 
+.brdr-02-all {
+  border: 1px solid rgba(0,0,0,.2) !important;
+}
+.brdr-02-bottom {
+  border-bottom: 1px solid rgba(0,0,0,.2) !important;
+}
+.brdr-02-top {
+  border-top: 1px solid rgba(0,0,0,.2) !important;
+}
+.brdr-02-right {
+  border-right: 1px solid rgba(0,0,0,.2) !important;
+}
+.brdr-02-left {
+  border-left: 1px solid rgba(0,0,0,.2) !important;
+}
+
 .opa-100 {
   opacity: 1;
 }

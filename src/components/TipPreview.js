@@ -143,7 +143,7 @@ const TipPreview = props => {
 
 
                       { /** Caption **/ }
-                      <div className="tip__caption-module flx flx-row w-100 mrgn-bottom-sm">
+                      <div className="tip__caption-module flx flx-row w-100 mrgn-bottom-sm brdr-02-bottom pdding-bottom-sm">
                         <Link to={'/' + tip.createdBy.username} className="tip__author-photo flx-hold mrgn-right-sm">
                           <ProfilePic src={tip.createdBy.image} className="user-image user-image-sm center-img" />
                         </Link> 
@@ -174,7 +174,7 @@ const TipPreview = props => {
                                 Object.keys(tip.tags || {}).map(function (tagName) {
                                   return (
                                     <div className="tip-tag fill--light-gray flx flx-row flx-align-center" key={tagName}>
-                                      <div className="opa-60">
+                                      <div className="">
                                         {tagName}
                                       </div>
                                     </div>
@@ -192,7 +192,7 @@ const TipPreview = props => {
                       </div>
 
                       { /** Comments **/ }
-                      <div className="flx flx-row flex-wrap cta-container">
+                      <div className="flx flx-row flex-wrap cta-container mrgn-top-sm">
                          <CommentContainer
                             authenticated={props.authenticated}
                             comments={tip.comments || []}

@@ -245,7 +245,7 @@ input.input--underline {
   box-shadow: none;
   font-weight: 400;
   font-size: 14px;
-  letter-spacing: 1px;
+  letter-spacing: 0px;
   text-transform: none;
   line-height: 20px;
 }
@@ -295,12 +295,13 @@ input.input--underline {
 }
 .vb.fill--none:active,
 .vb.fill--none:hover {
-  /*background-color: rgba(0,0,0,.1) !important;*/
+  background-color: rgba(255,255,255,.1) !important;
 }
 .vb.hover--white10:active,
 .vb.hover--white10:hover {
   background-color: rgba(255,255,255,.1) !important;
 }
+
 .vb--intro--register {
     padding: 15px 20px;
     background-color: rgba(255,255,255,.2);

@@ -618,7 +618,11 @@ body .back-to-top {
   width: auto;
 }
 .tip__caption-module {
-  margin-top: 0px;
+}
+.page-subject .tip__caption {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
 }
 .tip__content-wrapper {
   padding-left: 0px;
@@ -673,6 +677,9 @@ body .back-to-top {
 .page-subject .tip-container .tip__title-module {
   margin-top: 0;
   margin-left: -4px;
+}
+.page-common.page-subject {
+  margin: 40px 0 0;
 }
 .tip-wrapper .cta-wrapper {
   margin-top: 0;
@@ -743,16 +750,17 @@ body .back-to-top {
 }
 .tip-info-col {
   width: 100%;
-  /*position: relative;*/
-  /*top: 0;*/
+  position: relative !important;
 }
 .page-subject.flx {
   -webkit-flex-direction: column;
   flex-direction: column;
-  margin-top: 70px;
+  margin-top: 40px;
 }
 .page-subject .itinerary__tipslist {
-  padding: 0;
+  position: relative;
+  left: inherit;
+  right: inherit;
 }
 .itinerary__tipslist {
   padding: 0 0 60px;
