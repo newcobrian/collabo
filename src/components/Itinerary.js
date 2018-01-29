@@ -225,7 +225,7 @@ class Itinerary extends React.Component {
 
       const onSubscribeTooltipOkay = ev => {
         ev.preventDefault();
-        if (!this.props.userInfo.flags || !this.props.userInfo.flags.hideSubscribeTip) {
+        if (!this.props.userInfo || !this.props.userInfo.flags || !this.props.userInfo.flags.hideSubscribeTip) {
           this.props.closeSubscribeTooltip(this.props.authenticated)
         }
       }
@@ -452,9 +452,9 @@ class Itinerary extends React.Component {
                         canModify={canModify}
                         itinerary={itinerary}
                         isFollowingItinerary={this.props.isFollowingItinerary}
-                        hideSubscribeTip={this.props.userInfo.flags && this.props.userInfo.flags.hideSubscribeTip}
+                        hideSubscribeTip={this.props.userInfo && this.props.userInfo.flags && this.props.userInfo.flags.hideSubscribeTip}
                         />
-                        {(!this.props.userInfo.flags || !this.props.userInfo.flags.hideSubscribeTip) && 
+                        {(this.props.userInfo && (!this.props.userInfo.flags || !this.props.userInfo.flags.hideSubscribeTip)) && 
                           <div className="help-- arrow-up help--subscribe flx flx-row flx-align-start color--white bx-shadow">
                             <i className="material-icons color--white md-24 mrgn-left-xs DN">arrow_upward</i>
                             <div className="flx flx-col flx-just-start color--white">
