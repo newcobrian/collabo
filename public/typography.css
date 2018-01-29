@@ -234,6 +234,15 @@ textarea {
 .color--gray {
   color: #D5E3E5;
 }
+.fill--gray {
+  background-color: #D5E3E5;
+}
+.color--dark-gray {
+  color: #99A8AA;
+}
+.fill--dark-gray {
+  background-color: #99A8AA;
+}
 
 .color--favorite {
   color: #FF776A;
@@ -242,8 +251,12 @@ textarea {
   color: #121419;
   opacity: .5;
 }
-
-
+.color--fb {
+  color: #3b5998;
+}
+.color--tw {
+  color: #00aced;
+}
 
 
 
@@ -377,11 +390,11 @@ body a.nav-module {
     text-transform: uppercase;
 }
 .tip-title {
-    font-size: 17px;
+    font-size: 18px;
     letter-spacing: 0px;
     font-family: 'Roboto', sans-serif;
     font-weight: 600;
-    line-height: 30px;
+    line-height: 22px;
 }
 h4 {
     font-size: 12px;

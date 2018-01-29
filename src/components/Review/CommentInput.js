@@ -46,7 +46,7 @@ class CommentInput extends React.Component {
           <ProfilePic src={this.props.userInfo.image} className="user-image user-image-sm center-img" />
 
             <Textarea className="comment-input font--beta input--overline w-100"
-              placeholder="Add a note..."
+              placeholder="Add a comment..."
               value={this.state.body}
               onChange={this.setBody}
               rows="1"

@@ -84,7 +84,7 @@ const TipPreview = props => {
   return (
     <Element name={'tip' + tip.key} className={"tip-wrapper flx flx-col flx-col w-100 w-max" + isSelectedTip(tip.key)} id={'tip' + tip.key} onClick={onTipClick(tip)}>
         
-        <div className="tip-container flx flx-col flx-center-all w-100 bx-shadow">
+        <div className="tip-container flx flx-col flx-center-all w-100 bx- brdr-all">
             
           
               
@@ -100,7 +100,7 @@ const TipPreview = props => {
 
                     { /** Image 
                     <MediaQuery query="(min-device-width: 1224px)">**/ }
-                      <div className="tip__image-module bg-loading">
+                      <div className="tip__image-module bx-shadow bg-loading">
                         <div className={"tip__photo-count tip-count-" + tip.images.length}>{tip.images.length > 0 ? tip.images.length : null}</div>
                         <ImagePicker images={tip.images} />
                       </div>
@@ -160,24 +160,29 @@ const TipPreview = props => {
                               </div>
                               { /** END Rating **/ }
 
-                              {/* Tags list **/ }
-                                { 
-                                  Object.keys(tip.tags || {}).map(function (tagName) {
-                                    return (
-                                      <div className="tip-tag fill--light-gray flx flx-row flx-align-center" key={tagName}>
-                                        <div className="opa-60">
-                                          {tagName}
-                                        </div>
-                                      </div>
-                                    )
-                                  }, this)}
-
+                             
                             </div>
                             {/* END Tags Wrapper **/ }
                             <div className="tip__caption font--beta v2-type-body2 ta-left">
                               <Link to={'/' + tip.createdBy.username} className="strong">{tip.createdBy.username} </Link>
                               <CaptionDisplay tip={props.tip} />
                             </div>
+
+                            {/* Tags list **/ }
+                            <div className="w-100 flx flx-row flx-align-center">
+                              { 
+                                Object.keys(tip.tags || {}).map(function (tagName) {
+                                  return (
+                                    <div className="tip-tag fill--light-gray flx flx-row flx-align-center" key={tagName}>
+                                      <div className="opa-60">
+                                        {tagName}
+                                      </div>
+                                    </div>
+                                  )
+                                }, this)}
+                            </div>
+
+
                             <div className="flx flx-row flx-just-start flx-align-center">
                               <div className="date-posted inline-block color--black font--alpha">
                                 <DisplayTimestamp timestamp={tip.review.lastModified} />

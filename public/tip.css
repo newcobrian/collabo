@@ -1,9 +1,7 @@
 .tip-wrapper {
-	background: transparent;
+   background: transparent;
     margin: 0;
-    /*border-bottom: 1px solid #D5E3E5;*/
-    padding: 10px 20px;
-    max-width: 640px;
+    padding: 10px;
 } 
 .tip-wrapper:first-child {
   padding-top: 5px;
@@ -14,8 +12,8 @@
 
 .page-itinerary .tip-container {
 /*.reviewpreview-wrapper .tip-container*/ 
-  border: 1px solid rgba(0,0,0,.1);
-  border-radius: 6px;
+/*  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 6px;*/
   overflow: hidden;
 }
 .page-itinerary .tip-container:hover,
@@ -51,6 +49,7 @@
 	width: 100%;
 	padding: 0;
   background-color: white;
+  border-radius: 2px;
 }
 .page-subject .tip-container {
   padding: 0;
@@ -100,8 +99,8 @@
 	margin-right: 30px;
 }
 .tip__image-module {
-  height: 72px;
-  width: 72px;
+  height: 102px;
+  width: 142px;
 	flex-shrink: 0;
 	position: relative;
 }
@@ -546,13 +545,19 @@ select:hover {
 .tip-tag {
   border-radius: 3px;
   height: 20px;
-  padding: 6px 6px 4px 6px;
+  padding: 6px 4px 4px 0px;
   font-size: 11px;
-  margin: 3px 5px 3px 0;
-  border: 1px solid #EDEDED;
+  margin: 3px 0;
+  /*border: 1px solid #EDEDED;*/
   background: white;
   /*background: #F6F6F6;*/
   /*-webkit-box-shadow: 0px 3px 15px rgba(0,0,0,0.02) !important;*/
+}
+.tag-x {
+  visibility: hidden;
+}
+.tip-tag:hover .tag-x {
+  visibility: visible;
 }
 
 .tip-tag i {
@@ -580,7 +585,7 @@ select:hover {
 /*  border-color: #EDEDED;
   border: 1px solid #EDEDED;*/
   height: 28px;
-  border-radius: 3px;
+  border-radius: 2px;
 }
 .tag-input-wrapper input:focus,
 .tag-input-wrapper input:hover {

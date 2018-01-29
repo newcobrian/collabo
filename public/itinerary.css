@@ -123,7 +123,7 @@
 
 .itinerary__tipslist {
 	/*border-top: 1px solid #D5E3E5;*/
-	padding: 0 10px 60px;
+	padding: 0 0 60px;
 	min-height: 80px;
 }
 .page-subject .itinerary__tipslist {
@@ -199,7 +199,7 @@
     transform: inherit !important;
 }
 .sticky-class.sticky {
-	width: 50% !important;
+	width: 60% !important;
 	left: 0;
 	top: 70px !important;
 }
@@ -210,18 +210,18 @@
 
 
 .page-itinerary .itinerary__cover__text {
-	border-bottom: 1px solid #D5E3E5;
+	border-bottom: 1px solid rgba(0,0,0,.1) !important;
 }
 .page-itinerary.page-edit-own .itinerary__cover__text {
 	padding: 0px;
 	overflow: visible;
 }
 .it__author-wrapper {
-	margin:  0;
+
 }
 
 .page-edit-own .it__author-wrapper {
-	margin:  0;
+
 }
 
 .page-edit-own .tip-wrapper .tip__cta-box {
@@ -356,14 +356,16 @@ textarea.edit-itinerary__name {
 	max-width: 96%;
 }
 .it-add-container {
-    padding: 0px;
+    padding: 10px 10px;
     z-index: 10;
     width: 100%;
+    background: rgba(0,0,0,.8);
+}
+.sticky .it-add-container {
+	padding: 10px;
 }
 .it-add-wrapper {
 	position: relative;
-	border: 10px 10px 0px 20px;
-	padding: 10px 10px 0;
 }
 .it-add-search-icon {
  	border-radius: 50px;
@@ -418,14 +420,15 @@ textarea.edit-itinerary__name {
 }
 
 .page-edit-own .it-add-wrapper input {
-  text-indent: 10px;
-  border: 2px solid #121419 !important;
+  	text-indent: 10px;
+	border: 1px solid #D7E3E5 !important;
+  	border: none;
 }
 .page-edit-own .it-add-wrapper input:hover {
-  border: 2px solid #00EBFF !important;
+  	border: 1px solid #00EBFF !important;
 }
 .page-edit-own .it-add-wrapper input:focus {
-  border: 2px solid #5EF2FF !important;
+  	border: 1px solid #5EF2FF !important;
 }
 
 
@@ -438,7 +441,7 @@ textarea.edit-itinerary__name {
     padding: 0;
 }
 .content-wrapper.map-on {
-  width: 50%;
+  width: 60%;
 }
 .page-edit-own .content-wrapper {
 }
@@ -452,7 +455,7 @@ textarea.edit-itinerary__name {
   position: fixed;
   right: 0;
   top: 70px;
-  left: 50%;
+  left: 60%;
   bottom: 0;
 }
 .it-map-overlay {
@@ -490,9 +493,10 @@ textarea.edit-itinerary__name {
   }
 .page-itinerary .button-map-toggle {
 	position: fixed;
-	right: 20px; 
-	top: 80px;
 	z-index: 10;
+	border-radius: 0;
+	bottom: 0;
+	right: 0;
 }
 .page-itinerary .button-filter-map {
 	position: fixed;
@@ -510,14 +514,13 @@ textarea.edit-itinerary__name {
 	opacity: 1 !important;
 }
 .page-itinerary .test00 .cta-wrapper {
-	max-width: 400px;
-	margin: 0 auto;
+	border-radius: 0;
 }
 
 .floating-map-toggle {
 	position: fixed;
-	top: 80px;
-	right: 10px;
+	bottom: 0px;
+	right: 0px;
 	z-index: 100;
 }
 
@@ -526,11 +529,11 @@ textarea.edit-itinerary__name {
 .test00.it-author-controls {
 	position: fixed;
     bottom: 0;
-    left: 0;
-    width: 100%;
+    left: 40px;
+    width: 110px;
     background: white;
-    padding: 10px;
     z-index: 10;
     max-width: none;
     background-color: rgba(0,0,0,.9);
+    padding: 0;
 }
