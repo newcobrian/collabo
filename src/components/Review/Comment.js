@@ -29,7 +29,6 @@ const Comment = props => {
             className="mrgn-right-sm">
             <ProfilePic src={comment.image} className="user-image user-image-sm center-img" />
           </Link>
-          &nbsp;
           <div className="comment-data flx flx-row flx-just-start">
             <div className="comment-row v2-type-body2 font--beta">
               <Link
