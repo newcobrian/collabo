@@ -865,8 +865,18 @@ export function onSaveGuideClick() {
 }
 
 export function closeShareGuide() {
-  return disaptch => {
-    type: ActionTypes.CLOSE_SHARE_GUIDE_TOOLTIP
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.CLOSE_SHARE_GUIDE_TOOLTIP,
+      meta: {
+        mixpanel: {
+          event: Constants.MIXPANEL_CLICK_EVENT,
+          props: {
+            type: 'Close share guide tooltip'
+          },
+        }
+      }
+    })
   }
 }
 

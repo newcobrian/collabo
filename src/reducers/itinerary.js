@@ -518,7 +518,7 @@ export default (state = initialState, action) => {
     case ActionTypes.CLOSE_SHARE_GUIDE_TOOLTIP:
       return {
         ...state,
-        closeShareGuide: false
+        showShareGuide: false
       }
     default:
       return state;

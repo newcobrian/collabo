@@ -386,8 +386,6 @@ const ShareGuideTooltip = props => {
     this.props.sendMixpanelEvent(Constants.MIXPANEL_SHARE_EVENT, { 'type' : type, 'source': Constants.ITINERARY_PAGE });
   }
 
-
-  
   if (props.showShareGuide) {
     return (
        <div className="share-prompt flx flx-col flx-just-end color--white bx-shadow ta-center">
@@ -445,7 +443,7 @@ const ShareGuideTooltip = props => {
             </div>
 
             <i className="material-icons color--primary md-18 DN">share</i>
-            <Link className="w-100 v2-type-body1 fill--none hover--white10 opa-60 color--dark-gray flx-item-right mrgn-top-sm" onClick={props.closeTooltip}>
+            <Link className="w-100 v2-type-body1 fill--none hover--white10 opa-60 color--dark-gray flx-item-right mrgn-top-sm" onClick={this.props.closeShareGuide}>
               No thanks
             </Link>
         </div>
