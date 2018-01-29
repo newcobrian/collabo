@@ -55,8 +55,7 @@
   padding: 0;
 }
 .page-subject .tip-wrapper {
-  padding-top: 20px !important;
-  padding-bottom: 20px !important;
+
 }
 .tip-inner {
 }
@@ -137,11 +136,13 @@
   /*font-family: 'Rokkitt', sans-serif !important;*/
 }
 .page-subject .tip__caption {
-  font-size: 22px;
-  line-height: 30px;
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 300;
+  max-width: 600;
 }
 .tip__caption-module {
-  margin-top: 5px;
+  margin-top: 10px;
 }
 
 .tip__timestamp {
@@ -284,6 +285,7 @@ input.edit-tip__rating {
     height: 100%;
     border-right: 1px solid rgba(0,0,0,.1);
     border-bottom: 1px solid rgba(0,0,0,.1);
+    position: fixed;
 }
 
 .rating-star-icon {
@@ -531,8 +533,8 @@ select:hover {
 }
 .reviewpreview-wrapper .guide-link {
   border-right: 1px solid rgba(0,0,0,.2);
-  margin-right: 10px;
   padding-right: 10px;
+  margin-right: 0;
   margin-bottom: 10px;
   font-family: 'Roboto', sans-serif;
   font-size: 13px;
@@ -540,7 +542,7 @@ select:hover {
 .reviewpreview-wrapper .guide-link:last-child {
   border-right: none;
   margin-right: 0px;
-  padding-right: 20px;
+  padding-right:0;
 }
 .tip-tag {
   border-radius: 3px;

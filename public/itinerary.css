@@ -127,8 +127,13 @@
 	min-height: 80px;
 }
 .page-subject .itinerary__tipslist {
-	margin-bottom: 120px;
-	padding: 40px 40px;
+	position: fixed;
+    left: 460px;
+    height: 100%;
+    right: 0;
+    width: auto;
+    overflow: scroll;
+    padding-bottom: 200px !important;
 }
 
 .itinerary__tiplist {
