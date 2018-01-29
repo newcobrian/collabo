@@ -240,7 +240,7 @@ input.input--underline {
 }
 
 .vb--md {
-  padding: 10px 30px;
+  /*padding: 10px 30px;*/
   height: 50px;
   box-shadow: none;
   font-weight: 400;

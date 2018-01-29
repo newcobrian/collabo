@@ -390,13 +390,19 @@ const ShareGuideTooltip = props => {
   
   if (props.showShareGuide) {
     return (
-       <div className="share-prompt flx flx-row flx-align-start color--white bx-shadow ta-center">
-        <i className="material-icons color--white md-24 mrgn-left-xs DN">arrow_upward</i>
-        <div className="flx flx-col flx-just-start color--white w-100">
-          <div className="v2-type-body3 ta-center color--white pdding-bottom-md pdding-bottom-md w-100">
-            Your changes have been saved. Would you like to share your travel guide with friends?
+       <div className="share-prompt flx flx-col flx-just-end color--white bx-shadow ta-center">
+
+        <div className="fill--none w-100 v2-type-body3 ta-center color--white pdding-bottom-md flx-center-all flx flx-col">
+         <i className="material-icons md-36 color--success pdding-all-sm">check</i>
+          <div>Changes saved.</div>
+        </div>
+
+        <div className="flx flx-col flx-just-end fill--white color--black w-100 pdding-all-md">
+          <div className="v2-type-h4 ta-center color--black pdding-bottom-sm w-100">
+            Would you like to share your travel guide with friends?
           </div>
             
+          <div className="flx flx-row fill--white color--black w-100 pdding-all-sm flx-just-center">
 
 
               <FacebookShareButton
@@ -404,48 +410,42 @@ const ShareGuideTooltip = props => {
                 quote={'Check out my travel guide "' + itinerary.title + '" for '}
                 hashtag={'#views'}
                 onClick={onPostClick(Constants.FACEBOOK_POST)}
-                className="Demo__some-network__share-button flx flx-row flx-center-all w-100 vb vb--md vb--outline--none vb--fb mrgn-bottom-sm">
+                className="Demo__some-network__share-button mrgn-right-sm flx flx-row flx-center-all vb vb--md vb--outline--none vb--fb mrgn-bottom-sm">
                 <FacebookIcon
-                  size={24}
+                  size={42}
                   round />
-                <div className="color--white w-100">Share on Facebook</div>
+                <div className="color--white w-100 DN">Share on Facebook</div>
               </FacebookShareButton>
 
-
-              <FacebookShareCount
-                url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
-                className="DN mrgn-left-xs color--black mrgn-right-sm v2-type-body1 weight-500">
-                {count => count}
-              </FacebookShareCount>
 
               <TwitterShareButton
                 url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
                 title={'Check out my travel guide "' + itinerary.title + '" for ' + ':'}
                 hashtags={['views']}
                 onClick={onPostClick(Constants.TWITTER_POST)}
-                className="flx flx-row flx-center-all w-100 vb vb--md vb--outline--none vb--tw mrgn-bottom-sm">
+                className="mrgn-right-sm flx flx-row flx-center-all vb vb--md vb--outline--none vb--tw mrgn-bottom-sm">
                 <TwitterIcon
-                  size={24}
+                  size={42}
                   round />
-                <div className="color--white w-100">Share on Twitter</div>
+                <div className="color--black DN w-100">Share on Twitter</div>
 
               </TwitterShareButton>
 
               <CopyToClipboard 
-                className="flx flx-row flx-center-all vb vb--sm w-100 vb--outline--none fill--white color--black mrgn-bottom-sm"
+                className="flx flx-row flx-center-all vb vb--outline fill--white color--black vb--md"
                 text={Constants.VIEWS_URL + '/guide/' + itinerary.id}
                 onCopy={onCopyClick}>
                   <div className="flx flx-row flx-center-all w-100">
-                    <i className="material-icons md-18 color--black opa-60 flx-item-left pdding-all-sm mrgn-left-xs">link</i>
+                    <i className="material-icons md-18 color--black opa-60 flx-item-left pdding-all-sm DN">link</i>
                     <div className="mobile-hide DN">Copy&nbsp;</div>
-                     <div className="color--dark-gray w-100 pdding-right-lg">Copy Link</div>
+                     <div className="color--dark-gray">Copy URL</div>
                   </div>
               </CopyToClipboard>
 
-
+            </div>
 
             <i className="material-icons color--primary md-18 DN">share</i>
-            <Link className="w-100 v2-type-body1 fill--none hover--white10 opa-60 color--white flx-item-right mrgn-top-sm" onClick={props.closeTooltip}>
+            <Link className="w-100 v2-type-body1 fill--none hover--white10 opa-60 color--dark-gray flx-item-right mrgn-top-sm" onClick={props.closeTooltip}>
               No thanks
             </Link>
         </div>

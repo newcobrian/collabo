@@ -614,20 +614,6 @@ class Itinerary extends React.Component {
 
 
 
-                  <div className="flx flx-row w-100 flx-align-center flx-just-space-between pdding-left-xs pdding-right-xs pdding-top-xs">
-                    
-                    <div className="pdding-all-sm fill--none v2-type-body1 color--black mrgn-right-xs">{/*itinerary.reviewsCount ? itinerary.reviewsCount : 0*/}
-                    {/*visibleTips.length*/}{numTotalTips} Items</div>
-                    
-                    <Link className="vb vb--xs flx flx-row fill--none flx-center-all ta-center" onClick={openFilter}>
-                      <i className="material-icons color--black opa-60 mrgn-right-sm md-18">filter_list</i>
-                      <div className="color--black">Filter{/*numVisibleTags}/{numTotalTips*/} {/*Showing 4/10 Categories */}</div>
-                    </Link>
-
-
-
-                  </div>
-
 
               </div>
 

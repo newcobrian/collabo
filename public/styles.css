@@ -1474,15 +1474,18 @@ padding: 20px;
   display: none;
 
 }
-
+.graphic--success {
+  width: 80px;
+  height: auto;
+}
 .people-list {
   margin-top: 45px;
 }
 
 .share-prompt {
   bottom: 0;
-  height: auto;
-  top: initial;
+  height: 100%;
+  top: 0;
   left: 0;
   right: 0;
   width: 60%;
@@ -1491,7 +1494,6 @@ padding: 20px;
   background-color: white;
   background-color: rgba(18,20,25,.9);
   z-index: 11;
-  padding: 20px;
 }
 .help-- {
   position: absolute;
