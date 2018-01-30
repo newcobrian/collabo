@@ -133,6 +133,18 @@ class Itinerary extends React.Component {
       ev.preventDefault();
       this.props.showShareModal(this.props.itinerary);
     }
+
+    const updateReviewFieldEvent = (field, value, tip) => {
+      this.props.updateReviewField(this.props.authenticated, this.props.itinerary, field, value, tip, Constants.RECOMMENDATIONS_TYPE);
+    }
+
+    this.changeCaption = tip => value => updateReviewFieldEvent('caption', value, tip)
+    this.changeRating = tip => ev => updateReviewFieldEvent('rating', ev.target.value, tip)
+
+    this.deleteRec = tip => ev => {
+      ev.preventDefault();
+      this.props.onDeleteRecommendation(this.props.authenticated, tip, this.props.itineraryId, this.props.itinerary)
+    }
   }
 
   componentWillMount() {
@@ -673,9 +685,7 @@ class Itinerary extends React.Component {
                   selectedMarker={this.props.selectedMarker}
                   onSelectActiveTip={this.props.onSelectActiveTip}
 
-                  updateRating={this.props.onUpdateRating}
-                  onSetPage={this.onSetPage}
-                  deleteReview={this.props.onDeleteReview} />
+                  />
 
                   <div className="DN">
                     Recommendations from friends
@@ -692,7 +702,10 @@ class Itinerary extends React.Component {
                       dataType={Constants.RECOMMENDATIONS_TYPE}
                       canModify={false}
                       selectedMarker={this.props.selectedMarker}
-                      onSelectActiveTip={this.props.onSelectActiveTip} />
+                      onSelectActiveTip={this.props.onSelectActiveTip}
+                      changeRating={this.changeRating}
+                      changeCaption={this.changeCaption}
+                      deleteRec={this.deleteRec} />
                   </div>
 
                   <div className="DN bx-shadow big-share-button cta-wrapper flx flx-col flx-center-all vb vb--sm vb--outline--none fill--primary color--white"

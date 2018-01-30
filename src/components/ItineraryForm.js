@@ -113,8 +113,6 @@ class ItineraryForm extends React.Component {
     // this.updateText(curText);
     }
 
-
-
     const updateFieldEvent =
         key => ev => this.props.onUpdateCreateField(key, ev.target.value, ITINERARY_PAGE);
 
@@ -122,7 +120,7 @@ class ItineraryForm extends React.Component {
       this.props.updateItineraryField(this.props.authenticated, this.props.data, field, value);
 
     const updateReviewFieldEvent = (field, value, tip) =>
-      this.props.updateReviewField(this.props.authenticated, this.props.data, field, value, tip);
+      this.props.updateReviewField(this.props.authenticated, this.props.data, field, value, tip, Constants.TIPS_TYPE);
 
     this.changeDescription = value => updateItineraryFieldEvent('description', value)
     this.changeLink = value => updateItineraryFieldEvent('link', value)

@@ -49,6 +49,9 @@ const TipList = props => {
               selectedMarker={props.selectedMarker}
               onSelectActiveTip={props.onSelectActiveTip}
               dataType={props.dataType}
+              changeRating={props.changeRating}
+              changeCaption={props.changeCaption}
+              deleteRec={props.deleteRec}
             />
           );
         })

@@ -8,6 +8,12 @@ import * as Constants from '../constants';
 import CommentContainer from './Review/CommentContainer';
 import DisplayTimestamp from './DisplayTimestamp';
 import MediaQuery from 'react-responsive';
+import RenderDebounceInput from './RenderDebounceInput';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import IconMenu from 'material-ui/IconMenu';
+import IconButton from 'material-ui/IconButton';
+import MoreHorizIcon from 'material-ui/svg-icons/navigation/more-horiz';
 
 var Scroll = require('react-scroll');
 var Element = Scroll.Element;
@@ -44,7 +50,21 @@ const CommentPreview = props => {
 
 /* Displays user entered caption -OR- empty message if user has not entered caption */ 
 const CaptionDisplay = props => {
-  if (props.tip.review.caption) {
+  if (props.canModify) {
+    return (
+      <div className="tip__caption v2-type-body2 font--beta  ta-left opa-70">
+        <RenderDebounceInput
+          type="textarea"
+          className="w-100 show-border"
+          cols="20"
+          wrap="hard"
+          value={props.tip.review.caption}
+          placeholder="Add notes here"
+          debounceFunction={props.changeCaption(props.tip)} />
+      </div>
+    )
+  }
+  else if (props.tip.review.caption) {
     return (
       <div className="inline opa-70">{props.tip.review.caption}</div>
     )
@@ -56,16 +76,12 @@ const CaptionDisplay = props => {
   } 
 }
 
-const changeRating = props => {
-
-}
-
 const RatingDisplay = props => {
   // if viewer is the tip creator, let them modify
   if (props.canModify) {
     return(
       <div className={'tip__rating-module flx flx-row flx-align-center flx-hold w-100 tip__rating-module--' + props.tip.review.rating}>
-        <select className="color--black" value={props.tip.review.rating} onChange={changeRating(props.tip)}>
+        <select className="color--black" value={props.tip.review.rating} onChange={props.changeRating(props.tip)}>
           <option value="-">Add Rating</option>
           <option value="0">0/10 Run away</option>
           <option value="1">1/10 Stay away</option>
@@ -159,6 +175,23 @@ const TipPreview = props => {
                       <DisplayTimestamp timestamp={tip.review.lastModified} />
                     </div>
                     { /** END Timestamp **/ }
+
+                    {/* More Options button */}
+                    <div className="edit-itinerary-link vb vb--xs flx-item-right no-pad vb--outline--none opa-20 fill--white color--black">             
+                      <MuiThemeProvider muiTheme={getMuiTheme()}>
+                        <IconMenu
+                           iconButtonElement={<IconButton className=""><MoreHorizIcon /></IconButton>}
+                           anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+                           targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                         >
+                        <div className="vb vb--sm vb--shadow-none fill--white color--primary danger-hover"
+                          onClick={props.deleteRec(tip)}>Delete Recommendation
+                        </div>
+                          
+                         </IconMenu>
+                       </MuiThemeProvider>
+                    </div>
+                    {/* END More Options button */}
                     
                   </div>
  
@@ -195,6 +228,7 @@ const TipPreview = props => {
                               <RatingDisplay
                                 canModify={canModify}
                                 tip={tip}
+                                changeRating={props.changeRating}
                                 />
                               { /** END Rating **/ }
 
@@ -203,7 +237,10 @@ const TipPreview = props => {
                             {/* END Tags Wrapper **/ }
                             <div className="tip__caption font--beta v2-type-body2 ta-left">
                               <Link to={'/' + tip.createdBy.username} className="strong">{tip.createdBy.username} </Link>
-                              <CaptionDisplay tip={props.tip} />
+                              <CaptionDisplay 
+                                tip={props.tip} 
+                                canModify={canModify} 
+                                changeCaption={props.changeCaption} />
                             </div>
 
                             {/* Tags list **/ }

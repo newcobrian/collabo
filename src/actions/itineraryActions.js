@@ -456,7 +456,7 @@ export function updateItineraryGeo(auth, itinerary, newGeo) {
   }
 }
 
-export function updateReviewField(auth, itinerary, field, value, tip) {
+export function updateReviewField(auth, itinerary, field, value, tip, dataType=Constants.TIPS_TYPE) {
   return dispatch => {
     if (auth && itinerary && itinerary.id && tip && tip.reviewId && tip.subjectId) {
       let updates = {};
@@ -473,28 +473,47 @@ export function updateReviewField(auth, itinerary, field, value, tip) {
       updates[`/${Constants.REVIEWS_BY_USER_PATH}/${auth}/${tip.reviewId}/lastModified`] = timestamp;
       updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${tip.subjectId}/${userId}/lastModified`] = timestamp;
 
-      // update lastModified on all itineraries
-      updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${itinerary.userId}/${itinerary.id}/lastModified`] = timestamp;
-      updates[`/${Constants.ITINERARIES_PATH}/${itinerary.id}/lastModified`] = timestamp;
-      updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${itinerary.geo.placeId}/${itinerary.userId}/${itinerary.id}/lastModified`] = timestamp;
-      updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itinerary.id}/lastModified`] = timestamp;
+      if (dataType === Constants.TIPS_TYPE) {
+        // update lastModified on all itineraries
+        updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${itinerary.userId}/${itinerary.id}/lastModified`] = timestamp;
+        updates[`/${Constants.ITINERARIES_PATH}/${itinerary.id}/lastModified`] = timestamp;
+        updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${itinerary.geo.placeId}/${itinerary.userId}/${itinerary.id}/lastModified`] = timestamp;
+        updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itinerary.id}/lastModified`] = timestamp;
 
-      Firebase.database().ref().update(updates);
-      Helpers.fanOutToFollowersFeed(auth, itinerary.id, timestamp);
+        Firebase.database().ref().update(updates);
+        Helpers.fanOutToFollowersFeed(auth, itinerary.id, timestamp);
 
-      dispatch({
-        type: ActionTypes.ITINERARY_UPDATED,
-        itineraryId: itinerary.id,
-        message: 'Updated your review for ' + tip.subject.title,
-        meta: {
-          mixpanel: {
-            event: 'review updated',
-            props: {
-              subject: tip.subjectId
+        dispatch({
+          type: ActionTypes.ITINERARY_UPDATED,
+          itineraryId: itinerary.id,
+          message: 'Updated your review for ' + tip.subject.title,
+          meta: {
+            mixpanel: {
+              event: 'review updated',
+              props: {
+                subject: tip.subjectId
+              }
             }
           }
-        }
-      })
+        })
+      }
+      else if (dataType === Constants.RECOMMENDATIONS_TYPE) {
+        Firebase.database().ref().update(updates);
+
+        dispatch({
+          type: ActionTypes.RECOMMENDATION_UPDATED,
+          itineraryId: itinerary.id,
+          message: 'Updated your recommendation for ' + tip.subject.title,
+          meta: {
+            mixpanel: {
+              event: 'recommendation review updated',
+              props: {
+                subject: tip.subjectId
+              }
+            }
+          }
+        })
+      }
     }
   }
 }
@@ -639,6 +658,8 @@ export function onAddTip(auth, result, itinerary, type) {
         Object.assign(tipObject, {lastModified: lastModified})
         let recId = Firebase.database().ref(Constants.RECS_BY_ITINERARY_PATH + '/' + itinerary.id).push(tipObject).key;
 
+        Firebase.database().ref().update(updates);
+
         dispatch({
           type: ActionTypes.RECOMMENDATION_ADDED,
           itineraryId: itinerary.id,
@@ -694,6 +715,28 @@ export function onDeleteTip(auth, tip, itineraryId, itinerary) {
             props: {
               itinerary: itinerary.id,
               tip: tip.key,
+              subject: tip.subjectId
+            }
+          }
+        }
+      })
+    })
+  }
+}
+
+export function onDeleteRecommendation(auth, tip, itineraryId, itinerary) {
+  return dispatch => {
+    // for every tip after deleted tip, subtract 1 from priority
+    Firebase.database().ref(Constants.RECS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + tip.key).remove()
+    .then(response => {
+      dispatch({
+        type: ActionTypes.RECOMMENDATION_DELETED,
+        meta: {
+          mixpanel: {
+            event: 'recommendation deleted from itinerary',
+            props: {
+              itinerary: itinerary.id,
+              rec: tip.key,
               subject: tip.subjectId
             }
           }
