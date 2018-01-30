@@ -360,7 +360,7 @@ input.edit-tip__rating {
   font-weight: normal !important;
 }
 .not-my-guide .tip__rating-module--undefined {
-  display: none !important;
+  /*display: none !important;*/
 }
 .tip__rating-module--undefined select,
 .tip__rating-module--undefined,

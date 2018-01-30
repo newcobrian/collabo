@@ -492,7 +492,7 @@ class Itinerary extends React.Component {
 
 
                 {/** <<<<<< CENTER INFO **/}
-                <div className="it__title-module flx flx-col flx-just-start flx-align-center ta-center w-100">
+                <div className="it__title-module flx flx-col flx-just-start flx-align-start ta-center w-100">
                 
 
                   {/** TITLE **/}
