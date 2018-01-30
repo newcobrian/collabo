@@ -684,7 +684,6 @@ class Itinerary extends React.Component {
                   dataType={Constants.REVIEW_TYPE}
                   selectedMarker={this.props.selectedMarker}
                   onSelectActiveTip={this.props.onSelectActiveTip}
-
                   />
 
                   <div className="DN">
