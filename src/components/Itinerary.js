@@ -339,10 +339,10 @@ class Itinerary extends React.Component {
         return (
           <div className={this.props.mapViewToggle ? 'flx flx-col flx-align-start page-common page-itinerary not-my-guide page-edit-own show-map' : 'flx flx-col flx-align-start page-common not-my-guide page-edit-own page-itinerary'}>
 
-            <button className="floating-map-toggle vb vb--xs vb--round mrgn-top-xs vb--outline flx flx-row bx-shadow flx-align-center fill--white color--black mrgn-left-n-1 button-map-toggle"
+            <button className="mobile-show vb vb--sm flx flx-row flx-align-center fill--black color--white button-map-toggle bx-shadow"
               onClick={this.onMapToggle}>
-              <i className="material-icons color--black md-18 opa-80">map</i>
-              <div className="mobile-hide color--black mrgn-left-sm">Full Map</div>
+              <i className="material-icons md-18">map</i>
+              <div className="mobile-hide mrgn-left-sm">Full Map</div>
             </button>
 
             {/*<button className="mobile-show vb vb--sm vb--outline vb--round flx flx-row flx-align-center fill--white color--black button-filter-map bx-shadow"
