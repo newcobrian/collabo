@@ -660,7 +660,7 @@ class Itinerary extends React.Component {
               <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
                 <Sticky bottomOffset={140} className={'sticky-class'}>
                   <div className="it-add-container give-rec-wrapper flx flx-row flx-align-center">
-                    {renderGeoSuggestRec(itinerary.geo)}
+                    {/*renderGeoSuggestRec(itinerary.geo)*/}
                   </div>
                 </Sticky>
 
@@ -692,7 +692,7 @@ class Itinerary extends React.Component {
                   deleteRec={this.deleteRec}
                   />
 
-                  <div className="">
+                  <div className="DN">
                     Recommendations from friends
 
                   {/* Tip List for recommendations */}
