@@ -31,7 +31,8 @@ import { ShareButtons, ShareCounts, generateShareIcon } from 'react-share';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import Geosuggest from 'react-geosuggest';
 import FollowItineraryButton from './FollowItineraryButton'
-import { GoogleApiWrapper, Map, Marker } from 'google-maps-react'
+import { GoogleApiWrapper, Map, Marker } from 'google-maps-react';
+import Sticky from 'react-sticky-el';
 
 const {
   FacebookShareButton,
@@ -553,9 +554,9 @@ class Itinerary extends React.Component {
                         {(this.props.userInfo && (!this.props.userInfo.flags || !this.props.userInfo.flags.hideSubscribeTip)) && 
                           <div className="help-- arrow-up help--subscribe flx flx-row flx-align-start color--white bx-shadow">
                             <i className="material-icons color--white md-24 mrgn-left-xs DN">arrow_upward</i>
-                            <div className="flx flx-col flx-just-start color--black">
+                            <div className="flx flx-col flx-just-start color--white">
                               <div className="v2-type-body2 ta-left">Subscribe to guides you care about. We'll let you know whenever they get updated with new tips.</div>
-                              <Link className="vb vb--xs vb--outline--none fill--none hover--white10 flx-item-right" onClick={onSubscribeTooltipOkay}>Okay</Link>
+                              <Link className="vb vb--xs vb--outline--none fill--none hover--white10 flx-item-right color--white" onClick={onSubscribeTooltipOkay}>Okay</Link>
                             </div>
                           </div>
                         }
@@ -657,8 +658,11 @@ class Itinerary extends React.Component {
               </div>
 
               <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
-
-                {renderGeoSuggestRec(itinerary.geo)}
+                <Sticky bottomOffset={140} className={'sticky-class'}>
+                  <div className="it-add-container give-rec-wrapper flx flx-row flx-align-center">
+                    {renderGeoSuggestRec(itinerary.geo)}
+                  </div>
+                </Sticky>
 
                 <div className="flx flx-row w-100 flx-align-center flx-just-space-between pdding-left-xs pdding-right-xs pdding-top-xs">
                   
