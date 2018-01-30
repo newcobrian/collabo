@@ -726,7 +726,9 @@ const ShareGuideTooltip = props => {
             </div>
             {/** >>>>>> CLOSE CENTER INFO **/}
 
+          {/** >>>>>> SMALL ACTIONS START **/}
             <div className="flx flx-row flx-align-center w-100 pdding-all-sm pdding-top-xs pdding-bottom-xs fill--white">
+              
               {/** LIKE BUTTON **/}
               <div className="cta-wrapper flx flx-row vb vb--xs vb--outline--none vb--nohover fill--none color--black">
                 <LikeReviewButton
@@ -761,12 +763,13 @@ const ShareGuideTooltip = props => {
                   className="Demo__some-network__share-button">
                   <FacebookIcon
                     size={24}
+                    round={true}
                      />
                 </FacebookShareButton>
 
                 <FacebookShareCount
                   url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
-                  className="mrgn-left-xs color--fb mrgn-right-sm v2-type-body0 weight-500">
+                  className="mrgn-left-sm color--fb mrgn-right-sm v2-type-body0 weight-500">
                   {count => count}
                 </FacebookShareCount>
 
@@ -779,8 +782,10 @@ const ShareGuideTooltip = props => {
                   className="Demo__some-network__share-button flx flx-row flx-align-center">
                   <TwitterIcon
                     size={24}
+                    round={true}
                      />
-                  <div className="v2-type-body0 mrgn-left-xs color--tw">Tweet</div>
+                   
+                  <div className="v2-type-body0 mrgn-left-sm color--tw">Tweet</div>
                 </TwitterShareButton>
                 <i className="material-icons color--primary md-18 DN">share</i>
 
@@ -796,7 +801,7 @@ const ShareGuideTooltip = props => {
                 </CopyToClipboard>
               </div>
             </div>
-
+          {/** >>>>>> SMALL ACTIONS END **/}
 
 
           </div>

@@ -460,9 +460,9 @@ class Itinerary extends React.Component {
                 
 
                 <div className="it__cover__inner flx flx-col flx-just-start ta-left w-100 w-max">
-                  <div className="flx flx-row w-100 flx-center-all mrgn-bottom-sm">
+                  <div className="flx flx-row w-100 flx-align-center flx-just-start mrgn-bottom-sm">
 
-                    <div className="it__author-wrapper flx flx-row flx-just-start flx-align-center w-50">
+                    <div className="it__author-wrapper flx flx-row flx-just-start flx-align-center mrgn-right-lg">
                       <div className="itinerary__summary__author-photo">
                           <Link
                           to={`/${createdByUsername}`}
@@ -577,11 +577,57 @@ class Itinerary extends React.Component {
                   {/** END LIKE BUTTON **/}
 
                   {/* Share */}
-                  <div className="cta-wrapper flx flx-row vb vb--xs vb--outline--none vb--nohover fill--none color--black invert flx-item-right pdding-left-lg"
+                  <div className="DN cta-wrapper flx flx-row vb vb--xs vb--outline--none vb--nohover fill--none color--black invert flx-item-right pdding-left-lg"
                     onClick={this.shareGuide} >
                     <div className="color--black mrgn-right-xs">Share this guide</div>
                     <i className="material-icons mrgn-left-xs color--black flip-h">reply</i>
                     <i className="material-icons color--white DN">accessibility</i>
+                  </div>
+
+                  <div className="flx flx-row flx-align-center pdding-right-sm mrgn-left-sm">
+                    <FacebookShareButton
+                      url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
+                      quote={'Check out my travel guide "' + itinerary.title + '" for '}
+                      hashtag={'#views'}
+                      onClick={onPostClick(Constants.FACEBOOK_POST)}
+                      className="Demo__some-network__share-button">
+                      <FacebookIcon
+                        size={24}
+                        round={true}
+                         />
+                    </FacebookShareButton>
+
+                    <FacebookShareCount
+                      url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
+                      className="mrgn-left-sm color--fb mrgn-right-sm v2-type-body0 weight-500">
+                      {count => count}
+                    </FacebookShareCount>
+
+
+                    <TwitterShareButton
+                      url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
+                      title={'Check out my travel guide "' + itinerary.title + '" for ' + ':'}
+                      hashtags={['views']}
+                      onClick={onPostClick(Constants.TWITTER_POST)}
+                      className="Demo__some-network__share-button flx flx-row flx-align-center">
+                      <TwitterIcon
+                        size={24}
+                        round={true}
+                         />
+                      <div className="v2-type-body0 mrgn-left-sm color--tw">Tweet</div>
+                    </TwitterShareButton>
+                    <i className="material-icons color--primary md-18 DN">share</i>
+
+                    <CopyToClipboard 
+                      className="flx flx-row flx-center-all fill--white color--black DN"
+                      text={Constants.VIEWS_URL + '/guide/' + itinerary.id}
+                      onCopy={onCopyClick}>
+                        <div className="flx flx-row flx-center-all w-100 fill--white">
+                          <i className="material-icons md-18 color--dark-gray flx-item-left">link</i>
+                          <div className="mobile-hide DN">Copy&nbsp;</div>
+                          <div className="v2-type-body0 mrgn-left-xs color--dark-gray">Copy URL</div>
+                        </div>
+                    </CopyToClipboard>
                   </div>
                 </div>
 
