@@ -177,20 +177,21 @@ const TipPreview = props => {
                     { /** END Timestamp **/ }
 
                     {/* More Options button */}
-                    <div className="edit-itinerary-link vb vb--xs flx-item-right no-pad vb--outline--none opa-20 fill--white color--black">             
-                      <MuiThemeProvider muiTheme={getMuiTheme()}>
-                        <IconMenu
-                           iconButtonElement={<IconButton className=""><MoreHorizIcon /></IconButton>}
-                           anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-                           targetOrigin={{horizontal: 'left', vertical: 'top'}}
-                         >
-                        <div className="vb vb--sm vb--shadow-none fill--white color--primary danger-hover"
-                          onClick={props.deleteRec(tip)}>Delete Recommendation
-                        </div>
-                          
-                         </IconMenu>
-                       </MuiThemeProvider>
-                    </div>
+                    {props.dataType === Constants.RECOMMENDATIONS_TYPE && 
+                      <div className="edit-itinerary-link vb vb--xs flx-item-right no-pad vb--outline--none opa-20 fill--white color--black">             
+                        <MuiThemeProvider muiTheme={getMuiTheme()}>
+                          <IconMenu
+                             iconButtonElement={<IconButton className=""><MoreHorizIcon /></IconButton>}
+                             anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+                             targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                           >
+                          <div className="vb vb--sm vb--shadow-none fill--white color--primary danger-hover"
+                            onClick={props.deleteRec(tip)}>Delete Recommendation
+                          </div>
+                            
+                           </IconMenu>
+                         </MuiThemeProvider>
+                      </div>}
                     {/* END More Options button */}
                     
                   </div>

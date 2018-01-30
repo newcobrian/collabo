@@ -21,7 +21,6 @@ export function checkEndOfInbox(dispatch, auth, dateIndex) {
 
 export function getInbox(authenticated, dateIndex) {
   return dispatch => {
-    console.log('in action di = ' + dateIndex)
     if (!authenticated) {
       dispatch({
         type: ActionTypes.ASK_FOR_AUTH
