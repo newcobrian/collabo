@@ -34,6 +34,7 @@ import { filter } from 'lodash'
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import Sticky from 'react-sticky-el';
 import LoadingSpinner from './LoadingSpinner';
+import TipList from './TipList';
 
 const {
   FacebookShareButton,
@@ -119,8 +120,8 @@ class ItineraryForm extends React.Component {
     const updateItineraryFieldEvent = (field, value) =>
       this.props.updateItineraryField(this.props.authenticated, this.props.data, field, value);
 
-    const updateReviewFieldEvent = (field, value, tip) =>
-      this.props.updateReviewField(this.props.authenticated, this.props.data, field, value, tip, Constants.TIPS_TYPE);
+    const updateReviewFieldEvent = (field, value, tip, dataType=Constants.TIPS_TYPE) =>
+      this.props.updateReviewField(this.props.authenticated, this.props.data, field, value, tip, dataType);
 
     this.changeDescription = value => updateItineraryFieldEvent('description', value)
     this.changeLink = value => updateItineraryFieldEvent('link', value)
@@ -133,12 +134,20 @@ class ItineraryForm extends React.Component {
         this.props.updateItineraryFormErrors('title', true);
       }
     }
-    this.changeCaption = tip => value => updateReviewFieldEvent('caption', value, tip)
-    this.changeRating = tip => ev => updateReviewFieldEvent('rating', ev.target.value, tip)
+    this.changeCaption = tip => value => updateReviewFieldEvent('caption', value, tip, Constants.TIPS_TYPE)
+    this.changeRating = tip => ev => updateReviewFieldEvent('rating', ev.target.value, tip, Constants.TIPS_TYPE)
+
+    this.changeRecCaption = tip => value => updateReviewFieldEvent('caption', value, tip, Constants.RECOMMENDATIONS_TYPE)
+    this.changeRecRating = tip => ev => updateReviewFieldEvent('rating', ev.target.value, tip, Constants.RECOMMENDATIONS_TYPE)
 
     this.deleteTip = tip => ev => {
       ev.preventDefault();
       this.props.onDeleteTip(this.props.authenticated, tip, this.props.itineraryId, this.props.data)
+    }
+
+    this.deleteRec = tip => ev => {
+      ev.preventDefault();
+      this.props.onDeleteRecommendation(this.props.authenticated, tip, this.props.itineraryId, this.props.itinerary)
     }
 
     this.onMapToggle = ev => {
@@ -1085,6 +1094,27 @@ const ShareGuideTooltip = props => {
                   );
                 })
               }
+
+              <div className="">
+                Recommendations from friends
+
+                {/* Tip List for recommendations */}
+                <TipList
+                  tipList={this.props.recommendations}
+                  authenticated={this.props.authenticated}
+                  userInfo={this.props.userInfo}
+                  showModal={this.props.showModal}
+                  deleteComment={this.props.onDeleteComment}
+                  itineraryId={this.props.itinerary.id}
+                  itinerary={itinerary}
+                  dataType={Constants.RECOMMENDATIONS_TYPE}
+                  canModify={false}
+                  selectedMarker={this.props.selectedMarker}
+                  onSelectActiveTip={this.props.onSelectActiveTip}
+                  changeRating={this.changeRecRating}
+                  changeCaption={this.changeRecCaption}
+                  deleteRec={this.deleteRec} />
+              </div>
 
               {/** Big share button **/}
               

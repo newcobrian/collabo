@@ -2145,7 +2145,6 @@ export function unloadLikesByUser(auth, userId) {
 // } 
 
 export function likeReview(authenticated, type, likeObject, itineraryId) {
-  console.log('type in likeReview action = ' + type)
   return dispatch => {
     if (!authenticated) {
       dispatch({
@@ -2208,6 +2207,10 @@ export function likeReview(authenticated, type, likeObject, itineraryId) {
           Firebase.database().ref(Constants.TIPS_BY_SUBJECT_PATH + '/' + likeObject.subjectId + '/' + likeObject.userId + '/' + id + '/likesCount').transaction(function (current_count) {
             return (current_count || 0) + 1;
           });
+
+          // update guide popularity score
+          Helpers.incrementGuideScore(itineraryId, Constants.LIKE_GUIDE_SCORE);
+          // send inbox message to guide owner
           Helpers.sendInboxMessage(authenticated, likeObject.userId, Constants.LIKE_TIP_MESSAGE, likeObject, itineraryId, null);
 
           mixpanel.people.increment("total likes");
@@ -2241,6 +2244,9 @@ export function likeReview(authenticated, type, likeObject, itineraryId) {
             return (current_count || 0) + 1;
           });
 
+          // send inbox message to guide owner
+          Helpers.sendInboxMessage(authenticated, likeObject.userId, Constants.LIKE_REC_MESSAGE, likeObject, itineraryId, null);
+
           dispatch({
             type: ActionTypes.RECOMMENDATION_LIKED,
             meta: {
@@ -2254,9 +2260,6 @@ export function likeReview(authenticated, type, likeObject, itineraryId) {
             }
           })
         }
-
-        // update guide popularity score
-        Helpers.incrementGuideScore(itineraryId, Constants.LIKE_GUIDE_SCORE);
       })
       .catch(error => {
         console.log(error);

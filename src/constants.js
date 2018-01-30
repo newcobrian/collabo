@@ -85,6 +85,7 @@ export const REVIEWS_COUNT = 'reviewsCount'
 /*** Message Type Constants ***/
 export const LIKE_MESSAGE = 'LIKE_MESSAGE'
 export const LIKE_TIP_MESSAGE = 'LIKE_TIP_MESSAGE'
+export const LIKE_REC_MESSAGE = 'LIKE_REC_MESSAGE'
 export const LIKE_ITINERARY_MESSAGE = 'LIKE_ITINERARY_MESSAGE'
 export const SAVE_MESSAGE = 'SAVE_MESSAGE'
 export const FOLLOW_MESSAGE = 'FOLLOW_MESSAGE'

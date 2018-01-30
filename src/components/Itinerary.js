@@ -340,7 +340,8 @@ class Itinerary extends React.Component {
       if (canModify) {
         return (
           <ItineraryForm 
-            initialValues={itinerary} 
+            initialValues={itinerary}
+            recommendations={this.props.recommendations}
             visibleTips={visibleTips} 
             numTotalTips={numTotalTips}
             google={google}
@@ -657,7 +658,7 @@ class Itinerary extends React.Component {
 
               <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
 
-                {/*renderGeoSuggestRec(itinerary.geo)*/}
+                {renderGeoSuggestRec(itinerary.geo)}
 
                 <div className="flx flx-row w-100 flx-align-center flx-just-space-between pdding-left-xs pdding-right-xs pdding-top-xs">
                   
@@ -686,7 +687,7 @@ class Itinerary extends React.Component {
                   onSelectActiveTip={this.props.onSelectActiveTip}
                   />
 
-                  <div className="DN">
+                  <div className="">
                     Recommendations from friends
 
                   {/* Tip List for recommendations */}
@@ -699,7 +700,6 @@ class Itinerary extends React.Component {
                       itineraryId={this.props.itinerary.id}
                       itinerary={itinerary}
                       dataType={Constants.RECOMMENDATIONS_TYPE}
-                      canModify={false}
                       selectedMarker={this.props.selectedMarker}
                       onSelectActiveTip={this.props.onSelectActiveTip}
                       changeRating={this.changeRating}

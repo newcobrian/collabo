@@ -378,6 +378,13 @@ export function sendInboxMessage(senderId, recipientId, messageType, sendObject,
 						emailMessage = senderSnapshot.val().username + 
 							' liked your tip. Click here to check it out: https://myviews.io' + inboxObject.link;
 						break;
+					case Constants.LIKE_REC_MESSAGE:
+						inboxObject.senderId = senderId;
+						inboxObject.message = ' liked your recommendation: ';
+						inboxObject.link = itineraryId ? '/guide/' + itineraryId + '#tip' + sendObject.key : '/review/' + sendObject.subjectId + '/' + sendObject.id;
+						emailMessage = senderSnapshot.val().username + 
+							' liked your recommendation. Click here to check it out: https://myviews.io' + inboxObject.link;
+						break;
 					case Constants.LIKE_ITINERARY_MESSAGE:
 						inboxObject.senderId = senderId;
 						inboxObject.message = ' liked your guide: ';
