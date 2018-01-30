@@ -44,19 +44,24 @@ export function getInbox(authenticated, dateIndex) {
       }
 
       Firebase.database().ref(Constants.USERS_PATH + '/' + inboxSnapshot.val().senderId).once('value', senderSnapshot => {
-        let inboxObject = inboxSnapshot.val();
-        inboxObject.key = inboxSnapshot.key;
-        inboxObject.senderUsername = senderSnapshot.val().username;
-        inboxObject.senderImage = senderSnapshot.val().image;
+        if (senderSnapshot.exists()) {
+          let inboxObject = inboxSnapshot.val();
+          inboxObject.key = inboxSnapshot.key;
+          inboxObject.senderUsername = senderSnapshot.val().username;
+          inboxObject.senderImage = senderSnapshot.val().image;
 
-        inboxArray = [inboxObject].concat(inboxArray);
-        inboxArray.sort(Helpers.lastModifiedDesc);
+          inboxArray = [inboxObject].concat(inboxArray);
+          inboxArray.sort(Helpers.lastModifiedDesc);
 
-        dispatch({
-          type: ActionTypes.GET_INBOX_ITEM,
-          // payload: inboxArray,
-          payload: inboxObject
-        })
+          dispatch({
+            type: ActionTypes.GET_INBOX_ITEM,
+            // payload: inboxArray,
+            payload: inboxObject
+          })
+        }
+        else {
+          console.log('senderId = ' + inboxSnapshot.val().senderId)
+        }
       })
     })
   }

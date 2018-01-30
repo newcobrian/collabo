@@ -1420,7 +1420,6 @@ export function onCommentSubmit(authenticated, userInfo, type, commentObject, bo
       body: body ? body : '',
       lastModified: Firebase.database.ServerValue.TIMESTAMP
     }
-
     if (userInfo.image) comment.image = userInfo.image;
 
     let inboxMessageType = ( type === Constants.ITINERARY_TYPE ? Constants.COMMENT_ON_ITINERARY_MESSAGE : Constants.COMMENT_ON_REVIEW_MESSAGE );
@@ -1435,11 +1434,10 @@ export function onCommentSubmit(authenticated, userInfo, type, commentObject, bo
           return (current_count || 0) + 1;
         });
       }
-      // else if (type === Constants.RECOMMENDATIONS_TYPE) {
-      //   Firebase.database().ref(Constants.RECS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + objectId + '/commentsCount').transaction(function (current_count) {
-      //     return (current_count || 0) + 1;
-      //   });
-      // }
+      else if (type === Constants.RECOMMENDATIONS_TYPE) {
+        inboxMessageType = Constants.COMMENT_ON_REC_MESSAGE;
+        commentOnCommentType = Constants.COMMENT_ON_COMMENT_REC_MESSAGE;
+      }
       else if (type === Constants.ITINERARY_TYPE) {
       // this is a comment on an itinerary
         Helpers.incrementItineraryCount(Constants.COMMENTS_COUNT, objectId, commentObject.geo, commentObject.userId); 

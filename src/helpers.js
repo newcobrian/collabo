@@ -426,6 +426,24 @@ export function sendInboxMessage(senderId, recipientId, messageType, sendObject,
 						emailMessage = senderSnapshot.val().username + 
 							' also commented on an guide you commented on. Click here to check it out: https://myviews.io' + inboxObject.link;
 						break;
+					case Constants.COMMENT_ON_REC_MESSAGE:
+						inboxObject.senderId = senderId;
+						inboxObject.message = ' commented on your recommendation: ' + commentObject.message;
+						inboxObject.link = itineraryId ? '/guide/' + itineraryId + '#comment' + commentObject.commentId : 
+							'/review/' + sendObject.subjectId + '/' + sendObject.id;
+						inboxObject.reviewTitle = '';
+						emailMessage = senderSnapshot.val().username + 
+							' commented on your recommendation. Click here to check it out: https://myviews.io' + inboxObject.link;
+						break;
+					case Constants.COMMENT_ON_COMMENT_REC_MESSAGE:
+						inboxObject.senderId = senderId;
+						inboxObject.message = ' also commented: ' + commentObject.message;
+						inboxObject.link = itineraryId ? '/guide/' + itineraryId + '#comment' + commentObject.commentId : 
+							'/review/' + sendObject.subjectId + '/' + sendObject.id;
+						inboxObject.reviewTitle = '';
+						emailMessage = senderSnapshot.val().username + 
+							' also commented on a recommendation you commented on. Click here to check it out: https://myviews.io' + inboxObject.link;
+						break;
 					case Constants.FOLLOW_MESSAGE:
 						inboxObject.senderId = senderId;
 						inboxObject.message = ' started following you.';
