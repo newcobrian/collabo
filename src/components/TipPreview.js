@@ -56,8 +56,48 @@ const CaptionDisplay = props => {
   } 
 }
 
+const changeRating = props => {
+
+}
+
+const RatingDisplay = props => {
+  // if viewer is the tip creator, let them modify
+  if (props.canModify) {
+    return(
+      <div className={'tip__rating-module flx flx-row flx-align-center flx-hold w-100 tip__rating-module--' + props.tip.review.rating}>
+        <select className="color--black" value={props.tip.review.rating} onChange={changeRating(props.tip)}>
+          <option value="-">Add Rating</option>
+          <option value="0">0/10 Run away</option>
+          <option value="1">1/10 Stay away</option>
+          <option value="2">2/10 Just bad</option>
+          <option value="3">3/10 Don't go</option>
+          <option value="4">4/10 Meh</option>
+          <option value="5">5/10 Average</option>
+          <option value="6">6/10 Solid</option>
+          <option value="7">7/10 Go here</option>
+          <option value="8">8/10 Really good</option>
+          <option value="9">9/10 Must go</option>
+          <option value="10">10/10 The best</option>
+        </select>
+      </div>
+    )
+  }
+  // otherwise just show the rating
+  else {
+    return (
+      <div className={'tip__rating-module flx flx-row flx-align-center w-100 flx-hold tip__rating-module--' + props.tip.review.rating}>
+        <div className={'tip__rating flx-hold flx flx-row flx-center-all v2-type-rating--' +  props.tip.review.rating}>
+          {props.tip.review.rating}
+        </div>
+        <i className="rating-star-icon material-icons color--black opa-40 md-14 DN">star</i>
+      </div>
+    )
+  }
+}
+
 const TipPreview = props => {
   const tip = props.tip;
+  let canModify = props.authenticated === tip.userId ? true : false;
       
   const handleSaveClick = ev => {
     ev.preventDefault();
@@ -152,12 +192,10 @@ const TipPreview = props => {
                             <div className="flx flx-row flx-align-center flx-wrap pdding-bottom-xs">
 
                               { /** Rating **/ }
-                              <div className={'tip__rating-module flx flx-row flx-align-center w-100 flx-hold tip__rating-module--' + tip.review.rating}>
-                                <div className={'tip__rating flx-hold flx flx-row flx-center-all v2-type-rating--' +  tip.review.rating}>
-                                  {tip.review.rating}
-                                </div>
-                                <i className="rating-star-icon material-icons color--black opa-40 md-14 DN">star</i>
-                              </div>
+                              <RatingDisplay
+                                canModify={canModify}
+                                tip={tip}
+                                />
                               { /** END Rating **/ }
 
                              

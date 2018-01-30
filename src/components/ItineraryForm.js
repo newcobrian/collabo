@@ -73,7 +73,7 @@ const UpdateCoverPhoto = props => {
         multiple={false}
         accept="image/jpeg,image/png,application/pdf"
         className="edit-tip__dropzone__touch flx flx-col flx-align-center flx-just-start ta-center">
-        <div className="add-photo-wrapper vb vb--xs vb--shadow-none color--white vb--outline--none fill--none">
+        <div className="add-photo-wrapper vb vb--xs vb--shadow-none color--white vb--outline--none">
           <i className="material-icons color--white md-18">add_a_photo</i>
           <div className="mrgn-left-sm mobile-hide DN">Upload Cover</div>
         </div>
@@ -411,7 +411,7 @@ const ShareGuideTooltip = props => {
                 className="Demo__some-network__share-button mrgn-right-sm flx flx-row flx-center-all vb vb--md vb--outline--none vb--fb mrgn-bottom-sm">
                 <FacebookIcon
                   size={42}
-                  round={true} />
+                  round />
                 <div className="color--white w-100 DN">Share on Facebook</div>
               </FacebookShareButton>
 
@@ -424,7 +424,7 @@ const ShareGuideTooltip = props => {
                 className="mrgn-right-sm flx flx-row flx-center-all vb vb--md vb--outline--none vb--tw mrgn-bottom-sm">
                 <TwitterIcon
                   size={42}
-                  round={true} />
+                  round />
                 <div className="color--black DN w-100">Share on Twitter</div>
 
               </TwitterShareButton>
@@ -699,7 +699,7 @@ const ShareGuideTooltip = props => {
                   <DisplayTimestamp timestamp={this.props.data.lastModified} />
                   {/*(new Date(itinerary.lastModified)).toLocaleString()*/}
                 </div> 
-                <div className="edit-itinerary-link mrgn-left-md color--black invert">             
+                <div className="edit-itinerary-link mrgn-left-lg color--black invert">             
                   <MuiThemeProvider muiTheme={getMuiTheme()}>
 
                        <ItineraryActionsButton 
@@ -726,7 +726,7 @@ const ShareGuideTooltip = props => {
             </div>
             {/** >>>>>> CLOSE CENTER INFO **/}
 
-            <div className="flx flx-row flx-align-center w-100 pdding-all-sm pdding-top-sm pdding-bottom-sm fill--white">
+            <div className="flx flx-row flx-align-center w-100 pdding-all-sm pdding-top-xs pdding-bottom-xs fill--white">
               {/** LIKE BUTTON **/}
               <div className="cta-wrapper flx flx-row vb vb--xs vb--outline--none vb--nohover fill--none color--black">
                 <LikeReviewButton
@@ -951,7 +951,7 @@ const ShareGuideTooltip = props => {
 
 
                                           { /** Caption **/ }
-                                          <div className="tip__caption-module flx flx-row w-100 pdding-bottom-sm brdr-02-bottom pdding-bottom-sm">
+                                          <div className="tip__caption-module flx flx-row w-100 pdding-bottom-sm">
                                             <div className="tip__author-photo flx-hold mrgn-right-sm">
                                               <ProfilePic src={tip.createdBy.image} className="user-image user-image-sm center-img" />
                                             </div>
@@ -1000,7 +1000,7 @@ const ShareGuideTooltip = props => {
                                                 Object.keys(tip.tags || {}).map(function (tagName) {
                                                   return (
                                                     <div key={tagName} className="tip-tag fill--light-gray flx flx-row flx-align-center">
-                                                      <div className="">{tagName}</div>
+                                                      <div className="opa-50">{tagName}</div>
                                                       <Link className="tag-x flx-item-right flx flx-center-all" onClick={onRemoveTag(this.props.authenticated, tip, itinerary.id, itinerary.geo.placeId, tagName)}>
                                                         <i className="material-icons color--black md-16">close</i>
                                                       </Link>
@@ -1024,7 +1024,7 @@ const ShareGuideTooltip = props => {
                                           </div>
 
                                           { /** Comments **/ }
-                                          <div className="flx flx-row flex-wrap cta-container mrgn-top-sm">
+                                          <div className="flx flx-row flex-wrap cta-container">
                                              <CommentContainer
                                                 authenticated={this.props.authenticated}
                                                 comments={tip.comments || []}
