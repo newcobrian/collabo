@@ -455,7 +455,8 @@ class Itinerary extends React.Component {
             <div className="content-wrapper itinerary flx flx-col flx-align-center map-on">
 
               {/** Cover Image **/}
-              <div className="itinerary__big-photo bg-loading">
+              <div className="itinerary__big-photo bg-loading country-color- fill--light-gray">
+                {/**+ itinerary.geo.country}**/}
                 <ImagePicker images={itinerary.images ? [itinerary.images] : null} max-w="1280" h="400"/>
                 <div className={'flx flx-col flx-center-all v2-type-body3 cover__loading loading-done-' + this.props.coverPicProgress}>
                   Uploading New Cover Photo...
@@ -470,7 +471,7 @@ class Itinerary extends React.Component {
               
 
               {/** Cover Content **/}
-              <div className={"itinerary__cover__text w-100 country-color-" + itinerary.geo.country}>
+              <div className="itinerary__cover__text w-100">
                 
 
                 <div className="it__cover__inner flx flx-col flx-just-start ta-left w-100 w-max">

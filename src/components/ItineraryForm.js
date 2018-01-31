@@ -582,7 +582,8 @@ const ShareGuideTooltip = props => {
 
             
             {/** Cover Image **/}
-            <div className="itinerary__big-photo bg-loading">
+            <div className="itinerary__big-photo bg-loading country-color- fill--light-gray">
+              {/**+ itinerary.geo.country}**/}
               <ImagePicker images={itinerary.images ? [itinerary.images] : null} />
               <div className={'flx flx-col flx-center-all v2-type-body3 fill--black color--white cover__loading fill--light-gray loading-done-' + this.props.coverPicProgress}>
                   <div className="loader-wrapper flx flx-col flx-center-all fill--black">
@@ -618,7 +619,7 @@ const ShareGuideTooltip = props => {
 
           
           {/** Cover Content **/}
-          <div className={"itinerary__cover__text w-100 country-color-" + itinerary.geo.country}>
+          <div className="itinerary__cover__text w-100">
             
             
 
@@ -822,12 +823,9 @@ const ShareGuideTooltip = props => {
             <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
 
                 <Sticky bottomOffset={140} className={'sticky-class'}>
-                <div className="it-add-container flx flx-row flx-align-center">
-                  <div className="it__tip-count color--black mrgn-right-sm mrgn-left-sm DN">
-                    {itinerary.reviewsCount ? itinerary.reviewsCount : 0}
+                  <div className="it-add-container flx flx-row flx-align-center">
+                    {renderGeoSuggestTip(itinerary.geo)}
                   </div>
-                  {renderGeoSuggestTip(itinerary.geo)}
-                </div>
                 </Sticky>
 
 

@@ -157,7 +157,7 @@ const ItineraryPreview = props => {
         {/** END USER PHOTO AND TIP COUNT **/}
 
 
-        <div className={"itinerary__contents bx-shadow flx flx-col w-100 country-color-" + itinerary.geo.country}>
+        <div className="itinerary__contents bx-shadow flx flx-col w-100">
 
           {/** START IMAGES
           <MediaQuery query="(min-device-width: 1224px)"> **/}
@@ -167,7 +167,7 @@ const ItineraryPreview = props => {
             </div>
 
             {/** Cover Image **/}
-            <div className="itinerary__cover__image bg-loading">
+            <div className={"itinerary__cover__image bg-loading country-color-" + itinerary.geo.country}>
               <ImagePicker images={itinerary.images ? [itinerary.images]: null} />
             </div>
             {/** Cover Hit Area **/}

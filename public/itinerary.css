@@ -10,6 +10,9 @@
     background: transparent;
     margin: 0;
     height: 80px;
+    background-image: url(img/cover__default.png);
+    background-position: center;
+    background-size: cover;
 }
 
 .itinerary__summary__wrapper {

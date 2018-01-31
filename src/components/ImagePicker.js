@@ -61,8 +61,8 @@ class ImagePicker extends React.Component {
     }
     else {
       return (
-        <div className="default-bg">
-          <img className="center-img" src="/img/cover__default.png"/>
+        <div className="default-bg placeholder-bg flx flx-col flx-center-all">
+          <img className="center-img" src="/img/logos/logo_guide-cover.png"/>
       </div>
       )
     }
