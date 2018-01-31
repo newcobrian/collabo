@@ -762,7 +762,7 @@ const ShareGuideTooltip = props => {
               </div>
 
 
-              <div className="flx flx-row flx-align-center pdding-right-sm mrgn-left-sm">
+              <div className="flx flx-row flx-align-center pdding-right-sm flx-item-right">
                 <FacebookShareButton
                   url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
                   quote={'Check out my travel guide "' + itinerary.title + '" for '}
@@ -1093,9 +1093,10 @@ const ShareGuideTooltip = props => {
                 })
               }
 
-              <div className="">
+              <div className="flx flx-col w-100 fill--light-gray brdr-top pdding-top-lg pdding-bottom-lg mrgn-top-lg">
+                <div className="comments-section-title w-100 color--black pdding-left-lg pdding-right-lg">
                 Recommendations from friends
-
+                </div>
                 {/* Tip List for recommendations */}
                 <TipList
                   tipList={this.props.recommendations}
@@ -1129,7 +1130,7 @@ const ShareGuideTooltip = props => {
             </div>
 
 
-            <Element className="itinerary__comments-module map-on flx flx-col flx-align-start flx-just-start w-max-2" id='guidecommentcontainer' name='guidecommentcontainer'>
+            <Element className="itinerary__comments-module brdr-top map-on flx flx-col flx-align-start flx-just-start w-max-2" id='guidecommentcontainer' name='guidecommentcontainer'>
               <div className="comments-section-title mrgn-bottom-md ta-left w-100">
                 Discussion
               </div>
