@@ -4,10 +4,11 @@ import * as Helpers from '../helpers'
 import * as ActionTypes from './types'
 import mixpanel from 'mixpanel-browser'
 
-export function askForAuth() {
+export function askForAuth(message) {
   return dispatch => {
     dispatch({
-      type: ActionTypes.ASK_FOR_AUTH
+      type: ActionTypes.ASK_FOR_AUTH,
+      message
     })
   }
 }
@@ -441,5 +442,14 @@ export function authError(error) {
 export function logout() {
   return {
     type: ActionTypes.SIGN_OUT_USER
+  }
+}
+
+export function setAuthRedirect(redirect) {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.SET_AUTH_REDIRECT,
+      redirect
+    })
   }
 }

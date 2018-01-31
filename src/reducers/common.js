@@ -81,7 +81,7 @@ export default (state = defaultState, action) => {
     case ASK_FOR_AUTH:
       return {
         ...state,
-        redirectTo: '/login'
+        redirectTo: '/register'
       }
     case AUTH_USER:
       return {

@@ -3061,15 +3061,6 @@ export function getPopularGeos() {
   }
 }
 
-export function setAuthRedirect(redirect) {
-  return dispatch => {
-    dispatch({
-      type: ActionTypes.SET_AUTH_REDIRECT,
-      redirect
-    })
-  }
-}
-
 export function userDoesntExist() {
   return dispatch => {
     dispatch({

@@ -43,11 +43,18 @@ export default (state = {}, action) => {
     case FORGOT_PASSWORD_SENT:
       return {}
     case UNLOAD_AUTH:
-      return {};
+      let newState = {};
+      newState.authRedirect = state.authRedirect;
+      return newState;
     case ActionTypes.SET_AUTH_REDIRECT:
       return {
         ...state,
         authRedirect: action.redirect
+      }
+    case ActionTypes.ASK_FOR_AUTH:
+      return {
+        ...state,
+        message: action.message
       }
     default:
       return state;

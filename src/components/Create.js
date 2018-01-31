@@ -142,6 +142,7 @@ class Create extends React.Component {
 	componentWillUnmount() {
 		this.props.onCreateUnload();
 		if (this.props.watchId) navigator.geolocation.clearWatch(this.props.watchId);
+		if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
 	}
 
 	render() {

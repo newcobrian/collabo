@@ -33,6 +33,7 @@ class Places extends React.Component {
 
   componentWillUnmount() {
     this.props.unloadPlacesFeed(this.props.authenticated, this.props.params.pid);
+    if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
   }
 
   componentWillReceiveProps(nextProps) {

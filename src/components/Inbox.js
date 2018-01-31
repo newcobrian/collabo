@@ -75,6 +75,9 @@ class Inbox extends React.Component {
   componentWillUnmount() {
     this.props.updateInboxCount(this.props.authenticated);
     this.props.unloadInbox(this.props.authenticated);
+    if (!this.props.authenticated) {
+      this.props.setAuthRedirect(this.props.location.pathname);
+    }
   }
 
   onLoadMoreClick = ev => {

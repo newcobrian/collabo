@@ -261,46 +261,48 @@ class Itinerary extends React.Component {
 
     const suggestSelectTip = geoSuggestRef => result => {
       if (!this.props.authenticated) {
-        this.props.askForAuth();
+        this.props.askForAuth('Create an account so your friend knows who these recommendations are coming from.');
       }
-      let resultObject = {
-        title: result.label,
-        id: result.placeId,
-        location: result.location
-      }
-      if (result.gmaps && result.gmaps.formatted_address) {
-        resultObject.address = result.gmaps.formatted_address;
-      }
+      else {
+        let resultObject = {
+          title: result.label,
+          id: result.placeId,
+          location: result.location
+        }
+        if (result.gmaps && result.gmaps.formatted_address) {
+          resultObject.address = result.gmaps.formatted_address;
+        }
 
-      let service = new google.maps.places.PlacesService(this.props.mapObject);
-      let request = { placeId: result.placeId }
-      service.getDetails(request, function(place, status) {
-        if (status == google.maps.places.PlacesServiceStatus.OK) {
-          if (place.name) resultObject.title = place.name;
-          if (place.international_phone_number) resultObject.internationalPhoneNumber = place.international_phone_number;
-          if (place.formatted_phone_number) resultObject.formattedPhoneNumber = place.formatted_phone_number;
-          if (place.opening_hours) {
-            resultObject.hours = {};
-            if (place.opening_hours.periods) resultObject.hours.periods = place.opening_hours.periods;
-            if (place.opening_hours.weekday_text) resultObject.hours.weekdayText = place.opening_hours.weekday_text;
+        let service = new google.maps.places.PlacesService(this.props.mapObject);
+        let request = { placeId: result.placeId }
+        service.getDetails(request, function(place, status) {
+          if (status == google.maps.places.PlacesServiceStatus.OK) {
+            if (place.name) resultObject.title = place.name;
+            if (place.international_phone_number) resultObject.internationalPhoneNumber = place.international_phone_number;
+            if (place.formatted_phone_number) resultObject.formattedPhoneNumber = place.formatted_phone_number;
+            if (place.opening_hours) {
+              resultObject.hours = {};
+              if (place.opening_hours.periods) resultObject.hours.periods = place.opening_hours.periods;
+              if (place.opening_hours.weekday_text) resultObject.hours.weekdayText = place.opening_hours.weekday_text;
+            }
+            if (place.permanently_closed) resultObject.permanently_closed = true;
+            if (place.website) resultObject.website = place.website;
+            if (place.photos && place.photos[0]) {
+              resultObject.defaultImage = [ place.photos[0].getUrl({'maxWidth': 1225, 'maxHeight': 500}) ];
+            }
+            if (place.url) resultObject.googleMapsURL = place.url;
+            addTipFunc(auth, resultObject, itinerary, Constants.RECOMMENDATIONS_TYPE)
+            geoSuggestRef._geoSuggest.clear()
           }
-          if (place.permanently_closed) resultObject.permanently_closed = true;
-          if (place.website) resultObject.website = place.website;
-          if (place.photos && place.photos[0]) {
-            resultObject.defaultImage = [ place.photos[0].getUrl({'maxWidth': 1225, 'maxHeight': 500}) ];
+          else {
+            addTipFunc(auth, resultObject, itinerary, Constants.RECOMMENDATIONS_TYPE)
+            geoSuggestRef._geoSuggest.clear()
           }
-          if (place.url) resultObject.googleMapsURL = place.url;
-          addTipFunc(auth, resultObject, itinerary, Constants.RECOMMENDATIONS_TYPE)
-          geoSuggestRef._geoSuggest.clear()
-        }
-        else {
-          addTipFunc(auth, resultObject, itinerary, Constants.RECOMMENDATIONS_TYPE)
-          geoSuggestRef._geoSuggest.clear()
-        }
-      })
-      // setTimeout(function() {
-        scrollToElement('#guidecommentcontainer', { offset: -170 });
-      // }, 500);
+        })
+        // setTimeout(function() {
+          scrollToElement('#guidecommentcontainer', { offset: -170 });
+        // }, 500);
+      }
     }
 
     const renderGeoSuggestRec = geo => {
