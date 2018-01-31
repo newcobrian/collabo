@@ -44,7 +44,9 @@ export default (state = {}, action) => {
       return {}
     case UNLOAD_AUTH:
       let newState = {};
-      newState.authRedirect = state.authRedirect ? state.authRedirect : '/'
+      if (state.authRedirect) {
+        newState.authRedirect = state.authRedirect
+      }
       return newState;
     case ActionTypes.SET_AUTH_REDIRECT:
       return {
