@@ -692,14 +692,14 @@ class Itinerary extends React.Component {
                   itineraryId={this.props.itinerary.id}
                   itinerary={itinerary}
                   canModify={canModify}
-                  dataType={Constants.TIPS_TYPE}
+                  dataType={Constants.REVIEW_TYPE}
                   selectedMarker={this.props.selectedMarker}
                   onSelectActiveTip={this.props.onSelectActiveTip}
                   deleteRec={this.deleteRec}
                   />
 
 
-                 <div className="flx flx-col w-100 fill--white brdr-top pdding-top-lg pdding-bottom-lg mrgn-top-lg">
+                 <div className="flx flx-col w-100 fill--white brdr-top pdding-top-lg pdding-bottom-lg mrgn-top-lg" id="recommendationscontainer">
                      <div className="comments-section-title w-100 color--black pdding-left-lg pdding-right-lg">
                      Recommendations from friends
                      </div>
@@ -793,3 +793,5 @@ export default GoogleApiWrapper({
 }) (connect(mapStateToProps, Actions)(Itinerary));
 
 // export default connect(mapStateToProps, Actions)(Itinerary);
+
+export { Itinerary as Itinerary, mapStateToProps as mapStateToProps };
