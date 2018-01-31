@@ -21,7 +21,7 @@ class GlobalFeed extends Home {
       this.props.loadSampleGuides(this.props.authenticated);
     }
 
-    this.props.sendMixpanelEvent('Global feed loaded');
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'global feed'});
   }
 
 
