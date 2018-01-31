@@ -30,13 +30,8 @@ const CommentContainer = props => {
 		);
 	} else {
 		return (
-			<div className="v2-type-body2 pdding-top-sm pdding-bottom-md">
-				<div className="mrgn-top-md mrgn-bottom-md brdr-all fill--light-gray pdding-all-sm ta-center">
-					<Link className="color--primary" to="/login">Log in</Link>
-					&nbsp;or&nbsp;
-					<Link className="color--primary" to="/register">Sign up</Link>
-					&nbsp;to comment.
-				</div>
+			<div className="pdding-top-sm w-100">
+
 				<CommentList
 					comments={props.comments}
 					commentObject={props.commentObject}
@@ -45,6 +40,14 @@ const CommentContainer = props => {
 					itineraryId={props.itineraryId}
 					deleteComment={props.deleteComment}
 					type={props.type} />
+
+				<div className="v2-type-body1 mrgn-bottom-sm brdr-all fill--white brdr--primary w-100 pdding-all-sm ta-center">
+					<Link className="color--primary weight-500" to="/login">Log in</Link>
+					&nbsp;or&nbsp;
+					<Link className="color--primary weight-500" to="/register">Sign up</Link>
+					&nbsp;to comment
+				</div>
+
 			</div>
 		);
 	}

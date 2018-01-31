@@ -262,7 +262,7 @@ textarea {
 
 /* CHANGE ME FOR COLOR TEST!!!! */
 .brdr--primary {
-  border-color: #3DCBF3;
+  border-color: #3DCBF3 !important;
 }
 .color--primary {
   color: #3DCBF3 !important;
