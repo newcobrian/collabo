@@ -182,7 +182,7 @@ const TipPreview = props => {
                     { /** END Timestamp **/ }
 
                     {/* More Options button */}
-                    {props.dataType === Constants.RECOMMENDATIONS_TYPE && 
+                    {props.dataType === Constants.RECOMMENDATIONS_TYPE && canModify && 
                       <div className="edit-itinerary-link vb vb--xs flx-item-right no-pad vb--outline--none opa-20 fill--white color--black">             
                         <MuiThemeProvider muiTheme={getMuiTheme()}>
                           <IconMenu
