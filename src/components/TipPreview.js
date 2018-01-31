@@ -100,14 +100,19 @@ const RatingDisplay = props => {
   }
   // otherwise just show the rating
   else {
-    return (
-      <div className={'tip__rating-module flx flx-row flx-align-center w-100 flx-hold tip__rating-module--' + props.tip.review.rating}>
-        <div className={'tip__rating flx-hold flx flx-row flx-center-all v2-type-rating--' +  props.tip.review.rating}>
-          {props.tip.review.rating}
+    if (!props.tip.review.rating) {
+      return null
+    }
+    else {
+      return (
+        <div className={'tip__rating-module flx flx-row flx-align-center w-100 flx-hold tip__rating-module--' + props.tip.review.rating}>
+          <div className={'tip__rating flx-hold flx flx-row flx-center-all v2-type-rating--' +  props.tip.review.rating}>
+            {props.tip.review.rating}
+          </div>
+          <i className="rating-star-icon material-icons color--black opa-40 md-14 DN">star</i>
         </div>
-        <i className="rating-star-icon material-icons color--black opa-40 md-14 DN">star</i>
-      </div>
-    )
+      )
+    }
   }
 }
 
