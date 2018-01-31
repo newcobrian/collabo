@@ -604,7 +604,7 @@ class Itinerary extends React.Component {
                     <i className="material-icons color--white DN">accessibility</i>
                   </div>
 
-                  <div className="flx flx-row flx-align-center pdding-right-sm mrgn-left-sm">
+                  <div className="flx flx-row flx-align-center pdding-right-sm flx-item-right">
                     <FacebookShareButton
                       url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
                       quote={'Check out my travel guide "' + itinerary.title + '" for '}
@@ -698,8 +698,12 @@ class Itinerary extends React.Component {
                   deleteRec={this.deleteRec}
                   />
 
-                  <div className="">
-                    Recommendations from friends
+
+                 <div className="flx flx-col w-100 fill--white brdr-top pdding-top-lg pdding-bottom-lg mrgn-top-lg">
+                     <div className="comments-section-title w-100 color--black pdding-left-lg pdding-right-lg">
+                     Recommendations from friends
+                     </div>
+
 
                   {/* Tip List for recommendations */}
                     <TipList
@@ -728,7 +732,7 @@ class Itinerary extends React.Component {
 
               </div>
 
-              <div className="itinerary__comments-module flx flx-col flx-align-start flx-just-start w-max-2">
+              <div className="itinerary__comments-module flx flx-col brdr-top flx-align-start flx-just-start w-max-2">
                 <div className="comments-section-title mrgn-bottom-md ta-left w-100">
                   Discussion
                 </div>
