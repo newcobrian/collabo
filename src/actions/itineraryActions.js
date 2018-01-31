@@ -660,6 +660,9 @@ export function onAddTip(auth, result, itinerary, type) {
 
         Firebase.database().ref().update(updates);
 
+        let sendObject = Object.assign({}, tipObject, {key: recId}, {title: result.title});
+        Helpers.sendInboxMessage(auth, itinerary.createdBy.userId, Constants.ADD_REC_TO_ITINERARY_MESSAGE, sendObject, itinerary.id, null);
+
         dispatch({
           type: ActionTypes.RECOMMENDATION_ADDED,
           itineraryId: itinerary.id,

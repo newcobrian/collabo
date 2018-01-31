@@ -444,6 +444,13 @@ export function sendInboxMessage(senderId, recipientId, messageType, sendObject,
 						emailMessage = senderSnapshot.val().username + 
 							' also commented on a recommendation you commented on. Click here to check it out: https://myviews.io' + inboxObject.link;
 						break;
+					case Constants.ADD_REC_TO_ITINERARY_MESSAGE:
+						inboxObject.senderId = senderId;
+						inboxObject.message = ' added a recommendation to your guide: ';
+						inboxObject.link = '/guide/' + itineraryId + '#tip' + sendObject.key;
+						emailMessage = senderSnapshot.val().username + 
+							' added a recommendation to your guide. Click here to check it out: https://myviews.io' + inboxObject.link;
+						break;
 					case Constants.FOLLOW_MESSAGE:
 						inboxObject.senderId = senderId;
 						inboxObject.message = ' started following you.';
