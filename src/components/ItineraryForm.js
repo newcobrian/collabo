@@ -86,8 +86,6 @@ const UpdateCoverPhoto = props => {
   );
 }
 
-
-
 const mapStateToProps = state => ({
   ...state.itinerary,
   authenticated: state.common.authenticated,

@@ -35,6 +35,8 @@ import { GoogleApiWrapper, Map, Marker } from 'google-maps-react';
 import Sticky from 'react-sticky-el';
 import Scrollchor from 'react-scrollchor';
 
+var Scroll = require('react-scroll');
+var Element = Scroll.Element;
 
 const {
   FacebookShareButton,
@@ -118,7 +120,6 @@ class Itinerary extends React.Component {
         this.props.watchItinerary(this.props.authenticated, iid);
         this.props.getItineraryFollow(this.props.authenticated, iid);
       }
-      this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'itinerary'});
     }
 
     this.unloadItinerary = itineraryId => {
@@ -153,11 +154,22 @@ class Itinerary extends React.Component {
   componentWillMount() {
     this.loadItinerary(this.props.params.iid);
     this.props.loadRelatedItineraries(this.props.authenticated, this.props.params.iid);
+    if (this.props.params.rec === 'recs') {
+      this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'recommendations'});
+    }
+    else {
+      this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'itinerary'});
+    }
     this.jumpToHash();
   }
 
   componentDidUpdate() {
-    this.jumpToHash();
+    if (this.props.params.rec === 'recs') {
+      scrollToElement('#recommendationscontainer', { offset: -170 });
+    }
+    else {
+      this.jumpToHash();
+    }
   }
 
   componentWillUnmount() {
@@ -176,8 +188,8 @@ class Itinerary extends React.Component {
     }
   }
 
-  jumpToHash = () => {
-    let hash = browserHistory.getCurrentLocation().hash;
+  jumpToHash = (hashInput) => {
+    let hash = hashInput ? hashInput : browserHistory.getCurrentLocation().hash;
     if (hash) {
       // scroller.scrollTo(hash, {duration: 3000, offset: -70});
       scrollToElement(hash, { offset: -70 });
