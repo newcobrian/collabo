@@ -446,10 +446,10 @@ export function sendInboxMessage(senderId, recipientId, messageType, sendObject,
 						break;
 					case Constants.ADD_REC_TO_ITINERARY_MESSAGE:
 						inboxObject.senderId = senderId;
-						inboxObject.message = ' added a recommendation to your guide: ';
+						inboxObject.message = ' send you a recommendation for your guide: ';
 						inboxObject.link = '/guide/' + itineraryId + '#tip' + sendObject.key;
 						emailMessage = senderSnapshot.val().username + 
-							' added a recommendation to your guide. Click here to check it out: https://myviews.io' + inboxObject.link;
+							' sent you a recommendation. Click here to check it out: https://myviews.io' + inboxObject.link;
 						break;
 					case Constants.FOLLOW_MESSAGE:
 						inboxObject.senderId = senderId;
