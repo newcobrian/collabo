@@ -821,7 +821,10 @@ const ShareGuideTooltip = props => {
                     <div className="flx flx-row flx-align-center w-100 ta-center pdding-all-xs v2-type-body1 color--white w-100 ta-left">
                         
                         <div className="pdding-right-sm brdr-right--white">{/*this.props.visibleTips.length*/}{this.props.numTotalTips} Tips</div>
-                        <Scrollchor animate={{offset: -100, duration: 400}} to="#recommendationscontainer" className="pdding-left-sm color--success--bright">2 Recommendations</Scrollchor>
+                        <Scrollchor animate={{offset: 0, duration: 600}}
+                        to="#poop"
+                        className="pdding-left-sm color--success--bright">
+                        2 Recommendations</Scrollchor>
 
                       <div className="flx flx-row flx-align-center opa-80 flx-item-right">
                         <div className="flx-item-right">{renderReorderButton(itinerary.tips.length)}</div>
@@ -1088,9 +1091,10 @@ const ShareGuideTooltip = props => {
                   );
                 })
               }
-
-              <div className="flx flx-col w-100 fill--success--bright brdr-top pdding-top-md pdding-bottom-lg mrgn-top-lg">
-                <div className="comments-section-title w-100 color--black pdding-left-md pdding-right-md" id="recommendationscontainer">
+              <div id="poop" className="w-100 pdding-all-lg"></div>
+              <div
+                    className="flx flx-col w-100 fill--success--bright brdr-top pdding-top-lg pdding-bottom-lg mrgn-top-lg">
+                <div className="comments-section-title w-100 color--black pdding-left-md pdding-right-md">
                 Recommendations from friends
                 </div>
                 {/* Tip List for recommendations */}

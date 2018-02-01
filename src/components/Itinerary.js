@@ -690,7 +690,7 @@ class Itinerary extends React.Component {
                       </Link>
 
                       <Scrollchor 
-                      animate={{offset: -100, duration: 400}} to="#recommendationscontainer"
+                      animate={{offset:0 , duration: 400}} to="#poop"
                       className="pdding-left-sm color--black">
                         5 Recommendations
                       </Scrollchor>
@@ -729,6 +729,7 @@ class Itinerary extends React.Component {
                   />
 
 
+                  <div id="poop" className="w-100 pdding-all-lg"></div>
 
                  <div className="flx flx-col w-100 fill--success--bright brdr-top pdding-top-md pdding-bottom-lg mrgn-top-lg">
                    <div className="comments-section-title w-100 color--black pdding-left-md pdding-right-md" id="recommendationscontainer">
