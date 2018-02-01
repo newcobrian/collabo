@@ -50,6 +50,10 @@ const CommentPreview = props => {
 
 /* Displays user entered caption -OR- empty message if user has not entered caption */ 
 const CaptionDisplay = props => {
+  const tip = props.tip;
+  let canModify = props.authenticated === tip.userId ? true : false;
+
+
   if (props.canModify) {
     return (
       <div className="tip__caption v2-type-body2 font--beta  ta-left opa-70">
@@ -66,12 +70,18 @@ const CaptionDisplay = props => {
   }
   else if (props.tip.review.caption) {
     return (
-      <div className="inline opa-70">{props.tip.review.caption}</div>
+      <div className="">
+        <Link to={'/' + tip.createdBy.username} className="strong">{tip.createdBy.username} </Link>
+        <div className="inline opa-70">{props.tip.review.caption}</div>
+      </div>
     )
   }
   else {
     return (
-     <div className="inline opa-30">no review yet</div>
+      <div className="">
+        <Link to={'/' + tip.createdBy.username} className="strong">{tip.createdBy.username} </Link>
+        <div className="inline opa-30">no review yet</div>
+      </div>
     )
   } 
 }
@@ -226,7 +236,7 @@ const TipPreview = props => {
                         <Link to={'/' + tip.createdBy.username} className="tip__author-photo flx-hold mrgn-right-sm">
                           <ProfilePic src={tip.createdBy.image} className="user-image user-image-sm center-img" />
                         </Link> 
-                        <div className="flx flx-col flx-align-start">
+                        <div className="flx flx-col flx-align-start w-100">
                             {/* Tags Wrapper **/ }
                             <div className="flx flx-row flx-align-center flx-wrap pdding-bottom-xs">
 
@@ -242,7 +252,6 @@ const TipPreview = props => {
                             </div>
                             {/* END Tags Wrapper **/ }
                             <div className="tip__caption font--beta v2-type-body2 ta-left">
-                              <Link to={'/' + tip.createdBy.username} className="strong">{tip.createdBy.username} </Link>
                               <CaptionDisplay 
                                 tip={props.tip} 
                                 canModify={canModify} 

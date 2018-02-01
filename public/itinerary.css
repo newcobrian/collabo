@@ -364,7 +364,7 @@ textarea.edit-itinerary__name {
 	max-width: 96%;
 }
 .it-add-container {
-    padding: 10px 10px;
+    padding: 10px 10px 0;
     z-index: 10;
     width: 100%;
     background: rgba(0,0,0,.8);
@@ -373,7 +373,7 @@ textarea.edit-itinerary__name {
 	background: #00FFE2; 
 }
 .sticky .it-add-container {
-	padding: 10px;
+	padding: 10px 10px 0;
 }
 .it-add-wrapper {
 	position: relative;
@@ -548,4 +548,11 @@ textarea.edit-itinerary__name {
     max-width: none;
     background-color: rgba(0,0,0,.9);
     padding: 0;
+}
+
+.list-tab {
+	border-bottom: 5px solid transparent;
+}
+.list-tab.list-tab--on {
+	border-bottom-color: #3DCBF3;
 }

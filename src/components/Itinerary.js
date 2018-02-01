@@ -665,15 +665,21 @@ class Itinerary extends React.Component {
 
               <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
                 <Sticky bottomOffset={140} className={'sticky-class'}>
-                  <div className="it-add-container give-rec-wrapper flx flx-row flx-align-center">
+                  <div className="it-add-container give-rec-wrapper flx flx-col flx-align-center">
+                    
                     {renderGeoSuggestRec(itinerary.geo)}
+
+                    <div className="flx flx-row flx-align-center w-100 ta-center">
+                      <div className="pdding-all-sm fill--none v2-type-body1 color--black mrgn-right-xs w-50">{/*itinerary.reviewsCount ? itinerary.reviewsCount : 0*/}
+                      {/*visibleTips.length*/}{numTotalTips} Tips</div>
+                    <div className="pdding-all-sm fill--none v2-type-body1 color--black mrgn-right-xs w-50">{/*itinerary.reviewsCount ? itinerary.reviewsCount : 0*/}
+                      5 Recs</div>
+                    </div>
+
                   </div>
                 </Sticky>
 
                 <div className="flx flx-row w-100 flx-align-center flx-just-space-between pdding-left-xs pdding-right-xs pdding-top-xs">
-                  
-                  <div className="pdding-all-sm fill--none v2-type-body1 color--black mrgn-right-xs">{/*itinerary.reviewsCount ? itinerary.reviewsCount : 0*/}
-                  {visibleTips.length}/{numTotalTips} Items</div>
                   
                   <Link className="vb vb--xs flx flx-row fill--none flx-center-all ta-center" onClick={openFilter}>
                     <i className="material-icons color--black opa-80 mrgn-right-sm md-18">filter_list</i>
@@ -699,9 +705,10 @@ class Itinerary extends React.Component {
                   />
 
 
+
                  <div className="flx flx-col w-100 fill--white brdr-top pdding-top-lg pdding-bottom-lg mrgn-top-lg" id="recommendationscontainer">
                      <div className="comments-section-title w-100 color--black pdding-left-lg pdding-right-lg">
-                     Recommendations from friends
+                        Recommendations from friends
                      </div>
 
 

@@ -473,7 +473,7 @@ const ShareGuideTooltip = props => {
                 <Geosuggest 
                   ref={el=>this._geoSuggest=el}
                   className="input--underline w-100 color--black bx-"
-                  placeholder={'Search the name of a place to add'}
+                  placeholder={'Add a place to your guide'}
                   location={latLng}
                   radius={1000}
                   onSuggestSelect={suggestSelectTip(this)}/>
@@ -522,14 +522,14 @@ const ShareGuideTooltip = props => {
         return (
           <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list vb vb--xs vb--outline-none fill--none flx flx-row flx-align-center">
             <i className="material-icons color--black md-18 opa-60">low_priority</i>
-            <div className="color--black mrgn-left-sm">Reorder</div>
+            <div className="color--black mrgn-left-sm DN">Reorder</div>
           </Link>
         )
       }
       else return (
         <Link name="reorderLink" onClick={onReorderClick} className="vb--disabled hide-in-list vb vb--xs vb--outline-white fill--none flx flx-row flx-align-center">
           <i className="material-icons color--black md-18 opa-60 mrgn-right-sm">low_priority</i>
-          <div className="color--black mrgn-left-sm">Reorder</div>
+          <div className="color--black mrgn-left-sm DN">Reorder</div>
         </Link>
         )
     }
@@ -565,13 +565,6 @@ const ShareGuideTooltip = props => {
           <i className="material-icons md-18">map</i>
           <div className="mobile-hide mrgn-left-sm">Full Map</div>
         </button>
-
-        <button className="DN vb vb--xs vb--outline vb--round flx flx-row flx-align-center fill--white color--black button-filter-map bx-shadow"
-         onClick={openFilter}>
-          <i className="material-icons color--black md-18 opa-80 DN">filter_list</i>
-          <div className="color--black">Filter</div>
-        </button>
-
 
 
         <div className="content-wrapper itinerary flx flx-col flx-align-center map-on">
@@ -823,21 +816,26 @@ const ShareGuideTooltip = props => {
             <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
 
                 <Sticky bottomOffset={140} className={'sticky-class'}>
-                  <div className="it-add-container flx flx-row flx-align-center">
+                  <div className="it-add-container flx flx-col flx-align-center bx-shadow">
                     {renderGeoSuggestTip(itinerary.geo)}
+
+                    <div className="flx flx-row flx-align-center w-100 ta-center">
+                      <div className="list-tab list-tab--on pdding-all-sm fill--none v2-type-body1 color--white mrgn-right-xs w-50 weight-500">{/*this.props.visibleTips.length*/}{this.props.numTotalTips} Tips</div>
+                      <div className="list-tab pdding-all-sm fill--none v2-type-body1 color--white mrgn-right-xs w-50 opa-80">{/*itinerary.reviewsCount ? itinerary.reviewsCount : 0*/}
+                        5 Recs</div>
+                    </div>
                   </div>
                 </Sticky>
 
 
-              <div className="flx flx-row w-100 flx-align-center  flx-just-space-between pdding-left-xs pdding-right-xs">
+              <div className="flx flx-row w-100 flx-align-center flx-just-start pdding-left-xs pdding-right-xs pdding-top-xs">
                 <div className="vb vb--sm fill--none v2-type-body1 color--black DN">{itinerary.reviewsCount ? itinerary.reviewsCount : 0} Items</div>
-                <div className="pdding-all-sm fill--none v2-type-body1 color--black mrgn-right-xs">{/*this.props.visibleTips.length*/}{this.props.numTotalTips} Items</div>
 
-                <div className="flx-item-right flx flx-row flx-align-center">
+                <div className="flx flx-row flx-align-center opa-80">
                   <div className="flx-item-right">{renderReorderButton(itinerary.tips.length)}</div>
                   <Link className="vb vb--xs flx flx-row fill--none flx-center-all vb--outline-white ta-center" onClick={openFilter}>
                     <i className="material-icons color--black opa-60 mrgn-right-sm md-18">filter_list</i>
-                    <div className="color--black">Filter {/*this.props.numVisibleTags}/{this.props.numTotalTags*/} {/*Showing 4/10 Categories */}</div>
+                    <div className="color--black DN">Filter {/*this.props.numVisibleTags}/{this.props.numTotalTags*/} {/*Showing 4/10 Categories */}</div>
                   </Link>
                 </div>
               </div>
@@ -1094,7 +1092,7 @@ const ShareGuideTooltip = props => {
               }
 
               <div className="flx flx-col w-100 fill--light-gray brdr-top pdding-top-lg pdding-bottom-lg mrgn-top-lg">
-                <div className="comments-section-title w-100 color--black pdding-left-lg pdding-right-lg">
+                <div className="comments-section-title w-100 color--black pdding-left-md pdding-right-md">
                 Recommendations from friends
                 </div>
                 {/* Tip List for recommendations */}
