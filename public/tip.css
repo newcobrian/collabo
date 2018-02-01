@@ -4,7 +4,6 @@
     padding: 10px 10px 0;
 } 
 .tip-wrapper:first-child {
-  padding-top: 5px;
 }
 .tip-wrapper:last-child {
   padding-bottom: 20px;

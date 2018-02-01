@@ -825,7 +825,6 @@ const ShareGuideTooltip = props => {
                         <div className="pdding-right-sm brdr-right--white">{/*this.props.visibleTips.length*/}{this.props.numTotalTips} Tips</div>
                         <Scrollchor animate={{offset: -100, duration: 400}} to="#recommendationscontainer" className="pdding-left-sm color--success--bright">2 Recommendations</Scrollchor>
 
-
                       <div className="flx flx-row flx-align-center opa-80 flx-item-right">
                         <div className="flx-item-right">{renderReorderButton(itinerary.tips.length)}</div>
                         <Link className="vb vb--xs flx flx-row fill--none flx-center-all vb--outline-white ta-center" onClick={openFilter}>
@@ -833,7 +832,6 @@ const ShareGuideTooltip = props => {
                           <div className="color--black DN">Filter {/*this.props.numVisibleTags}/{this.props.numTotalTags*/} {/*Showing 4/10 Categories */}</div>
                         </Link>
                       </div>
-
 
                     </div>
 

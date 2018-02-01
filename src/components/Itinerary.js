@@ -33,6 +33,8 @@ import Geosuggest from 'react-geosuggest';
 import FollowItineraryButton from './FollowItineraryButton'
 import { GoogleApiWrapper, Map, Marker } from 'google-maps-react';
 import Sticky from 'react-sticky-el';
+import Scrollchor from 'react-scrollchor';
+
 
 const {
   FacebookShareButton,
@@ -184,14 +186,8 @@ class Itinerary extends React.Component {
 
   renderTabs() {
     return (
-      <div className="flx flx-row flx-align-center w-100 ta-center">
-        <Link to={'/guide/' + this.props.itineraryId}
-          className="active list-tab list-tab--on pdding-all-sm fill--none v2-type-body1 color--white mrgn-right-xs w-50 weight-500">
-          {/*this.props.visibleTips.length*/}{this.props.numTotalTips} Tips
-        </Link>
-        <Link to={'/recommend/' + this.props.itineraryId}
-          className="list-tab pdding-all-sm fill--none v2-type-body1 color--white mrgn-right-xs w-50 opa-80">{/*itinerary.reviewsCount ? itinerary.reviewsCount : 0*/}
-          5 Recs</Link>
+      <div className="">
+
       </div>
       )
   }  
@@ -670,33 +666,40 @@ class Itinerary extends React.Component {
               </div>
               {/** Close Cover Text DIV >>>>>> **/}
 
-              <div className="w-100 flx flx-row flx-center-all pdding-all-sm DN">
-                <Link className="vb vb--md fill--white color--black w-100 flx flx-row flx-center-all vb--outline ta-center" onClick={openFilter}>
-                  <i className="material-icons color--black opa-60 mrgn-right-sm">filter_list</i>
-                    
-                </Link>
-              </div>
 
               <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
                 <Sticky bottomOffset={140} className={'sticky-class'}>
-                  <div className="it-add-container give-rec-wrapper flx flx-col flx-align-center">
-                    
+                  <div className="it-add-container give-rec-wrapper flx flx-col flx-align-center bx-shadow">
+                    <div className="flx flx-row flx-align-center w-100 ta-center pdding-all-xs v2-type-body1 color--white w-100 ta-left">
+
+                      <Link to={'/guide/' + this.props.itineraryId}
+                        className="pdding-right-sm brdr-right--02 color--black">
+                        {/*this.props.visibleTips.length*/}{this.props.numTotalTips} Tips
+                      </Link>
+
+                      <Scrollchor 
+                      animate={{offset: -100, duration: 400}} to="#recommendationscontainer"
+                      className="pdding-left-sm color--black">
+                        5 Recommendations
+                      </Scrollchor>
+                      
+                      <div className="flx flx-row flx-align-center opa-80 flx-item-right">
+                        <Link className="vb vb--xs flx flx-row fill--none flx-center-all ta-center" onClick={openFilter}>
+                          <i className="material-icons color--black opa-90 md-18">filter_list</i>
+                          <div className="color--black DN">Filter{/*numVisibleTags}/{numTotalTips*/} {/*Showing 4/10 Categories */}</div>
+                        </Link>
+                      </div>
+
+                    </div>
+
                     {renderGeoSuggestRec(itinerary.geo)}
-
-                    {this.renderTabs()}
-
                   </div>
                 </Sticky>
 
-                <div className="flx flx-row w-100 flx-align-center flx-just-space-between pdding-left-xs pdding-right-xs pdding-top-xs">
                   
-                  <Link className="vb vb--xs flx flx-row fill--none flx-center-all ta-center" onClick={openFilter}>
-                    <i className="material-icons color--black opa-80 mrgn-right-sm md-18">filter_list</i>
-                    <div className="color--black">Filter{/*numVisibleTags}/{numTotalTips*/} {/*Showing 4/10 Categories */}</div>
-                  </Link>
 
 
-                </div>
+
                 <TipList
                   tipList={visibleTips}
                   reviewsCount={itinerary.reviewsCount}
@@ -715,8 +718,8 @@ class Itinerary extends React.Component {
 
 
 
-                 <div className="flx flx-col w-100 fill--white brdr-top pdding-top-lg pdding-bottom-lg mrgn-top-lg" id="recommendationscontainer">
-                     <div className="comments-section-title w-100 color--black pdding-left-lg pdding-right-lg">
+                 <div className="flx flx-col w-100 fill--success--bright brdr-top pdding-top-md pdding-bottom-lg mrgn-top-lg">
+                   <div className="comments-section-title w-100 color--black pdding-left-md pdding-right-md" id="recommendationscontainer">
                         Recommendations from friends
                      </div>
 
