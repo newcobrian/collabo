@@ -8,8 +8,8 @@ const EditProfileSettings = props => {
     return (
       <Link
         to="/settings"
-        className="vb vb--sm fill--black mrgn-top-xs vb--mobile-full color--white mrgn-right-sm mrgn-right-m-none">
-         <i className="material-icons mrgn-right-sm color--white md-18">mode_edit</i>Edit Profile
+        className="vb vb--sm vb--outline fill--white mrgn-top-xs color--black w-100 mrgn-right-sm mrgn-right-m-none">
+         <i className="material-icons mrgn-right-sm color--black opa-60 md-18">mode_edit</i>Edit Profile
       </Link>
     );
   }

@@ -155,7 +155,7 @@
 
 .itinerary__comments-module {
 	width: 100%;
-	padding: 30px 40px 60px;
+	padding: 20px 20px 60px;
 }
 .itinerary__comments-module .comment-data {
 	margin-top: 10px;
@@ -281,7 +281,7 @@
 	margin-top: auto;
 }
 .it__cover__inner {
-	padding: 20px 20px 10px;
+	padding: 10px 10px 0px;
 }
 /** EDIT **/
 
@@ -364,7 +364,7 @@ textarea.edit-itinerary__name {
 	max-width: 96%;
 }
 .it-add-container {
-    padding: 10px 10px 0;
+    padding: 0 10px 10px;
     z-index: 10;
     width: 100%;
     background: rgba(0,0,0,.8);
@@ -373,7 +373,7 @@ textarea.edit-itinerary__name {
 	background: #00FFE2; 
 }
 .sticky .it-add-container {
-	padding: 10px 10px 0;
+	padding: 0 10px 10px;
 }
 .it-add-wrapper {
 	position: relative;

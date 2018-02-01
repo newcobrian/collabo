@@ -35,6 +35,8 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 import Sticky from 'react-sticky-el';
 import LoadingSpinner from './LoadingSpinner';
 import TipList from './TipList';
+import Scrollchor from 'react-scrollchor';
+
 
 const {
   FacebookShareButton,
@@ -521,14 +523,14 @@ const ShareGuideTooltip = props => {
       if(numTips > 0) {
         return (
           <Link name="reorderLink" onClick={onReorderClick} className="hide-in-list vb vb--xs vb--outline-none fill--none flx flx-row flx-align-center">
-            <i className="material-icons color--black md-18 opa-60">low_priority</i>
+            <i className="material-icons color--white md-18 opa-90">low_priority</i>
             <div className="color--black mrgn-left-sm DN">Reorder</div>
           </Link>
         )
       }
       else return (
         <Link name="reorderLink" onClick={onReorderClick} className="vb--disabled hide-in-list vb vb--xs vb--outline-white fill--none flx flx-row flx-align-center">
-          <i className="material-icons color--black md-18 opa-60 mrgn-right-sm">low_priority</i>
+          <i className="material-icons color--white md-18 opa-90 mrgn-right-sm">low_priority</i>
           <div className="color--black mrgn-left-sm DN">Reorder</div>
         </Link>
         )
@@ -700,7 +702,7 @@ const ShareGuideTooltip = props => {
                   <DisplayTimestamp timestamp={this.props.data.lastModified} />
                   {/*(new Date(itinerary.lastModified)).toLocaleString()*/}
                 </div> 
-                <div className="edit-itinerary-link mrgn-left-lg color--black invert">             
+                <div className="edit-itinerary-link mrgn-left-md color--black invert">             
                   <MuiThemeProvider muiTheme={getMuiTheme()}>
 
                        <ItineraryActionsButton 
@@ -817,28 +819,28 @@ const ShareGuideTooltip = props => {
 
                 <Sticky bottomOffset={140} className={'sticky-class'}>
                   <div className="it-add-container flx flx-col flx-align-center bx-shadow">
-                    {renderGeoSuggestTip(itinerary.geo)}
+                    
+                    <div className="flx flx-row flx-align-center w-100 ta-center pdding-all-xs v2-type-body1 color--white w-100 ta-left">
+                        
+                        <div className="pdding-right-sm brdr-right--white">{/*this.props.visibleTips.length*/}{this.props.numTotalTips} Tips</div>
+                        <Scrollchor animate={{offset: -100, duration: 400}} to="#recommendationscontainer" className="pdding-left-sm color--success--bright">2 Recommendations</Scrollchor>
 
-                    <div className="flx flx-row flx-align-center w-100 ta-center">
-                      <div className="list-tab list-tab--on pdding-all-sm fill--none v2-type-body1 color--white mrgn-right-xs w-50 weight-500">{/*this.props.visibleTips.length*/}{this.props.numTotalTips} Tips</div>
-                      <div className="list-tab pdding-all-sm fill--none v2-type-body1 color--white mrgn-right-xs w-50 opa-80">{/*itinerary.reviewsCount ? itinerary.reviewsCount : 0*/}
-                        5 Recs</div>
+
+                      <div className="flx flx-row flx-align-center opa-80 flx-item-right">
+                        <div className="flx-item-right">{renderReorderButton(itinerary.tips.length)}</div>
+                        <Link className="vb vb--xs flx flx-row fill--none flx-center-all vb--outline-white ta-center" onClick={openFilter}>
+                          <i className="material-icons color--white opa-90 md-18">filter_list</i>
+                          <div className="color--black DN">Filter {/*this.props.numVisibleTags}/{this.props.numTotalTags*/} {/*Showing 4/10 Categories */}</div>
+                        </Link>
+                      </div>
+
+
                     </div>
+
+                    {renderGeoSuggestTip(itinerary.geo)}
                   </div>
                 </Sticky>
 
-
-              <div className="flx flx-row w-100 flx-align-center flx-just-start pdding-left-xs pdding-right-xs pdding-top-xs">
-                <div className="vb vb--sm fill--none v2-type-body1 color--black DN">{itinerary.reviewsCount ? itinerary.reviewsCount : 0} Items</div>
-
-                <div className="flx flx-row flx-align-center opa-80">
-                  <div className="flx-item-right">{renderReorderButton(itinerary.tips.length)}</div>
-                  <Link className="vb vb--xs flx flx-row fill--none flx-center-all vb--outline-white ta-center" onClick={openFilter}>
-                    <i className="material-icons color--black opa-60 mrgn-right-sm md-18">filter_list</i>
-                    <div className="color--black DN">Filter {/*this.props.numVisibleTags}/{this.props.numTotalTags*/} {/*Showing 4/10 Categories */}</div>
-                  </Link>
-                </div>
-              </div>
 
               {
                 visibleTips.map((tip, index) => {
@@ -1091,8 +1093,8 @@ const ShareGuideTooltip = props => {
                 })
               }
 
-              <div className="flx flx-col w-100 fill--light-gray brdr-top pdding-top-lg pdding-bottom-lg mrgn-top-lg">
-                <div className="comments-section-title w-100 color--black pdding-left-md pdding-right-md">
+              <div className="flx flx-col w-100 fill--success--bright brdr-top pdding-top-md pdding-bottom-lg mrgn-top-lg">
+                <div className="comments-section-title w-100 color--black pdding-left-md pdding-right-md" id="recommendationscontainer">
                 Recommendations from friends
                 </div>
                 {/* Tip List for recommendations */}

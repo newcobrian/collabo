@@ -228,6 +228,10 @@
 	width: 80px;
 	height: auto;
 }
+.tip__image-module .placeholder-bg img {
+	width: 60px;
+	height: auto;
+}
 .itinerary__cover__text {
 	padding: 0px;
 	z-index: 2;

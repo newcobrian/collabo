@@ -594,19 +594,35 @@ width: 32px;
   border-left: 1px solid rgba(0,0,0,.1) !important;
 }
 
-.brdr-02-all {
+.brdr-all--white {
+  border: 1px solid rgba(255,255,255,.4) !important;
+}
+.brdr-bottom--white {
+  border-bottom: 1px solid rgba(255,255,255,.4) !important;
+}
+.brdr-top--white {
+  border-top: 1px solid rgba(255,255,255,.4) !important;
+}
+.brdr-right--white {
+  border-right: 1px solid rgba(255,255,255,.4) !important;
+}
+.brdr-left--white {
+  border-left: 1px solid rgba(255,255,255,.4) !important;
+}
+
+.brdr-all--02 {
   border: 1px solid rgba(0,0,0,.2) !important;
 }
-.brdr-02-bottom {
+.brdr-bottom--02 {
   border-bottom: 1px solid rgba(0,0,0,.2) !important;
 }
-.brdr-02-top {
+.brdr-top--02 {
   border-top: 1px solid rgba(0,0,0,.2) !important;
 }
-.brdr-02-right {
+.brdr-right--02 {
   border-right: 1px solid rgba(0,0,0,.2) !important;
 }
-.brdr-02-left {
+.brdr-left--02 {
   border-left: 1px solid rgba(0,0,0,.2) !important;
 }
 

@@ -463,7 +463,7 @@ width: 100%;
 .it-add-container {
   width: 100%;
   background: rgba(0,0,0,.8);
-  padding: 10px 10px 0;
+  padding: 0 10px 10px;
 }
 
 .page-itinerary .itinerary__cover__topbar  {
