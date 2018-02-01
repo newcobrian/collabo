@@ -182,6 +182,20 @@ class Itinerary extends React.Component {
     }
   }
 
+  renderTabs() {
+    return (
+      <div className="flx flx-row flx-align-center w-100 ta-center">
+        <Link to={'/guide/' + this.props.itineraryId}
+          className="active list-tab list-tab--on pdding-all-sm fill--none v2-type-body1 color--white mrgn-right-xs w-50 weight-500">
+          {/*this.props.visibleTips.length*/}{this.props.numTotalTips} Tips
+        </Link>
+        <Link to={'/recommend/' + this.props.itineraryId}
+          className="list-tab pdding-all-sm fill--none v2-type-body1 color--white mrgn-right-xs w-50 opa-80">{/*itinerary.reviewsCount ? itinerary.reviewsCount : 0*/}
+          5 Recs</Link>
+      </div>
+      )
+  }  
+
   render() {
     if (!this.props.googleObject) {
       return (
@@ -669,12 +683,7 @@ class Itinerary extends React.Component {
                     
                     {renderGeoSuggestRec(itinerary.geo)}
 
-                    <div className="flx flx-row flx-align-center w-100 ta-center">
-                      <div className="pdding-all-sm fill--none v2-type-body1 color--black mrgn-right-xs w-50">{/*itinerary.reviewsCount ? itinerary.reviewsCount : 0*/}
-                      {/*visibleTips.length*/}{numTotalTips} Tips</div>
-                    <div className="pdding-all-sm fill--none v2-type-body1 color--black mrgn-right-xs w-50">{/*itinerary.reviewsCount ? itinerary.reviewsCount : 0*/}
-                      5 Recs</div>
-                    </div>
+                    {this.renderTabs()}
 
                   </div>
                 </Sticky>

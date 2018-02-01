@@ -63,7 +63,7 @@ ReactDOM.render((
         <Route path="inbox" component={Inbox} />
         <Route path="select" component={FriendSelector} />
         <Route path="explore" component={Explore} />
-        <Route path="recommend/:rid" component={Recommend} />
+        <Route path="recommend/:iid" component={Recommend} />
         <Route path="seo" component={SEO} />
         <Route path="places/:pid" component={Places} />
         <Route path="guide/:iid" component={Itinerary} />
