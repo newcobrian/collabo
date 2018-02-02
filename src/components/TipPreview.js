@@ -169,24 +169,21 @@ const TipPreview = props => {
                   <div className="tip__right-module flx flx-row w-100 flx-align-center">
 
 
-                   
-
-                    { /** Title **/ }
-                    <div className="hide-in-list tip__title tip-title ta-left mrgn-left-m d">
-                      <div className="tip__order-count color--black">{props.index}.</div>
-                      <Link to={`/review/${tip.subjectId}`}> {tip.subject.title}</Link>
-                    </div>
-                    { /** END Title **/ }
-
                     { /** Image 
                     <MediaQuery query="(min-device-width: 1224px)">**/ }
-                      <div className="tip__image-module bx-shadow bg-loading flx-item-right">
+                      <div className="tip__image-module bx-shadow bg-loading">
                         <div className={"tip__photo-count tip-count-" + tip.images.length}>{tip.images.length > 0 ? tip.images.length : null}</div>
                         <ImagePicker images={tip.images} />
                       </div>
                       { /** END Image
                     </MediaQuery> **/ }
 
+                    { /** Title **/ }
+                    <div className="hide-in-list tip__title tip-title ta-left mrgn-left-md">
+                      <div className="tip__order-count color--black">{props.index}.</div>
+                      <Link to={`/review/${tip.subjectId}`}> {tip.subject.title}</Link>
+                    </div>
+                    { /** END Title **/ }
 
                     { /** Timestamp **/ }
                     <div className="tip__timestamp v2-type-caption opa-20 mrgn-top-xs DN">
