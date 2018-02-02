@@ -86,7 +86,7 @@ class Places extends React.Component {
             <FirebaseSearchInput
               name="searchInput"
               callback={this.searchInputCallback}
-              placeholder={this.props.geo.label}
+              placeholder="Search another city or country"
               type={Constants.GEO_SEARCH}
               className="input--search fill--black color--black input--underline v2-type-body3" />
           </div>
@@ -94,8 +94,8 @@ class Places extends React.Component {
         </div>
 
 
-        <div className="page-title-wrapper center-text DN">
-          <div className="v2-type-page-header flx flx-col flx-center-all">
+        <div className={"page-title-wrapper mrgn-top-lg center-text country-color-" + this.props.geo.country}>
+          <div className="v2-type-page-header flx flx-col flx-center-all invert">
             <div className={'itinerary__cover__flag mrgn-bottom-sm flx-hold flag-' + this.props.geo.country}>
             </div>
             {this.props.geo.label}

@@ -536,7 +536,7 @@ width: 32px;
   width: 100%;
 }
 .page-title-wrapper {
-  padding: 20px 0;
+  padding: 30px 20px 20px;
   width: 100%;
   border-bottom: 1px solid #D5E3E5;
 }
@@ -567,7 +567,6 @@ width: 32px;
   width: 100%;
 }
 .page-places .feed-wrapper {
-    margin-top: 40px;
 }
 .tag-bar {
   overflow: scroll;
