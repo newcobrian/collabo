@@ -35,22 +35,28 @@ body {
   display: none;
 }
 .logo-graphic {
+  margin-right: 0;
+  display: none !important;
 }
 .logo-main {
-  margin-left: 16px;
-  font-size: 16px;
+  font-size: 14px;
   letter-spacing: 2px;
+  line-height: 18px;
+  margin-top: 0;
 }
 .logo-graphic img {
-  width: 50px;
+  width: 40px;
   height: auto;
 }
 .logo-module {
   height: 40px;
   margin: 0px 8px;
-  width: 120px;
+  width: 160px;
 }
-
+.logo-module .v2-type-body0 {
+  font-size: 11px;
+  letter-spacing: 0;
+}
 .v2-type-intro {
   font-size: 24px;
 }

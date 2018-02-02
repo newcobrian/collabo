@@ -26,12 +26,14 @@ const LoggedOutView = props => {
           <div className="logo-graphic flx flx-row flx-center-all">  
             <img className="center-img" src="/img/logos/logo_2018.png"/>
           </div>
+          <div className="flx flx-col flx-just-center flx-align-start">
             <div className="logo-main">
               VIEWS
             </div>
-            <div className="DN v2-type-caption opa-60 w-100 mrgn-top-xs mrgn-left-xs">
-              Alpha 1.2
+            <div className="v2-type-body0 opa-60 w-100">
+              Travel Guides by Friends
             </div>
+          </div>
         </Link>
       </div>
       <div className="navigation-bar flx flx-row flx-align-center flx-just-end">
@@ -64,12 +66,14 @@ const LoggedInView = props => {
             <div className="logo-graphic flx flx-row flx-center-all">  
               <img className="center-img" src="/img/logos/logo_2018.png"/>
             </div>
+            <div className="flx flx-col flx-just-center flx-align-start">
               <div className="logo-main">
                 VIEWS
               </div>
-              <div className="DN v2-type-caption opa-60 w-100 mrgn-top-xs mrgn-left-xs">
-                Alpha 1.2
+              <div className="v2-type-body0 opa-60 w-100">
+                Travel Guides by Friends
               </div>
+            </div>
           </Link>
         </div>
 
