@@ -196,13 +196,10 @@ class Itinerary extends React.Component {
     }
   }
 
-  renderTabs() {
-    return (
-      <div className="">
-
-      </div>
-      )
-  }  
+  onAskForRecsClick = (itineraryId, itinerary) => ev => {
+    ev.preventDefault();
+    this.props.askForItineraryRecs(itineraryId, itinerary);
+  }
 
   render() {
     if (!this.props.googleObject) {
@@ -373,6 +370,7 @@ class Itinerary extends React.Component {
             visibleTips={visibleTips} 
             numTotalTips={numTotalTips}
             google={google}
+            onAskForRecsClick={this.onAskForRecsClick}
              />
           )
       }
@@ -532,18 +530,23 @@ class Itinerary extends React.Component {
 
                   </div>
 
-
                 {/** <<<<<< CENTER INFO **/}
                 <div className="it__title-module flx flx-col flx-just-start flx-align-start ta-center w-100">
-                
+
+              {/*** SAMPLE ASK FOR RECS BUTTON. Delete this ****/}
+                <div className="w-100 pdding-all-md flx flx-row flx-center-all w-max-2 mrgn-top-md DN">
+                  <button className="ask-for-recs-button vb vb--sm fill--primary color--white mobile-w-100" onClick={this.onAskForRecsClick(this.props.itineraryId, itinerary)}>
+                    <i className="material-icons color--white md-24 mrgn-right-sm DN">flare</i>
+                      Ask for Recs
+                    <i className="material-icons color--white md-24 mrgn-left-sm">room_service</i>
+                  </button>
+                </div>
 
                   {/** TITLE **/}
                   
                   <div className="guide-title ta-left w-100 invert">
                     {itinerary.title}
                   </div>
-
-                
 
                   {/** DESCRIPTION **/}
                   <div className="itinerary__cover__descrip v2-type-body2 font--beta ta-left mrgn-top-xs mrgn-bottom-sm opa-60 invert w-100">

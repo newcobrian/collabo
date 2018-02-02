@@ -97,6 +97,13 @@ export default (state = initialState, action) => {
         itinerary: action.itinerary,
         itineraryId: action.itineraryId
       }
+    case ActionTypes.ASK_FOR_ITINERARY_RECS:
+      return {
+        ...state,
+        modalType: Constants.SEND_RECS_MODAL,
+        itinerary: action.itinerary,
+        itineraryId: action.itineraryId
+      }
     case ActionTypes.LOAD_REORDER_MODAL: {
       const newState = Object.assign({}, state);
       newState.itinerary = newState.itinerary || {};

@@ -656,6 +656,14 @@ const ShareGuideTooltip = props => {
             {/** <<<<<< CENTER INFO **/}
             <div className="it__title-module flx flx-col flx-just-start ta-center w-100">
               
+              {/**** SAMPLE ask for recs button. Remove this later ****/}
+              <div className="w-100 pdding-all-md flx flx-row flx-center-all w-max-2 mrgn-top-md DN">
+                <button className="ask-for-recs-button vb vb--sm fill--primary color--white mobile-w-100" onClick={this.props.onAskForRecsClick(this.props.itineraryId, itinerary)}>
+                  <i className="material-icons color--white md-24 mrgn-right-sm DN">flare</i>
+                    Ask for Recs
+                  <i className="material-icons color--white md-24 mrgn-left-sm">room_service</i>
+                </button>
+              </div>
 
              
 
@@ -1094,8 +1102,8 @@ const ShareGuideTooltip = props => {
               <div id="poop" className="w-100 pdding-all-lg"></div>
               <div
                     className="flx flx-col w-100 fill--success--bright brdr-top pdding-top-lg pdding-bottom-lg mrgn-top-lg">
-                <div className="comments-section-title w-100 color--black pdding-left-md pdding-right-md">
-                Recommendations from friends
+                <div className="comments-section-title w-100 color--black pdding-left-md pdding-right-md" id="recommendationscontainer">
+                  Recommendations from friends
                 </div>
                 {/* Tip List for recommendations */}
                 <TipList

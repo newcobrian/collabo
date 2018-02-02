@@ -240,3 +240,13 @@ export function onCreateRecsSubmit(auth, geo, title) {
     })
 	}
 }
+
+export function askForItineraryRecs(itineraryId, itinerary) {
+  return dispatch => {
+    dispatch({
+      type:ActionTypes.ASK_FOR_ITINERARY_RECS,
+      itineraryId,
+      itinerary
+    })
+  }
+}

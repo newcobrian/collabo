@@ -97,7 +97,7 @@ class SendRecsModal extends React.Component {
           <div className="dialog--save flx flx-col color--black font--alpha">
                          
             <div className="w-100 ta-center pdding-left-md pdding-right-md pdding-top-md flx flx-col flx-center-all">
-              <div className="pdding-all-sm">{'title'}</div>
+              <div className="pdding-all-sm">{itinerary.title}</div>
               <i className="material-icons color--black opa-20">arrow_downward</i>
             </div>
             <div className="pdding-left-md pdding-right-md pdding-top-md pdding-bottom-xs w-100">
