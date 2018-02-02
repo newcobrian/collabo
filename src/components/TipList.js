@@ -1,5 +1,7 @@
 import TipPreview from './TipPreview';
 import React from 'react';
+import * as Constants from '../constants';
+
 
 
 const mapStateToProps = state => ({
@@ -11,24 +13,39 @@ const mapStateToProps = state => ({
 
 const TipList = props => {
   if (!props.tipList) {
-    return (
+    if (props.dataType === Constants.RECOMMENDATIONS_TYPE) {
+      return (
+        <div className="status-module flx flx-col flx-center-all v2-type-body3">
+          No recommendations yet
+        </div>
+        )
+    }
+    else return (
       <div className="status-module flx flx-col flx-center-all v2-type-body3">
-        Loading...
+        No tips yet
       </div>
     );
   }
 
   if (props.tipList.length === 0 && props.canModify) {
-    return (
+    if (props.dataType === Constants.RECOMMENDATIONS_TYPE) {
+      return (
+        <div className="status-module flx flx-col flx-center-all v2-type-body3">
+          No recommendations yet
+        </div>
+        )
+    }
+    else return (
       <div className="status-module flx flx-col flx-center-all v2-type-body3">
         Nothing here yet. Add something above.
       </div>
     );
   }
+
   else if (props.tipList.length === 0) {
     return (
       <div className="status-module flx flx-row flx-just-center w-100 v2-type-body3">
-        Empty list
+        Add your recommendations above.
       </div>
     );
   }

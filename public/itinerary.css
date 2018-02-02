@@ -279,7 +279,7 @@
 	margin-top: auto;
 }
 .it__cover__inner {
-	padding: 10px 10px 0px;
+	padding: 20px 20px 10px;
 }
 /** EDIT **/
 
@@ -368,7 +368,7 @@ textarea.edit-itinerary__name {
     background: rgba(0,0,0,.8);
 }
 .it-add-container.give-rec-wrapper {
-	/*background: #00FFE2; */
+	background: #00FFE2; 
 }
 .sticky .it-add-container {
 	padding: 0 10px 10px;

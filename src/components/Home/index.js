@@ -234,12 +234,19 @@ class Home extends React.Component {
       <div className="feed-toggle friend-popular-toggle flx flx-col flx-align-center w-100">
 
 
-        <div className="w-100 pdding-all-sm mrgn-bottom-sm flx flx-row">
+        <div className="DN w-100 pdding-all-sm mrgn-bottom-sm flx flx-row">
           <div className="v2-type-h3 flx-item-center">Latest Travel Guides</div>
         </div>
 
-        <ul className="nav nav-pills outline-active flx flx-row ta-center flx-center-all mrgn-bottom-md w-100">
-          <li className="nav-item">
+        <div className="page-title-wrapper fill--primary center-text country-color-">
+          <div className="v2-type-page-header flx flx-col flx-center-all color--white invert">
+            Latest Travel Guides
+          </div>
+          <div className="v2-type-body2 opa-60"></div>
+        </div>
+
+        <ul className="nav nav-pills outline-active pdding-top-md flx flx-row ta-center flx-center-all mrgn-bottom-md w-100">
+          <li className="nav-item brdr-right">
             <Link
               className="nav-link active"
               to="/">

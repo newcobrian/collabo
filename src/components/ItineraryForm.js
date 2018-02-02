@@ -730,7 +730,7 @@ const ShareGuideTooltip = props => {
             {/** >>>>>> CLOSE CENTER INFO **/}
 
           {/** >>>>>> SMALL ACTIONS START **/}
-            <div className="flx flx-row flx-align-center w-100 pdding-all-sm pdding-top-xs pdding-bottom-xs fill--white">
+            <div className="flx flx-row flx-align-center w-100 pdding-left-md pdding-all-sm pdding-top-xs pdding-bottom-xs fill--white">
               
               {/** LIKE BUTTON **/}
               <div className="cta-wrapper flx flx-row vb vb--xs vb--outline--none vb--nohover fill--none color--black">
@@ -1093,9 +1093,22 @@ const ShareGuideTooltip = props => {
                   );
                 })
               }
-              <div
-                    className="flx flx-col w-100 fill--light-yellow brdr-top pdding-top-lg pdding-bottom-lg mrgn-top-lg">
-                <div className="comments-section-title w-100 color--black pdding-left-md pdding-right-md" id="recommendationscontainer">
+
+              {/** Big share button **/}
+              
+              
+              <div className="bx-shadow big-share-button cta-wrapper flx flx-col flx-center-all vb vb--sm vb--outline--none fill--primary color--white"
+                onClick={this.shareGuide} >
+                <i className="material-icons color--white flip-h md-36 mrgn-bottom-md">reply</i>
+                <i className="material-icons color--white DN">accessibility</i>
+                <div className="color--white v2-type-h3">Share this Guide</div>
+              </div>
+
+              {/** Big share button **/}
+
+
+              <div className="flx flx-col w-100 fill--light-green brdr-top pdding-top-lg pdding-bottom-lg mrgn-top-lg">
+                <div className="comments-section-title w-100 color--black pdding-left-md pdding-right-md mrgn-bottom-md" id="recommendationscontainer">
                   Recommendations from friends
                 </div>
                 {/* Tip List for recommendations */}
@@ -1116,17 +1129,7 @@ const ShareGuideTooltip = props => {
                   deleteRec={this.deleteRec} />
               </div>
 
-              {/** Big share button **/}
               
-              
-              <div className="bx-shadow big-share-button cta-wrapper flx flx-col flx-center-all vb vb--sm vb--outline--none fill--primary color--white DN"
-                onClick={this.shareGuide} >
-                <i className="material-icons color--white flip-h md-36 mrgn-bottom-md">reply</i>
-                <i className="material-icons color--white DN">accessibility</i>
-                <div className="color--white v2-type-h3">Share this Guide</div>
-              </div>
-
-              {/** Big share button **/}
 
             </div>
 

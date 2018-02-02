@@ -403,90 +403,7 @@ class Itinerary extends React.Component {
             </button>*/}
 
 
-            {/** -------- AUTHOR CONTROLS **/}
-                      <div className="border-top--primary--3 test00 brdr-top it-author-controls w-max flx flx-row flx-just-start flx-align-center ta-center pdding-top-sm pdding-bottom-sm DN">
-                        <div className="w-100 flx flx-row flx-just-start flx-align-center ta-center">
-
-
-                          {/* Like */}
-                          <div className="cta-wrapper flx flx-row vb vb--sm vb--outline--none fill--white color--black">
-                            <LikeReviewButton
-                              authenticated={this.props.authenticated}
-                              isLiked={itinerary.isLiked}
-                              likesCount={itinerary.likesCount}
-                              unLike={this.props.unLikeReview}
-                              like={this.props.likeReview} 
-                              likeObject={itinerary}
-                              itineraryId={itinerary.id}
-                              type={ITINERARY_TYPE} />
-                          </div>
-
-                          
-                          {/* Share */}
-                          <div className="cta-wrapper flx flx-row vb vb--sm vb--outline--none fill--primary color--white flx-item-right pdding-right-lg pdding-left-lg"
-                            onClick={this.shareGuide} >
-                            <div className="color--white mrgn-right-sm">SHARE GUIDE</div>
-                            <i className="material-icons mrgn-left-sm color--white flip-h">reply</i>
-                            <i className="material-icons color--white DN">accessibility</i>
-                          </div>
-
-
-                          <div className="flx-item-right flx flx-row flx-align-center">
-
-                            <div className="v2-type-h4 mrgn-right-md mobile-hide">Share this Guide:</div>
-
-                            <div className="vb vb--sm vb--outline--none color--black color--white mrgn-right-xs vb--fb">
-                              <FacebookShareButton
-                                url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
-                                quote={'Check out my travel guide "' + itinerary.title + '" for '}
-                                hashtag={'#views'}
-                                onClick={onPostClick(Constants.FACEBOOK_POST)}
-                                className="Demo__some-network__share-button">
-                                <FacebookIcon
-                                  size={24}
-                                  round />
-                              </FacebookShareButton>
-
-                              <FacebookShareCount
-                                url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
-                                className="mrgn-left-sm">
-                                {count => count}
-                              </FacebookShareCount>
-
-                            </div>
-
-                            <div className="vb vb--sm vb--outline--none color--black mrgn-right-xs vb--tw">
-                              <TwitterShareButton
-                                url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
-                                title={'Check out my travel guide "' + itinerary.title + '" for ' + ':'}
-                                hashtags={['views']}
-                                onClick={onPostClick(Constants.TWITTER_POST)}
-                                className="Demo__some-network__share-button">
-                                <TwitterIcon
-                                  size={24}
-                                  round />
-                              </TwitterShareButton>
-                              <i className="material-icons color--primary md-18 DN">share</i>
-                            </div>
-
-                            <CopyToClipboard 
-                              className="flx flx-row flx-center-all vb vb--sm vb--outline fill--white color--black"
-                              text={Constants.VIEWS_URL + '/guide/' + itinerary.id}
-                              onCopy={onCopyClick}>
-                                <div className="flx flx-row flx-center-all w-100">
-                                  <i className="material-icons color--black opa-60 flx-item-left DN">link</i>
-                                  <div className="mobile-hide">Copy&nbsp;</div>
-                                  <div className="">URL</div>
-                                </div>
-                            </CopyToClipboard>
-
-
-                          </div>
-                        </div>{/** END MAX div **/}
-
-                      </div>
-                      {/** AUTHOR CONTROLS >>>>>> **/}
-
+         
 
             
             <div className="content-wrapper itinerary flx flx-col flx-align-center map-on">
@@ -618,9 +535,9 @@ class Itinerary extends React.Component {
                 </div>
                 {/** >>>>>> CLOSE CENTER INFO **/}
 
-                <div className="flx flx-row flx-align-center w-100 pdding-all-sm pdding-top-xs pdding-bottom-sm fill--white">
+                <div className="flx flx-row flx-align-center w-100 pdding-left-md pdding-all-sm pdding-top-xs pdding-bottom-sm fill--white">
                   {/** LIKE BUTTON **/}
-                  <div className="cta-wrapper flx flx-row vb vb--xs vb--outline--none vb--nohover fill--none color--black">
+                  <div className="cta-wrapper flx flx-row vb vb--xs vb--outline--none vb--nohover fill--white color--black">
                     <LikeReviewButton
                       authenticated={this.props.authenticated}
                       isLiked={itinerary.isLiked}
@@ -634,7 +551,7 @@ class Itinerary extends React.Component {
                   {/** END LIKE BUTTON **/}
 
                   {/* Share */}
-                  <div className="DN cta-wrapper flx flx-row vb vb--xs vb--outline--none vb--nohover fill--none color--black invert flx-item-right pdding-left-lg"
+                  <div className="DN cta-wrapper flx flx-row vb vb--xs vb--outline--none vb--nohover fill--white color--black invert flx-item-right pdding-left-lg"
                     onClick={this.shareGuide} >
                     <div className="color--black mrgn-right-xs">Share this guide</div>
                     <i className="material-icons mrgn-left-xs color--black flip-h">reply</i>
@@ -701,19 +618,19 @@ class Itinerary extends React.Component {
                     <div className="flx flx-row flx-align-center w-100 ta-center pdding-all-xs v2-type-body1 color--white w-100 ta-left">
 
                       <Link to={'/guide/' + this.props.itineraryId}
-                        className="pdding-right-sm brdr-right--white color--white">
+                        className="pdding-right-sm brdr-right--02 color--black">
                         {/*this.props.visibleTips.length*/}{this.props.numTotalTips} Tips
                       </Link>
 
                       <Link 
                       animate={{offset:0 , duration: 400}} onClick={this.scrollToRecommendations}
-                      className="pdding-left-sm color--yellow">
+                      className="pdding-left-sm color--black">
                         {numRecs} Recommendations
                       </Link>
                       
                       <div className="flx flx-row flx-align-center opa-80 flx-item-right">
                         <Link className="vb vb--xs flx flx-row fill--none flx-center-all ta-center" onClick={openFilter}>
-                          <i className="material-icons color--white opa-90 md-18">filter_list</i>
+                          <i className="material-icons color--black opa-90 md-18">filter_list</i>
                           <div className="color--black DN">Filter{/*numVisibleTags}/{numTotalTips*/} {/*Showing 4/10 Categories */}</div>
                         </Link>
                       </div>
@@ -746,8 +663,8 @@ class Itinerary extends React.Component {
 
 
 
-                 <div className="recs-list-wrapper flx flx-col w-100 fill--light-yellow brdr-top pdding-top-lg pdding-bottom-lg mrgn-top-lg">
-                   <div className="comments-section-title w-100 color--black pdding-left-md pdding-right-md" id="recommendationscontainer">
+                 <div className="recs-list-wrapper flx flx-col w-100 fill--light-green brdr-top pdding-top-lg pdding-bottom-lg mrgn-top-lg">
+                   <div className="comments-section-title w-100 color--black pdding-left-md pdding-right-md mrgn-bottom-sm" id="recommendationscontainer">
                         Recommendations from friends
                      </div>
 
@@ -769,16 +686,17 @@ class Itinerary extends React.Component {
                       deleteRec={this.deleteRec} />
                   </div>
 
-                  <div className="DN bx-shadow big-share-button cta-wrapper flx flx-col flx-center-all vb vb--sm vb--outline--none fill--primary color--white"
-                    onClick={this.shareGuide} >
-                    <i className="material-icons color--white flip-h md-36 mrgn-bottom-md">reply</i>
-                    <i className="material-icons color--white DN">accessibility</i>
-                    <div className="color--white weight-700 v2-type-h3">Share this Guide</div>
-                  </div>
 
 
               </div>
 
+              <div className="bx-shadow big-share-button cta-wrapper flx flx-col flx-center-all vb vb--sm vb--outline--none fill--primary color--white"
+                onClick={this.shareGuide} >
+                <i className="material-icons color--white flip-h md-36 mrgn-bottom-md">reply</i>
+                <i className="material-icons color--white DN">accessibility</i>
+                <div className="color--white weight-700 v2-type-h3">Share this Guide</div>
+              </div>
+              
               <div className="itinerary__comments-module flx flx-col brdr-top flx-align-start flx-just-start w-max-2" id="guidecommentcontainer">
                 <div className="comments-section-title mrgn-bottom-md ta-left w-100">
                   Discussion

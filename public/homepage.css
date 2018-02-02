@@ -74,10 +74,10 @@
   background-color: rgba(0,0,0,.05);
 }
 .friend-popular-toggle .nav-pills .nav-item { 
-  font-size: 14px;
-  margin: 0 10px;
-  width: auto;
-  text-align: center;
+    font-size: 16px;
+    padding: 0 20px;
+    width: 120px;
+    text-align: center;
 }
 .friend-popular-toggle .nav-pills .nav-item:first-child {
 
