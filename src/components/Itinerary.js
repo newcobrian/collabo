@@ -169,21 +169,15 @@ class Itinerary extends React.Component {
 
   componentDidMount() {
     if (this.props.params.rec === 'recs') {
-      scrollToElement('#recommendationscontainer', { offset: -170 });
-      // scroller.scrollTo('#recommendationscontainer', false, 0, -170);
+      setTimeout(function() {
+        scrollToElement('#recommendationscontainer', { offset: -170 });
+      }, 500);
     }
     else {
-      this.jumpToHash();
+      setTimeout(function() {
+        this.jumpToHash();
+      }, 500);
     }
-  }
-
-  componentDidUpdate() {
-    // if (this.props.params.rec === 'recs') {
-    //   scrollToElement('#recommendationscontainer', { offset: -170 });
-    // }
-    // else {
-    //   this.jumpToHash();
-    // }
   }
 
   componentWillUnmount() {
