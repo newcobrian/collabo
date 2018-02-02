@@ -33,7 +33,6 @@ import Geosuggest from 'react-geosuggest';
 import FollowItineraryButton from './FollowItineraryButton'
 import { GoogleApiWrapper, Map, Marker } from 'google-maps-react';
 import Sticky from 'react-sticky-el';
-import Scrollchor from 'react-scrollchor';
 
 var Scroll = require('react-scroll');
 var Element = Scroll.Element;
@@ -149,6 +148,11 @@ class Itinerary extends React.Component {
       ev.preventDefault();
       this.props.onDeleteRecommendation(this.props.authenticated, tip, this.props.itineraryId, this.props.itinerary)
     }
+
+    this.scrollToRecommendations = ev => {
+      ev.preventDefault()
+      scrollToElement('#recommendationscontainer', { offset: -170 });
+    }
   }
 
   componentWillMount() {
@@ -164,12 +168,12 @@ class Itinerary extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.props.params.rec === 'recs') {
-      scrollToElement('#recommendationscontainer', { offset: -170 });
-    }
-    else {
-      this.jumpToHash();
-    }
+    // if (this.props.params.rec === 'recs') {
+    //   scrollToElement('#recommendationscontainer', { offset: -170 });
+    // }
+    // else {
+    //   this.jumpToHash();
+    // }
   }
 
   componentWillUnmount() {
@@ -372,6 +376,7 @@ class Itinerary extends React.Component {
             numTotalTips={numTotalTips}
             google={google}
             onAskForRecsClick={this.onAskForRecsClick}
+            scrollToRecommendations={this.scrollToRecommendations}
              />
           )
       }
@@ -693,11 +698,11 @@ class Itinerary extends React.Component {
                         {/*this.props.visibleTips.length*/}{this.props.numTotalTips} Tips
                       </Link>
 
-                      <Scrollchor 
-                      animate={{offset:0 , duration: 400}} to="#poop"
+                      <Link 
+                      animate={{offset:0 , duration: 400}} onClick={this.scrollToRecommendations}
                       className="pdding-left-sm color--black">
                         5 Recommendations
-                      </Scrollchor>
+                      </Link>
                       
                       <div className="flx flx-row flx-align-center opa-80 flx-item-right">
                         <Link className="vb vb--xs flx flx-row fill--none flx-center-all ta-center" onClick={openFilter}>
@@ -733,7 +738,7 @@ class Itinerary extends React.Component {
                   />
 
 
-                  <div id="poop" className="w-100 pdding-all-lg"></div>
+                  <div className="w-100 pdding-all-lg"></div>
 
                  <div className="flx flx-col w-100 fill--success--bright brdr-top pdding-top-md pdding-bottom-lg mrgn-top-lg">
                    <div className="comments-section-title w-100 color--black pdding-left-md pdding-right-md" id="recommendationscontainer">
