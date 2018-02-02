@@ -830,7 +830,7 @@ const ShareGuideTooltip = props => {
                         <Link animate={{offset: 0, duration: 600}}
                         onClick={this.props.scrollToRecommendations}
                         className="pdding-left-sm color--yellow">
-                        5 Recommendations</Link>
+                        {this.props.numRecs} Recommendations</Link>
 
                       <div className="flx flx-row flx-align-center opa-80 flx-item-right">
                         <div className="flx-item-right">{renderReorderButton(itinerary.tips.length)}</div>

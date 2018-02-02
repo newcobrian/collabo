@@ -375,6 +375,7 @@ class Itinerary extends React.Component {
     const visibleTips = getVisibleTips(itinerary.tips, this.props.visibleTags);
     const numVisibleTips = visibleTips.length
     const numTotalTips = Object.keys(itinerary.tips).length
+    const numRecs = this.props.recommendations ? this.props.recommendations.length : 0
     // const numVisibleTags = this.props.showAllFilters ? numTotalTags : Object.keys(filter(this.props.visibleTags, ['checked', true])).length;
 
       if (canModify) {
@@ -387,6 +388,7 @@ class Itinerary extends React.Component {
             google={google}
             onAskForRecsClick={this.onAskForRecsClick}
             scrollToRecommendations={this.scrollToRecommendations}
+            numRecs={numRecs}
              />
           )
       }
@@ -712,7 +714,7 @@ class Itinerary extends React.Component {
                       <Link 
                       animate={{offset:0 , duration: 400}} onClick={this.scrollToRecommendations}
                       className="pdding-left-sm color--yellow">
-                        5 Recommendations
+                        {numRecs} Recommendations
                       </Link>
                       
                       <div className="flx flx-row flx-align-center opa-80 flx-item-right">
