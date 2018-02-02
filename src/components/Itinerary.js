@@ -167,6 +167,16 @@ class Itinerary extends React.Component {
     this.jumpToHash();
   }
 
+  componentDidMount() {
+    if (this.props.params.rec === 'recs') {
+      scrollToElement('#recommendationscontainer', { offset: -170 });
+      // scroller.scrollTo('#recommendationscontainer', false, 0, -170);
+    }
+    else {
+      this.jumpToHash();
+    }
+  }
+
   componentDidUpdate() {
     // if (this.props.params.rec === 'recs') {
     //   scrollToElement('#recommendationscontainer', { offset: -170 });
@@ -714,7 +724,7 @@ class Itinerary extends React.Component {
 
                     </div>
 
-                    {renderGeoSuggestRec(itinerary.geo)}
+                    {/*renderGeoSuggestRec(itinerary.geo)*/}
                   </div>
                 </Sticky>
 
@@ -740,7 +750,7 @@ class Itinerary extends React.Component {
 
 
 
-                 <div className="recs-list-wrapper flx flx-col w-100 fill--light-yellow brdr-top pdding-top-lg pdding-bottom-lg mrgn-top-lg">
+                 <div className="recs-list-wrapper flx flx-col w-100 fill--light-yellow brdr-top pdding-top-lg pdding-bottom-lg mrgn-top-lg DN">
                    <div className="comments-section-title w-100 color--black pdding-left-md pdding-right-md" id="recommendationscontainer">
                         Recommendations from friends
                      </div>
