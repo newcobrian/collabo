@@ -623,6 +623,7 @@ export function onCreateItinerary(auth, itinerary) {
           meta: {
             mixpanel: {
               event: 'Itinerary created',
+              source: 'create page',
               itineraryId: itineraryId,
               geo: itinerary.geo.placeId
             }
@@ -1494,12 +1495,13 @@ export function onCommentSubmit(authenticated, userInfo, type, commentObject, bo
       // update guide popularity score
       Helpers.incrementGuideScore(itineraryId, Constants.COMMENT_GUIDE_SCORE);
 
-      const mixpanelProps = ( type === Constants.REVIEW_TYPE ? {subjectId: commentObject.subjectId} : {itineraryId: commentObject.id});
+      const mixpanelProps = ( (type === Constants.REVIEW_TYPE ||  type === Constants.RECOMMENDATIONS_TYPE) ? {subjectId: commentObject.subjectId} : {itineraryId: commentObject.id});
       dispatch({
         type: ADD_COMMENT,
         meta: {
           mixpanel: {
             event: 'Comment added',
+            dataType: type,
             props: mixpanelProps
           }
         }

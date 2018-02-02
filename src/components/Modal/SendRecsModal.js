@@ -50,10 +50,10 @@ class SendRecsModal extends React.Component {
       />
     ];
 
-    const recObject = this.props.recObject;
+    const itinerary = this.props.itinerary;
     const itineraryId = this.props.itineraryId;
-    const recId = this.props.recId;
-    const shortName = recObject && recObject.geo && recObject.geo.shortName ? recObject.geo.shortName : recObject.geo.label;
+    const shortName = itinerary && itinerary.geo && itinerary.geo.shortName ? 
+      itinerary.geo.shortName : itinerary.geo.label;
 
     const onCopyClick = () => {
       this.props.openSnackbar('Share link copied to clipboard');
@@ -103,7 +103,7 @@ class SendRecsModal extends React.Component {
             <div className="pdding-left-md pdding-right-md pdding-top-md pdding-bottom-xs w-100">
 
                 <FacebookShareButton
-                  url={Constants.VIEWS_URL + `/recommendations/` + recId}
+                  url={Constants.VIEWS_URL + `/guide/` + itineraryId + '/recs'}
                   quote={'I\'m looking for travel recommendations for ' + shortName}
                   hashtag={'#views'}
                   className="flx flx-row flx-center-all w-100 vb vb--md vb--outline--none vb--fb">
@@ -115,7 +115,7 @@ class SendRecsModal extends React.Component {
                   </div>
                   <div className="color--white w-100">Share on Facebook</div>
                   <FacebookShareCount
-                    url={Constants.VIEWS_URL + `/recommendations/${recId}`}
+                    url={Constants.VIEWS_URL + `/guide/${itineraryId}/recs`}
                     className="color--white flx-item-right">
                     {count => count}
                   </FacebookShareCount>
@@ -127,7 +127,7 @@ class SendRecsModal extends React.Component {
 
             <div className="pdding-left-md pdding-right-md pdding-top-xs pdding-bottom-xs w-100"> 
                 <TwitterShareButton
-                  url={Constants.VIEWS_URL + `/recommendations/${recId}`}
+                  url={Constants.VIEWS_URL + `/guide/${itineraryId}/recs`}
                   title={'I\'m looking for travel recommendations for ' + shortName}
                   hashtags={['views']}
                   className="flx flx-row flx-center-all w-100 vb vb--md vb--outline--none vb--tw">
@@ -146,14 +146,14 @@ class SendRecsModal extends React.Component {
             <div className="pdding-left-md pdding-right-md pdding-top-xs pdding-bottom-xs w-100">
               <CopyToClipboard 
                 className="flx flx-row flx-center-all w-100 vb vb--md vb--outline--none color--white fill--success"
-                text={Constants.VIEWS_URL + '/recommendations/' + recId}
+                text={Constants.VIEWS_URL + '/guide/' + itineraryId + '/recs'}
                 onCopy={onCopyClick}>
                   <div className="flx flx-row flx-center-all w-100">
                     <i className="material-icons color--white opa-60 flx-item-left">link</i>
                     <div className="w-100">Copy link to clipboard</div>
                   </div>
               </CopyToClipboard>
-              <div className="v2-type-caption pdding-all-md ta-center opa-40">{'https://myviews.io/recommendations/' + recId}</div>
+              <div className="v2-type-caption pdding-all-md ta-center opa-40">{'https://myviews.io/guide/' + itineraryId + '/recs'}</div>
             </div>
           
           </div>

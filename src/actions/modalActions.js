@@ -148,11 +148,10 @@ export function showModal(type, review, images) {
   }
 }
 
-export function showCreateRecs(recId) {
+export function showCreateRecs() {
   return dispatch => {
     dispatch({
-      type: ActionTypes.SHOW_CREATE_RECS_MODAL,
-      recId: recId
+      type: ActionTypes.SHOW_CREATE_RECS_MODAL
     })
   }
 }
@@ -185,20 +184,9 @@ export function onCreateRecsSubmit(auth, geo, title) {
 
         let itineraryId = Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + auth).push(itineraryObject).key;
 
-        // create recommendations Object
-        let recObject = {
-          parentId: itineraryId,
-          requesterId: auth,
-          geo: Object.assign({}, geo),
-          children: {}
-        }
-
-        // push and get the recommendation Id
-        let recId = Firebase.database().ref(Constants.RECOMMENDATIONS_PATH).push(recObject).key;
-
         updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${itinerary.geo.placeId}/${auth}/${itineraryId}`] = itineraryObject;
         updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itineraryId}`] = Object.assign({}, itineraryObject, {userId: auth}, {popularityScore: 0});
-        updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}`] = Object.assign({}, itineraryObject, {userId: auth}, {popularityScore: 0}, {recId: recId});
+        updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}`] = Object.assign({}, itineraryObject, {userId: auth}, {popularityScore: 0});
 
         // add geo to the geo table if it doesnt exists
         if (!geoSnapshot.exists() || !geoSnapshot.val().fullCountry) {
@@ -224,7 +212,6 @@ export function onCreateRecsSubmit(auth, geo, title) {
           updates[`/${Constants.COUNTRIES_PATH}/${itinerary.geo.country}/places/${itinerary.geo.placeId}`] = true;
         }
 
-
         // make the update and update all of user's followers with the new guide
         Firebase.database().ref().update(updates);
         Helpers.fanOutToFollowersFeed(auth, itineraryId, serverTimestamp)
@@ -238,11 +225,12 @@ export function onCreateRecsSubmit(auth, geo, title) {
 
         dispatch({
           type: ActionTypes.RECOMMENDATION_ITINERARY_CREATED,
-          recObject: recObject,
-          recId: recId,
+          itineraryId: itineraryId,
+          itinerary: itineraryObject,
           meta: {
             mixpanel: {
-              event: 'Recommendation itinerary created',
+              event: 'itinerary created',
+              source: 'create recs modal',
               itineraryId: itineraryId,
               geo: itinerary.geo.placeId
             }
