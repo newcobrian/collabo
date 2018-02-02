@@ -826,7 +826,7 @@ const ShareGuideTooltip = props => {
                     
                     <div className="flx flx-row flx-align-center w-100 ta-center pdding-all-xs v2-type-body1 color--white w-100 ta-left">
                         
-                        <div className="DN pdding-right-sm brdr-right--white">{/*this.props.visibleTips.length*/}{this.props.numTotalTips} Tips</div>
+                        <div className="pdding-right-sm brdr-right--white">{/*this.props.visibleTips.length*/}{this.props.numTotalTips} Tips</div>
                         <Link animate={{offset: 0, duration: 600}}
                         onClick={this.props.scrollToRecommendations}
                         className="pdding-left-sm color--yellow">
@@ -1098,7 +1098,7 @@ const ShareGuideTooltip = props => {
                 })
               }
               <div
-                    className="flx flx-col w-100 fill--light-yellow brdr-top pdding-top-lg pdding-bottom-lg mrgn-top-lg DN">
+                    className="flx flx-col w-100 fill--light-yellow brdr-top pdding-top-lg pdding-bottom-lg mrgn-top-lg">
                 <div className="comments-section-title w-100 color--black pdding-left-md pdding-right-md" id="recommendationscontainer">
                   Recommendations from friends
                 </div>

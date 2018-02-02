@@ -711,7 +711,7 @@ class Itinerary extends React.Component {
 
                       <Link 
                       animate={{offset:0 , duration: 400}} onClick={this.scrollToRecommendations}
-                      className="pdding-left-sm color--yellow DN">
+                      className="pdding-left-sm color--yellow">
                         5 Recommendations
                       </Link>
                       
@@ -724,7 +724,7 @@ class Itinerary extends React.Component {
 
                     </div>
 
-                    {/*renderGeoSuggestRec(itinerary.geo)*/}
+                    {renderGeoSuggestRec(itinerary.geo)}
                   </div>
                 </Sticky>
 
@@ -750,7 +750,7 @@ class Itinerary extends React.Component {
 
 
 
-                 <div className="recs-list-wrapper flx flx-col w-100 fill--light-yellow brdr-top pdding-top-lg pdding-bottom-lg mrgn-top-lg DN">
+                 <div className="recs-list-wrapper flx flx-col w-100 fill--light-yellow brdr-top pdding-top-lg pdding-bottom-lg mrgn-top-lg">
                    <div className="comments-section-title w-100 color--black pdding-left-md pdding-right-md" id="recommendationscontainer">
                         Recommendations from friends
                      </div>
