@@ -153,6 +153,13 @@ export const FACEBOOK_POST = 'facebook post'
 export const TWITTER_POST = 'twitter post'
 export const COPY_URL_TO_CLIPBOARD = 'copy URL to clipboard'
 
+/*** Mixpanel click names ***/
+export const ASK_FOR_RECS_MIXPANEL_CLICK = 'ask for recs button'
+
+/*** Mixpanel page sources ***/
+export const HOME_PAGE_MIXPANEL_SOURCE = 'home page'
+export const ITINERARY_PAGE_MIXPANEL_SOURCE = 'itinerary page'
+
 export const INVALID_USERNAMES = ['account', 'send', 'message', 'inbox', 'notification', 'create', 'edit', 'editor',
  'itinerary', 'messenger', 'settings', 'admin', 'administrator', 'settings', 'global', 'saved', 'login', 'register',
   'review', 'followers', 'isfollowing', 'likes', 'saves', 'select', 'explore', 'search', 'user', 'location', 'city', 

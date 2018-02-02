@@ -198,6 +198,7 @@ class Itinerary extends React.Component {
 
   onAskForRecsClick = (itineraryId, itinerary) => ev => {
     ev.preventDefault();
+    this.props.logMixpanelClickEvent(Constants.ASK_FOR_RECS_MIXPANEL_CLICK, Constants.ITINERARY_PAGE_MIXPANEL_SOURCE);
     this.props.askForItineraryRecs(itineraryId, itinerary);
   }
 

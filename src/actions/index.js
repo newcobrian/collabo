@@ -141,6 +141,7 @@ export * from './homepageActions';
 export * from './inboxActions';
 export * from './reviewActions';
 export * from './modalActions';
+export * from './loggingActions';
 
 export function unloadProfileUser(uid) {
   return dispatch => {

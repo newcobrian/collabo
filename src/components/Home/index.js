@@ -99,6 +99,7 @@ class Home extends React.Component {
 
   onAskForRecsClick = ev => {
     ev.preventDefault();
+    this.props.logMixpanelClickEvent(Constants.ASK_FOR_RECS_MIXPANEL_CLICK, Constants.HOME_PAGE_MIXPANEL_SOURCE);
     this.props.showCreateRecs(null);
   }
 
