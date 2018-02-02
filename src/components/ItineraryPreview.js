@@ -83,11 +83,11 @@ const GeoInfo = props => {
   }
   else {
     return (
-      <Link to={`/places/${props.geo.placeId}`} className="flx flx-row flx-just-start flx-align-center w-50">
+      <Link to={`/places/${props.geo.placeId}`} className="flx flx-row flx-just-start flx-align-center w-60">
           {/** Flag and Geo **/}
           <div className={'itinerary__cover__flag flx-hold invert mrgn-right-sm flag-' + props.geo.country}>
           </div>
-          <div className="geo-type ellipsis ta-left invert">
+          <div className="v2-type-body1 ellipsis ta-left invert">
             {props.geo.label}
           </div>
       </Link>
@@ -186,7 +186,7 @@ const ItineraryPreview = props => {
 
               {/** CAPTION ROW - START **/}
               <div className="geo-wrapper flx flx-row flx-just-start flx-align-center w-100 mrgn-bottom-sm">
-                <div className="flx flx-row w-50 flx-align-center">
+                <div className="flx flx-row w-40 flx-align-center pdding-right-sm">
                   {/** USER PHOTO **/}
                     <Link
                       to={`/${itinerary.createdBy.username}`}

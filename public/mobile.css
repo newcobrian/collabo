@@ -469,7 +469,9 @@ width: 100%;
 .page-itinerary .itinerary__cover__topbar  {
   left: 10px;
 }
-
+.itinerary__big-photo {
+  height: 80px;
+}
 .cover-height,
 .page-itinerary .itinerary__cover .header-height {
   height: 180px;

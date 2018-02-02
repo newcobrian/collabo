@@ -33,7 +33,7 @@ input, select, textarea {
   background-color: transparent;
   text-transform: inherit;
   border-color: white;
-  padding: 5px 0;
+  padding: 4px 0;
   text-transform: inherit;
   background-color: transparent;
   text-align: left;
@@ -299,7 +299,7 @@ input.input--underline {
 }
 .vb.fill--none:active,
 .vb.fill--none:hover {
-  background-color: rgba(255,255,255,.1) !important;
+  background-color: rgba(0,0,0,.1) !important;
 }
 .vb.hover--white10:active,
 .vb.hover--white10:hover {

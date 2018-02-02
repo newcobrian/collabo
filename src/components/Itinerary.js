@@ -339,8 +339,8 @@ class Itinerary extends React.Component {
             
             <Geosuggest 
               ref={el=>this._geoSuggest=el}
-              className="input--underline w-100 color--black bx-shadow"
-              placeholder={'Add a recommendation'}
+              className="input--underline w-100 color--black"
+              placeholder={'Give ' + createdByUsername + ' a recommendation'}
               location={latLng}
               radius={1000}
               onSuggestSelect={suggestSelectTip(this)}/>
@@ -354,7 +354,7 @@ class Itinerary extends React.Component {
           <Geosuggest
             ref={el=>this._geoSuggest=el}
             className="input--underline w-100 color--white"
-            placeholder={'Add a recommendation'}
+            placeholder={'Give ' + createdByUsername + ' a recommendation'}
             onSuggestSelect={suggestSelectTip(this)}/>
         </div>
       )
@@ -382,7 +382,7 @@ class Itinerary extends React.Component {
       }
       else {
         return (
-          <div className={this.props.mapViewToggle ? 'flx flx-col flx-align-start page-common page-itinerary not-my-guide page-edit-own show-map' : 'flx flx-col flx-align-start page-common not-my-guide page-edit-own page-itinerary'}>
+          <div className={this.props.mapViewToggle ? 'flx flx-col flx-align-start page-common page-itinerary not-my-guide show-map' : 'flx flx-col flx-align-start page-common not-my-guide page-itinerary'}>
 
             <button className="mobile-show vb vb--sm flx flx-row flx-align-center fill--black color--white button-map-toggle bx-shadow"
               onClick={this.onMapToggle}>
@@ -529,7 +529,7 @@ class Itinerary extends React.Component {
                       <Link to={`/places/${itinerary.geo.placeId}`} className="flx flx-row flx-just-start flx-align-center w-50">
                         <div className={'itinerary__cover__flag flx-hold invert flag-' + itinerary.geo.country}>
                         </div>
-                        <div className="geo-type ellipsis mrgn-left-sm ta-left invert">
+                        <div className="v2-type-body2 ellipsis mrgn-left-sm ta-left invert">
                         {itinerary.geo.label}
                         </div>
                       </Link>
@@ -555,7 +555,7 @@ class Itinerary extends React.Component {
                   </div>
 
                   {/** DESCRIPTION **/}
-                  <div className="itinerary__cover__descrip v2-type-body2 font--beta ta-left mrgn-top-xs mrgn-bottom-sm opa-60 invert w-100">
+                  <div className="itinerary__cover__descrip v2-type-body2 font--beta ta-left pdding-top-xs mrgn-bottom-sm opa-60 invert w-100">
                      {itinerary.description}
                   </div>
 
@@ -690,23 +690,24 @@ class Itinerary extends React.Component {
 
               <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
                 <Sticky bottomOffset={140} className={'sticky-class'}>
-                  <div className="it-add-container give-rec-wrapper flx flx-col flx-align-center bx-shadow">
+
+                  <div className="it-add-container give-rec-wrapper flx flx-col flx-align-center bx-shadow fill--black">
                     <div className="flx flx-row flx-align-center w-100 ta-center pdding-all-xs v2-type-body1 color--white w-100 ta-left">
 
                       <Link to={'/guide/' + this.props.itineraryId}
-                        className="pdding-right-sm brdr-right--02 color--black">
+                        className="pdding-right-sm brdr-right--white color--white">
                         {/*this.props.visibleTips.length*/}{this.props.numTotalTips} Tips
                       </Link>
 
                       <Link 
                       animate={{offset:0 , duration: 400}} onClick={this.scrollToRecommendations}
-                      className="pdding-left-sm color--black">
+                      className="pdding-left-sm color--yellow">
                         5 Recommendations
                       </Link>
                       
                       <div className="flx flx-row flx-align-center opa-80 flx-item-right">
                         <Link className="vb vb--xs flx flx-row fill--none flx-center-all ta-center" onClick={openFilter}>
-                          <i className="material-icons color--black opa-90 md-18">filter_list</i>
+                          <i className="material-icons color--white opa-90 md-18">filter_list</i>
                           <div className="color--black DN">Filter{/*numVisibleTags}/{numTotalTips*/} {/*Showing 4/10 Categories */}</div>
                         </Link>
                       </div>
@@ -740,7 +741,7 @@ class Itinerary extends React.Component {
 
                   <div className="w-100 pdding-all-lg"></div>
 
-                 <div className="flx flx-col w-100 fill--success--bright brdr-top pdding-top-md pdding-bottom-lg mrgn-top-lg">
+                 <div className="recs-list-wrapper flx flx-col w-100 fill--light-yellow brdr-top pdding-top-md pdding-bottom-lg mrgn-top-lg">
                    <div className="comments-section-title w-100 color--black pdding-left-md pdding-right-md" id="recommendationscontainer">
                         Recommendations from friends
                      </div>

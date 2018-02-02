@@ -51,7 +51,7 @@
 * .it__cover__inner input.invert,
 * .it__cover__inner .invert textarea,
 * .it__cover__inner .invert input {
-	border: none !important;
+	/*border: none !important;*/
 }
 * .country-color-ID {
 	background-color: #043B44 !important;

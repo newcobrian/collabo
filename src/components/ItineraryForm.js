@@ -74,7 +74,7 @@ const UpdateCoverPhoto = props => {
         multiple={false}
         accept="image/jpeg,image/png,application/pdf"
         className="edit-tip__dropzone__touch flx flx-col flx-align-center flx-just-start ta-center">
-        <div className="add-photo-wrapper vb vb--xs vb--shadow-none color--white vb--outline--none">
+        <div className="add-photo-wrapper vb vb--xs vb--shadow-none fill--none">
           <i className="material-icons color--white md-18">add_a_photo</i>
           <div className="mrgn-left-sm mobile-hide DN">Upload Cover</div>
         </div>
@@ -829,8 +829,8 @@ const ShareGuideTooltip = props => {
                         <div className="pdding-right-sm brdr-right--white">{/*this.props.visibleTips.length*/}{this.props.numTotalTips} Tips</div>
                         <Link animate={{offset: 0, duration: 600}}
                         onClick={this.props.scrollToRecommendations}
-                        className="pdding-left-sm color--success--bright">
-                        2 Recommendations</Link>
+                        className="pdding-left-sm color--yellow">
+                        5 Recommendations</Link>
 
                       <div className="flx flx-row flx-align-center opa-80 flx-item-right">
                         <div className="flx-item-right">{renderReorderButton(itinerary.tips.length)}</div>
@@ -1099,7 +1099,7 @@ const ShareGuideTooltip = props => {
               }
               <div className="w-100 pdding-all-lg"></div>
               <div
-                    className="flx flx-col w-100 fill--success--bright brdr-top pdding-top-lg pdding-bottom-lg mrgn-top-lg">
+                    className="flx flx-col w-100 fill--light-yellow brdr-top pdding-top-lg pdding-bottom-lg mrgn-top-lg">
                 <div className="comments-section-title w-100 color--black pdding-left-md pdding-right-md" id="recommendationscontainer">
                   Recommendations from friends
                 </div>
