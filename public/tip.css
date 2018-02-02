@@ -459,7 +459,7 @@ select {
   text-indent: 6px;*/
 
     height: 16px;
-    line-height: 16px;
+    line-height: 16px !important;
     font-size: 13px;
     background: transparent;
     -webkit-border-radius: 32px !important;
@@ -481,11 +481,11 @@ select {
     text-align-last: center;
     margin-right: 0;
     cursor: pointer;
-    font-family: 'Roboto', sans-serif;
-    text-transform: uppercase;
-    font-size: 10px;
+    font-family: 'Roboto', sans-serif !important;
+    text-transform: uppercase !important;
+    font-size: 10px !important;
     letter-spacing: 1px;
-    font-weight: bold;
+    font-weight: bold !important;
 }
 
 select:hover {
