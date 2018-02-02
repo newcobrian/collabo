@@ -203,7 +203,7 @@
 
 .sticky-class {
     width: 100% !important;
-    z-index: 100000;
+    z-index: 1000;
     transform: inherit !important;
 }
 .sticky-class.sticky {
