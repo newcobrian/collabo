@@ -711,7 +711,7 @@ class Itinerary extends React.Component {
 
                       <Link 
                       animate={{offset:0 , duration: 400}} onClick={this.scrollToRecommendations}
-                      className="pdding-left-sm color--yellow">
+                      className="pdding-left-sm color--yellow DN">
                         5 Recommendations
                       </Link>
                       
