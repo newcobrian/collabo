@@ -184,19 +184,6 @@ class ItineraryForm extends React.Component {
     this.jumpToHash();
   }
 
-  componentDidMount() {
-    if (this.props.params.rec === 'recs') {
-      setTimeout(function() {
-        scrollToElement('#recommendationscontainer', { offset: -170 });
-      }, 500);
-    }
-    else {
-      setTimeout(function() {
-        this.jumpToHash();
-      }, 500);
-    }
-  }
-
   jumpToHash = () => {
     let hash = browserHistory.getCurrentLocation().hash;
     if (hash) {
