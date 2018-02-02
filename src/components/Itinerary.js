@@ -739,9 +739,8 @@ class Itinerary extends React.Component {
                   />
 
 
-                  <div className="w-100 pdding-all-lg"></div>
 
-                 <div className="recs-list-wrapper flx flx-col w-100 fill--light-yellow brdr-top pdding-top-md pdding-bottom-lg mrgn-top-lg">
+                 <div className="recs-list-wrapper flx flx-col w-100 fill--light-yellow brdr-top pdding-top-lg pdding-bottom-lg mrgn-top-lg">
                    <div className="comments-section-title w-100 color--black pdding-left-md pdding-right-md" id="recommendationscontainer">
                         Recommendations from friends
                      </div>
