@@ -611,26 +611,26 @@ class Itinerary extends React.Component {
               {/** Close Cover Text DIV >>>>>> **/}
 
 
-              <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
+              <div className={"itinerary__tipslist flx flx-col flx-align-center w-100 pdding-bottom-lg fill--white country-color-" + itinerary.geo.country}>
                 <Sticky bottomOffset={140} className={'sticky-class'}>
 
-                  <div className="it-add-container give-rec-wrapper flx flx-col flx-align-center bx-shadow fill--black">
+                  <div className={"it-add-container fill--white flx flx-col flx-align-center bx-shadow country-color-" + itinerary.geo.country}>
                     <div className="flx flx-row flx-align-center w-100 ta-center pdding-all-xs v2-type-body1 color--white w-100 ta-left">
 
                       <Link to={'/guide/' + this.props.itineraryId}
-                        className="pdding-right-sm brdr-right--02 color--black">
+                        className="pdding-right-sm brdr-right--02 color--black invert">
                         {/*this.props.visibleTips.length*/}{this.props.numTotalTips} Tips
                       </Link>
 
                       <Link 
                       animate={{offset:0 , duration: 400}} onClick={this.scrollToRecommendations}
-                      className="pdding-left-sm color--black">
+                      className="pdding-left-sm color--black invert">
                         {numRecs} Recommendations
                       </Link>
                       
                       <div className="flx flx-row flx-align-center opa-80 flx-item-right">
                         <Link className="vb vb--xs flx flx-row fill--none flx-center-all ta-center" onClick={openFilter}>
-                          <i className="material-icons color--black opa-90 md-18">filter_list</i>
+                          <i className="material-icons color--black opa-90 md-18 invert">filter_list</i>
                           <div className="color--black DN">Filter{/*numVisibleTags}/{numTotalTips*/} {/*Showing 4/10 Categories */}</div>
                         </Link>
                       </div>
@@ -663,9 +663,10 @@ class Itinerary extends React.Component {
 
 
 
-                 <div className="recs-list-wrapper flx flx-col w-100 fill--light-green brdr-top pdding-top-lg pdding-bottom-lg mrgn-top-lg">
-                   <div className="comments-section-title w-100 color--black pdding-left-md pdding-right-md mrgn-bottom-sm" id="recommendationscontainer">
-                        Recommendations from friends
+                 <div className="recs-list-wrapper flx flx-col w-100 fill--black brdr-top pdding-top-md pdding-bottom-lg mrgn-top-lg">
+                   <div className="comments-section-title flx flx-row w-100 color--black invert pdding-left-md pdding-right-md mrgn-bottom-sm" id="recommendationscontainer">
+                        <i className="material-icons color--yellow mrgn-right-sm">lightbulb_outline</i>
+                        <div className="color--black invert">Recommendations from friends</div>
                      </div>
 
 

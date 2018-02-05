@@ -815,10 +815,10 @@ const ShareGuideTooltip = props => {
          
             
             {/** ----- Close itinerary__cover DIV ----- **/}  
-            <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg">
+            <div className={"itinerary__tipslist flx flx-col flx-align-center fill--white w-100 pdding-bottom-lg country-color-" + itinerary.geo.country}>
 
                 <Sticky bottomOffset={140} className={'sticky-class'}>
-                  <div className="it-add-container flx flx-col flx-align-center bx-shadow">
+                  <div className={"it-add-container flx flx-col flx-align-center fill--white bx-shadow country-color-" + itinerary.geo.country}>
                     
                     <div className="flx flx-row flx-align-center w-100 ta-center pdding-all-xs v2-type-body1 color--white w-100 ta-left">
                         
@@ -1107,10 +1107,11 @@ const ShareGuideTooltip = props => {
               {/** Big share button **/}
 
 
-              <div className="flx flx-col w-100 fill--light-green brdr-top pdding-top-lg pdding-bottom-lg mrgn-top-lg">
-                <div className="comments-section-title w-100 color--black pdding-left-md pdding-right-md mrgn-bottom-md" id="recommendationscontainer">
-                  Recommendations from friends
-                </div>
+              <div className="recs-list-wrapper flx flx-col w-100 fill--black brdr-top pdding-top-md pdding-bottom-lg mrgn-top-lg">
+                 <div className="comments-section-title flx flx-row w-100 color--black invert pdding-left-md pdding-right-md mrgn-bottom-sm" id="recommendationscontainer">
+                      <i className="material-icons color--yellow mrgn-right-sm">lightbulb_outline</i>
+                      <div className="color--black invert">Recommendations from friends</div>
+                   </div>
                 {/* Tip List for recommendations */}
                 <TipList
                   tipList={this.props.recommendations}
