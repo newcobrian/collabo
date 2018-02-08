@@ -815,17 +815,17 @@ const ShareGuideTooltip = props => {
          
             
             {/** ----- Close itinerary__cover DIV ----- **/}  
-            <div className={"itinerary__tipslist flx flx-col flx-align-center fill--white w-100 pdding-bottom-lg country-color-" + itinerary.geo.country}>
+            <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg country-color- + itinerary.geo.country">
 
                 <Sticky bottomOffset={140} className={'sticky-class'}>
-                  <div className={"it-add-container flx flx-col flx-align-center fill--white bx-shadow country-color-" + itinerary.geo.country}>
+                  <div className="it-add-container flx flx-col flx-align-center fill--black bx-shadow country-color- + itinerary.geo.country">
                     
                     <div className="flx flx-row flx-align-center w-100 ta-center pdding-all-xs v2-type-body1 color--white w-100 ta-left">
                         
                         <div className="pdding-right-sm brdr-right--white">{/*this.props.visibleTips.length*/}{this.props.numTotalTips} Tips</div>
                         <Link animate={{offset: 0, duration: 600}}
                         onClick={this.props.scrollToRecommendations}
-                        className="pdding-left-sm color--yellow">
+                        className="pdding-left-sm color--white">
                         {this.props.numRecs} Recommendations</Link>
 
                       <div className="flx flx-row flx-align-center opa-80 flx-item-right">

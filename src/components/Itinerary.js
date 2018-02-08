@@ -611,20 +611,20 @@ class Itinerary extends React.Component {
               {/** Close Cover Text DIV >>>>>> **/}
 
 
-              <div className={"itinerary__tipslist flx flx-col flx-align-center w-100 pdding-bottom-lg fill--white country-color-" + itinerary.geo.country}>
+              <div className="itinerary__tipslist flx flx-col flx-align-center w-100 pdding-bottom-lg fill--light-gray country-color-">
                 <Sticky bottomOffset={140} className={'sticky-class'}>
 
-                  <div className={"it-add-container fill--white flx flx-col flx-align-center bx-shadow country-color-" + itinerary.geo.country}>
+                  <div className="it-add-container flx flx-col flx-align-center bx-shadow fill--black country-color-">
                     <div className="flx flx-row flx-align-center w-100 ta-center pdding-all-xs v2-type-body1 color--white w-100 ta-left">
 
                       <Link to={'/guide/' + this.props.itineraryId}
-                        className="pdding-right-sm brdr-right--02 color--black invert">
+                        className="pdding-right-sm brdr-right--02 color--white invert">
                         {/*this.props.visibleTips.length*/}{this.props.numTotalTips} Tips
                       </Link>
 
                       <Link 
                       animate={{offset:0 , duration: 400}} onClick={this.scrollToRecommendations}
-                      className="pdding-left-sm color--black invert">
+                      className="pdding-left-sm color--white invert">
                         {numRecs} Recommendations
                       </Link>
                       
