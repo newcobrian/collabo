@@ -307,7 +307,7 @@ class ItineraryForm extends React.Component {
         }
       })
       // setTimeout(function() {
-        scrollToElement('#guidecommentcontainer', { offset: -170 });
+        scrollToElement('#recommendationscontainer', { offset: -170 });
       // }, 500);
     }
 
