@@ -691,7 +691,7 @@ class Itinerary extends React.Component {
 
               </div>
 
-              <div className="bx-shadow big-share-button cta-wrapper flx flx-col flx-center-all vb vb--sm vb--outline--none fill--primary color--white"
+              <div className="DN bx-shadow big-share-button cta-wrapper flx flx-col flx-center-all vb vb--sm vb--outline--none fill--primary color--white"
                 onClick={this.shareGuide} >
                 <i className="material-icons color--white flip-h md-36 mrgn-bottom-md">reply</i>
                 <i className="material-icons color--white DN">accessibility</i>
