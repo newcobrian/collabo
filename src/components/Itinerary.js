@@ -164,7 +164,6 @@ class Itinerary extends React.Component {
     else {
       this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'itinerary'});
     }
-    this.jumpToHash();
   }
 
   componentDidMount() {
@@ -175,7 +174,10 @@ class Itinerary extends React.Component {
     }
     else {
       setTimeout(function() {
-        this.jumpToHash();
+        let hash = browserHistory.getCurrentLocation().hash;
+        if (hash) {
+          scrollToElement(hash, { offset: -200 });
+        }
       }, 500);
     }
   }

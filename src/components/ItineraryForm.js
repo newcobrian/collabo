@@ -181,7 +181,16 @@ class ItineraryForm extends React.Component {
     if (this.props.initialValues) {
       this.props.updateItineraryForm('data', this.props.initialValues);
     }
-    this.jumpToHash();
+    // this.jumpToHash();
+  }
+
+  componentDidMount() {
+    setTimeout(function() {
+      let hash = browserHistory.getCurrentLocation().hash;
+      if (hash) {
+        scrollToElement(hash, { offset: -200 });
+      }
+    }, 500);
   }
 
   jumpToHash = () => {
