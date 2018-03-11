@@ -130,6 +130,7 @@ export const SEND_RECS_MODAL = 'SEND_RECS_MODAL'
 export const USER_FEED = 'USER_FEED'
 export const ITINERARY_PAGE = 'ITINERARY_PAGE'
 export const EXPLORE_PAGE = 'EXPLORE_PAGE'
+export const FIREBASE_SEARCH_INPUT = 'FIREBASE_SEARCH_INPUT'
 
 /*** Tag list ***/
 export const TAG_LIST = []

@@ -6,12 +6,14 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import * as Constants from '../constants';
 import * as Actions from '../actions';
 import 'whatwg-fetch';
+import {GoogleApiWrapper} from 'google-maps-react';
+import Map from 'google-maps-react';
 
 const algoliasearch = require('algoliasearch');
 const client = algoliasearch('2OEMW8KEZS', '62e17a3113351343399fad062d3cbca5', {protocol:'https:'});
 
 const mapStateToProps = state => ({
-  ...state.editor,
+  ...state.firebaseSearchInput,
   authenticated: state.common.authenticated
 });
 
@@ -26,6 +28,12 @@ class FirebaseSearchInput extends Component {
       inputValue : '',
       searchTimer: undefined,
       index: {}
+    }
+
+    this.initMap = (mapProps, map) => {
+      const {google} = this.props;
+      
+      this.props.loadGoogleMaps(google, map, Constants.FIREBASE_SEARCH_INPUT);
     }
   }
 
@@ -186,6 +194,14 @@ class FirebaseSearchInput extends Component {
   }
 
   render() {
+    // if (!this.props.googleObject) {
+    //   return (
+    //     <Map google={window.google}
+    //       onReady={this.initMap}
+    //       visible={false} >
+    //     </Map>
+    //     );
+    // }
     return <MuiThemeProvider name={this.props.name} muiTheme={getMuiTheme()}>
 
       <AutoComplete
@@ -245,4 +261,7 @@ class FirebaseSearchInput extends Component {
 }
 
 export default connect(mapStateToProps, Actions)(FirebaseSearchInput);
-// export default FirebaseSearchInput;
+
+// export default GoogleApiWrapper({
+//   apiKey: Constants.GOOGLE_API_KEY
+// }) (connect(mapStateToProps, Actions)(FirebaseSearchInput));
