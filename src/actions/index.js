@@ -2987,7 +2987,7 @@ export function closeSnackbar() {
 
 export function loadPlaces(geoId) {
   return dispatch => {
-    Firebase.database().ref(Constants.GEOS_PATH + '/' + geoId).on('value', geoSnapshot => {
+    Firebase.database().ref(Constants.GEOS_PATH + '/' + geoId).once('value', geoSnapshot => {
       if (geoSnapshot.exists()) {
         dispatch({
           type: LOAD_PLACES,
