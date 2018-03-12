@@ -30,7 +30,6 @@ class Places extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.unloadPlaces(this.props.params.pid);
     this.props.unloadPlacesFeed(this.props.authenticated, this.props.params.pid);
     if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
   }
@@ -79,13 +78,9 @@ class Places extends React.Component {
 
       <div className="page-common page-places flx flx-col flx-align-center">
 
-        <div className="search-wrapper-wrapper w-100 flx flx-row flx-m-col brdr-bottom">
-          <div className="search-wrapper page-top-search w-100 flx flx-row flx-hold">
-            <i className="search-icon material-icons color--black md-24">search</i>
+        
             <UniversalSearchBar />
-          </div>
-
-        </div>
+        
 
 
         <div className={"page-title-wrapper mrgn-top-lg center-text country-color-" + this.props.geo.country}>

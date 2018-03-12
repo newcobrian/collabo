@@ -3012,10 +3012,6 @@ export function loadPlaces(geoId) {
   }
 }
 
-export function unloadPlaces(geoId) {
-  Firebase.database().ref(Constants.GEOS_PATH + '/' + geoId).off();
-}
-
 export function getPlacesFeed(auth, locationId) {
   return dispatch => {
     Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH + '/' + locationId).on('value', itinerariesSnapshot => {
