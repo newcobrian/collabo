@@ -21,7 +21,7 @@ import lightboxComponent from './reducers/lightboxComponent';
 import explore from './reducers/explore';
 import places from './reducers/places';
 import recommend from './reducers/recommend';
-import firebaseSearchInput from './reducers/firebaseSearchInput';
+import universalSearchBar from './reducers/universalSearchBar';
 import Firebase from 'firebase';
 import mixpanel from 'mixpanel-browser';
 import MixpanelMiddleware from 'redux-mixpanel-middleware';
@@ -55,7 +55,7 @@ const reducer = combineReducers({
   explore,
   places,
   recommend,
-  firebaseSearchInput,
+  universalSearchBar,
   // editForm: combineForms({
   //   editForm: initialItinerary
   // }, 'editForm')

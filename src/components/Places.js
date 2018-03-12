@@ -5,7 +5,7 @@ import * as Constants from '../constants';
 import ItineraryList from './ItineraryList'; 
 import { Link, browserHistory } from 'react-router';
 import FirebaseSearchInput from './FirebaseSearchInput';
-
+import UniversalSearchBar from './UniversalSearchBar';
 
 const mapStateToProps = state => ({
   ...state.places,
@@ -21,8 +21,6 @@ class Places extends React.Component {
           browserHistory.push('/places/' + result.placeId);
         }
       }
-    
-
   }
 
   componentWillMount() {
@@ -32,6 +30,7 @@ class Places extends React.Component {
   }
 
   componentWillUnmount() {
+    this.props.unloadPlaces(this.props.params.pid);
     this.props.unloadPlacesFeed(this.props.authenticated, this.props.params.pid);
     if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
   }
@@ -70,11 +69,11 @@ class Places extends React.Component {
         </div>
         )
     }
-    else if (this.props.feed.length === 0) {
-      return (
-        <div> No itineraries created for {this.props.geo.label}.</div>
-      )
-    }
+    // else if (this.props.feed.length === 0) {
+    //   return (
+    //     <div> No itineraries created for {this.props.geo.label}.</div>
+    //   )
+    // }
     return (
     <div>
 
@@ -83,12 +82,7 @@ class Places extends React.Component {
         <div className="search-wrapper-wrapper w-100 flx flx-row flx-m-col brdr-bottom">
           <div className="search-wrapper page-top-search w-100 flx flx-row flx-hold">
             <i className="search-icon material-icons color--black md-24">search</i>
-            <FirebaseSearchInput
-              name="searchInput"
-              callback={this.searchInputCallback}
-              placeholder="Search another city or country"
-              type={Constants.GEO_SEARCH}
-              className="input--search fill--black color--black input--underline v2-type-body3" />
+            <UniversalSearchBar />
           </div>
 
         </div>

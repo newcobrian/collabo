@@ -2987,13 +2987,22 @@ export function closeSnackbar() {
 
 export function loadPlaces(geoId) {
   return dispatch => {
-    Firebase.database().ref(Constants.GEOS_PATH + '/' + geoId).once('value', geoSnapshot => {
+    Firebase.database().ref(Constants.GEOS_PATH + '/' + geoId).on('value', geoSnapshot => {
       if (geoSnapshot.exists()) {
         dispatch({
           type: LOAD_PLACES,
           geo: geoSnapshot.val()
         })
       }
+      // else if (geoInput) {
+      //   if (geoId && geoInput.location && geoInput.label) {
+      //     Firebase.database().ref(Constants.GEOS_PATH + '/' + geoId).update(Object.assign({}, geoInput, {itineraryCount: 0}));
+      //     dispatch({
+      //       type: LOAD_PLACES,
+      //       geo: geoInput
+      //     })
+      //   }
+      // }
       else {
         dispatch({
           type: ActionTypes.PLACE_NOT_FOUND_ERROR
@@ -3003,31 +3012,43 @@ export function loadPlaces(geoId) {
   }
 }
 
+export function unloadPlaces(geoId) {
+  Firebase.database().ref(Constants.GEOS_PATH + '/' + geoId).off();
+}
+
 export function getPlacesFeed(auth, locationId) {
   return dispatch => {
     Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH + '/' + locationId).on('value', itinerariesSnapshot => {
       let feedArray = [];
-      itinerariesSnapshot.forEach(function(itin) {
-        Firebase.database().ref(Constants.USERS_PATH + '/' + itin.val().userId).on('value', userSnapshot => {
-          Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itin.key).on('value', likesSnapshot => {
-            const itineraryObject = {};
-            const key = { id: itin.key };
-            const createdBy = { createdBy: Object.assign({}, userSnapshot.val(), {userId: itin.val().userId}) };
-            let likes = {
-              isLiked: likesSnapshot.exists()
-            }
-            
-            Object.assign(itineraryObject, itin.val(), key, createdBy, likes);
+      if (itinerariesSnapshot.exists()) {
+        itinerariesSnapshot.forEach(function(itin) {
+          Firebase.database().ref(Constants.USERS_PATH + '/' + itin.val().userId).on('value', userSnapshot => {
+            Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itin.key).on('value', likesSnapshot => {
+              const itineraryObject = {};
+              const key = { id: itin.key };
+              const createdBy = { createdBy: Object.assign({}, userSnapshot.val(), {userId: itin.val().userId}) };
+              let likes = {
+                isLiked: likesSnapshot.exists()
+              }
+              
+              Object.assign(itineraryObject, itin.val(), key, createdBy, likes);
 
-            feedArray = [itineraryObject].concat(feedArray);
-            feedArray.sort(Helpers.byPopularity);
-            dispatch({
-              type: GET_PLACES_FEED,
-              payload: feedArray
+              feedArray = [itineraryObject].concat(feedArray);
+              feedArray.sort(Helpers.byPopularity);
+              dispatch({
+                type: GET_PLACES_FEED,
+                payload: feedArray
+              })
             })
           })
         })
-      })
+      }
+      else {
+        dispatch({
+          type: GET_PLACES_FEED,
+          payload: []
+        })
+      }
     })
   }
 }
@@ -3079,6 +3100,20 @@ export function loadRecommendPage(rid) {
         type: ActionTypes.LOAD_RECOMMEND_PAGE,
         recId: rid,
         recObject: snap.val()
+      })
+    })
+  }
+}
+
+export function universalGeoSearch(placeId, geoData) {
+  return dispatch => {
+    Firebase.database().ref(Constants.GEOS_PATH + '/' + placeId).once('value', snap => {
+      if (!snap.exists() && placeId && geoData.location && geoData.label) {
+        Firebase.database().ref(Constants.GEOS_PATH + '/' + placeId).update(geoData);
+      }
+      dispatch({
+        type: ActionTypes.UNIVERSAL_GEO_SEARCH,
+        placeId: placeId
       })
     })
   }

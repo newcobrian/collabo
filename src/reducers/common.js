@@ -114,6 +114,11 @@ export default (state = defaultState, action) => {
         ...state,
         popularGeos: action.popularGeos
       }
+    case ActionTypes.UNIVERSAL_GEO_SEARCH:
+      return {
+        ...state,
+        redirectTo: '/places/' + action.placeId
+      }
     default: 
       return state;
   }

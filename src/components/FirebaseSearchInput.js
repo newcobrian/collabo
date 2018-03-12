@@ -6,14 +6,12 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import * as Constants from '../constants';
 import * as Actions from '../actions';
 import 'whatwg-fetch';
-import {GoogleApiWrapper} from 'google-maps-react';
-import Map from 'google-maps-react';
 
 const algoliasearch = require('algoliasearch');
 const client = algoliasearch('2OEMW8KEZS', '62e17a3113351343399fad062d3cbca5', {protocol:'https:'});
 
 const mapStateToProps = state => ({
-  ...state.firebaseSearchInput,
+  ...state.editor,
   authenticated: state.common.authenticated
 });
 
@@ -28,12 +26,6 @@ class FirebaseSearchInput extends Component {
       inputValue : '',
       searchTimer: undefined,
       index: {}
-    }
-
-    this.initMap = (mapProps, map) => {
-      const {google} = this.props;
-      
-      this.props.loadGoogleMaps(google, map, Constants.FIREBASE_SEARCH_INPUT);
     }
   }
 
@@ -194,74 +186,64 @@ class FirebaseSearchInput extends Component {
   }
 
   render() {
-    // if (!this.props.googleObject) {
-    //   return (
-    //     <Map google={window.google}
-    //       onReady={this.initMap}
-    //       visible={false} >
-    //     </Map>
-    //     );
-    // }
-    return <MuiThemeProvider name={this.props.name} muiTheme={getMuiTheme()}>
+    return (
+      <MuiThemeProvider name={this.props.name} muiTheme={getMuiTheme()}>
 
-      <AutoComplete
-        filter={function filter(searchText, key) {
-          return key.toLowerCase().includes(searchText.toLowerCase());
-        }}
-        fullWidth={true}
-        hintText={this.props.placeholder}
-        dataSource={this.state.dataSource}
-        onUpdateInput={this.onUpdateInput} 
-        onNewRequest={this.onNewRequest}
-        className={this.props.className}
-        style={{
-          backgroundColor: 'transparent'
-        }}
-        underlineFocusStyle={{
-          borderColor: '#5B9D3A'
-        }}
-        textFieldStyle={{
-          height: '40px',
-          marginBottom: '40px',
-          fontWeight: '400',
-          lineHeight: '14px'
-        }}
-        menuItemStyle={{
-          borderBottom: '1px solid #ccc !important',
-          padding: '20px !important'
-        }}
-        selectedMenuItemStyle={{
-          backgroundColor:'#3DCBF3 !important',
-          color: 'white'
-        }}
-        innerDivStyle={{
-          borderBottom: '1px solid #ccc !important',
-          padding: '20px !important'
-        }}
-        underlineStyle={{
-          border: 'none',
-          borderBottom: '1px solid #3DCBF3'
-        }}
-        menuStyle={{
-          overflow: 'scroll'
-        }}
-        hintStyle={{
-          bottom: '0px',
-          color: '#121419',
-          fontSize: '16px',
-          lineHeight: '24px',
-          width: '100%',
-          overflow:'hidden',
-          textAlign: 'left',
-          padding: '0 0 0 70px'
-        }}
-     />
+        <AutoComplete
+          filter={function filter(searchText, key) {
+            return key.toLowerCase().includes(searchText.toLowerCase());
+          }}
+          fullWidth={true}
+          hintText={this.props.placeholder}
+          dataSource={this.state.dataSource}
+          onUpdateInput={this.onUpdateInput} 
+          onNewRequest={this.onNewRequest}
+          className={this.props.className}
+          style={{
+            backgroundColor: 'transparent'
+          }}
+          underlineFocusStyle={{
+            borderColor: '#5B9D3A'
+          }}
+          textFieldStyle={{
+            height: '40px',
+            marginBottom: '40px',
+            fontWeight: '400',
+            lineHeight: '14px'
+          }}
+          menuItemStyle={{
+            borderBottom: '1px solid #ccc !important',
+            padding: '20px !important'
+          }}
+          selectedMenuItemStyle={{
+            backgroundColor:'#3DCBF3 !important',
+            color: 'white'
+          }}
+          innerDivStyle={{
+            borderBottom: '1px solid #ccc !important',
+            padding: '20px !important'
+          }}
+          underlineStyle={{
+            border: 'none',
+            borderBottom: '1px solid #3DCBF3'
+          }}
+          menuStyle={{
+            overflow: 'scroll'
+          }}
+          hintStyle={{
+            bottom: '0px',
+            color: '#121419',
+            fontSize: '16px',
+            lineHeight: '24px',
+            width: '100%',
+            overflow:'hidden',
+            textAlign: 'left',
+            padding: '0 0 0 70px'
+          }}
+       />
       </MuiThemeProvider>
+      )
   }
 }
 
 export default connect(mapStateToProps, Actions)(FirebaseSearchInput);
-
-// export default GoogleApiWrapper({
-//   apiKey: Constants.GOOGLE_API_KEY
-// }) (connect(mapStateToProps, Actions)(FirebaseSearchInput));
