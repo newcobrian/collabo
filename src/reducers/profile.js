@@ -2,9 +2,11 @@ import { GET_USER, GET_REVIEWS_BY_USER, GET_FOLLOWING_COUNT, GET_FOLLOWER_COUNT,
   GET_ITINERARIES_BY_USER, ITINERARY_DELETED, GET_LIKES_BY_USER, UNLOAD_LIKES_BY_USER, USER_DOESNT_EXIST,
    PROFILE_USER_UNLOADED, PROFILE_FOLLOWING_UNLOADED } from '../actions';
 import * as ActionTypes from '../actions/types';
+import * as Constants from '../constants';
 import { isEqual } from 'lodash';
+import * as Helpers from '../helpers';
 
-const initialState = {}
+const initialState = { usersData: {}, likesData: {}, subjectsData: {}, reviews: [] }
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -20,6 +22,7 @@ export default (state = initialState, action) => {
     case ITINERARIES_BY_USER_UNLOADED:
     case PROFILE_USER_UNLOADED:
     case PROFILE_FOLLOWING_UNLOADED:
+    case ActionTypes.REVIEWS_BY_USER_UNLOADED:
       return {};
     case 'FOLLOW_USER':
     case 'UNFOLLOW_USER':
@@ -87,6 +90,11 @@ export default (state = initialState, action) => {
         ...state,
         itineraries: action.payload
       }
+    case ActionTypes.GET_REVIEWS_BY_USER:
+      return {
+        ...state,
+        reviews: action.payload
+      }
     case ActionTypes.ON_LIKES_TAB_CLICK:
       return {
         ...state,
@@ -97,6 +105,153 @@ export default (state = initialState, action) => {
         ...state,
         userNotFound: true
       }
+    case ActionTypes.USER_VALUE_ACTION: {
+      if (action.source === Constants.PROFILE_PAGE) {
+        const newState = Object.assign({}, state);
+        // update usersData
+        newState.usersData = newState.usersData || {};
+        newState.usersData = Object.assign({}, newState.usersData);
+
+        if (!isEqual(action.userInfo, newState.usersData[action.userId])) {
+          newState.usersData[action.userId] = Object.assign({}, action.userInfo);
+        }
+
+        // update the reviews
+        newState.reviews = newState.reviews || [];
+        newState.reviews = newState.reviews.slice();
+        for (let i = 0; i < newState.reviews.length; i++) {
+          if (newState.reviews[i].userId === action.userId) {
+            newState.reviews[i].createdBy = Object.assign({}, action.userInfo);
+          }
+        }
+        
+        return newState;
+      }
+      return state;
+    }
+    case ActionTypes.LIKES_BY_USER_ADDED_ACTION: {
+      if (action.source === Constants.PROFILE_PAGE) {
+        const newState = Object.assign({}, state);
+        newState.likesData = newState.likesData || {};
+        newState.likesData = Object.assign({}, newState.likesData);
+        if (!newState.likesData[action.objectId]) {
+          newState.likesData[action.objectId] = true;
+
+          // update reviews
+          newState.reviews = newState.reviews || [];
+          newState.reviews = newState.reviews.slice();
+
+          for (let i = 0; i < newState.reviews.length; i++) {
+            if (newState.reviews[i].id === action.objectId) {
+              newState.reviews[i].isLiked = true;
+            }
+          }
+          return newState;
+        }
+      }
+      return state;
+    }
+    case ActionTypes.LIKES_BY_USER_REMOVED_ACTION: {
+      if (action.source === Constants.PROFILE_PAGE) {
+        const newState = Object.assign({}, state);
+        newState.likesData = newState.likesData || {};
+        newState.likesData = Object.assign({}, newState.likesData);
+        if (newState.likesData[action.objectId]) {
+          newState.likesData[action.objectId] = undefined;
+
+          // update reviews
+          newState.reviews = newState.reviews || [];
+          newState.reviews = newState.reviews.slice();
+
+          for (let i = 0; i < newState.reviews.length; i++) {
+            if (newState.reviews[i].id === action.objectId) {
+              newState.reviews[i].isLiked = false;
+            }
+          }
+          return newState;
+        }
+      }
+      return state;
+    }
+    case ActionTypes.REVIEW_ADDED_ACTION: {
+      if (action.source === Constants.PROFILE_PAGE) {
+        const newState = Object.assign({}, state);
+        newState.reviews = newState.reviews || [];
+        newState.reviews = newState.reviews.slice();
+
+        if (!find(newState.reviews, ['id', action.reviewId])) {
+          let createdBy = { createdBy: Object.assign({}, newState.usersData[action.userId]) };
+          // let comments = { comments: newState.commentsData[action.tipId] ? [].concat(newState.commentsData[action.tipId]) : [] };
+          let isLiked = { isLiked: newState.likesData[action.reviewId] ? true : false };
+          // let images = getImage(newState.userImagesData[action.tip.subjectId], newState.defaultImagesData[action.tip.subjectId]);
+          let subject = { subject: Object.assign({}, action.subject) }
+
+          newState.reviews = newState.reviews.concat(Object.assign({}, {id: action.reviewId}, isLiked, action.review, createdBy, subject));
+
+          newState.reviews.sort(Helpers.lastModifiedDesc);
+          return newState;
+        }
+      }
+      return state;
+    }
+    case ActionTypes.REVIEW_CHANGED_ACTION: {
+      if (action.source === Constants.PROFILE_PAGE) {
+        const newState = Object.assign({}, state);
+        newState.reviews = newState.reviews || [];
+        newState.reviews = newState.reviews.slice();
+
+        for (let i = 0; i < newState.reviews.length; i++) {
+          if (newState.reviews[i].id === action.reviewId) {
+            let createdBy = { createdBy: Object.assign({}, newState.usersData[action.userId]) };
+            let isLiked = { isLiked: newState.likesData[action.reviewId] ? true : false };
+            let subject = { subject: Object.assign({}, newState.reviews[i].subject) }
+            // let images = getImage(newState.userImagesData[action.tip.subjectId], newState.defaultImagesData[action.tip.subjectId]);
+            // let comments = { comments: newState.commentsData[action.tipId] ? [].concat(newState.commentsData[action.tipId]) : [] };
+
+            newState.reviews[i] = Object.assign({}, {id: action.reviewId}, isLiked, action.review, createdBy, subject);
+
+            newState.reviews.sort(Helpers.lastModifiedDesc);
+
+            return newState;
+          }
+        }
+      }
+      return state;
+    }
+    case ActionTypes.REVIEW_REMOVED_ACTION: {
+      if (action.source === Constants.ITINERARY_PAGE) {
+        const newState = Object.assign({}, state);
+        newState.reviews = newState.reviews || [];
+        newState.reviews = newState.reviews.slice();
+        // find the review and remove it
+        for (let i = 0; i < newState.reviews.length; i++) {
+          if (newState.reviews[i].key === action.reviewId) {
+            newState.reviews.splice(i, 1);
+            return newState;    
+          }
+        }
+      }
+      return state;
+    }
+    // case ActionTypes.SUBJECT_VALUE_ACTION: {
+    //   if (action.source === Constants.PROFILE_PAGE) {
+    //     // update reviews data
+    //     const newState = Object.assign({}, state);
+    //     newState.reviews = newState.reviews || [];
+    //     newState.reviews = newState.reviews.slice();
+
+    //     newState.subjectsData[action.id] = Object.assign({}, action.payload)
+
+    //     // update any reviews with subject
+    //     for (let i = 0; i < newState.reviews.length; i++) {
+    //       if (newState.reviews[i].subjectId === action.id) {
+    //         newState.reviews[i].subject = Object.assign({}, action.payload);
+    //         return newState;
+    //       }
+    //     }
+    //   }
+    //   return state;
+    // }
     default:
       return state;
   }

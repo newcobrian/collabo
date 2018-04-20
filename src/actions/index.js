@@ -142,6 +142,7 @@ export * from './inboxActions';
 export * from './reviewActions';
 export * from './modalActions';
 export * from './loggingActions';
+export * from './profileActions';
 
 export function unloadProfileUser(uid) {
   return dispatch => {
@@ -166,65 +167,11 @@ export function getProfileUser(userId) {
     Firebase.database().ref(Constants.USERS_PATH + '/' + userId + '/').on('value', snapshot => {
       let profile = Object.assign( {}, { userId: userId }, snapshot.val());
       dispatch({
-        type: GET_USER,
+        type: ActionTypes.GET_USER,
         payload: profile
       });
     });
   };
-}
-
-export function checkFollowing(auth, profile) {
-  return dispatch => {
-    Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + auth + '/' + profile).on('value', snapshot => {
-      let isFollowing = snapshot.exists() ? true : false;
-      dispatch({
-        type: IS_FOLLOWING,
-        payload: isFollowing
-      });
-    });
-  };
-}
-
-export function getFollowingCount(userId) {
-  return dispatch => {
-    Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + userId).once('value', snapshot => {
-      dispatch({
-        type: GET_FOLLOWING_COUNT,
-        payload: snapshot.numChildren()
-      })
-    })
-  }
-}
-
-export function getFollowerCount(userId) {
-  return dispatch => {
-    Firebase.database().ref(Constants.HAS_FOLLOWERS_PATH + '/' + userId).once('value', snapshot => {
-      dispatch({
-        type: GET_FOLLOWER_COUNT,
-        payload: snapshot.numChildren()
-      })
-    })
-  }
-}
-
-export function getProfileCounts(userId) {
-  return dispatch => {
-    Firebase.database().ref(Constants.HAS_FOLLOWERS_PATH + '/' + userId).once('value', followersSnap => {
-      Firebase.database().ref(Constants.IS_FOLLOWING_PATH + '/' + userId).once('value', followingSnap => {
-        Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + userId).once('value', guidesSnap => {
-          Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + userId).once('value', likesSnap => {
-            dispatch({
-              type: ActionTypes.GET_PROFILE_COUNTS,
-              numFollowers: followersSnap.numChildren(),
-              numFollowing: followingSnap.numChildren(),
-              numGuides: guidesSnap.numChildren(),
-              numLikes: likesSnap.numChildren()
-            })
-          })
-        })
-      })
-    })
-  }
 }
 
 export function followUser(authenticated, follower) {
@@ -1689,67 +1636,6 @@ export function onUpdateRating(userId, reviewId, subjectId, rating) {
   }
 }
 
-export function getItinerariesByUser(auth, userId) {
-  return dispatch => {
-    Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + userId).on('value', itinerariesSnapshot => {
-      if (!itinerariesSnapshot.exists()) {
-        dispatch({
-          type: GET_ITINERARIES_BY_USER,
-          payload: []
-        })
-      }
-      else {
-        let feedArray = [];
-        Firebase.database().ref(Constants.USERS_PATH + '/' + userId).on('value', userSnapshot => {
-          itinerariesSnapshot.forEach(function(itin) {
-            Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itin.key).on('value', likesSnapshot => {
-              const itineraryObject = {};
-              const key = { id: itin.key };
-              const createdBy = { createdBy: userSnapshot.val() };
-              createdBy.createdBy.userId = userId
-              let likes = {
-                isLiked: likesSnapshot.exists()
-              }
-              
-              Object.assign(itineraryObject, itin.val(), key, createdBy, likes);
-
-              // if (itin.val().subject && itin.val().subject.images) {
-              //   reviewObject.subject.image = Helpers.getImagePath(itin.val().subject.images);
-              // }
-
-              feedArray = [itineraryObject].concat(feedArray);
-              feedArray.sort(Helpers.lastModifiedDesc);
-              // console.log('feed array = ' + JSON.stringify(feedArray))
-              dispatch({
-                type: GET_ITINERARIES_BY_USER,
-                payload: feedArray
-              })
-            })
-          })
-        })
-      }
-    })
-  }
-}
-
-export function unloadItinerariesByUser(auth, userId) {
-  return dispatch => {
-    Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + userId).on('value', itinerariesSnapshot => {
-      if (itinerariesSnapshot.exists()) {
-        Firebase.database().ref(Constants.USERS_PATH + '/' + userId).off();
-        itinerariesSnapshot.forEach(function(itin) {
-          Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itin.key).off();
-        })
-      }
-    })
-    Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + userId).off();
-
-    dispatch({
-      type: ITINERARIES_BY_USER_UNLOADED
-    });
-  }
-}
-
 export function getLikesByUser(auth, userId) {
   return dispatch => {
     let tipFeed = [];
@@ -1995,24 +1881,6 @@ export function onLikesTabClick(tab) {
       type: ActionTypes.ON_LIKES_TAB_CLICK,
       tipTabActive: tab === 'tip' ? true : false
     })
-  }
-}
-
-export function unloadReviewsByUser(userId) {
-  return dispatch => {
-    Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + userId).orderByChild('lastModified').once('value', reviewsSnapshot => {
-      reviewsSnapshot.forEach(function(review) {
-        Firebase.database().ref(Constants.LIKES_PATH + '/' + review.key).off();
-        Firebase.database().ref(Constants.SAVES_BY_USER_PATH + '/' + userId + '/' + review.key).off();
-        Firebase.database().ref(Constants.COMMENTS_PATH + '/' + review.key).off();
-      })
-    })
-    Firebase.database().ref(Constants.USERS_PATH + '/' + userId).off();
-    Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + userId).off();
-
-    dispatch({
-      type: REVIEWS_BY_USER_UNLOADED
-    });
   }
 }
 

@@ -3,7 +3,7 @@ import React from 'react';
 
 
 const mapStateToProps = state => ({
-  ...state.review,
+  ...state.profile,
   currentUser: state.common.currentUser,
   authenticated: state.common.authenticated,
   userInfo: state.common.userInfo
@@ -31,14 +31,12 @@ const ReviewList = props => {
       {
         props.reviewList.map((reviewItem, index) => {
           return (
-            <ReviewPreview tip={reviewItem}
-              key={reviewItem.reviewId} 
+            <ReviewPreview review={reviewItem}
+              key={reviewItem.id} 
               authenticated={props.authenticated}
               userInfo={props.userInfo}
+
               showModal={props.showModal}
-              itineraryId={props.itineraryId}
-              itinerary={props.itinerary}
-              index={index+1}
             />
           );
         })

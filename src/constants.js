@@ -131,6 +131,7 @@ export const USER_FEED = 'USER_FEED'
 export const ITINERARY_PAGE = 'ITINERARY_PAGE'
 export const EXPLORE_PAGE = 'EXPLORE_PAGE'
 export const UNIVERSAL_SEARCH_BAR = 'UNIVERSAL_SEARCH_BAR'
+export const PROFILE_PAGE = 'PROFILE_PAGE'
 
 /*** Tag list ***/
 export const TAG_LIST = []

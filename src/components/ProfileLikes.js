@@ -55,6 +55,17 @@ class ProfileLikes extends Profile {
                 className="nav-link flx flx-col flx-center-all ta-center"
                 to={`/${this.props.profile.username}`}>
                 <div className="stats-number">
+                  {this.props.numReviews}
+                </div>
+                Reviews
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link
+                className="nav-link flx flx-col flx-center-all ta-center"
+                to={`/${this.props.profile.username}/guides`}>
+                <div className="stats-number">
                   {this.props.numGuides}
                 </div>
                 Guides

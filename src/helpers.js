@@ -57,6 +57,14 @@ export function byPriority(a, b) {
   return 0;
 }
 
+export function reviewsLastModifiedDesc(a, b) {
+  if (a.review.lastModified > b.review.lastModified)
+    return -1;
+  if (a.review.lastModified < b.review.lastModified)
+    return 1;
+  return 0;
+}
+
 export function lastModifiedDesc(a, b) {
   if (a.lastModified > b.lastModified)
     return -1;

@@ -13,6 +13,7 @@ import Login from './components/Login';
 import Profile from './components/Profile';
 import ProfileLikes from './components/ProfileLikes';
 import ProfileSaves from './components/ProfileSaves';
+import ProfileGuides from './components/ProfileGuides';
 import Register from './components/Register';
 import Settings from './components/Settings';
 import Editor from './components/Editor';
@@ -70,6 +71,7 @@ ReactDOM.render((
         <Route path=":username/followers" component={Followers} />
         <Route path=":username/isfollowing" component={Followings} />
         <Route path=":username" component={Profile} />
+        <Route path=":username/guides" component={ProfileGuides} />
         <Route path=":username/likes" component={ProfileLikes} />
         <Route path=":username/saves" component={ProfileSaves} />
       </Route>
