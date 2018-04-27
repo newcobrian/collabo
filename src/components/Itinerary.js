@@ -657,7 +657,7 @@ class Itinerary extends React.Component {
                   itineraryId={this.props.itinerary.id}
                   itinerary={itinerary}
                   canModify={canModify}
-                  dataType={Constants.REVIEW_TYPE}
+                  dataType={Constants.TIPS_TYPE}
                   selectedMarker={this.props.selectedMarker}
                   onSelectActiveTip={this.props.onSelectActiveTip}
                   deleteRec={this.deleteRec}

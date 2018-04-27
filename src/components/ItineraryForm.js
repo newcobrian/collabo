@@ -307,11 +307,11 @@ class ItineraryForm extends React.Component {
             resultObject.defaultImage = [ place.photos[0].getUrl({'maxWidth': 1225, 'maxHeight': 500}) ];
           }
           if (place.url) resultObject.googleMapsURL = place.url;
-          addTipFunc(auth, resultObject, itinerary, Constants.REVIEW_TYPE)
+          addTipFunc(auth, resultObject, itinerary, Constants.TIPS_TYPE)
           geoSuggestRef._geoSuggest.clear()
         }
         else {
-          addTipFunc(auth, resultObject, itinerary, Constants.REVIEW_TYPE)
+          addTipFunc(auth, resultObject, itinerary, Constants.TIPS_TYPE)
           geoSuggestRef._geoSuggest.clear()
         }
       })
@@ -1051,7 +1051,7 @@ const ShareGuideTooltip = props => {
                                                 commentObject={tip}
                                                 itineraryId={itinerary.id}
                                                 userInfo={this.props.userInfo}
-                                                type={Constants.REVIEW_TYPE}
+                                                type={Constants.TIPS_TYPE}
                                                 deleteComment={this.props.onDeleteComment} />
                                           </div> 
 
@@ -1076,7 +1076,7 @@ const ShareGuideTooltip = props => {
                                               like={this.props.likeReview} 
                                               likeObject={tip}
                                               itineraryId={itinerary.id}
-                                              type={Constants.REVIEW_TYPE} />
+                                              type={Constants.TIPS_TYPE} />
                                           </div>
 
                                           <Link onClick={onInfoClick(tip)} className="w-33 hide-in-list vb vb--tip vb--outline--none flx flx-row flx-align-center brdr-top">

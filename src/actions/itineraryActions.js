@@ -595,7 +595,7 @@ export function onAddTip(auth, result, itinerary, type) {
       let tipObject = Object.assign({}, { subjectId: subjectId }, { reviewId: reviewId }, { userId: auth });
 
       // if this is a tip, do the tip stuff
-      if (type === Constants.REVIEW_TYPE) {
+      if (type === Constants.TIPS_TYPE) {
         Object.assign(tipObject, {priority: priority})
       
         let tipId = Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itinerary.id).push(tipObject).key;
