@@ -29,7 +29,7 @@ export default (state = initialState, action) => {
       return {
         ...action.payload.profile
       };
-    case GET_USER:
+    case ActionTypes.GET_USER:
       return {
         ...state,
         profile: action.payload

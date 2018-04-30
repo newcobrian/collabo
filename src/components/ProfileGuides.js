@@ -48,7 +48,7 @@ class ProfileGuides extends Profile {
                 className="nav-link flx flx-col flx-center-all ta-center"
                 to={`/${this.props.profile.username}/`}>
                 <div className="stats-number">
-                  {this.props.numReviews}
+                  {this.props.numReviews || 0}
                 </div>
                 Reviews
               </Link>
@@ -62,17 +62,6 @@ class ProfileGuides extends Profile {
                   {this.props.numGuides}
                 </div>
                 Guides
-              </Link>
-            </li>
-
-            <li className="nav-item">
-              <Link
-                className="nav-link active flx flx-col flx-center-all ta-center"
-                to={`/${this.props.profile.username}/reviews`}>
-                <div className="stats-number">
-                  
-                </div>
-                Reviews
               </Link>
             </li>
 

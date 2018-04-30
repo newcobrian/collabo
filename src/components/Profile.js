@@ -107,7 +107,7 @@ class Profile extends React.Component {
                 className="nav-link active flx flx-col flx-center-all ta-center"
                 to={`/${this.props.profile.username}/`}>
                 <div className="stats-number">
-                  {this.props.numReviews}
+                  {this.props.numReviews || 0}
                 </div>
                 Reviews
               </Link>

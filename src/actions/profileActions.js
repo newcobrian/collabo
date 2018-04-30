@@ -53,7 +53,7 @@ export function getProfileCounts(userId) {
 	              numFollowing: followingSnap.numChildren(),
 	              numGuides: guidesSnap.numChildren(),
 	              numLikes: likesSnap.numChildren(),
-	              numReviews: likesSnap.numChildren()
+	              numReviews: reviewsSnap.numChildren()
 	            })
 	        })
           })
