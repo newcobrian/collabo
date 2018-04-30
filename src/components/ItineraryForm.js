@@ -982,7 +982,7 @@ const ShareGuideTooltip = props => {
                                                   { /** Rating **/ }
                                                   <div className={'tip__rating-module flx flx-row flx-align-center flx-hold w-100 tip__rating-module--' + tip.review.rating}>
                                                     <select className="color--black" value={tip.review.rating} onChange={this.changeRating(tip)}>
-                                                      <option value="-">Add Rating</option>
+                                                      <option value="-">To Try</option>
                                                       <option value="0">0/10 Run away</option>
                                                       <option value="1">1/10 Stay away</option>
                                                       <option value="2">2/10 Just bad</option>

@@ -92,7 +92,7 @@ const RatingDisplay = props => {
     return(
       <div className={'tip__rating-module flx flx-row flx-align-center flx-hold w-100 tip__rating-module--' + props.tip.review.rating}>
         <select className="color--black" value={props.tip.review.rating} onChange={props.changeRating(props.tip)}>
-          <option value="-">Add Rating</option>
+          <option value="-">To Try</option>
           <option value="0">0/10 Run away</option>
           <option value="1">1/10 Stay away</option>
           <option value="2">2/10 Just bad</option>
