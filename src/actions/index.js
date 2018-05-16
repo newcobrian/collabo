@@ -493,6 +493,7 @@ export function clearCreateSubject() {
 
 export function onUpdateCreateField(key, value, source) {
   return dispatch => {
+    console.log('update create field value = ' + JSON.stringify(value))
     dispatch({
       type: UPDATE_FIELD_CREATE,
       key,

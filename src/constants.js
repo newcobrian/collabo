@@ -132,6 +132,8 @@ export const ITINERARY_PAGE = 'ITINERARY_PAGE'
 export const EXPLORE_PAGE = 'EXPLORE_PAGE'
 export const UNIVERSAL_SEARCH_BAR = 'UNIVERSAL_SEARCH_BAR'
 export const PROFILE_PAGE = 'PROFILE_PAGE'
+export const CREATE_PAGE = 'CREATE_PAGE'
+export const ADD_REVIEW_PAGE = 'ADD_REVIEW_PAGE'
 
 /*** Tag list ***/
 export const TAG_LIST = []

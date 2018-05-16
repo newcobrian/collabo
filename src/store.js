@@ -22,6 +22,7 @@ import explore from './reducers/explore';
 import places from './reducers/places';
 import recommend from './reducers/recommend';
 import universalSearchBar from './reducers/universalSearchBar';
+import addReview from './reducers/addReview';
 import Firebase from 'firebase';
 import mixpanel from 'mixpanel-browser';
 import MixpanelMiddleware from 'redux-mixpanel-middleware';
@@ -45,6 +46,7 @@ const reducer = combineReducers({
   settings,
   editor,
   create,
+  addReview,
   followers,
   inbox,
   friendSelector,

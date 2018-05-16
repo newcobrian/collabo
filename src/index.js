@@ -18,6 +18,7 @@ import Register from './components/Register';
 import Settings from './components/Settings';
 import Editor from './components/Editor';
 import Create from './components/Create';
+import AddReview from './components/AddReview';
 import Followers from './components/Followers';
 import Followings from './components/Followings';
 import Inbox from './components/Inbox';
@@ -61,6 +62,7 @@ ReactDOM.render((
         <Route path="forgotPassword" component={ForgotPassword} />
         <Route path="review/:sid(/:rid)" component={Review} />
         <Route path="create" component={Create} />
+        <Route path="add" component={AddReview} />
         <Route path="inbox" component={Inbox} />
         <Route path="select" component={FriendSelector} />
         <Route path="explore" component={Explore} />
