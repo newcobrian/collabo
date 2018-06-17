@@ -624,11 +624,11 @@ class Itinerary extends React.Component {
                         {/*this.props.visibleTips.length*/}{this.props.numTotalTips} Tips
                       </Link>
 
-                      <Link 
+                      {/*<Link 
                       animate={{offset:0 , duration: 400}} onClick={this.scrollToRecommendations}
                       className="pdding-left-sm color--white invert">
                         {numRecs} Recommendations
-                      </Link>
+                      </Link>*/}
                       
                       <div className="flx flx-row flx-align-center opa-80 flx-item-right">
                         <Link className="vb vb--xs flx flx-row fill--none flx-center-all ta-center" onClick={openFilter}>
@@ -639,7 +639,7 @@ class Itinerary extends React.Component {
 
                     </div>
 
-                    {renderGeoSuggestRec(itinerary.geo)}
+                    {/*renderGeoSuggestRec(itinerary.geo)*/}
                   </div>
                 </Sticky>
 
@@ -664,7 +664,7 @@ class Itinerary extends React.Component {
                   />
 
 
-
+{/*}
                  <div className="recs-list-wrapper flx flx-col w-100 fill--black brdr-top pdding-top-md pdding-bottom-lg mrgn-top-lg">
                    <div className="comments-section-title flx flx-row w-100 color--black invert pdding-left-md pdding-right-md mrgn-bottom-sm" id="recommendationscontainer">
                         <i className="material-icons color--yellow mrgn-right-sm">lightbulb_outline</i>
@@ -672,7 +672,7 @@ class Itinerary extends React.Component {
                      </div>
 
 
-                  {/* Tip List for recommendations */}
+                  {/* Tip List for recommendations 
                     <TipList
                       tipList={this.props.recommendations}
                       authenticated={this.props.authenticated}
@@ -689,7 +689,7 @@ class Itinerary extends React.Component {
                       deleteRec={this.deleteRec} />
                   </div>
 
-
+*/}
 
               </div>
 
