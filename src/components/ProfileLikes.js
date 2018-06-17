@@ -50,7 +50,7 @@ class ProfileLikes extends Profile {
     return (
       <div className="feed-toggle">
           <ul className="nav nav-pills  flx flx-row flx-just-space-around flx-align-space-around outline-active">
-            <li className="nav-item">
+            {/*<li className="nav-item">
               <Link
                 className="nav-link flx flx-col flx-center-all ta-center"
                 to={`/${this.props.profile.username}`}>
@@ -59,7 +59,7 @@ class ProfileLikes extends Profile {
                 </div>
                 Reviews
               </Link>
-            </li>
+            </li>*/}
 
             <li className="nav-item">
               <Link

@@ -72,7 +72,7 @@ ReactDOM.render((
         <Route path="guide/:iid(/:rec)" component={Itinerary} />
         <Route path=":username/followers" component={Followers} />
         <Route path=":username/isfollowing" component={Followings} />
-        <Route path=":username" component={Profile} />
+        <Route path=":username" component={ProfileGuides} />
         <Route path=":username/guides" component={ProfileGuides} />
         <Route path=":username/likes" component={ProfileLikes} />
         <Route path=":username/saves" component={ProfileSaves} />
