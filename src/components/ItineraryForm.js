@@ -832,10 +832,10 @@ const ShareGuideTooltip = props => {
                     <div className="flx flx-row flx-align-center w-100 ta-center pdding-all-xs v2-type-body1 color--white w-100 ta-left">
                         
                         <div className="pdding-right-sm brdr-right--white">{/*this.props.visibleTips.length*/}{this.props.numTotalTips} Tips</div>
-                        <Link animate={{offset: 0, duration: 600}}
+                        {/*<Link animate={{offset: 0, duration: 600}}
                         onClick={this.props.scrollToRecommendations}
                         className="pdding-left-sm color--white">
-                        {this.props.numRecs} Recommendations</Link>
+                        {this.props.numRecs} Recommendations</Link>*/}
 
                       <div className="flx flx-row flx-align-center opa-80 flx-item-right">
                         <div className="flx-item-right">{renderReorderButton(itinerary.tips.length)}</div>
@@ -1115,13 +1115,13 @@ const ShareGuideTooltip = props => {
 
               {/** Big share button **/}
 
-
+{/*}
               <div className="recs-list-wrapper flx flx-col w-100 fill--black brdr-top pdding-top-md pdding-bottom-lg mrgn-top-lg">
                  <div className="comments-section-title flx flx-row w-100 color--black invert pdding-left-md pdding-right-md mrgn-bottom-sm" id="recommendationscontainer">
                       <i className="material-icons color--yellow mrgn-right-sm">lightbulb_outline</i>
                       <div className="color--black invert">Recommendations from friends</div>
                    </div>
-                {/* Tip List for recommendations */}
+                {/* Tip List for recommendations 
                 <TipList
                   tipList={this.props.recommendations}
                   authenticated={this.props.authenticated}
@@ -1139,7 +1139,7 @@ const ShareGuideTooltip = props => {
                   deleteRec={this.deleteRec} />
               </div>
 
-              
+       */}       
 
             </div>
 
