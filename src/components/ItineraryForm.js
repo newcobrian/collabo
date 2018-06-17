@@ -915,6 +915,13 @@ const ShareGuideTooltip = props => {
                                           <Link to={`/review/${tip.subjectId}`} className=""> {tip.subject.title}</Link>
                                         </div>
                                         <div className="tip-map-marker"></div>
+
+                                          <Link
+                                            to={'/' + tip.createdBy.username}>
+                                            
+                                            <ProfilePic src={tip.createdBy.image} className="user-image user-image-sm center-img" />
+                                            { tip.createdBy.username}
+                                          </Link>
                                         { /** END Title **/ }
 
 

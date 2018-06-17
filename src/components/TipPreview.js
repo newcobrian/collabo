@@ -183,6 +183,13 @@ const TipPreview = props => {
                       <div className="tip__order-count color--black">{props.index}.</div>
                       <Link to={`/review/${tip.subjectId}`}> {tip.subject.title}</Link>
                     </div>
+
+                    <Link
+                      to={'/' + tip.createdBy.username}>
+                      
+                      <ProfilePic src={tip.createdBy.image} className="user-image user-image-sm center-img" />
+                      { tip.createdBy.username}
+                    </Link>
                     { /** END Title **/ }
 
                     { /** Timestamp **/ }
