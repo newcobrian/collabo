@@ -90,7 +90,7 @@ const mapStateToProps = state => ({
   userInfo: state.common.userInfo
 });
 
-class ItineraryForm extends React.Component {
+class ItineraryForm2 extends React.Component {
   constructor() {
     super();
 
@@ -1232,7 +1232,7 @@ const ShareGuideTooltip = props => {
   }
 }
 
-export default connect(mapStateToProps, Actions)(ItineraryForm);
+export default connect(mapStateToProps, Actions)(ItineraryForm2);
 
 // export default GoogleApiWrapper({
 //   apiKey: Constants.GOOGLE_API_KEY
