@@ -20,6 +20,7 @@ import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Dropzone from 'react-dropzone';
 import ItineraryForm from './ItineraryForm';
+import ItineraryForm2 from './ItineraryForm2';
 import * as Selectors from '../selectors/itinerarySelectors';
 import { isEmpty, find, filter } from 'lodash';
 import MapContainer from './MapContainer';
@@ -376,7 +377,7 @@ class Itinerary extends React.Component {
 
       if (canModify) {
         return (
-          <ItineraryForm 
+          <ItineraryForm2 
             initialValues={itinerary}
             recommendations={this.props.recommendations}
             visibleTips={visibleTips} 
