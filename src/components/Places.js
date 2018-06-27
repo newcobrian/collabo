@@ -76,14 +76,14 @@ class Places extends React.Component {
     return (
     <div>
 
-      <div className="page-common page-places flx flx-col flx-align-center">
+      <div className="page-common page-places flx flx-col flx-align-start">
 
         
             <UniversalSearchBar />
         
 
 
-        <div className={"page-title-wrapper mrgn-top-lg center-text country-color-" + this.props.geo.country}>
+        <div className={"page-title-wrapper center-text country-color-" + this.props.geo.country}>
           <div className="v2-type-page-header flx flx-col flx-center-all invert">
             <div className={'itinerary__cover__flag mrgn-bottom-sm flx-hold flag-' + this.props.geo.country}>
             </div>

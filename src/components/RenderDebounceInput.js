@@ -42,7 +42,7 @@ class RenderDebounceInput extends React.Component {
     return (
         <Textarea
           className={this.props.className}
-          cols="20"
+          cols="16"
           rows="auto"
           wrap="hard"
           placeholder={this.props.placeholder}

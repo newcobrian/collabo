@@ -1,7 +1,7 @@
 .tip-wrapper {
-   background: transparent;
+   background: white;
     margin: 0;
-    padding: 10px 10px 0;
+    padding: 0;
 } 
 .tip-wrapper:first-child {
 }
@@ -46,7 +46,7 @@
 }
 .tip-container {
 	width: 100%;
-	padding: 0;
+	padding: 8px;
   background-color: white;
   border-radius: 2px;
 }
@@ -69,7 +69,7 @@
 }
 .tip-wrapper .tip__cta-box .vb {
   height: 40px;
-  padding: 10px 20px;
+  padding: 8px;
   font-size: 14px;
   font-weight: 600;
   text-transform: none;
@@ -82,11 +82,14 @@
 	padding-right: 10px;
 	margin-bottom: 0px;
 }
+.tip-title-value {
+  max-width: 300px;
+}
 .tip__address {
 	margin-top:-1px;
 }
 .tip__right-module {
-  padding: 20px 20px 10px 20px;
+  padding: 0 8px 8px;
 }
 .tip__header-wrapper {
 	margin-bottom: 0px;
@@ -97,8 +100,8 @@
 	margin-right: 30px;
 }
 .tip__image-module {
-  height: 102px;
-  width: 142px;
+  height: 140px;
+  width: 20%;
 	flex-shrink: 0;
 	position: relative;
 }
@@ -124,7 +127,7 @@
 	width:100%;
 }
 .tip__content-inner {
-  padding: 0 20px 10px;
+  padding: 0 8px 8px;
 }
 .page-subject .tip__content-wrapper {
   padding-left: 0;
@@ -141,7 +144,6 @@
   max-width: 600;
 }
 .tip__caption-module {
-  margin-top: 10px;
 }
 
 .tip__timestamp {
@@ -189,9 +191,9 @@
   
 }
 .add-photo-wrapper {
-    position: absolute;
+  position: absolute;
   left: 0;
-  bottom: 0;
+  top: 0;
   width: auto;
   background-color: rgba(0,0,0,.4)!important;
   border-radius: 0;
@@ -240,9 +242,9 @@ input.edit-tip__rating {
   position: relative;
 }
 .search-icon {
-  position: absolute;
+/*  position: absolute;
       left: 15px;
-      top: 11px;
+      top: 11px;*/
       z-index: 2;
       pointer-events: none;
       opacity: 1;
@@ -299,19 +301,19 @@ input.edit-tip__rating {
 
 
 .tip__rating {
-    font-weight: 600;
-    font-size: 12px;
-    letter-spacing: 0;
-    line-height: 6px;
-    font-family: 'Roboto', sans-serif;
-    text-align: center;
-    padding: 5px;
-    border-radius: 0;
-    width: 42px;
-    height: 16px;
-    margin: 0;
-    margin-right: 0;
-    text-align: center;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0;
+  line-height: 16px;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  padding: 6px;
+  border-radius: 0;
+  width: auto;
+  height: 28px;
+  margin: 0;
+  margin-right: 0;
+  text-align: center;
 }
 
 
@@ -458,13 +460,13 @@ select {
   background-repeat: no-repeat;
   text-indent: 6px;*/
 
-    height: 16px;
+    height: 28px;
     line-height: 16px !important;
     font-size: 13px;
     background: transparent;
     -webkit-border-radius: 32px !important;
     -moz-border-radius: 32px !important;
-    border-radius: 32px !important;
+    border-radius: 100px !important;
     border: 0;
     outline: 0px inset rgba(0,0,0,0);
     outline-offset: -1px;
@@ -483,7 +485,7 @@ select {
     cursor: pointer;
     font-family: 'Roboto', sans-serif !important;
     text-transform: uppercase !important;
-    font-size: 10px !important;
+    font-size: 12px !important;
     letter-spacing: 1px;
     font-weight: bold !important;
 }

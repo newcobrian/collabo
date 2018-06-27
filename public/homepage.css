@@ -49,11 +49,9 @@
 
 .search-wrapper-wrapper {
   z-index: 100;
-  margin-top: 0px;
-  padding: 0 20px;
+  padding: 0;
   background-color: #121419;
   background-color: white;
-  position: fixed;
 }
   .page-landing.search-wrapper-wrapper {
     display: none;
@@ -71,12 +69,11 @@
   width: 340px;
   overflow: visible;
   height: auto;
-  background-color: rgba(0,0,0,.05);
 }
-.friend-popular-toggle .nav-pills .nav-item { 
-    font-size: 16px;
+.nav-pills .nav-item { 
+    font-size: 13px;
     padding: 0 20px;
-    width: 120px;
+    width: auto;
     text-align: center;
 }
 .friend-popular-toggle .nav-pills .nav-item:first-child {

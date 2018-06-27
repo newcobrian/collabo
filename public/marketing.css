@@ -108,7 +108,7 @@
 	z-index: 3;
 }
 .header-container .navigation-bar {
-  background-color: white;
+  background-color: transparent;
 
 }
 .logged-out .navigation-bar {

@@ -1,7 +1,7 @@
 /** TIP COVER **/
 .itinerary__cover {
-	margin: 20px;
-    width: 359px;
+	margin: 0px; /** XX: 20px **/
+    width: 100%;
     padding: 0px;
 /*    background: #FFFFFF;
     border: 1px solid rgba(0,0,0,.05);*/
@@ -61,18 +61,22 @@
 .label-featured .guide-label {
 	display: inline-block;
 }
+.it__geo-wrapper  {
+	max-width: 250px;
+}
 .guide-preview-title {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 500;
     line-height: 24px;
-    width: 100%;
+    width: 200px;
     overflow: hidden;
     letter-spacing: 0px;
     padding: 0;
     height: auto;
+    margin-right: 20px;
 }
 .guide-preview-data-wrapper {
-	padding: 15px 20px 20px;
+	padding: 12px 24px;
 	z-index: 2;
 	min-width: 0;
 	overflow: hidden;
@@ -237,6 +241,8 @@
 	z-index: 2;
 	min-width: 0;
 	overflow: hidden;
+	background-color: white;
+	width: 70%;
 }
 
 	.my-profile-page .itinerary__cover__topbar {
@@ -339,4 +345,12 @@
     background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6));
     background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6));
     background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6));
+}
+
+.v2-user-wrapper {
+	width: 140px;
+}
+.v2-toolbar {
+	height: auto;
+	padding: 0 16px;
 }

@@ -16,7 +16,7 @@ input, select, textarea {
   line-height: inherit;
   border-radius: 2px;
   border: 1px solid rgba(0,0,0,.1);
-  padding: 10px;
+  padding: 4px;
 }
 
 .dialog input, .dialog select, .dialog textarea {
@@ -33,7 +33,7 @@ input, select, textarea {
   background-color: transparent;
   text-transform: inherit;
   border-color: white;
-  padding: 4px 0;
+  padding: 0;
   text-transform: inherit;
   background-color: transparent;
   text-align: left;
@@ -56,12 +56,13 @@ input, select, textarea {
 .page-edit-own input.show-border,
 .page-edit-own textarea.show-border {
   border: 1px solid rgba(0,0,0,.1);
-  min-height: 80px;
+  min-height: 48px;
 }
 
 .page-edit-own input:hover,
 .page-edit-own textarea:hover {
   border-color: rgba(0,199,205,.6);
+  border-color: blue;
   background-color: rgba(251,255,205,.2);
 
   /*background-color: rgba(251,255,205,.5);*/
@@ -72,6 +73,7 @@ input, select, textarea {
 .page-edit-own textarea:focus {
   border-color: #6694E0;
   border-color: rgba(0,199,205,1);
+  border-color: blue;
   background-color: rgba(251,255,205,.3);
 }
 .page-edit-own .comment-input {
@@ -281,7 +283,6 @@ input.input--underline {
 }
 
 .vb--follow {
-  min-width: 170px;
 }
 .vb--following {
   color: #ccc;
@@ -425,7 +426,7 @@ input.input--underline {
 ******/
 
 .geosuggest__input {
-  padding: 10px;
+  padding: 8px;
   width: 100%;
 }
 .geosuggest__input-wrapper {

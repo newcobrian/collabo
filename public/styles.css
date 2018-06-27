@@ -468,6 +468,7 @@ width: 32px;
 .navigation-bar .nav-text {
   text-transform: uppercase;
   width: 100%;
+  color: white;
 }
 .nav-module.nav-user-image {
     width: 40px;
@@ -522,7 +523,7 @@ width: 32px;
 ******
 ******/
 .page-common {
-  margin: 70px auto 0;
+  margin: 69px auto 0;
   background-color: white;
   padding-bottom: 100px;
 }
@@ -554,9 +555,7 @@ width: 32px;
 }
 .feed-toggle {
   z-index: 10;
-  padding: 40px 20px 0px;
-  width: 100%;
-  margin: 0 auto;
+  padding: 0px;
 }
 .feed-toggle.tags-toggle {
   top: 131px;
@@ -865,7 +864,7 @@ width: 32px;
 }
 
 .nav-pills.outline-active .nav-link {
-  padding: 6px 0px;
+  padding: 4px 0px;
   margin-right: 0px;
   color: #526166;
   opacity: .5;
@@ -943,7 +942,6 @@ li.nav-divider {
 .profile-feed {
     width: 100%;
     margin: 0 auto;
-    padding: 20px;
 }
 .profile-image {
 }
@@ -1245,10 +1243,10 @@ li.nav-divider {
 }
 .comments-module .comment-input-wrapper .comment-input {
     font-size: 12px;
-    line-height: 20px;
+    line-height: 18px;
     font-weight: 400;
     width: 100%;
-    padding: 10px;
+    padding: 6px 8px;
     outline-width: 0px;
     margin-top: 0px;
     box-shadow: none;

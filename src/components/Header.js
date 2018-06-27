@@ -24,13 +24,13 @@ const LoggedOutView = props => {
       <div className="header-wrapper w-100">
         <Link to="/" className="logo-module flx flx-row flx-just-start flx-align-center">
           <div className="logo-graphic flx flx-row flx-center-all">  
-            <img className="center-img" src="/img/logos/logo_2018.png"/>
+            <img className="center-img" src="/img/logos/logo_2018_200_white.png"/>
           </div>
-          <div className="flx flx-col flx-just-center flx-align-start">
-            <div className="logo-main">
+          <div className="flx flx-row flx-align-center flx-just-start">
+            <div className="logo-main color--white">
               VIEWS
             </div>
-            <div className="v2-type-body0 opa-60 w-100">
+            <div className="v2-type-body2 opa-60 w-100 color--white mobile-hide DN">
               Travel Guides by Friends
             </div>
           </div>
@@ -64,13 +64,13 @@ const LoggedInView = props => {
         <div className="header-wrapper w-100">
           <Link to="/" className="logo-module flx flx-row flx-just-start flx-align-center">
             <div className="logo-graphic flx flx-row flx-center-all">  
-              <img className="center-img" src="/img/logos/logo_2018.png"/>
+              <img className="center-img" src="/img/logos/logo_2018_200_white.png"/>
             </div>
-            <div className="flx flx-col flx-just-center flx-align-start">
-              <div className="logo-main">
+            <div className="flx flx-row flx-align-center flx-just-start">
+              <div className="logo-main color--white">
                 VIEWS
               </div>
-              <div className="v2-type-body0 opa-60 w-100">
+              <div className="v2-type-body2 opa-60 w-100 color--white mobile-hide DN">
                 Travel Guides by Friends
               </div>
             </div>
@@ -80,12 +80,17 @@ const LoggedInView = props => {
 
       <div className="navigation-bar flx flx-row flx-align-center flx-just-end">
         
-        
+        <Link to="/create" activeClassName="active" className="nav-module create nav-editor flx flx-center-all">  
+          <div className="nav-text flx flx-row flx-align-center">
+            <i className="material-icons color--success md-24 opa-100 mrgn-right-xs">add</i>
+            <div className="mobile-hide mrgn-left-xs">New List</div>
+          </div>
+        </Link>
 
         <Link to="/" onlyActiveOnIndex activeClassName="active" className={"nav-module nav-feed flx flx-center-all " + (browserHistory.getCurrentLocation().pathname === '/popular' ? ' active' : '')}>
           <div className="nav-text flx flx-row flx-align-center">
             <i className="material-icons color--black md-24 mobile-show opa-60">public</i>
-            <div className="nav-text mobile-hide">Places</div>
+            <div className="nav-text mobile-hide">Lists</div>
           </div>
         </Link>
 
@@ -93,13 +98,6 @@ const LoggedInView = props => {
           <div className="nav-text flx flx-row flx-align-center">
             <i className="material-icons color--black md-24 mobile-show opa-60">people</i>
             <div className="nav-text mobile-hide">People</div>
-          </div>
-        </Link>
-
-        <Link to="/create" activeClassName="active" className="nav-module create nav-editor flx flx-center-all">  
-          <div className="nav-text flx flx-row flx-align-center">
-            <i className="material-icons color--success md-24 opa-100 mrgn-right-xs">add</i>
-            <div className="mobile-hide mrgn-left-xs">New Guide</div>
           </div>
         </Link>
 

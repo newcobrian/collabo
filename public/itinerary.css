@@ -30,12 +30,12 @@
 	flex-shrink: 0;
 }
 .itinerary__summary__author-photo .user-photo-wrapper {
-	width: 36px;
-	height: 36px;
+	width: 28px;
+	height: 28px;
 }
 .itinerary__summary__author-photo .user-photo-wrapper img {
-	width: 36px;
-	height: 36px;
+	width: 28px;
+	height: 28px;
 }
 .itinerary__cover .itinerary__cover__author-photo {
 	margin-left: 0; 
@@ -56,13 +56,13 @@
 
 
 .guide-title {
-	max-width: 800px;
+	max-width: 500px;
     font-weight: 700;
-    font-size: 36px;
+    font-size: 24px;
     letter-spacing: 0px;
-    line-height: 36px;
-    width: 100%;
+    width: auto;
     padding: 0;
+    width: 100%;
 }
 
 
@@ -100,6 +100,7 @@
     z-index: 1;
     padding-left: 20px;
     box-shadow: 0 0 30px 10px white;
+    width: 80px;
 }
 
 
@@ -207,7 +208,7 @@
     transform: inherit !important;
 }
 .sticky-class.sticky {
-	width: 60% !important;
+	width: 70% !important;
 	left: 0;
 	top: 70px !important;
 }
@@ -251,9 +252,7 @@
   max-width: 800px;
  }
 .itinerary__cover .itinerary__cover__descrip {
-	padding-bottom: 10px;
-	padding-bottom: 20px;
-	height: 40px;
+	max-width: 200px;
  }
  .page-edit-own .itinerary__cover__descrip {
  	margin-top: -5px;
@@ -279,7 +278,7 @@
 	margin-top: auto;
 }
 .it__cover__inner {
-	padding: 20px 20px 10px;
+	padding: 4px 12px;
 }
 /** EDIT **/
 
@@ -362,16 +361,18 @@ textarea.edit-itinerary__name {
 	max-width: 96%;
 }
 .it-add-container {
-    padding: 0 10px 10px;
+	padding: 8px;
     z-index: 10;
     width: 100%;
     background: rgba(0,0,0,.8);
+    width: 100%;
 }
+
 .it-add-container.give-rec-wrapper {
 	background: #00FFE2; 
 }
 .sticky .it-add-container {
-	padding: 0 10px 10px;
+	padding: 8px;
 }
 .it-add-wrapper {
 	position: relative;
@@ -392,7 +393,7 @@ textarea.edit-itinerary__name {
 }
 .it-add-wrapper .geosuggest__input {
 	height: 42px;
-	text-indent: 40px;
+	text-indent: 10px;
 }
 .it-add-wrapper .geosuggest__input:hover {
 	opacity: 1;
@@ -406,38 +407,38 @@ textarea.edit-itinerary__name {
 
 
 
-.page-edit-own .it-add-wrapper input,
-.page-edit-own .it-add-wrapper textarea {
+.it-add-wrapper input,
+.it-add-wrapper textarea {
     border-color: white;
     font-size: 14px;
-    padding-left: 40px;
+    padding-left: 10px;
     text-align: left;
     border: 1px solid #D7E3E5;
     background-color: white;
     border-radius: 3px;
 }
-.page-edit-own .it-add-wrapper input:hover,
-.page-edit-own  .it-add-wrapper textarea:hover {
+.it-add-wrapper input:hover,
+.it-add-wrapper textarea:hover {
   	background-color: white;
   	border: 1px solid #D7E3E5;
+  	border: 1px solid blue;
 }
 
-.page-edit-own .it-add-wrapper input:focus,
-.page-edit-own .it-add-wrapper textarea:focus {
-    background-color: white;
-    border: 1px solid #D7E3E5;
-}
 
-.page-edit-own .it-add-wrapper input {
+.it-add-wrapper input {
   	text-indent: 10px;
 	border: 1px solid #D7E3E5 !important;
   	border: none;
 }
-.page-edit-own .it-add-wrapper input:hover {
+.it-add-wrapper input:hover {
   	border: 1px solid #00EBFF !important;
+  	border: 1px solid blue !important;
+
 }
-.page-edit-own .it-add-wrapper input:focus {
+.it-add-wrapper input:focus {
   	border: 1px solid #5EF2FF !important;
+  	border: 1px solid blue !important;
+
 }
 
 
@@ -450,7 +451,7 @@ textarea.edit-itinerary__name {
     padding: 0;
 }
 .content-wrapper.map-on {
-  width: 60%;
+  width: 70%;
 }
 .page-edit-own .content-wrapper {
 }
@@ -464,7 +465,7 @@ textarea.edit-itinerary__name {
   position: fixed;
   right: 0;
   top: 70px;
-  left: 60%;
+  left: 70%;
   bottom: 0;
 }
 .it-map-overlay {

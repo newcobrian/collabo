@@ -155,36 +155,71 @@ const TipPreview = props => {
   return (
     <Element name={'tip' + tip.key} className={"tip-wrapper flx flx-col flx-col w-100 w-max" + isSelectedTip(tip.key)} id={'tip' + tip.key} onClick={onTipClick(tip)}>
         
-        <div className="tip-container flx flx-col flx-center-all w-100 bx-shadow brdr-all">
+          <div className="tip-container flx flx-row flx-align-start w-100 bx- brdr-bottom">
             
           
               
               { /** Title and Address **/ }
               <div className="tip__title-module flx flx-col w-100">
 
+                <div className="tip__right-module flx flx-row flx-m-col flx-align-center w-100">
 
 
-                <div className="flx flx-col w-100">
-
-                  <div className="tip__right-module flx flx-row w-100 flx-align-center">
-
-
-                    { /** Image 
-                    <MediaQuery query="(min-device-width: 1224px)">**/ }
-                      <div className="tip__image-module bx-shadow bg-loading">
-                        <div className={"tip__photo-count tip-count-" + tip.images.length}>{tip.images.length > 0 ? tip.images.length : null}</div>
-                        <ImagePicker images={tip.images} />
-                      </div>
-                      { /** END Image
-                    </MediaQuery> **/ }
 
                     { /** Title **/ }
-                    <div className="hide-in-list tip__title tip-title ta-left mrgn-left-md">
+                    <div className="hide-in-list tip__title tip-title ta-left">
                       <div className="tip__order-count color--black">{props.index}.</div>
                       <Link to={`/review/${tip.subjectId}`}> {tip.subject.title}</Link>
                     </div>
 
                     { /** END Title **/ }
+
+
+                    {/* Action Module */}
+                    <div className="tip__cta-box flx flx-row flx-just-start flx-align-center flx-item-right">
+                      
+                      {/* Tags Wrapper **/ }
+                      <div className="flx flx-row flx-align-center flx-wrap pdding-bottom-xs">
+
+                        { /** Rating **/ }
+                        <RatingDisplay
+                          canModify={canModify}
+                          tip={tip}
+                          changeRating={props.changeRating}
+                          />
+                        { /** END Rating **/ }
+
+                       
+                      </div>
+                      {/* END Tags Wrapper **/ }
+
+                      <Link onClick={handleSaveClick} className="hide-in-list vb vb--tip vb--outlin--none flx flx-row flx-align-center color--black fill--white">
+                          {/*<img className="center-img mrgn-right-sm" src="/img/icons/i32_save.png"/>*/}
+                          <i className="material-icons color--black md-24">playlist_add</i>
+                          <div className="color--black v2-type-body0 weight-500 DN">Add to</div>
+                      </Link>
+
+                      <Link onClick={onInfoClick} className="hide-in-list vb vb--tip vb--outline--none flx flx-row flx-align-center">
+                        <i className="material-icons opa-60">info_outline</i>
+                        <div className="color--black v2-type-body0 weight-500 DN">Info</div>
+                      </Link>
+                      {/*<Link to={googleMapLink} className="w-20 hide-in-list vb vb--tip vb--outline--none flx flx-row flx-align-center brdr-top">
+                        <i className="material-icons md-24">place</i>
+                      </Link> */}
+
+                      <div className="cta-wrapper vb vb--tip vb--outline--none flx flx-row flx-align-center v2-type-body2 ">
+                        <LikeReviewButton
+                          authenticated={props.authenticated}
+                          isLiked={props.tip.isLiked}
+                          likesCount={props.tip.likesCount}
+                          likeObject={tip}
+                          itineraryId={props.itineraryId}
+                          type={props.dataType} />
+                      </div>
+
+                    </div>
+                    {/* END Action Module */}
+
 
                     { /** Timestamp **/ }
                     <div className="tip__timestamp v2-type-caption opa-20 mrgn-top-xs DN">
@@ -233,25 +268,11 @@ const TipPreview = props => {
 
 
                       { /** Caption **/ }
-                      <div className="tip__caption-module flx flx-row w-100 mrgn-bottom-sm brdr-02-bottom pdding-bottom-sm">
+                      <div className="tip__caption-module flx flx-row w-100 mrgn-bottom-sm brdr-02-bottom">
                         <Link to={'/' + tip.createdBy.username} className="tip__author-photo flx-hold mrgn-right-sm">
                           <ProfilePic src={tip.createdBy.image} className="user-image user-image-sm center-img" />
                         </Link> 
                         <div className="flx flx-col flx-align-start w-100">
-                            {/* Tags Wrapper **/ }
-                            <div className="flx flx-row flx-align-center flx-wrap pdding-bottom-xs">
-
-                              { /** Rating **/ }
-                              <RatingDisplay
-                                canModify={canModify}
-                                tip={tip}
-                                changeRating={props.changeRating}
-                                />
-                              { /** END Rating **/ }
-
-                             
-                            </div>
-                            {/* END Tags Wrapper **/ }
                             <div className="tip__caption font--beta v2-type-body2 ta-left">
                               <CaptionDisplay 
                                 tip={props.tip} 
@@ -297,37 +318,10 @@ const TipPreview = props => {
                     </div> 
                   { /** END tip__content-inner **/}
 
-                  {/* Action Module */}
-                  <div className="tip__cta-box w-100 flx flx-row flx-just-start flx-align-center mrgn-top-md">
-                    <Link onClick={handleSaveClick} className="w-33 hide-in-list vb vb--tip vb--outlin--none flx flx-row flx-align-center brdr-top brdr-right color--black fill--white">
-                        {/*<img className="center-img mrgn-right-sm" src="/img/icons/i32_save.png"/>*/}
-                        <i className="material-icons color--primary mrgn-right-sm md-24">playlist_add</i>
-                        <div className="color--black v2-type-body0 weight-500">Add to</div>
-                    </Link>
-                    
-                    <div className="w-33 cta-wrapper vb vb--tip vb--outline--none flx flx-row flx-align-center v2-type-body2 brdr-top brdr-right">
-                      <LikeReviewButton
-                        authenticated={props.authenticated}
-                        isLiked={props.tip.isLiked}
-                        likesCount={props.tip.likesCount}
-                        likeObject={tip}
-                        itineraryId={props.itineraryId}
-                        type={props.dataType} />
-                    </div>
-
-                    <Link onClick={onInfoClick} className="w-33 hide-in-list vb vb--tip vb--outline--none flx flx-row flx-align-center brdr-top">
-                      <i className="material-icons opa-60 mrgn-right-sm">info_outline</i>
-                      <div className="color--black v2-type-body0 weight-500">Info</div>
-                    </Link>
-                    {/*<Link to={googleMapLink} className="w-20 hide-in-list vb vb--tip vb--outline--none flx flx-row flx-align-center brdr-top">
-                      <i className="material-icons md-24">place</i>
-                    </Link> */}
+                  
 
                   </div>
-                  {/* END Action Module */}
 
-                  </div>
-                </div>
 
                
 
@@ -337,12 +331,22 @@ const TipPreview = props => {
              
             </div> { /** End photo / copy row **/ }
 
-            
+             { /** Image 
+        <MediaQuery query="(min-device-width: 1224px)">**/ }
+          <div className="tip__image-module bg-loading">
+            <div className={"tip__photo-count tip-count-" + tip.images.length}>{tip.images.length > 0 ? tip.images.length : null}</div>
+            <ImagePicker images={tip.images} />
+          </div>
+         
+       { /**  </MediaQuery> **/ }
    
 
 
 
         </div> 
+
+       
+
 
     </Element>
   );

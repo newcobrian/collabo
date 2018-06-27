@@ -144,6 +144,9 @@
 .flx-item-bottom {
   margin-top: auto;
 }
+.flx-item-top {
+  margin-bottom: auto;
+}
 .flx-grow1 {
   flex-grow:1;
 }
@@ -155,4 +158,14 @@
 }
 .flx-self-start {
   align-self: flex-start;
+}
+
+@media (max-width: 800px) and (min-width: 214px) {
+
+
+  .flx-row.flx-m-col {
+    -webkit-flex-direction: column;
+     flex-direction: column;
+}
+
 }

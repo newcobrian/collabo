@@ -41,20 +41,20 @@ class CommentInput extends React.Component {
 
   render() {
     return (
-      <form className="comment-wrapper comment-form flx flx-row flx-just-center flx-align-start mrgn-bottom-sm" onSubmit={this.createComment}>
+      <form className="comment-wrapper comment-form flx flx-row flx-just-center flx-align-start" onSubmit={this.createComment}>
 
-          <ProfilePic src={this.props.userInfo.image} className="user-image user-image-sm center-img" />
+          {/**<ProfilePic src={this.props.userInfo.image} className="user-image user-image-sm center-img" />**/}
 
             <Textarea className="comment-input font--beta input--overline w-100"
               placeholder="Add a comment..."
               value={this.state.body}
               onChange={this.setBody}
               rows="1"
-              cols="20"
+              cols="10"
               wrap="hard">
             </Textarea>
 
-            <button className="comment-send vb vb--sm vb--outline fill--white color--black" onClick={this.createComment}>
+            <button className="comment-send vb vb--xs vb--outline fill--white opa-60 color--black" onClick={this.createComment}>
               Post
               <i className="material-icons color--primary md-18 color--primary DN">send</i>
             </button>

@@ -341,27 +341,33 @@ class Itinerary extends React.Component {
         
         return (
           <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--transparent">
-            <i className="it-add-search-icon material-icons color--black opa-70 md-24">search</i>
-            
-            <Geosuggest 
-              ref={el=>this._geoSuggest=el}
-              className="input--underline w-100 color--black"
-              placeholder={'Give ' + createdByUsername + ' a recommendation'}
-              location={latLng}
-              radius={1000}
-              onSuggestSelect={suggestSelectTip(this)}/>
+            <div className="tooltip-wrapper w-100">
+
+              <i className="it-add-search-icon material-icons color--black opa-70 md-24">search</i>
+              
+              <Geosuggest 
+                ref={el=>this._geoSuggest=el}
+                className="input--underline w-100 color--black"
+                placeholder={'Give ' + createdByUsername + ' a recommendation'}
+                location={latLng}
+                radius={1000}
+                onSuggestSelect={suggestSelectTip(this)}/>
+            </div>
           </div>
         )
       }
       else return (
         <div className="it-add-wrapper w-100 w-max flx flx-row flx-align-center flx-just-start fill--primary color--white">
-          <i className="material-icons color--white md-36 mrgn-right-md">add</i>
-         
-          <Geosuggest
-            ref={el=>this._geoSuggest=el}
-            className="input--underline w-100 color--white"
-            placeholder={'Give ' + createdByUsername + ' a recommendation'}
-            onSuggestSelect={suggestSelectTip(this)}/>
+          <div className="tooltip-wrapper w-100">
+
+            <i className="material-icons color--white md-36 mrgn-right-md">add</i>
+           
+            <Geosuggest
+              ref={el=>this._geoSuggest=el}
+              className="input--underline w-100 color--white"
+              placeholder={'Give ' + createdByUsername + ' a recommendation'}
+              onSuggestSelect={suggestSelectTip(this)}/>
+          </div>
         </div>
       )
     }
@@ -405,14 +411,15 @@ class Itinerary extends React.Component {
             </button>*/}
 
 
+
+
          
 
             
-            <div className="content-wrapper itinerary flx flx-col flx-align-center map-on">
 
-              {/** Cover Image **/}
+              {/** Cover Image 
               <div className="itinerary__big-photo bg-loading country-color- fill--light-gray">
-                {/**+ itinerary.geo.country}**/}
+                {/**+ itinerary.geo.country}
                 <ImagePicker images={itinerary.images ? [itinerary.images] : null} max-w="1280" h="400"/>
                 <div className={'flx flx-col flx-center-all v2-type-body3 cover__loading loading-done-' + this.props.coverPicProgress}>
                   Uploading New Cover Photo...
@@ -422,6 +429,7 @@ class Itinerary extends React.Component {
                   uploadCoverPhoto={this.props.uploadCoverPhoto} authenticated={this.props.authenticated} />
                 </div>
               </div>
+              **/}
 
 
               
@@ -431,8 +439,7 @@ class Itinerary extends React.Component {
                 
 
                 <div className="it__cover__inner flx flx-col flx-just-start ta-left w-100 w-max">
-                  <div className="flx flx-row w-100 flx-align-center flx-just-start mrgn-bottom-sm">
-
+                  <div className="flx flx-row w-100 flx-align-center flx-just-start">
                     <div className="it__author-wrapper flx flx-row flx-just-start flx-align-center mrgn-right-lg">
                       <div className="itinerary__summary__author-photo">
                           <Link
@@ -451,15 +458,128 @@ class Itinerary extends React.Component {
                     </div>
                    
                     {/** Flag and Geo **/}
-                      <Link to={`/places/${itinerary.geo.placeId}`} className="flx flx-row flx-just-start flx-align-center w-50">
+                    <div className="flx flx-row flx-just-start flx-align-center">
+                      <Link to={`/places/${itinerary.geo.placeId}`} className="flx flx-row flx-just-start flx-align-center">
                         <div className={'itinerary__cover__flag flx-hold invert flag-' + itinerary.geo.country}>
                         </div>
                         <div className="v2-type-body2 ellipsis mrgn-left-sm ta-left invert">
                         {itinerary.geo.label}
                         </div>
                       </Link>
+                    </div>
+
+                    
+
+
+                    {/** >>>>>> SMALL ACTIONS START **/}
+                    <div className="flx flx-row flx-align-center flx-just-end w-100 pdding-left-md pdding-all-sm pdding-top-xs pdding-bottom-xs fill--white">
+                        {/** Subscribe **/}
+                          <div className="flx flx-row flx-just-start flx-align-center mrgn-right-md">
+                            <div className="tooltip-wrapper">
+                              <FollowItineraryButton
+                                authenticated={this.props.authenticated}
+                                canModify={canModify}
+                                itinerary={itinerary}
+                                isFollowingItinerary={this.props.isFollowingItinerary}
+                                hideSubscribeTip={this.props.userInfo && this.props.userInfo.flags && this.props.userInfo.flags.hideSubscribeTip}
+                                />
+                                {(this.props.userInfo && (!this.props.userInfo.flags || !this.props.userInfo.flags.hideSubscribeTip)) && 
+                                  <div className="help-- arrow-up help--subscribe flx flx-row flx-align-start color--white bx-shadow">
+                                    <i className="material-icons color--white md-24 mrgn-left-xs DN">arrow_upward</i>
+                                    <div className="flx flx-col flx-just-start color--white">
+                                      <div className="v2-type-body2 ta-left">Subscribe to guides you care about. We'll let you know whenever they get updated with new tips.</div>
+                                      <Link className="vb vb--xs vb--outline--none fill--none hover--white10 flx-item-right color--white" onClick={onSubscribeTooltipOkay}>Okay</Link>
+                                    </div>
+                                  </div>
+                                }
+                              </div>
+                              <div className="color--black v2-type-body1 mrgn-left-sm invert">{this.props.numGuideFollows}</div>
+                          </div>
+
+                        {/** LIKE BUTTON **/}
+                        <div className="cta-wrapper flx flx-row vb vb--xs vb--outline--none vb--nohover fill--white color--black">
+                          <LikeReviewButton
+                            authenticated={this.props.authenticated}
+                            isLiked={itinerary.isLiked}
+                            likesCount={itinerary.likesCount}
+                            unLike={this.props.unLikeReview}
+                            like={this.props.likeReview} 
+                            likeObject={itinerary}
+                            itineraryId={itinerary.id}
+                            type={ITINERARY_TYPE} />
+                        </div>
+                        {/** END LIKE BUTTON **/}
+
+                        {/* Share */}
+                        <div className="DN cta-wrapper flx flx-row vb vb--xs vb--outline--none vb--nohover fill--white color--black invert flx-item-right pdding-left-lg"
+                          onClick={this.shareGuide} >
+                          <div className="color--black mrgn-right-xs">Share this guide</div>
+                          <i className="material-icons mrgn-left-xs color--black flip-h">reply</i>
+                          <i className="material-icons color--white DN">accessibility</i>
+                        </div>
+
+                        <div className="DN flx flx-row flx-align-center pdding-right-sm flx-item-right">
+                          <FacebookShareButton
+                            url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
+                            quote={'Check out my travel guide "' + itinerary.title + '" for '}
+                            hashtag={'#views'}
+                            onClick={onPostClick(Constants.FACEBOOK_POST)}
+                            className="Demo__some-network__share-button">
+                            <FacebookIcon
+                              size={24}
+                              round={true}
+                               />
+                          </FacebookShareButton>
+
+                          <FacebookShareCount
+                            url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
+                            className="mrgn-left-sm color--fb mrgn-right-sm v2-type-body0 weight-500">
+                            {count => count}
+                          </FacebookShareCount>
+
+
+                          <TwitterShareButton
+                            url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
+                            title={'Check out my travel guide "' + itinerary.title + '" for ' + ':'}
+                            hashtags={['views']}
+                            onClick={onPostClick(Constants.TWITTER_POST)}
+                            className="Demo__some-network__share-button flx flx-row flx-align-center">
+                            <TwitterIcon
+                              size={24}
+                              round={true}
+                               />
+                            <div className="v2-type-body0 mrgn-left-sm color--tw">Tweet</div>
+                          </TwitterShareButton>
+                          <i className="material-icons color--primary md-18 DN">share</i>
+
+                          <CopyToClipboard 
+                            className="flx flx-row flx-center-all fill--white color--black DN"
+                            text={Constants.VIEWS_URL + '/guide/' + itinerary.id}
+                            onCopy={onCopyClick}>
+                              <div className="flx flx-row flx-center-all w-100 fill--white">
+                                <i className="material-icons md-18 color--dark-gray flx-item-left">link</i>
+                                <div className="mobile-hide DN">Copy&nbsp;</div>
+                                <div className="v2-type-body0 mrgn-left-xs color--dark-gray">Copy URL</div>
+                              </div>
+                          </CopyToClipboard>
+                        </div>
+                      </div>
+                      
 
                   </div>
+                {/** END TOP ROW **/}
+
+                  
+
+
+                  
+
+
+              </div>
+                      {/** >>>>>> SMALL ACTIONS START **/}
+
+
+
 
                 {/** <<<<<< CENTER INFO **/}
                 <div className="it__title-module flx flx-col flx-just-start flx-align-start ta-center w-100">
@@ -473,23 +593,22 @@ class Itinerary extends React.Component {
                   </button>
                 </div>
 
-                  {/** TITLE **/}
-                  
-                  <div className="guide-title ta-left w-100 invert">
-                    {itinerary.title}
-                  </div>
 
-                  {/** DESCRIPTION **/}
-                  <div className="itinerary__cover__descrip v2-type-body2 font--beta ta-left pdding-top-xs mrgn-bottom-sm opa-60 invert w-100">
-                     {itinerary.description}
-                  </div>
+                <div className="it__cover__inner flx flx-col flx-just-start ta-left w-100">
+                 <div className="flx flx-col flx-just-start w-100">
+                    {/** TITLE **/}
+                    
+                    <div className="guide-title ta-left w-100 invert">
+                      {itinerary.title}
+                    </div>
 
-                
-                 
+                    {/** DESCRIPTION **/}
+                    <div className="itinerary__cover__descrip font--beta v2-type-body2 ta-left opa-80">
+                       {itinerary.description}
+                    </div>
 
-                  <div className="it-actions-row w-100 flx flx-row flx-align-center flx-just-start ta-left opa-40 mrgn-bottom-sm">
                     {/** TIMESTAMP **/}
-                    <div className="itinerary__cover__timestamp v2-type-caption ta-left invert color--black">
+                    <div className="DN itinerary__cover__timestamp v2-type-caption ta-left invert color--black">
                       Updated &nbsp;
                       <DisplayTimestamp timestamp={itinerary.lastModified} />
                       {/*(new Date(itinerary.lastModified)).toLocaleString()*/}
@@ -501,31 +620,23 @@ class Itinerary extends React.Component {
                        <div className="ellipsis">Source Link</div>
                     </a>
                     }
+
+                  </div>
+                </div>
+                 
+
+                  <div className="DN it-actions-row w-100 flx flx-row flx-align-center flx-just-start ta-left opa-40 mrgn-bottom-sm">
+
+                     {/** Source Link **/}
+                    { itinerary.link &&
+                    <a href={itinerary.link} target="blank" className="itinerary__cover__source v2-type-caption mrgn-left-sm color--black invert">
+                       <div className="ellipsis">Source Link</div>
+                    </a>
+                    }
                   </div>
 
 
-                  <div className="flx flx-row flx-just-start flx-align-center w-100 mrgn-top-sm">
-                    <div className="tooltip-wrapper">
-                      <FollowItineraryButton
-                        authenticated={this.props.authenticated}
-                        canModify={canModify}
-                        itinerary={itinerary}
-                        isFollowingItinerary={this.props.isFollowingItinerary}
-                        hideSubscribeTip={this.props.userInfo && this.props.userInfo.flags && this.props.userInfo.flags.hideSubscribeTip}
-                        />
-                        {(this.props.userInfo && (!this.props.userInfo.flags || !this.props.userInfo.flags.hideSubscribeTip)) && 
-                          <div className="help-- arrow-up help--subscribe flx flx-row flx-align-start color--white bx-shadow">
-                            <i className="material-icons color--white md-24 mrgn-left-xs DN">arrow_upward</i>
-                            <div className="flx flx-col flx-just-start color--white">
-                              <div className="v2-type-body2 ta-left">Subscribe to guides you care about. We'll let you know whenever they get updated with new tips.</div>
-                              <Link className="vb vb--xs vb--outline--none fill--none hover--white10 flx-item-right color--white" onClick={onSubscribeTooltipOkay}>Okay</Link>
-                            </div>
-                          </div>
-                        }
-                      </div>
-
-                      <div className="color--black v2-type-caption mrgn-left-sm invert">{this.props.numGuideFollows} subscribers</div>
-                  </div>
+                  
 
 
                   
@@ -537,90 +648,23 @@ class Itinerary extends React.Component {
                 </div>
                 {/** >>>>>> CLOSE CENTER INFO **/}
 
-                <div className="flx flx-row flx-align-center w-100 pdding-left-md pdding-all-sm pdding-top-xs pdding-bottom-sm fill--white">
-                  {/** LIKE BUTTON **/}
-                  <div className="cta-wrapper flx flx-row vb vb--xs vb--outline--none vb--nohover fill--white color--black">
-                    <LikeReviewButton
-                      authenticated={this.props.authenticated}
-                      isLiked={itinerary.isLiked}
-                      likesCount={itinerary.likesCount}
-                      unLike={this.props.unLikeReview}
-                      like={this.props.likeReview} 
-                      likeObject={itinerary}
-                      itineraryId={itinerary.id}
-                      type={ITINERARY_TYPE} />
-                  </div>
-                  {/** END LIKE BUTTON **/}
-
-                  {/* Share */}
-                  <div className="DN cta-wrapper flx flx-row vb vb--xs vb--outline--none vb--nohover fill--white color--black invert flx-item-right pdding-left-lg"
-                    onClick={this.shareGuide} >
-                    <div className="color--black mrgn-right-xs">Share this guide</div>
-                    <i className="material-icons mrgn-left-xs color--black flip-h">reply</i>
-                    <i className="material-icons color--white DN">accessibility</i>
-                  </div>
-
-                  <div className="flx flx-row flx-align-center pdding-right-sm flx-item-right">
-                    <FacebookShareButton
-                      url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
-                      quote={'Check out my travel guide "' + itinerary.title + '" for '}
-                      hashtag={'#views'}
-                      onClick={onPostClick(Constants.FACEBOOK_POST)}
-                      className="Demo__some-network__share-button">
-                      <FacebookIcon
-                        size={24}
-                        round={true}
-                         />
-                    </FacebookShareButton>
-
-                    <FacebookShareCount
-                      url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
-                      className="mrgn-left-sm color--fb mrgn-right-sm v2-type-body0 weight-500">
-                      {count => count}
-                    </FacebookShareCount>
-
-
-                    <TwitterShareButton
-                      url={Constants.VIEWS_URL + `/guide/${this.props.itineraryId}`}
-                      title={'Check out my travel guide "' + itinerary.title + '" for ' + ':'}
-                      hashtags={['views']}
-                      onClick={onPostClick(Constants.TWITTER_POST)}
-                      className="Demo__some-network__share-button flx flx-row flx-align-center">
-                      <TwitterIcon
-                        size={24}
-                        round={true}
-                         />
-                      <div className="v2-type-body0 mrgn-left-sm color--tw">Tweet</div>
-                    </TwitterShareButton>
-                    <i className="material-icons color--primary md-18 DN">share</i>
-
-                    <CopyToClipboard 
-                      className="flx flx-row flx-center-all fill--white color--black DN"
-                      text={Constants.VIEWS_URL + '/guide/' + itinerary.id}
-                      onCopy={onCopyClick}>
-                        <div className="flx flx-row flx-center-all w-100 fill--white">
-                          <i className="material-icons md-18 color--dark-gray flx-item-left">link</i>
-                          <div className="mobile-hide DN">Copy&nbsp;</div>
-                          <div className="v2-type-body0 mrgn-left-xs color--dark-gray">Copy URL</div>
-                        </div>
-                    </CopyToClipboard>
-                  </div>
-                </div>
 
 
 
-              </div>
               {/** Close Cover Text DIV >>>>>> **/}
 
+              <div className="content-wrapper itinerary flx flx-col flx-align-center map-on">
 
-              <div className="itinerary__tipslist flx flx-col flx-align-center w-100 pdding-bottom-lg fill--light-gray country-color-">
+              <div className="itinerary__tipslist flx flx-col flx-align-center fill--light-gray w-100 pdding-bottom-lg country-color- + itinerary.geo.country">
+                
+
                 <Sticky bottomOffset={140} className={'sticky-class'}>
 
-                  <div className="it-add-container flx flx-col flx-align-center bx-shadow fill--black country-color-">
-                    <div className="flx flx-row flx-align-center w-100 ta-center pdding-all-xs v2-type-body1 color--white w-100 ta-left">
+                  <div className="it-add-container flx flx-row flx-align-center bx-shadow brdr-bottom fill--white country-color-">
+                    {renderGeoSuggestRec(itinerary.geo)}
 
                       <Link to={'/guide/' + this.props.itineraryId}
-                        className="pdding-right-sm brdr-right--02 color--white invert">
+                        className="DN pdding-right-sm brdr-right--02 color--white invert">
                         {/*this.props.visibleTips.length*/}{this.props.numTotalTips} Tips
                       </Link>
 
@@ -632,14 +676,11 @@ class Itinerary extends React.Component {
                       
                       <div className="flx flx-row flx-align-center opa-80 flx-item-right">
                         <Link className="vb vb--xs flx flx-row fill--none flx-center-all ta-center" onClick={openFilter}>
-                          <i className="material-icons color--black opa-90 md-18 invert">filter_list</i>
-                          <div className="color--black DN">Filter{/*numVisibleTags}/{numTotalTips*/} {/*Showing 4/10 Categories */}</div>
+                          <i className="material-icons color--black opa-90 md-18 invert DN">filter_list</i>
+                          <div className="color--black opa-60">Filter{/*numVisibleTags}/{numTotalTips*/} {/*Showing 4/10 Categories */}</div>
                         </Link>
                       </div>
 
-                    </div>
-
-                    {/*renderGeoSuggestRec(itinerary.geo)*/}
                   </div>
                 </Sticky>
 

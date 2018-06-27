@@ -5,7 +5,7 @@ import * as Constants from '../constants';
 import { Link, browserHistory } from 'react-router';
 import FirebaseSearchInput from './FirebaseSearchInput';
 import {GoogleApiWrapper} from 'google-maps-react';
-import Map from 'google-maps-react';
+import Map from 'google-maps-react'; 
 import Geosuggest from 'react-geosuggest';
 
 const mapStateToProps = state => ({
@@ -120,18 +120,18 @@ class UniversalSearchBar extends React.Component {
       'page-landing' : ''
 
 		return (
-			<div className={"search-wrapper-wrapper w-100 flx flx-row flx-m-col flx-align-center brdr-bottom flx-just-start " + isLandingPage}>
-			  <div className="search-wrapper short-width-search page-top-search flx flx-row flx-align-start flx-hold">
-			    <i className="search-icon material-icons color--black md-24">search</i>
+			<div className={"search-wrapper-wrapper " + isLandingPage}>
+			  <div className="search-wrapper short-width-search page-top-search flx flx-row flx-align-center flx-hold flx-just-start">
+			    <i className="search-icon material-icons color--black mrgn-right-sm md-24">search</i>
 			    <Geosuggest 
-            	  className="input--underline v2-type-body3"
+            	  className="input--underline v2-type-body3 w-100"
 				  types={['(regions)']}
-				  placeholder="Paris, Madrid, Waikiki..."
+				  placeholder="Search for a city"
 				  required
 				  onChange={this.changeGeo}
 				  onSuggestSelect={this.searchInputCallback}/>
 			  </div>
-			  {this.renderPopularCities()}
+			  {/**renderPopularCities**/}
 			</div>
 		)
 	}

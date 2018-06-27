@@ -13,7 +13,8 @@
     left: 0;
     width: 100%;
     background-color: rgba(255,255,255,1);
-    border-bottom: 1px solid #D5E3E5;
+    background-color: blue;
+    border-bottom: 1px solid black;
     /* Rectangle 6: */
     opacity: 1;
     /*background-image: linear-gradient(90deg, #1C398C 0%, #59FFF2 65%, #B5FEE3 100%);*/
@@ -23,6 +24,7 @@
 }
 .header-container {
   background-color: white;
+  background-color: black;
 }
 .header-wrapper {
     position: absolute;
@@ -49,9 +51,9 @@ a.logo-module:focus {
   opacity: 1;
 }
 .logo-main {
-    font-size: 19px;
+    font-size: 18px;
     height: auto;
-    font-weight: 600;
+    font-weight: 300;
     letter-spacing: 5px;
     font-family: 'Arimo', sans-serif;
     margin-right: 6px;
@@ -76,7 +78,7 @@ a.logo-module:focus {
   position: absolute;
   right: 0;
   top: 0;
-  height: 69px;
+  height: 70px;
   z-index: 2;
   padding: 0px;
   color: black;
@@ -117,13 +119,13 @@ a.logo-module:focus {
   text-transform: none;
 }
 .nav-module.nav-editor {
-  order: 1;
+  order: 3;
 }
 .nav-module.nav-feed {
-  order: 2;
+  order: 1;
 }
 .nav-module.nav-inbox {
-  order: 3;
+  order: 2;
 }
 .nav-module.nav-saved {
   order: 4;

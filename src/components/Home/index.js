@@ -231,21 +231,18 @@ class Home extends React.Component {
 
   renderTabs() {
     return (
-      <div className="feed-toggle friend-popular-toggle flx flx-col flx-align-center w-100">
+      <div className="flx flx-row flx-align-center">
 
 
-        <div className="DN w-100 pdding-all-sm mrgn-bottom-sm flx flx-row">
-          <div className="v2-type-h3 flx-item-center">Latest Travel Guides</div>
-        </div>
 
-        <div className="page-title-wrapper fill--primary center-text country-color-">
+        <div className="page-title-wrapper DN fill--primary center-text country-color-">
           <div className="v2-type-page-header flx flx-col flx-center-all color--white invert">
             Latest Travel Guides
           </div>
           <div className="v2-type-body2 opa-60"></div>
         </div>
 
-        <ul className="nav nav-pills outline-active pdding-top-md flx flx-row ta-center flx-center-all mrgn-bottom-md w-100">
+        <ul className="nav nav-pills outline-active flx flx-row ta-center">
           <li className="nav-item brdr-right">
             <Link
               className="nav-link active"
@@ -293,9 +290,9 @@ class Home extends React.Component {
 
         
         <div className={'home-page page-common fill--white flx flx-col flx-align-center ' + isLandingPage}>
-
-        <UniversalSearchBar />
-          
+          <div className="v2-toolbar w-100 flx flx-row flx-m-col flx-align-center brdr-bottom flx-just-start flx-just-space-between">
+            <UniversalSearchBar /> {this.renderTabs()}
+          </div>
           <div className="w-100 pdding-all-md flx flx-row flx-center-all w-max-2 mrgn-top-md DN">
             <button className="ask-for-recs-button vb vb--sm fill--primary color--white mobile-w-100" onClick={this.onAskForRecsClick}>
               <i className="material-icons color--white md-24 mrgn-right-sm DN">flare</i>
@@ -304,9 +301,9 @@ class Home extends React.Component {
             </button>
           </div>
 
-          {this.renderTabs()}
+          
 
-          <div className="guide-feed-wrapper w-100 w-max flx flx-row flx-just-center flx-self-end flx-align-start flx-wrap pdding-left-md pdding-right-md">
+          <div className="guide-feed-wrapper w-100 flx flx-row flx-just-center flx-self-end flx-align-start flx-wrap">
             
             <div className="popular-box brdr-all flx flx-col DN">
               <div className="color--black section-header mrgn-bottom-md">Popular Guides</div>

@@ -55,14 +55,14 @@ class GlobalFeed extends Home {
 
   renderTabs() {
     return (
-      <div className="feed-toggle friend-popular-toggle flx flx-col flx-align-center w-100">
-        <div className="page-title-wrapper center-text country-color-">
+      <div className="v2-toolbar feed-toggle friend-popular-toggle flx flx-row flx-align-center">
+        <div className="page-title-wrapper DN center-text country-color-">
           <div className="v2-type-page-header flx flx-col flx-center-all invert">
             Latest Travel Guides
           </div>
         </div>
 
-        <ul className="nav nav-pills outline-active pdding-top-md flx flx-row ta-center flx-center-all mrgn-bottom-md w-100">
+        <ul className="nav nav-pills outline-active flx flx-row ta-center flx-center-all w-100">
           <li className="nav-item brdr-right">
             <Link
               className="nav-link"
