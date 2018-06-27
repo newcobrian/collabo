@@ -358,7 +358,8 @@ input.edit-tip__rating {
 }
 .tip__rating-module--undefined select {
   color: #8BE0F8 !important;
-  font-weight: normal !important;
+  color: rgba(0,0,0,.6) !important;
+  font-weight: bold !important;
 }
 .not-my-guide .tip__rating-module--undefined {
   /*display: none !important;*/
@@ -367,6 +368,7 @@ input.edit-tip__rating {
 .tip__rating-module--undefined,
 .tip__rating-module--undefined .tip__rating {
   background-color: white;
+  border-color: #ccc;
 }
 
 
