@@ -737,7 +737,6 @@ body .back-to-top {
 .page-edit-own .it-add-wrapper input,
 .page-edit-own .it-add-wrapper textarea {
   border-color: white;
-  text-indent: 16px;
 }
 .it-add-wrapper .material-icons {
   left: 13px;

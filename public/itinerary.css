@@ -393,7 +393,7 @@ textarea.edit-itinerary__name {
 }
 .it-add-wrapper .geosuggest__input {
 	height: 42px;
-	text-indent: 10px;
+	text-indent: 40px;
 }
 .it-add-wrapper .geosuggest__input:hover {
 	opacity: 1;
