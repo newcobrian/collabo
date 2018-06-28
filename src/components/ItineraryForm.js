@@ -917,8 +917,8 @@ const ShareGuideTooltip = props => {
                                             <div className="flx flx-row flx-align-center flx-wrap pdding-bottom-xs">
 
                                               { /** Rating **/ }
-                                              <div className={'tip__rating-module flx flx-row flx-align-center flx-hold w-100 tip__rating-module--' + tip.review.rating}>
-                                                <select className="color--black" value={tip.review.rating} onChange={this.changeRating(tip)}>
+                                              <div className={'tip__rating-module flx flx-row flx-align-center flx-hold w-100 tip__rating-module--' + tip.rating}>
+                                                <select className="color--black" value={tip.rating} onChange={this.changeRating(tip)}>
                                                   <option value="-">To Try</option>
                                                   <option value="0">0/10 Run away</option>
                                                   <option value="1">1/10 Stay away</option>
@@ -988,7 +988,7 @@ const ShareGuideTooltip = props => {
 
 
                                       <div className="tip__timestamp v2-type-caption opa-20 mrgn-top-xs DN">
-                                        <DisplayTimestamp timestamp={tip.review.lastModified} />
+                                        <DisplayTimestamp timestamp={tip.lastModified} />
                                       </div>
                                       
                                     </div>
@@ -1031,7 +1031,7 @@ const ShareGuideTooltip = props => {
                                                   className="w-100 show-border"
                                                   cols="10"
                                                   wrap="hard"
-                                                  value={tip.review.caption}
+                                                  value={tip.caption}
                                                   placeholder="Add notes here"
                                                   debounceFunction={this.changeCaption(tip)} />
                                               </div>

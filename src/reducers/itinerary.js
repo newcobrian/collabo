@@ -271,20 +271,14 @@ export default (state = initialState, action) => {
         newState[action.dataType] = newState[action.dataType] || [];
         newState[action.dataType] = newState[action.dataType].slice();
         if (!find(newState[action.dataType], ['key', action.tipId])) {
-          let subject = { subject: Object.assign({}, newState.subjectsData[action.tip.subjectId]) };
-          let review = { review: Object.assign({}, newState.reviewsData[action.tip.reviewId]) };
+          // let subject = { subject: Object.assign({}, newState.subjectsData[action.tip.subjectId]) };
+          // let review = { review: Object.assign({}, newState.reviewsData[action.tip.reviewId]) };
           let createdBy = { createdBy: Object.assign({}, newState.usersData[action.tip.userId]) };
           let comments = { comments: newState.commentsData[action.tipId] ? [].concat(newState.commentsData[action.tipId]) : [] };
           let isLiked = { isLiked: newState.likesData[action.tipId] ? true : false };
           let images = getImage(newState.userImagesData[action.tip.subjectId], newState.defaultImagesData[action.tip.subjectId]);
-          // newState.tips[action.priority] = Object.assign({}, {key: action.priority}, {priority: action.priority}, action.tip, subject, review, createdBy, comments, isLiked, images);
-          newState[action.dataType] = newState[action.dataType].concat(Object.assign({}, {key: action.tipId}, {priority: action.priority}, action.tip, subject, review, createdBy, comments, isLiked, images));
-          // newState.tips.sort(Helpers.byPriority);
-
-          // newState.tagsFilter = newState.tagsFilter || {};
-          // newState.tagsFilter = Object.assign({}, newState.tagsFilter);
-          // newState.tagsFilter = countBy(Object.keys(action.tip.tags || {}));
-          // console.log('tags Filter = ' + JSON.stringify(newState.tagsFilter))
+          // newState[action.dataType] = newState[action.dataType].concat(Object.assign({}, {key: action.tipId}, {priority: action.priority}, action.tip, subject, review, createdBy, comments, isLiked, images));
+          newState[action.dataType] = newState[action.dataType].concat(Object.assign({}, {key: action.tipId}, {priority: action.priority}, action.tip, createdBy, comments, isLiked, images));
 
           return newState;
         }
@@ -296,15 +290,16 @@ export default (state = initialState, action) => {
         const newState = Object.assign({}, state);
         newState[action.dataType] = newState[action.dataType] || [];
         newState[action.dataType] = newState[action.dataType].slice();
-        let subject = { subject: Object.assign({}, newState.subjectsData[action.tip.subjectId]) };
-        let review = { review: Object.assign({}, newState.reviewsData[action.tip.reviewId]) };
+        // let subject = { subject: Object.assign({}, newState.subjectsData[action.tip.subjectId]) };
+        // let review = { review: Object.assign({}, newState.reviewsData[action.tip.reviewId]) };
         let createdBy = { createdBy: Object.assign({}, newState.usersData[action.tip.userId]) };
         let comments = { comments: newState.commentsData[action.tipId] ? [].concat(newState.commentsData[action.tipId]) : [] };
         let isLiked = { isLiked: newState.likesData[action.tipId] ? true : false };
         let images = getImage(newState.userImagesData[action.tip.subjectId], newState.defaultImagesData[action.tip.subjectId]);
         for (let i = 0; i < newState[action.dataType].length; i++) {
           if (newState[action.dataType][i].key === action.tipId) {
-            newState[action.dataType][i] = Object.assign({}, {key: action.tipId}, {priority: action.priority}, action.tip, subject, review, createdBy, comments, isLiked, images);
+            // newState[action.dataType][i] = Object.assign({}, {key: action.tipId}, {priority: action.priority}, action.tip, subject, review, createdBy, comments, isLiked, images);
+            newState[action.dataType][i] = Object.assign({}, {key: action.tipId}, {priority: action.priority}, action.tip, createdBy, comments, isLiked, images);
             newState[action.dataType].sort(Helpers.byPriority);
             return newState;
           }
