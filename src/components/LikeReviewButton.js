@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as Actions from '../actions';
 
 const mapStateToProps = state => ({
+  userInfo: state.common.userInfo
 });
 
 class LikeReviewButton extends React.Component {
@@ -32,7 +33,8 @@ class LikeReviewButton extends React.Component {
       if (this.props.isLiked) {
         this.props.unLikeReview(this.props.authenticated, this.props.type, this.props.likeObject, this.props.itineraryId);
       } else {
-        this.props.likeReview(this.props.authenticated, this.props.type, this.props.likeObject, this.props.itineraryId);
+        let username = this.props.userInfo.username
+        this.props.likeReview(this.props.authenticated, this.props.type, this.props.likeObject, this.props.itineraryId, username);
       }
     };
  
