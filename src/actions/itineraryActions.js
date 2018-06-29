@@ -459,7 +459,7 @@ export function updateItineraryGeo(auth, itinerary, newGeo) {
 export function updateReviewField(auth, itinerary, field, value, tip, dataType=Constants.TIPS_TYPE) {
   return dispatch => {
     if (auth && itinerary && itinerary.id && tip && tip.reviewId && tip.key) {
-      Firebase.database().ref(Constants.ITINERARIES_BY_USER_BY_SUBJECT_PATH + '/' + auth + '/' + tip.key).once('value', usersItinsSnap =>{
+      Firebase.database().ref(Constants.ITINERARIES_BY_USER_BY_TIP_PATH + '/' + auth + '/' + tip.key).once('value', usersItinsSnap =>{
         let updates = {};
         let timestamp = Firebase.database.ServerValue.TIMESTAMP;
         let userId = tip.userId ? tip.userId : auth;
@@ -625,7 +625,7 @@ export function onAddTip(auth, result, itinerary, type) {
             // updates[`/${Constants.TIPS_BY_SUBJECT_PATH}/${subjectId}/${auth}/${tipId}/`] = Object.assign({}, {itineraryId: itinerary.id}, {title: itinerary.title});
 
             //update itineraries-by-tip
-            updates[Constants.ITINERARIES_BY_USER_BY_SUBJECT_PATH + '/' + auth + '/' + subjectId + '/' + itinerary.id] = true;
+            updates[Constants.ITINERARIES_BY_USER_BY_TIP_PATH + '/' + auth + '/' + subjectId + '/' + itinerary.id] = true;
 
             // update review counts on the itinerary
             Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + itinerary.userId + '/' + itinerary.id + '/reviewsCount').transaction(function (current_count) {
@@ -718,7 +718,7 @@ export function onDeleteTip(auth, tip, itineraryId, itinerary) {
       // Firebase.database().ref(Constants.TIPS_BY_SUBJECT_PATH + '/' + tip.subjectId + '/' + auth + '/' + tip.key).remove();
 
       // update itineraries-by-tips
-      Firebase.database().ref(Constants.ITINERARIES_BY_USER_BY_SUBJECT_PATH + '/' + auth + '/' + tip.key + '/' + itineraryId).remove();
+      Firebase.database().ref(Constants.ITINERARIES_BY_USER_BY_TIP_PATH + '/' + auth + '/' + tip.key + '/' + itineraryId).remove();
 
       // decerement popularity score
       Helpers.decrementGuideScore(itinerary.id, Constants.ADD_TIP_GUIDE_SCORE)
