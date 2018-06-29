@@ -2844,6 +2844,9 @@ export function addToItinerary(auth, tip, itinerary, fromItineraryId) {
               // add to tips-by-subject
               // updates[`/${Constants.TIPS_BY_SUBJECT_PATH}/${subjectId}/${auth}/${tipId}/`] = Object.assign({}, {itineraryId: itineraryId}, {title: itinSnapshot.val().title});
 
+              // add the new itinerary for this tip
+              updates[`/${Constants.ITINERARIES_BY_TIP_PATH}/${subjectId}/${itineraryId}`] = true
+
               // update lastModified on itinerary tables
               updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}/lastModified`] = lastModified;
               updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${geo.placeId}/${auth}/${itineraryId}/lastModified`] = lastModified;
