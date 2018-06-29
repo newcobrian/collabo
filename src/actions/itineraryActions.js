@@ -459,67 +459,72 @@ export function updateItineraryGeo(auth, itinerary, newGeo) {
 export function updateReviewField(auth, itinerary, field, value, tip, dataType=Constants.TIPS_TYPE) {
   return dispatch => {
     if (auth && itinerary && itinerary.id && tip && tip.reviewId && tip.key) {
-      let updates = {};
-      let timestamp = Firebase.database.ServerValue.TIMESTAMP;
-      let userId = tip.userId ? tip.userId : auth;
+      Firebase.database().ref(Constants.ITINERARIES_BY_USER_BY_SUBJECT_PATH + '/' + auth + '/' + tip.key).once('value', usersItinsSnap =>{
+        let updates = {};
+        let timestamp = Firebase.database.ServerValue.TIMESTAMP;
+        let userId = tip.userId ? tip.userId : auth;
 
-      // update the tips-by-itinerary path
-      updates[`/${Constants.SUBJECTS_BY_ITINERARY_PATH}/${itinerary.id}/${tip.key}/${field}`] = value;
-      updates[`/${Constants.SUBJECTS_BY_ITINERARY_PATH}/${itinerary.id}/${tip.key}/lastModified`] = timestamp;
+        // update the tips-by-itinerary path
+        updates[`/${Constants.SUBJECTS_BY_ITINERARY_PATH}/${itinerary.id}/${tip.key}/${field}`] = value;
+        updates[`/${Constants.SUBJECTS_BY_ITINERARY_PATH}/${itinerary.id}/${tip.key}/lastModified`] = timestamp;
 
-      // update reviews, reviews-by-subject and reviews-by-user
-      updates[`/${Constants.REVIEWS_PATH}/${tip.reviewId}/${field}`] = value;
-      updates[`/${Constants.REVIEWS_BY_USER_PATH}/${auth}/${tip.reviewId}/${field}`] = value;
-      updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${tip.subjectId}/${userId}/${field}`] = value;
+        // update reviews, reviews-by-subject and reviews-by-user
+        updates[`/${Constants.REVIEWS_PATH}/${tip.reviewId}/${field}`] = value;
+        updates[`/${Constants.REVIEWS_BY_USER_PATH}/${auth}/${tip.reviewId}/${field}`] = value;
+        updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${tip.subjectId}/${userId}/${field}`] = value;
 
-      // update every itinerary of the user's that the tip belongs to
+        // update every itinerary of the user's that the tip belongs to
+        Object.keys(usersItinsSnap.val() || {}).map(function(itinItem) {
+          updates[`/${Constants.SUBJECTS_BY_ITINERARY_PATH}/${itinItem}/${tip.key}/${field}`] = value;
+        })
 
-      // update lastModified on all reviews
-      updates[`/${Constants.REVIEWS_PATH}/${tip.reviewId}/lastModified`] = timestamp;
-      updates[`/${Constants.REVIEWS_BY_USER_PATH}/${auth}/${tip.reviewId}/lastModified`] = timestamp;
-      updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${tip.subjectId}/${userId}/lastModified`] = timestamp;
+        // update lastModified on all reviews
+        updates[`/${Constants.REVIEWS_PATH}/${tip.reviewId}/lastModified`] = timestamp;
+        updates[`/${Constants.REVIEWS_BY_USER_PATH}/${auth}/${tip.reviewId}/lastModified`] = timestamp;
+        updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${tip.subjectId}/${userId}/lastModified`] = timestamp;
 
-      if (dataType === Constants.TIPS_TYPE) {
-        // update lastModified on all itineraries
-        updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${itinerary.userId}/${itinerary.id}/lastModified`] = timestamp;
-        updates[`/${Constants.ITINERARIES_PATH}/${itinerary.id}/lastModified`] = timestamp;
-        updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${itinerary.geo.placeId}/${itinerary.userId}/${itinerary.id}/lastModified`] = timestamp;
-        updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itinerary.id}/lastModified`] = timestamp;
+        if (dataType === Constants.TIPS_TYPE) {
+          // update lastModified on all itineraries
+          updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${itinerary.userId}/${itinerary.id}/lastModified`] = timestamp;
+          updates[`/${Constants.ITINERARIES_PATH}/${itinerary.id}/lastModified`] = timestamp;
+          updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${itinerary.geo.placeId}/${itinerary.userId}/${itinerary.id}/lastModified`] = timestamp;
+          updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itinerary.id}/lastModified`] = timestamp;
 
-        Firebase.database().ref().update(updates);
-        Helpers.fanOutToFollowersFeed(auth, itinerary.id, timestamp);
+          Firebase.database().ref().update(updates);
+          Helpers.fanOutToFollowersFeed(auth, itinerary.id, timestamp);
 
-        dispatch({
-          type: ActionTypes.ITINERARY_UPDATED,
-          itineraryId: itinerary.id,
-          message: 'Updated your review for ' + tip.subject.title,
-          meta: {
-            mixpanel: {
-              event: 'review updated',
-              props: {
-                subject: tip.key
+          dispatch({
+            type: ActionTypes.ITINERARY_UPDATED,
+            itineraryId: itinerary.id,
+            message: 'Updated your review for ' + tip.subject.title,
+            meta: {
+              mixpanel: {
+                event: 'review updated',
+                props: {
+                  subject: tip.key
+                }
               }
             }
-          }
-        })
-      }
-      else if (dataType === Constants.RECOMMENDATIONS_TYPE) {
-        Firebase.database().ref().update(updates);
+          })
+        }
+        else if (dataType === Constants.RECOMMENDATIONS_TYPE) {
+          Firebase.database().ref().update(updates);
 
-        dispatch({
-          type: ActionTypes.RECOMMENDATION_UPDATED,
-          itineraryId: itinerary.id,
-          message: 'Updated your recommendation for ' + tip.subject.title,
-          meta: {
-            mixpanel: {
-              event: 'recommendation review updated',
-              props: {
-                subject: tip.key
+          dispatch({
+            type: ActionTypes.RECOMMENDATION_UPDATED,
+            itineraryId: itinerary.id,
+            message: 'Updated your recommendation for ' + tip.subject.title,
+            meta: {
+              mixpanel: {
+                event: 'recommendation review updated',
+                props: {
+                  subject: tip.key
+                }
               }
             }
-          }
-        })
-      }
+          })
+        }
+      })
     }
   }
 }
@@ -592,24 +597,22 @@ export function onAddTip(auth, result, itinerary, type) {
           let review = {};
           // see if user has reviewed this subject
           if (reviewsSnap.exists() && reviewsSnap.val().reviewId) {
-            reviewId = reviewsSnap.val().reviewId;
+            console.log('xists = ' + JSON.stringify(reviewsSnap.val()))
+            Object.assign(review, reviewsSnap.val());
           }
           else {
             // make the review
             review = Object.assign({}, {subjectId: subjectId}, {lastModified: lastModified})
-
             reviewId = Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + auth).push(review).key;
 
-            let reviewBySubject = Object.assign({}, {lastModified: lastModified}, {reviewId: reviewId});
-
             // update REVIEWS_BY_USER, REVIEWS_BY_SUBJECT, and REVIEWS tables
-            updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${subjectId}/${auth}/`] = reviewBySubject;
+            updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${subjectId}/${auth}/`] = Object.assign({}, {lastModified: lastModified}, {reviewId: reviewId});
             updates[`/${Constants.REVIEWS_PATH}/${reviewId}/`] = Object.assign({}, review, { userId: auth })
           }
 
           let reviewsCount = itinerary.reviewsCount ? itinerary.reviewsCount : 0;
           let priority = itinerary.maxPriority ? itinerary.maxPriority + 1 : reviewsCount + 1;
-          let tipObject = Object.assign({}, { reviewId: reviewId }, { userId: auth });
+          let tipObject = Object.assign({}, review, { reviewId: reviewId }, { userId: auth });
 
           // if this is a tip, do the tip stuff
           if (type === Constants.TIPS_TYPE) {
@@ -622,7 +625,7 @@ export function onAddTip(auth, result, itinerary, type) {
             // updates[`/${Constants.TIPS_BY_SUBJECT_PATH}/${subjectId}/${auth}/${tipId}/`] = Object.assign({}, {itineraryId: itinerary.id}, {title: itinerary.title});
 
             //update itineraries-by-tip
-            updates[Constants.ITINERARIES_BY_USER_BY_TIP_PATH + '/' auth + '/' + subjectId + '/' + itinerary.id] = true;
+            updates[Constants.ITINERARIES_BY_USER_BY_SUBJECT_PATH + '/' + auth + '/' + subjectId + '/' + itinerary.id] = true;
 
             // update review counts on the itinerary
             Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + itinerary.userId + '/' + itinerary.id + '/reviewsCount').transaction(function (current_count) {
@@ -715,7 +718,7 @@ export function onDeleteTip(auth, tip, itineraryId, itinerary) {
       // Firebase.database().ref(Constants.TIPS_BY_SUBJECT_PATH + '/' + tip.subjectId + '/' + auth + '/' + tip.key).remove();
 
       // update itineraries-by-tips
-      Firebase.database().ref(Constants.ITINERARIES_BY_USER_BY_TIP_PATH + '/' + auth + '/' + tip.key + '/' + itineraryId).remove();
+      Firebase.database().ref(Constants.ITINERARIES_BY_USER_BY_SUBJECT_PATH + '/' + auth + '/' + tip.key + '/' + itineraryId).remove();
 
       // decerement popularity score
       Helpers.decrementGuideScore(itinerary.id, Constants.ADD_TIP_GUIDE_SCORE)
