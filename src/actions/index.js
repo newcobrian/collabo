@@ -1378,19 +1378,30 @@ export function onCommentSubmit(authenticated, userInfo, type, commentObject, bo
     let objectId = ( type === Constants.ITINERARY_TYPE ? commentObject.id : commentObject.key );
 
     if (objectId) {
-      let commentId = Firebase.database().ref(Constants.COMMENTS_PATH + '/' + objectId).push(comment).key;
+      // let commentId = Firebase.database().ref(Constants.COMMENTS_PATH + '/' + objectId).push(comment).key;
+      let commentId = '';
+      let path = '';
       if (type === Constants.TIPS_TYPE) {
         // Helpers.incrementReviewCount(Constants.COMMENTS_COUNT, objectId, commentObject.subjectId, commentObject.userId);
+        commentId = Firebase.database().ref(Constants.SUBJECTS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + objectId + '/comments').push(comment).key;
+        path = Constants.SUBJECTS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + objectId + '/comments';
+
         Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + objectId + '/commentsCount').transaction(function (current_count) {
           return (current_count || 0) + 1;
         });
       }
       else if (type === Constants.RECOMMENDATIONS_TYPE) {
+        commentId = Firebase.database().ref(Constants.RECS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + objectId + '/comments').push(comment).key;
+        path = Constants.RECS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + objectId + '/comments';
+
         inboxMessageType = Constants.COMMENT_ON_REC_MESSAGE;
         commentOnCommentType = Constants.COMMENT_ON_COMMENT_REC_MESSAGE;
       }
       else if (type === Constants.ITINERARY_TYPE) {
       // this is a comment on an itinerary
+        commentId = Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId + '/comments').push(comment).key;
+        path = Constants.ITINERARIES_PATH + '/' + itineraryId + '/comments';
+
         Helpers.incrementItineraryCount(Constants.COMMENTS_COUNT, objectId, commentObject.geo, commentObject.userId); 
 
         // update lastComment on itinerary
@@ -1419,7 +1430,7 @@ export function onCommentSubmit(authenticated, userInfo, type, commentObject, bo
         })
       }
 
-      Firebase.database().ref(Constants.COMMENTS_PATH + '/' + objectId).once('value', commentsSnapshot => {
+      Firebase.database().ref(path + '/' + objectId).once('value', commentsSnapshot => {
         commentsSnapshot.forEach(function(comment) {
           let commenterId = comment.val().userId;
           // if not commentor or in sent array, then send a message
@@ -1466,16 +1477,14 @@ export function onCommentSubmit(authenticated, userInfo, type, commentObject, bo
 
 export function onDeleteComment(commentObject, commentId, itineraryId, type) {
   return dispatch => {
-    if (commentObject.subjectId) {
-      // this is a review or recommendation comment
-      Firebase.database().ref(Constants.COMMENTS_PATH + '/' + commentObject.key + '/' + commentId).remove();
-      // Helpers.decrementReviewCount(Constants.COMMENTS_COUNT, commentObject.id, commentObject.subjectId, commentObject.createdBy.userId);
-
-      if (type === Constants.TIPS_TYPE) {
-        Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + commentObject.key + '/commentsCount').transaction(function (current_count) {
-          return current_count && current_count > 1 ? current_count - 1 : 0;
-        })
-      }
+    if (type === Constants.TIPS_TYPE) {
+      Firebase.database().ref(Constants.SUBJECTS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + commentObject.key + '/comments/' + commentId).remove();
+      Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + commentObject.key + '/commentsCount').transaction(function (current_count) {
+        return current_count && current_count > 1 ? current_count - 1 : 0;
+      })
+    }
+    else if (type === Constants.RECOMMENDATIONS_TYPE) {
+      Firebase.database().ref(Constants.RECS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + commentObject.key + '/comments/' + commentId).remove();
     }
     // else this is an itinerary comment
     else {
@@ -1513,7 +1522,7 @@ export function onDeleteComment(commentObject, commentId, itineraryId, type) {
       })
 
       // delete the comment
-      Firebase.database().ref(Constants.COMMENTS_PATH + '/' + commentObject.id + '/' + commentId).remove();
+      Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId + '/comments/' + commentId).remove();
 
       Helpers.decrementItineraryCount(Constants.COMMENTS_COUNT, commentObject.id, commentObject.geo, commentObject.createdBy.userId);
     }
