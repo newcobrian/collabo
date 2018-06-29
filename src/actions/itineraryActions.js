@@ -597,7 +597,7 @@ export function onAddTip(auth, result, itinerary, type) {
           let review = {};
           // see if user has reviewed this subject
           if (reviewsSnap.exists() && reviewsSnap.val().reviewId) {
-            console.log('xists = ' + JSON.stringify(reviewsSnap.val()))
+            reviewId = reviewsSnap.val().reviewId;
             Object.assign(review, reviewsSnap.val());
           }
           else {
