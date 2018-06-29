@@ -1186,7 +1186,7 @@ const ShareGuideTooltip = props => {
               authenticated={this.props.authenticated}
               userInfo={this.props.userInfo}
               type={Constants.ITINERARY_TYPE}
-              comments={Selectors.getItineraryComments(this.props.commentsData, itinerary.id) || []}
+              comments={itinerary.comments || {}}
               errors={this.props.commentErrors}
               commentObject={itinerary}
               deleteComment={this.props.onDeleteComment}

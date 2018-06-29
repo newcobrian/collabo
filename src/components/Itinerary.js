@@ -246,7 +246,7 @@ class Itinerary extends React.Component {
       const createdByImage = Selectors.getCreatedByUserImage(this.props.itinerary);
       const addTipFunc = this.props.onAddTip;
       const auth = this.props.authenticated;
-
+      
       const onCopyClick = () => {
         this.props.openSnackbar('Share link copied to clipboard');
       }
@@ -750,7 +750,7 @@ class Itinerary extends React.Component {
                 authenticated={this.props.authenticated}
                 userInfo={this.props.userInfo}
                 type={ITINERARY_TYPE}
-                comments={Selectors.getItineraryComments(this.props.commentsData, this.props.itinerary.id) || []}
+                comment={itinerary.comments || {}}
                 errors={this.props.commentErrors}
                 commentObject={itinerary}
                 deleteComment={this.props.onDeleteComment}

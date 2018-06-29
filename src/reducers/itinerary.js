@@ -182,7 +182,6 @@ export default (state = initialState, action) => {
         // let comments = newState.itinerary.comments ? [].concat(newState.itinerary.comments) : (newState.usersData[action.itinerary.userId] ? [].concat(newState.usersData[action.itinerary.userId]) : []);
         if (!isEqual(action.itinerary, omit(newState.itinerary, ['isLiked', 'createdBy', 'id']))) {
           newState.itinerary = Object.assign({}, action.itinerary, { id: action.itineraryId }, {isLiked: isLiked}, {createdBy: createdBy});
-          // newState.itinerary = Object.assign({}, action.itinerary, {isLiked: isLiked}, {createdBy: createdBy});
           newState.itineraryId = action.itineraryId;
           newState.itineraryNotFound = false
           return newState;
