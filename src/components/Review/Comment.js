@@ -47,7 +47,7 @@ const Comment = props => {
                 <DeleteButton 
                   show={show} 
                   commentObject={props.commentObject} 
-                  commentId={comment.id} 
+                  commentId={props.commentId} 
                   deleteComment={props.deleteComment} 
                   itineraryId={props.itineraryId} 
                   type={props.type} />

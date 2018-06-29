@@ -3,7 +3,7 @@ import * as Constants from '../constants'
 import * as Helpers from '../helpers'
 import * as ActionTypes from './types'
 import { watchLikesByUser, unwatchLikesByUser, watchUser, unwatchUser } from './index'
-import { isEqual, pick } from 'lodash'
+import { isEqual, pick, omit } from 'lodash'
 import mixpanel from 'mixpanel-browser'
 
 export function watchItinerary(auth, itineraryId) {
@@ -21,7 +21,7 @@ export function watchItinerary(auth, itineraryId) {
   			watchTips(dispatch, itineraryId, itinerarySnapshot.val().userId, Constants.ITINERARY_PAGE, Constants.TIPS_TYPE);
 
         // watch itinerary comments
-        watchComments(dispatch, itineraryId, Constants.ITINERARY_PAGE);
+        // watchComments(dispatch, itineraryId, Constants.ITINERARY_PAGE);
 
         // get all recommendations in the itinerary, note dataType is RECOMMENDATIONS_TYPE
         watchTips(dispatch, itineraryId, itinerarySnapshot.val().userId, Constants.ITINERARY_PAGE, Constants.RECOMMENDATIONS_TYPE);
@@ -46,7 +46,7 @@ export function unwatchItinerary(auth, itineraryId) {
         unwatchUser(dispatch, itinerarySnapshot.val().userId, Constants.ITINERARY_PAGE);
         unwatchTips(dispatch, itineraryId, itinerarySnapshot.val().userId, Constants.ITINERARY_PAGE, Constants.TIPS_TYPE);
         watchTips(dispatch, itineraryId, itinerarySnapshot.val().userId, Constants.ITINERARY_PAGE, Constants.RECOMMENDATIONS_TYPE);
-        unwatchComments(dispatch, itineraryId, Constants.ITINERARY_PAGE, );
+        // unwatchComments(dispatch, itineraryId, Constants.ITINERARY_PAGE, );
       }
     })
     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).off();
@@ -222,7 +222,7 @@ export function watchTips(dispatch, itineraryId, itineraryUserId, source, dataTy
     }
     // watchSubject(dispatch, tipSnapshot.key, tipSnapshot.val().subjectId, source, dataType);
     // watchReview(dispatch, tipSnapshot.key, tipSnapshot.val().reviewId, source, dataType);
-    watchComments(dispatch, tipSnapshot.key, source, dataType);
+    // watchComments(dispatch, tipSnapshot.key, source, dataType);
     watchImagesByUser(dispatch, itineraryUserId, tipSnapshot.val().subjectId, source, dataType);
     watchDefaultImages(dispatch, tipSnapshot.val().subjectId, source, dataType);
     dispatch(tipAddedAction(tipSnapshot.key, tipSnapshot.val(), source, dataType));
@@ -232,7 +232,7 @@ export function watchTips(dispatch, itineraryId, itineraryUserId, source, dataTy
   Firebase.database().ref(path + '/' + itineraryId).orderByChild('priority').on('child_changed', tipSnapshot => {
     // watchSubject(dispatch, tipSnapshot.key, tipSnapshot.val().subjectId, source, dataType);
     // watchReview(dispatch, tipSnapshot.key, tipSnapshot.val().reviewId, source, dataType);
-    watchComments(dispatch, tipSnapshot.key, source, dataType);
+    // watchComments(dispatch, tipSnapshot.key, source, dataType);
     watchImagesByUser(dispatch, itineraryUserId, tipSnapshot.val().subjectId, source, dataType);
     watchDefaultImages(dispatch, tipSnapshot.val().subjectId, source, dataType);
     dispatch(tipChangedAction(tipSnapshot.key, tipSnapshot.val(), source, dataType));
@@ -241,7 +241,7 @@ export function watchTips(dispatch, itineraryId, itineraryUserId, source, dataTy
   Firebase.database().ref(path + '/' + itineraryId).orderByChild('priority').on('child_removed', tipSnapshot => {
     // unwatchSubject(dispatch, tipSnapshot.key, tipSnapshot.val().subjectId, source, dataType);
     // unwatchReview(dispatch, tipSnapshot.key, tipSnapshot.val().reviewId, source, dataType);
-    unwatchComments(dispatch, tipSnapshot.key, source, dataType);
+    // unwatchComments(dispatch, tipSnapshot.key, source, dataType);
     unwatchImagesByUser(dispatch, itineraryUserId, tipSnapshot.val().subjectId, source, dataType);
     unwatchDefaultImages(dispatch, tipSnapshot.val().subjectId, source, dataType);
     dispatch(tipRemovedAction(tipSnapshot.key, source, dataType));
@@ -255,7 +255,7 @@ export function unwatchTips(dispatch, itineraryId, itineraryUserId, source, data
       unwatchUser(dispatch, tipSnapshot.val().userId, source)
       // unwatchSubject(dispatch, tipSnapshot.key, tipSnapshot.val().subjectId, source);
       // unwatchReview(dispatch, tipSnapshot.key, tipSnapshot.val().reviewId, source);
-      unwatchComments(dispatch, tipSnapshot.key, source);
+      // unwatchComments(dispatch, tipSnapshot.key, source);
       unwatchImagesByUser(dispatch, itineraryUserId, tipSnapshot.val().subjectId, source);
       unwatchDefaultImages(dispatch, tipSnapshot.val().subjectId, source);
     }

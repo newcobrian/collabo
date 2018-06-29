@@ -1070,7 +1070,7 @@ const ShareGuideTooltip = props => {
                                           <div className="flx flx-row flex-wrap cta-container">
                                              <CommentContainer
                                                 authenticated={this.props.authenticated}
-                                                comments={tip.comments || []}
+                                                comments={tip.comments || {}}
                                                 commentObject={tip}
                                                 itineraryId={itinerary.id}
                                                 userInfo={this.props.userInfo}

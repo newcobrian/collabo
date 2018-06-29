@@ -274,11 +274,11 @@ export default (state = initialState, action) => {
           // let subject = { subject: Object.assign({}, newState.subjectsData[action.tip.subjectId]) };
           // let review = { review: Object.assign({}, newState.reviewsData[action.tip.reviewId]) };
           let createdBy = { createdBy: Object.assign({}, newState.usersData[action.tip.userId]) };
-          let comments = { comments: newState.commentsData[action.tipId] ? [].concat(newState.commentsData[action.tipId]) : [] };
+          // let comments = { comments: newState.commentsData[action.tipId] ? [].concat(newState.commentsData[action.tipId]) : [] };
           let isLiked = { isLiked: newState.likesData[action.tipId] ? true : false };
-          let images = getImage(newState.userImagesData[action.tip.subjectId], newState.defaultImagesData[action.tip.subjectId]);
+          let images = getImage(newState.userImagesData[action.tip.tipId], newState.defaultImagesData[action.tip.tipId]);
           // newState[action.dataType] = newState[action.dataType].concat(Object.assign({}, {key: action.tipId}, {priority: action.priority}, action.tip, subject, review, createdBy, comments, isLiked, images));
-          newState[action.dataType] = newState[action.dataType].concat(Object.assign({}, {key: action.tipId}, {priority: action.priority}, action.tip, createdBy, comments, isLiked, images));
+          newState[action.dataType] = newState[action.dataType].concat(Object.assign({}, {key: action.tipId}, {priority: action.priority}, action.tip, createdBy, isLiked, images));
 
           return newState;
         }
@@ -293,13 +293,13 @@ export default (state = initialState, action) => {
         // let subject = { subject: Object.assign({}, newState.subjectsData[action.tip.subjectId]) };
         // let review = { review: Object.assign({}, newState.reviewsData[action.tip.reviewId]) };
         let createdBy = { createdBy: Object.assign({}, newState.usersData[action.tip.userId]) };
-        let comments = { comments: newState.commentsData[action.tipId] ? [].concat(newState.commentsData[action.tipId]) : [] };
+        // let comments = { comments: newState.commentsData[action.tipId] ? [].concat(newState.commentsData[action.tipId]) : [] };
         let isLiked = { isLiked: newState.likesData[action.tipId] ? true : false };
-        let images = getImage(newState.userImagesData[action.tip.subjectId], newState.defaultImagesData[action.tip.subjectId]);
+        let images = getImage(newState.userImagesData[action.tip.tipId], newState.defaultImagesData[action.tip.tipId]);
         for (let i = 0; i < newState[action.dataType].length; i++) {
           if (newState[action.dataType][i].key === action.tipId) {
             // newState[action.dataType][i] = Object.assign({}, {key: action.tipId}, {priority: action.priority}, action.tip, subject, review, createdBy, comments, isLiked, images);
-            newState[action.dataType][i] = Object.assign({}, {key: action.tipId}, {priority: action.priority}, action.tip, createdBy, comments, isLiked, images);
+            newState[action.dataType][i] = Object.assign({}, {key: action.tipId}, {priority: action.priority}, action.tip, createdBy, isLiked, images);
             newState[action.dataType].sort(Helpers.byPriority);
             return newState;
           }

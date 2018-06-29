@@ -5,14 +5,15 @@ const CommentList = props => {
   return (
     <div>
       {
-        props.comments.map(comment => {
+        Object.keys(props.comments || {}).map(function (commentId) {
           return (
             <Comment
-              comment={comment}
+              comment={props.comments[commentId]}
               authenticated={props.authenticated}
               userInfo={props.userInfo}
               commentObject={props.commentObject}
-              key={comment.id}
+              key={commentId}
+              commentId={commentId}
               deleteComment={props.deleteComment}
               itineraryId={props.itineraryId}
               type={props.type} />

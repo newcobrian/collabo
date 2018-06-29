@@ -307,7 +307,7 @@ const TipPreview = props => {
                       <div className="flx flx-row flex-wrap cta-container mrgn-top-sm">
                          <CommentContainer
                             authenticated={props.authenticated}
-                            comments={tip.comments || []}
+                            comments={tip.comments || {}}
                             errors={props.commentErrors}
                             commentObject={tip}
                             itineraryId={props.itineraryId}
