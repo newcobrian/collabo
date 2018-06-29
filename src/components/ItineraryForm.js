@@ -257,7 +257,7 @@ class ItineraryForm extends React.Component {
 
     const handleAddToGuideClick = tip => ev => {
       ev.preventDefault();
-      this.props.showModal(Constants.SAVE_MODAL, tip, tip.images);
+      this.props.showModal(Constants.SAVE_MODAL, tip, tip.images, itinerary.id);
     }
 
     const onInfoClick = tip => ev => {

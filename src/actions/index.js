@@ -2784,7 +2784,7 @@ function createGeo(itinerary) {
   }
 }
 
-export function addToItinerary(auth, tip, itinerary) {
+export function addToItinerary(auth, tip, itinerary, fromItineraryId) {
   return dispatch => {
     let itineraryId;
     // create the itinerary if this is a new itinerary
@@ -2803,15 +2803,14 @@ export function addToItinerary(auth, tip, itinerary) {
       itineraryId = itinerary.itineraryId;
     }
 
-    Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).once('value', reviewsByItinSnapshot => {
-      let subjectId = tip.subjectId;
+    Firebase.database().ref(Constants.SUBJECTS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + tip.key).once('value', tipByItinSnap => {
+      let subjectId = tip.key;
       // if itinerary already contains the subject, show a message that its already there
-      if (reviewsByItinSnapshot.exists() && findSubject(subjectId, reviewsByItinSnapshot.val())) {
-      // if (itinSnapshot.val().reviews && itinSnapshot.val().reviews[subjectId]) {
-        let message = itinerary.title + ' already contains ' + tip.subject.title;
+      if (tipByItinSnap.exists()) {
+        // tip already exists in itinerary, dispatch an error message
         dispatch({
           type: SUBJECT_DUPLICATE,
-          message: message
+          message: itinerary.title + ' already contains ' + tip.subject.title
         })
       }
       else {
@@ -2821,40 +2820,30 @@ export function addToItinerary(auth, tip, itinerary) {
             Firebase.database().ref(Constants.REVIEWS_BY_SUBJECT_PATH + '/' + subjectId + '/' + auth).once('value', reviewSnapshot => {
               let geo = itinSnapshot.val().geo;
               let updates = {};
+              let lastModified = Firebase.database.ServerValue.TIMESTAMP;
               let priority = itinSnapshot.val().maxPriority ? itinSnapshot.val().maxPriority + 1 : (itinSnapshot.val().reviewsCount ? itinSnapshot.val().reviewsCount + 1 : 1);
-              let tipData = {
-                subjectId: subjectId,
-                userId: auth,
-                priority: priority
-              }
-              if (tip.tags) {
-                tipData.tags = Object.assign({}, tip.tags);
-              }
+              let tipData = Object.assign({}, pick(tip, ['lastModified', 'comments', 'subject', 'tags']), {userId: auth}, {priority: priority})
+                
               if (reviewSnapshot.exists() && reviewSnapshot.val().reviewId) {
                 tipData.reviewId = reviewSnapshot.val().reviewId;
+                tipData.review = Object.assign({}, reviewSnapshot.val())
               }
               else {
-                // create the empty review
-                let lastModified = Firebase.database.ServerValue.TIMESTAMP;
-                let reviewObject = Object.assign({}, {lastModified: lastModified});
+                // get review data from the itinerary we saved from
+                let reviewObject = Object.assign({}, pick(tip, ['rating', 'caption']), {lastModified: lastModified});
                 let reviewId = Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + auth).push().key;
                 updates[`/${Constants.REVIEWS_BY_USER_PATH}/${auth}/${reviewId}/`] = Object.assign({}, reviewObject, {subjectId: subjectId});
                 updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${subjectId}/${auth}/`] = Object.assign({}, reviewObject, {reviewId: reviewId});
                 updates[`/${Constants.REVIEWS_PATH}/${reviewId}/`] = Object.assign({}, reviewObject, { userId: auth }, {subjectId: subjectId});
-                tipData.reviewId = reviewId;
+                Object.assign(tipData, reviewObject, {reviewId: reviewId});
               }
 
-              // let reviewsList = reviewsByItinSnapshot.val() ? reviewsByItinSnapshot.val() : [];
-              // let index = reviewsByItinSnapshot.val() ? reviewsByItinSnapshot.val().length : 0;
-              // reviewsList[index] = tipData;
-              // updates[`/${Constants.TIPS_BY_ITINERARY_PATH}/${itineraryId}`] = reviewsList;
-
               // update reviews by itinerary
-              let tipId = Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).push(tipData).key;
-              let lastModified = Firebase.database.ServerValue.TIMESTAMP;
+              // let tipId = Firebase.database().ref(Constants.SUBJECTS_BY_ITINERARY_PATH + '/' + itineraryId).push(tipData).key;
+              updates[`/${Constants.SUBJECTS_BY_ITINERARY_PATH}/${itineraryId}/${subjectId}`] = tipData;
 
               // add to tips-by-subject
-              updates[`/${Constants.TIPS_BY_SUBJECT_PATH}/${subjectId}/${auth}/${tipId}/`] = Object.assign({}, {itineraryId: itineraryId}, {title: itinSnapshot.val().title});
+              // updates[`/${Constants.TIPS_BY_SUBJECT_PATH}/${subjectId}/${auth}/${tipId}/`] = Object.assign({}, {itineraryId: itineraryId}, {title: itinSnapshot.val().title});
 
               // update lastModified on itinerary tables
               updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}/lastModified`] = lastModified;
@@ -2906,6 +2895,12 @@ export function addToItinerary(auth, tip, itinerary) {
                   }
                 }
               })
+            })
+          }
+          else {
+            dispatch({
+              type: SHOW_SNACKBAR,
+              message: 'ERROR: Sorry, place info does not exist'
             })
           }
         })

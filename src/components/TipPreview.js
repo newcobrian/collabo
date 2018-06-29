@@ -132,7 +132,7 @@ const TipPreview = props => {
       
   const handleSaveClick = ev => {
     ev.preventDefault();
-    props.showModal(Constants.SAVE_MODAL, props.tip, props.tip.images);
+    props.showModal(Constants.SAVE_MODAL, props.tip, props.tip.images, props.itineraryId);
   }
 
   const onInfoClick = ev => {
