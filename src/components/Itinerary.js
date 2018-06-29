@@ -500,7 +500,7 @@ class Itinerary extends React.Component {
                         <div className="cta-wrapper flx flx-row vb vb--xs vb--outline--none vb--nohover fill--white color--black">
                           <LikeReviewButton
                             authenticated={this.props.authenticated}
-                            isLiked={itinerary.isLiked}
+                            isLiked={itinerary.likes ? itinerary.likes[this.props.authenticated] : false}
                             likesCount={itinerary.likesCount}
                             unLike={this.props.unLikeReview}
                             like={this.props.likeReview} 

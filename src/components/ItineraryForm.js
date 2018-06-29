@@ -348,7 +348,7 @@ class ItineraryForm extends React.Component {
             <div className="cta-wrapper flx flx-row vb vb--sm vb--outline--none fill--white color--black">
               <LikeReviewButton
                 authenticated={this.props.authenticated}
-                isLiked={itinerary.isLiked}
+                isLiked={itinerary.likes ? itinerary.likes[this.props.authenticated] : false}
                 likesCount={itinerary.likesCount}
                 unLike={this.props.unLikeReview}
                 like={this.props.likeReview} 
@@ -622,7 +622,7 @@ const ShareGuideTooltip = props => {
                   <div className="cta-wrapper flx flx-row vb vb--xs vb--outline--none vb--nohover fill--none color--black">
                     <LikeReviewButton
                       authenticated={this.props.authenticated}
-                      isLiked={itinerary.isLiked}
+                      isLiked={itinerary.likes ? itinerary.likes[this.props.authenticated] : false}
                       likesCount={itinerary.likesCount}
                       unLike={this.props.unLikeReview}
                       like={this.props.likeReview} 
@@ -952,7 +952,7 @@ const ShareGuideTooltip = props => {
                                            <div className="cta-wrapper vb vb--tip vb--outline--none flx flx-row flx-align-center v2-type-body2">
                                              <LikeReviewButton
                                                authenticated={this.props.authenticated}
-                                               isLiked={tip.isLiked}
+                                               isLiked={tip.likes ? tip.likes[this.props.authenticated] : false}
                                                likesCount={tip.likesCount}
                                                unLike={this.props.unLikeReview}
                                                like={this.props.likeReview} 

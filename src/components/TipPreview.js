@@ -210,7 +210,7 @@ const TipPreview = props => {
                       <div className="cta-wrapper vb vb--tip vb--outline--none flx flx-row flx-align-center v2-type-body2 ">
                         <LikeReviewButton
                           authenticated={props.authenticated}
-                          isLiked={props.tip.isLiked}
+                          isLiked={props.tip.likes ? props.tip.likes[this.props.authenticated] : false}
                           likesCount={props.tip.likesCount}
                           likeObject={tip}
                           itineraryId={props.itineraryId}
