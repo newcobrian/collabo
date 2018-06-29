@@ -380,7 +380,7 @@ export default (state = initialState, action) => {
           newState[action.dataType] = newState[action.dataType] || [];
           newState[action.dataType] = newState[action.dataType].slice();
           for (let i = 0; i < newState[action.dataType].length; i++) {
-            if (newState[action.dataType][i].subjectId === action.subjectId) {
+            if (newState[action.dataType][i].key === action.subjectId) {
               newState[action.dataType][i].images = [].concat(action.images);
             }
           }
@@ -402,7 +402,7 @@ export default (state = initialState, action) => {
           newState[action.dataType] = newState[action.dataType].slice();
           for (let i = 0; i < newState[action.dataType].length; i++) {
             // if subject ID matches and theres no custom image, update with default image
-            if (newState[action.dataType][i].subjectId === action.subjectId && !newState.userImagesData[action.subjectId]) {
+            if (newState[action.dataType][i].key === action.subjectId && !newState.userImagesData[action.subjectId]) {
               newState[action.dataType][i].images = [].concat(action.images);
             }
           }

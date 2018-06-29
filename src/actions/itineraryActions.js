@@ -223,8 +223,8 @@ export function watchTips(dispatch, itineraryId, itineraryUserId, source, dataTy
     // watchSubject(dispatch, tipSnapshot.key, tipSnapshot.val().subjectId, source, dataType);
     // watchReview(dispatch, tipSnapshot.key, tipSnapshot.val().reviewId, source, dataType);
     // watchComments(dispatch, tipSnapshot.key, source, dataType);
-    watchImagesByUser(dispatch, itineraryUserId, tipSnapshot.val().subjectId, source, dataType);
-    watchDefaultImages(dispatch, tipSnapshot.val().subjectId, source, dataType);
+    watchImagesByUser(dispatch, itineraryUserId, tipSnapshot.key, source, dataType);
+    watchDefaultImages(dispatch, tipSnapshot.key, source, dataType);
     dispatch(tipAddedAction(tipSnapshot.key, tipSnapshot.val(), source, dataType));
   })
 
@@ -233,8 +233,8 @@ export function watchTips(dispatch, itineraryId, itineraryUserId, source, dataTy
     // watchSubject(dispatch, tipSnapshot.key, tipSnapshot.val().subjectId, source, dataType);
     // watchReview(dispatch, tipSnapshot.key, tipSnapshot.val().reviewId, source, dataType);
     // watchComments(dispatch, tipSnapshot.key, source, dataType);
-    watchImagesByUser(dispatch, itineraryUserId, tipSnapshot.val().subjectId, source, dataType);
-    watchDefaultImages(dispatch, tipSnapshot.val().subjectId, source, dataType);
+    watchImagesByUser(dispatch, itineraryUserId, tipSnapshot.key, source, dataType);
+    watchDefaultImages(dispatch, tipSnapshot.key, source, dataType);
     dispatch(tipChangedAction(tipSnapshot.key, tipSnapshot.val(), source, dataType));
   })
 
@@ -242,8 +242,8 @@ export function watchTips(dispatch, itineraryId, itineraryUserId, source, dataTy
     // unwatchSubject(dispatch, tipSnapshot.key, tipSnapshot.val().subjectId, source, dataType);
     // unwatchReview(dispatch, tipSnapshot.key, tipSnapshot.val().reviewId, source, dataType);
     // unwatchComments(dispatch, tipSnapshot.key, source, dataType);
-    unwatchImagesByUser(dispatch, itineraryUserId, tipSnapshot.val().subjectId, source, dataType);
-    unwatchDefaultImages(dispatch, tipSnapshot.val().subjectId, source, dataType);
+    unwatchImagesByUser(dispatch, itineraryUserId, tipSnapshot.key, source, dataType);
+    unwatchDefaultImages(dispatch, tipSnapshot.key, source, dataType);
     dispatch(tipRemovedAction(tipSnapshot.key, source, dataType));
   })
 }
@@ -256,8 +256,8 @@ export function unwatchTips(dispatch, itineraryId, itineraryUserId, source, data
       // unwatchSubject(dispatch, tipSnapshot.key, tipSnapshot.val().subjectId, source);
       // unwatchReview(dispatch, tipSnapshot.key, tipSnapshot.val().reviewId, source);
       // unwatchComments(dispatch, tipSnapshot.key, source);
-      unwatchImagesByUser(dispatch, itineraryUserId, tipSnapshot.val().subjectId, source);
-      unwatchDefaultImages(dispatch, tipSnapshot.val().subjectId, source);
+      unwatchImagesByUser(dispatch, itineraryUserId, tipSnapshot.key, source);
+      unwatchDefaultImages(dispatch, tipSnapshot.key, source);
     }
   })
   Firebase.database().ref(path + '/' + itineraryId).off();
