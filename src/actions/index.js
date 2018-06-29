@@ -2825,8 +2825,7 @@ export function addToItinerary(auth, tip, itinerary, fromItineraryId) {
               let tipData = Object.assign({}, pick(tip, ['lastModified', 'comments', 'subject', 'tags']), {userId: auth}, {priority: priority})
                 
               if (reviewSnapshot.exists() && reviewSnapshot.val().reviewId) {
-                tipData.reviewId = reviewSnapshot.val().reviewId;
-                tipData.review = Object.assign({}, reviewSnapshot.val())
+                Object.assign(tipData, pick(reviewSnapshot.val(), ['rating', 'caption', 'reviewId']))
               }
               else {
                 // get review data from the itinerary we saved from
