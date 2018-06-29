@@ -9,7 +9,7 @@ import mixpanel from 'mixpanel-browser'
 export function watchItinerary(auth, itineraryId) {
 	return (dispatch, getState) => {
 		// get the likes data for the viewer
-		watchLikesByUser(dispatch, auth, Constants.ITINERARY_PAGE);
+		// watchLikesByUser(dispatch, auth, Constants.ITINERARY_PAGE);
 
 		// watch the itinerary
 		Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).on('value', itinerarySnapshot => {
@@ -40,7 +40,7 @@ export function watchItinerary(auth, itineraryId) {
 
 export function unwatchItinerary(auth, itineraryId) {
   return dispatch => {
-    unwatchLikesByUser(dispatch, auth);
+    // unwatchLikesByUser(dispatch, auth);
     Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).once('value', itinerarySnapshot => {
       if (itinerarySnapshot.exists()) {
         unwatchUser(dispatch, itinerarySnapshot.val().userId, Constants.ITINERARY_PAGE);
