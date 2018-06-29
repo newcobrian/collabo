@@ -63,7 +63,7 @@ export const ITINERARIES_BY_USER_PATH = '/itineraries-by-user'
 export const ITINERARIES_BY_GEO_PATH = '/itineraries-by-geo'
 	// stored geo id -> user id -> itinerary object
 export const ITINERARIES_BY_GEO_BY_USER_PATH = '/itineraries-by-geo-by-user'
-export const ITINERARIES_BY_TIP_PATH = '/itineraries-by-tip'
+export const ITINERARIES_BY_USER_BY_TIP_PATH = '/itineraries-by-user-by-tip'
 export const TIPS_PATH = '/tips'
 	// stored tip id -> tip object w subjectId and userId
 export const TIPS_BY_USER_PATH = '/tips-by-user'

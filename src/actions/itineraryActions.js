@@ -472,6 +472,8 @@ export function updateReviewField(auth, itinerary, field, value, tip, dataType=C
       updates[`/${Constants.REVIEWS_BY_USER_PATH}/${auth}/${tip.reviewId}/${field}`] = value;
       updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${tip.subjectId}/${userId}/${field}`] = value;
 
+      // update every itinerary of the user's that the tip belongs to
+
       // update lastModified on all reviews
       updates[`/${Constants.REVIEWS_PATH}/${tip.reviewId}/lastModified`] = timestamp;
       updates[`/${Constants.REVIEWS_BY_USER_PATH}/${auth}/${tip.reviewId}/lastModified`] = timestamp;
@@ -620,7 +622,7 @@ export function onAddTip(auth, result, itinerary, type) {
             // updates[`/${Constants.TIPS_BY_SUBJECT_PATH}/${subjectId}/${auth}/${tipId}/`] = Object.assign({}, {itineraryId: itinerary.id}, {title: itinerary.title});
 
             //update itineraries-by-tip
-            updates[Constants.ITINERARIES_BY_TIP_PATH + '/' + subjectId + '/' + itinerary.id] = true;
+            updates[Constants.ITINERARIES_BY_USER_BY_TIP_PATH + '/' auth + '/' + subjectId + '/' + itinerary.id] = true;
 
             // update review counts on the itinerary
             Firebase.database().ref(Constants.ITINERARIES_BY_USER_PATH + '/' + itinerary.userId + '/' + itinerary.id + '/reviewsCount').transaction(function (current_count) {
@@ -713,7 +715,7 @@ export function onDeleteTip(auth, tip, itineraryId, itinerary) {
       // Firebase.database().ref(Constants.TIPS_BY_SUBJECT_PATH + '/' + tip.subjectId + '/' + auth + '/' + tip.key).remove();
 
       // update itineraries-by-tips
-      Firebase.database().ref(Constants.ITINERARIES_BY_TIP_PATH + '/' + tip.key + '/' + itineraryId).remove();
+      Firebase.database().ref(Constants.ITINERARIES_BY_USER_BY_TIP_PATH + '/' + auth + '/' + tip.key + '/' + itineraryId).remove();
 
       // decerement popularity score
       Helpers.decrementGuideScore(itinerary.id, Constants.ADD_TIP_GUIDE_SCORE)
