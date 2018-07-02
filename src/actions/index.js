@@ -1545,12 +1545,12 @@ export function onDeleteItinerary(userId, itineraryId, geo, redirectPath) {
   return dispatch => {
     // first delete all tips in guide in TIPS_BY_SUBJECT
     // paths are TIPS_BY_SUBJECT/subjectId/userId/tipId
-    Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).once('value', tipsSnap => {
-      tipsSnap.forEach(function(tipItem) {
-        let tip = tipItem.val();
-        Firebase.database().ref(Constants.TIPS_BY_SUBJECT_PATH + '/' + tip.subjectId + '/' + tip.userId + '/' + tipItem.key).remove();
-      })
-    })
+    // Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).once('value', tipsSnap => {
+    //   tipsSnap.forEach(function(tipItem) {
+    //     let tip = tipItem.val();
+    //     Firebase.database().ref(Constants.TIPS_BY_SUBJECT_PATH + '/' + tip.subjectId + '/' + tip.userId + '/' + tipItem.key).remove();
+    //   })
+    // })
 
     // then delete any likes on the guide
     // LEAVING THIS COMMENTED OUT FOR NOW
