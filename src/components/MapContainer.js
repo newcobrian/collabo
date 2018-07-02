@@ -85,12 +85,13 @@ class MapContainer extends React.Component {
 		        {
 		          this.props.visibleTips.map((tipItem, index) => {
 		          	let markerUrl = (tipItem.key === this.props.selectedMarker ? "/img/graphics/map-pin_hover.png": "/img/graphics/map-pin_normal.png")
+		          	let markerName = tipItem.subject ? tipItem.subject.title : ''
 		            return (
 		              <Marker
 		                key={index}
-		                name={tipItem.subject.title}
-		                title={'# ' + index + ': ' + tipItem.subject.title}
-		                position={tipItem.subject.location}
+		                name={markerName}
+		                title={'# ' + index + ': ' + markerName}
+		                position={tipItem.subject ? tipItem.subject.location : null}
 		                onClick={this.onMarkerClick(tipItem)}
 		                icon={{
 					      url: markerUrl,

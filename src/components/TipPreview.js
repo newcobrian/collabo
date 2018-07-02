@@ -128,6 +128,7 @@ const RatingDisplay = props => {
 
 const TipPreview = props => {
   const tip = props.tip;
+  let title = tip.subject ? tip.subject.title : ''
   let canModify = props.authenticated === tip.userId ? true : false;
       
   const handleSaveClick = ev => {
@@ -169,7 +170,7 @@ const TipPreview = props => {
                     { /** Title **/ }
                     <div className="hide-in-list tip__title tip-title ta-left">
                       <div className="tip__order-count color--black">{props.index}.</div>
-                      <Link to={`/review/${tip.subjectId}`}> {tip.subject.title}</Link>
+                      <Link to={`/review/${tip.subjectId}`}> {title}</Link>
                     </div>
 
                     { /** END Title **/ }
