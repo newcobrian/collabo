@@ -205,7 +205,7 @@ function defaultImagesRemovedAction(subjectId, source, dataType = Constants.TIPS
 
 export function unloadReorderModal(itineraryId) {
   return dispatch => {
-    Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).off();
+    Firebase.database().ref(Constants.SUBJECTS_BY_ITINERARY_PATH + '/' + itineraryId).off();
     // dispatch({
     //   type: ActionTypes.UNLOAD_REORDER_MODAL,
     //   itineraryId
@@ -249,7 +249,7 @@ export function watchTips(dispatch, itineraryId, itineraryUserId, source, dataTy
 }
 
 export function unwatchTips(dispatch, itineraryId, itineraryUserId, source, dataType) {
-  let path = (dataType && dataType === Constants.RECOMMENDATIONS_TYPE) ? Constants.RECS_BY_ITINERARY_PATH : Constants.TIPS_BY_ITINERARY_PATH;
+  let path = (dataType && dataType === Constants.RECOMMENDATIONS_TYPE) ? Constants.RECS_BY_ITINERARY_PATH : Constants.SUBJECTS_BY_ITINERARY_PATH;
   Firebase.database().ref(path + '/' + itineraryId).once('value', tipSnapshot => {
     if (tipSnapshot.exists() && tipSnapshot.val().userId !== itineraryUserId) {
       unwatchUser(dispatch, tipSnapshot.val().userId, source)
@@ -787,9 +787,9 @@ export function onReorderTips(itinerary, oldIndex, newIndex) {
     if (newIndex === itinerary.tips.length-1) {
       let newPriority = itinerary.tips[newIndex].priority;
       // set new priority to same priority of last item
-      updates[`/${Constants.TIPS_BY_ITINERARY_PATH}/${itinerary.id}/${moveTipId}/priority`] = newPriority;
+      updates[`/${Constants.SUBJECTS_BY_ITINERARY_PATH}/${itinerary.id}/${moveTipId}/priority`] = newPriority;
       // set priority of last item to halfway between last item and the item before
-      updates[`/${Constants.TIPS_BY_ITINERARY_PATH}/${itinerary.id}/${itinerary.tips[newIndex].key}/priority`] = (newPriority + itinerary.tips[newIndex-1].priority)/2;
+      updates[`/${Constants.SUBJECTS_BY_ITINERARY_PATH}/${itinerary.id}/${itinerary.tips[newIndex].key}/priority`] = (newPriority + itinerary.tips[newIndex-1].priority)/2;
       
       // // set maxPriority on all itineraries
       // updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${itinerary.userId}/${itinerary.id}/maxPriority`] = newPriority;
@@ -800,12 +800,12 @@ export function onReorderTips(itinerary, oldIndex, newIndex) {
     else if (newIndex === 0) {
       // if moving to 1st spot, just set priority to half of 1st items priority
       let newPriority = itinerary.tips[0].priority / 2;
-      updates[`/${Constants.TIPS_BY_ITINERARY_PATH}/${itinerary.id}/${moveTipId}/priority`] = newPriority;
+      updates[`/${Constants.SUBJECTS_BY_ITINERARY_PATH}/${itinerary.id}/${moveTipId}/priority`] = newPriority;
     }
     else {
       // otherwise, set priority to halfway between item before and item after's priorities
       let newPriority = (itinerary.tips[newIndex].priority + itinerary.tips[newIndex-1].priority) / 2;
-      updates[`/${Constants.TIPS_BY_ITINERARY_PATH}/${itinerary.id}/${moveTipId}/priority`] = newPriority;
+      updates[`/${Constants.SUBJECTS_BY_ITINERARY_PATH}/${itinerary.id}/${moveTipId}/priority`] = newPriority;
     }
     Firebase.database().ref().update(updates);
 
@@ -961,7 +961,7 @@ export function onAddTag(auth, tip, itineraryId, placeId, tag) {
   return dispatch => {
     let updates = {};
     
-    updates[Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + tip.key + '/tags/' + tag] = true;
+    updates[Constants.SUBJECTS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + tip.key + '/tags/' + tag] = true;
     updates[Constants.TIPS_BY_SUBJECT_PATH + '/' + tip.subjectId + '/' + tip.userId + '/' + tip.key + '/tags/' + tag] = true;
     updates[Constants.TAGS_PATH + '/' + tag + '/' + tip.key] = true;
     updates[Constants.TAGS_BY_USER_PATH + '/' + auth + '/' + tag + '/' + tip.key] = true;
@@ -993,7 +993,7 @@ export function onRemoveTag(auth, tip, itineraryId, placeId, tag) {
   return dispatch => {
     let updates = {};
 
-    updates[Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + tip.key + '/tags/' + tag] = null;
+    updates[Constants.SUBJECTS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + tip.key + '/tags/' + tag] = null;
     updates[Constants.TIPS_BY_SUBJECT_PATH + '/' + tip.subjectId + '/' + tip.userId + '/' + tip.key + '/tags/' + tag] = null;
     updates[Constants.TAGS_PATH + '/' + tag + '/' + tip.key] = null;
     updates[Constants.TAGS_BY_USER_PATH + '/' + auth + '/' + tag + '/' + tip.key] = null;

@@ -1565,7 +1565,7 @@ export function onDeleteItinerary(userId, itineraryId, geo, redirectPath) {
     updates[Constants.ITINERARIES_BY_GEO_BY_USER_PATH + '/' + geo + '/' + userId + '/' + itineraryId] = null;
     updates[Constants.ITINERARIES_BY_GEO_PATH + '/' + geo + '/' + itineraryId] = null;
     updates[Constants.ITINERARIES_BY_USER_PATH + '/' + userId + '/' + itineraryId] = null;
-    updates[Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId] = null;
+    updates[Constants.SUBJECTS_BY_ITINERARY_PATH + '/' + itineraryId] = null;
     updates[Constants.LIKES_PATH + '/' + itineraryId] = null;
     updates[Constants.COMMENTS_PATH + '/' + itineraryId] = null;
 
