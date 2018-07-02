@@ -1485,7 +1485,7 @@ export function onDeleteComment(commentObject, commentId, itineraryId, type) {
     }
     else if (type === Constants.RECOMMENDATIONS_TYPE) {
       Firebase.database().ref(Constants.RECS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + commentObject.key + '/comments/' + commentId).remove();
-      Firebase.database().ref(Constants.RECS_BY_ITINERARY_PATH + '/' + commentObject.key + '/commentsCount').transaction(function (current_count) {
+      Firebase.database().ref(Constants.RECS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + commentObject.key + '/commentsCount').transaction(function (current_count) {
         return current_count && current_count > 1 ? current_count - 1 : 0;
       })
     }
