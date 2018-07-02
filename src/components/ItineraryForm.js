@@ -903,7 +903,7 @@ const ShareGuideTooltip = props => {
                                         { /** Title **/ }
                                         <div className="hide-in-list tip__title tip-title flx flx-row ta-left flx-hold">
                                           <div className="tip__order-count color--black">{index+1}.</div> 
-                                          <Link to={`/review/${tip.subjectId}`} className="tip-title-value"> {tip.subject.title}</Link>
+                                          <Link to={`/review/${tip.subjectId}`} className="tip-title-value"> {tip.subject ? tip.subject.title : ''}</Link>
                                         </div>
                                         <div className="tip-map-marker"></div>
                                         
