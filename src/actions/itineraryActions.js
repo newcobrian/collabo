@@ -24,7 +24,7 @@ export function watchItinerary(auth, itineraryId) {
         // watchComments(dispatch, itineraryId, Constants.ITINERARY_PAGE);
 
         // get all recommendations in the itinerary, note dataType is RECOMMENDATIONS_TYPE
-        watchTips(dispatch, itineraryId, itinerarySnapshot.val().userId, Constants.ITINERARY_PAGE, Constants.RECOMMENDATIONS_TYPE);
+        // watchTips(dispatch, itineraryId, itinerarySnapshot.val().userId, Constants.ITINERARY_PAGE, Constants.RECOMMENDATIONS_TYPE);
 
         // dispatch itinerary data
         dispatch(itineraryValueAction(itinerarySnapshot.val(), itineraryId, itinerarySnapshot.val().userId, Constants.ITINERARY_PAGE));
@@ -45,7 +45,7 @@ export function unwatchItinerary(auth, itineraryId) {
       if (itinerarySnapshot.exists()) {
         unwatchUser(dispatch, itinerarySnapshot.val().userId, Constants.ITINERARY_PAGE);
         unwatchTips(dispatch, itineraryId, itinerarySnapshot.val().userId, Constants.ITINERARY_PAGE, Constants.TIPS_TYPE);
-        watchTips(dispatch, itineraryId, itinerarySnapshot.val().userId, Constants.ITINERARY_PAGE, Constants.RECOMMENDATIONS_TYPE);
+        // unwatchTips(dispatch, itineraryId, itinerarySnapshot.val().userId, Constants.ITINERARY_PAGE, Constants.RECOMMENDATIONS_TYPE);
         // unwatchComments(dispatch, itineraryId, Constants.ITINERARY_PAGE, );
       }
     })
@@ -959,64 +959,78 @@ export function closeShareGuide() {
 
 export function onAddTag(auth, tip, itineraryId, placeId, tag) {
   return dispatch => {
-    let updates = {};
+    Firebase.database().ref(Constants.ITINERARIES_BY_USER_BY_TIP_PATH + '/' + auth + '/' + tip.key).once('value', itinSnap => {
+      let updates = {};
     
-    updates[Constants.SUBJECTS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + tip.key + '/tags/' + tag] = true;
-    updates[Constants.TIPS_BY_SUBJECT_PATH + '/' + tip.subjectId + '/' + tip.userId + '/' + tip.key + '/tags/' + tag] = true;
-    updates[Constants.TAGS_PATH + '/' + tag + '/' + tip.key] = true;
-    updates[Constants.TAGS_BY_USER_PATH + '/' + auth + '/' + tag + '/' + tip.key] = true;
-    updates[Constants.TAGS_BY_GEO_PATH + '/' + placeId + '/' + tag + '/' + tip.key] = true;
+      updates[Constants.SUBJECTS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + tip.key + '/tags/' + tag] = true;
+      // updates[Constants.TIPS_BY_SUBJECT_PATH + '/' + tip.subjectId + '/' + tip.userId + '/' + tip.key + '/tags/' + tag] = true;
+      updates[Constants.TAGS_PATH + '/' + tag + '/' + tip.key] = true;
+      updates[Constants.TAGS_BY_USER_PATH + '/' + auth + '/' + tag + '/' + tip.key] = true;
+      updates[Constants.TAGS_BY_GEO_PATH + '/' + placeId + '/' + tag + '/' + tip.key] = true;
 
-    Firebase.database().ref().update(updates)
+      // add tags to other itineraries by the user that this tip belongs to
+      // Object.keys(itinSnap.val() || {}).map(function(itineraryItem) {
+      //   updates[Constants.SUBJECTS_BY_ITINERARY_PATH + '/' + itineraryItem + '/' + tip.key + '/tags/' + tag] = true;
+      // })
 
-    // also increment count on that tag on itineraries
-    Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId + '/tags/' + tag).transaction(function (current_count) {
-      return (current_count || 0) + 1;
-    });
+      Firebase.database().ref().update(updates)
 
-    dispatch({
-      type: ActionTypes.TAG_ADDED,
-      meta: {
-        mixpanel: {
-          event: 'Tag added',
-          props: {
-            itineraryId: itineraryId,
-            tag: tag
+      // also increment count on that tag on itineraries
+      Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId + '/tags/' + tag).transaction(function (current_count) {
+        return (current_count || 0) + 1;
+      });
+
+      dispatch({
+        type: ActionTypes.TAG_ADDED,
+        meta: {
+          mixpanel: {
+            event: 'Tag added',
+            props: {
+              itineraryId: itineraryId,
+              tag: tag
+            }
           }
         }
-      }
+      })
     })
   }
 }
 
 export function onRemoveTag(auth, tip, itineraryId, placeId, tag) {
   return dispatch => {
-    let updates = {};
+    Firebase.database().ref(Constants.ITINERARIES_BY_USER_BY_TIP_PATH + '/' + auth + '/' + tip.key).once('value', itinSnap => {
+      let updates = {};
 
-    updates[Constants.SUBJECTS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + tip.key + '/tags/' + tag] = null;
-    updates[Constants.TIPS_BY_SUBJECT_PATH + '/' + tip.subjectId + '/' + tip.userId + '/' + tip.key + '/tags/' + tag] = null;
-    updates[Constants.TAGS_PATH + '/' + tag + '/' + tip.key] = null;
-    updates[Constants.TAGS_BY_USER_PATH + '/' + auth + '/' + tag + '/' + tip.key] = null;
-    updates[Constants.TAGS_BY_GEO_PATH + '/' + placeId + '/' + tag + '/' + tip.key] = null;
+      updates[Constants.SUBJECTS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + tip.key + '/tags/' + tag] = null;
+      // updates[Constants.TIPS_BY_SUBJECT_PATH + '/' + tip.subjectId + '/' + tip.userId + '/' + tip.key + '/tags/' + tag] = null;
+      updates[Constants.TAGS_PATH + '/' + tag + '/' + tip.key] = null;
+      updates[Constants.TAGS_BY_USER_PATH + '/' + auth + '/' + tag + '/' + tip.key] = null;
+      updates[Constants.TAGS_BY_GEO_PATH + '/' + placeId + '/' + tag + '/' + tip.key] = null;
 
-    Firebase.database().ref().update(updates)
+      // remove tags to other itineraries by the user that this tip belongs to
+      // Object.keys(itinSnap.val() || {}).map(function(itineraryItem) {
+      //   updates[Constants.SUBJECTS_BY_ITINERARY_PATH + '/' + itineraryItem + '/' + tip.key + '/tags/' + tag] = null;
+      // })
 
-    // also decrement count on that tag on itineraries
-    Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId + '/tags/' + tag).transaction(function (current_count) {
-      return current_count && current_count > 1 ? current_count - 1 : 0;
-    });
+      Firebase.database().ref().update(updates)
 
-    dispatch({
-      type: ActionTypes.TAG_REMOVED,
-      meta: {
-        mixpanel: {
-          event: 'Tag removed',
-          props: {
-            itineraryId: itineraryId,
-            tag: tag
+      // also decrement count on that tag on itineraries
+      Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId + '/tags/' + tag).transaction(function (current_count) {
+        return current_count && current_count > 1 ? current_count - 1 : 0;
+      });
+
+      dispatch({
+        type: ActionTypes.TAG_REMOVED,
+        meta: {
+          mixpanel: {
+            event: 'Tag removed',
+            props: {
+              itineraryId: itineraryId,
+              tag: tag
+            }
           }
         }
-      }
+      })
     })
   }
 }
