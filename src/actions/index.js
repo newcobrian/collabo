@@ -2752,7 +2752,8 @@ export function addToItinerary(auth, tip, itinerary, fromItineraryId) {
               let updates = {};
               let lastModified = Firebase.database.ServerValue.TIMESTAMP;
               let priority = itinSnapshot.val().maxPriority ? itinSnapshot.val().maxPriority + 1 : (itinSnapshot.val().reviewsCount ? itinSnapshot.val().reviewsCount + 1 : 1);
-              let tipData = Object.assign({}, pick(tip, ['lastModified', 'comments', 'subject', 'tags']), {userId: auth}, {priority: priority})
+              let tipData = Object.assign({}, pick(tip, ['lastModified', 'comments', 'tags']), {userId: auth}, {priority: priority})
+              tipData.subject = Object.assign({}, pick(tip.subject, ['title', 'location']))
                 
               if (reviewSnapshot.exists() && reviewSnapshot.val().reviewId) {
                 Object.assign(tipData, pick(reviewSnapshot.val(), ['rating', 'caption', 'reviewId']))

@@ -619,7 +619,7 @@ export function onAddTip(auth, result, itinerary, type) {
             Object.assign(tipObject, {priority: priority})
           
             // let tipId = Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itinerary.id).push(tipObject).key;
-            updates[`/${Constants.SUBJECTS_BY_ITINERARY_PATH}/${itinerary.id}/${subjectId}/`] = Object.assign({}, tipObject, {subject: subject}, pick(review, ['rating', 'caption']));
+            updates[`/${Constants.SUBJECTS_BY_ITINERARY_PATH}/${itinerary.id}/${subjectId}/`] = Object.assign({}, tipObject, {subject: pick(subject, ['title', 'location'])}, pick(review, ['rating', 'caption']));
 
             // update tips by subject
             // updates[`/${Constants.TIPS_BY_SUBJECT_PATH}/${subjectId}/${auth}/${tipId}/`] = Object.assign({}, {itineraryId: itinerary.id}, {title: itinerary.title});
