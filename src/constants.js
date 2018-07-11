@@ -197,7 +197,7 @@ export const POPULAR_CITIES = [
 export const SHARED_ITINERARIES = ['-KpiW2sKdc81qIKD_iOO', '-KqURO44kTCwkDyISjBe', 
 '-KuM-90vgN_wWHSZvlKu','-KuaQCOTUBL8_NDoiKem','-KuaQosck60hUhKH1BX0', '-KufYkqOAT7OxCadeFXH', '-KzQyXDw3nzTeuXRbYMl', 
 '-KxxGWFNNkZtgpGeUj4C', '-Kwyr30538oLpC-WUgDG', '-L-0Sen8H68WqsmGKgNG', '-LF6HrbEQNKPp9BPupJK', '-LFA74T2lqknE5wPfX7G',
-'-LFA7AJQpHlU-Meg40rq', '-LFA6njv2MRF1umxEbAT']
+'-LFA7AJQpHlU-Meg40rq', '-LFA6njv2MRF1umxEbAT', '-LHAfWhZaNzppJPQICTD']
 
 /** Sample guides for logged out view of homepage **/
 export const HOMEPAGE_SAMPLE_GUIDES = ['-KsHtCGxX10pSPFRFw6p','-KsaEC85tRyFPhyx_vRI', '-Kr6_OAy780JwQQKlmZE', '-KseiC5dp80TPD6EOnKk']
