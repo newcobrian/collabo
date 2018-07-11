@@ -661,7 +661,7 @@ class Itinerary extends React.Component {
                 <Sticky bottomOffset={140} className={'sticky-class'}>
 
                   <div className="it-add-container flx flx-row flx-align-center bx-shadow brdr-bottom fill--white country-color-">
-                    {renderGeoSuggestRec(itinerary.geo)}
+                    {/*renderGeoSuggestRec(itinerary.geo)*/}
 
                       <Link to={'/guide/' + this.props.itineraryId}
                         className="DN pdding-right-sm brdr-right--02 color--white invert">
