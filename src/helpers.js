@@ -518,48 +518,48 @@ export function sendInboxMessage(senderId, recipientId, messageType, sendObject,
 
 export function sendItineraryUpdateEmails(auth, itinerary, lastUpdate) {
 	// if itinerary hasnt been updated in the last 24 hours, then send the email to all followers
-	let yesterday = new Date();
-      yesterday.setMonth(yesterday.getDate() <= 1 ? yesterday.getMonth() - 1 : yesterday.getMonth());
-      yesterday.setDate(yesterday.getDate() - 1);
-	if (!lastUpdate || !itinerary.reviewsCount || itinerary.reviewsCount === 0 || lastUpdate < yesterday) {
-		Firebase.database().ref(Constants.USERS_PATH + '/' + auth).once('value', senderSnap => {
-			let emailMessage = senderSnap.val().username + ' updated their guide "' + itinerary.title + 
-				'". Click here to check it out: https://myviews.io/guide/' + itinerary.id;
+	// let yesterday = new Date();
+ //      yesterday.setMonth(yesterday.getDate() <= 1 ? yesterday.getMonth() - 1 : yesterday.getMonth());
+ //      yesterday.setDate(yesterday.getDate() - 1);
+	// if (!lastUpdate || !itinerary.reviewsCount || itinerary.reviewsCount === 0 || lastUpdate < yesterday) {
+	// 	Firebase.database().ref(Constants.USERS_PATH + '/' + auth).once('value', senderSnap => {
+	// 		let emailMessage = senderSnap.val().username + ' updated their guide "' + itinerary.title + 
+	// 			'". Click here to check it out: https://myviews.io/guide/' + itinerary.id;
 
-			// first send to anyone following the user
-			Firebase.database().ref(Constants.HAS_FOLLOWERS_PATH + '/' + auth).once('value', followersSnap => {
-				Firebase.database().ref(Constants.FOLLOWED_ITINERARIES_PATH + '/' + itinerary.id).once('value', followedItinsSnap => {
-					let sendList = {};
-					followersSnap.forEach(function(user) {
-						Firebase.database().ref(Constants.USERS_PATH + '/' + user.key).once('value', recipientSnap => {
-							if (recipientSnap.exists() && recipientSnap.val().email) {
-								sendList[user.key] = true;
-								// && user.key === 'haO90mWZ07VgwiTnawGovd1RNbx1'
-								// for the sterlingtheshiba test account, only email leung.b@gmail.com
-								if (auth !== 'HZ1g4L39qnW3rdrhduUwUbGnUx82' || (auth === 'HZ1g4L39qnW3rdrhduUwUbGnUx82' && user.key === 'haO90mWZ07VgwiTnawGovd1RNbx1')) {
-									let data = Object.assign({}, {message: emailMessage}, {senderName: senderSnap.val().username });
-									sendContentManagerEmail("4cf0f88a-221c-4a1f-95ed-5a8543ba42a8", recipientSnap.val().email, data);
-								}
-							}
-						})
-					})
+	// 		// first send to anyone following the user
+	// 		Firebase.database().ref(Constants.HAS_FOLLOWERS_PATH + '/' + auth).once('value', followersSnap => {
+	// 			Firebase.database().ref(Constants.FOLLOWED_ITINERARIES_PATH + '/' + itinerary.id).once('value', followedItinsSnap => {
+	// 				let sendList = {};
+	// 				followersSnap.forEach(function(user) {
+	// 					Firebase.database().ref(Constants.USERS_PATH + '/' + user.key).once('value', recipientSnap => {
+	// 						if (recipientSnap.exists() && recipientSnap.val().email) {
+	// 							sendList[user.key] = true;
+	// 							// && user.key === 'haO90mWZ07VgwiTnawGovd1RNbx1'
+	// 							// for the sterlingtheshiba test account, only email leung.b@gmail.com
+	// 							if (auth !== 'HZ1g4L39qnW3rdrhduUwUbGnUx82' || (auth === 'HZ1g4L39qnW3rdrhduUwUbGnUx82' && user.key === 'haO90mWZ07VgwiTnawGovd1RNbx1')) {
+	// 								let data = Object.assign({}, {message: emailMessage}, {senderName: senderSnap.val().username });
+	// 								sendContentManagerEmail("4cf0f88a-221c-4a1f-95ed-5a8543ba42a8", recipientSnap.val().email, data);
+	// 							}
+	// 						}
+	// 					})
+	// 				})
 
-					// then send to anyone following the guide but dont send duplicate emails
-					setTimeout(function() {
-						followedItinsSnap.forEach(function(user) {
-							if (!sendList[user.key]) {
-								Firebase.database().ref(Constants.USERS_PATH + '/' + user.key).once('value', recipientSnap => {
-									// for the sterlingtheshiba test account, only email leung.b@gmail.com
-									if (auth !== 'HZ1g4L39qnW3rdrhduUwUbGnUx82' || (auth === 'HZ1g4L39qnW3rdrhduUwUbGnUx82' && user.key === 'haO90mWZ07VgwiTnawGovd1RNbx1')) {
-										let data = Object.assign({}, {message: emailMessage}, {senderName: senderSnap.val().username });
-										sendContentManagerEmail("4cf0f88a-221c-4a1f-95ed-5a8543ba42a8", recipientSnap.val().email, data);
-									}
-								})
-							}
-						})
-					}, 2000)
-				})
-			})
-		})
-	}
+	// 				// then send to anyone following the guide but dont send duplicate emails
+	// 				setTimeout(function() {
+	// 					followedItinsSnap.forEach(function(user) {
+	// 						if (!sendList[user.key]) {
+	// 							Firebase.database().ref(Constants.USERS_PATH + '/' + user.key).once('value', recipientSnap => {
+	// 								// for the sterlingtheshiba test account, only email leung.b@gmail.com
+	// 								if (auth !== 'HZ1g4L39qnW3rdrhduUwUbGnUx82' || (auth === 'HZ1g4L39qnW3rdrhduUwUbGnUx82' && user.key === 'haO90mWZ07VgwiTnawGovd1RNbx1')) {
+	// 									let data = Object.assign({}, {message: emailMessage}, {senderName: senderSnap.val().username });
+	// 									sendContentManagerEmail("4cf0f88a-221c-4a1f-95ed-5a8543ba42a8", recipientSnap.val().email, data);
+	// 								}
+	// 							})
+	// 						}
+	// 					})
+	// 				}, 2000)
+	// 			})
+	// 		})
+	// 	})
+	// }
 }
