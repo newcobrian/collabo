@@ -1,5 +1,5 @@
 {
-  "name": "trippy",
+  "name": "collabo",
   "version": "0.1.0",
   "private": true,
   "homepage": "http://myviews.io",
@@ -74,12 +74,12 @@
   "main": ".eslintrc.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/newcobrian/trippy.git"
+    "url": "git+https://github.com/newcobrian/collabo.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/newcobrian/trippy/issues"
+    "url": "https://github.com/newcobrian/collabo/issues"
   }
 }

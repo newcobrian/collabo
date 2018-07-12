@@ -84,11 +84,11 @@ if (window.location.hostname.toLowerCase().search(productionHost) < 0) {
     // });
 
     firebaseConfig = Object.assign({}, {
-      apiKey: "AIzaSyDVRupOyUI_19kCWMbggJEcuJnKfRfoSis",
-      authDomain: "views-18a9f.firebaseapp.com",
-      databaseURL: "https://views-18a9f.firebaseio.com",
-      projectId: "views-18a9f",
-      storageBucket: "views-18a9f.appspot.com",
+      apiKey: "AIzaSyDM-kc1XYMc8mGDCNqXa7vidvXvUHTgE9k",
+      authDomain: "collabo-bc9b2.firebaseapp.com",
+      databaseURL: "https://collabo-bc9b2.firebaseio.com",
+      projectId: "collabo-bc9b2",
+      storageBucket: "collabo-bc9b2.appspot.com",
       messagingSenderId: "750421710091"
     });
 
@@ -96,11 +96,11 @@ if (window.location.hostname.toLowerCase().search(productionHost) < 0) {
 } else {
     // use prod mixpanel and firebase
     firebaseConfig = Object.assign({}, {
-      apiKey: "AIzaSyDVRupOyUI_19kCWMbggJEcuJnKfRfoSis",
-      authDomain: "views-18a9f.firebaseapp.com",
-      databaseURL: "https://views-18a9f.firebaseio.com",
-      projectId: "views-18a9f",
-      storageBucket: "views-18a9f.appspot.com",
+      apiKey: "AIzaSyDM-kc1XYMc8mGDCNqXa7vidvXvUHTgE9k",
+      authDomain: "collabo-bc9b2.firebaseapp.com",
+      databaseURL: "https://collabo-bc9b2.firebaseio.com",
+      projectId: "collabo-bc9b2",
+      storageBucket: "collabo-bc9b2.appspot.com",
       messagingSenderId: "750421710091"
     });
 
