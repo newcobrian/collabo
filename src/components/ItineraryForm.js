@@ -30,11 +30,12 @@ import SEO from './SEO';
 import { ShareButtons, ShareCounts, generateShareIcon } from 'react-share';
 import MediaQuery from 'react-responsive';
 import AddTagInput from './AddTagInput';
-import { filter } from 'lodash'
+import { filter, debounce, throttle } from 'lodash'
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import Sticky from 'react-sticky-el';
 import LoadingSpinner from './LoadingSpinner';
 import TipList from './TipList';
+import InfiniteScroll from 'react-infinite-scroller';
 
 const {
   FacebookShareButton,
@@ -175,6 +176,20 @@ class ItineraryForm extends React.Component {
 
       this.props.updateItineraryGeo(this.props.authenticated, this.props.data, geoData);
     }
+
+    this.scrolledToBottom = () => {
+      if (!this.props.isTipsLoading) {
+        this.props.loadMoreTips(this.props.data.id, this.props.data.userId, this.props.tipStartValue)
+      }
+    }
+
+    // this.scrolledToBottom = throttle(() => {
+    //   this.props.loadMoreTips(this.props.data.id, this.props.data.userId, this.props.tipStartValue)
+    // }, 2000);
+
+    // this.debounceLoadMore = debounce(event => {
+    //   this.props.loadMoreTips(this.props.data.id, this.props.data.userId, this.props.tipStartValue)
+    // }, 1000);
   }
 
   componentWillMount() {
@@ -208,6 +223,7 @@ class ItineraryForm extends React.Component {
   }
 
   render() {
+    // console.log('hasmoretips = ' + this.props.hasMoreTips)
     // if (!this.props.googleObject) {
     //   return (
     //     <Map google={window.google}
@@ -883,6 +899,11 @@ const ShareGuideTooltip = props => {
               </Sticky>
 
 
+              <InfiniteScroll
+                pageStart={0}
+                loadMore={this.scrolledToBottom}
+                hasMore={true}
+                loader={<div className="loader" key={0}>Loading ...</div>} >
 
               {
                 visibleTips.map((tip, index) => {
@@ -1136,6 +1157,8 @@ const ShareGuideTooltip = props => {
                   );
                 })
               }
+
+              </InfiniteScroll>
 
               {/** Big share button **/}
               

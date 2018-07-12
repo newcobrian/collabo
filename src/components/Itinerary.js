@@ -33,6 +33,7 @@ import Geosuggest from 'react-geosuggest';
 import FollowItineraryButton from './FollowItineraryButton'
 import { GoogleApiWrapper, Map, Marker } from 'google-maps-react';
 import Sticky from 'react-sticky-el';
+import InfiniteScroll from 'react-infinite-scroller';
 
 var Scroll = require('react-scroll');
 var Element = Scroll.Element;
@@ -152,6 +153,12 @@ class Itinerary extends React.Component {
     this.scrollToRecommendations = ev => {
       ev.preventDefault()
       scrollToElement('#recommendationscontainer', { offset: -170 });
+    }
+
+    this.scrolledToBottom = () => {
+      if (!this.props.isTipsLoading) {
+        this.props.loadMoreTips(this.props.itineraryId, this.props.itinerary.userId, this.props.tipStartValue)
+      }
     }
   }
 
@@ -687,6 +694,11 @@ class Itinerary extends React.Component {
                   
 
 
+                <InfiniteScroll
+                  pageStart={0}
+                  loadMore={this.scrolledToBottom}
+                  hasMore={true}
+                  loader={<div className="loader" key={0}>Loading ...</div>} >
 
                 <TipList
                   tipList={visibleTips}
@@ -703,6 +715,8 @@ class Itinerary extends React.Component {
                   onSelectActiveTip={this.props.onSelectActiveTip}
                   deleteRec={this.deleteRec}
                   />
+
+                </InfiniteScroll>
 
 
 {/*}

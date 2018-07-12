@@ -3,7 +3,7 @@ import * as Constants from '../constants'
 import * as Helpers from '../helpers'
 import * as ActionTypes from './types'
 import { watchLikesByUser, unwatchLikesByUser, watchUser, unwatchUser } from './index'
-import { isEqual, pick, omit } from 'lodash'
+import { isEqual, pick, omit, debounce } from 'lodash'
 import mixpanel from 'mixpanel-browser'
 
 export function watchItinerary(auth, itineraryId) {
@@ -18,7 +18,7 @@ export function watchItinerary(auth, itineraryId) {
   			watchUser(dispatch, itinerarySnapshot.val().userId, Constants.ITINERARY_PAGE);
 
   			// get all tips in the itinerary, note dataType is TIPS_TYPE
-  			watchTips(dispatch, itineraryId, itinerarySnapshot.val().userId, Constants.ITINERARY_PAGE, Constants.TIPS_TYPE);
+  			// watchTips(dispatch, itineraryId, itinerarySnapshot.val().userId, Constants.ITINERARY_PAGE, Constants.TIPS_TYPE);
 
         // watch itinerary comments
         // watchComments(dispatch, itineraryId, Constants.ITINERARY_PAGE);
@@ -203,6 +203,36 @@ function defaultImagesRemovedAction(subjectId, source, dataType = Constants.TIPS
   }
 }
 
+function updateStartValue(startValue) {
+  return {
+    type: ActionTypes.UPDATE_START_VALUE,
+    startValue: startValue + .000001
+  }
+}
+
+function setIsTipsLoading() {
+  return {
+    type: ActionTypes.SET_IS_TIPS_LOADING,
+    isTipsLoading: true
+  }
+}
+
+const debounceSetTipsNotLoading = debounce(tipsIsNotLoading, 3000);
+
+export function tipsIsNotLoading(dispatch) {
+  dispatch({
+    type: ActionTypes.SET_IS_TIPS_LOADING,
+    isTipsLoading: false
+  })
+}
+
+// export function setTipsNotLoading(dispatch, startValue) {
+//   dispatch(setTipsNotLoading)
+// }
+
+// function debounce
+// export function debounceSetIsLoading = debounce(setShit, 2000);
+
 export function unloadReorderModal(itineraryId) {
   return dispatch => {
     Firebase.database().ref(Constants.SUBJECTS_BY_ITINERARY_PATH + '/' + itineraryId).off();
@@ -213,19 +243,32 @@ export function unloadReorderModal(itineraryId) {
   }
 }
 
-export function watchTips(dispatch, itineraryId, itineraryUserId, source, dataType) {
+export function loadMoreTips(itineraryId, itineraryUserId, startValue) {
+  return dispatch => {
+    watchTips(dispatch, itineraryId, itineraryUserId, Constants.ITINERARY_PAGE, Constants.TIPS_TYPE, startValue)
+    dispatch(setIsTipsLoading());
+  }
+}
+
+export function watchTips(dispatch, itineraryId, itineraryUserId, source, dataType, startValue) {
   let path = (dataType && dataType === Constants.RECOMMENDATIONS_TYPE) ? Constants.RECS_BY_ITINERARY_PATH : Constants.SUBJECTS_BY_ITINERARY_PATH;
 
-  Firebase.database().ref(path + '/' + itineraryId).orderByChild('priority').on('child_added', tipSnapshot => {
-    if (tipSnapshot.val().userId && tipSnapshot.val().userId !== itineraryUserId) {
-      watchUser(dispatch, tipSnapshot.val().userId, source, dataType)
-    }
-    // watchSubject(dispatch, tipSnapshot.key, tipSnapshot.val().subjectId, source, dataType);
-    // watchReview(dispatch, tipSnapshot.key, tipSnapshot.val().reviewId, source, dataType);
-    // watchComments(dispatch, tipSnapshot.key, source, dataType);
-    watchImagesByUser(dispatch, itineraryUserId, tipSnapshot.key, source, dataType);
-    watchDefaultImages(dispatch, tipSnapshot.key, source, dataType);
-    dispatch(tipAddedAction(tipSnapshot.key, tipSnapshot.val(), source, dataType));
+  Firebase.database().ref(path + '/' + itineraryId)
+    .orderByChild('priority')
+    .limitToFirst(Constants.TIPS_TO_LOAD)
+    .startAt(startValue)
+    .on('child_added', tipSnapshot => {
+      if (tipSnapshot.val().userId && tipSnapshot.val().userId !== itineraryUserId) {
+        watchUser(dispatch, tipSnapshot.val().userId, source, dataType)
+      }
+      // watchSubject(dispatch, tipSnapshot.key, tipSnapshot.val().subjectId, source, dataType);
+      // watchReview(dispatch, tipSnapshot.key, tipSnapshot.val().reviewId, source, dataType);
+      // watchComments(dispatch, tipSnapshot.key, source, dataType);
+      watchImagesByUser(dispatch, itineraryUserId, tipSnapshot.key, source, dataType);
+      watchDefaultImages(dispatch, tipSnapshot.key, source, dataType);
+      dispatch(tipAddedAction(tipSnapshot.key, tipSnapshot.val(), source, dataType));
+      dispatch(updateStartValue(tipSnapshot.val().priority ? tipSnapshot.val().priority : startValue));
+      debounceSetTipsNotLoading(dispatch);
   })
 
   // on child changed, how do we unwatch old refs?

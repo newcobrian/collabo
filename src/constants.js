@@ -150,6 +150,7 @@ export const POPULARITY_PAGE_COUNT = 9
 export const POPULARITY_MODULE_COUNT = 3
 export const HOME_PAGE_FEED_COUNT = 15
 export const INBOX_FEED_COUNT = 20
+export const TIPS_TO_LOAD = 12
 
 /*** Mixpanel events ***/
 export const MIXPANEL_PAGE_VIEWED = 'page viewed'
