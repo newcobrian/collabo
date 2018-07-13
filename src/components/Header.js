@@ -80,10 +80,10 @@ const LoggedInView = props => {
 
       <div className="navigation-bar flx flx-row flx-align-center flx-just-end">
         
-        <Link to="/create" activeClassName="active" className="nav-module create nav-editor flx flx-center-all">  
+        <Link to="/addProject" activeClassName="active" className="nav-module create nav-editor flx flx-center-all">  
           <div className="nav-text flx flx-row flx-align-center">
             <i className="material-icons color--success md-24 opa-100 mrgn-right-xs">add</i>
-            <div className="mobile-hide mrgn-left-xs">New List</div>
+            <div className="mobile-hide mrgn-left-xs">New Project</div>
           </div>
         </Link>
 
