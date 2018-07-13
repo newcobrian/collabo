@@ -23,6 +23,7 @@ import places from './reducers/places';
 import recommend from './reducers/recommend';
 import universalSearchBar from './reducers/universalSearchBar';
 import addReview from './reducers/addReview';
+import addProject from './reducers/addProject';
 import Firebase from 'firebase';
 import mixpanel from 'mixpanel-browser';
 import MixpanelMiddleware from 'redux-mixpanel-middleware';
@@ -58,6 +59,7 @@ const reducer = combineReducers({
   places,
   recommend,
   universalSearchBar,
+  addProject,
   // editForm: combineForms({
   //   editForm: initialItinerary
   // }, 'editForm')

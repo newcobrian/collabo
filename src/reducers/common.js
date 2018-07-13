@@ -44,10 +44,10 @@ export default (state = defaultState, action) => {
         const redirectUrl = '/select';
         return { ...state, redirectTo: redirectUrl };
       }
-    case ITINERARY_CREATED:
+    case ActionTypes.PROJECT_CREATED:
       return {
         ...state,
-        redirectTo: '/guide/' + action.itineraryId
+        redirectTo: '/project/' + action.projectId
       }
     case ITINERARY_UPDATED:
       return {

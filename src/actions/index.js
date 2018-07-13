@@ -189,7 +189,7 @@ export function followUser(authenticated, follower) {
     }
     Helpers.sendInboxMessage(authenticated, follower, Constants.FOLLOW_MESSAGE, null, null, null);
     Firebase.database().ref().update(updates);
-    Helpers.fanOutFollowUser(authenticated, follower);
+    // Helpers.fanOutFollowUser(authenticated, follower);
 
     mixpanel.people.increment("total follows");
 
@@ -233,7 +233,7 @@ export function unfollowUser(authenticated, following) {
       updates[`/${Constants.IS_FOLLOWING_PATH}/${follower}/${following}`] = null;
     }
     Firebase.database().ref().update(updates);
-    Helpers.fanOutUnFollowUser(authenticated, following);
+    // Helpers.fanOutUnFollowUser(authenticated, following);
 
     mixpanel.people.increment("total follows", -1);
 
@@ -494,7 +494,6 @@ export function clearCreateSubject() {
 
 export function onUpdateCreateField(key, value, source) {
   return dispatch => {
-    console.log('update create field value = ' + JSON.stringify(value))
     dispatch({
       type: UPDATE_FIELD_CREATE,
       key,
@@ -584,201 +583,64 @@ export function onCreateItinerary(auth, itinerary) {
   }
 }
 
+export function onCreateProject(auth, project) {
+  return dispatch => {
+    if (!auth) {
+      dispatch({
+        type: ASK_FOR_AUTH
+      })
+    }
+    else {
+      Firebase.database().ref(Constants.PROJECTS_BY_NAME_PATH + '/' + project.name).once('value', nameSnapshot => {
+        if (nameSnapshot.exists()) {
+          let err = 'A project called "' + project.name + '" already exists. Please choose another name'
+          dispatch({
+            type: CREATE_SUBMIT_ERROR,
+            errors: [err],
+            source: Constants.ADD_PROJECT_PAGE
+          })
+        }
+        else {
+          let serverTimestamp = Firebase.database.ServerValue.TIMESTAMP;
+          let projectObject = {
+            lastModified: serverTimestamp,
+            createdOn: serverTimestamp,
+            org: 'collabo'
+          }
+          let updates = {};
+          Object.assign(projectObject, project)
 
-// export function onCreateSubmit(key, subject, review, rid, imageURL, imageFile, path=null) {
-//   return dispatch => {
-//     const updates = {};
-//     const uid = Firebase.auth().currentUser.uid;
-//     const lastModified = Firebase.database.ServerValue.TIMESTAMP;
-//     let subjectId = '',
-//       imageId = '';
+          let projectId = Firebase.database().ref(Constants.PROJECTS_PATH).push(projectObject).key;
 
-//     let imageObject = {
-//       url: imageURL,
-//       lastModified: lastModified
-//     }
+          updates[`/${Constants.PROJECT_NAMES_BY_ORG_PATH}/collabo/${projectObject.name}/`] = projectId;
 
-//     let saveSubject = {};
-//     Object.assign(saveSubject, subject, {lastModified: lastModified});
+          Firebase.database().ref().update(updates);
 
-//     let reviewId = rid ? rid : Firebase.database().ref(Constants.REVIEWS_PATH).push().key;
+          // // update Algolia index
+          // Helpers.updateAlgloiaGeosIndex(itinerary.geo)
 
-//     // if subject already exists or we get an objectID from a partner API to use as subjectId
-//     if (key) {
-//       subjectId = key;
-//       Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + key).once('value', subjectSnapshot => {
-//         // make sure subject is still there, otherwise save it
-//         if (!subjectSnapshot.exists()) {
-//           if (imageURL) {
-//             Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + key).update(saveSubject);
-//             imageId = Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + key + '/images').push(imageObject).key;
-//             subject.images = {
-//               imageId: imageObject
-//             };
-//             Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + uid + '/' + reviewId + '/subject/images/' + imageId).update(imageObject);
-//           }
-//         }
-//         // if subject exists, just update lastModified
-//         else {
-//           Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + key).update({lastModified: lastModified});
-//         }
-//       })
-//     }
-//     else {
-//       // user created a new subject, save it
-//       subjectId = Firebase.database().ref(Constants.SUBJECTS_PATH).push(saveSubject).key;
+          // mixpanel.people.increment("total itineraries");
+          // mixpanel.people.set({ "last itinerary created": (new Date()).toISOString() });
+          // mixpanel.identify(auth);
 
-//       // add the image if its there
-//       if (imageURL) {
-//         Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + key).update(saveSubject);
-//         imageId = Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + key + '/images').push(imageObject).key;
-//         subject.images = {
-//           imageId: imageObject
-//         };
-//         Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + uid + '/' + reviewId + '/subject/images/' + imageId).update(imageObject);
-//       }
-
-//       //update Algolia index
-//       var algoliasearch = require('algoliasearch');
-//       var client = algoliasearch('2OEMW8KEZS', '62e17a3113351343399fad062d3cbca5', {protocol:'https:'});
-//       var index = client.initIndex('whatsgood-subjects');
-//       index.saveObject({
-//         name: subject.title,
-//         description: subject.description,
-//         objectID: subjectId
-//       }, function(err, content) {
-//         if (err) {
-//           console.error(err);
-//           return;
-//         }
-//       });
-//     }
-
-//     // add the subject to the tags tree if there
-//     if (subject.tags) {
-//       for (var key in subject.tags) {
-//         if (!subject.tags.hasOwnProperty(key)) continue;
-//         updates[`/${Constants.TAGS_PATH}/${key}/${subjectId}/`] = true;  
-//       }
-//     }
-
-//     // save review
-//     const reviewMeta = {
-//         userId: Firebase.auth().currentUser.uid,
-//         subjectId: subjectId,
-//         lastModified: lastModified
-//     }
-
-//     const reviewObject = {};
-//     Object.assign(reviewObject, reviewMeta, review);
-
-//     updates[`/${Constants.REVIEWS_PATH}/${reviewId}/`] = reviewObject;
-
-//     // save reviewByUser
-//     let reviewsByUserObject = {
-//       rating: review.rating,
-//       caption: review.caption,
-//       lastModified: lastModified,
-//     }
-
-//     reviewsByUserObject.subjectId = subjectId;
-//     reviewsByUserObject.subject = subject;
-
-//     updates[`/${Constants.REVIEWS_BY_USER_PATH}/${uid}/${reviewId}`] = reviewsByUserObject;
-
-//     // save reviewBySubject
-//     let reviewsBySubjectObject = {
-//       reviewId: reviewId,
-//       rating: review.rating,
-//       caption: review.caption,
-//       lastModified: lastModified      
-//     }
-//     updates[`/${Constants.REVIEWS_BY_SUBJECT_PATH}/${subjectId}/${uid}`] = reviewsBySubjectObject;
-
-//     // reviewsByUserObject.id = reviewId;
-//     const payloadObject = {};
-//     Object.assign(payloadObject, reviewObject, {id: reviewId}, {subject: subject});
-
-//     Firebase.database().ref().update(updates)
-//       .then(response => {
-//         // increment review count on the subject
-//         var reviewCountRef = Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId + '/reviewsCount');
-//         reviewCountRef.transaction(function (current_count) {
-//           return (current_count || 0) + 1;
-//         });
-
-//         // if user uploaded an image, save it
-//         if (imageFile) {
-//           const imageUpdates = {};
-//           const storageRef = Firebase.storage().ref();
-//           const metadata = {
-//             contentType: 'image/jpeg'
-//           }
-//           let fileName = Helpers.generateImageFileName();
-//           const uploadTask = storageRef.child('images/' + fileName).put(imageFile, metadata);
-//           uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-//           function(snapshot) {
-//             }, function(error) {
-//               console.log(error.message)
-//           }, function() {
-//             const downloadURL = uploadTask.snapshot.downloadURL;
-//             if (downloadURL) {
-//               let imageObject = {
-//                 url: downloadURL,
-//                 lastModified: Firebase.database.ServerValue.TIMESTAMP,
-//                 uploader: uid
-//               }
-
-//               let imageId = Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + subjectId + '/images').push().key;
-//               imageUpdates[`/${Constants.SUBJECTS_PATH}/${subjectId}/images/${imageId}`] = imageObject;
-//               imageUpdates[`/${Constants.REVIEWS_BY_USER_PATH}/${uid}/${reviewId}/subject/images/${imageId}`] = imageObject;
-
-//               payloadObject.subject.images = {imageId: imageObject};
-
-//               Firebase.database().ref().update(imageUpdates);
-
-//               dispatch({
-//                 type: REVIEW_SUBMITTED,
-//                 payload: payloadObject,
-//                 path: path,
-//                 meta: {
-//                   mixpanel: {
-//                     event: 'Review submitted',
-//                     props: {
-//                       rating: review.rating,
-//                       subjectId: subjectId,
-//                       location: (path === REVIEW_MODAL) ? REVIEW_MODAL : 'Create page'
-//                     }
-//                   }
-//                 }
-//               })
-//             }
-//           })
-//         }
-//         // no image
-//         else {
-//           dispatch({
-//             type: REVIEW_SUBMITTED,
-//             payload: payloadObject,
-//             path: path,
-//             meta: {
-//               mixpanel: {
-//                 event: 'Review submitted',
-//                 props: {
-//                   rating: review.rating,
-//                   subjectId: subjectId,
-//                   location: (path === REVIEW_MODAL) ? REVIEW_MODAL : 'Create page'
-//                 }
-//               }
-//             }
-//           })
-//         }
-//       })
-//       .catch(error => {
-//         console.log(error);
-//       });
-//   }
-// }
+          dispatch({
+            type: ActionTypes.PROJECT_CREATED,
+            project: projectObject,
+            projectId: projectId,
+            // meta: {
+            //   mixpanel: {
+            //     event: 'Itinerary created',
+            //     source: 'create page',
+            //     itineraryId: itineraryId,
+            //     geo: itinerary.geo.placeId
+            //   }
+            // }
+          })
+        }
+      })
+    }
+  }
+}
 
 export function setInProgress() {
   return dispatch => {
@@ -787,43 +649,6 @@ export function setInProgress() {
     })
   }
 }
-
-// export function uploadFileToFirebase(authenticated, file) {
-//   return dispatch => {
-//     // Create the file metadata
-
-//     var storageRef = Firebase.storage().ref();
-
-//     var metadata = {
-//       contentType: 'image/jpeg'
-//     };
-
-//     // Upload file and metadata to the object 'images/mountains.jpg'
-//     var uploadTask = storageRef.child('images/' + file.name).put(file, metadata);
-
-//     // Listen for state changes, errors, and completion of the upload.
-//     uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-//       function(snapshot) {
-//         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-//         var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-//         console.log('Upload is ' + progress + '% done');
-//         switch (snapshot.state) {
-//           case Firebase.storage.TaskState.PAUSED: // or 'paused'
-//             console.log('Upload is paused');
-//             break;
-//           case Firebase.storage.TaskState.RUNNING: // or 'running'
-//             console.log('Upload is running');
-//             break;
-//         }
-//       }, function(error) {
-//         console.log(error.message)
-//     }, function() {
-//       // Upload completed successfully, now we can get the download URL
-//       var downloadURL = uploadTask.snapshot.downloadURL;
-//       console.log('dl url = ' + downloadURL);
-//     });
-//   }
-// }
 
 export function uploadCustomSubjectImages(auth, objectId, images, itineraryId) {
   return dispatch => {

@@ -78,6 +78,9 @@ export const RECS_BY_ITINERARY_PATH = '/recs-by-itinerary'
 export const FOLLOWED_ITINERARIES_PATH = '/followed-itineraries'
 export const FOLLOWED_ITINERARIES_BY_USER_PATH = '/followed-itineraries-by-user'
 
+export const PROJECTS_PATH = '/projects'
+export const PROJECT_NAMES_BY_ORG_PATH = '/projects-names-by-org'
+
 /*** Counter Type Constants ***/
 export const LIKES_COUNT = 'likesCount'
 export const COMMENTS_COUNT = 'commentsCount'
@@ -136,6 +139,7 @@ export const UNIVERSAL_SEARCH_BAR = 'UNIVERSAL_SEARCH_BAR'
 export const PROFILE_PAGE = 'PROFILE_PAGE'
 export const CREATE_PAGE = 'CREATE_PAGE'
 export const ADD_REVIEW_PAGE = 'ADD_REVIEW_PAGE'
+export const ADD_PROJECT_PAGE = 'ADD_PROJECT_PAGE'
 
 /*** Tag list ***/
 export const TAG_LIST = []
