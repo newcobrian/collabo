@@ -68,13 +68,11 @@ class AddProject extends React.Component {
     		this.props.askForAuth();
     	}
 
-    	this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'create guide'});
+    	// this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'create guide'});
 	}
 
 	componentWillUnmount() {
 		this.props.onCreateUnload();
-		if (this.props.watchId) navigator.geolocation.clearWatch(this.props.watchId);
-		if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
 	}
 
 	render() {

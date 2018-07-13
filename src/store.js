@@ -20,6 +20,7 @@ import snackbarToaster from './reducers/snackbarToaster';
 import lightboxComponent from './reducers/lightboxComponent';
 import explore from './reducers/explore';
 import places from './reducers/places';
+import project from './reducers/project';
 import recommend from './reducers/recommend';
 import universalSearchBar from './reducers/universalSearchBar';
 import addReview from './reducers/addReview';
@@ -60,6 +61,7 @@ const reducer = combineReducers({
   recommend,
   universalSearchBar,
   addProject,
+  project,
   // editForm: combineForms({
   //   editForm: initialItinerary
   // }, 'editForm')

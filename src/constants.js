@@ -81,6 +81,7 @@ export const FOLLOWED_ITINERARIES_BY_USER_PATH = '/followed-itineraries-by-user'
 export const PROJECTS_PATH = '/projects'
 export const PROJECT_NAMES_BY_ORG_PATH = '/projects-names-by-org'
 export const PROJECTS_BY_USER_PATH = '/projects-by-user'
+export const THREADS_BY_PROJECT_PATH ='/threads-by-project'
 
 /*** Counter Type Constants ***/
 export const LIKES_COUNT = 'likesCount'

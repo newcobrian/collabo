@@ -27,6 +27,7 @@ import FriendSelector from './components/FriendSelector';
 import Itinerary from './components/Itinerary';
 import Explore from './components/Explore';
 import Places from './components/Places';
+import Project from './components/Project';
 import ForgotPassword from './components/ForgotPassword';
 import Recommend from './components/Recommend';
 import SEO from './components/SEO';
@@ -71,6 +72,7 @@ ReactDOM.render((
         {/*<Route path="recommend/:iid" component={Recommend} />*/}
         <Route path="seo" component={SEO} />
         <Route path="places/:pid" component={Places} />
+        <Route path="project/:pid" component={Project} />
         <Route path="guide/:iid(/:rec)" component={Itinerary} />
         <Route path=":username/followers" component={Followers} />
         <Route path=":username/isfollowing" component={Followings} />

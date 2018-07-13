@@ -2774,36 +2774,27 @@ export function closeSnackbar() {
   }
 }
 
-export function loadPlaces(geoId) {
+export function loadProject(projectId) {
   return dispatch => {
-    Firebase.database().ref(Constants.GEOS_PATH + '/' + geoId).once('value', geoSnapshot => {
-      if (geoSnapshot.exists()) {
+    Firebase.database().ref(Constants.PROJECTS_PATH + '/' + projectId).once('value', projectSnapshot => {
+      if (projectSnapshot.exists()) {
         dispatch({
-          type: LOAD_PLACES,
-          geo: geoSnapshot.val()
+          type: ActionTypes.LOAD_PROJECT,
+          geo: projectSnapshot.val()
         })
       }
-      // else if (geoInput) {
-      //   if (geoId && geoInput.location && geoInput.label) {
-      //     Firebase.database().ref(Constants.GEOS_PATH + '/' + geoId).update(Object.assign({}, geoInput, {itineraryCount: 0}));
-      //     dispatch({
-      //       type: LOAD_PLACES,
-      //       geo: geoInput
-      //     })
-      //   }
-      // }
       else {
         dispatch({
-          type: ActionTypes.PLACE_NOT_FOUND_ERROR
+          type: ActionTypes.PROJECT_NOT_FOUND_ERROR
         })
       }
     })
   }
 }
 
-export function getPlacesFeed(auth, locationId) {
+export function getProjectFeed(auth, projectId) {
   return dispatch => {
-    Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH + '/' + locationId).on('value', itinerariesSnapshot => {
+    Firebase.database().ref(Constants.THREADS_BY_PROJECT_PATH + '/' + projectId).on('value', itinerariesSnapshot => {
       let feedArray = [];
       if (itinerariesSnapshot.exists()) {
         itinerariesSnapshot.forEach(function(itin) {
