@@ -613,6 +613,7 @@ export function onCreateProject(auth, project) {
           let projectId = Firebase.database().ref(Constants.PROJECTS_PATH).push(projectObject).key;
 
           updates[`/${Constants.PROJECT_NAMES_BY_ORG_PATH}/collabo/${projectObject.name}/`] = projectId;
+          updates[`/${Constants.PROJECTS_BY_USER_PATH}/auth/`] = Object.assign({}, { projectId: projectId }, { name: project.name });
 
           Firebase.database().ref().update(updates);
 
