@@ -7,6 +7,7 @@ import FirebaseSearchInput from './FirebaseSearchInput';
 import UniversalSearchBar from './UniversalSearchBar';
 import LoadingSpinner from './LoadingSpinner';
 import ThreadList from './ThreadList';
+import ProjectList from './ProjectList';
 
 const mapStateToProps = state => ({
   ...state.project,
@@ -87,7 +88,6 @@ class Project extends React.Component {
     <div>
 
       <div className="page-common page-places flx flx-col flx-align-start">
-
         <div>
           <Link to={'/addthread/' + this.props.params.pid} activeClassName="active" className="nav-module create nav-editor flx flx-center-all">
             <div className="nav-text flx flx-row flx-align-center">
@@ -99,6 +99,7 @@ class Project extends React.Component {
         
             {/*<UniversalSearchBar />*/}
         
+        <ProjectList />
 
 
         <div className={"page-title-wrapper center-text country-color-"}>

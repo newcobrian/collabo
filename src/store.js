@@ -27,6 +27,7 @@ import universalSearchBar from './reducers/universalSearchBar';
 import addReview from './reducers/addReview';
 import addProject from './reducers/addProject';
 import addThread from './reducers/addThread';
+import projectList from './reducers/projectList';
 import Firebase from 'firebase';
 import mixpanel from 'mixpanel-browser';
 import MixpanelMiddleware from 'redux-mixpanel-middleware';
@@ -66,6 +67,7 @@ const reducer = combineReducers({
   project,
   addThread,
   thread,
+  projectList,
   // editForm: combineForms({
   //   editForm: initialItinerary
   // }, 'editForm')
