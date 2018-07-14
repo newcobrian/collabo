@@ -2,6 +2,7 @@ import Firebase from 'firebase';
 import * as Constants from '../constants'
 import * as Helpers from '../helpers'
 import * as ActionTypes from './types'
+import { watchUser, unwatchUser } from './index'
 import mixpanel from 'mixpanel-browser'
 import 'whatwg-fetch';
 import { pick, omit } from 'lodash'
@@ -147,9 +148,9 @@ export function loadProject(projectId) {
 export function watchProjectThreads(projectId) {
   return dispatch=> {
     Firebase.database().ref(Constants.THREADS_BY_PROJECT_PATH + '/' + projectId).orderByChild('lastModified').on('child_added', threadSnapshot => {
-      // if (threadSnapshot.val().userId) {
-      //   watchThreadUser(dispatch, threadSnapshot.val().userId)
-      // }
+      if (threadSnapshot.val().userId) {
+        watchUser(dispatch, threadSnapshot.val().userId, Constants.PROJECTS_PAGE)
+      }
       dispatch(threadAddedAction(threadSnapshot.key, threadSnapshot.val()));
     })
 
@@ -163,10 +164,6 @@ export function watchProjectThreads(projectId) {
     })
   }
 }
-
-// export function watchThreadUser(dispatch, userId) {
-
-// }
 
 function threadAddedAction(threadId, thread) {
   // delete thread.lastModified;

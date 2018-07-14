@@ -112,6 +112,7 @@ const RatingDisplay = props => {
 
 const ThreadPreview = props => {
   const thread = props.thread;
+  const createdBy = thread.createdBy;
   // let title = tip.subject ? tip.subject.title : ''
   // let canModify = props.authenticated === tip.userId ? true : false;
 
@@ -177,14 +178,14 @@ const ThreadPreview = props => {
                     <div className="tip__content-inner">
                       { /** Author **/ }
                       <Link
-                          to={'/' + thread.username}
+                          to={'/' + createdBy.username}
                           className="show-in-list">
                         <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm">
                             <div className="tip__author-photo flx-hold mrgn-right-sm">
-                              <ProfilePic src={thread.image} className="user-image user-image-sm center-img" />
+                              <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
                             </div> 
                             <div className="color--black v2-type-body1">
-                              {thread.username}
+                              {createdBy.username}
                             </div>
                         </div>
                       </Link> 
@@ -193,8 +194,8 @@ const ThreadPreview = props => {
 
                       { /** Caption **/ }
                       <div className="tip__caption-module flx flx-row w-100 mrgn-bottom-sm brdr-02-bottom">
-                        <Link to={'/' + thread.username} className="tip__author-photo flx-hold mrgn-right-sm">
-                          <ProfilePic src={thread.image} className="user-image user-image-sm center-img" />
+                        <Link to={'/' + createdBy.username} className="tip__author-photo flx-hold mrgn-right-sm">
+                          <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
                         </Link> 
                         <div className="flx flx-col flx-align-start w-100">
                             <div className="tip__caption font--beta v2-type-body2 ta-left">

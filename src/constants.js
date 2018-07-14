@@ -144,7 +144,8 @@ export const PROFILE_PAGE = 'PROFILE_PAGE'
 export const CREATE_PAGE = 'CREATE_PAGE'
 export const ADD_REVIEW_PAGE = 'ADD_REVIEW_PAGE'
 export const ADD_PROJECT_PAGE = 'ADD_PROJECT_PAGE'
-export const ADD_THREAD_PAGE ='ADD_THREAD_PAGE'
+export const ADD_THREAD_PAGE = 'ADD_THREAD_PAGE'
+export const PROJECTS_PAGE = 'PROJECTS_PAGE'
 
 /*** Tag list ***/
 export const TAG_LIST = []
