@@ -19,7 +19,7 @@ var Scroll = require('react-scroll');
 var Element = Scroll.Element;
 
 const mapStateToProps = state => ({
-  ...state.itinerary,
+  ...state.project,
   currentUser: state.common.currentUser,
   authenticated: state.common.authenticated,
   userInfo: state.common.userInfo

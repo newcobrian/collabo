@@ -3,7 +3,7 @@ import React from 'react';
 import * as Constants from '../constants';
 
 const mapStateToProps = state => ({
-  ...state.itinerary,
+  ...state.project,
   currentUser: state.common.currentUser,
   authenticated: state.common.authenticated,
   userInfo: state.common.userInfo
