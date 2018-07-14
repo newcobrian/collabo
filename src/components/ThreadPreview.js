@@ -116,7 +116,7 @@ const ThreadPreview = props => {
   // let canModify = props.authenticated === tip.userId ? true : false;
 
   return (
-    <div className={"tip-wrapper flx flx-col flx-col w-100 w-max"}>
+    <Link to={`/thread/${thread.threadId}`} className={"tip-wrapper flx flx-col flx-col w-100 w-max"}>
         
           <div className="tip-container flx flx-row flx-align-start w-100 bx- brdr-bottom">
             
@@ -247,7 +247,7 @@ const ThreadPreview = props => {
        
 
 
-    </div>
+    </Link>
   );
 }
 
