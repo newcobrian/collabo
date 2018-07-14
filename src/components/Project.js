@@ -2,10 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
-import ItineraryList from './ItineraryList'; 
 import { Link, browserHistory } from 'react-router';
 import FirebaseSearchInput from './FirebaseSearchInput';
 import UniversalSearchBar from './UniversalSearchBar';
+import LoadingSpinner from './LoadingSpinner';
+import ThreadList from './ThreadList';
 
 const mapStateToProps = state => ({
   ...state.project,
@@ -29,25 +30,25 @@ class Project extends React.Component {
 
   componentWillMount() {
     this.props.loadProject(this.props.params.pid);
-    this.props.getProjectFeed(this.props.authenticated, this.props.params.pid);
+    this.props.watchProjectThreads(this.props.params.pid);
     // this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project'});
   }
 
   componentWillUnmount() {
-    this.props.unloadProjectFeed(this.props.authenticated, this.props.params.pid);
+    this.props.unloadProjectThreads(this.props.params.pid);
     // if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.pid !== this.props.params.pid) {
-      this.props.unloadProjectFeed(this.props.authenticated, this.props.params.pid);
+      this.props.unloadProjectThreads(this.props.params.pid);
       this.props.loadProject(nextProps.params.pid);
-      this.props.getProjectFeed(this.props.authenticated, nextProps.params.pid);
+      this.props.watchProjectThreads(nextProps.params.pid);
     }
   }
 
   render() {
-    if (this.props.placeNotFoundError) {
+    if (this.props.projectNotFoundError) {
       return (
         <div className="error-module flx flx-col flx-center-all ta-center v2-type-body3 color--black">
           <div className="xiao-img-wrapper mrgn-bottom-sm">
@@ -56,6 +57,11 @@ class Project extends React.Component {
           <div className="mrgn-bottom-md">Sorry, we couldn't find this project.</div>
         </div>
       )
+    }
+    if (!this.props.project) {
+      return (
+        <LoadingSpinner message="Loading project" />
+        )
     }
     // if (!this.props.feed) {
     //   return (
@@ -95,24 +101,17 @@ class Project extends React.Component {
         
 
 
-        {/*<div className={"page-title-wrapper center-text country-color-" + this.props.geo.country}>
+        <div className={"page-title-wrapper center-text country-color-"}>
           <div className="v2-type-page-header flx flx-col flx-center-all invert">
-            <div className={'itinerary__cover__flag mrgn-bottom-sm flx-hold flag-' + this.props.geo.country}>
-            </div>
-            {this.props.geo.label}
+            {this.props.project.name}
           </div>
           <div className="v2-type-body2 opa-60"></div>
         </div>
-        <div className="toggle-wrapper DN">
-        </div>
         <div className="feed-wrapper">
-          <ItineraryList
-          itineraries={this.props.feed} 
-          authenticated={this.props.authenticated} 
-          like={this.props.likeReview} 
-          unLike={this.props.unLikeReview}
-          deleteItinerary={this.props.showDeleteModal} />
-        </div>*/}
+          <ThreadList
+            threads={this.props.threads} 
+            authenticated={this.props.authenticated} />
+        </div>
 
       </div>
 

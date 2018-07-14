@@ -144,6 +144,7 @@ export * from './reviewActions';
 export * from './modalActions';
 export * from './loggingActions';
 export * from './profileActions';
+export * from './projectActions';
 
 export function unloadProfileUser(uid) {
   return dispatch => {
@@ -580,126 +581,6 @@ export function onCreateItinerary(auth, itinerary) {
         })
       })
     })
-  }
-}
-
-export function onAddProject(auth, project) {
-  return dispatch => {
-    if (!auth) {
-      dispatch({
-        type: ASK_FOR_AUTH
-      })
-    }
-    else {
-      let projectName = project.name;
-      Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/collabo/' + projectName.toLowerCase()).once('value', nameSnapshot => {
-        if (nameSnapshot.exists()) {
-          dispatch({
-            type: CREATE_SUBMIT_ERROR,
-            error: 'A project called "' + project.name + '" already exists. Please choose another name',
-            source: Constants.ADD_PROJECT_PAGE
-          })
-        }
-        else {
-          let serverTimestamp = Firebase.database.ServerValue.TIMESTAMP;
-          let projectObject = {
-            lastModified: serverTimestamp,
-            createdOn: serverTimestamp,
-            org: 'collabo'
-          }
-          let updates = {};
-          Object.assign(projectObject, project)
-
-          let projectId = Firebase.database().ref(Constants.PROJECTS_PATH).push(projectObject).key;
-
-          updates[`/${Constants.PROJECT_NAMES_BY_ORG_PATH}/collabo/${projectName.toLowerCase()}/`] = projectId;
-          updates[`/${Constants.PROJECTS_BY_USER_PATH}/${auth}/${projectId}/`] = { name: project.name };
-
-          Firebase.database().ref().update(updates);
-
-          // // update Algolia index
-          // Helpers.updateAlgloiaGeosIndex(itinerary.geo)
-
-          // mixpanel.people.increment("total itineraries");
-          // mixpanel.people.set({ "last itinerary created": (new Date()).toISOString() });
-          // mixpanel.identify(auth);
-
-          dispatch({
-            type: ActionTypes.PROJECT_CREATED,
-            project: projectObject,
-            projectId: projectId,
-            // meta: {
-            //   mixpanel: {
-            //     event: 'Itinerary created',
-            //     source: 'create page',
-            //     itineraryId: itineraryId,
-            //     geo: itinerary.geo.placeId
-            //   }
-            // }
-          })
-        }
-      })
-    }
-  }
-}
-
-export function onAddThread(auth, projectId, thread) {
-  return dispatch => {
-    if (!auth) {
-      dispatch({
-        type: ASK_FOR_AUTH
-      })
-    }
-    else {
-      Firebase.database().ref(Constants.PROJECTS_PATH + '/' + projectId).once('value', projectSnapshot => {
-        if (!projectSnapshot.exists()) {
-          dispatch({
-            type: CREATE_SUBMIT_ERROR,
-            error: 'No project selected',
-            source: Constants.ADD_THREAD_PAGE
-          })
-        }
-        else {
-          let serverTimestamp = Firebase.database.ServerValue.TIMESTAMP;
-          let threadObject = {
-            lastModified: serverTimestamp,
-            createdOn: serverTimestamp,
-            org: projectSnapshot.val().org,
-            userId: auth,
-            projectId: projectId
-          }
-          let updates = {};
-          Object.assign(threadObject, thread)
-
-          let threadId = Firebase.database().ref(Constants.THREADS_PATH).push(threadObject).key;
-
-          updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${projectId}/${threadId}/`] = omit(threadObject, ['projectId']);
-          updates[`/${Constants.THREADS_BY_USER_PATH}/${auth}/${threadId}/`] = omit(threadObject, ['userId']);
-
-          Firebase.database().ref().update(updates);
-
-          // // update Algolia index
-          // Helpers.updateAlgloiaGeosIndex(itinerary.geo)
-
-          // mixpanel.people.increment("total itineraries");
-          // mixpanel.people.set({ "last itinerary created": (new Date()).toISOString() });
-          // mixpanel.identify(auth);
-
-          dispatch({
-            type: ActionTypes.THREAD_CREATED,
-            threadId: threadId,
-            // meta: {
-            //   mixpanel: {
-            //     event: 'Itinerary created',
-            //     source: 'create page',
-            //     itineraryId: itineraryId,
-            //     geo: itinerary.geo.placeId
-            //   }
-            // }
-          })
-        }
-      })
-    }
   }
 }
 
@@ -2830,77 +2711,6 @@ export function closeSnackbar() {
   return dispatch => {
     dispatch({
       type: CLOSE_SNACKBAR
-    })
-  }
-}
-
-export function loadProject(projectId) {
-  return dispatch => {
-    Firebase.database().ref(Constants.PROJECTS_PATH + '/' + projectId).once('value', projectSnapshot => {
-      if (projectSnapshot.exists()) {
-        dispatch({
-          type: ActionTypes.LOAD_PROJECT,
-          geo: projectSnapshot.val()
-        })
-      }
-      else {
-        dispatch({
-          type: ActionTypes.PROJECT_NOT_FOUND_ERROR
-        })
-      }
-    })
-  }
-}
-
-export function getProjectFeed(auth, projectId) {
-  return dispatch => {
-    Firebase.database().ref(Constants.THREADS_BY_PROJECT_PATH + '/' + projectId).on('value', itinerariesSnapshot => {
-      let feedArray = [];
-      if (itinerariesSnapshot.exists()) {
-        itinerariesSnapshot.forEach(function(itin) {
-          Firebase.database().ref(Constants.USERS_PATH + '/' + itin.val().userId).on('value', userSnapshot => {
-            Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itin.key).on('value', likesSnapshot => {
-              const itineraryObject = {};
-              const key = { id: itin.key };
-              const createdBy = { createdBy: Object.assign({}, userSnapshot.val(), {userId: itin.val().userId}) };
-              let likes = {
-                isLiked: likesSnapshot.exists()
-              }
-              
-              Object.assign(itineraryObject, itin.val(), key, createdBy, likes);
-
-              feedArray = [itineraryObject].concat(feedArray);
-              feedArray.sort(Helpers.byPopularity);
-              dispatch({
-                type: GET_PLACES_FEED,
-                payload: feedArray
-              })
-            })
-          })
-        })
-      }
-      else {
-        dispatch({
-          type: GET_PLACES_FEED,
-          payload: []
-        })
-      }
-    })
-  }
-}
-
-export function unloadPlacesFeed(auth, locationId) {
-  return dispatch => {
-    Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH + '/' + locationId).once('value', itinerariesSnapshot => {
-      itinerariesSnapshot.forEach(function(itin) {
-        Firebase.database().ref(Constants.USERS_PATH + '/' + itin.val().userId).off();
-        Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itin.key).off();
-      })
-    Firebase.database().ref(Constants.ITINERARIES_BY_GEO_PATH + '/' + locationId).off();
-    })
-
-    dispatch({
-      type: UNLOAD_PLACES_FEED
     })
   }
 }
