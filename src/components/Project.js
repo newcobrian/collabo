@@ -88,14 +88,6 @@ class Project extends React.Component {
     <div>
 
       <div className="page-common page-places flx flx-col flx-align-start">
-        <div>
-          <Link to={'/addthread/' + this.props.params.pid} activeClassName="active" className="nav-module create nav-editor flx flx-center-all">
-            <div className="nav-text flx flx-row flx-align-center">
-              <i className="material-icons color--success md-24 opa-100 mrgn-right-xs">add</i>
-              <div className="mobile-hide mrgn-left-xs">New Thread</div>
-            </div>
-          </Link>
-        </div>
         
             {/*<UniversalSearchBar />*/}
         
@@ -105,6 +97,14 @@ class Project extends React.Component {
         <div className={"page-title-wrapper center-text country-color-"}>
           <div className="v2-type-page-header flx flx-col flx-center-all invert">
             {this.props.project.name}
+          </div>
+          <div>
+            <Link to={'/addthread/' + this.props.params.pid} activeClassName="active" className="nav-module create nav-editor flx flx-center-all">
+              <div className="nav-text flx flx-row flx-align-center">
+                <i className="material-icons color--success md-24 opa-100 mrgn-right-xs">add</i>
+                <div className="mobile-hide mrgn-left-xs">New Thread</div>
+              </div>
+            </Link>
           </div>
           <div className="v2-type-body2 opa-60"></div>
         </div>
