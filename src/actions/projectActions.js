@@ -240,7 +240,6 @@ export function unloadProjectThreads(auth, projectId) {
 export function loadProjectList(auth) {
   return dispatch => {
     Firebase.database().ref(Constants.PROJECTS_BY_USER_PATH + '/' + auth).on('child_added', snap => {
-      console.log('added')
       dispatch({
         type: ActionTypes.PROJECT_LIST_ADDED_ACTION,
         projectId: snap.key,

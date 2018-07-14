@@ -25,7 +25,6 @@ class ProjectList extends React.Component {
   }
 
   render() {
-    console.log(JSON.stringify(this.props.projectList))
     if(!this.props.projectList) return null;
     return (
       <div>
@@ -33,7 +32,7 @@ class ProjectList extends React.Component {
         {
           this.props.projectList.map((projectItem, index) => {
             return (
-              <div>
+              <div key={projectItem.projectId}>
                 <Link to={'/project/' + projectItem.projectId}>{projectItem.name}</Link>
               </div>
             );
