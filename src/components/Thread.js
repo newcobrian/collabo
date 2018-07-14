@@ -10,9 +10,11 @@ import LoadingSpinner from './LoadingSpinner';
 import ProfilePic from './ProfilePic';
 import DisplayTimestamp from './DisplayTimestamp';
 import RenderDebounceInput from './RenderDebounceInput';
+import CommentContainer from './Review/CommentContainer'
 
 const mapStateToProps = state => ({
   ...state.thread,
+  userInfo: state.common.userInfo,
   authenticated: state.common.authenticated
 })
 
@@ -40,7 +42,6 @@ const BodySection = props => {
   }
 }
 
-
 class Thread extends React.Component {
   constructor() {
     super();
@@ -59,7 +60,7 @@ class Thread extends React.Component {
 
   componentWillMount() {
     this.props.loadThread(this.props.params.tid);
-    // this.props.getProjectFeed(this.props.authenticated, this.props.params.tid);
+    this.props.watchThreadComments(this.props.params.tid);
     // this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project'});
   }
 
@@ -72,7 +73,7 @@ class Thread extends React.Component {
     if (nextProps.params.tid !== this.props.params.tid) {
       this.props.unloadThread(this.props.params.tid);
       this.props.loadThread(nextProps.params.tid);
-      // this.props.getProjectFeed(this.props.authenticated, nextProps.params.tid);
+      this.props.watchThreadComments(nextProps.params.tid);
     }
   }
 
@@ -116,29 +117,6 @@ class Thread extends React.Component {
       let thread = this.props.thread
       let createdBy = this.props.createdBy
       let canModify = this.props.authenticated === this.props.thread.userId ? true : false
-
-      // const showBody = (canModify) => {
-      //   if (canModify) {
-      //     return (
-      //       <div className="tip__caption v2-type-body2 font--beta  ta-left opa-70">
-      //         <RenderDebounceInput
-      //           type="textarea"
-      //           className="w-100 show-border"
-      //           cols="10"
-      //           wrap="hard"
-      //           value={thread.body}
-      //           placeholder="Add notes here"
-      //           debounceFunction={this.changeBody(thread)} />
-      //       </div>
-      //     )
-      //   }
-      //   else {
-      //     return (
-      //       <div>{thread.body}</div>
-      //     )
-      //   }
-      // }
-
       return (
         <div>
 
@@ -180,8 +158,21 @@ class Thread extends React.Component {
                 <BodySection body={thread.body} canModify={canModify} thread={thread} changeBody={this.changeBody} />
               </div>
             </div>
-            <div className="toggle-wrapper DN">
             </div>
+
+            <div className="itinerary__comments-module brdr-top map-on flx flx-col flx-align-start flx-just-start w-max-2" id='guidecommentcontainer' name='guidecommentcontainer'>
+              <div className="comments-section-title mrgn-bottom-md ta-left w-100">
+                Comments
+              </div>
+              <CommentContainer
+                authenticated={this.props.authenticated}
+                userInfo={this.props.userInfo}
+                comments={this.props.comments || {}}
+                errors={this.props.commentErrors}
+                commentObject={thread}
+                threadId={this.props.params.tid}
+                deleteComment={this.props.onDeleteThreadComment} />
+            
             {/*<div className="feed-wrapper">
               <ItineraryList
               itineraries={this.props.feed} 

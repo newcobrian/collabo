@@ -13,7 +13,7 @@ const CommentContainer = props => {
 		          commentObject={props.commentObject}
 		          authenticated={props.authenticated}
 		          userInfo={props.userInfo}
-		          itineraryId={props.itineraryId}
+		          threadId={props.threadId}
 		          deleteComment={props.deleteComment}
 		          type={props.type} />
 		          
@@ -21,7 +21,7 @@ const CommentContainer = props => {
 		            <ListErrors errors={props.errors}></ListErrors>
 		            <CommentInput 
 		            	commentObject={props.commentObject} 
-		            	itineraryId={props.itineraryId}
+		            	threadId={props.threadId}
 		            	authenticated={props.authenticated} 
 		            	userInfo={props.userInfo}
 		            	type={props.type} />
@@ -37,7 +37,7 @@ const CommentContainer = props => {
 					commentObject={props.commentObject}
 					authenticated={props.authenticated}
 					userInfo={props.userInfo}
-					itineraryId={props.itineraryId}
+					threadId={props.threadId}
 					deleteComment={props.deleteComment}
 					type={props.type} />
 

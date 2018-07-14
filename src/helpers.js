@@ -179,6 +179,40 @@ export function generateImageFileName()
     return text;
 }
 
+export function incrementThreadCount(counterType, threadId, thread, userId) {
+	// increment count on threads
+	Firebase.database().ref(Constants.THREADS_PATH + '/' + threadId + '/' + counterType).transaction(function (current_count) {
+		return (current_count || 0) + 1;
+    });
+
+    // increment count on threads by project
+    Firebase.database().ref(Constants.THREADS_BY_PROJECT_PATH + '/' + thread.projectId + '/' + threadId + '/' + counterType).transaction(function (current_count) {
+		return (current_count || 0) + 1;
+    });
+
+	// incrememt count on threads by user
+	Firebase.database().ref(Constants.THREADS_BY_USER_PATH + '/' + userId + '/' + threadId + '/' + counterType).transaction(function (current_count) {
+		return (current_count || 0) + 1;
+    });
+}
+
+export function decrementThreadCount(counterType, threadId, thread, userId) {
+	// decrement count on itineraries
+	Firebase.database().ref(Constants.THREADS_PATH + '/' + threadId + '/' + counterType).transaction(function (current_count) {
+		return (current_count - 1 > 0) ? (current_count - 1) : 0;
+    });
+
+    // decrement count on threads by project
+    Firebase.database().ref(Constants.THREADS_BY_PROJECT_PATH + '/' + thread.projectId + '/' + threadId + '/' + counterType).transaction(function (current_count) {
+		return (current_count - 1 > 0) ? (current_count - 1) : 0;
+    });
+
+	// decrement count on threads by user
+	Firebase.database().ref(Constants.THREADS_BY_USER_PATH + '/' + userId + '/' + threadId + '/' + counterType).transaction(function (current_count) {
+		return (current_count - 1 > 0) ? (current_count - 1) : 0;
+    });
+}
+
 export function incrementItineraryCount(counterType, itineraryId, geo, userId) {
 	// increment count on itineraries
 	Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId + '/' + counterType).transaction(function (current_count) {
@@ -356,7 +390,7 @@ export function sendInboxMessage(senderId, recipientId, messageType, sendObject,
 		lastModified: Firebase.database.ServerValue.TIMESTAMP
 	};
 	let emailMessage = '';
-
+console.log('recip ID = ' + recipientId)
 	if (sendObject || messageType === Constants.FOLLOW_MESSAGE) {
 		Firebase.database().ref(Constants.USERS_PATH + '/' + recipientId).once('value', recipientSnapshot => {
 			Firebase.database().ref(Constants.USERS_PATH + '/' + senderId).once('value', senderSnapshot => {
@@ -500,6 +534,48 @@ export function sendInboxMessage(senderId, recipientId, messageType, sendObject,
 						inboxObject.link = '/guide/' + itineraryId;
 						emailMessage = senderSnapshot.val().username + ' followed your guide "' + sendObject.title + '." Click here to see it: https://myviews.io' + inboxObject.link;
 						break;
+				}
+				if (senderId !== recipientId) {
+					Firebase.database().ref(Constants.INBOX_PATH + '/' + recipientId).push().set(inboxObject);
+					Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + recipientId + '/messageCount').transaction(function (current_count) {
+			            return (current_count || 0) + 1;
+			        })
+		        	if (recipientSnapshot.exists() && recipientSnapshot.val().email) {
+		        		let data = Object.assign({}, {message: emailMessage});
+		        		sendContentManagerEmail("7691e888-4b30-40e2-9d78-df815d5b8453", recipientSnapshot.val().email, data);
+				    }
+				}
+			})
+		})
+	}
+}
+
+export function sendCollaboInboxMessage(senderId, recipientId, messageType, thread, threadId, commentObject) {
+	const inboxObject = {
+		lastModified: Firebase.database.ServerValue.TIMESTAMP
+	};
+	let emailMessage = '';
+
+	if (thread) {
+		Firebase.database().ref(Constants.USERS_PATH + '/' + recipientId).once('value', recipientSnapshot => {
+			Firebase.database().ref(Constants.USERS_PATH + '/' + senderId).once('value', senderSnapshot => {
+				switch(messageType) {
+					case Constants.COMMENT_IN_THREAD_MESSAGE:
+						inboxObject.senderId = senderId;
+						inboxObject.message = ' commented in the thread: ' + thread.title;
+						inboxObject.link = '/thread/' + threadId + '#comment' + commentObject.commentId;
+						emailMessage = senderSnapshot.val().username + 
+							' commented in the same thread. Click here to check it out: https://myviews.io' + inboxObject.link;
+						break;
+					// case Constants.COMMENT_ON_COMMENT_REVIEW_MESSAGE:
+					// 	inboxObject.senderId = senderId;
+					// 	inboxObject.message = ' also commented: ' + commentObject.message;
+					// 	inboxObject.link = threadId ? '/guide/' + itineraryId + '#comment' + commentObject.commentId : 
+					// 		'/review/' + sendObject.subjectId + '/' + sendObject.id;
+					// 	inboxObject.reviewTitle = '';
+					// 	emailMessage = senderSnapshot.val().username + 
+					// 		' also commented on a tip you commented on. Click here to check it out: https://myviews.io' + inboxObject.link;
+					// 	break;
 				}
 				if (senderId !== recipientId) {
 					Firebase.database().ref(Constants.INBOX_PATH + '/' + recipientId).push().set(inboxObject);

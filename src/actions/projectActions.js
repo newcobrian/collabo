@@ -2,7 +2,7 @@ import Firebase from 'firebase';
 import * as Constants from '../constants'
 import * as Helpers from '../helpers'
 import * as ActionTypes from './types'
-import { watchUser, unwatchUser } from './index'
+import { watchUser, unwatchUser, findCommentMentions } from './index'
 import mixpanel from 'mixpanel-browser'
 import 'whatwg-fetch';
 import { pick, omit } from 'lodash'
@@ -327,46 +327,150 @@ export function updateThreadField(auth, threadId, thread, field, value) {
         message: 'Your changes have been saved'
       })
     }
-    // if (itinerary && itinerary.id && itinerary.userId && itinerary.geo && itinerary.geo.placeId) {
-    //   let updates = {};
-      
-    //   // update all itinerary tables
-    //   updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${itinerary.userId}/${itinerary.id}/${field}`] = value;
-    //   updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${itinerary.geo.placeId}/${itinerary.userId}/${itinerary.id}/${field}`] = value;
-    //   updates[`/${Constants.ITINERARIES_PATH}/${itinerary.id}/${field}`] = value;
-    //   updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itinerary.id}/${field}`] = value;
+  }
+}
 
-    //   // update lastModified timestamps
-    //   let timestamp = Firebase.database.ServerValue.TIMESTAMP;
-    //   updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${itinerary.userId}/${itinerary.id}/lastModified`] = timestamp;
-    //   updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${itinerary.geo.placeId}/${itinerary.userId}/${itinerary.id}/lastModified`] = timestamp;
-    //   updates[`/${Constants.ITINERARIES_PATH}/${itinerary.id}/lastModified`] = timestamp;
-    //   updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itinerary.id}/lastModified`] = timestamp;
+function threadCommentAddedAction(threadId, commentId, comment) {
+  return {
+    type: ActionTypes.COMMENT_ADDED_ACTION,
+    threadId,
+    commentId,
+    comment
+  }
+}
 
-    //   if (field === 'title') {
-    //     for (let i = 0; i < itinerary.tips.length; i++) {
-    //       let userId = itinerary.tips[i].userId ? itinerary.tips[i].userId : itinerary.userId;
-    //       updates[`/${Constants.TIPS_BY_SUBJECT_PATH}/${itinerary.tips[i].subjectId}/${userId}/${itinerary.tips[i].key}/title`] = value;
-    //     }
-    //   }
+function threadCommentChangedAction(threadId, commentId, comment) {
+  return {
+    type: ActionTypes.COMMENT_CHANGED_ACTION,
+    threadId,
+    commentId,
+    comment
+  }
+}
 
-    //   Firebase.database().ref().update(updates);
-    //   Helpers.fanOutToFollowersFeed(auth, itinerary.id, timestamp);
+function threadCommentRemovedAction(threadId, commentId) {
+  return {
+    type: ActionTypes.COMMENT_REMOVED_ACTION,
+    threadId,
+    commentId
+  }
+}
 
-    //   dispatch({
-    //     type: ActionTypes.ITINERARY_UPDATED,
-    //     itineraryId: itinerary.id,
-    //     message: itinerary.title + ' saved',
-    //     meta: {
-    //       mixpanel: {
-    //         event: 'Itinerary updated',
-    //         props: {
-    //           itineraryId: itinerary.id,
-    //           field: field
-    //         }
-    //       }
-    //     }
-    //   })
-    // }
+export function watchThreadComments(threadId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).on('child_added', commentSnap => {
+      dispatch(threadCommentAddedAction(threadId, commentSnap.key, commentSnap.val()));
+    })
+
+    // Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).on('child_changed', commentSnap => {
+    //   dispatch(threadCommentChangedAction(threadId, commentSnap.key, commentSnap.val()));
+    // })
+
+    Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).on('child_removed', commentSnap => {
+      dispatch(threadCommentRemovedAction(threadId, commentSnap.key));
+    })
+  }
+}
+
+export function onThreadCommentSubmit(authenticated, userInfo, type, thread, body, threadId) {
+  return dispatch => {
+    if(!authenticated) {
+      dispatch({
+        type: ActionTypes.ASK_FOR_AUTH
+      })
+    }
+    const comment = {
+      userId: authenticated,
+      username: userInfo.username,
+      body: body ? body : '',
+      lastModified: Firebase.database.ServerValue.TIMESTAMP
+    }
+    if (userInfo.image) comment.image = userInfo.image;
+
+    // let inboxMessageType = Constants.THREAD_TYPE;
+    // let commentOnCommentType = ( type === Constants.ITINERARY_TYPE ? Constants.COMMENT_ON_COMMENT_ITINERARY_MESSAGE : Constants.COMMENT_ON_COMMENT_REVIEW_MESSAGE );
+    // let objectId = ( type === Constants.ITINERARY_TYPE ? commentObject.id : commentObject.key );
+
+    if (threadId) {
+      let commentId = '';
+
+      commentId = Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).push(comment).key;
+
+      Helpers.incrementThreadCount(Constants.COMMENTS_COUNT, threadId, thread, thread.userId);
+
+      // console.log('updates = ' + JSON.stringify(updates))
+      // Firebase.database().ref().update(updates);
+
+      // send message to original review poster if they are not the commentor
+      const sentArray = [];
+      if (authenticated !== thread.userId) {
+        Helpers.sendCollaboInboxMessage(authenticated, thread.userId, Constants.COMMENT_IN_THREAD_MESSAGE, thread, threadId, Object.assign({commentId: commentId, message: body}));
+        sentArray.push(thread.userId);
+        // dispatch({
+        //   type: MIXPANEL_EVENT,
+        //   mixpanel: {
+        //     event: SEND_INBOX_MESSAGE,
+        //     props: {
+        //       type: Constants.inboxMessageType
+        //     }
+        //   }
+        // })
+      }
+
+      Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).once('value', commentsSnapshot => {
+        commentsSnapshot.forEach(function(comment) {
+          let commenterId = comment.val().userId;
+          // if not commentor or in sent array, then send a message
+          if (commenterId !== authenticated && (sentArray.indexOf(commenterId) === -1)) {
+            Helpers.sendInboxMessage(authenticated, commenterId, Constants.COMMENT_IN_THREAD_MESSAGE, thread, threadId, Object.assign({commentId: commentId, message: body}));
+            sentArray.push(commenterId);
+            // dispatch({
+            //   type: MIXPANEL_EVENT,
+            //   mixpanel: {
+            //     event: SEND_INBOX_MESSAGE,
+            //     props: {
+            //       type: commentOnCommentType
+            //     }
+            //   }
+            // })
+          }
+        })
+      })
+
+      // send inbox messages to any usernames mentioned in the comment
+      findCommentMentions(dispatch, authenticated, body, thread, threadId, sentArray, commentId);
+
+
+      // const mixpanelProps = ( (type === Constants.TIPS_TYPE ||  type === Constants.RECOMMENDATIONS_TYPE) ? {subjectId: commentObject.subjectId} : {itineraryId: commentObject.id});
+      dispatch({
+        type: ActionTypes.ADD_COMMENT,
+        // meta: {
+        //   mixpanel: {
+        //     event: 'Comment added',
+        //     dataType: type,
+        //     props: mixpanelProps
+        //   }
+        // }
+      })
+
+      // mixpanel.people.increment("total comments");
+      // mixpanel.people.set({ "last comment date": (new Date()).toISOString() });
+      // mixpanel.identify(authenticated);
+    }
+  }
+}
+
+export function onDeleteThreadComment(thread, commentId, threadId) {
+  return dispatch => {
+    // delete the comment
+    Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId + '/' + commentId).remove();
+
+    Helpers.decrementThreadCount(Constants.COMMENTS_COUNT, threadId, thread, thread.userId);
+
+    // mixpanel.people.increment("total comments", -1);
+
+    dispatch({
+      type: ActionTypes.DELETE_COMMENT
+    })
   }
 }
