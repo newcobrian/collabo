@@ -8,6 +8,7 @@ import { Link, browserHistory } from 'react-router';
 import PopularPreview from './PopularPreview';
 import ItineraryPreview from '../ItineraryPreview';
 import UniversalSearchBar from '../UniversalSearchBar';
+import ProjectList from '../ProjectList';
 
 const mapStateToProps = state => ({
   ...state.home,
@@ -74,21 +75,21 @@ class Home extends React.Component {
 
   componentWillMount() {
     // this.props.startFeedWatch(this.props.authenticated);
-    this.props.startLikesByUserWatch(this.props.authenticated);
-    this.props.startUsersFeedWatchScroller(this.props.authenticated, this.props.dateIndex);
-    this.props.getFeaturedPreview(this.props.authenticated);
-    this.props.getPopularPreview(this.props.authenticated);
-    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'home page'});
+    // this.props.startLikesByUserWatch(this.props.authenticated);
+    // this.props.startUsersFeedWatchScroller(this.props.authenticated, this.props.dateIndex);
+    // this.props.getFeaturedPreview(this.props.authenticated);
+    // this.props.getPopularPreview(this.props.authenticated);
+    // this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'home page'});
   } 
 
   componentWillUnmount() {
     // this.props.unloadFeedWatch(this.props.authenticated);
     // this.props.stopUsersFeedWatch(this.props.authenticated);
-    this.props.stopLikesByUserWatch(this.props.authenticated);
-    this.props.stopUsersFeedWatchScroller(this.props.authenticated, this.props.dateIndex);
-    if (this.props.featuredPreview && this.props.featuredPreview.itinerary) {
-      this.props.unloadFeaturePreview(this.props.authenticated, this.props.featuredPreview.itinerary.id)
-    }
+    // this.props.stopLikesByUserWatch(this.props.authenticated);
+    // this.props.stopUsersFeedWatchScroller(this.props.authenticated, this.props.dateIndex);
+    // if (this.props.featuredPreview && this.props.featuredPreview.itinerary) {
+    //   this.props.unloadFeaturePreview(this.props.authenticated, this.props.featuredPreview.itinerary.id)
+    // }
   }
 
   onPrevClick = ev => {
@@ -286,91 +287,29 @@ class Home extends React.Component {
 
     return (
       <div>
-        {this.LoggedOutIntro(this.props.authenticated)}
+        
 
         
         <div className={'home-page page-common fill--white flx flx-col flx-align-center ' + isLandingPage}>
-          <div className="v2-toolbar w-100 flx flx-row flx-m-col flx-align-center brdr-bottom flx-just-start flx-just-space-between">
-            <UniversalSearchBar /> {this.renderTabs()}
-          </div>
-          <div className="w-100 pdding-all-md flx flx-row flx-center-all w-max-2 mrgn-top-md DN">
-            <button className="ask-for-recs-button vb vb--sm fill--primary color--white mobile-w-100" onClick={this.onAskForRecsClick}>
-              <i className="material-icons color--white md-24 mrgn-right-sm DN">flare</i>
-                Ask for Recs
-              <i className="material-icons color--white md-24 mrgn-left-sm">room_service</i>
-            </button>
-          </div>
+          
+          
 
           
 
           <div className="guide-feed-wrapper w-100 flx flx-row flx-just-center flx-self-end flx-align-start flx-wrap">
             
-            <div className="popular-box brdr-all flx flx-col DN">
-              <div className="color--black section-header mrgn-bottom-md">Popular Guides</div>
-              <PopularPreview 
-                popularList={this.props.popularPreview}
-                authenticated={this.props.authenticated} 
-                deleteItinerary={this.props.deleteItinerary} />
-                <Link className="color--primary v2-type-body0 flx-item-bottom" to="/popular">See all popular guides</Link>
-            </div>
+            
 
-            {/**<RenderFeaturedPreview
-               featuredPreview={this.props.featuredPreview}
-               authenticated={this.props.authenticated} 
-               deleteItinerary={this.props.deleteItinerary} 
-               />**/}
+            <ProjectList />
 
+            
 
-            { this.props.itineraries && this.props.itineraries.length > 0 && 
-              this.props.itineraries.map(itinerary => {
-                return (
-                  <ItineraryPreview itinerary={itinerary}
-                    key={'guide' + itinerary.id}
-                    authenticated={this.props.authenticated}
-                    />
-                 );
-                })
-            }
-
-            {<RenderFollowCard
-              itineraries={this.props.itineraries}
-            />}
-
-            <div className="DN itinerary__cover cover--empty flx flx-col flx-center-all ta-center color--black brdr-all fill--light-gray">
-              <div className="v2-type-body4 pdding-bottom-md color--black mrgn-right-lg mrgn-left-lg">
-                Your friends' travel guides show up here
-              </div>
-              <div className="vb vb--sm vb--outline fill--white color--black">
-                <i className="material-icons md-32 color--black opa-70 mrgn-right-sm">person_add</i>
-                <Link to="/explore" className="color--black">Find friends</Link>
-              </div>
-            </div>
-
-            <Link to="/create" className="DN itinerary__cover cover--empty flx flx-col flx-center-all ta-center fill-success color--white brdr-all">
-              <div className="v2-type-h1 pdding-bottom-lg color--black">
-                Create a new travel guide
-              </div>
-              <div className="v2-type-body2 pdding-bottom-md color--black opa-50">
-                Upcoming trip or recommendations for friends?
-              </div>
-              <div className="vb fill--success color--white">
-                  <i className="material-icons md-32 color--white">add</i>
-              </div>
-            </Link>
+            
           </div>
 
           <BackToTop />
 
-          <div className="w-100 flx flx-row flx-center-all mrgn-top-lg">
-            {/*<button className="vb vb--sm vb--outline-none fill--none" onClick={this.onNextClick}>
-              <i className="material-icons color--primary md-32">keyboard_arrow_left</i>
-              <div className="mobile-hide mrgn-left-sm">Newer Guides</div>
-            </button>*/}
-            {!this.props.endOfFeed && <button className="vb vb--sm vb--outline-none fill--none" onClick={this.onPrevClick}>
-              <div className="mobile-hide mrgn-right-sm">Show more guides</div>
-              <i className="material-icons color--primary md-32">keyboard_arrow_right</i>
-            </button>}
-          </div>
+          
 
         </div>
         
