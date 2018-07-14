@@ -8,41 +8,37 @@ import FirebaseSearchInput from './FirebaseSearchInput';
 import UniversalSearchBar from './UniversalSearchBar';
 
 const mapStateToProps = state => ({
-  ...state.project,
+  ...state.thread,
   authenticated: state.common.authenticated
 });
 
-class Project extends React.Component {
+class Thread extends React.Component {
   constructor() {
     super();
 
     this.searchInputCallback = result => {
         if (result.placeId) {
-          browserHistory.push('/project/' + result.projectId);
+          browserHistory.push('/thread/' + result.threadId);
         }
       }
-
-    this.onAddThreadClick = () => {
-      this.props.goToAddThread(this.props.params.pid);
-    }
   }
 
   componentWillMount() {
-    this.props.loadProject(this.props.params.pid);
-    this.props.getProjectFeed(this.props.authenticated, this.props.params.pid);
+    this.props.loadProject(this.props.params.tid);
+    // this.props.getProjectFeed(this.props.authenticated, this.props.params.tid);
     // this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project'});
   }
 
   componentWillUnmount() {
-    this.props.unloadProjectFeed(this.props.authenticated, this.props.params.pid);
+    // this.props.unloadProjectFeed(this.props.authenticated, this.props.params.tid);
     // if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.params.pid !== this.props.params.pid) {
-      this.props.unloadProjectFeed(this.props.authenticated, this.props.params.pid);
-      this.props.loadProject(nextProps.params.pid);
-      this.props.getProjectFeed(this.props.authenticated, nextProps.params.pid);
+    if (nextProps.params.tid !== this.props.params.tid) {
+      this.props.unloadProjectFeed(this.props.authenticated, this.props.params.tid);
+      this.props.loadProject(nextProps.params.tid);
+      this.props.getProjectFeed(this.props.authenticated, nextProps.params.tid);
     }
   }
 
@@ -83,7 +79,7 @@ class Project extends React.Component {
       <div className="page-common page-places flx flx-col flx-align-start">
 
         <div>
-          <Link to={'/addthread/' + this.props.params.pid} activeClassName="active" className="nav-module create nav-editor flx flx-center-all">
+          <Link to={'/addthread/' + this.props.params.tid} activeClassName="active" className="nav-module create nav-editor flx flx-center-all">
             <div className="nav-text flx flx-row flx-align-center">
               <i className="material-icons color--success md-24 opa-100 mrgn-right-xs">add</i>
               <div className="mobile-hide mrgn-left-xs">New Thread</div>
@@ -121,4 +117,4 @@ class Project extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, Actions)(Project);
+export default connect(mapStateToProps, Actions)(Thread);

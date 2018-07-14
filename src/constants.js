@@ -82,6 +82,8 @@ export const PROJECTS_PATH = '/projects'
 export const PROJECT_NAMES_BY_ORG_PATH = '/projects-names-by-org'
 export const PROJECTS_BY_USER_PATH = '/projects-by-user'
 export const THREADS_BY_PROJECT_PATH ='/threads-by-project'
+export const THREADS_PATH ='/threads'
+export const THREADS_BY_USER_PATH ='/threads-by-user'
 
 /*** Counter Type Constants ***/
 export const LIKES_COUNT = 'likesCount'
@@ -142,6 +144,7 @@ export const PROFILE_PAGE = 'PROFILE_PAGE'
 export const CREATE_PAGE = 'CREATE_PAGE'
 export const ADD_REVIEW_PAGE = 'ADD_REVIEW_PAGE'
 export const ADD_PROJECT_PAGE = 'ADD_PROJECT_PAGE'
+export const ADD_THREAD_PAGE ='ADD_THREAD_PAGE'
 
 /*** Tag list ***/
 export const TAG_LIST = []

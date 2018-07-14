@@ -21,10 +21,12 @@ import lightboxComponent from './reducers/lightboxComponent';
 import explore from './reducers/explore';
 import places from './reducers/places';
 import project from './reducers/project';
+import thread from './reducers/thread';
 import recommend from './reducers/recommend';
 import universalSearchBar from './reducers/universalSearchBar';
 import addReview from './reducers/addReview';
 import addProject from './reducers/addProject';
+import addThread from './reducers/addThread';
 import Firebase from 'firebase';
 import mixpanel from 'mixpanel-browser';
 import MixpanelMiddleware from 'redux-mixpanel-middleware';
@@ -62,6 +64,8 @@ const reducer = combineReducers({
   universalSearchBar,
   addProject,
   project,
+  addThread,
+  thread,
   // editForm: combineForms({
   //   editForm: initialItinerary
   // }, 'editForm')

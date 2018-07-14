@@ -2,63 +2,34 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
-import ProxyImage from './ProxyImage';
 import ListErrors from './ListErrors';
-import { CREATE_PAGE } from '../actions';
-// import Geosuggest from 'react-geosuggest';
-import ProfileInfo from './ProfileInfo'
-// import Script from 'react-load-script';
-// import {GoogleApiWrapper} from 'google-maps-react';
-// import Map from 'google-maps-react';
-
-// const SubjectInfo = props => {
-// 	const renderImage = image => {
-// 		if (image) {
-// 			return (
-// 				<ProxyImage src={image}/>
-// 			)
-// 		}
-// 		else return null;
-// 	}
-// 	if (props.subject) {
-// 		return (
-// 			<div>
-// 			<div className="flx flx-row-top">
-// 				<div className="subject-image create-subject-image">{renderImage(props.image)}</div>
-// 			</div>
-// 			</div>
-// 		)
-// 	}
-// 	else return null;
-// }
 
 const mapStateToProps = state => ({
-  ...state.addProject,
+  ...state.addThread,
   authenticated: state.common.authenticated
 });
 
-class AddProject extends React.Component {
+class AddThread extends React.Component {
 	constructor() {
 		super();
 
 	    const updateFieldEvent =
-	      key => ev => this.props.onUpdateCreateField(key, ev.target.value, Constants.ADD_PROJECT_PAGE);
+	      key => ev => this.props.onUpdateCreateField(key, ev.target.value, Constants.ADD_THREAD_PAGE);
 
-	    this.changeName = updateFieldEvent('name');
+	    this.changeTitle = updateFieldEvent('title');
 	    
-	    this.changeDescription = updateFieldEvent('description');
+	    this.changeBody = updateFieldEvent('body');
 
 		this.submitForm = ev => {
 	      ev.preventDefault();
-	      if (!this.props.name) {
-	        this.props.createSubmitError('project name', Constants.ADD_PROJECT_PAGE);
+	      if (!this.props.title) {
+	        this.props.createSubmitError('project name', Constants.ADD_THREAD_PAGE);
 	      }
 	      else {
-		   	let project = {};
-	    	project.name = this.props.name;
+		   	let thread = Object.assign({}, {title: this.props.title}, {body: this.props.body} )
 
 		    this.props.setInProgress();
-		    this.props.onAddProject(this.props.authenticated, project);
+		    this.props.onAddThread(this.props.authenticated, this.props.params.pid, thread);
 		  }
     	}
 	}
@@ -93,10 +64,6 @@ class AddProject extends React.Component {
 
 				    {/* CONTAINER - START */}
 			        <div className="hero-container">
-	        			<div className="page-title-wrapper center-text DN">
-	        	          <div className="v2-type-page-header">Create a new Project</div>
-	        	          <div className="v2-type-body2 opa-60">This could be a list of top spots or plans for an upcoming trip</div>
-	        	        </div>
 			         	<div className="create-content flx flx-col flx-center-all ta-center">
 							
 							<div className="flx flx-col flx-center-all create-wrapper">
@@ -104,30 +71,29 @@ class AddProject extends React.Component {
 					            <div className="create-form-wrapper form-wrapper ta-left flx flx-col-left bx-shadow">
 						            
 						            <form>
-						            	<div className="v2-type-page-header mrgn-bottom-sm">Add a New Project</div>
+						            	<div className="v2-type-page-header mrgn-bottom-sm">Start a new thread</div>
 
 										<fieldset className="field-wrapper">
-											<label>Name Your Project</label>
+											<label>Thread Title</label>
 					                      <input
 					                        className="input--underline edit-itinerary__name v2-type-body3"
 					                        type="text"
-					                        placeholder="My New Project"
+					                        placeholder="My new thread"
 					                        required
-					                        value={this.props.name}
+					                        value={this.props.title}
 					                        maxLength="42"
-					                        onChange={this.changeName} />
+					                        onChange={this.changeTitle} />
 					                    </fieldset>
-										<fieldset className="field-wrapper DN">
-											<label>About (Optional)</label>
+										<fieldset className="field-wrapper">
+											<label>Body (Optional)</label>
 					                      <textarea
 					                        className="input--underline v2-type-body3"
 					                        type="text"
-					                        rows="3"
-					                        maxLength="184"
-					                        placeholder="Add a description..."
+					                        rows="20"
+					                        placeholder="Start writing here..."
 					                        required
-					                        value={this.props.description}
-					                        onChange={this.changeDescription} />
+					                        value={this.props.body}
+					                        onChange={this.changeBody} />
 					                    </fieldset>
 
 					                    <ListErrors errors={this.props.errors}></ListErrors>
@@ -138,7 +104,7 @@ class AddProject extends React.Component {
 					                    disabled={this.props.inProgress}
 					                    onClick={this.submitForm}>
 					                    	<div className="flx flx-row flx-center-all ta-center">
-						                    	<div className="flx-grow1 mrgn-left-md">Create</div>
+						                    	<div className="flx-grow1 mrgn-left-md">Save</div>
 												<img className="flx-item-right" src="/img/icons/icon32_next.png"/>
 											</div>
 					                  </div>
@@ -179,4 +145,4 @@ class AddProject extends React.Component {
 //   apiKey: Constants.GOOGLE_API_KEY
 // }) (connect(mapStateToProps, Actions)(Create));
 
-export default connect(mapStateToProps, Actions)(AddProject);
+export default connect(mapStateToProps, Actions)(AddThread);

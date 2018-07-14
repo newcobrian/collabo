@@ -4,7 +4,7 @@ import { AUTH_USER, SIGN_OUT_USER, REVIEW_SUBMITTED, APP_USER_LOADED, EMPTY_FRIE
 import * as ActionTypes from '../actions/types'
 
 const defaultState = {
-  appName: 'Reccoon',
+  appName: 'Collabo',
   authenticated: false,
   token: null,
   authRedirect: ''
@@ -118,6 +118,11 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         redirectTo: '/places/' + action.placeId
+      }
+    case ActionTypes.THREAD_CREATED:
+      return {
+        ...state,
+        redirectTo: '/thread/' + action.threadId
       }
     default: 
       return state;
