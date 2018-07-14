@@ -20,6 +20,7 @@ import Editor from './components/Editor';
 import Create from './components/Create';
 import AddProject from './components/AddProject';
 import AddThread from './components/AddThread';
+import Thread from './components/Thread';
 import AddReview from './components/AddReview';
 import Followers from './components/Followers';
 import Followings from './components/Followings';
