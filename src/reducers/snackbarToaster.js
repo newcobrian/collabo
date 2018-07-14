@@ -18,6 +18,7 @@ export default function(state = initialState, action) {
     case ActionTypes.ITINERARY_UPDATED:
     case SETTINGS_SAVED:
     case FORGOT_PASSWORD_SENT:
+    case ActionTypes.THREAD_UPDATED:
       {
         return {...state,
           message: action.message,

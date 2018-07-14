@@ -272,3 +272,101 @@ export function unloadProjectList(auth) {
      })
   }
 }
+
+export function loadThread(threadId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.THREADS_PATH + '/' + threadId).on('value', threadSnapshot => {
+      if (threadSnapshot.exists()) {
+        Firebase.database().ref(Constants.USERS_PATH + '/' + threadSnapshot.val().userId).on('value', userSnapshot => {
+          dispatch({
+            type: ActionTypes.LOAD_THREAD,
+            thread: threadSnapshot.val(),
+            createdBy: userSnapshot.val()
+          })
+        })
+      }
+      else {
+        dispatch({
+          type: ActionTypes.THREAD_NOT_FOUND_ERROR
+        })
+      }
+    })
+  }
+}
+
+export function unloadThread(threadId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.THREADS_PATH + '/' + threadId).off();
+      dispatch({
+        type: ActionTypes.UNLOAD_THREAD
+      })
+  }
+}
+
+
+export function updateThreadField(auth, threadId, thread, field, value) {
+  return dispatch => {
+    if (thread && threadId && thread.userId) {
+      let updates = {}
+
+      // update all thread tables
+      updates[`/${Constants.THREADS_PATH}/${threadId}/${field}/`] = value
+      updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${thread.projectId}/${threadId}/${field}/`] = value
+      updates[`/${Constants.THREADS_BY_USER_PATH}/${thread.userId}/${threadId}/${field}/`] = value
+
+      // update lastModified timestamps
+      let timestamp = Firebase.database.ServerValue.TIMESTAMP;
+      updates[`/${Constants.THREADS_PATH}/${threadId}/lastModified/`] = timestamp
+      updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${thread.projectId}/${threadId}/lastModified/`] = timestamp
+      updates[`/${Constants.THREADS_BY_USER_PATH}/${thread.userId}/${threadId}/lastModified/`] = timestamp
+
+      Firebase.database().ref().update(updates);
+
+      dispatch({
+        type: ActionTypes.THREAD_UPDATED,
+        message: 'Your changes have been saved'
+      })
+    }
+    // if (itinerary && itinerary.id && itinerary.userId && itinerary.geo && itinerary.geo.placeId) {
+    //   let updates = {};
+      
+    //   // update all itinerary tables
+    //   updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${itinerary.userId}/${itinerary.id}/${field}`] = value;
+    //   updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${itinerary.geo.placeId}/${itinerary.userId}/${itinerary.id}/${field}`] = value;
+    //   updates[`/${Constants.ITINERARIES_PATH}/${itinerary.id}/${field}`] = value;
+    //   updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itinerary.id}/${field}`] = value;
+
+    //   // update lastModified timestamps
+    //   let timestamp = Firebase.database.ServerValue.TIMESTAMP;
+    //   updates[`/${Constants.ITINERARIES_BY_USER_PATH}/${itinerary.userId}/${itinerary.id}/lastModified`] = timestamp;
+    //   updates[`/${Constants.ITINERARIES_BY_GEO_BY_USER_PATH}/${itinerary.geo.placeId}/${itinerary.userId}/${itinerary.id}/lastModified`] = timestamp;
+    //   updates[`/${Constants.ITINERARIES_PATH}/${itinerary.id}/lastModified`] = timestamp;
+    //   updates[`/${Constants.ITINERARIES_BY_GEO_PATH}/${itinerary.geo.placeId}/${itinerary.id}/lastModified`] = timestamp;
+
+    //   if (field === 'title') {
+    //     for (let i = 0; i < itinerary.tips.length; i++) {
+    //       let userId = itinerary.tips[i].userId ? itinerary.tips[i].userId : itinerary.userId;
+    //       updates[`/${Constants.TIPS_BY_SUBJECT_PATH}/${itinerary.tips[i].subjectId}/${userId}/${itinerary.tips[i].key}/title`] = value;
+    //     }
+    //   }
+
+    //   Firebase.database().ref().update(updates);
+    //   Helpers.fanOutToFollowersFeed(auth, itinerary.id, timestamp);
+
+    //   dispatch({
+    //     type: ActionTypes.ITINERARY_UPDATED,
+    //     itineraryId: itinerary.id,
+    //     message: itinerary.title + ' saved',
+    //     meta: {
+    //       mixpanel: {
+    //         event: 'Itinerary updated',
+    //         props: {
+    //           itineraryId: itinerary.id,
+    //           field: field
+    //         }
+    //       }
+    //     }
+    //   })
+    // }
+  }
+}

@@ -1,25 +1,24 @@
-import { GET_PLACES_FEED, UNLOAD_PLACES_FEED, LOAD_PLACES } from '../actions'
 import * as ActionTypes from '../actions/types';
 
 export default (state = {}, action) => {
   switch (action.type) {
-    case GET_PLACES_FEED:
+    case ActionTypes.LOAD_THREAD:
       return {
         ...state,
-        feed: action.payload
+        thread: action.thread,
+        createdBy: action.createdBy
       }
-    case UNLOAD_PLACES_FEED:
+    case ActionTypes.THREAD_NOT_FOUND_ERROR:
+      return {
+        ...state,
+        threadNotFoundError: true
+      }
+    case ActionTypes.THREAD_UPDATED:
+      return {
+        ...state
+      }
+    case ActionTypes.UNLOAD_THREAD:
       return {}
-    case LOAD_PLACES:
-      return {
-        ...state,
-        geo: action.geo
-      }
-    case ActionTypes.PLACE_NOT_FOUND_ERROR:
-      return {
-        ...state,
-        placeNotFoundError: true
-      }
     default:
       return state;
   }
