@@ -57,33 +57,20 @@ ReactDOM.render((
     <Router history={browserHistory} onUpdate={hashLinkScroll}>
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
-        <Route path="global" component={GlobalFeed} />
-        <Route path="popular" component={PopularFeed} />
-        <Route path="saved" component={SavesFeed} />
         <Route path="login" component={Login} />
         <Route path="register" component={Register} />
         <Route path="settings" component={Settings} />
         <Route path="forgotPassword" component={ForgotPassword} />
-        <Route path="review/:sid(/:rid)" component={Review} />
-        <Route path="create" component={Create} />
         <Route path="addproject" component={AddProject} />
         <Route path="addthread/:pid" component={AddThread} />
-        <Route path="add" component={AddReview} />
         <Route path="inbox" component={Inbox} />
-        <Route path="select" component={FriendSelector} />
-        <Route path="explore" component={Explore} />
-        {/*<Route path="recommend/:iid" component={Recommend} />*/}
         <Route path="seo" component={SEO} />
-        <Route path="places/:pid" component={Places} />
         <Route path="project/:pid" component={Project} />
         <Route path="thread/:tid" component={Thread} />
-        <Route path="guide/:iid(/:rec)" component={Itinerary} />
         <Route path=":username/followers" component={Followers} />
         <Route path=":username/isfollowing" component={Followings} />
         <Route path=":username" component={ProfileGuides} />
-        <Route path=":username/guides" component={ProfileGuides} />
         <Route path=":username/likes" component={ProfileLikes} />
-        <Route path=":username/saves" component={ProfileSaves} />
       </Route>
     </Router>
   </Provider>
