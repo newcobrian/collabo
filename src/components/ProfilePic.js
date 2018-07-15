@@ -13,14 +13,14 @@ const ProfilePic = props => {
 
   // console.log(url)
   
-  if (url.indexOf('https://firebasestorage.googleapis.com') != -1) {
-    url = decodeURIComponent(url)
-    var withoutParams = url.split('?')[0]
-    var bits = withoutParams.split('/')
-    var key = bits[bits.length-1]
+  // if (url.indexOf('https://firebasestorage.googleapis.com') != -1) {
+  //   url = decodeURIComponent(url)
+  //   var withoutParams = url.split('?')[0]
+  //   var bits = withoutParams.split('/')
+  //   var key = bits[bits.length-1]
     
-    url = 'https://myviews.imgix.net/images/' + key + '?fit=crop&h=180&max-w=180'
-  }
+  //   url = 'https://myviews.imgix.net/images/' + key + '?fit=crop&h=180&max-w=180'
+  // }
   
   return (
     <div className="user-photo-wrapper default-profile-wrapper flx-hold invert">
