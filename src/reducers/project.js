@@ -33,29 +33,28 @@ export default (state = initialState, action) => {
         // let comments = { comments: newState.commentsData[action.tipId] ? [].concat(newState.commentsData[action.tipId]) : [] };
         // let isLiked = { isLiked: newState.likesData[action.tipId] ? true : false };
         newState.threads = newState.threads.concat(Object.assign({}, {threadId: action.threadId}, action.thread, createdBy));
+        newState.threads.sort(Helpers.lastModifiedDesc);
 
         return newState;
       }
       return state;
     }
     case ActionTypes.THREAD_CHANGED_ACTION: {
-      if (action.source === Constants.ITINERARY_PAGE) {
-        const newState = Object.assign({}, state);
-        newState[action.dataType] = newState[action.dataType] || [];
-        newState[action.dataType] = newState[action.dataType].slice();
-        let createdBy = { createdBy: Object.assign({}, newState.usersData[action.thread.userId]) };
-        // let comments = { comments: newState.commentsData[action.tipId] ? [].concat(newState.commentsData[action.tipId]) : [] };
-        // let isLiked = { isLiked: newState.likesData[action.tipId] ? true : false };
-        
-        for (let i = 0; i < newState[action.dataType].length; i++) {
-          if (newState[action.dataType][i].key === action.tipId) {
-            newState[action.dataType][i] = Object.assign({}, {key: action.tipId}, {priority: action.priority}, action.tip, createdBy);
-            newState[action.dataType].sort(Helpers.byPriority);
-            return newState;
-          }
+      const newState = Object.assign({}, state);
+      newState.threads = newState.threads || [];
+      newState.threads = newState.threads.slice();
+      let createdBy = { createdBy: Object.assign({}, newState.usersData[action.thread.userId]) };
+      // let comments = { comments: newState.commentsData[action.tipId] ? [].concat(newState.commentsData[action.tipId]) : [] };
+      // let isLiked = { isLiked: newState.likesData[action.tipId] ? true : false };
+      
+      for (let i = 0; i < newState.threads.length; i++) {
+        if (newState.threads[i].threadId === action.threadId) {
+          newState.threads[i] = Object.assign({}, {threadId: action.threadId}, action.thread, createdBy);
+          newState.threads.sort(Helpers.lastModifiedDesc);
+          // return newState;
         }
       }
-      return state;
+      return newState;
     }
     case ActionTypes.USER_VALUE_ACTION: {
       if (action.source === Constants.PROJECTS_PAGE) {
