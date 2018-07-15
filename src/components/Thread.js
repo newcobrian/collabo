@@ -10,9 +10,9 @@ import LoadingSpinner from './LoadingSpinner';
 import ProfilePic from './ProfilePic';
 import DisplayTimestamp from './DisplayTimestamp';
 import RenderDebounceInput from './RenderDebounceInput';
-import CommentContainer from './Review/CommentContainer'
-
-const processString = require('react-process-string');
+import CommentContainer from './Review/CommentContainer';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const mapStateToProps = state => ({
   ...state.thread,
@@ -21,31 +21,31 @@ const mapStateToProps = state => ({
 })
 
 const BodySection = props => {
-  const processMentions = processString([{
-    regex: /\@([a-z0-9_\-]+?)( |\,|$|\.)/gim, //regex to match a username 
-    fn: (key, result) => {
-        return <Link className="color--primary" key={key} to={`/${result[1]}`}>@{result[1]} </Link>;
-      }
-  }]);
-
-  if (props.canModify) {
+  if (!props.canModify) {
     return (
       <div>
-        <RenderDebounceInput
+        <ReactQuill 
+          value={props.body}
+          onChange={props.changeBody(props.thread)} />
+        {/*<RenderDebounceInput
           type="textarea"
           className="w-100 show-border"
           cols="10"
           wrap="hard"
           value={props.body}
           placeholder="Add notes here"
-          debounceFunction={props.changeBody(props.thread)} />
+          debounceFunction={props.changeBody(props.thread)} />*/}
       </div>
     )
   }
   else {
     return (
-      <div>
-        {processMentions(props.body)}
+      <div dangerouslySetInnerHTML={{ __html: props.body }}>
+        {/*<ReactQuill 
+          value={props.body}
+          onChange={props.changeBody(props.thread)}
+          readOnly={true} />*/}
+        {/*props.body*/}
       </div>
     )
   }
