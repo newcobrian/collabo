@@ -372,6 +372,12 @@ export function watchThreadComments(threadId) {
   }
 }
 
+export function unwatchThreadComments(threadId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).off();
+  }
+}
+
 export function onThreadCommentSubmit(authenticated, userInfo, type, thread, body, threadId) {
   return dispatch => {
     if(!authenticated) {
@@ -397,6 +403,7 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
       commentId = Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).push(comment).key;
 
       Helpers.incrementThreadCount(Constants.COMMENTS_COUNT, threadId, thread, thread.userId);
+      // Helpers.incrementProjectCount(Constants.COMMENTS_COUNT, thread.projectId, thread, thread.userId);
 
       // console.log('updates = ' + JSON.stringify(updates))
       // Firebase.database().ref().update(updates);

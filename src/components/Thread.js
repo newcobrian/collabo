@@ -72,6 +72,7 @@ class Thread extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.tid !== this.props.params.tid) {
       this.props.unloadThread(this.props.params.tid);
+      this.props.unwatchThreadComments(this.props.params.tid);
       this.props.loadThread(nextProps.params.tid);
       this.props.watchThreadComments(nextProps.params.tid);
     }
