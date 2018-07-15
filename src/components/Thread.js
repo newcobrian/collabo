@@ -66,6 +66,7 @@ class Thread extends React.Component {
 
   componentWillUnmount() {
     this.props.unloadThread(this.props.params.tid);
+    this.props.unwatchThreadComments(this.props.params.tid);
     // if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
   }
 
