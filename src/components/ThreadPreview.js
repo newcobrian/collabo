@@ -26,9 +26,10 @@ const mapStateToProps = state => ({
 });
  
 const CommentPreview = props => {
-  if (props.comments) {
+  if (!props.thread) return null
+  else if (props.thread.commentsCount) {
     return (
-      <Link to={`/review/${props.thread.subjectId}`}>
+      <Link to={`/thread/${props.thread.threadId}`}>
         <div className="cta-wrapper cta-wrapper-comment flx flx-col">
           <div className="cta-icon cta-comment"></div>
           {props.thread.commentsCount} Comments
@@ -37,77 +38,16 @@ const CommentPreview = props => {
     )
   }
   else {
-    return (
-      <Link to={`/review/${props.thread.subjectId}`}>
-        <div className="cta-wrapper cta-wrapper-comment flx flx-col">
-          <div className="cta-icon cta-comment comment-on"></div>
-          Comment
-        </div>
-      </Link>
-    )
+    return null
+    // return (
+    //   <Link to={`/thread/${props.thread.threadId}`}>
+    //     <div className="cta-wrapper cta-wrapper-comment flx flx-col">
+    //       <div className="cta-icon cta-comment comment-on"></div>
+    //       Comment
+    //     </div>
+    //   </Link>
+    // )
   }
-}
-
-/* Displays user entered caption -OR- empty message if user has not entered caption */ 
-const CaptionDisplay = props => {
-  const thread = props.thread;
-
-  // if (props.thread.caption) {
-  //   return (
-  //     <div className="">
-  //       <Link to={'/' + tip.createdBy.username} className="strong">{tip.createdBy.username} </Link>
-  //       <div className="inline opa-70">{props.tip.caption}</div>
-  //     </div>
-  //   )
-  // }
-  // else {
-  //   return (
-  //     <div className="">
-  //       <Link to={'/' + tip.createdBy.username} className="strong">{tip.createdBy.username} </Link>
-  //       <div className="inline opa-30">no review yet</div>
-  //     </div>
-  //   )
-  // } 
-}
-
-const RatingDisplay = props => {
-  // if viewer is the tip creator, let them modify
-  // if (props.canModify) {
-  //   return(
-  //     <div className={'tip__rating-module flx flx-row flx-align-center flx-hold w-100 tip__rating-module--' + props.tip.rating}>
-  //       <select className="color--black" value={props.thread.rating} onChange={props.changeRating(props.thread)}>
-  //         <option value="-">To Try</option>
-  //         <option value="0">0/10 Run away</option>
-  //         <option value="1">1/10 Stay away</option>
-  //         <option value="2">2/10 Just bad</option>
-  //         <option value="3">3/10 Don't go</option>
-  //         <option value="4">4/10 Meh</option>
-  //         <option value="5">5/10 Average</option>
-  //         <option value="6">6/10 Solid</option>
-  //         <option value="7">7/10 Go here</option>
-  //         <option value="8">8/10 Really good</option>
-  //         <option value="9">9/10 Must go</option>
-  //         <option value="10">10/10 The best</option>
-  //       </select>
-  //     </div>
-  //   )
-  // }
-  // // otherwise just show the rating
-  // else {
-  //   if (!props.tip.rating) {
-  //     return null
-  //   }
-  //   else {
-  //     return (
-  //       <div className={'tip__rating-module flx flx-row flx-align-center w-100 flx-hold tip__rating-module--' + props.tip.rating}>
-  //         <div className={'tip__rating flx-hold flx flx-row flx-center-all v2-type-rating--' +  props.tip.rating}>
-  //           {props.tip.rating}
-  //         </div>
-  //         <i className="rating-star-icon material-icons color--black opa-40 md-14 DN">star</i>
-  //       </div>
-  //     )
-  //   }
-  // }
 }
 
 const ThreadPreview = props => {
@@ -210,6 +150,8 @@ const ThreadPreview = props => {
                             </div>
                           </div>
                       </div>
+
+                      <CommentPreview thread={thread} />
 
                       { /** Comments  }
                       <div className="flx flx-row flex-wrap cta-container mrgn-top-sm">
