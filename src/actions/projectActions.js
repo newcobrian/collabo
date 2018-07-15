@@ -378,6 +378,15 @@ export function unwatchThreadComments(threadId) {
   }
 }
 
+export function getThreadFieldUpdates(threadId, thread, field, value) {
+  let updates = {}
+  updates[Constants.THREADS_PATH + '/' + threadId + '/' + field] = value
+  updates[Constants.THREADS_BY_PROJECT_PATH + '/' + thread.projectId + '/' + threadId + '/' + field] = value
+  updates[Constants.THREADS_BY_USER_PATH + '/' + thread.userId + '/' + threadId + '/' + field] = value
+
+  return updates;
+}
+
 export function onThreadCommentSubmit(authenticated, userInfo, type, thread, body, threadId) {
   return dispatch => {
     if(!authenticated) {
@@ -403,10 +412,9 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
       commentId = Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).push(comment).key;
 
       Helpers.incrementThreadCount(Constants.COMMENTS_COUNT, threadId, thread, thread.userId);
-      // Helpers.incrementProjectCount(Constants.COMMENTS_COUNT, thread.projectId, thread, thread.userId);
-
-      // console.log('updates = ' + JSON.stringify(updates))
-      // Firebase.database().ref().update(updates);
+      
+      let updates = getThreadFieldUpdates(threadId, thread, 'lastModified', Firebase.database.ServerValue.TIMESTAMP)
+      Firebase.database().ref().update(updates);
 
       // send message to original review poster if they are not the commentor
       const sentArray = [];
