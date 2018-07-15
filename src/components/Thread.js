@@ -12,6 +12,8 @@ import DisplayTimestamp from './DisplayTimestamp';
 import RenderDebounceInput from './RenderDebounceInput';
 import CommentContainer from './Review/CommentContainer'
 
+const processString = require('react-process-string');
+
 const mapStateToProps = state => ({
   ...state.thread,
   userInfo: state.common.userInfo,
@@ -19,6 +21,13 @@ const mapStateToProps = state => ({
 })
 
 const BodySection = props => {
+  const processMentions = processString([{
+    regex: /\@([a-z0-9_\-]+?)( |\,|$|\.)/gim, //regex to match a username 
+    fn: (key, result) => {
+        return <Link className="color--primary" key={key} to={`/${result[1]}`}>@{result[1]} </Link>;
+      }
+  }]);
+
   if (props.canModify) {
     return (
       <div>
@@ -36,7 +45,7 @@ const BodySection = props => {
   else {
     return (
       <div>
-        {props.body}
+        {processMentions(props.body)}
       </div>
     )
   }
