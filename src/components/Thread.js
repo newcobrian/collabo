@@ -147,7 +147,7 @@ class Thread extends React.Component {
           <div className="page-common page-places flx flx-col flx-align-start">
             
             <div>
-              <Link onClick={browserHistory.goBack} activeClassName="active" className="nav-module create nav-editor flx flx-center-all">
+              <Link to={'/project/' + this.props.thread.projectId} activeClassName="active" className="nav-module create nav-editor flx flx-center-all">
                 <div className="nav-text flx flx-row flx-align-center">
                   <i className="material-icons color--success md-24 opa-100 mrgn-right-xs">arrow_back_ios</i>
                   <div className="mobile-hide mrgn-left-xs">Back to Project</div>
