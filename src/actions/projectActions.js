@@ -149,14 +149,22 @@ export function watchProjectThreads(projectId) {
   return dispatch=> {
     Firebase.database().ref(Constants.THREADS_BY_PROJECT_PATH + '/' + projectId).orderByChild('lastModified').on('child_added', threadSnapshot => {
       if (threadSnapshot.val().userId) {
-        watchUser(dispatch, threadSnapshot.val().userId, Constants.PROJECTS_PAGE)
+        // watchUser(dispatch, threadSnapshot.val().userId, Constants.PROJECTS_PAGE)
+        Firebase.database().ref(Constants.USERS_PATH + '/' + threadSnapshot.val().userId).once('value', userSnap => {
+          dispatch(threadAddedAction(threadSnapshot.key, threadSnapshot.val(), userSnap.val()));   
+        })
       }
-      dispatch(threadAddedAction(threadSnapshot.key, threadSnapshot.val()));
+      // dispatch(threadAddedAction(threadSnapshot.key, threadSnapshot.val()));
     })
 
     // on child changed, how do we unwatch old refs?
     Firebase.database().ref(Constants.THREADS_BY_PROJECT_PATH + '/' + projectId).orderByChild('lastModified').on('child_changed', threadSnapshot => {
-      dispatch(threadChangedAction(threadSnapshot.key, threadSnapshot.val()));
+      if (threadSnapshot.val().userId) {
+        // watchUser(dispatch, threadSnapshot.val().userId, Constants.PROJECTS_PAGE)
+        Firebase.database().ref(Constants.USERS_PATH + '/' + threadSnapshot.val().userId).once('value', userSnap => {
+          dispatch(threadChangedAction(threadSnapshot.key, threadSnapshot.val(), userSnap.val()));   
+        })
+      }
     })
 
     Firebase.database().ref(Constants.THREADS_BY_PROJECT_PATH + '/' + projectId).orderByChild('lastModified').on('child_removed', threadSnapshot => {
@@ -165,21 +173,23 @@ export function watchProjectThreads(projectId) {
   }
 }
 
-function threadAddedAction(threadId, thread) {
+function threadAddedAction(threadId, thread, user) {
   // delete thread.lastModified;
   return {
     type: ActionTypes.THREAD_ADDED_ACTION,
     threadId,
-    thread
+    thread,
+    user
   }
 }
 
-function threadChangedAction(threadId, thread) {
+function threadChangedAction(threadId, thread, userId) {
   // delete thread.lastModified;
   return {
     type: ActionTypes.THREAD_CHANGED_ACTION,
     threadId,
-    thread
+    thread,
+    userId
   }
 }
 

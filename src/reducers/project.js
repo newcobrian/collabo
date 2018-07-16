@@ -30,7 +30,7 @@ export default (state = initialState, action) => {
       newState.threads = newState.threads.slice();
       newState.usersData = newState.usersData || {};
       if (!find(newState.threads, ['threadId', action.threadId])) {
-        let createdBy = { createdBy: Object.assign({}, newState.usersData[action.thread.userId]) };
+        let createdBy = { createdBy: Object.assign({}, action.user) };
         // let comments = { comments: newState.commentsData[action.tipId] ? [].concat(newState.commentsData[action.tipId]) : [] };
         // let isLiked = { isLiked: newState.likesData[action.tipId] ? true : false };
         newState.threads = newState.threads.concat(Object.assign({}, {threadId: action.threadId}, action.thread, createdBy));
@@ -44,7 +44,7 @@ export default (state = initialState, action) => {
       const newState = Object.assign({}, state);
       newState.threads = newState.threads || [];
       newState.threads = newState.threads.slice();
-      let createdBy = { createdBy: Object.assign({}, newState.usersData[action.thread.userId]) };
+      let createdBy = { createdBy: Object.assign({}, action.user) };
       // let comments = { comments: newState.commentsData[action.tipId] ? [].concat(newState.commentsData[action.tipId]) : [] };
       // let isLiked = { isLiked: newState.likesData[action.tipId] ? true : false };
       
