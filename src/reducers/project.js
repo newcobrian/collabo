@@ -28,6 +28,7 @@ export default (state = initialState, action) => {
       const newState = Object.assign({}, state);
       newState.threads = newState.threads || [];
       newState.threads = newState.threads.slice();
+      newState.usersData = newState.usersData || {};
       if (!find(newState.threads, ['threadId', action.threadId])) {
         let createdBy = { createdBy: Object.assign({}, newState.usersData[action.thread.userId]) };
         // let comments = { comments: newState.commentsData[action.tipId] ? [].concat(newState.commentsData[action.tipId]) : [] };
