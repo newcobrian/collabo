@@ -30,7 +30,7 @@ const CommentPreview = props => {
   else if (props.thread.commentsCount) {
     return (
       <Link to={`/thread/${props.thread.threadId}`}>
-        <div className="cta-wrapper cta-wrapper-comment flx flx-col">
+        <div className="cta-wrapper cta-wrapper-comment v2-type-body2 flx flx-row flx-align-center">
           <div className="cta-icon cta-comment"></div>
           {props.thread.commentsCount} Comments
         </div>
@@ -144,7 +144,7 @@ const ThreadPreview = props => {
 
 
                             <div className="flx flx-row flx-just-start flx-align-center">
-                              <div className="date-posted inline-block color--black font--alpha">
+                              <div className="date-posted inline-block color--black v2-type-body1 opa-30 font--alpha">
                                 <DisplayTimestamp timestamp={thread.lastModified} />
                               </div>
                             </div>

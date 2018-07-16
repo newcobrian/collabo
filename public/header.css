@@ -50,9 +50,7 @@ a.logo-module:focus {
 .logo-main {
     font-size: 18px;
     height: auto;
-    font-weight: 300;
-    letter-spacing: 5px;
-    font-family: 'Arimo', sans-serif;
+    font-weight: 600;
     margin-right: 6px;
     opacity: 1;
     margin-top: -5px;
@@ -93,10 +91,11 @@ a.logo-module:focus {
   height: 70px;
   padding-top: 0px;
   border-bottom: 2px solid transparent;
+  background-color: black;
 }
 .navigation-bar .nav-module img {
-  width: 70px;
-  height: 70px;
+  width: 48px;
+  height: 48px;
   border-radius: 0;
 }
 .navigation-bar .nav-module.create {

@@ -87,33 +87,33 @@ class Project extends React.Component {
     return (
     <div>
 
-      <div className="page-common page-places flx flx-col flx-align-start">
+      <div className="page-common page-places flx flx-row flx-align-start">
         
             {/*<UniversalSearchBar />*/}
         
         <ProjectList />
 
-
-        <div className={"page-title-wrapper center-text country-color-"}>
-          <div className="v2-type-page-header flx flx-col flx-center-all invert">
-            {this.props.project.name}
+        <div className="thread-area flx flx-col w-100">
+          <div className={"page-title-wrapper text-left country-color-"}>
+            <div className="v2-type-page-header flx flx-col flx-align-start text-left invert">
+              {this.props.project.name}
+            </div>
+            <div>
+              <Link to={'/addthread/' + this.props.params.pid} activeClassName="active" className="nav-module create nav-editor flx flx-align-start text-left">
+                <div className="nav-text flx flx-row flx-align-center">
+                  <i className="material-icons color--success md-24 opa-100 mrgn-right-xs">add</i>
+                  <div className="mrgn-left-xs">New Thread</div>
+                </div>
+              </Link>
+            </div>
+            <div className="v2-type-body2 opa-60"></div>
           </div>
-          <div>
-            <Link to={'/addthread/' + this.props.params.pid} activeClassName="active" className="nav-module create nav-editor flx flx-center-all">
-              <div className="nav-text flx flx-row flx-align-center">
-                <i className="material-icons color--success md-24 opa-100 mrgn-right-xs">add</i>
-                <div className="mobile-hide mrgn-left-xs">New Thread</div>
-              </div>
-            </Link>
+          <div className="feed-wrapper">
+            <ThreadList
+              threads={this.props.threads} 
+              authenticated={this.props.authenticated} />
           </div>
-          <div className="v2-type-body2 opa-60"></div>
         </div>
-        <div className="feed-wrapper">
-          <ThreadList
-            threads={this.props.threads} 
-            authenticated={this.props.authenticated} />
-        </div>
-
       </div>
 
     </div>

@@ -41,6 +41,12 @@ form {
 .center-text {
   text-align: center !important;
 }
+.left-text {
+  text-align: center !important;
+}
+.right-text {
+  text-align: center !important;
+}
 .no-uppercase,
 .vb.no-uppercase {
   text-transform: none !important;
@@ -167,8 +173,6 @@ textarea {
   letter-spacing: 1px;
 }
 .v2-type-page-header {
-  font-family: 'Roboto Condensed', sans-serif;
-  text-transform: uppercase;
 }
 .v2-type-h3 {
     font-size: 24px;
@@ -237,6 +241,7 @@ textarea {
 .color--gray {
   color: #D5E3E5;
 }
+
 .fill--gray {
   background-color: #D5E3E5;
 }

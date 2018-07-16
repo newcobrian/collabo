@@ -23,12 +23,12 @@ const LoggedOutView = props => {
      <div className="header-container logged-out">
       <div className="header-wrapper w-100">
         <Link to="/" className="logo-module flx flx-row flx-just-start flx-align-center">
-          <div className="logo-graphic flx flx-row flx-center-all">  
-            <img className="center-img" src="/img/logos/logo_2018_200_white.png"/>
+          <div className="logo-graphic flx flx-row flx-center-all DN">  
+            <img className="center-img" src="/img/colab-logo-temp.png"/>
           </div>
           <div className="flx flx-row flx-align-center flx-just-start">
             <div className="logo-main color--white">
-              VIEWS
+              👯‍♂️ Collabo
             </div>
             <div className="v2-type-body2 opa-60 w-100 color--white mobile-hide DN">
               Travel Guides by Friends
@@ -63,12 +63,12 @@ const LoggedInView = props => {
       <div className="header-container">
         <div className="header-wrapper w-100">
           <Link to="/" className="logo-module flx flx-row flx-just-start flx-align-center">
-            <div className="logo-graphic flx flx-row flx-center-all">  
-              <img className="center-img" src="/img/logos/logo_2018_200_white.png"/>
+            <div className="logo-graphic flx flx-row flx-center-all DN">  
+              <img className="center-img" src="/img/colab-logo-temp.png"/>
             </div>
             <div className="flx flx-row flx-align-center flx-just-start">
               <div className="logo-main color--white">
-                VIEWS
+                👯‍♂️ Collabo
               </div>
               <div className="v2-type-body2 opa-60 w-100 color--white mobile-hide DN">
                 Travel Guides by Friends
@@ -80,21 +80,21 @@ const LoggedInView = props => {
 
       <div className="navigation-bar flx flx-row flx-align-center flx-just-end">
         
-        <Link to="/addProject" activeClassName="active" className="nav-module create nav-editor flx flx-center-all">  
+        <Link to="/addProject" activeClassName="active" className="nav-module create nav-editor flx flx-center-all DN">  
           <div className="nav-text flx flx-row flx-align-center">
             <i className="material-icons color--success md-24 opa-100 mrgn-right-xs">add</i>
             <div className="mobile-hide mrgn-left-xs">New Project</div>
           </div>
         </Link>
 
-        <Link to="/" onlyActiveOnIndex activeClassName="active" className={"nav-module nav-feed flx flx-center-all " + (browserHistory.getCurrentLocation().pathname === '/popular' ? ' active' : '')}>
+        <Link to="/" onlyActiveOnIndex activeClassName="active" className={"DN nav-module nav-feed flx flx-center-all " + (browserHistory.getCurrentLocation().pathname === '/popular' ? ' active' : '')}>
           <div className="nav-text flx flx-row flx-align-center">
             <i className="material-icons color--black md-24 mobile-show opa-60">public</i>
             <div className="nav-text mobile-hide">Lists</div>
           </div>
         </Link>
 
-        <Link to="/explore" activeClassName="active" className="nav-module nav-feed flx flx-center-all">
+        <Link to="/explore" activeClassName="active" className="DN nav-module nav-feed flx flx-center-all">
           <div className="nav-text flx flx-row flx-align-center">
             <i className="material-icons color--black md-24 mobile-show opa-60">people</i>
             <div className="nav-text mobile-hide">People</div>

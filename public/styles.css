@@ -372,9 +372,9 @@ width: 32px;
 }
 .navigation-bar .default-profile-wrapper,
 .navigation-bar .user-photo-wrapper {
-  width: 70px;
-  height: 70px;
-  border-radius: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 100px;
   border: 0;
 }
 
@@ -438,8 +438,8 @@ width: 32px;
 
 
 .navigation-bar .nav-icon {
-  width: 70px;
-  height: 70px;
+  width: 48px;
+  height: 48px;
   background: transparent;
   text-align: center;
   display: inline-block; 
@@ -539,7 +539,7 @@ width: 32px;
   width: 100%;
 }
 .page-title-wrapper {
-  padding: 30px 20px 30px;
+  padding: 12px 20px 30px;
   width: 100%;
   border-bottom: 1px solid #D5E3E5;
 }
@@ -1413,7 +1413,7 @@ body .back-to-top {
     background-size: 18px 18px;
     background-repeat: no-repeat;
     background-position: center;
-    background-color: #121419;
+    background-color: black
     overflow: hidden;
 }
 body .page-itinerary .back-to-top {

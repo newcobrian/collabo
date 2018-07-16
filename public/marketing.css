@@ -109,6 +109,7 @@
 }
 .header-container .navigation-bar {
   background-color: transparent;
+  padding-right: 10px;
 
 }
 .logged-out .navigation-bar {
