@@ -3,7 +3,7 @@ import * as Constants from '../constants';
 import * as Helpers from '../helpers';
 import { find, isEqual } from 'lodash';
 
-const initialState = { usersData: {} }
+const initialState = { usersData: {}, threads: [] }
 
 export default (state = initialState, action) => {
   switch (action.type) {
