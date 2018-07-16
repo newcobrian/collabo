@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "algoliasearch": "^3.22.1",
+    "draft-js": "^0.10.5",
     "express": "^4.16.2",
     "firebase": "^3.6.9",
     "google-maps-react": "^1.1.0",
@@ -31,6 +32,7 @@
     "react": "^15.6.2",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^15.4.2",
+    "react-draft-wysiwyg": "^1.12.13",
     "react-dropzone": "^3.13.2",
     "react-geosuggest": "^2.5.0",
     "react-helmet": "^5.2.0",

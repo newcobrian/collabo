@@ -303,6 +303,14 @@ export function unloadThread(threadId) {
   }
 }
 
+export function changeEditorState(editorState) {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.CHANGE_EDITOR_STATE,
+      editorState: editorState
+    })
+  }
+}
 
 export function updateThreadField(auth, threadId, thread, field, value) {
   return dispatch => {

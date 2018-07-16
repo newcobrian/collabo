@@ -1,7 +1,8 @@
 import * as ActionTypes from '../actions/types';
 import { filter } from 'lodash'
+import { EditorState } from 'draft-js';
 
-export default (state = {}, action) => {
+export default (state = { editorState: EditorState.createEmpty() }, action) => {
   switch (action.type) {
     case ActionTypes.LOAD_THREAD:
       return {
@@ -41,6 +42,11 @@ export default (state = {}, action) => {
 
       return newState;
     }
+    case ActionTypes.CHANGE_EDITOR_STATE:
+      return {
+        ...state,
+        editorState: action.editorState
+      }
     case ActionTypes.UNLOAD_THREAD:
       return {}
     default:

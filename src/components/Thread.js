@@ -13,6 +13,8 @@ import RenderDebounceInput from './RenderDebounceInput';
 import CommentContainer from './Review/CommentContainer';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { Editor } from 'react-draft-wysiwyg';
+import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 const mapStateToProps = state => ({
   ...state.thread,
@@ -21,9 +23,16 @@ const mapStateToProps = state => ({
 })
 
 const BodySection = props => {
-  if (!props.canModify) {
+  if (!props.body) return null
+  if (props.canModify) {
     return (
       <div>
+        {/*<Editor
+          editorState={props.editorState}
+          wrapperClassName="demo-wrapper"
+          editorClassName="demo-editor"
+          onEditorStateChange={props.onEditorStateChange}
+        />*/}
         <ReactQuill 
           value={props.body}
           onChange={props.changeBody(props.thread)} />
@@ -65,6 +74,10 @@ class Thread extends React.Component {
       this.props.updateThreadField(this.props.authenticated, this.props.params.tid, thread, field, value)
 
     this.changeBody = thread => value => updateThreadFieldEvent('body', value, thread)
+
+    this.onEditorStateChange = (editorState) => {
+    this.props.changeEditorState(editorState)
+  }
   }
 
   componentWillMount() {
@@ -166,7 +179,13 @@ class Thread extends React.Component {
               </div>
               <div className="v2-type-body2 opa-60">
                 {/*showBody(canModify, thread.body)*/}
-                <BodySection body={thread.body} canModify={canModify} thread={thread} changeBody={this.changeBody} />
+                <BodySection 
+                  body={thread.body} 
+                  canModify={canModify} 
+                  thread={thread} 
+                  changeBody={this.changeBody}
+                  editorState={this.props.editorState}
+                  onEditorStateChange={this.onEditorStateChange} />
               </div>
             </div>
             </div>
