@@ -239,7 +239,8 @@ export function unloadProjectThreads(auth, projectId) {
 
 export function loadProjectList(auth) {
   return dispatch => {
-    Firebase.database().ref(Constants.PROJECTS_BY_USER_PATH + '/' + auth).on('child_added', snap => {
+    // Firebase.database().ref(Constants.PROJECTS_BY_USER_PATH + '/' + auth).on('child_added', snap => {
+    Firebase.database().ref(Constants.PROJECTS_PATH).on('child_added', snap => {
       dispatch({
         type: ActionTypes.PROJECT_LIST_ADDED_ACTION,
         projectId: snap.key,
@@ -247,7 +248,8 @@ export function loadProjectList(auth) {
       })
     })
 
-    Firebase.database().ref(Constants.PROJECTS_BY_USER_PATH + '/' + auth).on('child_changed', snap => {
+    // Firebase.database().ref(Constants.PROJECTS_BY_USER_PATH + '/' + auth).on('child_changed', snap => {
+    Firebase.database().ref(Constants.PROJECTS_PATH).on('child_changed', snap => {
       dispatch({
         type: ActionTypes.PROJECT_LIST_CHANGED_ACTION,
         projectId: snap.key,
@@ -255,7 +257,8 @@ export function loadProjectList(auth) {
       })
     })
 
-    Firebase.database().ref(Constants.PROJECTS_BY_USER_PATH + '/' + auth).on('child_removed', snap => {
+    // Firebase.database().ref(Constants.PROJECTS_BY_USER_PATH + '/' + auth).on('child_removed', snap => {
+    Firebase.database().ref(Constants.PROJECTS_PATH).on('child_removed', snap => {
       dispatch({
         type: ActionTypes.PROJECT_LIST_REMOVED_ACTION,
         projectId: snap.key
