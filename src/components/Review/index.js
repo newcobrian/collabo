@@ -9,6 +9,7 @@ import TipPreview from '../TipPreview';
 import ReviewList from '../ReviewList';
 import ReviewPreview from '../ReviewPreview';
 import ImagePicker from '../ImagePicker'
+var linkify = require('linkify-it')();
 
 
 const ShowWeekDayText = props => {

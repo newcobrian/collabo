@@ -37,13 +37,13 @@ const LoggedOutView = props => {
         </Link>
       </div>
       <div className="navigation-bar flx flx-row flx-align-center flx-just-end">
-          <Link to="/login" className="nav-module nav-feed flx vb vb--xs flx-center-all fill--white color--primary">
+          <Link to="/login" className="nav-module nav-feed flx vb vb--xs flx-center-all fill--black color--primary">
             <div className="nav-text">
               Log in
             </div>
           </Link>
 
-          <Link to="/register" className="nav-module nav-feed flx flx-center-all vb vb--xs fill--white color--primary vb--sm vb--radius--none mrgn-right-sm">
+          <Link to="/register" className="nav-module nav-feed flx flx-center-all vb vb--xs fill--black color--primary vb--sm vb--radius--none mrgn-right-sm">
             <div className="nav-text">
               Sign up
             </div>

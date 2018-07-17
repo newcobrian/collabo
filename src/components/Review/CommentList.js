@@ -1,5 +1,6 @@
 import Comment from './Comment';
 import React from 'react';
+var linkify = require('linkify-it')();
 
 const CommentList = props => {
   return (

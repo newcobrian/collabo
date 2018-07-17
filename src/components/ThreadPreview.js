@@ -15,8 +15,12 @@ import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
 import MoreHorizIcon from 'material-ui/svg-icons/navigation/more-horiz';
 
+
+
 var Scroll = require('react-scroll');
 var Element = Scroll.Element;
+var linkify = require('linkify-it')();
+
 
 const mapStateToProps = state => ({
   ...state.project,
@@ -31,7 +35,7 @@ const CommentPreview = props => {
     return (
       <Link to={`/thread/${props.thread.threadId}`}>
         <div className="cta-wrapper cta-wrapper-comment v2-type-body2 flx flx-row flx-align-center">
-          <div className="cta-icon cta-comment"></div>
+          <div className="material-icons color--black md-18 opa-60 mrgn-right-sm">comment</div>
           {props.thread.commentsCount} Comments
         </div>
       </Link>

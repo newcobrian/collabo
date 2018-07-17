@@ -4,6 +4,7 @@ import React from 'react';
 import ProfilePic from './../ProfilePic';
 import ProxyImage from './../ProxyImage';
 import DisplayTimestamp from './../DisplayTimestamp';
+var linkify = require('linkify-it')();
 
 const processString = require('react-process-string');
 

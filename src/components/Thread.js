@@ -16,6 +16,8 @@ import 'react-quill/dist/quill.snow.css';
 import { Editor } from 'react-draft-wysiwyg';
 import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
+var linkify = require('linkify-it')();
+
 const mapStateToProps = state => ({
   ...state.thread,
   userInfo: state.common.userInfo,
@@ -144,75 +146,83 @@ class Thread extends React.Component {
       return (
         <div>
 
-          <div className="page-common page-places flx flx-col flx-align-start">
+          <div className="page-common page-places flx flx-row flx-m-col flx-align-start">
             
-            <div>
+            
+
+
+
+              <div className={"page-title-wrapper left-text flx flx-col flx-align-start country-color-"}>
+                 <div>
               <Link to={'/project/' + this.props.thread.projectId} activeClassName="active" className="nav-module create nav-editor flx flx-center-all">
-                <div className="nav-text flx flx-row flx-align-center">
-                  <i className="material-icons color--success md-24 opa-100 mrgn-right-xs">arrow_back_ios</i>
-                  <div className="mobile-hide mrgn-left-xs">Back to Project</div>
-                </div>
+                <div className="nav-text flx flx-row flx-align-center opa-60 mrgn-bottom-md">
+                    <i className="material-icons color--black md-18 opa-100 mrgn-right-xs">arrow_back_ios</i>
+                    <div className="v2-type-body1 mrgn-left-xs">Back to Project</div>
+                  </div>
               </Link>
             </div>
                 {/*<UniversalSearchBar />*/}
-            
 
 
-            <div className={"page-title-wrapper center-text country-color-"}>
-              <div>Title: {thread.title}</div>
-              <div>Author: {createdBy.username}
-                <Link
-                  to={'/' + createdBy.username}
-                  className="show-in-list">
-                <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm">
-                    <div className="tip__author-photo flx-hold mrgn-right-sm">
-                      <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
-                    </div> 
-                    <div className="color--black v2-type-body1">
-                      {createdBy.username}
+                <div className="v2-type-h3 mrgn-bottom-sm">{thread.title}</div>
+                <div className="flx flx-row">
+                  <div className="v2-type-body1">Posted by {createdBy.username}
+                    <Link
+                      to={'/' + createdBy.username}
+                      className="show-in-list">
+                    <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm">
+                        <div className="tip__author-photo flx-hold mrgn-right-sm">
+                          <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
+                        </div> 
+                        <div className="color--black v2-type-body">
+                          {createdBy.username}
+                        </div>
                     </div>
+                  </Link> 
+                  </div>
+                  <div className="v2-type-body1 opa-30 mrgn-left-md">Last updated: 
+                    <DisplayTimestamp timestamp={thread.lastModified} />
+                  </div>
                 </div>
-              </Link> 
+                <div className="v2-type-body2 opa-60 w-100 mrgn-top-sm">
+                  {/*showBody(canModify, thread.body)*/}
+                  <BodySection 
+                    body={thread.body} 
+                    canModify={canModify} 
+                    thread={thread} 
+                    changeBody={this.changeBody}
+                    editorState={this.props.editorState}
+                    onEditorStateChange={this.onEditorStateChange} />
+                </div>
               </div>
-              <div>Last updated: 
-                <DisplayTimestamp timestamp={thread.lastModified} />
-              </div>
-              <div className="v2-type-body2 opa-60">
-                {/*showBody(canModify, thread.body)*/}
-                <BodySection 
-                  body={thread.body} 
-                  canModify={canModify} 
-                  thread={thread} 
-                  changeBody={this.changeBody}
-                  editorState={this.props.editorState}
-                  onEditorStateChange={this.onEditorStateChange} />
-              </div>
-            </div>
+
+              <div className="itinerary__comments-module flx flx-col flx-align-start flx-just-start w-max-2" id='guidecommentcontainer' name='guidecommentcontainer'>
+                <div className="v2-type-h4 mrgn-bottom-sm mrgn-top-sm ta-left w-100">
+                  Comments
+                </div>
+                <CommentContainer
+                  authenticated={this.props.authenticated}
+                  userInfo={this.props.userInfo}
+                  comments={this.props.comments || {}}
+                  errors={this.props.commentErrors}
+                  commentObject={thread}
+                  threadId={this.props.params.tid}
+                  deleteComment={this.props.onDeleteThreadComment} />
+              
+              {/*<div className="feed-wrapper">
+                <ItineraryList
+                itineraries={this.props.feed} 
+                authenticated={this.props.authenticated} 
+                like={this.props.likeReview} 
+                unLike={this.props.unLikeReview}
+                deleteItinerary={this.props.showDeleteModal} />
+              </div>*/}
+
             </div>
 
-            <div className="itinerary__comments-module brdr-top map-on flx flx-col flx-align-start flx-just-start w-max-2" id='guidecommentcontainer' name='guidecommentcontainer'>
-              <div className="comments-section-title mrgn-bottom-md ta-left w-100">
-                Comments
-              </div>
-              <CommentContainer
-                authenticated={this.props.authenticated}
-                userInfo={this.props.userInfo}
-                comments={this.props.comments || {}}
-                errors={this.props.commentErrors}
-                commentObject={thread}
-                threadId={this.props.params.tid}
-                deleteComment={this.props.onDeleteThreadComment} />
+            </div>
+
             
-            {/*<div className="feed-wrapper">
-              <ItineraryList
-              itineraries={this.props.feed} 
-              authenticated={this.props.authenticated} 
-              like={this.props.likeReview} 
-              unLike={this.props.unLikeReview}
-              deleteItinerary={this.props.showDeleteModal} />
-            </div>*/}
-
-          </div>
 
         </div>
       );
