@@ -81,17 +81,18 @@ export function signUpUser(username, email, password, redirect) {
           Firebase.auth().createUserWithEmailAndPassword(email, password)
           .then(response => {
             let userId = response.uid;
+            let updates = {};
 
             // need to save users profile info
-            Firebase.database().ref(Constants.USERS_PATH + '/' + userId + '/').update({
-              username: username,
-              email: email
-            })
+            updates[Constants.USERS_PATH + '/' + userId] = { username: username, email: email }
 
             // save userId lookup from username
-            Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + username + '/').update({
-              userId: userId
-            })
+            updates[Constants.USERNAMES_TO_USERIDS_PATH + '/' + username] = userId
+            
+            // save email address lookup
+            updates[Constants.USERS_BY_EMAIL_PATH + '/' + Helpers.cleanEmailToFirebase(email)] = userId
+
+            Firebase.database().ref().update(updates);
 
             Helpers.updateAlgloiaUsersIndex(username, userId);
 
@@ -199,11 +200,12 @@ export function signOutUser() {
 }
 
 export function updateUsername(oldName, newName, userId) {
-  Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + newName + '/').update({
-    userId: userId
-  })
+  let updates = {}
 
-  Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + oldName).remove();
+  updates[Constants.USERNAMES_TO_USERIDS_PATH + '/' + newName] = userId;
+  updates[Constants.USERNAMES_TO_USERIDS_PATH + '/' + oldName] = null;
+  
+  Firebase.database().ref().update(updates);
 
   Helpers.updateAlgloiaUsersIndex(newName, userId);
 }
@@ -230,7 +232,13 @@ export function updateFirebaseEmail(newEmail, currentEmail) {
     let user = Firebase.auth().currentUser;
 
     user.updateEmail(newEmail).then(function() {
-      console.log('successful email update')
+      // then update the email lookup table
+      let updates = {}
+      updates[Constants.USERS_BY_EMAIL_PATH + '/' + newEmail] = userId;
+      updates[Constants.USERS_BY_EMAIL_PATH + '/' + currentEmail] = null;
+
+      Firebase.database().ref().update(updates)
+
     }, function(error) {
       console.log(JSON.stringify(error))
     });

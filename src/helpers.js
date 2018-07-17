@@ -2,6 +2,14 @@ import Firebase from 'firebase';
 import * as Constants from './constants';
 import 'whatwg-fetch';
 
+export function cleanEmailToFirebase(email) {
+	return email.replace(/\./g, ',');
+}
+
+export function cleanEmailFromFirebase(email) {
+	return email.replace(/\,/g, '.');
+}
+
 export function updateAlgloiaUsersIndex(username, userId) {
 	let usernameSuffixes = [];
 	for(let i = 1; i < username.length - 1; i++) {

@@ -94,7 +94,7 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         authenticated: action.payload,
-        redirectTo: action.error ? null : (action.redirect ? action.redirect : '/global'),
+        redirectTo: action.error ? null : (action.redirect ? action.redirect : '/'),
         error: null
       }
     case SIGN_OUT_USER:

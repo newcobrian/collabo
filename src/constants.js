@@ -84,7 +84,11 @@ export const PROJECTS_BY_USER_PATH = '/projects-by-user'
 export const THREADS_BY_PROJECT_PATH = '/threads-by-project'
 export const THREADS_PATH = '/threads'
 export const THREADS_BY_USER_PATH = '/threads-by-user'
-export const COMMENTS_BY_THREAD_PATH = 'comments-by-thread'
+export const COMMENTS_BY_THREAD_PATH = '/comments-by-thread'
+export const ORGS_BY_NAME_PATH = '/orgs-by-name'
+export const ORGS_PATH = '/orgs'
+export const ORGS_BY_USER_PATH = '/orgs-by-user'
+export const USERS_BY_EMAIL_PATH = '/users-by-email'
 
 /*** Counter Type Constants ***/
 export const LIKES_COUNT = 'likesCount'
@@ -148,6 +152,7 @@ export const ADD_REVIEW_PAGE = 'ADD_REVIEW_PAGE'
 export const ADD_PROJECT_PAGE = 'ADD_PROJECT_PAGE'
 export const ADD_THREAD_PAGE = 'ADD_THREAD_PAGE'
 export const PROJECTS_PAGE = 'PROJECTS_PAGE'
+export const CREATE_ORG_PAGE = 'CREATE_ORG_PAGE'
 
 /*** Tag list ***/
 export const TAG_LIST = []
@@ -183,7 +188,7 @@ export const INVALID_USERNAMES = ['account', 'send', 'message', 'inbox', 'notifi
  'itinerary', 'messenger', 'settings', 'admin', 'administrator', 'settings', 'global', 'saved', 'login', 'register',
   'review', 'followers', 'isfollowing', 'likes', 'saves', 'select', 'explore', 'search', 'user', 'location', 'city', 
   'geo', 'attraction', 'subject', 'home', 'places', 'countries', 'api', 'guide', 'popular', 'privacy', 'terms', 'about',
-  'contact', 'recommend', 'recommendations']
+  'contact', 'recommend', 'recommendations', 'new', 'addthread', 'addproject', 'thread', 'project', 'organization', 'team']
 
 export const ADMIN_USERS = [
 
