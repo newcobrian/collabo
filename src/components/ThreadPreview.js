@@ -139,7 +139,7 @@ const ThreadPreview = props => {
                         </Link> 
                         <div className="flx flx-col flx-align-start w-100">
                             <div className="tip__caption font--beta v2-type-body2 ta-left">
-                              {thread.body}
+                              <div dangerouslySetInnerHTML={{ __html: thread.body }} />
                             </div>
 
 
