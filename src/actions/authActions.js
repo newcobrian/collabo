@@ -87,10 +87,10 @@ export function signUpUser(username, email, password, redirect) {
             updates[Constants.USERS_PATH + '/' + userId] = { username: username, email: email }
 
             // save userId lookup from username
-            updates[Constants.USERNAMES_TO_USERIDS_PATH + '/' + username] = userId
+            updates[Constants.USERNAMES_TO_USERIDS_PATH + '/' + username] = {userId: userId }
             
             // save email address lookup
-            updates[Constants.USERS_BY_EMAIL_PATH + '/' + Helpers.cleanEmailToFirebase(email)] = userId
+            updates[Constants.USERS_BY_EMAIL_PATH + '/' + Helpers.cleanEmailToFirebase(email)] = { userId: userId }
 
             Firebase.database().ref().update(updates);
 
@@ -202,7 +202,7 @@ export function signOutUser() {
 export function updateUsername(oldName, newName, userId) {
   let updates = {}
 
-  updates[Constants.USERNAMES_TO_USERIDS_PATH + '/' + newName] = userId;
+  updates[Constants.USERNAMES_TO_USERIDS_PATH + '/' + newName] = { userId: userId };
   updates[Constants.USERNAMES_TO_USERIDS_PATH + '/' + oldName] = null;
   
   Firebase.database().ref().update(updates);
@@ -234,7 +234,7 @@ export function updateFirebaseEmail(newEmail, currentEmail) {
     user.updateEmail(newEmail).then(function() {
       // then update the email lookup table
       let updates = {}
-      updates[Constants.USERS_BY_EMAIL_PATH + '/' + newEmail] = user.uid;
+      updates[Constants.USERS_BY_EMAIL_PATH + '/' + newEmail] = { userId: user.uid };
       updates[Constants.USERS_BY_EMAIL_PATH + '/' + currentEmail] = null;
 
       Firebase.database().ref().update(updates)
