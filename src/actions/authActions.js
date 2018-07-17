@@ -234,7 +234,7 @@ export function updateFirebaseEmail(newEmail, currentEmail) {
     user.updateEmail(newEmail).then(function() {
       // then update the email lookup table
       let updates = {}
-      updates[Constants.USERS_BY_EMAIL_PATH + '/' + newEmail] = { userId: user.uid };
+      updates[Constants.USERS_BY_EMAIL_PATH + '/' + Helpers.cleanEmailToFirebase(newEmail)] = { userId: user.uid };
       updates[Constants.USERS_BY_EMAIL_PATH + '/' + currentEmail] = null;
 
       Firebase.database().ref().update(updates)
