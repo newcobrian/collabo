@@ -200,42 +200,42 @@ function threadRemovedAction(threadId) {
   }
 }
 
-export function getProjectThreads(auth, projectId) {
-  return dispatch => {
-    Firebase.database().ref(Constants.THREADS_BY_PROJECT_PATH + '/' + projectId).on('value', threadsSnapshot => {
-      let feedArray = [];
-      if (threadsSnapshot.exists()) {
-        threadsSnapshot.forEach(function(itin) {
-          Firebase.database().ref(Constants.USERS_PATH + '/' + itin.val().userId).on('value', userSnapshot => {
-            Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itin.key).on('value', likesSnapshot => {
-              const itineraryObject = {};
-              const key = { id: itin.key };
-              const createdBy = { createdBy: Object.assign({}, userSnapshot.val(), {userId: itin.val().userId}) };
-              let likes = {
-                isLiked: likesSnapshot.exists()
-              }
+// export function getProjectThreads(auth, projectId) {
+//   return dispatch => {
+//     Firebase.database().ref(Constants.THREADS_BY_PROJECT_PATH + '/' + projectId).on('value', threadsSnapshot => {
+//       let feedArray = [];
+//       if (threadsSnapshot.exists()) {
+//         threadsSnapshot.forEach(function(itin) {
+//           Firebase.database().ref(Constants.USERS_PATH + '/' + itin.val().userId).on('value', userSnapshot => {
+//             Firebase.database().ref(Constants.LIKES_BY_USER_PATH + '/' + auth + '/' + itin.key).on('value', likesSnapshot => {
+//               const itineraryObject = {};
+//               const key = { id: itin.key };
+//               const createdBy = { createdBy: Object.assign({}, userSnapshot.val(), {userId: itin.val().userId}) };
+//               let likes = {
+//                 isLiked: likesSnapshot.exists()
+//               }
               
-              Object.assign(itineraryObject, itin.val(), key, createdBy, likes);
+//               Object.assign(itineraryObject, itin.val(), key, createdBy, likes);
 
-              feedArray = [itineraryObject].concat(feedArray);
-              feedArray.sort(Helpers.byPopularity);
-              dispatch({
-                type: ActionTypes.GET_PLACES_FEED,
-                payload: feedArray
-              })
-            })
-          })
-        })
-      }
-      else {
-        dispatch({
-          type: ActionTypes.GET_PLACES_FEED,
-          payload: []
-        })
-      }
-    })
-  }
-}
+//               feedArray = [itineraryObject].concat(feedArray);
+//               feedArray.sort(Helpers.byPopularity);
+//               dispatch({
+//                 type: ActionTypes.GET_PLACES_FEED,
+//                 payload: feedArray
+//               })
+//             })
+//           })
+//         })
+//       }
+//       else {
+//         dispatch({
+//           type: ActionTypes.GET_PLACES_FEED,
+//           payload: []
+//         })
+//       }
+//     })
+//   }
+// }
 
 export function unloadProjectThreads(auth, projectId) {
   return dispatch => {
@@ -440,7 +440,7 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
       // send message to original review poster if they are not the commentor
       const sentArray = [];
       if (authenticated !== thread.userId) {
-        Helpers.sendCollaboInboxMessage(authenticated, thread.userId, Constants.COMMENT_IN_THREAD_MESSAGE, thread, threadId, Object.assign({commentId: commentId, message: body}));
+        Helpers.sendCollaboInboxMessage(authenticated, thread.userId, Constants.COMMENT_IN_THREAD_MESSAGE, null, null, null, thread.projectId, thread, threadId, Object.assign({commentId: commentId, message: body}));
         sentArray.push(thread.userId);
         // dispatch({
         //   type: MIXPANEL_EVENT,
@@ -508,5 +508,108 @@ export function onDeleteThreadComment(thread, commentId, threadId) {
     dispatch({
       type: ActionTypes.DELETE_COMMENT
     })
+  }
+}
+
+export function inviteUsersToOrg(auth, org, orgId, invites) {
+  return dispatch => {
+    let updates = {}
+    Firebase.database().ref(Constants.USERS_BY_EMAIL_PATH).once('value', emailHashSnap => {
+      let re = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi
+      let emailArray = invites.match(re)
+
+      let emailSeen = {}
+
+      emailArray.forEach(function(email) {
+        if (!emailSeen[email]) {
+          // if email address already belongs to a user
+          if (emailHashSnap.val()[email]) {
+             // just send an invite to the user
+            Helpers.sendCollaboInboxMessage(auth, emailHashSnap.val()[email].userId, Constants.ORG_INVITE_MESSAGE, org, orgId, null, null, null, null, null);
+
+            // add to invited list for the org
+            updates[Constants.INVITES_BY_ORG_PATH + '/' + orgId + '/users/' + emailHashSnap.val()[email].userId] = true
+          }
+          else {
+            // otherwise add invite for this email address and send it
+            let cleanedEmail = Helpers.cleanEmailToFirebase(email);
+            updates[Constants.INVITES_BY_EMAIL_PATH + '/' + cleanedEmail + '/' + orgId] = true
+
+            // add to invited list for the org
+            updates[Constants.INVITES_BY_ORG_PATH + '/' + orgId + '/emails/' + cleanedEmail] = true
+
+            // send the email
+            Helpers.sendInviteEmail(auth, email, org, orgId);
+          }
+
+          // save to seen emails so we don't duplicate
+          emailSeen[email] = true;
+        }
+      })
+
+      Firebase.database().ref().update(updates);
+
+      dispatch({
+        type: ActionTypes.USERS_INVITED_TO_ORG,
+        org: org,
+        orgId: orgId,
+        // meta: {
+        //   mixpanel: {
+        //     event: 'Itinerary created',
+        //     source: 'create page',
+        //     itineraryId: itineraryId,
+        //     geo: itinerary.geo.placeId
+        //   }
+        // }
+      })
+    })
+  }
+}
+
+export function onCreateOrg(auth, org, invites) {
+  return dispatch => {
+    if (!auth) {
+      dispatch({
+        type: ActionTypes.ASK_FOR_AUTH
+      })
+    }
+    else if (org) {
+      let lowercaseName = org.name.toLowerCase()
+      Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowercaseName).once('value', nameSnapshot => {
+        if (nameSnapshot.exists()) {
+          dispatch({
+            type: ActionTypes.CREATE_SUBMIT_ERROR,
+            error: 'An organization with the name "' + org.name + '" already exists. Please choose another name',
+            source: Constants.CREATE_ORG_PAGE
+          })
+        }
+        else {
+          let serverTimestamp = Firebase.database.ServerValue.TIMESTAMP;
+          Object.assign(org, { lastModified: serverTimestamp })
+          let updates = {};
+
+          let orgId = Firebase.database().ref(Constants.ORGS_PATH).push(org).key;
+
+          updates[`/${Constants.ORGS_BY_NAME_PATH}/${lowercaseName}/`] = orgId;
+          updates[`/${Constants.ORGS_BY_USER_PATH}/${auth}/${orgId}/`] = { name: org.name };
+
+          Firebase.database().ref().update(updates);
+
+          dispatch({
+            type: ActionTypes.ORG_CREATED,
+            org: org,
+            orgId: orgId,
+            // meta: {
+            //   mixpanel: {
+            //     event: 'Itinerary created',
+            //     source: 'create page',
+            //     itineraryId: itineraryId,
+            //     geo: itinerary.geo.placeId
+            //   }
+            // }
+          })
+        }
+      })
+    }
   }
 }

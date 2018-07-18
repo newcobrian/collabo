@@ -124,6 +124,11 @@ export default (state = defaultState, action) => {
         ...state,
         redirectTo: '/thread/' + action.threadId
       }
+    case ActionTypes.ORG_CREATED:
+      return {
+        ...state,
+        redirectTo: '/invite/' + action.orgId
+      }
     default: 
       return state;
   }

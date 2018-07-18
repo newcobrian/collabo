@@ -32,6 +32,8 @@ import Places from './components/Places';
 import Project from './components/Project';
 import ForgotPassword from './components/ForgotPassword';
 import Recommend from './components/Recommend';
+import CreateOrg from './components/CreateOrg';
+import OrgInvite from './components/OrgInvite';
 import SEO from './components/SEO';
 import store from './store';
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -63,9 +65,11 @@ ReactDOM.render((
         <Route path="forgotPassword" component={ForgotPassword} />
         <Route path="addproject" component={AddProject} />
         <Route path="addthread/:pid" component={AddThread} />
+        <Route path="neworg" component={CreateOrg} />
         <Route path="inbox" component={Inbox} />
         <Route path="seo" component={SEO} />
         <Route path="project/:pid" component={Project} />
+        <Route path ="invite/:oid" component={OrgInvite} />
         <Route path="thread/:tid" component={Thread} />
         <Route path=":username/followers" component={Followers} />
         <Route path=":username/isfollowing" component={Followings} />

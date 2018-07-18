@@ -89,6 +89,7 @@ export const ORGS_BY_NAME_PATH = '/orgs-by-name'
 export const ORGS_PATH = '/orgs'
 export const ORGS_BY_USER_PATH = '/orgs-by-user'
 export const USERS_BY_EMAIL_PATH = '/users-by-email'
+export const INVITES_BY_EMAIL_PATH = '/invites-by-email'
 
 /*** Counter Type Constants ***/
 export const LIKES_COUNT = 'likesCount'
@@ -114,7 +115,8 @@ export const FOLLOW_ITINERARY_MESSAGE = 'FOLLOW_ITINERARY_MESSAGE'
 export const COMMENT_ON_REC_MESSAGE = 'COMMENT_ON_REC_MESSAGE'
 export const COMMENT_ON_COMMENT_REC_MESSAGE = 'COMMENT_ON_COMMENT_REC_MESSAGE'
 export const ADD_REC_TO_ITINERARY_MESSAGE = 'ADD_REC_TO_ITINERARY_MESSAGE'
-export const COMMENT_IN_THREAD_MESSAGE ='COMMENT_IN_THREAD_MESSAGE'
+export const COMMENT_IN_THREAD_MESSAGE = 'COMMENT_IN_THREAD_MESSAGE'
+export const ORG_INVITE_MESSAGE = 'ORG_INVITE_MESSAGE'
 
 export const ITINERARY_TYPE = 'itinerary'
 export const REVIEW_TYPE = 'review'
@@ -153,6 +155,7 @@ export const ADD_PROJECT_PAGE = 'ADD_PROJECT_PAGE'
 export const ADD_THREAD_PAGE = 'ADD_THREAD_PAGE'
 export const PROJECTS_PAGE = 'PROJECTS_PAGE'
 export const CREATE_ORG_PAGE = 'CREATE_ORG_PAGE'
+export const ORG_INVITE_PAGE ='ORG_INVITE_PAGE'
 
 /*** Tag list ***/
 export const TAG_LIST = []

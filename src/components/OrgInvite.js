@@ -5,35 +5,29 @@ import * as Constants from '../constants';
 import ListErrors from './ListErrors';
 
 const mapStateToProps = state => ({
-  ...state.createOrg,
+  ...state.orgInvite,
   authenticated: state.common.authenticated
 });
 
-class CreateOrg extends React.Component {
+class OrgInvite extends React.Component {
 	constructor() {
 		super();
 
 	    const updateFieldEvent =
-	      key => ev => this.props.onUpdateCreateField(key, ev.target.value, Constants.CREATE_ORG_PAGE);
-
-	    this.changeName = updateFieldEvent('name');
+	      key => ev => this.props.onUpdateCreateField(key, ev.target.value, Constants.ORG_INVITE_PAGE);
 
 	    this.changeInvites = updateFieldEvent('invites');
 
 		this.submitForm = ev => {
 	      ev.preventDefault();
-	      if (!this.props.name) {
-	        this.props.createSubmitError('Please add an organization name', Constants.CREATE_ORG_PAGE);
+	      if (!this.props.invites) {
+	        this.props.createSubmitError('Please add some email addresses to invite', Constants.ORG_INVITE_PAGE);
 	      }
-		  else if(!(/^\w+$/i.test(this.props.name))) {
-			this.props.createSubmitError('Your organization name can only contain letters', Constants.CREATE_ORG_PAGE);
-		  }
 	      else {
-		   	let org = Object.assign({}, {name: this.props.name} )
 		   	let invites = this.props.invites ? this.props.invites : ''
             
 		    this.props.setInProgress();
-		    this.props.onCreateOrg(this.props.authenticated, org, invites);
+		    // this.props.onCreateOrg(this.props.authenticated, invites);
 		  }
     	}
 	}
@@ -75,9 +69,9 @@ class CreateOrg extends React.Component {
 					            <div className="create-form-wrapper form-wrapper ta-left flx flx-col-left bx-shadow">
 						            
 						            <form>
-						            	<div className="v2-type-page-header mrgn-bottom-sm">Create a new organization</div>
+						            	<div className="v2-type-page-header mrgn-bottom-sm">Invite some team members</div>
 
-										<fieldset className="field-wrapper">
+										<fieldset className="DN field-wrapper">
 											<label>Organization Name</label>
 					                      <input
 					                        className="input--underline edit-itinerary__name v2-type-body3"
@@ -89,7 +83,7 @@ class CreateOrg extends React.Component {
 					                        onChange={this.changeName} />
 					                    </fieldset>
 
-					                    <fieldset className="DN field-wrapper">
+					                    <fieldset className=" field-wrapper">
 											<label>Invite team members</label>
 					                      <textarea
 					                        className="input--underline v2-type-body3"
@@ -151,4 +145,4 @@ class CreateOrg extends React.Component {
 //   apiKey: Constants.GOOGLE_API_KEY
 // }) (connect(mapStateToProps, Actions)(Create));
 
-export default connect(mapStateToProps, Actions)(CreateOrg);
+export default connect(mapStateToProps, Actions)(OrgInvite);

@@ -558,7 +558,7 @@ console.log('recip ID = ' + recipientId)
 	}
 }
 
-export function sendCollaboInboxMessage(senderId, recipientId, messageType, thread, threadId, commentObject) {
+export function sendCollaboInboxMessage(senderId, recipientId, messageType, org, orgId, project, projectId, thread, threadId, commentObject) {
 	const inboxObject = {
 		lastModified: Firebase.database.ServerValue.TIMESTAMP
 	};
@@ -584,6 +584,14 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, thre
 					// 	emailMessage = senderSnapshot.val().username + 
 					// 		' also commented on a tip you commented on. Click here to check it out: https://myviews.io' + inboxObject.link;
 					// 	break;
+					case Constants.ORG_INVITE_MESSAGE:
+						inboxObject.senderId = senderId;
+						inboxObject.message = ' invited you join their organization: ' + org.name;
+						inboxObject.link = '/org/' + orgId;
+						inboxObject.type = Constants.INVITE_TYPE
+						emailMessage = senderSnapshot.val().username + 
+							' invited you to join their organization "' + org.name + '". Click here to check it out: https://localhost:3000/inbox';
+						break;
 				}
 				if (senderId !== recipientId) {
 					Firebase.database().ref(Constants.INBOX_PATH + '/' + recipientId).push().set(inboxObject);
@@ -598,6 +606,16 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, thre
 			})
 		})
 	}
+}
+
+export function sendInviteEmail(auth, recipientEmail, org, orgId) {
+	Firebase.database().ref(Constants.USERS_PATH + '/' + auth).once('value', senderSnap => {
+		let emailMessage = senderSnap.val().username + ' invited you to join their organization on Colalbo.' +
+			' Click here to check it out: http://localhost:3000/' + org.name;
+							
+		let data = Object.assign({}, {message: emailMessage}, {senderName: senderSnap.val().username });
+		sendContentManagerEmail("4cf0f88a-221c-4a1f-95ed-5a8543ba42a8", recipientEmail, data);
+	})
 }
 
 export function sendItineraryUpdateEmails(auth, itinerary, lastUpdate) {

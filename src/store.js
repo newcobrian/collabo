@@ -28,6 +28,8 @@ import addReview from './reducers/addReview';
 import addProject from './reducers/addProject';
 import addThread from './reducers/addThread';
 import projectList from './reducers/projectList';
+import createOrg from './reducers/createOrg';
+import orgInvite from './reducers/orgInvite';
 import Firebase from 'firebase';
 import mixpanel from 'mixpanel-browser';
 import MixpanelMiddleware from 'redux-mixpanel-middleware';
@@ -42,32 +44,24 @@ const initialItinerary = {
 }
 
 const reducer = combineReducers({
-  review,
-  reviewList,
   auth,
   common,
   home,
   profile,
   settings,
-  editor,
-  create,
-  addReview,
-  followers,
   inbox,
   friendSelector,
   modal,
-  itinerary,
   snackbarToaster,
   lightboxComponent,
-  explore,
-  places,
-  recommend,
   universalSearchBar,
   addProject,
   project,
   addThread,
   thread,
   projectList,
+  createOrg,
+  orgInvite,
   // editForm: combineForms({
   //   editForm: initialItinerary
   // }, 'editForm')
