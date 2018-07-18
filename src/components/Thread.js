@@ -25,7 +25,6 @@ const mapStateToProps = state => ({
 })
 
 const BodySection = props => {
-  if (!props.body) return null
   if (props.canModify) {
     return (
       <div>
@@ -36,7 +35,7 @@ const BodySection = props => {
           onEditorStateChange={props.onEditorStateChange}
         />*/}
         <ReactQuill 
-          value={props.body}
+          value={props.body || ''}
           onChange={props.changeBody(props.thread)} />
         {/*<RenderDebounceInput
           type="textarea"
@@ -51,7 +50,7 @@ const BodySection = props => {
   }
   else {
     return (
-      <div dangerouslySetInnerHTML={{ __html: props.body }}>
+      <div dangerouslySetInnerHTML={{ __html: props.body || '' }}>
         {/*<ReactQuill 
           value={props.body}
           onChange={props.changeBody(props.thread)}

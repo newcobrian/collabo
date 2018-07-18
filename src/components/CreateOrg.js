@@ -2,63 +2,38 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
-import ProxyImage from './ProxyImage';
 import ListErrors from './ListErrors';
-import { CREATE_PAGE } from '../actions';
-// import Geosuggest from 'react-geosuggest';
-import ProfileInfo from './ProfileInfo'
-// import Script from 'react-load-script';
-// import {GoogleApiWrapper} from 'google-maps-react';
-// import Map from 'google-maps-react';
-
-// const SubjectInfo = props => {
-// 	const renderImage = image => {
-// 		if (image) {
-// 			return (
-// 				<ProxyImage src={image}/>
-// 			)
-// 		}
-// 		else return null;
-// 	}
-// 	if (props.subject) {
-// 		return (
-// 			<div>
-// 			<div className="flx flx-row-top">
-// 				<div className="subject-image create-subject-image">{renderImage(props.image)}</div>
-// 			</div>
-// 			</div>
-// 		)
-// 	}
-// 	else return null;
-// }
 
 const mapStateToProps = state => ({
-  ...state.addProject,
+  ...state.createOrg,
   authenticated: state.common.authenticated
 });
 
-class AddProject extends React.Component {
+class CreateOrg extends React.Component {
 	constructor() {
 		super();
 
 	    const updateFieldEvent =
-	      key => ev => this.props.onUpdateCreateField(key, ev.target.value, Constants.ADD_PROJECT_PAGE);
+	      key => ev => this.props.onUpdateCreateField(key, ev.target.value, Constants.CREATE_ORG_PAGE);
 
 	    this.changeName = updateFieldEvent('name');
-	    
-	    this.changeDescription = updateFieldEvent('description');
+
+	    this.changeInvites = updateFieldEvent('invites');
 
 		this.submitForm = ev => {
 	      ev.preventDefault();
 	      if (!this.props.name) {
-	        this.props.createSubmitError('Please add a project name', Constants.ADD_PROJECT_PAGE);
+	        this.props.createSubmitError('Please add an organization name', Constants.CREATE_ORG_PAGE);
 	      }
+		  else if(!(/^\w+$/i.test(this.props.name))) {
+			this.props.createSubmitError('Your organization name can only contain letters', Constants.CREATE_ORG_PAGE);
+		  }
 	      else {
-		   	let project = {};
-	    	project.name = this.props.name;
-
+		   	let org = Object.assign({}, {name: this.props.name} )
+		   	let invites = this.props.invites ? this.props.invites : ''
+            
 		    this.props.setInProgress();
-		    this.props.onAddProject(this.props.authenticated, project);
+		    this.props.onCreateOrg(this.props.authenticated, org, invites);
 		  }
     	}
 	}
@@ -93,10 +68,6 @@ class AddProject extends React.Component {
 
 				    {/* CONTAINER - START */}
 			        <div className="hero-container">
-	        			<div className="page-title-wrapper center-text DN">
-	        	          <div className="v2-type-page-header">Create a new Project</div>
-	        	          <div className="v2-type-body2 opa-60">This could be a list of top spots or plans for an upcoming trip</div>
-	        	        </div>
 			         	<div className="create-content flx flx-col flx-center-all ta-center">
 							
 							<div className="flx flx-col flx-center-all create-wrapper">
@@ -104,30 +75,31 @@ class AddProject extends React.Component {
 					            <div className="create-form-wrapper form-wrapper ta-left flx flx-col-left bx-shadow">
 						            
 						            <form>
-						            	<div className="v2-type-page-header mrgn-bottom-sm">Add a New Project</div>
+						            	<div className="v2-type-page-header mrgn-bottom-sm">Create a new organization</div>
 
 										<fieldset className="field-wrapper">
-											<label>Name Your Project</label>
+											<label>Organization Name</label>
 					                      <input
 					                        className="input--underline edit-itinerary__name v2-type-body3"
 					                        type="text"
-					                        placeholder="My New Project"
+					                        placeholder="Biz Co"
 					                        required
 					                        value={this.props.name}
 					                        maxLength="42"
 					                        onChange={this.changeName} />
 					                    </fieldset>
-										<fieldset className="field-wrapper DN">
-											<label>About (Optional)</label>
+
+					                    <fieldset className="field-wrapper">
+											<label>Invite team members</label>
 					                      <textarea
 					                        className="input--underline v2-type-body3"
 					                        type="text"
-					                        rows="3"
+					                        rows="4"
 					                        maxLength="184"
-					                        placeholder="Add a description..."
+					                        placeholder="Add email addresses separated by commas..."
 					                        required
-					                        value={this.props.description}
-					                        onChange={this.changeDescription} />
+					                        value={this.props.invites}
+					                        onChange={this.changeInvites} />
 					                    </fieldset>
 
 					                    <ListErrors errors={this.props.errors}></ListErrors>
@@ -179,4 +151,4 @@ class AddProject extends React.Component {
 //   apiKey: Constants.GOOGLE_API_KEY
 // }) (connect(mapStateToProps, Actions)(Create));
 
-export default connect(mapStateToProps, Actions)(AddProject);
+export default connect(mapStateToProps, Actions)(CreateOrg);

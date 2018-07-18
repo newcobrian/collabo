@@ -23,10 +23,11 @@ class AddThread extends React.Component {
 		this.submitForm = ev => {
 	      ev.preventDefault();
 	      if (!this.props.title) {
-	        this.props.createSubmitError('project name', Constants.ADD_THREAD_PAGE);
+	        this.props.createSubmitError('Please add a thread title', Constants.ADD_THREAD_PAGE);
 	      }
 	      else {
-		   	let thread = Object.assign({}, {title: this.props.title}, {body: this.props.body} )
+		   	let thread = Object.assign({}, {title: this.props.title} )
+		   	if (this.props.body) thread.body = this.props.body
 
 		    this.props.setInProgress();
 		    this.props.onAddThread(this.props.authenticated, this.props.params.pid, thread);
