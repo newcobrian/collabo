@@ -34,7 +34,7 @@ import ForgotPassword from './components/ForgotPassword';
 import Recommend from './components/Recommend';
 import CreateOrg from './components/CreateOrg';
 import OrgInvite from './components/OrgInvite';
-// import Organization from './components/Organization';
+import Organization from './components/Organization';
 import SEO from './components/SEO';
 import store from './store';
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -69,14 +69,14 @@ ReactDOM.render((
         <Route path="neworg" component={CreateOrg} />
         <Route path="inbox" component={Inbox} />
         <Route path="seo" component={SEO} />
-        <Route path="project/:pid" component={Project} />
         <Route path ="invite/:oid" component={OrgInvite} />
-        <Route path="thread/:tid" component={Thread} />
-        <Route path=":orgname" component={Home} />
-        <Route path="users/:username/followers" component={Followers} />
-        <Route path="users/:username/isfollowing" component={Followings} />
-        <Route path="users/:username" component={ProfileGuides} />
-        <Route path="users/:username/likes" component={ProfileLikes} />
+        <Route path="user/:username/followers" component={Followers} />
+        <Route path="user/:username/isfollowing" component={Followings} />
+        <Route path="user/:username" component={ProfileGuides} />
+        <Route path="user/:username/likes" component={ProfileLikes} />
+        <Route path=":orgname" component={Organization} />
+        <Route path=":orgname/project/:pid" component={Project} />
+        <Route path=":orgname/thread/:tid" component={Thread} />
       </Route>
     </Router>
   </Provider>

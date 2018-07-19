@@ -631,3 +631,25 @@ export function unloadOrgInvitePage(orgId) {
     Firebase.database().ref(Constants.ORGS_PATH + '/' + orgId).off();
   }
 }
+
+export function loadOrganizationList(auth) {
+  return dispatch => {
+    Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth).on('value', snap => {
+      let orgList = []
+      snap.forEach(function(orgItem) {
+        orgList = orgList.concat(Object.assign({}, orgItem.val(), { orgId: orgItem.key }))
+      })
+
+      dispatch({
+        type: ActionTypes.LOAD_ORGANIZATION_LIST,
+        orgList: orgList
+      })
+    })
+  }
+}
+
+export function unloadOrganizationList(auth) {
+  return dispatch => {
+    Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth).off();
+  }
+}

@@ -30,6 +30,7 @@ import addThread from './reducers/addThread';
 import projectList from './reducers/projectList';
 import createOrg from './reducers/createOrg';
 import orgInvite from './reducers/orgInvite';
+import organization from './reducers/organization';
 import Firebase from 'firebase';
 import mixpanel from 'mixpanel-browser';
 import MixpanelMiddleware from 'redux-mixpanel-middleware';
@@ -62,6 +63,7 @@ const reducer = combineReducers({
   projectList,
   createOrg,
   orgInvite,
+  organization,
   // editForm: combineForms({
   //   editForm: initialItinerary
   // }, 'editForm')

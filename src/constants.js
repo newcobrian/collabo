@@ -190,7 +190,7 @@ export const ITINERARY_PAGE_MIXPANEL_SOURCE = 'itinerary page'
 
 export const INVALID_USERNAMES = ['account', 'send', 'message', 'inbox', 'notification', 'create', 'edit', 'editor',
  'itinerary', 'messenger', 'settings', 'admin', 'administrator', 'settings', 'global', 'saved', 'login', 'register',
-  'review', 'followers', 'isfollowing', 'likes', 'saves', 'select', 'explore', 'search', 'user', 'location', 'city', 
+  'review', 'followers', 'isfollowing', 'likes', 'saves', 'select', 'explore', 'search', 'user', 'users', 'location', 'city', 
   'geo', 'attraction', 'subject', 'home', 'places', 'countries', 'api', 'guide', 'popular', 'privacy', 'terms', 'about',
   'contact', 'recommend', 'recommendations', 'new', 'addthread', 'addproject', 'thread', 'project', 'organization', 'team']
 

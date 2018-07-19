@@ -7,7 +7,8 @@ const defaultState = {
   appName: 'Collabo',
   authenticated: false,
   token: null,
-  authRedirect: ''
+  authRedirect: '',
+  orgList: []
 };
 
 export default (state = defaultState, action) => {
@@ -21,6 +22,11 @@ export default (state = defaultState, action) => {
         currentUser: action.currentUser ? action.currentUser : null,
         userInfo: action.userInfo ? action.userInfo : null
       };
+    case ActionTypes.LOAD_ORGANIZATION_LIST:
+      return {
+        ...state,
+        orgList: action.orgList
+      }
     case APP_USER_LOADED:
       return {
         ...state,
