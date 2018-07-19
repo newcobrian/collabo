@@ -20,7 +20,7 @@ const OrgList = props => {
         {
           props.orgList.map((orgItem, index) => {
             return (
-              <Link key={index} to={'/' + orgItem.orgId}>{orgItem.name}</Link>
+              <Link key={index} to={'/' + orgItem.name}>{orgItem.name}</Link>
               )
           })
         }
