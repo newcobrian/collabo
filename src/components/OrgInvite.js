@@ -27,7 +27,7 @@ class OrgInvite extends React.Component {
 		   	let invites = this.props.invites ? this.props.invites : ''
             
 		    this.props.setInProgress();
-		    // this.props.onCreateOrg(this.props.authenticated, invites);
+		    this.props.inviteUsersToOrg(this.props.authenticated, this.props.org, this.props.params.oid, invites);
 		  }
     	}
 	}
@@ -36,6 +36,8 @@ class OrgInvite extends React.Component {
     	if (!this.props.authenticated) {
     		this.props.askForAuth();
     	}
+
+    	this.props.loadOrgInvitePage(this.props.authenticated, this.props.params.oid)
 
     	// this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'create guide'});
 	}

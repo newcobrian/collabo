@@ -90,6 +90,7 @@ export const ORGS_PATH = '/orgs'
 export const ORGS_BY_USER_PATH = '/orgs-by-user'
 export const USERS_BY_EMAIL_PATH = '/users-by-email'
 export const INVITES_BY_EMAIL_PATH = '/invites-by-email'
+export const INVITES_BY_ORG_PATH = '/invites-by-org'
 
 /*** Counter Type Constants ***/
 export const LIKES_COUNT = 'likesCount'
@@ -236,6 +237,8 @@ export const DEFAULT_META_TITLE = 'Views'
 export const DEFAULT_META_DESCRIPTION = 'Save and Share Travel Guides'
 export const DEFAULT_META_URL = 'http://www.myviews.io'
 
+/*** Inbox types ***/
+export const INBOX_INVITE_TYPE = 'INBOX_INVITE_TYPE'
 
 // export const COUNTRY_FLAGS = {
 //     'AF' : 'Afghanistan',

@@ -129,6 +129,11 @@ export default (state = defaultState, action) => {
         ...state,
         redirectTo: '/invite/' + action.orgId
       }
+    case ActionTypes.USERS_INVITED_TO_ORG:
+      return {
+        ...state,
+        redirectTo: '/' + action.orgName
+      }
     default: 
       return state;
   }

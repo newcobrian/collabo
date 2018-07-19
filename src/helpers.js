@@ -564,57 +564,58 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 	};
 	let emailMessage = '';
 
-	if (thread) {
-		Firebase.database().ref(Constants.USERS_PATH + '/' + recipientId).once('value', recipientSnapshot => {
-			Firebase.database().ref(Constants.USERS_PATH + '/' + senderId).once('value', senderSnapshot => {
-				switch(messageType) {
-					case Constants.COMMENT_IN_THREAD_MESSAGE:
-						inboxObject.senderId = senderId;
-						inboxObject.message = ' commented in the thread: ' + thread.title;
-						inboxObject.link = '/thread/' + threadId + '#comment' + commentObject.commentId;
-						emailMessage = senderSnapshot.val().username + 
-							' commented in the same thread. Click here to check it out: https://localhost:3000' + inboxObject.link;
-						break;
-					// case Constants.COMMENT_ON_COMMENT_REVIEW_MESSAGE:
-					// 	inboxObject.senderId = senderId;
-					// 	inboxObject.message = ' also commented: ' + commentObject.message;
-					// 	inboxObject.link = threadId ? '/guide/' + itineraryId + '#comment' + commentObject.commentId : 
-					// 		'/review/' + sendObject.subjectId + '/' + sendObject.id;
-					// 	inboxObject.reviewTitle = '';
-					// 	emailMessage = senderSnapshot.val().username + 
-					// 		' also commented on a tip you commented on. Click here to check it out: https://myviews.io' + inboxObject.link;
-					// 	break;
-					case Constants.ORG_INVITE_MESSAGE:
-						inboxObject.senderId = senderId;
-						inboxObject.message = ' invited you join their organization: ' + org.name;
-						inboxObject.link = '/org/' + orgId;
-						inboxObject.type = Constants.INVITE_TYPE
-						emailMessage = senderSnapshot.val().username + 
-							' invited you to join their organization "' + org.name + '". Click here to check it out: https://localhost:3000/inbox';
-						break;
-				}
-				if (senderId !== recipientId) {
-					Firebase.database().ref(Constants.INBOX_PATH + '/' + recipientId).push().set(inboxObject);
-					Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + recipientId + '/messageCount').transaction(function (current_count) {
-			            return (current_count || 0) + 1;
-			        })
-		        	if (recipientSnapshot.exists() && recipientSnapshot.val().email) {
-		        		let data = Object.assign({}, {message: emailMessage});
-		        		sendContentManagerEmail("7691e888-4b30-40e2-9d78-df815d5b8453", recipientSnapshot.val().email, data);
-				    }
-				}
-			})
+	Firebase.database().ref(Constants.USERS_PATH + '/' + recipientId).once('value', recipientSnapshot => {
+		Firebase.database().ref(Constants.USERS_PATH + '/' + senderId).once('value', senderSnapshot => {
+			switch(messageType) {
+				case Constants.COMMENT_IN_THREAD_MESSAGE:
+					inboxObject.senderId = senderId;
+					inboxObject.message = ' commented in the thread: ' + thread.title;
+					inboxObject.link = '/thread/' + threadId + '#comment' + commentObject.commentId;
+					emailMessage = senderSnapshot.val().username + 
+						' commented in the same thread. Click here to check it out: https://localhost:3000' + inboxObject.link;
+					break;
+				// case Constants.COMMENT_ON_COMMENT_REVIEW_MESSAGE:
+				// 	inboxObject.senderId = senderId;
+				// 	inboxObject.message = ' also commented: ' + commentObject.message;
+				// 	inboxObject.link = threadId ? '/guide/' + itineraryId + '#comment' + commentObject.commentId : 
+				// 		'/review/' + sendObject.subjectId + '/' + sendObject.id;
+				// 	inboxObject.reviewTitle = '';
+				// 	emailMessage = senderSnapshot.val().username + 
+				// 		' also commented on a tip you commented on. Click here to check it out: https://myviews.io' + inboxObject.link;
+				// 	break;
+				case Constants.ORG_INVITE_MESSAGE:
+					console.log('in org invite case... senderId = ' + senderId + ' recip = ' + recipientId)
+					inboxObject.senderId = senderId;
+					inboxObject.message = ' invited you join their organization: ' + org.name;
+					inboxObject.link = '/org/' + orgId;
+					inboxObject.type = Constants.INBOX_INVITE_TYPE
+					emailMessage = senderSnapshot.val().username + 
+						' invited you to join their organization "' + org.name + '". Click here to check it out: https://localhost:3000/inbox';
+					break;
+			}
+			if (senderId !== recipientId) {
+				Firebase.database().ref(Constants.INBOX_PATH + '/' + recipientId).push().set(inboxObject);
+				Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + recipientId + '/messageCount').transaction(function (current_count) {
+		            return (current_count || 0) + 1;
+		        })
+	        	if (recipientSnapshot.exists() && recipientSnapshot.val().email) {
+	        		let data = Object.assign({}, {message: emailMessage});
+	        		console.log('existing email.... data = ' + JSON.stringify(data))
+	        		sendContentManagerEmail("5d7dc9ce-f38d-47b9-b73c-09d3e187a6d9", recipientSnapshot.val().email, data);
+	        		console.log('sent org invite msg to ' + recipientSnapshot.val().username)
+			    }
+			}
 		})
-	}
+	})
 }
 
 export function sendInviteEmail(auth, recipientEmail, org, orgId) {
 	Firebase.database().ref(Constants.USERS_PATH + '/' + auth).once('value', senderSnap => {
-		let emailMessage = senderSnap.val().username + ' invited you to join their organization on Colalbo.' +
+		let emailMessage = senderSnap.val().username + ' invited you to join their organization on Collabo.' +
 			' Click here to check it out: http://localhost:3000/' + org.name;
 							
 		let data = Object.assign({}, {message: emailMessage}, {senderName: senderSnap.val().username });
-		sendContentManagerEmail("4cf0f88a-221c-4a1f-95ed-5a8543ba42a8", recipientEmail, data);
+		sendContentManagerEmail("0a991f3c-3079-4d45-90d2-eff7c64f9cc5", recipientEmail, data);
 	})
 }
 

@@ -61,6 +61,11 @@ export default (state = {}, action) => {
         project: action.project,
         projectId: action.projectId
       };
+    case ActionTypes.ORG_INVITE_PAGE_LOADED:
+      return {
+        ...state,
+        org: action.org
+      }
   	case ActionTypes.UPDATE_FIELD_CREATE:
       if(action.source === Constants.ORG_INVITE_PAGE) {
         return { ...state, [action.key]: action.value };

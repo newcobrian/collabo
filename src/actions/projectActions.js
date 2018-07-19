@@ -514,54 +514,55 @@ export function onDeleteThreadComment(thread, commentId, threadId) {
 export function inviteUsersToOrg(auth, org, orgId, invites) {
   return dispatch => {
     let updates = {}
-    Firebase.database().ref(Constants.USERS_BY_EMAIL_PATH).once('value', emailHashSnap => {
-      let re = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi
-      let emailArray = invites.match(re)
+    Firebase.database().ref(Constants.USERS_PATH + '/' + auth).once('value', authSnap => {
+      Firebase.database().ref(Constants.USERS_BY_EMAIL_PATH).once('value', emailHashSnap => {
+        let emailArray = invites.match(/([a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
 
-      let emailSeen = {}
+        let emailSeen = {}
+        emailSeen[authSnap.val().email] = true
 
-      emailArray.forEach(function(email) {
-        if (!emailSeen[email]) {
-          // if email address already belongs to a user
-          if (emailHashSnap.val()[email]) {
-             // just send an invite to the user
-            Helpers.sendCollaboInboxMessage(auth, emailHashSnap.val()[email].userId, Constants.ORG_INVITE_MESSAGE, org, orgId, null, null, null, null, null);
+        emailArray.forEach(function(email) {
+          let cleanedEmail = Helpers.cleanEmailToFirebase(email)
+          if (!emailSeen[email]) {
+            // if email address already belongs to a user
+            if (emailHashSnap.val()[cleanedEmail]) {
+               // just send an invite to the user
+              Helpers.sendCollaboInboxMessage(auth, emailHashSnap.val()[cleanedEmail].userId, Constants.ORG_INVITE_MESSAGE, org, orgId, null, null, null, null, null);
 
-            // add to invited list for the org
-            updates[Constants.INVITES_BY_ORG_PATH + '/' + orgId + '/users/' + emailHashSnap.val()[email].userId] = true
+              // add to invited list for the org
+              updates[Constants.INVITES_BY_ORG_PATH + '/' + orgId + '/users/' + emailHashSnap.val()[cleanedEmail].userId] = true
+            }
+            else {
+              // otherwise add invite for this email address and send it
+              updates[Constants.INVITES_BY_EMAIL_PATH + '/' + cleanedEmail + '/' + orgId] = true
+
+              // add to invited list for the org
+              updates[Constants.INVITES_BY_ORG_PATH + '/' + orgId + '/emails/' + cleanedEmail] = true
+
+              // send the email
+              Helpers.sendInviteEmail(auth, email, org, orgId);
+            }
+
+            // save to seen emails so we don't duplicate
+            emailSeen[email] = true;
           }
-          else {
-            // otherwise add invite for this email address and send it
-            let cleanedEmail = Helpers.cleanEmailToFirebase(email);
-            updates[Constants.INVITES_BY_EMAIL_PATH + '/' + cleanedEmail + '/' + orgId] = true
+        })
 
-            // add to invited list for the org
-            updates[Constants.INVITES_BY_ORG_PATH + '/' + orgId + '/emails/' + cleanedEmail] = true
+        Firebase.database().ref().update(updates);
 
-            // send the email
-            Helpers.sendInviteEmail(auth, email, org, orgId);
-          }
-
-          // save to seen emails so we don't duplicate
-          emailSeen[email] = true;
-        }
-      })
-
-      Firebase.database().ref().update(updates);
-
-      dispatch({
-        type: ActionTypes.USERS_INVITED_TO_ORG,
-        org: org,
-        orgId: orgId,
-        // meta: {
-        //   mixpanel: {
-        //     event: 'Itinerary created',
-        //     source: 'create page',
-        //     itineraryId: itineraryId,
-        //     geo: itinerary.geo.placeId
-        //   }
-        // }
-      })
+        dispatch({
+          type: ActionTypes.USERS_INVITED_TO_ORG,
+          orgName: org.name
+          // meta: {
+          //   mixpanel: {
+          //     event: 'Itinerary created',
+          //     source: 'create page',
+          //     itineraryId: itineraryId,
+          //     geo: itinerary.geo.placeId
+          //   }
+          // }
+        })
+      })  
     })
   }
 }
@@ -611,5 +612,22 @@ export function onCreateOrg(auth, org, invites) {
         }
       })
     }
+  }
+}
+
+export function loadOrgInvitePage(auth, orgId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.ORGS_PATH + '/' + orgId).on('value', orgSnap =>{
+      dispatch({
+        type: ActionTypes.ORG_INVITE_PAGE_LOADED,
+        org: orgSnap.val()
+      })
+    })
+  }
+}
+
+export function unloadOrgInvitePage(orgId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.ORGS_PATH + '/' + orgId).off();
   }
 }
