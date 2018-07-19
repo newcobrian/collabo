@@ -653,3 +653,35 @@ export function unloadOrganizationList(auth) {
     Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth).off();
   }
 }
+
+export function setCurrentOrg(auth, org) {
+  return dispatch => {
+    let lowercaseName = org.toLowerCase()
+    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowercaseName).once('value', orgSnap => {
+      Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth + '/' + orgSnap.val()).once('value', userSnap => {
+        if (!userSnap.exists()) {
+          dispatch({
+            type: ActionTypes.NOT_AN_ORG_USER
+          })
+        }
+        else {
+          dispatch({
+            type: ActionTypes.SET_CURRENT_ORG,
+            organization: {
+              name: lowercaseName,
+              orgId: orgSnap.val()
+            }
+          })
+        }
+      })
+    })
+  }
+}
+
+export function unsetCurrentOrg() {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.UNSET_CURRENT_ORG
+    })
+  }
+}

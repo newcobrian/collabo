@@ -9,7 +9,9 @@ import ProjectList from './ProjectList';
 const mapStateToProps = state => ({
   ...state.organization,
   appName: state.common.appName,
-  authenticated: state.common.authenticated
+  authenticated: state.common.authenticated,
+  organization: state.common.organization,
+  invalidOrgUser: state.common.invalidOrgUser
 });
 
 // const mapDispatchToProps = dispatch => ({
@@ -70,6 +72,7 @@ class Organization extends React.Component {
   }
 
   componentWillMount() {
+    this.props.setCurrentOrg(this.props.authenticated, this.props.params.orgname);
     // this.props.startFeedWatch(this.props.authenticated);
     // this.props.startLikesByUserWatch(this.props.authenticated);
     // this.props.startUsersFeedWatchScroller(this.props.authenticated, this.props.dateIndex);
@@ -79,6 +82,7 @@ class Organization extends React.Component {
   } 
 
   componentWillUnmount() {
+    this.props.unsetCurrentOrg();
     // this.props.unloadFeedWatch(this.props.authenticated);
     // this.props.stopUsersFeedWatch(this.props.authenticated);
     // this.props.stopLikesByUserWatch(this.props.authenticated);
@@ -265,70 +269,63 @@ class Organization extends React.Component {
     const isLandingPage = (browserHistory.getCurrentLocation().pathname === '/global') && !this.props.authenticated ?
       'page-landing' : ''
 
-    // if (!this.props.itineraries || (this.props.itineraries.length === 0 && !this.props.feedWatchLoaded)) {
-    //   return (
-    //     <div className="loading-module flx flx-col flx-center-all v2-type-body3 fill--black">
-    //       <div className="loader-wrapper flx flx-col flx-center-all fill--black">
-    //         <div className="loader-bird"></div>
-    //         <div className="loader">
-    //           <div className="bar1"></div>
-    //           <div className="bar2"></div>
-    //           <div className="bar3"></div>
-    //         </div>
-    //         <div className="v2-type-body2 color--white">Loading home</div>
-    //       </div>
-    //     </div>
-    //     )
-    // }
-
-    return (
-      <div>
-        
-
-        
-        <div className={'home-page page-common fill--white flx flx-col flx-align-center ' + isLandingPage}>
-          
-          
-
-          
-
-          <div className="guide-feed-wrapper w-100 flx flx-row flx-just-center flx-self-end flx-align-start flx-wrap">
-            
-            
-
-            <ProjectList />
-
-            
-
-            
-          </div>
-
-          <BackToTop />
-
-          
-
+    if(this.props.invalidOrgUser) {
+      return (
+        <div>
+          You don't have permission to view this team. <Link to='/'>Go Home</Link>
         </div>
-        
+      )
+    }
+    else {
+      return (
+        <div>
+          
 
-        <div className="footer fill--black color--white flx flx-col flx-center-all flx-item-bottom">
-          <div className="homepage-logo mrgn-bottom-lg">  
-            <img className="center-img w-100" src="/img/logos/logo_2018_400_white.png"/>
+          
+          <div className={'home-page page-common fill--white flx flx-col flx-align-center ' + isLandingPage}>
+            
+            
+
+            
+
+            <div className="guide-feed-wrapper w-100 flx flx-row flx-just-center flx-self-end flx-align-start flx-wrap">
+              
+              
+
+              <ProjectList />
+
+              
+
+              
+            </div>
+
+            <BackToTop />
+
+            
+
           </div>
-          <div className="v2-type-body0 color--white opa-70 mrgn-bottom-md">
-            &copy;2017 Views, LLC All Rights Reserved
-          </div>
-          <div className="flx flx-row flx-center-all mrgn-bottom-lg">
-            <Link to="/terms.html" target="blank" className="v2-type-body0 color--white opa-70">
-              Terms of Service
-            </Link>
-            <div className="middle-dot color--white flx-hold">&middot;</div>
-            <Link to="/privacy.html" target="blank" className="v2-type-body0 color--white opa-70">
-              Privacy Policy
-            </Link>
+          
+
+          <div className="footer fill--black color--white flx flx-col flx-center-all flx-item-bottom">
+            <div className="homepage-logo mrgn-bottom-lg">  
+              <img className="center-img w-100" src="/img/logos/logo_2018_400_white.png"/>
+            </div>
+            <div className="v2-type-body0 color--white opa-70 mrgn-bottom-md">
+              &copy;2017 Views, LLC All Rights Reserved
+            </div>
+            <div className="flx flx-row flx-center-all mrgn-bottom-lg">
+              <Link to="/terms.html" target="blank" className="v2-type-body0 color--white opa-70">
+                Terms of Service
+              </Link>
+              <div className="middle-dot color--white flx-hold">&middot;</div>
+              <Link to="/privacy.html" target="blank" className="v2-type-body0 color--white opa-70">
+                Privacy Policy
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 }
 

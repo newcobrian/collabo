@@ -21,7 +21,9 @@ var linkify = require('linkify-it')();
 const mapStateToProps = state => ({
   ...state.thread,
   userInfo: state.common.userInfo,
-  authenticated: state.common.authenticated
+  authenticated: state.common.authenticated,
+  organization: state.common.organization,
+  invalidOrgUser: state.common.invalidOrgUser
 })
 
 const BodySection = props => {
@@ -82,12 +84,14 @@ class Thread extends React.Component {
   }
 
   componentWillMount() {
+    this.props.setCurrentOrg(this.props.authenticated, this.props.params.orgname);
     this.props.loadThread(this.props.params.tid);
     this.props.watchThreadComments(this.props.params.tid);
     // this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project'});
   }
 
   componentWillUnmount() {
+    this.props.unsetCurrentOrg();
     this.props.unloadThread(this.props.params.tid);
     this.props.unwatchThreadComments(this.props.params.tid);
     // if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
@@ -103,6 +107,13 @@ class Thread extends React.Component {
   }
 
   render() {
+    if(this.props.invalidOrgUser) {
+      return (
+        <div>
+          You don't have permission to view this team. <Link to='/'>Go Home</Link>
+        </div>
+      )
+    }
     if (this.props.threadNotFoundError) {
       return (
         <div className="error-module flx flx-col flx-center-all ta-center v2-type-body3 color--black">

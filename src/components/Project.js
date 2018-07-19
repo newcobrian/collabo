@@ -11,7 +11,9 @@ import ProjectList from './ProjectList';
 
 const mapStateToProps = state => ({
   ...state.project,
-  authenticated: state.common.authenticated
+  authenticated: state.common.authenticated,
+  organization: state.common.organization,
+  invalidOrgUser: state.common.invalidOrgUser
 });
 
 class Project extends React.Component {
@@ -30,12 +32,14 @@ class Project extends React.Component {
   }
 
   componentWillMount() {
+    this.props.setCurrentOrg(this.props.authenticated, this.props.params.orgname);
     this.props.loadProject(this.props.params.pid);
     this.props.watchProjectThreads(this.props.params.pid);
     // this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project'});
   }
 
   componentWillUnmount() {
+    this.props.unsetCurrentOrg();
     this.props.unloadProjectThreads(this.props.params.pid);
     // if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
   }
@@ -49,6 +53,13 @@ class Project extends React.Component {
   }
 
   render() {
+    if(this.props.invalidOrgUser) {
+      return (
+        <div>
+          You don't have permission to view this team. <Link to='/'>Go Home</Link>
+        </div>
+      )
+    }
     if (this.props.projectNotFoundError) {
       return (
         <div className="error-module flx flx-col flx-center-all ta-center v2-type-body3 color--black">

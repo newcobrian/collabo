@@ -8,7 +8,8 @@ const defaultState = {
   authenticated: false,
   token: null,
   authRedirect: '',
-  orgList: []
+  orgList: [],
+  organization: {}
 };
 
 export default (state = defaultState, action) => {
@@ -26,6 +27,21 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         orgList: action.orgList
+      }
+    case ActionTypes.NOT_AN_ORG_USER:
+      return {
+        invalidOrgUser: true
+      }
+    case ActionTypes.SET_CURRENT_ORG:
+      console.log('reducer org = ' + JSON.stringify(action.organization))
+      return {
+        ...state,
+        organization: action.organization
+      }
+    case ActionTypes.UNSET_CURRENT_ORG:
+      return {
+        ...state,
+        organization: {}
       }
     case APP_USER_LOADED:
       return {
