@@ -516,70 +516,72 @@ export function inviteUsersToOrg(auth, org, orgName, invites) {
     let updates = {}
     Firebase.database().ref(Constants.USERS_PATH + '/' + auth).once('value', authSnap => {
       Firebase.database().ref(Constants.USERS_BY_EMAIL_PATH).once('value', emailHashSnap => {
-        Object.assign(org, {name: orgName})
-        let orgId = org.orgId
+        Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + org.orgId).once('value', usersByOrgSnap => {
+          Object.assign(org, {name: orgName})
+          let orgId = org.orgId
 
-        let emailArray = invites.match(/([a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
+          let emailArray = invites.match(/([a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
 
-        let emailSeen = {}
-        emailSeen[authSnap.val().email] = true
+          let emailSeen = {}
+          emailSeen[authSnap.val().email] = true
 
-        emailArray.forEach(function(email) {
-          let cleanedEmail = Helpers.cleanEmailToFirebase(email)
-          if (!emailSeen[email]) {
-            let inviteObject = {
-                senderId: auth,
-                recipientEmail: email,
-                timestamp: Firebase.database.ServerValue.TIMESTAMP,
-                orgId: orgId,
-                orgName: org.name
+          emailArray.forEach(function(email) {
+            let cleanedEmail = Helpers.cleanEmailToFirebase(email)
+            if (!emailSeen[email] && !usersByOrgSnap.val()[emailHashSnap.val()[cleanedEmail].userId]) {
+              let inviteObject = {
+                  senderId: auth,
+                  recipientEmail: email,
+                  timestamp: Firebase.database.ServerValue.TIMESTAMP,
+                  orgId: orgId,
+                  orgName: org.name
+                }
+
+              // if email address already belongs to a user
+              if (emailHashSnap.val()[cleanedEmail]) {
+                inviteObject.recipientId = emailHashSnap.val()[cleanedEmail].userId;
+                
+                let inviteId = Firebase.database().ref(Constants.INVITES_PATH).push(inviteObject).key
+
+                 // just send an invite to the user
+                Helpers.sendCollaboInboxMessage(auth, emailHashSnap.val()[cleanedEmail].userId, Constants.ORG_INVITE_MESSAGE, org, orgId, null, null, null, null, inviteId);
+
+                // add to invited list for the org
+                updates[Constants.INVITES_BY_ORG_PATH + '/' + orgId + '/users/' + emailHashSnap.val()[cleanedEmail].userId + '/' + inviteId] = true;
+              }
+              else {
+                let inviteId = Firebase.database().ref(Constants.INVITES_PATH).push(inviteObject).key
+
+                // otherwise add invite for this email address and send it
+                updates[Constants.NONAPP_INVITES_BY_EMAIL_PATH + '/' + cleanedEmail + '/' + orgId + '/' + inviteId] = true
+
+                // add to invited list for the org
+                updates[Constants.INVITES_BY_ORG_PATH + '/' + orgId + '/emails/' + cleanedEmail + '/' + inviteId] = true
+
+                // send the email
+                Helpers.sendInviteEmail(auth, email, org, orgId);
               }
 
-            // if email address already belongs to a user
-            if (emailHashSnap.val()[cleanedEmail]) {
-              inviteObject.recipientId = emailHashSnap.val()[cleanedEmail].userId;
-              
-              let inviteId = Firebase.database().ref(Constants.INVITES_PATH).push(inviteObject).key
-
-               // just send an invite to the user
-              Helpers.sendCollaboInboxMessage(auth, emailHashSnap.val()[cleanedEmail].userId, Constants.ORG_INVITE_MESSAGE, org, orgId, null, null, null, null, inviteId);
-
-              // add to invited list for the org
-              updates[Constants.INVITES_BY_ORG_PATH + '/' + orgId + '/users/' + emailHashSnap.val()[cleanedEmail].userId + '/' + inviteId] = true;
+              // save to seen emails so we don't duplicate
+              emailSeen[email] = true;
             }
-            else {
-              let inviteId = Firebase.database().ref(Constants.INVITES_PATH).push(inviteObject).key
+          })
 
-              // otherwise add invite for this email address and send it
-              updates[Constants.NONAPP_INVITES_BY_EMAIL_PATH + '/' + cleanedEmail + '/' + orgId + '/' + inviteId] = true
+          Firebase.database().ref().update(updates);
 
-              // add to invited list for the org
-              updates[Constants.INVITES_BY_ORG_PATH + '/' + orgId + '/emails/' + cleanedEmail + '/' + inviteId] = true
-
-              // send the email
-              Helpers.sendInviteEmail(auth, email, org, orgId);
-            }
-
-            // save to seen emails so we don't duplicate
-            emailSeen[email] = true;
-          }
+          dispatch({
+            type: ActionTypes.USERS_INVITED_TO_ORG,
+            orgName: org.name
+            // meta: {
+            //   mixpanel: {
+            //     event: 'Itinerary created',
+            //     source: 'create page',
+            //     itineraryId: itineraryId,
+            //     geo: itinerary.geo.placeId
+            //   }
+            // }
+          })
         })
-
-        Firebase.database().ref().update(updates);
-
-        dispatch({
-          type: ActionTypes.USERS_INVITED_TO_ORG,
-          orgName: org.name
-          // meta: {
-          //   mixpanel: {
-          //     event: 'Itinerary created',
-          //     source: 'create page',
-          //     itineraryId: itineraryId,
-          //     geo: itinerary.geo.placeId
-          //   }
-          // }
-        })
-      })  
+      })
     })
   }
 }
