@@ -610,6 +610,7 @@ export function onCreateOrg(auth, org, invites) {
 
           updates[`/${Constants.ORGS_BY_NAME_PATH}/${lowercaseName}/`] = Object.assign({}, {orgId: orgId}, omit(org, ['name']));
           updates[`/${Constants.ORGS_BY_USER_PATH}/${auth}/${orgId}/`] = { name: org.name };
+          updates[Constants.ORGS_BY_USER_PATH + '/' + auth + '/' + orgId] = { name: org.name }
 
           Firebase.database().ref().update(updates);
 
