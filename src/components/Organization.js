@@ -38,29 +38,6 @@ const RenderFeaturedPreview = props => {
   return null;
 }
 
-
-const RenderFollowCard = props => {
-  if (!props.itineraries) {
-    return null
-  }
-  if (props.itineraries.length === 0) {
-    return (
-      
-     <div className="itinerary__cover cover--empty flx flx-col flx-center-all ta-center color--black brdr-all fill--light-gray">
-       <div className="v2-type-body4 pdding-bottom-md color--black mrgn-right-lg mrgn-left-lg">
-         Your friends' travel guides show up here
-       </div>
-       <div className="vb vb--sm vb--outline fill--white color--black">
-         <i className="material-icons md-32 color--black opa-70 mrgn-right-sm">person_add</i>
-         <Link to="/explore" className="color--black">Find friends</Link>
-       </div>
-     </div>
-
-    )
-  }
-  return null;
-}
-
 class Organization extends React.Component {
   constructor() {
     super();
@@ -90,18 +67,6 @@ class Organization extends React.Component {
     // if (this.props.featuredPreview && this.props.featuredPreview.itinerary) {
     //   this.props.unloadFeaturePreview(this.props.authenticated, this.props.featuredPreview.itinerary.id)
     // }
-  }
-
-  onPrevClick = ev => {
-    ev.preventDefault()
-    // this.props.unwatchGlobalFeed(this.props.authenticated, this.props.currentDateIndex)
-    this.props.startUsersFeedWatchScroller(this.props.authenticated, this.props.dateIndex)
-  }
-
-  onAskForRecsClick = ev => {
-    ev.preventDefault();
-    this.props.logMixpanelClickEvent(Constants.ASK_FOR_RECS_MIXPANEL_CLICK, Constants.HOME_PAGE_MIXPANEL_SOURCE);
-    this.props.showCreateRecs(null);
   }
 
   LoggedOutIntro(authenticated) {
@@ -150,78 +115,6 @@ class Organization extends React.Component {
             </Link>
           </div>
         </div>
-
-         
-         <div className="about-intro flx flx-row w-100 DN">
-            <div className="guide-diagram flx flx-center-all w-50">
-              <img className="center-img w-100" src="/img/graphics/guide-tokyo.png"/>
-            </div>
-
-            <div className="feature-list-wrapper flx flx-col w-50 flx-center-all">
-              <div className="feature-list w-100 flx flx-col">
-                <div className="feature-item flx flx-row">
-                  <div className="feature-icon">
-                    <i className="material-icons color--primary md-48">find_in_page</i>
-                  </div>
-                  <div className="flx flx-col">
-                    <div className="tip__title v2-type-h3 ta-left">
-                      Research things to do
-                    </div>
-                    <div className="v2-type-body3 ta-left mrgn-top-sm opa-60">
-                      Collect recs from friends you trust
-                    </div>
-                  </div>
-                </div>
-                <div className="feature-item flx flx-row">
-                  <div className="feature-icon">
-                    <i className="material-icons color--primary md-48">chrome_reader_mode</i>
-                  </div>
-                  <div className="flx flx-col">
-                    <div className="tip__title v2-type-h3 ta-left">
-                      Build travel guides
-                    </div>
-                    <div className="v2-type-body3 ta-left mrgn-top-sm opa-60">
-                      Itineraries, city guides, favorites lists...
-                    </div>
-                  </div>
-                </div>
-                <div className="feature-item flx flx-row">
-                  <div className="feature-icon">
-                    <i className="material-icons color--primary md-48">airplanemode_active</i>
-                  </div>
-                  <div className="flx flx-col">
-                    <div className="tip__title v2-type-h3 ta-left">
-                      Take it on your trip
-                    </div>
-                    <div className="v2-type-body3 ta-left mrgn-top-sm opa-60">
-                      Mobile maps and notes
-                    </div>
-                  </div>
-                </div>
-                <div className="feature-item flx flx-row">
-                  <div className="feature-icon">
-                    <i className="material-icons color--primary md-48">favorite</i>
-                  </div>
-                  <div className="flx flx-col">
-                    <div className="tip__title v2-type-h3 ta-left">
-                      Share your experiences
-                    </div>
-                    <div className="v2-type-body3 ta-left mrgn-top-sm opa-60">
-                      Help your friends travel as well as you!
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> {/* END Feature Wrapper */}
-         </div> {/* END About Intro */}
-
-         <div className="about-intro flx flx-col flx-center-all w-100 mrgn-top-md opa-100">
-          <div className="v2-type-intro-2 color--black ta-center w-100 DN">
-            Some cool guides we like
-          </div>
-          <i className="material-icons color--black md-48 mrgn-top-lg mrgn-bottom-lg DN">arrow_downward</i>
-         </div>
-
        </div> 
 
 
@@ -230,45 +123,7 @@ class Organization extends React.Component {
     return null;
   };
 
-  renderTabs() {
-    return (
-      <div className="flx flx-row flx-align-center">
-
-
-
-        <div className="page-title-wrapper DN fill--primary center-text country-color-">
-          <div className="v2-type-page-header flx flx-col flx-center-all color--white invert">
-            Latest Travel Guides
-          </div>
-          <div className="v2-type-body2 opa-60"></div>
-        </div>
-
-        <ul className="nav nav-pills outline-active flx flx-row ta-center">
-          <li className="nav-item brdr-right">
-            <Link
-              className="nav-link active"
-              to="/">
-              Friends
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link
-              className="nav-link"
-              to="/global">
-              Everyone
-            </Link>
-          </li>
-        </ul>
-      </div>
-    )
-  }
-
-
-
   render() {
-    const isLandingPage = (browserHistory.getCurrentLocation().pathname === '/global') && !this.props.authenticated ?
-      'page-landing' : ''
-
     if(this.props.invalidOrgUser) {
       return (
         <div>
@@ -282,7 +137,7 @@ class Organization extends React.Component {
           
 
           
-          <div className={'home-page page-common fill--white flx flx-col flx-align-center ' + isLandingPage}>
+          <div className={'home-page page-common fill--white flx flx-col flx-align-center'}>
             
             
 

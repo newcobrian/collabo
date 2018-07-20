@@ -586,10 +586,10 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 				case Constants.ORG_INVITE_MESSAGE:
 					inboxObject.senderId = senderId;
 					inboxObject.message = ' invited you join their organization: ' + org.name;
-					inboxObject.link = '/accept/' + sendObject;
+					inboxObject.link = '/invitation/' + sendObject;
 					inboxObject.type = Constants.INBOX_INVITE_TYPE
 					emailMessage = senderSnapshot.val().username + 
-						' invited you to join their organization "' + org.name + '". Click here to check it out: https://localhost:3000/accept/' + sendObject;
+						' invited you to join their organization "' + org.name + '". Click here to check it out: https://localhost:3000/invitation/' + sendObject;
 					break;
 			}
 			if (senderId !== recipientId) {

@@ -70,13 +70,13 @@ ReactDOM.render((
         <Route path="neworg" component={CreateOrg} />
         <Route path="inbox" component={Inbox} />
         <Route path="seo" component={SEO} />
-        <Route path ="invite/:oid" component={OrgInvite} />
-        <Route path ="accept/:iid" component={AcceptInvite} />
+        <Route path ="invitation/:iid" component={AcceptInvite} />
         <Route path="user/:username/followers" component={Followers} />
         <Route path="user/:username/isfollowing" component={Followings} />
         <Route path="user/:username" component={ProfileGuides} />
         <Route path="user/:username/likes" component={ProfileLikes} />
         <Route path=":orgname" component={Organization} />
+        <Route path =":orgname/send" component={OrgInvite} />
         <Route path=":orgname/project/:pid" component={Project} />
         <Route path=":orgname/thread/:tid" component={Thread} />
       </Route>
