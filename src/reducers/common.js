@@ -33,7 +33,6 @@ export default (state = defaultState, action) => {
         invalidOrgUser: true
       }
     case ActionTypes.SET_CURRENT_ORG:
-      console.log('reducer org = ' + JSON.stringify(action.organization))
       return {
         ...state,
         organization: action.organization

@@ -91,6 +91,7 @@ export const ORGS_BY_USER_PATH = '/orgs-by-user'
 export const USERS_BY_EMAIL_PATH = '/users-by-email'
 export const INVITES_BY_EMAIL_PATH = '/invites-by-email'
 export const INVITES_BY_ORG_PATH = '/invites-by-org'
+export const INVITES_PATH = '/invites'
 
 /*** Counter Type Constants ***/
 export const LIKES_COUNT = 'likesCount'

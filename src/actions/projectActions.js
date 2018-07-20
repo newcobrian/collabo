@@ -524,20 +524,34 @@ export function inviteUsersToOrg(auth, org, orgId, invites) {
         emailArray.forEach(function(email) {
           let cleanedEmail = Helpers.cleanEmailToFirebase(email)
           if (!emailSeen[email]) {
+            let inviteObject = {
+                sender: auth,
+                recipientEmail: email,
+                timestamp: Firebase.database.ServerValue.TIMESTAMP,
+                orgId: orgId,
+                orgName: org.name
+              }
+
             // if email address already belongs to a user
             if (emailHashSnap.val()[cleanedEmail]) {
+              inviteObject.recipientId = emailHashSnap.val()[cleanedEmail].userId;
+              
+              let inviteId = Firebase.database().ref(Constants.INVITES_PATH).push(inviteObject).key
+
                // just send an invite to the user
-              Helpers.sendCollaboInboxMessage(auth, emailHashSnap.val()[cleanedEmail].userId, Constants.ORG_INVITE_MESSAGE, org, orgId, null, null, null, null, null);
+              Helpers.sendCollaboInboxMessage(auth, emailHashSnap.val()[cleanedEmail].userId, Constants.ORG_INVITE_MESSAGE, org, orgId, null, null, null, null, inviteId);
 
               // add to invited list for the org
-              updates[Constants.INVITES_BY_ORG_PATH + '/' + orgId + '/users/' + emailHashSnap.val()[cleanedEmail].userId] = true
+              updates[Constants.INVITES_BY_ORG_PATH + '/' + orgId + '/users/' + emailHashSnap.val()[cleanedEmail].userId] = { inviteId: inviteId }
             }
             else {
+              let inviteId = Firebase.database().ref(Constants.INVITES_PATH).push(inviteObject).key
+
               // otherwise add invite for this email address and send it
-              updates[Constants.INVITES_BY_EMAIL_PATH + '/' + cleanedEmail + '/' + orgId] = true
+              updates[Constants.INVITES_BY_EMAIL_PATH + '/' + cleanedEmail + '/' + orgId] = { inviteId: inviteId }
 
               // add to invited list for the org
-              updates[Constants.INVITES_BY_ORG_PATH + '/' + orgId + '/emails/' + cleanedEmail] = true
+              updates[Constants.INVITES_BY_ORG_PATH + '/' + orgId + '/emails/' + cleanedEmail] = { inviteId: inviteId }
 
               // send the email
               Helpers.sendInviteEmail(auth, email, org, orgId);

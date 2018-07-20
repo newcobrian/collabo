@@ -35,6 +35,7 @@ import Recommend from './components/Recommend';
 import CreateOrg from './components/CreateOrg';
 import OrgInvite from './components/OrgInvite';
 import Organization from './components/Organization';
+import AcceptInvite from './components/AcceptInvite';
 import SEO from './components/SEO';
 import store from './store';
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -70,6 +71,7 @@ ReactDOM.render((
         <Route path="inbox" component={Inbox} />
         <Route path="seo" component={SEO} />
         <Route path ="invite/:oid" component={OrgInvite} />
+        <Route path ="accept/:iid" component={AcceptInvite} />
         <Route path="user/:username/followers" component={Followers} />
         <Route path="user/:username/isfollowing" component={Followings} />
         <Route path="user/:username" component={ProfileGuides} />
