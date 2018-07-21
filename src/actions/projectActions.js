@@ -531,7 +531,11 @@ export function inviteUsersToOrg(auth, orgId, orgName, invites) {
 
           emailArray.forEach(function(email) {
             let cleanedEmail = Helpers.cleanEmailToFirebase(email)
-            if (!emailSeen[email] && usersByOrgSnap.exists() && !usersByOrgSnap.val()[emailHashSnap.val()[cleanedEmail].userId]) {
+            // check that this user isn't already on the team
+            if (!emailSeen[email] && 
+              !(usersByOrgSnap.exists() && emailHashSnap.exists() && emailHashSnap.val()[cleanedEmail] &&
+                emailHashSnap.val()[cleanedEmail].userId &&
+                usersByOrgSnap.val()[emailHashSnap.val()[cleanedEmail].userId])) {
               let inviteObject = {
                   senderId: auth,
                   recipientEmail: email,

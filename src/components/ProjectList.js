@@ -21,6 +21,12 @@ class ProjectList extends React.Component {
     if(!this.props.projectList) return null;
     return (
       <div className="project-sidebar flx-item-left">
+        <Link to={'/' + orgName + '/invite'}>
+          <div className="nav-text flx flx-row flx-align-center mrgn-bottom-sm">
+            <i className="material-icons color--success md-18 opa-100 mrgn-right-sm">child_care</i>
+            <div className="color--white">Invite team members</div>
+          </div>
+        </Link>
         <div className="v2-type-h4 mrgn-bottom-md">Projects</div>
         <Link to={'/' + orgName + '/addProject'}>
           <div className="nav-text flx flx-row flx-align-center mrgn-bottom-sm">

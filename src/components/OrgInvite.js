@@ -43,6 +43,7 @@ class OrgInvite extends React.Component {
 
 	componentWillUnmount() {
 		this.props.unloadOrgInvitePage(this.props.params.orgname.toLowerCase());
+		this.props.onCreateUnload();
 	}
 
 	render() {

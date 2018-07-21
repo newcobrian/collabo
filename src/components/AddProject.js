@@ -73,6 +73,7 @@ class AddProject extends React.Component {
 
 	componentWillUnmount() {
 		if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
+		this.props.onCreateUnload();
 	}
 
 	render() {
