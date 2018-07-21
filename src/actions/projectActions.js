@@ -701,7 +701,7 @@ export function loadOrg(auth, org) {
 export function unloadOrg() {
   return dispatch => {
     dispatch({
-      type: ActionTypes.UNSET_CURRENT_ORG
+      type: ActionTypes.UNLOAD_ORG
     })
   }
 }
