@@ -55,12 +55,7 @@ export default (state = {}, action) => {
         watchId: action.payload
       }
   	case ActionTypes.PROJECT_CREATED:
-      return {
-        ...state,
-        inProgress: null,
-        project: action.project,
-        projectId: action.projectId
-      };
+      return {}
   	case ActionTypes.UPDATE_FIELD_CREATE:
       if(action.source === Constants.ADD_PROJECT_PAGE) {
         return { ...state, [action.key]: action.value };

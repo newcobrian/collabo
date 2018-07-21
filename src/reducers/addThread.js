@@ -60,7 +60,9 @@ export default (state = {}, action) => {
         inProgress: null,
         project: action.project,
         projectId: action.projectId
-      };
+      }
+    case ActionTypes.THREAD_CREATED:
+      return {}
   	case ActionTypes.UPDATE_FIELD_CREATE:
       if(action.source === Constants.ADD_THREAD_PAGE) {
         return { ...state, [action.key]: action.value };
