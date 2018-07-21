@@ -517,14 +517,12 @@ export function onDeleteThreadComment(thread, commentId, threadId) {
   }
 }
 
-export function inviteUsersToOrg(auth, org, orgName, invites) {
+export function inviteUsersToOrg(auth, orgId, orgName, invites) {
   return dispatch => {
     let updates = {}
     Firebase.database().ref(Constants.USERS_PATH + '/' + auth).once('value', authSnap => {
       Firebase.database().ref(Constants.USERS_BY_EMAIL_PATH).once('value', emailHashSnap => {
-        Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + org.orgId).once('value', usersByOrgSnap => {
-          Object.assign(org, {name: orgName})
-          let orgId = org.orgId
+        Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId).once('value', usersByOrgSnap => {
 
           let emailArray = invites.match(/([a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
 
@@ -533,13 +531,13 @@ export function inviteUsersToOrg(auth, org, orgName, invites) {
 
           emailArray.forEach(function(email) {
             let cleanedEmail = Helpers.cleanEmailToFirebase(email)
-            if (!emailSeen[email] && !usersByOrgSnap.val()[emailHashSnap.val()[cleanedEmail].userId]) {
+            if (!emailSeen[email] && usersByOrgSnap.exists() && !usersByOrgSnap.val()[emailHashSnap.val()[cleanedEmail].userId]) {
               let inviteObject = {
                   senderId: auth,
                   recipientEmail: email,
                   timestamp: Firebase.database.ServerValue.TIMESTAMP,
                   orgId: orgId,
-                  orgName: org.name
+                  orgName: orgName
                 }
 
               // if email address already belongs to a user
@@ -549,7 +547,7 @@ export function inviteUsersToOrg(auth, org, orgName, invites) {
                 let inviteId = Firebase.database().ref(Constants.INVITES_PATH).push(inviteObject).key
 
                  // just send an invite to the user
-                Helpers.sendCollaboInboxMessage(auth, emailHashSnap.val()[cleanedEmail].userId, Constants.ORG_INVITE_MESSAGE, org, orgId, null, null, null, null, inviteId);
+                Helpers.sendCollaboInboxMessage(auth, emailHashSnap.val()[cleanedEmail].userId, Constants.ORG_INVITE_MESSAGE, Object.assign({}, {name: orgName}), orgId, null, null, null, null, inviteId);
 
                 // add to invited list for the org
                 updates[Constants.INVITES_BY_ORG_PATH + '/' + orgId + '/users/' + emailHashSnap.val()[cleanedEmail].userId + '/' + inviteId] = true;
@@ -564,7 +562,7 @@ export function inviteUsersToOrg(auth, org, orgName, invites) {
                 updates[Constants.INVITES_BY_ORG_PATH + '/' + orgId + '/emails/' + cleanedEmail + '/' + inviteId] = true
 
                 // send the email
-                Helpers.sendInviteEmail(auth, email, org, orgId);
+                Helpers.sendInviteEmail(auth, email, orgName, inviteId);
               }
 
               // save to seen emails so we don't duplicate
@@ -576,7 +574,7 @@ export function inviteUsersToOrg(auth, org, orgName, invites) {
 
           dispatch({
             type: ActionTypes.USERS_INVITED_TO_ORG,
-            orgName: org.name
+            orgName: orgName
             // meta: {
             //   mixpanel: {
             //     event: 'Itinerary created',
@@ -592,7 +590,7 @@ export function inviteUsersToOrg(auth, org, orgName, invites) {
   }
 }
 
-export function onCreateOrg(auth, org, invites) {
+export function onCreateOrg(auth, org) {
   return dispatch => {
     if (!auth) {
       dispatch({
@@ -618,13 +616,13 @@ export function onCreateOrg(auth, org, invites) {
 
           updates[`/${Constants.ORGS_BY_NAME_PATH}/${lowercaseName}/`] = Object.assign({}, {orgId: orgId}, omit(org, ['name']));
           updates[`/${Constants.ORGS_BY_USER_PATH}/${auth}/${orgId}/`] = { name: org.name };
-          updates[Constants.ORGS_BY_USER_PATH + '/' + auth + '/' + orgId] = { name: org.name }
+          updates[`/${Constants.USERS_BY_ORG_PATH}/${orgId}/${auth}/`] = true
 
           Firebase.database().ref().update(updates);
 
           dispatch({
             type: ActionTypes.ORG_CREATED,
-            org: org,
+            orgName: org.name,
             orgId: orgId,
             // meta: {
             //   mixpanel: {

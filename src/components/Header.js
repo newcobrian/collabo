@@ -76,9 +76,12 @@ const LoggedInView = props => {
                   <div className="mobile-hide mrgn-left-xs">Invite new team members</div>
                 </div>
               </Link>
-              <div className="v2-type-body2 opa-60 w-100 color--white mobile-hide DN">
-                Travel Guides by Friends
-              </div>
+              <Link to='/' className="v2-type-body2 opa-60 w-100 color--white mobile-hide DN">
+                Invite new team members
+              </Link>
+              <Link to='/neworg' className="v2-type-body2 opa-60 w-100 color--white mobile-hide">
+                Create a new team
+              </Link>
             </div>
           </Link>
         </div>

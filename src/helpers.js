@@ -606,10 +606,10 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 	})
 }
 
-export function sendInviteEmail(auth, recipientEmail, org, orgId) {
+export function sendInviteEmail(auth, recipientEmail, orgName, inviteId) {
 	Firebase.database().ref(Constants.USERS_PATH + '/' + auth).once('value', senderSnap => {
-		let emailMessage = senderSnap.val().username + ' invited you to join their organization on Collabo.' +
-			' Click here to check it out: http://localhost:3000/' + org.name;
+		let emailMessage = senderSnap.val().username + ' invited you to join their team "' + orgName + '" on Collabo.' +
+			' Click here to check it out: http://localhost:3000/invitation/' + inviteId;
 							
 		let data = Object.assign({}, {message: emailMessage}, {senderName: senderSnap.val().username });
 		sendContentManagerEmail("0a991f3c-3079-4d45-90d2-eff7c64f9cc5", recipientEmail, data);

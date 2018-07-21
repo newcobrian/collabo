@@ -30,10 +30,10 @@ class CreateOrg extends React.Component {
 		  }
 	      else {
 		   	let org = Object.assign({}, {name: this.props.name} )
-		   	let invites = this.props.invites ? this.props.invites : ''
+		   	// let invites = this.props.invites ? this.props.invites : ''
             
 		    this.props.setInProgress();
-		    this.props.onCreateOrg(this.props.authenticated, org, invites);
+		    this.props.onCreateOrg(this.props.authenticated, org);
 		  }
     	}
 	}

@@ -52,6 +52,34 @@ class AcceptInvite extends React.Component {
               </Link>
           </div>
          </div>
+         <div className="hero-container">
+                <div className="create-content flx flx-col flx-center-all ta-center">
+              
+              <div className="flx flx-col flx-center-all create-wrapper">
+            
+                      <div className="create-form-wrapper form-wrapper ta-left flx flx-col-left bx-shadow">
+                        
+                        HEY MAN <Link to='/login'> LOGIN </Link> TO ACCEPT THIS INVITE <Link to='/register'> ....or Sign up</Link>
+
+                      </div>
+                </div>
+
+                <div className="v2-type-body2 mrgn-top-lg ta-center DN">
+                  <div>“Travel and change of place impart new vigor to the mind.”</div>
+                  <div>– Seneca</div>
+                </div>  
+
+              </div>
+              <div className="hero-bg">
+                <div className="hero-map opa-20">
+                </div>
+                <div className="hero-grid opa-10">
+                </div>
+            </div>
+
+            
+
+          </div>  
         </div>
       )
     }

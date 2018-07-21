@@ -75,7 +75,7 @@ ReactDOM.render((
         <Route path="user/:username/likes" component={ProfileLikes} />
         <Route path=":orgname" component={Organization} />
         <Route path=":orgname/addproject" component={AddProject} />
-        <Route path=":orgname/send" component={OrgInvite} />
+        <Route path=":orgname/invite" component={OrgInvite} />
         <Route path=":orgname/:pid" component={Project} />
         <Route path=":orgname/:pid/addthread" component={AddThread} />
         <Route path=":orgname/:pid/:tid" component={Thread} />
