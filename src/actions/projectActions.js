@@ -71,7 +71,7 @@ export function onAddProject(auth, project, orgName) {
   }
 }
 
-export function onAddThread(auth, projectId, thread) {
+export function onAddThread(auth, projectId, thread, orgName) {
   return dispatch => {
     if (!auth) {
       dispatch({
@@ -92,7 +92,7 @@ export function onAddThread(auth, projectId, thread) {
           let threadObject = {
             lastModified: serverTimestamp,
             createdOn: serverTimestamp,
-            org: projectSnapshot.val().org,
+            orgId: projectSnapshot.val().orgId,
             userId: auth,
             projectId: projectId
           }
@@ -116,6 +116,8 @@ export function onAddThread(auth, projectId, thread) {
           dispatch({
             type: ActionTypes.THREAD_CREATED,
             threadId: threadId,
+            orgName: orgName,
+            projectId: projectId
             // meta: {
             //   mixpanel: {
             //     event: 'Itinerary created',

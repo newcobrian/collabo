@@ -58,7 +58,7 @@ export default (state = defaultState, action) => {
     case ActionTypes.PROJECT_CREATED:
       return {
         ...state,
-        redirectTo: action.orgName + '/project/' + action.projectId
+        redirectTo: '/' + action.orgName + '/' + action.projectId
       }
     case ITINERARY_UPDATED:
       return {
@@ -133,7 +133,7 @@ export default (state = defaultState, action) => {
     case ActionTypes.THREAD_CREATED:
       return {
         ...state,
-        redirectTo: '/thread/' + action.threadId
+        redirectTo: '/' + action.orgName + '/' + action.projectId + '/' + action.threadId
       }
     case ActionTypes.ORG_CREATED:
       return {

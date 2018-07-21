@@ -30,7 +30,7 @@ class AddThread extends React.Component {
 		   	if (this.props.body) thread.body = this.props.body
 
 		    this.props.setInProgress();
-		    this.props.onAddThread(this.props.authenticated, this.props.params.pid, thread);
+		    this.props.onAddThread(this.props.authenticated, this.props.params.pid, thread, this.props.params.orgname);
 		  }
     	}
 	}

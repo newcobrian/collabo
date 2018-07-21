@@ -33,7 +33,7 @@ const CommentPreview = props => {
   if (!props.thread) return null
   else if (props.thread.commentsCount) {
     return (
-      <Link to={`/thread/${props.thread.threadId}`}>
+      <Link to={`/${props.orgName}/${props.projectId}/${props.thread.threadId}`}>
         <div className="cta-wrapper cta-wrapper-comment v2-type-body2 flx flx-row flx-align-center">
           <div className="material-icons color--black md-18 opa-60 mrgn-right-sm">comment</div>
           {props.thread.commentsCount} Comments
@@ -61,7 +61,7 @@ const ThreadPreview = props => {
   // let canModify = props.authenticated === tip.userId ? true : false;
 
   return (
-    <Link to={`/thread/${thread.threadId}`} className={"tip-wrapper flx flx-col flx-col w-100 w-max"}>
+    <Link to={`/${props.orgName}/${props.projectId}/${props.thread.threadId}`} className={"tip-wrapper flx flx-col flx-col w-100 w-max"}>
         
           <div className="tip-container flx flx-row flx-align-start w-100 bx- brdr-bottom">
             
@@ -77,7 +77,7 @@ const ThreadPreview = props => {
                     { /** Title **/ }
                     <div className="hide-in-list tip__title tip-title ta-left">
                       {/*<div className="tip__order-count color--black">{props.index}.</div>*/}
-                      <Link to={`/thread/${thread.threadId}`}> {thread.title}</Link>
+                      <Link to={`/${props.orgName}/${props.projectId}/${props.thread.threadId}`}> {thread.title}</Link>
                     </div>
 
                     { /** END Title **/ }
@@ -122,7 +122,7 @@ const ThreadPreview = props => {
                     <div className="tip__content-inner">
                       { /** Author **/ }
                       <Link
-                          to={'/' + createdBy.username}
+                          to={'/user/' + createdBy.username}
                           className="show-in-list">
                         <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm">
                             <div className="tip__author-photo flx-hold mrgn-right-sm">
@@ -138,7 +138,7 @@ const ThreadPreview = props => {
 
                       { /** Caption **/ }
                       <div className="tip__caption-module flx flx-row w-100 mrgn-bottom-sm brdr-02-bottom">
-                        <Link to={'/' + createdBy.username} className="tip__author-photo flx-hold mrgn-right-sm">
+                        <Link to={'/user/' + createdBy.username} className="tip__author-photo flx-hold mrgn-right-sm">
                           <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
                         </Link> 
                         <div className="flx flx-col flx-align-start w-100">

@@ -85,6 +85,7 @@ class Thread extends React.Component {
 
   componentWillMount() {
     this.props.loadOrg(this.props.authenticated, this.props.params.orgname);
+    this.props.loadProjectList(this.props.authenticated, this.props.params.orgname)
     this.props.loadThread(this.props.params.tid);
     this.props.watchThreadComments(this.props.params.tid);
     // this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project'});
@@ -92,6 +93,7 @@ class Thread extends React.Component {
 
   componentWillUnmount() {
     this.props.unloadThread(this.props.params.tid);
+    this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname)
     this.props.unwatchThreadComments(this.props.params.tid);
     this.props.unloadOrg();
     if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
@@ -164,7 +166,7 @@ class Thread extends React.Component {
 
               <div className={"page-title-wrapper left-text flx flx-col flx-align-start country-color-"}>
                  <div>
-              <Link to={'/project/' + this.props.thread.projectId} activeClassName="active" className="nav-module create nav-editor flx flx-center-all">
+              <Link to={'/' + this.props.params.orgname + '/' + this.props.thread.projectId} activeClassName="active" className="nav-module create nav-editor flx flx-center-all">
                 <div className="nav-text flx flx-row flx-align-center opa-60 mrgn-bottom-md">
                     <i className="material-icons color--black md-18 opa-100 mrgn-right-xs">arrow_back_ios</i>
                     <div className="v2-type-body1 mrgn-left-xs">Back to Project</div>

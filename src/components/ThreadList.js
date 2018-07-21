@@ -32,20 +32,13 @@ const ThreadList = props => {
         props.threads.map((threadItem, index) => {
           return (
             <ThreadPreview thread={threadItem}
+              orgName={props.orgName}
+              projectId={props.projectId}
               key={threadItem.threadId} 
               authenticated={props.authenticated}
               userInfo={props.userInfo}
-              showModal={props.showModal}
               deleteComment={props.deleteComment}
-              itineraryId={props.itineraryId}
-              itinerary={props.itinerary}
               index={index+1}
-              selectedMarker={props.selectedMarker}
-              onSelectActiveTip={props.onSelectActiveTip}
-              dataType={props.dataType}
-              changeRating={props.changeRating}
-              changeCaption={props.changeCaption}
-              deleteRec={props.deleteRec}
             />
           );
         })

@@ -32,7 +32,7 @@ class ProjectList extends React.Component {
           this.props.projectList.map((projectItem, index) => {
             return (
               <div className="mrgn-bottom-sm" key={projectItem.projectId}>
-                <Link className="color--white v2-type-body flx flx-row flx-align-center" to={'/' + orgName + '/project/' + projectItem.projectId}>
+                <Link className="color--white v2-type-body flx flx-row flx-align-center" to={'/' + orgName + '/' + projectItem.projectId}>
                 <i className="material-icons color--yellow md-18 opa-100 mrgn-right-sm">folder</i>
 
                 {projectItem.name}

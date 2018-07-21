@@ -20,11 +20,11 @@ class Project extends React.Component {
   constructor() {
     super();
 
-    this.searchInputCallback = result => {
-        if (result.placeId) {
-          browserHistory.push('/project/' + result.projectId);
-        }
-      }
+    // this.searchInputCallback = result => {
+    //     if (result.placeId) {
+    //       browserHistory.push('/project/' + result.projectId);
+    //     }
+    //   }
   }
 
   componentWillMount() {
@@ -51,7 +51,6 @@ class Project extends React.Component {
   }
 
   render() {
-    console.log(this.props.params.orgname)
     if(this.props.invalidOrgUser) {
       return (
         <div>
@@ -109,7 +108,7 @@ class Project extends React.Component {
               {this.props.project.name}
             </div>
             <div>
-              <Link to={'/' + this.props.params.orgname + '/project/' + this.props.params.pid + '/addthread'} activeClassName="active" className="nav-module create nav-editor flx flx-align-start text-left">
+              <Link to={'/' + this.props.params.orgname + '/' + this.props.params.pid + '/addthread'} activeClassName="active" className="nav-module create nav-editor flx flx-align-start text-left">
                 <div className="nav-text flx flx-row flx-align-center">
                   <i className="material-icons color--success md-24 opa-100 mrgn-right-xs">add</i>
                   <div className="mrgn-left-xs">New Thread</div>
@@ -121,7 +120,9 @@ class Project extends React.Component {
           <div className="feed-wrapper">
             <ThreadList
               threads={this.props.threads} 
-              authenticated={this.props.authenticated} />
+              authenticated={this.props.authenticated}
+              orgName={this.props.params.orgname}
+              projectId={this.props.params.pid} />
           </div>
         </div>
       </div>

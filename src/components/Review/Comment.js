@@ -26,14 +26,14 @@ const Comment = props => {
       <div className="">
         <div className="flx flx-row flx-just-start">
           <Link
-            to={`${comment.username}`}
+            to={`/user/${comment.username}`}
             className="mrgn-right-sm">
             <ProfilePic src={comment.image} className="user-image user-image-sm center-img" />
           </Link>
           <div className="comment-data flx flx-row flx-just-start">
             <div className="comment-row v2-type-body2 font--beta">
               <Link
-                to={`/${comment.username}`}
+                to={`/user/${comment.username}`}
                 className="comment-author">
                 {comment.username}
               </Link>
