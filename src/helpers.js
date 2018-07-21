@@ -398,7 +398,6 @@ export function sendInboxMessage(senderId, recipientId, messageType, sendObject,
 		lastModified: Firebase.database.ServerValue.TIMESTAMP
 	};
 	let emailMessage = '';
-console.log('recip ID = ' + recipientId)
 	if (sendObject || messageType === Constants.FOLLOW_MESSAGE) {
 		Firebase.database().ref(Constants.USERS_PATH + '/' + recipientId).once('value', recipientSnapshot => {
 			Firebase.database().ref(Constants.USERS_PATH + '/' + senderId).once('value', senderSnapshot => {
@@ -589,7 +588,7 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 					inboxObject.link = '/invitation/' + sendObject;
 					inboxObject.type = Constants.INBOX_INVITE_TYPE
 					emailMessage = senderSnapshot.val().username + 
-						' invited you to join their organization "' + org.name + '". Click here to check it out: https://localhost:3000/invitation/' + sendObject;
+						' invited you to join their team "' + org.name + '". Click here to check it out: https://localhost:3000/invitation/' + sendObject;
 					break;
 			}
 			if (senderId !== recipientId) {
@@ -598,7 +597,7 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 		            return (current_count || 0) + 1;
 		        })
 	        	if (recipientSnapshot.exists() && recipientSnapshot.val().email) {
-	        		let data = Object.assign({}, {message: emailMessage});
+	        		let data = Object.assign({}, {message: emailMessage}, {senderName: senderSnapshot.val().username});
 	        		sendContentManagerEmail("5d7dc9ce-f38d-47b9-b73c-09d3e187a6d9", recipientSnapshot.val().email, data);
 			    }
 			}
