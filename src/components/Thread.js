@@ -84,17 +84,17 @@ class Thread extends React.Component {
   }
 
   componentWillMount() {
-    this.props.setCurrentOrg(this.props.authenticated, this.props.params.orgname);
+    this.props.loadOrg(this.props.authenticated, this.props.params.orgname);
     this.props.loadThread(this.props.params.tid);
     this.props.watchThreadComments(this.props.params.tid);
     // this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project'});
   }
 
   componentWillUnmount() {
-    this.props.unsetCurrentOrg();
     this.props.unloadThread(this.props.params.tid);
     this.props.unwatchThreadComments(this.props.params.tid);
-    // if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
+    this.props.unloadOrg();
+    if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
   }
 
   componentWillReceiveProps(nextProps) {

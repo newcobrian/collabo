@@ -10,7 +10,6 @@ const mapStateToProps = state => ({
   ...state.organization,
   appName: state.common.appName,
   authenticated: state.common.authenticated,
-  organization: state.common.organization,
   invalidOrgUser: state.common.invalidOrgUser
 });
 
@@ -49,7 +48,8 @@ class Organization extends React.Component {
   }
 
   componentWillMount() {
-    this.props.setCurrentOrg(this.props.authenticated, this.props.params.orgname);
+    this.props.loadOrg(this.props.authenticated, this.props.params.orgname);
+    this.props.loadProjectList(this.props.authenticated, this.props.params.orgname)
     // this.props.startFeedWatch(this.props.authenticated);
     // this.props.startLikesByUserWatch(this.props.authenticated);
     // this.props.startUsersFeedWatchScroller(this.props.authenticated, this.props.dateIndex);
@@ -59,7 +59,7 @@ class Organization extends React.Component {
   } 
 
   componentWillUnmount() {
-    this.props.unsetCurrentOrg();
+    this.props.unloadOrg();
     // this.props.unloadFeedWatch(this.props.authenticated);
     // this.props.stopUsersFeedWatch(this.props.authenticated);
     // this.props.stopLikesByUserWatch(this.props.authenticated);
@@ -147,7 +147,8 @@ class Organization extends React.Component {
               
               
 
-              <ProjectList />
+              <ProjectList 
+                org={this.props.org} />
 
               
 

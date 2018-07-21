@@ -16,15 +16,8 @@ class ProjectList extends React.Component {
     super();
   }
 
-  componentWillMount() {
-    this.props.loadProjectList(this.props.authenticated)
-  }
-
-  componentWillUnmount() {
-    this.props.unloadProjectList(this.props.authenticated)
-  }
-
   render() {
+    let orgName = this.props.org ?  this.props.org.name : ''
     if(!this.props.projectList) return null;
     return (
       <div className="project-sidebar flx-item-left">
@@ -39,7 +32,7 @@ class ProjectList extends React.Component {
           this.props.projectList.map((projectItem, index) => {
             return (
               <div className="mrgn-bottom-sm" key={projectItem.projectId}>
-                <Link className="color--white v2-type-body flx flx-row flx-align-center" to={'/project/' + projectItem.projectId}>
+                <Link className="color--white v2-type-body flx flx-row flx-align-center" to={'/' + orgName + '/project/' + projectItem.projectId}>
                 <i className="material-icons color--yellow md-18 opa-100 mrgn-right-sm">folder</i>
 
                 {projectItem.name}

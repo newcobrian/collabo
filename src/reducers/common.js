@@ -32,16 +32,6 @@ export default (state = defaultState, action) => {
       return {
         invalidOrgUser: true
       }
-    case ActionTypes.SET_CURRENT_ORG:
-      return {
-        ...state,
-        organization: action.organization
-      }
-    case ActionTypes.UNSET_CURRENT_ORG:
-      return {
-        ...state,
-        organization: {}
-      }
     case APP_USER_LOADED:
       return {
         ...state,

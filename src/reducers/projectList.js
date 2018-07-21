@@ -14,7 +14,7 @@ export default (state = initialState, action) => {
       newState.projectList = newState.projectList || [];
       newState.projectList = newState.projectList.slice();
       if (!find(newState.projectList, ['projectId', action.projectId])) {
-        newState.projectList = newState.projectList.concat(Object.assign({}, {projectId: action.projectId}, action.project));
+        newState.projectList = newState.projectList.concat(Object.assign({}, {projectId: action.projectId}, {name: action.projectName}));
 
         return newState;
       }
@@ -27,7 +27,7 @@ export default (state = initialState, action) => {
       
       for (let i = 0; i < newState.projectList.length; i++) {
         if (newState.projectList[i].projectId === action.projectId) {
-          newState.projectList[i] = Object.assign({}, {projectId: action.projectId}, action.project);
+          newState.projectList[i] = Object.assign({}, {projectId: action.projectId}, {name: action.projectName});
           return newState;
         }
       }
@@ -45,7 +45,18 @@ export default (state = initialState, action) => {
         }
       }
       return state;
-      
+    }
+    case ActionTypes.LOAD_ORG: {
+      return {
+        ...state,
+        org: action.organization
+      }
+    }
+    case ActionTypes.UNLOAD_ORG: {
+      return {
+        ...state,
+        org: {}
+      }
     }
     default:
       return state;

@@ -32,16 +32,16 @@ class Project extends React.Component {
   }
 
   componentWillMount() {
-    this.props.setCurrentOrg(this.props.authenticated, this.props.params.orgname);
+    this.props.loadOrg(this.props.authenticated, this.props.params.orgname);
     this.props.loadProject(this.props.params.pid);
     this.props.watchProjectThreads(this.props.params.pid);
     // this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project'});
   }
 
   componentWillUnmount() {
-    this.props.unsetCurrentOrg();
     this.props.unloadProjectThreads(this.props.params.pid);
-    // if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
+    this.props.unloadOrg();
+    if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
   }
 
   componentWillReceiveProps(nextProps) {

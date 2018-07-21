@@ -49,6 +49,18 @@ export default (state = { editorState: EditorState.createEmpty() }, action) => {
       }
     case ActionTypes.UNLOAD_THREAD:
       return {}
+    case ActionTypes.LOAD_ORG: {
+      return {
+        ...state,
+        organization: action.organization
+      }
+    }
+    case ActionTypes.UNLOAD_ORG: {
+      return {
+        ...state,
+        organization: {}
+      }
+    }
     default:
       return state;
   }
