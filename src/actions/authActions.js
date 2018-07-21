@@ -83,40 +83,61 @@ export function signUpUser(username, email, password, redirect) {
             let userId = response.uid;
             let updates = {};
 
-            // need to save users profile info
-            updates[Constants.USERS_PATH + '/' + userId] = { username: username, email: email }
+            let cleanedEmail = Helpers.cleanEmailToFirebase(email)
+            Firebase.database().ref(Constants.NONAPP_INVITES_BY_EMAIL_PATH + '/' + cleanedEmail).once('value', inviteSnap => {
+              // need to save users profile info
+              updates[Constants.USERS_PATH + '/' + userId] = { username: username, email: email }
 
-            // save userId lookup from username
-            updates[Constants.USERNAMES_TO_USERIDS_PATH + '/' + username] = {userId: userId }
-            
-            // save email address lookup
-            updates[Constants.USERS_BY_EMAIL_PATH + '/' + Helpers.cleanEmailToFirebase(email)] = { userId: userId }
+              // save userId lookup from username
+              updates[Constants.USERNAMES_TO_USERIDS_PATH + '/' + username] = {userId: userId }
+              
+              // save email address lookup
+              updates[Constants.USERS_BY_EMAIL_PATH + '/' + Helpers.cleanEmailToFirebase(email)] = { userId: userId }
 
-            Firebase.database().ref().update(updates);
+              // migrate all open invites to the userId and create inbox items
+              // inviteSnap.forEach(function(orgInvite) {
+              //   // update recipientId on invite
+              //   if (orgInvite.val()) {
+              //     orgInvite.forEach(function(inviteId) {
 
-            Helpers.updateAlgloiaUsersIndex(username, userId);
+              //     })
+              //   }
+                // inviteObject.recipientId = emailHashSnap.val()[cleanedEmail].userId;
+                // updates[Constants.INVITES_PATH + '/' + inviteItem.val()]
 
-            // set account created date super property
-            mixpanel.register({
-              'account created': (new Date()).toISOString()
-            });
+                // add to invited list for the org
+                // updates[Constants.INVITES_BY_ORG_PATH + '/' + orgId + '/users/' + emailHashSnap.val()[cleanedEmail].userId + '/' + inviteId] = true;
 
-            // set acount created date people property
-            mixpanel.people.set({ "account created": (new Date()).toISOString() });
-            mixpanel.identify(userId);
+                 // send invite to inbox
+                // Helpers.sendCollaboInboxMessage(auth, emailHashSnap.val()[cleanedEmail].userId, Constants.ORG_INVITE_MESSAGE, org, orgId, null, null, null, null, inviteId);
+              // })
 
-            dispatch({
-              type: ActionTypes.SIGN_UP_USER,
-              payload: userId,
-              redirect: redirect,
-              meta: {
-                mixpanel: {
-                  event: 'Sign up', 
-                  props: {
-                    'account created': (new Date()).toISOString()
+              Firebase.database().ref().update(updates);
+
+              // Helpers.updateAlgloiaUsersIndex(username, userId);
+
+              // set account created date super property
+              mixpanel.register({
+                'account created': (new Date()).toISOString()
+              });
+
+              // set acount created date people property
+              mixpanel.people.set({ "account created": (new Date()).toISOString() });
+              mixpanel.identify(userId);
+
+              dispatch({
+                type: ActionTypes.SIGN_UP_USER,
+                payload: userId,
+                redirect: redirect,
+                meta: {
+                  mixpanel: {
+                    event: 'Sign up', 
+                    props: {
+                      'account created': (new Date()).toISOString()
+                    }
                   }
                 }
-              }
+              })
             })
           })
           .catch(error => {

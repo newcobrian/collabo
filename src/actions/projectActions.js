@@ -742,22 +742,25 @@ export function acceptInvite(auth, email, inviteId) {
         })
       }
       else {
-        let updates = {}
-        // add user to the org and orgs-by-user
-        updates[Constants.USERS_BY_ORG_PATH + '/' + inviteSnap.val().orgId + '/' + auth] = true
-        updates[Constants.ORGS_BY_USER_PATH + '/' + auth + '/' + inviteSnap.val().orgId] = { name: inviteSnap.val().orgName }
+        let cleanedEmail = Helpers.cleanEmailToFirebase(email)
+        // Firebase.database().ref(Constants.NONAPP_INVITES_BY_EMAIL_PATH + '/' + cleanedEmail).once('value', nonappInviteSnap => {
+          let updates = {}
+          // add user to the org and orgs-by-user
+          updates[Constants.USERS_BY_ORG_PATH + '/' + inviteSnap.val().orgId + '/' + auth] = true
+          updates[Constants.ORGS_BY_USER_PATH + '/' + auth + '/' + inviteSnap.val().orgId] = { name: inviteSnap.val().orgName }
 
-        // remove the invite
-        updates[Constants.INVITES_PATH + '/' + inviteId + '/status/'] = Constants.ACCEPTED_STATUS
+          // remove the invite
+          updates[Constants.INVITES_PATH + '/' + inviteId + '/status/'] = Constants.ACCEPTED_STATUS
 
-        // remove the inbox item?
+          // remove the inbox item?
 
-        Firebase.database().ref().update(updates)
+          Firebase.database().ref().update(updates)
 
-        dispatch({
-          type: ActionTypes.INVITE_ACCEPTED,
-          orgName: inviteSnap.val().orgName
-        })
+          dispatch({
+            type: ActionTypes.INVITE_ACCEPTED,
+            orgName: inviteSnap.val().orgName
+          })
+        // })
       }
     })
   }
