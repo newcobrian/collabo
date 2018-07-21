@@ -60,6 +60,7 @@ class Organization extends React.Component {
 
   componentWillUnmount() {
     this.props.unloadOrg();
+    this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname)
     // this.props.unloadFeedWatch(this.props.authenticated);
     // this.props.stopUsersFeedWatch(this.props.authenticated);
     // this.props.stopLikesByUserWatch(this.props.authenticated);

@@ -65,8 +65,6 @@ ReactDOM.render((
         <Route path="register" component={Register} />
         <Route path="settings" component={Settings} />
         <Route path="forgotPassword" component={ForgotPassword} />
-        <Route path="addproject" component={AddProject} />
-        <Route path="addthread/:pid" component={AddThread} />
         <Route path="neworg" component={CreateOrg} />
         <Route path="inbox" component={Inbox} />
         <Route path="seo" component={SEO} />
@@ -76,7 +74,9 @@ ReactDOM.render((
         <Route path="user/:username" component={ProfileGuides} />
         <Route path="user/:username/likes" component={ProfileLikes} />
         <Route path=":orgname" component={Organization} />
-        <Route path =":orgname/send" component={OrgInvite} />
+        <Route path=":orgname/addproject" component={AddProject} />
+        <Route path=":orgname/project/:pid/addthread" component={AddThread} />
+        <Route path=":orgname/send" component={OrgInvite} />
         <Route path=":orgname/project/:pid" component={Project} />
         <Route path=":orgname/thread/:tid" component={Thread} />
       </Route>

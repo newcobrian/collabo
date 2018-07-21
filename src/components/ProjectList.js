@@ -22,7 +22,7 @@ class ProjectList extends React.Component {
     return (
       <div className="project-sidebar flx-item-left">
         <div className="v2-type-h4 mrgn-bottom-md">Projects</div>
-        <Link to="/addProject">
+        <Link to={'/' + orgName + '/addProject'}>
           <div className="nav-text flx flx-row flx-align-center mrgn-bottom-sm">
             <i className="material-icons color--success md-18 opa-100 mrgn-right-sm">create_new_folder</i>
             <div className="color--white">New Project</div>

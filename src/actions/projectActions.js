@@ -7,7 +7,7 @@ import mixpanel from 'mixpanel-browser'
 import 'whatwg-fetch';
 import { pick, omit } from 'lodash'
 
-export function onAddProject(auth, project) {
+export function onAddProject(auth, project, orgName) {
   return dispatch => {
     if (!auth) {
       dispatch({
@@ -16,7 +16,7 @@ export function onAddProject(auth, project) {
     }
     else {
       let projectName = project.name;
-      Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/collabo/' + projectName.toLowerCase()).once('value', nameSnapshot => {
+      Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + orgName + '/' + projectName.toLowerCase()).once('value', nameSnapshot => {
         if (nameSnapshot.exists()) {
           dispatch({
             type: ActionTypes.CREATE_SUBMIT_ERROR,
@@ -25,41 +25,45 @@ export function onAddProject(auth, project) {
           })
         }
         else {
-          let serverTimestamp = Firebase.database.ServerValue.TIMESTAMP;
-          let projectObject = {
-            lastModified: serverTimestamp,
-            createdOn: serverTimestamp,
-            org: 'collabo'
-          }
-          let updates = {};
-          Object.assign(projectObject, project)
+          Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName).once('value', orgSnap => {
+            let serverTimestamp = Firebase.database.ServerValue.TIMESTAMP;
+            let projectObject = {
+              lastModified: serverTimestamp,
+              createdOn: serverTimestamp,
+              orgName: orgName,
+              orgId: orgSnap.val().orgId
+            }
+            let updates = {};
+            Object.assign(projectObject, project)
 
-          let projectId = Firebase.database().ref(Constants.PROJECTS_PATH).push(projectObject).key;
+            let projectId = Firebase.database().ref(Constants.PROJECTS_PATH).push(projectObject).key;
 
-          updates[`/${Constants.PROJECT_NAMES_BY_ORG_PATH}/collabo/${projectName.toLowerCase()}/`] = projectId;
-          updates[`/${Constants.PROJECTS_BY_USER_PATH}/${auth}/${projectId}/`] = { name: project.name };
+            updates[`/${Constants.PROJECT_NAMES_BY_ORG_PATH}/orgName/${projectName.toLowerCase()}/`] = projectId;
+            // updates[`/${Constants.PROJECTS_BY_USER_PATH}/${auth}/${projectId}/`] = { name: project.name };
 
-          Firebase.database().ref().update(updates);
+            Firebase.database().ref().update(updates);
 
-          // // update Algolia index
-          // Helpers.updateAlgloiaGeosIndex(itinerary.geo)
+            // // update Algolia index
+            // Helpers.updateAlgloiaGeosIndex(itinerary.geo)
 
-          // mixpanel.people.increment("total itineraries");
-          // mixpanel.people.set({ "last itinerary created": (new Date()).toISOString() });
-          // mixpanel.identify(auth);
+            // mixpanel.people.increment("total itineraries");
+            // mixpanel.people.set({ "last itinerary created": (new Date()).toISOString() });
+            // mixpanel.identify(auth);
 
-          dispatch({
-            type: ActionTypes.PROJECT_CREATED,
-            project: projectObject,
-            projectId: projectId,
-            // meta: {
-            //   mixpanel: {
-            //     event: 'Itinerary created',
-            //     source: 'create page',
-            //     itineraryId: itineraryId,
-            //     geo: itinerary.geo.placeId
-            //   }
-            // }
+            dispatch({
+              type: ActionTypes.PROJECT_CREATED,
+              project: projectObject,
+              projectId: projectId,
+              orgName: orgName
+              // meta: {
+              //   mixpanel: {
+              //     event: 'Itinerary created',
+              //     source: 'create page',
+              //     itineraryId: itineraryId,
+              //     geo: itinerary.geo.placeId
+              //   }
+              // }
+            })
           })
         }
       })

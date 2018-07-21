@@ -25,21 +25,19 @@ class Project extends React.Component {
           browserHistory.push('/project/' + result.projectId);
         }
       }
-
-    this.onAddThreadClick = () => {
-      this.props.goToAddThread(this.props.params.pid);
-    }
   }
 
   componentWillMount() {
     this.props.loadOrg(this.props.authenticated, this.props.params.orgname);
     this.props.loadProject(this.props.params.pid);
+    this.props.loadProjectList(this.props.authenticated, this.props.params.orgname)
     this.props.watchProjectThreads(this.props.params.pid);
     // this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project'});
   }
 
   componentWillUnmount() {
     this.props.unloadProjectThreads(this.props.params.pid);
+    this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname)
     this.props.unloadOrg();
     if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
   }
@@ -53,6 +51,7 @@ class Project extends React.Component {
   }
 
   render() {
+    console.log(this.props.params.orgname)
     if(this.props.invalidOrgUser) {
       return (
         <div>
@@ -110,7 +109,7 @@ class Project extends React.Component {
               {this.props.project.name}
             </div>
             <div>
-              <Link to={'/addthread/' + this.props.params.pid} activeClassName="active" className="nav-module create nav-editor flx flx-align-start text-left">
+              <Link to={'/' + this.props.params.orgname + '/project/' + this.props.params.pid + '/addthread'} activeClassName="active" className="nav-module create nav-editor flx flx-align-start text-left">
                 <div className="nav-text flx flx-row flx-align-center">
                   <i className="material-icons color--success md-24 opa-100 mrgn-right-xs">add</i>
                   <div className="mrgn-left-xs">New Thread</div>

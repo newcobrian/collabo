@@ -58,7 +58,7 @@ class AddProject extends React.Component {
 	    	project.name = this.props.name;
 
 		    this.props.setInProgress();
-		    this.props.onAddProject(this.props.authenticated, project);
+		    this.props.onAddProject(this.props.authenticated, project, this.props.params.orgname);
 		  }
     	}
 	}
@@ -72,7 +72,7 @@ class AddProject extends React.Component {
 	}
 
 	componentWillUnmount() {
-		this.props.onCreateUnload();
+		if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
 	}
 
 	render() {
