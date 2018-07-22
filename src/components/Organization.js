@@ -5,6 +5,7 @@ import * as Actions from '../actions';
 import * as Constants from '../constants';
 import { Link, browserHistory } from 'react-router';
 import ProjectList from './ProjectList';
+import ThreadList from './ThreadList';
 
 const mapStateToProps = state => ({
   ...state.organization,
@@ -50,7 +51,7 @@ class Organization extends React.Component {
   componentWillMount() {
     this.props.loadOrg(this.props.authenticated, this.props.params.orgname);
     this.props.loadProjectList(this.props.authenticated, this.props.params.orgname)
-    this.props.watchOrgFeed(this.props.authenticated, this.props.orgname)
+    this.props.watchOrgFeed(this.props.authenticated, this.props.params.orgname)
     // this.props.startFeedWatch(this.props.authenticated);
     // this.props.startLikesByUserWatch(this.props.authenticated);
     // this.props.startUsersFeedWatchScroller(this.props.authenticated, this.props.dateIndex);
@@ -62,7 +63,7 @@ class Organization extends React.Component {
   componentWillUnmount() {
     this.props.unloadOrg();
     this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname)
-    this.props.unwatchOrgFeed(this.props.orgname)
+    this.props.unwatchOrgFeed(this.props.params.orgname)
     // this.props.unloadFeedWatch(this.props.authenticated);
     // this.props.stopUsersFeedWatch(this.props.authenticated);
     // this.props.stopLikesByUserWatch(this.props.authenticated);
@@ -153,10 +154,24 @@ class Organization extends React.Component {
               <ProjectList 
                 org={this.props.org} />
 
-              
+              <div className="thread-area flx flx-col w-100">
+                <div className={"page-title-wrapper text-left country-color-"}>
+                  <div className="v2-type-page-header flx flx-col flx-align-start text-left invert">
+                    "All" Feed
+                  </div>
+                  <div className="v2-type-body2 opa-60"></div>
+                </div>
+                <div className="feed-wrapper">
+                  <ThreadList
+                    threads={this.props.threads} 
+                    authenticated={this.props.authenticated}
+                    orgName={this.props.params.orgname}
+                    />
+                </div>
+              </div>
+            </div>
 
               
-            </div>
 
             <BackToTop />
 

@@ -780,27 +780,30 @@ export function acceptInvite(auth, email, inviteId) {
 export function watchOrgFeed(auth, orgName) {
   return dispatch=> {
     Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName).once('value', orgSnap => {
-      // Firebase.database().ref(Constants.THREADS_BY_ORG_PATH + '/' + projectId).orderByChild('lastModified').on('child_added', threadSnapshot => {
-      //   if (threadSnapshot.val().userId) {
-      //     Firebase.database().ref(Constants.USERS_PATH + '/' + threadSnapshot.val().userId).once('value', userSnap => {
-      //       dispatch(threadAddedAction(threadSnapshot.key, threadSnapshot.val(), userSnap.val()));   
-      //     })
-      //   }
-      // })
+      if (orgSnap.exists()) {
+        let orgId = orgSnap.val().orgId
+        Firebase.database().ref(Constants.THREADS_BY_ORG_PATH + '/' + orgId).orderByChild('lastModified').on('child_added', threadSnapshot => {
+          if (threadSnapshot.val().userId) {
+            Firebase.database().ref(Constants.USERS_PATH + '/' + threadSnapshot.val().userId).once('value', userSnap => {
+              dispatch(threadAddedAction(threadSnapshot.key, threadSnapshot.val(), userSnap.val()));   
+            })
+          }
+        })
 
-      // // on child changed, how do we unwatch old refs?
-      // Firebase.database().ref(Constants.THREADS_BY_PROJECT_PATH + '/' + projectId).orderByChild('lastModified').on('child_changed', threadSnapshot => {
-      //   if (threadSnapshot.val().userId) {
-      //     // watchUser(dispatch, threadSnapshot.val().userId, Constants.PROJECTS_PAGE)
-      //     Firebase.database().ref(Constants.USERS_PATH + '/' + threadSnapshot.val().userId).once('value', userSnap => {
-      //       dispatch(threadChangedAction(threadSnapshot.key, threadSnapshot.val(), userSnap.val()));   
-      //     })
-      //   }
-      // })
+        // on child changed, how do we unwatch old refs?
+        Firebase.database().ref(Constants.THREADS_BY_ORG_PATH + '/' + orgId).orderByChild('lastModified').on('child_changed', threadSnapshot => {
+          if (threadSnapshot.val().userId) {
+            // watchUser(dispatch, threadSnapshot.val().userId, Constants.PROJECTS_PAGE)
+            Firebase.database().ref(Constants.USERS_PATH + '/' + threadSnapshot.val().userId).once('value', userSnap => {
+              dispatch(threadChangedAction(threadSnapshot.key, threadSnapshot.val(), userSnap.val()));   
+            })
+          }
+        })
 
-      // Firebase.database().ref(Constants.THREADS_BY_PROJECT_PATH + '/' + projectId).orderByChild('lastModified').on('child_removed', threadSnapshot => {
-      //   dispatch(threadRemovedAction(threadSnapshot.key));
-      // })
+        Firebase.database().ref(Constants.THREADS_BY_ORG_PATH + '/' + orgId).orderByChild('lastModified').on('child_removed', threadSnapshot => {
+          dispatch(threadRemovedAction(threadSnapshot.key));
+        })
+      }
     })
   }
 }

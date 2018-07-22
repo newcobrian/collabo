@@ -33,7 +33,7 @@ const ThreadList = props => {
           return (
             <ThreadPreview thread={threadItem}
               orgName={props.orgName}
-              projectId={props.projectId}
+              projectId={threadItem.projectId}
               key={threadItem.threadId} 
               authenticated={props.authenticated}
               userInfo={props.userInfo}
