@@ -48,6 +48,13 @@ class AddThread extends React.Component {
 	}
 
 	render() {
+		if(this.props.invalidOrgUser) {
+	      return (
+	        <div>
+	          You don't have permission to view this team. <Link to='/'>Go Home</Link>
+	        </div>
+	      )
+	    }
 		return (
 			<div>
 				<div className="flx flx-col flx-center-all page-common editor-page create-page">

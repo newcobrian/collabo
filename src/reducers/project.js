@@ -85,7 +85,8 @@ export default (state = initialState, action) => {
     case ActionTypes.LOAD_ORG: {
       return {
         ...state,
-        organization: action.organization
+        organization: action.organization,
+        invalidOrgUser: false
       }
     }
     case ActionTypes.UNLOAD_ORG: {
@@ -94,6 +95,11 @@ export default (state = initialState, action) => {
         organization: {}
       }
     }
+    case ActionTypes.NOT_AN_ORG_USER:
+      return {
+        ...state,
+        invalidOrgUser: true
+      }
     default:
       return state;
   }

@@ -49,10 +49,10 @@ export default (state = {}, action) => {
         ...state,
         inProgress: true
       }
-    case ActionTypes.SET_WATCH_ID:
+    case ActionTypes.NOT_AN_ORG_USER:
       return {
         ...state,
-        watchId: action.payload
+        invalidOrgUser: true
       }
   	case ActionTypes.PROJECT_CREATED:
       return {

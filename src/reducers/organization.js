@@ -7,14 +7,15 @@ const lastModifiedDesc = (a, b) => {
   return b.lastModified - a.lastModified;
 }
 
-const initialState = { usersData: {}, likesData: {}, endOfFeed: false }
+const initialState = {}
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case ActionTypes.LOAD_ORG: {
       return {
         ...state,
-        org: action.organization
+        org: action.organization,
+        invalidOrgUser: false
       }
     }
     case ActionTypes.UNLOAD_ORG: {
@@ -23,6 +24,11 @@ export default (state = initialState, action) => {
         organization: {}
       }
     }
+    case ActionTypes.NOT_AN_ORG_USER:
+      return {
+        ...state,
+        invalidOrgUser: true
+      }
     default:
       return state;
   }
