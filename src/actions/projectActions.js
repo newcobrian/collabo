@@ -103,6 +103,7 @@ export function onAddThread(auth, projectId, thread, orgName) {
 
           updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${projectId}/${threadId}/`] = omit(threadObject, ['projectId']);
           updates[`/${Constants.THREADS_BY_USER_PATH}/${auth}/${threadId}/`] = omit(threadObject, ['userId']);
+          updates[`/${Constants.THREADS_BY_ORG_PATH}/${projectSnapshot.val().orgId}/${threadId}/`] = omit(threadObject, ['orgId']);
 
           Firebase.database().ref().update(updates);
 
@@ -333,13 +334,14 @@ export function changeEditorState(editorState) {
 
 export function updateThreadField(auth, threadId, thread, field, value) {
   return dispatch => {
-    if (thread && threadId && thread.userId) {
+    if (thread && threadId && thread.userId && thread.orgId) {
       let updates = {}
 
       // update all thread tables
       updates[`/${Constants.THREADS_PATH}/${threadId}/${field}/`] = value
       updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${thread.projectId}/${threadId}/${field}/`] = value
       updates[`/${Constants.THREADS_BY_USER_PATH}/${thread.userId}/${threadId}/${field}/`] = value
+      updates[`/${Constants.THREADS_BY_ORG_PATH}/${thread.orgId}/${threadId}/${field}/`] = value
 
       // update lastModified timestamps
       let timestamp = Firebase.database.ServerValue.TIMESTAMP;
@@ -771,5 +773,39 @@ export function acceptInvite(auth, email, inviteId) {
         // })
       }
     })
+  }
+}
+
+export function watchOrgFeed(auth, orgName) {
+  return dispatch=> {
+    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName).once('value', orgSnap => {
+      // Firebase.database().ref(Constants.THREADS_BY_ORG_PATH + '/' + projectId).orderByChild('lastModified').on('child_added', threadSnapshot => {
+      //   if (threadSnapshot.val().userId) {
+      //     Firebase.database().ref(Constants.USERS_PATH + '/' + threadSnapshot.val().userId).once('value', userSnap => {
+      //       dispatch(threadAddedAction(threadSnapshot.key, threadSnapshot.val(), userSnap.val()));   
+      //     })
+      //   }
+      // })
+
+      // // on child changed, how do we unwatch old refs?
+      // Firebase.database().ref(Constants.THREADS_BY_PROJECT_PATH + '/' + projectId).orderByChild('lastModified').on('child_changed', threadSnapshot => {
+      //   if (threadSnapshot.val().userId) {
+      //     // watchUser(dispatch, threadSnapshot.val().userId, Constants.PROJECTS_PAGE)
+      //     Firebase.database().ref(Constants.USERS_PATH + '/' + threadSnapshot.val().userId).once('value', userSnap => {
+      //       dispatch(threadChangedAction(threadSnapshot.key, threadSnapshot.val(), userSnap.val()));   
+      //     })
+      //   }
+      // })
+
+      // Firebase.database().ref(Constants.THREADS_BY_PROJECT_PATH + '/' + projectId).orderByChild('lastModified').on('child_removed', threadSnapshot => {
+      //   dispatch(threadRemovedAction(threadSnapshot.key));
+      // })
+    })
+  }
+}
+
+export function unwatchOrgFeed(orgname) {
+  return dispatch => {
+
   }
 }

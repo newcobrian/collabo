@@ -50,6 +50,7 @@ class Organization extends React.Component {
   componentWillMount() {
     this.props.loadOrg(this.props.authenticated, this.props.params.orgname);
     this.props.loadProjectList(this.props.authenticated, this.props.params.orgname)
+    this.props.watchOrgFeed(this.props.authenticated, this.props.orgname)
     // this.props.startFeedWatch(this.props.authenticated);
     // this.props.startLikesByUserWatch(this.props.authenticated);
     // this.props.startUsersFeedWatchScroller(this.props.authenticated, this.props.dateIndex);
@@ -61,6 +62,7 @@ class Organization extends React.Component {
   componentWillUnmount() {
     this.props.unloadOrg();
     this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname)
+    this.props.unwatchOrgFeed(this.props.orgname)
     // this.props.unloadFeedWatch(this.props.authenticated);
     // this.props.stopUsersFeedWatch(this.props.authenticated);
     // this.props.stopLikesByUserWatch(this.props.authenticated);
