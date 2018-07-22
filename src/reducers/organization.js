@@ -7,7 +7,7 @@ const lastModifiedDesc = (a, b) => {
   return b.lastModified - a.lastModified;
 }
 
-const initialState = {}
+const initialState = { feedStartValue: 0, isFeedLoading: false }
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -87,6 +87,17 @@ export default (state = initialState, action) => {
       }
       return state;
     }
+    case ActionTypes.UNWATCH_ORG_FEED: {
+      return {
+        ...state,
+        threads: []
+      }
+    }
+    case ActionTypes.UPDATE_START_VALUE:
+      return {
+        ...state,
+        feedStartValue: action.startValue
+      }
     default:
       return state;
   }

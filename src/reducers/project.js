@@ -100,6 +100,11 @@ export default (state = initialState, action) => {
         ...state,
         invalidOrgUser: true
       }
+    case ActionTypes.UNWATCH_ORG_FEED:
+      return {
+        ...state,
+        threads: []
+      }
     default:
       return state;
   }

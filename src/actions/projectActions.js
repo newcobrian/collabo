@@ -5,7 +5,7 @@ import * as ActionTypes from './types'
 import { watchUser, unwatchUser, findCommentMentions } from './index'
 import mixpanel from 'mixpanel-browser'
 import 'whatwg-fetch';
-import { pick, omit } from 'lodash'
+import { pick, omit, debounce } from 'lodash'
 
 export function onAddProject(auth, project, orgName) {
   return dispatch => {
@@ -777,30 +777,63 @@ export function acceptInvite(auth, email, inviteId) {
   }
 }
 
-export function watchOrgFeed(auth, orgName) {
+// function updateStartValue(startValue) {
+//   return {
+//     type: ActionTypes.UPDATE_START_VALUE,
+//     startValue: startValue + .000001
+//   }
+// }
+
+// function setIsTipsLoading() {
+//   return {
+//     type: ActionTypes.SET_IS_TIPS_LOADING,
+//     isTipsLoading: true
+//   }
+// }
+
+// const debounceSetTipsNotLoading = debounce(tipsIsNotLoading, 3000);
+
+// export function tipsIsNotLoading(dispatch) {
+//   dispatch({
+//     type: ActionTypes.SET_IS_TIPS_LOADING,
+//     isTipsLoading: false
+//   })
+// }
+
+export function watchOrgFeed(auth, orgName, startValue) {
   return dispatch=> {
     Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName).once('value', orgSnap => {
       if (orgSnap.exists()) {
         let orgId = orgSnap.val().orgId
-        Firebase.database().ref(Constants.THREADS_BY_ORG_PATH + '/' + orgId).orderByChild('lastModified').on('child_added', threadSnapshot => {
+        Firebase.database().ref(Constants.THREADS_BY_ORG_PATH + '/' + orgId)
+          .orderByChild('lastModified')
+          // .limitToFirst(2)
+          .startAt(startValue)
+          .on('child_added', threadSnapshot => {
           if (threadSnapshot.val().userId) {
             Firebase.database().ref(Constants.USERS_PATH + '/' + threadSnapshot.val().userId).once('value', userSnap => {
               dispatch(threadAddedAction(threadSnapshot.key, threadSnapshot.val(), userSnap.val()));   
+              // dispatch(updateStartValue(threadSnapshot.val().lastModified ? threadSnapshot.val().lastModified : startValue));
             })
           }
         })
 
         // on child changed, how do we unwatch old refs?
-        Firebase.database().ref(Constants.THREADS_BY_ORG_PATH + '/' + orgId).orderByChild('lastModified').on('child_changed', threadSnapshot => {
+        Firebase.database().ref(Constants.THREADS_BY_ORG_PATH + '/' + orgId)
+          .orderByChild('lastModified')
+          .on('child_changed', threadSnapshot => {
           if (threadSnapshot.val().userId) {
             // watchUser(dispatch, threadSnapshot.val().userId, Constants.PROJECTS_PAGE)
             Firebase.database().ref(Constants.USERS_PATH + '/' + threadSnapshot.val().userId).once('value', userSnap => {
-              dispatch(threadChangedAction(threadSnapshot.key, threadSnapshot.val(), userSnap.val()));   
+              dispatch(threadChangedAction(threadSnapshot.key, threadSnapshot.val(), userSnap.val()));
+              // dispatch(updateStartValue(threadSnapshot.val().lastModified ? threadSnapshot.val().lastModified : startValue));
             })
           }
         })
 
-        Firebase.database().ref(Constants.THREADS_BY_ORG_PATH + '/' + orgId).orderByChild('lastModified').on('child_removed', threadSnapshot => {
+        Firebase.database().ref(Constants.THREADS_BY_ORG_PATH + '/' + orgId)
+          .orderByChild('lastModified')
+          .on('child_removed', threadSnapshot => {
           dispatch(threadRemovedAction(threadSnapshot.key));
         })
       }
@@ -808,8 +841,12 @@ export function watchOrgFeed(auth, orgName) {
   }
 }
 
-export function unwatchOrgFeed(orgname) {
+export function unwatchOrgFeed(orgName) {
   return dispatch => {
+    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName).off();
 
+    dispatch({
+      type: ActionTypes.UNWATCH_ORG_FEED
+    })
   }
 }

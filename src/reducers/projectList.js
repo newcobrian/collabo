@@ -58,6 +58,8 @@ export default (state = initialState, action) => {
         org: {}
       }
     }
+    case ActionTypes.UNLOAD_PROJECT_LIST:
+      return {}
     default:
       return state;
   }

@@ -6,6 +6,7 @@ import * as Constants from '../constants';
 import { Link, browserHistory } from 'react-router';
 import ProjectList from './ProjectList';
 import ThreadList from './ThreadList';
+import InfiniteScroll from 'react-infinite-scroller';
 
 const mapStateToProps = state => ({
   ...state.organization,
@@ -46,12 +47,18 @@ class Organization extends React.Component {
       ev.preventDefault();
       this.props.applyTag(tag);
     }
+
+    // this.scrolledToBottom = () => {
+    //   if (!this.props.isFeedLoading) {
+    //     this.props.watchOrgFeed(this.props.authenticated, this.props.params.orgname, this.props.feedStartValue)
+    //   }
+    // }
   }
 
   componentWillMount() {
     this.props.loadOrg(this.props.authenticated, this.props.params.orgname);
     this.props.loadProjectList(this.props.authenticated, this.props.params.orgname)
-    this.props.watchOrgFeed(this.props.authenticated, this.props.params.orgname)
+    this.props.watchOrgFeed(this.props.authenticated, this.props.params.orgname, 0)
     // this.props.startFeedWatch(this.props.authenticated);
     // this.props.startLikesByUserWatch(this.props.authenticated);
     // this.props.startUsersFeedWatchScroller(this.props.authenticated, this.props.dateIndex);
@@ -161,12 +168,23 @@ class Organization extends React.Component {
                   </div>
                   <div className="v2-type-body2 opa-60"></div>
                 </div>
+
+
                 <div className="feed-wrapper">
-                  <ThreadList
-                    threads={this.props.threads} 
-                    authenticated={this.props.authenticated}
-                    orgName={this.props.params.orgname}
-                    />
+
+                  {/*<InfiniteScroll
+                    pageStart={0}
+                    loadMore={this.scrolledToBottom}
+                    hasMore={true}
+                    loader={<div className="loader" key={0}>Loading ...</div>} >*/}
+
+                    <ThreadList
+                      threads={this.props.threads} 
+                      authenticated={this.props.authenticated}
+                      orgName={this.props.params.orgname}
+                      />
+
+                  {/*</InfiniteScroll>*/}
                 </div>
               </div>
             </div>
