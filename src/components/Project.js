@@ -103,19 +103,18 @@ class Project extends React.Component {
         <ProjectList />
 
         <div className="thread-area flx flx-col w-100">
-          <div className={"page-title-wrapper text-left country-color-"}>
-            <div className="v2-type-page-header flx flx-col flx-align-start text-left invert">
+          <div className={"page-title-wrapper text-left flx flx-row flx-align-start"}>
+            <div className="v2-type-page-header flx flx-row flx-align-start text-left invert">
               {this.props.project.name}
             </div>
-            <div>
-              <Link to={'/' + this.props.params.orgname + '/' + this.props.params.pid + '/addthread'} activeClassName="active" className="nav-module create nav-editor flx flx-align-start text-left">
-                <div className="nav-text flx flx-row flx-align-center">
-                  <i className="material-icons color--success md-24 opa-100 mrgn-right-xs">add</i>
+            <div className="flx flx-align-start flx-item-right">
+              <Link to={'/' + this.props.params.orgname + '/' + this.props.params.pid + '/addthread'} activeClassName="active" className="nav-module create nav-editor flx flx-align-start flx-item-right text-left">
+                <div className="vb fill--primary color--white flx flx-row flx-align-center">
+                  <i className="material-icons color--white md-18 opa-100 mrgn-right-xs">add</i>
                   <div className="mrgn-left-xs">New Thread</div>
                 </div>
               </Link>
             </div>
-            <div className="v2-type-body2 opa-60"></div>
           </div>
           <div className="feed-wrapper">
             <ThreadList

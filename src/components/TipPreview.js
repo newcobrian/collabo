@@ -154,7 +154,7 @@ const TipPreview = props => {
     }
 
   return (
-    <Element name={'tip' + tip.key} className={"tip-wrapper flx flx-col flx-col w-100 w-max" + isSelectedTip(tip.key)} id={'tip' + tip.key} onClick={onTipClick(tip)}>
+    <Element name={'tip' + tip.key} className={"tip-wrapper flx flx-col fill--white bx-shadow flx-col w-100 w-max" + isSelectedTip(tip.key)} id={'tip' + tip.key} onClick={onTipClick(tip)}>
         
           <div className="tip-container flx flx-row flx-align-start w-100 bx- brdr-bottom">
             

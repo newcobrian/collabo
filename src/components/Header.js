@@ -14,7 +14,7 @@ const InboxCounter = props => {
 }
 
 const LoggedOutView = props => {
-  // if on global homepage for logged out user, don't show the header
+  // if on global ORGSpage for logged out user, don't show the header
   if (browserHistory.getCurrentLocation().pathname === '/global' && (!props.currentUser || props.currentUser.isAnonymous)) {
     return null;
   }
@@ -27,8 +27,8 @@ const LoggedOutView = props => {
             <img className="center-img" src="/img/colab-logo-temp.png"/>
           </div>
           <div className="flx flx-row flx-align-center flx-just-start">
-            <div className="logo-main color--white">
-              👯‍♂️ Collabo
+            <div className="logo-main color--black">
+                  <i className="material-icons color--black md-36 opa-70">view_module</i>
             </div>
             <div className="v2-type-body2 opa-60 w-100 color--white mobile-hide DN">
               Travel Guides by Friends
@@ -67,8 +67,9 @@ const LoggedInView = props => {
               <img className="center-img" src="/img/colab-logo-temp.png"/>
             </div>
             <div className="flx flx-row flx-align-center flx-just-start">
-              <div className="logo-main color--white">
-                👯‍♂️ Collabo
+              <div className="logo-main color--black">
+                  <i className="material-icons color--black md-36 opa-70">view_module</i>
+
               </div>
               <Link to={'/invite/'} activeClassName="active" className="nav-module create nav-editor flx flx-center-all DN">  
                 <div className="nav-text flx flx-row flx-align-center">
@@ -78,9 +79,6 @@ const LoggedInView = props => {
               </Link>
               <Link to='/' className="v2-type-body2 opa-60 w-100 color--white mobile-hide DN">
                 Invite new team members
-              </Link>
-              <Link to='/neworg' className="v2-type-body2 opa-60 w-100 color--white mobile-hide">
-                Create a new team
               </Link>
             </div>
           </Link>

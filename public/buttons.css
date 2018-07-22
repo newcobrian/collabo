@@ -128,16 +128,16 @@ input.input--underline {
 
 .vb {
     border: none;
-    height: 60px;
+    height: 38px;
     text-align: center;
     letter-spacing: 1px;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 13px;
     cursor: pointer;
-    padding: 20px;
+    padding: 18px;
     text-transform: uppercase;
     flex-shrink: 0;
-    border-radius: 2px;
+    border-radius: 32px;
     display: -webkit-flex;
     display: flex;
     -webkit-align-items: center;
@@ -335,8 +335,7 @@ input.input--underline {
 .vb.fill--primary:active,
 .vb.fill--primary:hover {
   color: white;
-  background-color: #46DFFF !important;
-  opacity: 1 !important;
+  opacity: .9 !important;
 }
 .vb.fill--success:active,
 .vb.fill--success:hover {

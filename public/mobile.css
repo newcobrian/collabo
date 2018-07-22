@@ -23,7 +23,6 @@ body {
   display: inline-block !important;
 }
 .header-container {
-  height: 40px;
 }
 .header-wrapper {
 
@@ -49,9 +48,7 @@ body {
   height: auto;
 }
 .logo-module {
-  height: 40px;
-  margin: 0px 8px;
-  width: 160px;
+
 }
 .logo-module .v2-type-body0 {
   font-size: 11px;
@@ -247,25 +244,15 @@ margin: 0;
 }
 
 .navigation-bar {
-  height: 39px;
 }
 .navigation-bar .nav-module {
-  margin: 0 10px;
-  height: 40px;
 }
 .navigation-bar .nav-module img {
-    width: 40px;
-    height: 40px;
 }
 .navigation-bar .nav-icon {
-    width: 40px;
-    height: 40px;
 }
 .navigation-bar .default-profile-wrapper, .navigation-bar .user-photo-wrapper {
-    width: 40px;
-    height: 40px;
-    border-radius: 0;
-    border: 0;
+
 }
 .nav-module.nav-profile {
     margin-right: 0;

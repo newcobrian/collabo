@@ -13,15 +13,15 @@
     left: 0;
     width: 100%;
     background-color: rgba(255,255,255,1);
-    background-color: blue;
-    border-bottom: 1px solid black;
+    background-color: #D4E7EF;
+    border-bottom: 1px solid #D4E7EF;
     /* Rectangle 6: */
     opacity: 1;
-    background-color: black;
+    background-color: #D4E7EF;
     /*background-image: linear-gradient(90deg, #1C398C 0%, #59FFF2 65%, #B5FEE3 100%);*/
 }
 .header-container.logged-out {
-  background-color: black;
+  background-color: #D4E7EF;
 }
 .header-wrapper {
     position: absolute;
@@ -37,9 +37,9 @@
   height: 40px;
   width: 240px;
   font-weight: 700;
-  margin: 15px 10px;
+  margin: 16px;
+  opacity: .8;
   z-index: 2;
-
 }
 a.logo-module:hover,
 a.logo-module:active,
@@ -49,11 +49,8 @@ a.logo-module:focus {
 }
 .logo-main {
     font-size: 18px;
-    height: auto;
     font-weight: 600;
-    margin-right: 6px;
     opacity: 1;
-    margin-top: -5px;
 }
 .logo-tagline {
     font-size: 14px;
@@ -91,7 +88,7 @@ a.logo-module:focus {
   height: 70px;
   padding-top: 0px;
   border-bottom: 2px solid transparent;
-  background-color: black;
+  background-color: transparent;
 }
 .navigation-bar .nav-module img {
   width: 48px;

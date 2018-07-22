@@ -63,7 +63,7 @@ const ThreadPreview = props => {
   return (
     <Link to={`/${props.orgName}/${props.projectId}/${props.thread.threadId}`} className={"tip-wrapper flx flx-col flx-col w-100 w-max"}>
         
-          <div className="tip-container flx flx-row flx-align-start w-100 bx- brdr-bottom">
+          <div className="tip-container bx-shadow flx flx-row flx-align-start w-100">
             
           
               

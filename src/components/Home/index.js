@@ -119,11 +119,13 @@ class Home extends React.Component {
         <div className={'home-page page-common fill--white flx flx-col flx-align-center '}>
           
           
-          <h1>Pick the organization you want to work on</h1>
+          <h1>Your Teams</h1>
 
           <OrgList
             orgList={this.props.orgList} />
-
+            <Link to='/neworg' className="v2-type-body2 opa-60 w-100 color--black ta-center mobile-hide">
+              Create a new 
+            </Link>
           {/*<div className="guide-feed-wrapper w-100 flx flx-row flx-just-center flx-self-end flx-align-start flx-wrap">
             
             

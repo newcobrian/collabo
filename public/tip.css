@@ -1,7 +1,6 @@
 .tip-wrapper {
-   background: white;
     margin: 0;
-    padding: 0;
+    padding: 8px 32px;
 } 
 .tip-wrapper:first-child {
 }
@@ -45,10 +44,9 @@
   opacity: 1;
 }
 .tip-container {
-	width: 100%;
-	padding: 8px;
-  background-color: white;
-  border-radius: 2px;
+    width: 100%;
+    padding: 16px;
+    border-radius: 8px;
 }
 .page-subject .tip-container {
   padding: 0;
