@@ -412,6 +412,7 @@ export function getThreadFieldUpdates(threadId, thread, field, value) {
   updates[Constants.THREADS_PATH + '/' + threadId + '/' + field] = value
   updates[Constants.THREADS_BY_PROJECT_PATH + '/' + thread.projectId + '/' + threadId + '/' + field] = value
   updates[Constants.THREADS_BY_USER_PATH + '/' + thread.userId + '/' + threadId + '/' + field] = value
+  updates[Constants.THREADS_BY_ORG_PATH + '/' + thread.orgId + '/' + threadId + '/' + field] = value
 
   return updates;
 }
