@@ -88,7 +88,7 @@ class AcceptInvite extends React.Component {
         <LoadingSpinner message="Loading invite" />
       );
     }
-    if (invite && (!invite.senderId || !invite.recipientId || !invite.recipientEmail ||
+    if (invite && (!invite.senderId || !invite.recipientEmail ||
     !invite.orgId || !invite.orgName)) {
       return (
         <div className="error-module flx flx-col flx-center-all ta-center v2-type-body3 color--black">
