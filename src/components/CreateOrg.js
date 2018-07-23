@@ -25,6 +25,9 @@ class CreateOrg extends React.Component {
 	      if (!this.props.name) {
 	        this.props.createSubmitError('Please add an organization name', Constants.CREATE_ORG_PAGE);
 	      }
+	      else if (this.props.name.length < 3) {
+	      	this.props.createSubmitError('Team name must be at least 3 characters long', Constants.CREATE_ORG_PAGE);
+	      }
 		  else if(!(/^\w+$/i.test(this.props.name))) {
 			this.props.createSubmitError('Your organization name can only contain letters', Constants.CREATE_ORG_PAGE);
 		  }

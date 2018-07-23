@@ -3,44 +3,42 @@ import * as Constants from '../constants';
 import * as Helpers from '../helpers';
 import { find, isEqual } from 'lodash';
 
-const initialState = { projectList: [] }
+const initialState = { projectList: [], orgList: [] }
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case ActionTypes.UNLOAD_PROJECT_LIST:
-      return {}
-    case ActionTypes.PROJECT_LIST_ADDED_ACTION: {
+    case ActionTypes.LIST_ADDED_ACTION: {
       const newState = Object.assign({}, state);
-      newState.projectList = newState.projectList || [];
-      newState.projectList = newState.projectList.slice();
-      if (!find(newState.projectList, ['projectId', action.projectId])) {
-        newState.projectList = newState.projectList.concat(Object.assign({}, {projectId: action.projectId}, {name: action.projectName}));
+      newState[action.listType] = newState[action.listType] || [];
+      newState[action.listType] = newState[action.listType].slice();
+      if (!find(newState[action.listType], ['id', action.id])) {
+        newState[action.listType] = newState[action.listType].concat(Object.assign({}, {id: action.id}, {name: action.name}));
 
         return newState;
       }
       return state;
     }
-    case ActionTypes.PROJECT_LIST_CHANGED_ACTION: {
+    case ActionTypes.LIST_CHANGED_ACTION: {
       const newState = Object.assign({}, state);
-      newState.projectList = newState.projectList || [];
-      newState.projectList = newState.projectList.slice();
+      newState[action.listType] = newState[action.listType] || [];
+      newState[action.listType] = newState[action.listType].slice();
       
-      for (let i = 0; i < newState.projectList.length; i++) {
-        if (newState.projectList[i].projectId === action.projectId) {
-          newState.projectList[i] = Object.assign({}, {projectId: action.projectId}, {name: action.projectName});
+      for (let i = 0; i < newState[action.listType].length; i++) {
+        if (newState[action.listType][i].id === action.id) {
+          newState[action.listType][i] = Object.assign({}, {id: action.id}, {name: action.name});
           return newState;
         }
       }
       return state;
     }
-    case ActionTypes.PROJECT_LIST_REMOVED_ACTION: {
+    case ActionTypes.LIST_REMOVED_ACTION: {
       const newState = Object.assign({}, state);
-      newState.projectList = newState.projectList || [];
-      newState.projectList = newState.projectList.slice();
+      newState[action.listType] = newState[action.listType] || [];
+      newState[action.listType] = newState[action.listType].slice();
       // find the tip and remove it
-      for (let i = 0; i < newState.projectList.length; i++) {
-        if (newState.projectList[i].projectId === action.projectId) {
-          newState.projectList.splice(i, 1);
+      for (let i = 0; i < newState[action.listType].length; i++) {
+        if (newState[action.listType][i].id === action.id) {
+          newState[action.listType].splice(i, 1);
           return newState;    
         }
       }
@@ -52,14 +50,21 @@ export default (state = initialState, action) => {
         org: action.organization
       }
     }
-    case ActionTypes.UNLOAD_ORG: {
+    case ActionTypes.UNLOAD_ORG:
       return {
         ...state,
         org: {}
       }
-    }
     case ActionTypes.UNLOAD_PROJECT_LIST:
-      return {}
+      return {
+        ...state,
+        projectList: []
+      }
+    case ActionTypes.UNLOAD_ORG_LIST:
+      return {
+        ...state,
+        orgList: []
+      }
     default:
       return state;
   }

@@ -255,30 +255,34 @@ export function unloadProjectThreads(auth, projectId) {
 }
 
 export function loadProjectList(auth, orgName) {
+  let lowercaseName = orgName.toLowerCase()
   return dispatch => {
     // Firebase.database().ref(Constants.PROJECTS_BY_USER_PATH + '/' + auth).on('child_added', snap => {
-    Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + orgName).on('child_added', snap => {
+    Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + lowercaseName).on('child_added', snap => {
       dispatch({
-        type: ActionTypes.PROJECT_LIST_ADDED_ACTION,
-        projectId: snap.val(),
-        projectName: snap.key
+        type: ActionTypes.LIST_ADDED_ACTION,
+        id: snap.val(),
+        name: snap.key,
+        listType: Constants.PROJECT_LIST_TYPE
       })
     })
 
     // Firebase.database().ref(Constants.PROJECTS_BY_USER_PATH + '/' + auth).on('child_changed', snap => {
-    Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + orgName).on('child_changed', snap => {
+    Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + lowercaseName).on('child_changed', snap => {
       dispatch({
-        type: ActionTypes.PROJECT_LIST_CHANGED_ACTION,
-        projectId: snap.val(),
-        projectName: snap.key
+        type: ActionTypes.LIST_CHANGED_ACTION,
+        id: snap.val(),
+        name: snap.key,
+        listType: Constants.LIST_TYPE
       })
     })
 
     // Firebase.database().ref(Constants.PROJECTS_BY_USER_PATH + '/' + auth).on('child_removed', snap => {
-    Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + orgName).on('child_removed', snap => {
+    Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + lowercaseName).on('child_removed', snap => {
       dispatch({
-        type: ActionTypes.PROJECT_LIST_REMOVED_ACTION,
-        projectId: snap.val()
+        type: ActionTypes.LIST_REMOVED_ACTION,
+        id: snap.val(),
+        listType: Constants.PROJECT_LIST_TYPE
       })
     })
   }
@@ -847,6 +851,45 @@ export function unwatchOrgFeed(orgName) {
 
     dispatch({
       type: ActionTypes.UNWATCH_ORG_FEED
+    })
+  }
+}
+
+export function loadOrgList(auth) {
+  return dispatch => {
+    Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth).on('child_added', snap => {
+      dispatch({
+        type: ActionTypes.LIST_ADDED_ACTION,
+        name: snap.val().name,
+        id: snap.key,
+        listType: Constants.ORG_LIST_TYPE
+      })
+    })
+    Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth).on('child_changed', snap => {
+      dispatch({
+        type: ActionTypes.LIST_CHANGED_ACTION,
+        name: snap.val().name,
+        id: snap.key,
+        listType: Constants.ORG_LIST_TYPE
+      })
+    })
+    Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth).on('child_removed', snap => {
+      dispatch({
+        type: ActionTypes.LIST_REMOVED_ACTION,
+        name: snap.val().name,
+        id: snap.key,
+        listType: Constants.ORG_LIST_TYPE
+      })
+    })
+  }
+}
+
+export function unloadOrgList(auth) {
+  return dispatch => {
+    Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth).off();
+
+    dispatch ({
+      type: ActionTypes.UNLOAD_ORG_LIST
     })
   }
 }

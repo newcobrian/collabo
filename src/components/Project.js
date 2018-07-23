@@ -31,6 +31,7 @@ class Project extends React.Component {
     this.props.loadOrg(this.props.authenticated, this.props.params.orgname);
     this.props.loadProject(this.props.params.pid);
     this.props.loadProjectList(this.props.authenticated, this.props.params.orgname)
+    this.props.loadOrgList(this.props.authenticated)
     this.props.watchProjectThreads(this.props.params.pid);
     // this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project'});
   }
@@ -38,6 +39,7 @@ class Project extends React.Component {
   componentWillUnmount() {
     this.props.unloadProjectThreads(this.props.params.pid);
     this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname)
+    this.props.unloadOrgList(this.props.authenticated)
     this.props.unloadOrg();
     if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
   }

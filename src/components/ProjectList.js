@@ -1,10 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
-
-
 
 const mapStateToProps = state => ({
   ...state.projectList,
@@ -16,6 +14,11 @@ const mapStateToProps = state => ({
 class ProjectList extends React.Component {
   constructor() {
     super();
+
+    this.onOrgChange = ev => {
+      ev.preventDefault();
+      browserHistory.push('/' + ev.target.value)
+    }
   }
 
   render() {
@@ -23,7 +26,17 @@ class ProjectList extends React.Component {
     if(!this.props.projectList) return null;
     return (
       <div className="project-sidebar flx-item-left">
-        <div className="v2-type-h4 mrgn-bottom-md color--black">{orgName}</div>
+        <div className="v2-type-h4 mrgn-bottom-md color--black DN">{orgName}</div>
+        <select onChange={this.onOrgChange}>
+          <option value={orgName}>{orgName}</option>
+          {(this.props.orgList || []).map((orgItem, index) => {
+            if (orgItem && orgItem.name && orgName && orgItem.name.toLowerCase() !== orgName.toLowerCase()) {
+              return (
+                <option key={index} value={orgItem.name}>{orgItem.name}</option>  
+              )
+            }
+          })}
+        </select> 
         <Link to={'/' + orgName + '/addProject'}>
           <div className="nav-text flx flx-row flx-align-center mrgn-bottom-sm mrgn-bottom-md">
             <i className="material-icons color--black md-18 opa-100 mrgn-right-sm">add</i>
@@ -37,10 +50,10 @@ class ProjectList extends React.Component {
           </Link>
         </div>
         {
-          this.props.projectList.map((projectItem, index) => {
+          (this.props.projectList || []).map((projectItem, index) => {
             return (
-              <div className="mrgn-bottom-md mrgn-top-md" key={projectItem.projectId}>
-                <Link className="color--black label-big opa-80 flx flx-row flx-align-center" to={'/' + orgName + '/' + projectItem.projectId}>
+              <div className="mrgn-bottom-md mrgn-top-md" key={projectItem.id}>
+                <Link className="color--black label-big opa-80 flx flx-row flx-align-center" to={'/' + orgName + '/' + projectItem.id}>
                 <i className="material-icons color--black md-18 opa-100 mrgn-right-sm">fiber_manual_record
 </i>
 

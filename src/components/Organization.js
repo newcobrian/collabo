@@ -58,6 +58,7 @@ class Organization extends React.Component {
   componentWillMount() {
     this.props.loadOrg(this.props.authenticated, this.props.params.orgname);
     this.props.loadProjectList(this.props.authenticated, this.props.params.orgname)
+    this.props.loadOrgList(this.props.authenticated)
     this.props.watchOrgFeed(this.props.authenticated, this.props.params.orgname, 0)
     // this.props.startFeedWatch(this.props.authenticated);
     // this.props.startLikesByUserWatch(this.props.authenticated);
@@ -70,6 +71,7 @@ class Organization extends React.Component {
   componentWillUnmount() {
     this.props.unloadOrg();
     this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname)
+    this.props.unloadOrgList(this.props.authenticated)
     this.props.unwatchOrgFeed(this.props.params.orgname)
     // this.props.unloadFeedWatch(this.props.authenticated);
     // this.props.stopUsersFeedWatch(this.props.authenticated);
@@ -78,6 +80,17 @@ class Organization extends React.Component {
     // if (this.props.featuredPreview && this.props.featuredPreview.itinerary) {
     //   this.props.unloadFeaturePreview(this.props.authenticated, this.props.featuredPreview.itinerary.id)
     // }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.params.orgname !== this.props.params.orgname) {
+      this.props.unloadOrg();
+      this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname)
+      this.props.unwatchOrgFeed(this.props.params.orgname)
+      this.props.loadOrg(this.props.authenticated, nextProps.params.orgname);
+      this.props.loadProjectList(this.props.authenticated, nextProps.params.orgname)
+      this.props.watchOrgFeed(this.props.authenticated, nextProps.params.orgname, 0)
+    }
   }
 
   LoggedOutIntro(authenticated) {

@@ -128,6 +128,9 @@ export const REVIEW_TYPE = 'review'
 export const RECOMMENDATIONS_TYPE = 'recommendations'
 export const TIPS_TYPE = 'tips'
 
+export const PROJECT_LIST_TYPE = 'projectList'
+export const ORG_LIST_TYPE = 'orgList'
+
 export const SUBJECTS_DATA = 'subjectsData'
 export const REVIEWS_DATA = 'reviewsData'
 export const TIPS_DATA = 'tipsData'
