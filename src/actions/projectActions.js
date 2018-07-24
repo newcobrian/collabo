@@ -107,6 +107,8 @@ export function onAddThread(auth, projectId, thread, orgName) {
 
           Firebase.database().ref().update(updates);
 
+          Helpers.sendCollaboUpdateNotifs(auth, Constants.NEW_THREAD_MESSAGE, Object.assign({}, {name: orgName}), projectSnapshot.val().orgId, projectSnapshot.val(), projectId, thread, threadId, null)
+
           // // update Algolia index
           // Helpers.updateAlgloiaGeosIndex(itinerary.geo)
 

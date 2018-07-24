@@ -557,6 +557,16 @@ export function sendInboxMessage(senderId, recipientId, messageType, sendObject,
 	}
 }
 
+export function sendCollaboUpdateNotifs(senderId, messageType, org, orgId, project, projectId, thread, threadId, sendObject) {
+	Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId).once('value', orgSnapshot => {
+		orgSnapshot.forEach(function(orgUser) {
+			if (orgUser.key !== senderId ) {
+				sendCollaboInboxMessage(senderId, orgUser.key, messageType, org, orgId, project, projectId, thread, threadId, sendObject);
+			}
+		})
+	})
+}
+
 export function sendCollaboInboxMessage(senderId, recipientId, messageType, org, orgId, project, projectId, thread, threadId, sendObject) {
 	const inboxObject = {
 		lastModified: Firebase.database.ServerValue.TIMESTAMP
@@ -569,7 +579,7 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 				case Constants.COMMENT_IN_THREAD_MESSAGE:
 					inboxObject.senderId = senderId;
 					inboxObject.message = ' commented in the thread: ' + thread.title;
-					inboxObject.link = '/thread/' + threadId + '#comment' + sendObject.commentId;
+					inboxObject.link = '/' + org.name + '/' + projectId + '/' + threadId;
 					emailMessage = senderSnapshot.val().username + 
 						' commented in the same thread. Click here to check it out: localhost:3000' + inboxObject.link;
 					break;
@@ -588,7 +598,16 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 					inboxObject.link = '/invitation/' + sendObject;
 					inboxObject.type = Constants.INBOX_INVITE_TYPE
 					emailMessage = senderSnapshot.val().username + 
-						' invited you to join their team "' + org.name + '". Click here to check it out: localhost:3000/invitation/' + sendObject;
+						' invited you to join their team "' + org.name + '". Click here to check it out: http://localhost:3000/invitation/' + sendObject;
+					break;
+				case Constants.NEW_THREAD_MESSAGE:
+					console.log('new thread msg to ' + recipientId)
+					inboxObject.senderId = senderId;
+					inboxObject.message = org.name + ': ' + senderSnapshot.val().name + ' created a new thread "' + thread.title + '" in the ' + project.name + ' project';
+					inboxObject.link = '/' + org.name + '/' + projectId + '/' + threadId;
+					inboxObject.type = Constants.INBOX_INVITE_TYPE
+					emailMessage = org.name + ' team: ' + senderSnapshot.val().username + 
+						' created a new thread in the ' + project.name + ' project. Click here to check it out: http://localhost:3000/' + org.name + '/' + projectId + '/' + threadId;
 					break;
 			}
 			if (senderId !== recipientId) {
