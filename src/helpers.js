@@ -571,7 +571,7 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 					inboxObject.message = ' commented in the thread: ' + thread.title;
 					inboxObject.link = '/thread/' + threadId + '#comment' + sendObject.commentId;
 					emailMessage = senderSnapshot.val().username + 
-						' commented in the same thread. Click here to check it out: https://localhost:3000' + inboxObject.link;
+						' commented in the same thread. Click here to check it out: localhost:3000' + inboxObject.link;
 					break;
 				// case Constants.COMMENT_ON_COMMENT_REVIEW_MESSAGE:
 				// 	inboxObject.senderId = senderId;
@@ -588,7 +588,7 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 					inboxObject.link = '/invitation/' + sendObject;
 					inboxObject.type = Constants.INBOX_INVITE_TYPE
 					emailMessage = senderSnapshot.val().username + 
-						' invited you to join their team "' + org.name + '". Click here to check it out: https://localhost:3000/invitation/' + sendObject;
+						' invited you to join their team "' + org.name + '". Click here to check it out: localhost:3000/invitation/' + sendObject;
 					break;
 			}
 			if (senderId !== recipientId) {
