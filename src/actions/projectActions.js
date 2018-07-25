@@ -107,7 +107,9 @@ export function onAddThread(auth, projectId, thread, orgName) {
 
           Firebase.database().ref().update(updates);
 
-          Helpers.sendCollaboUpdateNotifs(auth, Constants.NEW_THREAD_MESSAGE, Object.assign({}, {name: orgName}), projectSnapshot.val().orgId, projectSnapshot.val(), projectId, thread, threadId, null)
+          let org = Object.assign({}, {name: orgName}, {orgId: projectSnapshot.val().orgId})
+          let project = Object.assign({},  projectSnapshot.val(), {projectId: projectId})
+          Helpers.sendCollaboUpdateNotifs(auth, Constants.NEW_THREAD_MESSAGE, org ,project, Object.assign({}, thread, {threadId: threadId}, null))
 
           // // update Algolia index
           // Helpers.updateAlgloiaGeosIndex(itinerary.geo)
@@ -160,7 +162,8 @@ export function watchProjectThreads(projectId) {
       if (threadSnapshot.val().userId) {
         // watchUser(dispatch, threadSnapshot.val().userId, Constants.PROJECTS_PAGE)
         Firebase.database().ref(Constants.USERS_PATH + '/' + threadSnapshot.val().userId).once('value', userSnap => {
-          dispatch(threadAddedAction(threadSnapshot.key, threadSnapshot.val(), userSnap.val()));   
+          let thread = Object.assign({}, threadSnapshot.val(), {projectId: projectId})
+          dispatch(threadAddedAction(threadSnapshot.key, thread, userSnap.val()));   
         })
       }
       // dispatch(threadAddedAction(threadSnapshot.key, threadSnapshot.val()));
@@ -171,7 +174,8 @@ export function watchProjectThreads(projectId) {
       if (threadSnapshot.val().userId) {
         // watchUser(dispatch, threadSnapshot.val().userId, Constants.PROJECTS_PAGE)
         Firebase.database().ref(Constants.USERS_PATH + '/' + threadSnapshot.val().userId).once('value', userSnap => {
-          dispatch(threadChangedAction(threadSnapshot.key, threadSnapshot.val(), userSnap.val()));   
+          let thread = Object.assign({}, threadSnapshot.val(), {projectId: projectId})
+          dispatch(threadChangedAction(threadSnapshot.key, thread, userSnap.val()));   
         })
       }
     })
@@ -303,11 +307,14 @@ export function loadThread(threadId) {
   return dispatch => {
     Firebase.database().ref(Constants.THREADS_PATH + '/' + threadId).on('value', threadSnapshot => {
       if (threadSnapshot.exists()) {
-        Firebase.database().ref(Constants.USERS_PATH + '/' + threadSnapshot.val().userId).on('value', userSnapshot => {
-          dispatch({
-            type: ActionTypes.LOAD_THREAD,
-            thread: threadSnapshot.val(),
-            createdBy: userSnapshot.val()
+        Firebase.database().ref(Constants.PROJECTS_PATH + '/' + threadSnapshot.val().projectId).on('value', projectSnapshot => {
+          Firebase.database().ref(Constants.USERS_PATH + '/' + threadSnapshot.val().userId).on('value', userSnapshot => {
+            dispatch({
+              type: ActionTypes.LOAD_THREAD,
+              thread: threadSnapshot.val(),
+              createdBy: userSnapshot.val(),
+              project: Object.assign({}, projectSnapshot.val(), {projectId: threadSnapshot.val().projectId})
+            })
           })
         })
       }
@@ -423,7 +430,7 @@ export function getThreadFieldUpdates(threadId, thread, field, value) {
   return updates;
 }
 
-export function onThreadCommentSubmit(authenticated, userInfo, type, thread, body, threadId) {
+export function onThreadCommentSubmit(authenticated, userInfo, type, thread, body, threadId, project, org) {
   return dispatch => {
     if(!authenticated) {
       dispatch({
@@ -454,8 +461,10 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
 
       // send message to original review poster if they are not the commentor
       const sentArray = [];
+      let threadObject = Object.assign({}, thread, { threadId: threadId })
       if (authenticated !== thread.userId) {
-        Helpers.sendCollaboInboxMessage(authenticated, thread.userId, Constants.COMMENT_IN_THREAD_MESSAGE, null, null, null, thread.projectId, thread, threadId, Object.assign({commentId: commentId, message: body}));
+        Helpers.sendCollaboInboxMessage(authenticated, thread.userId, Constants.COMMENT_IN_THREAD_MESSAGE, 
+          org, project, threadObject, Object.assign({commentId: commentId, message: body}));
         sentArray.push(thread.userId);
         // dispatch({
         //   type: MIXPANEL_EVENT,
@@ -473,7 +482,7 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
           let commenterId = comment.val().userId;
           // if not commentor or in sent array, then send a message
           if (commenterId !== authenticated && (sentArray.indexOf(commenterId) === -1)) {
-            Helpers.sendInboxMessage(authenticated, commenterId, Constants.COMMENT_IN_THREAD_MESSAGE, thread, threadId, Object.assign({commentId: commentId, message: body}));
+            Helpers.sendCollaboInboxMessage(authenticated, commenterId, Constants.COMMENT_IN_THREAD_MESSAGE, org, project, threadObject, Object.assign({commentId: commentId, message: body}));
             sentArray.push(commenterId);
             // dispatch({
             //   type: MIXPANEL_EVENT,
@@ -489,6 +498,7 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
       })
 
       // send inbox messages to any usernames mentioned in the comment
+      // findCommentMentions(dispatch, authenticated, thread, threadId, Object.assign({commentId: commentId, message: body}))
       findCommentMentions(dispatch, authenticated, body, thread, threadId, sentArray, commentId);
 
 
@@ -560,7 +570,8 @@ export function inviteUsersToOrg(auth, orgId, orgName, invites) {
                 let inviteId = Firebase.database().ref(Constants.INVITES_PATH).push(inviteObject).key
 
                  // just send an invite to the user
-                Helpers.sendCollaboInboxMessage(auth, emailHashSnap.val()[cleanedEmail].userId, Constants.ORG_INVITE_MESSAGE, Object.assign({}, {name: orgName}), orgId, null, null, null, null, inviteId);
+                Helpers.sendCollaboInboxMessage(auth, emailHashSnap.val()[cleanedEmail].userId, Constants.ORG_INVITE_MESSAGE, 
+                    Object.assign({}, {name: orgName}, {orgId: orgId}), null, null, inviteId);
 
                 // add to invited list for the org
                 updates[Constants.INVITES_BY_ORG_PATH + '/' + orgId + '/users/' + emailHashSnap.val()[cleanedEmail].userId + '/' + inviteId] = true;

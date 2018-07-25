@@ -1107,7 +1107,8 @@ export function findCommentMentions(dispatch, authenticated, commentBody, commen
       Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + username).once('value', snap => {
         if (snap.exists()) {
           if (snap.val().userId !== authenticated && sentArray.indexOf(snap.val().userId) === -1) {
-            Helpers.sendInboxMessage(authenticated, snap.val().userId, Constants.COMMENT_IN_THREAD_MESSAGE, commentObject, threadId, Object.assign({commentId: commentId, message: commentBody}));
+            // Helpers.sendCollaboInboxMessage(authenticated, snap.val().userId, Constants.COMMENT_IN_THREAD_MESSAGE, commentObject, threadId, Object.assign({commentId: commentId, message: commentBody}));
+            Helpers.sendCollaboInboxMessage(authenticated, snap.val().userId, Constants.COMMENT_IN_THREAD_MESSAGE, null, null, null, null, commentObject, threadId, null);
             sentArray.push(snap.val().userId);
 
             // dispatch({

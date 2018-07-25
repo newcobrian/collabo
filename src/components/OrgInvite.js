@@ -106,7 +106,7 @@ class OrgInvite extends React.Component {
 					                    disabled={this.props.inProgress}
 					                    onClick={this.submitForm}>
 					                    	<div className="flx flx-row flx-center-all ta-center">
-						                    	<div className="flx-grow1 mrgn-left-md">Create</div>
+						                    	<div className="flx-grow1 mrgn-left-md">Send invites</div>
 												<img className="flx-item-right" src="/img/icons/icon32_next.png"/>
 											</div>
 					                  </div>

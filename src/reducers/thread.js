@@ -8,7 +8,8 @@ export default (state = { editorState: EditorState.createEmpty() }, action) => {
       return {
         ...state,
         thread: action.thread,
-        createdBy: action.createdBy
+        createdBy: action.createdBy,
+        project: action.project
       }
     case ActionTypes.THREAD_NOT_FOUND_ERROR:
       return {
@@ -52,7 +53,7 @@ export default (state = { editorState: EditorState.createEmpty() }, action) => {
     case ActionTypes.LOAD_ORG: {
       return {
         ...state,
-        organization: action.organization,
+        org: action.organization,
         invalidOrgUser: false
       }
     }

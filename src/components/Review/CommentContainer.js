@@ -18,6 +18,8 @@ const CommentContainer = props => {
 		            	threadId={props.threadId}
 		            	authenticated={props.authenticated} 
 		            	userInfo={props.userInfo}
+		            	project={props.project}
+		            	org={props.org}
 		            	type={props.type} />
 		          </div>
 

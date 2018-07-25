@@ -157,6 +157,7 @@ class Thread extends React.Component {
       let thread = this.props.thread
       let createdBy = this.props.createdBy
       let canModify = this.props.authenticated === this.props.thread.userId ? true : false
+
       return (
         <div>
 
@@ -221,6 +222,8 @@ class Thread extends React.Component {
                   errors={this.props.commentErrors}
                   commentObject={thread}
                   threadId={this.props.params.tid}
+                  project={this.props.project}
+                  org={this.props.org}
                   deleteComment={this.props.onDeleteThreadComment} />
               
               {/*<div className="feed-wrapper">
