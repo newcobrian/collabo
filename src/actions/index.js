@@ -1098,7 +1098,7 @@ export function unloadComments(reviewId) {
   }
 }
 
-export function findCommentMentions(dispatch, authenticated, commentBody, commentObject, threadId, sentArray, commentId) {
+export function findCommentMentions(dispatch, authenticated, commentBody, org, project, thread, sentArray, commentId) {
   let pattern = /\B@[a-z0-9_-]+/gi;
   let found = commentBody.match(pattern);
   if (found) {
@@ -1107,8 +1107,7 @@ export function findCommentMentions(dispatch, authenticated, commentBody, commen
       Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + username).once('value', snap => {
         if (snap.exists()) {
           if (snap.val().userId !== authenticated && sentArray.indexOf(snap.val().userId) === -1) {
-            // Helpers.sendCollaboInboxMessage(authenticated, snap.val().userId, Constants.COMMENT_IN_THREAD_MESSAGE, commentObject, threadId, Object.assign({commentId: commentId, message: commentBody}));
-            Helpers.sendCollaboInboxMessage(authenticated, snap.val().userId, Constants.COMMENT_IN_THREAD_MESSAGE, null, null, null, null, commentObject, threadId, null);
+            Helpers.sendCollaboInboxMessage(authenticated, snap.val().userId, Constants.COMMENT_MENTION_MESSAGE, org, project, thread, Object.assign({}, {commentId: commentId}, {message: commentBody}))
             sentArray.push(snap.val().userId);
 
             // dispatch({

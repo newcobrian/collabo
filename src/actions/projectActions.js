@@ -482,7 +482,7 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
           let commenterId = comment.val().userId;
           // if not commentor or in sent array, then send a message
           if (commenterId !== authenticated && (sentArray.indexOf(commenterId) === -1)) {
-            Helpers.sendCollaboInboxMessage(authenticated, commenterId, Constants.COMMENT_IN_THREAD_MESSAGE, org, project, threadObject, Object.assign({commentId: commentId, message: body}));
+            Helpers.sendCollaboInboxMessage(authenticated, commenterId, Constants.COMMENT_IN_THREAD_MESSAGE, org, project, threadObject, Object.assign({}, {commentId: commentId}, {message: body}));
             sentArray.push(commenterId);
             // dispatch({
             //   type: MIXPANEL_EVENT,
@@ -498,9 +498,7 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
       })
 
       // send inbox messages to any usernames mentioned in the comment
-      // findCommentMentions(dispatch, authenticated, thread, threadId, Object.assign({commentId: commentId, message: body}))
-      findCommentMentions(dispatch, authenticated, body, thread, threadId, sentArray, commentId);
-
+      findCommentMentions(dispatch, authenticated, body, org, project, threadObject, sentArray, commentId);
 
       // const mixpanelProps = ( (type === Constants.TIPS_TYPE ||  type === Constants.RECOMMENDATIONS_TYPE) ? {subjectId: commentObject.subjectId} : {itineraryId: commentObject.id});
       dispatch({

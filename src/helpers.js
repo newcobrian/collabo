@@ -583,6 +583,13 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 					emailMessage = senderSnapshot.val().username + 
 						' commented in the same thread. Click here to check it out: localhost:3000' + inboxObject.link;
 					break;
+				case Constants.COMMENT_MENTION_MESSAGE:
+					inboxObject.senderId = senderId;
+					inboxObject.message = ' mentioned you in a comment in the thread: ' + thread.title;
+					inboxObject.link = '/' + org.name + '/' + project.projectId + '/' + thread.threadId;
+					emailMessage = senderSnapshot.val().username + 
+						' mentioned you in a comment. Click here to check it out: localhost:3000' + inboxObject.link;
+					break;
 				// case Constants.COMMENT_ON_COMMENT_REVIEW_MESSAGE:
 				// 	inboxObject.senderId = senderId;
 				// 	inboxObject.message = ' also commented: ' + sendObject.message;
