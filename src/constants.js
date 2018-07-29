@@ -166,6 +166,7 @@ export const ADD_THREAD_PAGE = 'ADD_THREAD_PAGE'
 export const PROJECTS_PAGE = 'PROJECTS_PAGE'
 export const CREATE_ORG_PAGE = 'CREATE_ORG_PAGE'
 export const ORG_INVITE_PAGE ='ORG_INVITE_PAGE'
+export const THREAD_PAGE = 'THREAD_PAGE'
 
 /*** Tag list ***/
 export const TAG_LIST = []

@@ -27,18 +27,26 @@ const mapStateToProps = state => ({
 })
 
 const BodySection = props => {
-  if (props.canModify) {
+  if (props.isEditMode && props.canModify) {
     return (
       <div>
-        {/*<Editor
-          editorState={props.editorState}
-          wrapperClassName="demo-wrapper"
-          editorClassName="demo-editor"
-          onEditorStateChange={props.onEditorStateChange}
-        />*/}
         <ReactQuill 
-          value={props.body || ''}
-          onChange={props.changeBody(props.thread)} />
+            value={props.body || ''}
+            onChange={props.updateText} />
+      <div><Link onClick={props.onEditClick(false)}>Cancel</Link></div>
+      <div><Link onClick={props.saveBody(props.thread)}>Save</Link></div>
+      </div>
+      )
+  }
+  else if (props.canModify) {
+    return (
+      <div>
+        <div>
+          <div dangerouslySetInnerHTML={{ __html: props.body || '' }}>
+          
+          </div>
+          <Link onClick={props.onEditClick(true)}>Edit Post</Link>
+        </div>
         {/*<RenderDebounceInput
           type="textarea"
           className="w-100 show-border"
@@ -53,11 +61,6 @@ const BodySection = props => {
   else {
     return (
       <div dangerouslySetInnerHTML={{ __html: props.body || '' }}>
-        {/*<ReactQuill 
-          value={props.body}
-          onChange={props.changeBody(props.thread)}
-          readOnly={true} />*/}
-        {/*props.body*/}
       </div>
     )
   }
@@ -76,11 +79,24 @@ class Thread extends React.Component {
     const updateThreadFieldEvent = (field, value, thread) =>
       this.props.updateThreadField(this.props.authenticated, this.props.params.tid, thread, field, value)
 
-    this.changeBody = thread => value => updateThreadFieldEvent('body', value, thread)
+    this.saveBody = thread => ev => {
+      ev.preventDefault()
+      updateThreadFieldEvent('body', this.props.bodyText, thread)
+      // this.props.updateThreadField(this.props.authenticated, this.props.params.tid, thread, field, value)
+    }
+
+    this.updateText = value => {
+      this.props.onUpdateCreateField('bodyText', value, Constants.THREAD_PAGE)
+    }
 
     this.onEditorStateChange = (editorState) => {
-    this.props.changeEditorState(editorState)
-  }
+      this.props.changeEditorState(editorState)
+    }
+
+    this.onEditClick = mode => ev => {
+      ev.preventDefault()
+      this.props.setEditMode(mode)
+    }
   }
 
   componentWillMount() {
@@ -202,12 +218,15 @@ class Thread extends React.Component {
                 <div className="v2-type-body2 opa-60 w-100 mrgn-top-sm">
                   {/*showBody(canModify, thread.body)*/}
                   <BodySection 
-                    body={thread.body} 
+                    body={this.props.bodyText} 
                     canModify={canModify} 
                     thread={thread} 
-                    changeBody={this.changeBody}
+                    saveBody={this.saveBody}
+                    updateText={this.updateText}
                     editorState={this.props.editorState}
-                    onEditorStateChange={this.onEditorStateChange} />
+                    onEditorStateChange={this.onEditorStateChange}
+                    onEditClick={this.onEditClick}
+                    isEditMode={this.props.isEditMode} />
                 </div>
               </div>
 

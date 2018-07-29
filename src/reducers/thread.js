@@ -1,4 +1,5 @@
 import * as ActionTypes from '../actions/types';
+import * as Constants from '../constants';
 import { filter } from 'lodash'
 import { EditorState } from 'draft-js';
 
@@ -9,7 +10,8 @@ export default (state = { editorState: EditorState.createEmpty() }, action) => {
         ...state,
         thread: action.thread,
         createdBy: action.createdBy,
-        project: action.project
+        project: action.project,
+        bodyText: action.thread.body
       }
     case ActionTypes.THREAD_NOT_FOUND_ERROR:
       return {
@@ -18,7 +20,8 @@ export default (state = { editorState: EditorState.createEmpty() }, action) => {
       }
     case ActionTypes.THREAD_UPDATED:
       return {
-        ...state
+        ...state,
+        isEditMode: false
       }
     case ActionTypes.COMMENT_ADDED_ACTION: {
       const newState = Object.assign({}, state);
@@ -68,6 +71,17 @@ export default (state = { editorState: EditorState.createEmpty() }, action) => {
         ...state,
         invalidOrgUser: true
       }
+    case ActionTypes.SET_EDIT_MODE:
+      return {
+        ...state,
+        isEditMode: action.editMode,
+        bodyText: state.thread && state.thread.body ? state.thread.body : ''
+      }
+    case ActionTypes.UPDATE_FIELD_CREATE:
+      if(action.source === Constants.THREAD_PAGE) {
+        return { ...state, [action.key]: action.value };
+      }
+      else return {...state}
     default:
       return state;
   }

@@ -904,3 +904,12 @@ export function unloadOrgList(auth) {
     })
   }
 }
+
+export function setEditMode(mode) {
+  return dispatch => {
+    dispatch({
+      type:ActionTypes.SET_EDIT_MODE,
+      editMode: mode
+    })
+  }
+}
