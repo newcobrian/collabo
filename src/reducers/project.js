@@ -13,7 +13,10 @@ export default (state = initialState, action) => {
         feed: action.payload
       }
     case ActionTypes.UNLOAD_PROJECT_THREADS:
-      return {}
+      return {
+        ...state,
+        threads: []
+      }
     case ActionTypes.LOAD_PROJECT:
       return {
         ...state,
