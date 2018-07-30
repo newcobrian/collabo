@@ -608,7 +608,6 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 						' invited you to join their team "' + org.name + '". Click here to check it out: http://localhost:3000/invitation/' + sendObject;
 					break;
 				case Constants.NEW_THREAD_MESSAGE:
-					console.log('new thread msg to ' + recipientId)
 					inboxObject.senderId = senderId;
 					inboxObject.message = org.name + ': ' + senderSnapshot.val().name + ' created a new thread "' + thread.title + '" in the ' + project.name + ' project';
 					inboxObject.link = '/' + org.name + '/' + project.projectId + '/' + thread.threadId;
