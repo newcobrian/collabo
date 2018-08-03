@@ -36,6 +36,10 @@ class Project extends React.Component {
     // this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project'});
   }
 
+  componentDidMount() {
+    this.props.markProjectRead(this.props.authenticated, this.props.params.pid)
+  }
+
   componentWillUnmount() {
     this.props.unloadProjectThreads(this.props.params.pid);
     this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname)

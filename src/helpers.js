@@ -640,6 +640,20 @@ export function sendInviteEmail(auth, recipientEmail, orgName, inviteId) {
 	})
 }
 
+export function incrementThreadSeenCounts(auth, orgId, projectId, threadId) {
+	Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId).once('value', orgUsersSnap => {
+		let updates = {}
+		orgUsersSnap.forEach(function(user) {
+			// udpate the value for all 'read' actions, don't add an unread message for the user
+			if (user.key !== auth) {
+				updates[Constants.THREAD_SEEN_COUNTERS_PATH + '/' + user.key + '/' + orgId + '/' + projectId + '/' + threadId] = true
+			}
+		})
+
+		Firebase.database().ref().update(updates);
+	})
+}
+
 export function sendItineraryUpdateEmails(auth, itinerary, lastUpdate) {
 	// if itinerary hasnt been updated in the last 24 hours, then send the email to all followers
 	// let yesterday = new Date();

@@ -107,6 +107,8 @@ export function onAddThread(auth, projectId, thread, orgName) {
 
           Firebase.database().ref().update(updates);
 
+          Helpers.incrementThreadSeenCounts(auth, projectSnapshot.val().orgId, projectId, threadId)
+
           let org = Object.assign({}, {name: orgName}, {orgId: projectSnapshot.val().orgId})
           let project = Object.assign({},  projectSnapshot.val(), {projectId: projectId})
           Helpers.sendCollaboUpdateNotifs(auth, Constants.NEW_THREAD_MESSAGE, org ,project, Object.assign({}, thread, {threadId: threadId}, null))
@@ -364,6 +366,8 @@ export function updateThreadField(auth, threadId, thread, field, value) {
 
       Firebase.database().ref().update(updates);
 
+      Helpers.incrementThreadSeenCounts(auth, thread.orgId, thread.projectId, threadId)
+
       dispatch({
         type: ActionTypes.THREAD_UPDATED,
         message: 'Your changes have been saved'
@@ -458,6 +462,8 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
       
       let updates = getThreadFieldUpdates(threadId, thread, 'lastModified', Firebase.database.ServerValue.TIMESTAMP)
       Firebase.database().ref().update(updates);
+
+      Helpers.incrementThreadSeenCounts(authenticated, thread.orgId, thread.projectId, threadId)
 
       // send message to original review poster if they are not the commentor
       const sentArray = [];
@@ -910,6 +916,30 @@ export function setEditMode(mode) {
     dispatch({
       type:ActionTypes.SET_EDIT_MODE,
       editMode: mode
+    })
+  }
+}
+
+export function markProjectRead(auth, projectId) {
+  return dispatch => {
+    let updates = {}
+    Firebase.database().ref(Constants.PROJECTS_PATH + '/' + projectId).once('value', snap => {
+      if (snap.exists()) {
+        updates[Constants.THREAD_SEEN_COUNTERS_PATH + '/' + auth + '/' + snap.val().orgId + '/' + projectId] = null
+        Firebase.database().ref().update(updates);
+      }
+    })
+  }
+}
+
+export function markThreadRead(auth, threadId) {
+  return dispatch => {
+    let updates = {}
+    Firebase.database().ref(Constants.THREADS_PATH + '/' + threadId).once('value', snap => {
+      if (snap.exists()) {
+        updates[Constants.THREAD_SEEN_COUNTERS_PATH + '/' + auth + '/' + snap.val().orgId + '/' + snap.val().projectId + '/' + threadId] = null
+        Firebase.database().ref().update(updates);
+      }
     })
   }
 }

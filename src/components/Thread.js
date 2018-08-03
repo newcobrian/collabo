@@ -108,6 +108,11 @@ class Thread extends React.Component {
     // this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project'});
   }
 
+  componentDidMount() {
+    console.log('hi')
+    this.props.markThreadRead(this.props.authenticated, this.props.params.tid)
+  }
+
   componentWillUnmount() {
     this.props.unloadThread(this.props.params.tid);
     this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname)

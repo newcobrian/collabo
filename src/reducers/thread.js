@@ -63,7 +63,7 @@ export default (state = { editorState: EditorState.createEmpty() }, action) => {
     case ActionTypes.UNLOAD_ORG: {
       return {
         ...state,
-        organization: {}
+        org: {}
       }
     }
     case ActionTypes.NOT_AN_ORG_USER:

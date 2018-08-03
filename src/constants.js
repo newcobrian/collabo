@@ -95,6 +95,7 @@ export const NONAPP_INVITES_BY_EMAIL_PATH = '/nonapp-invites-by-email'
 export const INVITES_BY_ORG_PATH = '/invites-by-org'
 export const INVITES_PATH = '/invites'
 export const USERS_BY_ORG_PATH = '/users-by-org'
+export const THREAD_SEEN_COUNTERS_PATH = '/thread-seen-counters'
 
 /*** Counter Type Constants ***/
 export const LIKES_COUNT = 'likesCount'
