@@ -109,7 +109,6 @@ class Thread extends React.Component {
   }
 
   componentDidMount() {
-    console.log('hi')
     this.props.markThreadRead(this.props.authenticated, this.props.params.tid)
   }
 
@@ -128,6 +127,7 @@ class Thread extends React.Component {
       this.props.unwatchThreadComments(this.props.params.tid);
       this.props.loadThread(nextProps.params.tid);
       this.props.watchThreadComments(nextProps.params.tid);
+      this.props.markThreadRead(this.props.authenticated, nextProps.params.tid)
     }
   }
 

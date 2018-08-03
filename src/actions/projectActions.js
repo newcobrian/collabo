@@ -296,6 +296,24 @@ export function loadProjectList(auth, orgName) {
   }
 }
 
+export function loadThreadCounts(auth, orgName) {
+  return dispatch => {
+    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName).once('value', orgSnap => {
+      Firebase.database().ref(Constants.THREAD_SEEN_COUNTERS_PATH + '/' + auth + '/' + orgSnap.val().orgId).on('value', countSnap => {
+        let countObject = {}
+        countSnap.forEach(function(project) {
+          countObject[project.key] = project.numChildren()
+        })
+
+        dispatch({
+          type: ActionTypes.THREAD_COUNTS_LOADED,
+          threadCounts: countObject
+        })
+      })
+    })
+  }
+}
+
 export function unloadProjectList(auth, orgName) {
   return dispatch => {
      Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + orgName).off();

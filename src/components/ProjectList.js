@@ -4,6 +4,16 @@ import { Link, browserHistory } from 'react-router';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
 
+const ThreadCountJewel = props => {
+  if (props.threadCount > 0) {
+    return (
+      <div className="count-badge header-badge badge-on"> {props.threadCount}</div>
+    );
+  }
+  return null;
+    // <div className="count-badge header-badge opa-50">0</div>
+}
+
 const mapStateToProps = state => ({
   ...state.projectList,
   currentUser: state.common.currentUser,
@@ -23,6 +33,7 @@ class ProjectList extends React.Component {
 
   render() {
     let orgName = this.props.org ?  this.props.org.name : ''
+    let threadCounts = this.props.threadCounts || {}
     if(!this.props.projectList) return null;
     return (
       <div className="project-sidebar flx-item-left">
@@ -57,7 +68,7 @@ class ProjectList extends React.Component {
                 <i className="material-icons color--black md-18 opa-100 mrgn-right-sm">fiber_manual_record
 </i>
 
-                {projectItem.name}
+                {projectItem.name} {<ThreadCountJewel threadCount={threadCounts[projectItem.id]} />}
                 </Link>
               </div>
             );

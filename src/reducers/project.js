@@ -108,6 +108,11 @@ export default (state = initialState, action) => {
         ...state,
         threads: []
       }
+    case ActionTypes.THREAD_COUNTS_LOADED:
+      return {
+        ...state,
+        threadCounts: action.threadCounts
+      }
     default:
       return state;
   }

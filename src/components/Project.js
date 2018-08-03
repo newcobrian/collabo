@@ -31,6 +31,7 @@ class Project extends React.Component {
     this.props.loadOrg(this.props.authenticated, this.props.params.orgname);
     this.props.loadProject(this.props.params.pid);
     this.props.loadProjectList(this.props.authenticated, this.props.params.orgname)
+    this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
     this.props.loadOrgList(this.props.authenticated)
     this.props.watchProjectThreads(this.props.params.pid);
     // this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project'});
@@ -53,6 +54,7 @@ class Project extends React.Component {
       this.props.unloadProjectThreads(this.props.params.pid);
       this.props.loadProject(nextProps.params.pid);
       this.props.watchProjectThreads(nextProps.params.pid);
+      this.props.markProjectRead(this.props.authenticated, nextProps.params.pid)
     }
   }
 
@@ -106,7 +108,8 @@ class Project extends React.Component {
         
             {/*<UniversalSearchBar />*/}
         
-        <ProjectList />
+        <ProjectList 
+          threadCounts={this.props.threadCounts} />
 
         <div className="thread-area flx flx-col w-100">
           <div className={"page-title-wrapper text-left flx flx-row flx-align-start"}>
