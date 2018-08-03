@@ -87,7 +87,7 @@ export default (state = initialState, action) => {
       }
       return state;
     }
-    case ActionTypes.UNWATCH_ORG_FEED: {
+    case ActionTypes.UNWATCH_THREAD_FEED: {
       return {
         ...state,
         threads: []

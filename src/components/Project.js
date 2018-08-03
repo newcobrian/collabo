@@ -9,6 +9,34 @@ import LoadingSpinner from './LoadingSpinner';
 import ThreadList from './ThreadList';
 import ProjectList from './ProjectList';
 
+const ProjectHeader = props => {
+  if (props.projectId) {
+    if (!props.project) return null
+    else return (
+      <div className={"page-title-wrapper text-left flx flx-row flx-align-start"}>
+        <div className="v2-type-page-header flx flx-row flx-align-start text-left invert">
+          {props.project.name}
+        </div>
+        <div className="flx flx-align-start flx-item-right">
+          <Link to={'/' + props.orgName + '/' + props.projectId + '/addthread'} activeClassName="active" className="nav-module create nav-editor flx flx-align-start flx-item-right text-left">
+            <div className="vb fill--primary color--white flx flx-row flx-align-center">
+              <i className="material-icons color--white md-18 opa-100 mrgn-right-xs">add</i>
+              <div className="mrgn-left-xs">New Thread</div>
+            </div>
+          </Link>
+        </div>
+      </div>
+    )
+  }
+  else return (
+    <div className={"page-title-wrapper text-left flx flx-row flx-align-start"}>
+        <div className="v2-type-page-header flx flx-row flx-align-start text-left invert">
+          All feed
+        </div>
+      </div>
+  )
+}
+
 const mapStateToProps = state => ({
   ...state.project,
   authenticated: state.common.authenticated,
@@ -29,11 +57,12 @@ class Project extends React.Component {
 
   componentWillMount() {
     this.props.loadOrg(this.props.authenticated, this.props.params.orgname);
-    this.props.loadProject(this.props.params.pid);
     this.props.loadProjectList(this.props.authenticated, this.props.params.orgname)
     this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
     this.props.loadOrgList(this.props.authenticated)
-    this.props.watchProjectThreads(this.props.params.pid);
+    this.props.loadProject(this.props.params.pid);
+    // this.props.watchProjectThreads(this.props.params.pid);
+    this.props.watchThreadFeed(this.props.authenticated, this.props.params.orgname, this.props.params.pid, 0)
     // this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project'});
   }
 
@@ -42,19 +71,19 @@ class Project extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.unloadProjectThreads(this.props.params.pid);
-    this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname)
-    this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname)
+    this.props.unwatchThreadFeed(this.props.authenticated, this.props.params.orgname, this.props.params.pid)
     this.props.unloadOrgList(this.props.authenticated)
+    this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname)
+    this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname)
     this.props.unloadOrg();
     if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.pid !== this.props.params.pid) {
-      this.props.unloadProjectThreads(this.props.params.pid);
+      this.props.unwatchThreadFeed(this.props.authenticated, this.props.params.orgname, this.props.params.pid)
       this.props.loadProject(nextProps.params.pid);
-      this.props.watchProjectThreads(nextProps.params.pid);
+      this.props.watchThreadFeed(this.props.authenticated, this.props.params.orgname, nextProps.params.pid, 0)
       this.props.markProjectRead(this.props.authenticated, nextProps.params.pid)
     }
   }
@@ -67,21 +96,21 @@ class Project extends React.Component {
         </div>
       )
     }
-    if (this.props.projectNotFoundError) {
-      return (
-        <div className="error-module flx flx-col flx-center-all ta-center v2-type-body3 color--black">
-          <div className="xiao-img-wrapper mrgn-bottom-sm">
-            <img className="center-img" src="/img/xiaog.png"/>
-          </div>
-          <div className="mrgn-bottom-md">Sorry, we couldn't find this project.</div>
-        </div>
-      )
-    }
-    if (!this.props.project) {
-      return (
-        <LoadingSpinner message="Loading project" />
-        )
-    }
+    // if (this.props.projectNotFoundError) {
+    //   return (
+    //     <div className="error-module flx flx-col flx-center-all ta-center v2-type-body3 color--black">
+    //       <div className="xiao-img-wrapper mrgn-bottom-sm">
+    //         <img className="center-img" src="/img/xiaog.png"/>
+    //       </div>
+    //       <div className="mrgn-bottom-md">Sorry, we couldn't find this project.</div>
+    //     </div>
+    //   )
+    // }
+    // if (!this.props.project) {
+    //   return (
+    //     <LoadingSpinner message="Loading project" />
+    //     )
+    // }
     // if (!this.props.feed) {
     //   return (
     //     <div className="loading-module flx flx-col flx-center-all v2-type-body3 fill--black">
@@ -113,25 +142,18 @@ class Project extends React.Component {
           threadCounts={this.props.threadCounts} />
 
         <div className="thread-area flx flx-col w-100">
-          <div className={"page-title-wrapper text-left flx flx-row flx-align-start"}>
-            <div className="v2-type-page-header flx flx-row flx-align-start text-left invert">
-              {this.props.project.name}
-            </div>
-            <div className="flx flx-align-start flx-item-right">
-              <Link to={'/' + this.props.params.orgname + '/' + this.props.params.pid + '/addthread'} activeClassName="active" className="nav-module create nav-editor flx flx-align-start flx-item-right text-left">
-                <div className="vb fill--primary color--white flx flx-row flx-align-center">
-                  <i className="material-icons color--white md-18 opa-100 mrgn-right-xs">add</i>
-                  <div className="mrgn-left-xs">New Thread</div>
-                </div>
-              </Link>
-            </div>
-          </div>
+          
+            <ProjectHeader 
+              orgName={this.props.params.orgname}
+              projectId={this.props.params.pid}
+              project={this.props.project}
+            />
+            
           <div className="feed-wrapper">
             <ThreadList
               threads={this.props.threads} 
               authenticated={this.props.authenticated}
-              orgName={this.props.params.orgname}
-              projectId={this.props.params.pid} />
+              orgName={this.props.params.orgname} />
           </div>
         </div>
       </div>

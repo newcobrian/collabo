@@ -59,7 +59,7 @@ class Organization extends React.Component {
     this.props.loadOrg(this.props.authenticated, this.props.params.orgname);
     this.props.loadProjectList(this.props.authenticated, this.props.params.orgname)
     this.props.loadOrgList(this.props.authenticated)
-    this.props.watchOrgFeed(this.props.authenticated, this.props.params.orgname, 0)
+    this.props.watchThreadFeed(this.props.authenticated, this.props.params.orgname, null, 0)
     // this.props.startFeedWatch(this.props.authenticated);
     // this.props.startLikesByUserWatch(this.props.authenticated);
     // this.props.startUsersFeedWatchScroller(this.props.authenticated, this.props.dateIndex);
@@ -72,7 +72,7 @@ class Organization extends React.Component {
     this.props.unloadOrg();
     this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname)
     this.props.unloadOrgList(this.props.authenticated)
-    this.props.unwatchOrgFeed(this.props.params.orgname)
+    this.props.unwatchThreadFeed(this.props.authenticated, this.props.params.orgname, null)
     // this.props.unloadFeedWatch(this.props.authenticated);
     // this.props.stopUsersFeedWatch(this.props.authenticated);
     // this.props.stopLikesByUserWatch(this.props.authenticated);

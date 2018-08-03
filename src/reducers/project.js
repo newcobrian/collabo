@@ -12,7 +12,7 @@ export default (state = initialState, action) => {
         ...state,
         feed: action.payload
       }
-    case ActionTypes.UNLOAD_PROJECT_THREADS:
+    case ActionTypes.UNWATCH_THREAD_FEED:
       return {
         ...state,
         threads: []

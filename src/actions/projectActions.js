@@ -158,35 +158,34 @@ export function loadProject(projectId) {
   }
 }
 
-export function watchProjectThreads(projectId) {
-  return dispatch=> {
-    Firebase.database().ref(Constants.THREADS_BY_PROJECT_PATH + '/' + projectId).orderByChild('lastModified').on('child_added', threadSnapshot => {
-      if (threadSnapshot.val().userId) {
-        // watchUser(dispatch, threadSnapshot.val().userId, Constants.PROJECTS_PAGE)
-        Firebase.database().ref(Constants.USERS_PATH + '/' + threadSnapshot.val().userId).once('value', userSnap => {
-          let thread = Object.assign({}, threadSnapshot.val(), {projectId: projectId})
-          dispatch(threadAddedAction(threadSnapshot.key, thread, userSnap.val()));   
-        })
-      }
-      // dispatch(threadAddedAction(threadSnapshot.key, threadSnapshot.val()));
-    })
+// export function watchProjectThreads(projectId) {
+//   return dispatch=> {
+//     Firebase.database().ref(Constants.THREADS_BY_PROJECT_PATH + '/' + projectId).orderByChild('lastModified').on('child_added', threadSnapshot => {
+//       if (threadSnapshot.val().userId) {
+//         // watchUser(dispatch, threadSnapshot.val().userId, Constants.PROJECTS_PAGE)
+//         Firebase.database().ref(Constants.USERS_PATH + '/' + threadSnapshot.val().userId).once('value', userSnap => {
+//           let thread = Object.assign({}, threadSnapshot.val(), {projectId: projectId})
+//           dispatch(threadAddedAction(threadSnapshot.key, thread, userSnap.val()));   
+//         })
+//       }
+//     })
 
-    // on child changed, how do we unwatch old refs?
-    Firebase.database().ref(Constants.THREADS_BY_PROJECT_PATH + '/' + projectId).orderByChild('lastModified').on('child_changed', threadSnapshot => {
-      if (threadSnapshot.val().userId) {
-        // watchUser(dispatch, threadSnapshot.val().userId, Constants.PROJECTS_PAGE)
-        Firebase.database().ref(Constants.USERS_PATH + '/' + threadSnapshot.val().userId).once('value', userSnap => {
-          let thread = Object.assign({}, threadSnapshot.val(), {projectId: projectId})
-          dispatch(threadChangedAction(threadSnapshot.key, thread, userSnap.val()));   
-        })
-      }
-    })
+//     // on child changed, how do we unwatch old refs?
+//     Firebase.database().ref(Constants.THREADS_BY_PROJECT_PATH + '/' + projectId).orderByChild('lastModified').on('child_changed', threadSnapshot => {
+//       if (threadSnapshot.val().userId) {
+//         // watchUser(dispatch, threadSnapshot.val().userId, Constants.PROJECTS_PAGE)
+//         Firebase.database().ref(Constants.USERS_PATH + '/' + threadSnapshot.val().userId).once('value', userSnap => {
+//           let thread = Object.assign({}, threadSnapshot.val(), {projectId: projectId})
+//           dispatch(threadChangedAction(threadSnapshot.key, thread, userSnap.val()));   
+//         })
+//       }
+//     })
 
-    Firebase.database().ref(Constants.THREADS_BY_PROJECT_PATH + '/' + projectId).orderByChild('lastModified').on('child_removed', threadSnapshot => {
-      dispatch(threadRemovedAction(threadSnapshot.key));
-    })
-  }
-}
+//     Firebase.database().ref(Constants.THREADS_BY_PROJECT_PATH + '/' + projectId).orderByChild('lastModified').on('child_removed', threadSnapshot => {
+//       dispatch(threadRemovedAction(threadSnapshot.key));
+//     })
+//   }
+// }
 
 function threadAddedAction(threadId, thread, user) {
   // delete thread.lastModified;
@@ -251,16 +250,6 @@ function threadRemovedAction(threadId) {
 //     })
 //   }
 // }
-
-export function unloadProjectThreads(auth, projectId) {
-  return dispatch => {
-    Firebase.database().ref(Constants.THREADS_BY_PROJECT_PATH + '/' + projectId).orderByChild('lastModified').off();
-
-    dispatch({
-      type: ActionTypes.UNLOAD_PROJECT_THREADS
-    })
-  }
-}
 
 export function loadProjectList(auth, orgName) {
   let lowercaseName = orgName.toLowerCase()
@@ -851,41 +840,64 @@ export function acceptInvite(auth, email, inviteId) {
 //   })
 // }
 
-export function watchOrgFeed(auth, orgName, startValue) {
+export function watchThreadFeed(auth, orgName, projectId, startValue) {
   return dispatch=> {
     Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName).once('value', orgSnap => {
       if (orgSnap.exists()) {
         let orgId = orgSnap.val().orgId
-        Firebase.database().ref(Constants.THREADS_BY_ORG_PATH + '/' + orgId)
+        let path = projectId ? (Constants.THREADS_BY_PROJECT_PATH + '/' + projectId) : 
+          (Constants.THREADS_BY_ORG_PATH + '/' + orgId)
+
+        Firebase.database().ref(path)
           .orderByChild('lastModified')
           // .limitToFirst(2)
           .startAt(startValue)
           .on('child_added', threadSnapshot => {
           if (threadSnapshot.val().userId) {
             Firebase.database().ref(Constants.USERS_PATH + '/' + threadSnapshot.val().userId).once('value', userSnap => {
-              dispatch(threadAddedAction(threadSnapshot.key, threadSnapshot.val(), userSnap.val()));   
+              let thread = projectId ? Object.assign({}, threadSnapshot.val(), {projectId: projectId}) : threadSnapshot.val()
+              dispatch(threadAddedAction(threadSnapshot.key, thread, userSnap.val()));  
               // dispatch(updateStartValue(threadSnapshot.val().lastModified ? threadSnapshot.val().lastModified : startValue));
             })
           }
         })
 
         // on child changed, how do we unwatch old refs?
-        Firebase.database().ref(Constants.THREADS_BY_ORG_PATH + '/' + orgId)
+        Firebase.database().ref(path)
           .orderByChild('lastModified')
           .on('child_changed', threadSnapshot => {
           if (threadSnapshot.val().userId) {
             // watchUser(dispatch, threadSnapshot.val().userId, Constants.PROJECTS_PAGE)
             Firebase.database().ref(Constants.USERS_PATH + '/' + threadSnapshot.val().userId).once('value', userSnap => {
-              dispatch(threadChangedAction(threadSnapshot.key, threadSnapshot.val(), userSnap.val()));
+              let thread = projectId ? Object.assign({}, threadSnapshot.val(), {projectId: projectId}) : threadSnapshot.val()
+              dispatch(threadChangedAction(threadSnapshot.key, thread, userSnap.val()));
               // dispatch(updateStartValue(threadSnapshot.val().lastModified ? threadSnapshot.val().lastModified : startValue));
             })
           }
         })
 
-        Firebase.database().ref(Constants.THREADS_BY_ORG_PATH + '/' + orgId)
+        Firebase.database().ref(path)
           .orderByChild('lastModified')
           .on('child_removed', threadSnapshot => {
           dispatch(threadRemovedAction(threadSnapshot.key));
+        })
+      }
+    })
+  }
+}
+
+export function unwatchThreadFeed(auth, orgName, projectId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName).once('value', orgSnap => {
+      if (orgSnap.exists()) {
+        let orgId = orgSnap.val().orgId
+        let path = projectId ? (Constants.THREADS_BY_PROJECT_PATH + '/' + projectId) : 
+          (Constants.THREADS_BY_ORG_PATH + '/' + orgId)
+
+        Firebase.database().ref(path).off()
+
+        dispatch({
+          type: ActionTypes.UNWATCH_THREAD_FEED
         })
       }
     })
