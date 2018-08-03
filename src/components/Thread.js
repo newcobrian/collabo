@@ -102,6 +102,7 @@ class Thread extends React.Component {
   componentWillMount() {
     this.props.loadOrg(this.props.authenticated, this.props.params.orgname);
     this.props.loadProjectList(this.props.authenticated, this.props.params.orgname)
+    this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
     this.props.loadOrgList(this.props.authenticated)
     this.props.loadThread(this.props.params.tid);
     this.props.watchThreadComments(this.props.params.tid);
@@ -115,6 +116,7 @@ class Thread extends React.Component {
   componentWillUnmount() {
     this.props.unloadThread(this.props.params.tid);
     this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname)
+    this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname)
     this.props.unloadOrgList(this.props.authenticated)
     this.props.unwatchThreadComments(this.props.params.tid);
     this.props.unloadOrg();

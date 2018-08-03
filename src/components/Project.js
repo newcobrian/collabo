@@ -44,6 +44,7 @@ class Project extends React.Component {
   componentWillUnmount() {
     this.props.unloadProjectThreads(this.props.params.pid);
     this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname)
+    this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname)
     this.props.unloadOrgList(this.props.authenticated)
     this.props.unloadOrg();
     if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);

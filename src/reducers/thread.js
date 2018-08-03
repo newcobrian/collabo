@@ -3,7 +3,9 @@ import * as Constants from '../constants';
 import { filter } from 'lodash'
 import { EditorState } from 'draft-js';
 
-export default (state = { editorState: EditorState.createEmpty() }, action) => {
+const initialState = { threadCounts: {} }
+
+export default (state = initialState, action) => {
   switch (action.type) {
     case ActionTypes.LOAD_THREAD:
       return {
@@ -82,6 +84,16 @@ export default (state = { editorState: EditorState.createEmpty() }, action) => {
         return { ...state, [action.key]: action.value };
       }
       else return {...state}
+    case ActionTypes.THREAD_COUNTS_LOADED:
+      return {
+        ...state,
+        threadCounts: action.threadCounts
+      }
+    case ActionTypes.THREAD_COUNTS_UNLOADED:
+      return {
+        ...state,
+        threadCounts: {}
+      }
     default:
       return state;
   }

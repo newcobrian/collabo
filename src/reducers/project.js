@@ -3,7 +3,7 @@ import * as Constants from '../constants';
 import * as Helpers from '../helpers';
 import { find, isEqual } from 'lodash';
 
-const initialState = { usersData: {}, threads: [] }
+const initialState = { usersData: {}, threads: [], threadCounts: {} }
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -112,6 +112,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         threadCounts: action.threadCounts
+      }
+    case ActionTypes.THREAD_COUNTS_UNLOADED:
+      return {
+        ...state,
+        threadCounts: {}
       }
     default:
       return state;

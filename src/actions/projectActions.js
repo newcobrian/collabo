@@ -314,6 +314,18 @@ export function loadThreadCounts(auth, orgName) {
   }
 }
 
+export function unloadThreadCounts(auth, orgName) {
+  return dispatch => {
+    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName).once('value', orgSnap => {
+      Firebase.database().ref(Constants.THREAD_SEEN_COUNTERS_PATH + '/' + auth + '/' + orgSnap.val().orgId).off()
+
+      dispatch({
+        type: ActionTypes.THREAD_COUNTS_UNLOADED
+      })
+    })
+  }
+}
+
 export function unloadProjectList(auth, orgName) {
   return dispatch => {
      Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + orgName).off();
