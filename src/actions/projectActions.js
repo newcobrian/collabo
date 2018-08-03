@@ -904,16 +904,6 @@ export function unwatchThreadFeed(auth, orgName, projectId) {
   }
 }
 
-export function unwatchOrgFeed(orgName) {
-  return dispatch => {
-    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName).off();
-
-    dispatch({
-      type: ActionTypes.UNWATCH_ORG_FEED
-    })
-  }
-}
-
 export function loadOrgList(auth) {
   return dispatch => {
     Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth).on('child_added', snap => {

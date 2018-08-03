@@ -34,7 +34,7 @@ import ForgotPassword from './components/ForgotPassword';
 import Recommend from './components/Recommend';
 import CreateOrg from './components/CreateOrg';
 import OrgInvite from './components/OrgInvite';
-import Organization from './components/Organization';
+// import Organization from './components/Organization';
 import AcceptInvite from './components/AcceptInvite';
 import SEO from './components/SEO';
 import store from './store';
