@@ -5,6 +5,7 @@ import SaveReviewButton from './SaveReviewButton';
 import ProfilePic from './ProfilePic';
 import ImagePicker from './ImagePicker';
 import * as Constants from '../constants';
+import * as Helpers from '../helpers';
 import CommentContainer from './Review/CommentContainer';
 import DisplayTimestamp from './DisplayTimestamp';
 import MediaQuery from 'react-responsive';
@@ -143,7 +144,8 @@ const ThreadPreview = props => {
                         </Link> 
                         <div className="flx flx-col flx-align-start w-100">
                             <div className="tip__caption font--beta v2-type-body2 ta-left">
-                              <div dangerouslySetInnerHTML={{ __html: thread.body }} />
+                              <div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(thread.body)) || '' }} />
+                            {/*<div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(thread.body) || '' }} />*/}
                             </div>
 
 

@@ -1,7 +1,7 @@
 import Firebase from 'firebase';
 import * as Constants from './constants';
 import 'whatwg-fetch';
-import { convertToRaw, convertFromRaw, EditorState, ContentState } from 'draft-js';
+import { convertToRaw, convertFromRaw, EditorState, ContentState, convertFromHTML } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 
 export function cleanEmailToFirebase(email) {
@@ -713,6 +713,14 @@ export function convertEditorStateToStorable(value) {
 }
 
 export function convertStoredToEditorState(value) {
-	 const contentState = convertFromRaw( JSON.parse( value ) );
-      return EditorState.createWithContent(contentState)
+	if (!value) {
+		return EditorState.createEmpty()
+	}
+	else if (!value.startsWith('{"blocks"', 0)) {
+		return EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(value)))
+	}
+	else {
+		const contentState = convertFromRaw( JSON.parse( value ) );
+	    return EditorState.createWithContent(contentState)
+  	}
 }
