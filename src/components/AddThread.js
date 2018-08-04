@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
 import ListErrors from './ListErrors';
+import { EditorState, convertFromRaw, convertToRaw } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import draftToHtml from 'draftjs-to-html';
 
 const mapStateToProps = state => ({
   ...state.addThread,
@@ -18,7 +22,14 @@ class AddThread extends React.Component {
 
 	    this.changeTitle = updateFieldEvent('title');
 	    
-	    this.changeBody = updateFieldEvent('body');
+	    // this.changeBody = updateFieldEvent('body');
+	    this.changeBody = value => {
+	    	this.props.onUpdateCreateField('body', value, Constants.ADD_THREAD_PAGE)
+	    }
+
+	    this.changeConvertedBody = value => {
+
+	    }
 
 		this.submitForm = ev => {
 	      ev.preventDefault();
@@ -26,9 +37,8 @@ class AddThread extends React.Component {
 	        this.props.createSubmitError('Please add a thread title', Constants.ADD_THREAD_PAGE);
 	      }
 	      else {
-		   	let thread = Object.assign({}, {title: this.props.title} )
-		   	if (this.props.body) thread.body = this.props.body
-
+	      	let storableBody = JSON.stringify( convertToRaw(this.props.body.getCurrentContent()) )
+		   	let thread = Object.assign({}, {title: this.props.title}, { body: storableBody } )
 		    this.props.setInProgress();
 		    this.props.onAddThread(this.props.authenticated, this.props.params.pid, thread, this.props.params.orgname);
 		  }
@@ -48,6 +58,9 @@ class AddThread extends React.Component {
 	}
 
 	render() {
+		let stringified = JSON.stringify(this.props.body)
+		let parsified = JSON.parse(stringified)
+		let htmlstuff = draftToHtml(parsified)
 		if(this.props.invalidOrgUser) {
 	      return (
 	        <div>
@@ -58,16 +71,6 @@ class AddThread extends React.Component {
 		return (
 			<div>
 				<div className="flx flx-col flx-center-all page-common editor-page create-page">
-	{/**}			
-					<div>
-				        <Script
-				          url={url}
-				          onCreate={this.handleScriptCreate.bind(this)}
-				          onError={this.handleScriptError.bind(this)}
-				          onLoad={this.handleScriptLoad.bind(this)}
-				        /> 
-				    </div> 
-				    <div ref="GMap"></div>**/}
 					
 
 				    {/* CONTAINER - START */}
@@ -94,14 +97,21 @@ class AddThread extends React.Component {
 					                    </fieldset>
 										<fieldset className="field-wrapper">
 											<label>Body (Optional)</label>
-					                      <textarea
+					                      {/*<textarea
 					                        className="input--underline v2-type-body3"
 					                        type="text"
 					                        rows="20"
 					                        placeholder="Start writing here..."
 					                        required
 					                        value={this.props.body}
-					                        onChange={this.changeBody} />
+					                        onChange={this.changeBody} />*/}
+					                        <Editor
+										        editorState={this.props.body}
+										        wrapperClassName="demo-wrapper"
+										        editorClassName="demo-editor"
+										        onEditorStateChange={this.changeBody}
+										    />
+
 					                    </fieldset>
 
 					                    <ListErrors errors={this.props.errors}></ListErrors>
@@ -117,13 +127,23 @@ class AddThread extends React.Component {
 											</div>
 					                  </div>
 							        </form>
+							        
+
+								     <div>
+							        {this.props.popo && <Editor
+								        editorState={this.props.popo}
+								        wrapperClassName="demo-wrapper"
+								        editorClassName="demo-editor"
+								        onEditorStateChange={this.changeConvertedBody}
+								    />}</div>
+								    <div>
+								        <textarea
+								            disabled
+								            value={htmlstuff}
+								          />
+								     </div>
 							    </div>
 						    </div>
-
-						    <div className="v2-type-body2 mrgn-top-lg ta-center DN">
-						    	<div>“Travel and change of place impart new vigor to the mind.”</div>
-						    	<div>– Seneca</div>
-						    </div>	
 
 					  	</div>
 					  	<div className="hero-bg">

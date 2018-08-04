@@ -1,20 +1,28 @@
 import * as ActionTypes from '../actions/types';
 import * as Constants from '../constants';
 import { filter } from 'lodash'
-import { EditorState } from 'draft-js';
+import { EditorState, ContentState } from 'draft-js';
+import { convertToRaw, convertFromRaw } from 'draft-js';
 
 const initialState = { threadCounts: {} }
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case ActionTypes.LOAD_THREAD:
+    case ActionTypes.LOAD_THREAD: {
+      // console.log(action.thread.body)
+      const contentState = convertFromRaw( JSON.parse( action.thread.body ) );
+      // console.log(contentState)
+      const formattedEditorBody = EditorState.createWithContent(contentState)
+      // console.log(formattedEditorBody)
+
       return {
         ...state,
         thread: action.thread,
         createdBy: action.createdBy,
         project: action.project,
-        bodyText: action.thread.body
+        bodyText: formattedEditorBody
       }
+    }
     case ActionTypes.THREAD_NOT_FOUND_ERROR:
       return {
         ...state,
@@ -77,7 +85,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isEditMode: action.editMode,
-        bodyText: state.thread && state.thread.body ? state.thread.body : ''
+        // bodyText: state.thread && state.thread.body ? state.thread.body : ''
       }
     case ActionTypes.UPDATE_FIELD_CREATE:
       if(action.source === Constants.THREAD_PAGE) {

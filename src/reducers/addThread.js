@@ -1,12 +1,22 @@
 import * as ActionTypes from '../actions/types';
 import * as Constants from '../constants';
+import { EditorState, convertFromRaw } from 'draft-js';
 
-export default (state = {}, action) => {
+const initialContentState = {"entityMap":{},"blocks":[{"key":"637gr","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}]}
+const initialEditorState = EditorState.createEmpty()
+
+export default (state = { body: initialEditorState }, action) => {
+// export default (state = { body: initialContentState }, action) => {
   switch (action.type) {
   	case ActionTypes.CREATE_PAGE_LOADED:
       return {
         ...state,
         userImage: action.userImage
+      }
+    case 'popo':
+      return {
+        ...state,
+        popo: action.popo
       }
   	case ActionTypes.CREATE_PAGE_UNLOADED:
   		return {};

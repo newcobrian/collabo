@@ -14,7 +14,9 @@ import CommentContainer from './Review/CommentContainer';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { Editor } from 'react-draft-wysiwyg';
+import { convertToRaw, convertFromRaw } from 'draft-js';
 import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import draftToHtml from 'draftjs-to-html';
 
 var linkify = require('linkify-it')();
 
@@ -27,41 +29,49 @@ const mapStateToProps = state => ({
 })
 
 const BodySection = props => {
-  if (props.isEditMode && props.canModify) {
+  if (!props.bodyText) return null;
+  else if (props.isEditMode && props.canModify) {
+    // return (
+    //   <div>
+    //     <ReactQuill 
+    //         value={props.body || ''}
+    //         onChange={props.updateText} />
+    //   <div><Link onClick={props.onEditClick(false)}>Cancel</Link></div>
+    //   <div><Link onClick={props.saveBody(props.thread)}>Save</Link></div>
+    //   </div>
+    //   )
     return (
       <div>
-        <ReactQuill 
-            value={props.body || ''}
-            onChange={props.updateText} />
-      <div><Link onClick={props.onEditClick(false)}>Cancel</Link></div>
-      <div><Link onClick={props.saveBody(props.thread)}>Save</Link></div>
+        <Editor
+            editorState={props.bodyText}
+            wrapperClassName="demo-wrapper"
+            editorClassName="demo-editor"
+            onEditorStateChange={props.updateText}
+        />
+        <div><Link onClick={props.onEditClick(false)}>Cancel</Link></div>
+        <div><Link onClick={props.saveBody(props.thread)}>Save</Link></div>
       </div>
-      )
+    )
   }
   else if (props.canModify) {
     return (
       <div>
         <div>
-          <div dangerouslySetInnerHTML={{ __html: props.body || '' }}>
-          
+          <div dangerouslySetInnerHTML={{ __html: draftToHtml(convertToRaw(props.bodyText.getCurrentContent())) || '' }}>
           </div>
+          {/*<textarea
+            disabled
+            value={draftToHtml(convertToRaw(props.bodyText.getCurrentContent()))}
+          />>*/}
           <Link onClick={props.onEditClick(true)}>Edit Post</Link>
         </div>
-        {/*<RenderDebounceInput
-          type="textarea"
-          className="w-100 show-border"
-          cols="10"
-          wrap="hard"
-          value={props.body}
-          placeholder="Add notes here"
-          debounceFunction={props.changeBody(props.thread)} />*/}
       </div>
     )
   }
   else {
     return (
-      <div dangerouslySetInnerHTML={{ __html: props.body || '' }}>
-      </div>
+      <div dangerouslySetInnerHTML={{ __html: draftToHtml(convertToRaw(props.bodyText.getCurrentContent())) || '' }}>
+          </div>
     )
   }
 }
@@ -81,7 +91,8 @@ class Thread extends React.Component {
 
     this.saveBody = thread => ev => {
       ev.preventDefault()
-      updateThreadFieldEvent('body', this.props.bodyText, thread)
+      let storableBody = JSON.stringify( convertToRaw(this.props.bodyText.getCurrentContent()) )
+      updateThreadFieldEvent('body', storableBody, thread)
       // this.props.updateThreadField(this.props.authenticated, this.props.params.tid, thread, field, value)
     }
 
@@ -223,17 +234,15 @@ class Thread extends React.Component {
                   </div>
                 </div>
                 <div className="v2-type-body2 opa-60 w-100 mrgn-top-sm">
-                  {/*showBody(canModify, thread.body)*/}
-                  <BodySection 
-                    body={this.props.bodyText} 
-                    canModify={canModify} 
-                    thread={thread} 
-                    saveBody={this.saveBody}
+                  <BodySection
+                    bodyText={this.props.bodyText}
                     updateText={this.updateText}
-                    editorState={this.props.editorState}
-                    onEditorStateChange={this.onEditorStateChange}
+                    canModify={canModify}
+                    thread={thread}
+                    saveBody={this.saveBody}
                     onEditClick={this.onEditClick}
-                    isEditMode={this.props.isEditMode} />
+                    isEditMode={this.props.isEditMode}
+                      />
                 </div>
               </div>
 
