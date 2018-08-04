@@ -128,21 +128,6 @@ class AddThread extends React.Component {
 											</div>
 					                  </div>
 							        </form>
-							        
-
-								     <div>
-							        {this.props.popo && <Editor
-								        editorState={this.props.popo}
-								        wrapperClassName="demo-wrapper"
-								        editorClassName="demo-editor"
-								        onEditorStateChange={this.changeConvertedBody}
-								    />}</div>
-								    <div>
-								        <textarea
-								            disabled
-								            value={htmlstuff}
-								          />
-								     </div>
 							    </div>
 						    </div>
 
