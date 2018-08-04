@@ -1,8 +1,8 @@
 import * as ActionTypes from '../actions/types';
 import * as Constants from '../constants';
+import * as Helpers from '../helpers';
 import { filter } from 'lodash'
-import { EditorState, ContentState } from 'draft-js';
-import { convertToRaw, convertFromRaw } from 'draft-js';
+import { EditorState, ContentState, convertToRaw, convertFromRaw } from 'draft-js';
 
 const initialState = { threadCounts: {} }
 
@@ -10,9 +10,9 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case ActionTypes.LOAD_THREAD: {
       // console.log(action.thread.body)
-      const contentState = convertFromRaw( JSON.parse( action.thread.body ) );
+      // const contentState = convertFromRaw( JSON.parse( action.thread.body ) );
       // console.log(contentState)
-      const formattedEditorBody = EditorState.createWithContent(contentState)
+      // const formattedEditorBody = EditorState.createWithContent(contentState)
       // console.log(formattedEditorBody)
 
       return {
@@ -20,7 +20,7 @@ export default (state = initialState, action) => {
         thread: action.thread,
         createdBy: action.createdBy,
         project: action.project,
-        bodyText: formattedEditorBody
+        bodyText: Helpers.convertStoredToEditorState(action.thread.body)
       }
     }
     case ActionTypes.THREAD_NOT_FOUND_ERROR:

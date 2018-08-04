@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
+import * as Helpers from '../helpers';
 import ListErrors from './ListErrors';
 import { EditorState, convertFromRaw, convertToRaw } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
@@ -37,7 +38,7 @@ class AddThread extends React.Component {
 	        this.props.createSubmitError('Please add a thread title', Constants.ADD_THREAD_PAGE);
 	      }
 	      else {
-	      	let storableBody = JSON.stringify( convertToRaw(this.props.body.getCurrentContent()) )
+	      	let storableBody = Helpers.convertEditorStateToStorable(this.props.body)
 		   	let thread = Object.assign({}, {title: this.props.title}, { body: storableBody } )
 		    this.props.setInProgress();
 		    this.props.onAddThread(this.props.authenticated, this.props.params.pid, thread, this.props.params.orgname);

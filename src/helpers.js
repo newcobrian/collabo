@@ -1,6 +1,8 @@
 import Firebase from 'firebase';
 import * as Constants from './constants';
 import 'whatwg-fetch';
+import { convertToRaw, convertFromRaw, EditorState, ContentState } from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
 
 export function cleanEmailToFirebase(email) {
 	return email.replace(/\./g, ',');
@@ -700,4 +702,17 @@ export function sendItineraryUpdateEmails(auth, itinerary, lastUpdate) {
 	// 		})
 	// 	})
 	// }
+}
+
+export function convertEditorStateToHTML(value) {
+	return draftToHtml(convertToRaw(value.getCurrentContent()))
+}
+
+export function convertEditorStateToStorable(value) {
+	return JSON.stringify( convertToRaw(value.getCurrentContent()) )
+}
+
+export function convertStoredToEditorState(value) {
+	 const contentState = convertFromRaw( JSON.parse( value ) );
+      return EditorState.createWithContent(contentState)
 }

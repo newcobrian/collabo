@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
+import * as Helpers from '../helpers';
 import ItineraryList from './ItineraryList'; 
 import { Link, browserHistory } from 'react-router';
 import FirebaseSearchInput from './FirebaseSearchInput';
@@ -57,7 +58,7 @@ const BodySection = props => {
     return (
       <div>
         <div>
-          <div dangerouslySetInnerHTML={{ __html: draftToHtml(convertToRaw(props.bodyText.getCurrentContent())) || '' }}>
+          <div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(props.bodyText) || '' }}>
           </div>
           {/*<textarea
             disabled
@@ -70,7 +71,7 @@ const BodySection = props => {
   }
   else {
     return (
-      <div dangerouslySetInnerHTML={{ __html: draftToHtml(convertToRaw(props.bodyText.getCurrentContent())) || '' }}>
+      <div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(props.bodyText) || '' }}>
           </div>
     )
   }
@@ -91,7 +92,7 @@ class Thread extends React.Component {
 
     this.saveBody = thread => ev => {
       ev.preventDefault()
-      let storableBody = JSON.stringify( convertToRaw(this.props.bodyText.getCurrentContent()) )
+      let storableBody = Helpers.convertEditorStateToStorable(this.props.bodyText)
       updateThreadFieldEvent('body', storableBody, thread)
       // this.props.updateThreadField(this.props.authenticated, this.props.params.tid, thread, field, value)
     }
