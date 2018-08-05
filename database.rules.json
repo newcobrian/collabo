@@ -1,0 +1,19 @@
+{
+  "rules": {
+    // Let figolia daemon keep track of what is in sync
+    "algolia": {                              
+        ".read": "auth.uid == 'algolia'",
+        ".write": "auth.uid == 'algolia'",
+    },
+    // Optional, to avoid Firebase warnings when running the tests
+    "tests": {
+      "testData": {
+        ".indexOn": "updatedAt"
+      }
+    },
+
+    ".read": true,
+    ".write": "auth != null"
+  }
+}
+
