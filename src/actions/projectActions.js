@@ -25,7 +25,7 @@ export function onAddProject(auth, project, orgName) {
           })
         }
         else {
-          Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName).once('value', orgSnap => {
+          Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', orgSnap => {
             let serverTimestamp = Firebase.database.ServerValue.TIMESTAMP;
             let projectObject = {
               lastModified: serverTimestamp,
@@ -287,7 +287,7 @@ export function loadProjectList(auth, orgName) {
 
 export function loadThreadCounts(auth, orgName) {
   return dispatch => {
-    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName).once('value', orgSnap => {
+    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', orgSnap => {
       Firebase.database().ref(Constants.THREAD_SEEN_COUNTERS_PATH + '/' + auth + '/' + orgSnap.val().orgId).on('value', countSnap => {
         let countObject = {}
         countSnap.forEach(function(project) {
@@ -305,7 +305,7 @@ export function loadThreadCounts(auth, orgName) {
 
 export function unloadThreadCounts(auth, orgName) {
   return dispatch => {
-    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName).once('value', orgSnap => {
+    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', orgSnap => {
       Firebase.database().ref(Constants.THREAD_SEEN_COUNTERS_PATH + '/' + auth + '/' + orgSnap.val().orgId).off()
 
       dispatch({
@@ -688,7 +688,7 @@ export function onCreateOrg(auth, org) {
 
 export function loadOrgInvitePage(auth, orgName) {
   return dispatch => {
-    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName).on('value', orgSnap => {
+    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).on('value', orgSnap => {
       dispatch({
         type: ActionTypes.ORG_INVITE_PAGE_LOADED,
         org: orgSnap.val()
@@ -699,7 +699,7 @@ export function loadOrgInvitePage(auth, orgName) {
 
 export function unloadOrgInvitePage(orgName) {
   return dispatch => {
-    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName).off();
+    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).off();
   }
 }
 
@@ -842,7 +842,7 @@ export function acceptInvite(auth, email, inviteId) {
 
 export function watchThreadFeed(auth, orgName, projectId, startValue) {
   return dispatch=> {
-    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName).once('value', orgSnap => {
+    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', orgSnap => {
       if (orgSnap.exists()) {
         let orgId = orgSnap.val().orgId
         let path = projectId ? (Constants.THREADS_BY_PROJECT_PATH + '/' + projectId) : 
@@ -888,7 +888,7 @@ export function watchThreadFeed(auth, orgName, projectId, startValue) {
 
 export function unwatchThreadFeed(auth, orgName, projectId) {
   return dispatch => {
-    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName).once('value', orgSnap => {
+    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', orgSnap => {
       if (orgSnap.exists()) {
         let orgId = orgSnap.val().orgId
         let path = projectId ? (Constants.THREADS_BY_PROJECT_PATH + '/' + projectId) : 

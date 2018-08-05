@@ -80,10 +80,22 @@ class Project extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.params.pid !== this.props.params.pid) {
+    if (nextProps.params.pid !== this.props.params.pid && nextProps.params.orgname === this.props.params.orgname) {
       this.props.unwatchThreadFeed(this.props.authenticated, this.props.params.orgname, this.props.params.pid)
       this.props.loadProject(nextProps.params.pid);
       this.props.watchThreadFeed(this.props.authenticated, this.props.params.orgname, nextProps.params.pid, 0)
+      this.props.markProjectRead(this.props.authenticated, nextProps.params.pid)
+    }
+    else if (nextProps.params.orgname !== this.props.params.orgname) {
+      this.props.unwatchThreadFeed(this.props.authenticated, this.props.params.orgname, this.props.params.pid)
+      this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname)
+      this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname)
+      this.props.unloadOrg();
+      this.props.loadOrg(this.props.authenticated, nextProps.params.orgname);
+      this.props.loadProjectList(this.props.authenticated, nextProps.params.orgname)
+      this.props.loadThreadCounts(this.props.authenticated, nextProps.params.orgname)
+      this.props.loadProject(nextProps.params.pid);
+      this.props.watchThreadFeed(this.props.authenticated,nextProps.params.orgname, nextProps.params.pid, 0)
       this.props.markProjectRead(this.props.authenticated, nextProps.params.pid)
     }
   }
