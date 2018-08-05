@@ -150,6 +150,11 @@ export default (state = defaultState, action) => {
         ...state,
         redirectTo: '/' + action.orgName
       }
+    case ActionTypes.THREAD_DELETED:
+      return { 
+        ...state,
+        redirectTo: action.redirect
+      };
     default: 
       return state;
   }

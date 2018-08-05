@@ -64,7 +64,12 @@ const BodySection = props => {
             disabled
             value={draftToHtml(convertToRaw(props.bodyText.getCurrentContent()))}
           />>*/}
-          <Link onClick={props.onEditClick(true)}>Edit Post</Link>
+          <div>
+            <Link onClick={props.onEditClick(true)}>Edit Post</Link>
+          </div>
+          <div>
+            <Link onClick={props.onDeleteClick}>Delete Post</Link>
+          </div>
         </div>
       </div>
     )
@@ -108,6 +113,11 @@ class Thread extends React.Component {
     this.onEditClick = mode => ev => {
       ev.preventDefault()
       this.props.setEditMode(mode)
+    }
+
+    this.onDeleteClick = ev => {
+      ev.preventDefault()
+      this.props.showDeleteModal(this.props.params.tid, this.props.thread, this.props.params.orgname, Constants.THREAD_PAGE)
     }
   }
 
@@ -242,6 +252,7 @@ class Thread extends React.Component {
                     thread={thread}
                     saveBody={this.saveBody}
                     onEditClick={this.onEditClick}
+                    onDeleteClick={this.onDeleteClick}
                     isEditMode={this.props.isEditMode}
                       />
                 </div>

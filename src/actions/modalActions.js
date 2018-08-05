@@ -4,12 +4,14 @@ import * as Helpers from '../helpers'
 import * as ActionTypes from './types'
 import mixpanel from 'mixpanel-browser'
 
-export function showDeleteModal(itinerary, source) {
+export function showDeleteModal(threadId, thread, orgName, source) {
   return dispatch => {
     dispatch({
-      type: ActionTypes.SHOW_DELETE_ITINERARY_MODAL,
-      modalType: Constants.DELETE_ITINERARY_MODAL,
-      itinerary: itinerary,
+      type: ActionTypes.SHOW_DELETE_MODAL,
+      modalType: Constants.DELETE_MODAL,
+      threadId: threadId,
+      orgName: orgName,
+      thread: thread,
       source: source
     })
   }

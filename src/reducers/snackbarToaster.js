@@ -19,6 +19,7 @@ export default function(state = initialState, action) {
     case SETTINGS_SAVED:
     case FORGOT_PASSWORD_SENT:
     case ActionTypes.THREAD_UPDATED:
+    case ActionTypes.THREAD_DELETED:
       {
         return {...state,
           message: action.message,

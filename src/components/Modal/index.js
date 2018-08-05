@@ -15,6 +15,7 @@ import FilterModal from './FilterModal'
 import ChangeEmailModal from './ChangeEmailModal'
 import CreateRecsModal from './CreateRecsModal'
 import SendRecsModal from './SendRecsModal'
+import DeleteModal from './DeleteModal'
 
 const MODAL_COMPONENTS = {
   FORWARD_MODAL: ForwardModal,
@@ -28,7 +29,8 @@ const MODAL_COMPONENTS = {
   FILTER_MODAL: FilterModal,
   CHANGE_EMAIL_MODAL: ChangeEmailModal,
   CREATE_RECS_MODAL: CreateRecsModal,
-  SEND_RECS_MODAL: SendRecsModal
+  SEND_RECS_MODAL: SendRecsModal,
+  DELETE_MODAL: DeleteModal
 }
 
 const mapStateToProps = state => ({

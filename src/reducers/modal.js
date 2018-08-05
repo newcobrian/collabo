@@ -27,6 +27,15 @@ export default (state = initialState, action) => {
         itinerary: action.itinerary,
         source: action.source
       }
+    case ActionTypes.SHOW_DELETE_MODAL:
+      return {
+        ...state,
+        modalType: action.modalType,
+        threadId: action.threadId,
+        orgName: action.orgName,
+        thread: action.thread,
+        source: action.source
+      }
     case SHOW_NEW_ITINERARY_MODAL:
       return {
         ...state,
@@ -130,6 +139,7 @@ export default (state = initialState, action) => {
     case ADDED_TO_ITINERARY:
     case FRIEND_SELECTOR_SUBMIT:
     case ITINERARY_DELETED:
+    case ActionTypes.THREAD_DELETED:
       return initialState;
     case REVIEW_SUBMITTED:
       return {

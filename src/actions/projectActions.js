@@ -140,6 +140,52 @@ export function onAddThread(auth, projectId, thread, orgName) {
   }
 }
 
+export function onDeleteThread(auth, threadId, thread, orgName) {
+  return dispatch => {
+    if (!auth) {
+      dispatch({
+        type: ActionTypes.ASK_FOR_AUTH
+      })
+    }
+    else if (thread.userId !== auth) {
+      dispatch({
+        type: ActionTypes.NO_USER_PERMISSION
+      })
+    }
+    else {
+      Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + thread.orgId).once('value', orgSnap => {
+        let updates = {}
+        updates[`/${Constants.THREADS_PATH}/${threadId}/`] = null
+        updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${thread.projectId}/${threadId}/`] = null
+        updates[`/${Constants.THREADS_BY_USER_PATH}/${thread.userId}/${threadId}/`] = null
+        updates[`/${Constants.THREADS_BY_ORG_PATH}/${thread.orgId}/${threadId}/`] = null
+      
+        if (orgSnap.exists()) {
+          orgSnap.forEach(function(user) {
+            updates[Constants.THREAD_SEEN_COUNTERS_PATH + '/' + user.key + '/' + thread.orgId + '/' + thread.projectId + '/' + threadId] = null  
+          })
+        }
+
+        Firebase.database().ref().update(updates);
+
+        dispatch({
+          type: ActionTypes.THREAD_DELETED,
+          redirect: '/' + orgName + '/' + thread.projectId,
+          message: 'Thread deleted'
+          // meta: {
+          //   mixpanel: {
+          //     event: 'Itinerary created',
+          //     source: 'create page',
+          //     itineraryId: itineraryId,
+          //     geo: itinerary.geo.placeId
+          //   }
+          // }
+        })
+      })
+    }
+  }
+}
+
 export function loadProject(projectId) {
   return dispatch => {
     Firebase.database().ref(Constants.PROJECTS_PATH + '/' + projectId).once('value', projectSnapshot => {
