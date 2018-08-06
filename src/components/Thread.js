@@ -12,6 +12,7 @@ import ProfilePic from './ProfilePic';
 import DisplayTimestamp from './DisplayTimestamp';
 import RenderDebounceInput from './RenderDebounceInput';
 import CommentContainer from './Review/CommentContainer';
+import ProjectList from './ProjectList';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { Editor } from 'react-draft-wysiwyg';
@@ -143,11 +144,11 @@ class Thread extends React.Component {
   }
 
   componentWillMount() {
-    this.props.loadOrg(this.props.authenticated, this.props.params.orgname);
-    this.props.loadOrgUsers(this.props.authenticated, this.props.params.orgname, Constants.THREAD_PAGE)
-    this.props.loadProjectList(this.props.authenticated, this.props.params.orgname)
+    this.props.loadOrg(this.props.authenticated, this.props.params.orgname, Constants.THREAD_PAGE);
+    this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, Constants.THREAD_PAGE)
     this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
-    this.props.loadOrgList(this.props.authenticated)
+    this.props.loadOrgList(this.props.authenticated, Constants.THREAD_PAGE)
+    this.props.loadOrgUsers(this.props.authenticated, this.props.params.orgname, Constants.THREAD_PAGE)
     this.props.loadThread(this.props.params.tid);
     this.props.watchThreadComments(this.props.params.tid);
     // this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project'});
@@ -158,21 +159,35 @@ class Thread extends React.Component {
   }
 
   componentWillUnmount() {
+    this.props.unloadOrgList(this.props.authenticated, Constants.THREAD_PAGE)
+    this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname, Constants.THREAD_PAGE)
+    this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.THREAD_PAGE)
+    this.props.unloadOrg(Constants.THREAD_PAGE);
     this.props.unloadThread(this.props.params.tid);
-    this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname)
-    this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname)
-    this.props.unloadOrgList(this.props.authenticated)
     this.props.unwatchThreadComments(this.props.params.tid);
-    this.props.unloadOrg();
     if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.params.tid !== this.props.params.tid) {
+    if (nextProps.params.tid !== this.props.params.tid && this.props.params.orgname === nextProps.params.orgname) {
       this.props.unloadThread(this.props.params.tid);
       this.props.unwatchThreadComments(this.props.params.tid);
       this.props.loadThread(nextProps.params.tid);
       this.props.watchThreadComments(nextProps.params.tid);
+      this.props.markThreadRead(this.props.authenticated, nextProps.params.tid)
+    }
+    else if (nextProps.params.orgname !== this.props.params.orgname) {
+      this.props.unloadOrgList(this.props.authenticated, Constants.THREAD_PAGE)
+      this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname, Constants.THREAD_PAGE)
+      this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.THREAD_PAGE)
+      this.props.unloadThread(this.props.params.tid);
+      this.props.unwatchThreadComments(this.props.params.tid);
+
+      this.props.loadOrg(this.props.authenticated, nextProps.params.orgname, Constants.THREAD_PAGE);
+      this.props.loadProjectList(this.props.authenticated, nextProps.params.orgname, Constants.THREAD_PAGE)
+      this.props.loadThreadCounts(this.props.authenticated, nextProps.params.orgname)
+      this.props.loadThread(nextProps.params.tid);
+      this.props.watchThreadComments(nextProps.props.params.tid);
       this.props.markThreadRead(this.props.authenticated, nextProps.params.tid)
     }
   }
@@ -230,9 +245,11 @@ class Thread extends React.Component {
 
           <div className="page-common page-places flx flx-row flx-m-col flx-align-start">
             
-            
+            <ProjectList 
+              threadCounts={this.props.threadCounts} />
 
 
+              <div className="thread-area flx flx-col w-100">
 
               <div className={"page-title-wrapper left-text flx flx-col flx-align-start country-color-"}>
                  <div>
@@ -310,7 +327,7 @@ class Thread extends React.Component {
 
             </div>
 
-            
+            </div>
 
         </div>
       );
