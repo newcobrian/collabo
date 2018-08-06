@@ -524,18 +524,13 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
     }
     if (userInfo.image) comment.image = userInfo.image;
 
-    // let inboxMessageType = Constants.THREAD_TYPE;
-    // let commentOnCommentType = ( type === Constants.ITINERARY_TYPE ? Constants.COMMENT_ON_COMMENT_ITINERARY_MESSAGE : Constants.COMMENT_ON_COMMENT_REVIEW_MESSAGE );
-    // let objectId = ( type === Constants.ITINERARY_TYPE ? commentObject.id : commentObject.key );
-
     if (threadId) {
-      let commentId = '';
-
-      commentId = Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).push(comment).key;
+      let commentId = Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).push(comment).key;
 
       Helpers.incrementThreadCount(Constants.COMMENTS_COUNT, threadId, thread, thread.userId);
       
       let updates = getThreadFieldUpdates(threadId, thread, 'lastModified', Firebase.database.ServerValue.TIMESTAMP)
+      Object.assign(updates, getThreadFieldUpdates(threadId, thread, 'lastComment', Object.assign({}, comment, { commentId: commentId })))
       Firebase.database().ref().update(updates);
 
       Helpers.incrementThreadSeenCounts(authenticated, thread.orgId, thread.projectId, threadId)
@@ -603,14 +598,35 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
 export function onDeleteThreadComment(thread, commentId, threadId) {
   return dispatch => {
     // delete the comment
-    Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId + '/' + commentId).remove();
+    Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId + '/' + commentId).remove().then(response => {
 
-    Helpers.decrementThreadCount(Constants.COMMENTS_COUNT, threadId, thread, thread.userId);
+      Helpers.decrementThreadCount(Constants.COMMENTS_COUNT, threadId, thread, thread.userId);
+
+      Firebase.database().ref(Constants.THREADS_PATH + '/' + threadId).once('value', threadSnap => {
+        if (threadSnap.exists() && threadSnap.val().lastComment && threadSnap.val().lastComment.commentId === commentId) {
+          if (threadSnap.val().commentsCount >= 2) {
+            Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).orderByKey().limitToLast(1).once('value', limitedSnap => {
+              let saveObject = {};
+              if (limitedSnap.exists()) {
+                saveObject = Object.assign({}, limitedSnap.val(), { commentId: limitedSnap.key });
+                let updates = getThreadFieldUpdates(threadId, thread, 'lastComment', saveObject)
+                Firebase.database().ref().update(updates);
+              }
+            })
+          }
+          else {
+            // only 1 comment so just remove lastComment
+            let updates = getThreadFieldUpdates(threadId, thread, 'lastComment', null)
+            Firebase.database().ref().update(updates);
+          }
+        }
+      })
 
     // mixpanel.people.increment("total comments", -1);
 
-    dispatch({
-      type: ActionTypes.DELETE_COMMENT
+      dispatch({
+        type: ActionTypes.DELETE_COMMENT
+      })
     })
   }
 }
