@@ -24,8 +24,8 @@ class OrgInvite extends React.Component {
 	        this.props.createSubmitError('Please add some email addresses to invite', Constants.ORG_INVITE_PAGE);
 	      }
 	      else {
-		   	let invites = this.props.invites ? this.props.invites : ''
-            
+		   	let invites = this.props.invites ? this.props.invites.toLowerCase() : ''
+
 		    this.props.setInProgress();
 		    this.props.inviteUsersToOrg(this.props.authenticated, this.props.org.orgId, this.props.params.orgname.toLowerCase(), invites);
 		  }
