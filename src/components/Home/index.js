@@ -84,9 +84,14 @@ class Home extends React.Component {
                 Sign up
               </div>
             </Link>
+          </div>
 
-        
-        <div className="hero-ocean flx flx-col flx-center-all">
+        <div className="error-module flx flx-col flx-center-all ta-center v2-type-body3 color--black">
+          <div className="xiao-img-wrapper mrgn-bottom-sm">
+            <img className="center-img" src="/img/xiaog.png"/>
+          </div>
+          <div className="mrgn-bottom-md">Some cool marketing copy goes here</div>
+            
           <Link to="/register" className="">
             <div className="vb vb--light vb--intro--register fill--primary color--white flx flx-row flx-center-all ta-center bx-shadow">
               <div className="flx-grow1">JOIN NOW</div>
@@ -95,13 +100,10 @@ class Home extends React.Component {
           </Link>
           <div className="flx flx-row flx-align-center v2-type-body1 mrgn-top-md">
             <Link to="/login" className="color--primary">
-                Login
+              login
             </Link>
           </div>
-        </div>
-
-         
-        </div>
+        </div>         
       </div>
       );
     }
@@ -111,58 +113,64 @@ class Home extends React.Component {
 
 
   render() {
-    return (
-      <div>
-        {this.LoggedOutIntro(this.props.authenticated)}
-
-        
-        <div className={'home-page page-common fill--white flx flx-col flx-align-center '}>
-          
-          
-          <h1>Your Teams</h1>
-
-          <OrgList
-            orgList={this.props.orgList} />
-            <Link to='/neworg' className="v2-type-body2 opa-60 w-100 color--black ta-center mobile-hide">
-              Create a new 
-            </Link>
-          {/*<div className="guide-feed-wrapper w-100 flx flx-row flx-just-center flx-self-end flx-align-start flx-wrap">
-            
-            
-
-            <ProjectList />
-
-            
-
-            
-          </div>*/}
-
-          
-
-          
-
+    if (!this.props.authenticated) {
+      return (
+        <div>
+          {this.LoggedOutIntro(this.props.authenticated)}
         </div>
-        
+      )
+    }
+    else {
+      return (
+        <div>
+          <div className={'home-page page-common fill--white flx flx-col flx-align-center '}>
+            
+            
+            <h1>Your Teams</h1>
 
-        <div className="footer fill--black color--white flx flx-col flx-center-all flx-item-bottom">
-          <div className="homepage-logo mrgn-bottom-lg">  
-            <img className="center-img w-100" src="/img/logos/logo_2018_400_white.png"/>
+            <OrgList
+              orgList={this.props.orgList} />
+              <Link to='/neworg' className="v2-type-body2 opa-60 w-100 color--black ta-center mobile-hide">
+                Create a new 
+              </Link>
+            {/*<div className="guide-feed-wrapper w-100 flx flx-row flx-just-center flx-self-end flx-align-start flx-wrap">
+              
+              
+
+              <ProjectList />
+
+              
+
+              
+            </div>*/}
+
+            
+
+            
+
           </div>
-          <div className="v2-type-body0 color--white opa-70 mrgn-bottom-md">
-            &copy;2017 Views, LLC All Rights Reserved
-          </div>
-          <div className="flx flx-row flx-center-all mrgn-bottom-lg">
-            <Link to="/terms.html" target="blank" className="v2-type-body0 color--white opa-70">
-              Terms of Service
-            </Link>
-            <div className="middle-dot color--white flx-hold">&middot;</div>
-            <Link to="/privacy.html" target="blank" className="v2-type-body0 color--white opa-70">
-              Privacy Policy
-            </Link>
+          
+
+          <div className="footer fill--black color--white flx flx-col flx-center-all flx-item-bottom">
+            <div className="homepage-logo mrgn-bottom-lg">  
+              <img className="center-img w-100" src="/img/logos/logo_2018_400_white.png"/>
+            </div>
+            <div className="v2-type-body0 color--white opa-70 mrgn-bottom-md">
+              &copy;2017 Views, LLC All Rights Reserved
+            </div>
+            <div className="flx flx-row flx-center-all mrgn-bottom-lg">
+              <Link to="/terms.html" target="blank" className="v2-type-body0 color--white opa-70">
+                Terms of Service
+              </Link>
+              <div className="middle-dot color--white flx-hold">&middot;</div>
+              <Link to="/privacy.html" target="blank" className="v2-type-body0 color--white opa-70">
+                Privacy Policy
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 }
 
