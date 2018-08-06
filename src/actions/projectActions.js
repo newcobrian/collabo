@@ -681,7 +681,7 @@ export function inviteUsersToOrg(auth, orgId, orgName, invites) {
                     Object.assign({}, {name: orgName}, {orgId: orgId}), null, null, inviteId);
 
                 // add to invited list for the org
-                updates[Constants.INVITES_BY_ORG_PATH + '/' + orgId + '/users/' + emailHashSnap.val()[cleanedEmail].userId + '/' + inviteId] = true;
+                // updates[Constants.INVITES_BY_ORG_PATH + '/' + orgId + '/users/' + emailHashSnap.val()[cleanedEmail].userId + '/' + inviteId] = true;
               }
               else {
                 let inviteId = Firebase.database().ref(Constants.INVITES_PATH).push(inviteObject).key
@@ -690,7 +690,7 @@ export function inviteUsersToOrg(auth, orgId, orgName, invites) {
                 updates[Constants.NONAPP_INVITES_BY_EMAIL_PATH + '/' + cleanedEmail + '/' + orgId + '/' + inviteId] = true
 
                 // add to invited list for the org
-                updates[Constants.INVITES_BY_ORG_PATH + '/' + orgId + '/emails/' + cleanedEmail + '/' + inviteId] = true
+                // updates[Constants.INVITES_BY_ORG_PATH + '/' + orgId + '/emails/' + cleanedEmail + '/' + inviteId] = true
 
                 // send the email
                 Helpers.sendInviteEmail(auth, email, orgName, inviteId);
@@ -887,8 +887,10 @@ export function acceptInvite(auth, email, inviteId) {
           updates[Constants.USERS_BY_ORG_PATH + '/' + inviteSnap.val().orgId + '/' + auth] = true
           updates[Constants.ORGS_BY_USER_PATH + '/' + auth + '/' + inviteSnap.val().orgId] = { name: inviteSnap.val().orgName }
 
-          // remove the invite
+          // remove the invites
           updates[Constants.INVITES_PATH + '/' + inviteId + '/status/'] = Constants.ACCEPTED_STATUS
+          // updates[Constants.INVITES_BY_ORG_PATH + '/' + inviteSnap.val().orgId + '/users/' + auth] = null
+          // updates[Constants.INVITES_BY_ORG_PATH + '/' + inviteSnap.val().orgId + '/emails/' + email] = null
 
           // remove the inbox item?
 
