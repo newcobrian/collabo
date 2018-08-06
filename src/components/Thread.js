@@ -295,7 +295,6 @@ class Thread extends React.Component {
                     isEditMode={this.props.isEditMode}
                     usersList={this.props.usersList}
                       />
-                    }
                 </div>
               </div>
 
