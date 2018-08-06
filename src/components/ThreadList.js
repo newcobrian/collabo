@@ -10,17 +10,7 @@ const mapStateToProps = state => ({
 });
 
 const ThreadList = props => {
-  if (props.projectNotFoundError) {
-      return (
-        <div className="status-module flx flx-col flx-center-all v2-type-body3">
-          <div className="xiao-img-wrapper mrgn-bottom-sm">
-            <img className="center-img" src="/img/xiaog.png"/>
-          </div>
-          <div className="mrgn-bottom-md">Sorry, we couldn't find this project.</div>
-        </div>
-      )
-    }
-  else if (props.emptyThreadFeed) {
+  if (props.emptyThreadFeed) {
     return (
       <div className="status-module flx flx-col flx-center-all v2-type-body3">
         This project has no threads yet. Why don't you add one?
