@@ -1042,19 +1042,21 @@ export function markThreadRead(auth, threadId) {
 export function loadOrgUsers(auth, orgName, source) {
   return dispatch => {
     Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', nameSnap => {
-      Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).once('value', usersByOrgSnap => {
-        usersByOrgSnap.forEach(function(user) {
-          Firebase.database().ref(Constants.USERS_PATH + '/' + user.key).once('value', usersSnap => {
-            dispatch({
-              type: ActionTypes.USERNAME_LOADED,
-              username: usersSnap.val().username,
-              firstName: usersSnap.val().firstName,
-              lastName: usersSnap.val().lastName,
-              source: source
+      if (nameSnap.exists()) {
+        Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).once('value', usersByOrgSnap => {
+          usersByOrgSnap.forEach(function(user) {
+            Firebase.database().ref(Constants.USERS_PATH + '/' + user.key).once('value', usersSnap => {
+              dispatch({
+                type: ActionTypes.USERNAME_LOADED,
+                username: usersSnap.val().username,
+                firstName: usersSnap.val().firstName,
+                lastName: usersSnap.val().lastName,
+                source: source
+              })
             })
           })
         })
-      })
+      }
     })
   }
 
