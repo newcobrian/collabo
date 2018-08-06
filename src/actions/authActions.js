@@ -84,7 +84,7 @@ export function signUpUser(username, email, password, redirect) {
             let updates = {};
 
             let cleanedEmail = Helpers.cleanEmailToFirebase(email)
-            Firebase.database().ref(Constants.NONAPP_INVITES_BY_EMAIL_PATH + '/' + cleanedEmail).once('value', inviteSnap => {
+            Firebase.database().ref(Constants.INVITES_BY_EMAIL_BY_ORG_PATH + '/' + cleanedEmail).once('value', inviteSnap => {
               // need to save users profile info
               updates[Constants.USERS_PATH + '/' + userId] = { username: username, email: email }
 
@@ -94,49 +94,54 @@ export function signUpUser(username, email, password, redirect) {
               // save email address lookup
               updates[Constants.USERS_BY_EMAIL_PATH + '/' + Helpers.cleanEmailToFirebase(email)] = { userId: userId }
 
-              // migrate all open invites to the userId and create inbox items
-              // inviteSnap.forEach(function(orgInvite) {
-              //   // update recipientId on invite
-              //   if (orgInvite.val()) {
-              //     orgInvite.forEach(function(inviteId) {
-
-              //     })
-              //   }
-                // inviteObject.recipientId = emailHashSnap.val()[cleanedEmail].userId;
-                // updates[Constants.INVITES_PATH + '/' + inviteItem.val()]
-
-                // add to invited list for the org
-                // updates[Constants.INVITES_BY_ORG_PATH + '/' + orgId + '/users/' + emailHashSnap.val()[cleanedEmail].userId + '/' + inviteId] = true;
-
-                 // send invite to inbox
-                // Helpers.sendCollaboInboxMessage(auth, emailHashSnap.val()[cleanedEmail].userId, Constants.ORG_INVITE_MESSAGE, org, orgId, null, null, null, null, inviteId);
-              // })
-
               Firebase.database().ref().update(updates);
+
+              // migrate invites sent to user's email address to their inbox
+              let lastModified = Firebase.database.ServerValue.TIMESTAMP
+              let inboxCounter = 0
+              inviteSnap.forEach(function(orgInvite) {
+                // update recipientId on invite
+                if (orgInvite.val()) {
+                  orgInvite.forEach(function(inviteItem) {
+                    Firebase.database().ref(Constants.ORGS_PATH + '/' + orgInvite.key).once('value', orgSnap => {
+                      let inviteObject = Object.assign({}, 
+                      { link: '/invitation/' + inviteItem.key }, 
+                      { message: ' invited you to join the "' + orgSnap.val().name + '" team.'}, 
+                      { senderId: inviteItem.val() }, 
+                      { type: Constants.INBOX_INVITE_TYPE }, 
+                      { lastModified: lastModified} );
+                    
+                      Firebase.database().ref(Constants.INBOX_PATH + '/' + userId).push(inviteObject)
+                      inboxCounter++;
+                    })
+                  })
+                }
+              })
+              Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + userId).update({messageCount: inboxCounter})
 
               // Helpers.updateAlgloiaUsersIndex(username, userId);
 
               // set account created date super property
-              mixpanel.register({
-                'account created': (new Date()).toISOString()
-              });
+              // mixpanel.register({
+              //   'account created': (new Date()).toISOString()
+              // });
 
               // set acount created date people property
-              mixpanel.people.set({ "account created": (new Date()).toISOString() });
-              mixpanel.identify(userId);
+              // mixpanel.people.set({ "account created": (new Date()).toISOString() });
+              // mixpanel.identify(userId);
 
               dispatch({
                 type: ActionTypes.SIGN_UP_USER,
                 payload: userId,
                 redirect: redirect,
-                meta: {
-                  mixpanel: {
-                    event: 'Sign up', 
-                    props: {
-                      'account created': (new Date()).toISOString()
-                    }
-                  }
-                }
+                // meta: {
+                //   mixpanel: {
+                //     event: 'Sign up', 
+                //     props: {
+                //       'account created': (new Date()).toISOString()
+                //     }
+                //   }
+                // }
               })
             })
           })
