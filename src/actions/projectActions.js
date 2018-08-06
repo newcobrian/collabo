@@ -935,6 +935,14 @@ export function watchThreadFeed(auth, orgName, projectId, startValue) {
         let path = projectId ? (Constants.THREADS_BY_PROJECT_PATH + '/' + projectId) : 
           (Constants.THREADS_BY_ORG_PATH + '/' + orgId)
 
+        Firebase.database().ref(path).once('value', emptySnap => {
+          if (!emptySnap.exists()) {
+            dispatch({
+              type: ActionTypes.EMPTY_THREAD
+            })
+          }
+        })
+
         Firebase.database().ref(path)
           .orderByChild('lastModified')
           // .limitToFirst(2)

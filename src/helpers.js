@@ -31,7 +31,7 @@ export function cleanEmailFromFirebase(email) {
 	return email.replace(/\,/g, '.');
 }
 
-export function updateAlgloiaUsersIndex(username, userId) {
+export function updateAlgoliaUsersIndex(username, userId) {
 	let usernameSuffixes = [];
 	for(let i = 1; i < username.length - 1; i++) {
 	  usernameSuffixes.push(username.substr(i))
@@ -53,7 +53,7 @@ export function updateAlgloiaUsersIndex(username, userId) {
 	});
 }
 
-export function updateAlgloiaGeosIndex(geo) {
+export function updateAlgoliaGeosIndex(geo) {
 	//update Algolia index
 	var algoliasearch = require('algoliasearch');
 	var client = algoliasearch('2OEMW8KEZS', '62e17a3113351343399fad062d3cbca5', {protocol:'https:'});
@@ -68,6 +68,10 @@ export function updateAlgloiaGeosIndex(geo) {
 	    return;
 	  }
 	});
+}
+
+export function updateAlgoliaIndex() {
+	
 }
 
 export function byPopularity(a, b) {

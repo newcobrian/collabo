@@ -123,7 +123,17 @@ class Project extends React.Component {
     //     <LoadingSpinner message="Loading project" />
     //     )
     // }
-    // if (!this.props.feed) {
+    // else if (this.props.emptyThreadFeed) {
+    //   return (
+    //     <div className="error-module flx flx-col flx-center-all ta-center v2-type-body3 color--black">
+    //       <div className="xiao-img-wrapper mrgn-bottom-sm">
+    //         <img className="center-img" src="/img/xiaog.png"/>
+    //       </div>
+    //       <div className="mrgn-bottom-md">This project is empty. Why don't you create one</div>
+    //     </div>
+    //   )
+    // }
+    // if (!this.props.threads) {
     //   return (
     //     <div className="loading-module flx flx-col flx-center-all v2-type-body3 fill--black">
     //       <div className="loader-wrapper flx flx-col flx-center-all fill--black">
@@ -133,15 +143,10 @@ class Project extends React.Component {
     //           <div className="bar2"></div>
     //           <div className="bar3"></div>
     //         </div>
-    //         <div className="v2-type-body2 color--white">Loading location</div>
+    //         <div className="v2-type-body2 color--white">Loading feed...</div>
     //       </div>
     //     </div>
     //     )
-    // }
-    // else if (this.props.feed.length === 0) {
-    //   return (
-    //     <div> No itineraries created for {this.props.geo.label}.</div>
-    //   )
     // }
     return (
     <div>
@@ -165,7 +170,9 @@ class Project extends React.Component {
             <ThreadList
               threads={this.props.threads} 
               authenticated={this.props.authenticated}
-              orgName={this.props.params.orgname} />
+              orgName={this.props.params.orgname}
+              emptyThreadFeed={this.props.emptyThreadFeed}
+              projectNotFoundError={this.props.projectNotFoundError} />
           </div>
         </div>
       </div>

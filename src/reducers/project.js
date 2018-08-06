@@ -3,7 +3,7 @@ import * as Constants from '../constants';
 import * as Helpers from '../helpers';
 import { find, isEqual } from 'lodash';
 
-const initialState = { usersData: {}, threads: [], threadCounts: {} }
+const initialState = { usersData: {}, threadCounts: {} }
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -15,12 +15,15 @@ export default (state = initialState, action) => {
     case ActionTypes.UNWATCH_THREAD_FEED:
       return {
         ...state,
-        threads: []
+        threads: null,
+        projectNotFoundError: false,
+        emptyThreadFeed: false
       }
     case ActionTypes.LOAD_PROJECT:
       return {
         ...state,
-        project: action.project
+        project: action.project,
+        projectNotFoundError: false
       }
     case ActionTypes.PROJECT_NOT_FOUND_ERROR:
       return {
@@ -39,6 +42,8 @@ export default (state = initialState, action) => {
         newState.threads = newState.threads.concat(Object.assign({}, {threadId: action.threadId}, action.thread, createdBy));
         newState.threads.sort(Helpers.lastModifiedDesc);
 
+        newState.emptyThreadFeed = false;
+
         return newState;
       }
       return state;
@@ -56,6 +61,7 @@ export default (state = initialState, action) => {
           newState.threads[i] = Object.assign({}, {threadId: action.threadId}, action.thread, createdBy);
           newState.threads.sort(Helpers.lastModifiedDesc);
           // return newState;
+          newState.emptyThreadFeed = false;
         }
       }
       return newState;
@@ -106,7 +112,9 @@ export default (state = initialState, action) => {
     case ActionTypes.UNWATCH_ORG_FEED:
       return {
         ...state,
-        threads: []
+        threads: null,
+        projectNotFoundError: false,
+        emptyThreadFeed: false
       }
     case ActionTypes.THREAD_COUNTS_LOADED:
       return {
@@ -116,7 +124,14 @@ export default (state = initialState, action) => {
     case ActionTypes.THREAD_COUNTS_UNLOADED:
       return {
         ...state,
-        threadCounts: {}
+        threadCounts: {},
+        projectNotFoundError: false,
+        emptyThreadFeed: false
+      }
+    case ActionTypes.EMPTY_THREAD:
+      return {
+        ...state,
+        emptyThreadFeed: true
       }
     default:
       return state;
