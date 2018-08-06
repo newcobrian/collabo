@@ -111,7 +111,8 @@ export function onAddThread(auth, projectId, thread, orgName) {
 
           let org = Object.assign({}, {name: orgName}, {orgId: projectSnapshot.val().orgId})
           let project = Object.assign({},  projectSnapshot.val(), {projectId: projectId})
-          Helpers.sendCollaboUpdateNotifs(auth, Constants.NEW_THREAD_MESSAGE, org ,project, Object.assign({}, thread, {threadId: threadId}, null))
+          Helpers.findThreadMentions(auth, thread.body, org, project, Object.assign({}, thread, {threadId: threadId}))
+          // Helpers.sendCollaboUpdateNotifs(auth, Constants.NEW_THREAD_MESSAGE, org ,project, Object.assign({}, thread, {threadId: threadId}, null))
 
           // // update Algolia index
           // Helpers.updateAlgloiaGeosIndex(itinerary.geo)
@@ -415,7 +416,7 @@ export function changeEditorState(editorState) {
   }
 }
 
-export function updateThreadField(auth, threadId, thread, field, value) {
+export function updateThreadField(auth, threadId, thread, orgName, field, value) {
   return dispatch => {
     if (thread && threadId && thread.userId && thread.orgId) {
       let updates = {}
@@ -435,6 +436,12 @@ export function updateThreadField(auth, threadId, thread, field, value) {
       Firebase.database().ref().update(updates);
 
       Helpers.incrementThreadSeenCounts(auth, thread.orgId, thread.projectId, threadId)
+
+      if (field === 'body') {
+        let org = Object.assign({}, {name: orgName})
+        let project = Object.assign({}, {projectId: thread.projectId})
+        Helpers.findThreadMentions(auth, value, org, project, Object.assign({}, thread, {threadId: threadId}))
+      }
 
       dispatch({
         type: ActionTypes.THREAD_UPDATED,

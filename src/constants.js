@@ -1,5 +1,6 @@
 export const SUBJECT_SEARCH_URL = 'https://myviews.io/search?q='
 export const VIEWS_URL = 'http://myviews.io'
+export const COLLABO_URL = 'https://whatsgood-f1e9b.firebaseapp.com'
 // export const SUBJECT_SEARCH_URL = 'https://localhost:8000/search?q='
 
 export const INBOX_SEND_EMAIL_URL = 'https://myviews.io/mail/send'
@@ -125,6 +126,7 @@ export const COMMENT_IN_THREAD_MESSAGE = 'COMMENT_IN_THREAD_MESSAGE'
 export const ORG_INVITE_MESSAGE = 'ORG_INVITE_MESSAGE'
 export const NEW_THREAD_MESSAGE = 'NEW_THREAD_MESSAGE'
 export const COMMENT_MENTION_MESSAGE = 'COMMENT_MENTION_MESSAGE'
+export const THREAD_MENTION_MESSAGE = 'THREAD_MENTION_MESSAGE'
 
 export const ITINERARY_TYPE = 'itinerary'
 export const REVIEW_TYPE = 'review'

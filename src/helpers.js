@@ -4,6 +4,25 @@ import 'whatwg-fetch';
 import { convertToRaw, convertFromRaw, EditorState, ContentState, convertFromHTML } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 
+export function findThreadMentions(auth, threadBody, org, project, thread) {
+	let sentArray = []
+  let pattern = /\B@[a-z0-9_-]+/gi;
+  let found = threadBody.match(pattern);
+  if (found) {
+    for (let i = 0; i < found.length; i++) {
+      let username = found[i].substr(1);
+      Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + username).once('value', snap => {
+        if (snap.exists()) {
+          if (snap.val().userId !== auth && sentArray.indexOf(snap.val().userId) === -1) {
+            sendCollaboInboxMessage(auth, snap.val().userId, Constants.THREAD_MENTION_MESSAGE, org, project, thread, null)
+            sentArray.push(snap.val().userId);
+          }
+        }
+      })    
+    }
+  }
+}
+
 export function cleanEmailToFirebase(email) {
 	return email.replace(/\./g, ',');
 }
@@ -583,14 +602,21 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 					inboxObject.message = ' commented in the thread: ' + thread.title;
 					inboxObject.link = '/' + org.name + '/' + project.projectId + '/' + thread.threadId;
 					emailMessage = senderSnapshot.val().username + 
-						' commented in the same thread. Click here to check it out: localhost:3000' + inboxObject.link;
+						' commented in the same thread. Click here to check it out: ' + Constants.COLLABO_URL + '/' +  + inboxObject.link;
 					break;
 				case Constants.COMMENT_MENTION_MESSAGE:
 					inboxObject.senderId = senderId;
 					inboxObject.message = ' mentioned you in a comment in the thread: ' + thread.title;
 					inboxObject.link = '/' + org.name + '/' + project.projectId + '/' + thread.threadId;
 					emailMessage = senderSnapshot.val().username + 
-						' mentioned you in a comment. Click here to check it out: localhost:3000' + inboxObject.link;
+						' mentioned you in a comment. Click here to check it out: ' + Constants.COLLABO_URL + '/' + inboxObject.link;
+					break;
+				case Constants.THREAD_MENTION_MESSAGE:
+					inboxObject.senderId = senderId;
+					inboxObject.message = ' mentioned you in the thread: ' + thread.title;
+					inboxObject.link = '/' + org.name + '/' + project.projectId + '/' + thread.threadId;
+					emailMessage = senderSnapshot.val().username + 
+						' mentioned you in a thread. Click here to check it out: ' + Constants.COLLABO_URL + '/' + inboxObject.link;
 					break;
 				// case Constants.COMMENT_ON_COMMENT_REVIEW_MESSAGE:
 				// 	inboxObject.senderId = senderId;
@@ -635,7 +661,7 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 export function sendInviteEmail(auth, recipientEmail, orgName, inviteId) {
 	Firebase.database().ref(Constants.USERS_PATH + '/' + auth).once('value', senderSnap => {
 		let emailMessage = senderSnap.val().username + ' invited you to join their team "' + orgName + '" on Collabo.' +
-			' Click here to check it out: http://localhost:3000/invitation/' + inviteId;
+			' Click here to check it out: ' + Constants.COLLABO_URL + '/invitation/' + inviteId;
 							
 		let data = Object.assign({}, {message: emailMessage}, {senderName: senderSnap.val().username });
 		sendContentManagerEmail("0a991f3c-3079-4d45-90d2-eff7c64f9cc5", recipientEmail, data);
