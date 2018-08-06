@@ -105,6 +105,9 @@ export function onAddThread(auth, projectId, thread, orgName) {
           updates[`/${Constants.THREADS_BY_USER_PATH}/${auth}/${threadId}/`] = omit(threadObject, ['userId']);
           updates[`/${Constants.THREADS_BY_ORG_PATH}/${projectSnapshot.val().orgId}/${threadId}/`] = omit(threadObject, ['orgId']);
 
+          // last update is a new thread
+          Object.assign(updates, getThreadFieldUpdates(threadId, threadObject, 'lastUpdate', Constants.NEW_THREAD_TYPE));
+
           Firebase.database().ref().update(updates);
 
           Helpers.incrementThreadSeenCounts(auth, projectSnapshot.val().orgId, projectId, threadId)
@@ -433,6 +436,11 @@ export function updateThreadField(auth, threadId, thread, orgName, field, value)
       updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${thread.projectId}/${threadId}/lastModified/`] = timestamp
       updates[`/${Constants.THREADS_BY_USER_PATH}/${thread.userId}/${threadId}/lastModified/`] = timestamp
 
+      // if body was updated, make this the lastUpdate
+      if (field === 'body') {
+        Object.assign(updates, getThreadFieldUpdates(threadId, thread, 'lastUpdate', Constants.EDIT_THREAD_TYPE));
+      }
+
       Firebase.database().ref().update(updates);
 
       Helpers.incrementThreadSeenCounts(auth, thread.orgId, thread.projectId, threadId)
@@ -530,6 +538,10 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
       Helpers.incrementThreadCount(Constants.COMMENTS_COUNT, threadId, thread, thread.userId);
       
       let updates = getThreadFieldUpdates(threadId, thread, 'lastModified', Firebase.database.ServerValue.TIMESTAMP)
+      // last update is a comment
+      Object.assign(updates, getThreadFieldUpdates(threadId, thread, 'lastUpdate', Constants.COMMENT_TYPE));
+
+      // update the last comment
       Object.assign(updates, getThreadFieldUpdates(threadId, thread, 'lastComment', Object.assign({}, comment, { commentId: commentId })))
       Firebase.database().ref().update(updates);
 

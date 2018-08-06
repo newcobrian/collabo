@@ -16,12 +16,9 @@ import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
 import MoreHorizIcon from 'material-ui/svg-icons/navigation/more-horiz';
 
-
-
 var Scroll = require('react-scroll');
 var Element = Scroll.Element;
 var linkify = require('linkify-it')();
-
 
 const mapStateToProps = state => ({
   ...state.project,
@@ -29,6 +26,32 @@ const mapStateToProps = state => ({
   authenticated: state.common.authenticated,
   userInfo: state.common.userInfo
 });
+
+const UpdateSection = props => {
+  if (!props.thread) return null
+  else if (props.thread.lastUpdate === Constants.NEW_THREAD_TYPE) {
+    return (
+      <div>
+        new thread posted
+      </div>
+    )
+  }
+  else if (props.thread.lastUpdate === Constants.EDIT_THREAD_TYPE) {
+    return (
+      <div>
+        thread post was modified
+      </div>
+    )
+  }
+  else if (props.thread.lastUpdate === Constants.COMMENT_TYPE) {
+    return (
+      <div>
+        new comment
+      </div>
+    )
+  }
+  else return null;
+}
  
 const CommentPreview = props => {
   if (!props.thread) return null
@@ -86,31 +109,12 @@ const ThreadPreview = props => {
 
                     {/* Action Module */}
                     <div className="tip__cta-box flx flx-row flx-just-start flx-align-center flx-item-right">
-                      
-                      {/* Tags Wrapper **/ }
-                      <div className="flx flx-row flx-align-center flx-wrap pdding-bottom-xs">
-
-                       
-                      </div>
-                      {/* END Tags Wrapper **/ }
-
-
-                      <div className="cta-wrapper vb vb--tip vb--outline--none flx flx-row flx-align-center v2-type-body2 DN">
-                        <LikeReviewButton
-                          authenticated={props.authenticated}
-                          isLiked={props.thread.likes ? props.thread.likes[this.props.authenticated] : false}
-                          likesCount={props.thread.likesCount}
-                          likeObject={thread}
-                          projectId={props.projectId}
-                          type={props.dataType} />
-                      </div>
-
                     </div>
                     {/* END Action Module */}
 
 
                     { /** Timestamp **/ }
-                    <div className="tip__timestamp v2-type-caption opa-20 mrgn-top-xs DN">
+                    <div className="tip__timestamp v2-type-caption opa-20 mrgn-top-xs ">
                       <DisplayTimestamp timestamp={thread.lastModified} />
                     </div>
                     { /** END Timestamp **/ }
@@ -121,6 +125,10 @@ const ThreadPreview = props => {
 
                   <div className="tip__content-wrapper">
                     <div className="tip__content-inner">
+                      <div>
+                        <UpdateSection thread={thread} />
+                      </div>
+
                       { /** Author **/ }
                       <Link
                           to={'/user/' + createdBy.username}
