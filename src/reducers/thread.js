@@ -4,7 +4,7 @@ import * as Helpers from '../helpers';
 import { filter } from 'lodash'
 import { EditorState, ContentState, convertToRaw, convertFromRaw } from 'draft-js';
 
-const initialState = { threadCounts: {} }
+const initialState = { threadCounts: {}, usersList: [] }
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -102,6 +102,16 @@ export default (state = initialState, action) => {
         ...state,
         threadCounts: {}
       }
+    case ActionTypes.USERNAME_LOADED: {
+      if (action.source === Constants.THREAD_PAGE) {
+        const newState = Object.assign({}, state);
+        newState.usersList = newState.usersList || [];
+        newState.usersList = newState.usersList.slice();
+        newState.usersList = newState.usersList.concat(Object.assign({}, {text: action.username}, {value: action.username}, {url: '/user/' + action.username}));
+        return newState;
+      }
+      return state;
+    }
     default:
       return state;
   }

@@ -48,6 +48,11 @@ const BodySection = props => {
             wrapperClassName="demo-wrapper"
             editorClassName="demo-editor"
             onEditorStateChange={props.updateText}
+            mention={{
+              separator: ' ',
+              trigger: '@',
+              suggestions: props.usersList,
+            }}
         />
         <div><Link onClick={props.onEditClick(false)}>Cancel</Link></div>
         <div><Link onClick={props.saveBody(props.thread)}>Save</Link></div>
@@ -58,8 +63,14 @@ const BodySection = props => {
     return (
       <div>
         <div>
-          <div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(props.bodyText) || '' }}>
-          </div>
+          <Editor
+            editorState={props.bodyText}
+            wrapperClassName="demo-wrapper"
+            editorClassName="demo-editor"
+            onEditorStateChange={props.updateText}
+            toolbarHidden={true}
+            ReadOnly={true}
+          />
           {/*<textarea
             disabled
             value={draftToHtml(convertToRaw(props.bodyText.getCurrentContent()))}
@@ -76,8 +87,18 @@ const BodySection = props => {
   }
   else {
     return (
-      <div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(props.bodyText) || '' }}>
-          </div>
+      <div>
+        <Editor
+          editorState={props.bodyText}
+          wrapperClassName="demo-wrapper"
+          editorClassName="demo-editor"
+          onEditorStateChange={props.updateText}
+          toolbarHidden={true}
+          ReadOnly={true}
+        />
+      {/*<div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(props.bodyText) || '' }}>
+          </div>*/}
+      </div>
     )
   }
 }
@@ -123,6 +144,7 @@ class Thread extends React.Component {
 
   componentWillMount() {
     this.props.loadOrg(this.props.authenticated, this.props.params.orgname);
+    this.props.loadOrgUsers(this.props.authenticated, this.props.params.orgname, Constants.THREAD_PAGE)
     this.props.loadProjectList(this.props.authenticated, this.props.params.orgname)
     this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
     this.props.loadOrgList(this.props.authenticated)
@@ -254,7 +276,9 @@ class Thread extends React.Component {
                     onEditClick={this.onEditClick}
                     onDeleteClick={this.onDeleteClick}
                     isEditMode={this.props.isEditMode}
+                    usersList={this.props.usersList}
                       />
+                    }
                 </div>
               </div>
 

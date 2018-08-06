@@ -5,7 +5,7 @@ import { EditorState, convertFromRaw } from 'draft-js';
 const initialContentState = {"entityMap":{},"blocks":[{"key":"637gr","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}]}
 const initialEditorState = EditorState.createEmpty()
 
-export default (state = { body: initialEditorState }, action) => {
+export default (state = { body: initialEditorState, usersList: [] }, action) => {
 // export default (state = { body: initialContentState }, action) => {
   switch (action.type) {
   	case ActionTypes.CREATE_PAGE_LOADED:
@@ -78,6 +78,16 @@ export default (state = { body: initialEditorState }, action) => {
         return { ...state, [action.key]: action.value };
       }
       else return {...state}
+    case ActionTypes.USERNAME_LOADED: {
+      if (action.source === Constants.ADD_THREAD_PAGE) {
+        const newState = Object.assign({}, state);
+        newState.usersList = newState.usersList || [];
+        newState.usersList = newState.usersList.slice();
+        newState.usersList = newState.usersList.concat(Object.assign({}, {text: action.username}, {value: action.username}, {url: '/user/' + action.username}));
+        return newState;
+      }
+      return state;
+    }
     default:
       return state;
   }
