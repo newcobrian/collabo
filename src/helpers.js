@@ -602,7 +602,7 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 					inboxObject.message = ' commented in the thread: ' + thread.title;
 					inboxObject.link = '/' + org.name + '/' + project.projectId + '/' + thread.threadId;
 					emailMessage = senderSnapshot.val().username + 
-						' commented in the same thread. Click here to check it out: ' + Constants.COLLABO_URL + '/' +  + inboxObject.link;
+						' commented in the same thread. Click here to check it out: ' + Constants.COLLABO_URL + '/' + inboxObject.link;
 					break;
 				case Constants.COMMENT_MENTION_MESSAGE:
 					inboxObject.senderId = senderId;
