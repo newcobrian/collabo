@@ -34,7 +34,7 @@ const CommentPreview = props => {
   if (!props.thread) return null
   else if (props.thread.commentsCount) {
     return (
-      <Link to={`/${props.orgName}/${props.projectId}/${props.thread.threadId}`}>
+      <Link to={`/${props.orgName}/${props.thread.projectId}/${props.thread.threadId}`}>
         <div className="cta-wrapper cta-wrapper-comment v2-type-body2 flx flx-row flx-align-center">
           <div className="material-icons color--black md-18 opa-60 mrgn-right-sm">comment</div>
           {props.thread.commentsCount} Comments
@@ -157,7 +157,7 @@ const ThreadPreview = props => {
                           </div>
                       </div>
 
-                      <CommentPreview thread={thread} />
+                      <CommentPreview orgName={props.orgName} thread={thread} />
 
                       { /** Comments  }
                       <div className="flx flx-row flex-wrap cta-container mrgn-top-sm">
