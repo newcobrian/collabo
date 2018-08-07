@@ -8,6 +8,7 @@ import UniversalSearchBar from './UniversalSearchBar';
 import LoadingSpinner from './LoadingSpinner';
 import ThreadList from './ThreadList';
 import ProjectList from './ProjectList';
+import LoggedOutMessage from './LoggedOutMessage';
 
 const ProjectHeader = props => {
   if (props.projectId) {
@@ -101,7 +102,12 @@ class Project extends React.Component {
   }
 
   render() {
-    if(this.props.invalidOrgUser) {
+    if (!this.props.authenticated) {
+      return (
+        <LoggedOutMessage />
+      )
+    }
+    else if(this.props.invalidOrgUser) {
       return (
         <div>
           You don't have permission to view this team. <Link to='/'>Go Home</Link>
@@ -148,37 +154,39 @@ class Project extends React.Component {
     //     </div>
     //     )
     // }
-    return (
-    <div>
+    else {
+      return (
+        <div>
 
-      <div className="page-common page-places flx flx-row flx-align-start">
-        
-            {/*<UniversalSearchBar />*/}
-        
-        <ProjectList 
-          threadCounts={this.props.threadCounts} />
-
-        <div className="thread-area flx flx-col w-100">
-          
-            <ProjectHeader 
-              orgName={this.props.params.orgname}
-              projectId={this.props.params.pid}
-              project={this.props.project}
-            />
+          <div className="page-common page-places flx flx-row flx-align-start">
             
-          <div className="feed-wrapper">
-            <ThreadList
-              threads={this.props.threads} 
-              authenticated={this.props.authenticated}
-              orgName={this.props.params.orgname}
-              emptyThreadFeed={this.props.emptyThreadFeed}
-              projectNotFoundError={this.props.projectNotFoundError} />
-          </div>
-        </div>
-      </div>
+                {/*<UniversalSearchBar />*/}
+            
+            <ProjectList 
+              threadCounts={this.props.threadCounts} />
 
-    </div>
-    );
+            <div className="thread-area flx flx-col w-100">
+              
+                <ProjectHeader 
+                  orgName={this.props.params.orgname}
+                  projectId={this.props.params.pid}
+                  project={this.props.project}
+                />
+                
+              <div className="feed-wrapper">
+                <ThreadList
+                  threads={this.props.threads} 
+                  authenticated={this.props.authenticated}
+                  orgName={this.props.params.orgname}
+                  emptyThreadFeed={this.props.emptyThreadFeed}
+                  projectNotFoundError={this.props.projectNotFoundError} />
+              </div>
+            </div>
+          </div>
+
+        </div>
+      );
+    }
   }
 }
 

@@ -19,6 +19,7 @@ import { Editor } from 'react-draft-wysiwyg';
 import { convertToRaw, convertFromRaw } from 'draft-js';
 import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import draftToHtml from 'draftjs-to-html';
+import LoggedOutMessage from './LoggedOutMessage';
 
 var linkify = require('linkify-it')();
 
@@ -151,7 +152,7 @@ class Thread extends React.Component {
     this.props.loadOrgUsers(this.props.authenticated, this.props.params.orgname, Constants.THREAD_PAGE)
     this.props.loadThread(this.props.params.tid);
     this.props.watchThreadComments(this.props.params.tid);
-    // this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project'});
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project'});
   }
 
   componentDidMount() {
@@ -193,14 +194,23 @@ class Thread extends React.Component {
   }
 
   render() {
-    if(this.props.invalidOrgUser) {
+    if (!this.props.authenticated) {
       return (
-        <div>
-          You don't have permission to view this team. <Link to='/'>Go Home</Link>
-        </div>
+        <LoggedOutMessage />
       )
     }
-    if (this.props.threadNotFoundError) {
+    else if(this.props.invalidOrgUser) {
+      return (
+        <div className="error-module flx flx-col flx-center-all ta-center v2-type-body3 color--black">
+        <div className="xiao-img-wrapper mrgn-bottom-sm">
+          <img className="center-img" src="/img/xiaog.png"/>
+        </div>
+        <div className="mrgn-bottom-md">You don't have permission to view this thread</div>
+          
+      </div>
+      )
+    }
+    else if (this.props.threadNotFoundError) {
       return (
         <div className="error-module flx flx-col flx-center-all ta-center v2-type-body3 color--black">
           <div className="xiao-img-wrapper mrgn-bottom-sm">
@@ -210,7 +220,7 @@ class Thread extends React.Component {
         </div>
       )
     }
-    if (!this.props.thread) {
+    else if (!this.props.thread) {
       return (
         <LoadingSpinner message="Loading thread" />
         )
