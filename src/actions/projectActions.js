@@ -94,7 +94,8 @@ export function onAddThread(auth, projectId, thread, orgName) {
             createdOn: serverTimestamp,
             orgId: projectSnapshot.val().orgId,
             userId: auth,
-            projectId: projectId
+            projectId: projectId,
+            lastUpdate: Constants.NEW_THREAD_TYPE
           }
           let updates = {};
           Object.assign(threadObject, thread)
@@ -104,9 +105,6 @@ export function onAddThread(auth, projectId, thread, orgName) {
           updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${projectId}/${threadId}/`] = omit(threadObject, ['projectId']);
           updates[`/${Constants.THREADS_BY_USER_PATH}/${auth}/${threadId}/`] = omit(threadObject, ['userId']);
           updates[`/${Constants.THREADS_BY_ORG_PATH}/${projectSnapshot.val().orgId}/${threadId}/`] = omit(threadObject, ['orgId']);
-
-          // last update is a new thread
-          Object.assign(updates, getThreadFieldUpdates(threadId, threadObject, 'lastUpdate', Constants.NEW_THREAD_TYPE));
 
           Firebase.database().ref().update(updates);
 
