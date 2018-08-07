@@ -59,9 +59,6 @@ class AddThread extends React.Component {
 	}
 
 	render() {
-		let stringified = JSON.stringify(this.props.body)
-		let parsified = JSON.parse(stringified)
-		let htmlstuff = draftToHtml(parsified)
 		if(this.props.invalidOrgUser) {
 	      return (
 	        <div>
