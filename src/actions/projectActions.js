@@ -932,7 +932,7 @@ export function acceptInvite(auth, email, inviteId) {
 
 export function watchThreadFeed(auth, orgName, projectId, startValue) {
   return dispatch => {
-    if (!auth) {
+    if (auth) {
       Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', orgSnap => {
         if (orgSnap.exists()) {
           let orgId = orgSnap.val().orgId
