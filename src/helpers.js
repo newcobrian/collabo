@@ -31,26 +31,26 @@ export function cleanEmailFromFirebase(email) {
 	return email.replace(/\,/g, '.');
 }
 
-export function updateAlgoliaUsersIndex(user) {
-	let usernameSuffixes = [];
-	if (user.username) {
-		for(let i = 1; i < user.username.length - 1; i++) {
-		  usernameSuffixes.push(user.username.substr(i))
-		}
-	}
+// export function updateAlgoliaUsersIndex(user) {
+// 	let usernameSuffixes = [];
+// 	if (user.username) {
+// 		for(let i = 1; i < user.username.length - 1; i++) {
+// 		  usernameSuffixes.push(user.username.substr(i))
+// 		}
+// 	}
 
-	//update Algolia index
-	var algoliasearch = require('algoliasearch');
-	var client = algoliasearch('NFI90PSOIY', '2bbae42da8376a35748f4817449e0b23', {protocol:'https:'});
-	var index = client.initIndex('collabo-users');
-	index.saveObject(Object.assign({}, user, {suffixes: usernameSuffixes})
-	  , function(err, content) {
-	  if (err) {
-	    console.error(err);
-	    return;
-	  }
-	});
-}
+// 	//update Algolia index
+// 	var algoliasearch = require('algoliasearch');
+// 	var client = algoliasearch('NFI90PSOIY', '2bbae42da8376a35748f4817449e0b23', {protocol:'https:'});
+// 	var index = client.initIndex('collabo-users');
+// 	index.saveObject(Object.assign({}, user, {suffixes: usernameSuffixes})
+// 	  , function(err, content) {
+// 	  if (err) {
+// 	    console.error(err);
+// 	    return;
+// 	  }
+// 	});
+// }
 
 export function updateAlgoliaGeosIndex(geo) {
 	//update Algolia index

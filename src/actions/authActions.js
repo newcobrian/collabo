@@ -119,8 +119,6 @@ export function signUpUser(username, email, password, redirect) {
               })
               Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + userId).update({messageCount: inboxCounter})
 
-              // Helpers.updateAlgloiaUsersIndex(username, userId);
-
               // set account created date super property
               // mixpanel.register({
               //   'account created': (new Date()).toISOString()

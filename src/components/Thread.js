@@ -321,6 +321,7 @@ class Thread extends React.Component {
                   threadId={this.props.params.tid}
                   project={this.props.project}
                   org={this.props.org}
+                  usersList={this.props.usersList}
                   deleteComment={this.props.onDeleteThreadComment} />
               
               {/*<div className="feed-wrapper">

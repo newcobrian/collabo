@@ -1083,21 +1083,25 @@ export function markThreadRead(auth, threadId) {
 export function loadOrgUsers(auth, orgName, source) {
   return dispatch => {
     Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', nameSnap => {
-      if (nameSnap.exists()) {
-        Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).once('value', usersByOrgSnap => {
-          usersByOrgSnap.forEach(function(user) {
-            Firebase.database().ref(Constants.USERS_PATH + '/' + user.key).once('value', usersSnap => {
-              dispatch({
-                type: ActionTypes.USERNAME_LOADED,
-                username: usersSnap.val().username,
-                firstName: usersSnap.val().firstName,
-                lastName: usersSnap.val().lastName,
-                source: source
-              })
+      Firebase.database().ref(Constants.USERS_PATH).once('value', usersSnap => {
+        if (nameSnap.exists()) {
+          Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).once('value', usersByOrgSnap => {
+            usersByOrgSnap.forEach(function(user) {
+              if (usersSnap.exists() && usersSnap.val()[user.key]) {
+                dispatch({
+                  type: ActionTypes.USERNAME_LOADED,
+                  username: usersSnap.val()[user.key].username,
+                  nameFirst: usersSnap.val()[user.key].nameFirst,
+                  nameLast: usersSnap.val()[user.key].nameLast,
+                  email: usersSnap.val()[user.key].email,
+                  id: user.key,
+                  source: source,
+                })
+              }
             })
           })
-        })
-      }
+        }
+      })
     })
   }
 

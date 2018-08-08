@@ -20,7 +20,8 @@ const CommentContainer = props => {
 		            	userInfo={props.userInfo}
 		            	project={props.project}
 		            	org={props.org}
-		            	type={props.type} />
+		            	type={props.type}
+		            	usersList={props.usersList} />
 		          </div>
 
 		          <CommentList

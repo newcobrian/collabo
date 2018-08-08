@@ -107,7 +107,8 @@ export default (state = initialState, action) => {
         const newState = Object.assign({}, state);
         newState.usersList = newState.usersList || [];
         newState.usersList = newState.usersList.slice();
-        newState.usersList = newState.usersList.concat(Object.assign({}, {text: action.username}, {value: action.username}, {url: '/user/' + action.username}));
+        newState.usersList = newState.usersList.concat(Object.assign({}, {text: action.username}, 
+          {value: action.username}, {url: '/user/' + action.username}, {email: action.email}, {id: action.username}, {display: action.username}));
         return newState;
       }
       return state;
