@@ -31,21 +31,20 @@ export function cleanEmailFromFirebase(email) {
 	return email.replace(/\,/g, '.');
 }
 
-export function updateAlgoliaUsersIndex(username, userId) {
+export function updateAlgoliaUsersIndex(user) {
 	let usernameSuffixes = [];
-	for(let i = 1; i < username.length - 1; i++) {
-	  usernameSuffixes.push(username.substr(i))
+	if (user.username) {
+		for(let i = 1; i < user.username.length - 1; i++) {
+		  usernameSuffixes.push(user.username.substr(i))
+		}
 	}
 
 	//update Algolia index
 	var algoliasearch = require('algoliasearch');
-	var client = algoliasearch('2OEMW8KEZS', '62e17a3113351343399fad062d3cbca5', {protocol:'https:'});
-	var index = client.initIndex('views-users');
-	index.saveObject({
-	  username: username,
-	  objectID: userId,
-	  suffixes: usernameSuffixes
-	}, function(err, content) {
+	var client = algoliasearch('NFI90PSOIY', '2bbae42da8376a35748f4817449e0b23', {protocol:'https:'});
+	var index = client.initIndex('collabo-users');
+	index.saveObject(Object.assign({}, user, {suffixes: usernameSuffixes})
+	  , function(err, content) {
 	  if (err) {
 	    console.error(err);
 	    return;
@@ -56,8 +55,8 @@ export function updateAlgoliaUsersIndex(username, userId) {
 export function updateAlgoliaGeosIndex(geo) {
 	//update Algolia index
 	var algoliasearch = require('algoliasearch');
-	var client = algoliasearch('2OEMW8KEZS', '62e17a3113351343399fad062d3cbca5', {protocol:'https:'});
-	var index = client.initIndex('views-geos');
+	var client = algoliasearch('NFI90PSOIY', '2bbae42da8376a35748f4817449e0b23', {protocol:'https:'});
+	var index = client.initIndex('collabo-posts');
 	index.saveObject({
 	  objectID: geo.placeId,
 	  label: geo.label,
@@ -71,7 +70,7 @@ export function updateAlgoliaGeosIndex(geo) {
 }
 
 export function updateAlgoliaIndex() {
-	
+
 }
 
 export function byPopularity(a, b) {
