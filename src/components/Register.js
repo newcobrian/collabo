@@ -28,9 +28,18 @@ const mapStateToProps = state => ({
 class Register extends React.Component {
   constructor() {
     super();
-    this.changeEmail = ev => this.props.onChangeEmail(ev.target.value);
-    this.changePassword = ev => this.props.onChangePassword(ev.target.value);
-    this.changeUsername = ev => this.props.onChangeUsername(ev.target.value);
+
+    const updateFieldEvent =
+        key => ev => this.props.onUpdateCreateField(key, ev.target.value, Constants.REGISTER_PAGE);
+
+    this.changeEmail = updateFieldEvent('email');
+    this.changePassword = updateFieldEvent('password');
+    this.changeUsername = updateFieldEvent('username');
+    this.changeFirstName = updateFieldEvent('firstName');
+    this.changeLastName = updateFieldEvent('lastName');
+    // this.changeEmail = ev => this.props.onChangeEmail(ev.target.value);
+    // this.changePassword = ev => this.props.onChangePassword(ev.target.value);
+    // this.changeUsername = ev => this.props.onChangeUsername(ev.target.value);
     // this.changeEmail = ev => onChangeEmail(ev.target.value);
     // this.changePassword = ev => onChangePassword(ev.target.value);
     // this.changeUsername = ev => onChangeUsername(ev.target.value);
@@ -91,6 +100,24 @@ class Register extends React.Component {
                       type="email"
                       placeholder="Email"
                       value={this.props.email}
+                      onChange={this.changeEmail} />
+                  </fieldset>
+
+                  <fieldset className="form-group">
+                    <input
+                      className="form-control form-control-lg"
+                      type="email"
+                      placeholder="First Name"
+                      value={this.props.firstName}
+                      onChange={this.changeEmail} />
+                  </fieldset>
+
+                  <fieldset className="form-group">
+                    <input
+                      className="form-control form-control-lg"
+                      type="email"
+                      placeholder="Last Name"
+                      value={this.props.lastName}
                       onChange={this.changeEmail} />
                   </fieldset>
 

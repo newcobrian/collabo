@@ -1,5 +1,6 @@
 import { AUTH_USER, SIGN_OUT_USER, AUTH_ERROR, UNLOAD_AUTH, FORGOT_PASSWORD_SENT } from '../actions';
 import * as ActionTypes from '../actions/types'
+import * as Constants from '../constants'
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -58,6 +59,11 @@ export default (state = {}, action) => {
         ...state,
         message: action.message
       }
+    case ActionTypes.UPDATE_FIELD_CREATE:
+      if(action.source === Constants.REGISTER_PAGE) {
+        return { ...state, [action.key]: action.value };
+      }
+      else return {...state}
     default:
       return state;
   }

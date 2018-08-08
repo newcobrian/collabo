@@ -49,12 +49,23 @@ export function onRedirect() {
   }
 }
 
-export function signUpUser(username, email, password, redirect) {
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
+
+export function signUpUser(username, email, password, firstName, lastName, redirect) {
   return dispatch => {
-    if (username.length === 1) {
+    if (!username || username.length < 3) {
       dispatch({
         type: ActionTypes.AUTH_ERROR,
-        error: {message: 'Username must be longer than 1 character'}
+        error: {message: 'Username must be at least 3 characters'}
+      })
+    }
+    if (!password || password.length < 6) {
+      dispatch({
+        type: ActionTypes.AUTH_ERROR,
+        error: {message: 'Password must be at least 6 characters'}
       })
     }
     else if (Constants.INVALID_USERNAMES.indexOf(username) > -1) {
@@ -67,6 +78,18 @@ export function signUpUser(username, email, password, redirect) {
       dispatch({
         type: ActionTypes.AUTH_ERROR,
         error: {message: 'Username cannot contain spaces'}
+      })
+    }
+    if (!firstName) {
+      dispatch({
+        type: ActionTypes.AUTH_ERROR,
+        error: {message: 'Please enter a first name'}
+      })
+    }
+    if (!lastName) {
+      dispatch({
+        type: ActionTypes.AUTH_ERROR,
+        error: {message: 'Please enter a last name'}
       })
     }
     else {
@@ -86,7 +109,7 @@ export function signUpUser(username, email, password, redirect) {
             let cleanedEmail = Helpers.cleanEmailToFirebase(email)
             Firebase.database().ref(Constants.INVITES_BY_EMAIL_BY_ORG_PATH + '/' + cleanedEmail).once('value', inviteSnap => {
               // need to save users profile info
-              updates[Constants.USERS_PATH + '/' + userId] = { username: username, email: email }
+              updates[Constants.USERS_PATH + '/' + userId] = { username: username, email: email, firstName: firstName, lastName: lastName }
 
               // save userId lookup from username
               updates[Constants.USERNAMES_TO_USERIDS_PATH + '/' + username] = {userId: userId }
