@@ -1091,8 +1091,8 @@ export function loadOrgUsers(auth, orgName, source) {
                 dispatch({
                   type: ActionTypes.USERNAME_LOADED,
                   username: usersSnap.val()[user.key].username,
-                  nameFirst: usersSnap.val()[user.key].nameFirst,
-                  nameLast: usersSnap.val()[user.key].nameLast,
+                  firstName: usersSnap.val()[user.key].firstName,
+                  lastName: usersSnap.val()[user.key].lastName,
                   email: usersSnap.val()[user.key].email,
                   id: user.key,
                   source: source,
