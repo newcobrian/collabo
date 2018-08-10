@@ -55,6 +55,7 @@ class CommentInput extends React.Component {
               value={this.state.body} 
               onChange={this.setBody}
               displayTransform={id => `@${id}`}
+              markup="@__display__"
               >
 
                 <Mention
