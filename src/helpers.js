@@ -223,12 +223,12 @@ export function incrementThreadCount(counterType, threadId, thread, userId) {
     });
 
 	// incrememt count on threads by user by org
-	Firebase.database().ref(Constants.THREADS_BY_USER_BY_ORG_PATH + '/' + userId + '/' thread.orgId + '/' + threadId + '/' + counterType).transaction(function (current_count) {
+	Firebase.database().ref(Constants.THREADS_BY_USER_BY_ORG_PATH + '/' + userId + '/' + thread.orgId + '/' + threadId + '/' + counterType).transaction(function (current_count) {
 		return (current_count || 0) + 1;
     });
 
     // incrememt count on threads by org
-	Firebase.database().ref(Constants.THREADS_BY_ORG_PATH + '/' thread.orgId + '/' + threadId + '/' + counterType).transaction(function (current_count) {
+	Firebase.database().ref(Constants.THREADS_BY_ORG_PATH + '/' + thread.orgId + '/' + threadId + '/' + counterType).transaction(function (current_count) {
 		return (current_count || 0) + 1;
     });
 }
