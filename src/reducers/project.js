@@ -31,40 +31,46 @@ export default (state = initialState, action) => {
         projectNotFoundError: true
       }
     case ActionTypes.THREAD_ADDED_ACTION: {
-      const newState = Object.assign({}, state);
-      newState.threads = newState.threads || [];
-      newState.threads = newState.threads.slice();
-      newState.usersData = newState.usersData || {};
-      if (!find(newState.threads, ['threadId', action.threadId])) {
-        let createdBy = { createdBy: Object.assign({}, action.user) };
-        // let comments = { comments: newState.commentsData[action.tipId] ? [].concat(newState.commentsData[action.tipId]) : [] };
-        // let isLiked = { isLiked: newState.likesData[action.tipId] ? true : false };
-        newState.threads = newState.threads.concat(Object.assign({}, {threadId: action.threadId}, action.thread, createdBy));
-        newState.threads.sort(Helpers.lastModifiedDesc);
+      if (action.source === Constants.PROJECT_PAGE) {
+        const newState = Object.assign({}, state);
+        newState.threads = newState.threads || [];
+        newState.threads = newState.threads.slice();
+        newState.usersData = newState.usersData || {};
+        if (!find(newState.threads, ['threadId', action.threadId])) {
+          let createdBy = { createdBy: Object.assign({}, action.user) };
+          // let comments = { comments: newState.commentsData[action.tipId] ? [].concat(newState.commentsData[action.tipId]) : [] };
+          // let isLiked = { isLiked: newState.likesData[action.tipId] ? true : false };
+          newState.threads = newState.threads.concat(Object.assign({}, {threadId: action.threadId}, action.thread, createdBy));
+          newState.threads.sort(Helpers.lastModifiedDesc);
 
-        newState.emptyThreadFeed = false;
+          newState.emptyThreadFeed = false;
 
-        return newState;
+          return newState;
+        }
+        return state;
       }
       return state;
     }
     case ActionTypes.THREAD_CHANGED_ACTION: {
-      const newState = Object.assign({}, state);
-      newState.threads = newState.threads || [];
-      newState.threads = newState.threads.slice();
-      let createdBy = { createdBy: Object.assign({}, action.user) };
-      // let comments = { comments: newState.commentsData[action.tipId] ? [].concat(newState.commentsData[action.tipId]) : [] };
-      // let isLiked = { isLiked: newState.likesData[action.tipId] ? true : false };
-      
-      for (let i = 0; i < newState.threads.length; i++) {
-        if (newState.threads[i].threadId === action.threadId) {
-          newState.threads[i] = Object.assign({}, {threadId: action.threadId}, action.thread, createdBy);
-          newState.threads.sort(Helpers.lastModifiedDesc);
-          // return newState;
-          newState.emptyThreadFeed = false;
+      if (action.source === Constants.PROJECT_PAGE) {
+        const newState = Object.assign({}, state);
+        newState.threads = newState.threads || [];
+        newState.threads = newState.threads.slice();
+        let createdBy = { createdBy: Object.assign({}, action.user) };
+        // let comments = { comments: newState.commentsData[action.tipId] ? [].concat(newState.commentsData[action.tipId]) : [] };
+        // let isLiked = { isLiked: newState.likesData[action.tipId] ? true : false };
+        
+        for (let i = 0; i < newState.threads.length; i++) {
+          if (newState.threads[i].threadId === action.threadId) {
+            newState.threads[i] = Object.assign({}, {threadId: action.threadId}, action.thread, createdBy);
+            newState.threads.sort(Helpers.lastModifiedDesc);
+            // return newState;
+            newState.emptyThreadFeed = false;
+          }
         }
+        return newState;
       }
-      return newState;
+      return state;
     }
     case ActionTypes.USER_VALUE_ACTION: {
       if (action.source === Constants.PROJECTS_PAGE) {

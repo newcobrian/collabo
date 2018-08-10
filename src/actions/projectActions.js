@@ -941,7 +941,7 @@ export function acceptInvite(auth, email, inviteId) {
 //   })
 // }
 
-export function watchThreadFeed(auth, orgName, projectId, startValue) {
+export function watchThreadFeed(auth, orgName, projectId, startValue, source) {
   return dispatch => {
     if (auth) {
       Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', orgSnap => {
@@ -953,7 +953,8 @@ export function watchThreadFeed(auth, orgName, projectId, startValue) {
           Firebase.database().ref(path).once('value', emptySnap => {
             if (!emptySnap.exists()) {
               dispatch({
-                type: ActionTypes.EMPTY_THREAD
+                type: ActionTypes.EMPTY_THREAD,
+                source: source
               })
             }
           })
@@ -966,7 +967,7 @@ export function watchThreadFeed(auth, orgName, projectId, startValue) {
             if (threadSnapshot.val().userId) {
               Firebase.database().ref(Constants.USERS_PATH + '/' + threadSnapshot.val().userId).once('value', userSnap => {
                 let thread = projectId ? Object.assign({}, threadSnapshot.val(), {projectId: projectId}) : threadSnapshot.val()
-                dispatch(threadAddedAction(threadSnapshot.key, thread, userSnap.val()));  
+                dispatch(threadAddedAction(threadSnapshot.key, thread, userSnap.val(), source));  
                 // dispatch(updateStartValue(threadSnapshot.val().lastModified ? threadSnapshot.val().lastModified : startValue));
               })
             }
@@ -980,7 +981,7 @@ export function watchThreadFeed(auth, orgName, projectId, startValue) {
               // watchUser(dispatch, threadSnapshot.val().userId, Constants.PROJECTS_PAGE)
               Firebase.database().ref(Constants.USERS_PATH + '/' + threadSnapshot.val().userId).once('value', userSnap => {
                 let thread = projectId ? Object.assign({}, threadSnapshot.val(), {projectId: projectId}) : threadSnapshot.val()
-                dispatch(threadChangedAction(threadSnapshot.key, thread, userSnap.val()));
+                dispatch(threadChangedAction(threadSnapshot.key, thread, userSnap.val(), source));
                 // dispatch(updateStartValue(threadSnapshot.val().lastModified ? threadSnapshot.val().lastModified : startValue));
               })
             }
@@ -989,7 +990,7 @@ export function watchThreadFeed(auth, orgName, projectId, startValue) {
           Firebase.database().ref(path)
             .orderByChild('lastModified')
             .on('child_removed', threadSnapshot => {
-            dispatch(threadRemovedAction(threadSnapshot.key));
+            dispatch(threadRemovedAction(threadSnapshot.key, source));
           })
         }
       })
@@ -997,7 +998,7 @@ export function watchThreadFeed(auth, orgName, projectId, startValue) {
   }
 }
 
-export function unwatchThreadFeed(auth, orgName, projectId) {
+export function unwatchThreadFeed(auth, orgName, projectId, source) {
   return dispatch => {
     Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', orgSnap => {
       if (orgSnap.exists()) {
@@ -1008,7 +1009,8 @@ export function unwatchThreadFeed(auth, orgName, projectId) {
         Firebase.database().ref(path).off()
 
         dispatch({
-          type: ActionTypes.UNWATCH_THREAD_FEED
+          type: ActionTypes.UNWATCH_THREAD_FEED,
+          source: source
         })
       }
     })
