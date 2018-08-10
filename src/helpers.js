@@ -654,7 +654,7 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 					inboxObject.link = '/' + org.name + '/' + project.projectId + '/' + thread.threadId;
 					inboxObject.type = Constants.INBOX_INVITE_TYPE
 					emailMessage = org.name + ' team: ' + senderSnapshot.val().username + 
-						' created a new thread in the ' + project.name + ' project. Click here to check it out: ' Constants.COLLABO_URL + '/' + org.name + '/' + project.projectId + '/' + thread.threadId;
+						' created a new thread in the ' + project.name + ' project. Click here to check it out: '+ Constants.COLLABO_URL + '/' + org.name + '/' + project.projectId + '/' + thread.threadId;
 					break;
 			}
 			if (senderId !== recipientId) {
