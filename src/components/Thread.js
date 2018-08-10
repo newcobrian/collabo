@@ -277,7 +277,7 @@ class Thread extends React.Component {
                 <div className="flx flx-row">
                   <div className="v2-type-body1">Posted by {createdBy.username}
                     <Link
-                      to={'/' + createdBy.username}
+                      to={'/' + this.props.params.orgname + '/user/' + createdBy.username}
                       className="show-in-list">
                     <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm">
                         <div className="tip__author-photo flx-hold mrgn-right-sm">
