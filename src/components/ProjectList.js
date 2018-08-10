@@ -18,7 +18,8 @@ const mapStateToProps = state => ({
   ...state.projectList,
   currentUser: state.common.currentUser,
   authenticated: state.common.authenticated,
-  userInfo: state.common.userInfo
+  userInfo: state.common.userInfo,
+  orgName: state.organization.orgName
 });
 
 class ProjectList extends React.Component {
@@ -32,7 +33,8 @@ class ProjectList extends React.Component {
   }
 
   render() {
-    let orgName = this.props.org ?  this.props.org.name : ''
+    // let orgName = this.props.org ?  this.props.org.name : ''
+    let orgName = this.props.orgName
     let threadCounts = this.props.threadCounts || {}
     if(!this.props.projectList) return null;
     return (

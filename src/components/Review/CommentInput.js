@@ -29,7 +29,7 @@ class CommentInput extends React.Component {
       if (this.state.body !== '') {
         const commentBody = ''.concat(this.state.body);
         this.setState({ body: '' });
-        this.props.onThreadCommentSubmit(this.props.authenticated, this.props.userInfo, this.props.type, this.props.commentObject, commentBody, this.props.threadId, this.props.project, this.props.org);
+        this.props.onThreadCommentSubmit(this.props.authenticated, this.props.userInfo, this.props.type, this.props.commentObject, commentBody, this.props.threadId, this.props.project, this.props.orgName);
       }
     }
   }

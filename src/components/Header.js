@@ -115,7 +115,7 @@ const LoggedInView = props => {
           </div>
         </Link>
 
-        <Link to={`/user/${props.userInfo.username}`} activeClassName="active" className="nav-module nav-profile flx flx-row flx-center-all">
+        <Link to={`user/${props.userInfo.username}`} activeClassName="active" className="nav-module nav-profile flx flx-row flx-center-all">
          <div className="nav-text flx flx-row flx-align-center">
           <div className="nav-icon"><ProfilePic className="center-img" src={props.userInfo.image}/></div>
           <div className="DN">My Views</div>
@@ -139,7 +139,7 @@ class Header extends React.Component {
       <div>
           <LoggedOutView currentUser={this.props.currentUser} />
 
-          <LoggedInView currentUser={this.props.currentUser} userInfo={this.props.userInfo} unreadMessages={this.props.unreadMessages} />
+          <LoggedInView currentUser={this.props.currentUser} userInfo={this.props.userInfo} unreadMessages={this.props.unreadMessages} orgName={this.props.orgName} />
       </div>
     );
   }

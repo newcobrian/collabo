@@ -16,7 +16,8 @@ const mapStateToProps = state => ({
   userInfo: state.common.userInfo,
   unreadMessages: state.common.unreadMessages,
   redirectTo: state.common.redirectTo,
-  snackbarToaster: state.common.snackbarToaster
+  snackbarToaster: state.common.snackbarToaster,
+  orgName: state.organization.orgName
 });
 
 // const mapDispatchToProps = dispatch => ({
@@ -101,7 +102,8 @@ class App extends React.Component {
         <Header
           appName={this.props.appName}
           currentUser={this.props.currentUser}
-          userInfo={this.props.userInfo} />
+          userInfo={this.props.userInfo}
+          org={this.props.orgName} />
       </div>
     );
   }

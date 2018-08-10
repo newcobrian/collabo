@@ -27,7 +27,6 @@ const mapStateToProps = state => ({
   ...state.thread,
   userInfo: state.common.userInfo,
   authenticated: state.common.authenticated,
-  organization: state.common.organization,
   invalidOrgUser: state.common.invalidOrgUser
 })
 
@@ -320,7 +319,7 @@ class Thread extends React.Component {
                   commentObject={thread}
                   threadId={this.props.params.tid}
                   project={this.props.project}
-                  org={this.props.org}
+                  orgName={this.props.params.orgname}
                   usersList={this.props.usersList}
                   deleteComment={this.props.onDeleteThreadComment} />
               

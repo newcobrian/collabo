@@ -522,7 +522,7 @@ export function getThreadFieldUpdates(threadId, thread, field, value) {
   return updates;
 }
 
-export function onThreadCommentSubmit(authenticated, userInfo, type, thread, body, threadId, project, org) {
+export function onThreadCommentSubmit(authenticated, userInfo, type, thread, body, threadId, project, orgName) {
   return dispatch => {
     if(!authenticated) {
       dispatch({
@@ -538,6 +538,7 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
     if (userInfo.image) comment.image = userInfo.image;
 
     if (threadId) {
+      let org = Object.assign({}, {orgId: thread.orgId}, {name: orgName})
       let commentId = Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).push(comment).key;
 
       Helpers.incrementThreadCount(Constants.COMMENTS_COUNT, threadId, thread, thread.userId);
@@ -835,11 +836,9 @@ export function loadOrg(auth, org, source) {
           else {
             dispatch({
               type: ActionTypes.LOAD_ORG,
-              organization: {
-                name: lowercaseName,
-                orgId: orgSnap.val().orgId,
-                source: source
-              }
+              orgName: lowercaseName,
+              orgId: orgSnap.val().orgId,
+              source: source
             })
           }
         })
