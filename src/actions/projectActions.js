@@ -16,7 +16,7 @@ export function onAddProject(auth, project, orgName) {
     }
     else {
       let projectName = project.name;
-      Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + orgName + '/' + projectName).once('value', nameSnapshot => {
+      Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + orgName + '/' + projectName.toLowerCase()).once('value', nameSnapshot => {
         if (nameSnapshot.exists()) {
           dispatch({
             type: ActionTypes.CREATE_SUBMIT_ERROR,
@@ -38,7 +38,7 @@ export function onAddProject(auth, project, orgName) {
 
             let projectId = Firebase.database().ref(Constants.PROJECTS_PATH).push(projectObject).key;
 
-            updates[`/${Constants.PROJECT_NAMES_BY_ORG_PATH}/${orgName}/${projectName}/`] = projectId;
+            updates[`/${Constants.PROJECT_NAMES_BY_ORG_PATH}/${orgName}/${projectName.toLowerCase()}/`] = projectId;
             // updates[`/${Constants.PROJECTS_BY_USER_PATH}/${auth}/${projectId}/`] = { name: project.name };
 
             Firebase.database().ref().update(updates);
