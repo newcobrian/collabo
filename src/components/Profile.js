@@ -4,10 +4,9 @@ import { connect } from 'react-redux';
 import Firebase from 'firebase';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
-import ItineraryList from './ItineraryList';
-import FollowUserButton from './FollowUserButton';
+// import FollowUserButton from './FollowUserButton';
 import ProfileInfo from './ProfileInfo';
-import ReviewList from './ReviewList';
+import ActivityList from './ActivityList';
 
 const LogoutButton = props => {
   if (props.isUser && props.authenticated) {
@@ -55,10 +54,11 @@ class Profile extends React.Component {
         if (snapshot.exists()) {
           let userId = snapshot.val().userId;
           this.props.getProfileUser(userId);
-          this.props.checkFollowing(this.props.authenticated, userId);
+          this.props.watchActivityFeed(this.props.authenticated, this.props.params.orgname, 0, Constants.PROFILE_PAGE)
+          // this.props.checkFollowing(this.props.authenticated, userId);
           // this.props.getItinerariesByUser(this.props.authenticated, userId);
-          this.props.getReviewsByUser(this.props.authenticated, userId);
-          this.props.getProfileCounts(userId);
+          // this.props.getReviewsByUser(this.props.authenticated, userId);
+          // this.props.getProfileCounts(userId);
           this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'profile'});
         }
         else {
@@ -70,9 +70,10 @@ class Profile extends React.Component {
     this.unloadUser = (username, userId) => {
       if (this.props.profile) {
         this.props.unloadProfileUser(userId);
-        this.props.unloadProfileFollowing(this.props.authenticated, userId);
+        this.props.watchActivityFeed(this.props.authenticated, this.props.params.orgname, Constants.PROFILE_PAGE)
+        // this.props.unloadProfileFollowing(this.props.authenticated, userId);
         // this.props.unloadItinerariesByUser(this.props.authenticated, userId);
-        this.props.unloadReviewsByUser(this.props.authenticated, userId);
+        // this.props.unloadReviewsByUser(this.props.authenticated, userId);
       }
       Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + username).off();
     }
@@ -173,6 +174,17 @@ class Profile extends React.Component {
         </div>
       );
     }
+    if (this.props.invalidOrgUser) {
+      return (
+        <div className="error-module flx flx-col flx-center-all ta-center v2-type-body3 color--black">
+          <div className="xiao-img-wrapper mrgn-bottom-sm">
+            <img className="center-img" src="/img/xiaog.png"/>
+          </div>
+          <div className="mrgn-bottom-md">You don't have permission to view this org</div>
+
+        </div>
+        )
+    }
     if (!this.props.profile) {
       return (
         <div className="loading-module flx flx-col flx-center-all v2-type-body3 fill--black">
@@ -198,42 +210,6 @@ class Profile extends React.Component {
         </div>
         );
     }
-    // if (!this.props.itineraries) {
-    if (!this.props.reviews) {
-      return (
-        <div className="loading-module flx flx-col flx-center-all v2-type-body3 fill--black">
-          <div className="loader-wrapper flx flx-col flx-center-all fill--black">
-            <div className="loader-bird"></div>
-            <div className="loader">
-              <div className="bar1"></div>
-              <div className="bar2"></div>
-              <div className="bar3"></div>
-            </div>
-            <div className="v2-type-body2 color--white">Loading user</div>
-          </div>
-        </div>
-        )
-    }
-    // if (this.props.itineraries.length === 0) {
-    if (this.props.reviews.length === 0) {
-      return (
-        <div className="flx flx-col page-common profile-page flx-align-center">
-          <div className="w-100 w-max flx flx-row flx-m-col">
-            <ProfileInfo
-              authenticated={this.props.authenticated}
-              profile={this.props.profile}
-              follow={this.props.followUser}
-              signOut={this.props.signOutUser}
-              unfollow={this.props.unfollowUser} />
-
-            {this.renderTabs()}
-          </div>
-          <div className="status-module flx flx-row flx-just-center w-100 v2-type-body3">
-            <div className="ta-center pdding-all-md">{this.props.profile.username} has not created any guides...yet.</div>
-          </div>
-        </div>  
-      )
-    }
     else {
       let profile = this.props.profile;
       profile.isFollowing = this.props.isFollowing;
@@ -251,27 +227,12 @@ class Profile extends React.Component {
             follow={this.props.followUser}
             unfollow={this.props.unfollowUser} />
 
-            {/**console.log(this.props.currentUser)**/}
-
-          {this.renderTabs()}
+          {/*this.renderTabs()*/}
           </div>
           <div className="flx flx-row flx-just-center w-100">
        
-            {/*<ItineraryList
-              itineraries={this.props.itineraries} 
-              authenticated={this.props.authenticated} 
-              deleteItinerary={this.props.showDeleteModal}
-
-              currentPage={this.props.currentPage}
-              updateRating={this.props.onUpdateRating}
-              onSetPage={this.onSetPage}
-              deleteReview={this.props.onDeleteReview}
-              showModal={this.props.showModal} />
-            */}
-            <ReviewList
-              reviewList={this.props.reviews}
-              authenticated={this.props.authenticated}
-              />
+          <ActivityList feed={this.props.feed} />
+            
           </div>
         </div>
       );

@@ -97,6 +97,7 @@ export const INVITES_BY_ORG_PATH = '/invites-by-org'
 export const INVITES_PATH = '/invites'
 export const USERS_BY_ORG_PATH = '/users-by-org'
 export const THREAD_SEEN_COUNTERS_PATH = '/thread-seen-counters'
+export const ACTIVITY_BY_USER_BY_ORG_PATH = '/activity-by-user-by-org'
 
 /*** Counter Type Constants ***/
 export const LIKES_COUNT = 'likesCount'

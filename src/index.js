@@ -69,10 +69,10 @@ ReactDOM.render((
         <Route path="inbox" component={Inbox} />
         <Route path="seo" component={SEO} />
         <Route path ="invitation/:iid" component={AcceptInvite} />
-        <Route path="user/:username/followers" component={Followers} />
+        {/*<Route path="user/:username/followers" component={Followers} />
         <Route path="user/:username/isfollowing" component={Followings} />
-        <Route path="user/:username" component={ProfileGuides} />
-        <Route path="user/:username/likes" component={ProfileLikes} />
+        <Route path="user/:username/likes" component={ProfileLikes} />*/}
+        <Route path=":orgname/user/:username" component={Profile} />
         {/*<Route path=":orgname" component={Organization} />*/}
         <Route path=":orgname/addproject" component={AddProject} />
         <Route path=":orgname/invite" component={OrgInvite} />

@@ -106,6 +106,10 @@ export function onAddThread(auth, projectId, thread, orgName) {
           updates[`/${Constants.THREADS_BY_USER_BY_ORG_PATH}/${auth}/${projectSnapshot.val().orgId}/${threadId}/`] = omit(threadObject, ['userId'], ['orgId']);
           updates[`/${Constants.THREADS_BY_ORG_PATH}/${projectSnapshot.val().orgId}/${threadId}/`] = omit(threadObject, ['orgId']);
 
+          // also update user's activity feed
+          let activityObject = Object.assign({}, omit(threadObject, ['userId'], ['orgId']), { threadId: threadId }, { type: Constants.NEW_THREAD_TYPE })
+          Firebase.database().ref(Constants.ACTIVITY_BY_USER_BY_ORG_PATH + '/' + auth + '/' + projectSnapshot.val().orgId).push(activityObject)
+
           Firebase.database().ref().update(updates);
 
           Helpers.incrementThreadSeenCounts(auth, projectSnapshot.val().orgId, projectId, threadId)
@@ -235,30 +239,33 @@ export function loadProject(projectId) {
 //   }
 // }
 
-function threadAddedAction(threadId, thread, user) {
+function threadAddedAction(threadId, thread, user, source) {
   // delete thread.lastModified;
   return {
     type: ActionTypes.THREAD_ADDED_ACTION,
     threadId,
     thread,
-    user
+    user,
+    source
   }
 }
 
-function threadChangedAction(threadId, thread, userId) {
+function threadChangedAction(threadId, thread, userId, source) {
   // delete thread.lastModified;
   return {
     type: ActionTypes.THREAD_CHANGED_ACTION,
     threadId,
     thread,
-    userId
+    userId,
+    source
   }
 }
 
-function threadRemovedAction(threadId) {
+function threadRemovedAction(threadId, source) {
   return {
     type: ActionTypes.THREAD_REMOVED_ACTION,
-    threadId
+    threadId,
+    source
   }
 }
 
@@ -541,7 +548,12 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
 
       // update the last comment
       Object.assign(updates, getThreadFieldUpdates(threadId, thread, 'lastComment', Object.assign({}, comment, { commentId: commentId })))
+
       Firebase.database().ref().update(updates);
+
+      // also update user's activity feed
+      let activityObject = Object.assign({}, pick(thread, ['title', 'projectId', 'createdOn']), pick(comment, ['body', 'lastModified']), { threadId: threadId }, { type: Constants.COMMENT_TYPE })
+      Firebase.database().ref(Constants.ACTIVITY_BY_USER_BY_ORG_PATH + '/' + authenticated + '/' + thread.orgId).push(activityObject)
 
       Helpers.incrementThreadSeenCounts(authenticated, thread.orgId, thread.projectId, threadId)
 
@@ -1104,5 +1116,102 @@ export function loadOrgUsers(auth, orgName, source) {
       })
     })
   }
+}
 
+export function watchActivityFeed(auth, orgName, startValue, source) {
+  return dispatch => {
+    if (auth) {
+      Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', orgSnap => {
+        if (!orgSnap.exists()) {
+          dispatch({
+            type: ActionTypes.NOT_AN_ORG_USER
+          })
+        }
+        else {
+          Firebase.database().ref(Constants.USERS_PATH + '/' + auth).once('value', userSnap => {
+            let orgId = orgSnap.val().orgId
+
+            Firebase.database().ref(Constants.ACTIVITY_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgId).once('value', emptySnap => {
+              if (!emptySnap.exists()) {
+                dispatch({
+                  type: ActionTypes.EMPTY_ACTIVITY_FEED,
+                  source: source
+                })
+              }
+            })
+
+            Firebase.database().ref(Constants.ACTIVITY_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgId)
+              .orderByChild('lastModified')
+              // .limitToFirst(2)
+              .startAt(startValue)
+              .on('child_added', activitySnap => {
+                dispatch(activityAddedAction(activitySnap.key, activitySnap.val(), userSnap.val(), source));
+                // dispatch(updateStartValue(threadSnapshot.val().lastModified ? threadSnapshot.val().lastModified : startValue));
+            })
+
+            // on child changed, how do we unwatch old refs?
+            Firebase.database().ref(Constants.ACTIVITY_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgId)
+              .orderByChild('lastModified')
+              .on('child_changed', activitySnap => {
+                dispatch(activityChangedAction(activitySnap.key, activitySnap.val(), userSnap.val(), source));
+                // dispatch(updateStartValue(threadSnapshot.val().lastModified ? threadSnapshot.val().lastModified : startValue));
+            })
+
+            Firebase.database().ref(Constants.ACTIVITY_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgId)
+              .orderByChild('lastModified')
+              .on('child_removed', activitySnap => {
+              dispatch(activityRemovedAction(activitySnap.key, source));
+            })
+          })
+        }
+      })
+    }
+  }
+}
+
+export function unwatchActivityFeed(auth, orgName, source) {
+  return dispatch => {
+    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', orgSnap => {
+      if (orgSnap.exists()) {
+        let orgId = orgSnap.val().orgId
+
+        Firebase.database().ref(Constants.ACTIVITY_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgId).off()
+
+        dispatch({
+          type: ActionTypes.UNWATCH_ACTIVITY_FEED,
+          source: source
+        })
+      }
+    })
+  }
+}
+
+function activityAddedAction(activityId, activity, user, source) {
+  // delete thread.lastModified;
+  return {
+    type: ActionTypes.ACTIVITY_ADDED_ACTION,
+    activityId,
+    activity,
+    user,
+    source
+  }
+}
+
+function activityChangedAction(activityId, activity, userId, source) {
+  // delete thread.lastModified;
+  return {
+    type: ActionTypes.ACTIVITY_CHANGED_ACTION,
+    activityId,
+    activity,
+    userId,
+    source
+  }
+}
+
+function activityRemovedAction(activityId, source) {
+  return {
+    type: ActionTypes.ACTIVITY_REMOVED_ACTION,
+    activityId,
+    source
+  }
 }
