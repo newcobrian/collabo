@@ -86,6 +86,7 @@ class App extends React.Component {
             appName={this.props.appName}
             currentUser={this.props.currentUser}
             userInfo={this.props.userInfo} 
+            orgName={this.props.orgName}
             unreadMessages={this.props.unreadMessages} />
           {this.props.children}
           <SnackbarToaster 
@@ -102,8 +103,8 @@ class App extends React.Component {
         <Header
           appName={this.props.appName}
           currentUser={this.props.currentUser}
-          userInfo={this.props.userInfo}
-          org={this.props.orgName} />
+          orgName={this.props.orgName}
+          userInfo={this.props.userInfo} />
       </div>
     );
   }
