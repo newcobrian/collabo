@@ -103,7 +103,7 @@ export function onAddThread(auth, projectId, thread, orgName) {
           let threadId = Firebase.database().ref(Constants.THREADS_PATH).push(threadObject).key;
 
           updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${projectId}/${threadId}/`] = omit(threadObject, ['projectId']);
-          updates[`/${Constants.THREADS_BY_USER_PATH}/${auth}/${threadId}/`] = omit(threadObject, ['userId']);
+          updates[`/${Constants.THREADS_BY_USER_BY_ORG_PATH}/${auth}/${projectSnapshot.val().orgId}/${threadId}/`] = omit(threadObject, ['userId'], ['orgId']);
           updates[`/${Constants.THREADS_BY_ORG_PATH}/${projectSnapshot.val().orgId}/${threadId}/`] = omit(threadObject, ['orgId']);
 
           Firebase.database().ref().update(updates);
@@ -159,7 +159,7 @@ export function onDeleteThread(auth, threadId, thread, orgName) {
         let updates = {}
         updates[`/${Constants.THREADS_PATH}/${threadId}/`] = null
         updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${thread.projectId}/${threadId}/`] = null
-        updates[`/${Constants.THREADS_BY_USER_PATH}/${thread.userId}/${threadId}/`] = null
+        updates[`/${Constants.THREADS_BY_USER_BY_ORG_PATH}/${thread.userId}/${thread.orgId}/${threadId}/`] = null
         updates[`/${Constants.THREADS_BY_ORG_PATH}/${thread.orgId}/${threadId}/`] = null
       
         if (orgSnap.exists()) {
@@ -425,14 +425,14 @@ export function updateThreadField(auth, threadId, thread, orgName, field, value)
       // update all thread tables
       updates[`/${Constants.THREADS_PATH}/${threadId}/${field}/`] = value
       updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${thread.projectId}/${threadId}/${field}/`] = value
-      updates[`/${Constants.THREADS_BY_USER_PATH}/${thread.userId}/${threadId}/${field}/`] = value
+      updates[`/${Constants.THREADS_BY_USER_BY_ORG_PATH}/${thread.userId}/${thread.orgId}/${threadId}/${field}/`] = value
       updates[`/${Constants.THREADS_BY_ORG_PATH}/${thread.orgId}/${threadId}/${field}/`] = value
 
       // update lastModified timestamps
       let timestamp = Firebase.database.ServerValue.TIMESTAMP;
       updates[`/${Constants.THREADS_PATH}/${threadId}/lastModified/`] = timestamp
       updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${thread.projectId}/${threadId}/lastModified/`] = timestamp
-      updates[`/${Constants.THREADS_BY_USER_PATH}/${thread.userId}/${threadId}/lastModified/`] = timestamp
+      updates[`/${Constants.THREADS_BY_USER_BY_ORG_PATH}/${thread.userId}/${thread.orgId}/${threadId}/lastModified/`] = timestamp
 
       // if body was updated, make this the lastUpdate
       if (field === 'body') {
@@ -509,7 +509,7 @@ export function getThreadFieldUpdates(threadId, thread, field, value) {
   let updates = {}
   updates[Constants.THREADS_PATH + '/' + threadId + '/' + field] = value
   updates[Constants.THREADS_BY_PROJECT_PATH + '/' + thread.projectId + '/' + threadId + '/' + field] = value
-  updates[Constants.THREADS_BY_USER_PATH + '/' + thread.userId + '/' + threadId + '/' + field] = value
+  updates[Constants.THREADS_BY_USER_BY_ORG_PATH + '/' + thread.userId + '/' + thread.orgId + '/' + threadId + '/' + field] = value
   updates[Constants.THREADS_BY_ORG_PATH + '/' + thread.orgId + '/' + threadId + '/' + field] = value
 
   return updates;
