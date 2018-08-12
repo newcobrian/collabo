@@ -27,7 +27,9 @@ class CommentInput extends React.Component {
     this.createComment = ev => {
       ev.preventDefault();
       if (this.state.body !== '') {
-        const commentBody = ''.concat(this.state.body);
+        // clean the comment body for @ mentions markup
+        let pattern = /\B@[$][|][{][a-z0-9_-]+(\1)[}][|][$]/gi;
+        const commentBody = ''.concat(this.state.body.replace(/\B@[$][|][{]([a-z0-9_-]+)[}][|][$]/gi, "@$1"))
         this.setState({ body: '' });
         this.props.onThreadCommentSubmit(this.props.authenticated, this.props.userInfo, this.props.type, this.props.commentObject, commentBody, this.props.threadId, this.props.project, this.props.orgName);
       }
@@ -55,7 +57,7 @@ class CommentInput extends React.Component {
               value={this.state.body} 
               onChange={this.setBody}
               displayTransform={id => `@${id}`}
-              markup="@__display__"
+              markup='@$|{__display__}|$'
               >
 
                 <Mention
