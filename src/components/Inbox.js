@@ -66,6 +66,10 @@ const mapStateToProps = state => ({
 
 class Inbox extends React.Component {
   componentWillMount() {
+    this.props.loadOrg(this.props.authenticated, this.props.params.orgname, Constants.INBOX_PAGE);
+    this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, Constants.INBOX_PAGE)
+    this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
+    this.props.loadOrgList(this.props.authenticated, Constants.INBOX_PAGE)
     this.props.getInbox(this.props.authenticated, null);
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'inbox'});
   }
@@ -77,6 +81,10 @@ class Inbox extends React.Component {
   componentWillUnmount() {
     this.props.updateInboxCount(this.props.authenticated);
     this.props.unloadInbox(this.props.authenticated);
+    this.props.unloadOrgList(this.props.authenticated, Constants.INBOX_PAGE)
+    this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname)
+    this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.INBOX_PAGE)
+    this.props.unloadOrg(Constants.INBOX_PAGE);
     if (!this.props.authenticated) {
       this.props.setAuthRedirect(this.props.location.pathname);
     }

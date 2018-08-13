@@ -66,12 +66,12 @@ ReactDOM.render((
         <Route path="settings" component={Settings} />
         <Route path="forgotPassword" component={ForgotPassword} />
         <Route path="neworg" component={CreateOrg} />
-        <Route path="inbox" component={Inbox} />
         <Route path="seo" component={SEO} />
         <Route path ="invitation/:iid" component={AcceptInvite} />
         {/*<Route path="user/:username/followers" component={Followers} />
         <Route path="user/:username/isfollowing" component={Followings} />
         <Route path="user/:username/likes" component={ProfileLikes} />*/}
+        <Route path=":orgname/inbox" component={Inbox} />
         <Route path=":orgname/user/:username" component={Profile} />
         {/*<Route path=":orgname" component={Organization} />*/}
         <Route path=":orgname/addproject" component={AddProject} />

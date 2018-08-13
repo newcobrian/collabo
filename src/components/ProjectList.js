@@ -120,7 +120,7 @@ class ProjectList extends React.Component {
           </Link>
 
 
-          <Link to="/inbox" activeClassName="active" className="sidebar-row flx flx-row flx-align-center">
+          <Link to={'/' + this.props.orgName + '/inbox'} activeClassName="active" className="sidebar-row flx flx-row flx-align-center">
               <div className="sidebar-icon flx flx-center-all"><InboxCounter unreadMessages={this.props.unreadMessages} /></div>
               <div className="co-type-label color--white opa-40">Activity</div>
           </Link>
