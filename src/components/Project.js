@@ -171,7 +171,8 @@ class Project extends React.Component {
             
             <ProjectList 
               threadCounts={this.props.threadCounts}
-              projectId={this.props.params.pid} />
+              projectId={this.props.params.pid}
+              source={Constants.PROJECT_PAGE} />
 
             <div className="thread-area flx flx-col w-100">
               
