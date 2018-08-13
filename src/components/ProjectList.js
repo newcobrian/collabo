@@ -81,12 +81,12 @@ class ProjectList extends React.Component {
           </Link>
         </div>
 
-        <Link className="sidebar-row group-row flx flx-row flx-align-center" to={'/' + orgName}>
+        <Link className={"sidebar-row group-row flx flx-row flx-align-center " + (!this.props.projectId ? 'active' : '')} to={'/' + orgName}>
           <div className="sidebar-icon flx flx-center-all">
             <i className="material-icons color--black md-14">fiber_manual_record
             </i>
           </div>
-          <div className="co-type-label color--black opa-40"> 
+          <div className="co-type-label color--black opa-40 "> 
             All
           </div>
         </Link>
