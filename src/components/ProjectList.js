@@ -3,15 +3,30 @@ import { connect } from 'react-redux';
 import { Link, browserHistory } from 'react-router';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
+import ProfilePic from './ProfilePic';
+
 
 const ThreadCountJewel = props => {
   if (props.threadCount > 0) {
     return (
-      <div className="count-badge header-badge badge-on"> {props.threadCount}</div>
+      <div className="group-badge badge-on color--red"> {props.threadCount}</div>
     );
   }
-  return null;
-    // <div className="count-badge header-badge opa-50">0</div>
+  return (
+    <i className="material-icons color--black md-14 opa-10">fiber_manual_record
+
+    </i>
+  );
+}
+const InboxCounter = props => {
+  if (props.unreadMessages > 0) {
+    return (
+      <div className="count-badge header-badge badge-on"> {props.unreadMessages}</div>
+    );
+  }
+  return (
+    <div className="count-badge header-badge opa-50">0</div>
+  );
 }
 
 const mapStateToProps = state => ({
@@ -32,57 +47,91 @@ class ProjectList extends React.Component {
     }
   }
 
+
   render() {
     // let orgName = this.props.org ?  this.props.org.name : ''
     let orgName = this.props.orgName
     let threadCounts = this.props.threadCounts || {}
     if(!this.props.projectList) return null;
     return (
-      <div className="project-sidebar flx-item-left">
-        <div className="v2-type-h4 mrgn-bottom-md color--black DN">{orgName}</div>
-        <select onChange={this.onOrgChange}>
-          <option value={orgName}>{orgName}</option>
-          {(this.props.orgList || []).map((orgItem, index) => {
-            if (orgItem && orgItem.name && orgName && orgItem.name.toLowerCase() !== orgName.toLowerCase()) {
-              return (
-                <option key={index} value={orgItem.name}>{orgItem.name}</option>  
-              )
-            }
-          })}
-        </select> 
-        <Link to={'/' + orgName + '/addProject'}>
-          <div className="nav-text flx flx-row flx-align-center mrgn-bottom-sm mrgn-bottom-md">
-            <i className="material-icons color--black md-18 opa-100 mrgn-right-sm">add</i>
-            <div className="color--black label-big">New Project</div>
-          </div>
-        </Link>
-        <div className="mrgn-bottom-md mrgn-top-md">
-          <Link className="color--black label-big opa-80 flx flx-row flx-align-center" to={'/' + orgName}>
-            <i className="material-icons color--black md-18 opa-100 mrgn-right-sm">fiber_manual_record</i>
-              All
+      <div className="project-sidebar flx-col flx-item-left">
+
+
+        <div className="org-row flx flx-row flx-align-center">
+          <div className="co-logo flx-hold"></div>
+          <select className="org-selector co-type-org color--black" onChange={this.onOrgChange}>
+            <option value={orgName}>{orgName}</option>
+            {(this.props.orgList || []).map((orgItem, index) => {
+              if (orgItem && orgItem.name && orgName && orgItem.name.toLowerCase() !== orgName.toLowerCase()) {
+                return (
+                  <option key={index} value={orgItem.name}>{orgItem.name}</option>  
+                )
+              }
+            })}
+
+          </select>
+          <i className="material-icons org-arrow color--black md-18 flx-item-right">expand_more</i>
+        </div> 
+
+        
+        <div className="sidebar-row sidebar-header flx flx-row flx-align-center">
+          <div className="co-type-h5 color--black">Groups</div>
+          <Link to={'/' + orgName + '/addProject'} className="color--black label-big color--primary flx-item-right">
+            Add Group
           </Link>
         </div>
+
+        <Link className="sidebar-row group-row flx flx-row flx-align-center" to={'/' + orgName}>
+          <div className="sidebar-icon flx flx-center-all">
+            <i className="material-icons color--black md-14">fiber_manual_record
+            </i>
+          </div>
+          <div className="co-type-label color--black opa-40"> 
+            All
+          </div>
+        </Link>
+
         {
           (this.props.projectList || []).map((projectItem, index) => {
             return (
-              <div className={"mrgn-bottom-md mrgn-top-md " + (this.props.projectId === projectItem.id ? 'active' : '')} key={projectItem.id}>
-                <Link className="color--black label-big opa-80 flx flx-row flx-align-center" to={'/' + orgName + '/' + projectItem.id}>
-                <i className="material-icons color--black md-18 opa-100 mrgn-right-sm">fiber_manual_record
-</i>
 
-                {projectItem.name} {<ThreadCountJewel threadCount={threadCounts[projectItem.id]} />}
+                <Link className={"sidebar-row group-row flx flx-row flx-align-center " + (this.props.projectId === projectItem.id ? 'active' : '')} key={projectItem.id} to={'/' + orgName + '/' + projectItem.id}>
+                  <div className="sidebar-icon flx flx-center-all">
+                    {<ThreadCountJewel threadCount={threadCounts[projectItem.id]} />}
+                  </div> 
+                  <div className="co-type-label color--black opa-40">
+                  {projectItem.name}
+                  </div>
                 </Link>
-              </div>
+
             );
           })
         }
-        <Link to={'/' + orgName + '/invite'}>
-          <div className="nav-text flx flx-row flx-align-center mrgn-bottom-sm">
-            <i className="material-icons color--black md-18 opa-100 mrgn-right-sm">child_care</i>
-            <div className="color--black label-big">Invite team members</div>
-          </div>
-        </Link>
+
+        <div className="sidebar-footer flx flx-col">
+          <Link className="sidebar-row flx flx-row flx-align-center" to={'/' + orgName + '/invite'}>
+              <div className="sidebar-icon">
+                <i className="material-icons color--black md-14">accessibility_new
+                </i>
+              </div>
+              <div className="co-type-label color--primary">Invite team members</div>
+
+          </Link>
+
+
+          <Link to="/inbox" activeClassName="active" className="sidebar-row flx flx-row flx-align-center">
+              <div className="sidebar-icon"><InboxCounter unreadMessages={this.props.unreadMessages} /></div>
+              <div className="co-type-label color--black opa-40">Activity</div>
+          </Link>
+
+          <Link className="sidebar-row flx flx-row flx-align-center" to={`/${this.props.orgName}/user/${this.props.userInfo.username}`} activeClassName="active">
+            <div className="sidebar-icon"><ProfilePic className="center-img" src={this.props.userInfo.image}/></div>
+            <div className="co-type-label color--black opa-40">{this.props.userInfo.username}</div>
+          </Link>
+        </div>
+
       </div>
+
     );
   }
 }

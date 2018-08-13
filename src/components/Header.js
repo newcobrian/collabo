@@ -20,7 +20,7 @@ const LoggedOutView = props => {
   }
   else if (!props.currentUser || props.currentUser.isAnonymous) {
     return (
-     <div className="header-container logged-out">
+     <div className="header-container logged-out DN">
       <div className="header-wrapper w-100">
         <Link to="/" className="logo-module flx flx-row flx-just-start flx-align-center">
           <div className="logo-graphic flx flx-row flx-center-all DN">  
@@ -60,7 +60,7 @@ const LoggedInView = props => {
     return (
 
 
-      <div className="header-container">
+      <div className="header-container DN">
         <div className="header-wrapper w-100">
           <Link to="/" className="logo-module flx flx-row flx-just-start flx-align-center">
             <div className="logo-graphic flx flx-row flx-center-all DN">  
@@ -108,14 +108,14 @@ const LoggedInView = props => {
           </div>
         </Link>
 
-        <Link to="/inbox" activeClassName="active" className="nav-module nav-notifs flx flx-center-all">
+        <Link to="/inbox" activeClassName="active" className="DN nav-module nav-notifs flx flx-center-all">
           <div className="nav-text flx flx-row flx-align-center">
             <InboxCounter className="" unreadMessages={props.unreadMessages} />
             <div className="DN">Activity</div>
           </div>
         </Link>
 
-        <Link to={`/${props.orgName}/user/${props.userInfo.username}`} activeClassName="active" className="nav-module nav-profile flx flx-row flx-center-all">
+        <Link to={`/${props.orgName}/user/${props.userInfo.username}`} activeClassName="active" className="DN nav-module nav-profile flx flx-row flx-center-all">
          <div className="nav-text flx flx-row flx-align-center">
           <div className="nav-icon"><ProfilePic className="center-img" src={props.userInfo.image}/></div>
           <div className="DN">My Views</div>
@@ -137,9 +137,9 @@ class Header extends React.Component {
   render() {
     return (
       <div>
-          <LoggedOutView currentUser={this.props.currentUser} />
+          <LoggedOutView className="DN" currentUser={this.props.currentUser} />
 
-          <LoggedInView currentUser={this.props.currentUser} userInfo={this.props.userInfo} unreadMessages={this.props.unreadMessages} orgName={this.props.orgName} />
+          <LoggedInView className="DN" currentUser={this.props.currentUser} userInfo={this.props.userInfo} unreadMessages={this.props.unreadMessages} orgName={this.props.orgName} />
       </div>
     );
   }

@@ -323,8 +323,8 @@ input[type="radio"]:checked + label span {
 }
 .default-profile-wrapper,
 .user-photo-wrapper {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: 100px;
   overflow: hidden;
   background-color: #ccc;
@@ -522,9 +522,9 @@ width: 32px;
 ******
 ******/
 .page-common {
-  margin: 69px auto 0;
+  margin: 0;
   background-color: white;
-  padding-bottom: 100px;
+  padding-bottom: 0;
 }
 .page-common.page-itinerary {
   background-color: white;

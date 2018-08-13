@@ -71,7 +71,7 @@ class Home extends React.Component {
   LoggedOutIntro(authenticated) {
     if (!authenticated) {
       return (
-       <div className="hero-container logged-out flx flx-col">
+       <div className="hero-container logged-out flx flx-col DN">
         <div className="marketing-page navigation-bar flx flx-row flx-align-center flx-just-end pdding-right-md DN">
             <Link to="/login" className="nav-module nav-feed flx flx-center-all vb vb--sm fill--white color--black">
               <div className="nav-text">
@@ -123,7 +123,7 @@ class Home extends React.Component {
     else {
       return (
         <div>
-          <div className={'home-page page-common fill--white flx flx-col flx-align-center '}>
+          <div className={'home-page page-common fill--white flx flx-col flx-align-center'}>
             
             
             <h1>Your Teams</h1>

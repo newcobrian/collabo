@@ -11,13 +11,14 @@
     top: 0;
     right: 0;
     left: 0;
-    width: 100%;
+    width: 300px;
     background-color: rgba(255,255,255,1);
     background-color: #D4E7EF;
     border-bottom: 1px solid #D4E7EF;
     /* Rectangle 6: */
     opacity: 1;
-    background-color: #D4E7EF;
+    background-color: #FBFCFC;
+    visibility: none;
     /*background-image: linear-gradient(90deg, #1C398C 0%, #59FFF2 65%, #B5FEE3 100%);*/
 }
 .header-container.logged-out {
@@ -125,8 +126,6 @@ a.logo-module:focus {
 }
 .nav-module.nav-profile {
   order: 6;
-  margin-right: 0;
-  margin-left: 10px;
 }
 
 .nav-module.nav-notifs {

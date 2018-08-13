@@ -14,25 +14,25 @@ const ProjectHeader = props => {
   if (props.projectId) {
     if (!props.project) return null
     else return (
-      <div className={"page-title-wrapper text-left flx flx-row flx-align-start"}>
-        <div className="v2-type-page-header flx flx-row flx-align-start text-left invert">
+      <div className={"project-header text-left flx flx-row flx-align-start"}>
+        <div className="co-type-h1 flx flx-row flx-align-start text-left invert">
           {props.project.name}
         </div>
         <div className="flx flx-align-start flx-item-right">
-          <Link to={'/' + props.orgName + '/' + props.projectId + '/addthread'} activeClassName="active" className="nav-module create nav-editor flx flx-align-start flx-item-right text-left">
-            <div className="vb fill--primary color--white flx flx-row flx-align-center">
-              <i className="material-icons color--white md-18 opa-100 mrgn-right-xs">add</i>
-              <div className="mrgn-left-xs">New Thread</div>
-            </div>
+          <Link to={'/' + props.orgName + '/' + props.projectId + '/addthread'} activeClassName="active" className="flx flx-align-center flx-item-right">
+              <div className="mrgn-left-xs color--primary label-big flx-item-right mrgn-right-sm">New Thread</div>
+              <div className="icon-wrapper brdr--primary flx flx-center-all">
+                <i className="material-icons color--primary md-24 opa-100">add</i>
+              </div>
           </Link>
         </div>
       </div>
     )
   }
   else return (
-    <div className={"page-title-wrapper text-left flx flx-row flx-align-start"}>
-        <div className="v2-type-page-header flx flx-row flx-align-start text-left invert">
-          All feed
+    <div className={"project-header text-left flx flx-row flx-align-start"}>
+        <div className="co-type-h1 flx flx-row flx-align-start text-left invert">
+          All
         </div>
       </div>
   )
@@ -174,7 +174,7 @@ class Project extends React.Component {
                   project={this.props.project}
                 />
                 
-              <div className="feed-wrapper">
+              <div className="threadlist-wrapper">
                 <ThreadList
                   threads={this.props.threads} 
                   authenticated={this.props.authenticated}
