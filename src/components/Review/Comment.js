@@ -15,9 +15,13 @@ const Comment = props => {
 
   let users = ['jordan', 'brian', '@jordan', '@brian']
   const processed = processString([{
-    regex: /\@([a-z0-9_\-]+?)( |\,|$|\.)/gim, //regex to match a username 
+    regex: /\@([a-z0-9_\-]+?)( |\,|$|\.|\!|\:|\'|\"|\?)/gim, //regex to match a username 
     fn: (key, result) => {
-        return <Link className="color--primary" key={key} to={`/${result[1]}`}>@{result[1]} </Link>;
+        return (
+          <span>
+            <Link className="color--primary" key={key} to={`/${props.orgName}/user/${result[1]}`}>@{result[1]}</Link>{result[2]}
+          </span>
+        )
       }
   }]);
 

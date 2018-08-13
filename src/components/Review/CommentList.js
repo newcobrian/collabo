@@ -14,6 +14,7 @@ const CommentList = props => {
               userInfo={props.userInfo}
               commentObject={props.commentObject}
               key={commentId}
+              orgName={props.orgName}
               deleteComment={props.deleteComment}
               threadId={props.threadId} />
           );
