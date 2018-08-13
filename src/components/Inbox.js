@@ -29,7 +29,7 @@ const LeftSenderPic = props => {
     return (
       <div className="mrgn-left-sm mrgn-right-md">
         <Link
-        to={`/${props.username}`}
+        to={`${props.params.orgname}/user/${props.username}`}
         className="">
           <ProfilePic src={props.image} className="center-img" />
         </Link>
@@ -50,7 +50,7 @@ const RenderUsername = props => {
   if (props.senderId) {
     return (
       <Link
-          to={`/${props.username}`}
+          to={`${props.params.orgname}/user/${props.username}`}
           className="">
           {props.username}
       </Link>

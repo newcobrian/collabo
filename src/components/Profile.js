@@ -8,7 +8,7 @@ import * as Constants from '../constants';
 import ProfileInfo from './ProfileInfo';
 import ActivityList from './ActivityList';
 import ProjectList from './ProjectList';
-
+import InfiniteScroll from 'react-infinite-scroller';
 
 const LogoutButton = props => {
   if (props.isUser && props.authenticated) {
@@ -51,12 +51,19 @@ class Profile extends React.Component {
   constructor() {
     super();
 
+    this.scrolledToBottom = () => {
+      if (!this.props.isFeedLoading) {
+        this.props.watchActivityFeed(this.props.authenticated, this.props.params.orgname, this.props.feedEndValue, Constants.PROFILE_PAGE)
+      }
+    }
+
     this.loadUser = username => {
       Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + username).on('value', snapshot => {
         if (snapshot.exists()) {
           let userId = snapshot.val().userId;
           this.props.getProfileUser(userId);
-          this.props.watchActivityFeed(this.props.authenticated, this.props.params.orgname, 0, Constants.PROFILE_PAGE)
+          // this.props.watchActivityFeed(this.props.authenticated, this.props.params.orgname, this.props.feedEndValue, Constants.PROFILE_PAGE)
+          
           // this.props.checkFollowing(this.props.authenticated, userId);
           // this.props.getItinerariesByUser(this.props.authenticated, userId);
           // this.props.getReviewsByUser(this.props.authenticated, userId);
@@ -242,8 +249,16 @@ class Profile extends React.Component {
               unfollow={this.props.unfollowUser} />
 
             <div className="flx flx-row flx-just-center w-100">
+
+            <InfiniteScroll
+                  pageStart={0}
+                  loadMore={this.scrolledToBottom}
+                  hasMore={true}
+                  loader={<div className="loader" key={0}>Loading ...</div>} >
             
-            <ActivityList feed={this.props.feed} />
+              <ActivityList feed={this.props.feed} />
+
+            </InfiniteScroll>
               
             </div>
           </div>

@@ -48,7 +48,6 @@ class ProjectList extends React.Component {
     }
   }
 
-
   render() {
     // let orgName = this.props.org ?  this.props.org.name : ''
     let orgName = this.props.orgName

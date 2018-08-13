@@ -346,17 +346,19 @@ export function loadProjectList(auth, orgName, source) {
 export function loadThreadCounts(auth, orgName) {
   return dispatch => {
     Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', orgSnap => {
-      Firebase.database().ref(Constants.THREAD_SEEN_COUNTERS_PATH + '/' + auth + '/' + orgSnap.val().orgId).on('value', countSnap => {
-        let countObject = {}
-        countSnap.forEach(function(project) {
-          countObject[project.key] = project.numChildren()
-        })
+      if (orgSnap.exists()) {
+        Firebase.database().ref(Constants.THREAD_SEEN_COUNTERS_PATH + '/' + auth + '/' + orgSnap.val().orgId).on('value', countSnap => {
+          let countObject = {}
+          countSnap.forEach(function(project) {
+            countObject[project.key] = project.numChildren()
+          })
 
-        dispatch({
-          type: ActionTypes.THREAD_COUNTS_LOADED,
-          threadCounts: countObject
+          dispatch({
+            type: ActionTypes.THREAD_COUNTS_LOADED,
+            threadCounts: countObject
+          })
         })
-      })
+      }
     })
   }
 }
@@ -364,11 +366,13 @@ export function loadThreadCounts(auth, orgName) {
 export function unloadThreadCounts(auth, orgName) {
   return dispatch => {
     Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', orgSnap => {
-      Firebase.database().ref(Constants.THREAD_SEEN_COUNTERS_PATH + '/' + auth + '/' + orgSnap.val().orgId).off()
+      if (orgSnap.exists()) {
+        Firebase.database().ref(Constants.THREAD_SEEN_COUNTERS_PATH + '/' + auth + '/' + orgSnap.val().orgId).off()
 
-      dispatch({
-        type: ActionTypes.THREAD_COUNTS_UNLOADED
-      })
+        dispatch({
+          type: ActionTypes.THREAD_COUNTS_UNLOADED
+        })
+      }
     })
   }
 }
@@ -1150,9 +1154,10 @@ export function loadOrgUsers(auth, orgName, source) {
   }
 }
 
-export function watchActivityFeed(auth, orgName, startValue, source) {
+export function watchActivityFeed(auth, orgName, endValue, source) {
   return dispatch => {
     if (auth) {
+      dispatch(setIsFeedLoading(source));
       Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', orgSnap => {
         if (!orgSnap.exists()) {
           dispatch({
@@ -1174,11 +1179,12 @@ export function watchActivityFeed(auth, orgName, startValue, source) {
 
             Firebase.database().ref(Constants.ACTIVITY_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgId)
               .orderByChild('lastModified')
-              // .limitToFirst(2)
-              .startAt(startValue)
+              .limitToLast(Constants.TIPS_TO_LOAD)
+              .endAt(endValue)
               .on('child_added', activitySnap => {
                 dispatch(activityAddedAction(activitySnap.key, activitySnap.val(), userSnap.val(), source));
-                // dispatch(updateStartValue(threadSnapshot.val().lastModified ? threadSnapshot.val().lastModified : startValue));
+                dispatch(updateEndValue(activitySnap.val().lastModified ? activitySnap.val().lastModified : endValue, source));
+                debounceSetFeedNotLoading(dispatch, source);
             })
 
             // on child changed, how do we unwatch old refs?
@@ -1186,7 +1192,7 @@ export function watchActivityFeed(auth, orgName, startValue, source) {
               .orderByChild('lastModified')
               .on('child_changed', activitySnap => {
                 dispatch(activityChangedAction(activitySnap.key, activitySnap.val(), userSnap.val(), source));
-                // dispatch(updateStartValue(threadSnapshot.val().lastModified ? threadSnapshot.val().lastModified : startValue));
+                dispatch(updateEndValue(activitySnap.val().lastModified ? activitySnap.val().lastModified : endValue, source));
             })
 
             Firebase.database().ref(Constants.ACTIVITY_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgId)

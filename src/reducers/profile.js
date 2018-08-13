@@ -6,7 +6,7 @@ import * as Constants from '../constants';
 import { isEqual } from 'lodash';
 import * as Helpers from '../helpers';
 
-const initialState = { usersData: {}, likesData: {}, subjectsData: {} }
+const initialState = { usersData: {}, likesData: {}, subjectsData: {}, feedEndValue: new Date().getTime(), isFeedLoading: false  }
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -23,7 +23,7 @@ export default (state = initialState, action) => {
     case PROFILE_USER_UNLOADED:
     case PROFILE_FOLLOWING_UNLOADED:
     case ActionTypes.REVIEWS_BY_USER_UNLOADED:
-      return {};
+      return initialState;
     case 'FOLLOW_USER':
     case 'UNFOLLOW_USER':
       return {
@@ -304,6 +304,23 @@ export default (state = initialState, action) => {
       return {
         ...state,
         invalidOrgUser: true
+      }
+    case ActionTypes.UPDATE_END_VALUE:
+      if (action.source == Constants.PROFILE_PAGE) {
+        if (action.endValue < state.feedEndValue) {
+          return {
+            ...state,
+            feedEndValue: action.endValue
+          }
+        }
+        else return state;
+      }
+    case ActionTypes.SET_IS_FEED_LOADING:
+      if (action.source == Constants.PROFILE_PAGE) {
+        return {
+          ...state,
+          isFeedLoading: action.isFeedLoading
+        }
       }
     default:
       return state;
