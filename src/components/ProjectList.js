@@ -65,7 +65,7 @@ class ProjectList extends React.Component {
         {
           (this.props.projectList || []).map((projectItem, index) => {
             return (
-              <div className="mrgn-bottom-md mrgn-top-md" key={projectItem.id}>
+              <div className={"mrgn-bottom-md mrgn-top-md " + (this.props.projectId === projectItem.id ? 'active' : '')} key={projectItem.id}>
                 <Link className="color--black label-big opa-80 flx flx-row flx-align-center" to={'/' + orgName + '/' + projectItem.id}>
                 <i className="material-icons color--black md-18 opa-100 mrgn-right-sm">fiber_manual_record
 </i>

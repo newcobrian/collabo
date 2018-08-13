@@ -255,7 +255,8 @@ class Thread extends React.Component {
           <div className="page-common page-places flx flx-row flx-m-col flx-align-start">
             
             <ProjectList 
-              threadCounts={this.props.threadCounts} />
+              threadCounts={this.props.threadCounts}
+              projectId={this.props.params.pid} />
 
 
               <div className="thread-area flx flx-col w-100">
