@@ -2,13 +2,17 @@
     min-height: 800px;
     width: 300px;
     background-color: #FBFCFC;
+    background-color: #011946;
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
     padding: 24px 0;
     color: white;
-    border-right: 1px solid #79FFF7;
+    border-right: 2px solid #74F6BF;
+}
+textarea {
+	padding: 20px !important;
 }
 .co-logo {
 	background-color: #FFEA79;
@@ -31,13 +35,19 @@
 	right: 24px;
 }
 .thread-area {
-    margin-left: 300px;
+    position: absolute;
     box-shadow: rgba(0,0,0,.1) 10px 0px 150px;
     z-index: 10;
     overflow-x: hidden;
-    width: 100%;
+    width: auto;
     background-color: white;
     min-height: 1210px;
+    padding: 40px;
+    left: 300px;
+    overflow: hidden;
+    right: 0;
+/*    border-left: 24px solid #74F6BF;
+        border-right: 24px solid #74F6BF;*/
 }
 
 .co-type-org {
@@ -75,7 +85,7 @@
 }
 .thread-preview-container {
     width: 100%;
-    padding: 20px;
+    padding: 20px 40px;
     border-bottom: 1px solid rgba(0,0,0,.1);
 }
 .sidebar-footer {
@@ -92,10 +102,11 @@
 .thread-icon {
 	width: 40px; 
 	height: 40px;
-	margin-right: 16px;
+	margin-top: -10px;
+	margin-right: 10px;
 }
 .sidebar-icon .material-icons {
-	opacity: .1;
+	opacity: .3;
 }
 .sidebar-row {
 	padding: 4px 24px;
@@ -104,9 +115,12 @@
 }
 .sidebar-row.active {
 	background-color: #79FFF7;
+	background-color: rgba(116,246,191,.4);
+
 }
 .sidebar-row.group-row:hover {
 	background-color: rgba(121,255,247,.5);
+	background-color: rgba(116,246,191,.3);
 }
 .sidebar-row.active .co-type-label,
 .sidebar-row.active .material-icons {
@@ -126,12 +140,27 @@
 	font-size: 16px;
 	font-weight: bold;
 }
+
+.tip__caption {
+	 width: 100%;
+    max-height: 100px;
+    overflow: hidden;
+    position: relative;
+    min-height: 70px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
 .caption-shadow {
 	position: absolute;
+	display: none;
 	left: 0;right: 0;
 	top: 0; bottom:0;
 	box-shadow: inset rgba(255,255,255,1) 0 -26px 10px;
 }
+
+
 .icon-wrapper {
 	border: 2px solid;
 	width: 40px;
@@ -143,7 +172,7 @@
     position: fixed;
     background: white;
     z-index: 10;
-    box-shadow: white 0 30px 40px;
+    /*box-shadow: white 0 30px 40px;*/
     left: 300px;
     right: 0;
     top: 0;
@@ -152,7 +181,21 @@
 		font-family: 'Doppio One', sans-serif;
     font-size: 36px;
 }
+.threadlist {
+	max-width: 960px;
+}
 .threadlist-wrapper {
 	margin: 100px auto;
 	width: 100%;
+}
+.rdw-editor-wrapper {
+    box-sizing: content-box;
+    min-height: 160px;
+}
+.demo-editor.rdw-editor-main {
+    height: 100%;
+    overflow: auto;
+    box-sizing: border-box;
+    border: 1px solid rgba(0,0,0,.1);
+    padding: 20px;
 }

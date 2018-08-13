@@ -52,6 +52,30 @@ const UpdateSection = props => {
   }
   else return null;
 }
+
+const UpdateIcon = props => {
+  if (!props.thread) return null
+  else if (props.thread.lastUpdate === Constants.NEW_THREAD_TYPE) {
+    return (
+      <i className="material-icons color--black md-24 opa-40">assignment</i>
+    )
+  }
+  else if (props.thread.lastUpdate === Constants.EDIT_THREAD_TYPE) {
+    return (
+      <i className="material-icons color--black md-24 opa-40">edit</i>
+    )
+  }
+  else if (props.thread.lastUpdate === Constants.COMMENT_TYPE) {
+    return (
+      <i className="material-icons color--black md-24 opa-40">add_comment</i>
+    )
+  }
+  else return (
+      <i className="material-icons color--black md-24 opa-40">fiber_manual_record</i>
+    )
+}
+
+
  
 const CommentPreview = props => {
   if (!props.thread) return null
@@ -89,9 +113,7 @@ const ThreadPreview = props => {
         
           <div className="thread-preview-container flx flx-row flx-align-start w-100">
                     <div className="thread-icon flx flx-center-all flx-hold">
-                      <i className="material-icons color--black md-24 opa-70">fiber_manual_record
-
-                      </i>
+                      <UpdateIcon thread={thread} />
                     </div>
 
                     <div className="tip__content-inner flx flx-col">

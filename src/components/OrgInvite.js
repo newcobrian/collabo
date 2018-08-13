@@ -63,7 +63,7 @@ class OrgInvite extends React.Component {
 					
 
 				    {/* CONTAINER - START */}
-			        <div className="hero-container">
+			        <div className="hero-container fill--dark">
 			         	<div className="create-content flx flx-col flx-center-all ta-center">
 							
 							<div className="flx flx-col flx-center-all create-wrapper">
@@ -107,25 +107,16 @@ class OrgInvite extends React.Component {
 					                    onClick={this.submitForm}>
 					                    	<div className="flx flx-row flx-center-all ta-center">
 						                    	<div className="flx-grow1 mrgn-left-md">Send invites</div>
-												<img className="flx-item-right" src="/img/icons/icon32_next.png"/>
 											</div>
 					                  </div>
 							        </form>
 							    </div>
 						    </div>
 
-						    <div className="v2-type-body2 mrgn-top-lg ta-center DN">
-						    	<div>“Travel and change of place impart new vigor to the mind.”</div>
-						    	<div>– Seneca</div>
-						    </div>	
+						
 
 					  	</div>
-					  	<div className="hero-bg">
-						    <div className="hero-map opa-20">
-						    </div>
-						    <div className="hero-grid opa-10">
-						    </div>
-						</div>
+					  	
 
 						
 

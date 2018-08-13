@@ -6,6 +6,8 @@ import * as Actions from '../actions';
 import * as Constants from '../constants';
 import ProxyImage from './ProxyImage';
 import DisplayTimestamp from './DisplayTimestamp';
+import ProjectList from './ProjectList';
+
 
 const RightPic = props => {
   if (props.image) {
@@ -42,7 +44,7 @@ const LeftSenderPic = props => {
     )
   }
   return null;
-}
+} 
 
 const RenderUsername = props => {
   if (props.senderId) {
@@ -110,36 +112,41 @@ class Inbox extends React.Component {
       );
     }
     return (
-      <div className="page-common no-feed-toggle inbox-page flx flx-col flx-just-start">
-        <div className="page-title-wrapper center-text">
-          <div className="v2-type-page-header">Recent Activity</div>
-          <div className="v2-type-body2 opa-60 mrgn-top-sm DN"></div>
-        </div>
-          {
-            this.props.inbox.map(inboxItem => {
-              // const isUser = this.props.currentUser &&
-              //   follower.userId === this.props.currentUser.uid;
-                return (
-                  <Link className="flx flx-row flx-just-start brdr-bottom flx-align-center pdding-all-sm list-row w-100 w-max" key={inboxItem.key} to={inboxItem.link}>
-                    <LeftSenderPic senderId={inboxItem.senderId} username={inboxItem.senderUsername} image={inboxItem.senderImage} />
-                    <div className="flx flx-col mrgn-right-md">
-                      <div className="v2-type-body1 font--alpha">
-                        <strong><RenderUsername senderId={inboxItem.senderId} username={inboxItem.senderUsername} /></strong>
-                        {inboxItem.message}<Link to={inboxItem.link}><div className="color--primary inline">{inboxItem.reviewTitle}</div></Link>
-                         <div className="itinerary__cover__timestamp font--alpha"><DisplayTimestamp timestamp={inboxItem.lastModified} /></div>
-                      </div>
-                    </div>
-                    <div className="feed-pic-wrapper mrgn-right-md flx-item-right"><RightPic link={inboxItem.link} image={inboxItem.reviewImage} /></div>
+      <div className="page-common">
+      <ProjectList 
+        threadCounts={this.props.threadCounts}
+        projectId={this.props.params.pid} />
 
-                  </Link>
-                )
-            })
-          }
-            <div className="w-100 flx flx-row flx-center-all mrgn-top-lg">
-            {!this.props.endOfInbox && <button className="vb vb--sm vb--outline-none fill--none" onClick={this.onLoadMoreClick}>
-              <div className="mobile-hide mrgn-right-sm">Load more messages</div>
-              <i className="material-icons color--primary md-32">keyboard_arrow_right</i>
-            </button>}
+        <div className="thread-area flx flx-col w-100">
+            <div className={"project-header text-left flx flx-row flx-align-start"}>
+              <div className="co-type-h1 flx flx-row flx-align-start text-left invert">
+                Activity
+              </div>
+            </div>
+            {
+              this.props.inbox.map(inboxItem => {
+                // const isUser = this.props.currentUser &&
+                //   follower.userId === this.props.currentUser.uid;
+                  return (
+                    <Link className="flx flx-row flx-just-start brdr-bottom flx-align-center pdding-all-sm list-row" key={inboxItem.key} to={inboxItem.link}>
+                      <LeftSenderPic senderId={inboxItem.senderId} username={inboxItem.senderUsername} image={inboxItem.senderImage} />
+                      <div className="flx flx-col mrgn-right-md">
+                        <div className="v2-type-body1 font--alpha">
+                          <strong><RenderUsername senderId={inboxItem.senderId} username={inboxItem.senderUsername} /></strong>
+                          {inboxItem.message}<Link to={inboxItem.link}><div className="color--primary inline">{inboxItem.reviewTitle}</div></Link>
+                           <div className="itinerary__cover__timestamp font--alpha"><DisplayTimestamp timestamp={inboxItem.lastModified} /></div>
+                        </div>
+                      </div>
+                    </Link>
+                  )
+              })
+            }
+              <div className="w-100 flx flx-row flx-center-all mrgn-top-lg">
+              {!this.props.endOfInbox && <button className="vb vb--sm vb--outline-none fill--none" onClick={this.onLoadMoreClick}>
+                <div className="mobile-hide mrgn-right-sm">Load more messages</div>
+                <i className="material-icons color--primary md-32">keyboard_arrow_right</i>
+              </button>}
+            </div>
           </div>
         </div>
         

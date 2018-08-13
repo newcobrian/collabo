@@ -266,7 +266,7 @@ class Thread extends React.Component {
               <Link to={'/' + this.props.params.orgname + '/' + this.props.thread.projectId} activeClassName="active" className="nav-module create nav-editor flx flx-center-all">
                 <div className="nav-text flx flx-row flx-align-center opa-60 mrgn-bottom-md">
                     <i className="material-icons color--black md-18 opa-100 mrgn-right-xs">arrow_back_ios</i>
-                    <div className="v2-type-body1 mrgn-left-xs">Back to Project</div>
+                    <div className="co-type-body mrgn-left-xs">Back to Project</div>
                   </div>
               </Link>
             </div>
@@ -309,8 +309,8 @@ class Thread extends React.Component {
               </div>
 
               <div className="itinerary__comments-module flx flx-col flx-align-start flx-just-start w-max-2" id='guidecommentcontainer' name='guidecommentcontainer'>
-                <div className="v2-type-h4 mrgn-bottom-sm mrgn-top-sm ta-left w-100">
-                  Comments
+                <div className="co-type-h5 mrgn-bottom-sm mrgn-top-sm ta-left w-100">
+                  Comment
                 </div>
                 <CommentContainer
                   authenticated={this.props.authenticated}

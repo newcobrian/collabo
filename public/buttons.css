@@ -128,7 +128,7 @@ input.input--underline {
 
 .vb {
     border: none;
-    height: 38px;
+    height: auto;
     text-align: center;
     letter-spacing: 1px;
     font-weight: 500;
@@ -137,7 +137,7 @@ input.input--underline {
     padding: 18px;
     text-transform: uppercase;
     flex-shrink: 0;
-    border-radius: 32px;
+    border-radius: 0;
     display: -webkit-flex;
     display: flex;
     -webkit-align-items: center;
@@ -329,7 +329,7 @@ input.input--underline {
 }
 
 .vb:hover {
-  background-color: #FCFCFC !important;
+
 }
 
 .vb.fill--primary:active,

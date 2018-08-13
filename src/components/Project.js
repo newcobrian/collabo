@@ -174,7 +174,7 @@ class Project extends React.Component {
                   project={this.props.project}
                 />
                 
-              <div className="threadlist-wrapper">
+              <div className="threadlist-wrapper flx flx-col flx-align-center">
                 <ThreadList
                   threads={this.props.threads} 
                   authenticated={this.props.authenticated}

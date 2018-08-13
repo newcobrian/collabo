@@ -179,7 +179,7 @@ class Create extends React.Component {
 							
 							<div className="flx flx-col flx-center-all create-wrapper">
 						
-					            <div className="create-form-wrapper form-wrapper ta-left flx flx-col-left bx-shadow">
+					            <div className="create-form-wrapper form-wrapper ta-left flx flx-col-left">
 						            
 						            <form>
 						            	<div className="v2-type-page-header mrgn-bottom-sm">Create a New Guide</div>
@@ -234,18 +234,10 @@ class Create extends React.Component {
 							    </div>
 						    </div>
 
-						    <div className="v2-type-body2 mrgn-top-lg ta-center DN">
-						    	<div>“Travel and change of place impart new vigor to the mind.”</div>
-						    	<div>– Seneca</div>
-						    </div>	
+						  
 
 					  	</div>
-					  	<div className="hero-bg">
-						    <div className="hero-map opa-20">
-						    </div>
-						    <div className="hero-grid opa-10">
-						    </div>
-						</div>
+					  	
 
 						
 

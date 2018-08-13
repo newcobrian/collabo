@@ -14,7 +14,7 @@ body a:active,
 body a:focus,
 body a:hover {
   color: initial;
-  opacity: .8;
+  opacity: 1;
   transition: all 0.23s ease-in-out 0s;
 }
 
@@ -199,7 +199,8 @@ input[type="radio"]:checked + label span {
 }
 .form-wrapper {
     margin: 0 auto;
-    padding: 20px;
+    padding: 40px;
+    width: 100%;
 }
 .create-form-wrapper {
   border: 1px solid rgba(0,0,0,.1);
@@ -627,37 +628,37 @@ width: 32px;
 }
 
 .opa-100 {
-  opacity: 1;
+  opacity: 1 !important;
 }
 .opa-90 {
-  opacity: .9;
+  opacity: .9 !important;
 }
 .opa-80 {
-  opacity: .8;
+  opacity: .8 !important;
 }
 .opa-70 {
-  opacity: .7;
+  opacity: .7 !important;
 }
 .opa-60 {
-  opacity: .6;
+  opacity: .6 !important;
 }
 .opa-50 {
-  opacity: .5;
+  opacity: .5 !important;
 }
 .opa-40 {
-  opacity: .4;
+  opacity: .4 !important;
 }
 .opa-30 {
-  opacity: .3;
+  opacity: .3 !important;
 }
 .opa-20 {
-  opacity: .2;
+  opacity: .2 !important;
 }
 .opa-10 {
-  opacity: .1;
+  opacity: .1!important;
 }
 .opa-5 {
-  opacity: .05;
+  opacity: .05 !important;
 }
 
 .mrgn-none {
@@ -958,7 +959,6 @@ li.nav-divider {
 
 .list-row {
   width: 100%;
-  max-width:960px;
 }
 
 .list-row > div {
@@ -1085,7 +1085,7 @@ li.nav-divider {
 
 
 .create-wrapper {
-  max-width: 600px;
+  max-width: 1200px;
   width: 100%;
 
 }
@@ -1241,16 +1241,18 @@ li.nav-divider {
   transition: all 0.23s ease-in-out 0s;
 }
 .comments-module .comment-input-wrapper .comment-input {
-    font-size: 12px;
+    font-size: 14px;
     line-height: 18px;
     font-weight: 400;
     width: 100%;
-    padding: 6px 8px;
+    padding: 0;
     outline-width: 0px;
     margin-top: 0px;
     box-shadow: none;
     background-color: white;
     text-align: left;
+    height: auto;
+    min-height: 100px;
 }
 .comments-module .comment-input:focus {
   background-color: #FFFEF6 !important;

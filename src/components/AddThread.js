@@ -72,12 +72,12 @@ class AddThread extends React.Component {
 					
 
 				    {/* CONTAINER - START */}
-			        <div className="hero-container">
+			        <div className="hero-container fill--dark">
 			         	<div className="create-content flx flx-col flx-center-all ta-center">
 							
 							<div className="flx flx-col flx-center-all create-wrapper">
 						
-					            <div className="create-form-wrapper form-wrapper ta-left flx flx-col-left bx-shadow">
+					            <div className="create-form-wrapper form-wrapper ta-left flx flx-col">
 						            
 						            <form>
 						            	<div className="v2-type-page-header mrgn-bottom-sm">Start a new thread</div>
@@ -119,27 +119,25 @@ class AddThread extends React.Component {
 
 					                    <ListErrors errors={this.props.errors}></ListErrors>
 					                    
-					                    <div
-					                    className="vb vb--create w-100 mrgn-top-md color--white fill--primary"
-					                    type="button"
-					                    disabled={this.props.inProgress}
-					                    onClick={this.submitForm}>
-					                    	<div className="flx flx-row flx-center-all ta-center">
-						                    	<div className="flx-grow1 mrgn-left-md">Save</div>
-												<img className="flx-item-right" src="/img/icons/icon32_next.png"/>
-											</div>
-					                  </div>
+					                     <div
+					                        className="vb vb--create w-100 color--white fill--primary"
+					                        type="button"
+					                        disabled={this.props.inProgress}
+					                        onClick={this.submitForm}>
+					                        	<div className="flx flx-row flx-center-all ta-center">
+					    	                    	<div className="flx-grow1 mrgn-left-md">Post Thread</div>
+					    							<img className="flx-item-right DN" src="/img/icons/icon32_next.png"/>
+					    						</div>
+					                      </div>
+					                    
 							        </form>
+							        
 							    </div>
+
+		    			       
 						    </div>
 
 					  	</div>
-					  	<div className="hero-bg">
-						    <div className="hero-map opa-20">
-						    </div>
-						    <div className="hero-grid opa-10">
-						    </div>
-						</div>
 
 						
 

@@ -3,7 +3,9 @@
 ************************************ TYPOGRAPHY SHARED
 ******
 ******/
-
+li {
+  margin-left: 20px;
+}
 body a {
   color: #292F3D;
 
@@ -188,10 +190,6 @@ textarea {
     letter-spacing: 0px;
 }
 .v2-type-h5 {
-    font-size: 16px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 3px;
 }
 .v2-type-h6 {
   /* H4 - Categories: */
@@ -262,7 +260,9 @@ textarea {
 .color--tw {
   color: #00aced;
 }
-
+.fill--dark {
+  background-color: #011946;
+}
 
 
 /* CHANGE ME FOR COLOR TEST!!!! */
@@ -440,28 +440,28 @@ h4 {
 
 ::-moz-placeholder { /* Firefox 19+ */
 color: #3DCBF3 !important; /*DARK BLUE*/
-  color: blue !important; /*DARK BLUE*/
+  color: #97B4FF !important; /*DARK BLUE*/
   opacity: 1;
   font-weight: 300;
   font-family: 'Roboto', sans-serif;
 }
 :-ms-input-placeholder { /* IE 10+ */
 color: #3DCBF3 !important; /*DARK BLUE*/
-  color: blue !important; /*DARK BLUE*/
+  color: #97B4FF !important; /*DARK BLUE*/
   opacity: 1;
   font-weight: 300;
   font-family: 'Roboto', sans-serif;
 }
 :-moz-placeholder { /* Firefox 18- */
 color: #3DCBF3 !important; /*DARK BLUE*/
-  color: blue !important; /*DARK BLUE*/
+  color: #97B4FF !important; /*DARK BLUE*/
   opacity: 1;
   font-weight: 300;
   font-family: 'Roboto', sans-serif;
 }
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #3DCBF3 !important; /*DARK BLUE*/
-  color: blue !important; /*DARK BLUE*/
+  color: #97B4FF !important; /*DARK BLUE*/
   opacity: 1;
   font-weight: 300;
   font-family: 'Roboto', sans-serif;

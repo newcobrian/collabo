@@ -87,7 +87,7 @@ class AddProject extends React.Component {
 		return (
 			<div>
 				<div className="flx flx-col flx-center-all page-common editor-page create-page">
-	{/**}			
+					{/**}			
 					<div>
 				        <Script
 				          url={url}
@@ -100,7 +100,7 @@ class AddProject extends React.Component {
 					
 
 				    {/* CONTAINER - START */}
-			        <div className="hero-container">
+			        <div className="hero-container fill--dark">
 	        			<div className="page-title-wrapper center-text DN">
 	        	          <div className="v2-type-page-header">Create a new Project</div>
 	        	          <div className="v2-type-body2 opa-60">This could be a list of top spots or plans for an upcoming trip</div>
@@ -112,14 +112,14 @@ class AddProject extends React.Component {
 					            <div className="create-form-wrapper form-wrapper ta-left flx flx-col-left bx-shadow">
 						            
 						            <form>
-						            	<div className="v2-type-page-header mrgn-bottom-sm">Add a New Project</div>
+						            	<div className="v2-type-page-header mrgn-bottom-sm">Add a New Group</div>
 
 										<fieldset className="field-wrapper">
-											<label>Name Your Project</label>
+											<label>Group name</label>
 					                      <input
 					                        className="input--underline edit-itinerary__name v2-type-body3"
 					                        type="text"
-					                        placeholder="My New Project"
+					                        placeholder="My New Group"
 					                        required
 					                        value={this.props.name}
 					                        maxLength="42"
@@ -146,26 +146,16 @@ class AddProject extends React.Component {
 					                    disabled={this.props.inProgress}
 					                    onClick={this.submitForm}>
 					                    	<div className="flx flx-row flx-center-all ta-center">
-						                    	<div className="flx-grow1 mrgn-left-md">Create</div>
-												<img className="flx-item-right" src="/img/icons/icon32_next.png"/>
+						                    	<div className="flx-grow1">Add Group</div>
 											</div>
 					                  </div>
 							        </form>
 							    </div>
 						    </div>
 
-						    <div className="v2-type-body2 mrgn-top-lg ta-center DN">
-						    	<div>“Travel and change of place impart new vigor to the mind.”</div>
-						    	<div>– Seneca</div>
-						    </div>	
 
 					  	</div>
-					  	<div className="hero-bg">
-						    <div className="hero-map opa-20">
-						    </div>
-						    <div className="hero-grid opa-10">
-						    </div>
-						</div>
+					  
 
 						
 

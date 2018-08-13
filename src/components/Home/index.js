@@ -71,7 +71,7 @@ class Home extends React.Component {
   LoggedOutIntro(authenticated) {
     if (!authenticated) {
       return (
-       <div className="hero-container logged-out flx flx-col DN">
+       <div className="hero-container logged-out flx flx-col">
         <div className="marketing-page navigation-bar flx flx-row flx-align-center flx-just-end pdding-right-md DN">
             <Link to="/login" className="nav-module nav-feed flx flx-center-all vb vb--sm fill--white color--black">
               <div className="nav-text">
