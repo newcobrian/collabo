@@ -3,7 +3,7 @@ import * as Constants from '../constants';
 import * as Helpers from '../helpers';
 import { find, isEqual } from 'lodash';
 
-const initialState = { usersData: {}, threadCounts: {} }
+const initialState = { usersData: {}, threadCounts: {}, feedEndValue: new Date().getTime(), isFeedLoading: false }
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -138,6 +138,23 @@ export default (state = initialState, action) => {
       return {
         ...state,
         emptyThreadFeed: true
+      }
+    case ActionTypes.UPDATE_END_VALUE:
+      if (action.source == Constants.PROJECT_PAGE) {
+        if (action.endValue < state.feedEndValue) {
+          return {
+            ...state,
+            feedEndValue: action.endValue
+          }
+        }
+        else return state;
+      }
+    case ActionTypes.SET_IS_FEED_LOADING:
+      if (action.source == Constants.PROJECT_PAGE) {
+        return {
+          ...state,
+          isFeedLoading: action.isFeedLoading
+        }
       }
     default:
       return state;

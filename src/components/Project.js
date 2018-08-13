@@ -9,6 +9,7 @@ import LoadingSpinner from './LoadingSpinner';
 import ThreadList from './ThreadList';
 import ProjectList from './ProjectList';
 import LoggedOutMessage from './LoggedOutMessage';
+import InfiniteScroll from 'react-infinite-scroller';
 
 const ProjectHeader = props => {
   if (props.projectId) {
@@ -54,6 +55,12 @@ class Project extends React.Component {
     //       browserHistory.push('/project/' + result.projectId);
     //     }
     //   }
+
+    this.scrolledToBottom = () => {
+      if (!this.props.isFeedLoading) {
+        this.props.watchThreadFeed(this.props.authenticated, this.props.params.orgname, this.props.params.pid, this.props.feedEndValue, Constants.PROJECT_PAGE)
+      }
+    }
   }
 
   componentWillMount() {
@@ -63,7 +70,7 @@ class Project extends React.Component {
     this.props.loadOrgList(this.props.authenticated, Constants.PROJECT_PAGE)
     this.props.loadProject(this.props.params.pid);
     // this.props.watchProjectThreads(this.props.params.pid);
-    this.props.watchThreadFeed(this.props.authenticated, this.props.params.orgname, this.props.params.pid, 0, Constants.PROJECT_PAGE)
+    this.props.watchThreadFeed(this.props.authenticated, this.props.params.orgname, this.props.params.pid, this.props.feedEndValue, Constants.PROJECT_PAGE)
     // this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project'});
   }
 
@@ -175,12 +182,23 @@ class Project extends React.Component {
                 />
                 
               <div className="threadlist-wrapper flx flx-col flx-align-center">
-                <ThreadList
-                  threads={this.props.threads} 
-                  authenticated={this.props.authenticated}
-                  orgName={this.props.params.orgname}
-                  emptyThreadFeed={this.props.emptyThreadFeed}
-                  projectNotFoundError={this.props.projectNotFoundError} />
+
+                <InfiniteScroll
+                  pageStart={0}
+                  loadMore={this.scrolledToBottom}
+                  hasMore={true}
+                  initialLoad={false}
+                  loader={<div className="loader" key={0}>Loading ...</div>} >
+
+                  <ThreadList
+                    threads={this.props.threads} 
+                    authenticated={this.props.authenticated}
+                    orgName={this.props.params.orgname}
+                    emptyThreadFeed={this.props.emptyThreadFeed}
+                    projectNotFoundError={this.props.projectNotFoundError} />
+
+                </InfiniteScroll>
+
               </div>
             </div>
           </div>

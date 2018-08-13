@@ -845,22 +845,24 @@ export function loadOrg(auth, org, source) {
     if (auth) {
       let lowercaseName = org.toLowerCase()
       Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowercaseName).once('value', orgSnap => {
-        Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth + '/' + orgSnap.val().orgId).once('value', userSnap => {
-          if (!userSnap.exists()) {
-            dispatch({
-              type: ActionTypes.NOT_AN_ORG_USER,
-              source: source
-            })
-          }
-          else {
-            dispatch({
-              type: ActionTypes.LOAD_ORG,
-              orgName: lowercaseName,
-              orgId: orgSnap.val().orgId,
-              source: source
-            })
-          }
-        })
+        if (orgSnap.exists()) {
+          Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth + '/' + orgSnap.val().orgId).once('value', userSnap => {
+            if (!userSnap.exists()) {
+              dispatch({
+                type: ActionTypes.NOT_AN_ORG_USER,
+                source: source
+              })
+            }
+            else {
+              dispatch({
+                type: ActionTypes.LOAD_ORG,
+                orgName: lowercaseName,
+                orgId: orgSnap.val().orgId,
+                source: source
+              })
+            }
+          })
+        }
       })
     }
   }
@@ -878,13 +880,15 @@ export function unloadOrg(source) {
 export function loadInvite(auth, inviteId) {
   return dispatch => {
     Firebase.database().ref(Constants.INVITES_PATH + '/' + inviteId).on('value', inviteSnap => {
-      Firebase.database().ref(Constants.USERS_PATH + '/' + inviteSnap.val().senderId).once('value', senderSnap => {
-        dispatch({
-          type: ActionTypes.INVITE_LOADED,
-          invite: inviteSnap.val(),
-          sender: senderSnap.val()
+      if (inviteSnap.exists()) {
+        Firebase.database().ref(Constants.USERS_PATH + '/' + inviteSnap.val().senderId).once('value', senderSnap => {
+          dispatch({
+            type: ActionTypes.INVITE_LOADED,
+            invite: inviteSnap.val(),
+            sender: senderSnap.val()
+          })
         })
-      })
+      }
     })
   }
 }
@@ -937,32 +941,36 @@ export function acceptInvite(auth, email, inviteId) {
   }
 }
 
-// function updateStartValue(startValue) {
-//   return {
-//     type: ActionTypes.UPDATE_START_VALUE,
-//     startValue: startValue + .000001
-//   }
-// }
+function updateEndValue(endValue, source) {
+  return {
+    type: ActionTypes.UPDATE_END_VALUE,
+    endValue: endValue - 1,
+    source: source
+  }
+}
 
-// function setIsTipsLoading() {
-//   return {
-//     type: ActionTypes.SET_IS_TIPS_LOADING,
-//     isTipsLoading: true
-//   }
-// }
+function setIsFeedLoading(source) {
+  return {
+    type: ActionTypes.SET_IS_FEED_LOADING,
+    isFeedLoading: true,
+    source: source
+  }
+}
 
-// const debounceSetTipsNotLoading = debounce(tipsIsNotLoading, 3000);
+const debounceSetFeedNotLoading = debounce(feedIsNotLoading, 3000);
 
-// export function tipsIsNotLoading(dispatch) {
-//   dispatch({
-//     type: ActionTypes.SET_IS_TIPS_LOADING,
-//     isTipsLoading: false
-//   })
-// }
+export function feedIsNotLoading(dispatch, source) {
+  dispatch({
+    type: ActionTypes.SET_IS_FEED_LOADING,
+    isFeedLoading: false,
+    source: source
+  })
+}
 
-export function watchThreadFeed(auth, orgName, projectId, startValue, source) {
+export function watchThreadFeed(auth, orgName, projectId, endValue, source) {
   return dispatch => {
     if (auth) {
+      dispatch(setIsFeedLoading(source));
       Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', orgSnap => {
         if (orgSnap.exists()) {
           let orgId = orgSnap.val().orgId
@@ -980,14 +988,15 @@ export function watchThreadFeed(auth, orgName, projectId, startValue, source) {
 
           Firebase.database().ref(path)
             .orderByChild('lastModified')
-            // .limitToFirst(2)
-            .startAt(startValue)
+            .limitToLast(Constants.TIPS_TO_LOAD)
+            .endAt(endValue)
             .on('child_added', threadSnapshot => {
             if (threadSnapshot.val().userId) {
               Firebase.database().ref(Constants.USERS_PATH + '/' + threadSnapshot.val().userId).once('value', userSnap => {
                 let thread = projectId ? Object.assign({}, threadSnapshot.val(), {projectId: projectId}) : threadSnapshot.val()
                 dispatch(threadAddedAction(threadSnapshot.key, thread, userSnap.val(), source));  
-                // dispatch(updateStartValue(threadSnapshot.val().lastModified ? threadSnapshot.val().lastModified : startValue));
+                dispatch(updateEndValue(threadSnapshot.val().lastModified ? threadSnapshot.val().lastModified : endValue, source));
+                debounceSetFeedNotLoading(dispatch, source);
               })
             }
           })
@@ -1001,7 +1010,7 @@ export function watchThreadFeed(auth, orgName, projectId, startValue, source) {
               Firebase.database().ref(Constants.USERS_PATH + '/' + threadSnapshot.val().userId).once('value', userSnap => {
                 let thread = projectId ? Object.assign({}, threadSnapshot.val(), {projectId: projectId}) : threadSnapshot.val()
                 dispatch(threadChangedAction(threadSnapshot.key, thread, userSnap.val(), source));
-                // dispatch(updateStartValue(threadSnapshot.val().lastModified ? threadSnapshot.val().lastModified : startValue));
+                dispatch(updateEndValue(threadSnapshot.val().lastModified ? threadSnapshot.val().lastModified : endValue, source));
               })
             }
           })
@@ -1115,26 +1124,28 @@ export function markThreadRead(auth, threadId) {
 export function loadOrgUsers(auth, orgName, source) {
   return dispatch => {
     Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', nameSnap => {
-      Firebase.database().ref(Constants.USERS_PATH).once('value', usersSnap => {
-        if (nameSnap.exists()) {
-          Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).once('value', usersByOrgSnap => {
-            usersByOrgSnap.forEach(function(user) {
-              if (usersSnap.exists() && usersSnap.val()[user.key]) {
-                dispatch({
-                  type: ActionTypes.USERNAME_LOADED,
-                  username: usersSnap.val()[user.key].username,
-                  firstName: usersSnap.val()[user.key].firstName,
-                  lastName: usersSnap.val()[user.key].lastName,
-                  email: usersSnap.val()[user.key].email,
-                  id: user.key,
-                  orgName: orgName,
-                  source: source,
-                })
-              }
+      if (nameSnap.exists()) {
+        Firebase.database().ref(Constants.USERS_PATH).once('value', usersSnap => {
+          if (nameSnap.exists()) {
+            Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).once('value', usersByOrgSnap => {
+              usersByOrgSnap.forEach(function(user) {
+                if (usersSnap.exists() && usersSnap.val()[user.key]) {
+                  dispatch({
+                    type: ActionTypes.USERNAME_LOADED,
+                    username: usersSnap.val()[user.key].username,
+                    firstName: usersSnap.val()[user.key].firstName,
+                    lastName: usersSnap.val()[user.key].lastName,
+                    email: usersSnap.val()[user.key].email,
+                    id: user.key,
+                    orgName: orgName,
+                    source: source,
+                  })
+                }
+              })
             })
-          })
-        }
-      })
+          }
+        })
+      }
     })
   }
 }
