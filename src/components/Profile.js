@@ -82,12 +82,20 @@ class Profile extends React.Component {
   }
 
   componentWillMount() {
+    this.props.loadOrg(this.props.authenticated, this.props.params.orgname, Constants.PROFILE_PAGE);
+    this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, Constants.PROFILE_PAGE)
+    this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
+    this.props.loadOrgList(this.props.authenticated, Constants.PROFILE_PAGE)
     // look up userID from username and load profile
     this.loadUser(this.props.params.username)
   }
 
   componentWillUnmount() {
     this.unloadUser(this.props.params.username, this.props.profile.userId);
+    this.props.unloadOrgList(this.props.authenticated, Constants.PROFILE_PAGE)
+    this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname)
+    this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.PROFILE_PAGE)
+    this.props.unloadOrg(Constants.PROFILE_PAGE);
 
     if (!this.props.authenticated) {
       this.props.setAuthRedirect(this.props.location.pathname);
