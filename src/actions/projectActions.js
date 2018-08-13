@@ -1108,6 +1108,7 @@ export function loadOrgUsers(auth, orgName, source) {
                   lastName: usersSnap.val()[user.key].lastName,
                   email: usersSnap.val()[user.key].email,
                   id: user.key,
+                  orgName: orgName,
                   source: source,
                 })
               }

@@ -108,7 +108,7 @@ export default (state = initialState, action) => {
         newState.usersList = newState.usersList || [];
         newState.usersList = newState.usersList.slice();
         newState.usersList = newState.usersList.concat(Object.assign({}, {text: action.username}, 
-          {value: action.username}, {url: '/user/' + action.username}, {email: action.email}, {id: action.username}, {display: action.username}));
+          {value: action.username}, {url: '/' + action.orgName + '/user/' + action.username}, {email: action.email}, {id: action.username}, {display: action.username}));
         return newState;
       }
       return state;
