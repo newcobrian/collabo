@@ -34,7 +34,8 @@ const mapStateToProps = state => ({
   currentUser: state.common.currentUser,
   authenticated: state.common.authenticated,
   userInfo: state.common.userInfo,
-  orgName: state.organization.orgName
+  orgName: state.organization.orgName,
+  unreadMessages: state.common.unreadMessages
 });
 
 class ProjectList extends React.Component {
