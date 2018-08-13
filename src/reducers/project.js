@@ -17,7 +17,9 @@ export default (state = initialState, action) => {
         ...state,
         threads: null,
         projectNotFoundError: false,
-        emptyThreadFeed: false
+        emptyThreadFeed: false,
+        feedEndValue: new Date().getTime(),
+        isFeedLoading: false
       }
     case ActionTypes.LOAD_PROJECT:
       return {
@@ -28,7 +30,8 @@ export default (state = initialState, action) => {
     case ActionTypes.PROJECT_NOT_FOUND_ERROR:
       return {
         ...state,
-        projectNotFoundError: true
+        projectNotFoundError: true,
+        feedEndValue: new Date().getTime()
       }
     case ActionTypes.THREAD_ADDED_ACTION: {
       if (action.source === Constants.PROJECT_PAGE) {
@@ -107,7 +110,8 @@ export default (state = initialState, action) => {
     case ActionTypes.UNLOAD_ORG: {
       return {
         ...state,
-        org: {}
+        org: {},
+        feedEndValue: new Date().getTime()
       }
     }
     case ActionTypes.NOT_AN_ORG_USER:

@@ -70,7 +70,7 @@ class Project extends React.Component {
     this.props.loadOrgList(this.props.authenticated, Constants.PROJECT_PAGE)
     this.props.loadProject(this.props.params.pid);
     // this.props.watchProjectThreads(this.props.params.pid);
-    this.props.watchThreadFeed(this.props.authenticated, this.props.params.orgname, this.props.params.pid, this.props.feedEndValue, Constants.PROJECT_PAGE)
+    // this.props.watchThreadFeed(this.props.authenticated, this.props.params.orgname, this.props.params.pid, this.props.feedEndValue, Constants.PROJECT_PAGE)
     // this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project'});
   }
 
@@ -91,7 +91,7 @@ class Project extends React.Component {
     if (nextProps.params.pid !== this.props.params.pid && nextProps.params.orgname === this.props.params.orgname) {
       this.props.unwatchThreadFeed(this.props.authenticated, this.props.params.orgname, this.props.params.pid, Constants.PROJECT_PAGE)
       this.props.loadProject(nextProps.params.pid);
-      this.props.watchThreadFeed(this.props.authenticated, this.props.params.orgname, nextProps.params.pid, 0, Constants.PROJECT_PAGE)
+      // this.props.watchThreadFeed(this.props.authenticated, this.props.params.orgname, nextProps.params.pid, this.props.feedEndValue, Constants.PROJECT_PAGE)
       this.props.markProjectRead(this.props.authenticated, nextProps.params.pid)
     }
     else if (nextProps.params.orgname !== this.props.params.orgname) {
@@ -103,7 +103,7 @@ class Project extends React.Component {
       this.props.loadProjectList(this.props.authenticated, nextProps.params.orgname, Constants.PROJECT_PAGE)
       this.props.loadThreadCounts(this.props.authenticated, nextProps.params.orgname)
       this.props.loadProject(nextProps.params.pid);
-      this.props.watchThreadFeed(this.props.authenticated,nextProps.params.orgname, nextProps.params.pid, 0, Constants.PROJECT_PAGE)
+      // this.props.watchThreadFeed(this.props.authenticated,nextProps.params.orgname, nextProps.params.pid, this.props.feedEndValue, Constants.PROJECT_PAGE)
       this.props.markProjectRead(this.props.authenticated, nextProps.params.pid)
     }
   }
@@ -187,7 +187,6 @@ class Project extends React.Component {
                   pageStart={0}
                   loadMore={this.scrolledToBottom}
                   hasMore={true}
-                  initialLoad={false}
                   loader={<div className="loader" key={0}>Loading ...</div>} >
 
                   <ThreadList
