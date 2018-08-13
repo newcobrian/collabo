@@ -111,72 +111,57 @@ const ThreadPreview = props => {
   return (
     <Link to={`/${props.orgName}/${props.projectId}/${props.thread.threadId}`} className={"thread-preview-wrapper flx flx-col flx-col w-100 w-max"}>
         
-          <div className="thread-preview-container flx flx-row flx-align-start w-100">
-                    <div className="thread-icon flx flx-center-all flx-hold">
-                      <UpdateIcon thread={thread} />
+        <div className="thread-preview-container flx flx-row flx-align-start w-100">
+          <div className="thread-icon flx flx-center-all flx-hold">
+            <UpdateIcon thread={thread} />
+          </div>
+
+          <div className="tip__content-inner flx flx-col">
+           
+            <div>
+            { /** Caption **/ }
+            <div className="tip__caption-module flx flx-col w-100 mrgn-bottom-sm brdr-02-bottom">
+              
+              <div className="flx flx-row">
+                <Link to={'/' + props.orgName + '/user/' + createdBy.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
+                  <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
+                </Link>
+                <div className="flx flx-col">
+                  <div className="color--primary co-type-body flx flx-row">
+                    <div className="co-type-bold mrgn-right-xs">{createdBy.username}</div> <UpdateSection thread={thread} />
+                  </div>
+                  { /** Timestamp **/ }
+                  <div className="tip__timestamp v2-type-caption opa-40">
+                    <DisplayTimestamp timestamp={thread.lastModified} />
+                  </div>
+                  { /** END Timestamp **/ }
+                </div>
+              </div>
+
+              <div className="flx flx-col flx-align-start w-100">
+                  { /** Title **/ }
+                  <div className="co-type-h4 ta-left mrgn-top-sm">
+                    {/*<div className="tip__order-count color--black">{props.index}.</div>*/}
+                    <Link to={`/${props.orgName}/${props.projectId}/${props.thread.threadId}`}> {thread.title}</Link>
+                  </div>
+                  { /** END Title **/ }
+
+                  <div className="tip__caption font--beta v2-type-body2 ta-left pdding-left-sm pdding-top-sm opa-70">
+                    <div className="caption-shadow">
                     </div>
-
-                    <div className="tip__content-inner flx flx-col">
-                     
-                      <div>
-                      { /** Caption **/ }
-                      <div className="tip__caption-module flx flx-col w-100 mrgn-bottom-sm brdr-02-bottom">
-                        
-                        <div className="flx flx-row">
-                          <Link to={'/' + props.orgName + '/user/' + createdBy.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
-                            <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
-                          </Link>
-                          <div className="flx flx-col">
-                            <div className="color--primary co-type-body flx flx-row">
-                              <div className="co-type-bold mrgn-right-xs">{createdBy.username}</div> <UpdateSection thread={thread} />
-                            </div>
-                            { /** Timestamp **/ }
-                            <div className="tip__timestamp v2-type-caption opa-40">
-                              <DisplayTimestamp timestamp={thread.lastModified} />
-                            </div>
-                            { /** END Timestamp **/ }
-                          </div>
-                        </div>
-
-                        <div className="flx flx-col flx-align-start w-100">
-                            { /** Title **/ }
-                            <div className="co-type-h4 ta-left mrgn-top-sm">
-                              {/*<div className="tip__order-count color--black">{props.index}.</div>*/}
-                              <Link to={`/${props.orgName}/${props.projectId}/${props.thread.threadId}`}> {thread.title}</Link>
-                            </div>
-                            { /** END Title **/ }
-
-                            <div className="tip__caption font--beta v2-type-body2 ta-left pdding-left-sm pdding-top-sm opa-70">
-                              <div className="caption-shadow">
-                              </div>
-                                <div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(thread.body)) || '' }} />
-                              {/*<div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(thread.body) || '' }} />*/}
-                                </div>
-
-                            </div>
-                        </div>
-
-                      <CommentPreview orgName={props.orgName} thread={thread} />
+                      <div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(thread.body)) || '' }} />
+                    {/*<div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(thread.body) || '' }} />*/}
                       </div>
 
-                      { /** Comments  }
-                      <div className="flx flx-row flex-wrap cta-container mrgn-top-sm">
-                         <CommentContainer
-                            authenticated={props.authenticated}
-                            comments={tip.comments || {}}
-                            errors={props.commentErrors}
-                            commentObject={tip}
-                            itineraryId={props.itineraryId}
-                            userInfo={props.userInfo}
-                            type={props.dataType}
-                            deleteComment={props.deleteComment} />
-                      </div> 
-                    </div> 
-                  { /** END tip__content-inner **/}
-             
-            </div> { /** End photo / copy row **/ }
+                  </div>
+              </div>
 
-            </div>
+            <CommentPreview orgName={props.orgName} thread={thread} />
+          </div>
+   
+          </div> { /** End photo / copy row **/ }
+
+        </div>
     </Link>
   );
 }

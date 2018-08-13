@@ -266,7 +266,7 @@ class Thread extends React.Component {
               <Link to={'/' + this.props.params.orgname + '/' + this.props.thread.projectId} activeClassName="active" className="nav-module create nav-editor flx flx-center-all">
                 <div className="nav-text flx flx-row flx-align-center opa-60 mrgn-bottom-md">
                     <i className="material-icons color--black md-18 opa-100 mrgn-right-xs">arrow_back_ios</i>
-                    <div className="co-type-body mrgn-left-xs">Back to Project</div>
+                    <div className="co-type-body mrgn-left-xs">Back to group</div>
                   </div>
               </Link>
             </div>

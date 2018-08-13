@@ -84,120 +84,44 @@ const NewThreadItem = props => {
   let createdBy = activity.createdBy
 
   return (
-     <Link to={`/${props.orgName}/${props.projectId}/${props.activity.activityId}`} className={"tip-wrapper flx flx-col flx-col w-100 w-max"}>
-        
-          <div className="tip-container bx-shadow flx flx-row flx-align-start w-100">
-            
-          
-              
-              { /** Title and Address **/ }
-              <div className="tip__title-module flx flx-col w-100">
+     <Link to={`/${props.orgName}/${props.projectId}/${props.activity.activityId}`} className={"flx flx-col flx-col w-100 w-max"}>
+        <div className="thread-preview-container flx flx-col flx-align-start w-100"> 
+         <UpdateSection activity={activity} />
+        <div className="flx flx-row">
+          <Link to={'/' + props.orgName + '/user/' + createdBy.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
+            <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
+          </Link>
+          <div className="flx flx-col">
+            <div className="color--primary co-type-body flx flx-row">
+              <div className="co-type-bold mrgn-right-xs">{createdBy.username}</div> <UpdateSection activity={activity} />
+            </div>
+            { /** Timestamp **/ }
+            <div className="tip__timestamp v2-type-caption opa-40">
+              <DisplayTimestamp timestamp={activity.lastModified} />
+            </div>
+            { /** END Timestamp **/ }
+          </div>
+        </div>
 
-                <div className="tip__right-module flx flx-row flx-m-col flx-align-center w-100">
+      { /** Caption **/ }
+        <div className="flx flx-col flx-align-start w-100">
+            <div className="co-type-h4 ta-left mrgn-top-sm">
+                <Link to={`/${props.orgName}/${props.projectId}/${props.activity.activityId}`}> {activity.title}</Link>
+            </div>
+        <div className="flx flx-col flx-align-start w-100">
+          <div className="tip__caption font--beta v2-type-body2 ta-left">
+            <div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(activity.body || '')) }} />
+            {/*<div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(thread.body) || '' }} />*/}
+            </div>
+          </div>
+      </div>
 
-
-
-                    { /** Title **/ }
-                    <div className="hide-in-list tip__title tip-title ta-left">
-                      {/*<div className="tip__order-count color--black">{props.index}.</div>*/}
-                      <Link to={`/${props.orgName}/${props.projectId}/${props.activity.activityId}`}> {activity.title}</Link>
-                    </div>
-
-                    { /** END Title **/ }
-
-
-                    {/* Action Module */}
-                    <div className="tip__cta-box flx flx-row flx-just-start flx-align-center flx-item-right">
-                    </div>
-                    {/* END Action Module */}
-
-
-                    { /** Timestamp **/ }
-                    <div className="tip__timestamp v2-type-caption opa-20 mrgn-top-xs ">
-                      <DisplayTimestamp timestamp={activity.lastModified} />
-                    </div>
-                    { /** END Timestamp **/ }
-                    
-                  </div>
- 
-
-
-                  <div className="tip__content-wrapper">
-                    <div className="tip__content-inner">
-                      <div>
-                        <UpdateSection activity={activity} />
-                      </div>
-
-                      { /** Author **/ }
-                      <Link
-                          to={'/' + props.orgName + '/user/' + createdBy.username}
-                          className="show-in-list">
-                        <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm">
-                            <div className="tip__author-photo flx-hold mrgn-right-sm">
-                              <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
-                            </div> 
-                            <div className="color--black v2-type-body1">
-                              {createdBy.username}
-                            </div>
-                        </div>
-                      </Link> 
-                      { /** END Author **/ }
-
-
-                      { /** Caption **/ }
-                      <div className="tip__caption-module flx flx-row w-100 mrgn-bottom-sm brdr-02-bottom">
-                        <Link to={'/' + props.orgName + '/user/' + createdBy.username} className="tip__author-photo flx-hold mrgn-right-sm">
-                          <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
-                        </Link> 
-                        <div className="flx flx-col flx-align-start w-100">
-                            <div className="tip__caption font--beta v2-type-body2 ta-left">
-                              <div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(activity.body || '')) }} />
-                            {/*<div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(thread.body) || '' }} />*/}
-                            </div>
-
-
-                            <div className="flx flx-row flx-just-start flx-align-center">
-                              <div className="date-posted inline-block color--black v2-type-body1 opa-30 font--alpha">
-                                <DisplayTimestamp timestamp={activity.lastModified} />
-                              </div>
-                            </div>
-                          </div>
-                      </div>
-
-                      {/*<CommentPreview orgName={props.orgName} activity={activity} />*/}
-
-                      { /** Comments  }
-                      <div className="flx flx-row flex-wrap cta-container mrgn-top-sm">
-                         <CommentContainer
-                            authenticated={props.authenticated}
-                            comments={tip.comments || {}}
-                            errors={props.commentErrors}
-                            commentObject={tip}
-                            itineraryId={props.itineraryId}
-                            userInfo={props.userInfo}
-                            type={props.dataType}
-                            deleteComment={props.deleteComment} />
-                      </div> 
-                    </div> 
-                  { /** END tip__content-inner **/}
-
-                  
-
-                  </div>
-
-
-               
-
-
-
-
-             
-            </div> { /** End photo / copy row **/ }
+         
 
    
 
 
-            </div>
+
         </div> 
 
        
@@ -214,14 +138,19 @@ const EditThreadItem = props => {
   let createdBy = activity.createdBy
 
   return (
-    <div> 
-      <div>
-        <Link to={'/' + props.orgName + '/user/' + createdBy.username}>{createdBy.username}</Link> edited a post:  
-        <Link to={'/' + props.orgname + '/' + activity.projectId + '/' + activity.threadId}>{activity.title}</Link>
-      </div>
-      { /** Timestamp **/ }
-      <div className="tip__timestamp v2-type-caption opa-20 mrgn-top-xs ">
-        <DisplayTimestamp timestamp={activity.lastModified} />
+    <div className="thread-preview-container flx flx-col flx-align-start w-100"> 
+      <div className="flx flx-row">
+
+        <Link to={'/' + props.orgName + '/user/' + createdBy.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
+          <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
+        </Link>
+        <div className="color--primary co-type-body flx flx-row">
+          <Link className="" to={'/' + props.orgName + '/user/' + createdBy.username}>{createdBy.username}</Link> edited post  
+          <Link to={'/' + props.orgname + '/' + activity.projectId + '/' + activity.threadId}>{activity.title}</Link>
+        </div>
+        <div className="tip__timestamp v2-type-caption opa-20 mrgn-top-xs ">
+          <DisplayTimestamp timestamp={activity.lastModified} />
+        </div>
       </div>
     </div>
   )
@@ -234,17 +163,26 @@ const CommentItem = props => {
   let createdBy = activity.createdBy
 
   return (
-    <div> 
-      <div>
-        <Link to={'/' + props.orgName + '/user/' + createdBy.username}>{createdBy.username}</Link> commented on thread: 
-          <Link to={'/' + props.orgname + '/' + activity.projectId + '/' + activity.threadId}>{activity.title}</Link>
-      </div>
-      <div>
-        comment body: {activity.body}
-      </div>
-      { /** Timestamp **/ }
-      <div className="tip__timestamp v2-type-caption opa-20 mrgn-top-xs ">
-        <DisplayTimestamp timestamp={activity.lastModified} />
+    <div className="thread-preview-container flx flx-col flx-align-start w-100">
+      <div className="flx flx-col">
+        <div className="flx flx-row">
+          <Link to={'/' + props.orgName + '/user/' + createdBy.username} className="mrgn-right-xs tip__author-photo flx-hold mrgn-right-sm flx flx-row">
+            <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
+          </Link>
+          <div className="flx flx-col">
+            <div className="co-type-body color--black flx flx-row">
+              <Link className="color--primary mrgn-right-xs" to={'/' + props.orgName + '/user/' + createdBy.username}>{createdBy.username}</Link> commented on thread: &nbsp; 
+              <Link className="color--primary" to={'/' + props.orgname + '/' + activity.projectId + '/' + activity.threadId}>{activity.title}</Link>
+            </div>
+            <div className="tip__timestamp v2-type-caption opa-20 mrgn-top-xs ">
+              <DisplayTimestamp timestamp={activity.lastModified} />
+            </div>
+          </div>
+        </div>
+        <div className="co-type-body mrgn-top-sm">
+          {activity.body}
+        </div>
+        
       </div>
     </div>
   )

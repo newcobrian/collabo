@@ -7,6 +7,8 @@ import * as Constants from '../constants';
 // import FollowUserButton from './FollowUserButton';
 import ProfileInfo from './ProfileInfo';
 import ActivityList from './ActivityList';
+import ProjectList from './ProjectList';
+
 
 const LogoutButton = props => {
   if (props.isUser && props.authenticated) {
@@ -135,7 +137,7 @@ class Profile extends React.Component {
                 Likes
               </Link>
             </li>
-
+ 
             <li className="nav-item">
               <Link
                 className="nav-link flx flx-col flx-center-all ta-center"
@@ -219,21 +221,25 @@ class Profile extends React.Component {
 
       return (
         <div className="flx flx-col page-common profile-page flx-align-center">
-          <div className="w-100 w-max flx flx-row flx-m-col">
-          <ProfileInfo
-            authenticated={this.props.authenticated}
-            profile={profile}
-            signOut={this.props.signOutUser}
-            follow={this.props.followUser}
-            unfollow={this.props.unfollowUser} />
+          <ProjectList 
+            threadCounts={this.props.threadCounts}
+            projectId={this.props.params.pid} />
 
-          {/*this.renderTabs()*/}
-          </div>
-          <div className="flx flx-row flx-just-center w-100">
-       
-          <ActivityList feed={this.props.feed} />
+          <div className="thread-area flx flx-col w-100">
+            <ProfileInfo
+              authenticated={this.props.authenticated}
+              profile={profile}
+              signOut={this.props.signOutUser}
+              follow={this.props.followUser}
+              unfollow={this.props.unfollowUser} />
+
+            <div className="flx flx-row flx-just-center w-100">
             
+            <ActivityList feed={this.props.feed} />
+              
+            </div>
           </div>
+          
         </div>
       );
     }
