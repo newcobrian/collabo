@@ -559,9 +559,11 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
       Helpers.incrementThreadSeenCounts(authenticated, thread.orgId, thread.projectId, threadId)
 
       // send message to original review poster if they are not the commentor
-      const sentArray = [];
+      let sentArray = [];
       let threadObject = Object.assign({}, thread, { threadId: threadId })
-      if (authenticated !== thread.userId) {
+
+      // then notify the original poster
+      if (authenticated !== thread.userId && (sentArray.indexOf(thread.userId) === -1)) {
         Helpers.sendCollaboInboxMessage(authenticated, thread.userId, Constants.COMMENT_IN_THREAD_MESSAGE, 
           org, project, threadObject, Object.assign({commentId: commentId, message: body}));
         sentArray.push(thread.userId);
@@ -576,28 +578,45 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
         // })
       }
 
-      Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).once('value', commentsSnapshot => {
-        commentsSnapshot.forEach(function(comment) {
-          let commenterId = comment.val().userId;
-          // if not commentor or in sent array, then send a message
-          if (commenterId !== authenticated && (sentArray.indexOf(commenterId) === -1)) {
-            Helpers.sendCollaboInboxMessage(authenticated, commenterId, Constants.COMMENT_IN_THREAD_MESSAGE, org, project, threadObject, Object.assign({}, {commentId: commentId}, {message: body}));
-            sentArray.push(commenterId);
-            // dispatch({
-            //   type: MIXPANEL_EVENT,
-            //   mixpanel: {
-            //     event: SEND_INBOX_MESSAGE,
-            //     props: {
-            //       type: commentOnCommentType
-            //     }
-            //   }
-            // })
-          }
-        })
-      })
-
       // send inbox messages to any usernames mentioned in the comment
-      findCommentMentions(dispatch, authenticated, body, org, project, threadObject, sentArray, commentId);
+      // findCommentMentions(dispatch, authenticated, body, org, project, threadObject, sentArray, commentId)
+      let pattern = /\B@[a-z0-9_-]+/gi;
+      let found = body.match(pattern);
+      if (found) {
+        for (let i = 0; i < found.length; i++) {
+          let username = found[i].substr(1);
+          Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + username).once('value', usernameSnap => {
+            if (usernameSnap.exists()) {
+              if (usernameSnap.val().userId !== authenticated && sentArray.indexOf(usernameSnap.val().userId) === -1) {
+                Helpers.sendCollaboInboxMessage(authenticated, usernameSnap.val().userId, Constants.COMMENT_MENTION_MESSAGE, org, project, threadObject, Object.assign({}, {commentId: commentId}, {message: body}))
+                sentArray.push(usernameSnap.val().userId);
+              }
+            }
+          })
+        }
+      }
+
+      setTimeout(function() {
+        Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).once('value', commentsSnapshot => {
+          commentsSnapshot.forEach(function(comment) {
+            let commenterId = comment.val().userId;
+            // if not commentor or in sent array, then send a message
+            if (commenterId !== authenticated && (sentArray.indexOf(commenterId) === -1)) {
+              Helpers.sendCollaboInboxMessage(authenticated, commenterId, Constants.COMMENT_IN_THREAD_MESSAGE, org, project, threadObject, Object.assign({}, {commentId: commentId}, {message: body}));
+              sentArray.push(commenterId);
+              // dispatch({
+              //   type: MIXPANEL_EVENT,
+              //   mixpanel: {
+              //     event: SEND_INBOX_MESSAGE,
+              //     props: {
+              //       type: commentOnCommentType
+              //     }
+              //   }
+              // })
+            }
+          })
+        })
+      }, 3000);
 
       // const mixpanelProps = ( (type === Constants.TIPS_TYPE ||  type === Constants.RECOMMENDATIONS_TYPE) ? {subjectId: commentObject.subjectId} : {itineraryId: commentObject.id});
       dispatch({
