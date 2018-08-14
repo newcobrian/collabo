@@ -29,7 +29,7 @@ const LeftSenderPic = props => {
     return (
       <div className="mrgn-left-sm mrgn-right-md">
         <Link
-        to={`${props.params.orgname}/user/${props.username}`}
+        to={`${props.orgName}/user/${props.username}`}
         className="">
           <ProfilePic src={props.image} className="center-img" />
         </Link>
@@ -50,7 +50,7 @@ const RenderUsername = props => {
   if (props.senderId) {
     return (
       <Link
-          to={`${props.params.orgname}/user/${props.username}`}
+          to={`${props.orgName}/user/${props.username}`}
           className="">
           {props.username}
       </Link>
@@ -137,10 +137,14 @@ class Inbox extends React.Component {
                 //   follower.userId === this.props.currentUser.uid;
                   return (
                     <Link className="flx flx-row flx-just-start brdr-bottom flx-align-center pdding-all-sm list-row" key={inboxItem.key} to={inboxItem.link}>
-                      <LeftSenderPic senderId={inboxItem.senderId} username={inboxItem.senderUsername} image={inboxItem.senderImage} />
+                      <LeftSenderPic 
+                        senderId={inboxItem.senderId} 
+                        username={inboxItem.senderUsername} 
+                        image={inboxItem.senderImage}
+                        orgName={this.props.params.orgname} />
                       <div className="flx flx-col mrgn-right-md">
                         <div className="v2-type-body1 font--alpha">
-                          <strong><RenderUsername senderId={inboxItem.senderId} username={inboxItem.senderUsername} /></strong>
+                          <strong><RenderUsername senderId={inboxItem.senderId} username={inboxItem.senderUsername} orgName={this.props.params.orgname} /></strong>
                           {inboxItem.message}<Link to={inboxItem.link}><div className="color--primary inline">{inboxItem.reviewTitle}</div></Link>
                            <div className="itinerary__cover__timestamp font--alpha"><DisplayTimestamp timestamp={inboxItem.lastModified} /></div>
                         </div>
