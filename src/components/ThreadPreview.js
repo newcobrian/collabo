@@ -113,7 +113,8 @@ const CommentPreview = props => {
 
 const ThreadPreview = props => {
   const thread = props.thread;
-  const createdBy = thread.createdBy;
+  const postAuthor = thread.lastUpdate === Constants.COMMENT_TYPE ? 
+    ( thread.lastComment ? thread.lastComment : { username: '', userId: null, image: '' } ) : thread.createdBy;
   // let title = tip.subject ? tip.subject.title : ''
   // let canModify = props.authenticated === tip.userId ? true : false;
 
@@ -131,13 +132,13 @@ const ThreadPreview = props => {
             <div className="tip__caption-module flx flx-col w-100 brdr-02-bottom w-100">
               
               <div className="flx flx-row w-100 flx-align-center">
-                <Link to={'/' + props.orgName + '/user/' + createdBy.username} className="tip__author-photo flx-hold mrgn-right-md flx flx-row">
-                  <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
+                <Link to={'/' + props.orgName + '/user/' + postAuthor.username} className="tip__author-photo flx-hold mrgn-right-md flx flx-row">
+                  <ProfilePic src={postAuthor.image} className="user-image user-image-sm center-img" />
                 </Link>
                 <div className="flx flx-col w-100">
                   <div className="flx flx-row w-100">
                     <div className="color--black co-post-title flx flx-row">
-                      <div className="color--feed-link">{createdBy.username}</div>
+                      <div className="color--feed-link">{postAuthor.username || ''}</div>
                       &nbsp;<UpdateSection thread={thread} />
                       &nbsp;<Link className="color--feed-link" 
                                   to={`/${props.orgName}/${props.projectId}/${props.thread.threadId}`}>
