@@ -42,7 +42,7 @@ textarea {
     width: auto;
     background-color: white;
     min-height: 1210px;
-    padding: 40px;
+    padding: 40px 0 0;
     left: 300px;
     overflow: hidden;
     right: 0;
@@ -67,15 +67,30 @@ textarea {
 }
 .v2-type-body2, .co-type-body {
   	font-weight: 400;
-  	font-size: 16px;
+  	font-size: 14px;
   	letter-spacing: 0;
   	line-height: 20px;
+}
+.co-post-title {
+  	font-weight: 500;
+  	font-size: 15px;
+  	letter-spacing: 0;
+  	line-height: 20px;
+}
+.co-type-sub {
+	font-weight: 400;
+	font-size: 13px;
+	letter-spacing: 0;
+	line-height: 20px;
 }
 .co-type-label {
 	font-family: 'Doppio One', sans-serif;
 	font-size: 14px;
 	letter-spacing: 0;
 	line-height: 26px;
+}
+p {
+	margin-bottom: 0 !important;
 }
 .co-type-bold {
 	font-weight: bold;
@@ -85,8 +100,11 @@ textarea {
 }
 .thread-preview-container {
     width: 100%;
-    padding: 20px 40px;
-    border-bottom: 1px solid rgba(0,0,0,.1);
+	padding: 20px 30px 20px;
+    border-bottom: 1px solid rgba(1,25,70,.1);
+    background-image: url(img/pixel-black.png);
+    background-repeat: repeat-y;
+    background-position: 50px 0;
 }
 .sidebar-footer {
 	position: absolute;
@@ -102,9 +120,54 @@ textarea {
 .thread-icon {
 	width: 40px; 
 	height: 40px;
-	margin-top: -10px;
 	margin-right: 10px;
 }
+.feed-gem {
+	width: 17px;
+	height: 17px;
+	border-radius: 100px;
+	background-color: rgba(0,0,0,.3);
+}
+.feed-gem.circle {
+	width: 17px;
+	height: 17px;
+	border-radius: 100px;
+	background-color: #74F6BF;
+	background-color: #97B4FF;
+}
+.feed-gem.diamond {
+	width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-bottom-color: #FFC5B8;
+    border-bottom-color: #97B4FF;
+    position: relative;
+    top: -10px;
+    border-radius: 0;
+    background-color: transparent;
+}
+.feed-gem.diamond:after {
+	content: '';
+	position: absolute;
+	left: -10px;
+	top: 10px;
+	width: 0;
+	height: 0;
+	border: 10px solid transparent;
+	border-top-color: #FFC5B8;
+	border-top-color: #97B4FF;
+}
+.feed-gem.gem-create {
+	background-color: #74F6BF;
+}
+.feed-gem.square {
+	border-radius: 0;
+	background-color: #74F6EE;
+	background-color: #97B4FF;
+}
+
+
+
 .sidebar-icon .material-icons {
 	opacity: .3;
 }
@@ -142,14 +205,14 @@ textarea {
 }
 
 .tip__caption {
-	 width: 100%;
+	width: 100%;
     max-height: 100px;
     overflow: hidden;
     position: relative;
-    min-height: 70px;
+    min-height: 0;
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
   }
 .caption-shadow {
@@ -159,7 +222,10 @@ textarea {
 	top: 0; bottom:0;
 	box-shadow: inset rgba(255,255,255,1) 0 -26px 10px;
 }
-
+.thread-timestamp {
+	font-size: 12px;
+	opacity: .5;
+}
 
 .icon-wrapper {
 	border: 2px solid;
@@ -168,7 +234,7 @@ textarea {
 	border-radius: 100px;
 }
 .project-header {
-    padding: 28px 30px 0;
+    padding: 20px 30px 20px;
     position: fixed;
     background: white;
     z-index: 10;
@@ -176,16 +242,18 @@ textarea {
     left: 300px;
     right: 0;
     top: 0;
+    border-bottom: 1px solid rgba(1,25,70,.3);
+
 }
+
 .co-type-h1 {
 		font-family: 'Doppio One', sans-serif;
     font-size: 36px;
 }
 .threadlist {
-	max-width: 960px;
 }
 .threadlist-wrapper {
-	margin: 100px auto;
+	margin: 55px auto;
 	width: 100%;
 }
 .rdw-editor-wrapper {
@@ -198,4 +266,8 @@ textarea {
     box-sizing: border-box;
     border: 1px solid rgba(0,0,0,.1);
     padding: 20px;
+}
+.co-icon-wrapper {
+	width: 32px;
+	height: 32px;
 }

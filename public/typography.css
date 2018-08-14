@@ -15,6 +15,7 @@ body a {
   transition-property: none;
   -webkit-transition: none;
   transition: none;
+  font-weight: 500;
 }
 body a: hover {
   opacity: .9;
@@ -274,6 +275,9 @@ textarea {
   color: #3DCBF3 !important;
   color: #97B4FF !important;
   /*color: #1A4C0A !important;*/
+}
+.color--feed-link {
+  color: #97B4FF !important;
 }
 a.color--primary:hover i,
 a.color--primary:focus i,

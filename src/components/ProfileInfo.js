@@ -38,7 +38,7 @@ const ProfileInfo = props => {
     const isUser = props.authenticated &&
       props.profile.userId === props.authenticated;
 
-    return (
+    return ( 
         <div className="user-info flx flx-col flx-just-start">
 
           <div className="profile-info flx flx-row flx-just-start mrgn-bottom-xs">

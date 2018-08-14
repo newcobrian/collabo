@@ -31,22 +31,22 @@ const UpdateSection = props => {
   if (!props.thread) return null
   else if (props.thread.lastUpdate === Constants.NEW_THREAD_TYPE) {
     return (
-      <div className="opa-40 color--black">
+      <div className="color--black">
         posted a new thread
       </div>
     )
   }
   else if (props.thread.lastUpdate === Constants.EDIT_THREAD_TYPE) {
     return (
-      <div className="opa-40 color--black">
-        modified the original post
+      <div className="color--black">
+        edited
       </div>
     )
   }
   else if (props.thread.lastUpdate === Constants.COMMENT_TYPE) {
     return (
-      <div className="opa-40 color--black">
-        added a new comment
+      <div className="color--black">
+        commented in
       </div>
     )
   }
@@ -57,21 +57,30 @@ const UpdateIcon = props => {
   if (!props.thread) return null
   else if (props.thread.lastUpdate === Constants.NEW_THREAD_TYPE) {
     return (
-      <i className="material-icons color--black md-24 opa-40">assignment</i>
+      <div className="co-icon-wrapper flx flx-center-all">
+        {/**<img className="center-img" src="/img/icon_newthread.png"/>**/}
+        <div className="feed-gem circle"></div>
+      </div>
     )
   }
   else if (props.thread.lastUpdate === Constants.EDIT_THREAD_TYPE) {
     return (
-      <i className="material-icons color--black md-24 opa-40">edit</i>
+      <div className="co-icon-wrapper flx flx-center-all">
+        <div className="feed-gem square"></div>
+      </div>
     )
   }
   else if (props.thread.lastUpdate === Constants.COMMENT_TYPE) {
     return (
-      <i className="material-icons color--black md-24 opa-40">add_comment</i>
+      <div className="co-icon-wrapper flx flx-center-all">
+        <div className="feed-gem diamond"></div>
+      </div>
     )
   }
   else return (
-      <i className="material-icons color--black md-24 opa-40">fiber_manual_record</i>
+    <div className="co-icon-wrapper flx flx-center-all">
+      <div className="feed-gem"></div>
+    </div>
     )
 }
 
@@ -109,59 +118,51 @@ const ThreadPreview = props => {
   // let canModify = props.authenticated === tip.userId ? true : false;
 
   return (
-    <Link to={`/${props.orgName}/${props.projectId}/${props.thread.threadId}`} className={"thread-preview-wrapper flx flx-col flx-col w-100 w-max"}>
+    <Link to={`/${props.orgName}/${props.projectId}/${props.thread.threadId}`} className={"thread-preview-wrapper flx flx-col flx-col w-100"}>
         
         <div className="thread-preview-container flx flx-row flx-align-start w-100">
-          <div className="thread-icon flx flx-center-all flx-hold">
+          <div className="thread-icon flx flx-center-all flx-hold mrgn-right-md">
             <UpdateIcon thread={thread} />
           </div>
 
-          <div className="tip__content-inner flx flx-col">
+          <div className="tip__content-inner flx flx-col w-100">
            
-            <div>
             { /** Caption **/ }
-            <div className="tip__caption-module flx flx-col w-100 mrgn-bottom-sm brdr-02-bottom">
+            <div className="tip__caption-module flx flx-col w-100 brdr-02-bottom w-100">
               
-              <div className="flx flx-row">
-                <Link to={'/' + props.orgName + '/user/' + createdBy.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
+              <div className="flx flx-row w-100 flx-align-center">
+                <Link to={'/' + props.orgName + '/user/' + createdBy.username} className="tip__author-photo flx-hold mrgn-right-md flx flx-row">
                   <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
                 </Link>
-                <div className="flx flx-col">
-                  <div className="color--primary co-type-body flx flx-row">
-                    <div className="co-type-bold mrgn-right-xs">{createdBy.username}</div> <UpdateSection thread={thread} />
-                  </div>
-                  { /** Timestamp **/ }
-                  <div className="tip__timestamp v2-type-caption opa-40">
-                    <DisplayTimestamp timestamp={thread.lastModified} />
-                  </div>
-                  { /** END Timestamp **/ }
-                </div>
-              </div>
-
-              <div className="flx flx-col flx-align-start w-100">
-                  { /** Title **/ }
-                  <div className="co-type-h4 ta-left mrgn-top-sm">
-                    {/*<div className="tip__order-count color--black">{props.index}.</div>*/}
-                    <Link to={`/${props.orgName}/${props.projectId}/${props.thread.threadId}`}> {thread.title}</Link>
-                  </div>
-                  { /** END Title **/ }
-
-                  <div className="tip__caption font--beta v2-type-body2 ta-left pdding-left-sm pdding-top-sm opa-70">
-                    <div className="caption-shadow">
+                <div className="flx flx-col w-100">
+                  <div className="flx flx-row w-100">
+                    <div className="color--black co-post-title flx flx-row">
+                      <div className="color--feed-link">{createdBy.username}</div>
+                      &nbsp;<UpdateSection thread={thread} />
+                      &nbsp;<Link className="color--feed-link" 
+                                  to={`/${props.orgName}/${props.projectId}/${props.thread.threadId}`}>
+                                  {thread.title}
+                            </Link>
                     </div>
+                    <div className="thread-timestamp flx-item-right">
+                      <DisplayTimestamp timestamp={thread.lastModified} />
+                    </div>
+                  </div>
+                  <div className="tip__caption co-type-sub ta-left opa-60 mrgn-top-xs">
                       <div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(thread.body)) || '' }} />
                     {/*<div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(thread.body) || '' }} />*/}
                       </div>
-
                   </div>
+                </div>
               </div>
 
-            <CommentPreview orgName={props.orgName} thread={thread} />
+
+            {/**<CommentPreview className="DN" orgName={props.orgName} thread={thread} />**/}
           </div>
    
           </div> { /** End photo / copy row **/ }
 
-        </div>
+
     </Link>
   );
 }

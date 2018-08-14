@@ -19,7 +19,7 @@ const ProjectHeader = props => {
         <div className="co-type-h1 flx flx-row flx-align-start text-left invert">
           {props.project.name}
         </div>
-        <div className="flx flx-align-start flx-item-right">
+        <div className="flx flx-align-start flx-item-right DN">
           <Link to={'/' + props.orgName + '/' + props.projectId + '/addthread'} activeClassName="active" className="flx flx-align-center flx-item-right">
               <div className="mrgn-left-xs color--primary label-big flx-item-right mrgn-right-sm">New Thread</div>
               <div className="icon-wrapper brdr--primary flx flx-center-all">
@@ -163,7 +163,6 @@ class Project extends React.Component {
     // }
     else {
       return (
-        <div>
 
           <div className="page-common page-places flx flx-row flx-align-start">
             
@@ -182,20 +181,33 @@ class Project extends React.Component {
                   project={this.props.project}
                 />
                 
-              <div className="threadlist-wrapper flx flx-col flx-align-center">
+              <div className="threadlist-wrapper flx flx-col flx-align-start w-100">
 
                 <InfiniteScroll
                   pageStart={0}
                   loadMore={this.scrolledToBottom}
                   hasMore={true}
                   loader={<div className="loader" key={0}>Loading ...</div>} >
+                  
+                  <Link to={'/' + this.props.orgName + '/' + this.props.projectId + '/addthread'} className="thread-preview-container flx flx-row flx-align-center w-100">
+                    <div className="thread-icon flx flx-center-all flx-hold mrgn-right-md">
+                      <div className="co-icon-wrapper flx flx-center-all">
+                        <div className="feed-gem circle gem-create"></div>
+                      </div>
+                    </div>
+                    <div className="color--black co-type-body flx flx-row">
+                      New Thread
+                    </div>
+                  </Link>
 
                   <ThreadList
                     threads={this.props.threads} 
                     authenticated={this.props.authenticated}
                     orgName={this.props.params.orgname}
                     emptyThreadFeed={this.props.emptyThreadFeed}
-                    projectNotFoundError={this.props.projectNotFoundError} />
+                    projectNotFoundError={this.props.projectNotFoundError}
+                    className={"w-100"} />
+
 
                 </InfiniteScroll>
 
@@ -203,7 +215,6 @@ class Project extends React.Component {
             </div>
           </div>
 
-        </div>
       );
     }
   }

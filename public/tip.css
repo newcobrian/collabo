@@ -125,23 +125,12 @@
 	width:100%;
 }
 .tip__content-inner {
-  padding: 0 8px 8px;
 }
 .page-subject .tip__content-wrapper {
   padding-left: 0;
 }
 
-.tip__caption {
-	 width: 100%;
-    max-height: 100px;
-    overflow: hidden;
-    position: relative;
-    min-height: 70px;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-  }
+
 
 
 .add-photo-wrapper {
