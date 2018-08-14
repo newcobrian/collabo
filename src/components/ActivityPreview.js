@@ -160,7 +160,7 @@ const CommentItem = props => {
   if (!props.activity) return null;
 
   let activity = props.activity
-  let createdBy = activity.createdBy
+  let createdBy = activity.lastComment ? activity.lastComment : { username: '', userId: null, image: '' }
 
   return (
     <div className="thread-preview-container flx flx-col flx-align-start w-100">
