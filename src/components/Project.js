@@ -189,7 +189,7 @@ class Project extends React.Component {
                   hasMore={true}
                   loader={<div className="loader" key={0}>Loading ...</div>} >
                   
-                  <Link to={'/' + this.props.orgName + '/' + this.props.projectId + '/addthread'} className="thread-preview-container flx flx-row flx-align-center w-100">
+                  <Link to={'/' + this.props.params.orgname + '/' + this.props.params.pid + '/addthread'} className="thread-preview-container flx flx-row flx-align-center w-100">
                     <div className="thread-icon flx flx-center-all flx-hold mrgn-right-md">
                       <div className="co-icon-wrapper flx flx-center-all">
                         <div className="feed-gem circle gem-create"></div>
