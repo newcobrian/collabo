@@ -53,7 +53,8 @@ class Profile extends React.Component {
 
     this.scrolledToBottom = () => {
       if (!this.props.isFeedLoading) {
-        this.props.watchActivityFeed(this.props.authenticated, this.props.params.orgname, this.props.feedEndValue, Constants.PROFILE_PAGE)
+        let userId = this.props.profile ? this.props.profile.userId : null
+        this.props.watchActivityFeed(userId, this.props.params.orgname, this.props.feedEndValue, Constants.PROFILE_PAGE)
       }
     }
 
