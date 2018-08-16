@@ -17,12 +17,30 @@ const Comment = props => {
   const processed = processString([{
     regex: /\@([a-z0-9_\-]+?)( |\,|$|\.|\!|\:|\'|\"|\?)/gim, //regex to match a username 
     fn: (key, result) => {
-        return (
-          <span>
-            <Link className="color--primary" key={key} to={`/${props.orgName}/user/${result[1]}`}>@{result[1]}</Link>{result[2]}
-          </span>
-        )
-      }
+      return (
+        <span>
+          <Link className="color--primary" key={key} to={`/${props.orgName}/user/${result[1]}`}>@{result[1]}</Link>{result[2]}
+        </span>
+      );
+    }
+  }, {
+    regex: /(http|https):\/\/(\S+)\.([a-z]{2,}?)(.*?)( |\,|$|\.)/gim,
+    fn: (key, result) => {
+      return (
+        <span key={key}>
+          <a target="_blank" href={result[0]}>{result[0]}</a>
+        </span>
+      );
+    }
+  }, {
+    regex: /(\S+)\.([a-z]{2,}?)(.*?)( |\,|$|\.)/gim,
+    fn: (key, result) => {
+      return (
+        <span key={key}>
+          <a target="_blank" href={`http://${result[0]}`}>{result[0]}</a>
+        </span>
+      );
+    }
   }]);
 
   return ( 
