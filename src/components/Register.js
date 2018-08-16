@@ -44,10 +44,10 @@ class Register extends React.Component {
     // this.changePassword = ev => onChangePassword(ev.target.value);
     // this.changeUsername = ev => onChangeUsername(ev.target.value);
     // this.submitForm = (username, email, password) => ev => {
-    this.submitForm = (username, email, password) => ev => {
+    this.submitForm = (username, email, password, firstName, lastName) => ev => {
       ev.preventDefault();
       // this.props.onSubmit(username, email, password);
-      this.props.signUpUser(username.toLowerCase(), email.toLowerCase(), password, this.props.authRedirect);
+      this.props.signUpUser(username.toLowerCase(), email.toLowerCase(), password, firstName, lastName, this.props.authRedirect);
     }
   }
 
@@ -60,10 +60,7 @@ class Register extends React.Component {
   }
 
   render() {
-    const email = this.props.email;
-    const password = this.props.password;
-    const username = this.props.username;
-
+    const { email, password, username, firstName, lastName } = this.props;
     return (
       <div className="page-common auth-page">
         <div className="container page">
@@ -82,7 +79,7 @@ class Register extends React.Component {
 
               <ListErrors errors={this.props.errors} />
 
-              <form onSubmit={this.submitForm(username, email, password)}>
+              <form onSubmit={this.submitForm(username, email, password, firstName, lastName)}>
                 <fieldset>
 
                   <fieldset className="form-group">
@@ -106,19 +103,19 @@ class Register extends React.Component {
                   <fieldset className="form-group">
                     <input
                       className="form-control form-control-lg"
-                      type="email"
+                      type="firstName"
                       placeholder="First Name"
                       value={this.props.firstName}
-                      onChange={this.changeEmail} />
+                      onChange={this.changeFirstName} />
                   </fieldset>
 
                   <fieldset className="form-group">
                     <input
                       className="form-control form-control-lg"
-                      type="email"
+                      type="lastName"
                       placeholder="Last Name"
                       value={this.props.lastName}
-                      onChange={this.changeEmail} />
+                      onChange={this.changeLastName} />
                   </fieldset>
 
                   <fieldset className="form-group">
