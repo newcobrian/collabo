@@ -1,12 +1,9 @@
-import MainView from './MainView';
 import React from 'react';
 import {BackToTop} from 'pui-react-back-to-top';
 import { connect } from 'react-redux';
 import * as Actions from '../../actions';
 import * as Constants from '../../constants';
 import { Link, browserHistory } from 'react-router';
-import PopularPreview from './PopularPreview';
-import ItineraryPreview from '../ItineraryPreview';
 import UniversalSearchBar from '../UniversalSearchBar';
 import ProjectList from '../ProjectList';
 
