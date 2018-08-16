@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
 import LikeReviewButton from './LikeReviewButton';
-import SaveReviewButton from './SaveReviewButton';
 import ProfilePic from './ProfilePic';
 import ImagePicker from './ImagePicker';
 import * as Constants from '../constants';

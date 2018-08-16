@@ -4,11 +4,7 @@ import React from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 import App from './components/App';
-import Review from './components/Review';
 import Home from './components/Home';
-import GlobalFeed from './components/Home/GlobalFeed';
-import PopularFeed from './components/Home/PopularFeed';
-import SavesFeed from './components/Home/SavesFeed';
 import Login from './components/Login';
 import Profile from './components/Profile';
 import ProfileLikes from './components/ProfileLikes';
@@ -16,8 +12,6 @@ import ProfileSaves from './components/ProfileSaves';
 import ProfileGuides from './components/ProfileGuides';
 import Register from './components/Register';
 import Settings from './components/Settings';
-import Editor from './components/Editor';
-import Create from './components/Create';
 import AddProject from './components/AddProject';
 import AddThread from './components/AddThread';
 import Thread from './components/Thread';
@@ -26,12 +20,9 @@ import Followers from './components/Followers';
 import Followings from './components/Followings';
 import Inbox from './components/Inbox';
 import FriendSelector from './components/FriendSelector';
-import Itinerary from './components/Itinerary';
 import Explore from './components/Explore';
-import Places from './components/Places';
 import Project from './components/Project';
 import ForgotPassword from './components/ForgotPassword';
-import Recommend from './components/Recommend';
 import CreateOrg from './components/CreateOrg';
 import OrgInvite from './components/OrgInvite';
 // import Organization from './components/Organization';
@@ -73,7 +64,6 @@ ReactDOM.render((
         <Route path="user/:username/likes" component={ProfileLikes} />*/}
         <Route path=":orgname/inbox" component={Inbox} />
         <Route path=":orgname/user/:username" component={Profile} />
-        {/*<Route path=":orgname" component={Organization} />*/}
         <Route path=":orgname/addproject" component={AddProject} />
         <Route path=":orgname/invite" component={OrgInvite} />
         <Route path=":orgname(/:pid)" component={Project} />

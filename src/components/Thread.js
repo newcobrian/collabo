@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
 import * as Helpers from '../helpers';
-import ItineraryList from './ItineraryList'; 
 import { Link, browserHistory } from 'react-router';
 import FirebaseSearchInput from './FirebaseSearchInput';
 import UniversalSearchBar from './UniversalSearchBar';
