@@ -3,7 +3,7 @@ import * as Constants from '../constants';
 import * as Helpers from '../helpers';
 import { find, isEqual } from 'lodash';
 
-const initialState = { usersData: {}, threadCounts: {}, feedEndValue: new Date().getTime(), isFeedLoading: false }
+const initialState = { usersData: {}, threadCounts: {}, feedEndValue: null, isFeedLoading: false }
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -54,24 +54,39 @@ export default (state = initialState, action) => {
       }
       return state;
     }
-    case ActionTypes.THREAD_CHANGED_ACTION: {
+    // case ActionTypes.THREAD_CHANGED_ACTION: {
+    //   if (action.source === Constants.PROJECT_PAGE) {
+    //     const newState = Object.assign({}, state);
+    //     newState.threads = newState.threads || [];
+    //     newState.threads = newState.threads.slice();
+    //     let createdBy = { createdBy: Object.assign({}, action.user) };
+    //     // let comments = { comments: newState.commentsData[action.threadId] ? [].concat(newState.commentsData[action.threadId]) : [] };
+    //     // let isLiked = { isLiked: newState.likesData[action.threadId] ? true : false };
+        
+    //     for (let i = 0; i < newState.threads.length; i++) {
+    //       if (newState.threads[i].threadId === action.threadId) {
+    //         newState.threads[i] = Object.assign({}, {threadId: action.threadId}, action.thread, createdBy);
+    //         newState.threads.sort(Helpers.lastModifiedDesc);
+    //         // return newState;
+    //         newState.emptyThreadFeed = false;
+    //       }
+    //     }
+    //     return newState;
+    //   }
+    //   return state;
+    // }
+    case ActionTypes.THREAD_REMOVED_ACTION: {
       if (action.source === Constants.PROJECT_PAGE) {
         const newState = Object.assign({}, state);
         newState.threads = newState.threads || [];
         newState.threads = newState.threads.slice();
-        let createdBy = { createdBy: Object.assign({}, action.user) };
-        // let comments = { comments: newState.commentsData[action.tipId] ? [].concat(newState.commentsData[action.tipId]) : [] };
-        // let isLiked = { isLiked: newState.likesData[action.tipId] ? true : false };
-        
+        // find the tip and remove it
         for (let i = 0; i < newState.threads.length; i++) {
           if (newState.threads[i].threadId === action.threadId) {
-            newState.threads[i] = Object.assign({}, {threadId: action.threadId}, action.thread, createdBy);
-            newState.threads.sort(Helpers.lastModifiedDesc);
-            // return newState;
-            newState.emptyThreadFeed = false;
+            newState.threads.splice(i, 1);
+            return newState;    
           }
         }
-        return newState;
       }
       return state;
     }
