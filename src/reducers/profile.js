@@ -6,7 +6,7 @@ import * as Constants from '../constants';
 import { isEqual } from 'lodash';
 import * as Helpers from '../helpers';
 
-const initialState = { usersData: {}, likesData: {}, subjectsData: {}, feedEndValue: new Date().getTime(), isFeedLoading: false  }
+const initialState = { usersData: {}, likesData: {}, subjectsData: {}, feedEndValue: null, isFeedLoading: false  }
 
 export default (state = initialState, action) => {
   switch (action.type) {

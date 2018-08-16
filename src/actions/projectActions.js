@@ -1194,15 +1194,27 @@ export function watchActivityFeed(auth, orgName, endValue, source) {
               }
             })
 
-            Firebase.database().ref(Constants.ACTIVITY_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgId)
-              .orderByChild('lastModified')
-              .limitToLast(Constants.TIPS_TO_LOAD)
-              .endAt(endValue)
-              .on('child_added', activitySnap => {
-                dispatch(activityAddedAction(activitySnap.key, activitySnap.val(), userSnap.val(), source));
-                dispatch(updateEndValue(activitySnap.val().lastModified ? activitySnap.val().lastModified : endValue, source));
-                debounceSetFeedNotLoading(dispatch, source);
-            })
+            if (endValue === null) {
+              Firebase.database().ref(Constants.ACTIVITY_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgId)
+                .orderByChild('lastModified')
+                .limitToLast(Constants.TIPS_TO_LOAD)
+                .on('child_added', activitySnap => {
+                  dispatch(activityAddedAction(activitySnap.key, activitySnap.val(), userSnap.val(), source));
+                  dispatch(updateEndValue(activitySnap.val().lastModified ? activitySnap.val().lastModified : endValue, source));
+                  debounceSetFeedNotLoading(dispatch, source);
+              })
+            }
+            else {
+              Firebase.database().ref(Constants.ACTIVITY_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgId)
+                .orderByChild('lastModified')
+                .limitToLast(Constants.TIPS_TO_LOAD)
+                .endAt(endValue)
+                .on('child_added', activitySnap => {
+                  dispatch(activityAddedAction(activitySnap.key, activitySnap.val(), userSnap.val(), source));
+                  dispatch(updateEndValue(activitySnap.val().lastModified ? activitySnap.val().lastModified : endValue, source));
+                  debounceSetFeedNotLoading(dispatch, source);
+              })
+            }
 
             // on child changed, how do we unwatch old refs?
             Firebase.database().ref(Constants.ACTIVITY_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgId)
