@@ -81,12 +81,23 @@ export default (state = initialState, action) => {
         ...state,
         invalidOrgUser: true
       }
-    case ActionTypes.SET_EDIT_MODE:
-      return {
-        ...state,
-        isEditMode: action.editMode,
-        // bodyText: state.thread && state.thread.body ? state.thread.body : ''
+    case ActionTypes.SET_EDIT_MODE: {
+      if (action.editMode === false) {
+        const newState = Object.assign({}, state);
+        newState.thread = newState.thread || {};
+        newState.thread = Object.assign({}, newState.thread);
+        newState.bodyText = newState.thread && newState.thread.body ? Helpers.convertStoredToEditorState(newState.thread.body) : EditorState.createEmpty()
+        newState.isEditMode = action.editMode
+        return newState;
       }
+      else {
+        return {
+          ...state,
+          isEditMode: action.editMode,
+          // bodyText: state.thread && state.thread.body ? state.thread.body : ''
+        }
+      }
+    }
     case ActionTypes.UPDATE_FIELD_CREATE:
       if(action.source === Constants.THREAD_PAGE) {
         return { ...state, [action.key]: action.value };
