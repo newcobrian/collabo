@@ -168,10 +168,10 @@ class Project extends React.Component {
             
                 {/*<UniversalSearchBar />*/}
             
-            <ProjectList 
+            {/*<ProjectList 
               threadCounts={this.props.threadCounts}
               projectId={this.props.params.pid}
-              source={Constants.PROJECT_PAGE} />
+              source={Constants.PROJECT_PAGE} />*/}
 
             <div className="thread-area flx flx-col w-100">
               

@@ -1282,3 +1282,30 @@ function activityRemovedAction(activityId, source) {
     source
   }
 }
+
+export function loadSidebar(mql) {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.LOAD_SIDEBAR,
+      mql: mql
+    })
+  }
+}
+
+export function setSidebarOpen() {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.SET_SIDEBAR_OPEN,
+      open: true,
+    })
+  }
+}
+
+export function setSidebar(mql) {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.SET_SIDEBAR,
+      sidebarOpen: mql
+    })
+  }
+}
