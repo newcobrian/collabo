@@ -198,7 +198,8 @@ export function loadProject(projectId) {
       if (projectSnapshot.exists()) {
         dispatch({
           type: ActionTypes.LOAD_PROJECT,
-          project: projectSnapshot.val()
+          project: projectSnapshot.val(),
+          projectId: projectId
         })
       }
       else {
@@ -306,9 +307,16 @@ function threadRemovedAction(threadId, source) {
 //   }
 // }
 
-export function loadProjectList(auth, orgName, source) {
-  let lowercaseName = orgName.toLowerCase()
+export function loadProjectList(auth, orgName, projectId, source) {
   return dispatch => {
+    let lowercaseName = orgName.toLowerCase()
+
+    dispatch({
+      type: ActionTypes.LOAD_PROJECT_LIST,
+      projectId: projectId,
+      source: source
+    })
+
     // Firebase.database().ref(Constants.PROJECTS_BY_USER_PATH + '/' + auth).on('child_added', snap => {
     Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + lowercaseName).on('child_added', snap => {
       dispatch({
