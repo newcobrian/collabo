@@ -103,16 +103,6 @@ export default (state = initialState, action) => {
         return { ...state, [action.key]: action.value };
       }
       else return {...state}
-    case ActionTypes.THREAD_COUNTS_LOADED:
-      return {
-        ...state,
-        threadCounts: action.threadCounts
-      }
-    case ActionTypes.THREAD_COUNTS_UNLOADED:
-      return {
-        ...state,
-        threadCounts: {}
-      }
     case ActionTypes.USERNAME_LOADED: {
       if (action.source === Constants.THREAD_PAGE) {
         const newState = Object.assign({}, state);
