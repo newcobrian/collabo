@@ -540,7 +540,7 @@ width: 32px;
   width: 100%;
 }
 .page-title-wrapper {
-  padding: 12px 20px 30px;
+  padding: 30px 60px 30px;
   width: 100%;
   /*border-bottom: 1px solid #D5E3E5;*/
 }
@@ -1175,6 +1175,8 @@ li.nav-divider {
   margin: 0 0 5px;
   min-height: 46px;
   background-color: transparent;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+      padding: 10px;
 }
 .comment-wrapper.card .card-footer {
   background-color: transparent;

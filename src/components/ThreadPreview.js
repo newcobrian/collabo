@@ -60,21 +60,24 @@ const UpdateIcon = props => {
     return (
       <div className="co-icon-wrapper flx flx-center-all">
         {/**<img className="center-img" src="/img/icon_newthread.png"/>**/}
-        <div className="feed-gem circle"></div>
+        {/**<div className="feed-gem circle"></div>**/}
+        <i className="material-icons color--primary md-24">assignment</i>
       </div>
     )
   }
   else if (props.thread.lastUpdate === Constants.EDIT_THREAD_TYPE) {
     return (
       <div className="co-icon-wrapper flx flx-center-all">
-        <div className="feed-gem square"></div>
+        {/**<div className="feed-gem square"></div>**/}
+        <i className="material-icons color--primary md-24">edit</i>
       </div>
     )
   }
   else if (props.thread.lastUpdate === Constants.COMMENT_TYPE) {
     return (
       <div className="co-icon-wrapper flx flx-center-all">
-        <div className="feed-gem diamond"></div>
+        {/**<div className="feed-gem diamond"></div>**/}
+        <i className="material-icons color--primary md-24">comment</i>
       </div>
     )
   }
@@ -149,17 +152,15 @@ const ThreadPreview = props => {
                   <ProfilePic src={postAuthor.image} className="user-image user-image-sm center-img" />
                 </Link>
                 <div className="flx flx-col w-100">
-                  <div className="flx flx-row w-100">
+                  <div className="thread-timestamp color--black">
+                    <DisplayTimestamp timestamp={thread.lastModified} />
+                  </div>
                     <div className="color--black co-post-title flx flx-row">
                       <Link className="color--black" 
                                   to={`/${props.orgName}/${props.projectId}/${props.thread.threadId}`}>
                                   {thread.title}
                             </Link>
                     </div>
-                    <div className="thread-timestamp flx-item-right">
-                      <DisplayTimestamp timestamp={thread.lastModified} />
-                    </div>
-                  </div>
                   <div className="mrgn-top-xs co-type-sub flx flx-row w-100 opa-60">
                       <ProjectLabel/>
                       <div className="">{postAuthor.username || ''}</div> 

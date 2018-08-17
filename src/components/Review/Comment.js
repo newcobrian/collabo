@@ -52,13 +52,14 @@ const Comment = props => {
             className="mrgn-right-sm">
             <ProfilePic src={comment.image} className="user-image user-image-sm center-img" />
           </Link>
-          <div className="comment-data flx flx-row flx-just-start">
+          <div className="comment-data flx flx-col flx-just-start">
+            <Link
+              to={`/user/${comment.username}`}
+              className="comment-author color--primary">
+              {comment.username}
+            </Link>
+
             <div className="comment-row co-type-body font--beta">
-              <Link
-                to={`/user/${comment.username}`}
-                className="comment-author color--primary">
-                {comment.username}
-              </Link>
               <span className="opa-70">
                 {processed(comment.body)}
               </span>
