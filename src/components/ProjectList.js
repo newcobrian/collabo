@@ -59,7 +59,7 @@ class ProjectList extends React.Component {
     if(!this.props.projectList) return null;
 
     return (
-        <div className="project-sidebar flx-col flx-item-left">
+        <div className="flx-col flx-item-left">
 
 
           <div className="org-row flx flx-row flx-align-center">

@@ -70,6 +70,13 @@ export default (state = initialState, action) => {
         ...state,
         threadCounts: action.threadCounts
       }
+    case ActionTypes.THREAD_COUNTS_UNLOADED:
+      return {
+        ...state,
+        threadCounts: {},
+        projectNotFoundError: false,
+        emptyThreadFeed: false
+      }
     default:
       return state;
   }

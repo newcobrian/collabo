@@ -141,18 +141,18 @@ export default (state = initialState, action) => {
         projectNotFoundError: false,
         emptyThreadFeed: false
       }
-    case ActionTypes.THREAD_COUNTS_LOADED:
-      return {
-        ...state,
-        threadCounts: action.threadCounts
-      }
-    case ActionTypes.THREAD_COUNTS_UNLOADED:
-      return {
-        ...state,
-        threadCounts: {},
-        projectNotFoundError: false,
-        emptyThreadFeed: false
-      }
+    // case ActionTypes.THREAD_COUNTS_LOADED:
+    //   return {
+    //     ...state,
+    //     threadCounts: action.threadCounts
+    //   }
+    // case ActionTypes.THREAD_COUNTS_UNLOADED:
+    //   return {
+    //     ...state,
+    //     threadCounts: {},
+    //     projectNotFoundError: false,
+    //     emptyThreadFeed: false
+    //   }
     case ActionTypes.EMPTY_THREAD:
       return {
         ...state,
