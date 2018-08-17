@@ -8,7 +8,7 @@ import * as Actions from '../actions';
 import 'whatwg-fetch';
 
 const algoliasearch = require('algoliasearch');
-const client = algoliasearch('2OEMW8KEZS', '62e17a3113351343399fad062d3cbca5', {protocol:'https:'});
+const client = algoliasearch('NFI90PSOIY', '03fbdcb4cee86d78bd04217626a3a52b', {protocol:'https:'});
 
 const mapStateToProps = state => ({
   ...state.editor,
@@ -20,7 +20,7 @@ class FirebaseSearchInput extends Component {
     super(props);
     this.onUpdateInput = this.onUpdateInput.bind(this);
     this.onNewRequest = this.onNewRequest.bind(this);
-    this.updateAlgoliaIndex = this.updateAlgoliaIndex.bind(this);
+    // this.updateAlgoliaIndex = this.updateAlgoliaIndex.bind(this);
     this.state = {
       dataSource : [],
       inputValue : '',
@@ -31,6 +31,11 @@ class FirebaseSearchInput extends Component {
 
   componentWillMount() {
     switch(this.props.type) {
+      case Constants.POSTS_SEARCH:
+        this.setState({
+          index: client.initIndex('posts')
+        })
+        break;
       case Constants.PEOPLE_SEARCH:
         this.setState({
           index: client.initIndex('views-users')
@@ -59,20 +64,20 @@ class FirebaseSearchInput extends Component {
     })
   }
 
-  updateAlgoliaIndex(request) {
-    if (request._service !== 'algolia') {
-      this.state.index.saveObject({
-        name: request.value,
-        description: request.description,
-        objectID: request.id
-      }, function(err, content) {
-        if (err) {
-          console.error(err);
-          return;
-        }
-      });
-    }
-  }
+  // updateAlgoliaIndex(request) {
+  //   if (request._service !== 'algolia') {
+  //     this.state.index.saveObject({
+  //       name: request.value,
+  //       description: request.description,
+  //       objectID: request.id
+  //     }, function(err, content) {
+  //       if (err) {
+  //         console.error(err);
+  //         return;
+  //       }
+  //     });
+  //   }
+  // }
 
   onNewRequest(chosenRequest) {
     // this.updateAlgoliaIndex(chosenRequest);
@@ -99,6 +104,9 @@ class FirebaseSearchInput extends Component {
       let searchType = this.props.type;
 
       // search Firebase
+      this.state.index.search({
+        filters: 'orgName:' + this.props.orgName
+      });
       this.state.index.search(this.state.inputValue, function(err, content) {
         if (err) {
           console.error(err);
@@ -106,6 +114,18 @@ class FirebaseSearchInput extends Component {
         }
         content.hits.map(function(result) {
           switch (searchType) {
+            case Constants.POSTS_SEARCH: {
+              let algoliaSearchObject = {};
+              if(result.title) {
+                algoliaSearchObject.text = result.title;
+                algoliaSearchObject.value = result.objectID;
+                algoliaSearchObject.body = result.body;
+                algoliaSearchObject.projectName = result.projectName;
+                algoliaSearchObject.username = result.author ? result.author.username : '';
+                retrievedSearchTerms.push(algoliaSearchObject);
+              }
+              break;
+            }
             case Constants.PEOPLE_SEARCH: {
               let algoliaSearchObject = {};
               if(result.username) {
@@ -127,6 +147,7 @@ class FirebaseSearchInput extends Component {
               }
               break;
             }
+
             default:
               break;
           }

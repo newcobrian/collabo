@@ -4,7 +4,6 @@ import * as Actions from '../actions';
 import * as Constants from '../constants';
 import { Link, browserHistory } from 'react-router';
 import FirebaseSearchInput from './FirebaseSearchInput';
-import UniversalSearchBar from './UniversalSearchBar';
 import LoadingSpinner from './LoadingSpinner';
 import ThreadList from './ThreadList';
 import ProjectList from './ProjectList';
@@ -18,6 +17,13 @@ const ProjectHeader = props => {
       <div className={"project-header text-left flx flx-row flx-align-start"}>
         <div className="co-type-h1 flx flx-row flx-align-start text-left invert">
           {props.project.name}
+        </div>
+        <div>
+          <FirebaseSearchInput 
+            type={Constants.POSTS_SEARCH}
+            callback={props.searchInputCallback}
+            orgName={props.orgName}
+            placeholder="Search here son" />
         </div>
         <div className="flx flx-align-start flx-item-right DN">
           <Link to={'/' + props.orgName + '/' + props.projectId + '/addthread'} activeClassName="active" className="flx flx-align-center flx-item-right">
@@ -50,11 +56,11 @@ class Project extends React.Component {
   constructor() {
     super();
 
-    // this.searchInputCallback = result => {
-    //     if (result.placeId) {
-    //       browserHistory.push('/project/' + result.projectId);
-    //     }
-    //   }
+    this.searchInputCallback = result => {
+      if (result.value && result.projectName) {
+        browserHistory.push('/' + this.props.params.orgname + '/' + result.projectName + '/' + result.value);
+      }
+    }
 
     this.scrolledToBottom = () => {
       if (!this.props.isFeedLoading) {
@@ -179,6 +185,7 @@ class Project extends React.Component {
                   orgName={this.props.params.orgname}
                   projectId={this.props.params.pid}
                   project={this.props.project}
+                  searchInputCallback={this.searchInputCallback}
                 />
                 
               <div className="threadlist-wrapper flx flx-col flx-align-start w-100">

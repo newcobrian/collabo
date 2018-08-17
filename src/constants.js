@@ -30,6 +30,7 @@ export const TMDB_IMAGES_PATH = 'http://image.tmdb.org/t/p/original/'
 /*** Search Types ***/
 export const PEOPLE_SEARCH = 'PEOPLE_SEARCH'
 export const GEO_SEARCH = 'GEO_SEARCH'
+export const POSTS_SEARCH = 'POSTS_SEARCH'
 
 /*** Firebase Paths ***/
 export const USERS_PATH = '/users'
