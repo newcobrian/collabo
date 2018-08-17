@@ -54,7 +54,7 @@ class ProjectList extends React.Component {
     let threadCounts = this.props.threadCounts || {}
     if(!this.props.projectList) return null;
     return (
-      <div className="project-sidebar flx-col flx-item-left">
+      <div className="project-sidebar flx-col flx-item-left fill--black">
 
 
         <div className="org-row flx flx-row flx-align-center">

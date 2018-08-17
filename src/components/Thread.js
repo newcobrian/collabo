@@ -292,7 +292,7 @@ class Thread extends React.Component {
                     <DisplayTimestamp timestamp={thread.lastModified} />
                   </div>
                 </div>
-                <div className="v2-type-body2 opa-60 w-100 mrgn-top-sm">
+                <div className="v2-type-body2 opa-90 w-100 mrgn-top-sm">
                   <BodySection
                     bodyText={this.props.bodyText}
                     updateText={this.updateText}

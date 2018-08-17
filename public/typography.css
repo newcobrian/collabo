@@ -15,7 +15,6 @@ body a {
   transition-property: none;
   -webkit-transition: none;
   transition: none;
-  font-weight: 500;
 }
 body a: hover {
   opacity: .9;
