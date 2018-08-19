@@ -65,7 +65,7 @@ class GoogleDriveLink extends React.Component {
       return null;
     }
     return (
-      <div className='mrgn-top-sm pdding-all-sm'>
+      <div className='mrgn-top-sm pdding-left-lg pdding-right-lg fill--lighter-gray'>
         {
           isConfirmMessageVisible &&
           <p>Thanks, You are all set.</p>
@@ -75,12 +75,19 @@ class GoogleDriveLink extends React.Component {
             if (!googleDocs || !googleDocs[id] || !googleDocs[id].meta) {
               return null;
             }
+            if (googleDocs[id].meta.error) {
+              return <p>I couldn’t find that file in Google Drive. Do I have the correct Google Drive account information for you?</p>;
+            }
             return (
               <div key={i}>
-                <a href={googleDocs[id].meta.alternateLink} target="_blank">
-                  <p><img src={googleDocs[id].meta.iconLink} /> {googleDocs[id].meta.title}</p>
+                <a href={googleDocs[id].meta.webViewLink} target="_blank">
+                  <p><img src={googleDocs[id].meta.iconLink} /> {googleDocs[id].meta.name}</p>
                   <img src={googleDocs[id].meta.thumbnailLink} style={{ border: "1px solid black" }}/>
                 </a>
+                {
+                  !googleDocs[id].meta.shared &&
+                  <p>It looks like {googleDocs[id].meta.name} isn't viewable by everyone here. Use the options below if you'd like to change who has access to the file.</p>
+                }
               </div>
             )
           })

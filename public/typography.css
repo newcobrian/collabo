@@ -264,7 +264,9 @@ textarea {
 .fill--dark {
   background-color: #011946;
 }
-
+.fill--lighter-gray {
+  background-color: #f7f7f7;
+}
 
 /* CHANGE ME FOR COLOR TEST!!!! */
 .brdr--primary {

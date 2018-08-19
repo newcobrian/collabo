@@ -59,7 +59,7 @@ class Comment extends React.Component {
   
     return (
       <div className="card comment-wrapper flx flx-align-center" id={'comment' + comment.id}>
-        <div className="">
+        <div className="full-width">
           <div className="flx flx-row flx-just-start">
             <Link
               to={`/user/${comment.username}`}
@@ -75,10 +75,6 @@ class Comment extends React.Component {
                 </Link>
                 <span className="opa-70">
                   {processed(comment.body)}
-                  {
-                    isOpenNotification &&
-                    <GoogleDriveLink content={comment.body} onClose={this.closeNotification}/>
-                  }
                 </span>
   
                 <div className="flx flx-row flx-just-start flx-align-center">
@@ -97,6 +93,10 @@ class Comment extends React.Component {
               
             </div>
           </div>
+          {
+            isOpenNotification &&
+            <GoogleDriveLink content={comment.body} onClose={this.closeNotification}/>
+          }
         </div>
        
           

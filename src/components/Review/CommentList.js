@@ -3,9 +3,7 @@ import React from 'react';
 import * as Actions from '../../actions';
 import { connect } from 'react-redux';
 import { isEqual, uniq } from 'lodash';
-import superagent from 'superagent';
 import { getLinks, isGoogleDocLink, getFileId } from '../../helpers';
-import { GOOGLE_DRIVE_API_ENDPOINT, GOOGLE_DRIVE_API_KEY } from '../../constants';
 var linkify = require('linkify-it')();
 
 const mapStateToProps = state => ({
@@ -54,11 +52,13 @@ class CommentList extends React.Component {
       return;
     }
     newFileIds.forEach((id) => {
-      superagent
-        .get(`${GOOGLE_DRIVE_API_ENDPOINT}/v2/files/${id}?key=${GOOGLE_DRIVE_API_KEY}`)
-        .then((res) => {
-          updateGoogleDocs(id, res.body);
-        });
+      const request = window.gapi.client.drive.files.get({
+        fileId: id,
+        fields: 'webViewLink, iconLink, id, shared, thumbnailLink, permissions, name'
+      });
+      request.execute((data) => {
+        updateGoogleDocs(id, data);
+      })
     })
   }
 
