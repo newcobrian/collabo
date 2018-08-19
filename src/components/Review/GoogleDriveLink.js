@@ -1,7 +1,6 @@
 import React from 'react';
 import * as Actions from '../../actions';
 import { connect } from 'react-redux';
-import superagent from 'superagent';
 import { getLinks, isGoogleDocLink, getFileId } from '../../helpers';
 
 const mapStateToProps = state => ({
@@ -58,6 +57,24 @@ class GoogleDriveLink extends React.Component {
     window.gapi.auth2.getAuthInstance().signIn();
   }
 
+  onSelectPermission = (e, id) => {
+    const { updateGoogleDocsPermission, updateGoogleDocsMessage } = this.props;
+    const selected = e.target.value;
+    if (selected) {
+      const type = selected.split('-')[0];
+      const role = selected.split('-')[1];
+      const request = window.gapi.client.drive.permissions.create({
+        fileId: id,
+        role,
+        type
+      });
+      request.execute((data) => {
+        updateGoogleDocsPermission(id, true);
+        updateGoogleDocsMessage(id, "Great! I've updated the permissions on");
+      })
+    }
+  }
+
   render() {
     const { onClose, isConfirmMessageVisible, isGoogleAuthored, content, googleDocs } = this.props;
     const fileIds = getLinks(content).filter((l) => isGoogleDocLink(l)).map((l) => getFileId(l));
@@ -76,7 +93,7 @@ class GoogleDriveLink extends React.Component {
               return null;
             }
             if (googleDocs[id].meta.error) {
-              return <p>I couldn’t find that file in Google Drive. Do I have the correct Google Drive account information for you?</p>;
+              return <p key={i}>I couldn’t find that file in Google Drive. Do I have the correct Google Drive account information for you?</p>;
             }
             return (
               <div key={i}>
@@ -86,7 +103,31 @@ class GoogleDriveLink extends React.Component {
                 </a>
                 {
                   !googleDocs[id].meta.shared &&
-                  <p>It looks like {googleDocs[id].meta.name} isn't viewable by everyone here. Use the options below if you'd like to change who has access to the file.</p>
+                  <div>
+                    <p>It looks like '{googleDocs[id].meta.name}' isn't viewable by everyone here. Use the options below if you'd like to change who has access to the file.</p>
+                    <div className='flx flx-row'>
+                      <div className='flx flx-row'>
+                        <select className="color--black" onChange={(e) => this.onSelectPermission(e, id)}>
+                          <option value="">Select a permission</option>
+                          {/* <option value="" disabled>--Share directly with the recipient--</option>
+                          <option value="user-reader">  and allow them to view</option>
+                          <option value="user-commenter">  and allow them to comment</option>
+                          <option value="user-writer">  and allow them to edit</option> */}
+                          <option value="" disabled>--Share to anyone with the link--</option>
+                          <option value="anyone-reader">  and allow them to view</option>
+                          <option value="anyone-commenter">  and allow them to comment</option>
+                          <option value="anyone-writer">  and allow them to edit</option>
+                        </select>
+                        <i className="material-icons org-arrow color--white md-18 flx-item-right">expand_more</i>
+                      </div>
+
+                    </div>
+                    
+                  </div>
+                }
+                {
+                  googleDocs[id].message &&
+                  <p>{googleDocs[id].message} '{googleDocs[id].meta.name}'</p>
                 }
               </div>
             )

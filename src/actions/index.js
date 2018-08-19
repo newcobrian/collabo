@@ -137,7 +137,9 @@ export const ITINERARY_CHANGED_ACTION = 'ITINERARY_CHANGED_ACTION'
 export const ITINERARIES_BY_USER_REMOVED_ACTION = 'ITINERARIES_BY_USER_REMOVED_ACTION'
 export const SET_GOOGLE_AUTHORED = 'SET_GOOGLE_AUTHORED'
 export const SHOW_CONFIRM_MESSAGE = 'SHOW_CONFIRM_MESSAGE'
-export const UPDATE_GOOGLE_DOCS = 'UPDATE_GOOGLE_DOCS'
+export const UPDATE_GOOGLE_DOCS_META = 'UPDATE_GOOGLE_DOCS_META'
+export const UPDATE_GOOGLE_DOCS_MESSAGE = 'UPDATE_GOOGLE_DOCS_MESSAGE'
+export const UPDATE_GOOGLE_DOCS_PERMISSION = 'UPDATE_GOOGLE_DOCS_PERMISSION'
 
 export * from './authActions';
 export * from './itineraryActions';
@@ -2814,10 +2816,34 @@ export function showConfirmMessage() {
   }
 }
 
-export function updateGoogleDocs(id, data) {
+export function updateGoogleDocsMeta(id, data) {
   return dispatch => {
     dispatch({
-      type: UPDATE_GOOGLE_DOCS,
+      type: UPDATE_GOOGLE_DOCS_META,
+      payload: {
+        id,
+        data
+      }
+    })
+  }
+}
+
+export function updateGoogleDocsPermission(id, data) {
+  return dispatch => {
+    dispatch({
+      type: UPDATE_GOOGLE_DOCS_PERMISSION,
+      payload: {
+        id,
+        data
+      }
+    })
+  }
+}
+
+export function updateGoogleDocsMessage(id, data) {
+  return dispatch => {
+    dispatch({
+      type: UPDATE_GOOGLE_DOCS_MESSAGE,
       payload: {
         id,
         data

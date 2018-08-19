@@ -29,12 +29,12 @@ class CommentList extends React.Component {
   }
 
   initGoogleDocsMetaData (comments) {
-    const { googleDocs, updateGoogleDocs } = this.props;
+    const { googleDocs, updateGoogleDocsMeta } = this.props;
     if (!comments || comments.length < 1) {
       return;
     }
-    const fileIds = comments.reduce((totalLinks, comment) => {
-      const links = getLinks(comment.body).filter((l) => isGoogleDocLink(l));
+    const fileIds = Object.keys(comments).reduce((totalLinks, commentId) => {
+      const links = getLinks(comments[commentId].body).filter((l) => isGoogleDocLink(l));
       if (!links || links.length < 1) {
         return totalLinks;
       }
@@ -57,7 +57,7 @@ class CommentList extends React.Component {
         fields: 'webViewLink, iconLink, id, shared, thumbnailLink, permissions, name'
       });
       request.execute((data) => {
-        updateGoogleDocs(id, data);
+        updateGoogleDocsMeta(id, data);
       })
     })
   }
