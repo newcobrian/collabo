@@ -135,6 +135,9 @@ export const ITINERARY_ADDED_ACTION = 'ITINERARY_ADDED_ACTION'
 export const ITINERARY_REMOVED_ACTION = 'ITINERARY_REMOVED_ACTION'
 export const ITINERARY_CHANGED_ACTION = 'ITINERARY_CHANGED_ACTION'
 export const ITINERARIES_BY_USER_REMOVED_ACTION = 'ITINERARIES_BY_USER_REMOVED_ACTION'
+export const SET_GOOGLE_AUTHORED = 'SET_GOOGLE_AUTHORED'
+export const SHOW_CONFIRM_MESSAGE = 'SHOW_CONFIRM_MESSAGE'
+export const UPDATE_GOOGLE_DOCS = 'UPDATE_GOOGLE_DOCS'
 
 export * from './authActions';
 export * from './itineraryActions';
@@ -2790,6 +2793,35 @@ export function universalGeoSearch(placeId, geoData) {
         type: ActionTypes.UNIVERSAL_GEO_SEARCH,
         placeId: placeId
       })
+    })
+  }
+}
+
+export function setGoogleAuthored(status) {
+  return dispatch => {
+    dispatch({
+      type: SET_GOOGLE_AUTHORED,
+      payload: status
+    });
+  }
+}
+
+export function showConfirmMessage() {
+  return dispatch => {
+    dispatch({
+      type: SHOW_CONFIRM_MESSAGE
+    })
+  }
+}
+
+export function updateGoogleDocs(id, data) {
+  return dispatch => {
+    dispatch({
+      type: UPDATE_GOOGLE_DOCS,
+      payload: {
+        id,
+        data
+      }
     })
   }
 }

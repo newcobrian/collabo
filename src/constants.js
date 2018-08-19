@@ -263,3 +263,8 @@ export const INBOX_INVITE_TYPE = 'INBOX_INVITE_TYPE'
 
 /*** status types ***/
 export const ACCEPTED_STATUS = 'accepted'
+
+/** Google Driver REST endpoint ***/
+export const GOOGLE_DRIVE_API_ENDPOINT = 'https://content.googleapis.com/drive'
+export const GOOGLE_DRIVE_CLIENT_ID = '803182529945-s9755c19jgju22aqrko4fcoqv8cj0of1.apps.googleusercontent.com'
+export const GOOGLE_DRIVE_API_KEY = 'AIzaSyAnSTutJ-HC2hQyLTWklKmWCRZPP25smCA'

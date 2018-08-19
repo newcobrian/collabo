@@ -763,3 +763,23 @@ export function convertStoredToEditorState(value) {
 	    return EditorState.createWithContent(contentState)
   	}
 }
+
+export function getLinks (content) {
+	return content.match(/((http|https):\/\/)?(\S+)\.([a-z]{2,}?)(.*?)( |\,|$|\.)/gim) || [];
+}
+
+export function isGoogleDocLink (link) {
+	return link.indexOf("drive.google.com") !== -1 || link.indexOf("docs.google.com") !== -1;
+}
+
+export function getFileId (link) {
+	if (!isGoogleDocLink(link)) {
+		return;
+	}
+	if (link.indexOf("drive.google.com") !== -1 && link.indexOf("id=") !== -1) {
+		return link.split("id=")[1].trim();
+	}
+	const segs = link.split("/");
+	const domainIndex = segs.findIndex((seg) => seg.indexOf(".google.com") !== -1);
+	return segs.length > domainIndex + 3 ? segs[domainIndex + 3] : null;
+}

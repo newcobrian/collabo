@@ -1,6 +1,7 @@
 import { GET_SUBJECT, GET_REVIEW, SUBJECT_UNLOADED, REVIEW_UNLOADED, GET_COMMENTS, GET_APP_USER_REVIEW, 
   COMMENTS_UNLOADED, ADD_COMMENT, DELETE_COMMENT, RATING_UPDATED, REVIEW_LIKED, REVIEW_UNLIKED, APP_USER_REVIEW_UNLOADED,
-  GET_FOLLOWING_REVIEWS, FOLLOWING_REVIEWS_UNLOADED, REVIEW_SAVED, REVIEW_UNSAVED, UNLOAD_USER_REVIEW, GET_USER_REVIEW } from '../actions'
+  GET_FOLLOWING_REVIEWS, FOLLOWING_REVIEWS_UNLOADED, REVIEW_SAVED, REVIEW_UNSAVED, UNLOAD_USER_REVIEW, GET_USER_REVIEW,
+  SHOW_CONFIRM_MESSAGE, UPDATE_GOOGLE_DOCS } from '../actions'
 import * as ActionTypes from '../actions/types';
 
 export default (state = {}, action) => {
@@ -69,6 +70,23 @@ export default (state = {}, action) => {
     case FOLLOWING_REVIEWS_UNLOADED:
     case ActionTypes.ALL_REVIEWS_UNLOADED:
       return {};
+
+    case SHOW_CONFIRM_MESSAGE:
+      return {
+        ...state,
+        isConfirmMessageVisible: true
+      };
+
+    case UPDATE_GOOGLE_DOCS:
+      return {
+        ...state,
+        googleDocs: {
+          ...state.googleDocs,
+          [action.payload.id]: {
+            meta: action.payload.data
+          }
+        }
+      }
     default:
       return state;
   }

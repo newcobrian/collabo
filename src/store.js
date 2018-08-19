@@ -66,6 +66,7 @@ const reducer = combineReducers({
   orgInvite,
   organization,
   acceptInvite,
+  review,
   // editForm: combineForms({
   //   editForm: initialItinerary
   // }, 'editForm')
