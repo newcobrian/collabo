@@ -48,7 +48,6 @@ class ProjectList extends React.Component {
   }
 
   render() {
-    console.log(this.props.orgName)
     if (!this.props.orgName) {
       return (
         <div>no org, show something here eventually</div>

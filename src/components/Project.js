@@ -10,8 +10,6 @@ import ProjectList from './ProjectList';
 import LoggedOutMessage from './LoggedOutMessage';
 import InfiniteScroll from 'react-infinite-scroller';
 
-
-
 const ProjectHeader = props => {
   if (props.projectId) {
     if (!props.project) return null
@@ -65,7 +63,8 @@ const mapStateToProps = state => ({
   ...state.project,
   authenticated: state.common.authenticated,
   organization: state.common.organization,
-  invalidOrgUser: state.common.invalidOrgUser
+  invalidOrgUser: state.common.invalidOrgUser,
+  sidebarOpen: state.common.sidebarOpen
 });
 
 class Project extends React.Component {
