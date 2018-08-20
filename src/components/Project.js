@@ -9,6 +9,7 @@ import ThreadList from './ThreadList';
 import ProjectList from './ProjectList';
 import LoggedOutMessage from './LoggedOutMessage';
 import InfiniteScroll from 'react-infinite-scroller';
+import OrgHeader from './OrgHeader';
 
 const ProjectHeader = props => {
   if (props.projectId) {
@@ -64,7 +65,6 @@ const mapStateToProps = state => ({
   authenticated: state.common.authenticated,
   organization: state.common.organization,
   invalidOrgUser: state.common.invalidOrgUser,
-  sidebarOpen: state.common.sidebarOpen
 });
 
 class Project extends React.Component {
@@ -189,6 +189,7 @@ class Project extends React.Component {
 
           <div className="page-common page-places flx flx-row flx-align-start">
 
+            <OrgHeader />
  
                 {/*<UniversalSearchBar />*/}
             

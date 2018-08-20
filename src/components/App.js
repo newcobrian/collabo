@@ -51,10 +51,6 @@ class App extends React.Component {
     super()
 
     this.mediaQueryChanged = this.mediaQueryChanged.bind(this);
-
-    this.onToggleSidebarClick = () => {
-      this.props.setSidebar(!this.props.sidebarOpen)
-    }
   }
 
   componentWillMount() {
@@ -122,10 +118,6 @@ class App extends React.Component {
             <div className={this.props.sidebarOpen ? 'open-style' : 'closed-style'}>
               {this.props.children}
             </div>
-
-            <button onClick={this.onToggleSidebarClick}>
-              Toggle sidebar
-            </button>
 
             <SnackbarToaster 
               {...this.props.snackbarToaster}
