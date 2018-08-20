@@ -110,8 +110,9 @@ class App extends React.Component {
             open={this.props.sidebarOpen}
             onSetOpen={this.props.setSidebarOpen}
           >
-          
-            {this.props.children}
+            <div className={this.props.sidebarOpen ? 'open-style' : 'closed-style'}>
+              {this.props.children}
+            </div>
 
             <SnackbarToaster 
               {...this.props.snackbarToaster}
