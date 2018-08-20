@@ -48,43 +48,48 @@ class ProjectList extends React.Component {
   }
 
   render() {
+    console.log(this.props.orgName)
     if (!this.props.orgName) {
       return (
         <div>no org, show something here eventually</div>
         )
     }
+
     // let orgName = this.props.org ?  this.props.org.name : ''
     let orgName = this.props.orgName
     let threadCounts = this.props.threadCounts || {}
-    if(!this.props.projectList) return null;
+
+    if(!this.props.projectList) {
+      return null;
+    }
 
     return (
-        <div className="flx-col flx-item-left">
+      <div className="flx-col flx-item-left fill--black">
 
 
-          <div className="org-row flx flx-row flx-align-center">
-            <div className="co-logo flx-hold"></div>
-            <select className="org-selector co-type-org color--white" onChange={this.onOrgChange}>
-              <option value={orgName}>{orgName}</option>
-              {(this.props.orgList || []).map((orgItem, index) => {
-                if (orgItem && orgItem.name && orgName && orgItem.name.toLowerCase() !== orgName.toLowerCase()) {
-                  return (
-                    <option key={index} value={orgItem.name}>{orgItem.name}</option>  
-                  )
-                }
-              })}
+        <div className="org-row flx flx-row flx-align-center">
+          <div className="co-logo flx-hold"></div>
+          <select className="org-selector co-type-org color--white" onChange={this.onOrgChange}>
+            <option value={orgName}>{orgName}</option>
+            {(this.props.orgList || []).map((orgItem, index) => {
+              if (orgItem && orgItem.name && orgName && orgItem.name.toLowerCase() !== orgName.toLowerCase()) {
+                return (
+                  <option key={index} value={orgItem.name}>{orgItem.name}</option>  
+                )
+              }
+            })}
 
-            </select>
-            <i className="material-icons org-arrow color--white md-18 flx-item-right">expand_more</i>
-          </div> 
+          </select>
+          <i className="material-icons org-arrow color--white md-18 flx-item-right">expand_more</i>
+        </div> 
 
-          
-          <div className="sidebar-row sidebar-header flx flx-row flx-align-center">
-            <div className="co-type-h5 color--white">Groups</div>
-            <Link to={'/' + orgName + '/addProject'} className="label-big color--primary flx-item-right">
-              Add Group
-            </Link>
-          </div>
+        
+        <div className="sidebar-row sidebar-header flx flx-row flx-align-center">
+          <div className="co-type-h5 color--white">Groups</div>
+          <Link to={'/' + orgName + '/addProject'} className="label-big color--primary flx-item-right">
+            Add Group
+          </Link>
+        </div>
 
           <Link className={"sidebar-row group-row flx flx-row flx-align-center " + (!this.props.projectId && this.props.source === Constants.PROJECT_PAGE ? 'active' : '')} to={'/' + orgName}>
             <div className="sidebar-icon flx flx-center-all">

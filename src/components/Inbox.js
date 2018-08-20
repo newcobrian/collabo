@@ -125,9 +125,9 @@ class Inbox extends React.Component {
         threadCounts={this.props.threadCounts}
         projectId={this.props.params.pid} />
 
-        <div className="thread-area flx flx-col w-100">
+        <div className="threadlist flx flx-col w-100">
             <div className={"project-header text-left flx flx-row flx-align-start"}>
-              <div className="co-type-h1 flx flx-row flx-align-start text-left invert">
+              <div className="project-header-text co-type-h1 flx flx-row flx-align-start text-left invert">
                 Activity
               </div>
             </div>

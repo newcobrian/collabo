@@ -47,7 +47,8 @@ export default (state = initialState, action) => {
     case ActionTypes.LOAD_ORG: {
       return {
         ...state,
-        org: action.organization
+        orgName: action.orgName,
+        orgId: action.orgId
       }
     }
     case ActionTypes.UNLOAD_ORG:
