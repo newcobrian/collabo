@@ -526,6 +526,7 @@ width: 32px;
   margin: 0;
   background-color: white;
   padding-bottom: 0;
+  width: 100%;
 }
 .page-common.page-itinerary {
   background-color: white;

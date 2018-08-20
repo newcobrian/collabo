@@ -113,7 +113,12 @@ class App extends React.Component {
             sidebar={<ProjectList />}
             open={this.props.sidebarOpen}
             onSetOpen={this.props.setSidebarOpen}
-          >
+            styles={{ overlay:
+                         {
+                           backgroundColor: "rgba(255,255,255,1)"
+                         },
+                       }}
+            >
             <div className={this.props.sidebarOpen ? 'open-style' : 'closed-style'}>
               {this.props.children}
             </div>

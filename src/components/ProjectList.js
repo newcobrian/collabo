@@ -63,7 +63,7 @@ class ProjectList extends React.Component {
     }
 
     return (
-      <div className="flx-col flx-item-left fill--black">
+      <div className="flx-col flx-item-left fill--black h-100">
 
 
         <div className="org-row flx flx-row flx-align-center">
