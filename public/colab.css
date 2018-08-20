@@ -17,6 +17,13 @@
 textarea {
 	padding: 20px !important;
 }
+.open-style {
+	position: absolute;
+	left: 326px;
+}
+.closed-style {
+	left: 0;
+}
 .co-logo {
 	background-color: #FFEA79;
 	border-radius: 100px;
@@ -247,10 +254,16 @@ position: relative;
     background: white;
     z-index: 10;
     /*box-shadow: white 0 30px 40px;*/
-    left: 300px;
-    right: 0;
     top: 0;
+    right: 0;
+    left: 0;
     border-bottom: 1px solid rgba(1,25,70,.3);
+}
+.open-style .project-header {
+	left: 326px;
+}
+.closed-style .project-header {
+	left: 0;
 }
 .project-header-text {
 }
@@ -264,7 +277,7 @@ position: relative;
     font-size: 36px;
 }
 .threadlist {
-	margin-left: 300px;
+	margin-left: 0px;
 	padding: 91px 0 0;
 }
 .threadlist-wrapper {
