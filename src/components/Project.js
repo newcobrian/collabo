@@ -221,8 +221,4 @@ class Project extends React.Component {
   }
 }
 
-
-
-
-
 export default connect(mapStateToProps, Actions)(Project);

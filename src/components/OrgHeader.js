@@ -1,5 +1,6 @@
 import { Link, browserHistory } from 'react-router';
 import React from 'react';
+import { connect } from 'react-redux';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
 import FirebaseSearchInput from './FirebaseSearchInput';
@@ -48,4 +49,4 @@ class OrgHeader extends React.Component {
   }
 }
 
-export default OrgHeader;
+export default connect(mapStateToProps, Actions)(OrgHeader);
