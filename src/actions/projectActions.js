@@ -467,7 +467,8 @@ export function updateThreadField(auth, threadId, thread, orgName, field, value)
         let project = Object.assign({}, {projectId: thread.projectId})
         Helpers.findThreadMentions(auth, value, org, project, Object.assign({}, thread, {threadId: threadId}))
 
-        Helpers.updateAlgoliaIndex(threadId, field, Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(value)));
+        let algoliaObject = Object.assign({}, {body: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(value)) })
+        Helpers.updateAlgoliaIndex(threadId, algoliaObject);
       }
 
       dispatch({

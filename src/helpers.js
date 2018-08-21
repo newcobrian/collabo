@@ -69,16 +69,12 @@ export function updateAlgoliaGeosIndex(geo) {
 	});
 }
 
-export function updateAlgoliaIndex(threadId, field, value) {
+export function updateAlgoliaIndex(objectID, object) {
 	const algoliasearch = require('algoliasearch');
 	const client = algoliasearch('NFI90PSOIY', '2bbae42da8376a35748f4817449e0b23', {protocol:'https:'});
 	const index = client.initIndex('posts');
 
-	let object = {
-		objectID: threadId,
-		lastModified: new Date().getTime()
-	}
-	object[field] = value
+	Object.assign(object, {objectID: objectID}, {lastModified: new Date().getTime()})
 
 	index.partialUpdateObject(
 	  object
