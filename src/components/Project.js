@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
 import { Link, browserHistory } from 'react-router';
-import FirebaseSearchInput from './FirebaseSearchInput';
 import LoadingSpinner from './LoadingSpinner';
 import ThreadList from './ThreadList';
 import ProjectList from './ProjectList';
@@ -18,14 +17,6 @@ const ProjectHeader = props => {
       <div className={"project-header text-left flx flx-row flx-align-center"}>
         <div className="project-header-text co-type-h1 flx flx-col flx-align-start">
           {props.project.name}
-        </div>
-
-        <div>
-          <FirebaseSearchInput 
-            type={Constants.POSTS_SEARCH}
-            callback={props.searchInputCallback}
-            orgName={props.orgName}
-            placeholder="Search here son" />
         </div>
 
         <div className="flx flx-align-start flx-item-right">
@@ -70,12 +61,6 @@ const mapStateToProps = state => ({
 class Project extends React.Component {
   constructor() {
     super();
-
-    this.searchInputCallback = result => {
-      if (result.value && result.projectName) {
-        browserHistory.push('/' + this.props.params.orgname + '/' + result.projectName + '/' + result.value);
-      }
-    }
 
     this.scrolledToBottom = () => {
       if (!this.props.isFeedLoading) {
@@ -204,7 +189,6 @@ class Project extends React.Component {
                   orgName={this.props.params.orgname}
                   projectId={this.props.params.pid}
                   project={this.props.project}
-                  searchInputCallback={this.searchInputCallback}
                 />
                 
               <div className="threadlist-wrapper flx flx-col flx-align-start w-100">
