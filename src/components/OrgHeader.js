@@ -34,7 +34,7 @@ class OrgHeader extends React.Component {
     }
 
     return (
-      <div>
+      <div className="flx flx-row w-100">
           <button onClick={this.onToggleSidebarClick}>
               Toggle sidebar
           </button>
@@ -43,6 +43,7 @@ class OrgHeader extends React.Component {
             type={Constants.POSTS_SEARCH}
             callback={this.searchInputCallback}
             orgName={this.props.orgName}
+            className={"flx-item-right"}
             placeholder="Type to search..." />
       </div>
     );

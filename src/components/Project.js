@@ -14,33 +14,34 @@ const ProjectHeader = props => {
   if (props.projectId) {
     if (!props.project) return null
     else return (
-      <div className={"project-header text-left flx flx-row flx-align-center"}>
+      <div className={"project-header text-left flx flx-col flx-align-center w-100"}>
         <OrgHeader />
+        <div className="project-bar-wrapper w-100">
+          <div className="project-header-text co-type-h1 flx flx-col flx-align-start">
+            {props.project.name}
+          </div>
 
-        <div className="project-header-text co-type-h1 flx flx-col flx-align-start">
-          {props.project.name}
-        </div>
+          <div className="flx flx-align-start flx-item-right">
 
-        <div className="flx flx-align-start flx-item-right">
-
-          <Link to={'/' + props.orgName + '/' + props.projectId + '/addthread'} activeClassName="active" className="flx flx-align-center flx-item-right">
-              <div className="feed-gem circle gem-create"></div>
-              <div className="mrgn-left-sm color--black label-big flx-item-right">New Thread</div>
-              <div className="icon-wrapper brdr--primary flx flx-center-all DN">
-                <i className="material-icons color--primary md-24 opa-100 DN">add</i>
+            <Link to={'/' + props.orgName + '/' + props.projectId + '/addthread'} activeClassName="active" className="flx flx-align-center flx-item-right">
+                <div className="feed-gem circle gem-create"></div>
+                <div className="mrgn-left-sm color--black label-big flx-item-right">New Thread</div>
+                <div className="icon-wrapper brdr--primary flx flx-center-all DN">
+                  <i className="material-icons color--primary md-24 opa-100 DN">add</i>
+                </div>
+            </Link>
+          </div>
+          <Link to={'/' + props.orgName + '/' + props.projectId + '/addthread'} className="DN thread-preview-container new-thread flx flx-row flx-align-center w-100">
+            <div className="thread-icon flx flx-center-all flx-hold mrgn-right-md">
+              <div className="co-icon-wrapper flx flx-center-all">
+                <div className="feed-gem circle gem-create"></div>
               </div>
+            </div>
+            <div className="color--black co-type-body flx flx-row">
+              New Thread
+            </div>
           </Link>
         </div>
-        <Link to={'/' + props.orgName + '/' + props.projectId + '/addthread'} className="DN thread-preview-container new-thread flx flx-row flx-align-center w-100">
-          <div className="thread-icon flx flx-center-all flx-hold mrgn-right-md">
-            <div className="co-icon-wrapper flx flx-center-all">
-              <div className="feed-gem circle gem-create"></div>
-            </div>
-          </div>
-          <div className="color--black co-type-body flx flx-row">
-            New Thread
-          </div>
-        </Link>
       </div>
     )
   }
@@ -176,22 +177,22 @@ class Project extends React.Component {
 
 
           <div className="page-common page-places flx flx-row flx-align-start">
-
+            <ProjectHeader 
+              orgName={this.props.params.orgname}
+              projectId={this.props.params.pid}
+              project={this.props.project}
+            />
  
                 {/*<UniversalSearchBar />*/}
             
-            {/*<ProjectList 
+               {/*<ProjectList 
               threadCounts={this.props.threadCounts}
               projectId={this.props.params.pid}
               source={Constants.PROJECT_PAGE} />*/}
 
                
 
-                <ProjectHeader 
-                  orgName={this.props.params.orgname}
-                  projectId={this.props.params.pid}
-                  project={this.props.project}
-                />
+              
                 
               <div className="threadlist-wrapper flx flx-col flx-align-start w-100">
 

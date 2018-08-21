@@ -21,13 +21,10 @@ textarea {
 	padding: 20px !important;
 }
 .open-style {
-	position: absolute;
-	left: 326px;
-	z-index: 20;
-	width: 100%;
+
 }
 .closed-style {
-	left: 0;
+
 }
 .co-logo {
 	background-color: #FFEA79;
@@ -262,6 +259,7 @@ position: relative;
     top: 0;
     right: 0;
     left: 0;
+    width: auto;
     border-bottom: 1px solid rgba(1,25,70,.3);
 }
 .open-style .project-header {
