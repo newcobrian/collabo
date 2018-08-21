@@ -46,6 +46,7 @@ const ProjectHeader = props => {
   }
   else return (
     <div className={"project-header text-left flx flx-col flx-align-start"}>
+        <OrgHeader />
         <div className="project-header-text co-type-h1 flx flx-row flx-align-start text-left invert">
           All
         </div>

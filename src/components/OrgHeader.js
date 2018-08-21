@@ -23,7 +23,7 @@ class OrgHeader extends React.Component {
 
     this.searchInputCallback = result => {
       if (result.value && result.projectName) {
-        browserHistory.push('/' + this.props.params.orgname + '/' + result.projectName + '/' + result.value);
+        browserHistory.push('/' + this.props.orgName + '/' + result.projectId + '/' + result.value);
       }
     }
   }

@@ -69,8 +69,25 @@ export function updateAlgoliaGeosIndex(geo) {
 	});
 }
 
-export function updateAlgoliaIndex() {
+export function updateAlgoliaIndex(threadId, field, value) {
+	const algoliasearch = require('algoliasearch');
+	const client = algoliasearch('NFI90PSOIY', '2bbae42da8376a35748f4817449e0b23', {protocol:'https:'});
+	const index = client.initIndex('posts');
 
+	let object = {
+		objectID: threadId,
+		lastModified: new Date().getTime()
+	}
+	object[field] = value
+
+	index.saveObject(
+	  object
+	, function(err, content) {
+	  if (err) {
+	    console.error(err);
+	    return;
+	  }
+	});
 }
 
 export function byPopularity(a, b) {
@@ -611,6 +628,7 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 		Firebase.database().ref(Constants.USERS_PATH + '/' + senderId).once('value', senderSnapshot => {
 			switch(messageType) {
 				case Constants.COMMENT_IN_THREAD_MESSAGE:
+					console.log('comment in thread case')
 					inboxObject.senderId = senderId;
 					inboxObject.message = ' commented in the thread: ' + thread.title;
 					inboxObject.link = '/' + org.name + '/' + project.projectId + '/' + thread.threadId;
