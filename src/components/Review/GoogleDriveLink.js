@@ -22,37 +22,6 @@ class GoogleDriveLink extends React.Component {
     }
   }
 
-  // watchFiles () {
-  //   const links = this.getGoogleDriveLinks();
-  //   links.forEach((link, i) => {
-  //     const fileId = this.getFileId(link);
-  //     const updates = {};
-  //     if (!updates[fileId]) {
-  //       const request = window.gapi.client.drive.files.watch({
-  //         fileId: fileId,
-  //         resource: {
-  //           id: fileId,
-  //           type: 'web_hook',
-  //           address: 'https://f3066e15.ngrok.io/'
-  //         }
-  //       });
-  //       request.execute((channel) => {
-  //         console.log(channel);
-  //         updates[fileId] = channel;
-  //         if (i === links.length - 1){
-  //           this.setState({
-  //             updates
-  //           });
-  //         }
-  //       })
-  //     } else if (i === links.length - 1){
-  //       this.setState({
-  //         updates
-  //       });
-  //     }
-  //   })
-  // }
-
   signIn = () => {
     window.gapi.auth2.getAuthInstance().signIn();
   }

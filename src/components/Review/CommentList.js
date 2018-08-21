@@ -4,35 +4,46 @@ import * as Actions from '../../actions';
 import { connect } from 'react-redux';
 import { isEqual, uniq } from 'lodash';
 import { getLinks, isGoogleDocLink, getFileId } from '../../helpers';
+import { CHANGE_DETECTION_DEBOUNCE_TIME, CHANGE_DETECTION_INTERVAL } from '../../constants';
 var linkify = require('linkify-it')();
 
 const mapStateToProps = state => ({
   googleDocs: state.review.googleDocs,
-  isGoogleAuthored: state.auth.isGoogleAuthored
+  isGoogleAuthored: state.auth.isGoogleAuthored,
+  token: state.review.token
 });
 
 class CommentList extends React.Component {
   constructor (props) {
     super(props);
+    this.applyChangeTimer = null;
   }
 
   componentDidMount () {
-    const { comments } = this.props;
-    this.initGoogleDocsMetaData(comments);
+    const { comments, isGoogleAuthored } = this.props;
+    this.initGoogleDocsMetaData(comments, isGoogleAuthored);
   }
 
   componentWillReceiveProps (nextProps) {
     const { comments, isGoogleAuthored } = this.props;
     if (!isEqual(comments, nextProps.comments) || !isGoogleAuthored && nextProps.isGoogleAuthored) {
-      this.initGoogleDocsMetaData(nextProps.comments);
+      this.initGoogleDocsMetaData(nextProps.comments, nextProps.isGoogleAuthored);
     }
   }
 
-  initGoogleDocsMetaData (comments) {
-    const { googleDocs, updateGoogleDocsMeta } = this.props;
+  initGoogleDocsMetaData (comments, isGoogleAuthored) {
+    const { googleDocs, updateGoogleDocsMeta, token, updateGoogleDocsPageToken } = this.props;
     if (!comments || comments.length < 1) {
       return;
     }
+    if (!token && isGoogleAuthored) {
+      const tokenRequest = window.gapi.client.drive.changes.getStartPageToken();
+      tokenRequest.execute((res) => {
+        updateGoogleDocsPageToken(res.startPageToken);
+        this.getChanges(res.startPageToken);
+      });
+    }
+
     const fileIds = Object.keys(comments).reduce((totalLinks, commentId) => {
       const links = getLinks(comments[commentId].body).filter((l) => isGoogleDocLink(l));
       if (!links || links.length < 1) {
@@ -52,13 +63,30 @@ class CommentList extends React.Component {
       return;
     }
     newFileIds.forEach((id) => {
-      const request = window.gapi.client.drive.files.get({
+      const getRequest = window.gapi.client.drive.files.get({
         fileId: id,
         fields: 'webViewLink, iconLink, id, shared, thumbnailLink, permissions, name'
       });
-      request.execute((data) => {
+      getRequest.execute((data) => {
         updateGoogleDocsMeta(id, data);
       })
+    })
+  }
+
+  getChanges (token) {
+    const { updateGoogleDocsMessage } = this.props;
+    const changeListRequest = window.gapi.client.drive.changes.list({
+      pageToken: token,
+      fields: '*'
+    });
+    changeListRequest.execute((res) => {
+      if (res.changes.length > 0) {
+        clearTimeout(this.applyChangeTimer);
+        this.applyChangeTimer = setInterval(() => updateGoogleDocsMessage(res.changes), CHANGE_DETECTION_DEBOUNCE_TIME);
+      }
+      if (res.newStartPageToken) {
+        setTimeout(() => this.getChanges(res.newStartPageToken), CHANGE_DETECTION_INTERVAL);
+      }
     })
   }
 

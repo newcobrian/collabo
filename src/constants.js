@@ -268,3 +268,6 @@ export const ACCEPTED_STATUS = 'accepted'
 export const GOOGLE_DRIVE_API_ENDPOINT = 'https://content.googleapis.com/drive'
 export const GOOGLE_DRIVE_CLIENT_ID = '803182529945-s9755c19jgju22aqrko4fcoqv8cj0of1.apps.googleusercontent.com'
 export const GOOGLE_DRIVE_API_KEY = 'AIzaSyAnSTutJ-HC2hQyLTWklKmWCRZPP25smCA'
+
+export const CHANGE_DETECTION_DEBOUNCE_TIME = 10 * 1000; // 1 mins
+export const CHANGE_DETECTION_INTERVAL = 1 * 1000; // 1 mins

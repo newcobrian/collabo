@@ -140,6 +140,7 @@ export const SHOW_CONFIRM_MESSAGE = 'SHOW_CONFIRM_MESSAGE'
 export const UPDATE_GOOGLE_DOCS_META = 'UPDATE_GOOGLE_DOCS_META'
 export const UPDATE_GOOGLE_DOCS_MESSAGE = 'UPDATE_GOOGLE_DOCS_MESSAGE'
 export const UPDATE_GOOGLE_DOCS_PERMISSION = 'UPDATE_GOOGLE_DOCS_PERMISSION'
+export const UPDATE_GOOGLE_DOCS_PAGE_TOKEN = 'UPDATE_GOOGLE_DOCS_PAGE_TOKEN'
 
 export * from './authActions';
 export * from './itineraryActions';
@@ -2840,14 +2841,20 @@ export function updateGoogleDocsPermission(id, data) {
   }
 }
 
-export function updateGoogleDocsMessage(id, data) {
+export function updateGoogleDocsMessage(data) {
   return dispatch => {
     dispatch({
       type: UPDATE_GOOGLE_DOCS_MESSAGE,
-      payload: {
-        id,
-        data
-      }
+      payload: data
+    })
+  }
+}
+
+export function updateGoogleDocsPageToken(token) {
+  return dispatch => {
+    dispatch({
+      type: UPDATE_GOOGLE_DOCS_PAGE_TOKEN,
+      payload: token
     })
   }
 }

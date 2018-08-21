@@ -25,6 +25,8 @@ var linkify = require('linkify-it')();
 
 const mapStateToProps = state => ({
   ...state.thread,
+  changes: state.review.changes,
+  googleDocs: state.review.googleDocs,
   userInfo: state.common.userInfo,
   authenticated: state.common.authenticated,
   invalidOrgUser: state.common.invalidOrgUser
@@ -140,6 +142,19 @@ class Thread extends React.Component {
     this.onDeleteClick = ev => {
       ev.preventDefault()
       this.props.showDeleteModal(this.props.params.tid, this.props.thread, this.props.params.orgname, Constants.THREAD_PAGE)
+    }
+
+    this.renderChanges = (changes, docs) => {
+      if (changes && changes.length > 0) {
+        return changes
+          .filter((c) => docs[c.fileId])
+          .map((c, i) => (
+            <div key={i}>
+              <img src={c.file.iconLink} /> '{c.file.name}' was modified at <DisplayTimestamp timestamp={c.file.modifiedTime} /> by {c.file.lastModifyingUser.displayName}
+            </div>
+          ))
+      }
+      return null;
     }
   }
 
@@ -306,8 +321,9 @@ class Thread extends React.Component {
                     usersList={this.props.usersList}
                       />
                 </div>
+                { this.renderChanges(this.props.changes, this.props.googleDocs) }
               </div>
-
+              
               <div className="itinerary__comments-module flx flx-col flx-align-start flx-just-start w-max-2" id='guidecommentcontainer' name='guidecommentcontainer'>
                 <div className="co-type-h5 mrgn-bottom-sm mrgn-top-sm ta-left w-100">
                   Comment

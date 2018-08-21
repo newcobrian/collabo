@@ -1,7 +1,7 @@
 import { GET_SUBJECT, GET_REVIEW, SUBJECT_UNLOADED, REVIEW_UNLOADED, GET_COMMENTS, GET_APP_USER_REVIEW, 
   COMMENTS_UNLOADED, ADD_COMMENT, DELETE_COMMENT, RATING_UPDATED, REVIEW_LIKED, REVIEW_UNLIKED, APP_USER_REVIEW_UNLOADED,
   GET_FOLLOWING_REVIEWS, FOLLOWING_REVIEWS_UNLOADED, REVIEW_SAVED, REVIEW_UNSAVED, UNLOAD_USER_REVIEW, GET_USER_REVIEW,
-  SHOW_CONFIRM_MESSAGE, UPDATE_GOOGLE_DOCS_META, UPDATE_GOOGLE_DOCS_MESSAGE, UPDATE_GOOGLE_DOCS_PERMISSION } from '../actions'
+  SHOW_CONFIRM_MESSAGE, UPDATE_GOOGLE_DOCS_META, UPDATE_GOOGLE_DOCS_MESSAGE, UPDATE_GOOGLE_DOCS_PERMISSION, UPDATE_GOOGLE_DOCS_PAGE_TOKEN } from '../actions'
 import * as ActionTypes from '../actions/types';
 
 export default (state = {}, action) => {
@@ -91,16 +91,9 @@ export default (state = {}, action) => {
       };
 
     case UPDATE_GOOGLE_DOCS_MESSAGE:
-      googleDocs = state.googleDocs || {};
       return {
         ...state,
-        googleDocs: {
-          ...googleDocs,
-          [action.payload.id]: {
-            ...googleDocs[action.payload.id],
-            message: action.payload.data
-          }
-        }
+        changes: action.payload
       };
 
     case UPDATE_GOOGLE_DOCS_PERMISSION:
@@ -117,6 +110,12 @@ export default (state = {}, action) => {
             }
           }
         }
+      };
+
+    case UPDATE_GOOGLE_DOCS_PAGE_TOKEN:
+      return {
+        ...state,
+        token: action.payload
       };
     default:
       return state;
