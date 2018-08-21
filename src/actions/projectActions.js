@@ -120,7 +120,21 @@ export function onAddThread(auth, projectId, thread, orgName) {
           // Helpers.sendCollaboUpdateNotifs(auth, Constants.NEW_THREAD_MESSAGE, org ,project, Object.assign({}, thread, {threadId: threadId}, null))
 
           // // update Algolia index
-          // Helpers.updateAlgloiaGeosIndex(itinerary.geo)
+          Firebase.database().ref(Constants.USERS_PATH + '/' + auth).once('value', userSnap => {
+            let algoliaObject = Object.assign({}, 
+              { orgName: orgName },
+              { title: thread.title },
+              { body: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(thread.body)) },
+              { projectName: projectSnapshot.val().name },
+              { username: userSnap.val().username },
+              { userId: auth },
+              { comments: [] },
+              { createdOn: new Date().getTime() },
+              { projectId: projectId }
+              )
+
+            Helpers.updateAlgoliaIndex(threadId, algoliaObject);
+          })
 
           // mixpanel.people.increment("total itineraries");
           // mixpanel.people.set({ "last itinerary created": (new Date()).toISOString() });
@@ -173,6 +187,8 @@ export function onDeleteThread(auth, threadId, thread, orgName) {
         }
 
         Firebase.database().ref().update(updates);
+
+        Helpers.deleteAlgoliaObject(threadId)
 
         dispatch({
           type: ActionTypes.THREAD_DELETED,

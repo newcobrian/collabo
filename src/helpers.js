@@ -86,6 +86,16 @@ export function updateAlgoliaIndex(objectID, object) {
 	});
 }
 
+export function deleteAlgoliaObject(objectID) {
+	const algoliasearch = require('algoliasearch');
+	const client = algoliasearch('NFI90PSOIY', '2bbae42da8376a35748f4817449e0b23', {protocol:'https:'});
+	const index = client.initIndex('posts');
+	index.deleteObject(objectID, function(err, content) {
+	  // if (err) throw err;
+	  // console.log(content);
+	});
+}
+
 export function byPopularity(a, b) {
   if (a.popularityScore > b.popularityScore)
     return -1;

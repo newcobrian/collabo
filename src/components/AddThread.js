@@ -11,7 +11,8 @@ import draftToHtml from 'draftjs-to-html';
 
 const mapStateToProps = state => ({
   ...state.addThread,
-  authenticated: state.common.authenticated
+  authenticated: state.common.authenticated,
+  currentUser: state.common.currentUser,
 });
 
 class AddThread extends React.Component {
