@@ -15,6 +15,8 @@ const ProjectHeader = props => {
     if (!props.project) return null
     else return (
       <div className={"project-header text-left flx flx-row flx-align-center"}>
+        <OrgHeader />
+
         <div className="project-header-text co-type-h1 flx flx-col flx-align-start">
           {props.project.name}
         </div>
@@ -174,7 +176,6 @@ class Project extends React.Component {
 
           <div className="page-common page-places flx flx-row flx-align-start">
 
-            <OrgHeader />
  
                 {/*<UniversalSearchBar />*/}
             
