@@ -81,7 +81,7 @@ class AddThread extends React.Component {
 					            <div className="create-form-wrapper form-wrapper ta-left flx flx-col">
 						            
 						            <form>
-						            	<div className="v2-type-page-header mrgn-bottom-sm">Start a new thread</div>
+						            	<div className="co-type-h1 mrgn-left-sm mrgn-bottom-sm">Start a new thread</div>
 
 										<fieldset className="field-wrapper">
 											<label>Thread Title</label>

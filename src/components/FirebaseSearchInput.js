@@ -228,7 +228,6 @@ class FirebaseSearchInput extends Component {
           }}
           textFieldStyle={{
             height: '40px',
-            marginBottom: '40px',
             fontWeight: '400',
             lineHeight: '14px'
           }}
@@ -249,17 +248,18 @@ class FirebaseSearchInput extends Component {
             borderBottom: '1px solid #3DCBF3'
           }}
           menuStyle={{
-            overflow: 'scroll'
+            overflow: 'scroll',
           }}
           hintStyle={{
-            bottom: '0px',
             color: '#121419',
-            fontSize: '16px',
-            lineHeight: '24px',
+            fontSize: '14px',
+            lineHeight: '20px',
+            top: '10px',
             width: '100%',
-            overflow:'hidden',
+            overflow:'auto',
             textAlign: 'left',
-            padding: '0 0 0 70px'
+            padding: '0 0 0 8px',
+            opacity: '.6'
           }}
        />
       </MuiThemeProvider>

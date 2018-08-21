@@ -7,6 +7,7 @@ import * as Constants from '../constants';
 import ProxyImage from './ProxyImage';
 import DisplayTimestamp from './DisplayTimestamp';
 import ProjectList from './ProjectList';
+import OrgHeader from './OrgHeader';
 
 
 const RightPic = props => {
@@ -98,14 +99,8 @@ class Inbox extends React.Component {
   render() {
 	  if (!this.props.inbox) {
       return (
-        <div className="loading-module flx flx-col flx-center-all v2-type-body3 fill--black">
-          <div className="loader-wrapper flx flx-col flx-center-all fill--black">
-            <div className="loader-bird"></div>
-            <div className="loader">
-              <div className="bar1"></div>
-              <div className="bar2"></div>
-              <div className="bar3"></div>
-            </div>
+        <div className="loading-module flx flx-col flx-center-all v2-type-body3 fill--primary">
+          <div className="loader-wrapper flx flx-col flx-center-all">
             <div className="v2-type-body2 color--white">Loading inbox</div>
           </div>
         </div>
@@ -120,17 +115,16 @@ class Inbox extends React.Component {
       );
     }
     return (
-      <div className="page-common">
-      <ProjectList 
-        threadCounts={this.props.threadCounts}
-        projectId={this.props.params.pid} />
+      <div className="page-common flx flx-col flx-center-all ">
+        <div className="project-header text-left flx flx-col flx-align-start w-100">
+          <OrgHeader />
+          {/* HEADER START */}
+          <div className="co-type-h1 mrgn-top-sm mrgn-left-md">Activity</div>
+        </div>
+        {/* CONTAINER - START */}
+          <div className="content-wrapper header-push flx flx-col ta-left">
 
-        <div className="threadlist flx flx-col w-100">
-            <div className={"project-header text-left flx flx-row flx-align-start"}>
-              <div className="project-header-text co-type-h1 flx flx-row flx-align-start text-left invert">
-                Activity
-              </div>
-            </div>
+
             {
               this.props.inbox.map(inboxItem => {
                 // const isUser = this.props.currentUser &&
@@ -146,7 +140,7 @@ class Inbox extends React.Component {
                         <div className="v2-type-body1 font--alpha">
                           <strong><RenderUsername senderId={inboxItem.senderId} username={inboxItem.senderUsername} orgName={this.props.params.orgname} /></strong>
                           {inboxItem.message}<Link to={inboxItem.link}><div className="color--primary inline">{inboxItem.reviewTitle}</div></Link>
-                           <div className="itinerary__cover__timestamp font--alpha"><DisplayTimestamp timestamp={inboxItem.lastModified} /></div>
+                           <div className="thread-timestamp font--alpha"><DisplayTimestamp timestamp={inboxItem.lastModified} /></div>
                         </div>
                       </div>
                     </Link>
@@ -156,7 +150,7 @@ class Inbox extends React.Component {
               <div className="w-100 flx flx-row flx-center-all mrgn-top-lg">
               {!this.props.endOfInbox && <button className="vb vb--sm vb--outline-none fill--none" onClick={this.onLoadMoreClick}>
                 <div className="mobile-hide mrgn-right-sm">Load more messages</div>
-                <i className="material-icons color--primary md-32">keyboard_arrow_right</i>
+                <i className="material-icons color--primary md-32 DN">keyboard_arrow_right</i>
               </button>}
             </div>
           </div>

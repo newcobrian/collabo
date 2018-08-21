@@ -16,31 +16,26 @@ const ProjectHeader = props => {
     else return (
       <div className={"project-header text-left flx flx-col flx-align-center w-100"}>
         <OrgHeader />
-        <div className="project-bar-wrapper w-100">
-          <div className="project-header-text co-type-h1 flx flx-col flx-align-start">
+        <div className="project-bar-wrapper w-100 flx flx-row flx-align-center mrgn-top-sm">
+          
+          <div className="project-header-text mrgn-left-md co-type-h1 flx flx-col flx-align-start">
             {props.project.name}
           </div>
 
-          <div className="flx flx-align-start flx-item-right">
+          <div className="flx flx-align-start mrgn-left-md">
 
-            <Link to={'/' + props.orgName + '/' + props.projectId + '/addthread'} activeClassName="active" className="flx flx-align-center flx-item-right">
-                <div className="feed-gem circle gem-create"></div>
-                <div className="mrgn-left-sm color--black label-big flx-item-right">New Thread</div>
-                <div className="icon-wrapper brdr--primary flx flx-center-all DN">
-                  <i className="material-icons color--primary md-24 opa-100 DN">add</i>
+            <Link to={'/' + props.orgName + '/' + props.projectId + '/addthread'}
+              activeClassName="active"
+              className="flx flx-align-center flx-item-right mrgn-right-md">
+                <div className="feed-gem circle gem-create DN"></div>
+                <div className="icon-wrapper brdr--primary flx flx-center-all">
+                  <i className="material-icons color--create md-24 opa-100">add</i>
                 </div>
+                <div className="color--black co-type-label">New Thread</div>
+               
             </Link>
           </div>
-          <Link to={'/' + props.orgName + '/' + props.projectId + '/addthread'} className="DN thread-preview-container new-thread flx flx-row flx-align-center w-100">
-            <div className="thread-icon flx flx-center-all flx-hold mrgn-right-md">
-              <div className="co-icon-wrapper flx flx-center-all">
-                <div className="feed-gem circle gem-create"></div>
-              </div>
-            </div>
-            <div className="color--black co-type-body flx flx-row">
-              New Thread
-            </div>
-          </Link>
+
         </div>
       </div>
     )
@@ -48,8 +43,10 @@ const ProjectHeader = props => {
   else return (
     <div className={"project-header text-left flx flx-col flx-align-start"}>
         <OrgHeader />
-        <div className="project-header-text co-type-h1 flx flx-row flx-align-start text-left invert">
-          All
+        <div className="project-bar-wrapper w-100 flx flx-row flx-align-center mrgn-top-sm">
+          <div className="project-header-text co-type-h1 mrgn-left-md flx flx-row flx-align-start text-left invert">
+            All
+          </div>
         </div>
       </div>
   )

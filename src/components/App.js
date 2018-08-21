@@ -109,7 +109,13 @@ class App extends React.Component {
             sidebar={<ProjectList />}
             open={this.props.sidebarOpen}
             onSetOpen={this.props.setSidebarOpen}
-            styles={{ overlay:
+            styles={{ sidebar:
+                         {
+                           borderRight: "1px solid rgba(0,0,0,.1)",
+                           boxShadow: "none",
+                           zIndex: "100"
+                         },
+                       overlay:
                          {
                            backgroundColor: "rgba(255,255,255,1)"
                          },

@@ -34,17 +34,21 @@ class OrgHeader extends React.Component {
     }
 
     return (
-      <div className="flx flx-row w-100">
-          <button onClick={this.onToggleSidebarClick}>
-              Toggle sidebar
-          </button>
-
+      <div className="org-header flx flx-row w-100">
+          <Link onClick={this.onToggleSidebarClick} className="icon-wrapper flx flx-center-all mrgn-left-sm">
+            <i className="material-icons color--black md-18 opa-100">menu</i>
+          </Link>
+          <div className="co-search-wrapper mrgn-left-sm flx flx-row">
+            <div className="icon-wrapper flx flx-center-all">
+              <i className="material-icons color--black md-18 opa-100">search</i>
+            </div>
           <FirebaseSearchInput 
             type={Constants.POSTS_SEARCH}
             callback={this.searchInputCallback}
             orgName={this.props.orgName}
-            className={"flx-item-right"}
+            className={""}
             placeholder="Type to search..." />
+          </div>
       </div>
     );
   }

@@ -78,7 +78,7 @@ class CreateOrg extends React.Component {
 					            <div className="create-form-wrapper form-wrapper ta-left flx flx-col-left">
 						            
 						            <form>
-						            	<div className="v2-type-page-header mrgn-bottom-sm">Create a new organization</div>
+						            	<div className="co-type-h1 mrgn-left-sm mrgn-bottom-sm">Create a new organization</div>
 
 										<fieldset className="field-wrapper">
 											<label>Organization Name</label>
