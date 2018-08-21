@@ -80,7 +80,7 @@ export function updateAlgoliaIndex(threadId, field, value) {
 	}
 	object[field] = value
 
-	index.saveObject(
+	index.partialUpdateObject(
 	  object
 	, function(err, content) {
 	  if (err) {
