@@ -69,12 +69,19 @@ class AddProject extends React.Component {
     		this.props.askForAuth();
     	}
 
+    	this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, this.props.params.pid, Constants.ADD_PROJECT_PAGE)
+	    this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
+	    this.props.loadOrgList(this.props.authenticated, Constants.ADD_PROJECT_PAGE)
     	// this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'create guide'});
 	}
 
 	componentWillUnmount() {
 		if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
 		this.props.onCreateUnload();
+		this.props.unloadOrgList(this.props.authenticated, Constants.ADD_PROJECT_PAGE)
+	    this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname)
+	    this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.ADD_PROJECT_PAGE)
+	    this.props.unloadOrg(Constants.ADD_PROJECT_PAGE);
 	}
 
 	render() {
