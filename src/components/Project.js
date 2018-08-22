@@ -197,7 +197,8 @@ class Project extends React.Component {
                     pageStart={0}
                     loadMore={this.scrolledToBottom}
                     hasMore={true}
-                    loader={<div className="loader" key={0}>Loading ...</div>} >
+                    loader={<div className="loader" key={0}>Loading ...</div>}
+                    useWindow={false} >
 
                     <ThreadList
                       threads={this.props.threads} 
