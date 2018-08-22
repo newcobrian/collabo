@@ -56,7 +56,7 @@ const mapStateToProps = state => ({
   ...state.project,
   authenticated: state.common.authenticated,
   organization: state.common.organization,
-  invalidOrgUser: state.common.invalidOrgUser,
+  invalidOrgUser: state.common.invalidOrgUser
 });
 
 class Project extends React.Component {
@@ -207,6 +207,7 @@ class Project extends React.Component {
                     orgName={this.props.params.orgname}
                     emptyThreadFeed={this.props.emptyThreadFeed}
                     projectNotFoundError={this.props.projectNotFoundError}
+                    projectNames={this.props.projectNames}
                     className={"w-100 h-100"} />
 
 

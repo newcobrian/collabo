@@ -38,6 +38,7 @@ const ThreadList = props => {
               userInfo={props.userInfo}
               deleteComment={props.deleteComment}
               index={index+1}
+              projectNames={props.projectNames}
             />
           );
         })
