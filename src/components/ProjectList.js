@@ -45,6 +45,11 @@ class ProjectList extends React.Component {
       ev.preventDefault();
       browserHistory.push('/' + ev.target.value)
     }
+
+    this.onAllClick = ev => {
+      ev.preventDefault()
+      this.props.onAllProjectsClick(this.props.orgName)
+    }
   }
 
   render() {
@@ -90,7 +95,7 @@ class ProjectList extends React.Component {
           </Link>
         </div>
 
-          <Link className={"sidebar-row group-row flx flx-row mrgn-top-lg flx-align-center " + (!this.props.projectId && this.props.source === Constants.PROJECT_PAGE ? 'active' : '')} to={'/' + orgName}>
+          <Link className={"sidebar-row group-row flx flx-row mrgn-top-lg flx-align-center " + (!this.props.projectId && this.props.source === Constants.PROJECT_PAGE ? 'active' : '')} onClick={this.onAllClick}>
             <div className="sidebar-icon flx flx-center-all">
               <i className="material-icons color--black md-14 opa-10">fiber_manual_record
               </i>

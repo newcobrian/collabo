@@ -91,6 +91,11 @@ export default (state = initialState, action) => {
         ...state,
         projectId: action.projectId
       }
+    case ActionTypes.ON_ALL_PROJECTS_CLICK:
+      return {
+        ...state,
+        projectId: null
+      }
     default:
       return state;
   }

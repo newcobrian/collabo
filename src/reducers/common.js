@@ -170,6 +170,11 @@ export default (state = defaultState, action) => {
         ...state,
         sidebarOpen: action.sidebarOpen
       }
+    case ActionTypes.ON_ALL_PROJECTS_CLICK:
+      return {
+        ...state,
+        redirectTo: '/' + action.orgName
+      }
     default: 
       return state;
   }

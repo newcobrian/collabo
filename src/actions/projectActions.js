@@ -1336,3 +1336,12 @@ export function setSidebar(mql) {
     })
   }
 }
+
+export function onAllProjectsClick(orgName) {
+  return dispatch => {
+    dispatch ({
+      type: ActionTypes.ON_ALL_PROJECTS_CLICK,
+      orgName: orgName
+    })
+  }
+}
