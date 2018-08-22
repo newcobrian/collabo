@@ -363,8 +363,8 @@ width: 32px;
 }
 .profile-image .default-profile-wrapper,
 .profile-image .user-photo-wrapper {
-  width: 200px;
-  height: 200px;
+  width: 160px;
+  height: 160px;
 }
 .itinerary__cover__topbar .itinerary__cover__author-photo .user-photo-wrapper,
 .itinerary__cover__topbar .itinerary__cover__author-photo .default-profile-wrapper {
@@ -942,8 +942,8 @@ li.nav-divider {
 .profile-image {
 }
 .profile-image img {
-  height: 200px;
-  width: 200px;
+  height: 160px;
+  width: 160px;
   border: 1px solid rgba(0,0,0,.1);
   border-radius: 200px;
 }

@@ -5,6 +5,7 @@ import * as Actions from '../actions';
 import * as Constants from '../constants';
 import ProxyImage from './ProxyImage';
 import ProfilePic from './ProfilePic';
+import OrgHeader from './OrgHeader';
 
 class SettingsForm extends React.Component {
   constructor() {
@@ -116,8 +117,8 @@ class SettingsForm extends React.Component {
             <textarea
               className="form-control form-control-lg"
               rows="8"
-              maxLength="88"
-              placeholder="Short bio about you"
+              maxLength="66"
+              placeholder="Update your status"
               value={this.state.bio}
               onChange={this.updateState('bio')}>
             </textarea>
@@ -177,12 +178,13 @@ class Settings extends React.Component {
 
   render() {
     return (
-      <div className="roow roow-col-left page-common settings-page page-no-push">
-            <div className="page-title-wrapper center-text">
-               <div className="v2-type-page-header">Settings</div>
-               <div className="v2-type-body2 opa-60 mrgn-top-sm DN"></div>
-             </div>
-            <div className="settings-wrapper mrgn-top-md">
+      <div className="page-common flx flx-col profile-page">
+            <div className="project-header text-left flx flx-col flx-align-start w-100">
+              <OrgHeader />
+              {/* HEADER START */}
+              <div className="co-type-h1 mrgn-top-sm mrgn-left-md">Settings</div>
+            </div>
+            <div className="content-wrapper header-push ta-left flx flx-col w-100">
 
               <ListErrors errors={this.props.errors}></ListErrors>
 

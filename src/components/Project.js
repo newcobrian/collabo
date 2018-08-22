@@ -191,7 +191,8 @@ class Project extends React.Component {
 
               
                 
-              <div className="threadlist-wrapper flx flx-col flx-align-start w-100">
+              <div className="threadlist-wrapper flx flx-col flx-align-start w-100 h-100">
+
 
                 <InfiniteScroll
                     pageStart={0}
@@ -200,19 +201,19 @@ class Project extends React.Component {
                     loader={<div className="loader" key={0}>Loading ...</div>}
                     useWindow={false} >
 
-                    <ThreadList
-                      threads={this.props.threads} 
-                      authenticated={this.props.authenticated}
-                      orgName={this.props.params.orgname}
-                      emptyThreadFeed={this.props.emptyThreadFeed}
-                      projectNotFoundError={this.props.projectNotFoundError}
-                      className={"w-100"} />
-                    
+                  <ThreadList
+                    threads={this.props.threads} 
+                    authenticated={this.props.authenticated}
+                    orgName={this.props.params.orgname}
+                    emptyThreadFeed={this.props.emptyThreadFeed}
+                    projectNotFoundError={this.props.projectNotFoundError}
+                    className={"w-100 h-100"} />
+
 
                 </InfiniteScroll>
-
+                </div>
               </div>
-            </div>
+
 
 
       );

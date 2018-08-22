@@ -265,13 +265,12 @@ p {
 }
 
 .tip__caption {
-position: relative;
-    height: 19px;
-    width: 300px;
+	height: 19px;
+    width: 80%;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    display: block;
+    display: inline-block;
 /*    display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;*/
@@ -357,18 +356,23 @@ position: relative;
     color: rgba(0,0,0,.4);
     box-shadow: 0 2px 18px rgba(0,0,0,.1);
 }
+.infinite-test {
+	height:100%;overflow:auto;
+}
 .co-type-h1 {
 	/*font-family: 'Doppio One', sans-serif;*/
     font-size: 25px;
 }
 .threadlist {
 	margin-left: 0px;
-	padding: 100px 0 0;
+	padding: 0;
+	z-index: 1;
 }
 .threadlist-wrapper {
-	margin: 0px auto;
+	margin: 0px auto 0;
 	width: 100%;
 	z-index: 1;
+	padding-bottom: 200px;
 }
 .threadlist-wrapper > div {
 	width: 100%;

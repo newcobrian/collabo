@@ -55,7 +55,7 @@ class CreateOrg extends React.Component {
 
 	render() {
 		return (
-			<div>
+
 				<div className="flx flx-col flx-center-all page-common editor-page create-page">
 	{/**}			
 					<div>
@@ -134,7 +134,7 @@ class CreateOrg extends React.Component {
 			    </div>
 			    
 
-			</div>
+
 
 
 		)

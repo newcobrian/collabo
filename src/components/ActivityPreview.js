@@ -31,21 +31,21 @@ const UpdateSection = props => {
   else if (props.activity.lastUpdate === Constants.NEW_THREAD_TYPE) {
     return (
       <div>
-        new thread posted
+        Posted new thread&nbsp;
       </div>
     )
   }
   else if (props.activity.lastUpdate === Constants.EDIT_THREAD_TYPE) {
     return (
       <div>
-        thread post was modified
+        Modified thread&nbsp;
       </div>
     )
   }
   else if (props.activity.lastUpdate === Constants.COMMENT_TYPE) {
     return (
       <div>
-        new comment
+        Commented&nbsp;
       </div>
     )
   }
@@ -85,43 +85,31 @@ const NewThreadItem = props => {
   return (
      <Link to={`/${props.orgName}/${props.projectId}/${props.activity.activityId}`} className={"flx flx-col flx-col w-100 w-max"}>
         <div className="thread-preview-container flx flx-col flx-align-start w-100"> 
-         <UpdateSection activity={activity} />
-        <div className="flx flx-row">
+        <div className="flx flx-row mrgn-left-xs">
           <Link to={'/' + props.orgName + '/user/' + createdBy.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
             <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
           </Link>
           <div className="flx flx-col">
-            <div className="color--primary co-type-body flx flx-row">
-              <div className="co-type-bold mrgn-right-xs">{createdBy.username}</div> <UpdateSection activity={activity} />
-            </div>
             { /** Timestamp **/ }
             <div className="tip__timestamp v2-type-caption opa-40">
               <DisplayTimestamp timestamp={activity.lastModified} />
             </div>
             { /** END Timestamp **/ }
+            <div className="co-type-body flx flx-row">
+              <UpdateSection activity={activity} />: &nbsp;
+              <div className="co-type-bold ta-left">
+                  <Link to={`/${props.orgName}/${props.projectId}/${props.activity.activityId}`}> {activity.title}</Link>
+              </div>
+            </div>
+            <div className="tip__caption font--beta v2-type-body2 ta-left mrgn-top-sm">
+              <div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(activity.body || '')) }} />
+              {/*<div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(thread.body) || '' }} />*/}
+              </div>
+            </div>
           </div>
         </div>
 
-      { /** Caption **/ }
-        <div className="flx flx-col flx-align-start w-100">
-            <div className="co-type-h4 ta-left mrgn-top-sm">
-                <Link to={`/${props.orgName}/${props.projectId}/${props.activity.activityId}`}> {activity.title}</Link>
-            </div>
-        <div className="flx flx-col flx-align-start w-100">
-          <div className="tip__caption font--beta v2-type-body2 ta-left">
-            <div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(activity.body || '')) }} />
-            {/*<div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(thread.body) || '' }} />*/}
-            </div>
-          </div>
-      </div>
-
-         
-
-   
-
-
-
-        </div> 
+     
 
        
 
@@ -138,7 +126,7 @@ const EditThreadItem = props => {
 
   return (
     <div className="thread-preview-container flx flx-col flx-align-start w-100"> 
-      <div className="flx flx-row">
+      <div className="flx flx-row mrgn-left-xs">
 
         <Link to={'/' + props.orgName + '/user/' + createdBy.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
           <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
@@ -147,7 +135,7 @@ const EditThreadItem = props => {
           <Link className="" to={'/' + props.orgName + '/user/' + createdBy.username}>{createdBy.username}</Link> edited post  
           <Link to={'/' + props.orgname + '/' + activity.projectId + '/' + activity.threadId}>{activity.title}</Link>
         </div>
-        <div className="tip__timestamp v2-type-caption opa-20 mrgn-top-xs ">
+        <div className="thread-timestamp">
           <DisplayTimestamp timestamp={activity.lastModified} />
         </div>
       </div>
@@ -163,24 +151,26 @@ const CommentItem = props => {
 
   return (
     <div className="thread-preview-container flx flx-col flx-align-start w-100">
-      <div className="flx flx-col">
+      <div className="flx flx-col mrgn-left-xs">
         <div className="flx flx-row">
           <Link to={'/' + props.orgName + '/user/' + createdBy.username} className="mrgn-right-xs tip__author-photo flx-hold mrgn-right-sm flx flx-row">
             <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
           </Link>
           <div className="flx flx-col">
-            <div className="co-type-body color--black flx flx-row">
-              <Link className="color--primary mrgn-right-xs" to={'/' + props.orgName + '/user/' + createdBy.username}>{createdBy.username}</Link> commented on thread: &nbsp; 
-              <Link className="color--primary" to={'/' + props.orgname + '/' + activity.projectId + '/' + activity.threadId}>{activity.title}</Link>
-            </div>
-            <div className="tip__timestamp v2-type-caption opa-20 mrgn-top-xs ">
+            <div className="thread-timestamp">
               <DisplayTimestamp timestamp={activity.lastModified} />
             </div>
+            <div className="co-type-body color--black flx flx-row">
+              <Link className="color--black co-type-bold" to={'/' + props.orgName + '/user/' + createdBy.username}>{createdBy.username}</Link>Commented on thread: &nbsp; 
+              <Link className="color--black co-type-bold" to={'/' + props.orgname + '/' + activity.projectId + '/' + activity.threadId}>{activity.title}</Link>
+            </div>
+            <div className="co-type-body mrgn-top-sm">
+              {activity.body}
+            </div>
           </div>
+
         </div>
-        <div className="co-type-body mrgn-top-sm">
-          {activity.body}
-        </div>
+        
         
       </div>
     </div>
