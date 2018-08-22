@@ -5,6 +5,7 @@ import * as Constants from '../constants';
 import ProxyImage from './ProxyImage';
 import ListErrors from './ListErrors';
 import { CREATE_PAGE } from '../actions';
+import OrgHeader from './OrgHeader';
 // import Geosuggest from 'react-geosuggest';
 import ProfileInfo from './ProfileInfo'
 // import Script from 'react-load-script';
@@ -68,12 +69,19 @@ class AddProject extends React.Component {
     		this.props.askForAuth();
     	}
 
+    	this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, this.props.params.pid, Constants.ADD_PROJECT_PAGE)
+	    this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
+	    this.props.loadOrgList(this.props.authenticated, Constants.ADD_PROJECT_PAGE)
     	// this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'create guide'});
 	}
 
 	componentWillUnmount() {
 		if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
 		this.props.onCreateUnload();
+		this.props.unloadOrgList(this.props.authenticated, Constants.ADD_PROJECT_PAGE)
+	    this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname)
+	    this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.ADD_PROJECT_PAGE)
+	    this.props.unloadOrg(Constants.ADD_PROJECT_PAGE);
 	}
 
 	render() {
@@ -85,8 +93,8 @@ class AddProject extends React.Component {
 	      )
 	    }
 		return (
-			<div>
-				<div className="flx flx-col flx-center-all page-common editor-page create-page">
+
+				<div className="page-common flx flx-col flx-center-all">
 					{/**}			
 					<div>
 				        <Script
@@ -97,76 +105,65 @@ class AddProject extends React.Component {
 				        /> 
 				    </div> 
 				    <div ref="GMap"></div>**/}
-					
+					<div className="project-header text-left flx flx-col flx-align-start w-100">
+				    	<OrgHeader />
+				    	{/* HEADER START */}
+				    	<div className="co-type-h1 mrgn-top-sm mrgn-left-md">Add a New Group</div>
+				    </div>
 
 				    {/* CONTAINER - START */}
-			        <div className="hero-container fill--dark">
-	        			<div className="page-title-wrapper center-text DN">
-	        	          <div className="v2-type-page-header">Create a new Project</div>
-	        	          <div className="v2-type-body2 opa-60">This could be a list of top spots or plans for an upcoming trip</div>
-	        	        </div>
-			         	<div className="create-content flx flx-col flx-center-all ta-center">
-							
-							<div className="flx flx-col flx-center-all create-wrapper">
+			        <div className="content-wrapper flx flx-col ta-center">
+	        		
 						
-					            <div className="create-form-wrapper form-wrapper ta-left flx flx-col-left bx-shadow">
-						            
-						            <form>
-						            	<div className="v2-type-page-header mrgn-bottom-sm">Add a New Group</div>
+			            <div className="content-wrapper header-push ta-left flx flx-col">
+				            
+				            <form>
+								<fieldset className="field-wrapper">
+									<label>Group name</label>
+			                      <input
+			                        className="input--underline edit-itinerary__name v2-type-body3"
+			                        type="text"
+			                        placeholder="My New Group"
+			                        required
+			                        value={this.props.name}
+			                        maxLength="42"
+			                        onChange={this.changeName} />
+			                    </fieldset>
+								<fieldset className="field-wrapper DN">
+								<div className="field-label">Group Name</div>
+			                      <textarea
+			                        className="input--underline v2-type-body3"
+			                        type="text"
+			                        rows="3"
+			                        maxLength="184"
+			                        placeholder="Add a description..."
+			                        required
+			                        value={this.props.description}
+			                        onChange={this.changeDescription} />
+			                    </fieldset>
 
-										<fieldset className="field-wrapper">
-											<label>Group name</label>
-					                      <input
-					                        className="input--underline edit-itinerary__name v2-type-body3"
-					                        type="text"
-					                        placeholder="My New Group"
-					                        required
-					                        value={this.props.name}
-					                        maxLength="42"
-					                        onChange={this.changeName} />
-					                    </fieldset>
-										<fieldset className="field-wrapper DN">
-											<label>About (Optional)</label>
-					                      <textarea
-					                        className="input--underline v2-type-body3"
-					                        type="text"
-					                        rows="3"
-					                        maxLength="184"
-					                        placeholder="Add a description..."
-					                        required
-					                        value={this.props.description}
-					                        onChange={this.changeDescription} />
-					                    </fieldset>
+			                    <ListErrors errors={this.props.errors}></ListErrors>
+			                    
+			                    <div
+			                    className="vb vb--create w-100 mrgn-top-md color--white fill--light-green"
+			                    type="button"
+			                    disabled={this.props.inProgress}
+			                    onClick={this.submitForm}>
+			                    	<div className="flx flx-row flx-center-all ta-center">
+				                    	<div className="flx-grow1 mrgn-left-md color--green">Add Group</div>
+									</div>
+			                  </div>
+					        </form>
+					    </div>
+				    </div>
 
-					                    <ListErrors errors={this.props.errors}></ListErrors>
-					                    
-					                    <div
-					                    className="vb vb--create w-100 mrgn-top-md color--white fill--primary"
-					                    type="button"
-					                    disabled={this.props.inProgress}
-					                    onClick={this.submitForm}>
-					                    	<div className="flx flx-row flx-center-all ta-center">
-						                    	<div className="flx-grow1">Add Group</div>
-											</div>
-					                  </div>
-							        </form>
-							    </div>
-						    </div>
-
-
-					  	</div>
-					  
-
-						
-
-					</div>	
 					{/* END CONTAINER */}
 					
 
 			    </div>
 			    
 
-			</div>
+
 
 
 		)

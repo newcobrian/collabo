@@ -8,6 +8,10 @@ import mixpanel from 'mixpanel-browser';
 import RootModal from './Modal';
 import SnackbarToaster from './SnackbarToaster';
 import LightboxComponent from './LightboxComponent';
+import ProjectList from './ProjectList';
+import Sidebar from 'react-sidebar';
+
+const mql = window.matchMedia(`(min-width: 800px)`);
 
 const mapStateToProps = state => ({
   appLoaded: state.common.appLoaded,
@@ -17,7 +21,9 @@ const mapStateToProps = state => ({
   unreadMessages: state.common.unreadMessages,
   redirectTo: state.common.redirectTo,
   snackbarToaster: state.common.snackbarToaster,
-  orgName: state.organization.orgName
+  orgName: state.organization.orgName,
+  sidebarDocked: state.common.sidebarDocked,
+  sidebarOpen: state.common.sidebarOpen
 });
 
 // const mapDispatchToProps = dispatch => ({
@@ -41,11 +47,20 @@ const mapStateToProps = state => ({
 // };
 
 class App extends React.Component {
+  constructor() {
+    super()
+
+    this.mediaQueryChanged = this.mediaQueryChanged.bind(this);
+  }
+
   componentWillMount() {
     const token = window.localStorage.getItem('jwt');
     if (token) {
       agent.setToken(token);
     }
+
+    this.props.loadSidebar(mql);
+    mql.addListener(this.mediaQueryChanged);
 
     Firebase.auth().onAuthStateChanged(user => {
       if (user) {
@@ -78,33 +93,51 @@ class App extends React.Component {
     }
   }
 
+  componetWillUnmount() {
+    this.props.mql.removeListener(this.mediaQueryChanged)
+  }
+
+  mediaQueryChanged() {
+    this.props.setSidebar(mql.matches);
+  }
+
   render() {
     if (this.props.appLoaded) {
       return (
         <div>
-          <Header
-            appName={this.props.appName}
-            currentUser={this.props.currentUser}
-            userInfo={this.props.userInfo} 
-            orgName={this.props.orgName}
-            unreadMessages={this.props.unreadMessages} />
-          {this.props.children}
-          <SnackbarToaster 
-            {...this.props.snackbarToaster}
-            duration={4000} 
-            onRequestClose={this.props.closeSnackbar} />
-            <LightboxComponent/>
-          <RootModal/>
+           <Sidebar
+            sidebar={<ProjectList />}
+            open={this.props.sidebarOpen}
+            onSetOpen={this.props.setSidebarOpen}
+            styles={{ sidebar:
+                         {
+                           borderRight: "1px solid rgba(0,0,0,.1)",
+                           boxShadow: "none",
+                           zIndex: "100"
+                         },
+                       overlay:
+                         {
+                           backgroundColor: "rgba(255,255,255,1)"
+                         },
+                       }}
+            >
+            <div className={this.props.sidebarOpen ? 'open-style' : 'closed-style'}>
+              {this.props.children}
+            </div>
+
+            <SnackbarToaster 
+              {...this.props.snackbarToaster}
+              duration={4000} 
+              onRequestClose={this.props.closeSnackbar} />
+              <LightboxComponent/>
+            <RootModal/>
+          </Sidebar>
         </div>
       );
     }
     return (
       <div>
-        <Header
-          appName={this.props.appName}
-          currentUser={this.props.currentUser}
-          orgName={this.props.orgName}
-          userInfo={this.props.userInfo} />
+        
       </div>
     );
   }

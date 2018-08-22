@@ -9,6 +9,36 @@ import ProfileInfo from './ProfileInfo';
 import ActivityList from './ActivityList';
 import ProjectList from './ProjectList';
 import InfiniteScroll from 'react-infinite-scroller';
+import OrgHeader from './OrgHeader';
+
+const EditProfileSettings = props => {
+  if (props.isUser) {
+    return (
+      <Link
+        to="/settings"
+        className="flx flx-align-center mrgn-right-md">
+         <div className="icon-wrapper brdr--primary flx flx-center-all">
+            <i className="material-icons color--black md-18 opa-100">mode_edit</i>
+          </div>
+        <div className="color--black co-type-label">Edit Profile</div>
+      </Link>
+    );
+  }
+  return null;
+};
+
+const SignOutButton = props => {
+  if (props.isUser) {
+    return (
+      <Link
+        className="flx flx-align-center mrgn-right-md"
+        onClick={props.signOut}>
+        <div className="color--black co-type-label">Log out</div>
+      </Link>
+    )
+  }
+  return null;
+}
 
 const LogoutButton = props => {
   if (props.isUser && props.authenticated) {
@@ -205,15 +235,9 @@ class Profile extends React.Component {
     }
     if (!this.props.profile) {
       return (
-        <div className="loading-module flx flx-col flx-center-all v2-type-body3 fill--black">
-          <div className="loader-wrapper flx flx-col flx-center-all fill--black">
-            <div className="loader-bird"></div>
-            <div className="loader">
-              <div className="bar1"></div>
-              <div className="bar2"></div>
-              <div className="bar3"></div>
-            </div>
-            <div className="v2-type-body2 color--white">Loading user</div>
+        <div className="loading-module flx flx-col flx-center-all v2-type-body3 fill--primary">
+          <div className="loader-wrapper flx flx-col flx-center-all">
+            <div className="v2-type-body2 color--white">Loading inbox</div>
           </div>
         </div>
         )
@@ -236,12 +260,21 @@ class Profile extends React.Component {
         this.props.profile.userId === this.props.currentUser.uid;
 
       return (
-        <div className="flx flx-col page-common profile-page flx-align-center">
-          <ProjectList 
-            threadCounts={this.props.threadCounts}
-            projectId={this.props.params.pid} />
+        <div className="page-common flx flx-col profile-page">
+        
+          <div className="project-header text-left flx flx-col flx-align-start w-100">
+            <OrgHeader />
+            {/* HEADER START */}
+            <div className="flx flx-row flx-align-center mrgn-top-sm w-100">
+              <div className="co-type-h1 mrgn-left-md">{profile.username}</div>
+              <div className="flx-item-right flx flx-row flx-align-center">
+                <EditProfileSettings isUser={isUser} />
+                <SignOutButton isUser={isUser} signOut={this.props.signOut}/>
+              </div>
+            </div>
+          </div>
 
-          <div className="thread-area flx flx-col w-100">
+          <div className="threadlist header-push ta-left flx flx-col">
             <ProfileInfo
               authenticated={this.props.authenticated}
               profile={profile}

@@ -199,7 +199,7 @@ input[type="radio"]:checked + label span {
 }
 .form-wrapper {
     margin: 0 auto;
-    padding: 40px;
+    padding: 0;
     width: 100%;
 }
 .create-form-wrapper {
@@ -246,6 +246,8 @@ input[type="radio"]:checked + label span {
   height: 400px;
   width: 100%;
   margin-top: 100px;
+  z-index: 1;
+  position: absolute;
 }
 
 /****** 
@@ -324,15 +326,15 @@ input[type="radio"]:checked + label span {
 }
 .default-profile-wrapper,
 .user-photo-wrapper {
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   border-radius: 100px;
   overflow: hidden;
   background-color: #ccc;
   background-color: rgba(229,229,229,1);
   animation: colorchange .8s 8;
   -webkit-animation: colorchange .8s 8;
-  border: 1px solid rgba(0,0,0,.4);
+  border: 1px solid rgba(0,0,0,.1);
 }
 .comment-author-img .default-profile-wrapper,
 .comment-author-img .user-photo-wrapper {
@@ -363,8 +365,8 @@ width: 32px;
 }
 .profile-image .default-profile-wrapper,
 .profile-image .user-photo-wrapper {
-  width: 200px;
-  height: 200px;
+  width: 160px;
+  height: 160px;
 }
 .itinerary__cover__topbar .itinerary__cover__author-photo .user-photo-wrapper,
 .itinerary__cover__topbar .itinerary__cover__author-photo .default-profile-wrapper {
@@ -522,11 +524,7 @@ width: 32px;
 ************************************ GENERAL LAYOUT
 ******
 ******/
-.page-common {
-  margin: 0;
-  background-color: white;
-  padding-bottom: 0;
-}
+
 .page-common.page-itinerary {
   background-color: white;
 }
@@ -946,8 +944,8 @@ li.nav-divider {
 .profile-image {
 }
 .profile-image img {
-  height: 200px;
-  width: 200px;
+  height: 160px;
+  width: 160px;
   border: 1px solid rgba(0,0,0,.1);
   border-radius: 200px;
 }
@@ -1033,7 +1031,6 @@ li.nav-divider {
   
 }
 .editor-page.create-page {
-  margin: 0;
 }
 .editor-page .form-control {
     display: block;

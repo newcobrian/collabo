@@ -8,10 +8,13 @@ import { EditorState, convertFromRaw, convertToRaw } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import draftToHtml from 'draftjs-to-html';
+import OrgHeader from './OrgHeader';
+
 
 const mapStateToProps = state => ({
   ...state.addThread,
-  authenticated: state.common.authenticated
+  authenticated: state.common.authenticated,
+  currentUser: state.common.currentUser,
 });
 
 class AddThread extends React.Component {
@@ -51,11 +54,19 @@ class AddThread extends React.Component {
     		this.props.askForAuth();
     	}
     	this.props.loadOrgUsers(this.props.authenticated, this.props.params.orgname, Constants.ADD_THREAD_PAGE)
+    	this.props.loadOrg(this.props.authenticated, this.props.params.orgname, Constants.ADD_THREAD_PAGE);
+	    this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, this.props.params.pid, Constants.ADD_THREAD_PAGE)
+	    this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
+	    this.props.loadOrgList(this.props.authenticated, Constants.ADD_THREAD_PAGE)
     	// this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'create guide'});
 	}
 
 	componentWillUnmount() {
 		this.props.onCreateUnload();
+		this.props.unloadOrgList(this.props.authenticated, Constants.ADD_THREAD_PAGE)
+	    this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname)
+	    this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.ADD_THREAD_PAGE)
+	    this.props.unloadOrg(Constants.ADD_THREAD_PAGE);
 	}
 
 	render() {
@@ -67,20 +78,20 @@ class AddThread extends React.Component {
 	      )
 	    }
 		return (
-			<div>
-				<div className="flx flx-col flx-center-all page-common editor-page create-page">
+
+			<div className="page-common flx flx-col flx-center-all">
 					
 
-				    {/* CONTAINER - START */}
-			        <div className="hero-container fill--dark">
-			         	<div className="create-content flx flx-col flx-center-all ta-center">
-							
-							<div className="flx flx-col flx-center-all create-wrapper">
-						
-					            <div className="create-form-wrapper form-wrapper ta-left flx flx-col">
-						            
+					<div className="project-header text-left flx flx-col flx-align-start w-100">
+				    	<OrgHeader />
+				    	{/* HEADER START */}
+				    	<div className="co-type-h1 mrgn-top-sm mrgn-left-md">Post a New Thread</div>
+				    </div>
+
+
+				  <div className="content-wrapper header-push ta-left flx flx-col">
+
 						            <form>
-						            	<div className="v2-type-page-header mrgn-bottom-sm">Start a new thread</div>
 
 										<fieldset className="field-wrapper">
 											<label>Thread Title</label>
@@ -120,35 +131,24 @@ class AddThread extends React.Component {
 					                    <ListErrors errors={this.props.errors}></ListErrors>
 					                    
 					                     <div
-					                        className="vb vb--create w-100 color--white fill--primary"
+					                        className="vb vb--create w-100 color--white fill--light-green"
 					                        type="button"
 					                        disabled={this.props.inProgress}
 					                        onClick={this.submitForm}>
 					                        	<div className="flx flx-row flx-center-all ta-center">
-					    	                    	<div className="flx-grow1 mrgn-left-md">Post Thread</div>
+					    	                    	<div className="flx-grow1 mrgn-left-md color--green">Post Thread</div>
 					    							<img className="flx-item-right DN" src="/img/icons/icon32_next.png"/>
 					    						</div>
 					                      </div>
 					                    
 							        </form>
 							        
-							    </div>
-
-		    			       
-						    </div>
-
-					  	</div>
-
-						
-
-					</div>	
 					{/* END CONTAINER */}
 					
 
 			    </div>
+			    </div>
 			    
-
-			</div>
 
 
 		)

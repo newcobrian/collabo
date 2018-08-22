@@ -3,7 +3,7 @@ import * as Constants from '../constants';
 import * as Helpers from '../helpers';
 import { find, isEqual } from 'lodash';
 
-const initialState = { usersData: {}, threadCounts: {}, feedEndValue: null, isFeedLoading: false }
+const initialState = { usersData: {}, threadCounts: {}, feedEndValue: null, isFeedLoading: false, projectNames: {} }
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -141,18 +141,6 @@ export default (state = initialState, action) => {
         projectNotFoundError: false,
         emptyThreadFeed: false
       }
-    case ActionTypes.THREAD_COUNTS_LOADED:
-      return {
-        ...state,
-        threadCounts: action.threadCounts
-      }
-    case ActionTypes.THREAD_COUNTS_UNLOADED:
-      return {
-        ...state,
-        threadCounts: {},
-        projectNotFoundError: false,
-        emptyThreadFeed: false
-      }
     case ActionTypes.EMPTY_THREAD:
       return {
         ...state,
@@ -175,6 +163,23 @@ export default (state = initialState, action) => {
           isFeedLoading: action.isFeedLoading
         }
       }
+    case ActionTypes.LIST_ADDED_ACTION:
+    case ActionTypes.LIST_CHANGED_ACTION:
+      if (action.source === Constants.PROJECT_PAGE && action.listType === Constants.PROJECT_LIST_TYPE) {
+        const newState = Object.assign({}, state);
+        newState.projectNames = newState.projectNames || {};
+        newState.projectNames = Object.assign({}, newState.projectNames);
+        newState.projectNames[action.id] = action.name
+        return newState;
+      }
+    case ActionTypes.UNLOAD_PROJECT_LIST: {
+      if (action.source === Constants.PROJECT_PAGE) {
+        return {
+          ...state,
+          projectNames: {}
+        }
+      }
+    }
     default:
       return state;
   }

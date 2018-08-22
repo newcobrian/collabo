@@ -3,50 +3,50 @@ import { connect } from 'react-redux';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
 import { Link, browserHistory } from 'react-router';
-import FirebaseSearchInput from './FirebaseSearchInput';
-import UniversalSearchBar from './UniversalSearchBar';
 import LoadingSpinner from './LoadingSpinner';
 import ThreadList from './ThreadList';
 import ProjectList from './ProjectList';
 import LoggedOutMessage from './LoggedOutMessage';
 import InfiniteScroll from 'react-infinite-scroller';
-
-
+import OrgHeader from './OrgHeader';
 
 const ProjectHeader = props => {
   if (props.projectId) {
     if (!props.project) return null
     else return (
-      <div className={"project-header text-left flx flx-row flx-align-center"}>
-        <div className="project-header-text co-type-h1 flx flx-col flx-align-start">
-          {props.project.name}
-        </div>
-        <div className="flx flx-align-start flx-item-right">
-          <Link to={'/' + props.orgName + '/' + props.projectId + '/addthread'} activeClassName="active" className="flx flx-align-center flx-item-right">
-              <div className="feed-gem circle gem-create"></div>
-              <div className="mrgn-left-sm color--black label-big flx-item-right">New Thread</div>
-              <div className="icon-wrapper brdr--primary flx flx-center-all DN">
-                <i className="material-icons color--primary md-24 opa-100 DN">add</i>
-              </div>
-          </Link>
-        </div>
-        <Link to={'/' + props.orgName + '/' + props.projectId + '/addthread'} className="DN thread-preview-container new-thread flx flx-row flx-align-center w-100">
-          <div className="thread-icon flx flx-center-all flx-hold mrgn-right-md">
-            <div className="co-icon-wrapper flx flx-center-all">
-              <div className="feed-gem circle gem-create"></div>
-            </div>
+      <div className={"project-header text-left flx flx-col flx-align-center w-100"}>
+        <OrgHeader />
+        <div className="project-bar-wrapper w-100 flx flx-row flx-align-center mrgn-top-sm">
+          
+          <div className="project-header-text mrgn-left-md co-type-h1 flx flx-col flx-align-start">
+            {props.project.name}
           </div>
-          <div className="color--black co-type-body flx flx-row">
-            New Thread
+
+          <div className="flx flx-align-start mrgn-left-md">
+
+            <Link to={'/' + props.orgName + '/' + props.projectId + '/addthread'}
+              activeClassName="active"
+              className="flx flx-align-center flx-item-right mrgn-right-md">
+                <div className="feed-gem circle gem-create DN"></div>
+                <div className="icon-wrapper brdr--primary flx flx-center-all">
+                  <i className="material-icons color--create md-24 opa-100">add</i>
+                </div>
+                <div className="color--black co-type-label">New Thread</div>
+               
+            </Link>
           </div>
-        </Link>
+
+        </div>
       </div>
     )
   }
   else return (
     <div className={"project-header text-left flx flx-col flx-align-start"}>
-        <div className="project-header-text co-type-h1 flx flx-row flx-align-start text-left invert">
-          All
+        <OrgHeader />
+        <div className="project-bar-wrapper w-100 flx flx-row flx-align-center mrgn-top-sm">
+          <div className="project-header-text co-type-h1 mrgn-left-md flx flx-row flx-align-start text-left invert">
+            All
+          </div>
         </div>
       </div>
   )
@@ -63,12 +63,6 @@ class Project extends React.Component {
   constructor() {
     super();
 
-    // this.searchInputCallback = result => {
-    //     if (result.placeId) {
-    //       browserHistory.push('/project/' + result.projectId);
-    //     }
-    //   }
-
     this.scrolledToBottom = () => {
       if (!this.props.isFeedLoading) {
         this.props.watchThreadFeed(this.props.authenticated, this.props.params.orgname, this.props.params.pid, this.props.feedEndValue, Constants.PROJECT_PAGE)
@@ -78,7 +72,7 @@ class Project extends React.Component {
 
   componentWillMount() {
     this.props.loadOrg(this.props.authenticated, this.props.params.orgname, Constants.PROJECT_PAGE);
-    this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, Constants.PROJECT_PAGE)
+    this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, this.props.params.pid, Constants.PROJECT_PAGE)
     this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
     this.props.loadOrgList(this.props.authenticated, Constants.PROJECT_PAGE)
     this.props.loadProject(this.props.params.pid);
@@ -113,7 +107,7 @@ class Project extends React.Component {
       this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.PROJECT_PAGE)
       this.props.unloadOrg(Constants.PROJECT_PAGE);
       this.props.loadOrg(this.props.authenticated, nextProps.params.orgname, Constants.PROJECT_PAGE);
-      this.props.loadProjectList(this.props.authenticated, nextProps.params.orgname, Constants.PROJECT_PAGE)
+      this.props.loadProjectList(this.props.authenticated, nextProps.params.orgname, this.props.params.pid, Constants.PROJECT_PAGE)
       this.props.loadThreadCounts(this.props.authenticated, nextProps.params.orgname)
       this.props.loadProject(nextProps.params.pid);
       // this.props.watchThreadFeed(this.props.authenticated,nextProps.params.orgname, nextProps.params.pid, this.props.feedEndValue, Constants.PROJECT_PAGE)
@@ -180,31 +174,32 @@ class Project extends React.Component {
 
 
           <div className="page-common page-places flx flx-row flx-align-start">
-
+            <ProjectHeader 
+              orgName={this.props.params.orgname}
+              projectId={this.props.params.pid}
+              project={this.props.project}
+            />
  
                 {/*<UniversalSearchBar />*/}
             
-             <ProjectList 
+               {/*<ProjectList 
               threadCounts={this.props.threadCounts}
               projectId={this.props.params.pid}
-              source={Constants.PROJECT_PAGE} />
+              source={Constants.PROJECT_PAGE} />*/}
 
                
 
-                <ProjectHeader 
-                  orgName={this.props.params.orgname}
-                  projectId={this.props.params.pid}
-                  project={this.props.project}
-                />
+              
                 
-              <div className="threadlist-wrapper flx flx-col flx-align-start w-100">
+              <div className="threadlist-wrapper flx flx-col flx-align-start w-100 h-100">
+
 
                 <InfiniteScroll
-                  pageStart={0}
-                  loadMore={this.scrolledToBottom}
-                  hasMore={true}
-                  loader={<div className="loader" key={0}>Loading ...</div>} >
-                  
+                    pageStart={0}
+                    loadMore={this.scrolledToBottom}
+                    hasMore={true}
+                    loader={<div className="loader" key={0}>Loading ...</div>}
+                    useWindow={false} >
 
                   <ThreadList
                     threads={this.props.threads} 
@@ -212,22 +207,19 @@ class Project extends React.Component {
                     orgName={this.props.params.orgname}
                     emptyThreadFeed={this.props.emptyThreadFeed}
                     projectNotFoundError={this.props.projectNotFoundError}
-                    className={"w-100"} />
+                    projectNames={this.props.projectNames}
+                    className={"w-100 h-100"} />
 
 
                 </InfiniteScroll>
-
+                </div>
               </div>
-            </div>
+
 
 
       );
     }
   }
 }
-
-
-
-
 
 export default connect(mapStateToProps, Actions)(Project);

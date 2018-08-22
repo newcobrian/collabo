@@ -47,7 +47,8 @@ export default (state = initialState, action) => {
     case ActionTypes.LOAD_ORG: {
       return {
         ...state,
-        org: action.organization
+        orgName: action.orgName,
+        orgId: action.orgId
       }
     }
     case ActionTypes.UNLOAD_ORG:
@@ -58,12 +59,42 @@ export default (state = initialState, action) => {
     case ActionTypes.UNLOAD_PROJECT_LIST:
       return {
         ...state,
-        projectList: []
+        projectList: [],
+        projectId: undefined,
+        source: ''
       }
     case ActionTypes.UNLOAD_ORG_LIST:
       return {
         ...state,
         orgList: []
+      }
+    case ActionTypes.THREAD_COUNTS_LOADED:
+      return {
+        ...state,
+        threadCounts: action.threadCounts
+      }
+    case ActionTypes.THREAD_COUNTS_UNLOADED:
+      return {
+        ...state,
+        threadCounts: {},
+        projectNotFoundError: false,
+        emptyThreadFeed: false
+      }
+    case ActionTypes.LOAD_PROJECT_LIST:
+      return {
+        ...state,
+        projectId: action.projectId,
+        source: action.source
+      }
+    case ActionTypes.LOAD_PROJECT:
+      return {
+        ...state,
+        projectId: action.projectId
+      }
+    case ActionTypes.ON_ALL_PROJECTS_CLICK:
+      return {
+        ...state,
+        projectId: null
       }
     default:
       return state;
