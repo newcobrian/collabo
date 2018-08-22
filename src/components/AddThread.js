@@ -52,11 +52,19 @@ class AddThread extends React.Component {
     		this.props.askForAuth();
     	}
     	this.props.loadOrgUsers(this.props.authenticated, this.props.params.orgname, Constants.ADD_THREAD_PAGE)
+    	this.props.loadOrg(this.props.authenticated, this.props.params.orgname, Constants.ADD_THREAD_PAGE);
+	    this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, this.props.params.pid, Constants.ADD_THREAD_PAGE)
+	    this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
+	    this.props.loadOrgList(this.props.authenticated, Constants.ADD_THREAD_PAGE)
     	// this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'create guide'});
 	}
 
 	componentWillUnmount() {
 		this.props.onCreateUnload();
+		this.props.unloadOrgList(this.props.authenticated, Constants.ADD_THREAD_PAGE)
+	    this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname)
+	    this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.ADD_THREAD_PAGE)
+	    this.props.unloadOrg(Constants.ADD_THREAD_PAGE);
 	}
 
 	render() {
