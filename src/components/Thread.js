@@ -19,6 +19,7 @@ import { convertToRaw, convertFromRaw } from 'draft-js';
 import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import draftToHtml from 'draftjs-to-html';
 import LoggedOutMessage from './LoggedOutMessage';
+import OrgHeader from './OrgHeader';
 
 var linkify = require('linkify-it')();
 
@@ -252,13 +253,14 @@ class Thread extends React.Component {
         <div>
 
           <div className="page-common page-places flx flx-row flx-m-col flx-align-start">
-            
+            <OrgHeader />
+
             {/*<ProjectList 
               threadCounts={this.props.threadCounts}
               projectId={this.props.params.pid} />*/}
 
 
-              <div className="thread-area flx flx-col w-100">
+              <div className="thread-area header-push-mini flx flx-col w-100">
 
               <div className={"page-title-wrapper left-text flx flx-col flx-align-start country-color-"}>
                  <div>

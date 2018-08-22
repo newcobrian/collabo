@@ -13,13 +13,15 @@ const OrgList = props => {
   }
   else {
     return (
-      <div>
+      <div className="flx flx-row flx-m-col flx-center-all">
         {
           props.orgList.map((orgItem, index) => {
             return (
-              <div key={index}>
-                <Link to={'/' + orgItem.name}>{orgItem.name}</Link>
-              </div>
+              <Link to={'/' + orgItem.name} className="org-block flx flx-col flx-center-all bx-shadow" key={index}>
+                <div className="org-logo mrgn-bottom-md">
+                </div>
+                <div className="co-type-org">{orgItem.name}</div>
+              </Link>
               )
           })
         }
@@ -122,26 +124,32 @@ class Home extends React.Component {
     else {
       return (
         <div>
-          <div className={'home-page page-common fill--white flx flx-col flx-align-center'}>
+          <div className={'home-page page-common fill--white flx flx-col flx-center-all ta-center'}>
             
-            
-            <h1>Your Teams</h1>
+            <div className="co-logo large-logo">
+              <img className="center-img" src="/img/logo_temp.png"/>
+            </div>
+            <div className="co-type-logotype w-100">Koi</div>
+            <div className="co-type-tagline w-100 mrgn-bottom-md">Focus. Relax. Get Shit Done.</div>
 
             <OrgList
               orgList={this.props.orgList} />
-              <Link to='/neworg' className="v2-type-body2 opa-60 w-100 color--black ta-center mobile-hide">
-                Create a new 
+              <Link to='/neworg' className="org-block flx flx-col flx-center-all bx-shadow">
+                <div className="org-logo mrgn-bottom-md fill--white flx flx-col flx-center-all">
+                  <i className="material-icons color--black md-48 opa-20">add</i>
+                </div>
+                <div className="co-type-normal co-type-org opa-40">Create New Org</div>
               </Link>
-            {/*<div className="guide-feed-wrapper w-100 flx flx-row flx-just-center flx-self-end flx-align-start flx-wrap">
-              
-              
+              {/*<div className="guide-feed-wrapper w-100 flx flx-row flx-just-center flx-self-end flx-align-start flx-wrap">
+                
+                
 
-              <ProjectList />
+                <ProjectList />
 
-              
+                
 
-              
-            </div>*/}
+                
+              </div>*/}
 
             
 
@@ -151,11 +159,10 @@ class Home extends React.Component {
           
 
           <div className="footer fill--black color--white flx flx-col flx-center-all flx-item-bottom">
-            <div className="homepage-logo mrgn-bottom-lg">  
-              <img className="center-img w-100" src="/img/logos/logo_2018_400_white.png"/>
+            <div className="homepage-logo mrgn-bottom-lg DN">  
             </div>
             <div className="v2-type-body0 color--white opa-70 mrgn-bottom-md">
-              &copy;2017 Views, LLC All Rights Reserved
+              &copy;2018 Futurehumans, LLC All Rights Reserved
             </div>
             <div className="flx flx-row flx-center-all mrgn-bottom-lg">
               <Link to="/terms.html" target="blank" className="v2-type-body0 color--white opa-70">

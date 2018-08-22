@@ -2,6 +2,14 @@
 .h-100 {
 	height: 100%;
 }
+.home-page.page-common {
+    background-attachment: fixed;
+    min-height: 500px;
+    background-color: #F9FDFF !important;
+    padding: 60px;
+    margin-left: 0 !important;
+    z-index: 1;
+}
 .project-sidebar {
     min-height: 800px;
     width: 300px;
@@ -32,6 +40,32 @@ textarea {
 .header-push {
 	margin-top: 100px;
 }
+.header-push-mini {
+	margin-top: 56px;
+}
+.org-block {
+	width: 200px;
+	height: 200px;
+	padding: 20px;
+	flex-basis: 50%;
+	border: 1px solid rgba(0,0,0,.1);
+	border-radius: 10px;
+	margin: 20px;
+	background-color: white;
+	transition: all 0.23s ease-in-out 0s;
+
+}
+.org-block:hover {
+	margin-top: 18px;
+	transition: all 0.23s ease-in-out 0s;
+
+}
+.org-logo {
+	width: 88px;
+	height: 88px;
+	border-radius: 100px;
+	background-color: #F9F9F9;
+}
 .co-logo {
 	background-color: #FFEA79;
 	border-radius: 100px;
@@ -39,6 +73,17 @@ textarea {
 	width: 36px;
 	margin-right: 16px;
 	box-shadow: rgba(0,0,0,.1) 0px 10px 40px;
+	-webkit-animation: spin 40s infinite linear;
+	animation: spin 40s infinite linear;
+	moz-animation: spin 40s infinite linear;
+}
+.co-logo.large-logo {
+	width: 100px;
+	height: 100px;
+	margin-right: 0;
+	-webkit-animation: spin 50s infinite linear;
+	animation: spin 50s infinite linear;
+	moz-animation: spin 50s infinite linear;
 }
 .org-selector {
 	width: 250px;
@@ -57,7 +102,8 @@ textarea {
 }
 .thread-area {
     position: absolute;
-    box-shadow: rgba(0,0,0,.1) 10px 0px 150px;
+    border: 20px solid #F9F3FB;
+    /*box-shadow: rgba(0,0,0,.1) 10px 0px 150px;*/
     z-index: 10;
     overflow-x: hidden;
     width: auto;
@@ -86,7 +132,6 @@ textarea {
 }
 
 .co-type-org {
-	font-family: 'Doppio One', sans-serif;
     font-size: 22px;
     font-weight: 500;
 }
@@ -137,6 +182,9 @@ p {
 }
 .co-type-bold {
 	font-weight: bold;
+}
+.co-type-normal {
+	font-weight: normal;
 }
 .color--gray {
 	color: #999999;
@@ -362,6 +410,13 @@ p {
 .co-type-h1 {
 	/*font-family: 'Doppio One', sans-serif;*/
     font-size: 25px;
+}
+.co-type-logotype {
+	font-size: 44px;
+	font-weight: bold;
+}
+.co-type-tagline {
+	font-size: 20px;
 }
 .threadlist {
 	margin-left: 0px;

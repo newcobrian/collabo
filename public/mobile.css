@@ -337,9 +337,10 @@ margin: 0;
 
 
 
-
+.org-block {
+  flex-basis: 100%;
+}
 .home-page.page-common {
-  margin: 40px auto 0px;
 }
 .search-wrapper.page-top-search {
   margin-right: 0;
