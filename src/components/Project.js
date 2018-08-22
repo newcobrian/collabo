@@ -193,22 +193,20 @@ class Project extends React.Component {
                 
               <div className="threadlist-wrapper flx flx-col flx-align-start w-100">
 
-
-                <ThreadList
-                                    threads={this.props.threads} 
-                                    authenticated={this.props.authenticated}
-                                    orgName={this.props.params.orgname}
-                                    emptyThreadFeed={this.props.emptyThreadFeed}
-                                    projectNotFoundError={this.props.projectNotFoundError}
-                                    className={"w-100"} />
-
-                                    
                 <InfiniteScroll
-                  pageStart={0}
-                  loadMore={this.scrolledToBottom}
-                  hasMore={true}
-                  loader={<div className="loader" key={0}>Loading ...</div>} >
-                  
+                    pageStart={0}
+                    loadMore={this.scrolledToBottom}
+                    hasMore={true}
+                    loader={<div className="loader" key={0}>Loading ...</div>} >
+
+                    <ThreadList
+                      threads={this.props.threads} 
+                      authenticated={this.props.authenticated}
+                      orgName={this.props.params.orgname}
+                      emptyThreadFeed={this.props.emptyThreadFeed}
+                      projectNotFoundError={this.props.projectNotFoundError}
+                      className={"w-100"} />
+                    
 
                 </InfiniteScroll>
 
