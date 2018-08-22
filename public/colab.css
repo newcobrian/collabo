@@ -266,7 +266,7 @@ p {
 
 .tip__caption {
 	height: 19px;
-    width: 80%;
+    width: 300px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
