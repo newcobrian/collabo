@@ -46,11 +46,13 @@ class Home extends React.Component {
   }
 
   componentWillMount() {
-    // this.props.loadOrganizationList(this.props.authenticated)
+    this.props.loadOrganizationList(this.props.authenticated)
+    this.props.setSidebar(false)
   } 
 
   componentWillUnmount() {
-    // this.props.unloadOrganizationList(this.props.authenticated)
+    this.props.unloadOrganizationList(this.props.authenticated)
+    this.props.setSidebar(true)
   }
 
   onPrevClick = ev => {
