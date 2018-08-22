@@ -65,9 +65,9 @@ class ProjectList extends React.Component {
 
 
         <div className="org-row flx flx-row flx-align-center">
-          <div className="co-logo flx-hold">
+          <Link to='/'  className="co-logo flx-hold">
             <img className="center-img" src="/img/logo_temp.png"/>
-          </div>
+          </Link>
           <select className="org-selector co-type-org color--black" onChange={this.onOrgChange}>
             <option value={orgName}>{orgName}</option>
             {(this.props.orgList || []).map((orgItem, index) => {

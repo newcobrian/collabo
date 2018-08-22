@@ -343,8 +343,8 @@ p {
 .project-header {
     padding: 0 0 10px 0;
     position: fixed;
-    background: white;
-    z-index: 10;
+    background: rgba(255,255,255,.98);
+    z-index: 11;
     /*box-shadow: white 0 30px 40px;*/
     top: 0;
     right: 0;
@@ -352,6 +352,7 @@ p {
     width: auto;
     border-bottom: 1px solid rgba(1,25,70,0);
     box-shadow: rgba(0,0,0,.05) 0 -10px 70px;
+    border-bottom: 5px rgba(0,0,0,.02) solid;
 }
 .open-style .project-header {
 	left: 268px;

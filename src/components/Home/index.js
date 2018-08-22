@@ -17,7 +17,7 @@ const OrgList = props => {
         {
           props.orgList.map((orgItem, index) => {
             return (
-              <Link to={'/' + orgItem.name} className="org-block flx flx-col flx-center-all bx-shadow" key={index}>
+              <Link target="blank" to={'/' + orgItem.name} className="org-block flx flx-col flx-center-all bx-shadow" key={index}>
                 <div className="org-logo mrgn-bottom-md">
                 </div>
                 <div className="co-type-org">{orgItem.name}</div>
@@ -134,7 +134,7 @@ class Home extends React.Component {
 
             <OrgList
               orgList={this.props.orgList} />
-              <Link to='/neworg' className="org-block flx flx-col flx-center-all bx-shadow">
+              <Link target="blank" to='/neworg' className="org-block flx flx-col flx-center-all bx-shadow">
                 <div className="org-logo mrgn-bottom-md fill--white flx flx-col flx-center-all">
                   <i className="material-icons color--black md-48 opa-20">add</i>
                 </div>
