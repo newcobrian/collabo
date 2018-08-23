@@ -9,7 +9,7 @@ const defaultState = {
   token: null,
   authRedirect: '',
   orgList: [],
-  organization: {}
+  organization: {},
 };
 
 export default (state = defaultState, action) => {
@@ -155,6 +155,26 @@ export default (state = defaultState, action) => {
         ...state,
         redirectTo: action.redirect
       };
+    case ActionTypes.LOAD_SIDEBAR:
+      return {
+        ...state,
+        sidebarOpen: action.mql.matches
+      }
+    case ActionTypes.SET_SIDEBAR_OPEN:
+      return {
+        ...state,
+        sidebarOpen: true
+      }
+    case ActionTypes.SET_SIDEBAR:
+      return {
+        ...state,
+        sidebarOpen: action.sidebarOpen
+      }
+    case ActionTypes.ON_ALL_PROJECTS_CLICK:
+      return {
+        ...state,
+        redirectTo: '/' + action.orgName
+      }
     default: 
       return state;
   }

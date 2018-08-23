@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
 import ListErrors from './ListErrors';
+import OrgHeader from './OrgHeader';
+
 
 const mapStateToProps = state => ({
   ...state.orgInvite,
@@ -48,86 +50,60 @@ class OrgInvite extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<div className="flx flx-col flx-center-all page-common editor-page create-page">
-	{/**}			
-					<div>
-				        <Script
-				          url={url}
-				          onCreate={this.handleScriptCreate.bind(this)}
-				          onError={this.handleScriptError.bind(this)}
-				          onLoad={this.handleScriptLoad.bind(this)}
-				        /> 
-				    </div> 
-				    <div ref="GMap"></div>**/}
-					
 
-				    {/* CONTAINER - START */}
-			        <div className="hero-container fill--dark">
-			         	<div className="create-content flx flx-col flx-center-all ta-center">
-							
-							<div className="flx flx-col flx-center-all create-wrapper">
+				<div className="page-common flx flx-col flx-center-all">
+
+			    	<div className="project-header text-left flx flx-col flx-align-start w-100">
+				    	<OrgHeader />
+				    	{/* HEADER START */}
+				    	<div className="co-type-h1 mrgn-top-sm mrgn-left-md">Add a New Group</div>
+				    </div>
+
+					{/* FORM START */}
+		            <div className="content-wrapper header-push ta-left flx flx-col">
+			            <form>
+							<fieldset className="DN field-wrapper">
+								<label>Organization Name</label>
+		                      <input
+		                        className="input--underline edit-itinerary__name v2-type-body3"
+		                        type="text"
+		                        placeholder="Biz Co"
+		                        required
+		                        value={this.props.name}
+		                        maxLength="42"
+		                        onChange={this.changeName} />
+		                    </fieldset>
+
+		                    <fieldset className="field-wrapper">
+								<div className="field-label">Invite team members</div>
+		                      <textarea
+		                        className="input--underline v2-type-body3"
+		                        type="text"
+		                        rows="4"
+		                        maxLength="184"
+		                        placeholder="Add email addresses separated by commas..."
+		                        required
+		                        value={this.props.invites}
+		                        onChange={this.changeInvites} />
+		                    </fieldset>
+
+		                    <ListErrors errors={this.props.errors}></ListErrors>
+		                    
+		                    <div
+		                    className="vb vb--create w-100 mrgn-top-md fill--light-green"
+		                    type="button"
+		                    disabled={this.props.inProgress}
+		                    onClick={this.submitForm}>
+		                    	<div className="flx flx-row flx-center-all ta-center">
+			                    	<div className="flx-grow1 mrgn-left-md color--green">Send invites</div>
+								</div>
+		                  </div>
+				        </form>
+				    </div>
+					{/* FORM END */}
 						
-					            <div className="create-form-wrapper form-wrapper ta-left flx flx-col-left bx-shadow">
-						            
-						            <form>
-						            	<div className="v2-type-page-header mrgn-bottom-sm">Invite some team members</div>
-
-										<fieldset className="DN field-wrapper">
-											<label>Organization Name</label>
-					                      <input
-					                        className="input--underline edit-itinerary__name v2-type-body3"
-					                        type="text"
-					                        placeholder="Biz Co"
-					                        required
-					                        value={this.props.name}
-					                        maxLength="42"
-					                        onChange={this.changeName} />
-					                    </fieldset>
-
-					                    <fieldset className=" field-wrapper">
-											<label>Invite team members</label>
-					                      <textarea
-					                        className="input--underline v2-type-body3"
-					                        type="text"
-					                        rows="4"
-					                        maxLength="184"
-					                        placeholder="Add email addresses separated by commas..."
-					                        required
-					                        value={this.props.invites}
-					                        onChange={this.changeInvites} />
-					                    </fieldset>
-
-					                    <ListErrors errors={this.props.errors}></ListErrors>
-					                    
-					                    <div
-					                    className="vb vb--create w-100 mrgn-top-md color--white fill--primary"
-					                    type="button"
-					                    disabled={this.props.inProgress}
-					                    onClick={this.submitForm}>
-					                    	<div className="flx flx-row flx-center-all ta-center">
-						                    	<div className="flx-grow1 mrgn-left-md">Send invites</div>
-											</div>
-					                  </div>
-							        </form>
-							    </div>
-						    </div>
-
-						
-
-					  	</div>
-					  	
-
-						
-
-					</div>	
-					{/* END CONTAINER */}
-					
-
-			    </div>
+				</div>	
 			    
-
-			</div>
 
 
 		)

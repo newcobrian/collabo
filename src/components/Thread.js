@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
 import * as Helpers from '../helpers';
-import ItineraryList from './ItineraryList'; 
 import { Link, browserHistory } from 'react-router';
 import FirebaseSearchInput from './FirebaseSearchInput';
 import UniversalSearchBar from './UniversalSearchBar';
@@ -20,6 +19,7 @@ import { convertToRaw, convertFromRaw } from 'draft-js';
 import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import draftToHtml from 'draftjs-to-html';
 import LoggedOutMessage from './LoggedOutMessage';
+import OrgHeader from './OrgHeader';
 
 var linkify = require('linkify-it')();
 
@@ -160,7 +160,7 @@ class Thread extends React.Component {
 
   componentWillMount() {
     this.props.loadOrg(this.props.authenticated, this.props.params.orgname, Constants.THREAD_PAGE);
-    this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, Constants.THREAD_PAGE)
+    this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, this.props.params.pid, Constants.THREAD_PAGE)
     this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
     this.props.loadOrgList(this.props.authenticated, Constants.THREAD_PAGE)
     this.props.loadOrgUsers(this.props.authenticated, this.props.params.orgname, Constants.THREAD_PAGE)
@@ -199,7 +199,7 @@ class Thread extends React.Component {
       this.props.unwatchThreadComments(this.props.params.tid);
 
       this.props.loadOrg(this.props.authenticated, nextProps.params.orgname, Constants.THREAD_PAGE);
-      this.props.loadProjectList(this.props.authenticated, nextProps.params.orgname, Constants.THREAD_PAGE)
+      this.props.loadProjectList(this.props.authenticated, nextProps.params.orgname, this.props.params.pid, Constants.THREAD_PAGE)
       this.props.loadThreadCounts(this.props.authenticated, nextProps.params.orgname)
       this.props.loadThread(nextProps.params.tid);
       this.props.watchThreadComments(nextProps.props.params.tid);
@@ -268,13 +268,16 @@ class Thread extends React.Component {
         <div>
 
           <div className="page-common page-places flx flx-row flx-m-col flx-align-start">
+            <div className="project-header text-left flx flx-col flx-align-start w-100">
+              <OrgHeader />
+            </div>
             
-            <ProjectList 
+            {/*<ProjectList 
               threadCounts={this.props.threadCounts}
-              projectId={this.props.params.pid} />
+              projectId={this.props.params.pid} />*/}
 
 
-              <div className="thread-area flx flx-col w-100">
+              <div className="thread-area header-push-mini flx flx-col w-100">
 
               <div className={"page-title-wrapper left-text flx flx-col flx-align-start country-color-"}>
                  <div>
@@ -308,7 +311,7 @@ class Thread extends React.Component {
                     <DisplayTimestamp timestamp={thread.lastModified} />
                   </div>
                 </div>
-                <div className="v2-type-body2 opa-60 w-100 mrgn-top-sm">
+                <div className="v2-type-body2 opa-90 w-100 mrgn-top-sm">
                   <BodySection
                     bodyText={this.props.bodyText}
                     updateText={this.updateText}

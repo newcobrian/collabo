@@ -145,9 +145,7 @@ export const UPDATE_GOOGLE_DOCS_PAGE_TOKEN = 'UPDATE_GOOGLE_DOCS_PAGE_TOKEN'
 
 export * from './authActions';
 export * from './itineraryActions';
-export * from './homepageActions';
 export * from './inboxActions';
-export * from './reviewActions';
 export * from './modalActions';
 export * from './loggingActions';
 export * from './profileActions';

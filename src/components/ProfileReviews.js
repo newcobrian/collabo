@@ -4,10 +4,8 @@ import { connect } from 'react-redux';
 import Firebase from 'firebase';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
-import ItineraryList from './ItineraryList';
 import FollowUserButton from './FollowUserButton';
 import ProfileInfo from './ProfileInfo';
-import ReviewList from './ReviewList';
 
 const LogoutButton = props => {
   if (props.isUser && props.authenticated) {
@@ -246,21 +244,7 @@ class Profile extends React.Component {
           </div>
           <div className="flx flx-row flx-just-center w-100">
        
-            {/*<ItineraryList
-              itineraries={this.props.itineraries} 
-              authenticated={this.props.authenticated} 
-              deleteItinerary={this.props.showDeleteModal}
-
-              currentPage={this.props.currentPage}
-              updateRating={this.props.onUpdateRating}
-              onSetPage={this.onSetPage}
-              deleteReview={this.props.onDeleteReview}
-              showModal={this.props.showModal} />
-            */}
-            <ReviewList
-              reviewList={this.props.reviews}
-              authenticated={this.props.authenticated}
-              />
+            
           </div>
         </div>
       );

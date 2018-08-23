@@ -1,6 +1,6 @@
 export const SUBJECT_SEARCH_URL = 'https://myviews.io/search?q='
 export const VIEWS_URL = 'http://myviews.io'
-export const COLLABO_URL = 'https://collabo-bc9b2.firebaseapp.com'
+export const COLLABO_URL = 'https://joinkoi.com'
 // export const SUBJECT_SEARCH_URL = 'https://localhost:8000/search?q='
 
 export const INBOX_SEND_EMAIL_URL = 'https://myviews.io/mail/send'
@@ -30,6 +30,7 @@ export const TMDB_IMAGES_PATH = 'http://image.tmdb.org/t/p/original/'
 /*** Search Types ***/
 export const PEOPLE_SEARCH = 'PEOPLE_SEARCH'
 export const GEO_SEARCH = 'GEO_SEARCH'
+export const POSTS_SEARCH = 'POSTS_SEARCH'
 
 /*** Firebase Paths ***/
 export const USERS_PATH = '/users'

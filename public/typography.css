@@ -15,7 +15,6 @@ body a {
   transition-property: none;
   -webkit-transition: none;
   transition: none;
-  font-weight: 500;
 }
 body a: hover {
   opacity: .9;
@@ -177,10 +176,10 @@ textarea {
 .v2-type-page-header {
 }
 .v2-type-h3 {
-    font-size: 24px;
+    font-size: 36px;
     letter-spacing: 0;
     font-weight: 500;
-    line-height: 30px;
+    line-height: 52px;
     text-transform: none;
 }
 .v2-type-h4 {

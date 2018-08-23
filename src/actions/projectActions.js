@@ -120,7 +120,21 @@ export function onAddThread(auth, projectId, thread, orgName) {
           // Helpers.sendCollaboUpdateNotifs(auth, Constants.NEW_THREAD_MESSAGE, org ,project, Object.assign({}, thread, {threadId: threadId}, null))
 
           // // update Algolia index
-          // Helpers.updateAlgloiaGeosIndex(itinerary.geo)
+          Firebase.database().ref(Constants.USERS_PATH + '/' + auth).once('value', userSnap => {
+            let algoliaObject = Object.assign({}, 
+              { orgName: orgName },
+              { title: thread.title },
+              { body: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(thread.body)) },
+              { projectName: projectSnapshot.val().name },
+              { username: userSnap.val().username },
+              { userId: auth },
+              { comments: [] },
+              { createdOn: new Date().getTime() },
+              { projectId: projectId }
+              )
+
+            Helpers.updateAlgoliaIndex(threadId, algoliaObject);
+          })
 
           // mixpanel.people.increment("total itineraries");
           // mixpanel.people.set({ "last itinerary created": (new Date()).toISOString() });
@@ -174,6 +188,8 @@ export function onDeleteThread(auth, threadId, thread, orgName) {
 
         Firebase.database().ref().update(updates);
 
+        Helpers.deleteAlgoliaObject(threadId)
+
         dispatch({
           type: ActionTypes.THREAD_DELETED,
           redirect: '/' + orgName + '/' + thread.projectId,
@@ -198,7 +214,8 @@ export function loadProject(projectId) {
       if (projectSnapshot.exists()) {
         dispatch({
           type: ActionTypes.LOAD_PROJECT,
-          project: projectSnapshot.val()
+          project: projectSnapshot.val(),
+          projectId: projectId
         })
       }
       else {
@@ -306,9 +323,16 @@ function threadRemovedAction(threadId, source) {
 //   }
 // }
 
-export function loadProjectList(auth, orgName, source) {
-  let lowercaseName = orgName.toLowerCase()
+export function loadProjectList(auth, orgName, projectId, source) {
   return dispatch => {
+    let lowercaseName = orgName.toLowerCase()
+
+    dispatch({
+      type: ActionTypes.LOAD_PROJECT_LIST,
+      projectId: projectId,
+      source: source
+    })
+
     // Firebase.database().ref(Constants.PROJECTS_BY_USER_PATH + '/' + auth).on('child_added', snap => {
     Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + lowercaseName).on('child_added', snap => {
       dispatch({
@@ -458,6 +482,9 @@ export function updateThreadField(auth, threadId, thread, orgName, field, value)
         let org = Object.assign({}, {name: orgName})
         let project = Object.assign({}, {projectId: thread.projectId})
         Helpers.findThreadMentions(auth, value, org, project, Object.assign({}, thread, {threadId: threadId}))
+
+        let algoliaObject = Object.assign({}, {body: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(value)) })
+        Helpers.updateAlgoliaIndex(threadId, algoliaObject);
       }
 
       dispatch({
@@ -1280,5 +1307,41 @@ function activityRemovedAction(activityId, source) {
     type: ActionTypes.ACTIVITY_REMOVED_ACTION,
     activityId,
     source
+  }
+}
+
+export function loadSidebar(mql) {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.LOAD_SIDEBAR,
+      mql: mql
+    })
+  }
+}
+
+export function setSidebarOpen() {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.SET_SIDEBAR_OPEN,
+      open: true,
+    })
+  }
+}
+
+export function setSidebar(mql) {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.SET_SIDEBAR,
+      sidebarOpen: mql
+    })
+  }
+}
+
+export function onAllProjectsClick(orgName) {
+  return dispatch => {
+    dispatch ({
+      type: ActionTypes.ON_ALL_PROJECTS_CLICK,
+      orgName: orgName
+    })
   }
 }

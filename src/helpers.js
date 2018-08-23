@@ -69,8 +69,31 @@ export function updateAlgoliaGeosIndex(geo) {
 	});
 }
 
-export function updateAlgoliaIndex() {
+export function updateAlgoliaIndex(objectID, object) {
+	const algoliasearch = require('algoliasearch');
+	const client = algoliasearch('NFI90PSOIY', '2bbae42da8376a35748f4817449e0b23', {protocol:'https:'});
+	const index = client.initIndex('posts');
 
+	Object.assign(object, {objectID: objectID}, {lastModified: new Date().getTime()})
+
+	index.partialUpdateObject(
+	  object
+	, function(err, content) {
+	  if (err) {
+	    console.error(err);
+	    return;
+	  }
+	});
+}
+
+export function deleteAlgoliaObject(objectID) {
+	const algoliasearch = require('algoliasearch');
+	const client = algoliasearch('NFI90PSOIY', '2bbae42da8376a35748f4817449e0b23', {protocol:'https:'});
+	const index = client.initIndex('posts');
+	index.deleteObject(objectID, function(err, content) {
+	  // if (err) throw err;
+	  // console.log(content);
+	});
 }
 
 export function byPopularity(a, b) {
@@ -611,6 +634,7 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 		Firebase.database().ref(Constants.USERS_PATH + '/' + senderId).once('value', senderSnapshot => {
 			switch(messageType) {
 				case Constants.COMMENT_IN_THREAD_MESSAGE:
+					console.log('comment in thread case')
 					inboxObject.senderId = senderId;
 					inboxObject.message = ' commented in the thread: ' + thread.title;
 					inboxObject.link = '/' + org.name + '/' + project.projectId + '/' + thread.threadId;

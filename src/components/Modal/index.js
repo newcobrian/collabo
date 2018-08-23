@@ -4,7 +4,6 @@ import * as Actions from '../../actions';
 import * as Constants from '../../constants';
 import { FORWARD_MODAL, REVIEW_MODAL, SAVE_MODAL, DELETE_ITINERARY_MODAL } from '../../actions';
 import ForwardModal from './ForwardModal'
-import ReviewModal from './ReviewModal'
 import SaveModal from './SaveModal'
 import NewItineraryModal from './NewItineraryModal'
 import DeleteItineraryModal from './DeleteItineraryModal'
@@ -19,7 +18,6 @@ import DeleteModal from './DeleteModal'
 
 const MODAL_COMPONENTS = {
   FORWARD_MODAL: ForwardModal,
-  REVIEW_MODAL: ReviewModal,
   SAVE_MODAL: SaveModal,
   NEW_ITINERARY_MODAL: NewItineraryModal,
   DELETE_ITINERARY_MODAL: DeleteItineraryModal,

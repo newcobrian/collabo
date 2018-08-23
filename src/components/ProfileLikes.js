@@ -7,9 +7,6 @@ import * as Actions from '../actions';
 import * as Constants from '../constants';
 import FollowUserButton from './FollowUserButton'
 import ProfileInfo from './ProfileInfo';
-import FeedList from './FeedList';
-import ItineraryList from './ItineraryList';
-import TipList from './TipList';
 
 class ProfileLikes extends Profile {
   componentWillMount() {
@@ -209,24 +206,12 @@ class ProfileLikes extends Profile {
       if (!this.props.tipTabActive) {
         return (
           <div className="flx flx-row flx-just-center w-100">
-            <ItineraryList
-              itineraries={this.props.guideFeed} 
-              authenticated={this.props.authenticated} 
-              deleteItinerary={this.props.showDeleteModal} />
           </div>
         )
       }
       else {
         return (
           <div className="flx flx-row flx-just-center w-100">
-            <TipList
-              tipList={this.props.tipFeed} 
-              authenticated={this.props.authenticated}
-              userInfo={this.props.userInfo}
-              showModal={this.props.showModal}
-              deleteComment={this.props.onDeleteComment}
-              itineraryId={this.props.itineraryId}
-              itinerary={this.props.itinerary} />
           </div>
         )
       }
@@ -250,16 +235,6 @@ class ProfileLikes extends Profile {
         <div className="flx flx-row flx-just-center w-100">
      
           {renderLikes()}
-          {/*<FeedList
-            feed={this.props.feed} 
-            authenticated={this.props.authenticated} 
-            userInfo={this.props.userInfo}
-            like={this.props.likeReview} 
-            unLike={this.props.unLikeReview}
-            showModal={this.props.showModal}
-            deleteItinerary={this.props.showDeleteModal}
-            deleteComment={this.props.onDeleteComment}
-          />*/}
         </div>
       </div>
     )
