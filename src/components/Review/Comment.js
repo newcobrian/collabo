@@ -26,7 +26,7 @@ class Comment extends React.Component {
 
   render () {
     const { isOpenNotification } = this.state;
-    const { comment, authenticated } = this.props;
+    const { comment, authenticated, orgName, commentObject, deleteComment, threadId, type } = this.props;
     const show = authenticated && authenticated === comment.userId;
 
     let users = ['jordan', 'brian', '@jordan', '@brian']
@@ -35,7 +35,7 @@ class Comment extends React.Component {
       fn: (key, result) => {
         return (
           <span>
-          <Link className="color--primary" key={key} to={`/${props.orgName}/user/${result[1]}`}>@{result[1]}</Link>{result[2]}
+          <Link className="color--primary" key={key} to={`/${orgName}/user/${result[1]}`}>@{result[1]}</Link>{result[2]}
         </span>
         );
       }
@@ -86,11 +86,11 @@ class Comment extends React.Component {
                   </div>
                   <DeleteButton
                     show={show}
-                    commentObject={props.commentObject}
+                    commentObject={commentObject}
                     commentId={comment.id}
-                    deleteComment={props.deleteComment}
-                    threadId={props.threadId}
-                    type={props.type} />
+                    deleteComment={deleteComment}
+                    threadId={threadId}
+                    type={type} />
                 </div>
               </div>
 

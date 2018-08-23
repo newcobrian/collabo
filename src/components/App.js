@@ -52,28 +52,8 @@ class App extends React.Component {
     super(props);
 
     this.mediaQueryChanged = this.mediaQueryChanged.bind(this);
-    this.initGAPI = () => {
-      if (!window.gapi) {
-        setTimeout(this.initGAPI, 500);
-      } else {
-        window.gapi.load('client:auth2', () => {
-          window.gapi.client.init({
-            apiKey: GOOGLE_DRIVE_API_KEY,
-            clientId: GOOGLE_DRIVE_CLIENT_ID,
-            discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
-            scope: "https://www.googleapis.com/auth/drive"
-          }).then(() => {
-            // Listen for sign-in state changes.
-            window.gapi.auth2.getAuthInstance().isSignedIn.listen(this.updateSigninStatus);
-            // Handle the initial sign-in state.
-            this.updateSigninStatus(window.gapi.auth2.getAuthInstance().isSignedIn.get());
-          });
-        });
-      }
-    };
-    this.updateSigninStatus = (isSignedIn) => {
-      this.props.setGoogleAuthored(isSignedIn);
-    }
+    this.initGAPI = this.initGAPI.bind(this);
+    this.updateSigninStatus = this.updateSigninStatus.bind(this);
   }
 
   componentWillMount() {
@@ -124,6 +104,30 @@ class App extends React.Component {
 
   mediaQueryChanged() {
     this.props.setSidebar(mql.matches);
+  }
+
+  initGAPI() {
+    if (!window.gapi) {
+      setTimeout(this.initGAPI, 500);
+    } else {
+      window.gapi.load('client:auth2', () => {
+        window.gapi.client.init({
+          apiKey: GOOGLE_DRIVE_API_KEY,
+          clientId: GOOGLE_DRIVE_CLIENT_ID,
+          discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
+          scope: "https://www.googleapis.com/auth/drive"
+        }).then(() => {
+          // Listen for sign-in state changes.
+          window.gapi.auth2.getAuthInstance().isSignedIn.listen(this.updateSigninStatus);
+          // Handle the initial sign-in state.
+          this.updateSigninStatus(window.gapi.auth2.getAuthInstance().isSignedIn.get());
+        });
+      });
+    }
+  }
+
+  updateSigninStatus(isSignedIn) {
+    this.props.setGoogleAuthored(isSignedIn);
   }
 
   render() {

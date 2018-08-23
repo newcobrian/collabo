@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { firebaseConnect } from 'react-redux-firebase';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
 import * as Helpers from '../helpers';
@@ -28,6 +30,7 @@ const mapStateToProps = state => ({
   changes: state.review.changes,
   googleDocs: state.review.googleDocs,
   userInfo: state.common.userInfo,
+  updates: state.firebase.data.updates,
   authenticated: state.common.authenticated,
   invalidOrgUser: state.common.invalidOrgUser
 })
@@ -144,13 +147,41 @@ class Thread extends React.Component {
       this.props.showDeleteModal(this.props.params.tid, this.props.thread, this.props.params.orgname, Constants.THREAD_PAGE)
     }
 
-    this.renderChanges = (changes, docs) => {
+    this.renderState = (update) => {
+      if (!update) {
+        return null;
+      }
+      let message = "";
+      const state = update.state;
+      const changed = update.changed;
+      if (changed && changed.indexOf("permissions") !== -1) {
+        message = "The permission of the file has been changed";
+      } else {
+        if (state === "add") {
+          message = "The file was created or shared";
+        } else if (state === "remove") {
+          message = "The file was deleted or unshared";
+        } else if (state === "update") {
+          message = "One or more properties (metadata) of the file have been updated";
+        } else if (state === "trash") {
+          message = "The file has been moved to the trash";
+        } else if (state === "untrash") {
+          message = "The file has been removed from the trash";
+        } else if (state === "change") {
+          message = "Content of the file has been changed";
+        }
+      }
+      return message ? <span> ({message})</span> : null;
+    }
+
+    this.renderChanges = (changes, docs, updates) => {
       if (changes && changes.length > 0) {
         return changes
           .filter((c) => docs[c.fileId])
           .map((c, i) => (
             <div key={i}>
               <img src={c.file.iconLink} /> '{c.file.name}' was modified at <DisplayTimestamp timestamp={c.file.modifiedTime} /> by {c.file.lastModifyingUser.displayName}
+              {updates && this.renderState(updates[c.fileId])}
             </div>
           ))
       }
@@ -324,7 +355,7 @@ class Thread extends React.Component {
                     usersList={this.props.usersList}
                       />
                 </div>
-                { this.renderChanges(this.props.changes, this.props.googleDocs) }
+                { this.renderChanges(this.props.changes, this.props.googleDocs, this.props.updates) }
               </div>
               
               <div className="itinerary__comments-module flx flx-col flx-align-start flx-just-start w-max-2" id='guidecommentcontainer' name='guidecommentcontainer'>
@@ -364,4 +395,9 @@ class Thread extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, Actions)(Thread);
+export default compose(
+  firebaseConnect([
+    "updates"
+  ]),
+  connect(mapStateToProps, Actions)
+)(Thread);

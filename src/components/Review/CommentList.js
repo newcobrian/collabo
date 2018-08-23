@@ -25,6 +25,7 @@ class CommentList extends React.Component {
   componentDidMount () {
     const { comments, isGoogleAuthored } = this.props;
     this.initGoogleDocsData(comments, isGoogleAuthored);
+    this.watchChanges(comments, isGoogleAuthored);
   }
 
   componentWillReceiveProps (nextProps) {
@@ -38,9 +39,8 @@ class CommentList extends React.Component {
     }
 
     if (!isEqual(comments, nextProps.comments) ||
-        (!isGoogleAuthored && nextProps.isGoogleAuthored) ||
-        (!isLoaded(updates) && isLoaded(nextProps.updates))) {
-        this.watchChanges(nextProps.comments, nextProps.updates, nextProps.isGoogleAuthored);
+        (!isGoogleAuthored && nextProps.isGoogleAuthored)) {
+        this.watchChanges(nextProps.comments, nextProps.isGoogleAuthored);
     }
     if (!isEqual(comments, nextProps.comments) ||
         (!token && nextProps.token) ||
@@ -96,12 +96,12 @@ class CommentList extends React.Component {
     })
   }
 
-  watchChanges (comments, updates, isGoogleAuthored) {
-    if (!isGoogleAuthored || !comments || !isLoaded(updates)) {
+  watchChanges (comments, isGoogleAuthored) {
+    if (!isGoogleAuthored || !comments) {
       return;
     }
     const fileIds = this.getFileIds(comments);
-    const newFileIds = uniq(fileIds).filter((id) => !updates && !updates[id]);
+    const newFileIds = uniq(fileIds);
     if (!newFileIds || newFileIds.length < 1) {
       return;
     }
