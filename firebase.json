@@ -15,6 +15,14 @@
     ],
     "rewrites": [
       {
+        "source": "/google48cc54664f2282f5.html",
+        "function": "verify"
+      },
+      {
+        "source": "/watchFile",
+        "function": "watchFile"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

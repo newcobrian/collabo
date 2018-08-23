@@ -1,7 +1,7 @@
 import { applyMiddleware, createStore, combineReducers, compose } from 'redux';
 import reduxThunk from 'redux-thunk';
 // import { promiseMiddleware, localStorageMiddleware } from './middleware';
-// import {reduxReactFirebase, firebaseStateReducer} from 'redux-react-firebase'
+import { reactReduxFirebase, firebaseReducer } from 'react-redux-firebase'
 import review from './reducers/review';
 import reviewList from './reducers/reviewList';
 import auth from './reducers/auth';
@@ -70,8 +70,8 @@ const reducer = combineReducers({
   // editForm: combineForms({
   //   editForm: initialItinerary
   // }, 'editForm')
-  form: formReducer
-  // firebase: firebaseStateReducer
+  form: formReducer,
+  firebase: firebaseReducer
 });
 
 // init mixpanel and pass mixpanel client to middleware 
@@ -120,9 +120,9 @@ Firebase.initializeApp(firebaseConfig);
 
 const mixpanelMiddleware = new MixpanelMiddleware(mixpanel)
 
-// const createStoreWithFirebase = compose(
-//     reduxReactFirebase(config),
-// )(createStore)
+const createStoreWithFirebase = compose(
+  reactReduxFirebase(Firebase, { userProfile: 'users' })
+)(createStore)
 
 // const middleware = applyMiddleware(promiseMiddleware, localStorageMiddleware);
 
@@ -130,7 +130,7 @@ const mixpanelMiddleware = new MixpanelMiddleware(mixpanel)
 // const store = createStoreWithFirebase(reducer, middleware);
 // const store = createStore(reducer, middleware);
 
-const store = createStore(
+const store = createStoreWithFirebase(
   reducer,
   // initialState,
   compose (

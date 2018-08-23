@@ -74,24 +74,20 @@ class GoogleDriveLink extends React.Component {
                   !googleDocs[id].meta.shared &&
                   <div>
                     <p>It looks like '{googleDocs[id].meta.name}' isn't viewable by everyone here. Use the options below if you'd like to change who has access to the file.</p>
-                    <div className='flx flx-row'>
-                      <div className='flx flx-row'>
-                        <select className="color--black" onChange={(e) => this.onSelectPermission(e, id)}>
-                          <option value="">Select a permission</option>
-                          {/* <option value="" disabled>--Share directly with the recipient--</option>
-                          <option value="user-reader">  and allow them to view</option>
-                          <option value="user-commenter">  and allow them to comment</option>
-                          <option value="user-writer">  and allow them to edit</option> */}
-                          <option value="" disabled>--Share to anyone with the link--</option>
-                          <option value="anyone-reader">  and allow them to view</option>
-                          <option value="anyone-commenter">  and allow them to comment</option>
-                          <option value="anyone-writer">  and allow them to edit</option>
-                        </select>
-                        <i className="material-icons org-arrow color--white md-18 flx-item-right">expand_more</i>
-                      </div>
-
+                    <div className='select-box'>
+                      <select className="color--black" onChange={(e) => this.onSelectPermission(e, id)}>
+                        <option value="">Select a permission</option>
+                        {/* <option value="" disabled>--Share directly with the recipient--</option>
+                        <option value="user-reader">  and allow them to view</option>
+                        <option value="user-commenter">  and allow them to comment</option>
+                        <option value="user-writer">  and allow them to edit</option> */}
+                        <option value="" disabled>--Share to anyone with the link--</option>
+                        <option value="anyone-reader">  and allow them to view</option>
+                        <option value="anyone-commenter">  and allow them to comment</option>
+                        <option value="anyone-writer">  and allow them to edit</option>
+                      </select>
+                      <i className="material-icons org-arrow flx-item-right">expand_more</i>
                     </div>
-                    
                   </div>
                 }
                 {
