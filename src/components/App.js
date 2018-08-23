@@ -117,7 +117,7 @@ class App extends React.Component {
                          },
                        overlay:
                          {
-                           backgroundColor: "rgba(255,255,255,1)"
+                           backgroundColor: "rgba(255,255,255,1)",
                          },
                        }}
             >

@@ -43,27 +43,35 @@ const BodySection = props => {
     //   </div>
     //   )
     return (
-      <div>
-        <Editor
-            editorState={props.bodyText}
-            wrapperClassName="demo-wrapper"
-            editorClassName="demo-editor"
-            onEditorStateChange={props.updateText}
-            mention={{
-              separator: ' ',
-              trigger: '@',
-              suggestions: props.usersList,
-            }}
-        />
-        <div><Link onClick={props.onEditClick(false)}>Cancel</Link></div>
-        <div><Link onClick={props.saveBody(props.thread)}>Save</Link></div>
+      <div className="flx flx-col">
+        <div className="w-100">
+          <Editor
+              editorState={props.bodyText}
+              wrapperClassName="demo-wrapper"
+              editorClassName="demo-editor"
+              onEditorStateChange={props.updateText}
+              mention={{
+                separator: ' ',
+                trigger: '@',
+                suggestions: props.usersList,
+              }}
+          />
+        </div>
+        <div className="w-100 flx flx-row mrgn-top-md w-auto flx-item-right">
+          <div className="w-auto co-type-label color--black mrgn-right-md">
+            <Link onClick={props.onEditClick(false)}>Cancel</Link>
+          </div>
+          <div className="w-auto co-type-label color--black">
+            <Link onClick={props.saveBody(props.thread)}>Save</Link>
+          </div>
+        </div>
       </div>
     )
   }
   else if (props.canModify) {
     return (
-      <div>
-        <div>
+      <div className="flx flx-col">
+        <div className="w-100">
           <Editor
             editorState={props.bodyText}
             wrapperClassName="demo-wrapper"
@@ -72,17 +80,20 @@ const BodySection = props => {
             toolbarHidden={true}
             ReadOnly={true}
           />
+        </div>
           {/*<textarea
             disabled
             value={draftToHtml(convertToRaw(props.bodyText.getCurrentContent()))}
           />>*/}
-          <div>
-            <Link onClick={props.onEditClick(true)}>Edit Post</Link>
+          <div className="w-100 flx flx-row mrgn-top-md w-auto flx-item-right">
+            <div className="w-auto co-type-label color--black mrgn-right-md">
+              <Link onClick={props.onEditClick(true)}>Edit Post</Link>
+            </div>
+            <div className="w-auto co-type-label color--black">
+              <Link onClick={props.onDeleteClick}>Delete Post</Link>
+            </div>
           </div>
-          <div>
-            <Link onClick={props.onDeleteClick}>Delete Post</Link>
-          </div>
-        </div>
+
       </div>
     )
   }
@@ -264,7 +275,7 @@ class Thread extends React.Component {
 
               <div className="thread-area header-push-mini flx flx-col w-100">
 
-              <div className={"page-title-wrapper left-text flx flx-col flx-align-start country-color-"}>
+              <div className={"thread-body left-text flx flx-col flx-align-start country-color-"}>
                  <div>
               <Link to={'/' + this.props.params.orgname + '/' + this.props.thread.projectId} activeClassName="active" className="nav-module create nav-editor flx flx-center-all">
                 <div className="nav-text flx flx-row flx-align-center opa-60 mrgn-bottom-md">
@@ -311,22 +322,24 @@ class Thread extends React.Component {
                 </div>
               </div>
 
-              <div className="itinerary__comments-module flx flx-col flx-align-start flx-just-start w-max-2" id='guidecommentcontainer' name='guidecommentcontainer'>
-                <div className="co-type-h5 mrgn-bottom-sm mrgn-top-sm ta-left w-100">
+              <div className="comments-area flx flx-col flx-align-start flx-just-start" id='guidecommentcontainer' name='guidecommentcontainer'>
+                <div className="co-type-h5 mrgn-bottom-sm mrgn-top-sm ta-left w-100 DN">
                   Comment
                 </div>
-                <CommentContainer
-                  authenticated={this.props.authenticated}
-                  userInfo={this.props.userInfo}
-                  comments={this.props.comments || {}}
-                  errors={this.props.commentErrors}
-                  commentObject={thread}
-                  threadId={this.props.params.tid}
-                  project={this.props.project}
-                  orgName={this.props.params.orgname}
-                  usersList={this.props.usersList}
-                  deleteComment={this.props.onDeleteThreadComment} />
-              
+                <div className="co-thread-reply-wrapper">
+                  <CommentContainer
+                    authenticated={this.props.authenticated}
+                    userInfo={this.props.userInfo}
+                    comments={this.props.comments || {}}
+                    placeHolder={"Hello"}
+                    errors={this.props.commentErrors}
+                    commentObject={thread}
+                    threadId={this.props.params.tid}
+                    project={this.props.project}
+                    orgName={this.props.params.orgname}
+                    usersList={this.props.usersList}
+                    deleteComment={this.props.onDeleteThreadComment} />
+                </div>
               {/*<div className="feed-wrapper">
                 <ItineraryList
                 itineraries={this.props.feed} 
