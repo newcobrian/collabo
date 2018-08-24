@@ -98,7 +98,7 @@ class App extends React.Component {
     }
   }
 
-  componetWillUnmount() {
+  componentWillUnmount() {
     this.props.mql.removeListener(this.mediaQueryChanged)
   }
 
