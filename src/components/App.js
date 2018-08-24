@@ -4,6 +4,7 @@ import agent from '../agent';
 import { connect } from 'react-redux';
 import Firebase from 'firebase';
 import * as Actions from '../actions';
+import { GOOGLE_DRIVE_API_KEY, GOOGLE_DRIVE_CLIENT_ID } from '../constants';
 import mixpanel from 'mixpanel-browser';
 import RootModal from './Modal';
 import SnackbarToaster from './SnackbarToaster';
@@ -47,10 +48,12 @@ const mapStateToProps = state => ({
 // };
 
 class App extends React.Component {
-  constructor() {
-    super()
+  constructor (props) {
+    super(props);
 
     this.mediaQueryChanged = this.mediaQueryChanged.bind(this);
+    this.initGAPI = this.initGAPI.bind(this);
+    this.updateSigninStatus = this.updateSigninStatus.bind(this);
   }
 
   componentWillMount() {
@@ -84,6 +87,8 @@ class App extends React.Component {
         this.props.onLoad(null, false);
       }
     });
+
+    this.initGAPI();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -99,6 +104,30 @@ class App extends React.Component {
 
   mediaQueryChanged() {
     this.props.setSidebar(mql.matches);
+  }
+
+  initGAPI() {
+    if (!window.gapi) {
+      setTimeout(this.initGAPI, 500);
+    } else {
+      window.gapi.load('client:auth2', () => {
+        window.gapi.client.init({
+          apiKey: GOOGLE_DRIVE_API_KEY,
+          clientId: GOOGLE_DRIVE_CLIENT_ID,
+          discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
+          scope: "https://www.googleapis.com/auth/drive"
+        }).then(() => {
+          // Listen for sign-in state changes.
+          window.gapi.auth2.getAuthInstance().isSignedIn.listen(this.updateSigninStatus);
+          // Handle the initial sign-in state.
+          this.updateSigninStatus(window.gapi.auth2.getAuthInstance().isSignedIn.get());
+        });
+      });
+    }
+  }
+
+  updateSigninStatus(isSignedIn) {
+    this.props.setGoogleAuthored(isSignedIn);
   }
 
   render() {
@@ -125,9 +154,9 @@ class App extends React.Component {
               {this.props.children}
             </div>
 
-            <SnackbarToaster 
+            <SnackbarToaster
               {...this.props.snackbarToaster}
-              duration={4000} 
+              duration={4000}
               onRequestClose={this.props.closeSnackbar} />
               <LightboxComponent/>
             <RootModal/>
@@ -137,7 +166,7 @@ class App extends React.Component {
     }
     return (
       <div>
-        
+
       </div>
     );
   }

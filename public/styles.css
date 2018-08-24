@@ -729,6 +729,9 @@ width: 32px;
   margin-left: 40px;
 }
 
+.pdding-none {
+  padding: 0px;
+}
 .pdding-all-sm {
   padding: 10px;
 }
@@ -1555,4 +1558,7 @@ padding: 20px;
 }
 .help--.help--subscribe {
   top: 50px;
+}
+.full-width {
+  width: 100%;
 }
