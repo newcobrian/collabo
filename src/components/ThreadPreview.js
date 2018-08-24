@@ -95,7 +95,7 @@ const ProjectLabel = props => {
     return null
   }
   else return (
-    <div className="flx-item-right co-project-name">{props.projectNames[props.projectId]}</div> 
+    <div className="flx-item-right co-project-name"><Link to={'/' + props.orgName + '/' + props.projectId}>{props.projectNames[props.projectId]}</Link></div> 
   )
 }
 
@@ -152,7 +152,7 @@ const ThreadPreview = props => {
                     <div className="thread-timestamp color--black">
                       <DisplayTimestamp timestamp={thread.lastModified} />
                     </div>
-                    <ProjectLabel projectNames={props.projectNames} projectId={thread.projectId} />
+                    <ProjectLabel projectNames={props.projectNames} projectId={thread.projectId} orgName={props.orgName} />
                   </div>
                     <div className="color--black co-post-title flx flx-row mrgn-bottom-xs">
                       <Link className="color--black" 
