@@ -51,6 +51,7 @@ class App extends React.Component {
     super()
 
     this.mediaQueryChanged = this.mediaQueryChanged.bind(this);
+
   }
 
   componentWillMount() {
@@ -93,7 +94,7 @@ class App extends React.Component {
     }
   }
 
-  componetWillUnmount() {
+  componentWillUnmount() {
     this.props.mql.removeListener(this.mediaQueryChanged)
   }
 
@@ -109,6 +110,8 @@ class App extends React.Component {
             sidebar={<ProjectList />}
             open={this.props.sidebarOpen}
             onSetOpen={this.props.setSidebarOpen}
+            touch={true}
+            overlayClassName={"sidebar-overlay"}
             styles={{ sidebar:
                          {
                            borderRight: "1px solid rgba(0,0,0,.1)",
