@@ -595,7 +595,7 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
 
       // then notify the original poster
       if (authenticated !== thread.userId && (sentArray.indexOf(thread.userId) === -1)) {
-        Helpers.sendCollaboInboxMessage(authenticated, thread.userId, Constants.COMMENT_IN_THREAD_MESSAGE, 
+        Helpers.sendCommentInboxMessage(authenticated, thread.userId, Constants.COMMENT_IN_THREAD_MESSAGE, 
           org, project, threadObject, Object.assign({commentId: commentId, message: body}));
         sentArray.push(thread.userId);
         // dispatch({
@@ -619,7 +619,7 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
           Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + username).once('value', usernameSnap => {
             if (usernameSnap.exists()) {
               if (usernameSnap.val().userId !== authenticated && sentArray.indexOf(usernameSnap.val().userId) === -1) {
-                Helpers.sendCollaboInboxMessage(authenticated, usernameSnap.val().userId, Constants.COMMENT_MENTION_MESSAGE, org, project, threadObject, Object.assign({}, {commentId: commentId}, {message: body}))
+                Helpers.sendCommentInboxMessage(authenticated, usernameSnap.val().userId, Constants.COMMENT_MENTION_MESSAGE, org, project, threadObject, Object.assign({}, {commentId: commentId}, {message: body}))
                 sentArray.push(usernameSnap.val().userId);
               }
             }
@@ -633,7 +633,7 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
             let commenterId = comment.val().userId;
             // if not commentor or in sent array, then send a message
             if (commenterId !== authenticated && (sentArray.indexOf(commenterId) === -1)) {
-              Helpers.sendCollaboInboxMessage(authenticated, commenterId, Constants.COMMENT_IN_THREAD_MESSAGE, org, project, threadObject, Object.assign({}, {commentId: commentId}, {message: body}));
+              Helpers.sendCommentInboxMessage(authenticated, commenterId, Constants.COMMENT_IN_THREAD_MESSAGE, org, project, threadObject, Object.assign({}, {commentId: commentId}, {message: body}));
               sentArray.push(commenterId);
               // dispatch({
               //   type: MIXPANEL_EVENT,
