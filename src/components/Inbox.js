@@ -8,7 +8,9 @@ import ProxyImage from './ProxyImage';
 import DisplayTimestamp from './DisplayTimestamp';
 import ProjectList from './ProjectList';
 import OrgHeader from './OrgHeader';
+import Sidebar from 'react-sidebar';
 
+const mql = window.matchMedia(`(min-width: 800px)`);
 
 const RightPic = props => {
   if (props.image) {
@@ -62,20 +64,21 @@ const RenderUsername = props => {
 
 const mapStateToProps = state => ({
   ...state.inbox,
-  authenticated: state.common.authenticated
+  authenticated: state.common.authenticated,
+  sidebarOpen: state.common.sidebarOpen
 });
 
 class Inbox extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
+    this.props.loadSidebar(mql);
+    mql.addListener(this.mediaQueryChanged);
+
     this.props.loadOrg(this.props.authenticated, this.props.params.orgname, Constants.INBOX_PAGE);
     this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, Constants.INBOX_PAGE)
     this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
     this.props.loadOrgList(this.props.authenticated, Constants.INBOX_PAGE)
     this.props.getInbox(this.props.authenticated, null);
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'inbox'});
-  }
-
-  componentDidMount() {
     this.props.updateInboxCount(this.props.authenticated);
   }
 
@@ -115,47 +118,68 @@ class Inbox extends React.Component {
       );
     }
     return (
-      <div className="page-common flx flx-col flx-center-all ">
-        <div className="project-header text-left flx flx-col flx-align-start w-100">
-          <OrgHeader />
-          {/* HEADER START */}
-          <div className="co-type-h1 mrgn-top-sm mrgn-left-md">Activity</div>
-        </div>
-        {/* CONTAINER - START */}
-          <div className="content-wrapper header-push flx flx-col ta-left">
+      <div>
+        <Sidebar
+            sidebar={<ProjectList />}
+            open={this.props.sidebarOpen}
+            onSetOpen={mql.matches ? this.props.setSidebarOpen : () => this.props.setSidebar(!this.props.sidebarOpen)}
+            styles={{ sidebar: {
+                  borderRight: "1px solid rgba(0,0,0,.1)",
+                  boxShadow: "none",
+                  zIndex: "100"
+                },
+                overlay: mql.matches ? {
+                  backgroundColor: "rgba(255,255,255,1)"
+                } : {
+                  zIndex: 12,
+                  backgroundColor: "rgba(0, 0, 0, 0.5)"
+                },
+              }}
+            >
+          <div className={this.props.sidebarOpen ? 'open-style' : 'closed-style'}>
+            <div className="page-common flx flx-col flx-center-all ">
+              <div className="project-header text-left flx flx-col flx-align-start w-100">
+                <OrgHeader />
+                {/* HEADER START */}
+                <div className="co-type-h1 mrgn-top-sm mrgn-left-md">Activity</div>
+              </div>
+              {/* CONTAINER - START */}
+                <div className="content-wrapper header-push flx flx-col ta-left">
 
 
-            {
-              this.props.inbox.map(inboxItem => {
-                // const isUser = this.props.currentUser &&
-                //   follower.userId === this.props.currentUser.uid;
-                  return (
-                    <Link className="flx flx-row flx-just-start brdr-bottom flx-align-center pdding-all-sm list-row" key={inboxItem.key} to={inboxItem.link}>
-                      <LeftSenderPic 
-                        senderId={inboxItem.senderId} 
-                        username={inboxItem.senderUsername} 
-                        image={inboxItem.senderImage}
-                        orgName={this.props.params.orgname} />
-                      <div className="flx flx-col mrgn-right-md">
-                        <div className="v2-type-body1 font--alpha">
-                          <strong><RenderUsername senderId={inboxItem.senderId} username={inboxItem.senderUsername} orgName={this.props.params.orgname} /></strong>
-                          {inboxItem.message}<Link to={inboxItem.link}><div className="color--primary inline">{inboxItem.reviewTitle}</div></Link>
-                           <div className="thread-timestamp font--alpha"><DisplayTimestamp timestamp={inboxItem.lastModified} /></div>
-                        </div>
-                      </div>
-                    </Link>
-                  )
-              })
-            }
-              <div className="w-100 flx flx-row flx-center-all mrgn-top-lg">
-              {!this.props.endOfInbox && <button className="vb vb--sm vb--outline-none fill--none" onClick={this.onLoadMoreClick}>
-                <div className="mobile-hide mrgn-right-sm">Load more messages</div>
-                <i className="material-icons color--primary md-32 DN">keyboard_arrow_right</i>
-              </button>}
+                  {
+                    this.props.inbox.map(inboxItem => {
+                      // const isUser = this.props.currentUser &&
+                      //   follower.userId === this.props.currentUser.uid;
+                        return (
+                          <Link className="flx flx-row flx-just-start brdr-bottom flx-align-center pdding-all-sm list-row" key={inboxItem.key} to={inboxItem.link}>
+                            <LeftSenderPic 
+                              senderId={inboxItem.senderId} 
+                              username={inboxItem.senderUsername} 
+                              image={inboxItem.senderImage}
+                              orgName={this.props.params.orgname} />
+                            <div className="flx flx-col mrgn-right-md">
+                              <div className="v2-type-body1 font--alpha">
+                                <strong><RenderUsername senderId={inboxItem.senderId} username={inboxItem.senderUsername} orgName={this.props.params.orgname} /></strong>
+                                {inboxItem.message}<Link to={inboxItem.link}><div className="color--primary inline">{inboxItem.reviewTitle}</div></Link>
+                                 <div className="thread-timestamp font--alpha"><DisplayTimestamp timestamp={inboxItem.lastModified} /></div>
+                              </div>
+                            </div>
+                          </Link>
+                        )
+                    })
+                  }
+                    <div className="w-100 flx flx-row flx-center-all mrgn-top-lg">
+                    {!this.props.endOfInbox && <button className="vb vb--sm vb--outline-none fill--none" onClick={this.onLoadMoreClick}>
+                      <div className="mobile-hide mrgn-right-sm">Load more messages</div>
+                      <i className="material-icons color--primary md-32 DN">keyboard_arrow_right</i>
+                    </button>}
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
+          </Sidebar>
         </div>
-        
 
     );
   }
