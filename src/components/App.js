@@ -137,18 +137,19 @@ class App extends React.Component {
            <Sidebar
             sidebar={<ProjectList />}
             open={this.props.sidebarOpen}
-            onSetOpen={this.props.setSidebarOpen}
-            styles={{ sidebar:
-                         {
-                           borderRight: "1px solid rgba(0,0,0,.1)",
-                           boxShadow: "none",
-                           zIndex: "100"
-                         },
-                       overlay:
-                         {
-                           backgroundColor: "rgba(255,255,255,1)"
-                         },
-                       }}
+            onSetOpen={mql.matches ? this.props.setSidebarOpen : () => this.props.setSidebar(!this.props.sidebarOpen)}
+            styles={{ sidebar: {
+                        borderRight: "1px solid rgba(0,0,0,.1)",
+                        boxShadow: "none",
+                        zIndex: "100"
+                      },
+                      overlay: mql.matches ? {
+                        backgroundColor: "rgba(255,255,255,1)"
+                      } : {
+                        zIndex: 12,
+                        backgroundColor: "rgba(0, 0, 0, 0.5)"
+                      },
+                    }}
             >
             <div className={this.props.sidebarOpen ? 'open-style' : 'closed-style'}>
               {this.props.children}

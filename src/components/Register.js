@@ -50,6 +50,10 @@ class Register extends React.Component {
       this.props.signUpUser(username.toLowerCase(), email.toLowerCase(), password, firstName, lastName, this.props.authRedirect);
     }
   }
+  
+  componentDidMount () {
+    this.props.setSidebar(false);
+  }
 
   componentWillMount() {
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'register'});
