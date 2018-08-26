@@ -10,6 +10,9 @@ import ActivityList from './ActivityList';
 import ProjectList from './ProjectList';
 import InfiniteScroll from 'react-infinite-scroller';
 import OrgHeader from './OrgHeader';
+import Sidebar from 'react-sidebar';
+
+const mql = window.matchMedia(`(min-width: 800px)`);
 
 const EditProfileSettings = props => {
   if (props.isUser) {
@@ -59,7 +62,8 @@ const mapStateToProps = state => ({
   ...state.profile,
   currentUser: state.common.currentUser,
   authenticated: state.common.authenticated,
-  userInfo: state.common.userInfo
+  userInfo: state.common.userInfo,
+  sidebarOpen: state.common.sidebarOpen
 });
 
 // const mapDispatchToProps = dispatch => ({
@@ -117,6 +121,10 @@ class Profile extends React.Component {
       }
       Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + username).off();
     }
+
+    this.mediaQueryChanged = () => {
+      this.props.setSidebar(mql.matches);
+    }
   }
 
   componentWillMount() {
@@ -126,6 +134,11 @@ class Profile extends React.Component {
     this.props.loadOrgList(this.props.authenticated, Constants.PROFILE_PAGE)
     // look up userID from username and load profile
     this.loadUser(this.props.params.username)
+  }
+
+  componentDidMount() {
+    this.props.loadSidebar(mql);
+    mql.addListener(this.mediaQueryChanged);
   }
 
   componentWillUnmount() {
@@ -260,43 +273,63 @@ class Profile extends React.Component {
         this.props.profile.userId === this.props.currentUser.uid;
 
       return (
-        <div className="page-common flx flx-col profile-page">
-        
-          <div className="project-header text-left flx flx-col flx-align-start w-100">
-            <OrgHeader />
-            {/* HEADER START */}
-            <div className="flx flx-row flx-align-center mrgn-top-sm w-100">
-              <div className="co-type-h1 mrgn-left-md">{profile.username}</div>
-              <div className="flx-item-right flx flx-row flx-align-center">
-                <EditProfileSettings isUser={isUser} />
-                <SignOutButton isUser={isUser} signOut={this.props.signOut}/>
-              </div>
-            </div>
-          </div>
-
-          <div className="threadlist header-push ta-left flx flx-col">
-            <ProfileInfo
-              authenticated={this.props.authenticated}
-              profile={profile}
-              signOut={this.props.signOutUser}
-              follow={this.props.followUser}
-              unfollow={this.props.unfollowUser} />
-
-            <div className="flx flx-row flx-just-center w-100">
-
-            <InfiniteScroll
-                  pageStart={0}
-                  loadMore={this.scrolledToBottom}
-                  hasMore={true}
-                  loader={<div className="loader" key={0}>Loading ...</div>} >
+        <div>
+          <Sidebar
+            sidebar={<ProjectList />}
+            open={this.props.sidebarOpen}
+            onSetOpen={mql.matches ? this.props.setSidebarOpen : () => this.props.setSidebar(!this.props.sidebarOpen)}
+            styles={{ sidebar: {
+                  borderRight: "1px solid rgba(0,0,0,.1)",
+                  boxShadow: "none",
+                  zIndex: "100"
+                },
+                overlay: mql.matches ? {
+                  backgroundColor: "rgba(255,255,255,1)"
+                } : {
+                  zIndex: 12,
+                  backgroundColor: "rgba(0, 0, 0, 0.5)"
+                },
+              }}
+            >
+            <div className="page-common flx flx-col profile-page">
             
-              <ActivityList feed={this.props.feed} />
+              <div className="project-header text-left flx flx-col flx-align-start w-100">
+                <OrgHeader />
+                {/* HEADER START */}
+                <div className="flx flx-row flx-align-center mrgn-top-sm w-100">
+                  <div className="co-type-h1 mrgn-left-md">{profile.username}</div>
+                  <div className="flx-item-right flx flx-row flx-align-center">
+                    <EditProfileSettings isUser={isUser} />
+                    <SignOutButton isUser={isUser} signOut={this.props.signOut}/>
+                  </div>
+                </div>
+              </div>
 
-            </InfiniteScroll>
+              <div className="threadlist header-push ta-left flx flx-col">
+                <ProfileInfo
+                  authenticated={this.props.authenticated}
+                  profile={profile}
+                  signOut={this.props.signOutUser}
+                  follow={this.props.followUser}
+                  unfollow={this.props.unfollowUser} />
+
+                <div className="flx flx-row flx-just-center w-100">
+
+                <InfiniteScroll
+                      pageStart={0}
+                      loadMore={this.scrolledToBottom}
+                      hasMore={true}
+                      loader={<div className="loader" key={0}>Loading ...</div>} >
+                
+                  <ActivityList feed={this.props.feed} />
+
+                </InfiniteScroll>
+                  
+                </div>
+              </div>
               
             </div>
-          </div>
-          
+          </Sidebar>
         </div>
       );
     }

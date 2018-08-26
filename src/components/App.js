@@ -10,9 +10,6 @@ import RootModal from './Modal';
 import SnackbarToaster from './SnackbarToaster';
 import LightboxComponent from './LightboxComponent';
 import ProjectList from './ProjectList';
-import Sidebar from 'react-sidebar';
-
-const mql = window.matchMedia(`(min-width: 800px)`);
 
 const mapStateToProps = state => ({
   appLoaded: state.common.appLoaded,
@@ -22,9 +19,7 @@ const mapStateToProps = state => ({
   unreadMessages: state.common.unreadMessages,
   redirectTo: state.common.redirectTo,
   snackbarToaster: state.common.snackbarToaster,
-  orgName: state.organization.orgName,
-  sidebarDocked: state.common.sidebarDocked,
-  sidebarOpen: state.common.sidebarOpen
+  orgName: state.organization.orgName
 });
 
 // const mapDispatchToProps = dispatch => ({
@@ -51,7 +46,6 @@ class App extends React.Component {
   constructor (props) {
     super(props);
 
-    this.mediaQueryChanged = this.mediaQueryChanged.bind(this);
     this.initGAPI = this.initGAPI.bind(this);
     this.updateSigninStatus = this.updateSigninStatus.bind(this);
   }
@@ -61,9 +55,6 @@ class App extends React.Component {
     if (token) {
       agent.setToken(token);
     }
-
-    this.props.loadSidebar(mql);
-    mql.addListener(this.mediaQueryChanged);
 
     Firebase.auth().onAuthStateChanged(user => {
       if (user) {
@@ -102,10 +93,6 @@ class App extends React.Component {
     this.props.mql.removeListener(this.mediaQueryChanged)
   }
 
-  mediaQueryChanged() {
-    this.props.setSidebar(mql.matches);
-  }
-
   initGAPI() {
     if (!window.gapi) {
       setTimeout(this.initGAPI, 500);
@@ -134,34 +121,17 @@ class App extends React.Component {
     if (this.props.appLoaded) {
       return (
         <div>
-           <Sidebar
-            sidebar={<ProjectList />}
-            open={this.props.sidebarOpen}
-            onSetOpen={mql.matches ? this.props.setSidebarOpen : () => this.props.setSidebar(!this.props.sidebarOpen)}
-            styles={{ sidebar: {
-                        borderRight: "1px solid rgba(0,0,0,.1)",
-                        boxShadow: "none",
-                        zIndex: "100"
-                      },
-                      overlay: mql.matches ? {
-                        backgroundColor: "rgba(255,255,255,1)"
-                      } : {
-                        zIndex: 12,
-                        backgroundColor: "rgba(0, 0, 0, 0.5)"
-                      },
-                    }}
-            >
-            <div className={this.props.sidebarOpen ? 'open-style' : 'closed-style'}>
-              {this.props.children}
-            </div>
+           
+          <div className={this.props.sidebarOpen ? 'open-style' : 'closed-style'}>
+            {this.props.children}
+          </div>
 
-            <SnackbarToaster
-              {...this.props.snackbarToaster}
-              duration={4000}
-              onRequestClose={this.props.closeSnackbar} />
-              <LightboxComponent/>
-            <RootModal/>
-          </Sidebar>
+          <SnackbarToaster
+            {...this.props.snackbarToaster}
+            duration={4000}
+            onRequestClose={this.props.closeSnackbar} />
+            <LightboxComponent/>
+          <RootModal/>
         </div>
       );
     }

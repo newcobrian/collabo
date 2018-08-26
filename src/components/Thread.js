@@ -22,6 +22,9 @@ import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import draftToHtml from 'draftjs-to-html';
 import LoggedOutMessage from './LoggedOutMessage';
 import OrgHeader from './OrgHeader';
+import Sidebar from 'react-sidebar';
+
+const mql = window.matchMedia(`(min-width: 800px)`);
 
 var linkify = require('linkify-it')();
 
@@ -32,7 +35,8 @@ const mapStateToProps = state => ({
   userInfo: state.common.userInfo,
   updates: state.firebase.data.updates,
   authenticated: state.common.authenticated,
-  invalidOrgUser: state.common.invalidOrgUser
+  invalidOrgUser: state.common.invalidOrgUser,
+  sidebarOpen: state.common.sidebarOpen
 })
 
 const BodySection = props => {
@@ -198,6 +202,10 @@ class Thread extends React.Component {
       }
       return null;
     }
+
+    this.mediaQueryChanged = () => {
+      this.props.setSidebar(mql.matches);
+    }
   }
 
   componentWillMount() {
@@ -212,6 +220,9 @@ class Thread extends React.Component {
   }
 
   componentDidMount() {
+    this.props.loadSidebar(mql);
+    mql.addListener(this.mediaQueryChanged);
+
     this.props.markThreadRead(this.props.authenticated, this.props.params.tid)
   }
 
@@ -309,98 +320,117 @@ class Thread extends React.Component {
       return (
         <div>
 
-          <div className="page-common page-places flx flx-row flx-m-col flx-align-start">
-            <div className="project-header text-left flx flx-col flx-align-start w-100">
-              <OrgHeader />
-            </div>
-            
-            {/*<ProjectList 
-              threadCounts={this.props.threadCounts}
-              projectId={this.props.params.pid} />*/}
+          <Sidebar
+            sidebar={<ProjectList />}
+            open={this.props.sidebarOpen}
+            onSetOpen={mql.matches ? this.props.setSidebarOpen : () => this.props.setSidebar(!this.props.sidebarOpen)}
+            styles={{ sidebar: {
+                  borderRight: "1px solid rgba(0,0,0,.1)",
+                  boxShadow: "none",
+                  zIndex: "100"
+                },
+                overlay: mql.matches ? {
+                  backgroundColor: "rgba(255,255,255,1)"
+                } : {
+                  zIndex: 12,
+                  backgroundColor: "rgba(0, 0, 0, 0.5)"
+                },
+              }}
+            >
 
-
-              <div className="thread-area header-push-mini flx flx-col w-100">
-
-              <div className={"thread-body left-text flx flx-col flx-align-start country-color-"}>
-                 <div>
-              <Link to={'/' + this.props.params.orgname + '/' + this.props.thread.projectId} activeClassName="active" className="nav-module create nav-editor flx flx-center-all">
-                <div className="nav-text flx flx-row flx-align-center opa-60 mrgn-bottom-md">
-                    <i className="material-icons color--black md-18 opa-100 mrgn-right-xs">arrow_back_ios</i>
-                    <div className="co-type-body mrgn-left-xs">Back to group</div>
-                  </div>
-              </Link>
-            </div>
-                {/*<UniversalSearchBar />*/}
-
-
-                <div className="v2-type-h3 mrgn-bottom-sm">{thread.title}</div>
-                <div className="flx flx-row">
-                  <div className="v2-type-body1">Posted by {createdBy.username}
-                    <Link
-                      to={'/' + this.props.params.orgname + '/user/' + createdBy.username}
-                      className="show-in-list">
-                    <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm">
-                        <div className="tip__author-photo flx-hold mrgn-right-sm">
-                          <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
-                        </div> 
-                        <div className="color--black v2-type-body">
-                          {createdBy.username}
-                        </div>
-                    </div>
-                  </Link> 
-                  </div>
-                  <div className="v2-type-body1 opa-30 mrgn-left-md">Last updated: 
-                    <DisplayTimestamp timestamp={thread.lastModified} />
-                  </div>
-                </div>
-                <div className="v2-type-body2 opa-90 w-100 mrgn-top-sm">
-                  <BodySection
-                    bodyText={this.props.bodyText}
-                    updateText={this.updateText}
-                    canModify={canModify}
-                    thread={thread}
-                    saveBody={this.saveBody}
-                    onEditClick={this.onEditClick}
-                    onDeleteClick={this.onDeleteClick}
-                    isEditMode={this.props.isEditMode}
-                    usersList={this.props.usersList}
-                      />
-                </div>
-                { this.renderChanges(this.props.changes, this.props.googleDocs, this.props.updates) }
+            <div className="page-common page-places flx flx-row flx-m-col flx-align-start">
+              <div className="project-header text-left flx flx-col flx-align-start w-100">
+                <OrgHeader />
               </div>
               
-              <div className="itinerary__comments-module flx flx-col flx-align-start flx-just-start w-max-2" id='guidecommentcontainer' name='guidecommentcontainer'>
-                <div className="co-type-h5 mrgn-bottom-sm mrgn-top-sm ta-left w-100">
-                  Comment
+              {/*<ProjectList 
+                threadCounts={this.props.threadCounts}
+                projectId={this.props.params.pid} />*/}
+
+
+                <div className="thread-area header-push-mini flx flx-col w-100">
+
+                <div className={"thread-body left-text flx flx-col flx-align-start country-color-"}>
+                   <div>
+                <Link to={'/' + this.props.params.orgname + '/' + this.props.thread.projectId} activeClassName="active" className="nav-module create nav-editor flx flx-center-all">
+                  <div className="nav-text flx flx-row flx-align-center opa-60 mrgn-bottom-md">
+                      <i className="material-icons color--black md-18 opa-100 mrgn-right-xs">arrow_back_ios</i>
+                      <div className="co-type-body mrgn-left-xs">Back to group</div>
+                    </div>
+                </Link>
+              </div>
+                  {/*<UniversalSearchBar />*/}
+
+
+                  <div className="v2-type-h3 mrgn-bottom-sm">{thread.title}</div>
+                  <div className="flx flx-row">
+                    <div className="v2-type-body1">Posted by {createdBy.username}
+                      <Link
+                        to={'/' + this.props.params.orgname + '/user/' + createdBy.username}
+                        className="show-in-list">
+                      <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm">
+                          <div className="tip__author-photo flx-hold mrgn-right-sm">
+                            <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
+                          </div> 
+                          <div className="color--black v2-type-body">
+                            {createdBy.username}
+                          </div>
+                      </div>
+                    </Link> 
+                    </div>
+                    <div className="v2-type-body1 opa-30 mrgn-left-md">Last updated: 
+                      <DisplayTimestamp timestamp={thread.lastModified} />
+                    </div>
+                  </div>
+                  <div className="v2-type-body2 opa-90 w-100 mrgn-top-sm">
+                    <BodySection
+                      bodyText={this.props.bodyText}
+                      updateText={this.updateText}
+                      canModify={canModify}
+                      thread={thread}
+                      saveBody={this.saveBody}
+                      onEditClick={this.onEditClick}
+                      onDeleteClick={this.onDeleteClick}
+                      isEditMode={this.props.isEditMode}
+                      usersList={this.props.usersList}
+                        />
+                  </div>
+                  { this.renderChanges(this.props.changes, this.props.googleDocs, this.props.updates) }
                 </div>
-                <div className="co-thread-reply-wrapper">
-                  <CommentContainer
-                    authenticated={this.props.authenticated}
-                    userInfo={this.props.userInfo}
-                    comments={this.props.comments || {}}
-                    placeHolder={"Hello"}
-                    errors={this.props.commentErrors}
-                    commentObject={thread}
-                    threadId={this.props.params.tid}
-                    project={this.props.project}
-                    orgName={this.props.params.orgname}
-                    usersList={this.props.usersList}
-                    deleteComment={this.props.onDeleteThreadComment} />
-                </div>
-              {/*<div className="feed-wrapper">
-                <ItineraryList
-                itineraries={this.props.feed} 
-                authenticated={this.props.authenticated} 
-                like={this.props.likeReview} 
-                unLike={this.props.unLikeReview}
-                deleteItinerary={this.props.showDeleteModal} />
-              </div>*/}
+                
+                <div className="itinerary__comments-module flx flx-col flx-align-start flx-just-start w-max-2" id='guidecommentcontainer' name='guidecommentcontainer'>
+                  <div className="co-type-h5 mrgn-bottom-sm mrgn-top-sm ta-left w-100">
+                    Comment
+                  </div>
+                  <div className="co-thread-reply-wrapper">
+                    <CommentContainer
+                      authenticated={this.props.authenticated}
+                      userInfo={this.props.userInfo}
+                      comments={this.props.comments || {}}
+                      placeHolder={"Hello"}
+                      errors={this.props.commentErrors}
+                      commentObject={thread}
+                      threadId={this.props.params.tid}
+                      project={this.props.project}
+                      orgName={this.props.params.orgname}
+                      usersList={this.props.usersList}
+                      deleteComment={this.props.onDeleteThreadComment} />
+                  </div>
+                {/*<div className="feed-wrapper">
+                  <ItineraryList
+                  itineraries={this.props.feed} 
+                  authenticated={this.props.authenticated} 
+                  like={this.props.likeReview} 
+                  unLike={this.props.unLikeReview}
+                  deleteItinerary={this.props.showDeleteModal} />
+                </div>*/}
 
-            </div>
+              </div>
 
-            </div>
+              </div>
 
-            </div>
+              </div>
+            </Sidebar>
 
         </div>
       );

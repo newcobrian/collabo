@@ -9,6 +9,9 @@ import ProjectList from './ProjectList';
 import LoggedOutMessage from './LoggedOutMessage';
 import InfiniteScroll from 'react-infinite-scroller';
 import OrgHeader from './OrgHeader';
+import Sidebar from 'react-sidebar';
+
+const mql = window.matchMedia(`(min-width: 800px)`);
 
 const ProjectHeader = props => {
   if (props.projectId) {
@@ -56,7 +59,8 @@ const mapStateToProps = state => ({
   ...state.project,
   authenticated: state.common.authenticated,
   organization: state.common.organization,
-  invalidOrgUser: state.common.invalidOrgUser
+  invalidOrgUser: state.common.invalidOrgUser,
+  sidebarOpen: state.common.sidebarOpen
 });
 
 class Project extends React.Component {
@@ -67,6 +71,10 @@ class Project extends React.Component {
       if (!this.props.isFeedLoading) {
         this.props.watchThreadFeed(this.props.authenticated, this.props.params.orgname, this.props.params.pid, this.props.feedEndValue, Constants.PROJECT_PAGE)
       }
+    }
+
+    this.mediaQueryChanged = () => {
+      this.props.setSidebar(mql.matches);
     }
   }
 
@@ -82,6 +90,9 @@ class Project extends React.Component {
   }
 
   componentDidMount() {
+    this.props.loadSidebar(mql);
+    mql.addListener(this.mediaQueryChanged);
+
     this.props.markProjectRead(this.props.authenticated, this.props.params.pid)
   }
 
@@ -171,52 +182,58 @@ class Project extends React.Component {
     // }
     else {
       return (
+        <div>
+          <Sidebar
+              sidebar={<ProjectList />}
+              open={this.props.sidebarOpen}
+              onSetOpen={mql.matches ? this.props.setSidebarOpen : () => this.props.setSidebar(!this.props.sidebarOpen)}
+              styles={{ sidebar: {
+                    borderRight: "1px solid rgba(0,0,0,.1)",
+                    boxShadow: "none",
+                    zIndex: "100"
+                  },
+                  overlay: mql.matches ? {
+                    backgroundColor: "rgba(255,255,255,1)"
+                  } : {
+                    zIndex: 12,
+                    backgroundColor: "rgba(0, 0, 0, 0.5)"
+                  },
+                }}
+              >
 
-
-          <div className="page-common page-places flx flx-row flx-align-start">
-            <ProjectHeader 
-              orgName={this.props.params.orgname}
-              projectId={this.props.params.pid}
-              project={this.props.project}
-            />
- 
-                {/*<UniversalSearchBar />*/}
-            
-               {/*<ProjectList 
-              threadCounts={this.props.threadCounts}
-              projectId={this.props.params.pid}
-              source={Constants.PROJECT_PAGE} />*/}
-
-               
-
+            <div className="page-common page-places flx flx-row flx-align-start">
               
-                
-              <div className="threadlist-wrapper flx flx-col flx-align-start w-100 h-100">
+                <ProjectHeader 
+                  orgName={this.props.params.orgname}
+                  projectId={this.props.params.pid}
+                  project={this.props.project}
+                />
+                                      
+                  <div className="threadlist-wrapper flx flx-col flx-align-start w-100 h-100">
 
 
-                <InfiniteScroll
-                    pageStart={0}
-                    loadMore={this.scrolledToBottom}
-                    hasMore={true}
-                    loader={<div className="loader" key={0}>Loading ...</div>}
-                    useWindow={false} >
+                    <InfiniteScroll
+                        pageStart={0}
+                        loadMore={this.scrolledToBottom}
+                        hasMore={true}
+                        loader={<div className="loader" key={0}>Loading ...</div>}
+                        useWindow={false} >
 
-                  <ThreadList
-                    threads={this.props.threads} 
-                    authenticated={this.props.authenticated}
-                    orgName={this.props.params.orgname}
-                    emptyThreadFeed={this.props.emptyThreadFeed}
-                    projectNotFoundError={this.props.projectNotFoundError}
-                    projectNames={this.props.projectNames}
-                    className={"w-100 h-100"} />
+                      <ThreadList
+                        threads={this.props.threads} 
+                        authenticated={this.props.authenticated}
+                        orgName={this.props.params.orgname}
+                        emptyThreadFeed={this.props.emptyThreadFeed}
+                        projectNotFoundError={this.props.projectNotFoundError}
+                        projectNames={this.props.projectNames}
+                        className={"w-100 h-100"} />
 
 
-                </InfiniteScroll>
-                </div>
+                    </InfiniteScroll>
+                  </div>
               </div>
-
-
-
+            </Sidebar>
+          </div>
       );
     }
   }
