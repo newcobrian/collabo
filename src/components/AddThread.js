@@ -108,75 +108,77 @@ class AddThread extends React.Component {
 	                  },
 	                }}
 	              >
+	              	<div className={this.props.sidebarOpen ? 'open-style' : 'closed-style'}>
 
-					<div className="page-common flx flx-col flx-center-all">
-							
+						<div className="page-common flx flx-col flx-center-all">
+								
 
-							<div className="project-header text-left flx flx-col flx-align-start w-100">
-						    	<OrgHeader />
-						    	{/* HEADER START */}
-						    	<div className="co-type-h1 mrgn-top-sm mrgn-left-md">Post a New Thread</div>
+								<div className="project-header text-left flx flx-col flx-align-start w-100">
+							    	<OrgHeader />
+							    	{/* HEADER START */}
+							    	<div className="co-type-h1 mrgn-top-sm mrgn-left-md">Post a New Thread</div>
+							    </div>
+
+
+							  <div className="content-wrapper header-push ta-left flx flx-col">
+
+									            <form>
+
+													<fieldset className="field-wrapper">
+														<label>Thread Title</label>
+								                      <input
+								                        className="input--underline edit-itinerary__name v2-type-body3"
+								                        type="text"
+								                        placeholder="My new thread"
+								                        required
+								                        value={this.props.title}
+								                        maxLength="42"
+								                        onChange={this.changeTitle} />
+								                    </fieldset>
+													<fieldset className="field-wrapper">
+														<label>Body (Optional)</label>
+								                      {/*<textarea
+								                        className="input--underline v2-type-body3"
+								                        type="text"
+								                        rows="20"
+								                        placeholder="Start writing here..."
+								                        required
+								                        value={this.props.body}
+								                        onChange={this.changeBody} />*/}
+								                        <Editor
+													        editorState={this.props.body}
+													        wrapperClassName="demo-wrapper"
+													        editorClassName="demo-editor"
+													        onEditorStateChange={this.changeBody}
+													        mention={{
+												              separator: ' ',
+												              trigger: '@',
+												              suggestions: this.props.usersList,
+												            }}
+													    />
+
+								                    </fieldset>
+
+								                    <ListErrors errors={this.props.errors}></ListErrors>
+								                    
+								                     <div
+								                        className="vb vb--create w-100 color--white fill--light-green"
+								                        type="button"
+								                        disabled={this.props.inProgress}
+								                        onClick={this.submitForm}>
+								                        	<div className="flx flx-row flx-center-all ta-center">
+								    	                    	<div className="flx-grow1 mrgn-left-md color--green">Post Thread</div>
+								    							<img className="flx-item-right DN" src="/img/icons/icon32_next.png"/>
+								    						</div>
+								                      </div>
+								                    
+										        </form>
+										        
+								{/* END CONTAINER */}
+								
 						    </div>
-
-
-						  <div className="content-wrapper header-push ta-left flx flx-col">
-
-								            <form>
-
-												<fieldset className="field-wrapper">
-													<label>Thread Title</label>
-							                      <input
-							                        className="input--underline edit-itinerary__name v2-type-body3"
-							                        type="text"
-							                        placeholder="My new thread"
-							                        required
-							                        value={this.props.title}
-							                        maxLength="42"
-							                        onChange={this.changeTitle} />
-							                    </fieldset>
-												<fieldset className="field-wrapper">
-													<label>Body (Optional)</label>
-							                      {/*<textarea
-							                        className="input--underline v2-type-body3"
-							                        type="text"
-							                        rows="20"
-							                        placeholder="Start writing here..."
-							                        required
-							                        value={this.props.body}
-							                        onChange={this.changeBody} />*/}
-							                        <Editor
-												        editorState={this.props.body}
-												        wrapperClassName="demo-wrapper"
-												        editorClassName="demo-editor"
-												        onEditorStateChange={this.changeBody}
-												        mention={{
-											              separator: ' ',
-											              trigger: '@',
-											              suggestions: this.props.usersList,
-											            }}
-												    />
-
-							                    </fieldset>
-
-							                    <ListErrors errors={this.props.errors}></ListErrors>
-							                    
-							                     <div
-							                        className="vb vb--create w-100 color--white fill--light-green"
-							                        type="button"
-							                        disabled={this.props.inProgress}
-							                        onClick={this.submitForm}>
-							                        	<div className="flx flx-row flx-center-all ta-center">
-							    	                    	<div className="flx-grow1 mrgn-left-md color--green">Post Thread</div>
-							    							<img className="flx-item-right DN" src="/img/icons/icon32_next.png"/>
-							    						</div>
-							                      </div>
-							                    
-									        </form>
-									        
-							{/* END CONTAINER */}
-							
-					    </div>
-			    	</div>
+				    	</div>
+				    </div>
 			    </Sidebar>
 			</div>
 		)

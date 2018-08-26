@@ -201,37 +201,40 @@ class Project extends React.Component {
                 }}
               >
 
-            <div className="page-common page-places flx flx-row flx-align-start">
-              
-                <ProjectHeader 
-                  orgName={this.props.params.orgname}
-                  projectId={this.props.params.pid}
-                  project={this.props.project}
-                />
-                                      
-                  <div className="threadlist-wrapper flx flx-col flx-align-start w-100 h-100">
+              <div className={this.props.sidebarOpen ? 'open-style' : 'closed-style'}>
+
+                <div className="page-common page-places flx flx-row flx-align-start">
+                  
+                    <ProjectHeader 
+                      orgName={this.props.params.orgname}
+                      projectId={this.props.params.pid}
+                      project={this.props.project}
+                    />
+                                          
+                      <div className="threadlist-wrapper flx flx-col flx-align-start w-100 h-100">
 
 
-                    <InfiniteScroll
-                        pageStart={0}
-                        loadMore={this.scrolledToBottom}
-                        hasMore={true}
-                        loader={<div className="loader" key={0}>Loading ...</div>}
-                        useWindow={false} >
+                        <InfiniteScroll
+                            pageStart={0}
+                            loadMore={this.scrolledToBottom}
+                            hasMore={true}
+                            loader={<div className="loader" key={0}>Loading ...</div>}
+                            useWindow={false} >
 
-                      <ThreadList
-                        threads={this.props.threads} 
-                        authenticated={this.props.authenticated}
-                        orgName={this.props.params.orgname}
-                        emptyThreadFeed={this.props.emptyThreadFeed}
-                        projectNotFoundError={this.props.projectNotFoundError}
-                        projectNames={this.props.projectNames}
-                        className={"w-100 h-100"} />
+                          <ThreadList
+                            threads={this.props.threads} 
+                            authenticated={this.props.authenticated}
+                            orgName={this.props.params.orgname}
+                            emptyThreadFeed={this.props.emptyThreadFeed}
+                            projectNotFoundError={this.props.projectNotFoundError}
+                            projectNames={this.props.projectNames}
+                            className={"w-100 h-100"} />
 
 
-                    </InfiniteScroll>
+                        </InfiniteScroll>
+                      </div>
                   </div>
-              </div>
+                </div>
             </Sidebar>
           </div>
       );

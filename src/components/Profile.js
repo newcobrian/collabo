@@ -291,44 +291,46 @@ class Profile extends React.Component {
                 },
               }}
             >
-            <div className="page-common flx flx-col profile-page">
-            
-              <div className="project-header text-left flx flx-col flx-align-start w-100">
-                <OrgHeader />
-                {/* HEADER START */}
-                <div className="flx flx-row flx-align-center mrgn-top-sm w-100">
-                  <div className="co-type-h1 mrgn-left-md">{profile.username}</div>
-                  <div className="flx-item-right flx flx-row flx-align-center">
-                    <EditProfileSettings isUser={isUser} />
-                    <SignOutButton isUser={isUser} signOut={this.props.signOut}/>
-                  </div>
-                </div>
-              </div>
-
-              <div className="threadlist header-push ta-left flx flx-col">
-                <ProfileInfo
-                  authenticated={this.props.authenticated}
-                  profile={profile}
-                  signOut={this.props.signOutUser}
-                  follow={this.props.followUser}
-                  unfollow={this.props.unfollowUser} />
-
-                <div className="flx flx-row flx-just-center w-100">
-
-                <InfiniteScroll
-                      pageStart={0}
-                      loadMore={this.scrolledToBottom}
-                      hasMore={true}
-                      loader={<div className="loader" key={0}>Loading ...</div>} >
+              <div className={this.props.sidebarOpen ? 'open-style' : 'closed-style'}>
+                <div className="page-common flx flx-col profile-page">
                 
-                  <ActivityList feed={this.props.feed} />
+                  <div className="project-header text-left flx flx-col flx-align-start w-100">
+                    <OrgHeader />
+                    {/* HEADER START */}
+                    <div className="flx flx-row flx-align-center mrgn-top-sm w-100">
+                      <div className="co-type-h1 mrgn-left-md">{profile.username}</div>
+                      <div className="flx-item-right flx flx-row flx-align-center">
+                        <EditProfileSettings isUser={isUser} />
+                        <SignOutButton isUser={isUser} signOut={this.props.signOut}/>
+                      </div>
+                    </div>
+                  </div>
 
-                </InfiniteScroll>
+                  <div className="threadlist header-push ta-left flx flx-col">
+                    <ProfileInfo
+                      authenticated={this.props.authenticated}
+                      profile={profile}
+                      signOut={this.props.signOutUser}
+                      follow={this.props.followUser}
+                      unfollow={this.props.unfollowUser} />
+
+                    <div className="flx flx-row flx-just-center w-100">
+
+                    <InfiniteScroll
+                          pageStart={0}
+                          loadMore={this.scrolledToBottom}
+                          hasMore={true}
+                          loader={<div className="loader" key={0}>Loading ...</div>} >
+                    
+                      <ActivityList feed={this.props.feed} />
+
+                    </InfiniteScroll>
+                      
+                    </div>
+                  </div>
                   
                 </div>
               </div>
-              
-            </div>
           </Sidebar>
         </div>
       );

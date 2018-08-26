@@ -101,74 +101,76 @@ class AddProject extends React.Component {
 	                  },
 	                }}
 	              >
+	              	<div className={this.props.sidebarOpen ? 'open-style' : 'closed-style'}>
 
-					<div className="page-common flx flx-col flx-center-all">
-						{/**}			
-						<div>
-					        <Script
-					          url={url}
-					          onCreate={this.handleScriptCreate.bind(this)}
-					          onError={this.handleScriptError.bind(this)}
-					          onLoad={this.handleScriptLoad.bind(this)}
-					        /> 
-					    </div> 
-					    <div ref="GMap"></div>**/}
-						<div className="project-header text-left flx flx-col flx-align-start w-100">
-					    	<OrgHeader />
-					    	{/* HEADER START */}
-					    	<div className="co-type-h1 mrgn-top-sm mrgn-left-md">Add a New Group</div>
-					    </div>
-
-					    {/* CONTAINER - START */}
-				        <div className="content-wrapper flx flx-col ta-center">
-		        		
-							
-				            <div className="content-wrapper header-push ta-left flx flx-col">
-					            
-					            <form>
-									<fieldset className="field-wrapper">
-										<label>Group name</label>
-				                      <input
-				                        className="input--underline edit-itinerary__name v2-type-body3"
-				                        type="text"
-				                        placeholder="My New Group"
-				                        required
-				                        value={this.props.name}
-				                        maxLength="42"
-				                        onChange={this.changeName} />
-				                    </fieldset>
-									<fieldset className="field-wrapper DN">
-									<div className="field-label">Group Name</div>
-				                      <textarea
-				                        className="input--underline v2-type-body3"
-				                        type="text"
-				                        rows="3"
-				                        maxLength="184"
-				                        placeholder="Add a description..."
-				                        required
-				                        value={this.props.description}
-				                        onChange={this.changeDescription} />
-				                    </fieldset>
-
-				                    <ListErrors errors={this.props.errors}></ListErrors>
-				                    
-				                    <div
-				                    className="vb vb--create w-100 mrgn-top-md color--white fill--light-green"
-				                    type="button"
-				                    disabled={this.props.inProgress}
-				                    onClick={this.submitForm}>
-				                    	<div className="flx flx-row flx-center-all ta-center">
-					                    	<div className="flx-grow1 mrgn-left-md color--green">Add Group</div>
-										</div>
-				                  </div>
-						        </form>
+						<div className="page-common flx flx-col flx-center-all">
+							{/**}			
+							<div>
+						        <Script
+						          url={url}
+						          onCreate={this.handleScriptCreate.bind(this)}
+						          onError={this.handleScriptError.bind(this)}
+						          onLoad={this.handleScriptLoad.bind(this)}
+						        /> 
+						    </div> 
+						    <div ref="GMap"></div>**/}
+							<div className="project-header text-left flx flx-col flx-align-start w-100">
+						    	<OrgHeader />
+						    	{/* HEADER START */}
+						    	<div className="co-type-h1 mrgn-top-sm mrgn-left-md">Add a New Group</div>
 						    </div>
+
+						    {/* CONTAINER - START */}
+					        <div className="content-wrapper flx flx-col ta-center">
+			        		
+								
+					            <div className="content-wrapper header-push ta-left flx flx-col">
+						            
+						            <form>
+										<fieldset className="field-wrapper">
+											<label>Group name</label>
+					                      <input
+					                        className="input--underline edit-itinerary__name v2-type-body3"
+					                        type="text"
+					                        placeholder="My New Group"
+					                        required
+					                        value={this.props.name}
+					                        maxLength="42"
+					                        onChange={this.changeName} />
+					                    </fieldset>
+										<fieldset className="field-wrapper DN">
+										<div className="field-label">Group Name</div>
+					                      <textarea
+					                        className="input--underline v2-type-body3"
+					                        type="text"
+					                        rows="3"
+					                        maxLength="184"
+					                        placeholder="Add a description..."
+					                        required
+					                        value={this.props.description}
+					                        onChange={this.changeDescription} />
+					                    </fieldset>
+
+					                    <ListErrors errors={this.props.errors}></ListErrors>
+					                    
+					                    <div
+					                    className="vb vb--create w-100 mrgn-top-md color--white fill--light-green"
+					                    type="button"
+					                    disabled={this.props.inProgress}
+					                    onClick={this.submitForm}>
+					                    	<div className="flx flx-row flx-center-all ta-center">
+						                    	<div className="flx-grow1 mrgn-left-md color--green">Add Group</div>
+											</div>
+					                  </div>
+							        </form>
+							    </div>
+						    </div>
+
+							{/* END CONTAINER */}
+							
+
 					    </div>
-
-						{/* END CONTAINER */}
-						
-
-				    </div>
+					</div>
 			    </Sidebar>
 			</div>
 		)
