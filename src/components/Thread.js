@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { firebaseConnect } from 'react-redux-firebase';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
 import * as Helpers from '../helpers';
@@ -25,7 +27,10 @@ var linkify = require('linkify-it')();
 
 const mapStateToProps = state => ({
   ...state.thread,
+  changes: state.review.changes,
+  googleDocs: state.review.googleDocs,
   userInfo: state.common.userInfo,
+  updates: state.firebase.data.updates,
   authenticated: state.common.authenticated,
   invalidOrgUser: state.common.invalidOrgUser
 })
@@ -151,6 +156,47 @@ class Thread extends React.Component {
     this.onDeleteClick = ev => {
       ev.preventDefault()
       this.props.showDeleteModal(this.props.params.tid, this.props.thread, this.props.params.orgname, Constants.THREAD_PAGE)
+    }
+
+    this.renderState = (update) => {
+      if (!update) {
+        return null;
+      }
+      let message = "";
+      const state = update.state;
+      const changed = update.changed;
+      if (changed && changed.indexOf("permissions") !== -1) {
+        message = "The permission of the file has been changed";
+      } else {
+        if (state === "add") {
+          message = "The file was created or shared";
+        } else if (state === "remove") {
+          message = "The file was deleted or unshared";
+        } else if (state === "update") {
+          message = "One or more properties (metadata) of the file have been updated";
+        } else if (state === "trash") {
+          message = "The file has been moved to the trash";
+        } else if (state === "untrash") {
+          message = "The file has been removed from the trash";
+        } else if (state === "change") {
+          message = "Content of the file has been changed";
+        }
+      }
+      return message ? <span> ({message})</span> : null;
+    }
+
+    this.renderChanges = (changes, docs, updates) => {
+      if (changes && changes.length > 0) {
+        return changes
+          .filter((c) => docs[c.fileId])
+          .map((c, i) => (
+            <div key={i}>
+              <img src={c.file.iconLink} /> '{c.file.name}' was modified at <DisplayTimestamp timestamp={c.file.modifiedTime} /> by {c.file.lastModifyingUser ? c.file.lastModifyingUser.displayName : "Anonymous user"}
+              {updates && this.renderState(updates[c.fileId])}
+            </div>
+          ))
+      }
+      return null;
     }
   }
 
@@ -320,10 +366,11 @@ class Thread extends React.Component {
                     usersList={this.props.usersList}
                       />
                 </div>
+                { this.renderChanges(this.props.changes, this.props.googleDocs, this.props.updates) }
               </div>
-
-              <div className="comments-area flx flx-col flx-align-start flx-just-start" id='guidecommentcontainer' name='guidecommentcontainer'>
-                <div className="co-type-h5 mrgn-bottom-sm mrgn-top-sm ta-left w-100 DN">
+              
+              <div className="itinerary__comments-module flx flx-col flx-align-start flx-just-start w-max-2" id='guidecommentcontainer' name='guidecommentcontainer'>
+                <div className="co-type-h5 mrgn-bottom-sm mrgn-top-sm ta-left w-100">
                   Comment
                 </div>
                 <div className="co-thread-reply-wrapper">
@@ -361,4 +408,9 @@ class Thread extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, Actions)(Thread);
+export default compose(
+  firebaseConnect([
+    "updates"
+  ]),
+  connect(mapStateToProps, Actions)
+)(Thread);

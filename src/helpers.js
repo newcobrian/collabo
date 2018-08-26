@@ -629,31 +629,20 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 		lastModified: Firebase.database.ServerValue.TIMESTAMP
 	};
 	let emailMessage = '';
+	let emailData = {};
 
 	Firebase.database().ref(Constants.USERS_PATH + '/' + recipientId).once('value', recipientSnapshot => {
 		Firebase.database().ref(Constants.USERS_PATH + '/' + senderId).once('value', senderSnapshot => {
 			switch(messageType) {
-				case Constants.COMMENT_IN_THREAD_MESSAGE:
-					console.log('comment in thread case')
-					inboxObject.senderId = senderId;
-					inboxObject.message = ' commented in the thread: ' + thread.title;
-					inboxObject.link = '/' + org.name + '/' + project.projectId + '/' + thread.threadId;
-					emailMessage = senderSnapshot.val().username + 
-						' commented in the same thread. Click here to check it out: ' + Constants.COLLABO_URL + inboxObject.link;
-					break;
-				case Constants.COMMENT_MENTION_MESSAGE:
-					inboxObject.senderId = senderId;
-					inboxObject.message = ' mentioned you in a comment in the thread: ' + thread.title;
-					inboxObject.link = '/' + org.name + '/' + project.projectId + '/' + thread.threadId;
-					emailMessage = senderSnapshot.val().username + 
-						' mentioned you in a comment. Click here to check it out: ' + Constants.COLLABO_URL + inboxObject.link;
-					break;
 				case Constants.THREAD_MENTION_MESSAGE:
 					inboxObject.senderId = senderId;
 					inboxObject.message = ' mentioned you in the thread: ' + thread.title;
 					inboxObject.link = '/' + org.name + '/' + project.projectId + '/' + thread.threadId;
-					emailMessage = senderSnapshot.val().username + 
-						' mentioned you in a thread. Click here to check it out: ' + Constants.COLLABO_URL + inboxObject.link;
+					emailData.titleAction = ' mentioned you in a post: '
+					emailData.threadTitle = thread.title
+					emailData.commentBody = sendObject.message
+					emailData.bodyText1 = ' mentioned you in a post: '
+					emailData.bodyText2 = ''
 					break;
 				// case Constants.COMMENT_ON_COMMENT_REVIEW_MESSAGE:
 				// 	inboxObject.senderId = senderId;
@@ -689,6 +678,52 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 	        	if (recipientSnapshot.exists() && recipientSnapshot.val().email) {
 	        		let data = Object.assign({}, {message: emailMessage}, {senderName: senderSnapshot.val().username});
 	        		sendContentManagerEmail("5d7dc9ce-f38d-47b9-b73c-09d3e187a6d9", recipientSnapshot.val().email, data);
+			    }
+			}
+		})
+	})
+}
+
+export function sendCommentInboxMessage(senderId, recipientId, messageType, org, project, thread, sendObject) {
+	const inboxObject = {
+		lastModified: Firebase.database.ServerValue.TIMESTAMP
+	};
+	let emailData = {
+		threadLink: Constants.COLLABO_URL + '/' + org.name + '/' + project.projectId + '/' + thread.threadId
+	};
+
+	Firebase.database().ref(Constants.USERS_PATH + '/' + recipientId).once('value', recipientSnapshot => {
+		Firebase.database().ref(Constants.USERS_PATH + '/' + senderId).once('value', senderSnapshot => {
+			switch(messageType) {
+				case Constants.COMMENT_IN_THREAD_MESSAGE:
+					inboxObject.senderId = senderId;
+					inboxObject.message = ' commented on your post: ' + thread.title;
+					inboxObject.link = '/' + org.name + '/' + project.projectId + '/' + thread.threadId;
+					emailData.titleAction = ' commented on your post: '
+					emailData.threadTitle = thread.title
+					emailData.commentBody = sendObject.message
+					emailData.bodyText1 = ' commented '
+					emailData.bodyText2 = ' on your post: '
+					break;
+				case Constants.COMMENT_MENTION_MESSAGE:
+					inboxObject.senderId = senderId;
+					inboxObject.message = ' mentioned you in a comment in the thread: ' + thread.title;
+					inboxObject.link = '/' + org.name + '/' + project.projectId + '/' + thread.threadId;
+					emailData.titleAction = ' mentioned you in a comment in the post: '
+					emailData.threadTitle = thread.title
+					emailData.commentBody = sendObject.message
+					emailData.bodyText1 = ' mentioned you in a comment: '
+					emailData.bodyText2 = ' on the post: '
+					break;
+			}
+			if (senderId !== recipientId) {
+				Firebase.database().ref(Constants.INBOX_PATH + '/' + recipientId).push().set(inboxObject);
+				Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + recipientId + '/messageCount').transaction(function (current_count) {
+		            return (current_count || 0) + 1;
+		        })
+	        	if (recipientSnapshot.exists() && recipientSnapshot.val().email) {
+	        		let data = Object.assign({}, {senderName: senderSnapshot.val().username}, emailData);
+	        		sendContentManagerEmail("15b9b758-e546-4998-91e9-7d33e4841968", recipientSnapshot.val().email, data);
 			    }
 			}
 		})
@@ -786,4 +821,24 @@ export function convertStoredToEditorState(value) {
 		const contentState = convertFromRaw( JSON.parse( value ) );
 	    return EditorState.createWithContent(contentState)
   	}
+}
+
+export function getLinks (content) {
+	return content.match(/((http|https):\/\/)?(\S+)\.([a-z]{2,}?)(.*?)( |\,|$|\.)/gim) || [];
+}
+
+export function isGoogleDocLink (link) {
+	return link.indexOf("drive.google.com") !== -1 || link.indexOf("docs.google.com") !== -1;
+}
+
+export function getFileId (link) {
+	if (!isGoogleDocLink(link)) {
+		return;
+	}
+	if (link.indexOf("drive.google.com") !== -1 && link.indexOf("id=") !== -1) {
+		return link.split("id=")[1].trim();
+	}
+	const segs = link.split("/");
+	const domainIndex = segs.findIndex((seg) => seg.indexOf(".google.com") !== -1);
+	return segs.length > domainIndex + 3 ? segs[domainIndex + 3] : null;
 }

@@ -25,14 +25,14 @@ const CommentContainer = props => {
 		          </div>
 
 		          <CommentList
-		          comments={props.comments}
-		          commentObject={props.commentObject}
-		          authenticated={props.authenticated}
-		          userInfo={props.userInfo}
-		          threadId={props.threadId}
-		          orgName={props.orgName}
-		          deleteComment={props.deleteComment}
-		          type={props.type} />
+								comments={props.comments}
+								commentObject={props.commentObject}
+								authenticated={props.authenticated}
+								userInfo={props.userInfo}
+								threadId={props.threadId}
+								orgName={props.orgName}
+								deleteComment={props.deleteComment}
+								type={props.type} />
 
 
 		     </div>
