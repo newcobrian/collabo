@@ -56,21 +56,19 @@ class AddThread extends React.Component {
 	    }
 	}
 
-	componentWillMount() {
-    	if (!this.props.authenticated) {
+	componentDidMount() {
+		if (!this.props.authenticated) {
     		this.props.askForAuth();
     	}
+
+		this.props.loadSidebar(mql);
+    	mql.addListener(this.mediaQueryChanged);
+
     	this.props.loadOrgUsers(this.props.authenticated, this.props.params.orgname, Constants.ADD_THREAD_PAGE)
     	this.props.loadOrg(this.props.authenticated, this.props.params.orgname, Constants.ADD_THREAD_PAGE);
 	    this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, this.props.params.pid, Constants.ADD_THREAD_PAGE)
 	    this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
 	    this.props.loadOrgList(this.props.authenticated, Constants.ADD_THREAD_PAGE)
-    	// this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'create guide'});
-	}
-
-	componentDidMount() {
-		this.props.loadSidebar(mql);
-    	mql.addListener(this.mediaQueryChanged);
 	}
 
 	componentWillUnmount() {

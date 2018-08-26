@@ -78,20 +78,15 @@ class Project extends React.Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    this.props.loadSidebar(mql);
+    mql.addListener(this.mediaQueryChanged);
+
     this.props.loadOrg(this.props.authenticated, this.props.params.orgname, Constants.PROJECT_PAGE);
     this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, this.props.params.pid, Constants.PROJECT_PAGE)
     this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
     this.props.loadOrgList(this.props.authenticated, Constants.PROJECT_PAGE)
     this.props.loadProject(this.props.params.pid);
-    // this.props.watchProjectThreads(this.props.params.pid);
-    // this.props.watchThreadFeed(this.props.authenticated, this.props.params.orgname, this.props.params.pid, this.props.feedEndValue, Constants.PROJECT_PAGE)
-    // this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project'});
-  }
-
-  componentDidMount() {
-    this.props.loadSidebar(mql);
-    mql.addListener(this.mediaQueryChanged);
 
     this.props.markProjectRead(this.props.authenticated, this.props.params.pid)
   }

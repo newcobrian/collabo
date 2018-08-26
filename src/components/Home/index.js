@@ -47,7 +47,7 @@ class Home extends React.Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.loadOrganizationList(this.props.authenticated)
     this.props.setSidebar(false)
   } 

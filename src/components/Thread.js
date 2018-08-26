@@ -208,7 +208,10 @@ class Thread extends React.Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    this.props.loadSidebar(mql);
+    mql.addListener(this.mediaQueryChanged);
+
     this.props.loadOrg(this.props.authenticated, this.props.params.orgname, Constants.THREAD_PAGE);
     this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, this.props.params.pid, Constants.THREAD_PAGE)
     this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
@@ -217,12 +220,7 @@ class Thread extends React.Component {
     this.props.loadThread(this.props.params.tid);
     this.props.watchThreadComments(this.props.params.tid);
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project'});
-  }
-
-  componentDidMount() {
-    this.props.loadSidebar(mql);
-    mql.addListener(this.mediaQueryChanged);
-
+    
     this.props.markThreadRead(this.props.authenticated, this.props.params.tid)
   }
 
@@ -432,7 +430,7 @@ class Thread extends React.Component {
 
                   </div>
                 </div>
-              
+
             </Sidebar>
 
         </div>
