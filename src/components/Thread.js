@@ -87,7 +87,7 @@ const BodySection = props => {
             editorClassName="demo-editor"
             onEditorStateChange={props.updateText}
             toolbarHidden={true}
-            ReadOnly={true}
+            readOnly={true}
           />
         </div>
           {/*<textarea
@@ -115,7 +115,7 @@ const BodySection = props => {
           editorClassName="demo-editor"
           onEditorStateChange={props.updateText}
           toolbarHidden={true}
-          ReadOnly={true}
+          readOnly={true}
         />
       {/*<div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(props.bodyText) || '' }}>
           </div>*/}
@@ -290,26 +290,6 @@ class Thread extends React.Component {
         <LoadingSpinner message="Loading thread" />
         )
     }
-    // if (!this.props.feed) {
-    //   return (
-    //     <div className="loading-module flx flx-col flx-center-all v2-type-body3 fill--black">
-    //       <div className="loader-wrapper flx flx-col flx-center-all fill--black">
-    //         <div className="loader-bird"></div>
-    //         <div className="loader">
-    //           <div className="bar1"></div>
-    //           <div className="bar2"></div>
-    //           <div className="bar3"></div>
-    //         </div>
-    //         <div className="v2-type-body2 color--white">Loading location</div>
-    //       </div>
-    //     </div>
-    //     )
-    // }
-    // else if (this.props.feed.length === 0) {
-    //   return (
-    //     <div> No itineraries created for {this.props.geo.label}.</div>
-    //   )
-    // }
     else {
       let thread = this.props.thread
       let createdBy = this.props.createdBy
@@ -341,11 +321,6 @@ class Thread extends React.Component {
                   <div className="project-header text-left flx flx-col flx-align-start w-100">
                     <OrgHeader />
                   </div>
-                  
-                  {/*<ProjectList 
-                    threadCounts={this.props.threadCounts}
-                    projectId={this.props.params.pid} />*/}
-
 
                     <div className="thread-area header-push-mini flx flx-col w-100">
 
@@ -415,14 +390,6 @@ class Thread extends React.Component {
                           usersList={this.props.usersList}
                           deleteComment={this.props.onDeleteThreadComment} />
                       </div>
-                    {/*<div className="feed-wrapper">
-                      <ItineraryList
-                      itineraries={this.props.feed} 
-                      authenticated={this.props.authenticated} 
-                      like={this.props.likeReview} 
-                      unLike={this.props.unLikeReview}
-                      deleteItinerary={this.props.showDeleteModal} />
-                    </div>*/}
 
                   </div>
 
