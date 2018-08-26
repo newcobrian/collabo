@@ -122,9 +122,7 @@ class App extends React.Component {
       return (
         <div>
            
-          <div className={this.props.sidebarOpen ? 'open-style' : 'closed-style'}>
             {this.props.children}
-          </div>
 
           <SnackbarToaster
             {...this.props.snackbarToaster}
