@@ -180,7 +180,7 @@ class Thread extends React.Component {
           .filter((c) => docs[c.fileId])
           .map((c, i) => (
             <div key={i}>
-              <img src={c.file.iconLink} /> '{c.file.name}' was modified at <DisplayTimestamp timestamp={c.file.modifiedTime} /> by {c.file.lastModifyingUser.displayName}
+              <img src={c.file.iconLink} /> '{c.file.name}' was modified at <DisplayTimestamp timestamp={c.file.modifiedTime} /> by {c.file.lastModifyingUser ? c.file.lastModifyingUser.displayName : "Anonymous user"}
               {updates && this.renderState(updates[c.fileId])}
             </div>
           ))
