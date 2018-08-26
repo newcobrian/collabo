@@ -17,7 +17,7 @@ class ForgotPassword extends React.Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'forgot password page'});
   }
 

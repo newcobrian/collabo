@@ -6,36 +6,16 @@ import ProxyImage from './ProxyImage';
 import ListErrors from './ListErrors';
 import { CREATE_PAGE } from '../actions';
 import OrgHeader from './OrgHeader';
-// import Geosuggest from 'react-geosuggest';
 import ProfileInfo from './ProfileInfo'
-// import Script from 'react-load-script';
-// import {GoogleApiWrapper} from 'google-maps-react';
-// import Map from 'google-maps-react';
+import Sidebar from 'react-sidebar';
+import ProjectList from './ProjectList';
 
-// const SubjectInfo = props => {
-// 	const renderImage = image => {
-// 		if (image) {
-// 			return (
-// 				<ProxyImage src={image}/>
-// 			)
-// 		}
-// 		else return null;
-// 	}
-// 	if (props.subject) {
-// 		return (
-// 			<div>
-// 			<div className="flx flx-row-top">
-// 				<div className="subject-image create-subject-image">{renderImage(props.image)}</div>
-// 			</div>
-// 			</div>
-// 		)
-// 	}
-// 	else return null;
-// }
+const mql = window.matchMedia(`(min-width: 800px)`);
 
 const mapStateToProps = state => ({
   ...state.addProject,
-  authenticated: state.common.authenticated
+  authenticated: state.common.authenticated,
+  sidebarOpen: state.common.sidebarOpen
 });
 
 class AddProject extends React.Component {
@@ -62,13 +42,21 @@ class AddProject extends React.Component {
 		    this.props.onAddProject(this.props.authenticated, project, this.props.params.orgname);
 		  }
     	}
+
+    	this.mediaQueryChanged = () => {
+	      this.props.setSidebar(mql.matches);
+	    }
 	}
 
-	componentWillMount() {
-    	if (!this.props.authenticated) {
+	componentDidMount() {
+		if (!this.props.authenticated) {
     		this.props.askForAuth();
     	}
 
+		this.props.loadSidebar(mql);
+    	mql.addListener(this.mediaQueryChanged);
+
+    	this.props.loadOrg(this.props.authenticated, this.props.params.orgname, Constants.ADD_PROJECT_PAGE);
     	this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, this.props.params.pid, Constants.ADD_PROJECT_PAGE)
 	    this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
 	    this.props.loadOrgList(this.props.authenticated, Constants.ADD_PROJECT_PAGE)
@@ -93,85 +81,98 @@ class AddProject extends React.Component {
 	      )
 	    }
 		return (
+			<div>
+				<Sidebar
+	              sidebar={<ProjectList />}
+	              open={this.props.sidebarOpen}
+	              onSetOpen={mql.matches ? this.props.setSidebarOpen : () => this.props.setSidebar(!this.props.sidebarOpen)}
+	              styles={{ sidebar: {
+	                    borderRight: "1px solid rgba(0,0,0,.1)",
+	                    boxShadow: "none",
+	                    zIndex: "100"
+	                  },
+	                  overlay: mql.matches ? {
+	                    backgroundColor: "rgba(255,255,255,1)"
+	                  } : {
+	                    zIndex: 12,
+	                    backgroundColor: "rgba(0, 0, 0, 0.5)"
+	                  },
+	                }}
+	              >
+	              	<div className={this.props.sidebarOpen ? 'open-style' : 'closed-style'}>
 
-				<div className="page-common flx flx-col flx-center-all">
-					{/**}			
-					<div>
-				        <Script
-				          url={url}
-				          onCreate={this.handleScriptCreate.bind(this)}
-				          onError={this.handleScriptError.bind(this)}
-				          onLoad={this.handleScriptLoad.bind(this)}
-				        /> 
-				    </div> 
-				    <div ref="GMap"></div>**/}
-					<div className="project-header text-left flx flx-col flx-align-start w-100">
-				    	<OrgHeader />
-				    	{/* HEADER START */}
-				    	<div className="co-type-h1 mrgn-top-sm mrgn-left-md">Add a New Group</div>
-				    </div>
+						<div className="page-common flx flx-col flx-center-all">
+							{/**}			
+							<div>
+						        <Script
+						          url={url}
+						          onCreate={this.handleScriptCreate.bind(this)}
+						          onError={this.handleScriptError.bind(this)}
+						          onLoad={this.handleScriptLoad.bind(this)}
+						        /> 
+						    </div> 
+						    <div ref="GMap"></div>**/}
+							<div className="project-header text-left flx flx-col flx-align-start w-100">
+						    	<OrgHeader />
+						    	{/* HEADER START */}
+						    	<div className="co-type-h1 mrgn-top-sm mrgn-left-md">Add a New Group</div>
+						    </div>
 
-				    {/* CONTAINER - START */}
-			        <div className="content-wrapper flx flx-col ta-center">
-	        		
-						
-			            <div className="content-wrapper header-push ta-left flx flx-col">
-				            
-				            <form>
-								<fieldset className="field-wrapper">
-									<label>Group name</label>
-			                      <input
-			                        className="input--underline edit-itinerary__name v2-type-body3"
-			                        type="text"
-			                        placeholder="My New Group"
-			                        required
-			                        value={this.props.name}
-			                        maxLength="42"
-			                        onChange={this.changeName} />
-			                    </fieldset>
-								<fieldset className="field-wrapper DN">
-								<div className="field-label">Group Name</div>
-			                      <textarea
-			                        className="input--underline v2-type-body3"
-			                        type="text"
-			                        rows="3"
-			                        maxLength="184"
-			                        placeholder="Add a description..."
-			                        required
-			                        value={this.props.description}
-			                        onChange={this.changeDescription} />
-			                    </fieldset>
+						    {/* CONTAINER - START */}
+					        <div className="content-wrapper flx flx-col ta-center">
+			        		
+								
+					            <div className="content-wrapper header-push ta-left flx flx-col">
+						            
+						            <form>
+										<fieldset className="field-wrapper">
+											<label>Group name</label>
+					                      <input
+					                        className="input--underline edit-itinerary__name v2-type-body3"
+					                        type="text"
+					                        placeholder="My New Group"
+					                        required
+					                        value={this.props.name}
+					                        maxLength="42"
+					                        onChange={this.changeName} />
+					                    </fieldset>
+										<fieldset className="field-wrapper DN">
+										<div className="field-label">Group Name</div>
+					                      <textarea
+					                        className="input--underline v2-type-body3"
+					                        type="text"
+					                        rows="3"
+					                        maxLength="184"
+					                        placeholder="Add a description..."
+					                        required
+					                        value={this.props.description}
+					                        onChange={this.changeDescription} />
+					                    </fieldset>
 
-			                    <ListErrors errors={this.props.errors}></ListErrors>
-			                    
-			                    <div
-			                    className="vb vb--create w-100 mrgn-top-md color--white fill--light-green"
-			                    type="button"
-			                    disabled={this.props.inProgress}
-			                    onClick={this.submitForm}>
-			                    	<div className="flx flx-row flx-center-all ta-center">
-				                    	<div className="flx-grow1 mrgn-left-md color--green">Add Group</div>
-									</div>
-			                  </div>
-					        </form>
+					                    <ListErrors errors={this.props.errors}></ListErrors>
+					                    
+					                    <div
+					                    className="vb vb--create w-100 mrgn-top-md color--white fill--light-green"
+					                    type="button"
+					                    disabled={this.props.inProgress}
+					                    onClick={this.submitForm}>
+					                    	<div className="flx flx-row flx-center-all ta-center">
+						                    	<div className="flx-grow1 mrgn-left-md color--green">Add Group</div>
+											</div>
+					                  </div>
+							        </form>
+							    </div>
+						    </div>
+
+							{/* END CONTAINER */}
+							
+
 					    </div>
-				    </div>
-
-					{/* END CONTAINER */}
-					
-
-			    </div>
-			    
-
-
-
-
+					</div>
+			    </Sidebar>
+			</div>
 		)
 	}
 }
-
-// export default GoogleApiWrapper({
-//   apiKey: Constants.GOOGLE_API_KEY
-// }) (connect(mapStateToProps, Actions)(Create));
 
 export default connect(mapStateToProps, Actions)(AddProject);

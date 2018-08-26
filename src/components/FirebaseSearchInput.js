@@ -29,7 +29,7 @@ class FirebaseSearchInput extends Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     switch(this.props.type) {
       case Constants.POSTS_SEARCH:
         this.setState({

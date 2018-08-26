@@ -137,7 +137,7 @@ class Review extends React.Component {
   }
 
 
-  componentWillMount() {
+  componentDidMount() {
     // this.props.getSubject(this.props.params.sid);
     // if (this.props.params.rid) {
     //   this.props.getReview(this.props.authenticated, this.props.params.rid);
