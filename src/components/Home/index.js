@@ -17,11 +17,11 @@ const OrgList = props => {
         {
           props.orgList.map((orgItem, index) => {
             return (
-              <Link target="blank" to={'/' + orgItem.name} className="org-block flx flx-col flx-center-all bx-shadow" key={index}>
+              <a target="_blank" href={Constants.COLLABO_URL + '/' + orgItem.name} className="org-block flx flx-col flx-center-all bx-shadow" key={index}>
                 <div className="org-logo mrgn-bottom-md">
                 </div>
                 <div className="co-type-org">{orgItem.name}</div>
-              </Link>
+              </a>
               )
           })
         }
