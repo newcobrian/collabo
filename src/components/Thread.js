@@ -57,7 +57,7 @@ const BodySection = props => {
           <Editor
               editorState={props.bodyText}
               wrapperClassName="demo-wrapper"
-              editorClassName="demo-editor"
+              editorClassName="demo-editor pdding-all-md brdr-all brdr--primary"
               onEditorStateChange={props.updateText}
               mention={{
                 separator: ' ',
@@ -372,10 +372,7 @@ class Thread extends React.Component {
                       { this.renderChanges(this.props.changes, this.props.googleDocs, this.props.updates) }
                     </div>
                     
-                    <div className="itinerary__comments-module flx flx-col flx-align-start flx-just-start w-max-2" id='guidecommentcontainer' name='guidecommentcontainer'>
-                      <div className="co-type-h5 mrgn-bottom-sm mrgn-top-sm ta-left w-100">
-                        Comment
-                      </div>
+                    <div className="comments-area flx flx-col flx-align-start flx-just-start w-max-2" id='guidecommentcontainer' name='guidecommentcontainer'>
                       <div className="co-thread-reply-wrapper">
                         <CommentContainer
                           authenticated={this.props.authenticated}

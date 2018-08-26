@@ -2,15 +2,29 @@
 	background-color: #FFFDF4;
 	width: 100%;
 }
+.co-googledoc-wrapper p {
+	padding: 10px 0;
+}
 .thread-body {
-	padding: 40px 40px 20px;
-	    width: 100%;
+	padding: 20px;
+	width: 100%;
+}
+.public-DraftStyleDefault-block {
+	margin: 0 !important;
+}
+.page-add-thread .public-DraftStyleDefault-block {
+	min-height: 200px;
+	border: 1px solid rgba(0,0,0,.2);
+	margin-top: 20px;
+}
+.public-DraftStyleDefault-block {
+	min-height: 40px;
 }
 .w-auto {
 	width: auto;
 }
 .co-thread-reply-wrapper {
-	padding: 40px 40px 20px;
+	padding: 40px 20px 20px;
 	width: 100%;
 }
 .h-100 {
@@ -162,9 +176,9 @@ textarea {
 }
 .v2-type-body2, .co-type-body {
   	font-weight: 400;
-  	font-size: 14px;
+  	font-size: 16px;
   	letter-spacing: 0;
-  	line-height: 20px;
+  	line-height: 24px;
 }
 .co-post-title {
 	font-weight: 500;
@@ -450,14 +464,14 @@ p {
 }
 .rdw-editor-wrapper {
     box-sizing: content-box;
-    min-height: 160px;
+    min-height: 0px;
 }
 .demo-editor.rdw-editor-main {
     height: 100%;
     overflow: auto;
     box-sizing: border-box;
-    border: 1px solid rgba(0,0,0,.1);
-    padding: 20px;
+    /*border: 1px solid rgba(0,0,0,.1);*/
+    padding: 0px;
 }
 .co-icon-wrapper {
 	width: 32px;

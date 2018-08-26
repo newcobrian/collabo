@@ -16,6 +16,9 @@ body a {
   -webkit-transition: none;
   transition: none;
 }
+.comment-row a {
+  color: #97B4FF;
+}
 body a: hover {
   opacity: .9;
   transition: all 0.23s ease-in-out 0s;

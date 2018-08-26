@@ -1213,6 +1213,7 @@ li.nav-divider {
   max-width: 200px;
 }
 .comment-wrapper.card .comment-data {
+  word-break: break-all;
 }
 .comment-author {
     margin-right: 5px;
