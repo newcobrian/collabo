@@ -26,6 +26,7 @@ class OrgHeader extends React.Component {
         browserHistory.push('/' + this.props.orgName + '/' + result.projectId + '/' + result.value);
       }
     }
+    
   }
 
   render() {

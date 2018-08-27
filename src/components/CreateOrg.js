@@ -41,7 +41,7 @@ class CreateOrg extends React.Component {
     	}
 	}
 
-	componentWillMount() {
+	componentDidMount() {
     	if (!this.props.authenticated) {
     		this.props.askForAuth();
     	}

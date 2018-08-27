@@ -95,7 +95,7 @@ class CreateRecsModal extends React.Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.onUpdateCreateField('title', 'Recommendations for ' + this.props.userInfo.username, Constants.CREATE_RECS_MODAL);
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'create recs modal' });
   }
