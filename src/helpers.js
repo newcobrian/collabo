@@ -630,19 +630,19 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 	};
 	let emailMessage = '';
 	let emailData = {};
+	let emailTemplateID = "5d7dc9ce-f38d-47b9-b73c-09d3e187a6d9"
 
 	Firebase.database().ref(Constants.USERS_PATH + '/' + recipientId).once('value', recipientSnapshot => {
 		Firebase.database().ref(Constants.USERS_PATH + '/' + senderId).once('value', senderSnapshot => {
 			switch(messageType) {
 				case Constants.THREAD_MENTION_MESSAGE:
 					inboxObject.senderId = senderId;
-					inboxObject.message = ' mentioned you in the thread: ' + thread.title;
+					inboxObject.message = ' mentioned you in the post: ' + thread.title;
 					inboxObject.link = '/' + org.name + '/' + project.projectId + '/' + thread.threadId;
-					emailData.titleAction = ' mentioned you in a post: '
+					emailData.emailSubject = senderSnapshot.val().username + ' mentioned you in the post: ' + thread.title
 					emailData.threadTitle = thread.title
 					emailData.commentBody = sendObject.message
-					emailData.bodyText1 = ' mentioned you in a post: '
-					emailData.bodyText2 = ''
+					emailData.senderLink = Constants.COLLABO_URL + '/' + org.name + '/users/' + senderSnapshot.val().username
 					break;
 				// case Constants.COMMENT_ON_COMMENT_REVIEW_MESSAGE:
 				// 	inboxObject.senderId = senderId;
@@ -658,17 +658,21 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 					inboxObject.message = ' invited you join their organization: ' + org.name;
 					inboxObject.link = '/invitation/' + sendObject;
 					inboxObject.type = Constants.INBOX_INVITE_TYPE
-					emailMessage = senderSnapshot.val().username + 
-						' invited you to join their team "' + org.name + '". Click here to check it out: ' + Constants.COLLABO_URL + '/invitation/' + sendObject;
+					emailData.orgName = org.name
+					emailData.link = Constants.COLLABO_URL + '/invitation/' + sendObject;
+					emailData.senderLink = Constants.COLLABO_URL + '/' + org.name + '/users/' + senderSnapshot.val().username
+					emailTemplateID = "0a991f3c-3079-4d45-90d2-eff7c64f9cc5"
+					// emailMessage = senderSnapshot.val().username + 
+					// 	' invited you to join their team "' + org.name + '". Click here to check it out: ' + Constants.COLLABO_URL + '/invitation/' + sendObject;
 					break;
-				case Constants.NEW_THREAD_MESSAGE:
-					inboxObject.senderId = senderId;
-					inboxObject.message = org.name + ': ' + senderSnapshot.val().name + ' created a new thread "' + thread.title + '" in the ' + project.name + ' project';
-					inboxObject.link = '/' + org.name + '/' + project.projectId + '/' + thread.threadId;
-					inboxObject.type = Constants.INBOX_INVITE_TYPE
-					emailMessage = org.name + ' team: ' + senderSnapshot.val().username + 
-						' created a new thread in the ' + project.name + ' project. Click here to check it out: '+ Constants.COLLABO_URL + '/' + org.name + '/' + project.projectId + '/' + thread.threadId;
-					break;
+				// case Constants.NEW_THREAD_MESSAGE:
+				// 	inboxObject.senderId = senderId;
+				// 	inboxObject.message = org.name + ': ' + senderSnapshot.val().name + ' created a new thread "' + thread.title + '" in the ' + project.name + ' project';
+				// 	inboxObject.link = '/' + org.name + '/' + project.projectId + '/' + thread.threadId;
+				// 	inboxObject.type = Constants.INBOX_INVITE_TYPE
+				// 	emailMessage = org.name + ' team: ' + senderSnapshot.val().username + 
+				// 		' created a new thread in the ' + project.name + ' project. Click here to check it out: '+ Constants.COLLABO_URL + '/' + org.name + '/' + project.projectId + '/' + thread.threadId;
+				// 	break;
 			}
 			if (senderId !== recipientId) {
 				Firebase.database().ref(Constants.INBOX_PATH + '/' + recipientId).push().set(inboxObject);
@@ -676,8 +680,8 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 		            return (current_count || 0) + 1;
 		        })
 	        	if (recipientSnapshot.exists() && recipientSnapshot.val().email) {
-	        		let data = Object.assign({}, {message: emailMessage}, {senderName: senderSnapshot.val().username});
-	        		sendContentManagerEmail("5d7dc9ce-f38d-47b9-b73c-09d3e187a6d9", recipientSnapshot.val().email, data);
+	        		let data = Object.assign({}, emailData, {senderName: senderSnapshot.val().username});
+	        		sendContentManagerEmail(emailTemplateID, recipientSnapshot.val().email, data);
 			    }
 			}
 		})
@@ -732,10 +736,11 @@ export function sendCommentInboxMessage(senderId, recipientId, messageType, org,
 
 export function sendInviteEmail(auth, recipientEmail, orgName, inviteId) {
 	Firebase.database().ref(Constants.USERS_PATH + '/' + auth).once('value', senderSnap => {
-		let emailMessage = senderSnap.val().username + ' invited you to join their team "' + orgName + '" on Collabo.' +
-			' Click here to check it out: ' + Constants.COLLABO_URL + '/invitation/' + inviteId;
-							
-		let data = Object.assign({}, {message: emailMessage}, {senderName: senderSnap.val().username });
+		// let emailMessage = senderSnap.val().username + ' invited you to join their team "' + orgName + '" on Collabo.' +
+		// 	' Click here to check it out: ' + Constants.COLLABO_URL + '/invitation/' + inviteId;
+		let link = Constants.COLLABO_URL + '/invitation/' + inviteId
+
+		let data = Object.assign({}, {orgName: orgName}, {senderName: senderSnap.val().username }, {link: link});
 		sendContentManagerEmail("0a991f3c-3079-4d45-90d2-eff7c64f9cc5", recipientEmail, data);
 	})
 }
