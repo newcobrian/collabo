@@ -136,6 +136,7 @@ export const ITINERARY_REMOVED_ACTION = 'ITINERARY_REMOVED_ACTION'
 export const ITINERARY_CHANGED_ACTION = 'ITINERARY_CHANGED_ACTION'
 export const ITINERARIES_BY_USER_REMOVED_ACTION = 'ITINERARIES_BY_USER_REMOVED_ACTION'
 export const SET_GOOGLE_AUTHORED = 'SET_GOOGLE_AUTHORED'
+export const SET_GOOGLE_SDK_LOADED = 'SET_GOOGLE_SDK_LOADED'
 export const SHOW_CONFIRM_MESSAGE = 'SHOW_CONFIRM_MESSAGE'
 export const UPDATE_GOOGLE_DOCS_META = 'UPDATE_GOOGLE_DOCS_META'
 export const UPDATE_GOOGLE_DOCS_MESSAGE = 'UPDATE_GOOGLE_DOCS_MESSAGE'
@@ -2804,6 +2805,14 @@ export function setGoogleAuthored(status) {
     dispatch({
       type: SET_GOOGLE_AUTHORED,
       payload: status
+    });
+  }
+}
+
+export function setGoogleSDKLoaded() {
+  return dispatch => {
+    dispatch({
+      type: SET_GOOGLE_SDK_LOADED
     });
   }
 }
