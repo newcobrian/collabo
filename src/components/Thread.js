@@ -162,6 +162,11 @@ class Thread extends React.Component {
       this.props.showDeleteModal(this.props.params.tid, this.props.thread, this.props.params.orgname, Constants.THREAD_PAGE)
     }
 
+    this.onGoBackClick = ev => {
+      ev.preventDefault();
+      
+    }
+
     this.renderState = (update) => {
       if (!update) {
         return null;
@@ -326,7 +331,7 @@ class Thread extends React.Component {
 
                     <div className={"thread-body left-text flx flx-col flx-align-start country-color-"}>
                        <div>
-                    <Link to={'/' + this.props.params.orgname + '/' + this.props.thread.projectId} activeClassName="active" className="nav-module create nav-editor flx flx-center-all">
+                    <Link onClick={this.onGoBackClick} activeClassName="active" className="nav-module create nav-editor flx flx-center-all">
                       <div className="nav-text flx flx-row flx-align-center opa-60 mrgn-bottom-md">
                           <i className="material-icons color--black md-18 opa-100 mrgn-right-xs">arrow_back_ios</i>
                           <div className="co-type-body mrgn-left-xs">Back to group</div>
