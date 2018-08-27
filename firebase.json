@@ -21,6 +21,10 @@
       {
         "source": "/watchFile",
         "function": "watchFile"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
       }
     ]
   },
