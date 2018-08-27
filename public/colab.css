@@ -12,13 +12,14 @@
 .public-DraftStyleDefault-block {
 	margin: 0 !important;
 }
-.page-add-thread .public-DraftStyleDefault-block {
+.page-add-thread .DraftEditor-root {
+	border: 1px solid rgba(0,0,0,.1);
 	min-height: 200px;
-	border: 1px solid rgba(0,0,0,.2);
 	margin-top: 20px;
+	padding: 20px;
 }
+
 .public-DraftStyleDefault-block {
-	min-height: 40px;
 }
 .w-auto {
 	width: auto;
