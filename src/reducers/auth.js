@@ -1,4 +1,5 @@
-import { AUTH_USER, SIGN_OUT_USER, AUTH_ERROR, UNLOAD_AUTH, FORGOT_PASSWORD_SENT, SET_GOOGLE_AUTHORED } from '../actions';
+import { AUTH_USER, SIGN_OUT_USER, AUTH_ERROR, UNLOAD_AUTH,
+  FORGOT_PASSWORD_SENT, SET_GOOGLE_AUTHORED, SET_GOOGLE_SDK_LOADED } from '../actions';
 import * as ActionTypes from '../actions/types'
 import * as Constants from '../constants'
 
@@ -71,6 +72,11 @@ export default (state = {}, action) => {
         isGoogleAuthored: action.payload
       }
 
+    case SET_GOOGLE_SDK_LOADED:
+      return {
+        ...state,
+        isGoogleSDKLoaded: true
+      }
     default:
       return state;
   }
