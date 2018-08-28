@@ -164,7 +164,7 @@ class Thread extends React.Component {
 
     this.onGoBackClick = ev => {
       ev.preventDefault();
-      
+      browserHistory.goBack()
     }
 
     this.renderState = (update) => {
