@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link, browserHistory } from 'react-router';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
 import * as Helpers from '../helpers';
@@ -53,6 +54,11 @@ class AddThread extends React.Component {
 
     	this.mediaQueryChanged = () => {
 	      this.props.setSidebar(mql.matches);
+	    }
+
+	    this.onGoBackClick = ev => {
+	      ev.preventDefault();
+	      browserHistory.goBack()
 	    }
 	}
 
@@ -173,7 +179,12 @@ class AddThread extends React.Component {
 										        </form>
 										        
 								{/* END CONTAINER */}
-								
+								<Link onClick={this.onGoBackClick} activeClassName="active" className="nav-module create nav-editor flx flx-center-all">
+			                      	<div className="nav-text flx flx-row flx-align-center opa-60 mrgn-bottom-md">
+			                          <i className="material-icons color--black md-18 opa-100 mrgn-right-xs">arrow_back_ios</i>
+			                          <div className="co-type-body mrgn-left-xs">Cancel</div>
+			                        </div>
+		                    	</Link>
 						    </div>
 				    	</div>
 				    </div>
