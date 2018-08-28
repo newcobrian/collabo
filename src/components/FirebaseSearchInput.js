@@ -215,7 +215,7 @@ class FirebaseSearchInput extends Component {
             return key.toLowerCase().includes(searchText.toLowerCase());
           }}
           fullWidth={true}
-          hintText={this.props.placeholder}
+          placeholder={this.props.placeholder}
           dataSource={this.state.dataSource}
           onUpdateInput={this.onUpdateInput} 
           onNewRequest={this.onNewRequest}
