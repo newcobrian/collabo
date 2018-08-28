@@ -12,14 +12,14 @@ const mapStateToProps = state => ({
 const ThreadList = props => {
   if (props.emptyThreadFeed) {
     return (
-      <div className="status-module flx flx-col flx-center-all v2-type-body3">
+      <div className="threadlist header-push w-100 flx flx-col flx-center-all">
         This project has no threads yet. Why don't you add one?
       </div>
     )
   }
   else if (!props.threads) {
     return (
-      <div className="status-module flx flx-col flx-center-all v2-type-body3">
+      <div className="threadlist header-push w-100 flx flx-col flx-center-all">
         Loading threads...
       </div>
     );
