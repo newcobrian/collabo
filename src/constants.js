@@ -135,6 +135,7 @@ export const REVIEW_TYPE = 'review'
 export const RECOMMENDATIONS_TYPE = 'recommendations'
 export const TIPS_TYPE = 'tips'
 export const COMMENT_TYPE = 'COMMENT_TYPE'
+export const THREAD_TYPE = 'THREAD_TYPE'
 export const NEW_THREAD_TYPE = 'NEW_THREAD_TYPE'
 export const EDIT_THREAD_TYPE = 'EDIT_THREAD_TYPE'
 

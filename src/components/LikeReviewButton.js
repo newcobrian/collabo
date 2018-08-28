@@ -40,9 +40,8 @@ class LikeReviewButton extends React.Component {
  
     return (
       <div className="cta-container flx flx-row flx-center-all">
-        <i onClick={handleLikeClick} className={classes}>favorite</i>
+        <i onClick={handleLikeClick} className={classes}>Upvote</i>
         <div className="v2-type-body1 weight-500 ta-left">{this.props.likesCount ? this.props.likesCount : 0} </div>
-        <div className="like-text v2-type-body0 weight-500 mrgn-left-xs DN">Likes</div>
       </div>
 
     );
