@@ -656,7 +656,7 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 				// 	break;
 				case Constants.ORG_INVITE_MESSAGE:
 					inboxObject.senderId = senderId;
-					inboxObject.message = ' invited you join their organization: ' + org.name;
+					inboxObject.message = ' invited you join their team: ' + org.name;
 					inboxObject.link = '/invitation/' + sendObject;
 					inboxObject.type = Constants.INBOX_INVITE_TYPE
 					emailData.orgName = org.name
