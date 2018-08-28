@@ -108,6 +108,7 @@ class App extends React.Component {
           window.gapi.auth2.getAuthInstance().isSignedIn.listen(this.updateSigninStatus);
           // Handle the initial sign-in state.
           this.updateSigninStatus(window.gapi.auth2.getAuthInstance().isSignedIn.get());
+          this.props.setGoogleSDKLoaded();
         });
       });
     }
