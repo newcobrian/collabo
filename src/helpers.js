@@ -14,7 +14,7 @@ export function findThreadMentions(auth, threadBody, org, project, thread) {
       Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + username).once('value', snap => {
         if (snap.exists()) {
           if (snap.val().userId !== auth && sentArray.indexOf(snap.val().userId) === -1) {
-            sendCollaboInboxMessage(auth, snap.val().userId, Constants.THREAD_MENTION_MESSAGE, org, project, thread, null)
+            sendCollaboInboxMessage(auth, snap.val().userId, Constants.THREAD_MENTION_MESSAGE, org, project, thread, convertEditorStateToHTML(convertStoredToEditorState(threadBody)))
             sentArray.push(snap.val().userId);
           }
         }
@@ -641,6 +641,7 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 					inboxObject.message = ' mentioned you in the post: ' + thread.title;
 					inboxObject.link = '/' + org.name + '/' + project.projectId + '/' + thread.threadId;
 					emailData.emailSubject = senderSnapshot.val().username + ' mentioned you in a post'
+					emailData.body = sendObject
 					emailData.threadTitle = '"' + thread.title + '"'
 					emailData.senderLink = Constants.COLLABO_URL + '/' + org.name + '/users/' + senderSnapshot.val().username
 					break;
