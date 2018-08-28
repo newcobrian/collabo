@@ -179,9 +179,9 @@ class AddThread extends React.Component {
 										        </form>
 										        
 								{/* END CONTAINER */}
-								<Link onClick={this.onGoBackClick} activeClassName="active" className="nav-module create nav-editor flx flx-center-all">
+								<Link onClick={this.onGoBackClick} activeClassName="active" className="nav-module create nav-editor mrgn-top-md flx flx-center-all opa-50 w-100">
 			                      	<div className="nav-text flx flx-row flx-align-center opa-60 mrgn-bottom-md">
-			                          <i className="material-icons color--black md-18 opa-100 mrgn-right-xs">arrow_back_ios</i>
+			                          <i className="material-icons color--black md-18 opa-100 mrgn-right-xs DN">arrow_back_ios</i>
 			                          <div className="co-type-body mrgn-left-xs">Cancel</div>
 			                        </div>
 		                    	</Link>

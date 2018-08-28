@@ -113,7 +113,6 @@ a.logo-module:focus {
   text-transform: none;
 }
 .nav-module.nav-editor {
-  order: 3;
 }
 .nav-module.nav-feed {
   order: 1;
