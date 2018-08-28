@@ -171,6 +171,15 @@ const ThreadPreview = props => {
                         {/*<div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(thread.body) || '' }} />*/}
                         </div>
 
+                        <div className="cta-wrapper vb vb--tip vb--outline--none flx flx-row flx-align-center v2-type-body2 DN">
+                          <LikeReviewButton
+                            authenticated={props.authenticated}
+                            isLiked={thread.likes ? thread.likes[props.authenticated] : false}
+                            likesCount={thread.likesCount}
+                            likeObject={thread}
+                            type={Constants.THREAD_TYPE} />
+                        </div>
+
                   </div>
                 </div>
               </div>

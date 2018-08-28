@@ -50,7 +50,7 @@ class CommentInput extends React.Component {
             </Textarea>*/}
 
             <MentionsInput 
-              className="comment-input font--beta input--overline w-100 pdding-all-sm"
+              className="comment-input font--beta input--overline w-100 pdding-all-sm brdr-all brdr--primary"
               rows="6"
               cols="10"
               wrap="hard"

@@ -57,7 +57,7 @@ const BodySection = props => {
           <Editor
               editorState={props.bodyText}
               wrapperClassName="demo-wrapper"
-              editorClassName="demo-editor"
+              editorClassName="demo-editor pdding-all-md brdr-all brdr--primary"
               onEditorStateChange={props.updateText}
               mention={{
                 separator: ' ',
@@ -87,7 +87,7 @@ const BodySection = props => {
             editorClassName="demo-editor"
             onEditorStateChange={props.updateText}
             toolbarHidden={true}
-            ReadOnly={true}
+            readOnly={true}
           />
         </div>
           {/*<textarea
@@ -115,7 +115,7 @@ const BodySection = props => {
           editorClassName="demo-editor"
           onEditorStateChange={props.updateText}
           toolbarHidden={true}
-          ReadOnly={true}
+          readOnly={true}
         />
       {/*<div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(props.bodyText) || '' }}>
           </div>*/}
@@ -160,6 +160,11 @@ class Thread extends React.Component {
     this.onDeleteClick = ev => {
       ev.preventDefault()
       this.props.showDeleteModal(this.props.params.tid, this.props.thread, this.props.params.orgname, Constants.THREAD_PAGE)
+    }
+
+    this.onGoBackClick = ev => {
+      ev.preventDefault();
+      
     }
 
     this.renderState = (update) => {
@@ -290,26 +295,6 @@ class Thread extends React.Component {
         <LoadingSpinner message="Loading thread" />
         )
     }
-    // if (!this.props.feed) {
-    //   return (
-    //     <div className="loading-module flx flx-col flx-center-all v2-type-body3 fill--black">
-    //       <div className="loader-wrapper flx flx-col flx-center-all fill--black">
-    //         <div className="loader-bird"></div>
-    //         <div className="loader">
-    //           <div className="bar1"></div>
-    //           <div className="bar2"></div>
-    //           <div className="bar3"></div>
-    //         </div>
-    //         <div className="v2-type-body2 color--white">Loading location</div>
-    //       </div>
-    //     </div>
-    //     )
-    // }
-    // else if (this.props.feed.length === 0) {
-    //   return (
-    //     <div> No itineraries created for {this.props.geo.label}.</div>
-    //   )
-    // }
     else {
       let thread = this.props.thread
       let createdBy = this.props.createdBy
@@ -341,17 +326,12 @@ class Thread extends React.Component {
                   <div className="project-header text-left flx flx-col flx-align-start w-100">
                     <OrgHeader />
                   </div>
-                  
-                  {/*<ProjectList 
-                    threadCounts={this.props.threadCounts}
-                    projectId={this.props.params.pid} />*/}
-
 
                     <div className="thread-area header-push-mini flx flx-col w-100">
 
                     <div className={"thread-body left-text flx flx-col flx-align-start country-color-"}>
                        <div>
-                    <Link to={'/' + this.props.params.orgname + '/' + this.props.thread.projectId} activeClassName="active" className="nav-module create nav-editor flx flx-center-all">
+                    <Link onClick={this.onGoBackClick} activeClassName="active" className="nav-module create nav-editor flx flx-center-all">
                       <div className="nav-text flx flx-row flx-align-center opa-60 mrgn-bottom-md">
                           <i className="material-icons color--black md-18 opa-100 mrgn-right-xs">arrow_back_ios</i>
                           <div className="co-type-body mrgn-left-xs">Back to group</div>
@@ -397,10 +377,7 @@ class Thread extends React.Component {
                       { this.renderChanges(this.props.changes, this.props.googleDocs, this.props.updates) }
                     </div>
                     
-                    <div className="itinerary__comments-module flx flx-col flx-align-start flx-just-start w-max-2" id='guidecommentcontainer' name='guidecommentcontainer'>
-                      <div className="co-type-h5 mrgn-bottom-sm mrgn-top-sm ta-left w-100">
-                        Comment
-                      </div>
+                    <div className="comments-area flx flx-col flx-align-start flx-just-start w-max-2" id='guidecommentcontainer' name='guidecommentcontainer'>
                       <div className="co-thread-reply-wrapper">
                         <CommentContainer
                           authenticated={this.props.authenticated}
@@ -415,14 +392,6 @@ class Thread extends React.Component {
                           usersList={this.props.usersList}
                           deleteComment={this.props.onDeleteThreadComment} />
                       </div>
-                    {/*<div className="feed-wrapper">
-                      <ItineraryList
-                      itineraries={this.props.feed} 
-                      authenticated={this.props.authenticated} 
-                      like={this.props.likeReview} 
-                      unLike={this.props.unLikeReview}
-                      deleteItinerary={this.props.showDeleteModal} />
-                    </div>*/}
 
                   </div>
 

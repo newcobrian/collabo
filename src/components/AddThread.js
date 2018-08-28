@@ -108,7 +108,7 @@ class AddThread extends React.Component {
 	              >
 	              	<div className={this.props.sidebarOpen ? 'open-style' : 'closed-style'}>
 
-						<div className="page-common flx flx-col flx-center-all">
+						<div className="page-common page-add-thread flx flx-col flx-center-all">
 								
 
 								<div className="project-header text-left flx flx-col flx-align-start w-100">

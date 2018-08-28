@@ -51,7 +51,7 @@ class GoogleDriveLink extends React.Component {
       return null;
     }
     return (
-      <div className='mrgn-top-sm pdding-left-lg pdding-right-lg fill--lighter-gray'>
+      <div className='co-googledoc-wrapper mrgn-top-sm pdding-left-lg pdding-right-lg'>
         {
           isConfirmMessageVisible &&
           <p>Thanks, You are all set.</p>
