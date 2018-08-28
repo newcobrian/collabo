@@ -128,10 +128,14 @@ class AddProject extends React.Component {
 					        <div className="content-wrapper flx flx-col ta-center">
 			        			
 
-								
+
 					            <div className="content-wrapper header-push ta-left flx flx-col">
 
-        					       	
+        					       	<div className="co-type-body opa-40 color--black mrgn-bottom-md">
+        					       	Use lists to organize your team communications and files (ie. "Design", "Marketing", etc)
+        					       	<br/>
+        					       	Access lists quickly in the left sidebar.</div>
+
 
 						            <form>
 										<fieldset className="field-wrapper">
