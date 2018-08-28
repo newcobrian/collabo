@@ -33,7 +33,7 @@ class AddProject extends React.Component {
 		this.submitForm = ev => {
 	      ev.preventDefault();
 	      if (!this.props.name) {
-	        this.props.createSubmitError('Please add a project name', Constants.ADD_PROJECT_PAGE);
+	        this.props.createSubmitError('Please name your list', Constants.ADD_PROJECT_PAGE);
 	      }
 	      else {
 		   	let project = {};
@@ -121,7 +121,7 @@ class AddProject extends React.Component {
 							<div className="project-header text-left flx flx-col flx-align-start w-100">
 						    	<OrgHeader />
 						    	{/* HEADER START */}
-						    	<div className="co-type-h1 mrgn-top-sm mrgn-left-md">Add a New Group</div>
+						    	<div className="co-type-h1 mrgn-top-sm mrgn-left-md">Create a New List</div>
 						    </div>
 
 						    {/* CONTAINER - START */}
@@ -131,18 +131,18 @@ class AddProject extends React.Component {
 					            <div className="content-wrapper header-push ta-left flx flx-col">						            
 						            <form>
 										<fieldset className="field-wrapper">
-											<label>Group name</label>
+											<label>List name</label>
 					                      <input
 					                        className="input--underline edit-itinerary__name v2-type-body3"
 					                        type="text"
-					                        placeholder="My New Group"
+					                        placeholder="My Cool List"
 					                        required
 					                        value={this.props.name}
 					                        maxLength="42"
 					                        onChange={this.changeName} />
 					                    </fieldset>
 										<fieldset className="field-wrapper DN">
-										<div className="field-label">Group Name</div>
+										<div className="field-label">List Description</div>
 					                      <textarea
 					                        className="input--underline v2-type-body3"
 					                        type="text"
@@ -162,7 +162,7 @@ class AddProject extends React.Component {
 					                    disabled={this.props.inProgress}
 					                    onClick={this.submitForm}>
 					                    	<div className="flx flx-row flx-center-all ta-center">
-						                    	<div className="flx-grow1 mrgn-left-md color--green">Add Group</div>
+						                    	<div className="flx-grow1 mrgn-left-md color--green">Create List</div>
 											</div>
 					                  </div>
 							        </form>

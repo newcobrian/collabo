@@ -42,7 +42,7 @@ class AddThread extends React.Component {
 		this.submitForm = ev => {
 	      ev.preventDefault();
 	      if (!this.props.title) {
-	        this.props.createSubmitError('Please add a thread title', Constants.ADD_THREAD_PAGE);
+	        this.props.createSubmitError('Please add a post title', Constants.ADD_THREAD_PAGE);
 	      }
 	      else {
 	      	let storableBody = Helpers.convertEditorStateToStorable(this.props.body)
@@ -129,11 +129,11 @@ class AddThread extends React.Component {
 									            <form>
 
 													<fieldset className="field-wrapper">
-														<label>Thread Title</label>
+														<label>Post Title</label>
 								                      <input
 								                        className="input--underline edit-itinerary__name v2-type-body3"
 								                        type="text"
-								                        placeholder="My new thread"
+								                        placeholder="My new post"
 								                        required
 								                        value={this.props.title}
 								                        maxLength="42"
@@ -171,7 +171,7 @@ class AddThread extends React.Component {
 								                        disabled={this.props.inProgress}
 								                        onClick={this.submitForm}>
 								                        	<div className="flx flx-row flx-center-all ta-center">
-								    	                    	<div className="flx-grow1 mrgn-left-md color--green">Post Thread</div>
+								    	                    	<div className="flx-grow1 mrgn-left-md color--green">Create Post</div>
 								    							<img className="flx-item-right DN" src="/img/icons/icon32_next.png"/>
 								    						</div>
 								                      </div>

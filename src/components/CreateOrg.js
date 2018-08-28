@@ -24,13 +24,13 @@ class CreateOrg extends React.Component {
 		this.submitForm = ev => {
 	      ev.preventDefault();
 	      if (!this.props.name) {
-	        this.props.createSubmitError('Please add an organization name', Constants.CREATE_ORG_PAGE);
+	        this.props.createSubmitError('Please add a team name', Constants.CREATE_ORG_PAGE);
 	      }
 	      else if (this.props.name.length < 3) {
 	      	this.props.createSubmitError('Team name must be at least 3 characters long', Constants.CREATE_ORG_PAGE);
 	      }
 		  else if(!(/^\w+$/i.test(this.props.name))) {
-			this.props.createSubmitError('Your organization name can only contain letters', Constants.CREATE_ORG_PAGE);
+			this.props.createSubmitError('Your team name can only contain letters', Constants.CREATE_ORG_PAGE);
 		  }
 	      else {
 		   	let org = Object.assign({}, {name: this.props.name} )
@@ -84,10 +84,10 @@ class CreateOrg extends React.Component {
 					            <div className="create-form-wrapper form-wrapper ta-left flx flx-col-left">
 						            
 						            <form>
-						            	<div className="co-type-h1 mrgn-left-sm mrgn-bottom-sm">Create a new organization</div>
+						            	<div className="co-type-h1 mrgn-left-sm mrgn-bottom-sm">Create your new team</div>
 
 										<fieldset className="field-wrapper">
-											<label>Organization Name</label>
+											<label>Team Name</label>
 					                      <input
 					                        className="input--underline edit-itinerary__name v2-type-body3"
 					                        type="text"

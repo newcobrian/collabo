@@ -64,7 +64,7 @@ ReactDOM.render((
         <Route path="user/:username/likes" component={ProfileLikes} />*/}
         <Route path=":orgname/inbox" component={Inbox} />
         <Route path=":orgname/user/:username" component={Profile} />
-        <Route path=":orgname/addproject" component={AddProject} />
+        <Route path=":orgname/createlist" component={AddProject} />
         <Route path=":orgname/invite" component={OrgInvite} />
         <Route path=":orgname(/:pid)" component={Project} />
         <Route path=":orgname/:pid/addthread" component={AddThread} />

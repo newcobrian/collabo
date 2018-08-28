@@ -138,7 +138,7 @@ class Home extends React.Component {
                 <div className="org-logo mrgn-bottom-md fill--white flx flx-col flx-center-all">
                   <i className="material-icons color--black md-48 opa-20">add</i>
                 </div>
-                <div className="co-type-normal co-type-org opa-40">Create New Org</div>
+                <div className="co-type-normal co-type-org opa-40">Create New Team</div>
               </Link>
               {/*<div className="guide-feed-wrapper w-100 flx flx-row flx-just-center flx-self-end flx-align-start flx-wrap">
                 
