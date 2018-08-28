@@ -3,7 +3,7 @@ export const VIEWS_URL = 'http://myviews.io'
 export const COLLABO_URL = 'https://joinkoi.com'
 // export const SUBJECT_SEARCH_URL = 'https://localhost:8000/search?q='
 
-export const INBOX_SEND_EMAIL_URL = 'https://joinkoi.com/mail/send'
+export const INBOX_SEND_EMAIL_URL = 'https://myviews.io/mail/send'
 
 /*** Google Maps API Key ***/
 export const GOOGLE_API_KEY = 'AIzaSyBvxXp_QM-oiWqY9v6Des7D2EPnhrn769g'

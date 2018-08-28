@@ -440,6 +440,7 @@ export function sendContentManagerEmail(templateId, recipientEmail, data) {
 	formData.append("data", JSON.stringify(data));
     fetch(Constants.INBOX_SEND_EMAIL_URL, {
 	  method: 'POST',
+	  mode: 'no-cors',
 	  body: formData
 	})
 	.catch(function(response) {
@@ -639,9 +640,8 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 					inboxObject.senderId = senderId;
 					inboxObject.message = ' mentioned you in the post: ' + thread.title;
 					inboxObject.link = '/' + org.name + '/' + project.projectId + '/' + thread.threadId;
-					emailData.emailSubject = senderSnapshot.val().username + ' mentioned you in the post: ' + thread.title
-					emailData.threadTitle = thread.title
-					emailData.commentBody = sendObject.message
+					emailData.emailSubject = senderSnapshot.val().username + ' mentioned you in a post'
+					emailData.threadTitle = '"' + thread.title + '"'
 					emailData.senderLink = Constants.COLLABO_URL + '/' + org.name + '/users/' + senderSnapshot.val().username
 					break;
 				// case Constants.COMMENT_ON_COMMENT_REVIEW_MESSAGE:
@@ -703,21 +703,19 @@ export function sendCommentInboxMessage(senderId, recipientId, messageType, org,
 					inboxObject.senderId = senderId;
 					inboxObject.message = ' commented on your post: ' + thread.title;
 					inboxObject.link = '/' + org.name + '/' + project.projectId + '/' + thread.threadId;
-					emailData.titleAction = ' commented on your post: '
-					emailData.threadTitle = thread.title
+					emailData.emailSubject = senderSnapshot.val().username + ' commented on your post'
+					emailData.threadTitle = '"' + thread.title + '"'
 					emailData.commentBody = sendObject.message
-					emailData.bodyText1 = ' commented '
-					emailData.bodyText2 = ' on your post: '
+					emailData.bodyText = ' commented on your post '
 					break;
 				case Constants.COMMENT_MENTION_MESSAGE:
 					inboxObject.senderId = senderId;
 					inboxObject.message = ' mentioned you in a comment in the thread: ' + thread.title;
 					inboxObject.link = '/' + org.name + '/' + project.projectId + '/' + thread.threadId;
-					emailData.titleAction = ' mentioned you in a comment in the post: '
-					emailData.threadTitle = thread.title
+					emailData.emailSubject = senderSnapshot.val().username + ' mentioned you in a comment'
+					emailData.threadTitle = '"' + thread.title + '"'
 					emailData.commentBody = sendObject.message
-					emailData.bodyText1 = ' mentioned you in a comment: '
-					emailData.bodyText2 = ' on the post: '
+					emailData.bodyText1 = ' mentioned you in a comment on the post '
 					break;
 			}
 			if (senderId !== recipientId) {
