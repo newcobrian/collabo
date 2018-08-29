@@ -97,7 +97,9 @@ export default (state = { body: initialEditorState, usersList: [] }, action) => 
           newState.projectObject[action.id] = action.name
           return newState;
         }
+        return state;
       }
+      return state;
     }
     case ActionTypes.LIST_CHANGED_ACTION: {
       if (action.source === Constants.ADD_THREAD_PAGE && action.listType === Constants.PROJECT_LIST_TYPE) {
@@ -108,7 +110,9 @@ export default (state = { body: initialEditorState, usersList: [] }, action) => 
           newState.projectObject[action.id] = action.name
           return newState;
         }
+        return state;
       }
+      return state;
     }
     case ActionTypes.LIST_REMOVED_ACTION: {
       if (action.source === Constants.ADD_THREAD_PAGE && action.listType === Constants.PROJECT_LIST_TYPE) {
@@ -119,7 +123,9 @@ export default (state = { body: initialEditorState, usersList: [] }, action) => 
           newState.projectObject[action.id] = undefined;
           return newState
         }
+        return state;
       }
+      return state;
     }
     case ActionTypes.LOAD_ADD_THREAD_PROJECT:
       return {
