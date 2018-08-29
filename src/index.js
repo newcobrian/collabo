@@ -56,7 +56,7 @@ ReactDOM.render((
         <Route path="register" component={Register} />
         <Route path="settings" component={Settings} />
         <Route path="forgotPassword" component={ForgotPassword} />
-        <Route path="neworg" component={CreateOrg} />
+        <Route path="newteam" component={CreateOrg} />
         <Route path="seo" component={SEO} />
         <Route path ="invitation/:iid" component={AcceptInvite} />
         {/*<Route path="user/:username/followers" component={Followers} />
