@@ -125,7 +125,10 @@ class AddThread extends React.Component {
 
 
 							  <div className="content-wrapper header-push ta-left flx flx-col">
-
+							  		<div className="co-type-body opa-40 color--black mrgn-bottom-md">
+							  		Share discussions, ideas, links to files, meeting notes, etc here.
+							  		<br/>
+							  		We'll keep them organized, updated and easily accessible for you.</div>
 									            <form>
 
 													<fieldset className="field-wrapper">
@@ -166,7 +169,7 @@ class AddThread extends React.Component {
 								                    <ListErrors errors={this.props.errors}></ListErrors>
 								                    
 								                     <div
-								                        className="vb vb--create w-100 color--white fill--light-green"
+								                        className="vb vb--create w-100 color--white fill--light-green mrgn-top-sm"
 								                        type="button"
 								                        disabled={this.props.inProgress}
 								                        onClick={this.submitForm}>

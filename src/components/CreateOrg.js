@@ -82,7 +82,10 @@ class CreateOrg extends React.Component {
 							<div className="flx flx-col flx-center-all create-wrapper">
 						
 					            <div className="create-form-wrapper form-wrapper ta-left flx flx-col-left">
-						            
+						            <div className="co-type-body opa-40 color--black mrgn-bottom-md">
+									This is your team/company name (ie "Tesla", "Bonniecylde")
+									</div>
+									
 						            <form>
 						            	<div className="co-type-h1 mrgn-left-sm mrgn-bottom-sm">Create your new team</div>
 
