@@ -10,9 +10,9 @@ import ProjectList from '../ProjectList';
 const SignOutButton = props => {
   return (
     <Link
-      className="flx flx-align-center mrgn-right-md"
+      className="flx flx-align-center mrgn-right-md w-100"
       onClick={props.signOut}>
-      <div className="color--black co-type-label">Log out</div>
+      <div className="flx-item-right color--black co-type-label">Log out</div>
     </Link>
   )
 }
