@@ -25,16 +25,16 @@ const ProjectHeader = props => {
             {props.project.name}
           </div>
 
-          <div className="flx flx-align-start mrgn-left-md">
+          <div className="flx flx-align-start mrgn-left-md flx-item-right mrgn-right-sm">
 
             <Link to={'/' + props.orgName + '/' + props.projectId + '/addthread'}
               activeClassName="active"
-              className="flx flx-align-center flx-item-right mrgn-right-md">
+              className="vb vb--sm flx flx-align-center fill--light-green color--green">
                 <div className="feed-gem circle gem-create DN"></div>
                 <div className="icon-wrapper brdr--primary flx flx-center-all">
                   <i className="material-icons color--create md-24 opa-100">add</i>
                 </div>
-                <div className="color--black co-type-label">New Thread</div>
+                <div className="color--green co-type-label">New Post</div>
                
             </Link>
           </div>
