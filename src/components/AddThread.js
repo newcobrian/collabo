@@ -169,7 +169,7 @@ class AddThread extends React.Component {
 								                    <ListErrors errors={this.props.errors}></ListErrors>
 								                    
 								                     <div
-								                        className="vb vb--create w-100 color--white fill--light-green"
+								                        className="vb vb--create w-100 color--white fill--light-green mrgn-top-sm"
 								                        type="button"
 								                        disabled={this.props.inProgress}
 								                        onClick={this.submitForm}>
