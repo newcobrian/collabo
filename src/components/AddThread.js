@@ -95,7 +95,6 @@ class AddThread extends React.Component {
 	}
 
 	render() {
-		console.log(JSON.stringify(this.props.projectObject))
 		if(this.props.invalidOrgUser) {
 	      return (
 	        <div>
@@ -159,7 +158,7 @@ class AddThread extends React.Component {
 												            {
 												            	Object.keys(this.props.projectObject || {}).map(function (projectId) {
 													                return (
-													                  <option className="color--black" id={projectId} key={projectId} value={projectId}>{this.props.projectName}</option>  
+													                  <option className="color--black" key={projectId} value={projectId}>{this.props.projectObject[projectId]}</option>  
 													                )
 												            }, this)}
 
