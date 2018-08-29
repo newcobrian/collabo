@@ -11,18 +11,7 @@ const CommentContainer = props => {
 		return (
 			<div className="comments-module">
 		          
-		          <div className="comment-input-wrapper mrgn-bottom-sm">
-		            <ListErrors errors={props.errors}></ListErrors>
-		            <CommentInput 
-		            	commentObject={props.commentObject} 
-		            	threadId={props.threadId}
-		            	authenticated={props.authenticated} 
-		            	userInfo={props.userInfo}
-		            	project={props.project}
-		            	orgName={props.orgName}
-		            	type={props.type}
-		            	usersList={props.usersList} />
-		          </div>
+		          
 
 		          <CommentList
 								comments={props.comments}
@@ -34,6 +23,18 @@ const CommentContainer = props => {
 								deleteComment={props.deleteComment}
 								type={props.type} />
 
+					<div className="comment-input-wrapper mrgn-bottom-sm">
+					  <ListErrors errors={props.errors}></ListErrors>
+					  <CommentInput 
+					  	commentObject={props.commentObject} 
+					  	threadId={props.threadId}
+					  	authenticated={props.authenticated} 
+					  	userInfo={props.userInfo}
+					  	project={props.project}
+					  	orgName={props.orgName}
+					  	type={props.type}
+					  	usersList={props.usersList} />
+					</div>
 
 		     </div>
 		);

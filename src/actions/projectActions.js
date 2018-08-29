@@ -1345,3 +1345,25 @@ export function onAllProjectsClick(orgName) {
     })
   }
 }
+
+export function loadAddThreadProject(pid) {
+  return dispatch => {
+    Firebase.database().ref(Constants.PROJECTS_PATH + '/' + pid).once('value', snap => {
+      dispatch({
+        type: ActionTypes.LOAD_ADD_THREAD_PROJECT,
+        projectId: pid,
+        projectName: snap.exists() ? snap.val().name : 'Click to select'
+      })
+    })
+  }
+}
+
+export function changeAddThreadProject(projectId, projectName) {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.CHANGE_ADD_THREAD_PROJECT,
+      projectId: projectId,
+      projectName: projectName
+    })
+  }
+}
