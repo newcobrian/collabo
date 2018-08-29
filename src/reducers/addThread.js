@@ -88,6 +88,51 @@ export default (state = { body: initialEditorState, usersList: [] }, action) => 
       }
       return state;
     }
+    case ActionTypes.LIST_ADDED_ACTION: {
+      if (action.source === Constants.ADD_THREAD_PAGE && action.listType === Constants.PROJECT_LIST_TYPE) {
+        const newState = Object.assign({}, state);
+        newState.projectObject = newState.projectObject || {};
+        newState.projectObject = Object.assign({}, newState.projectObject);
+        if (!newState.projectObject[action.id]) {
+          newState.projectObject[action.id] = action.name
+          return newState;
+        }
+      }
+    }
+    case ActionTypes.LIST_CHANGED_ACTION: {
+      if (action.source === Constants.ADD_THREAD_PAGE && action.listType === Constants.PROJECT_LIST_TYPE) {
+        const newState = Object.assign({}, state);
+        newState.projectObject = newState.projectObject || {};
+        newState.projectObject = Object.assign({}, newState.projectObject);
+        if (!newState.projectObject[action.id]) {
+          newState.projectObject[action.id] = action.name
+          return newState;
+        }
+      }
+    }
+    case ActionTypes.LIST_REMOVED_ACTION: {
+      if (action.source === Constants.ADD_THREAD_PAGE && action.listType === Constants.PROJECT_LIST_TYPE) {
+        const newState = Object.assign({}, state);
+        newState.projectObject = newState.likesData || {};
+        newState.projectObject = Object.assign({}, newState.projectObject);
+        if (newState.projectObject[action.id]) {
+          newState.projectObject[action.id] = undefined;
+          return newState
+        }
+      }
+    }
+    case ActionTypes.LOAD_ADD_THREAD_PROJECT:
+      return {
+        ...state,
+        projectId: action.projectId,
+        projectName: action.projectName
+      }
+    case ActionTypes.CHANGE_ADD_THREAD_PROJECT:
+      return {
+        ...state,
+        projectId: action.projectId,
+        projectName: action.projectName
+      }
     default:
       return state;
   }

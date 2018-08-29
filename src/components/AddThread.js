@@ -44,11 +44,14 @@ class AddThread extends React.Component {
 	      if (!this.props.title) {
 	        this.props.createSubmitError('Please add a post title', Constants.ADD_THREAD_PAGE);
 	      }
+	      else if (!this.props.projectId) {
+	        this.props.createSubmitError('Please select a project', Constants.ADD_THREAD_PAGE);
+	      }
 	      else {
 	      	let storableBody = Helpers.convertEditorStateToStorable(this.props.body)
 		   	let thread = Object.assign({}, {title: this.props.title}, { body: storableBody } )
 		    this.props.setInProgress();
-		    this.props.onAddThread(this.props.authenticated, this.props.params.pid, thread, this.props.params.orgname);
+		    this.props.onAddThread(this.props.authenticated, this.props.projectId, thread, this.props.params.orgname);
 		  }
     	}
 
@@ -59,6 +62,11 @@ class AddThread extends React.Component {
 	    this.onGoBackClick = ev => {
 	      ev.preventDefault();
 	      browserHistory.goBack()
+	    }
+
+	    this.onProjectChange = ev => {
+	    	ev.preventDefault();
+			this.props.changeAddThreadProject(ev.target.value, this.props.projectObject[ev.target.value])
 	    }
 	}
 
@@ -72,6 +80,7 @@ class AddThread extends React.Component {
 
     	this.props.loadOrgUsers(this.props.authenticated, this.props.params.orgname, Constants.ADD_THREAD_PAGE)
     	this.props.loadOrg(this.props.authenticated, this.props.params.orgname, Constants.ADD_THREAD_PAGE);
+    	this.props.loadAddThreadProject(this.props.params.pid)
 	    this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, this.props.params.pid, Constants.ADD_THREAD_PAGE)
 	    this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
 	    this.props.loadOrgList(this.props.authenticated, Constants.ADD_THREAD_PAGE)
@@ -138,6 +147,19 @@ class AddThread extends React.Component {
 								                        value={this.props.title}
 								                        maxLength="42"
 								                        onChange={this.changeTitle} />
+								                    </fieldset>
+								                    <fieldset className="field-wrapper">
+														<label>List</label>
+									                      <select className="org-selector co-type-org color--black" onChange={this.onProjectChange}>
+												            <option value={this.props.projectId}>{this.props.projectName}</option>
+												            {
+												            	Object.keys(this.props.projectObject || {}).map(function (projectId) {
+													                return (
+													                  <option id={projectId} key={projectId} value={projectId}>{this.props.projectName}</option>  
+													                )
+												            }, this)}
+
+												          </select>
 								                    </fieldset>
 													<fieldset className="field-wrapper">
 														<label>Body (Optional)</label>
