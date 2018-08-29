@@ -4,7 +4,7 @@ const ProfilePic = props => {
   if (!props.src) {
     return (
     	<div className="default-profile-wrapper flx-hold">
-    	 	<img src="../img/user_temp.png" className="center-img"/>
+    	 	<img src="/img/user_temp.png" className="center-img"/>
     	</div>
     	);
   }
