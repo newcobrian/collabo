@@ -301,7 +301,7 @@ class Profile extends React.Component {
                       <div className="co-type-h1 mrgn-left-md">{profile.username}</div>
                       <div className="flx-item-right flx flx-row flx-align-center">
                         <EditProfileSettings isUser={isUser} />
-                        <SignOutButton isUser={isUser} signOut={this.props.signOut}/>
+                        <SignOutButton isUser={isUser} signOut={this.props.signOutUser}/>
                       </div>
                     </div>
                   </div>

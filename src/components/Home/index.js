@@ -7,6 +7,16 @@ import { Link, browserHistory } from 'react-router';
 import UniversalSearchBar from '../UniversalSearchBar';
 import ProjectList from '../ProjectList';
 
+const SignOutButton = props => {
+  return (
+    <Link
+      className="flx flx-align-center mrgn-right-md"
+      onClick={props.signOut}>
+      <div className="color--black co-type-label">Log out</div>
+    </Link>
+  )
+}
+
 const OrgList = props => {
   if (!props.orgList) {
     return null;
@@ -125,6 +135,8 @@ class Home extends React.Component {
       return (
         <div>
           <div className={'home-page page-common fill--white flx flx-col flx-center-all ta-center'}>
+
+            <SignOutButton signOut={this.props.signOutUser}/>
             
             <div className="co-logo large-logo">
               <img className="center-img" src="/img/logo_temp.png"/>
