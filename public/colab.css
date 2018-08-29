@@ -362,7 +362,7 @@ p {
 }
 .thread-timestamp {
 	font-size: 12px;
-	opacity: .4;
+	opacity: .3;
 }
 
 .icon-wrapper {
@@ -434,6 +434,18 @@ p {
     text-transform: uppercase;
     color: rgba(0,0,0,.4);
     box-shadow: 0 2px 18px rgba(0,0,0,.1);
+    border-radius: 5px !important;
+        text-align: center;
+}
+.co-project-dropdown {
+    border: none;
+    padding: 6px 15px 6px;
+    letter-spacing: 1px;
+    font-size: 16px;
+    color: rgba(0,0,0,1);
+    box-shadow: 0 2px 18px rgba(0,0,0,.1);
+    border-radius: 5px !important;
+    text-align: center;
 }
 .infinite-test {
 	height:100%;overflow:auto;
@@ -450,9 +462,13 @@ p {
 	font-size: 20px;
 }
 .threadlist {
-	margin-left: 0px;
+	margin: 0 auto;
 	padding: 0;
 	z-index: 1;
+}
+.threadlist.threadlist-loading {
+	padding: 180px;
+	min-height: 1000px;
 }
 .threadlist-wrapper {
 	margin: 0px auto 0;

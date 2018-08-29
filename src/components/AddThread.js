@@ -95,6 +95,7 @@ class AddThread extends React.Component {
 	}
 
 	render() {
+		console.log(JSON.stringify(this.props.projectObject))
 		if(this.props.invalidOrgUser) {
 	      return (
 	        <div>
@@ -150,12 +151,12 @@ class AddThread extends React.Component {
 								                    </fieldset>
 								                    <fieldset className="field-wrapper">
 														<label>List</label>
-									                      <select className="org-selector co-type-org color--black" onChange={this.onProjectChange}>
+									                      <select className="org-selector co-type-org color--black co-project-dropdown" onChange={this.onProjectChange}>
 												            <option value={this.props.projectId}>{this.props.projectName}</option>
 												            {
 												            	Object.keys(this.props.projectObject || {}).map(function (projectId) {
 													                return (
-													                  <option id={projectId} key={projectId} value={projectId}>{this.props.projectName}</option>  
+													                  <option className="color--black" id={projectId} key={projectId} value={projectId}>{this.props.projectName}</option>  
 													                )
 												            }, this)}
 
