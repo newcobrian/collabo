@@ -1745,7 +1745,7 @@ export function likeItinerary(authenticated, type, likeObject, itineraryId, user
   }
 }
 
-export function likeReview(authenticated, type, objectId, likeObject, user) {
+export function likeReview(authenticated, type, objectId, likeObject, user, orgName) {
   return dispatch => {
     if (!authenticated) {
       dispatch({
@@ -1763,7 +1763,7 @@ export function likeReview(authenticated, type, objectId, likeObject, user) {
       if (type === Constants.THREAD_TYPE) {
         updates[`/${Constants.LIKES_BY_USER_PATH}/${authenticated}/${id}`] = type;
         updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = 
-          Object.assign({}, {username: user.username}, {image: user.image});
+          Object.assign({}, pick(user, ['username', 'image']));
       }
       // else if (type === Constants.COMMENT_TYPE) {
       //   updates[`/${Constants.LIKES_BY_USER_PATH}/${authenticated}/${id}`] = saveObject;
@@ -1773,8 +1773,8 @@ export function likeReview(authenticated, type, objectId, likeObject, user) {
       Firebase.database().ref().update(updates).then(response => {
         if (type === Constants.THREAD_TYPE) {
           // update threads, threads-by-org, threads-by-project
-          // Helpers.updateThreadCounts(authenticated, )
-          // Helpers.sendInboxMessage(authenticated, likeObject.createdBy.userId, Constants.LIKE_ITINERARY_MESSAGE, likeObject, itineraryId, null);
+          Helpers.incrementThreadCount(Constants.LIKES_COUNT, id, likeObject, authenticated)
+          Helpers.sendCollaboInboxMessage(authenticated, likeObject.userId, Constants.LIKE_THREAD_MESSAGE, Object.assign({}, {name: orgName}), null, Object.assign({}, likeObject, {threadId: id}), null)
 
           // mixpanel.people.increment("total likes");
 
@@ -1877,10 +1877,9 @@ export function unlikeReview(authenticated, type, objectId, likeObject, user) {
       Firebase.database().ref().update(updates).then(response => {
         if (type === Constants.THREAD_TYPE) {
           // update threads, threads-by-org, threads-by-project
-          // Helpers.updateThreadCounts(authenticated, )
-          // Helpers.sendInboxMessage(authenticated, likeObject.createdBy.userId, Constants.LIKE_ITINERARY_MESSAGE, likeObject, itineraryId, null);
+          Helpers.decrementThreadCount(Constants.LIKES_COUNT, id, likeObject, authenticated)
 
-          // mixpanel.people.increment("total likes");
+          // mixpanel.people.decrement("total likes");
 
           dispatch({
             type: ActionTypes.REVIEW_UNLIKED,

@@ -390,7 +390,8 @@ class Thread extends React.Component {
                         likesCount={Object.keys(this.props.likes || {}).length}
                         objectId={this.props.params.tid}
                         likeObject={thread}
-                        type={Constants.THREAD_TYPE} />
+                        type={Constants.THREAD_TYPE}
+                        orgName={this.props.params.orgname} />
                     </div>
                     
                     <div className="comments-area flx flx-col flx-align-start flx-just-start w-max-2" id='guidecommentcontainer' name='guidecommentcontainer'>
