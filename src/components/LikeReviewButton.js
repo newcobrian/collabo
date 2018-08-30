@@ -31,10 +31,10 @@ class LikeReviewButton extends React.Component {
     const handleLikeClick = ev => {
       ev.preventDefault();
       if (this.props.isLiked) {
-        this.props.unLikeReview(this.props.authenticated, this.props.type, this.props.likeObject, this.props.itineraryId);
+        this.props.unlikeReview(this.props.authenticated, this.props.type, this.props.objectId, this.props.likeObject, this.props.userInfo);
       } else {
         let username = this.props.userInfo.username
-        this.props.likeReview(this.props.authenticated, this.props.type, this.props.likeObject, this.props.itineraryId, username);
+        this.props.likeReview(this.props.authenticated, this.props.type, this.props.objectId, this.props.likeObject, this.props.userInfo);
       }
     };
  

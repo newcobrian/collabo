@@ -23,6 +23,7 @@ import draftToHtml from 'draftjs-to-html';
 import LoggedOutMessage from './LoggedOutMessage';
 import OrgHeader from './OrgHeader';
 import Sidebar from 'react-sidebar';
+import LikeReviewButton from './LikeReviewButton';
 
 const mql = window.matchMedia(`(min-width: 800px)`);
 
@@ -223,6 +224,7 @@ class Thread extends React.Component {
     this.props.loadOrgList(this.props.authenticated, Constants.THREAD_PAGE)
     this.props.loadOrgUsers(this.props.authenticated, this.props.params.orgname, Constants.THREAD_PAGE)
     this.props.loadThread(this.props.params.tid);
+    this.props.loadThreadLikes(this.props.params.tid);
     this.props.watchThreadComments(this.props.params.tid);
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project'});
     
@@ -235,6 +237,7 @@ class Thread extends React.Component {
     this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.THREAD_PAGE)
     this.props.unloadOrg(Constants.THREAD_PAGE);
     this.props.unloadThread(this.props.params.tid);
+    this.props.unloadThreadLikes(this.props.params.tid);
     this.props.unwatchThreadComments(this.props.params.tid);
     if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
   }
@@ -242,8 +245,10 @@ class Thread extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.tid !== this.props.params.tid && this.props.params.orgname === nextProps.params.orgname) {
       this.props.unloadThread(this.props.params.tid);
+      this.props.unloadThreadLikes(this.props.params.tid);
       this.props.unwatchThreadComments(this.props.params.tid);
       this.props.loadThread(nextProps.params.tid);
+      this.props.loadThreadLikes(nextProps.params.tid);
       this.props.watchThreadComments(nextProps.params.tid);
       this.props.markThreadRead(this.props.authenticated, nextProps.params.tid)
     }
@@ -252,12 +257,14 @@ class Thread extends React.Component {
       this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname, Constants.THREAD_PAGE)
       this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.THREAD_PAGE)
       this.props.unloadThread(this.props.params.tid);
+      this.props.unloadThreadLikes(this.props.params.tid);
       this.props.unwatchThreadComments(this.props.params.tid);
 
       this.props.loadOrg(this.props.authenticated, nextProps.params.orgname, Constants.THREAD_PAGE);
       this.props.loadProjectList(this.props.authenticated, nextProps.params.orgname, this.props.params.pid, Constants.THREAD_PAGE)
       this.props.loadThreadCounts(this.props.authenticated, nextProps.params.orgname)
       this.props.loadThread(nextProps.params.tid);
+      this.props.loadThreadLikes(nextProps.params.tid);
       this.props.watchThreadComments(nextProps.props.params.tid);
       this.props.markThreadRead(this.props.authenticated, nextProps.params.tid)
     }
@@ -375,6 +382,15 @@ class Thread extends React.Component {
                             />
                       </div>
                       { this.renderChanges(this.props.changes, this.props.googleDocs, this.props.updates) }
+                    </div>
+                    <div className="cta-wrapper vb vb--tip vb--outline--none flx flx-row flx-align-center v2-type-body2 DN">
+                      <LikeReviewButton
+                        authenticated={this.props.authenticated}
+                        isLiked={this.props.likes && this.props.likes[this.props.authenticated] ? true : false}
+                        likesCount={Object.keys(this.props.likes || {}).length}
+                        objectId={this.props.params.tid}
+                        likeObject={thread}
+                        type={Constants.THREAD_TYPE} />
                     </div>
                     
                     <div className="comments-area flx flx-col flx-align-start flx-just-start w-max-2" id='guidecommentcontainer' name='guidecommentcontainer'>

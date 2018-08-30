@@ -443,6 +443,34 @@ export function unloadThread(threadId) {
   }
 }
 
+export function loadThreadLikes(threadId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.LIKES_PATH + '/' + threadId).on('child_added', addedSnap => {
+      dispatch({
+        type: ActionTypes.THREAD_LIKES_ADDED_ACTION,
+        userId: addedSnap.key,
+        userData: addedSnap.val()
+      })
+    })
+
+    Firebase.database().ref(Constants.LIKES_PATH + '/' + threadId).on('child_removed', removedSnap => {
+      dispatch({
+        type: ActionTypes.THREAD_LIKES_REMOVED_ACTION,
+        userId: removedSnap.key
+      })
+    })
+  }
+}
+
+export function unloadThreadLikes(threadId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.LIKES_PATH + '/' + threadId).off()
+    dispatch({
+      type: ActionTypes.UNLOAD_THREAD_LIKES,
+    })
+  }
+}
+
 export function changeEditorState(editorState) {
   return dispatch => {
     dispatch({
