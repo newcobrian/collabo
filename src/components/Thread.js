@@ -383,7 +383,7 @@ class Thread extends React.Component {
                       </div>
                       { this.renderChanges(this.props.changes, this.props.googleDocs, this.props.updates) }
                     </div>
-                    <div className="cta-wrapper vb vb--tip vb--outline--none flx flx-row flx-align-center v2-type-body2 DN">
+                    <div className="cta-wrapper vb vb--tip vb--outline--none flx flx-row flx-align-center v2-type-body2">
                       <LikeReviewButton
                         authenticated={this.props.authenticated}
                         isLiked={this.props.likes && this.props.likes[this.props.authenticated] ? true : false}
