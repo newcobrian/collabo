@@ -114,6 +114,31 @@ export default (state = initialState, action) => {
       }
       return state;
     }
+    case ActionTypes.THREAD_LIKES_ADDED_ACTION: {
+      const newState = Object.assign({}, state);
+      newState.likes = newState.likes || {};
+      newState.likes = Object.assign({}, newState.likes);
+      if (!newState.likes[action.userId]) {
+        newState.likes[action.userId] = Object.assign({}, action.userData)
+        return newState;
+      }
+      return state;
+    }
+    case ActionTypes.THREAD_LIKES_REMOVED_ACTION: {
+      const newState = Object.assign({}, state);
+      newState.likes = newState.likes || {};
+      newState.likes = Object.assign({}, newState.likes);
+      if (newState.likes[action.userId]) {
+        delete newState.likes[action.userId]
+        return newState;
+      }
+      return state;
+    }
+    case ActionTypes.UNLOAD_THREAD_LIKES:
+      return {
+        ...state,
+        likes: {}
+      }
     default:
       return state;
   }
