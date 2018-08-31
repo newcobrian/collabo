@@ -649,13 +649,13 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 					break;
 				case Constants.LIKE_THREAD_MESSAGE:
 					inboxObject.senderId = senderId;
-					inboxObject.message = ' liked your post "' + thread.title + '"';
+					inboxObject.message = ' upvoted your post "' + thread.title + '"';
 					inboxObject.link = '/' + org.name + '/' + thread.projectId + '/' + thread.threadId;
 					sendEmail = false
 					break;
 				case Constants.LIKE_COMMENT_MESSAGE:
 					inboxObject.senderId = senderId;
-					inboxObject.message = ' liked your comment: "' + sendObject.body + '"';
+					inboxObject.message = ' upvoted your comment: "' + sendObject.body + '"';
 					inboxObject.link = '/' + org.name + '/' + thread.projectId + '/' + thread.threadId;
 					sendEmail = false
 					break;
