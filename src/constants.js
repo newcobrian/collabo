@@ -183,6 +183,7 @@ export const THREAD_PAGE = 'THREAD_PAGE'
 export const PROJECT_PAGE = 'PROJECT_PAGE'
 export const REGISTER_PAGE = 'REGISTER_PAGE'
 export const INBOX_PAGE = 'INBOX_PAGE'
+export const ORG_SETTINGS_PAGE = 'ORG_SETTINGS_PAGE'
 
 /*** Tag list ***/
 export const TAG_LIST = []

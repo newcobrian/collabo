@@ -1220,6 +1220,7 @@ export function loadOrgUsers(auth, orgName, source) {
                     firstName: usersSnap.val()[user.key].firstName,
                     lastName: usersSnap.val()[user.key].lastName,
                     email: usersSnap.val()[user.key].email,
+                    image: usersSnap.val()[user.key].image,
                     id: user.key,
                     orgName: orgName,
                     source: source,
@@ -1230,6 +1231,15 @@ export function loadOrgUsers(auth, orgName, source) {
           }
         })
       }
+    })
+  }
+}
+
+export function unloadOrgUsers(source) {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.UNLOAD_ORG_USERS,
+      source
     })
   }
 }

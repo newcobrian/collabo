@@ -119,6 +119,15 @@ export default (state = initialState, action) => {
       }
       return state;
     }
+    case ActionTypes.UNLOAD_ORG_USERS: {
+      if (action.source === Constants.THREAD_PAGE) {
+        return {
+          ...state,
+          usersList: []
+        }
+      }
+      return state
+    }
     case ActionTypes.THREAD_LIKES_ADDED_ACTION: {
       const newState = Object.assign({}, state);
       newState.likes = newState.likes || {};
