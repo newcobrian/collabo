@@ -653,6 +653,12 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 					inboxObject.link = '/' + org.name + '/' + thread.projectId + '/' + thread.threadId;
 					sendEmail = false
 					break;
+				case Constants.LIKE_COMMENT_MESSAGE:
+					inboxObject.senderId = senderId;
+					inboxObject.message = ' liked your comment: "' + sendObject.body + '"';
+					inboxObject.link = '/' + org.name + '/' + thread.projectId + '/' + thread.threadId;
+					sendEmail = false
+					break;
 				// case Constants.COMMENT_ON_COMMENT_REVIEW_MESSAGE:
 				// 	inboxObject.senderId = senderId;
 				// 	inboxObject.message = ' also commented: ' + sendObject.message;

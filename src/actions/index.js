@@ -1745,7 +1745,7 @@ export function likeItinerary(authenticated, type, likeObject, itineraryId, user
   }
 }
 
-export function likeReview(authenticated, type, objectId, likeObject, user, orgName) {
+export function likeReview(authenticated, type, objectId, thread, user, orgName, likeObject) {
   return dispatch => {
     if (!authenticated) {
       dispatch({
@@ -1761,22 +1761,22 @@ export function likeReview(authenticated, type, objectId, likeObject, user, orgN
       //   // lastModified: Firebase.database.ServerValue.TIMESTAMP
       // }
       if (type === Constants.THREAD_TYPE) {
-        // updates[`/${Constants.LIKES_BY_USER_BY_ORG_PATH}/${authenticated}/${likeObject.orgId}/${id}`] = type;
+        // updates[`/${Constants.LIKES_BY_USER_BY_ORG_PATH}/${authenticated}/${thread.orgId}/${id}`] = type;
         updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = Object.assign({}, pick(user, ['username', 'image']));
-        // updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${likeObject.projectId}/${id}/likes/${authenticated}`] = true;
-        // updates[`/${Constants.THREADS_BY_ORG_PATH}/${likeObject.orgId}/${id}/likes/${authenticated}`] = true;
+        // updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${thread.projectId}/${id}/likes/${authenticated}`] = true;
+        // updates[`/${Constants.THREADS_BY_ORG_PATH}/${thread.orgId}/${id}/likes/${authenticated}`] = true;
       }
       else if (type === Constants.COMMENT_TYPE) {
-        // updates[`/${Constants.LIKES_BY_USER_BY_ORG_PATH}/${authenticated}/${likeObject.orgId}/${id}`] = type;
+        // updates[`/${Constants.LIKES_BY_USER_BY_ORG_PATH}/${authenticated}/${thread.orgId}/${id}`] = type;
         updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = Object.assign({}, pick(user, ['username', 'image']));
-        updates[`/${Constants.COMMENTS_BY_THREAD_PATH}/${likeObject.threadId}/${id}/likes/${authenticated}`] = Object.assign({}, pick(user, ['username', 'image']));
+        updates[`/${Constants.COMMENTS_BY_THREAD_PATH}/${thread.threadId}/${id}/likes/${authenticated}`] = Object.assign({}, pick(user, ['username', 'image']));
       }
 
       Firebase.database().ref().update(updates).then(response => {
         if (type === Constants.THREAD_TYPE) {
           // update threads, threads-by-org, threads-by-project
-          // Helpers.incrementThreadCount(Constants.LIKES_COUNT, id, likeObject, authenticated)
-          Helpers.sendCollaboInboxMessage(authenticated, likeObject.userId, Constants.LIKE_THREAD_MESSAGE, Object.assign({}, {name: orgName}), null, Object.assign({}, likeObject, {threadId: id}), null)
+          // Helpers.incrementThreadCount(Constants.LIKES_COUNT, id, thread, authenticated)
+          Helpers.sendCollaboInboxMessage(authenticated, thread.userId, Constants.LIKE_THREAD_MESSAGE, Object.assign({}, {name: orgName}), null, Object.assign({}, thread, {threadId: id}), null)
 
           // mixpanel.people.increment("total likes");
 
@@ -1804,7 +1804,7 @@ export function likeReview(authenticated, type, objectId, likeObject, user, orgN
           // })
         }
         else if (type === Constants.COMMENT_TYPE) {
-          // Helpers.sendCollaboInboxMessage(authenticated, likeObject.userId, Constants.LIKE_COMMENT_MESSAGE, Object.assign({}, {name: orgName}), null, likeObject, null)
+          Helpers.sendCollaboInboxMessage(authenticated, likeObject.userId, Constants.LIKE_COMMENT_MESSAGE, Object.assign({}, {name: orgName}), null, thread, likeObject)
           dispatch({
             type: ActionTypes.REVIEW_LIKED
           })

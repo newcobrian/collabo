@@ -389,7 +389,7 @@ class Thread extends React.Component {
                         isLiked={this.props.likes && this.props.likes[this.props.authenticated] ? true : false}
                         likesCount={Object.keys(this.props.likes || {}).length}
                         objectId={this.props.params.tid}
-                        likeObject={thread}
+                        thread={thread}
                         type={Constants.THREAD_TYPE}
                         orgName={this.props.params.orgname} />
                     </div>
@@ -404,6 +404,7 @@ class Thread extends React.Component {
                           errors={this.props.commentErrors}
                           commentObject={thread}
                           threadId={this.props.params.tid}
+                          thread={this.props.thread}
                           project={this.props.project}
                           orgName={this.props.params.orgname}
                           usersList={this.props.usersList}

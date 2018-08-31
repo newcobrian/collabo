@@ -28,7 +28,7 @@ class Comment extends React.Component {
 
   render () {
     const { isOpenNotification } = this.state;
-    const { comment, authenticated, orgName, commentObject, deleteComment, threadId, type, likes } = this.props;
+    const { comment, authenticated, orgName, commentObject, deleteComment, threadId, type, likes, thread } = this.props;
     const show = authenticated && authenticated === comment.userId;
 
     const processed = processString([{
@@ -100,7 +100,8 @@ class Comment extends React.Component {
               isLiked={comment.likes && comment.likes[authenticated] ? true : false}
               likesCount={Object.keys(comment.likes || {}).length}
               objectId={comment.id}
-              likeObject={Object.assign({}, comment, {threadId: threadId})}
+              thread={Object.assign({}, thread, {threadId: threadId})}
+              likeObject={comment}
               type={Constants.COMMENT_TYPE}
               orgName={orgName} />
           </div>
