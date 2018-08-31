@@ -1175,13 +1175,15 @@ export function setEditMode(mode) {
 
 export function markProjectRead(auth, projectId) {
   return dispatch => {
-    let updates = {}
-    Firebase.database().ref(Constants.PROJECTS_PATH + '/' + projectId).once('value', snap => {
-      if (snap.exists()) {
-        updates[Constants.THREAD_SEEN_COUNTERS_PATH + '/' + auth + '/' + snap.val().orgId + '/' + projectId] = null
-        Firebase.database().ref().update(updates);
-      }
-    })
+    if (projectId) {
+      let updates = {}
+      Firebase.database().ref(Constants.PROJECTS_PATH + '/' + projectId).once('value', snap => {
+        if (snap.exists()) {
+          updates[Constants.THREAD_SEEN_COUNTERS_PATH + '/' + auth + '/' + snap.val().orgId + '/' + projectId] = null
+          Firebase.database().ref().update(updates);
+        }
+      })
+    }
   }
 }
 

@@ -104,7 +104,9 @@ class Project extends React.Component {
     this.props.loadProject(this.props.params.pid);
     // this.props.loadLikesByUser(this.props.authenticated, this.props.params.orgname)
 
-    this.props.markProjectRead(this.props.authenticated, this.props.params.pid)
+    if (this.props.params.pid) {
+      this.props.markProjectRead(this.props.authenticated, this.props.params.pid)
+    }
   }
 
   componentWillUnmount() {
@@ -121,7 +123,9 @@ class Project extends React.Component {
       this.props.unwatchThreadFeed(this.props.authenticated, this.props.params.orgname, this.props.params.pid, Constants.PROJECT_PAGE)
       this.props.loadProject(nextProps.params.pid);
       // this.props.watchThreadFeed(this.props.authenticated, this.props.params.orgname, nextProps.params.pid, this.props.feedEndValue, Constants.PROJECT_PAGE)
-      this.props.markProjectRead(this.props.authenticated, nextProps.params.pid)
+      if (nextProps.params.pid) {
+        this.props.markProjectRead(this.props.authenticated, nextProps.params.pid)
+      }
     }
     else if (nextProps.params.orgname !== this.props.params.orgname) {
       this.props.unwatchThreadFeed(this.props.authenticated, this.props.params.orgname, this.props.params.pid, Constants.PROJECT_PAGE)
@@ -133,7 +137,9 @@ class Project extends React.Component {
       this.props.loadThreadCounts(this.props.authenticated, nextProps.params.orgname)
       this.props.loadProject(nextProps.params.pid);
       // this.props.watchThreadFeed(this.props.authenticated,nextProps.params.orgname, nextProps.params.pid, this.props.feedEndValue, Constants.PROJECT_PAGE)
-      this.props.markProjectRead(this.props.authenticated, nextProps.params.pid)
+      if (nextProps.params.pid) {
+        this.props.markProjectRead(this.props.authenticated, nextProps.params.pid)
+      }
     }
   }
 
