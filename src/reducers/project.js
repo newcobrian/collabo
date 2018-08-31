@@ -180,6 +180,16 @@ export default (state = initialState, action) => {
         }
       }
     }
+    // case ActionTypes.LIKES_BY_USER_ADDED_ACTION: {
+    //   if (action.source === Constants.PROJECT_PAGE) {
+    //     const newState = Object.assign({}, state);
+    //     newState.likesByUser = newState.likesByUser || {};
+    //     newState.likesByUser = Object.assign({}, newState.likesByUser);
+    //     newState.likesByUser[action.id] = true
+    //     return newState;
+    //   }
+    //   return state;
+    // }
     default:
       return state;
   }

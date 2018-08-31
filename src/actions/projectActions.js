@@ -1395,3 +1395,25 @@ export function changeAddThreadProject(projectId, projectName) {
     })
   }
 }
+
+// export function loadLikesByUser(auth, orgName) {
+//   return dispatch => {
+//     Firebase.database()).ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', orgSnap => {
+//       if (orgSnap.exists()) {
+//         Firebase.database().ref(Constants.LIKES_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgSnap.val().orgId).on('child_added', likesSnap => {
+//           dispatch({
+//             type: ActionTypes.LIKES_BY_USER_ADDED_ACTION,
+//             id: likesSnap.key
+//           })
+//         })
+
+//         Firebase.database().ref(Constants.LIKES_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgSnap.val().orgId).on('child_removed', likesSnap => {
+//           dispatch({
+//             type: ActionTypes.LIEKS_BY_USER_REMOVED_ACTION,
+//             id: likesSnap.key
+//           })
+//         })
+//       }
+//     })
+//   }
+// }

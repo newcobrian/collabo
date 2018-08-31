@@ -102,6 +102,7 @@ class Project extends React.Component {
     this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
     this.props.loadOrgList(this.props.authenticated, Constants.PROJECT_PAGE)
     this.props.loadProject(this.props.params.pid);
+    // this.props.loadLikesByUser(this.props.authenticated, this.props.params.orgname)
 
     this.props.markProjectRead(this.props.authenticated, this.props.params.pid)
   }
