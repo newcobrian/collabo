@@ -30,6 +30,7 @@ export default (state = defaultState, action) => {
       }
     case ActionTypes.NOT_AN_ORG_USER:
       return {
+        ...state,
         invalidOrgUser: true
       }
     case APP_USER_LOADED:

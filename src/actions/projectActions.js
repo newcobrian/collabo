@@ -922,6 +922,12 @@ export function loadOrg(auth, org, source) {
             }
           })
         }
+        else {
+          dispatch({
+            type: ActionTypes.NOT_AN_ORG_USER,
+            source: source
+          })
+        }
       })
     }
   }

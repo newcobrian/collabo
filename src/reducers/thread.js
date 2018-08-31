@@ -86,11 +86,6 @@ export default (state = initialState, action) => {
         org: {}
       }
     }
-    case ActionTypes.NOT_AN_ORG_USER:
-      return {
-        ...state,
-        invalidOrgUser: true
-      }
     case ActionTypes.SET_EDIT_MODE: {
       if (action.editMode === false) {
         const newState = Object.assign({}, state);
