@@ -172,7 +172,7 @@ const ThreadPreview = props => {
                         </div>
 
                         <div className="cta-wrapper vb vb--tip vb--outline--none flx flx-row flx-align-center v2-type-body2">
-                          {thread.likesCount || 0} {thread.likesCount === 1 ? ' like' : ' likes'}
+                          {thread.likesCount || 0} {thread.likesCount === 1 ? ' upvote' : ' upvotes'}
                         </div>
 
                   </div>
