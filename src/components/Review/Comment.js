@@ -1,10 +1,12 @@
 import DeleteButton from './DeleteButton';
 import { Link } from 'react-router';
 import React from 'react';
+import * as Constants from '../../constants';
 import ProfilePic from './../ProfilePic';
 import GoogleDriveLink from './GoogleDriveLink';
 import ProxyImage from './../ProxyImage';
 import DisplayTimestamp from './../DisplayTimestamp';
+import LikeReviewButton from './../LikeReviewButton';
 var linkify = require('linkify-it')();
 
 const processString = require('react-process-string');
@@ -26,10 +28,9 @@ class Comment extends React.Component {
 
   render () {
     const { isOpenNotification } = this.state;
-    const { comment, authenticated, orgName, commentObject, deleteComment, threadId, type } = this.props;
+    const { comment, authenticated, orgName, commentObject, deleteComment, threadId, type, likes } = this.props;
     const show = authenticated && authenticated === comment.userId;
 
-    let users = ['jordan', 'brian', '@jordan', '@brian']
     const processed = processString([{
       regex: /\@([a-z0-9_\-]+?)( |\,|$|\.|\!|\:|\'|\"|\?)/gim, //regex to match a username
       fn: (key, result) => {
@@ -93,8 +94,15 @@ class Comment extends React.Component {
                     type={type} />
                 </div>
               </div>
-
             </div>
+            <LikeReviewButton
+              authenticated={authenticated}
+              isLiked={comment.likes && comment.likes[authenticated] ? true : false}
+              likesCount={Object.keys(comment.likes || {}).length}
+              objectId={comment.id}
+              likeObject={Object.assign({}, comment, {threadId: threadId})}
+              type={Constants.COMMENT_TYPE}
+              orgName={orgName} />
           </div>
           {
             isOpenNotification &&

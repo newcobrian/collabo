@@ -1761,15 +1761,16 @@ export function likeReview(authenticated, type, objectId, likeObject, user, orgN
       //   // lastModified: Firebase.database.ServerValue.TIMESTAMP
       // }
       if (type === Constants.THREAD_TYPE) {
-        updates[`/${Constants.LIKES_BY_USER_BY_ORG_PATH}/${authenticated}/${likeObject.orgId}/${id}`] = type;
+        // updates[`/${Constants.LIKES_BY_USER_BY_ORG_PATH}/${authenticated}/${likeObject.orgId}/${id}`] = type;
         updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = Object.assign({}, pick(user, ['username', 'image']));
         // updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${likeObject.projectId}/${id}/likes/${authenticated}`] = true;
         // updates[`/${Constants.THREADS_BY_ORG_PATH}/${likeObject.orgId}/${id}/likes/${authenticated}`] = true;
       }
-      // else if (type === Constants.COMMENT_TYPE) {
-      //   updates[`/${Constants.LIKES_BY_USER_PATH}/${authenticated}/${id}`] = saveObject;
-      //   updates[`/${Constants.RECS_BY_ITINERARY_PATH}/${itineraryId}/${likeObject.key}/likes/${authenticated}`] = username;
-      // }
+      else if (type === Constants.COMMENT_TYPE) {
+        // updates[`/${Constants.LIKES_BY_USER_BY_ORG_PATH}/${authenticated}/${likeObject.orgId}/${id}`] = type;
+        updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = Object.assign({}, pick(user, ['username', 'image']));
+        updates[`/${Constants.COMMENTS_BY_THREAD_PATH}/${likeObject.threadId}/${id}/likes/${authenticated}`] = Object.assign({}, pick(user, ['username', 'image']));
+      }
 
       Firebase.database().ref().update(updates).then(response => {
         if (type === Constants.THREAD_TYPE) {
@@ -1802,47 +1803,12 @@ export function likeReview(authenticated, type, objectId, likeObject, user, orgN
           //   }
           // })
         }
-        // this is actually liking a tip, not a review. Just incrementing the counts
-        // else if (type === Constants.TIPS_TYPE) {
-        //   // Helpers.incrementReviewCount(Constants.LIKES_COUNT, id, likeObject.subjectId, likeObject.createdBy.userId);
-        //   Firebase.database().ref(Constants.SUBJECTS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + id + '/likesCount').transaction(function (current_count) {
-        //     return (current_count || 0) + 1;
-        //   });
-        //   // Firebase.database().ref(Constants.TIPS_BY_SUBJECT_PATH + '/' + likeObject.subjectId + '/' + likeObject.userId + '/' + id + '/likesCount').transaction(function (current_count) {
-        //   //   return (current_count || 0) + 1;
-        //   // });
-
-        //   // update guide popularity score
-        //   Helpers.incrementGuideScore(itineraryId, Constants.LIKE_GUIDE_SCORE);
-        //   // send inbox message to guide owner
-        //   Helpers.sendInboxMessage(authenticated, likeObject.userId, Constants.LIKE_TIP_MESSAGE, likeObject, itineraryId, null);
-
-        //   mixpanel.people.increment("total likes");
-
-        //   dispatch({
-        //     type: REVIEW_LIKED,
-        //     meta: {
-        //       mixpanel: {
-        //         event: 'Liked review',
-        //         props: {
-        //           tipId: id,
-        //           itineraryId: itineraryId
-        //         }
-        //       }
-        //     }
-        //   })
-        //   dispatch({
-        //     type: SEND_INBOX_MESSAGE,
-        //     meta: {
-        //       mixpanel: {
-        //         event: SEND_INBOX_MESSAGE,
-        //         props: {
-        //           type: Constants.LIKE_MESSAGE
-        //         }
-        //       }
-        //     }
-        //   })
-        // }
+        else if (type === Constants.COMMENT_TYPE) {
+          // Helpers.sendCollaboInboxMessage(authenticated, likeObject.userId, Constants.LIKE_COMMENT_MESSAGE, Object.assign({}, {name: orgName}), null, likeObject, null)
+          dispatch({
+            type: ActionTypes.REVIEW_LIKED
+          })
+        }
       })
       .catch(error => {
         console.log(error);
@@ -1872,10 +1838,11 @@ export function unlikeReview(authenticated, type, objectId, likeObject, user) {
         // updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${likeObject.projectId}/${id}/likes/${authenticated}`] = null;
         // updates[`/${Constants.THREADS_BY_ORG_PATH}/${likeObject.orgId}/${id}/likes/${authenticated}`] = null;
       }
-      // else if (type === Constants.COMMENT_TYPE) {
-      //   updates[`/${Constants.LIKES_BY_USER_PATH}/${authenticated}/${id}`] = saveObject;
-      //   updates[`/${Constants.RECS_BY_ITINERARY_PATH}/${itineraryId}/${likeObject.key}/likes/${authenticated}`] = username;
-      // }
+      else if (type === Constants.COMMENT_TYPE) {
+        // updates[`/${Constants.LIKES_BY_USER_BY_ORG_PATH}/${authenticated}/${likeObject.orgId}/${id}`] = null;
+        updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = null;
+        updates[`/${Constants.COMMENTS_BY_THREAD_PATH}/${likeObject.threadId}/${id}/likes/${authenticated}`] = null;
+      }
 
       Firebase.database().ref().update(updates).then(response => {
         if (type === Constants.THREAD_TYPE) {

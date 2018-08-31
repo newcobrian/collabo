@@ -555,9 +555,9 @@ export function watchThreadComments(threadId) {
       dispatch(threadCommentAddedAction(threadId, commentSnap.key, commentSnap.val()));
     })
 
-    // Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).on('child_changed', commentSnap => {
-    //   dispatch(threadCommentChangedAction(threadId, commentSnap.key, commentSnap.val()));
-    // })
+    Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).on('child_changed', commentSnap => {
+      dispatch(threadCommentChangedAction(threadId, commentSnap.key, commentSnap.val()));
+    })
 
     Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).on('child_removed', commentSnap => {
       dispatch(threadCommentRemovedAction(threadId, commentSnap.key));

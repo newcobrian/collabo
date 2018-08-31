@@ -45,8 +45,18 @@ export default (state = initialState, action) => {
       }
       else return state;
     }
-    // case ActionTypes.COMMENT_CHANGED_ACTION:
-    //   return state;
+    case ActionTypes.COMMENT_CHANGED_ACTION: {
+      const newState = Object.assign({}, state);
+      newState.comments = newState.comments || [];
+      newState.comments = newState.comments.slice();
+      for (let i = 0; i < newState.comments.length; i++) {
+        if (newState.comments[i].id === action.commentId) {
+          newState.comments[i] = Object.assign({}, {id: action.commentId}, action.comment)
+          return newState;    
+        }
+      }
+      return state;
+    }
     case ActionTypes.COMMENT_REMOVED_ACTION: {
       const newState = Object.assign({}, state);
       newState.comments = newState.comments || [];
