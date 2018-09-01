@@ -114,12 +114,12 @@ class SettingsForm extends React.Component {
               onChange={this.updateState('username')} />
           </fieldset>
 
-          <fieldset className="form-group">
+          <fieldset className="form-group DN">
             <textarea
               className="form-control form-control-lg"
               rows="8"
               maxLength="66"
-              placeholder="Update your status"
+              placeholder="Update your bio"
               value={this.state.bio}
               onChange={this.updateState('bio')}>
             </textarea>

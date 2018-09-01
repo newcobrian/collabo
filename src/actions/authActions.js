@@ -407,7 +407,7 @@ function validateEmail(email) {
     return re.test(email);
 }
 
-export function changeEmailAddress(email, password) {
+export function changeEmailAddress(email, password, oldEmail) {
   return dispatch => {
     // check for valid email?
     if (!password) {
@@ -422,14 +422,25 @@ export function changeEmailAddress(email, password) {
         error: 'Please enter a valid email address'
       })
     }
+    if (email === oldEmail) {
+      dispatch({
+        type: ActionTypes.EMAIL_UPDATE_ERROR,
+        error: 'This is the same email address'
+      })
+    }
     else {
       // check that email is not already taken
       // re-auth
       let user = Firebase.auth().currentUser;
       Firebase.auth().signInWithEmailAndPassword(user.email, password).then(function() {
         user.updateEmail(email).then(function() {
+          // then update the email lookup table
+          let updates = {}
+          updates[Constants.USERS_PATH + '/' + user.uid + '/email'] = email
+          updates[Constants.USERS_BY_EMAIL_PATH + '/' + Helpers.cleanEmailToFirebase(email)] = { userId: user.uid };
+          updates[Constants.USERS_BY_EMAIL_PATH + '/' + Helpers.cleanEmailToFirebase(oldEmail)] = null;
 
-          Firebase.database().ref(Constants.USERS_PATH + '/' + user.uid).update({email: email});
+          Firebase.database().ref().update(updates)
           
           dispatch({
             type: ActionTypes.SHOW_SNACKBAR,
