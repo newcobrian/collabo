@@ -1,6 +1,7 @@
 import ListErrors from './ListErrors';
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link, browserHistory } from 'react-router';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
 import ProxyImage from './ProxyImage';
@@ -40,7 +41,7 @@ class SettingsForm extends React.Component {
       if(this.state.email) user.email = this.state.email;
       if(this.state.password) user.password = this.state.password;
 
-      this.props.onSubmitForm(this.props.authenticated, user, this.props.currentUser, this.state.imageFile);
+      this.props.onSubmitForm(this.props.authenticated, user, this.props.currentUser, this.state.imageFile, this.props.orgName);
     };
 
     this.changeEmailClick = ev => {
@@ -154,6 +155,7 @@ class SettingsForm extends React.Component {
             Save Changes
           </button>
 
+          <Link onClick={()=>browserHistory.goBack()}>Cancel</Link>
         </fieldset>
       </form>
     );
@@ -192,7 +194,8 @@ class Settings extends React.Component {
                 authenticated={this.props.authenticated}
                 currentUser={this.props.firebaseUser}
                 onSubmitForm={this.props.saveSettings}
-                showChangeEmailModal={this.props.showChangeEmailModal} />
+                showChangeEmailModal={this.props.showChangeEmailModal}
+                orgName={this.props.params.orgname} />
 
 
               <div
