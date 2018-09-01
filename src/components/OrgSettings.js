@@ -197,7 +197,7 @@ class OrgSettings extends React.Component {
     this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
     this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
     this.props.unloadOrg(Constants.ORG_SETTINGS_PAGE);
-    // this.props.unloadSettings(this.props.authenticated);
+    this.props.unloadOrgUsers(Constants.ORG_SETTINGS_PAGE);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -205,10 +205,12 @@ class OrgSettings extends React.Component {
       this.props.unloadOrgList(this.props.authenticated, Constants.ORG_SETTINGS_PAGE)
       this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
       this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
+      this.props.unloadOrgUsers(Constants.ORG_SETTINGS_PAGE);
 
       this.props.loadOrg(this.props.authenticated, nextProps.params.orgname, Constants.ORG_SETTINGS_PAGE);
       this.props.loadProjectList(this.props.authenticated, nextProps.params.orgname, null, Constants.ORG_SETTINGS_PAGE)
       this.props.loadThreadCounts(this.props.authenticated, nextProps.params.ORG_SETTINGS_PAGE)
+      this.props.loadOrgUsers(this.props.authenticated, nextProps.params.orgname, Constants.ORG_SETTINGS_PAGE)
     }
   }
 
@@ -250,7 +252,7 @@ class OrgSettings extends React.Component {
                           {(usersList || []).map((userItem, index) => {
                             return (
                               <li>{userItem.username} ({userItem.firstName} {userItem.lastName})
-                                <div className="profile-image flx flx-center-all"><ProfilePic src={userItem.image ? userItem.image : ''} className="center-img" /></div>
+                                {/*<div className="profile-image flx flx-center-all"><ProfilePic src={userItem.image ? userItem.image : ''} className="center-img" /></div>*/}
                                 </li>
                             )
                           })}

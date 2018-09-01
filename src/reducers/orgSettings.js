@@ -19,6 +19,14 @@ export default (state = initialState, action) => {
       }
       return state;
     }
+    case ActionTypes.UNLOAD_ORG_USERS: {
+      if (action.source === Constants.ORG_SETTINGS_PAGE) {
+        return {
+          ...state,
+          usersList: []
+        }
+      }
+    }
     default:
       return state;
   }
