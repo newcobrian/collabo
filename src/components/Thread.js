@@ -16,14 +16,15 @@ import CommentContainer from './Review/CommentContainer';
 import ProjectList from './ProjectList';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { Editor } from 'react-draft-wysiwyg';
+// import { Editor } from 'react-draft-wysiwyg';
 import { convertToRaw, convertFromRaw } from 'draft-js';
-import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+// import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import draftToHtml from 'draftjs-to-html';
 import LoggedOutMessage from './LoggedOutMessage';
 import OrgHeader from './OrgHeader';
 import Sidebar from 'react-sidebar';
 import LikeReviewButton from './LikeReviewButton';
+import RichTextEditor from './RichTextEditor';
 
 const mql = window.matchMedia(`(min-width: 800px)`);
 
@@ -55,16 +56,12 @@ const BodySection = props => {
     return (
       <div className="flx flx-col">
         <div className="w-100">
-          <Editor
-              editorState={props.bodyText}
-              wrapperClassName="demo-wrapper"
-              editorClassName="demo-editor pdding-all-md brdr-all brdr--primary"
-              onEditorStateChange={props.updateText}
-              mention={{
-                separator: ' ',
-                trigger: '@',
-                suggestions: props.usersList,
-              }}
+          <RichTextEditor
+            editorState={props.bodyText}
+            wrapperClass="demo-wrapper"
+            editorClass="demo-editor pdding-all-md brdr-all brdr--primary"
+            onChange={props.updateText}
+            usersList={props.usersList}
           />
         </div>
         <div className="w-100 flx flx-row mrgn-top-md w-auto flx-item-right">
@@ -82,11 +79,12 @@ const BodySection = props => {
     return (
       <div className="flx flx-col">
         <div className="w-100">
-          <Editor
+          <RichTextEditor
             editorState={props.bodyText}
-            wrapperClassName="demo-wrapper"
-            editorClassName="demo-editor"
-            onEditorStateChange={props.updateText}
+            wrapperClass="demo-wrapper"
+            editorClass="demo-editor pdding-all-md brdr-all brdr--primary"
+            onChange={props.updateText}
+            usersList={props.usersList}
             toolbarHidden={true}
             readOnly={true}
           />
@@ -110,14 +108,15 @@ const BodySection = props => {
   else {
     return (
       <div>
-        <Editor
-          editorState={props.bodyText}
-          wrapperClassName="demo-wrapper"
-          editorClassName="demo-editor"
-          onEditorStateChange={props.updateText}
-          toolbarHidden={true}
-          readOnly={true}
-        />
+        <RichTextEditor
+            editorState={props.bodyText}
+            wrapperClass="demo-wrapper"
+            editorClass="demo-editor pdding-all-md brdr-all brdr--primary"
+            onChange={props.updateText}
+            usersList={props.usersList}
+            toolbarHidden={true}
+            readOnly={true}
+          />
       {/*<div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(props.bodyText) || '' }}>
           </div>*/}
       </div>
