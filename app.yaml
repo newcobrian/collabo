@@ -28,6 +28,12 @@ handlers:
 - url: /share.*  # send mail
   script: main.app
 
+  # Handler for the pubsub cron.
+- url: /publish/.*
+  script: main.py
+  login: admin
+  secure: always
+
 # App Engine serves and caches static files contained in the listed directories
 # (and subdirectories). Uncomment and set the directory as needed.
 - url: /img/(.*)
