@@ -350,7 +350,7 @@ class Thread extends React.Component {
 
 
                       <div className="v2-type-h3 mrgn-bottom-sm">{thread.title}</div>
-                      <div className="flx flx-row">
+                      <div className="flx flx-row w-100 flx-align-center">
                         <div className="v2-type-body1">Posted by {createdBy.username}
                           <Link
                             to={'/' + this.props.params.orgname + '/user/' + createdBy.username}
@@ -368,6 +368,16 @@ class Thread extends React.Component {
                         <div className="v2-type-body1 opa-30 mrgn-left-md">Last updated: 
                           <DisplayTimestamp timestamp={thread.lastModified} />
                         </div>
+                        <div className="cta-wrapper vb--outline--none flx flx-row flx-item-right flx-align-center v2-type-body2">
+                          <LikeReviewButton
+                            authenticated={this.props.authenticated}
+                            isLiked={this.props.likes && this.props.likes[this.props.authenticated] ? true : false}
+                            likesCount={Object.keys(this.props.likes || {}).length}
+                            objectId={this.props.params.tid}
+                            thread={thread}
+                            type={Constants.THREAD_TYPE}
+                            orgName={this.props.params.orgname} />
+                        </div>
                       </div>
                       <div className="v2-type-body2 opa-90 w-100 mrgn-top-sm">
                         <BodySection
@@ -384,16 +394,7 @@ class Thread extends React.Component {
                       </div>
                       { this.renderChanges(this.props.changes, this.props.googleDocs, this.props.updates) }
                     </div>
-                    <div className="cta-wrapper vb vb--tip vb--outline--none flx flx-row flx-align-center v2-type-body2">
-                      <LikeReviewButton
-                        authenticated={this.props.authenticated}
-                        isLiked={this.props.likes && this.props.likes[this.props.authenticated] ? true : false}
-                        likesCount={Object.keys(this.props.likes || {}).length}
-                        objectId={this.props.params.tid}
-                        thread={thread}
-                        type={Constants.THREAD_TYPE}
-                        orgName={this.props.params.orgname} />
-                    </div>
+                    
                     
                     <div className="comments-area flx flx-col flx-align-start flx-just-start w-max-2" id='guidecommentcontainer' name='guidecommentcontainer'>
                       <div className="co-thread-reply-wrapper">

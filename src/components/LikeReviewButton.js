@@ -19,7 +19,7 @@ class LikeReviewButton extends React.Component {
       classes += 'material-icons mrgn-right-sm md-24 color--favorite';
     } else {
       // classes += ' btn-outline-secondary';
-      classes += 'material-icons mrgn-right-sm md-24 opa-20';
+      classes += 'material-icons mrgn-right-sm md-24 opa-20 color--black';
     }
 
     let likeText = '';
@@ -40,7 +40,7 @@ class LikeReviewButton extends React.Component {
  
     return (
       <div className="cta-container flx flx-row flx-center-all">
-        <i onClick={handleLikeClick} className={classes}>Upvote</i>
+        <i onClick={handleLikeClick} className={classes}>favorite</i>
         <div className="v2-type-body1 weight-500 ta-left">{this.props.likesCount ? this.props.likesCount : 0} </div>
       </div>
 

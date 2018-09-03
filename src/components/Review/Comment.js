@@ -62,8 +62,8 @@ class Comment extends React.Component {
 
     return (
       <div className="card comment-wrapper flx flx-align-center" id={'comment' + comment.id}>
-        <div className="">
-          <div className="flx flx-row flx-just-start">
+        <div className="w-100">
+          <div className="flx flx-row flx-just-start w-100">
             <Link
               to={`/user/${comment.username}`}
               className="mrgn-right-sm">
@@ -95,6 +95,8 @@ class Comment extends React.Component {
                 </div>
               </div>
             </div>
+            <div className="cta-wrapper vb--outline--none flx flx-row flx-item-right flx-align-center v2-type-body2">
+
             <LikeReviewButton
               authenticated={authenticated}
               isLiked={comment.likes && comment.likes[authenticated] ? true : false}
@@ -104,6 +106,7 @@ class Comment extends React.Component {
               likeObject={comment}
               type={Constants.COMMENT_TYPE}
               orgName={orgName} />
+              </div>
           </div>
           {
             isOpenNotification &&
