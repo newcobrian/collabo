@@ -31,13 +31,13 @@ var linkify = require('linkify-it')();
 
 const mapStateToProps = state => ({
   ...state.thread,
-  changes: state.review.changes,
   googleDocs: state.review.googleDocs,
-  userInfo: state.common.userInfo,
   updates: state.firebase.data.updates,
+  userInfo: state.common.userInfo,
   authenticated: state.common.authenticated,
   invalidOrgUser: state.common.invalidOrgUser,
-  sidebarOpen: state.common.sidebarOpen
+  sidebarOpen: state.common.sidebarOpen,
+  userId: state.firebase.auth.uid
 })
 
 const BodySection = props => {
@@ -176,35 +176,48 @@ class Thread extends React.Component {
       const state = update.state;
       const changed = update.changed;
       if (changed && changed.indexOf("permissions") !== -1) {
-        message = "The permission of the file has been changed";
+        message = "changed permission of";
       } else {
         if (state === "add") {
-          message = "The file was created or shared";
+          message = "created or shared";
         } else if (state === "remove") {
-          message = "The file was deleted or unshared";
+          message = "deleted or unshared";
         } else if (state === "update") {
-          message = "One or more properties (metadata) of the file have been updated";
+          message = "updated";
         } else if (state === "trash") {
-          message = "The file has been moved to the trash";
+          message = "trashed";
         } else if (state === "untrash") {
-          message = "The file has been removed from the trash";
+          message = "untrashed";
         } else if (state === "change") {
-          message = "Content of the file has been changed";
+          message = "changed";
         }
       }
-      return message ? <span> ({message})</span> : null;
+      return message;
     }
 
-    this.renderChanges = (changes, docs, updates) => {
-      if (changes && changes.length > 0) {
-        return changes
-          .filter((c) => docs && docs[c.fileId])
-          .map((c, i) => (
-            <div key={i}>
-              <img src={c.file.iconLink} /> '{c.file.name}' was modified at <DisplayTimestamp timestamp={c.file.modifiedTime} /> by {c.file.lastModifyingUser ? c.file.lastModifyingUser.displayName : "Anonymous user"}
-              {updates && this.renderState(updates[c.fileId])}
-            </div>
-          ))
+    this.renderChanges = (updates, userId, comments, threadId, docs) => {
+      const fileIds = Helpers.getFileIds(comments);
+      if (updates && userId && updates[userId] && updates[userId].length > 0) {
+        return updates[userId]
+          .filter((update) => fileIds.indexOf(update.fileId) !== -1)
+          .map((u, i) => {
+            if (u.added && u.threadId === threadId) {
+              return (
+                <div key={i}>
+                  {u.userInfo.username} added {(docs && docs[u.fileId]) ? docs[u.fileId].meta.name : "a file"}
+                </div>  
+              )
+            }
+            if (!u.added) {
+              return (
+                <div key={i}>
+                  {u.lastModifyingUser ? u.lastModifyingUser.displayName : "Anonymous user"} {this.renderState(u)} {u.name} at <DisplayTimestamp timestamp={u.stamp}/>
+                </div>
+              )
+            }
+            return null;
+          }
+        )
       }
       return null;
     }
@@ -381,7 +394,7 @@ class Thread extends React.Component {
                           usersList={this.props.usersList}
                             />
                       </div>
-                      { this.renderChanges(this.props.changes, this.props.googleDocs, this.props.updates) }
+                      { this.renderChanges(this.props.updates, this.props.userId, this.props.comments, this.props.params.tid, this.props.googleDocs) }
                     </div>
                     <div className="cta-wrapper vb vb--tip vb--outline--none flx flx-row flx-align-center v2-type-body2 DN">
                       <LikeReviewButton

@@ -846,3 +846,20 @@ export function getFileId (link) {
 	const domainIndex = segs.findIndex((seg) => seg.indexOf(".google.com") !== -1);
 	return segs.length > domainIndex + 3 ? segs[domainIndex + 3] : null;
 }
+
+export function getFileIds (comments) {
+	return Object.keys(comments).reduce((totalLinks, commentId) => {
+		const links = getLinks(comments[commentId].body).filter((l) => isGoogleDocLink(l));
+		if (!links || links.length < 1) {
+			return totalLinks;
+		}
+		const ids = [];
+		links.forEach(link => {
+			const fileId = getFileId(link);
+			if (fileId) {
+				ids.push(fileId);
+			}
+		});
+		return totalLinks.concat(ids);
+	}, []);
+}

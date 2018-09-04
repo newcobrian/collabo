@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { uniq } from 'lodash';
 import * as Actions from '../../actions';
 import { REVIEW_TYPE } from '../../constants'
 import ProfilePic from './../ProfilePic';
 import ProxyImage from './../ProxyImage'
 import Textarea from 'react-textarea-autosize';
 import { MentionsInput, Mention } from 'react-mentions'
+import { getLinks, isGoogleDocLink, getFileId } from '../../helpers';
 
 const mapStateToProps = state => ({
   userInfo: state.common.userInfo
@@ -32,6 +34,29 @@ class CommentInput extends React.Component {
         const commentBody = ''.concat(this.state.body.replace(/\B@[$][|][{]([a-z0-9_-]+)[}][|][$]/gi, "@$1"))
         this.setState({ body: '' });
         this.props.onThreadCommentSubmit(this.props.authenticated, this.props.userInfo, this.props.type, this.props.commentObject, commentBody, this.props.threadId, this.props.project, this.props.orgName);
+
+        const links = getLinks(commentBody).filter((l) => isGoogleDocLink(l));
+        const ids = [];
+        if (links && links.length > 0) {
+          links.forEach(link => {
+            const fileId = getFileId(link);
+            if (fileId) {
+              ids.push(fileId);
+            }
+          });
+        }
+        if (ids.length > 0) {
+          const newIds = uniq(ids);
+          if (newIds.length > 0) {
+            this.props.updateGoogleDocsChanges(newIds.map((id) => ({
+              from: 'ui',
+              userInfo: this.props.userInfo,
+              threadId: this.props.threadId,
+              fileId: id,
+              added: (new Date()).toString()
+            })))  
+          }
+        }
       }
     }
   }

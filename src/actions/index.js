@@ -2706,12 +2706,18 @@ export function updateGoogleDocsPermission(id, data) {
   }
 }
 
-export function updateGoogleDocsChanges(data) {
+export function updateGoogleDocsChanges(data, userId) {
   return dispatch => {
-    dispatch({
-      type: UPDATE_GOOGLE_DOCS_CHANGES,
-      payload: data
-    })
+    const userId = Firebase.auth().currentUser.uid;
+    Firebase.database().ref(Constants.UPDATES_PATH + "/" + userId).once('value', snapshot => {
+      let changes = snapshot.val() || [];
+      changes = changes.concat(data);
+      Firebase.database().ref(Constants.UPDATES_PATH + "/" + userId).set(changes);
+      dispatch({
+        type: UPDATE_GOOGLE_DOCS_CHANGES,
+        payload: changes
+      })
+    });
   }
 }
 
