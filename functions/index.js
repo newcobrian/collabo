@@ -22,3 +22,8 @@ exports.watchFile = functions.https.onRequest((request, response) => {
 exports.verify = functions.https.onRequest((request, response) => {
   response.status(200).send("google-site-verification: google48cc54664f2282f5.html");
 });
+
+exports.hourly_job =
+  functions.pubsub.topic('hourly-tick').onPublish((event) => {
+    console.log("This job is run every hour!")
+  });

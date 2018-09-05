@@ -32,7 +32,7 @@ class ChangeEmailModal extends React.Component {
 
     this.submitForm = ev => {
       ev.preventDefault();
-      this.props.changeEmailAddress(this.state.email, this.state.password)
+      this.props.changeEmailAddress(this.state.email.toLowerCase(), this.state.password, this.props.currentUser.email)
     }
   }
 

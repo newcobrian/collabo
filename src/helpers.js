@@ -257,7 +257,7 @@ export function incrementThreadCount(counterType, threadId, thread, userId) {
 }
 
 export function decrementThreadCount(counterType, threadId, thread, userId) {
-	// decrement count on itineraries
+	// decrement count on threads
 	Firebase.database().ref(Constants.THREADS_PATH + '/' + threadId + '/' + counterType).transaction(function (current_count) {
 		return (current_count - 1 > 0) ? (current_count - 1) : 0;
     });
@@ -633,6 +633,8 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 	let emailData = {};
 	let emailTemplateID = "5d7dc9ce-f38d-47b9-b73c-09d3e187a6d9"
 
+	let sendEmail = true;
+
 	Firebase.database().ref(Constants.USERS_PATH + '/' + recipientId).once('value', recipientSnapshot => {
 		Firebase.database().ref(Constants.USERS_PATH + '/' + senderId).once('value', senderSnapshot => {
 			switch(messageType) {
@@ -644,6 +646,18 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 					emailData.body = sendObject
 					emailData.threadTitle = '"' + thread.title + '"'
 					emailData.senderLink = Constants.COLLABO_URL + '/' + org.name + '/users/' + senderSnapshot.val().username
+					break;
+				case Constants.LIKE_THREAD_MESSAGE:
+					inboxObject.senderId = senderId;
+					inboxObject.message = ' upvoted your post "' + thread.title + '"';
+					inboxObject.link = '/' + org.name + '/' + thread.projectId + '/' + thread.threadId;
+					sendEmail = false
+					break;
+				case Constants.LIKE_COMMENT_MESSAGE:
+					inboxObject.senderId = senderId;
+					inboxObject.message = ' upvoted your comment: "' + sendObject.body + '"';
+					inboxObject.link = '/' + org.name + '/' + thread.projectId + '/' + thread.threadId;
+					sendEmail = false
 					break;
 				// case Constants.COMMENT_ON_COMMENT_REVIEW_MESSAGE:
 				// 	inboxObject.senderId = senderId;
@@ -680,7 +694,7 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 				Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + recipientId + '/messageCount').transaction(function (current_count) {
 		            return (current_count || 0) + 1;
 		        })
-	        	if (recipientSnapshot.exists() && recipientSnapshot.val().email) {
+	        	if (sendEmail && recipientSnapshot.exists() && recipientSnapshot.val().email) {
 	        		let data = Object.assign({}, emailData, {senderName: senderSnapshot.val().username});
 	        		sendContentManagerEmail(emailTemplateID, recipientSnapshot.val().email, data);
 			    }

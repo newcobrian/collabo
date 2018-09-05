@@ -11,3 +11,5 @@ requests
 requests-toolbelt
 createsend==4.2.1
 firebase-admin
+google-api-python-client
+oauth2client

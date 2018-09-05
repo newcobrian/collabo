@@ -1745,7 +1745,7 @@ export function likeItinerary(authenticated, type, likeObject, itineraryId, user
   }
 }
 
-export function likeReview(authenticated, type, objectId, likeObject, user) {
+export function likeReview(authenticated, type, objectId, thread, user, orgName, likeObject) {
   return dispatch => {
     if (!authenticated) {
       dispatch({
@@ -1761,20 +1761,22 @@ export function likeReview(authenticated, type, objectId, likeObject, user) {
       //   // lastModified: Firebase.database.ServerValue.TIMESTAMP
       // }
       if (type === Constants.THREAD_TYPE) {
-        updates[`/${Constants.LIKES_BY_USER_PATH}/${authenticated}/${id}`] = type;
-        updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = 
-          Object.assign({}, {username: user.username}, {image: user.image});
+        // updates[`/${Constants.LIKES_BY_USER_BY_ORG_PATH}/${authenticated}/${thread.orgId}/${id}`] = type;
+        updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = Object.assign({}, pick(user, ['username', 'image']));
+        // updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${thread.projectId}/${id}/likes/${authenticated}`] = true;
+        // updates[`/${Constants.THREADS_BY_ORG_PATH}/${thread.orgId}/${id}/likes/${authenticated}`] = true;
       }
-      // else if (type === Constants.COMMENT_TYPE) {
-      //   updates[`/${Constants.LIKES_BY_USER_PATH}/${authenticated}/${id}`] = saveObject;
-      //   updates[`/${Constants.RECS_BY_ITINERARY_PATH}/${itineraryId}/${likeObject.key}/likes/${authenticated}`] = username;
-      // }
+      else if (type === Constants.COMMENT_TYPE) {
+        // updates[`/${Constants.LIKES_BY_USER_BY_ORG_PATH}/${authenticated}/${thread.orgId}/${id}`] = type;
+        updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = Object.assign({}, pick(user, ['username', 'image']));
+        updates[`/${Constants.COMMENTS_BY_THREAD_PATH}/${thread.threadId}/${id}/likes/${authenticated}`] = Object.assign({}, pick(user, ['username', 'image']));
+      }
 
       Firebase.database().ref().update(updates).then(response => {
         if (type === Constants.THREAD_TYPE) {
           // update threads, threads-by-org, threads-by-project
-          // Helpers.updateThreadCounts(authenticated, )
-          // Helpers.sendInboxMessage(authenticated, likeObject.createdBy.userId, Constants.LIKE_ITINERARY_MESSAGE, likeObject, itineraryId, null);
+          // Helpers.incrementThreadCount(Constants.LIKES_COUNT, id, thread, authenticated)
+          Helpers.sendCollaboInboxMessage(authenticated, thread.userId, Constants.LIKE_THREAD_MESSAGE, Object.assign({}, {name: orgName}), null, Object.assign({}, thread, {threadId: id}), null)
 
           // mixpanel.people.increment("total likes");
 
@@ -1801,47 +1803,12 @@ export function likeReview(authenticated, type, objectId, likeObject, user) {
           //   }
           // })
         }
-        // this is actually liking a tip, not a review. Just incrementing the counts
-        // else if (type === Constants.TIPS_TYPE) {
-        //   // Helpers.incrementReviewCount(Constants.LIKES_COUNT, id, likeObject.subjectId, likeObject.createdBy.userId);
-        //   Firebase.database().ref(Constants.SUBJECTS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + id + '/likesCount').transaction(function (current_count) {
-        //     return (current_count || 0) + 1;
-        //   });
-        //   // Firebase.database().ref(Constants.TIPS_BY_SUBJECT_PATH + '/' + likeObject.subjectId + '/' + likeObject.userId + '/' + id + '/likesCount').transaction(function (current_count) {
-        //   //   return (current_count || 0) + 1;
-        //   // });
-
-        //   // update guide popularity score
-        //   Helpers.incrementGuideScore(itineraryId, Constants.LIKE_GUIDE_SCORE);
-        //   // send inbox message to guide owner
-        //   Helpers.sendInboxMessage(authenticated, likeObject.userId, Constants.LIKE_TIP_MESSAGE, likeObject, itineraryId, null);
-
-        //   mixpanel.people.increment("total likes");
-
-        //   dispatch({
-        //     type: REVIEW_LIKED,
-        //     meta: {
-        //       mixpanel: {
-        //         event: 'Liked review',
-        //         props: {
-        //           tipId: id,
-        //           itineraryId: itineraryId
-        //         }
-        //       }
-        //     }
-        //   })
-        //   dispatch({
-        //     type: SEND_INBOX_MESSAGE,
-        //     meta: {
-        //       mixpanel: {
-        //         event: SEND_INBOX_MESSAGE,
-        //         props: {
-        //           type: Constants.LIKE_MESSAGE
-        //         }
-        //       }
-        //     }
-        //   })
-        // }
+        else if (type === Constants.COMMENT_TYPE) {
+          Helpers.sendCollaboInboxMessage(authenticated, likeObject.userId, Constants.LIKE_COMMENT_MESSAGE, Object.assign({}, {name: orgName}), null, thread, likeObject)
+          dispatch({
+            type: ActionTypes.REVIEW_LIKED
+          })
+        }
       })
       .catch(error => {
         console.log(error);
@@ -1866,21 +1833,23 @@ export function unlikeReview(authenticated, type, objectId, likeObject, user) {
       //   // lastModified: Firebase.database.ServerValue.TIMESTAMP
       // }
       if (type === Constants.THREAD_TYPE) {
-        updates[`/${Constants.LIKES_BY_USER_PATH}/${authenticated}/${id}`] = null;
+        updates[`/${Constants.LIKES_BY_USER_BY_ORG_PATH}/${authenticated}/${likeObject.orgId}/${id}`] = null;
         updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = null
+        // updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${likeObject.projectId}/${id}/likes/${authenticated}`] = null;
+        // updates[`/${Constants.THREADS_BY_ORG_PATH}/${likeObject.orgId}/${id}/likes/${authenticated}`] = null;
       }
-      // else if (type === Constants.COMMENT_TYPE) {
-      //   updates[`/${Constants.LIKES_BY_USER_PATH}/${authenticated}/${id}`] = saveObject;
-      //   updates[`/${Constants.RECS_BY_ITINERARY_PATH}/${itineraryId}/${likeObject.key}/likes/${authenticated}`] = username;
-      // }
+      else if (type === Constants.COMMENT_TYPE) {
+        // updates[`/${Constants.LIKES_BY_USER_BY_ORG_PATH}/${authenticated}/${likeObject.orgId}/${id}`] = null;
+        updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = null;
+        updates[`/${Constants.COMMENTS_BY_THREAD_PATH}/${likeObject.threadId}/${id}/likes/${authenticated}`] = null;
+      }
 
       Firebase.database().ref().update(updates).then(response => {
         if (type === Constants.THREAD_TYPE) {
           // update threads, threads-by-org, threads-by-project
-          // Helpers.updateThreadCounts(authenticated, )
-          // Helpers.sendInboxMessage(authenticated, likeObject.createdBy.userId, Constants.LIKE_ITINERARY_MESSAGE, likeObject, itineraryId, null);
+          Helpers.decrementThreadCount(Constants.LIKES_COUNT, id, likeObject, authenticated)
 
-          // mixpanel.people.increment("total likes");
+          // mixpanel.people.decrement("total likes");
 
           dispatch({
             type: ActionTypes.REVIEW_UNLIKED,
@@ -1951,60 +1920,6 @@ export function unlikeReview(authenticated, type, objectId, likeObject, user) {
         console.log(error);
       })
     }
-  }
-}
-
-export function unLikeReview2(authenticated, type, unlikeObject, itineraryId) {
-  return dispatch => {
-    if (!authenticated) {
-      dispatch({
-        type: ASK_FOR_AUTH
-      })
-    }
-    let id = (type === Constants.ITINERARY_TYPE ? unlikeObject.id : unlikeObject.key);
-    const updates = {};
-    // updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = null;
-    if (type === Constants.TIPS_TYPE) {
-      updates[`/${Constants.SUBJECTS_BY_ITINERARY_PATH}/${itineraryId}/${unlikeObject.key}/likes/${authenticated}`] = null;
-    }
-    else if (type === Constants.RECOMMENDATIONS_TYPE) {
-      updates[`/${Constants.RECS_BY_ITINERARY_PATH}/${itineraryId}/${unlikeObject.key}/likes/${authenticated}`] = null;
-    }
-    else { // type === Constants.ITINERARY_TYPE
-      updates[`/${Constants.ITINERARIES_PATH}/${itineraryId}/likes/${authenticated}`] = null;
-    }
-    updates[`/${Constants.LIKES_BY_USER_PATH}/${authenticated}/${id}`] = null;
-    Firebase.database().ref().update(updates).then(response => {
-      if (type === Constants.TIPS_TYPE) {
-        // Helpers.decrementReviewCount(Constants.LIKES_COUNT, id, unlikeObject.subjectId, unlikeObject.createdBy.userId);
-        Firebase.database().ref(Constants.SUBJECTS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + id + '/likesCount').transaction(function (current_count) {
-          return (current_count >= 1) ? current_count - 1 : 0;
-        });
-        // Firebase.database().ref(Constants.TIPS_BY_SUBJECT_PATH + '/' + unlikeObject.subjectId + '/' + unlikeObject.userId + '/' + id + '/likesCount').transaction(function (current_count) {
-        //   return (current_count >= 1) ? current_count - 1 : 0;
-        // });
-      }
-      else if (type === Constants.RECOMMENDATIONS_TYPE) {
-        Firebase.database().ref(Constants.RECS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + id + '/likesCount').transaction(function (current_count) {
-          return (current_count >= 1) ? current_count - 1 : 0;
-        });
-      }
-      else if (type === Constants.ITINERARY_TYPE) {
-        Helpers.decrementItineraryCount(Constants.LIKES_COUNT, id, unlikeObject.geo, unlikeObject.createdBy.userId);
-      }
-
-      // update guide popularity score
-      Helpers.decrementGuideScore(itineraryId, Constants.LIKE_GUIDE_SCORE);
-
-      mixpanel.people.increment("total likes", -1);
-
-      dispatch({
-        type: REVIEW_UNLIKED
-      })
-    })
-    .catch(error => {
-      console.log(error);
-    })
   }
 }
 

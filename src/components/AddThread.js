@@ -6,12 +6,11 @@ import * as Constants from '../constants';
 import * as Helpers from '../helpers';
 import ListErrors from './ListErrors';
 import { EditorState, convertFromRaw, convertToRaw } from 'draft-js';
-import { Editor } from 'react-draft-wysiwyg';
-import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import draftToHtml from 'draftjs-to-html';
 import OrgHeader from './OrgHeader';
 import Sidebar from 'react-sidebar';
 import ProjectList from './ProjectList';
+import RichTextEditor from './RichTextEditor';
 
 const mql = window.matchMedia(`(min-width: 800px)`);
 
@@ -31,7 +30,7 @@ class AddThread extends React.Component {
 
 	    this.changeTitle = updateFieldEvent('title');
 	    
-	    this.changeBody = value => {
+	    this.changeBody = (value) => {
 	    	this.props.onUpdateCreateField('body', value, Constants.ADD_THREAD_PAGE)
 	    }
 
@@ -124,13 +123,11 @@ class AddThread extends React.Component {
 	              	<div className={this.props.sidebarOpen ? 'open-style' : 'closed-style'}>
 
 						<div className="page-common page-add-thread flx flx-col flx-center-all">
-								
-
-								<div className="project-header text-left flx flx-col flx-align-start w-100">
-							    	<OrgHeader />
-							    	{/* HEADER START */}
-							    	<div className="co-type-h1 mrgn-top-sm mrgn-left-md">Post a New Thread</div>
-							    </div>
+							<div className="project-header text-left flx flx-col flx-align-start w-100">
+						    	<OrgHeader />
+						    	{/* HEADER START */}
+						    	<div className="co-type-h1 mrgn-top-sm mrgn-left-md">Post a New Thread</div>
+						    </div>
 
 
 							  <div className="content-wrapper header-push ta-left flx flx-col">
@@ -174,16 +171,13 @@ class AddThread extends React.Component {
 								                        required
 								                        value={this.props.body}
 								                        onChange={this.changeBody} />*/}
-								                        <Editor
-													        editorState={this.props.body}
-													        wrapperClassName="demo-wrapper"
-													        editorClassName="demo-editor"
-													        onEditorStateChange={this.changeBody}
-													        mention={{
-												              separator: ' ',
-												              trigger: '@',
-												              suggestions: this.props.usersList,
-												            }}
+
+													<RichTextEditor
+												        editorState={this.props.body}
+												        wrapperClass="demo-wrapper"
+												        editorClass="demo-editor"
+												        onChange={this.changeBody}
+												        usersList={this.props.usersList}
 													    />
 
 								                    </fieldset>

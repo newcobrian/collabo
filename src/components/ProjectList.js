@@ -152,6 +152,10 @@ class ProjectList extends React.Component {
               <div className="sidebar-icon"><ProfilePic className="center-img" src={this.props.userInfo.image}/></div>
               <div className="co-type-label color--black">{this.props.userInfo.username}</div>
             </Link>
+
+            <Link to={'/' + this.props.orgName + '/admin'} activeClassName="active" className="sidebar-row flx flx-row flx-align-center">
+                <div className="co-type-label color--black">Team Settings</div>
+            </Link>
           </div>
 
         </div>

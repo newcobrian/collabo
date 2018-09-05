@@ -45,8 +45,18 @@ export default (state = initialState, action) => {
       }
       else return state;
     }
-    // case ActionTypes.COMMENT_CHANGED_ACTION:
-    //   return state;
+    case ActionTypes.COMMENT_CHANGED_ACTION: {
+      const newState = Object.assign({}, state);
+      newState.comments = newState.comments || [];
+      newState.comments = newState.comments.slice();
+      for (let i = 0; i < newState.comments.length; i++) {
+        if (newState.comments[i].id === action.commentId) {
+          newState.comments[i] = Object.assign({}, {id: action.commentId}, action.comment)
+          return newState;    
+        }
+      }
+      return state;
+    }
     case ActionTypes.COMMENT_REMOVED_ACTION: {
       const newState = Object.assign({}, state);
       newState.comments = newState.comments || [];
@@ -76,11 +86,6 @@ export default (state = initialState, action) => {
         org: {}
       }
     }
-    case ActionTypes.NOT_AN_ORG_USER:
-      return {
-        ...state,
-        invalidOrgUser: true
-      }
     case ActionTypes.SET_EDIT_MODE: {
       if (action.editMode === false) {
         const newState = Object.assign({}, state);
@@ -113,6 +118,15 @@ export default (state = initialState, action) => {
         return newState;
       }
       return state;
+    }
+    case ActionTypes.UNLOAD_ORG_USERS: {
+      if (action.source === Constants.THREAD_PAGE) {
+        return {
+          ...state,
+          usersList: []
+        }
+      }
+      return state
     }
     case ActionTypes.THREAD_LIKES_ADDED_ACTION: {
       const newState = Object.assign({}, state);

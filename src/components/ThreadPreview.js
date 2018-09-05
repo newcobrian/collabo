@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router';
-import LikeReviewButton from './LikeReviewButton';
 import ProfilePic from './ProfilePic';
 import ImagePicker from './ImagePicker';
 import * as Constants from '../constants';
@@ -134,7 +133,7 @@ const ThreadPreview = props => {
   // let canModify = props.authenticated === tip.userId ? true : false;
 
   return (
-    <Link to={`/${props.orgName}/${props.projectId}/${props.thread.threadId}`} className={"thread-preview-wrapper flx flx-col flx-col w-100"}>
+    <Link to={`/${props.orgName}/${props.projectId}/${thread.threadId}`} className={"thread-preview-wrapper flx flx-col flx-col w-100"}>
         
         <div className="thread-preview-container flx flx-row flx-align-start w-100">
           <div className="thread-icon flx flx-center-all flx-hold mrgn-right-md">
@@ -171,13 +170,8 @@ const ThreadPreview = props => {
                         {/*<div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(thread.body) || '' }} />*/}
                         </div>
 
-                        <div className="cta-wrapper vb vb--tip vb--outline--none flx flx-row flx-align-center v2-type-body2 DN">
-                          <LikeReviewButton
-                            authenticated={props.authenticated}
-                            isLiked={thread.likes ? thread.likes[props.authenticated] : false}
-                            likesCount={thread.likesCount}
-                            likeObject={thread}
-                            type={Constants.THREAD_TYPE} />
+                        <div className="cta-wrapper vb vb--tip vb--outline--none flx flx-row flx-align-center v2-type-body2">
+                          {thread.likesCount || 0} {thread.likesCount === 1 ? ' upvote' : ' upvotes'}
                         </div>
 
                   </div>

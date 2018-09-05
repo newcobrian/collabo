@@ -156,7 +156,7 @@ class CommentList extends React.Component {
   }
 
   render () {
-    const { comments, authenticated, userInfo, commentObject, orgName, deleteComment, threadId } = this.props;
+    const { comments, authenticated, userInfo, commentObject, orgName, deleteComment, threadId, thread } = this.props;
     return (
       <div>
         {
@@ -167,6 +167,7 @@ class CommentList extends React.Component {
                 authenticated={authenticated}
                 userInfo={userInfo}
                 commentObject={commentObject}
+                thread={thread}
                 key={commentId}
                 orgName={orgName}
                 deleteComment={deleteComment}

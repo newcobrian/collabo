@@ -555,9 +555,9 @@ export function watchThreadComments(threadId) {
       dispatch(threadCommentAddedAction(threadId, commentSnap.key, commentSnap.val()));
     })
 
-    // Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).on('child_changed', commentSnap => {
-    //   dispatch(threadCommentChangedAction(threadId, commentSnap.key, commentSnap.val()));
-    // })
+    Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).on('child_changed', commentSnap => {
+      dispatch(threadCommentChangedAction(threadId, commentSnap.key, commentSnap.val()));
+    })
 
     Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).on('child_removed', commentSnap => {
       dispatch(threadCommentRemovedAction(threadId, commentSnap.key));
@@ -922,6 +922,12 @@ export function loadOrg(auth, org, source) {
             }
           })
         }
+        else {
+          dispatch({
+            type: ActionTypes.NOT_AN_ORG_USER,
+            source: source
+          })
+        }
       })
     }
   }
@@ -1175,13 +1181,15 @@ export function setEditMode(mode) {
 
 export function markProjectRead(auth, projectId) {
   return dispatch => {
-    let updates = {}
-    Firebase.database().ref(Constants.PROJECTS_PATH + '/' + projectId).once('value', snap => {
-      if (snap.exists()) {
-        updates[Constants.THREAD_SEEN_COUNTERS_PATH + '/' + auth + '/' + snap.val().orgId + '/' + projectId] = null
-        Firebase.database().ref().update(updates);
-      }
-    })
+    if (projectId) {
+      let updates = {}
+      Firebase.database().ref(Constants.PROJECTS_PATH + '/' + projectId).once('value', snap => {
+        if (snap.exists()) {
+          updates[Constants.THREAD_SEEN_COUNTERS_PATH + '/' + auth + '/' + snap.val().orgId + '/' + projectId] = null
+          Firebase.database().ref().update(updates);
+        }
+      })
+    }
   }
 }
 
@@ -1212,6 +1220,7 @@ export function loadOrgUsers(auth, orgName, source) {
                     firstName: usersSnap.val()[user.key].firstName,
                     lastName: usersSnap.val()[user.key].lastName,
                     email: usersSnap.val()[user.key].email,
+                    image: usersSnap.val()[user.key].image,
                     id: user.key,
                     orgName: orgName,
                     source: source,
@@ -1222,6 +1231,15 @@ export function loadOrgUsers(auth, orgName, source) {
           }
         })
       }
+    })
+  }
+}
+
+export function unloadOrgUsers(source) {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.UNLOAD_ORG_USERS,
+      source
     })
   }
 }
@@ -1395,3 +1413,25 @@ export function changeAddThreadProject(projectId, projectName) {
     })
   }
 }
+
+// export function loadLikesByUser(auth, orgName) {
+//   return dispatch => {
+//     Firebase.database()).ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', orgSnap => {
+//       if (orgSnap.exists()) {
+//         Firebase.database().ref(Constants.LIKES_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgSnap.val().orgId).on('child_added', likesSnap => {
+//           dispatch({
+//             type: ActionTypes.LIKES_BY_USER_ADDED_ACTION,
+//             id: likesSnap.key
+//           })
+//         })
+
+//         Firebase.database().ref(Constants.LIKES_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgSnap.val().orgId).on('child_removed', likesSnap => {
+//           dispatch({
+//             type: ActionTypes.LIEKS_BY_USER_REMOVED_ACTION,
+//             id: likesSnap.key
+//           })
+//         })
+//       }
+//     })
+//   }
+// }

@@ -16,14 +16,15 @@ import CommentContainer from './Review/CommentContainer';
 import ProjectList from './ProjectList';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { Editor } from 'react-draft-wysiwyg';
+// import { Editor } from 'react-draft-wysiwyg';
 import { convertToRaw, convertFromRaw } from 'draft-js';
-import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+// import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import draftToHtml from 'draftjs-to-html';
 import LoggedOutMessage from './LoggedOutMessage';
 import OrgHeader from './OrgHeader';
 import Sidebar from 'react-sidebar';
 import LikeReviewButton from './LikeReviewButton';
+import RichTextEditor from './RichTextEditor';
 
 const mql = window.matchMedia(`(min-width: 800px)`);
 
@@ -55,16 +56,12 @@ const BodySection = props => {
     return (
       <div className="flx flx-col">
         <div className="w-100">
-          <Editor
-              editorState={props.bodyText}
-              wrapperClassName="demo-wrapper"
-              editorClassName="demo-editor pdding-all-md brdr-all brdr--primary"
-              onEditorStateChange={props.updateText}
-              mention={{
-                separator: ' ',
-                trigger: '@',
-                suggestions: props.usersList,
-              }}
+          <RichTextEditor
+            editorState={props.bodyText}
+            wrapperClass="demo-wrapper"
+            editorClass="demo-editor pdding-all-md brdr-all brdr--primary"
+            onChange={props.updateText}
+            usersList={props.usersList}
           />
         </div>
         <div className="w-100 flx flx-row mrgn-top-md w-auto flx-item-right">
@@ -82,11 +79,12 @@ const BodySection = props => {
     return (
       <div className="flx flx-col">
         <div className="w-100">
-          <Editor
+          <RichTextEditor
             editorState={props.bodyText}
-            wrapperClassName="demo-wrapper"
-            editorClassName="demo-editor"
-            onEditorStateChange={props.updateText}
+            wrapperClass="demo-wrapper"
+            editorClass="demo-editor pdding-all-md brdr-all brdr--primary"
+            onChange={props.updateText}
+            usersList={props.usersList}
             toolbarHidden={true}
             readOnly={true}
           />
@@ -110,14 +108,15 @@ const BodySection = props => {
   else {
     return (
       <div>
-        <Editor
-          editorState={props.bodyText}
-          wrapperClassName="demo-wrapper"
-          editorClassName="demo-editor"
-          onEditorStateChange={props.updateText}
-          toolbarHidden={true}
-          readOnly={true}
-        />
+        <RichTextEditor
+            editorState={props.bodyText}
+            wrapperClass="demo-wrapper"
+            editorClass="demo-editor pdding-all-md brdr-all brdr--primary"
+            onChange={props.updateText}
+            usersList={props.usersList}
+            toolbarHidden={true}
+            readOnly={true}
+          />
       {/*<div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(props.bodyText) || '' }}>
           </div>*/}
       </div>
@@ -236,6 +235,7 @@ class Thread extends React.Component {
     this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname, Constants.THREAD_PAGE)
     this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.THREAD_PAGE)
     this.props.unloadOrg(Constants.THREAD_PAGE);
+    this.props.unloadOrgUsers(Constants.THREAD_PAGE)
     this.props.unloadThread(this.props.params.tid);
     this.props.unloadThreadLikes(this.props.params.tid);
     this.props.unwatchThreadComments(this.props.params.tid);
@@ -254,6 +254,7 @@ class Thread extends React.Component {
     }
     else if (nextProps.params.orgname !== this.props.params.orgname) {
       this.props.unloadOrgList(this.props.authenticated, Constants.THREAD_PAGE)
+      this.props.unloadOrgUsers(Constants.THREAD_PAGE)
       this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname, Constants.THREAD_PAGE)
       this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.THREAD_PAGE)
       this.props.unloadThread(this.props.params.tid);
@@ -261,6 +262,7 @@ class Thread extends React.Component {
       this.props.unwatchThreadComments(this.props.params.tid);
 
       this.props.loadOrg(this.props.authenticated, nextProps.params.orgname, Constants.THREAD_PAGE);
+      this.props.loadOrgUsers(this.props.authenticated, nextProps.params.orgname, Constants.THREAD_PAGE)
       this.props.loadProjectList(this.props.authenticated, nextProps.params.orgname, this.props.params.pid, Constants.THREAD_PAGE)
       this.props.loadThreadCounts(this.props.authenticated, nextProps.params.orgname)
       this.props.loadThread(nextProps.params.tid);
@@ -279,12 +281,11 @@ class Thread extends React.Component {
     else if(this.props.invalidOrgUser) {
       return (
         <div className="error-module flx flx-col flx-center-all ta-center v2-type-body3 color--black">
-        <div className="xiao-img-wrapper mrgn-bottom-sm">
-          <img className="center-img" src="/img/xiaog.png"/>
+          <div className="xiao-img-wrapper mrgn-bottom-sm">
+            <img className="center-img" src="/img/xiaog.png"/>
+          </div>
+          <div className="mrgn-bottom-md">Sorry, you don't have permission to view this team.</div>
         </div>
-        <div className="mrgn-bottom-md">You don't have permission to view this thread</div>
-          
-      </div>
       )
     }
     else if (this.props.threadNotFoundError) {
@@ -349,7 +350,7 @@ class Thread extends React.Component {
 
 
                       <div className="v2-type-h3 mrgn-bottom-sm">{thread.title}</div>
-                      <div className="flx flx-row">
+                      <div className="flx flx-row w-100 flx-align-center">
                         <div className="v2-type-body1">Posted by {createdBy.username}
                           <Link
                             to={'/' + this.props.params.orgname + '/user/' + createdBy.username}
@@ -367,6 +368,16 @@ class Thread extends React.Component {
                         <div className="v2-type-body1 opa-30 mrgn-left-md">Last updated: 
                           <DisplayTimestamp timestamp={thread.lastModified} />
                         </div>
+                        <div className="cta-wrapper vb--outline--none flx flx-row flx-item-right flx-align-center v2-type-body2">
+                          <LikeReviewButton
+                            authenticated={this.props.authenticated}
+                            isLiked={this.props.likes && this.props.likes[this.props.authenticated] ? true : false}
+                            likesCount={Object.keys(this.props.likes || {}).length}
+                            objectId={this.props.params.tid}
+                            thread={thread}
+                            type={Constants.THREAD_TYPE}
+                            orgName={this.props.params.orgname} />
+                        </div>
                       </div>
                       <div className="v2-type-body2 opa-90 w-100 mrgn-top-sm">
                         <BodySection
@@ -383,15 +394,7 @@ class Thread extends React.Component {
                       </div>
                       { this.renderChanges(this.props.changes, this.props.googleDocs, this.props.updates) }
                     </div>
-                    <div className="cta-wrapper vb vb--tip vb--outline--none flx flx-row flx-align-center v2-type-body2 DN">
-                      <LikeReviewButton
-                        authenticated={this.props.authenticated}
-                        isLiked={this.props.likes && this.props.likes[this.props.authenticated] ? true : false}
-                        likesCount={Object.keys(this.props.likes || {}).length}
-                        objectId={this.props.params.tid}
-                        likeObject={thread}
-                        type={Constants.THREAD_TYPE} />
-                    </div>
+                    
                     
                     <div className="comments-area flx flx-col flx-align-start flx-just-start w-max-2" id='guidecommentcontainer' name='guidecommentcontainer'>
                       <div className="co-thread-reply-wrapper">
@@ -403,6 +406,7 @@ class Thread extends React.Component {
                           errors={this.props.commentErrors}
                           commentObject={thread}
                           threadId={this.props.params.tid}
+                          thread={this.props.thread}
                           project={this.props.project}
                           orgName={this.props.params.orgname}
                           usersList={this.props.usersList}

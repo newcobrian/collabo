@@ -18,7 +18,7 @@ const EditProfileSettings = props => {
   if (props.isUser) {
     return (
       <Link
-        to="/settings"
+        to={'/' + props.orgName + '/user/' + props.username + '/settings'}
         className="flx flx-align-center mrgn-right-md">
          <div className="icon-wrapper brdr--primary flx flx-center-all">
             <i className="material-icons color--black md-18 opa-100">mode_edit</i>
@@ -300,7 +300,10 @@ class Profile extends React.Component {
                     <div className="flx flx-row flx-align-center mrgn-top-sm w-100">
                       <div className="co-type-h1 mrgn-left-md">{profile.username}</div>
                       <div className="flx-item-right flx flx-row flx-align-center">
-                        <EditProfileSettings isUser={isUser} />
+                        <EditProfileSettings 
+                          isUser={isUser} 
+                          orgName={this.props.params.orgname} 
+                          username={this.props.params.username}/>
                         <SignOutButton isUser={isUser} signOut={this.props.signOutUser}/>
                       </div>
                     </div>

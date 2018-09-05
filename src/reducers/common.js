@@ -30,6 +30,7 @@ export default (state = defaultState, action) => {
       }
     case ActionTypes.NOT_AN_ORG_USER:
       return {
+        ...state,
         invalidOrgUser: true
       }
     case APP_USER_LOADED:
@@ -75,7 +76,7 @@ export default (state = defaultState, action) => {
     case 'SETTINGS_SAVED':
       return {
         ...state,
-        redirectTo: action.error ? null : '/' + action.username,
+        redirectTo: action.error ? null : '/' + action.orgName + '/user/' + action.username,
         // currentUser: action.error ? null : action.payload.user
       };
     case REVIEW_DELETED:
