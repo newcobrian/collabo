@@ -195,7 +195,7 @@ class Thread extends React.Component {
     }
 
     this.renderChanges = (updates, userId, comments, threadId, docs) => {
-      const fileIds = Helpers.getFileIds(comments);
+      const fileIds = Helpers.getFileIds(comments || []);
       if (updates && threadId && updates[threadId] && updates[threadId].length > 0) {
         return updates[threadId]
           .filter((update) => fileIds.indexOf(update.fileId) !== -1)
