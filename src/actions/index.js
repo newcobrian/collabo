@@ -2621,12 +2621,17 @@ export function updateGoogleDocsPermission(id, data) {
   }
 }
 
-export function updateGoogleDocsChanges(data) {
+export function updateGoogleDocsChanges(data, threadId) {
   return dispatch => {
-    dispatch({
-      type: UPDATE_GOOGLE_DOCS_CHANGES,
-      payload: data
-    })
+    Firebase.database().ref(Constants.UPDATES_PATH + "/" + threadId).once('value', snapshot => {
+      let changes = snapshot.val() || [];
+      changes = changes.concat(data);
+      Firebase.database().ref(Constants.UPDATES_PATH + "/" + threadId).set(changes);
+      dispatch({
+        type: UPDATE_GOOGLE_DOCS_CHANGES,
+        payload: changes
+      })
+    });
   }
 }
 
