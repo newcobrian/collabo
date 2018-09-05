@@ -54,7 +54,7 @@ class CommentInput extends React.Component {
               threadId: this.props.threadId,
               fileId: id,
               added: (new Date()).toString()
-            })))  
+            })), this.props.threadId)  
           }
         }
       }

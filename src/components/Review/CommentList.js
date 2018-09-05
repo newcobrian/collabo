@@ -74,20 +74,17 @@ class CommentList extends React.Component {
     if (!newFileIds || newFileIds.length < 1) {
       return;
     }
-    const uid = Firebase.auth().currentUser.uid;
-    if (uid) {
-      newFileIds.forEach((id) => {
-        const watchRequest = window.gapi.client.drive.files.watch({
-          fileId: id,
-          resource: {
-            id: `${id}///${uid}`,
-            type: 'web_hook',
-            address: 'https://collabo-bc9b2.firebaseapp.com/watchFile'
-          }
-        });
-        watchRequest.execute();
-      })
-    }
+    newFileIds.forEach((id) => {
+      const watchRequest = window.gapi.client.drive.files.watch({
+        fileId: id,
+        resource: {
+          id: `${id}///${this.props.threadId}`,
+          type: 'web_hook',
+          address: 'https://collabo-bc9b2.firebaseapp.com/watchFile'
+        }
+      });
+      watchRequest.execute();
+    })
   }
 
   render () {

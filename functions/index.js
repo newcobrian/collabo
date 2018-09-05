@@ -10,8 +10,8 @@ const INTERVAL = 1000; // 1s
 const changeTimers = {};
 
 const getChange = (data) => {
-  clearTimeout(changeTimers[data.fileId + data.userId]);
-  changeTimers[data.fileId + data.userId] = setTimeout(() => {
+  clearTimeout(changeTimers[data.fileId + data.threadId]);
+  changeTimers[data.fileId + data.threadId] = setTimeout(() => {
     drive.files.get({ fileId: data.fileId, fields: "*" })
       .then((res) => {
         const saveData = {
@@ -24,12 +24,12 @@ const getChange = (data) => {
         if (res.data.lastModifyingUser) {
           saveData.lastModifyingUser = res.data.lastModifyingUser;
         }
-        admin.database().ref("updates/" + data.userId)
+        admin.database().ref("updates/" + data.threadId)
           .once("value")
           .then((snapshot) => {
             const updates = snapshot.val() || [];
             updates.push(saveData);
-            admin.database().ref("updates/" + data.userId).set(updates);
+            admin.database().ref("updates/" + data.threadId).set(updates);
           })
       })
   }, INTERVAL);
@@ -39,11 +39,11 @@ exports.watchFile = functions.https.onRequest((request, response) => {
   const state = request.get("X-Goog-Resource-State");
   const changed = request.get("X-Goog-Changed");
   const fileId = id.split('///')[0];
-  const userId = id.split('///')[1];
+  const threadId = id.split('///')[1];
   if (state !== "sync") {
     const data = {
       fileId,
-      userId,
+      threadId,
       state: state || "",
       changed: changed || "",
       stamp: (new Date()).toString()
