@@ -1,22 +1,19 @@
 import * as ActionTypes from '../actions/types';
 import * as Constants from '../constants';
-import { EditorState, convertFromRaw } from 'draft-js';
+// import { EditorState, convertFromRaw } from 'draft-js';
 
-const initialContentState = {"entityMap":{},"blocks":[{"key":"637gr","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}]}
-const initialEditorState = EditorState.createEmpty()
+// const initialContentState = {"entityMap":{},"blocks":[{"key":"637gr","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}]}
+// const initialEditorState = EditorState.createEmpty()
 
-export default (state = { body: initialEditorState, usersList: [] }, action) => {
-// export default (state = { body: initialContentState }, action) => {
+const initialQuillState = { text: '' }
+
+// export default (state = { body: initialEditorState, usersList: [] }, action) => {
+export default (state = { body: initialQuillState, usersList: [] }, action) => {
   switch (action.type) {
   	case ActionTypes.CREATE_PAGE_LOADED:
       return {
         ...state,
         userImage: action.userImage
-      }
-    case 'popo':
-      return {
-        ...state,
-        popo: action.popo
       }
   	case ActionTypes.CREATE_PAGE_UNLOADED:
   		return {};

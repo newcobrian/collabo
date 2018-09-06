@@ -2,7 +2,7 @@ import * as ActionTypes from '../actions/types';
 import * as Constants from '../constants';
 import * as Helpers from '../helpers';
 import { filter } from 'lodash'
-import { EditorState, ContentState, convertToRaw, convertFromRaw } from 'draft-js';
+// import { EditorState, ContentState, convertToRaw, convertFromRaw } from 'draft-js';
 
 const initialState = { threadCounts: {}, usersList: [] }
 
@@ -20,7 +20,8 @@ export default (state = initialState, action) => {
         thread: action.thread,
         createdBy: action.createdBy,
         project: action.project,
-        bodyText: Helpers.convertStoredToEditorState(action.thread.body)
+        bodyText: action.thread.body
+        // bodyText: Helpers.convertStoredToEditorState(action.thread.body)
       }
     }
     case ActionTypes.THREAD_NOT_FOUND_ERROR:
@@ -91,7 +92,8 @@ export default (state = initialState, action) => {
         const newState = Object.assign({}, state);
         newState.thread = newState.thread || {};
         newState.thread = Object.assign({}, newState.thread);
-        newState.bodyText = newState.thread && newState.thread.body ? Helpers.convertStoredToEditorState(newState.thread.body) : EditorState.createEmpty()
+        // newState.bodyText = newState.thread && newState.thread.body ? Helpers.convertStoredToEditorState(newState.thread.body) : EditorState.createEmpty()
+        newState.bodyText = newState.thread && newState.thread.body ? newState.thread.body : ''
         newState.isEditMode = action.editMode
         return newState;
       }

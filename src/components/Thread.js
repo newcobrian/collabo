@@ -17,9 +17,9 @@ import ProjectList from './ProjectList';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 // import { Editor } from 'react-draft-wysiwyg';
-import { convertToRaw, convertFromRaw } from 'draft-js';
+// import { convertToRaw, convertFromRaw } from 'draft-js';
 // import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import draftToHtml from 'draftjs-to-html';
+// import draftToHtml from 'draftjs-to-html';
 import LoggedOutMessage from './LoggedOutMessage';
 import OrgHeader from './OrgHeader';
 import Sidebar from 'react-sidebar';
@@ -139,8 +139,8 @@ class Thread extends React.Component {
 
     this.saveBody = thread => ev => {
       ev.preventDefault()
-      let storableBody = Helpers.convertEditorStateToStorable(this.props.bodyText)
-      updateThreadFieldEvent('body', storableBody, thread)
+      // let storableBody = Helpers.convertEditorStateToStorable(this.props.bodyText)
+      updateThreadFieldEvent('body', this.props.bodyText, thread)
       // this.props.updateThreadField(this.props.authenticated, this.props.params.tid, thread, field, value)
     }
 

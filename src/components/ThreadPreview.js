@@ -166,8 +166,8 @@ const ThreadPreview = props => {
                       <div className="co-type-bold">{postAuthor.username || ''}</div> 
                       &nbsp;<UpdateSection thread={thread} />
 
-                        <div className="tip__caption color--gray ta-left flx flx-row" dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(thread.body)) || '' }} />
-                        {/*<div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(thread.body) || '' }} />*/}
+                        <div className="tip__caption color--gray ta-left flx flx-row" dangerouslySetInnerHTML={{ __html: thread.body || '' }} />
+                        {/*<div className="tip__caption color--gray ta-left flx flx-row" dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(thread.body)) || '' }} />*/}
                         </div>
 
                         <div className="cta-wrapper vb vb--tip vb--outline--none flx flx-row flx-align-center v2-type-body2">
