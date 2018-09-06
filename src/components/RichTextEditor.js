@@ -4,8 +4,8 @@ import * as Actions from '../actions';
 import * as Constants from '../constants';
 import * as Helpers from '../helpers';
 
-import { Editor } from 'react-draft-wysiwyg';
-import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+// import { Editor } from 'react-draft-wysiwyg';
+// import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 // draft-js Editor and plugins
 // import Editor from 'draft-js-plugins-editor';
@@ -20,10 +20,74 @@ import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 // 	toolbarPlugin
 // ]
 
+
+import ReactQuill, { Quill } from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import MagicUrl from 'quill-magic-url';
+
+Quill.register('modules/magicUrl', MagicUrl);
+
 const RichTextEditor = props => {
+	var IMAGE_MIME_REGEX = /^image\/(p?jpeg|gif|png)$/i;
+
+	var loadImage = function (file) {
+	    var reader = new FileReader();
+	    reader.onload = function(e){
+	        var img = document.createElement('img');
+	        img.src = e.target.result;
+	        
+	        var range = window.getSelection().getRangeAt(0);
+	        range.deleteContents();
+	        range.insertNode(img);
+	    };
+	    reader.readAsDataURL(file);
+	};
+
+	document.onpaste = function(e){
+	    var items = e.clipboardData.items;
+
+	    for (var i = 0; i < items.length; i++) {
+	        if (IMAGE_MIME_REGEX.test(items[i].type)) {
+	            loadImage(items[i].getAsFile());
+	            return;
+	        }
+	    }
+	    
+	   e.PreventDefault()
+	}
+
+	const toolbarOptions = props.toolbarHidden ? false : [
+		[{ 'font': [] }],
+		[{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+		[{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+	    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+	    ['blockquote', 'code-block'],
+
+	    [{ 'align': [] }],
+	    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+	    [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+
+	    [ 'link', 'image' ],          // add's image support
+	    
+	    ['clean']                                         // remove formatting button
+	];
+
+	const QuillModules = {
+		magicUrl: true,
+		toolbar: toolbarOptions
+		// imageDrop: true
+	}
+
 	return (
 		<div>
-			<Editor
+			<ReactQuill value={props.editorState}
+				wrapperClassName={props.wrapperClass}
+		        editorClassName={props.editorClass}
+                onChange={props.onChange}
+                modules={QuillModules}
+                readOnly={props.readOnly}
+            	/>
+			{/*<Editor
 		        editorState={props.editorState}
 		        wrapperClassName={props.wrapperClass}
 		        editorClassName={props.editorClass}
@@ -35,7 +99,7 @@ const RichTextEditor = props => {
 	            }}
 	            toolbarHidden={props.toolbarHidden}
 	            readOnly={props.readOnly}
-		    />
+		    />*/}
 
 			{/*<Editor value={this.props.body} onChange={this.changeBody} />
 			<Editor

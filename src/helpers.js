@@ -1,8 +1,8 @@
 import Firebase from 'firebase';
 import * as Constants from './constants';
 import 'whatwg-fetch';
-import { convertToRaw, convertFromRaw, EditorState, ContentState, convertFromHTML } from 'draft-js';
-import draftToHtml from 'draftjs-to-html';
+// import { convertToRaw, convertFromRaw, EditorState, ContentState, convertFromHTML } from 'draft-js';
+// import draftToHtml from 'draftjs-to-html';
 
 export function findThreadMentions(auth, threadBody, org, project, thread) {
 	let sentArray = []
@@ -14,7 +14,8 @@ export function findThreadMentions(auth, threadBody, org, project, thread) {
       Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + username).once('value', snap => {
         if (snap.exists()) {
           if (snap.val().userId !== auth && sentArray.indexOf(snap.val().userId) === -1) {
-            sendCollaboInboxMessage(auth, snap.val().userId, Constants.THREAD_MENTION_MESSAGE, org, project, thread, convertEditorStateToHTML(convertStoredToEditorState(threadBody)))
+            // sendCollaboInboxMessage(auth, snap.val().userId, Constants.THREAD_MENTION_MESSAGE, org, project, thread, convertEditorStateToHTML(convertStoredToEditorState(threadBody)))
+            sendCollaboInboxMessage(auth, snap.val().userId, Constants.THREAD_MENTION_MESSAGE, org, project, thread, threadBody)
             sentArray.push(snap.val().userId);
           }
         }
@@ -820,26 +821,26 @@ export function sendItineraryUpdateEmails(auth, itinerary, lastUpdate) {
 	// }
 }
 
-export function convertEditorStateToHTML(value) {
-	return draftToHtml(convertToRaw(value.getCurrentContent()))
-}
+// export function convertEditorStateToHTML(value) {
+// 	return draftToHtml(convertToRaw(value.getCurrentContent()))
+// }
 
-export function convertEditorStateToStorable(value) {
-	return JSON.stringify( convertToRaw(value.getCurrentContent()) )
-}
+// export function convertEditorStateToStorable(value) {
+// 	return JSON.stringify( convertToRaw(value.getCurrentContent()) )
+// }
 
-export function convertStoredToEditorState(value) {
-	if (!value) {
-		return EditorState.createEmpty()
-	}
-	else if (!value.startsWith('{"blocks"', 0)) {
-		return EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(value)))
-	}
-	else {
-		const contentState = convertFromRaw( JSON.parse( value ) );
-	    return EditorState.createWithContent(contentState)
-  	}
-}
+// export function convertStoredToEditorState(value) {
+// 	if (!value) {
+// 		return EditorState.createEmpty()
+// 	}
+// 	else if (!value.startsWith('{"blocks"', 0)) {
+// 		return EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(value)))
+// 	}
+// 	else {
+// 		const contentState = convertFromRaw( JSON.parse( value ) );
+// 	    return EditorState.createWithContent(contentState)
+//   	}
+// }
 
 export function getLinks (content) {
 	return content.match(/((http|https):\/\/)?(\S+)\.([a-z]{2,}?)(.*?)( |\,|$|\.)/gim) || [];

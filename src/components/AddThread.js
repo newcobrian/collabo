@@ -5,12 +5,12 @@ import * as Actions from '../actions';
 import * as Constants from '../constants';
 import * as Helpers from '../helpers';
 import ListErrors from './ListErrors';
-import { EditorState, convertFromRaw, convertToRaw } from 'draft-js';
-import draftToHtml from 'draftjs-to-html';
 import OrgHeader from './OrgHeader';
 import Sidebar from 'react-sidebar';
 import ProjectList from './ProjectList';
 import RichTextEditor from './RichTextEditor';
+// import { EditorState, convertFromRaw, convertToRaw } from 'draft-js';
+// import draftToHtml from 'draftjs-to-html';
 
 const mql = window.matchMedia(`(min-width: 800px)`);
 
@@ -47,8 +47,11 @@ class AddThread extends React.Component {
 	        this.props.createSubmitError('Please select a project', Constants.ADD_THREAD_PAGE);
 	      }
 	      else {
-	      	let storableBody = Helpers.convertEditorStateToStorable(this.props.body)
-		   	let thread = Object.assign({}, {title: this.props.title}, { body: storableBody } )
+	      	// let delta = new Delta(this.props.body)
+	      	// console.log(delta)
+	      	// let storableBody = Helpers.convertEditorStateToStorable(this.props.body)
+	     //  	let bodyDelta = Helpers.convertEditorStateToStorable(this.props.body)
+		   	let thread = Object.assign({}, {title: this.props.title}, { body: this.props.body } )
 		    this.props.setInProgress();
 		    this.props.onAddThread(this.props.authenticated, this.props.projectId, thread, this.props.params.orgname);
 		  }
