@@ -842,6 +842,10 @@ export function sendItineraryUpdateEmails(auth, itinerary, lastUpdate) {
 //   	}
 // }
 
+export function stripImageTags(content) {
+	return content.replace(/<img .*?>/g,'')
+}
+
 export function getLinks (content) {
 	return content.match(/((http|https):\/\/)?(\S+)\.([a-z]{2,}?)(.*?)( |\,|$|\.)/gim) || [];
 }
