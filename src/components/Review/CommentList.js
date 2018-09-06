@@ -1,20 +1,18 @@
 import Comment from './Comment';
 import React from 'react';
+import Firebase from 'firebase';
 import * as Actions from '../../actions';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firebaseConnect, isLoaded } from 'react-redux-firebase';
 import { isEqual, uniq } from 'lodash';
-import { getLinks, isGoogleDocLink, getFileId } from '../../helpers';
-import { CHANGE_DETECTION_DEBOUNCE_TIME } from '../../constants';
+import { getFileIds } from '../../helpers';
 var linkify = require('linkify-it')();
 
 const mapStateToProps = state => ({
   googleDocs: state.review.googleDocs,
   isGoogleAuthored: state.auth.isGoogleAuthored,
-  isGoogleSDKLoaded: state.auth.isGoogleSDKLoaded,
-  token: state.review.token,
-  updates: state.firebase.ordered.updates,
+  isGoogleSDKLoaded: state.auth.isGoogleSDKLoaded
 });
 
 class CommentList extends React.Component {
@@ -32,68 +30,26 @@ class CommentList extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    const { comments, isGoogleAuthored, updates, token, isGoogleSDKLoaded } = this.props;
-    if (!isEqual(comments, nextProps.comments) || (!isGoogleSDKLoaded && nextProps.isGoogleSDKLoaded)) {
+    const { comments, isGoogleAuthored, isGoogleSDKLoaded } = this.props;
+    if (!isEqual(comments, nextProps.comments) ||
+       (!isGoogleSDKLoaded && nextProps.isGoogleSDKLoaded) ||
+       (!isGoogleAuthored && nextProps.isGoogleAuthored)) {
       if (nextProps.comments && nextProps.isGoogleSDKLoaded) {
-        this.initGoogleDocsData(nextProps.comments, isGoogleAuthored);
-      }
-    }
-
-    if ((!isGoogleAuthored && nextProps.isGoogleAuthored) || (!isGoogleSDKLoaded && nextProps.isGoogleSDKLoaded)) {
-      if (nextProps.isGoogleAuthored && nextProps.isGoogleSDKLoaded) {
-        this.initGoogleDocsData(comments, nextProps.isGoogleAuthored, true);
-      }
-    }
-
-    if (!isEqual(comments, nextProps.comments) ||
-        (!isGoogleAuthored && nextProps.isGoogleAuthored) || 
-        (!isGoogleSDKLoaded && nextProps.isGoogleSDKLoaded)) {
-      if (nextProps.comments && nextProps.isGoogleAuthored && nextProps.isGoogleSDKLoaded) {
-        this.watchChanges(nextProps.comments, nextProps.isGoogleAuthored);
-      }
-    }
-    if (!isEqual(comments, nextProps.comments) ||
-        (!token && nextProps.token) ||
-        (!isGoogleAuthored && nextProps.isGoogleAuthored) ||
-        (isLoaded(updates) && !isEqual(updates, nextProps.updates)) || 
-        (!isGoogleSDKLoaded && nextProps.isGoogleSDKLoaded)) {
-      if (nextProps.comments && nextProps.token && nextProps.isGoogleAuthored && nextProps.updates && nextProps.isGoogleSDKLoaded) {
-        this.startGettingChanges(nextProps.comments, nextProps.updates, nextProps.isGoogleAuthored, nextProps.token);
-      }
-    }
-  }
-
-  getFileIds (comments) {
-    return Object.keys(comments).reduce((totalLinks, commentId) => {
-      const links = getLinks(comments[commentId].body).filter((l) => isGoogleDocLink(l));
-      if (!links || links.length < 1) {
-        return totalLinks;
-      }
-      const ids = [];
-      links.forEach(link => {
-        const fileId = getFileId(link);
-        if (fileId) {
-          ids.push(fileId);
+        this.initGoogleDocsData(nextProps.comments, nextProps.isGoogleAuthored, nextProps.isGoogleAuthored);
+        if (nextProps.isGoogleAuthored) {
+          this.watchChanges(nextProps.comments, nextProps.isGoogleAuthored);
         }
-      });
-      return totalLinks.concat(ids);
-    }, []);
+      }
+    }
   }
 
   initGoogleDocsData (comments, isGoogleAuthored, needRefetch) {
-    const { googleDocs, updateGoogleDocsMeta, token, updateGoogleDocsPageToken } = this.props;
+    const { googleDocs, updateGoogleDocsMeta } = this.props;
     if (!comments || comments.length < 1) {
       return;
     }
-    if (!token && isGoogleAuthored) {
-      const tokenRequest = window.gapi.client.drive.changes.getStartPageToken();
-      tokenRequest.execute((res) => {
-        updateGoogleDocsPageToken(res.startPageToken);
-        this.getChanges(res.startPageToken);
-      });
-    }
-
-    const fileIds = this.getFileIds(comments);
+    
+    const fileIds = getFileIds(comments);
     const newFileIds = needRefetch ? uniq(fileIds) : uniq(fileIds).filter((id) => !googleDocs || !googleDocs[id] || !googleDocs[id].meta);
     if (!newFileIds || newFileIds.length < 1) {
       return;
@@ -113,7 +69,7 @@ class CommentList extends React.Component {
     if (!isGoogleAuthored || !comments) {
       return;
     }
-    const fileIds = this.getFileIds(comments);
+    const fileIds = getFileIds(comments);
     const newFileIds = uniq(fileIds);
     if (!newFileIds || newFileIds.length < 1) {
       return;
@@ -122,36 +78,12 @@ class CommentList extends React.Component {
       const watchRequest = window.gapi.client.drive.files.watch({
         fileId: id,
         resource: {
-          id,
+          id: `${id}///${this.props.threadId}`,
           type: 'web_hook',
           address: 'https://collabo-bc9b2.firebaseapp.com/watchFile'
         }
       });
       watchRequest.execute();
-    })
-  }
-
-  startGettingChanges (comments, updates, isGoogleAuthored, token) {
-    if (!comments || !isLoaded(updates) || !isGoogleAuthored || !token) {
-      return;
-    }
-    this.getChanges(token);
-  }
-
-  getChanges (token) {
-    const { updateGoogleDocsChanges } = this.props;
-    const changeListRequest = window.gapi.client.drive.changes.list({
-      pageToken: token,
-      fields: '*'
-    });
-    changeListRequest.execute((res) => {
-      if (res.changes && res.changes.length > 0) {
-        clearTimeout(this.applyChangeTimer);
-        this.applyChangeTimer = setInterval(() => updateGoogleDocsChanges(res.changes), CHANGE_DETECTION_DEBOUNCE_TIME);
-      }
-      if (res.newStartPageToken && token !== res.newStartPageToken) {
-        this.getChanges(res.newStartPageToken);
-      }
     })
   }
 
