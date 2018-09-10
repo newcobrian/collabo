@@ -21,11 +21,15 @@ import * as Helpers from '../helpers';
 // ]
 
 
-import ReactQuill, { Quill } from 'react-quill';
+import ReactQuill from 'react-quill';
+import Quill from 'quill'
 import 'react-quill/dist/quill.snow.css';
 import MagicUrl from 'quill-magic-url';
+// import QuillMentions from 'quill-mentions'
+// import Mention from 'quill-mention'
 
 Quill.register('modules/magicUrl', MagicUrl);
+// Quill.register('modules/mention', Mention);
 
 const RichTextEditor = props => {
 	var IMAGE_MIME_REGEX = /^image\/(p?jpeg|gif|png)$/i;
@@ -74,9 +78,29 @@ const RichTextEditor = props => {
 
 	const QuillModules = {
 		magicUrl: true,
-		toolbar: toolbarOptions
+		toolbar: toolbarOptions,
+		// mentions: {}
 		// imageDrop: true
 	}
+
+	// if (props.mentionsList) {
+	// 	QuillModules.mention = {
+	// 		allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
+ //        	mentionDenotationChars: ["@"],
+ //        	source: function (searchTerm, renderList, mentionChar) {
+	//             let values = props.mentionsList
+	            
+	//             if (searchTerm.length === 0) {
+	//               renderList(values, searchTerm);
+	//             } else {
+	//               const matches = [];
+	//               for (let i = 0; i < values.length; i++)
+	//                 if (~values[i].value.toLowerCase().indexOf(searchTerm.toLowerCase())) matches.push(values[i]);
+	//               renderList(matches, searchTerm);
+	//             }
+	// 		}
+	// 	}
+	// }
 
 	return (
 		<div>
