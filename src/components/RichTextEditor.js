@@ -107,7 +107,9 @@ const RichTextEditor = props => {
 			<ReactQuill value={props.editorState}
 				wrapperClassName={props.wrapperClass}
 		        editorClassName={props.editorClass}
-                onChange={props.onChange}
+                onChange={(content, delta, source, editor) => {
+				    props.onChange(content)
+				}}
                 modules={QuillModules}
                 readOnly={props.readOnly}
             	/>
