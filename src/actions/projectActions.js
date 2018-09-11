@@ -609,6 +609,8 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
       // update the last comment
       Object.assign(updates, getThreadFieldUpdates(threadId, thread, 'lastComment', Object.assign({}, comment, { commentId: commentId })))
 
+      updates[Constants.COMMENTS_PATH + '/' + commentId] = Object.assign({}, comment, {threadId: threadId}, { type: Constants.THREAD_TYPE })
+
       Firebase.database().ref().update(updates);
 
       // also update user's activity feed
@@ -700,6 +702,8 @@ export function onDeleteThreadComment(thread, commentId, threadId) {
   return dispatch => {
     // delete the comment
     Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId + '/' + commentId).remove().then(response => {
+
+      Firebase.database().ref(Constants.COMMENTS_PATH + '/' + commentId).remove()
 
       Helpers.decrementThreadCount(Constants.COMMENTS_COUNT, threadId, thread, thread.userId);
 
