@@ -102,7 +102,7 @@ const NewThreadItem = props => {
               </div>
             </div>
             <div className="tip__caption font--beta v2-type-body2 ta-left mrgn-top-sm">
-              <div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(activity.body || '')) }} />
+              <div dangerouslySetInnerHTML={{ __html: activity.body || '' }} />
               {/*<div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(thread.body) || '' }} />*/}
               </div>
             </div>
