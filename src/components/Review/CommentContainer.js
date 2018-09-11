@@ -14,15 +14,18 @@ const CommentContainer = props => {
 		          
 
 		          <CommentList
-								comments={props.comments}
-								commentObject={props.commentObject}
-								authenticated={props.authenticated}
-								userInfo={props.userInfo}
-								threadId={props.threadId}
-								thread={props.thread}
-								orgName={props.orgName}
-								deleteComment={props.deleteComment}
-								type={props.type} />
+					comments={props.comments}
+					commentObject={props.commentObject}
+					authenticated={props.authenticated}
+					userInfo={props.userInfo}
+					threadId={props.threadId}
+					thread={props.thread}
+					project={props.project}
+					orgName={props.orgName}
+					deleteComment={props.deleteComment}
+					usersList={props.usersList}
+					type={props.type}
+					parentId={props.parentId} />
 
 					<div className="comment-input-wrapper mrgn-bottom-sm">
 					  <ListErrors errors={props.errors}></ListErrors>
@@ -34,7 +37,8 @@ const CommentContainer = props => {
 					  	project={props.project}
 					  	orgName={props.orgName}
 					  	type={props.type}
-					  	usersList={props.usersList} />
+					  	usersList={props.usersList}
+					  	parentId={props.parentId} />
 					</div>
 
 		     </div>

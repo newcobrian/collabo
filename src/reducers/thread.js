@@ -2,6 +2,7 @@ import * as ActionTypes from '../actions/types';
 import * as Constants from '../constants';
 import * as Helpers from '../helpers';
 import { filter } from 'lodash'
+
 // import { EditorState, ContentState, convertToRaw, convertFromRaw } from 'draft-js';
 
 const initialState = { threadCounts: {}, usersList: [] }

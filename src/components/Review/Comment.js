@@ -7,6 +7,7 @@ import GoogleDriveLink from './GoogleDriveLink';
 import ProxyImage from './../ProxyImage';
 import DisplayTimestamp from './../DisplayTimestamp';
 import LikeReviewButton from './../LikeReviewButton';
+import CommentContainer from './CommentContainer'
 var linkify = require('linkify-it')();
 
 const processString = require('react-process-string');
@@ -28,7 +29,8 @@ class Comment extends React.Component {
 
   render () {
     const { isOpenNotification } = this.state;
-    const { comment, authenticated, orgName, commentObject, deleteComment, threadId, type, likes, thread } = this.props;
+    const { comment, authenticated, userInfo, orgName, project, commentObject, 
+      deleteComment, threadId, type, likes, thread, usersList, parentId } = this.props;
     const show = authenticated && authenticated === comment.userId;
 
     const processed = processString([{
@@ -91,7 +93,7 @@ class Comment extends React.Component {
                     commentId={comment.id}
                     deleteComment={deleteComment}
                     threadId={threadId}
-                    type={type} />
+                    parentId={parentId} />
                 </div>
               </div>
             </div>
@@ -113,6 +115,22 @@ class Comment extends React.Component {
             <GoogleDriveLink content={comment.body} onClose={this.closeNotification}/>
           }
         </div>
+          { !parentId && 
+            <CommentContainer
+              authenticated={authenticated}
+              userInfo={userInfo}
+              comments={comment.nestedComments || {}}
+              commentObject={thread}
+              threadId={threadId}
+              thread={thread}
+              orgName={orgName}
+              project={project}
+              usersList={usersList}
+              type={Constants.COMMENT_TYPE}
+              parentId={comment.id}
+              deleteComment={deleteComment}
+            />
+          }
       </div>
     );
   }
