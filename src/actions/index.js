@@ -1807,7 +1807,7 @@ export function likeReview(authenticated, type, objectId, thread, user, orgName,
           //   }
           // })
         }
-        else if (type === Constants.COMMENT_TYPE) {
+        else if (type === Constants.COMMENT_TYPE || type === Constants.NESTED_COMMENT_TYPE) {
           Helpers.sendCollaboInboxMessage(authenticated, likeObject.userId, Constants.LIKE_COMMENT_MESSAGE, Object.assign({}, {name: orgName}), null, thread, likeObject)
           dispatch({
             type: ActionTypes.REVIEW_LIKED
