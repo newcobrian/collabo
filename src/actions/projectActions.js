@@ -745,41 +745,40 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
 export function onDeleteThreadComment(thread, commentId, threadId, parentId) {
   return dispatch => {
     // delete the comment
-    console.log('comment Id = ' + commentId)
-    // Firebase.database().ref(Constants.COMMENTS_PATH + '/' + commentId).remove().then(response => {
-    //   // delete from comments-by-thread
-    //   let deleteThreadPath = parentId ? (Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId + '/' + parentId + '/nestedComments/' + commentId) :
-    //     (Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId + '/' + commentId)
-    //   Firebase.database().ref(deleteThreadPath).remove()
+    Firebase.database().ref(Constants.COMMENTS_PATH + '/' + commentId).remove().then(response => {
+      // delete from comments-by-thread
+      let deleteThreadPath = parentId ? (Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId + '/' + parentId + '/nestedComments/' + commentId) :
+        (Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId + '/' + commentId)
+      Firebase.database().ref(deleteThreadPath).remove()
 
-    //   Helpers.decrementThreadCount(Constants.COMMENTS_COUNT, threadId, thread, thread.userId);
+      Helpers.decrementThreadCount(Constants.COMMENTS_COUNT, threadId, thread, thread.userId);
 
-    //   Firebase.database().ref(Constants.THREADS_PATH + '/' + threadId).once('value', threadSnap => {
-    //     if (threadSnap.exists() && threadSnap.val().lastComment && threadSnap.val().lastComment.commentId === commentId) {
-    //       if (threadSnap.val().commentsCount >= 2) {
-    //         Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).orderByKey().limitToLast(1).once('value', limitedSnap => {
-    //           let saveObject = {};
-    //           if (limitedSnap.exists()) {
-    //             saveObject = Object.assign({}, limitedSnap.val(), { commentId: limitedSnap.key });
-    //             let updates = getThreadFieldUpdates(threadId, thread, 'lastComment', saveObject)
-    //             Firebase.database().ref().update(updates);
-    //           }
-    //         })
-    //       }
-    //       else {
-    //         // only 1 comment so just remove lastComment
-    //         let updates = getThreadFieldUpdates(threadId, thread, 'lastComment', null)
-    //         Firebase.database().ref().update(updates);
-    //       }
-    //     }
-    //   })
+      Firebase.database().ref(Constants.THREADS_PATH + '/' + threadId).once('value', threadSnap => {
+        if (threadSnap.exists() && threadSnap.val().lastComment && threadSnap.val().lastComment.commentId === commentId) {
+          if (threadSnap.val().commentsCount >= 2) {
+            Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).orderByKey().limitToLast(1).once('value', limitedSnap => {
+              let saveObject = {};
+              if (limitedSnap.exists()) {
+                saveObject = Object.assign({}, limitedSnap.val(), { commentId: limitedSnap.key });
+                let updates = getThreadFieldUpdates(threadId, thread, 'lastComment', saveObject)
+                Firebase.database().ref().update(updates);
+              }
+            })
+          }
+          else {
+            // only 1 comment so just remove lastComment
+            let updates = getThreadFieldUpdates(threadId, thread, 'lastComment', null)
+            Firebase.database().ref().update(updates);
+          }
+        }
+      })
 
-    // // mixpanel.people.increment("total comments", -1);
+    // mixpanel.people.increment("total comments", -1);
 
-    //   dispatch({
-    //     type: ActionTypes.DELETE_COMMENT
-    //   })
-    // })
+      dispatch({
+        type: ActionTypes.DELETE_COMMENT
+      })
+    })
   }
 }
 
