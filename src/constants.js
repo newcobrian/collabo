@@ -142,6 +142,7 @@ export const COMMENT_TYPE = 'COMMENT_TYPE'
 export const THREAD_TYPE = 'THREAD_TYPE'
 export const NEW_THREAD_TYPE = 'NEW_THREAD_TYPE'
 export const EDIT_THREAD_TYPE = 'EDIT_THREAD_TYPE'
+export const NESTED_COMMENT_TYPE = 'NESTED_COMMENT_TYPE'
 
 export const PROJECT_LIST_TYPE = 'projectList'
 export const ORG_LIST_TYPE = 'orgList'

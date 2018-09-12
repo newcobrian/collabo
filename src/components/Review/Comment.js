@@ -105,8 +105,8 @@ class Comment extends React.Component {
               likesCount={Object.keys(comment.likes || {}).length}
               objectId={comment.id}
               thread={Object.assign({}, thread, {threadId: threadId})}
-              likeObject={comment}
-              type={Constants.COMMENT_TYPE}
+              likeObject={parentId ? Object.assign({}, comment, {parentId: parentId}) : comment}
+              type={parentId ? Constants.NESTED_COMMENT_TYPE : Constants.COMMENT_TYPE}
               orgName={orgName} />
               </div>
           </div>
