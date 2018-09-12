@@ -847,7 +847,7 @@ export function stripImageTags(content) {
 }
 
 export function getLinks (content) {
-	return content.match(/((http|https):\/\/)?(\S+)\.([a-z]{2,}?)(.*?)( |\,|$|\.)/gim) || [];
+	return (content || '').match(/((http|https):\/\/)?(\S+)\.([a-z]{2,}?)(.*?)( |\,|$|\.)/gim) || [];
 }
 
 export function isGoogleDocLink (link) {
