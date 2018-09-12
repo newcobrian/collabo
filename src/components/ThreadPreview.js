@@ -159,14 +159,15 @@ const ThreadPreview = props => {
                                   {thread.title}
                             </Link>
                     </div>
-                  <div className="mrgn-top-xs co-type-sub flx flx-row w-100 flx-align-center">
+                  <div className="mrgn-top-xs co-type-body flx flx-col w-100 flx-align-start">
+                    <div className="flx flx-row flx-align-center mrgn-bottom-sm">
                       <Link to={'/' + props.orgName + '/user/' + postAuthor.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
                         <ProfilePic src={postAuthor.image} className="user-image user-image-sm center-img" />
                       </Link>
                       <div className="co-type-bold">{postAuthor.username || ''}</div> 
                       &nbsp;<UpdateSection thread={thread} />
-
-                        <div className="tip__caption color--gray ta-left flx flx-row" dangerouslySetInnerHTML={{ __html: thread.body || '' }} />
+                    </div>
+                        <div className="tip__caption color--black opa-70 ta-left flx flx-col" dangerouslySetInnerHTML={{ __html: thread.body || '' }} />
                         {/*<div className="tip__caption color--gray ta-left flx flx-row" dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(thread.body)) || '' }} />*/}
                         </div>
 
