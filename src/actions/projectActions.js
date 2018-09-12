@@ -694,20 +694,8 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
             let commenterId = comment.val().userId;
             // if not commentor or in sent array, then send a message
             if (commenterId !== authenticated && (sentArray.indexOf(commenterId) === -1)) {
-              Helpers.sendCommentInboxMessage(authenticated, commenterId, Constants.COMMENT_IN_THREAD_MESSAGE, org, project, threadObject, Object.assign({}, {commentId: commentId}, {message: body}));
+              Helpers.sendCommentInboxMessage(authenticated, commenterId, Constants.ALSO_COMMENTED_MESSAGE, org, project, threadObject, Object.assign({}, {commentId: commentId}, {message: body}));
               sentArray.push(commenterId);
-
-              // send to any nested commenters too
-              // if (comment.val().nestedComments) {
-              //   comment.val().nestedComments.forEach(function(nestedCommentItem) {
-              //     let nestedCommenterId = nestedCommentItem.userId;
-
-              //     if (nestedCommenterId !== authenticated && (sentArray.indexOf(nestedCommenterId) === -1)) {
-              //       Helpers.sendCommentInboxMessage(authenticated, nestedCommenterId, Constants.COMMENT_IN_THREAD_MESSAGE, org, project, threadObject, Object.assign({}, {commentId: commentId}, {message: body}));
-              //       sentArray.push(nestedCommenterId);
-              //     }
-              //   })
-              // }
 
               // dispatch({
               //   type: MIXPANEL_EVENT,
@@ -718,6 +706,18 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
               //     }
               //   }
               // })
+            }
+
+            // send to any nested commenters too
+            if (comment.val().nestedComments) {
+              Object.keys(comment.val().nestedComments || {}).map(function(nestedId) {
+                let nestedCommenterId = comment.val().nestedComments[nestedId].userId;
+
+                if (nestedCommenterId !== authenticated && (sentArray.indexOf(nestedCommenterId) === -1)) {
+                  Helpers.sendCommentInboxMessage(authenticated, nestedCommenterId, Constants.ALSO_COMMENTED_MESSAGE, org, project, threadObject, Object.assign({}, {commentId: commentId}, {message: body}));
+                  sentArray.push(nestedCommenterId);
+                }
+              })
             }
           })
         })

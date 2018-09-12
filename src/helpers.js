@@ -733,6 +733,15 @@ export function sendCommentInboxMessage(senderId, recipientId, messageType, org,
 					emailData.commentBody = sendObject.message
 					emailData.bodyText1 = ' mentioned you in a comment on the post '
 					break;
+				case Constants.ALSO_COMMENTED_MESSAGE:
+					inboxObject.senderId = senderId;
+					inboxObject.message = ' also commented in the post: ' + thread.title;
+					inboxObject.link = '/' + org.name + '/' + project.projectId + '/' + thread.threadId;
+					emailData.emailSubject = senderSnapshot.val().username + ' commented on the same post'
+					emailData.threadTitle = '"' + thread.title + '"'
+					emailData.commentBody = sendObject.message
+					emailData.bodyText = ' commented also commented in the post '
+					break;
 			}
 			if (senderId !== recipientId) {
 				Firebase.database().ref(Constants.INBOX_PATH + '/' + recipientId).push().set(inboxObject);
