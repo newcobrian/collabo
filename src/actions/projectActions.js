@@ -565,6 +565,32 @@ export function watchThreadComments(threadId) {
   }
 }
 
+// export function watchThreadComments2(threadId) {
+//   return dispatch => {
+//     Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).on('value', commentSnap => {
+//       let commentArr = []
+//       commentSnap.forEach(function(comment) {
+//         let commentObject = Object.assign({}, comment.val(), {commentId: comment.key})
+//         if (!comment.val().parent) commentObject.parent = 0;
+//         commentArr = commentArr.concat(commentObject)
+//       })
+
+//       let LTT = require('list-to-tree');
+
+//       var ltt = new LTT(commentArr, {
+//         key_id: 'commentId',
+//         key_parent: 'parent'
+//       });
+//       var tree = ltt.GetTree();
+
+//       dispatch({
+//         type: 'COMMENT_THINGY',
+//         comments: tree
+//       })
+//     })
+//   }
+// }
+
 export function unwatchThreadComments(threadId) {
   return dispatch => {
     Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).off();
@@ -581,7 +607,7 @@ export function getThreadFieldUpdates(threadId, thread, field, value) {
   return updates;
 }
 
-export function onThreadCommentSubmit(authenticated, userInfo, type, thread, body, threadId, project, orgName) {
+export function onThreadCommentSubmit(authenticated, userInfo, type, thread, body, threadId, project, orgName, parentId) {
   return dispatch => {
     if(!authenticated) {
       dispatch({
@@ -598,7 +624,8 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
 
     if (threadId) {
       let org = Object.assign({}, {orgId: thread.orgId}, {name: orgName})
-      let commentId = Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).push(comment).key;
+      // let commentId = Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).push(comment).key;
+      let commentId = Firebase.database().ref(Constants.COMMENTS_PATH).push(Object.assign({}, comment, {threadId: threadId}, { type: type })).key;
 
       Helpers.incrementThreadCount(Constants.COMMENTS_COUNT, threadId, thread, thread.userId);
       
@@ -608,6 +635,12 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
 
       // update the last comment
       Object.assign(updates, getThreadFieldUpdates(threadId, thread, 'lastComment', Object.assign({}, comment, { commentId: commentId })))
+
+      // udpate comments-by-thread
+      // if theres a parent, this is a nested comment
+      const threadCommentPath = parentId ? (Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId + '/' + parentId + '/nestedComments/' + commentId) :
+        (Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId + '/' + commentId)
+      updates[threadCommentPath] = comment;
 
       Firebase.database().ref().update(updates);
 
@@ -661,8 +694,9 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
             let commenterId = comment.val().userId;
             // if not commentor or in sent array, then send a message
             if (commenterId !== authenticated && (sentArray.indexOf(commenterId) === -1)) {
-              Helpers.sendCommentInboxMessage(authenticated, commenterId, Constants.COMMENT_IN_THREAD_MESSAGE, org, project, threadObject, Object.assign({}, {commentId: commentId}, {message: body}));
+              Helpers.sendCommentInboxMessage(authenticated, commenterId, Constants.ALSO_COMMENTED_MESSAGE, org, project, threadObject, Object.assign({}, {commentId: commentId}, {message: body}));
               sentArray.push(commenterId);
+
               // dispatch({
               //   type: MIXPANEL_EVENT,
               //   mixpanel: {
@@ -672,6 +706,18 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
               //     }
               //   }
               // })
+            }
+
+            // send to any nested commenters too
+            if (comment.val().nestedComments) {
+              Object.keys(comment.val().nestedComments || {}).map(function(nestedId) {
+                let nestedCommenterId = comment.val().nestedComments[nestedId].userId;
+
+                if (nestedCommenterId !== authenticated && (sentArray.indexOf(nestedCommenterId) === -1)) {
+                  Helpers.sendCommentInboxMessage(authenticated, nestedCommenterId, Constants.ALSO_COMMENTED_MESSAGE, org, project, threadObject, Object.assign({}, {commentId: commentId}, {message: body}));
+                  sentArray.push(nestedCommenterId);
+                }
+              })
             }
           })
         })
@@ -696,10 +742,14 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
   }
 }
 
-export function onDeleteThreadComment(thread, commentId, threadId) {
+export function onDeleteThreadComment(thread, commentId, threadId, parentId) {
   return dispatch => {
     // delete the comment
-    Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId + '/' + commentId).remove().then(response => {
+    Firebase.database().ref(Constants.COMMENTS_PATH + '/' + commentId).remove().then(response => {
+      // delete from comments-by-thread
+      let deleteThreadPath = parentId ? (Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId + '/' + parentId + '/nestedComments/' + commentId) :
+        (Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId + '/' + commentId)
+      Firebase.database().ref(deleteThreadPath).remove()
 
       Helpers.decrementThreadCount(Constants.COMMENTS_COUNT, threadId, thread, thread.userId);
 

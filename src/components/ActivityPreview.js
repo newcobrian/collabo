@@ -102,7 +102,7 @@ const NewThreadItem = props => {
               </div>
             </div>
             <div className="tip__caption font--beta v2-type-body2 ta-left mrgn-top-sm">
-              <div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(activity.body || '')) }} />
+              <div dangerouslySetInnerHTML={{ __html: activity.body || '' }} />
               {/*<div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(thread.body) || '' }} />*/}
               </div>
             </div>
@@ -162,7 +162,7 @@ const CommentItem = props => {
             </div>
             <div className="co-type-body color--black flx flx-row">
               <Link className="color--black co-type-bold" to={'/' + props.orgName + '/user/' + createdBy.username}>{createdBy.username}</Link>Commented on thread: &nbsp; 
-              <Link className="color--black co-type-bold" to={'/' + props.orgname + '/' + activity.projectId + '/' + activity.threadId}>{activity.title}</Link>
+              <Link className="color--black co-type-bold" to={'/' + props.orgName + '/' + activity.projectId + '/' + activity.threadId}>{activity.title}</Link>
             </div>
             <div className="co-type-body mrgn-top-sm">
               {activity.body}

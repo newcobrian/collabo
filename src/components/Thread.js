@@ -415,7 +415,6 @@ class Thread extends React.Component {
                           authenticated={this.props.authenticated}
                           userInfo={this.props.userInfo}
                           comments={this.props.comments || {}}
-                          placeHolder={"Hello"}
                           errors={this.props.commentErrors}
                           commentObject={thread}
                           threadId={this.props.params.tid}
@@ -423,6 +422,7 @@ class Thread extends React.Component {
                           project={this.props.project}
                           orgName={this.props.params.orgname}
                           usersList={this.props.usersList}
+                          type={Constants.THREAD_TYPE}
                           deleteComment={this.props.onDeleteThreadComment} />
                       </div>
 

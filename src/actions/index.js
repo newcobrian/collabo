@@ -1771,6 +1771,10 @@ export function likeReview(authenticated, type, objectId, thread, user, orgName,
         updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = Object.assign({}, pick(user, ['username', 'image']));
         updates[`/${Constants.COMMENTS_BY_THREAD_PATH}/${thread.threadId}/${id}/likes/${authenticated}`] = Object.assign({}, pick(user, ['username', 'image']));
       }
+      else if (type === Constants.NESTED_COMMENT_TYPE) {
+        updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = Object.assign({}, pick(user, ['username', 'image']));
+        updates[`/${Constants.COMMENTS_BY_THREAD_PATH}/${thread.threadId}/${likeObject.parentId}/nestedComments/${id}/likes/${authenticated}`] = Object.assign({}, pick(user, ['username', 'image']));
+      }
 
       Firebase.database().ref().update(updates).then(response => {
         if (type === Constants.THREAD_TYPE) {
@@ -1803,7 +1807,7 @@ export function likeReview(authenticated, type, objectId, thread, user, orgName,
           //   }
           // })
         }
-        else if (type === Constants.COMMENT_TYPE) {
+        else if (type === Constants.COMMENT_TYPE || type === Constants.NESTED_COMMENT_TYPE) {
           Helpers.sendCollaboInboxMessage(authenticated, likeObject.userId, Constants.LIKE_COMMENT_MESSAGE, Object.assign({}, {name: orgName}), null, thread, likeObject)
           dispatch({
             type: ActionTypes.REVIEW_LIKED
@@ -1817,7 +1821,7 @@ export function likeReview(authenticated, type, objectId, thread, user, orgName,
   }
 }
 
-export function unlikeReview(authenticated, type, objectId, likeObject, user) {
+export function unlikeReview(authenticated, type, objectId, thread, userInfo, likeObject) {
   return dispatch => {
     if (!authenticated) {
       dispatch({
@@ -1842,6 +1846,11 @@ export function unlikeReview(authenticated, type, objectId, likeObject, user) {
         // updates[`/${Constants.LIKES_BY_USER_BY_ORG_PATH}/${authenticated}/${likeObject.orgId}/${id}`] = null;
         updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = null;
         updates[`/${Constants.COMMENTS_BY_THREAD_PATH}/${likeObject.threadId}/${id}/likes/${authenticated}`] = null;
+      }
+      else if (type === Constants.NESTED_COMMENT_TYPE) {
+        // updates[`/${Constants.LIKES_BY_USER_BY_ORG_PATH}/${authenticated}/${likeObject.orgId}/${id}`] = null;
+        updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = null;
+        updates[`/${Constants.COMMENTS_BY_THREAD_PATH}/${thread.threadId}/${likeObject.parentId}/nestedComments/${id}/likes/${authenticated}`] = null;
       }
 
       Firebase.database().ref().update(updates).then(response => {

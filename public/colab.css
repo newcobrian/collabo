@@ -344,13 +344,14 @@ p {
 }
 
 .tip__caption {
-	height: 19px;
-    width: 300px;
-    overflow: hidden;
+	height: auto;
+	width: auto;
+	max-width: 600px;
+  /*  overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     display: inline-block;
-/*    display: -webkit-box;
+    display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;*/
   }
