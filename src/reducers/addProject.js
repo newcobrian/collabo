@@ -1,7 +1,7 @@
 import * as ActionTypes from '../actions/types';
 import * as Constants from '../constants';
 
-export default (state = {}, action) => {
+export default (state = { isPublic: true }, action) => {
   switch (action.type) {
   	case ActionTypes.CREATE_PAGE_LOADED:
       return {

@@ -15,8 +15,8 @@ export function onAddProject(auth, project, orgName) {
       })
     }
     else {
-      let projectName = project.name;
-      Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + orgName + '/' + projectName.toLowerCase()).once('value', nameSnapshot => {
+      let lowerCaseProject = project.name.toLowerCase();
+      Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + orgName + '/' + lowerCaseProject).once('value', nameSnapshot => {
         if (nameSnapshot.exists()) {
           dispatch({
             type: ActionTypes.CREATE_SUBMIT_ERROR,
@@ -38,8 +38,11 @@ export function onAddProject(auth, project, orgName) {
 
             let projectId = Firebase.database().ref(Constants.PROJECTS_PATH).push(projectObject).key;
 
-            updates[`/${Constants.PROJECT_NAMES_BY_ORG_PATH}/${orgName}/${projectName.toLowerCase()}/`] = projectId;
+            updates[`/${Constants.PROJECT_NAMES_BY_ORG_PATH}/${orgName}/${lowerCaseProject}/`] = Object.assign({}, {projectId: projectId}, {isPublic: project.isPublic})
             // updates[`/${Constants.PROJECTS_BY_USER_PATH}/${auth}/${projectId}/`] = { name: project.name };
+
+            // add the project to the creators Project List
+            updates[`/${Constants.PROJECTS_BY_USER_BY_ORG_NAME_PATH}/${auth}/${orgName}/${projectId}/`] = Object.assign({}, {name: lowerCaseProject}, {isPublic: project.isPublic});
 
             Firebase.database().ref().update(updates);
 
@@ -334,32 +337,32 @@ export function loadProjectList(auth, orgName, projectId, source) {
     })
 
     // Firebase.database().ref(Constants.PROJECTS_BY_USER_PATH + '/' + auth).on('child_added', snap => {
-    Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + lowercaseName).on('child_added', snap => {
-      dispatch({
+    Firebase.database().ref(Constants.PROJECTS_BY_USER_BY_ORG_NAME_PATH + '/' + auth + '/' + lowercaseName).on('child_added', snap => {
+      dispatch({ 
         type: ActionTypes.LIST_ADDED_ACTION,
-        id: snap.val(),
-        name: snap.key,
+        id: snap.key,
+        data: snap.val(),
         listType: Constants.PROJECT_LIST_TYPE,
         source: source
       })
     })
 
     // Firebase.database().ref(Constants.PROJECTS_BY_USER_PATH + '/' + auth).on('child_changed', snap => {
-    Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + lowercaseName).on('child_changed', snap => {
+    Firebase.database().ref(Constants.PROJECTS_BY_USER_BY_ORG_NAME_PATH + '/' + auth + '/' + lowercaseName).on('child_changed', snap => {
       dispatch({
         type: ActionTypes.LIST_CHANGED_ACTION,
-        id: snap.val(),
-        name: snap.key,
-        listType: Constants.LIST_TYPE,
+        id: snap.key,
+        data: snap.val(),
+        listType: Constants.PROJECT_LIST_TYPE,
         source: source
       })
     })
 
     // Firebase.database().ref(Constants.PROJECTS_BY_USER_PATH + '/' + auth).on('child_removed', snap => {
-    Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + lowercaseName).on('child_removed', snap => {
+    Firebase.database().ref(Constants.PROJECTS_BY_USER_BY_ORG_NAME_PATH + '/' + auth + '/' + lowercaseName).on('child_removed', snap => {
       dispatch({
         type: ActionTypes.LIST_REMOVED_ACTION,
-        id: snap.val(),
+        id: snap.key,
         listType: Constants.PROJECT_LIST_TYPE,
         source: source
       })
@@ -1182,7 +1185,7 @@ export function loadOrgList(auth, source) {
     Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth).on('child_added', snap => {
       dispatch({
         type: ActionTypes.LIST_ADDED_ACTION,
-        name: snap.val().name,
+        data: snap.val(),
         id: snap.key,
         listType: Constants.ORG_LIST_TYPE,
         source: source
@@ -1191,7 +1194,7 @@ export function loadOrgList(auth, source) {
     Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth).on('child_changed', snap => {
       dispatch({
         type: ActionTypes.LIST_CHANGED_ACTION,
-        name: snap.val().name,
+        data: snap.val(),
         id: snap.key,
         listType: Constants.ORG_LIST_TYPE,
         source: source
@@ -1200,7 +1203,7 @@ export function loadOrgList(auth, source) {
     Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth).on('child_removed', snap => {
       dispatch({
         type: ActionTypes.LIST_REMOVED_ACTION,
-        name: snap.val().name,
+        data: snap.val(),
         id: snap.key,
         listType: Constants.ORG_LIST_TYPE,
         source: source
