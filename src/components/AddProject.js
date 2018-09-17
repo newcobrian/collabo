@@ -19,7 +19,8 @@ const mql = window.matchMedia(`(min-width: 800px)`);
 const mapStateToProps = state => ({
   ...state.addProject,
   authenticated: state.common.authenticated,
-  sidebarOpen: state.common.sidebarOpen
+  sidebarOpen: state.common.sidebarOpen,
+  userInfo: state.common.userInfo
 });
 
 class AddProject extends React.Component {
@@ -49,7 +50,7 @@ class AddProject extends React.Component {
 		   	};
 
 		    this.props.setInProgress();
-		    this.props.onAddProject(this.props.authenticated, project, this.props.params.orgname);
+		    this.props.onAddProject(this.props.authenticated, project, this.props.params.orgname, this.props.userInfo);
 		  }
     	}
 
@@ -95,6 +96,7 @@ class AddProject extends React.Component {
 	        </div>
 	      )
 	    }
+
 		return (
 			<div>
 				<Sidebar

@@ -7,7 +7,7 @@ import mixpanel from 'mixpanel-browser'
 import 'whatwg-fetch';
 import { pick, omit, debounce } from 'lodash'
 
-export function onAddProject(auth, project, orgName) {
+export function onAddProject(auth, project, orgName, userInfo) {
   return dispatch => {
     if (!auth) {
       dispatch({
@@ -43,6 +43,7 @@ export function onAddProject(auth, project, orgName) {
 
             // add the project to the creators Project List
             updates[`/${Constants.PROJECTS_BY_USER_BY_ORG_NAME_PATH}/${auth}/${orgName}/${projectId}/`] = Object.assign({}, {name: lowerCaseProject}, {isPublic: project.isPublic});
+            updates[`/${Constants.USERS_BY_PROJECT_PATH}/${projectId}/${auth}/`] = Object.assign({}, userInfo);
 
             Firebase.database().ref().update(updates);
 
