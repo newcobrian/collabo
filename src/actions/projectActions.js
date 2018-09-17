@@ -1263,26 +1263,33 @@ export function loadOrgUsers(auth, orgName, source) {
   return dispatch => {
     Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', nameSnap => {
       if (nameSnap.exists()) {
-        Firebase.database().ref(Constants.USERS_PATH).once('value', usersSnap => {
-          if (nameSnap.exists()) {
-            Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).once('value', usersByOrgSnap => {
-              usersByOrgSnap.forEach(function(user) {
-                if (usersSnap.exists() && usersSnap.val()[user.key]) {
-                  dispatch({
-                    type: ActionTypes.USERNAME_LOADED,
-                    username: usersSnap.val()[user.key].username,
-                    firstName: usersSnap.val()[user.key].firstName,
-                    lastName: usersSnap.val()[user.key].lastName,
-                    email: usersSnap.val()[user.key].email,
-                    image: usersSnap.val()[user.key].image,
-                    id: user.key,
-                    orgName: orgName,
-                    source: source,
-                  })
-                }
-              })
-            })
-          }
+        Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).on('child_added', addedSnap => {
+          dispatch({
+            type: ActionTypes.USERNAME_ADDED_ACTION,
+            userId: addedSnap.key,
+            orgName: orgName,
+            source: source,
+            userData: addedSnap.val()
+          })
+        })
+
+        Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).on('child_changed', changedSnap => {
+          dispatch({
+            type: ActionTypes.USERNAME_CHANGED_ACTION,
+            userId: changedSnap.key,
+            orgName: orgName,
+            source: source,
+            userData: changedSnap.val()
+          })
+        })
+
+        Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).on('child_removed', removedSnap => {
+          dispatch({
+            type: ActionTypes.USERNAME_REMOVED_ACTION,
+            userId: removedSnap.key,
+            orgName: orgName,
+            source: source
+          })
         })
       }
     })
