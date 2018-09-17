@@ -83,7 +83,7 @@ export const FOLLOWED_ITINERARIES_BY_USER_PATH = '/followed-itineraries-by-user'
 
 export const PROJECTS_PATH = '/projects'
 export const PROJECT_NAMES_BY_ORG_PATH = '/projects-names-by-org'
-export const PROJECTS_BY_USER_BY_ORG_PATH = '/projects-by-user-by-org'
+export const PROJECTS_BY_USER_BY_ORG_NAME_PATH = '/projects-by-user-by-org-name'
 export const PROJECTS_BY_USER_PATH = '/projects-by-user'
 export const THREADS_BY_PROJECT_PATH = '/threads-by-project'
 export const THREADS_BY_ORG_PATH = '/threads-by-org'
@@ -101,6 +101,7 @@ export const USERS_BY_ORG_PATH = '/users-by-org'
 export const THREAD_SEEN_COUNTERS_PATH = '/thread-seen-counters'
 export const ACTIVITY_BY_USER_BY_ORG_PATH = '/activity-by-user-by-org'
 export const UPDATES_PATH = '/updates'
+export const USERS_BY_PROJECT_PATH = '/users-by-project'
 
 /*** Counter Type Constants ***/
 export const LIKES_COUNT = 'likesCount'

@@ -12,7 +12,7 @@ export default (state = initialState, action) => {
       newState[action.listType] = newState[action.listType] || [];
       newState[action.listType] = newState[action.listType].slice();
       if (!find(newState[action.listType], ['id', action.id])) {
-        newState[action.listType] = newState[action.listType].concat(Object.assign({}, {id: action.id}, {name: action.name}));
+        newState[action.listType] = newState[action.listType].concat(Object.assign({}, {id: action.id}, action.data));
 
         return newState;
       }
@@ -25,7 +25,7 @@ export default (state = initialState, action) => {
       
       for (let i = 0; i < newState[action.listType].length; i++) {
         if (newState[action.listType][i].id === action.id) {
-          newState[action.listType][i] = Object.assign({}, {id: action.id}, {name: action.name});
+          newState[action.listType][i] = Object.assign({}, {id: action.id}, action.data);
           return newState;
         }
       }

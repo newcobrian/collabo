@@ -7,7 +7,7 @@ import mixpanel from 'mixpanel-browser'
 import 'whatwg-fetch';
 import { pick, omit, debounce } from 'lodash'
 
-export function onAddProject(auth, project, orgName) {
+export function onAddProject(auth, project, orgName, userInfo) {
   return dispatch => {
     if (!auth) {
       dispatch({
@@ -15,8 +15,8 @@ export function onAddProject(auth, project, orgName) {
       })
     }
     else {
-      let projectName = project.name;
-      Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + orgName + '/' + projectName.toLowerCase()).once('value', nameSnapshot => {
+      let lowerCaseProject = project.name.toLowerCase();
+      Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + orgName + '/' + lowerCaseProject).once('value', nameSnapshot => {
         if (nameSnapshot.exists()) {
           dispatch({
             type: ActionTypes.CREATE_SUBMIT_ERROR,
@@ -38,8 +38,12 @@ export function onAddProject(auth, project, orgName) {
 
             let projectId = Firebase.database().ref(Constants.PROJECTS_PATH).push(projectObject).key;
 
-            updates[`/${Constants.PROJECT_NAMES_BY_ORG_PATH}/${orgName}/${projectName.toLowerCase()}/`] = projectId;
+            updates[`/${Constants.PROJECT_NAMES_BY_ORG_PATH}/${orgName}/${lowerCaseProject}/`] = Object.assign({}, {projectId: projectId}, {isPublic: project.isPublic})
             // updates[`/${Constants.PROJECTS_BY_USER_PATH}/${auth}/${projectId}/`] = { name: project.name };
+
+            // add the project to the creators Project List
+            updates[`/${Constants.PROJECTS_BY_USER_BY_ORG_NAME_PATH}/${auth}/${orgName}/${projectId}/`] = Object.assign({}, {name: lowerCaseProject}, {isPublic: project.isPublic});
+            updates[`/${Constants.USERS_BY_PROJECT_PATH}/${projectId}/${auth}/`] = Object.assign({}, userInfo);
 
             Firebase.database().ref().update(updates);
 
@@ -334,32 +338,32 @@ export function loadProjectList(auth, orgName, projectId, source) {
     })
 
     // Firebase.database().ref(Constants.PROJECTS_BY_USER_PATH + '/' + auth).on('child_added', snap => {
-    Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + lowercaseName).on('child_added', snap => {
-      dispatch({
+    Firebase.database().ref(Constants.PROJECTS_BY_USER_BY_ORG_NAME_PATH + '/' + auth + '/' + lowercaseName).on('child_added', snap => {
+      dispatch({ 
         type: ActionTypes.LIST_ADDED_ACTION,
-        id: snap.val(),
-        name: snap.key,
+        id: snap.key,
+        data: snap.val(),
         listType: Constants.PROJECT_LIST_TYPE,
         source: source
       })
     })
 
     // Firebase.database().ref(Constants.PROJECTS_BY_USER_PATH + '/' + auth).on('child_changed', snap => {
-    Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + lowercaseName).on('child_changed', snap => {
+    Firebase.database().ref(Constants.PROJECTS_BY_USER_BY_ORG_NAME_PATH + '/' + auth + '/' + lowercaseName).on('child_changed', snap => {
       dispatch({
         type: ActionTypes.LIST_CHANGED_ACTION,
-        id: snap.val(),
-        name: snap.key,
-        listType: Constants.LIST_TYPE,
+        id: snap.key,
+        data: snap.val(),
+        listType: Constants.PROJECT_LIST_TYPE,
         source: source
       })
     })
 
     // Firebase.database().ref(Constants.PROJECTS_BY_USER_PATH + '/' + auth).on('child_removed', snap => {
-    Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + lowercaseName).on('child_removed', snap => {
+    Firebase.database().ref(Constants.PROJECTS_BY_USER_BY_ORG_NAME_PATH + '/' + auth + '/' + lowercaseName).on('child_removed', snap => {
       dispatch({
         type: ActionTypes.LIST_REMOVED_ACTION,
-        id: snap.val(),
+        id: snap.key,
         listType: Constants.PROJECT_LIST_TYPE,
         source: source
       })
@@ -1182,7 +1186,7 @@ export function loadOrgList(auth, source) {
     Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth).on('child_added', snap => {
       dispatch({
         type: ActionTypes.LIST_ADDED_ACTION,
-        name: snap.val().name,
+        data: snap.val(),
         id: snap.key,
         listType: Constants.ORG_LIST_TYPE,
         source: source
@@ -1191,7 +1195,7 @@ export function loadOrgList(auth, source) {
     Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth).on('child_changed', snap => {
       dispatch({
         type: ActionTypes.LIST_CHANGED_ACTION,
-        name: snap.val().name,
+        data: snap.val(),
         id: snap.key,
         listType: Constants.ORG_LIST_TYPE,
         source: source
@@ -1200,7 +1204,7 @@ export function loadOrgList(auth, source) {
     Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth).on('child_removed', snap => {
       dispatch({
         type: ActionTypes.LIST_REMOVED_ACTION,
-        name: snap.val().name,
+        data: snap.val(),
         id: snap.key,
         listType: Constants.ORG_LIST_TYPE,
         source: source
@@ -1259,26 +1263,33 @@ export function loadOrgUsers(auth, orgName, source) {
   return dispatch => {
     Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', nameSnap => {
       if (nameSnap.exists()) {
-        Firebase.database().ref(Constants.USERS_PATH).once('value', usersSnap => {
-          if (nameSnap.exists()) {
-            Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).once('value', usersByOrgSnap => {
-              usersByOrgSnap.forEach(function(user) {
-                if (usersSnap.exists() && usersSnap.val()[user.key]) {
-                  dispatch({
-                    type: ActionTypes.USERNAME_LOADED,
-                    username: usersSnap.val()[user.key].username,
-                    firstName: usersSnap.val()[user.key].firstName,
-                    lastName: usersSnap.val()[user.key].lastName,
-                    email: usersSnap.val()[user.key].email,
-                    image: usersSnap.val()[user.key].image,
-                    id: user.key,
-                    orgName: orgName,
-                    source: source,
-                  })
-                }
-              })
-            })
-          }
+        Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).on('child_added', addedSnap => {
+          dispatch({
+            type: ActionTypes.USERNAME_ADDED_ACTION,
+            userId: addedSnap.key,
+            orgName: orgName,
+            source: source,
+            userData: addedSnap.val()
+          })
+        })
+
+        Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).on('child_changed', changedSnap => {
+          dispatch({
+            type: ActionTypes.USERNAME_CHANGED_ACTION,
+            userId: changedSnap.key,
+            orgName: orgName,
+            source: source,
+            userData: changedSnap.val()
+          })
+        })
+
+        Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).on('child_removed', removedSnap => {
+          dispatch({
+            type: ActionTypes.USERNAME_REMOVED_ACTION,
+            userId: removedSnap.key,
+            orgName: orgName,
+            source: source
+          })
         })
       }
     })

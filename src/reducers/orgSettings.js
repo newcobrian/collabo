@@ -7,15 +7,44 @@ const initialState = {}
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case ActionTypes.USERNAME_LOADED: {
+    case ActionTypes.USERNAME_ADDED_ACTION: {
       if (action.source === Constants.ORG_SETTINGS_PAGE) {
         const newState = Object.assign({}, state);
         newState.usersList = newState.usersList || [];
         newState.usersList = newState.usersList.slice();
-        newState.usersList = newState.usersList.concat(Object.assign({}, {username: action.username}, 
-          {url: '/' + action.orgName + '/user/' + action.username}, {email: action.email}, {image: action.image},
-          {firstName: action.firstName}, {lastName: action.lastName}));
+        newState.usersList = newState.usersList.concat(Object.assign({}, { userId: action.userId }, action.userData));
         return newState;
+      }
+      return state;
+    }
+    case ActionTypes.USERNAME_CHANGED_ACTION: {
+      if (action.source === Constants.ORG_SETTINGS_PAGE) {
+        const newState = Object.assign({}, state);
+        newState.usersList = newState.usersList || [];
+        newState.usersList = newState.usersList.slice();
+        for (let i = 0; i < newState.usersList.length; i++) {
+          if (newState.usersList[i].userId === action.userId) {
+            newState.usersList[i] = Object.assign({}, {userId: action.userId}, action.userData)
+            return newState;
+          }
+        }
+        return state;
+      }
+      return state;
+    }
+    case ActionTypes.USERNAME_REMOVED_ACTION: {
+      if (action.source === Constants.ORG_SETTINGS_PAGE) {
+        const newState = Object.assign({}, state);
+        newState.usersList = newState.usersList || [];
+        newState.usersList = newState.usersList.slice();
+        
+        for (let i = 0; i < newState.usersList.length; i++) {
+          if (newState.usersList[i].userId === action.userId) {
+            newState.usersList.splice(i, 1);
+            return newState;    
+          }
+        }
+        return state;
       }
       return state;
     }

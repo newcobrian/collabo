@@ -10,13 +10,17 @@ import OrgHeader from './OrgHeader';
 import ProfileInfo from './ProfileInfo'
 import Sidebar from 'react-sidebar';
 import ProjectList from './ProjectList';
+// import Checkbox from 'material-ui/Checkbox';
+// import getMuiTheme from 'material-ui/styles/getMuiTheme';
+// import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 const mql = window.matchMedia(`(min-width: 800px)`);
 
 const mapStateToProps = state => ({
   ...state.addProject,
   authenticated: state.common.authenticated,
-  sidebarOpen: state.common.sidebarOpen
+  sidebarOpen: state.common.sidebarOpen,
+  userInfo: state.common.userInfo
 });
 
 class AddProject extends React.Component {
@@ -30,17 +34,23 @@ class AddProject extends React.Component {
 	    
 	    this.changeDescription = updateFieldEvent('description');
 
+	    this.togglePublic = ev => {
+	    	this.props.onUpdateCreateField('isPublic', ev.target.checked, Constants.ADD_PROJECT_PAGE)
+	    }
+
 		this.submitForm = ev => {
 	      ev.preventDefault();
 	      if (!this.props.name) {
 	        this.props.createSubmitError('Please name your list', Constants.ADD_PROJECT_PAGE);
 	      }
 	      else {
-		   	let project = {};
-	    	project.name = this.props.name;
+		   	let project = {
+		   		name: this.props.name,
+		   		isPublic: this.props.isPublic
+		   	};
 
 		    this.props.setInProgress();
-		    this.props.onAddProject(this.props.authenticated, project, this.props.params.orgname);
+		    this.props.onAddProject(this.props.authenticated, project, this.props.params.orgname, this.props.userInfo);
 		  }
     	}
 
@@ -86,6 +96,7 @@ class AddProject extends React.Component {
 	        </div>
 	      )
 	    }
+
 		return (
 			<div>
 				<Sidebar
@@ -138,12 +149,20 @@ class AddProject extends React.Component {
 
 
 						            <form>
+						            	<fieldset className="field-wrapper">
+						            		<label>Public
+					                      <input
+					                        type="checkbox"
+					                        checked={this.props.isPublic}
+					                        onChange={this.togglePublic} />
+					                        </label>
+					                    </fieldset>
 										<fieldset className="field-wrapper">
 											<label>List name</label>
 					                      <input
 					                        className="input--underline edit-itinerary__name v2-type-body3"
 					                        type="text"
-					                        placeholder="My Cool List"
+					                        placeholder="e.g. Marketing"
 					                        required
 					                        value={this.props.name}
 					                        maxLength="42"

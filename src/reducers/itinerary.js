@@ -168,6 +168,7 @@ export default (state = initialState, action) => {
             return newState;    
           }
         }
+        return state;
       }
       return state;
     }
