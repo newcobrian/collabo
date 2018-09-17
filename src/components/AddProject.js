@@ -152,6 +152,7 @@ class AddProject extends React.Component {
 						            	<fieldset className="field-wrapper">
 						            		<label>Public
 					                      <input
+					                      	className="mrgn-left-xs"
 					                        type="checkbox"
 					                        checked={this.props.isPublic}
 					                        onChange={this.togglePublic} />
