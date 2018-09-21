@@ -9,6 +9,7 @@ import ProjectList from './ProjectList';
 import LoggedOutMessage from './LoggedOutMessage';
 import InfiniteScroll from 'react-infinite-scroller';
 import OrgHeader from './OrgHeader';
+import ProjectInfo from './ProjectInfo';
 import Sidebar from 'react-sidebar';
 
 const mql = window.matchMedia(`(min-width: 800px)`);
@@ -102,6 +103,7 @@ class Project extends React.Component {
     this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
     this.props.loadOrgList(this.props.authenticated, Constants.PROJECT_PAGE)
     this.props.loadProject(this.props.params.pid);
+    this.props.loadProjectMembers(this.props.params.pid, this.props.params.orgname, Constants.PROJECT_PAGE)
     // this.props.loadLikesByUser(this.props.authenticated, this.props.params.orgname)
 
     if (this.props.params.pid) {
@@ -228,30 +230,35 @@ class Project extends React.Component {
                       project={this.props.project}
                     />
                                           
-                      <div className="threadlist-wrapper flx flx-col flx-align-start w-100 h-100">
+                    <div className="threadlist-wrapper flx flx-col flx-align-start w-100 h-100">
 
 
-                        <InfiniteScroll
-                            pageStart={0}
-                            loadMore={this.scrolledToBottom}
-                            hasMore={true}
-                            loader={<div className="loader" key={0}>Loading ...</div>}
-                            useWindow={false} >
+                      <InfiniteScroll
+                          pageStart={0}
+                          loadMore={this.scrolledToBottom}
+                          hasMore={true}
+                          loader={<div className="loader" key={0}>Loading ...</div>}
+                          useWindow={false} >
 
-                          <ThreadList
-                            threads={this.props.threads} 
-                            authenticated={this.props.authenticated}
-                            orgName={this.props.params.orgname}
-                            emptyThreadFeed={this.props.emptyThreadFeed}
-                            projectNotFoundError={this.props.projectNotFoundError}
-                            projectNames={this.props.projectNames}
-                            className={"w-100 h-100"} />
+                        <ThreadList
+                          threads={this.props.threads} 
+                          authenticated={this.props.authenticated}
+                          orgName={this.props.params.orgname}
+                          emptyThreadFeed={this.props.emptyThreadFeed}
+                          projectNotFoundError={this.props.projectNotFoundError}
+                          projectNames={this.props.projectNames}
+                          className={"w-100 h-100"} />
 
 
-                        </InfiniteScroll>
-                      </div>
-                  </div>
+                      </InfiniteScroll>
+                    </div>
+
+                    <ProjectInfo 
+                      className="threadlist-wrapper flx flx-col flx-align-start w-100 h-100"
+                      projectMembers={this.props.projectMembers}
+                      project={this.props.project} />
                 </div>
+              </div>
             </Sidebar>
           </div>
       );

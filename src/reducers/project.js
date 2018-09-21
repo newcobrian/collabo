@@ -180,6 +180,52 @@ export default (state = initialState, action) => {
         }
       }
     }
+    case ActionTypes.PROJECT_MEMBER_ADDED: {
+      if (action.source === Constants.PROJECT_PAGE) {
+        const newState = Object.assign({}, state);
+        newState.projectMembers = newState.projectMembers || [];
+        newState.projectMembers = newState.projectMembers.slice();
+        newState.projectMembers = newState.projectMembers.concat(Object.assign({}, { userId: action.userId }, action.userData));
+        return newState;
+      }
+      return state;
+    }
+    case ActionTypes.PROJECT_MEMBER_CHANGED: {
+      if (action.source === Constants.PROJECT_PAGE) {
+        const newState = Object.assign({}, state);
+        newState.projectMembers = newState.projectMembers || [];
+        newState.projectMembers = newState.projectMembers.slice();
+        for (let i = 0; i < newState.projectMembers.length; i++) {
+          if (newState.projectMembers[i].userId === action.userId) {
+            newState.projectMembers[i] = Object.assign({}, {userId: action.userId}, action.userData)
+            return newState;
+          }
+        }
+        return state;
+      }
+      return state;
+    }
+    case ActionTypes.PROJECT_MEMBER_REMOVED: {
+      if (action.source === Constants.PROJECT_PAGE) {
+        const newState = Object.assign({}, state);
+        newState.projectMembers = newState.projectMembers || [];
+        newState.projectMembers = newState.projectMembers.slice();
+        
+        for (let i = 0; i < newState.projectMembers.length; i++) {
+          if (newState.projectMembers[i].userId === action.userId) {
+            newState.projectMembers.splice(i, 1);
+            return newState;    
+          }
+        }
+        return state;
+      }
+      return state;
+    }
+    case ActionTypes.UNLOAD_PROJECT_MEMBERS:
+      return {
+        ...state,
+        projectMembers: []
+      }
     // case ActionTypes.LIKES_BY_USER_ADDED_ACTION: {
     //   if (action.source === Constants.PROJECT_PAGE) {
     //     const newState = Object.assign({}, state);
