@@ -5,10 +5,10 @@ input[type=email],
 input[type=password],
 input, 
 textarea {
-      /* Remove First */
+      /* Remove First 
     -webkit-appearance: none !important;
     -moz-appearance: none !important;
-    appearance: none !important;
+    appearance: none !important;*/
 }
 
 input, select, textarea {
