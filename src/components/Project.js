@@ -117,13 +117,16 @@ class Project extends React.Component {
     this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname)
     this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.PROJECT_PAGE)
     this.props.unloadOrg(Constants.PROJECT_PAGE);
+    this.props.unloadProjectMembers(this.props.params.pid, this.props.params.orgname, Constants.PROJECT_PAGE)
     if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.pid !== this.props.params.pid && nextProps.params.orgname === this.props.params.orgname) {
       this.props.unwatchThreadFeed(this.props.authenticated, this.props.params.orgname, this.props.params.pid, Constants.PROJECT_PAGE)
+      this.props.unloadProjectMembers(this.props.params.pid, this.props.params.orgname, Constants.PROJECT_PAGE)
       this.props.loadProject(nextProps.params.pid);
+      this.props.loadProjectMembers(nextProps.params.pid, this.props.params.orgname, Constants.PROJECT_PAGE)
       // this.props.watchThreadFeed(this.props.authenticated, this.props.params.orgname, nextProps.params.pid, this.props.feedEndValue, Constants.PROJECT_PAGE)
       if (nextProps.params.pid) {
         this.props.markProjectRead(this.props.authenticated, nextProps.params.pid)
@@ -134,10 +137,12 @@ class Project extends React.Component {
       this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname)
       this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.PROJECT_PAGE)
       this.props.unloadOrg(Constants.PROJECT_PAGE);
+      this.props.unloadProjectMembers(this.props.params.pid, this.props.params.orgname, Constants.PROJECT_PAGE)
       this.props.loadOrg(this.props.authenticated, nextProps.params.orgname, Constants.PROJECT_PAGE);
       this.props.loadProjectList(this.props.authenticated, nextProps.params.orgname, this.props.params.pid, Constants.PROJECT_PAGE)
       this.props.loadThreadCounts(this.props.authenticated, nextProps.params.orgname)
       this.props.loadProject(nextProps.params.pid);
+      this.props.loadProjectMembers(nextProps.params.pid, nextProps.params.orgname, Constants.PROJECT_PAGE)
       // this.props.watchThreadFeed(this.props.authenticated,nextProps.params.orgname, nextProps.params.pid, this.props.feedEndValue, Constants.PROJECT_PAGE)
       if (nextProps.params.pid) {
         this.props.markProjectRead(this.props.authenticated, nextProps.params.pid)
