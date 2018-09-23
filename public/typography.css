@@ -3,9 +3,7 @@
 ************************************ TYPOGRAPHY SHARED
 ******
 ******/
-li {
-  margin-left: 20px;
-}
+
 body a {
   color: #292F3D;
 
@@ -451,7 +449,7 @@ h4 {
 ::-moz-placeholder { /* Firefox 19+ */
   color: #3DCBF3 !important; /*DARK BLUE*/
   color: #97B4FF !important; /*DARK BLUE*/
-  color: #232325 !important; /*DARK BLUE*/
+  color: white !important; /*DARK BLUE*/
   opacity: .6;
   font-weight: 300;
   font-size: 14px;
@@ -459,7 +457,7 @@ h4 {
 :-ms-input-placeholder { /* IE 10+ */
   color: #3DCBF3 !important; /*DARK BLUE*/
   color: #97B4FF !important; /*DARK BLUE*/
-  color: #232325 !important; /*DARK BLUE*/
+  color: white !important; /*DARK BLUE*/
   opacity: .6;
   font-weight: 300;
   font-size: 14px;
@@ -467,7 +465,7 @@ h4 {
 :-moz-placeholder { /* Firefox 18- */
   color: #3DCBF3 !important; /*DARK BLUE*/
   color: #97B4FF !important; /*DARK BLUE*/
-  color: #232325 !important; /*DARK BLUE*/
+  color: white !important; /*DARK BLUE*/
   opacity: .6;
   font-weight: 300;
   font-size: 14px;
@@ -475,7 +473,7 @@ h4 {
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #3DCBF3 !important; /*DARK BLUE*/
   color: #97B4FF !important; /*DARK BLUE*/
-  color: #232325 !important; /*DARK BLUE*/
+  color: white !important; /*DARK BLUE*/
   opacity: .6;
   font-weight: 300;
   font-size: 14px;

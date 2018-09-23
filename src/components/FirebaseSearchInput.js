@@ -251,7 +251,7 @@ class FirebaseSearchInput extends Component {
             overflow: 'scroll',
           }}
           hintStyle={{
-            color: '#232325',
+            color: '#ffffff',
             fontSize: '12px',
             lineHeight: '20px',
             top: '10px',
@@ -259,7 +259,7 @@ class FirebaseSearchInput extends Component {
             overflow:'auto',
             textAlign: 'left',
             padding: '0 0 0 8px',
-            opacity: '.6'
+            opacity: '1'
           }}
        />
       </MuiThemeProvider>

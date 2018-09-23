@@ -75,6 +75,9 @@ input[type="radio"]:checked + label span {
   border: 1px solid rgba(0,0,0,.1);
 }
 
+li {
+
+}
 
 /*Reset Safari User Agent Styles*/
 * {-webkit-padding-start: 0px;}
