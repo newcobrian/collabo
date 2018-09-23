@@ -641,6 +641,9 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
       // last update is a comment
       Object.assign(updates, getThreadFieldUpdates(threadId, thread, 'lastUpdate', Constants.COMMENT_TYPE));
 
+      // update lastUpdater as the commenter
+      Object.assign(updates, getThreadFieldUpdates(threadId, thread, 'lastUpdater', userInfo));
+
       // update the last comment
       // Object.assign(updates, getThreadFieldUpdates(threadId, thread, 'lastComment', Object.assign({}, comment, { commentId: commentId })))
 
