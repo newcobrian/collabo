@@ -24,10 +24,7 @@
 .w-auto {
 	width: auto;
 }
-.co-thread-reply-wrapper {
-	padding: 20px;
-	width: 100%;
-}
+
 .h-100 {
 	height: 100%;
 }
@@ -64,7 +61,7 @@
 	padding-right: 20px;
 }
 textarea {
-	padding: 20px !important;
+	padding: 10px !important;
 }
 .header-push {
 	margin-top: 140px;
@@ -275,23 +272,60 @@ p {
 .threadlist-wrapper > div {
 	width: 100%;
 }
-.thread-preview-wrapper {
+.tp-wrapper {
 	margin: 0 0 30px;
 	width: 100%;
 }
-.thread-preview-container {
+.tp-container {
 	width: 100%;
-	padding: 30px;
-	border: 1px solid rgba(0,0,0,.1);
-	border-left: 3px solid black;
+	/*border: 1px solid rgba(0,0,0,.1);*/
 	background-color: white;
     /*background-image: url(img/pixel-black.png);*/
 /*    background-repeat: repeat-y;
     background-position: 50px 0;*/
 }
-.thread-preview-container.new-thread {
+
+.thread-sideline {
+	height: 100%;
+	width: 4px;
+}
+.thread-row-wrapper {
+	width: 100%;
+	padding-left: 4px;
+}
+.thread-content-wrapper {
+	padding: 30px;
+	background-color: white;
+}
+.comment-outer-wrapper {
+	background-color: white;
+	padding: 20px;
+}
+.comment-content-wrapper {
+	background: white;
+}
+.tp-container.new-thread {
 	padding: 0 30px;
 	border-bottom: none;
+}
+.co-thread-reply-wrapper {
+	padding: 0;
+	width: 100%;
+}
+.thread-indent-1 {
+	padding-left: 60px;
+}
+
+
+.comment-row-wrapper {
+	width: 100%;
+}
+
+.input-indent-wrapper {
+	padding-left: 60px;
+}
+.input-sideline-wrapper {
+	padding-left: 4px;
 }
 .sidebar-footer {
 	position: absolute;
@@ -553,5 +587,4 @@ p {
     padding: 30px;
     overflow: hidden;
     background-color: white;
-    border-radius: 6px;
 }

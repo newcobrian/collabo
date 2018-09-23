@@ -9,7 +9,7 @@ var linkify = require('linkify-it')();
 const CommentContainer = props => {
 	if (props.authenticated && props.userInfo) {
 		return (
-			<div className="comments-module">
+			<div className="comments-module w-100">
 		          
 		          
 
@@ -27,21 +27,25 @@ const CommentContainer = props => {
 					type={props.type}
 					parentId={props.parentId} />
 
-					<div className="comment-input-wrapper mrgn-bottom-sm">
-					  <ListErrors errors={props.errors}></ListErrors>
-					  <CommentInput 
-					  	commentObject={props.commentObject} 
-					  	threadId={props.threadId}
-					  	authenticated={props.authenticated} 
-					  	userInfo={props.userInfo}
-					  	project={props.project}
-					  	orgName={props.orgName}
-					  	type={props.type}
-					  	usersList={props.usersList}
-					  	parentId={props.parentId} />
-					</div>
+					
+					<div className="comment-indent fill--black">
+						<div className="comment-bg">
 
-		     </div>
+						  <ListErrors errors={props.errors}></ListErrors>
+						  <CommentInput 
+						  	commentObject={props.commentObject} 
+						  	threadId={props.threadId}
+						  	authenticated={props.authenticated} 
+						  	userInfo={props.userInfo}
+						  	project={props.project}
+						  	orgName={props.orgName}
+						  	type={props.type}
+						  	usersList={props.usersList}
+						  	parentId={props.parentId} />
+						</div>
+					</div>
+				</div>
+
 		);
 	} else {
 		return (

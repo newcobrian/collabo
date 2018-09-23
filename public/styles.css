@@ -988,7 +988,6 @@ li.nav-divider {
 
 .comment-wrapper {
   border-radius: 0;
-  margin-bottom: 30px;
 }
 .article-page .text-subject-name {
     -webkit-align-items: center;
@@ -1183,12 +1182,9 @@ li.nav-divider {
 ******/
 .comment-wrapper.card {
   border: none;
-  margin: 0 0 10px;
+  margin: 0;
   min-height: 46px;
-  background-color: white;
-  border: 1px solid rgba(0,0,0,.1);
-  padding: 20px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+  background-color: transparent;
 }
 .comment-wrapper.card .card-footer {
   background-color: transparent;
@@ -1248,13 +1244,18 @@ li.nav-divider {
 .comment-wrapper .comment-block {
   padding: 5px 20px;
 }
-.comments-module .comment-input-wrapper {
+.comment-input-wrapper {
+  background: white;
+}
+.comment-indent {
   outline: none;
+  padding-left: 40px;
 }
-.comments-module .comment-input-wrapper:focus {
-  border: 1px solid rgba(0,0,0,.1);
-  transition: all 0.23s ease-in-out 0s;
+.comment-bg {
+  background: white;
+  padding: 20px;
 }
+
 .comments-module .comment-input-wrapper .comment-input {
     font-size: 14px;
     line-height: 18px;
@@ -1267,7 +1268,7 @@ li.nav-divider {
     background-color: white;
     text-align: left;
     height: auto;
-    min-height: 100px;
+    min-height: 40px;
 }
 .comments-module .comment-input:focus {
   background-color: #FFFEF6 !important;

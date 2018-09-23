@@ -63,7 +63,8 @@ class CommentInput extends React.Component {
 
   render() {
     return (
-      <form className="comment-wrapper comment-form flx flx-col flx-just-center" onSubmit={this.createComment}>
+
+      <form className="comment-wrapper comment-form flx flx-row flx-just-center" onSubmit={this.createComment}>
 
             {/*<Textarea className="comment-input font--beta input--overline w-100"
               placeholder="Add a comment..."
@@ -75,9 +76,9 @@ class CommentInput extends React.Component {
             </Textarea>*/}
 
             <MentionsInput 
-              className="comment-input font--beta input--overline w-100 pdding-all-sm brdr-all brdr--primary"
-              rows="6"
-              cols="10"
+              className="comment-input font--beta input--overline w-100 pdding-all-sm"
+              rows="2"
+              cols="2"
               wrap="hard"
               placeholder="Reply here..."
               value={this.state.body} 
@@ -97,7 +98,7 @@ class CommentInput extends React.Component {
             </MentionsInput>
 
             <button className="flx-item-right mrgn-top-sm comment-send vb vb--xs fill--primary opa-100 color--white" onClick={this.createComment}>
-              Post
+              Reply
               <i className="material-icons color--primary md-18 color--primary DN">send</i>
             </button>
 
@@ -107,6 +108,7 @@ class CommentInput extends React.Component {
 
         
       </form>
+
     );
   }
 }

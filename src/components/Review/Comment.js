@@ -63,8 +63,8 @@ class Comment extends React.Component {
     }]);
 
     return (
-      <div className="card comment-wrapper flx flx-align-center" id={'comment' + comment.id}>
-        <div className="w-100">
+      <div className="comment-indent flx flx-col flx-align-center" id={'comment' + comment.id}>
+        <div className="comment-bg w-100">
           <div className="flx flx-row flx-just-start w-100">
             <Link
               to={`/user/${comment.username}`}

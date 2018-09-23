@@ -98,7 +98,7 @@ const CommentPreview = props => {
   else if (props.thread.commentsCount) {
     return (
       <Link to={`/${props.orgName}/${props.thread.projectId}/${props.thread.threadId}`}>
-        <div className="cta-wrapper cta-wrapper-comment v2-type-body2 flx flx-row flx-align-center">
+        <div className="cta-wrapper cta-wrapper-comment v2-type-body2 flx flx-row flx-align-center w-100">
           <div className="material-icons color--black md-18 opa-60 mrgn-right-sm">comment</div>
           {props.thread.commentsCount} Comments
         </div>
@@ -127,70 +127,71 @@ const ThreadPreview = props => {
   // let canModify = props.authenticated === tip.userId ? true : false;
 
   return (
-    <div className={"thread-preview-wrapper flx flx-col flx-col"}>
+    <div className={"tp-wrapper flx flx-col flx-col"}>
         
-        <div className="thread-preview-container flx flx-row flx-align-start">           
-          <div className="flx flx-row flx-align-center">
-            <div className="flx flx-col w-100">
+        <div className="tp-container flx flx-col flx-align-start">           
 
+          <div className="thread-row-wrapper flx flx-row fill--primary">
+            <div className="thread-content-wrapper w-100">
               <div className="flx flx-row flx-align-start w-100 mrgn-bottom-xs">
-                  <Link to={'/' + props.orgName + '/user/' + postAuthor.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
-                    <ProfilePic src={postAuthor.image} className="user-image user-image-sm center-img" />
-                  </Link>
+                <Link to={'/' + props.orgName + '/user/' + postAuthor.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
+                  <ProfilePic src={postAuthor.image} className="user-image user-image-sm center-img" />
+                </Link>
 
-                  <div className="flx flx-col flx-align-start mrgn-bottom-sm">
-                    <div className="flx flx-row co-type-body">
-                      <div className="co-type-bold">{postAuthor.username || ''}</div> 
-                      &nbsp;<UpdateSection thread={thread} />
-                    </div>
-                    <div className="thread-timestamp color--black">
-                      <DisplayTimestamp timestamp={thread.lastModified} />
-                    </div>
+                <div className="flx flx-col flx-align-start mrgn-bottom-sm">
+                  <div className="flx flx-row co-type-body">
+                    <div className="co-type-bold">{postAuthor.username || ''}</div> 
+                    &nbsp;<UpdateSection thread={thread} />
+                  </div>
+                  <div className="thread-timestamp color--black">
+                    <DisplayTimestamp timestamp={thread.lastModified} />
+                  </div>
                 </div>
 
                 <ProjectLabel className="DN" projectNames={props.projectNames} projectId={thread.projectId} orgName={props.orgName} />
+
               </div>
 
-
-
-                <div className="color--black co-post-title flx flx-row mrgn-bottom-xs">
-                  <Link className="color--black" 
-                              to={`/${props.orgName}/${props.projectId}/${thread.threadId}`}>
-                              {thread.title}
-                        </Link>
-                </div>
+              <div className="color--black co-post-title flx flx-row mrgn-bottom-xs">
+                <Link className="color--black" 
+                      to={`/${props.orgName}/${props.projectId}/${thread.threadId}`}>
+                      {thread.title}
+                </Link>
+              </div>
               <div className="mrgn-top-xs co-type-body flx flx-col w-100 flx-align-start">
-                
-                    <div className="tip__caption color--black opa-70 ta-left flx flx-col" dangerouslySetInnerHTML={{ __html: thread.body || '' }} />
-                    {/*<div className="tip__caption color--gray ta-left flx flx-row" dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(thread.body)) || '' }} />*/}
-                    </div>
+                <div className="tip__caption color--black opa-70 ta-left flx flx-col" dangerouslySetInnerHTML={{ __html: thread.body || '' }} />
+                {/*<div className="tip__caption color--gray ta-left flx flx-row" dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(thread.body)) || '' }} />*/}
+                </div>
 
-
-                    <div className="cta-container flx flx-row flx-align-start">
-                      <i className="material-icons mrgn-right-sm md-24 color--favorite">favorite</i>
-                      <div className="v2-type-body1 weight-500 ta-left">                      
-                        {thread.likesCount || 0} {thread.likesCount === 1 ? ' upvote' : ' upvotes'}
-                      </div>
-                    </div>
-
-                    <div className="co-thread-reply-wrapper DN">
-                      <CommentContainer
-                        authenticated={props.authenticated}
-                        userInfo={props.userInfo}
-                        comments={thread.comments || {}}
-                        errors={props.commentErrors}
-                        commentObject={thread}
-                        threadId={thread.threadId}
-                        thread={thread}
-                        project={props.project}
-                        orgName={props.orgName}
-                        usersList={props.usersList}
-                        type={Constants.THREAD_TYPE}
-                        deleteComment={props.deleteComment} />
-                    </div>
-
+                <div className="cta-container flx flx-row flx-align-start">
+                  <i className="material-icons mrgn-right-sm md-24 color--favorite">favorite</i>
+                  <div className="v2-type-body1 weight-500 ta-left">                      
+                    {thread.likesCount || 0} {thread.likesCount === 1 ? ' upvote' : ' upvotes'}
+                  </div>
+                </div>
               </div>
+
+          </div>
         </div>
+
+        <div className="comment-row-wrapper flx flx-row">
+          <div className="comment-row-wrapper flx flx-row">
+            <div className="co-thread-reply-wrapper">
+              <CommentContainer
+                authenticated={props.authenticated}
+                userInfo={props.userInfo}
+                comments={thread.comments || {}}
+                errors={props.commentErrors}
+                commentObject={thread}
+                threadId={thread.threadId}
+                thread={thread}
+                project={props.project}
+                orgName={props.orgName}
+                usersList={props.usersList}
+                type={Constants.THREAD_TYPE}
+                deleteComment={props.deleteComment} />
+            </div>
+          </div>
         </div>
 
 
