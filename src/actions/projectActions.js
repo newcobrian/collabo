@@ -651,18 +651,18 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
         // this is a regular comment, add it under comments/
         updates[Constants.THREADS_BY_PROJECT_PATH + '/' + thread.projectId + '/' + threadId + '/comments/' + commentId] = commentObjectWithID
         updates[Constants.THREADS_BY_ORG_PATH + '/' + thread.orgId + '/' + threadId + '/comments/' + commentId] = commentObjectWithID
+
+        // and update comments-by-thread
+        updates[Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId + '/' + commentId] = Object.assign({}, comment, {id: commentId});
       }
       else {
         // this is a nested comment, so add it under the parent's nestedComments/
         updates[Constants.THREADS_BY_PROJECT_PATH + '/' + thread.projectId + '/' + threadId + '/comments/' + parentId + '/nestedComments/' + commentId] = commentObjectWithID
         updates[Constants.THREADS_BY_ORG_PATH + '/' + thread.orgId + '/' + threadId + '/comments/' + parentId + '/nestedComments/' + commentId] = commentObjectWithID
-      }
 
-      // update comments-by-thread
-      // if theres a parent, this is a nested comment
-      const threadCommentPath = parentId ? (Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId + '/' + parentId + '/nestedComments/' + commentId) :
-        (Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId + '/' + commentId)
-      updates[threadCommentPath] = comment;
+        // and update comments-by-thread
+        updates[Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId + '/' + parentId + '/nestedComments/' + commentId] = Object.assign({}, comment, {id: commentId});
+      }
 
       Firebase.database().ref().update(updates);
 
