@@ -645,10 +645,18 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
       // Object.assign(updates, getThreadFieldUpdates(threadId, thread, 'lastComment', Object.assign({}, comment, { commentId: commentId })))
 
       // add comment to threads-by-project and threads-by-org for feeds
-      // updates[Constants.THREADS_BY_PROJECT_PATH + '/' + thread.projectId + '/' + threadId + '/comments/' + commentId] = commentObject
-      // updates[Constants.THREADS_BY_ORG_PATH + '/' + thread.orgId + '/' + threadId + '/comments/' + commentId] = commentObject
+      if (!parentId) {
+        // this is a regular comment, add it under comments/
+        updates[Constants.THREADS_BY_PROJECT_PATH + '/' + thread.projectId + '/' + threadId + '/comments/' + commentId] = commentObject
+        updates[Constants.THREADS_BY_ORG_PATH + '/' + thread.orgId + '/' + threadId + '/comments/' + commentId] = commentObject
+      }
+      else {
+        // this is a nested comment, so add it under the parent's nestedComments/
+        updates[Constants.THREADS_BY_PROJECT_PATH + '/' + thread.projectId + '/' + threadId + '/comments/' + parentId + '/nestedComments/' + commentId] = commentObject
+        updates[Constants.THREADS_BY_ORG_PATH + '/' + thread.orgId + '/' + threadId + '/comments/' + parentId + '/nestedComments/' + commentId] = commentObject
+      }
 
-      // udpate comments-by-thread
+      // update comments-by-thread
       // if theres a parent, this is a nested comment
       const threadCommentPath = parentId ? (Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId + '/' + parentId + '/nestedComments/' + commentId) :
         (Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId + '/' + commentId)
