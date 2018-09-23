@@ -15,8 +15,9 @@ export function onAddProject(auth, project, orgName, userInfo) {
       })
     }
     else {
-      let lowerCaseProject = project.name.toLowerCase();
-      Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + orgName + '/' + lowerCaseProject).once('value', nameSnapshot => {
+      let lowerCaseProject = project.name.toLowerCase()
+      let lowerCaseOrgName = orgName.toLowerCase()
+      Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + lowerCaseOrgName + '/' + lowerCaseProject).once('value', nameSnapshot => {
         if (nameSnapshot.exists()) {
           dispatch({
             type: ActionTypes.CREATE_SUBMIT_ERROR,
@@ -25,7 +26,7 @@ export function onAddProject(auth, project, orgName, userInfo) {
           })
         }
         else {
-          Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', orgSnap => {
+          Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
             let serverTimestamp = Firebase.database.ServerValue.TIMESTAMP;
             let projectObject = {
               lastModified: serverTimestamp,
@@ -38,11 +39,11 @@ export function onAddProject(auth, project, orgName, userInfo) {
 
             let projectId = Firebase.database().ref(Constants.PROJECTS_PATH).push(projectObject).key;
 
-            updates[`/${Constants.PROJECT_NAMES_BY_ORG_PATH}/${orgName}/${lowerCaseProject}/`] = Object.assign({}, {projectId: projectId}, {isPublic: project.isPublic})
+            updates[`/${Constants.PROJECT_NAMES_BY_ORG_PATH}/${lowerCaseOrgName}/${lowerCaseProject}/`] = Object.assign({}, {projectId: projectId}, {isPublic: project.isPublic})
             // updates[`/${Constants.PROJECTS_BY_USER_PATH}/${auth}/${projectId}/`] = { name: project.name };
 
             // add the project to the creators Project List
-            updates[`/${Constants.PROJECTS_BY_USER_BY_ORG_NAME_PATH}/${auth}/${orgName}/${projectId}/`] = Object.assign({}, {name: lowerCaseProject}, {isPublic: project.isPublic});
+            updates[`/${Constants.PROJECTS_BY_USER_BY_ORG_NAME_PATH}/${auth}/${lowerCaseOrgName}/${projectId}/`] = Object.assign({}, {name: lowerCaseProject}, {isPublic: project.isPublic});
             updates[`/${Constants.USERS_BY_PROJECT_PATH}/${projectId}/${auth}/`] = Object.assign({}, userInfo);
 
             Firebase.database().ref().update(updates);
@@ -407,7 +408,7 @@ export function unloadThreadCounts(auth, orgName) {
 
 export function unloadProjectList(auth, orgName) {
   return dispatch => {
-     Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + orgName).off();
+     Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + orgName.toLowerCase()).off();
      dispatch({
       type: ActionTypes.UNLOAD_PROJECT_LIST
      })
@@ -628,17 +629,24 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
 
     if (threadId) {
       let org = Object.assign({}, {orgId: thread.orgId}, {name: orgName})
+
+      let commentObject = Object.assign({}, comment, {threadId: threadId}, { type: type })
       // let commentId = Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).push(comment).key;
-      let commentId = Firebase.database().ref(Constants.COMMENTS_PATH).push(Object.assign({}, comment, {threadId: threadId}, { type: type })).key;
+      let commentId = Firebase.database().ref(Constants.COMMENTS_PATH).push(commentObject).key;
 
       Helpers.incrementThreadCount(Constants.COMMENTS_COUNT, threadId, thread, thread.userId);
       
       let updates = getThreadFieldUpdates(threadId, thread, 'lastModified', Firebase.database.ServerValue.TIMESTAMP)
+
       // last update is a comment
       Object.assign(updates, getThreadFieldUpdates(threadId, thread, 'lastUpdate', Constants.COMMENT_TYPE));
 
       // update the last comment
-      Object.assign(updates, getThreadFieldUpdates(threadId, thread, 'lastComment', Object.assign({}, comment, { commentId: commentId })))
+      // Object.assign(updates, getThreadFieldUpdates(threadId, thread, 'lastComment', Object.assign({}, comment, { commentId: commentId })))
+
+      // add comment to threads-by-project and threads-by-org for feeds
+      // updates[Constants.THREADS_BY_PROJECT_PATH + '/' + thread.projectId + '/' + threadId + '/comments/' + commentId] = commentObject
+      // updates[Constants.THREADS_BY_ORG_PATH + '/' + thread.orgId + '/' + threadId + '/comments/' + commentId] = commentObject
 
       // udpate comments-by-thread
       // if theres a parent, this is a nested comment
@@ -1479,7 +1487,7 @@ export function loadProjectMembers(projectId, orgName, source) {
   return dispatch => {
     if (!projectId) {
       // load all org members
-      Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName).once('value', orgSnap => {
+      Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', orgSnap => {
         Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgSnap.val().orgId).on('child_added', addedSnap => {
           dispatch({
             type: ActionTypes.PROJECT_MEMBER_ADDED,
@@ -1542,7 +1550,7 @@ export function unloadProjectMembers(projectId, orgName, source) {
   return dispatch => {
     if (!projectId) {
       // load all org members
-      Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName).once('value', orgSnap => {
+      Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', orgSnap => {
         Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgSnap.val().orgId).off()
       })
     }
