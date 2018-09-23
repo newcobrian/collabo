@@ -133,57 +133,59 @@ const ThreadPreview = props => {
   // let canModify = props.authenticated === tip.userId ? true : false;
 
   return (
-    <Link to={`/${props.orgName}/${props.projectId}/${thread.threadId}`} className={"thread-preview-wrapper flx flx-col flx-col w-100"}>
+    <Link to={`/${props.orgName}/${props.projectId}/${thread.threadId}`} className={"thread-preview-wrapper flx flx-col flx-col"}>
         
-        <div className="thread-preview-container flx flx-row flx-align-start w-100">
-          <div className="thread-icon flx flx-center-all flx-hold mrgn-right-md">
-            <UpdateIcon thread={thread} />
-          </div>
+        <div className="thread-preview-container flx flx-row flx-align-start">           
+          <div className="flx flx-row flx-align-center">
+            <div className="flx flx-col w-100">
 
-          <div className="tip__content-inner flx flx-col w-100">
-           
-            { /** Caption **/ }
-            <div className="tip__caption-module flx flx-col w-100 brdr-02-bottom w-100">
-              
-              <div className="flx flx-row w-100 flx-align-center">
-                <div className="flx flx-col w-100">
-                  <div className="flx flx-row flx-align-center w-100 mrgn-bottom-xs">
-                    <div className="thread-timestamp color--black">
-                      <DisplayTimestamp timestamp={thread.lastModified} />
-                    </div>
-                    <ProjectLabel projectNames={props.projectNames} projectId={thread.projectId} orgName={props.orgName} />
-                  </div>
-                    <div className="color--black co-post-title flx flx-row mrgn-bottom-xs">
-                      <Link className="color--black" 
-                                  to={`/${props.orgName}/${props.projectId}/${thread.threadId}`}>
-                                  {thread.title}
-                            </Link>
-                    </div>
-                  <div className="mrgn-top-xs co-type-body flx flx-col w-100 flx-align-start">
-                    <div className="flx flx-row flx-align-center mrgn-bottom-sm">
-                      <Link to={'/' + props.orgName + '/user/' + postAuthor.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
-                        <ProfilePic src={postAuthor.image} className="user-image user-image-sm center-img" />
-                      </Link>
+              <div className="flx flx-row flx-align-start w-100 mrgn-bottom-xs">
+                  <Link to={'/' + props.orgName + '/user/' + postAuthor.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
+                    <ProfilePic src={postAuthor.image} className="user-image user-image-sm center-img" />
+                  </Link>
+
+                  <div className="flx flx-col flx-align-start mrgn-bottom-sm">
+                    <div className="flx flx-row co-type-body">
                       <div className="co-type-bold">{postAuthor.username || ''}</div> 
                       &nbsp;<UpdateSection thread={thread} />
                     </div>
-                        <div className="tip__caption color--black opa-70 ta-left flx flx-col" dangerouslySetInnerHTML={{ __html: thread.body || '' }} />
-                        {/*<div className="tip__caption color--gray ta-left flx flx-row" dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(thread.body)) || '' }} />*/}
-                        </div>
-
-                        <div className="cta-wrapper vb vb--tip vb--outline--none flx flx-row flx-align-center v2-type-body2">
-                          {thread.likesCount || 0} {thread.likesCount === 1 ? ' upvote' : ' upvotes'}
-                        </div>
-
-                  </div>
+                    <div className="thread-timestamp color--black">
+                      <DisplayTimestamp timestamp={thread.lastModified} />
+                    </div>
                 </div>
+
+                <ProjectLabel className="DN" projectNames={props.projectNames} projectId={thread.projectId} orgName={props.orgName} />
               </div>
 
 
-            {/**<CommentPreview className="DN" orgName={props.orgName} thread={thread} />**/}
-          </div>
+
+                <div className="color--black co-post-title flx flx-row mrgn-bottom-xs">
+                  <Link className="color--black" 
+                              to={`/${props.orgName}/${props.projectId}/${thread.threadId}`}>
+                              {thread.title}
+                        </Link>
+                </div>
+              <div className="mrgn-top-xs co-type-body flx flx-col w-100 flx-align-start">
+                
+                    <div className="tip__caption color--black opa-70 ta-left flx flx-col" dangerouslySetInnerHTML={{ __html: thread.body || '' }} />
+                    {/*<div className="tip__caption color--gray ta-left flx flx-row" dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(thread.body)) || '' }} />*/}
+                    </div>
+
+
+                    <div className="cta-container flx flx-row flx-align-start">
+                      <i className="material-icons mrgn-right-sm md-24 color--favorite">favorite</i>
+                      <div className="v2-type-body1 weight-500 ta-left">                      
+                        {thread.likesCount || 0} {thread.likesCount === 1 ? ' upvote' : ' upvotes'}
+                      </div>
+                    </div>
+
+
+              </div>
+        </div>
+        </div>
+
+
    
-          </div> { /** End photo / copy row **/ }
 
 
     </Link>

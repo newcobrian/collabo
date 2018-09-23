@@ -20,43 +20,40 @@ const ProjectHeader = props => {
     else return (
       <div className={"project-header text-left flx flx-col flx-align-center w-100"}>
         <OrgHeader />
-        <div className="project-bar-wrapper w-100 flx flx-row flx-align-center mrgn-top-sm">
-          
+        <div className="project-bar-wrapper w-100 flx flx-row flx-align-center mrgn-top-xs">
           <div className="project-header-text mrgn-left-md co-type-h1 flx flx-col flx-align-start">
             {props.project.name}
           </div>
-
-          <div className="flx flx-align-start mrgn-left-md flx-item-right mrgn-right-sm">
-
-            <Link to={'/' + props.orgName + '/' + props.projectId + '/addthread'}
-              activeClassName="active"
-              className="vb vb--sm flx flx-align-center fill--light-green color--green">
-                <div className="feed-gem circle gem-create DN"></div>
-                <div className="icon-wrapper brdr--primary flx flx-center-all">
-                  <i className="material-icons color--create md-24 opa-100">add</i>
-                </div>
-                <div className="color--green co-type-label">New Post</div>
-               
-            </Link>
-          </div>
-
         </div>
+        <div className="flx flx-row flx-align-start w-100">
+
+          <Link to={'/' + props.orgName + '/' + props.projectId + '/addthread'}
+            activeClassName="active"
+            className="flx flx-align-center">
+              <div className="feed-gem circle gem-create DN"></div>
+              <div className="icon-wrapper brdr--primary flx flx-center-all">
+                <i className="material-icons color--create md-24 opa-100">add</i>
+              </div>
+              <div className="color--black co-type-label">New Thread</div>
+          </Link>
+        </div>
+
       </div>
     )
   }
   else return (
     <div className={"project-header text-left flx flx-col flx-align-start"}>
         <OrgHeader />
-        <div className="project-bar-wrapper w-100 flx flx-row flx-align-center mrgn-top-sm">
+        <div className="project-bar-wrapper w-100 flx flx-row flx-align-center mrgn-top-xs">
           <div className="project-header-text co-type-h1 mrgn-left-md flx flx-row flx-align-start text-left invert">
             All
           </div>
-
-          <div className="flx flx-align-start mrgn-left-md">
+          </div>
+          <div className="flx flx-row flx-align-start w-100">
 
             <Link to={'/' + props.orgName + '/' + props.projectId + '/addthread'}
               activeClassName="active"
-              className="flx flx-align-center flx-item-right mrgn-right-md">
+              className="flx flx-align-center">
                 <div className="feed-gem circle gem-create DN"></div>
                 <div className="icon-wrapper brdr--primary flx flx-center-all">
                   <i className="material-icons color--create md-24 opa-100">add</i>
@@ -67,7 +64,7 @@ const ProjectHeader = props => {
           </div>
           
         </div>
-      </div>
+
   )
 }
 
@@ -234,34 +231,35 @@ class Project extends React.Component {
                       projectId={this.props.params.pid}
                       project={this.props.project}
                     />
-                                          
-                    <div className="threadlist-wrapper flx flx-col flx-align-start w-100 h-100">
+                    <div className="threadlist-outer flx flx-row">              
+                      <div className="threadlist-wrapper flx flx-col flx-align-start w-100 h-100">
 
 
-                      <InfiniteScroll
-                          pageStart={0}
-                          loadMore={this.scrolledToBottom}
-                          hasMore={true}
-                          loader={<div className="loader" key={0}>Loading ...</div>}
-                          useWindow={false} >
+                        <InfiniteScroll
+                            pageStart={0}
+                            loadMore={this.scrolledToBottom}
+                            hasMore={true}
+                            loader={<div className="loader" key={0}>Loading ...</div>}
+                            useWindow={false} >
 
-                        <ThreadList
-                          threads={this.props.threads} 
-                          authenticated={this.props.authenticated}
-                          orgName={this.props.params.orgname}
-                          emptyThreadFeed={this.props.emptyThreadFeed}
-                          projectNotFoundError={this.props.projectNotFoundError}
-                          projectNames={this.props.projectNames}
-                          className={"w-100 h-100"} />
+                          <ThreadList
+                            threads={this.props.threads} 
+                            authenticated={this.props.authenticated}
+                            orgName={this.props.params.orgname}
+                            emptyThreadFeed={this.props.emptyThreadFeed}
+                            projectNotFoundError={this.props.projectNotFoundError}
+                            projectNames={this.props.projectNames}
+                            className={"w-100 h-100"} />
 
 
-                      </InfiniteScroll>
+                        </InfiniteScroll>
+                      </div>
                     </div>
 
-                    <ProjectInfo 
-                      className="threadlist-wrapper flx flx-col flx-align-start w-100 h-100"
-                      projectMembers={this.props.projectMembers}
-                      project={this.props.project} />
+                      <ProjectInfo 
+                        className="threadlist-wrapper flx flx-col flx-align-start w-100 h-100"
+                        projectMembers={this.props.projectMembers}
+                        project={this.props.project} />
                 </div>
               </div>
             </Sidebar>

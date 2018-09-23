@@ -251,8 +251,8 @@ class FirebaseSearchInput extends Component {
             overflow: 'scroll',
           }}
           hintStyle={{
-            color: '#121419',
-            fontSize: '14px',
+            color: '#232325',
+            fontSize: '12px',
             lineHeight: '20px',
             top: '10px',
             width: '100%',

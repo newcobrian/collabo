@@ -278,6 +278,7 @@ textarea {
 .color--primary {
   color: #3DCBF3 !important;
   color: #97B4FF !important;
+  color: #5B93FF !important;
   /*color: #1A4C0A !important;*/
 }
 .color--feed-link {
@@ -294,6 +295,7 @@ a.color--primary:focus {
 .fill--primary {
   background-color: #3DCBF3 !important;
   background-color: #97B4FF !important;
+  background-color: #5B93FF !important;
   /*background-color: #1A4C0A !important;*/
 }
 /* CHANGE ME FOR COLOR TEST!!!! */
@@ -447,32 +449,36 @@ h4 {
 ******/
 
 ::-moz-placeholder { /* Firefox 19+ */
-color: #3DCBF3 !important; /*DARK BLUE*/
+  color: #3DCBF3 !important; /*DARK BLUE*/
   color: #97B4FF !important; /*DARK BLUE*/
-  opacity: 1;
+  color: #232325 !important; /*DARK BLUE*/
+  opacity: .6;
   font-weight: 300;
-  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
 }
 :-ms-input-placeholder { /* IE 10+ */
-color: #3DCBF3 !important; /*DARK BLUE*/
+  color: #3DCBF3 !important; /*DARK BLUE*/
   color: #97B4FF !important; /*DARK BLUE*/
-  opacity: 1;
+  color: #232325 !important; /*DARK BLUE*/
+  opacity: .6;
   font-weight: 300;
-  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
 }
 :-moz-placeholder { /* Firefox 18- */
-color: #3DCBF3 !important; /*DARK BLUE*/
+  color: #3DCBF3 !important; /*DARK BLUE*/
   color: #97B4FF !important; /*DARK BLUE*/
-  opacity: 1;
+  color: #232325 !important; /*DARK BLUE*/
+  opacity: .6;
   font-weight: 300;
-  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
 }
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #3DCBF3 !important; /*DARK BLUE*/
   color: #97B4FF !important; /*DARK BLUE*/
-  opacity: 1;
+  color: #232325 !important; /*DARK BLUE*/
+  opacity: .6;
   font-weight: 300;
-  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
 }
 
 

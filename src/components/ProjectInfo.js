@@ -4,7 +4,7 @@ import ProfilePic from './ProfilePic'
 
 const ProjectInfo = props => {
   return (
-    <div>
+    <div className="project-info">
       <h1>{props.project ? props.project.name : props.orgName}</h1>
 
       <div>

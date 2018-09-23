@@ -35,7 +35,7 @@ class OrgHeader extends React.Component {
     }
 
     return (
-      <div className="org-header flx flx-row w-100">
+      <div className="org-header flx flx-row w-100 flx-align-center">
           <Link onClick={this.onToggleSidebarClick} className="icon-wrapper flx flx-center-all mrgn-left-sm">
             <i className="material-icons color--black md-18 opa-100">menu</i>
           </Link>
