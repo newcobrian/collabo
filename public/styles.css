@@ -1253,7 +1253,8 @@ li.nav-divider {
 }
 .comment-bg {
   background: white;
-  padding: 20px;
+  padding: 30px;
+  border-top: 1px solid rgba(0,0,0,.1);
 }
 
 .comments-module .comment-input-wrapper .comment-input {
@@ -1294,6 +1295,7 @@ li.nav-divider {
 .comment-row {
     line-height: 24px;
     font-size: 15px;
+    margin-top: 10px;
 }
 
 .no-click {

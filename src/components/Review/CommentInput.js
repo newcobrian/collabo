@@ -76,7 +76,7 @@ class CommentInput extends React.Component {
             </Textarea>*/}
 
             <MentionsInput 
-              className="comment-input font--beta input--overline w-100 pdding-all-sm"
+              className="comment-input co-type-body input--overline w-100 mrgn-right-sm"
               rows="2"
               cols="2"
               wrap="hard"
@@ -97,7 +97,7 @@ class CommentInput extends React.Component {
                 />
             </MentionsInput>
 
-            <button className="flx-item-right mrgn-top-sm comment-send vb vb--xs fill--primary opa-100 color--white" onClick={this.createComment}>
+            <button className="flx-item-right vb vb--sm fill--primary opa-100 color--white" onClick={this.createComment}>
               Reply
               <i className="material-icons color--primary md-18 color--primary DN">send</i>
             </button>

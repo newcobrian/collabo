@@ -133,7 +133,7 @@ const ThreadPreview = props => {
 
           <div className="thread-row-wrapper flx flx-row fill--primary">
             <div className="thread-content-wrapper w-100">
-              <div className="flx flx-row flx-align-start w-100 mrgn-bottom-xs">
+              <div className="flx flx-row flx-align-start w-100 mrgn-bottom-sm">
                 <Link to={'/' + props.orgName + '/user/' + postAuthor.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
                   <ProfilePic src={postAuthor.image} className="user-image user-image-sm center-img" />
                 </Link>
@@ -158,15 +158,13 @@ const ThreadPreview = props => {
                       {thread.title}
                 </Link>
               </div>
-              <div className="mrgn-top-xs co-type-body flx flx-col w-100 flx-align-start">
-                <div className="tip__caption color--black opa-70 ta-left flx flx-col" dangerouslySetInnerHTML={{ __html: thread.body || '' }} />
+              <div className="tip__caption mrgn-top-xs co-type-body flx flx-col w-100 flx-align-start" dangerouslySetInnerHTML={{ __html: thread.body || '' }} />
                 {/*<div className="tip__caption color--gray ta-left flx flx-row" dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(thread.body)) || '' }} />*/}
-                </div>
 
-                <div className="cta-container flx flx-row flx-align-start">
+                <div className="cta-container flx flx-row flx-align-center">
                   <i className="material-icons mrgn-right-sm md-24 color--favorite">favorite</i>
                   <div className="v2-type-body1 weight-500 ta-left">                      
-                    {thread.likesCount || 0} {thread.likesCount === 1 ? ' upvote' : ' upvotes'}
+                    {thread.likesCount || 0} {thread.likesCount === 1 ? '' : ''}
                   </div>
                 </div>
               </div>

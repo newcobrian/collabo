@@ -65,28 +65,21 @@ class Comment extends React.Component {
     return (
       <div className="comment-indent flx flx-col flx-align-center" id={'comment' + comment.id}>
         <div className="comment-bg w-100">
-          <div className="flx flx-row flx-just-start w-100">
-            <Link
-              to={`/user/${comment.username}`}
-              className="mrgn-right-sm">
-              <ProfilePic src={comment.image} className="user-image user-image-sm center-img" />
-            </Link>
-            <div className="comment-data flx flx-col flx-just-start">
+          <div className="flx flx-col flx-just-start w-100">
+            <div className="flx flx-row flx-just-start w-100">
               <Link
                 to={`/user/${comment.username}`}
-                className="comment-author color--primary">
-                {comment.username}
+                className="mrgn-right-sm">
+                <ProfilePic src={comment.image} className="user-image user-image-sm center-img" />
               </Link>
-
-              <div className="comment-row co-type-body font--beta">
-              <span className="opa-70">
-                {processed(comment.body)}
-              </span>
-
-                <div className="flx flx-row flx-just-start flx-align-center">
-                  <div className="date-posted inline-block font--alpha">
-                    <DisplayTimestamp timestamp={comment.lastModified} />
-                  </div>
+              <div className="co-type-body flx flx-col flx-just-start">
+                <Link
+                  to={`/user/${comment.username}`}
+                  className="co-type-bold color--black">
+                  {comment.username}
+                </Link>
+                <div className="thread-timestamp inline-block flx flx-row">
+                  <DisplayTimestamp timestamp={comment.lastModified} />
                   <DeleteButton
                     show={show}
                     commentObject={commentObject}
@@ -97,7 +90,14 @@ class Comment extends React.Component {
                 </div>
               </div>
             </div>
-            <div className="cta-wrapper vb--outline--none flx flx-row flx-item-right flx-align-center v2-type-body2">
+
+            <div className="comment-row co-type-body">
+              <span className="opa-70">
+                {processed(comment.body)}
+              </span>
+            </div>
+
+            <div className="cta-wrapper vb--outline--none flx flx-row flx-align-center">
 
             <LikeReviewButton
               authenticated={authenticated}

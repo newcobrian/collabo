@@ -179,13 +179,13 @@ textarea {
 }
 .co-type-body {
   	font-weight: 400;
-  	font-size: 13px;
-  	letter-spacing: 1.2px;
-  	line-height: 24px;
+  	font-size: 14px;
+  	letter-spacing: 1.1px;
+  	line-height: 20px;
   	white-space: nowrap;
 }
 .co-post-title {
-	font-weight: 400;
+	font-weight: 500;
     font-size: 22px;
     letter-spacing: 1.1px;
     line-height: 20px;
@@ -205,7 +205,7 @@ textarea {
 }
 .co-type-h1 {
 	/*font-family: 'Doppio One', sans-serif;*/
-    font-size: 25px;
+    font-size: 16px;
     font-weight: 500;
 }
 .co-type-logotype {
@@ -223,7 +223,7 @@ textarea {
 }
 p {
 	margin-bottom: 0 !important;
-	white-space: nowrap;
+	white-space: normal
 }
 .co-type-bold {
 	font-weight: bold;
@@ -268,6 +268,7 @@ p {
 	width: 100%;
 	z-index: 1;
 	padding-bottom: 200px;
+	min-width: 200px;
 }
 .threadlist-wrapper > div {
 	width: 100%;
@@ -303,6 +304,10 @@ p {
 }
 .comment-content-wrapper {
 	background: white;
+}
+
+.comment-input__control {
+	min-height: 40px;
 }
 .tp-container.new-thread {
 	padding: 0 30px;
@@ -447,10 +452,11 @@ p {
     height: 17px;
 }
 
+
+
 .tip__caption {
 	height: auto;
-	width: auto;
-	max-width: 600px;
+	width: 100%;
 	overflow: hidden;
   /*  overflow: hidden;
     white-space: nowrap;
@@ -461,8 +467,6 @@ p {
     -webkit-box-orient: vertical;*/
   }
   .tip__caption ol, li, span {
-      font-size: 13px !important;
-      line-height: 20px;
       white-space: normal;
   }
 .caption-shadow {
@@ -472,9 +476,10 @@ p {
 	top: 0; bottom:0;
 	box-shadow: inset rgba(255,255,255,1) 0 -26px 10px;
 }
-.thread-timestamp {
-	font-size: 12px;
-	opacity: .3;
+.tp-wrapper .thread-timestamp {
+	font-size: 11px !important;
+    opacity: .4;
+    font-weight: 400;
 }
 
 .icon-wrapper {

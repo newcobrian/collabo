@@ -396,7 +396,7 @@ body a.nav-module {
   color: #121419;
 }
 .fill--black {
-  background-color: #121419;
+  background-color: black;
 }
 
 .fill--facebook {
@@ -449,7 +449,7 @@ h4 {
 ::-moz-placeholder { /* Firefox 19+ */
   color: #3DCBF3 !important; /*DARK BLUE*/
   color: #97B4FF !important; /*DARK BLUE*/
-  color: white !important; /*DARK BLUE*/
+  color: #ccc !important; /*DARK BLUE*/
   opacity: .6;
   font-weight: 300;
   font-size: 14px;
@@ -457,7 +457,7 @@ h4 {
 :-ms-input-placeholder { /* IE 10+ */
   color: #3DCBF3 !important; /*DARK BLUE*/
   color: #97B4FF !important; /*DARK BLUE*/
-  color: white !important; /*DARK BLUE*/
+  color: #ccc !important; /*DARK BLUE*/
   opacity: .6;
   font-weight: 300;
   font-size: 14px;
@@ -465,7 +465,7 @@ h4 {
 :-moz-placeholder { /* Firefox 18- */
   color: #3DCBF3 !important; /*DARK BLUE*/
   color: #97B4FF !important; /*DARK BLUE*/
-  color: white !important; /*DARK BLUE*/
+  color: #ccc !important; /*DARK BLUE*/
   opacity: .6;
   font-weight: 300;
   font-size: 14px;
@@ -473,7 +473,7 @@ h4 {
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #3DCBF3 !important; /*DARK BLUE*/
   color: #97B4FF !important; /*DARK BLUE*/
-  color: white !important; /*DARK BLUE*/
+  color: #ccc !important; /*DARK BLUE*/
   opacity: .6;
   font-weight: 300;
   font-size: 14px;

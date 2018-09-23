@@ -29,7 +29,7 @@ const ProjectHeader = props => {
 
           <Link to={'/' + props.orgName + '/' + props.projectId + '/addthread'}
             activeClassName="active"
-            className="flx flx-align-center">
+            className="flx flx-align-center pdding-left-sm">
               <div className="icon-wrapper brdr--primary flx flx-center-all">
                 <i className="material-icons color--create md-24 opa-100">add</i>
               </div>
@@ -52,7 +52,7 @@ const ProjectHeader = props => {
 
             <Link to={'/' + props.orgName + '/' + props.projectId + '/addthread'}
               activeClassName="active"
-              className="flx flx-align-center">
+              className="flx flx-align-center pdding-left-sm">
                 <div className="feed-gem circle gem-create DN"></div>
                 <div className="icon-wrapper brdr--primary flx flx-center-all">
                   <i className="material-icons color--create md-24 opa-100">add</i>
