@@ -135,7 +135,7 @@ class Thread extends React.Component {
     }
 
     const updateThreadFieldEvent = (field, value, thread) =>
-      this.props.updateThreadField(this.props.authenticated, this.props.params.tid, thread, this.props.params.orgname, field, value)
+      this.props.updateThreadField(this.props.authenticated, this.props.params.tid, thread, this.props.params.orgname, field, value, this.props.userInfo)
 
     this.saveBody = thread => ev => {
       ev.preventDefault()

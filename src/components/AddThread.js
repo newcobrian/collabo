@@ -17,6 +17,7 @@ const mql = window.matchMedia(`(min-width: 800px)`);
 const mapStateToProps = state => ({
   ...state.addThread,
   authenticated: state.common.authenticated,
+  userInfo: state.common.userInfo,
   currentUser: state.common.currentUser,
   sidebarOpen: state.common.sidebarOpen
 });
@@ -53,7 +54,7 @@ class AddThread extends React.Component {
 	     //  	let bodyDelta = Helpers.convertEditorStateToStorable(this.props.body)
 		   	let thread = Object.assign({}, {title: this.props.title}, { body: this.props.body } )
 		    this.props.setInProgress();
-		    this.props.onAddThread(this.props.authenticated, this.props.projectId, thread, this.props.params.orgname);
+		    this.props.onAddThread(this.props.authenticated, this.props.projectId, thread, this.props.params.orgname, this.props.userInfo);
 		  }
     	}
 

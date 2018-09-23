@@ -76,7 +76,7 @@ export function onAddProject(auth, project, orgName, userInfo) {
   }
 }
 
-export function onAddThread(auth, projectId, thread, orgName) {
+export function onAddThread(auth, projectId, thread, orgName, userInfo) {
   return dispatch => {
     if (!auth) {
       dispatch({
@@ -100,7 +100,8 @@ export function onAddThread(auth, projectId, thread, orgName) {
             orgId: projectSnapshot.val().orgId,
             userId: auth,
             projectId: projectId,
-            lastUpdate: Constants.NEW_THREAD_TYPE
+            lastUpdate: Constants.NEW_THREAD_TYPE,
+            lastUpdater: pick(userInfo, ['username', 'userId', 'firstName', 'lastName', 'image'])
           }
           let updates = {};
           Object.assign(threadObject, thread)
@@ -485,7 +486,7 @@ export function changeEditorState(editorState) {
   }
 }
 
-export function updateThreadField(auth, threadId, thread, orgName, field, value) {
+export function updateThreadField(auth, threadId, thread, orgName, field, value, userInfo) {
   return dispatch => {
     if (thread && threadId && thread.userId && thread.orgId) {
       let updates = {}
@@ -505,6 +506,7 @@ export function updateThreadField(auth, threadId, thread, orgName, field, value)
       // if body was updated, make this the lastUpdate
       if (field === 'body') {
         Object.assign(updates, getThreadFieldUpdates(threadId, thread, 'lastUpdate', Constants.EDIT_THREAD_TYPE));
+        Object.assign(updates, getThreadFieldUpdates(threadId, thread, 'lastUpdater', pick(userInfo, ['username', 'userId', 'firstName', 'lastName', 'image'])));
       }
 
       Firebase.database().ref().update(updates);
@@ -642,7 +644,7 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
       Object.assign(updates, getThreadFieldUpdates(threadId, thread, 'lastUpdate', Constants.COMMENT_TYPE));
 
       // update lastUpdater as the commenter
-      Object.assign(updates, getThreadFieldUpdates(threadId, thread, 'lastUpdater', userInfo));
+      Object.assign(updates, getThreadFieldUpdates(threadId, thread, 'lastUpdater', pick(userInfo, ['username', 'userId', 'firstName', 'lastName', 'image'])));
 
       // update the last comment
       // Object.assign(updates, getThreadFieldUpdates(threadId, thread, 'lastComment', Object.assign({}, comment, { commentId: commentId })))
