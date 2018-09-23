@@ -40,15 +40,16 @@ export default (state = initialState, action) => {
       newState.comments = newState.comments || [];
       newState.comments = newState.comments.slice();
       if (!find(newState.comments, ['id', action.commentId])) {
-        let commentObject = Object.assign({}, {id: action.commentId}, omit(action.comment, ['nestedComments']))
+        let commentObject = Object.assign({}, {id: action.commentId}, action.comment)
+        // let commentObject = Object.assign({}, {id: action.commentId}, omit(action.comment, ['nestedComments']))
 
-        if (action.comment.nestedComments) {
-          let nestedArray = []
-          Object.keys(action.comment.nestedComments || {}).map(function(nestedId) {
-            nestedArray = nestedArray.concat(Object.assign({}, {id: nestedId}, action.comment.nestedComments[nestedId]))
-          })
-          commentObject.nestedComments = [].concat(nestedArray)
-        }
+        // if (action.comment.nestedComments) {
+        //   let nestedArray = []
+        //   Object.keys(action.comment.nestedComments || {}).map(function(nestedId) {
+        //     nestedArray = nestedArray.concat(Object.assign({}, {id: nestedId}, action.comment.nestedComments[nestedId]))
+        //   })
+        //   commentObject.nestedComments = [].concat(nestedArray)
+        // }
         newState.comments = newState.comments.concat(commentObject)
 
         // newState.commentsData[action.objectId].sort(Helpers.lastModifiedAsc);
@@ -63,15 +64,16 @@ export default (state = initialState, action) => {
       newState.comments = newState.comments.slice();
       for (let i = 0; i < newState.comments.length; i++) {
         if (newState.comments[i].id === action.commentId) {
-          let commentObject = Object.assign({}, {id: action.commentId}, omit(action.comment, ['nestedComments']))
+          let commentObject = Object.assign({}, {id: action.commentId}, action.comment)
+          // let commentObject = Object.assign({}, {id: action.commentId}, omit(action.comment, ['nestedComments']))
 
-          if (action.comment.nestedComments) {
-            let nestedArray = []
-            Object.keys(action.comment.nestedComments || {}).map(function(nestedId) {
-              nestedArray = nestedArray.concat(Object.assign({}, {id: nestedId}, action.comment.nestedComments[nestedId]))
-            })
-            commentObject.nestedComments = [].concat(nestedArray)
-          }
+          // if (action.comment.nestedComments) {
+          //   let nestedArray = []
+          //   Object.keys(action.comment.nestedComments || {}).map(function(nestedId) {
+          //     nestedArray = nestedArray.concat(Object.assign({}, {id: nestedId}, action.comment.nestedComments[nestedId]))
+          //   })
+          //   commentObject.nestedComments = [].concat(nestedArray)
+          // }
           newState.comments[i] = commentObject
           return newState;    
         }
