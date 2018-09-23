@@ -20,13 +20,6 @@ var Scroll = require('react-scroll');
 var Element = Scroll.Element;
 var linkify = require('linkify-it')();
 
-const mapStateToProps = state => ({
-  ...state.project,
-  currentUser: state.common.currentUser,
-  authenticated: state.common.authenticated,
-  userInfo: state.common.userInfo
-});
-
 const UpdateSection = props => {
   if (!props.thread) return null
   else if (props.thread.lastUpdate === Constants.NEW_THREAD_TYPE) {
@@ -133,7 +126,7 @@ const ThreadPreview = props => {
   // let canModify = props.authenticated === tip.userId ? true : false;
 
   return (
-    <Link to={`/${props.orgName}/${props.projectId}/${thread.threadId}`} className={"thread-preview-wrapper flx flx-col flx-col"}>
+    <div className={"thread-preview-wrapper flx flx-col flx-col"}>
         
         <div className="thread-preview-container flx flx-row flx-align-start">           
           <div className="flx flx-row flx-align-center">
@@ -179,6 +172,21 @@ const ThreadPreview = props => {
                       </div>
                     </div>
 
+                    <div className="co-thread-reply-wrapper DN">
+                      <CommentContainer
+                        authenticated={props.authenticated}
+                        userInfo={props.userInfo}
+                        comments={thread.comments || {}}
+                        errors={props.commentErrors}
+                        commentObject={thread}
+                        threadId={thread.threadId}
+                        thread={thread}
+                        project={props.project}
+                        orgName={props.orgName}
+                        usersList={props.usersList}
+                        type={Constants.THREAD_TYPE}
+                        deleteComment={props.deleteComment} />
+                    </div>
 
               </div>
         </div>
@@ -188,7 +196,7 @@ const ThreadPreview = props => {
    
 
 
-    </Link>
+    </div>
   );
 }
 

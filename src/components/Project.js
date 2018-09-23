@@ -70,6 +70,7 @@ const ProjectHeader = props => {
 const mapStateToProps = state => ({
   ...state.project,
   authenticated: state.common.authenticated,
+  userInfo: state.common.userInfo,
   organization: state.common.organization,
   invalidOrgUser: state.common.invalidOrgUser,
   sidebarOpen: state.common.sidebarOpen
@@ -242,12 +243,16 @@ class Project extends React.Component {
                             useWindow={false} >
 
                           <ThreadList
-                            threads={this.props.threads} 
                             authenticated={this.props.authenticated}
+                            userInfo={this.props.userInfo}
+                            threads={this.props.threads} 
                             orgName={this.props.params.orgname}
                             emptyThreadFeed={this.props.emptyThreadFeed}
                             projectNotFoundError={this.props.projectNotFoundError}
                             projectNames={this.props.projectNames}
+                            project={this.props.project}
+                            usersList={this.props.usersList}
+                            deleteComment={this.props.onDeleteThreadComment}
                             className={"w-100 h-100"} />
 
 

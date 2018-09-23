@@ -54,27 +54,25 @@ export default (state = initialState, action) => {
       }
       return state;
     }
-    // case ActionTypes.THREAD_CHANGED_ACTION: {
-    //   if (action.source === Constants.PROJECT_PAGE) {
-    //     const newState = Object.assign({}, state);
-    //     newState.threads = newState.threads || [];
-    //     newState.threads = newState.threads.slice();
-    //     let createdBy = { createdBy: Object.assign({}, action.user) };
-    //     // let comments = { comments: newState.commentsData[action.threadId] ? [].concat(newState.commentsData[action.threadId]) : [] };
-    //     // let isLiked = { isLiked: newState.likesData[action.threadId] ? true : false };
+    case ActionTypes.THREAD_CHANGED_ACTION: {
+      if (action.source === Constants.PROJECT_PAGE) {
+        const newState = Object.assign({}, state);
+        newState.threads = newState.threads || [];
+        newState.threads = newState.threads.slice();
+        let createdBy = { createdBy: Object.assign({}, action.user) };
         
-    //     for (let i = 0; i < newState.threads.length; i++) {
-    //       if (newState.threads[i].threadId === action.threadId) {
-    //         newState.threads[i] = Object.assign({}, {threadId: action.threadId}, action.thread, createdBy);
-    //         newState.threads.sort(Helpers.lastModifiedDesc);
-    //         // return newState;
-    //         newState.emptyThreadFeed = false;
-    //       }
-    //     }
-    //     return newState;
-    //   }
-    //   return state;
-    // }
+        for (let i = 0; i < newState.threads.length; i++) {
+          if (newState.threads[i].threadId === action.threadId) {
+            newState.threads[i] = Object.assign({}, {threadId: action.threadId}, action.thread, createdBy);
+            // newState.threads.sort(Helpers.lastModifiedDesc);
+            newState.emptyThreadFeed = false;
+            return newState;
+          }
+        }
+        return state;
+      }
+      return state;
+    }
     case ActionTypes.THREAD_REMOVED_ACTION: {
       if (action.source === Constants.PROJECT_PAGE) {
         const newState = Object.assign({}, state);

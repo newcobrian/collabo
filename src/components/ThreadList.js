@@ -30,7 +30,10 @@ const ThreadList = props => {
       {
         props.threads.map((threadItem, index) => {
           return (
-            <ThreadPreview thread={threadItem}
+            <ThreadPreview 
+              authenticated={props.authenticated}
+              userInfo={props.userInfo}
+              thread={threadItem}
               orgName={props.orgName}
               projectId={threadItem.projectId}
               key={threadItem.threadId} 
@@ -39,6 +42,9 @@ const ThreadList = props => {
               deleteComment={props.deleteComment}
               index={index+1}
               projectNames={props.projectNames}
+              project={props.project}
+              usersList={props.usersList}
+              deleteComment={props.deleteComment}
             />
           );
         })
