@@ -1845,7 +1845,7 @@ export function unlikeReview(authenticated, type, objectId, thread, userInfo, li
       else if (type === Constants.COMMENT_TYPE) {
         // updates[`/${Constants.LIKES_BY_USER_BY_ORG_PATH}/${authenticated}/${likeObject.orgId}/${id}`] = null;
         updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = null;
-        updates[`/${Constants.COMMENTS_BY_THREAD_PATH}/${likeObject.threadId}/${id}/likes/${authenticated}`] = null;
+        updates[`/${Constants.COMMENTS_BY_THREAD_PATH}/${thread.threadId}/${id}/likes/${authenticated}`] = null;
       }
       else if (type === Constants.NESTED_COMMENT_TYPE) {
         // updates[`/${Constants.LIKES_BY_USER_BY_ORG_PATH}/${authenticated}/${likeObject.orgId}/${id}`] = null;

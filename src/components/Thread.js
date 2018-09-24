@@ -388,6 +388,7 @@ class Thread extends React.Component {
                             likesCount={Object.keys(this.props.likes || {}).length}
                             objectId={this.props.params.tid}
                             thread={thread}
+                            likeObject={thread}
                             type={Constants.THREAD_TYPE}
                             orgName={this.props.params.orgname} />
                         </div>
