@@ -1770,10 +1770,14 @@ export function likeReview(authenticated, type, objectId, thread, user, orgName,
         // updates[`/${Constants.LIKES_BY_USER_BY_ORG_PATH}/${authenticated}/${thread.orgId}/${id}`] = type;
         updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = Object.assign({}, pick(user, ['username', 'image']));
         updates[`/${Constants.COMMENTS_BY_THREAD_PATH}/${thread.threadId}/${id}/likes/${authenticated}`] = Object.assign({}, pick(user, ['username', 'image']));
+        updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${thread.projectId}/${thread.threadId}/comments/${id}/likes/${authenticated}`] = Object.assign({}, pick(user, ['username', 'image']));;
+        updates[`/${Constants.THREADS_BY_ORG_PATH}/${thread.orgId}/${thread.threadId}/comments/${id}/likes/${authenticated}`] = Object.assign({}, pick(user, ['username', 'image']));;
       }
       else if (type === Constants.NESTED_COMMENT_TYPE) {
         updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = Object.assign({}, pick(user, ['username', 'image']));
         updates[`/${Constants.COMMENTS_BY_THREAD_PATH}/${thread.threadId}/${likeObject.parentId}/nestedComments/${id}/likes/${authenticated}`] = Object.assign({}, pick(user, ['username', 'image']));
+        updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${thread.projectId}/${thread.threadId}/comments/${likeObject.parentId}/nestedComments/${id}/likes/${authenticated}`] = Object.assign({}, pick(user, ['username', 'image']));;
+        updates[`/${Constants.THREADS_BY_ORG_PATH}/${thread.orgId}/${thread.threadId}/comments/${likeObject.parentId}/nestedComments/${id}/likes/${authenticated}`] = Object.assign({}, pick(user, ['username', 'image']));;
       }
 
       Firebase.database().ref().update(updates).then(response => {
@@ -1846,11 +1850,15 @@ export function unlikeReview(authenticated, type, objectId, thread, userInfo, li
         // updates[`/${Constants.LIKES_BY_USER_BY_ORG_PATH}/${authenticated}/${likeObject.orgId}/${id}`] = null;
         updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = null;
         updates[`/${Constants.COMMENTS_BY_THREAD_PATH}/${thread.threadId}/${id}/likes/${authenticated}`] = null;
+        updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${thread.projectId}/${thread.threadId}/comments/${id}/likes/${authenticated}`] = null;
+        updates[`/${Constants.THREADS_BY_ORG_PATH}/${thread.orgId}/${thread.threadId}/comments/${id}/likes/${authenticated}`] = null;
       }
       else if (type === Constants.NESTED_COMMENT_TYPE) {
         // updates[`/${Constants.LIKES_BY_USER_BY_ORG_PATH}/${authenticated}/${likeObject.orgId}/${id}`] = null;
         updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = null;
         updates[`/${Constants.COMMENTS_BY_THREAD_PATH}/${thread.threadId}/${likeObject.parentId}/nestedComments/${id}/likes/${authenticated}`] = null;
+        updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${thread.projectId}/${thread.threadId}/comments/${likeObject.parentId}/nestedComments/${id}/likes/${authenticated}`] = null;
+        updates[`/${Constants.THREADS_BY_ORG_PATH}/${thread.orgId}/${thread.threadId}/comments/${likeObject.parentId}/nestedComments/${id}/likes/${authenticated}`] = null;
       }
 
       Firebase.database().ref().update(updates).then(response => {
