@@ -1763,8 +1763,8 @@ export function likeReview(authenticated, type, objectId, thread, user, orgName,
       if (type === Constants.THREAD_TYPE) {
         // updates[`/${Constants.LIKES_BY_USER_BY_ORG_PATH}/${authenticated}/${thread.orgId}/${id}`] = type;
         updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = Object.assign({}, pick(user, ['username', 'image']));
-        // updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${thread.projectId}/${id}/likes/${authenticated}`] = true;
-        // updates[`/${Constants.THREADS_BY_ORG_PATH}/${thread.orgId}/${id}/likes/${authenticated}`] = true;
+        updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${thread.projectId}/${id}/likes/${authenticated}`] = Object.assign({}, pick(user, ['username', 'image']));;
+        updates[`/${Constants.THREADS_BY_ORG_PATH}/${thread.orgId}/${id}/likes/${authenticated}`] = Object.assign({}, pick(user, ['username', 'image']));;
       }
       else if (type === Constants.COMMENT_TYPE) {
         // updates[`/${Constants.LIKES_BY_USER_BY_ORG_PATH}/${authenticated}/${thread.orgId}/${id}`] = type;
@@ -1839,8 +1839,8 @@ export function unlikeReview(authenticated, type, objectId, thread, userInfo, li
       if (type === Constants.THREAD_TYPE) {
         updates[`/${Constants.LIKES_BY_USER_BY_ORG_PATH}/${authenticated}/${likeObject.orgId}/${id}`] = null;
         updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = null
-        // updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${likeObject.projectId}/${id}/likes/${authenticated}`] = null;
-        // updates[`/${Constants.THREADS_BY_ORG_PATH}/${likeObject.orgId}/${id}/likes/${authenticated}`] = null;
+        updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${likeObject.projectId}/${id}/likes/${authenticated}`] = null;
+        updates[`/${Constants.THREADS_BY_ORG_PATH}/${likeObject.orgId}/${id}/likes/${authenticated}`] = null;
       }
       else if (type === Constants.COMMENT_TYPE) {
         // updates[`/${Constants.LIKES_BY_USER_BY_ORG_PATH}/${authenticated}/${likeObject.orgId}/${id}`] = null;

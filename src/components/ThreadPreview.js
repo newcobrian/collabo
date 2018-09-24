@@ -15,6 +15,7 @@ import IconButton from 'material-ui/IconButton';
 import MoreHorizIcon from 'material-ui/svg-icons/navigation/more-horiz';
 import ThreadList from './ThreadList';
 import ProjectList from './ProjectList';
+import LikeReviewButton from './LikeReviewButton';
 
 var Scroll = require('react-scroll');
 var Element = Scroll.Element;
@@ -162,10 +163,19 @@ const ThreadPreview = props => {
                 {/*<div className="tip__caption color--gray ta-left flx flx-row" dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(thread.body)) || '' }} />*/}
 
                 <div className="cta-container flx flx-row flx-align-center">
-                  <i className="material-icons mrgn-right-sm md-24 color--favorite">favorite</i>
+                  {/*<i className="material-icons mrgn-right-sm md-24 color--favorite">favorite</i>
                   <div className="v2-type-body1 weight-500 ta-left">                      
                     {thread.likesCount || 0} {thread.likesCount === 1 ? '' : ''}
-                  </div>
+                  </div>*/}
+                  <LikeReviewButton
+                    authenticated={props.authenticated}
+                    isLiked={thread.likes && thread.likes[props.authenticated] ? true : false}
+                    likesCount={Object.keys(thread.likes || {}).length}
+                    objectId={thread.threadId}
+                    thread={thread}
+                    likeObject={thread}
+                    type={Constants.THREAD_TYPE}
+                    orgName={props.orgName} />
                 </div>
               </div>
 

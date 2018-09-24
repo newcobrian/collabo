@@ -1135,7 +1135,7 @@ export function watchThreadFeed(auth, orgName, projectId, endValue, source) {
               .on('child_added', threadSnapshot => {
               if (threadSnapshot.val().userId) {
                 Firebase.database().ref(Constants.USERS_PATH + '/' + threadSnapshot.val().userId).once('value', userSnap => {
-                  let thread = projectId ? Object.assign({}, threadSnapshot.val(), {projectId: projectId}) : threadSnapshot.val()
+                  let thread = projectId ? Object.assign({}, threadSnapshot.val(), {projectId: projectId}) : Object.assign({}, threadSnapshot.val(), {orgId: orgId})
                   dispatch(threadAddedAction(threadSnapshot.key, thread, userSnap.val(), source));  
                   dispatch(updateEndValue(threadSnapshot.val().lastModified ? threadSnapshot.val().lastModified : endValue, source));
                   debounceSetFeedNotLoading(dispatch, source);
@@ -1151,7 +1151,7 @@ export function watchThreadFeed(auth, orgName, projectId, endValue, source) {
               .on('child_added', threadSnapshot => {
               if (threadSnapshot.val().userId) {
                 Firebase.database().ref(Constants.USERS_PATH + '/' + threadSnapshot.val().userId).once('value', userSnap => {
-                  let thread = projectId ? Object.assign({}, threadSnapshot.val(), {projectId: projectId}) : threadSnapshot.val()
+                  let thread = projectId ? Object.assign({}, threadSnapshot.val(), {projectId: projectId}) : Object.assign({}, threadSnapshot.val(), {orgId: orgId})
                   dispatch(threadAddedAction(threadSnapshot.key, thread, userSnap.val(), source));  
                   dispatch(updateEndValue(threadSnapshot.val().lastModified ? threadSnapshot.val().lastModified : endValue, source));
                   debounceSetFeedNotLoading(dispatch, source);
@@ -1167,7 +1167,7 @@ export function watchThreadFeed(auth, orgName, projectId, endValue, source) {
             if (threadSnapshot.val().userId) {
               // watchUser(dispatch, threadSnapshot.val().userId, Constants.PROJECTS_PAGE)
               Firebase.database().ref(Constants.USERS_PATH + '/' + threadSnapshot.val().userId).once('value', userSnap => {
-                let thread = projectId ? Object.assign({}, threadSnapshot.val(), {projectId: projectId}) : threadSnapshot.val()
+                let thread = projectId ? Object.assign({}, threadSnapshot.val(), {projectId: projectId}) : Object.assign({}, threadSnapshot.val(), {orgId: orgId})
                 dispatch(threadChangedAction(threadSnapshot.key, thread, userSnap.val(), source));
               })
             }
