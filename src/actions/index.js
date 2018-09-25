@@ -1864,7 +1864,7 @@ export function unlikeReview(authenticated, type, objectId, thread, userInfo, li
       Firebase.database().ref().update(updates).then(response => {
         if (type === Constants.THREAD_TYPE) {
           // update threads, threads-by-org, threads-by-project
-          Helpers.decrementThreadCount(Constants.LIKES_COUNT, id, likeObject, authenticated)
+          // Helpers.decrementThreadCount(Constants.LIKES_COUNT, id, likeObject, authenticated)
 
           // mixpanel.people.decrement("total likes");
 
