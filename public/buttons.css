@@ -16,6 +16,7 @@ input, select, textarea {
   line-height: inherit;
   border-radius: 2px;
   border: 1px solid rgba(0,0,0,.1);
+  border: 0;
   padding: 4px;
 }
 

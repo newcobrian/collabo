@@ -252,7 +252,7 @@ class FirebaseSearchInput extends Component {
           }}
           hintStyle={{
             color: '#ffffff',
-            fontSize: '12px',
+            fontSize: '14px',
             lineHeight: '20px',
             top: '10px',
             width: '100%',

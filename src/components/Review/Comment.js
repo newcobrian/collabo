@@ -63,8 +63,9 @@ class Comment extends React.Component {
     }]);
 
     return (
-      <div className="comment-indent flx flx-col flx-align-center" id={'comment' + comment.id}>
+      <div className="comment-indent inline-comments flx flx-col flx-align-center" id={'comment' + comment.id}>
         <div className="comment-bg w-100">
+        <div className="comment-inner w-100">
           <div className="flx flx-col flx-just-start w-100">
             <div className="flx flx-row flx-just-start w-100">
               <Link
@@ -137,6 +138,7 @@ class Comment extends React.Component {
               deleteComment={deleteComment}
             />
           }
+      </div>
       </div>
     );
   }

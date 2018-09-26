@@ -8,12 +8,12 @@ import ProfilePic from './ProfilePic';
 const DotJewel = props => {
   if (props.threadCount > 0) {
     return (
-      <div className="sidebar-dot active">
+      <div className="sidebar-dot fill--primary active">
       </div>
     );
   }
   return (
-    <div className="sidebar-dot "></div>
+    <div className="sidebar-dot fill--primary"></div>
   );
 }
 const ThreadCountJewel = props => {
@@ -29,11 +29,11 @@ const ThreadCountJewel = props => {
 const InboxCounter = props => {
   if (props.unreadMessages > 0) {
     return (
-      <div className="sidebar-dot active"></div>
+      <div className="sidebar-dot fill--primary active"></div>
     );
   }
   return (
-    <div className="sidebar-dot"></div>
+    <div className="sidebar-dot fill--primary"></div>
   );
 }
 

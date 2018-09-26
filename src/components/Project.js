@@ -44,7 +44,7 @@ const ProjectHeader = props => {
     <div className={"project-header text-left flx flx-col flx-align-start"}>
         <OrgHeader />
         <div className="project-bar-wrapper w-100 flx flx-row flx-align-center mrgn-top-xs">
-          <div className="project-header-text co-type-h1 mrgn-left-md flx flx-row flx-align-start text-left color--white">
+          <div className="project-header-text co-type-h1 mrgn-left-md flx flx-row flx-align-start text-left color--black">
             All
           </div>
           </div>
@@ -55,9 +55,9 @@ const ProjectHeader = props => {
               className="flx flx-align-center pdding-left-sm">
                 <div className="feed-gem circle gem-create DN"></div>
                 <div className="icon-wrapper brdr--primary flx flx-center-all">
-                  <i className="material-icons color--create md-24 opa-100">add</i>
+                  <i className="material-icons color--primary md-24 opa-100">add</i>
                 </div>
-                <div className="color--white co-type-label">New Thread</div>
+                <div className="color--black co-type-label">New Thread</div>
                
             </Link>
           </div>
@@ -209,12 +209,12 @@ class Project extends React.Component {
               open={this.props.sidebarOpen}
               onSetOpen={mql.matches ? this.props.setSidebarOpen : () => this.props.setSidebar(!this.props.sidebarOpen)}
               styles={{ sidebar: {
-                    borderRight: "1px solid rgba(0,0,0,.1)",
+                    borderRight: "1px solid rgba(255,171,140,.4)",
                     boxShadow: "none",
                     zIndex: "100"
                   },
                   overlay: mql.matches ? {
-                    backgroundColor: "rgba(255,171,140,.05)"
+                    backgroundColor: "rgba(255,255,255)"
                   } : {
                     zIndex: 12,
                     backgroundColor: "rgba(0, 0, 0, 0.5)"
