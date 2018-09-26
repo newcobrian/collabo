@@ -4,10 +4,10 @@ import ProfilePic from './ProfilePic'
 
 const ProjectInfo = props => {
   return (
-    <div className="project-info flx flx-col flx-align-start">
+    <div className="project-info b--primary--10 flx flx-col flx-align-start">
       {/*<h1>{props.project ? props.project.name : props.orgName}</h1>*/}
       <h3 className="mrgn-bottom-sm">List Members</h3>
-      <div className="info-row flx flx-row co-type-sub mrgn-bottom-sm w-100 opa-50">
+      <div className="info-row flx flx-row co-type-sub mrgn-bottom-sm w-100 opa-30">
         <div>
           {(props.projectMembers || []).length + ' Members'}
         </div>
@@ -21,7 +21,7 @@ const ProjectInfo = props => {
           (props.projectMembers || []).map((member, index) => {
             return (
               <div className="flx flx-row flx-align-center mrgn-bottom-sm" key={member.userId}>
-                <ProfilePic src={member.image} className="user-img" /> 
+                <ProfilePic src={member.image} className="user-img center-img" /> 
                 <div className="mrgn-left-sm co-type-label">{member.firstName} {member.lastName}</div>
               </div>
             );

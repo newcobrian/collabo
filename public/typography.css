@@ -15,7 +15,7 @@ body a {
   transition: none;
 }
 .comment-row a {
-  color: #97B4FF;
+  color: #5B93FF;
 }
 body a: hover {
   opacity: .9;
@@ -234,69 +234,9 @@ textarea {
   font-size: 30px;
 }
 
-.color--gray {
-  color: #D5E3E5;
-}
 
-.fill--gray {
-  background-color: #D5E3E5;
-}
-.color--dark-gray {
-  color: #99A8AA;
-}
-.fill--dark-gray {
-  background-color: #99A8AA;
-}
 
-.color--favorite {
-  color: #FF776A;
-}
-.color--favorite_border {
-  color: #121419;
-  opacity: .5;
-}
-.color--fb {
-  color: #3b5998;
-}
-.color--tw {
-  color: #00aced;
-}
-.fill--dark {
-  background-color: #011946;
-}
-.fill--lighter-gray {
-  background-color: #f7f7f7;
-}
 
-/* CHANGE ME FOR COLOR TEST!!!! */
-.brdr--primary {
-  border-color: #3DCBF3 !important;
-  border-color: #97B4FF !important;
-}
-.color--primary {
-  color: #3DCBF3 !important;
-  color: #97B4FF !important;
-  color: #FFAB8C !important;
-  /*color: #1A4C0A !important;*/
-}
-.color--feed-link {
-  color: #97B4FF !important;
-}
-a.color--primary:hover i,
-a.color--primary:focus i,
-a.color--primary:hover,
-a.color--primary:focus {
-  color: #46DFFF !important;
-  color: #97B4FF !important;
-}
-/* CHANGE ME FOR COLOR TEST!!!! */
-.fill--primary {
-  background-color: #3DCBF3 !important;
-  background-color: #97B4FF !important;
-  background-color: #5B93FF !important;
-  background-color: #FFAB8C !important;
-  /*background-color: #1A4C0A !important;*/
-}
 /* CHANGE ME FOR COLOR TEST!!!! */
 .navigation-bar .nav-module.active,
 .navigation-bar .nav-module:hover,

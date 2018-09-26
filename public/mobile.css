@@ -992,28 +992,25 @@ body .back-to-top {
 }
 
 
-.short-width-search {
-  width: 100%;
+
+
+
+
+
+.threadlist-outer {
+  right: 0 !Important;
+}
+.project-info {
+  display: none;
+}
+.project-header {
+  right: 0 !Important;
 }
 
 
 
 
-
-.test00.it-author-controls {
-    right: 30px;
-    padding: 0;
-    margin: 0;
 }
-
-
-.share-prompt {
-  width: 100%;
-}
-
-}
-
-
 
 
 

@@ -80,7 +80,7 @@ class CommentInput extends React.Component {
               rows="2"
               cols="2"
               wrap="hard"
-              placeholder="Reply here..."
+              placeholder="Add comment..."
               value={this.state.body} 
               onChange={this.setBody}
               displayTransform={id => `@${id}`}
@@ -98,7 +98,7 @@ class CommentInput extends React.Component {
             </MentionsInput>
 
             <button className="flx-item-right vb vb--sm fill--primary opa-100 color--white" onClick={this.createComment}>
-              Reply
+              Post
               <i className="material-icons color--primary md-18 color--primary DN">send</i>
             </button>
 

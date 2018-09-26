@@ -20,18 +20,28 @@ const ProjectHeader = props => {
     else return (
       <div className={"project-header text-left flx flx-col flx-align-center w-100"}>
         <OrgHeader />
-        <div className="project-bar-wrapper w-100 flx flx-row flx-align-center mrgn-top-xs">
+        <div className="project-bar-wrapper w-100 flx flx-row flx-align-center mrgn-top-xs fill--white">
           <div className="project-header-text mrgn-left-md co-type-h1 flx flx-col flx-align-start color--black">
             {props.project.name}
           </div>
+
+          <Link to={'/' + props.orgName + '/' + props.projectId + '/addthread'}
+            activeClassName="active"
+            className="flx flx-align-center pdding-left-sm flx-item-right">
+              <div className="color--black co-type-label">New Thread</div>
+              <div className="icon-wrapper flx flx-center-all">
+                <div className="koi-ico-24 koi-ico-24-add-primary"></div>
+              </div>
+          </Link>
+
         </div>
-        <div className="flx flx-row flx-align-start w-100">
+        <div className="flx flx-row flx-align-start w-100 DN">
 
           <Link to={'/' + props.orgName + '/' + props.projectId + '/addthread'}
             activeClassName="active"
             className="flx flx-align-center pdding-left-sm">
-              <div className="icon-wrapper brdr--primary flx flx-center-all">
-                <i className="material-icons color--primary md-24 opa-100">add</i>
+              <div className="icon-wrapper flx flx-center-all">
+                <div className="koi-ico-24 koi-ico-24-add-primary"></div>
               </div>
               <div className="color--black co-type-label">New Thread</div>
           </Link>
@@ -41,11 +51,11 @@ const ProjectHeader = props => {
     )
   }
   else return (
-    <div className={"project-header text-left flx flx-col flx-align-start"}>
+    <div className={"project-header text-left flx flx-col flx-align-center w-100"}>
         <OrgHeader />
-        <div className="project-bar-wrapper w-100 flx flx-row flx-align-center mrgn-top-xs">
-          <div className="project-header-text co-type-h1 mrgn-left-md flx flx-row flx-align-start text-left color--black">
-            All
+        <div className="project-bar-wrapper w-100 flx flx-row flx-align-center mrgn-top-xs fill--white">
+          <div className="project-header-text mrgn-left-md co-type-h1 flx flx-col flx-align-start color--black">
+            All Updates
           </div>
           </div>
           <div className="flx flx-row flx-align-start w-100">
@@ -54,11 +64,10 @@ const ProjectHeader = props => {
               activeClassName="active"
               className="flx flx-align-center pdding-left-sm">
                 <div className="feed-gem circle gem-create DN"></div>
-                <div className="icon-wrapper brdr--primary flx flx-center-all">
-                  <i className="material-icons color--primary md-24 opa-100">add</i>
-                </div>
                 <div className="color--black co-type-label">New Thread</div>
-               
+                <div className="icon-wrapper brdr--primary flx flx-center-all">
+                  <div className="koi-ico-24 koi-ico-24-add-primary"></div>
+                </div>
             </Link>
           </div>
           

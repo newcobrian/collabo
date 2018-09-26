@@ -81,25 +81,18 @@ class Comment extends React.Component {
                 </Link>
                 <div className="thread-timestamp inline-block flx flx-row">
                   <DisplayTimestamp timestamp={comment.lastModified} />
-                  <DeleteButton
-                    show={show}
-                    commentObject={commentObject}
-                    commentId={comment.id}
-                    deleteComment={deleteComment}
-                    threadId={threadId}
-                    parentId={parentId} />
                 </div>
               </div>
             </div>
 
             <div className="comment-row co-type-body">
-              <span className="opa-70">
+              <span className="">
                 {processed(comment.body)}
               </span>
             </div>
 
             <div className="cta-wrapper flx flx-row flx-align-center mrgn-top-sm w-100">
-              <div className="koi-ico koi-ico-bookmark mrgn-right-sm opa-30"></div>
+              <div className="koi-ico koi-ico-bookmark mrgn-right-md opa-20"></div>
 
               <LikeReviewButton
                 authenticated={authenticated}
@@ -110,9 +103,18 @@ class Comment extends React.Component {
                 likeObject={parentId ? Object.assign({}, comment, {parentId: parentId}) : comment}
                 type={parentId ? Constants.NESTED_COMMENT_TYPE : Constants.COMMENT_TYPE}
                 orgName={orgName} />
-              <div className="flx flx-row flx-center-all flx-item-right">
-                <div className="co-type-label weight-500 ta-left">REPLY</div>
-                <div className="koi-ico koi-ico-reply mrgn-left-xs"></div>
+              <div className="flx flx-row flx-center-all mrgn-left-md">
+                <div className="koi-ico koi-ico-reply mrgn-right-xs"></div>
+                <div className="co-type-label ta-left">Reply</div>
+              </div>
+              <div className="thread-timestamp inline-block flx flx-row flx-item-right">
+                <DeleteButton
+                  show={show}
+                  commentObject={commentObject}
+                  commentId={comment.id}
+                  deleteComment={deleteComment}
+                  threadId={threadId}
+                  parentId={parentId} />
               </div>
             </div>
 

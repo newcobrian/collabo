@@ -80,7 +80,7 @@ class ProjectList extends React.Component {
 
         <div className="org-row flx flx-row flx-align-center">
           <Link to='/'  className="co-logo flx-hold">
-            <img className="center-img" src="/img/logo_koi01.png"/>
+            <img className="center-img" src="/img/logo_koi01_orange.png"/>
           </Link>
 
           <Link className="flx flx-row flx-align-center flx-item-right" to={`/${this.props.orgName}/user/${this.props.userInfo.username}`} activeClassName="active">
@@ -102,14 +102,17 @@ class ProjectList extends React.Component {
             })}
 
           </select>
-            <i className="material-icons org-arrow color--black md-18 flx-item-right">expand_more</i>
+          <div className="org-arrow flx flx-center-all">
+            <div className="koi-ico-24 koi-ico-24-down opa-30"></div>
+          </div>
         </div> 
 
         <Link className={"sidebar-row group-row flx flx-row mrgn-top-lg mrgn-bottom-md flx-align-center " + (!this.props.projectId && this.props.source === Constants.PROJECT_PAGE ? 'active' : '')} onClick={this.onAllClick}>
           <div className="sidebar-icon flx flx-center-all">
+            <div className="koi-ico-24 koi-ico-24-allfeed"></div>
           </div>
           <div className="co-type-project-name color--black"> 
-            All Feed
+            All Updates
           </div>
         </Link>
 
@@ -133,8 +136,7 @@ class ProjectList extends React.Component {
 
           <Link to={'/' + orgName + '/createList'} className="sidebar-row group-row flx flx-row flx-align-center">
             <div className="sidebar-icon flx flx-center-all">
-              <i className="material-icons color--black md-18">add
-              </i>
+              <div className="koi-ico-24 koi-ico-24-add"></div>              
             </div>
             <div className="co-type-project-name color--black opa-40"> 
               Add List
@@ -163,10 +165,20 @@ class ProjectList extends React.Component {
 
             
 
+            <Link activeClassName="active" className="sidebar-row flx flx-row flx-align-center">
+                <div className="sidebar-icon flx flx-center-all">
+                  <div className="koi-ico-24 koi-ico-24-bookmark"></div>
+                </div>
+                <div className="co-type-label color--black">Bookmarks</div>
+                <div className="group-badge badge-on color--black flx-item-right">
+                </div>
+            </Link>
+
             <Link to={'/' + this.props.orgName + '/admin'} activeClassName="active" className="sidebar-row flx flx-row flx-align-center">
                 <div className="sidebar-icon flx flx-center-all">
+                  <div className="koi-ico-24 koi-ico-24-allfeed"></div>
                 </div>
-                <div className="co-type-label color--black">Team Settings</div>
+                <div className="co-type-label color--black">Org Settings</div>
                 <div className="group-badge badge-on color--black flx-item-right">
                 </div>
             </Link>
