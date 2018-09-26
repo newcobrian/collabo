@@ -21,7 +21,7 @@ const ProjectHeader = props => {
       <div className={"project-header text-left flx flx-col flx-align-center w-100"}>
         <OrgHeader />
         <div className="project-bar-wrapper w-100 flx flx-row flx-align-center mrgn-top-xs">
-          <div className="project-header-text mrgn-left-md co-type-h1 flx flx-col flx-align-start color--white">
+          <div className="project-header-text mrgn-left-md co-type-h1 flx flx-col flx-align-start color--black">
             {props.project.name}
           </div>
         </div>
@@ -31,9 +31,9 @@ const ProjectHeader = props => {
             activeClassName="active"
             className="flx flx-align-center pdding-left-sm">
               <div className="icon-wrapper brdr--primary flx flx-center-all">
-                <i className="material-icons color--create md-24 opa-100">add</i>
+                <i className="material-icons color--primary md-24 opa-100">add</i>
               </div>
-              <div className="color--white co-type-label">New Thread</div>
+              <div className="color--black co-type-label">New Thread</div>
           </Link>
         </div>
 
@@ -214,7 +214,7 @@ class Project extends React.Component {
                     zIndex: "100"
                   },
                   overlay: mql.matches ? {
-                    backgroundColor: "rgba(0,0,0,1)"
+                    backgroundColor: "rgba(255,171,140,.05)"
                   } : {
                     zIndex: 12,
                     backgroundColor: "rgba(0, 0, 0, 0.5)"

@@ -97,18 +97,24 @@ class Comment extends React.Component {
               </span>
             </div>
 
-            <div className="cta-wrapper vb--outline--none flx flx-row flx-align-center">
+            <div className="cta-wrapper flx flx-row flx-align-center mrgn-top-sm w-100">
+              <div className="koi-ico koi-ico-bookmark mrgn-right-sm opa-30"></div>
 
-            <LikeReviewButton
-              authenticated={authenticated}
-              isLiked={comment.likes && comment.likes[authenticated] ? true : false}
-              likesCount={Object.keys(comment.likes || {}).length}
-              objectId={comment.id}
-              thread={Object.assign({}, thread, {threadId: threadId})}
-              likeObject={parentId ? Object.assign({}, comment, {parentId: parentId}) : comment}
-              type={parentId ? Constants.NESTED_COMMENT_TYPE : Constants.COMMENT_TYPE}
-              orgName={orgName} />
+              <LikeReviewButton
+                authenticated={authenticated}
+                isLiked={comment.likes && comment.likes[authenticated] ? true : false}
+                likesCount={Object.keys(comment.likes || {}).length}
+                objectId={comment.id}
+                thread={Object.assign({}, thread, {threadId: threadId})}
+                likeObject={parentId ? Object.assign({}, comment, {parentId: parentId}) : comment}
+                type={parentId ? Constants.NESTED_COMMENT_TYPE : Constants.COMMENT_TYPE}
+                orgName={orgName} />
+              <div className="flx flx-row flx-center-all flx-item-right">
+                <div className="co-type-label weight-500 ta-left">REPLY</div>
+                <div className="koi-ico koi-ico-reply mrgn-left-xs"></div>
               </div>
+            </div>
+
           </div>
           {
             isOpenNotification &&

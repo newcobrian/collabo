@@ -22,7 +22,7 @@ const ProjectInfo = props => {
             return (
               <div className="flx flx-row flx-align-center mrgn-bottom-sm" key={member.userId}>
                 <ProfilePic src={member.image} className="user-img" /> 
-                <div className="mrgn-left-sm co-type-body">{member.firstName} {member.lastName}</div>
+                <div className="mrgn-left-sm co-type-label">{member.firstName} {member.lastName}</div>
               </div>
             );
           })

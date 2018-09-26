@@ -198,7 +198,7 @@ textarea {
 	line-height: 20px;
 }
 .co-type-label {
-	font-size: 12px;
+	font-size: 11px;
 	font-weight: 400;
 	letter-spacing: 1.2px;
 	line-height: 26px;
@@ -249,7 +249,7 @@ p {
 	position: absolute;
 	left: 0;
 	right: 320px;
-	background-color: black;
+	background-color: transparent;
 }
 @media (max-width: 960px) and (min-width: 214px) {
 	.threadlist-outer {
@@ -276,10 +276,12 @@ p {
 .tp-wrapper {
 	margin: 0 0 30px;
 	width: 100%;
+	background-color: rgba(255,171,140,.2);
 }
 .tp-container {
 	width: 100%;
-	/*border: 1px solid rgba(0,0,0,.1);*/
+	border: 1px solid rgba(0,0,0,.1);
+	border-left: none;
 	background-color: white;
     /*background-image: url(img/pixel-black.png);*/
 /*    background-repeat: repeat-y;
@@ -491,7 +493,8 @@ p {
     padding: 0;
     position: fixed;
     background: rgba(255,255,255,.98);
-    background: black;
+    background: rgba(255,171,140,.05);
+    background: #FEFBF9;
     z-index: 11;
     /*box-shadow: white 0 30px 40px;*/
     top: 0;
@@ -593,3 +596,34 @@ p {
     overflow: hidden;
     background-color: white;
 }
+.koi-ico {
+	width: 32px;
+	height: 32px;
+	background-image: url(img/icon_like.png);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	cursor: pointer;
+}
+.koi-ico-like {
+	background-image: url(img/icon_like.png);
+}
+.koi-ico-like-active {
+	background-image: url(img/icon_like_active.png);
+}
+.koi-ico-bookmark {
+	background-image: url(img/icon_bookmark.png);
+}
+.koi-ico-bookmark-active {
+	background-image: url(img/icon_bookmark_active.png);
+}
+.koi-ico-reply {
+	background-image: url(img/icon_reply.png);
+}
+.koi-ico-reply-active {
+	background-image: url(img/icon_reply_active.png);
+}
+
+
+
+

@@ -276,7 +276,7 @@ textarea {
 .color--primary {
   color: #3DCBF3 !important;
   color: #97B4FF !important;
-  color: #5B93FF !important;
+  color: #FFAB8C !important;
   /*color: #1A4C0A !important;*/
 }
 .color--feed-link {
@@ -294,6 +294,7 @@ a.color--primary:focus {
   background-color: #3DCBF3 !important;
   background-color: #97B4FF !important;
   background-color: #5B93FF !important;
+  background-color: #FFAB8C !important;
   /*background-color: #1A4C0A !important;*/
 }
 /* CHANGE ME FOR COLOR TEST!!!! */

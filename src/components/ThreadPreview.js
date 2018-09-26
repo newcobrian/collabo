@@ -162,11 +162,8 @@ const ThreadPreview = props => {
               <div className="tip__caption mrgn-top-xs co-type-body flx flx-col w-100 flx-align-start" dangerouslySetInnerHTML={{ __html: thread.body || '' }} />
                 {/*<div className="tip__caption color--gray ta-left flx flx-row" dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(thread.body)) || '' }} />*/}
 
-                <div className="cta-container flx flx-row flx-align-center">
-                  {/*<i className="material-icons mrgn-right-sm md-24 color--favorite">favorite</i>
-                  <div className="v2-type-body1 weight-500 ta-left">                      
-                    {thread.likesCount || 0} {thread.likesCount === 1 ? '' : ''}
-                  </div>*/}
+                <div className="cta-container flx flx-row flx-align-start mrgn-top-sm">
+                  <div className="koi-ico koi-ico-bookmark mrgn-right-sm opa-30"></div>
                   <LikeReviewButton
                     authenticated={props.authenticated}
                     isLiked={thread.likes && thread.likes[props.authenticated] ? true : false}

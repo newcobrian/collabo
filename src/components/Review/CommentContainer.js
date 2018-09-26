@@ -28,7 +28,7 @@ const CommentContainer = props => {
 					parentId={props.parentId} />
 
 					
-					<div className="comment-indent fill--black">
+					<div className="comment-indent main-reply">
 						<div className="comment-bg">
 
 						  <ListErrors errors={props.errors}></ListErrors>
