@@ -20,14 +20,18 @@ const ProjectHeader = props => {
     else return (
       <div className={"project-header text-left flx flx-col flx-align-center w-100"}>
         <OrgHeader />
-        <div className="project-bar-wrapper w-100 flx flx-row flx-align-center mrgn-top-xs fill--white">
-          <div className="project-header-text mrgn-left-md co-type-h1 flx flx-col flx-align-start color--black">
-            {props.project.name}
+        <div className="project-bar-wrapper w-100 flx flx-row flx-align-center fill--white">
+          <div className="project-header-row mrgn-left-md co-type-h1 flx flx-row flx-align-center color--black">
+            <div className="flx  flx-row flx-center-all pdding-left-xs mrgn-right-sm">
+              <div className="sidebar-dot fill--black active">
+              </div>
+            </div>
+            <div className="project-header-text">{props.project.name}</div>
           </div>
 
           <Link to={'/' + props.orgName + '/' + props.projectId + '/addthread'}
             activeClassName="active"
-            className="flx flx-align-center pdding-left-sm flx-item-right">
+            className="flx flx-align-center pdding-left-sm flx-item-right mrgn-right-md">
               <div className="color--black co-type-label">New Thread</div>
               <div className="icon-wrapper flx flx-center-all">
                 <div className="koi-ico-24 koi-ico-24-add-primary"></div>
@@ -35,17 +39,7 @@ const ProjectHeader = props => {
           </Link>
 
         </div>
-        <div className="flx flx-row flx-align-start w-100 DN">
 
-          <Link to={'/' + props.orgName + '/' + props.projectId + '/addthread'}
-            activeClassName="active"
-            className="flx flx-align-center pdding-left-sm">
-              <div className="icon-wrapper flx flx-center-all">
-                <div className="koi-ico-24 koi-ico-24-add-primary"></div>
-              </div>
-              <div className="color--black co-type-label">New Thread</div>
-          </Link>
-        </div>
 
       </div>
     )
@@ -53,9 +47,13 @@ const ProjectHeader = props => {
   else return (
     <div className={"project-header text-left flx flx-col flx-align-center w-100"}>
         <OrgHeader />
-        <div className="project-bar-wrapper w-100 flx flx-row flx-align-center mrgn-top-xs fill--white">
-          <div className="project-header-text mrgn-left-md co-type-h1 flx flx-col flx-align-start color--black">
-            All Updates
+        <div className="project-bar-wrapper w-100 flx flx-row flx-align-center fill--white">
+          <div className="project-header-row mrgn-left-md co-type-h1 flx flx-row flx-align-center color--black">
+            <div className="flx flx-row flx-center-all pdding-left-xs mrgn-right-sm">
+              <div className="sidebar-dot fill--black active">
+              </div>
+            </div>
+            <div className="project-header-text">All Updates</div>
           </div>
           </div>
           <div className="flx flx-row flx-align-start w-100">

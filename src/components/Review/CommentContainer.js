@@ -29,7 +29,7 @@ const CommentContainer = props => {
 
 					
 					<div className="comment-indent main-reply">
-						<div className="comment-bg">
+						<div className="comment-input-container">
 
 						  <ListErrors errors={props.errors}></ListErrors>
 						  <CommentInput 

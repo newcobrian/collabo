@@ -7,7 +7,9 @@
 .threadlist-wrapper .threadlist {
     padding: 0 12px;
 }
-
+.content-wrapper {
+  width: 100%;
+}
 
 
 /******

@@ -25,21 +25,21 @@ const UpdateSection = props => {
   if (!props.thread) return null
   else if (props.thread.lastUpdate === Constants.NEW_THREAD_TYPE) {
     return (
-      <div className="flx-hold mrgn-right-xs opa-40">
+      <div className="flx-hold mrgn-right-xs opa-50 color--black">
         created a new thread.
       </div>
     )
   }
   else if (props.thread.lastUpdate === Constants.EDIT_THREAD_TYPE) {
     return (
-      <div className="flx-hold mrgn-right-xs opa-40">
+      <div className="flx-hold mrgn-right-xs opa-50 color--black">
         edited the post. 
       </div>
     )
   }
   else if (props.thread.lastUpdate === Constants.COMMENT_TYPE) {
     return (
-      <div className="flx-hold mrgn-right-xs opa-40">
+      <div className="flx-hold mrgn-right-xs opa-50 color--black">
         added a comment
       </div>
     )
@@ -88,7 +88,7 @@ const ProjectLabel = props => {
     return null
   }
   else return (
-    <div className="flx-item-right co-project-name"><Link to={'/' + props.orgName + '/' + props.projectId}>{props.projectNames[props.projectId]}</Link></div> 
+    <div className="co-project-name mrgn-left-xs"><Link to={'/' + props.orgName + '/' + props.projectId}>{/**{props.projectNames[props.projectId]}**/} in Design</Link></div> 
   )
 }
 
@@ -134,7 +134,7 @@ const ThreadPreview = props => {
 
           <div className="thread-row-wrapper flx flx-row fill--primary">
             <div className="thread-content-wrapper w-100">
-              <div className="flx flx-row flx-align-start w-100 mrgn-bottom-md brdr-bottom">
+              <div className="flx flx-row flx-align-start w-100 mrgn-bottom-md brdr-bottom pdding-bottom-sm">
                 <Link to={'/' + props.orgName + '/user/' + postAuthor.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
                   <ProfilePic src={postAuthor.image} className="user-image user-image-sm center-img" />
                 </Link>
@@ -144,12 +144,11 @@ const ThreadPreview = props => {
                     <div className="co-type-bold">{postAuthor.username || ''}</div> 
                     &nbsp;<UpdateSection thread={thread} />
                   </div>
-                  <div className="thread-timestamp color--black opa-40">
+                  <div className="thread-timestamp color--black">
                     <DisplayTimestamp timestamp={thread.lastModified} />
                   </div>
                 </div>
 
-                <ProjectLabel className="DN" projectNames={props.projectNames} projectId={thread.projectId} orgName={props.orgName} />
 
               </div>
 
@@ -159,14 +158,16 @@ const ThreadPreview = props => {
                       {thread.title}
                 </Link>
               </div>
-              <div className="color--black co-type-sub flx flx-row mrgn-bottom-md opa-30">
-                Created by Jimmy
+              <div className="color--black co-type-body flx flx-row flx-align-center mrgn-bottom-md opa-50">
+                <div>Created by {postAuthor.username}</div>
+                <ProjectLabel className="" projectNames={props.projectNames} projectId={thread.projectId} orgName={props.orgName} />
+
               </div>
-              <div className="tip__caption mrgn-top-xs co-type-body flx flx-col w-100 flx-align-start" dangerouslySetInnerHTML={{ __html: thread.body || '' }} />
+              <div className="tip__caption mrgn-top-xs co-type-thread-body flx flx-col w-100 flx-align-start" dangerouslySetInnerHTML={{ __html: thread.body || '' }} />
                 {/*<div className="tip__caption color--gray ta-left flx flx-row" dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(thread.body)) || '' }} />*/}
 
-                <div className="cta-container flx flx-row flx-align-start mrgn-top-sm mrgn-bottom-md">
-                  <div className="koi-ico koi-ico-bookmark mrgn-right-md opa-30"></div>
+                <div className="cta-container flx flx-row flx-align-start mrgn-top-sm">
+                  <div className="koi-ico koi-ico-bookmark mrgn-right-md"></div>
                   <LikeReviewButton
                     authenticated={props.authenticated}
                     isLiked={thread.likes && thread.likes[props.authenticated] ? true : false}

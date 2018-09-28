@@ -309,7 +309,7 @@ class Profile extends React.Component {
                     </div>
                   </div>
 
-                  <div className="threadlist header-push ta-left flx flx-col">
+                  <div className="threadlist header-push ta-left flx flx-col w-100">
                     <ProfileInfo
                       authenticated={this.props.authenticated}
                       profile={profile}
@@ -321,6 +321,7 @@ class Profile extends React.Component {
 
                     <InfiniteScroll
                           pageStart={0}
+                          className="w-100"
                           loadMore={this.scrolledToBottom}
                           hasMore={true}
                           loader={<div className="loader" key={0}>Loading ...</div>} >

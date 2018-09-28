@@ -4,6 +4,8 @@ import { Link, browserHistory } from 'react-router';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
 import ProfilePic from './ProfilePic';
+import FirebaseSearchInput from './FirebaseSearchInput';
+
 
 const DotJewel = props => {
   if (props.threadCount > 0) {
@@ -19,7 +21,7 @@ const DotJewel = props => {
 const ThreadCountJewel = props => {
   if (props.threadCount > 0) {
     return (
-      <div className="group-badge badge-on color--black flx-item-right"> {props.threadCount}</div>
+      <div className="group-badge badge-on color--black flx-item-right thread-timestamp"> {props.threadCount}</div>
     );
   }
   return (
@@ -78,9 +80,9 @@ class ProjectList extends React.Component {
       <div className="co-sidebar flx-col flx-item-left h-100">
 
 
-        <div className="org-row flx flx-row flx-align-center">
+        <div className="org-row flx flx-row flx-align-center DN">
           <Link to='/'  className="co-logo flx-hold">
-            <img className="center-img" src="/img/logo_koi01_orange.png"/>
+            <img className="center-img" src="/img/logo_koi01.png"/>
           </Link>
 
           <Link className="flx flx-row flx-align-center flx-item-right" to={`/${this.props.orgName}/user/${this.props.userInfo.username}`} activeClassName="active">
@@ -103,9 +105,21 @@ class ProjectList extends React.Component {
 
           </select>
           <div className="org-arrow flx flx-center-all">
+            <div className="sidebar-icon flx flx-center-all">
+              <div className=""></div>
+            </div>
             <div className="koi-ico-24 koi-ico-24-down opa-30"></div>
           </div>
         </div> 
+
+        <div className="sidebar-row group-row flx flx-row mrgn-top-lg flx-align-center">
+          <FirebaseSearchInput 
+            type={Constants.POSTS_SEARCH}
+            callback={this.searchInputCallback}
+            orgName={this.props.orgName}
+            className={""}
+            placeholder="Type to search..." />
+        </div>
 
         <Link className={"sidebar-row group-row flx flx-row mrgn-top-lg mrgn-bottom-md flx-align-center " + (!this.props.projectId && this.props.source === Constants.PROJECT_PAGE ? 'active' : '')} onClick={this.onAllClick}>
           <div className="sidebar-icon flx flx-center-all">
@@ -125,7 +139,7 @@ class ProjectList extends React.Component {
                       {<DotJewel threadCount={threadCounts[projectItem.id]} />}
                     </div> 
                     <div className="co-type-project-name color--black">
-                    {projectItem.name}
+                      {projectItem.name}
                     </div>
                     {<ThreadCountJewel threadCount={threadCounts[projectItem.id]} />}
                   </Link>
@@ -160,7 +174,7 @@ class ProjectList extends React.Component {
                   <InboxCounter unreadMessages={this.props.unreadMessages} />
                 </div>
                 <div className="co-type-label color--black">Activity</div>
-                <div className="group-badge badge-on color--black flx-item-right">{this.props.unreadMessages}</div>
+                <div className="group-badge badge-on color--black flx-item-right thread-timestamp">{this.props.unreadMessages}</div>
             </Link>
 
             
@@ -181,6 +195,13 @@ class ProjectList extends React.Component {
                 <div className="co-type-label color--black">Org Settings</div>
                 <div className="group-badge badge-on color--black flx-item-right">
                 </div>
+            </Link>
+
+            <Link className="sidebar-row flx flx-row flx-align-center" to={`/${this.props.orgName}/user/${this.props.userInfo.username}`} activeClassName="active">
+              <div className="sidebar-icon flx flx-center-all">
+                <ProfilePic className="center-img" src={this.props.userInfo.image}/>
+              </div>
+              <div className="co-type-label color--black">{this.props.userInfo.username}</div>
             </Link>
           </div>
 

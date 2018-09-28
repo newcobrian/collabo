@@ -131,75 +131,74 @@ class AddProject extends React.Component {
 						    <div ref="GMap"></div>**/}
 							<div className="project-header text-left flx flx-col flx-align-start w-100">
 						    	<OrgHeader />
-						    	{/* HEADER START */}
-						    	<div className="co-type-h1 mrgn-top-sm mrgn-left-md">Create a New List</div>
+						    	<div className="project-bar-wrapper w-100 flx flx-row flx-align-center mrgn-top-xs fill--white DN">
+							    	<div className="project-header-text mrgn-left-md co-type-h1 flx flx-row flx-align-center color--black">Create a New List</div>
+						    	</div>
 						    </div>
 
 						    {/* CONTAINER - START */}
-					        <div className="content-wrapper flx flx-col ta-center">
-			        			
+					        <div className="content-wrapper flx flx-col ta-left header-push">
+			        			<div className="co-post-title mrgn-bottom-md">
+			        				Create a New List
+			        			</div>
+						       	<div className="co-type-body color--black mrgn-bottom-md">
+						       	Use lists to organize your team communications and files (ie. "Design", "Marketing", etc)
+						       	<br/>
+						       	Access lists quickly in the left sidebar.</div>
 
 
-					            <div className="content-wrapper header-push ta-left flx flx-col">
+					            <form>
+					            	<fieldset className="field-wrapper">
+					            		<label>Public
+				                      <input
+				                      	className="mrgn-left-xs"
+				                        type="checkbox"
+				                        checked={this.props.isPublic}
+				                        onChange={this.togglePublic} />
+				                        </label>
+				                    </fieldset>
+									<fieldset className="field-wrapper">
+										<label>List name</label>
+				                      <input
+				                        className="input--underline edit-itinerary__name brdr-all"
+				                        type="text"
+				                        placeholder="e.g. Marketing"
+				                        required
+				                        value={this.props.name}
+				                        maxLength="42"
+				                        onChange={this.changeName} />
+				                    </fieldset>
+									<fieldset className="field-wrapper DN">
+									<div className="field-label">List Description</div>
+				                      <textarea
+				                        className="input--underline v2-type-body3"
+				                        type="text"
+				                        rows="3"
+				                        maxLength="184"
+				                        placeholder="Add a description..."
+				                        required
+				                        value={this.props.description}
+				                        onChange={this.changeDescription} />
+				                    </fieldset>
 
-        					       	<div className="co-type-body opa-40 color--black mrgn-bottom-md">
-        					       	Use lists to organize your team communications and files (ie. "Design", "Marketing", etc)
-        					       	<br/>
-        					       	Access lists quickly in the left sidebar.</div>
+				                    <ListErrors errors={this.props.errors}></ListErrors>
+				                    
+				                    <div
+				                    className="vb mrgn-top-md color--white fill--primary"
+				                    type="button"
+				                    disabled={this.props.inProgress}
+				                    onClick={this.submitForm}>
+				                    	<div className="flx flx-row flx-center-all ta-center">
+					                    	<div className="flx-grow1 mrgn-left-md color--white">Create List</div>
+										</div>
+				                  </div>
+						        </form>
+						        
 
-
-						            <form>
-						            	<fieldset className="field-wrapper">
-						            		<label>Public
-					                      <input
-					                      	className="mrgn-left-xs"
-					                        type="checkbox"
-					                        checked={this.props.isPublic}
-					                        onChange={this.togglePublic} />
-					                        </label>
-					                    </fieldset>
-										<fieldset className="field-wrapper">
-											<label>List name</label>
-					                      <input
-					                        className="input--underline edit-itinerary__name v2-type-body3"
-					                        type="text"
-					                        placeholder="e.g. Marketing"
-					                        required
-					                        value={this.props.name}
-					                        maxLength="42"
-					                        onChange={this.changeName} />
-					                    </fieldset>
-										<fieldset className="field-wrapper DN">
-										<div className="field-label">List Description</div>
-					                      <textarea
-					                        className="input--underline v2-type-body3"
-					                        type="text"
-					                        rows="3"
-					                        maxLength="184"
-					                        placeholder="Add a description..."
-					                        required
-					                        value={this.props.description}
-					                        onChange={this.changeDescription} />
-					                    </fieldset>
-
-					                    <ListErrors errors={this.props.errors}></ListErrors>
-					                    
-					                    <div
-					                    className="vb vb--create w-100 mrgn-top-md color--white fill--light-green"
-					                    type="button"
-					                    disabled={this.props.inProgress}
-					                    onClick={this.submitForm}>
-					                    	<div className="flx flx-row flx-center-all ta-center">
-						                    	<div className="flx-grow1 mrgn-left-md color--green">Create List</div>
-											</div>
-					                  </div>
-							        </form>
-							        
-							    </div>
-	    				        <Link onClick={this.onGoBackClick} activeClassName="active" className="nav-module create nav-editor flx flx-center-all opa-50 w-100">
+	    				        <Link onClick={this.onGoBackClick} activeClassName="active" className="DN nav-module create nav-editor flx flx-center-all opa-50 w-100">
 	    	                      	<div className="nav-text flx flx-row flx-align-center opa-60 mrgn-bottom-md">
 	    	                          <i className="material-icons color--black md-18 opa-100 mrgn-right-xs DN">arrow_back_ios</i>
-	    	                          <div className="co-type-body mrgn-left-xs">Cancel</div>
+	    	                          <div className="co-type-body vb fill--white color--black">Cancel</div>
 	    	                        </div>
 	                        	</Link>	
 						    </div>

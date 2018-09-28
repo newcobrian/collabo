@@ -92,7 +92,7 @@ class Comment extends React.Component {
             </div>
 
             <div className="cta-wrapper flx flx-row flx-align-center mrgn-top-sm w-100">
-              <div className="koi-ico koi-ico-bookmark mrgn-right-md opa-20"></div>
+              <div className="koi-ico koi-ico-bookmark mrgn-right-md"></div>
 
               <LikeReviewButton
                 authenticated={authenticated}
