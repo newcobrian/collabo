@@ -158,7 +158,7 @@ const ThreadPreview = props => {
                       {thread.title}
                 </Link>
               </div>
-              <div className="color--black co-type-body flx flx-row flx-align-center mrgn-bottom-md opa-50">
+              <div className="color--black thread-timestamp flx flx-row flx-align-center mrgn-bottom-md opa-50">
                 <div>Created by {postAuthor.username}</div>
                 <ProjectLabel className="" projectNames={props.projectNames} projectId={thread.projectId} orgName={props.orgName} />
 

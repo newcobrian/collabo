@@ -49,27 +49,26 @@ const ProjectHeader = props => {
         <OrgHeader />
         <div className="project-bar-wrapper w-100 flx flx-row flx-align-center fill--white">
           <div className="project-header-row mrgn-left-md co-type-h1 flx flx-row flx-align-center color--black">
-            <div className="flx flx-row flx-center-all pdding-left-xs mrgn-right-sm">
+            <div className="flx  flx-row flx-center-all pdding-left-xs mrgn-right-sm">
               <div className="sidebar-dot fill--black active">
               </div>
             </div>
             <div className="project-header-text">All Updates</div>
           </div>
-          </div>
-          <div className="flx flx-row flx-align-start w-100">
 
             <Link to={'/' + props.orgName + '/' + props.projectId + '/addthread'}
               activeClassName="active"
-              className="flx flx-align-center pdding-left-sm">
-                <div className="feed-gem circle gem-create DN"></div>
-                <div className="color--black co-type-label">New Thread</div>
-                <div className="icon-wrapper brdr--primary flx flx-center-all">
-                  <div className="koi-ico-24 koi-ico-24-add-primary"></div>
-                </div>
+              className="flx flx-align-center pdding-left-sm flx-item-right mrgn-right-md">
+              <div className="color--black co-type-label">New Thread</div>
+              <div className="icon-wrapper flx flx-center-all">
+                <div className="koi-ico-24 koi-ico-24-add-primary"></div>
+              </div>
             </Link>
+            
           </div>
           
         </div>
+
 
   )
 }

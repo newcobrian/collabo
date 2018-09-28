@@ -229,7 +229,11 @@ class FirebaseSearchInput extends Component {
           textFieldStyle={{
             height: '40px',
             fontWeight: '400',
-            lineHeight: '14px'
+            lineHeight: '14px',
+            fontSize: '14px',
+            letterSpacing: '1.2px',
+            fontFamily: 'Montserrat',
+            paddingLeft: '4px'
           }}
           menuItemStyle={{
             borderBottom: '1px solid #ccc !important',

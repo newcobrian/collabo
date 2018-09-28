@@ -105,20 +105,20 @@ class ProjectList extends React.Component {
 
           </select>
           <div className="org-arrow flx flx-center-all">
-            <div className="sidebar-icon flx flx-center-all">
-              <div className=""></div>
-            </div>
             <div className="koi-ico-24 koi-ico-24-down opa-30"></div>
           </div>
         </div> 
 
         <div className="sidebar-row group-row flx flx-row mrgn-top-lg flx-align-center">
+          <div className="sidebar-icon flx flx-center-all">
+            <div className="koi-ico-24 koi-ico-24-allfeed"></div>
+          </div>
           <FirebaseSearchInput 
             type={Constants.POSTS_SEARCH}
             callback={this.searchInputCallback}
             orgName={this.props.orgName}
             className={""}
-            placeholder="Type to search..." />
+            placeholder="Search" />
         </div>
 
         <Link className={"sidebar-row group-row flx flx-row mrgn-top-lg mrgn-bottom-md flx-align-center " + (!this.props.projectId && this.props.source === Constants.PROJECT_PAGE ? 'active' : '')} onClick={this.onAllClick}>

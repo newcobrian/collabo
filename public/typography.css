@@ -330,6 +330,18 @@ body a.nav-module {
 }
 
 
+.co-sidebar ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #3DCBF3 !important; /*DARK BLUE*/
+  color: #97B4FF !important; /*DARK BLUE*/
+  color: #000 !important; /*DARK BLUE*/
+  opacity: .4;
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 1.2px;
+  font-family: 'Montserrat';
+}
+
+
 
 
 .font--beta ::-webkit-input-placeholder,
