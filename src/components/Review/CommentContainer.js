@@ -32,7 +32,8 @@ const CommentContainer = props => {
 						<div className="comment-input-container">
 
 						  <ListErrors errors={props.errors}></ListErrors>
-						  <CommentInput 
+						  {!props.hideCommentInput && 
+						  	<CommentInput 
 						  	commentObject={props.commentObject} 
 						  	threadId={props.threadId}
 						  	authenticated={props.authenticated} 
@@ -42,6 +43,7 @@ const CommentContainer = props => {
 						  	type={props.type}
 						  	usersList={props.usersList}
 						  	parentId={props.parentId} />
+						  }
 						</div>
 					</div>
 				</div>

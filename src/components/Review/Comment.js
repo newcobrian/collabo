@@ -17,7 +17,8 @@ class Comment extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      isOpenNotification: true
+      isOpenNotification: true,
+      hideCommentInput: true
     };
   }
 
@@ -27,8 +28,14 @@ class Comment extends React.Component {
     });
   }
 
+  toggleHideCommentInput = () => {
+    this.setState({
+      hideCommentInput: !this.state.hideCommentInput
+    })
+  }
+
   render () {
-    const { isOpenNotification } = this.state;
+    const { isOpenNotification, hideCommentInput } = this.state;
     const { comment, authenticated, userInfo, orgName, project, commentObject, 
       deleteComment, threadId, type, likes, thread, usersList, parentId } = this.props;
     const show = authenticated && authenticated === comment.userId;
@@ -103,10 +110,10 @@ class Comment extends React.Component {
                 likeObject={parentId ? Object.assign({}, comment, {parentId: parentId}) : comment}
                 type={parentId ? Constants.NESTED_COMMENT_TYPE : Constants.COMMENT_TYPE}
                 orgName={orgName} />
-              <div className="flx flx-row flx-center-all mrgn-left-md">
+              {!parentId && <Link className="flx flx-row flx-center-all mrgn-left-md" onClick={this.toggleHideCommentInput}>
                 <div className="koi-ico koi-ico-reply mrgn-right-xs"></div>
                 <div className="co-type-label ta-left">Reply</div>
-              </div>
+              </Link>}
               <div className="thread-timestamp inline-block flx flx-row flx-item-right">
                 <DeleteButton
                   show={show}
@@ -138,6 +145,7 @@ class Comment extends React.Component {
               type={Constants.COMMENT_TYPE}
               parentId={comment.id}
               deleteComment={deleteComment}
+              hideCommentInput={hideCommentInput}
             />
           }
       </div>
