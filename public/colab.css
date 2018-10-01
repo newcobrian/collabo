@@ -321,7 +321,7 @@ p {
   padding: 24px;
 }
 .inline-comments .comment-indent {
-  display: none;
+  /*display: none;*/
 }
 
 
