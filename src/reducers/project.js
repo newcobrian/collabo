@@ -184,6 +184,7 @@ export default (state = initialState, action) => {
         newState.projectMembers = newState.projectMembers || [];
         newState.projectMembers = newState.projectMembers.slice();
         newState.projectMembers = newState.projectMembers.concat(Object.assign({}, { userId: action.userId }, action.userData));
+        newState.projectMembers.sort(Helpers.byUsername);
         return newState;
       }
       return state;
@@ -196,6 +197,7 @@ export default (state = initialState, action) => {
         for (let i = 0; i < newState.projectMembers.length; i++) {
           if (newState.projectMembers[i].userId === action.userId) {
             newState.projectMembers[i] = Object.assign({}, {userId: action.userId}, action.userData)
+            newState.projectMembers.sort(Helpers.byUsername);
             return newState;
           }
         }
