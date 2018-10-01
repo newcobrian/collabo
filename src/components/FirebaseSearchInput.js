@@ -121,6 +121,7 @@ class FirebaseSearchInput extends Component {
                 algoliaSearchObject.value = result.objectID;
                 algoliaSearchObject.body = result.body;
                 algoliaSearchObject.projectName = result.projectName;
+                algoliaSearchObject.projectId = result.projectId;
                 algoliaSearchObject.username = result.author ? result.author.username : '';
                 retrievedSearchTerms.push(algoliaSearchObject);
               }

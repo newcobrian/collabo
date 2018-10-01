@@ -61,6 +61,12 @@ class ProjectList extends React.Component {
       ev.preventDefault()
       this.props.onAllProjectsClick(this.props.orgName)
     }
+
+    this.searchInputCallback = result => {
+      if (result.value && result.projectId) {
+        browserHistory.push('/' + this.props.orgName + '/' + result.projectId + '/' + result.value);
+      }
+    }
   }
 
   render() {
@@ -116,7 +122,7 @@ class ProjectList extends React.Component {
           <FirebaseSearchInput 
             type={Constants.POSTS_SEARCH}
             callback={this.searchInputCallback}
-            orgName={this.props.orgName}
+            orgName={orgName}
             className={""}
             placeholder="Search" />
         </div>
