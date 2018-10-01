@@ -35,8 +35,8 @@ class Register extends React.Component {
     this.changeEmail = updateFieldEvent('email');
     this.changePassword = updateFieldEvent('password');
     this.changeUsername = updateFieldEvent('username');
-    this.changeFirstName = updateFieldEvent('firstName');
-    this.changeLastName = updateFieldEvent('lastName');
+    this.changeFullName = updateFieldEvent('fullName');
+    // this.changeLastName = updateFieldEvent('lastName');
     // this.changeEmail = ev => this.props.onChangeEmail(ev.target.value);
     // this.changePassword = ev => this.props.onChangePassword(ev.target.value);
     // this.changeUsername = ev => this.props.onChangeUsername(ev.target.value);
@@ -44,10 +44,10 @@ class Register extends React.Component {
     // this.changePassword = ev => onChangePassword(ev.target.value);
     // this.changeUsername = ev => onChangeUsername(ev.target.value);
     // this.submitForm = (username, email, password) => ev => {
-    this.submitForm = (username, email, password, firstName, lastName) => ev => {
+    this.submitForm = (username, email, password, fullName) => ev => {
       ev.preventDefault();
       // this.props.onSubmit(username, email, password);
-      this.props.signUpUser(username.toLowerCase(), email.toLowerCase(), password, firstName, lastName, this.props.authRedirect);
+      this.props.signUpUser(username.toLowerCase(), email.toLowerCase(), password, fullName, this.props.authRedirect);
     }
   }
   
@@ -64,7 +64,7 @@ class Register extends React.Component {
   }
 
   render() {
-    const { email, password, username, firstName, lastName } = this.props;
+    const { email, password, username, fullName } = this.props;
     return (
       <div className="page-common auth-page">
         <div className="container page">
@@ -83,7 +83,7 @@ class Register extends React.Component {
 
               <ListErrors errors={this.props.errors} />
 
-              <form onSubmit={this.submitForm(username, email, password, firstName, lastName)}>
+              <form onSubmit={this.submitForm(username, email, password, fullName)}>
                 <fieldset>
 
                   <fieldset className="form-group">
@@ -107,19 +107,10 @@ class Register extends React.Component {
                   <fieldset className="form-group">
                     <input
                       className="form-control form-control-lg"
-                      type="firstName"
-                      placeholder="First Name"
-                      value={this.props.firstName}
-                      onChange={this.changeFirstName} />
-                  </fieldset>
-
-                  <fieldset className="form-group">
-                    <input
-                      className="form-control form-control-lg"
-                      type="lastName"
-                      placeholder="Last Name"
-                      value={this.props.lastName}
-                      onChange={this.changeLastName} />
+                      type="fullName"
+                      placeholder="Full Name"
+                      value={this.props.fullName}
+                      onChange={this.changeFullName} />
                   </fieldset>
 
                   <fieldset className="form-group">

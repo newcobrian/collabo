@@ -15,7 +15,7 @@ class SettingsForm extends React.Component {
     this.state = {
       image: '',
       username: '',
-      bio: '',
+      fullName: '',
       email: '',
       password: ''
     };
@@ -37,7 +37,7 @@ class SettingsForm extends React.Component {
       const userAuth = {};
       if(this.state.image) user.image = this.state.image;
       if(this.state.username) user.username = (this.state.username).toLowerCase();
-      if(this.state.bio) user.bio = this.state.bio;
+      if(this.state.fullName) user.fullName = this.state.fullName;
       if(this.state.email) user.email = this.state.email;
       if(this.state.password) user.password = this.state.password;
 
@@ -58,7 +58,7 @@ class SettingsForm extends React.Component {
       Object.assign(this.state, {
         image: this.props.currentUser.image || '',
         username: this.props.currentUser.username,
-        bio: this.props.currentUser.bio,
+        fullName: this.props.currentUser.fullName,
         email: this.props.currentUser.email
       });
     }
@@ -73,7 +73,7 @@ class SettingsForm extends React.Component {
       this.setState(Object.assign({}, this.state, {
         image: nextProps.currentUser.image || '',
         username: nextProps.currentUser.username,
-        bio: nextProps.currentUser.bio,
+        fullName: nextProps.currentUser.fullName,
         email: nextProps.currentUser.email
       }));
     }
@@ -114,15 +114,14 @@ class SettingsForm extends React.Component {
               onChange={this.updateState('username')} />
           </fieldset>
 
-          <fieldset className="form-group DN">
-            <textarea
+          <fieldset className="form-group">
+            <input
               className="form-control form-control-lg"
-              rows="8"
-              maxLength="66"
-              placeholder="Update your bio"
-              value={this.state.bio}
-              onChange={this.updateState('bio')}>
-            </textarea>
+              placeholder="Full name"
+              required
+              value={this.state.fullName}
+              onChange={this.updateState('fullName')}>
+            </input>
           </fieldset>
 
           <fieldset className="form-group pdding-all-md">

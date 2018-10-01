@@ -54,7 +54,7 @@ function validateEmail(email) {
     return re.test(String(email).toLowerCase());
 }
 
-export function signUpUser(username, email, password, firstName, lastName, redirect) {
+export function signUpUser(username, email, password, fullName, redirect) {
   return dispatch => {
     if (!username || username.length < 3) {
       dispatch({
@@ -80,16 +80,10 @@ export function signUpUser(username, email, password, firstName, lastName, redir
         error: {message: 'Username cannot contain spaces'}
       })
     }
-    if (!firstName) {
+    if (!fullName) {
       dispatch({
         type: ActionTypes.AUTH_ERROR,
-        error: {message: 'Please enter a first name'}
-      })
-    }
-    if (!lastName) {
-      dispatch({
-        type: ActionTypes.AUTH_ERROR,
-        error: {message: 'Please enter a last name'}
+        error: {message: 'Please enter your full name'}
       })
     }
     else {
@@ -109,7 +103,7 @@ export function signUpUser(username, email, password, firstName, lastName, redir
             let cleanedEmail = Helpers.cleanEmailToFirebase(email)
             Firebase.database().ref(Constants.INVITES_BY_EMAIL_BY_ORG_PATH + '/' + cleanedEmail).once('value', inviteSnap => {
               // need to save users profile info
-              updates[Constants.USERS_PATH + '/' + userId] = { username: username, email: email, firstName: firstName, lastName: lastName }
+              updates[Constants.USERS_PATH + '/' + userId] = { username: username, email: email, fullName: fullName }
 
               // save userId lookup from username
               updates[Constants.USERNAMES_TO_USERIDS_PATH + '/' + username] = {userId: userId }
@@ -262,7 +256,7 @@ export function makeUser(newUser, currentUser) {
     let userObject = {};
     userObject.email = (newUser.email && newUser.email !== currentUser.email ? newUser.email : currentUser.email);
     userObject.username = (newUser.username && newUser.username !== currentUser.username ? newUser.username : currentUser.username);
-    if (newUser.bio && newUser.bio !== currentUser.io) userObject.bio = newUser.bio;
+    userObject.fullName = newUser.fullName ? newUser.fullName : currentUser.fullName
     if (newUser.image) {
       userObject.image = newUser.image;
     }
