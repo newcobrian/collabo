@@ -1322,41 +1322,55 @@ export function loadOrgUsers(auth, orgName, source) {
   return dispatch => {
     Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', nameSnap => {
       if (nameSnap.exists()) {
-        Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).on('child_added', addedSnap => {
+        Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).on('value', usersSnap => {
+          let usersList = []
+          usersSnap.forEach(function(user) {
+            usersList = usersList.concat(Object.assign({}, { userId: user.key }, user.val()))
+          })
           dispatch({
-            type: ActionTypes.USERNAME_ADDED_ACTION,
-            userId: addedSnap.key,
-            orgName: orgName,
-            source: source,
-            userData: addedSnap.val()
+            type: ActionTypes.CHANGE_ORG_SETTINGS_TAB,
+            tab: 'members',
+            usersList: usersList
           })
         })
+        // Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).on('child_added', addedSnap => {
+        //   dispatch({
+        //     type: ActionTypes.USERNAME_ADDED_ACTION,
+        //     userId: addedSnap.key,
+        //     orgName: orgName,
+        //     source: source,
+        //     userData: addedSnap.val()
+        //   })
+        // })
 
-        Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).on('child_changed', changedSnap => {
-          dispatch({
-            type: ActionTypes.USERNAME_CHANGED_ACTION,
-            userId: changedSnap.key,
-            orgName: orgName,
-            source: source,
-            userData: changedSnap.val()
-          })
-        })
+        // Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).on('child_changed', changedSnap => {
+        //   dispatch({
+        //     type: ActionTypes.USERNAME_CHANGED_ACTION,
+        //     userId: changedSnap.key,
+        //     orgName: orgName,
+        //     source: source,
+        //     userData: changedSnap.val()
+        //   })
+        // })
 
-        Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).on('child_removed', removedSnap => {
-          dispatch({
-            type: ActionTypes.USERNAME_REMOVED_ACTION,
-            userId: removedSnap.key,
-            orgName: orgName,
-            source: source
-          })
-        })
+        // Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).on('child_removed', removedSnap => {
+        //   dispatch({
+        //     type: ActionTypes.USERNAME_REMOVED_ACTION,
+        //     userId: removedSnap.key,
+        //     orgName: orgName,
+        //     source: source
+        //   })
+        // })
       }
     })
   }
 }
 
-export function unloadOrgUsers(source) {
+export function unloadOrgUsers(source, orgName) {
   return dispatch => {
+    Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgName.toLowerCase()).off()
+    Firebase.database().ref(Constants.INVITES_BY_ORG_PATH + '/' + orgName.toLowerCase()).off()
+    
     dispatch({
       type: ActionTypes.UNLOAD_ORG_USERS,
       source
@@ -1612,6 +1626,63 @@ export function unloadProjectMembers(projectId, orgName, source) {
 
     dispatch({
       type: ActionTypes.UNLOAD_PROJECT_MEMBERS
+    })
+  }
+}
+
+export function changeOrgSettingsTab(tab, orgName) {
+  return dispatch => {
+    if (tab === 'members') {
+      Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', nameSnap => {
+        if (nameSnap.exists()) {
+          // stop watching previous path
+          Firebase.database().ref(Constants.INVITES_BY_ORG_PATH + '/' + nameSnap.val().orgId).off()
+
+          // then watch the members in this org
+          Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).on('value', usersSnap => {
+            let usersList = []
+            usersSnap.forEach(function(user) {
+              usersList = usersList.concat(Object.assign({}, { userId: user.key }, user.val()))
+            })
+            dispatch({
+              type: ActionTypes.CHANGE_ORG_SETTINGS_TAB,
+              tab: 'members',
+              usersList: usersList
+            })
+          })
+        }
+      })
+    }
+    // else get the invited users
+    else {
+      Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', nameSnap => {
+        if (nameSnap.exists()) {
+          // stop watching members list
+          Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).off()
+
+          // then watch the members in this org
+          Firebase.database().ref(Constants.INVITES_BY_ORG_PATH + '/' + nameSnap.val().orgId).on('value', usersSnap => {
+            let usersList = []
+            usersSnap.forEach(function(user) {
+              usersList = usersList.concat(Object.assign({}, { userId: user.key }, user.val()))
+            })
+            dispatch({
+              type: ActionTypes.CHANGE_ORG_SETTINGS_TAB,
+              tab: 'pending',
+              usersList: usersList
+            })
+          })
+        }
+      })
+    }
+
+
+    // watch new path
+    
+
+    dispatch({
+      type: ActionTypes.CHANGE_ORG_SETTINGS_TAB,
+      tab: tab
     })
   }
 }

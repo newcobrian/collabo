@@ -10,158 +10,39 @@ import ProfilePic from './ProfilePic';
 
 const mql = window.matchMedia(`(min-width: 800px)`);
 
-class OrgSettingsForm extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      image: '',
-      username: '',
-      bio: '',
-      email: '',
-      password: ''
-    };
-
-    this.updateState = field => ev => {
-      const state = this.state;
-      const newState = Object.assign({}, state, { [field]: ev.target.value });
-      this.setState(newState);
-    };
-
-    this.changeFile = ev => {
-      this.setState( {['imageFile']: ev.target.files[0] });
-    }
-
-    this.submitForm = ev => {
-      ev.preventDefault();
-
-      const user = {};
-      const userAuth = {};
-      if(this.state.image) user.image = this.state.image;
-      if(this.state.username) user.username = (this.state.username).toLowerCase();
-      if(this.state.bio) user.bio = this.state.bio;
-      if(this.state.email) user.email = this.state.email;
-      if(this.state.password) user.password = this.state.password;
-
-      this.props.onSubmitForm(this.props.authenticated, user, this.props.currentUser, this.state.imageFile);
-    };
-
-    this.changeEmailClick = ev => {
-      ev.preventDefault();
-      this.props.showChangeEmailModal();
-    }
+const MembersTab = props => {
+  const clickHandler = ev => {
+    ev.preventDefault();
+    props.onTabClick('members');
   }
 
-  componentDidMount() {
-    if (!this.props.authenticated) {
-      Actions.askForAuth();
-    }
-    if (this.props.currentUser) {
-      Object.assign(this.state, {
-        image: this.props.currentUser.image || '',
-        username: this.props.currentUser.username,
-        bio: this.props.currentUser.bio,
-        email: this.props.currentUser.email
-      });
-    }
-  }
+  return (
+    <li className="nav-item">
+      <a  href=""
+          className={ props.tab === 'members' ? 'nav-link active' : 'nav-link' }
+          onClick={clickHandler}>
+        Team Members
+      </a>
+    </li>
+  );
+};
 
-  // componentWillUnmount() {
-  //   this.props.onUnload();
-  // }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.currentUser) {
-      this.setState(Object.assign({}, this.state, {
-        image: nextProps.currentUser.image || '',
-        username: nextProps.currentUser.username,
-        bio: nextProps.currentUser.bio,
-        email: nextProps.currentUser.email
-      }));
-    }
-  }
-
-  render() {
-    return (
-      <form onSubmit={this.submitForm}>
-        <fieldset>
-          <div className="profile-image flx flx-center-all"><ProfilePic src={this.state.image ? this.state.image : ''} className="center-img" /></div>
-          <fieldset className="form-group">
-            <div className="upload-wrapper">
-                <div className="upload-overlay">Upload Image</div>
-                <div className="fileUpload">
-                  <input
-                  className="form-control upload-image-button"
-                  type="file"
-                  accept="image/jpeg,image/png,application/pdf"
-                  onChange={this.changeFile} />
-
-                  </div>
-            </div> 
-         {/***}   <input
-              className="form-control"
-              type="text"
-              placeholder="URL of profile picture"
-              value={this.state.image}
-              onChange={this.updateState('image')} /> ***/}
-          </fieldset>
-
-          <fieldset className="form-group">
-            <input
-              className="form-control form-control-lg"
-              type="text"
-              placeholder="Username"
-              required
-              value={this.state.username}
-              onChange={this.updateState('username')} />
-          </fieldset>
-
-          <fieldset className="form-group">
-            <textarea
-              className="form-control form-control-lg"
-              rows="8"
-              maxLength="66"
-              placeholder="Update your status"
-              value={this.state.bio}
-              onChange={this.updateState('bio')}>
-            </textarea>
-          </fieldset>
-
-          <fieldset className="form-group pdding-all-md">
-            {/*<input
-              className="form-control form-control-lg"
-              type="email"
-              placeholder="Email"
-              required
-              value={this.state.email}
-              onChange={this.updateState('email')} />*/}
-              <div className="">{this.state.email}</div>
-              <a className="color--primary v2-type-body1" onClick={this.changeEmailClick}>Change email address</a>
-
-          </fieldset>
-
-         {/*} <fieldset className="form-group">
-            <input
-              className="form-control form-control-lg"
-              type="password"
-              placeholder="New Password"
-              minLength="6"
-              value={this.state.password}
-              onChange={this.updateState('password')} />
-          </fieldset> */}
-
-          <button
-            className="vb fill--primary color--white ta-center mrgn-bottom-sm w-100"
-            type="submit"
-            disabled={this.state.inProgress}>
-            Save Changes
-          </button>
-
-        </fieldset>
-      </form>
-    );
-  }
-}
+const PendingTab = props => {
+  const clickHandler = ev => {
+    ev.preventDefault();
+    props.onTabClick('pending');
+  };
+  return (
+    <li className="nav-item">
+      <a
+        href=""
+        className={ props.tab === 'pending' ? 'nav-link active' : 'nav-link' }
+        onClick={clickHandler}>
+        Pending Invites
+      </a>
+    </li>
+  );
+};
 
 const mapStateToProps = state => ({
   ...state.projectList,
@@ -178,6 +59,11 @@ class OrgSettings extends React.Component {
     this.mediaQueryChanged = () => {
       this.props.setSidebar(mql.matches);
     }
+
+    this.onTabClick = (tab) => {
+      // console.log('tab = ' + tab)
+      this.props.changeOrgSettingsTab(tab, this.props.params.orgname)
+    }
   }
 
   componentDidMount() {
@@ -188,7 +74,8 @@ class OrgSettings extends React.Component {
     this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, null, Constants.ORG_SETTINGS_PAGE)
     this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
     this.props.loadOrgList(this.props.authenticated, Constants.ORG_SETTINGS_PAGE)
-    this.props.loadOrgUsers(this.props.authenticated, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
+    // this.props.loadOrgUsers(this.props.authenticated, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
+    this.props.changeOrgSettingsTab('members', this.props.params.orgname)
     // this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'settings'});
   }
 
@@ -196,7 +83,7 @@ class OrgSettings extends React.Component {
     this.props.unloadOrgList(this.props.authenticated, Constants.ORG_SETTINGS_PAGE)
     this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
     this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
-    this.props.unloadOrg(Constants.ORG_SETTINGS_PAGE);
+    this.props.unloadOrg(Constants.ORG_SETTINGS_PAGE, this.props.params.orgname);
     this.props.unloadOrgUsers(Constants.ORG_SETTINGS_PAGE);
   }
 
@@ -205,12 +92,13 @@ class OrgSettings extends React.Component {
       this.props.unloadOrgList(this.props.authenticated, Constants.ORG_SETTINGS_PAGE)
       this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
       this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
-      this.props.unloadOrgUsers(Constants.ORG_SETTINGS_PAGE);
+      this.props.unloadOrgUsers(Constants.ORG_SETTINGS_PAGE, this.props.params.orgname);
 
       this.props.loadOrg(this.props.authenticated, nextProps.params.orgname, Constants.ORG_SETTINGS_PAGE);
       this.props.loadProjectList(this.props.authenticated, nextProps.params.orgname, null, Constants.ORG_SETTINGS_PAGE)
       this.props.loadThreadCounts(this.props.authenticated, nextProps.params.ORG_SETTINGS_PAGE)
-      this.props.loadOrgUsers(this.props.authenticated, nextProps.params.orgname, Constants.ORG_SETTINGS_PAGE)
+      // this.props.loadOrgUsers(this.props.authenticated, nextProps.params.orgname, Constants.ORG_SETTINGS_PAGE)
+      this.props.changeOrgSettingsTab(this.props.tab, nextProps.params.orgname)
     }
   }
 
@@ -247,7 +135,13 @@ class OrgSettings extends React.Component {
                       
                     </div>
                     <div>
-                     <div>Team Members</div>
+                      <ul className="nav nav-pills outline-active">
+                        <MembersTab tab={this.props.tab} onTabClick={this.onTabClick} />
+
+                        <PendingTab tab={this.props.tab} onTabClick={this.onTabClick} />
+                      </ul>
+
+
                       {(usersList || []).map((userItem, index) => {
                         return (
                           <div className="flx flx-row flx-align-center mrgn-bottom-sm" key={userItem.userId}>
