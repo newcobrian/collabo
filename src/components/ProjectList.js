@@ -189,7 +189,7 @@ class ProjectList extends React.Component {
                 <div className="sidebar-icon flx flx-center-all">
                   <div className="koi-ico-24 koi-ico-24-bookmark"></div>
                 </div>
-                <div className="co-type-label color--black">Bookmarks</div>
+                <div className="co-type-label color--black">Saved Posts</div>
                 <div className="group-badge badge-on color--black flx-item-right">
                 </div>
             </Link>
@@ -209,6 +209,10 @@ class ProjectList extends React.Component {
               </div>
               <div className="co-type-label color--black">{this.props.userInfo.username}</div>
             </Link>
+
+            <div className="sidebar-row flx flx-row flx-align-center fill--primary mrgn-top-sm">
+              <Link to='/' className="co-type-logo color--white">KOI</Link>
+            </div>
           </div>
 
         </div>

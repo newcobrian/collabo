@@ -64,7 +64,7 @@ textarea {
 	padding: 10px !important;
 }
 .header-push {
-	margin-top: 80px;
+	margin-top: 104px;
 }
 .header-push-mini {
 	margin-top: 56px;
@@ -125,6 +125,7 @@ textarea {
 	border-bottom: 4px solid rgba(35,35,37,1);
 	position: relative;
 	padding: 11px 0 8px;
+	height: 64px;
 }
 .org-arrow {
 	position: absolute;
@@ -167,7 +168,11 @@ textarea {
 .color--create {
 	color: #74F6BF;
 }
-
+.co-type-logo {
+	font-size: 22px;
+	font-weight: 700;
+	letter-spacing: 5px;
+}
 .co-type-h3 {
 	font-weight: 500;
 	line-height: 1.1;
@@ -175,10 +180,9 @@ textarea {
 	letter-spacing: 1.2px;
 }
 .co-type-org {
-	font-size: 18px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
 }
 .co-type-h4 {
 	/*font-family: 'Doppio One', sans-serif;*/
@@ -223,9 +227,9 @@ textarea {
 	line-height: 26px;
 }
 .co-type-h1 {
-	/*font-family: 'Doppio One', sans-serif;*/
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
+    letter-spacing: 1.2px;
 }
 .co-type-logotype {
 	font-size: 44px;
@@ -256,7 +260,7 @@ p {
 
 
 .threadlist {
-	padding: 0 20px;
+	padding: 0 40px;
 	z-index: 1;
 }
 .open-style .threadlist-wrapper {
@@ -380,7 +384,6 @@ p {
     width: 100%;
     background:  white;
     bottom: 0;
-    padding-bottom: 20px;
 }
 
 .sidebar-icon {
@@ -549,13 +552,13 @@ p {
     z-index: 11;
     /*box-shadow: white 0 30px 40px;*/
     top: 0;
-    right: 310px;
+    right: 0;
     left: 0;
     width: auto;
     padding-left: 10px;
 }
 .open-style .project-header {
-	left: 320px;
+	left: 300px;
 }
 .closed-style .project-header {
 	left: 0;
@@ -574,15 +577,14 @@ p {
 }
 .open-style .page-common,
 .open-style .loading-module {
-	margin-left: 320px;
+	margin-left: 300px;
 }
 .close-style .page-common,
 .close-style .loading-module {
 	margin-left: 0px;
 }
 .project-header-row {
-	letter-spacing: 1.2px;
-	margin-left: 22px;
+	margin-left: 50px;
 }
 .project-header-text {
 	margin-left: 8px;
@@ -596,14 +598,15 @@ p {
 }
 .org-header {
 	z-index: 2000;
-	height: 50px;
+	height: 64px;
 }
 .project-bar-wrapper {
 	position: absolute;
 	left: 0;
 	top: 0px;
+	right: 320px;
 	padding: 0 0 0 30px;
-	height: 51px;
+	height: 64px;
 }
 .co-project-name {
 }
@@ -639,12 +642,12 @@ p {
 }
 
 .project-info {
-	width: 260px;
+	width: 290px;
     height: auto;
     z-index: 1;
     position: fixed;
-    top: 80px;
-    right: 30px;
+    top: 104px;
+    right: 20px;
     padding: 30px;
     overflow: hidden;
     background-color: white;
@@ -776,7 +779,9 @@ p {
 .fill--cta {
 	background-color: #5B93FF;
 }
-
+.brdr-color--primary {
+	border-color: rgba(255,171,140,.2) !important;
+}
 
 
 a.color--primary:hover i,
