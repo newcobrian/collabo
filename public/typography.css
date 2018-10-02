@@ -298,8 +298,9 @@ body a.nav-module {
   color: #000 !important; /*DARK BLUE*/
   opacity: .6;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 12px;
   font-family: 'Montserrat';
+  text-indent: 5px;
 }
 :-ms-input-placeholder { /* IE 10+ */
   color: #3DCBF3 !important; /*DARK BLUE*/
@@ -307,8 +308,9 @@ body a.nav-module {
   color: #000 !important; /*DARK BLUE*/
   opacity: .6;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 12px;
   font-family: 'Montserrat';
+  text-indent: 5px;
 }
 :-moz-placeholder { /* Firefox 18- */
   color: #3DCBF3 !important; /*DARK BLUE*/
@@ -316,8 +318,9 @@ body a.nav-module {
   color: #000 !important; /*DARK BLUE*/
   opacity: .6;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 12px;
   font-family: 'Montserrat';
+  text-indent: 5px;
 }
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #3DCBF3 !important; /*DARK BLUE*/
@@ -325,8 +328,9 @@ body a.nav-module {
   color: #000 !important; /*DARK BLUE*/
   opacity: .6;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 12px;
   font-family: 'Montserrat';
+  text-indent: 5px;
 }
 
 

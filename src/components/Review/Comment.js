@@ -74,21 +74,21 @@ class Comment extends React.Component {
         <div className="comment-bg w-100">
         <div className="comment-inner w-100">
           <div className="flx flx-col flx-just-start w-100">
-            <div className="flx flx-row flx-just-start w-100">
+            <div className="flx flx-row flx-just-start flx-align-center w-100">
               <Link
                 to={`/user/${comment.username}`}
                 className="mrgn-right-sm">
                 <ProfilePic src={comment.image} className="user-image user-image-sm center-img" />
               </Link>
-              <div className="co-type-body flx flx-col flx-just-start">
+              <div className="co-type-body flx flx-col flx-just-start mrgn-left-xs">
                 <Link
                   to={`/user/${comment.username}`}
                   className="co-type-bold color--black">
                   {comment.username}
                 </Link>
-                <div className="thread-timestamp inline-block flx flx-row">
-                  <DisplayTimestamp timestamp={comment.lastModified} />
-                </div>
+              </div>
+              <div className="thread-timestamp inline-block flx flx-row flx-item-right">
+                <DisplayTimestamp timestamp={comment.lastModified} />
               </div>
             </div>
 
@@ -99,7 +99,7 @@ class Comment extends React.Component {
             </div>
 
             <div className="cta-wrapper flx flx-row flx-align-center mrgn-top-sm w-100">
-              <div className="koi-ico koi-ico-bookmark mrgn-right-md"></div>
+              <div className="koi-ico ico--bookmark mrgn-right-md"></div>
 
               <LikeReviewButton
                 authenticated={authenticated}
@@ -111,9 +111,9 @@ class Comment extends React.Component {
                 type={parentId ? Constants.NESTED_COMMENT_TYPE : Constants.COMMENT_TYPE}
                 orgName={orgName} />
               {!parentId && hideCommentInput && (!comment.nestedComments || comment.nestedComments.lenght > 0) &&
-                <Link className="flx flx-row flx-center-all mrgn-left-md" onClick={this.toggleHideCommentInput}>
-                  <div className="koi-ico koi-ico-reply mrgn-right-xs"></div>
-                  <div className="co-type-label ta-left">Reply</div>
+                <Link className="reply-ico-wrapper flx flx-row flx-center-all mrgn-left-md" onClick={this.toggleHideCommentInput}>
+                  <div className="koi-ico ico--reply mrgn-right-xs"></div>
+                  <div className="co-type-label ta-left mobile-hide">Reply</div>
                 </Link>}
               <div className="thread-timestamp inline-block flx flx-row flx-item-right">
                 <DeleteButton

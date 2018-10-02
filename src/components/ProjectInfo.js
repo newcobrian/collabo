@@ -8,7 +8,7 @@ const ProjectInfo = props => {
     <div className="project-info b--primary--10 flx flx-col flx-align-start">
       {/*<h1>{props.project ? props.project.name : props.orgName}</h1>*/}
       <div className="co-type-h3 mrgn-bottom-sm">List Members</div>
-      <div className="info-row flx flx-row co-type-sub mrgn-bottom-sm w-100 opa-30">
+      <div className="info-row flx flx-row thread-timestamp mrgn-bottom-sm w-100">
         <div>
           {(props.projectMembers || []).length + ' Members'}
         </div>

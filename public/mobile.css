@@ -10,6 +10,13 @@
 .content-wrapper {
   width: 100%;
 }
+.comment-indent {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.project-bar-wrapper {
+  right: 0 !important;
+}
 
 
 /******

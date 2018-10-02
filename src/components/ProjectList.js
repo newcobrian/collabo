@@ -10,7 +10,7 @@ import FirebaseSearchInput from './FirebaseSearchInput';
 const DotJewel = props => {
   if (props.threadCount > 0) {
     return (
-      <div className="sidebar-dot fill--primary active">
+      <div className="sidebar-dot fill--secondary active">
       </div>
     );
   }
@@ -111,13 +111,13 @@ class ProjectList extends React.Component {
 
           </select>
           <div className="org-arrow flx flx-center-all">
-            <div className="koi-ico-24 koi-ico-24-down opa-30"></div>
+            <div className="koi-ico --24 ico--down opa-30"></div>
           </div>
         </div> 
 
-        <div className="sidebar-row group-row flx flx-row mrgn-top-lg flx-align-center">
+        <div className="sidebar-row group-row flx flx-row mrgn-top-md flx-align-center">
           <div className="sidebar-icon flx flx-center-all">
-            <div className="koi-ico-24 koi-ico-24-allfeed"></div>
+            <div className="koi-ico --24 ico--search--primary"></div>
           </div>
           <FirebaseSearchInput 
             type={Constants.POSTS_SEARCH}
@@ -129,7 +129,7 @@ class ProjectList extends React.Component {
 
         <Link className={"sidebar-row group-row flx flx-row mrgn-top-lg mrgn-bottom-md flx-align-center " + (!this.props.projectId && this.props.source === Constants.PROJECT_PAGE ? 'active' : '')} onClick={this.onAllClick}>
           <div className="sidebar-icon flx flx-center-all">
-            <div className="koi-ico-24 koi-ico-24-allfeed"></div>
+            <div className="koi-ico --24 ico--allupdates--primary"></div>
           </div>
           <div className="co-type-project-name color--black"> 
             All Updates
@@ -156,14 +156,14 @@ class ProjectList extends React.Component {
 
           <Link to={'/' + orgName + '/createList'} className="sidebar-row group-row flx flx-row flx-align-center">
             <div className="sidebar-icon flx flx-center-all">
-              <div className="koi-ico-24 koi-ico-24-add"></div>              
+              <div className="koi-ico --24 ico--add--primary"></div>              
             </div>
             <div className="co-type-project-name color--black opa-40"> 
               Add List
             </div>
           </Link>
 
-          <div className="sidebar-footer flx flx-col">
+          <div className="sidebar-footer brdr-top brdr-color--primary flx flx-col">
 
             <Link className="DN sidebar-row flx flx-row flx-align-center" to={'/' + orgName + '/invite'}>
                 <div className="sidebar-icon flx flx-center-all">
@@ -175,7 +175,7 @@ class ProjectList extends React.Component {
             </Link>
 
 
-            <Link to={'/' + this.props.orgName + '/inbox'} activeClassName="active" className="sidebar-row flx flx-row flx-align-center">
+            <Link to={'/' + this.props.orgName + '/inbox'} activeClassName="active" className="sidebar-row group-row flx flx-row flx-align-center">
                 <div className="sidebar-icon flx flx-center-all">
                   <InboxCounter unreadMessages={this.props.unreadMessages} />
                 </div>
@@ -185,32 +185,32 @@ class ProjectList extends React.Component {
 
             
 
-            <Link activeClassName="active" className="sidebar-row flx flx-row flx-align-center">
+            <Link activeClassName="active" className="sidebar-row group-row flx flx-row flx-align-center">
                 <div className="sidebar-icon flx flx-center-all">
-                  <div className="koi-ico-24 koi-ico-24-bookmark"></div>
+                  <div className="koi-ico --24 ico--bookmark--primary"></div>
                 </div>
                 <div className="co-type-label color--black">Saved Posts</div>
                 <div className="group-badge badge-on color--black flx-item-right">
                 </div>
             </Link>
 
-            <Link to={'/' + this.props.orgName + '/admin'} activeClassName="active" className="sidebar-row flx flx-row flx-align-center">
+            <Link to={'/' + this.props.orgName + '/admin'} activeClassName="active" className="sidebar-row group-row flx flx-row flx-align-center">
                 <div className="sidebar-icon flx flx-center-all">
-                  <div className="koi-ico-24 koi-ico-24-allfeed"></div>
+                  <div className="koi-ico --24 ico--orgsettings--primary"></div>
                 </div>
                 <div className="co-type-label color--black">Org Settings</div>
                 <div className="group-badge badge-on color--black flx-item-right">
                 </div>
             </Link>
 
-            <Link className="sidebar-row flx flx-row flx-align-center" to={`/${this.props.orgName}/user/${this.props.userInfo.username}`} activeClassName="active">
+            <Link className="sidebar-row group-row flx flx-row flx-align-center" to={`/${this.props.orgName}/user/${this.props.userInfo.username}`} activeClassName="active">
               <div className="sidebar-icon flx flx-center-all">
                 <ProfilePic className="center-img" src={this.props.userInfo.image}/>
               </div>
               <div className="co-type-label color--black">{this.props.userInfo.username}</div>
             </Link>
 
-            <div className="sidebar-row flx flx-row flx-align-center fill--primary mrgn-top-sm">
+            <div className="sidebar-row koi-sidebar-footer flx flx-row flx-align-center fill--primary mrgn-top-sm">
               <Link to='/' className="co-type-logo color--white">KOI</Link>
             </div>
           </div>

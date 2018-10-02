@@ -25,21 +25,21 @@ const UpdateSection = props => {
   if (!props.thread) return null
   else if (props.thread.lastUpdate === Constants.NEW_THREAD_TYPE) {
     return (
-      <div className="flx-hold mrgn-right-xs opa-50 color--black">
+      <div className="flx-hold mrgn-right-xs opa-80 color--black">
         created a new thread.
       </div>
     )
   }
   else if (props.thread.lastUpdate === Constants.EDIT_THREAD_TYPE) {
     return (
-      <div className="flx-hold mrgn-right-xs opa-50 color--black">
+      <div className="flx-hold mrgn-right-xs opa-80 color--black">
         edited the post. 
       </div>
     )
   }
   else if (props.thread.lastUpdate === Constants.COMMENT_TYPE) {
     return (
-      <div className="flx-hold mrgn-right-xs opa-50 color--black">
+      <div className="flx-hold mrgn-right-xs opa-80 color--black">
         added a comment
       </div>
     )
@@ -134,21 +134,21 @@ const ThreadPreview = props => {
 
           <div className="thread-row-wrapper flx flx-row fill--primary">
             <div className="thread-content-wrapper w-100">
-              <div className="flx flx-row flx-align-start w-100 mrgn-bottom-md brdr-bottom pdding-bottom-sm">
+              <div className="flx flx-row flx-align-center w-100 mrgn-bottom-md brdr-bottom pdding-bottom-md">
                 <Link to={'/' + props.orgName + '/user/' + lastUpdater.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
                   <ProfilePic src={lastUpdater.image} className="user-image user-image-sm center-img" />
                 </Link>
 
-                <div className="flx flx-col flx-align-start mrgn-bottom-sm">
-                  <div className="flx flx-row co-type-body">
+                <div className="flx flx-col flx-align-start">
+                  <div className="flx flx-row co-type-body mrgn-left-xs">
                     <div className="co-type-bold">{lastUpdater.username || ''}</div> 
                     &nbsp;<UpdateSection thread={thread} />
                   </div>
-                  <div className="thread-timestamp color--black">
-                    <DisplayTimestamp timestamp={thread.lastModified} />
-                  </div>
+                  
                 </div>
-
+                <div className="thread-timestamp color--black flx-item-right">
+                  <DisplayTimestamp timestamp={thread.lastModified} />
+                </div>
 
               </div>
 
@@ -167,7 +167,7 @@ const ThreadPreview = props => {
                 {/*<div className="tip__caption color--gray ta-left flx flx-row" dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(thread.body)) || '' }} />*/}
 
                 <div className="cta-container flx flx-row flx-align-start mrgn-top-sm">
-                  <div className="koi-ico koi-ico-bookmark mrgn-right-md"></div>
+                  <div className="koi-ico ico--bookmark mrgn-right-md"></div>
                   <LikeReviewButton
                     authenticated={props.authenticated}
                     isLiked={thread.likes && thread.likes[props.authenticated] ? true : false}

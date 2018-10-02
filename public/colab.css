@@ -84,7 +84,6 @@ textarea {
 .org-block:hover {
 	margin-top: 18px;
 	transition: all 0.23s ease-in-out 0s;
-
 }
 .org-logo {
 	width: 88px;
@@ -174,15 +173,16 @@ textarea {
 	letter-spacing: 5px;
 }
 .co-type-h3 {
-	font-weight: 500;
-	line-height: 1.1;
-	color: inherit;
-	letter-spacing: 1.2px;
+    font-weight: 600;
+    line-height: 1.1;
+    color: inherit;
+    letter-spacing: 1.2px;
+    font-size: 13px;
 }
 .co-type-org {
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 1px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
 }
 .co-type-h4 {
 	/*font-family: 'Doppio One', sans-serif;*/
@@ -212,7 +212,7 @@ textarea {
     font-weight: 600;
     font-size: 28px;
     letter-spacing: 0px;
-    line-height: 42px;
+    line-height: 36px;
 }
 .co-type-sub {
 	font-weight: 400;
@@ -308,8 +308,11 @@ p {
     padding-left: 60px;
     padding-right: 20px;
 }
+.comment-input textarea {
+	text-indent: 5px;
+}
 .comment-bg {
-  background: rgba(255,171,140,.1);
+  background: rgba(255,171,140,.2);
   margin: 20px 0 0;
   padding-left: 4px;
 }
@@ -384,6 +387,7 @@ p {
     width: 100%;
     background:  white;
     bottom: 0;
+    padding-top: 10px;
 }
 
 .sidebar-icon {
@@ -400,6 +404,9 @@ p {
 .sidebar-dot.active {
 	visibility: visible;
 	opacity: 1;
+}
+.sidebar-row.koi-sidebar-footer {
+	height: 50px;
 }
 .sidebar-row:hover .sidebar-dot,
 .sidebar-row.active .sidebar-dot {
@@ -456,18 +463,15 @@ p {
 }
 
 
-
-.sidebar-icon .material-icons {
-	opacity: 1;
-}
 .sidebar-row {
 	padding: 4px 24px;
 	width: 100%;
 	text-align: left;
+	height: 32px;
 }
 .sidebar-row.active {
 	background-color: #79FFF7;
-	background-color: rgba(35,35,37,.1);
+	background-color: rgba(255,171,140,.1);
 }
 .sidebar-row.active .co-type-project-name {
 	font-weight: 600;
@@ -475,7 +479,8 @@ p {
 .sidebar-row.group-row:hover {
 	background-color: rgba(121,255,247,.5);
 	background-color: rgba(116,246,191,.3);
-	background-color: rgba(35,35,37,.1);
+	background-color: rgba(255,171,140,.1);
+	transition: all 0.23s ease-in-out 0s;
 }
 .sidebar-row.active .co-type-label,
 .sidebar-row.active .material-icons {
@@ -597,8 +602,9 @@ p {
 	position: absolute;
 }
 .org-header {
-	z-index: 2000;
-	height: 64px;
+    z-index: 210;
+    height: 64px;
+    width: 70px;
 }
 .project-bar-wrapper {
 	position: absolute;
@@ -607,6 +613,7 @@ p {
 	right: 320px;
 	padding: 0 0 0 30px;
 	height: 64px;
+	z-index: 200;
 }
 .co-project-name {
 }
@@ -652,6 +659,13 @@ p {
     overflow: hidden;
     background-color: white;
 }
+
+
+
+.sidebar-row .koi-ico {
+	opacity: .7;
+}
+
 .koi-ico {
 	width: 32px;
 	height: 32px;
@@ -661,53 +675,97 @@ p {
 	background-size: contain;
 	cursor: pointer;
 }
-.koi-ico-like {
+.koi-ico.ico--hamburger {
+	background-image: url(img/icon_hamburger.png);
+}
+.koi-ico.ico--like {
 	background-image: url(img/icon_like.png);
 }
-.koi-ico-like-active {
+.koi-ico.ico--like--active,
+.koi-ico.ico--like:hover {
 	background-image: url(img/icon_like_active.png);
+	transition: all 0.23s ease-in-out 0s;
 }
-.koi-ico-bookmark {
+.koi-ico.ico--bookmark {
+	background-image: url(img/icon_bookmark.png);
+}
+
+.thread-content-wrapper .koi-ico.ico--bookmark,
+.comments-module .koi-ico.ico--bookmark {
 	background-image: url(img/icon_bookmark.png);
 	margin-left: -10px;
 }
-.koi-ico-bookmark-active {
+.koi-ico.ico--bookmark--active {
 	background-image: url(img/icon_bookmark_active.png);
 }
-.koi-ico-reply {
+.koi-ico.ico--reply {
 	background-image: url(img/icon_reply.png);
 }
-.koi-ico-reply-active {
+.reply-ico-wrapper:hover .koi-ico.ico--reply {
+	background-image: url(img/icon_reply_active.png);
+	transition: all 0.23s ease-in-out 0s;
+}
+.koi-ico.ico--reply--active {
 	background-image: url(img/icon_reply_active.png);
 }
-.sidebar-row .koi-ico-24 {
-	opacity: .6;
-}
-.koi-ico-24 {
+
+
+.koi-ico.--24 {
 	width: 24px;
 	height: 24px;
-	background-image: url(img/icon24_bookmark.png);
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: contain;
-	cursor: pointer;
 }
-.koi-ico-24-bookmark {
-	background-image: url(img/icon24_bookmark.png);
 
+.koi-ico.--24.ico--bookmark {
+	background-image: url(img/icon24_bookmark.png);
 }
-.koi-ico-24-add {
+.koi-ico.--24.ico--bookmark--primary {
+	background-image: url(img/icon24_bookmark_primary.png);
+}
+.koi-ico.--24.ico--add {
 	background-image: url(img/icon24_add.png);
 }
-.koi-ico-24-add-primary {
+.koi-ico.--24.ico--add--primary {
 	background-image: url(img/icon24_add_primary.png);
 }
-.koi-ico-24-allfeed {
+.koi-ico.--24.ico--add--primary {
+	background-image: url(img/icon24_add_primary.png);
+}
+.koi-ico.--24.ico--allfeed {
 	background-image: url(img/icon24_allfeed.png);
 }
-.koi-ico-24-down {
+.koi-ico.--24.ico--down {
 	background-image: url(img/icon24_arrow-down.png);
 }
+.koi-ico.--24.ico--search {
+	background-image: url(img/icon24_search.png);
+}
+.koi-ico.--24.ico--search--primary {
+	background-image: url(img/icon24_search_primary.png);
+}
+.koi-ico.--24.ico--allupdates {
+	background-image: url(img/icon24_allupdates.png);
+}
+.koi-ico.--24.ico--allupdates--primary {
+	background-image: url(img/icon24_allupdates_primary.png);
+}
+.koi-ico.--24.ico--orgsettings {
+	background-image: url(img/icon24_orgsettings.png);
+}
+.koi-ico.--24.ico--orgsettings--primary {
+	background-image: url(img/icon24_orgsettings_primary.png);
+}
+
+
+
+.koi-ico.--36 {
+	width: 36px;
+	height: 36px;
+}
+.koi-ico.--36.ico--add--primary {
+	background-image: url(img/icon36_add_primary.png);
+}
+
+
 
 
 .color--gray {
@@ -783,6 +841,10 @@ p {
 	border-color: rgba(255,171,140,.2) !important;
 }
 
+.fill--secondary {
+	background-color: #08FFFF;
+}
+
 
 a.color--primary:hover i,
 a.color--primary:focus i,
@@ -790,5 +852,6 @@ a.color--primary:hover,
 a.color--primary:focus {
   color: #46DFFF !important;
   color: #97B4FF !important;
+  transition: all 0.23s ease-in-out 0s;
 }
 

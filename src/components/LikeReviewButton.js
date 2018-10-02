@@ -16,10 +16,10 @@ class LikeReviewButton extends React.Component {
     let classes = '';
     if (this.props.isLiked) {
       // classes += ' btn-secondary';
-      classes += 'koi-ico koi-ico-like-active mrgn-right-sm';
+      classes += 'koi-ico ico--like--active mrgn-right-sm';
     } else {
       // classes += ' btn-outline-secondary';
-      classes += 'koi-ico koi-ico-like- mrgn-right-sm';
+      classes += 'koi-ico ico--like mrgn-right-sm';
     }
 
     let likeText = '';

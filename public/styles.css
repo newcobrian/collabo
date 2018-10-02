@@ -339,8 +339,13 @@ li {
 }
 .threadlist .default-profile-wrapper,
 .threadlist .user-photo-wrapper {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
+}
+.co-sidebar .default-profile-wrapper,
+.co-sidebar .user-photo-wrapper {
+  width: 24px;
+  height: 24px;
 }
 
 .comment-author-img .default-profile-wrapper,
