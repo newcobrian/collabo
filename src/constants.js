@@ -102,6 +102,7 @@ export const THREAD_SEEN_COUNTERS_PATH = '/thread-seen-counters'
 export const ACTIVITY_BY_USER_BY_ORG_PATH = '/activity-by-user-by-org'
 export const UPDATES_PATH = '/updates'
 export const USERS_BY_PROJECT_PATH = '/users-by-project'
+export const INVITED_USERS_BY_ORG_PATH = '/invited-users-by-org'
 
 /*** Counter Type Constants ***/
 export const LIKES_COUNT = 'likesCount'
@@ -188,6 +189,10 @@ export const PROJECT_PAGE = 'PROJECT_PAGE'
 export const REGISTER_PAGE = 'REGISTER_PAGE'
 export const INBOX_PAGE = 'INBOX_PAGE'
 export const ORG_SETTINGS_PAGE = 'ORG_SETTINGS_PAGE'
+
+/*** Tab Constants ***/
+export const MEMBERS_TAB = 'members'
+export const PENDING_TAB = 'pending'
 
 /*** Tag list ***/
 export const TAG_LIST = []

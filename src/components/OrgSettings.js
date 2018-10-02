@@ -1,25 +1,27 @@
 import ListErrors from './ListErrors';
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
 import OrgHeader from './OrgHeader';
 import ProjectList from './ProjectList';
 import Sidebar from 'react-sidebar';
 import ProfilePic from './ProfilePic';
+import DisplayTimestamp from './DisplayTimestamp';
 
 const mql = window.matchMedia(`(min-width: 800px)`);
 
 const MembersTab = props => {
   const clickHandler = ev => {
     ev.preventDefault();
-    props.onTabClick('members');
+    props.onTabClick(Constants.MEMBERS_TAB);
   }
 
   return (
     <li className="nav-item">
       <a  href=""
-          className={ props.tab === 'members' ? 'nav-link active' : 'nav-link' }
+          className={ props.tab === Constants.MEMBERS_TAB ? 'nav-link active' : 'nav-link' }
           onClick={clickHandler}>
         Team Members
       </a>
@@ -30,19 +32,60 @@ const MembersTab = props => {
 const PendingTab = props => {
   const clickHandler = ev => {
     ev.preventDefault();
-    props.onTabClick('pending');
+    props.onTabClick(Constants.PENDING_TAB);
   };
   return (
     <li className="nav-item">
       <a
         href=""
-        className={ props.tab === 'pending' ? 'nav-link active' : 'nav-link' }
+        className={ props.tab === Constants.PENDING_TAB ? 'nav-link active' : 'nav-link' }
         onClick={clickHandler}>
         Pending Invites
       </a>
     </li>
   );
 };
+
+const MembersList = props => {
+  if (props.tab === Constants.MEMBERS_TAB) {
+    return (
+      <div>
+        {
+          (props.usersList || []).map((userItem, index) => {
+            return (
+              <Link className="flx flx-row flx-align-center mrgn-bottom-sm" 
+                key={userItem.userId}
+                to={'/' + props.orgName + '/user/' + userItem.username} >
+                <ProfilePic src={userItem.image} className="user-img center-img" /> 
+                <div className="mrgn-left-sm co-type-label">{userItem.username} ({userItem.fullName})</div>
+              </Link>
+              )
+          })
+        }
+      </div>
+    )
+  }
+  // pending tab
+  else {
+    return (
+      <div>
+        {
+          (props.usersList || []).map((userItem, index) => {
+            return (
+              <div className="flx flx-row flx-align-center mrgn-bottom-sm" key={userItem.email}>
+                <div className="mrgn-left-sm co-type-label">{userItem.email}</div>
+                <div>
+                  from <Link to={'/' + props.orgName + '/user/' + userItem.senderUsername}>{userItem.senderUsername}</Link>
+                   <DisplayTimestamp timestamp={userItem.timestamp} />
+                </div>
+              </div>
+              )
+          })
+        }
+      </div>
+    )
+  }
+}
 
 const mapStateToProps = state => ({
   ...state.projectList,
@@ -67,6 +110,7 @@ class OrgSettings extends React.Component {
   }
 
   componentDidMount() {
+    this.props.createInvitesByOrg()
     this.props.loadSidebar(mql);
     mql.addListener(this.mediaQueryChanged);
 
@@ -75,7 +119,7 @@ class OrgSettings extends React.Component {
     this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
     this.props.loadOrgList(this.props.authenticated, Constants.ORG_SETTINGS_PAGE)
     // this.props.loadOrgUsers(this.props.authenticated, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
-    this.props.changeOrgSettingsTab('members', this.props.params.orgname)
+    this.props.changeOrgSettingsTab(Constants.MEMBERS_TAB, this.props.params.orgname)
     // this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'settings'});
   }
 
@@ -84,7 +128,7 @@ class OrgSettings extends React.Component {
     this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
     this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
     this.props.unloadOrg(Constants.ORG_SETTINGS_PAGE, this.props.params.orgname);
-    this.props.unloadOrgUsers(Constants.ORG_SETTINGS_PAGE);
+    this.props.unloadOrgUsers(Constants.ORG_SETTINGS_PAGE, this.props.params.orgname);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -103,7 +147,7 @@ class OrgSettings extends React.Component {
   }
 
   render() {
-    const { orgName, usersList, sidebarOpen } = this.props;
+    const { orgName, usersList, sidebarOpen, tab } = this.props;
     return (
       <div>
 
@@ -136,20 +180,13 @@ class OrgSettings extends React.Component {
                     </div>
                     <div>
                       <ul className="nav nav-pills outline-active">
-                        <MembersTab tab={this.props.tab} onTabClick={this.onTabClick} />
+                        <MembersTab tab={tab} onTabClick={this.onTabClick} />
 
-                        <PendingTab tab={this.props.tab} onTabClick={this.onTabClick} />
+                        <PendingTab tab={tab} onTabClick={this.onTabClick} />
                       </ul>
 
 
-                      {(usersList || []).map((userItem, index) => {
-                        return (
-                          <div className="flx flx-row flx-align-center mrgn-bottom-sm" key={userItem.userId}>
-                            <ProfilePic src={userItem.image} className="user-img center-img" /> 
-                            <div className="mrgn-left-sm co-type-label">{userItem.username} ({userItem.fullName})</div>
-                          </div>
-                          )
-                      })}
+                      <MembersList tab={tab} usersList={usersList} orgName={orgName} />
 
                         {/*<ListErrors errors={this.props.errors}></ListErrors>*/}
 
