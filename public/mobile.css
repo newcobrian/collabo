@@ -2,21 +2,7 @@
 
 @media (max-width: 800px) and (min-width: 214px) {
 
-.tip__caption {
-}
-.threadlist-wrapper .threadlist {
-    padding: 0 12px;
-}
-.content-wrapper {
-  width: 100%;
-}
-.comment-indent {
-    padding-left: 10px;
-    padding-right: 10px;
-}
-.project-bar-wrapper {
-  right: 0 !important;
-}
+
 
 
 /******
@@ -1016,7 +1002,21 @@ body .back-to-top {
   right: 0 !Important;
 }
 
-
+.tip__caption {
+}
+.threadlist-wrapper .threadlist {
+    padding: 0 12px;
+}
+.content-wrapper {
+  width: 100%;
+}
+.comment-indent {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+.project-bar-wrapper {
+  right: 0 !important;
+}
 
 
 }

@@ -132,7 +132,7 @@ const ThreadPreview = props => {
         
         <div className="tp-container b--primary--10 flx flx-col flx-align-start bx-shadow">           
 
-          <div className="thread-row-wrapper flx flx-row fill--primary">
+          <div className="thread-row-wrapper flx flx-row fill--secondary">
             <div className="thread-content-wrapper w-100">
               <div className="flx flx-row flx-align-center w-100 mrgn-bottom-md brdr-bottom pdding-bottom-md">
                 <Link to={'/' + props.orgName + '/user/' + lastUpdater.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
