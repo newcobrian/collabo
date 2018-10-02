@@ -110,10 +110,11 @@ class Comment extends React.Component {
                 likeObject={parentId ? Object.assign({}, comment, {parentId: parentId}) : comment}
                 type={parentId ? Constants.NESTED_COMMENT_TYPE : Constants.COMMENT_TYPE}
                 orgName={orgName} />
-              {!parentId && <Link className="flx flx-row flx-center-all mrgn-left-md" onClick={this.toggleHideCommentInput}>
-                <div className="koi-ico koi-ico-reply mrgn-right-xs"></div>
-                <div className="co-type-label ta-left">Reply</div>
-              </Link>}
+              {!parentId && hideCommentInput && (!comment.nestedComments || comment.nestedComments.lenght > 0) &&
+                <Link className="flx flx-row flx-center-all mrgn-left-md" onClick={this.toggleHideCommentInput}>
+                  <div className="koi-ico koi-ico-reply mrgn-right-xs"></div>
+                  <div className="co-type-label ta-left">Reply</div>
+                </Link>}
               <div className="thread-timestamp inline-block flx flx-row flx-item-right">
                 <DeleteButton
                   show={show}
@@ -145,7 +146,7 @@ class Comment extends React.Component {
               type={Constants.COMMENT_TYPE}
               parentId={comment.id}
               deleteComment={deleteComment}
-              hideCommentInput={hideCommentInput}
+              hideCommentInput={hideCommentInput && (!comment.nestedComments || comment.nestedComments.length === 0)}
             />
           }
       </div>
