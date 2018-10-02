@@ -243,7 +243,7 @@ class OrgSettings extends React.Component {
                     <OrgHeader />
                     {/* HEADER START */}
                     <div className="flx flx-row flx-align-center mrgn-top-sm w-100">
-                      <div className="co-type-h1 mrgn-left-md">{orgName} Settings</div>
+                      <div className="co-type-h1 mrgn-left-md">{orgName} Admin</div>
                       
                     </div>
                     <div>

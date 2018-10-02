@@ -123,7 +123,7 @@ const ThreadPreview = props => {
   const thread = props.thread;
   // const postAuthor = thread.lastUpdate === Constants.COMMENT_TYPE ? 
   //   ( thread.lastUpdater ? thread.lastUpdater : { username: '', userId: null, image: '' } ) : thread.createdBy;
-  const postAuthor = thread.lastUpdater ? thread.lastUpdater : { username: '', userId: null, firstName: '', lastName: '', image: '' }
+  const lastUpdater = thread.lastUpdater ? thread.lastUpdater : { username: '', userId: null, firstName: '', lastName: '', image: '' }
   // let title = tip.subject ? tip.subject.title : ''
   // let canModify = props.authenticated === tip.userId ? true : false;
 
@@ -135,13 +135,13 @@ const ThreadPreview = props => {
           <div className="thread-row-wrapper flx flx-row fill--primary">
             <div className="thread-content-wrapper w-100">
               <div className="flx flx-row flx-align-start w-100 mrgn-bottom-md brdr-bottom pdding-bottom-sm">
-                <Link to={'/' + props.orgName + '/user/' + postAuthor.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
-                  <ProfilePic src={postAuthor.image} className="user-image user-image-sm center-img" />
+                <Link to={'/' + props.orgName + '/user/' + lastUpdater.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
+                  <ProfilePic src={lastUpdater.image} className="user-image user-image-sm center-img" />
                 </Link>
 
                 <div className="flx flx-col flx-align-start mrgn-bottom-sm">
                   <div className="flx flx-row co-type-body">
-                    <div className="co-type-bold">{postAuthor.username || ''}</div> 
+                    <div className="co-type-bold">{lastUpdater.username || ''}</div> 
                     &nbsp;<UpdateSection thread={thread} />
                   </div>
                   <div className="thread-timestamp color--black">
@@ -159,7 +159,7 @@ const ThreadPreview = props => {
                 </Link>
               </div>
               <div className="color--black thread-timestamp flx flx-row flx-align-center mrgn-bottom-md opa-50">
-                <div>Created by {postAuthor.username}</div>
+                <div>Created by {thread.createdBy.username}</div>
                 <ProjectLabel className="" projectNames={props.projectNames} projectId={thread.projectId} orgName={props.orgName} />
 
               </div>
