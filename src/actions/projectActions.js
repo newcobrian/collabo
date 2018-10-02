@@ -891,7 +891,12 @@ export function inviteUsersToOrg(auth, orgId, orgName, invites) {
 
                 // otherwise add invite for this email address and send it
                 // let nonAppInvite = Object.assign({}, { senderId: auth }, { senderName: authSnap.val().username })
-                updates[Constants.INVITES_BY_EMAIL_BY_ORG_PATH + '/' + cleanedEmail + '/' + orgId + '/' + inviteId] = auth
+                // updates[Constants.INVITES_BY_EMAIL_BY_ORG_PATH + '/' + cleanedEmail + '/' + orgId + '/' + inviteId] = auth
+                updates[Constants.INVITED_USERS_BY_ORG_PATH + '/' + orgId + '/' + cleanedEmail] = 
+                  Object.assign({}, 
+                    { senderId: auth }, 
+                    { senderUsername:  authSnap.val().username },
+                    { timestamp: Firebase.database.ServerValue.TIMESTAMP })
 
                 // add to invited list for the org
                 // updates[Constants.INVITES_BY_ORG_PATH + '/' + orgId + '/emails/' + cleanedEmail + '/' + inviteId] = true
