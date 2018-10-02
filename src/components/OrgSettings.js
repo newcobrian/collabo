@@ -248,15 +248,14 @@ class OrgSettings extends React.Component {
                     </div>
                     <div>
                      <div>Team Members</div>
-                        <ul>
-                          {(usersList || []).map((userItem, index) => {
-                            return (
-                              <li>{userItem.username} ({userItem.firstName} {userItem.lastName})
-                                {/*<div className="profile-image flx flx-center-all"><ProfilePic src={userItem.image ? userItem.image : ''} className="center-img" /></div>*/}
-                                </li>
-                            )
-                          })}
-                        </ul>
+                      {(usersList || []).map((userItem, index) => {
+                        return (
+                          <div className="flx flx-row flx-align-center mrgn-bottom-sm" key={userItem.userId}>
+                            <ProfilePic src={userItem.image} className="user-img center-img" /> 
+                            <div className="mrgn-left-sm co-type-label">{userItem.username} ({userItem.fullName})</div>
+                          </div>
+                          )
+                      })}
 
                         {/*<ListErrors errors={this.props.errors}></ListErrors>*/}
 
