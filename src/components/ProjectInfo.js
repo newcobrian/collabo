@@ -1,6 +1,7 @@
 import React from 'react';
 import * as Constants from '../constants';
 import ProfilePic from './ProfilePic'
+import { Link } from 'react-router'
 
 const ProjectInfo = props => {
   return (
@@ -20,10 +21,12 @@ const ProjectInfo = props => {
         {
           (props.projectMembers || []).map((member, index) => {
             return (
-              <div className="flx flx-row flx-align-center mrgn-bottom-sm" key={member.userId}>
+              <Link className="flx flx-row flx-align-center mrgn-bottom-sm" 
+                key={member.userId} 
+                to={'/' + props.orgName + '/user/' + member.username}>
                 <ProfilePic src={member.image} className="user-img center-img" /> 
                 <div className="mrgn-left-sm co-type-label">{member.username} ({member.fullName})</div>
-              </div>
+              </Link>
             );
           })
         }

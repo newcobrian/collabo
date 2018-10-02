@@ -269,7 +269,8 @@ class Project extends React.Component {
                       <ProjectInfo 
                         className="threadlist-wrapper flx flx-col flx-align-start w-100 h-100"
                         projectMembers={this.props.projectMembers}
-                        project={this.props.project} />
+                        project={this.props.project}
+                        orgName={this.props.params.orgname} />
                 </div>
               </div>
             </Sidebar>
