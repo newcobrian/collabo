@@ -178,6 +178,7 @@ class OrgSettings extends React.Component {
                       <div className="co-type-h1 mrgn-left-md">{orgName} Admin</div>
                       
                     </div>
+                    <Link to={'/' + orgName + '/invite'}>+ Invite Users to Team</Link>
                     <div>
                       <ul className="nav nav-pills outline-active">
                         <MembersTab tab={tab} onTabClick={this.onTabClick} />
