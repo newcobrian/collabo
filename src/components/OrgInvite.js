@@ -29,7 +29,7 @@ class OrgInvite extends React.Component {
 		   	let invites = this.props.invites ? this.props.invites.toLowerCase() : ''
 
 		    this.props.setInProgress();
-		    this.props.inviteUsersToOrg(this.props.authenticated, this.props.org.orgId, this.props.params.orgname.toLowerCase(), invites);
+		    this.props.inviteUsersToOrg(this.props.authenticated, this.props.params.orgname.toLowerCase(), invites);
 		  }
     	}
 	}
@@ -38,13 +38,11 @@ class OrgInvite extends React.Component {
     	if (!this.props.authenticated) {
     		this.props.askForAuth();
     	}
-    	this.props.loadOrgInvitePage(this.props.authenticated, this.props.params.orgname.toLowerCase())
 
     	// this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'create guide'});
 	}
 
 	componentWillUnmount() {
-		this.props.unloadOrgInvitePage(this.props.params.orgname.toLowerCase());
 		this.props.onCreateUnload();
 	}
 
@@ -56,7 +54,6 @@ class OrgInvite extends React.Component {
 			    	<div className="project-header text-left flx flx-col flx-align-start w-100">
 				    	<OrgHeader />
 				    	{/* HEADER START */}
-				    	<div className="co-type-h1 mrgn-top-sm mrgn-left-md">Add a New Group</div>
 				    </div>
 
 					{/* FORM START */}
