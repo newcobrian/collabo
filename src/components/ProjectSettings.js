@@ -104,7 +104,7 @@ class ProjectSettings extends React.Component {
 
     this.onTabClick = (tab) => {
       // console.log('tab = ' + tab)
-      this.props.changeOrgSettingsTab(tab, this.props.params.orgname)
+      this.props.changeProjectSettingsTab(tab, this.props.params.pid)
     }
   }
 
@@ -118,7 +118,7 @@ class ProjectSettings extends React.Component {
     this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
     this.props.loadOrgList(this.props.authenticated, Constants.PROJECT_SETTINGS_PAGE)
     this.props.loadProject(this.props.params.pid, Constants.PROJECT_SETTINGS_PAGE);
-    // this.props.changeOrgSettingsTab(Constants.MEMBERS_TAB, this.props.params.orgname)
+    this.props.changeProjectSettingsTab(Constants.MEMBERS_TAB, this.props.params.pid)
     // this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'settings'});
   }
 
@@ -139,7 +139,7 @@ class ProjectSettings extends React.Component {
       this.props.loadProjectList(this.props.authenticated, nextProps.params.orgname, null, Constants.PROJECT_SETTINGS_PAGE)
       this.props.loadThreadCounts(this.props.authenticated, nextProps.params.PROJECT_SETTINGS_PAGE)
       this.props.loadProject(nextProps.params.pid, Constants.PROJECT_SETTINGS_PAGE);
-      // this.props.changeOrgSettingsTab(this.props.tab, nextProps.params.orgname)
+      this.props.changeProjectSettingsTab(this.props.tab, nextProps.params.pid)
     }
     else if (nextProps.params.pid !== this.props.params.pid) {
       this.props.loadProject(nextProps.params.pid, Constants.PROJECT_SETTINGS_PAGE);

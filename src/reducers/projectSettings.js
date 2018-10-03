@@ -56,7 +56,7 @@ export default (state = initialState, action) => {
         }
       }
     }
-    case ActionTypes.CHANGE_ORG_SETTINGS_TAB: {
+    case ActionTypes.CHANGE_PROJECT_SETTINGS_TAB: {
 
       return {
         ...state,

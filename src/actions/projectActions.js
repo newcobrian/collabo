@@ -1709,15 +1709,46 @@ export function changeOrgSettingsTab(tab, orgName) {
         }
       })
     }
+  }
+}
 
+export function changeProjectSettingsTab(tab, projectId) {
+  return dispatch => {
+    if (tab === Constants.MEMBERS_TAB) {
+      // stop watching previous path
+      Firebase.database().ref(Constants.INVITES_BY_PROJECT_PATH + '/' + projectId).off()
 
-    // watch new path
-    
+      // then watch the members in this org
+      Firebase.database().ref(Constants.USERS_BY_PROJECT_PATH + '/' + projectId).on('value', usersSnap => {
+        let usersList = []
+        usersSnap.forEach(function(user) {
+          usersList = usersList.concat(Object.assign({}, { userId: user.key }, user.val()))
+        })
+        dispatch({
+          type: ActionTypes.CHANGE_PROJECT_SETTINGS_TAB,
+          tab: Constants.MEMBERS_TAB,
+          usersList: usersList
+        })
+      })
+    }
+    // else get the invited users
+    else {
+      // stop watching members list
+      Firebase.database().ref(Constants.USERS_BY_PROJECT_PATH + '/' + projectId).off()
 
-    dispatch({
-      type: ActionTypes.CHANGE_ORG_SETTINGS_TAB,
-      tab: tab
-    })
+      // then watch the members in this org
+      Firebase.database().ref(Constants.INVITED_USERS_BY_PROJECT_PATH + '/' + projectId).on('value', usersSnap => {
+        let usersList = []
+        usersSnap.forEach(function(user) {
+          usersList = usersList.concat(Object.assign({}, { email: Helpers.cleanEmailFromFirebase(user.key) }, user.val()))
+        })
+        dispatch({
+          type: ActionTypes.CHANGE_PROJECT_SETTINGS_TAB,
+          tab: Constants.PENDING_TAB,
+          usersList: usersList
+        })
+      })
+    }
   }
 }
 
