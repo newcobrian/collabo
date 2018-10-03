@@ -130,8 +130,9 @@ const ThreadPreview = props => {
   return (
     <div className={"tp-wrapper fill--primary--20 flx flx-col flx-col"}>
         
-        <div className="tp-container b--primary--10 flx flx-col flx-align-start bx-shadow">           
-
+        <div className="tp-container b--secondary--10 flx flx-col flx-align-start bx-shadow">           
+          <div className="top-bar w-100 fill--secondary">
+          </div>
           <div className="thread-row-wrapper flx flx-row fill--secondary">
             <div className="thread-content-wrapper w-100">
               <div className="flx flx-row flx-align-center w-100 mrgn-bottom-md brdr-bottom pdding-bottom-md">

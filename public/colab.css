@@ -342,7 +342,10 @@ p {
 }
 .thread-row-wrapper {
 	width: 100%;
-	padding-top: 4px;
+	padding-top: 8px;
+}
+.top-bar {
+
 }
 .thread-content-wrapper {
 	padding: 24px;
@@ -407,6 +410,7 @@ p {
 }
 .sidebar-row.koi-sidebar-footer {
 	height: 50px;
+	box-shadow: inset 0px 0px 50px #FFECBB;
 }
 .sidebar-row:hover .sidebar-dot,
 .sidebar-row.active .sidebar-dot {
@@ -834,6 +838,13 @@ p {
 	.b--primary--10 {
 		border: 1px solid rgba(255,171,140,.4);
 	}
+
+.b--secondary {
+  border-color: #00B3DA !important;
+}
+	.b--secondary--10 {
+		border: 1px solid rgba(0,179,218,.2);
+	}
 .fill--cta {
 	background-color: #5B93FF;
 }
@@ -841,6 +852,9 @@ p {
 	border-color: rgba(255,171,140,.2) !important;
 }
 
+.color--secondary {
+	color: #00B3DA;
+}
 .fill--secondary {
 	background-color: #08FFFF;
 	background-color: #00B3DA;

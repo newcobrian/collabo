@@ -28,7 +28,7 @@ const ProjectHeader = props => {
           <Link to={'/' + props.orgName + '/' + props.projectId + '/addthread'}
             activeClassName="active"
             className="flx flx-align-center pdding-left-sm flx-item-right mrgn-right-md">
-              <div className="color--black co-type-label mrgn-right-sm">New Thread</div>
+              <div className="color--secondary co-type-label mrgn-right-sm">New Thread</div>
               <div className="icon-wrapper flx flx-center-all">
                 <div className="koi-ico --36 ico--add--primary"></div>
               </div>
@@ -51,7 +51,7 @@ const ProjectHeader = props => {
             <Link to={'/' + props.orgName + '/' + props.projectId + '/addthread'}
               activeClassName="active"
               className="flx flx-align-center pdding-left-sm flx-item-right mrgn-right-md">
-              <div className="color--black co-type-label mrgn-right-sm">New Thread</div>
+              <div className="color--secondary co-type-label mrgn-right-sm">New Thread</div>
               <div className="icon-wrapper flx flx-center-all">
                 <div className="koi-ico --36 ico--add--primary"></div>
               </div>

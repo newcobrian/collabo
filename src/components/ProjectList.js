@@ -31,7 +31,7 @@ const ThreadCountJewel = props => {
 const InboxCounter = props => {
   if (props.unreadMessages > 0) {
     return (
-      <div className="sidebar-dot fill--primary active"></div>
+      <div className="sidebar-dot fill--secondary active"></div>
     );
   }
   return (
@@ -132,7 +132,7 @@ class ProjectList extends React.Component {
             <div className="koi-ico --24 ico--allupdates--primary"></div>
           </div>
           <div className="co-type-project-name color--black"> 
-            All Updates
+            All Threads
           </div>
         </Link>
 
@@ -158,7 +158,7 @@ class ProjectList extends React.Component {
             <div className="sidebar-icon flx flx-center-all">
               <div className="koi-ico --24 ico--add--primary"></div>              
             </div>
-            <div className="co-type-project-name color--black opa-40"> 
+            <div className="co-type-project-name color--primary"> 
               Add List
             </div>
           </Link>
