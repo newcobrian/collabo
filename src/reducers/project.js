@@ -21,18 +21,26 @@ export default (state = initialState, action) => {
         feedEndValue: new Date().getTime(),
         isFeedLoading: false
       }
-    case ActionTypes.LOAD_PROJECT:
-      return {
-        ...state,
-        project: action.project,
-        projectNotFoundError: false
+    case ActionTypes.LOAD_PROJECT: {
+      if (action.source === Constants.PROJECT_PAGE) {
+        return {
+          ...state,
+          project: action.project,
+          projectNotFoundError: false
+        }
       }
-    case ActionTypes.PROJECT_NOT_FOUND_ERROR:
-      return {
-        ...state,
-        projectNotFoundError: true,
-        feedEndValue: new Date().getTime()
+      return state;
+    }
+    case ActionTypes.PROJECT_NOT_FOUND_ERROR: {
+      if (action.source === Constants.PROJECT_PAGE) {
+        return {
+          ...state,
+          projectNotFoundError: true,
+          feedEndValue: new Date().getTime()
+        }
       }
+      return state;
+    }
     case ActionTypes.THREAD_ADDED_ACTION: {
       if (action.source === Constants.PROJECT_PAGE) {
         const newState = Object.assign({}, state);

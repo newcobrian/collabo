@@ -28,6 +28,7 @@ import OrgInvite from './components/OrgInvite';
 // import Organization from './components/Organization';
 import AcceptInvite from './components/AcceptInvite';
 import OrgSettings from './components/OrgSettings';
+import ProjectSettings from './components/ProjectSettings';
 import SEO from './components/SEO';
 import store from './store';
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -71,6 +72,7 @@ ReactDOM.render((
         <Route path=":orgname/invite" component={OrgInvite} />
         <Route path=":orgname(/:pid)" component={Project} />
         <Route path=":orgname/:pid/addthread" component={AddThread} />
+        <Route path=":orgname/:pid/admin" component={ProjectSettings} />
         <Route path=":orgname/:pid/:tid" component={Thread} />
       </Route>
     </Router>

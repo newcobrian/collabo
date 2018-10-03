@@ -214,19 +214,21 @@ export function onDeleteThread(auth, threadId, thread, orgName) {
   }
 }
 
-export function loadProject(projectId) {
+export function loadProject(projectId, source) {
   return dispatch => {
     Firebase.database().ref(Constants.PROJECTS_PATH + '/' + projectId).once('value', projectSnapshot => {
       if (projectSnapshot.exists()) {
         dispatch({
           type: ActionTypes.LOAD_PROJECT,
           project: projectSnapshot.val(),
-          projectId: projectId
+          projectId: projectId,
+          source: source
         })
       }
       else {
         dispatch({
-          type: ActionTypes.PROJECT_NOT_FOUND_ERROR
+          type: ActionTypes.PROJECT_NOT_FOUND_ERROR,
+          source: source
         })
       }
     })
