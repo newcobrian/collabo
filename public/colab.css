@@ -731,8 +731,8 @@ p {
 .koi-ico.--24.ico--add--primary {
 	background-image: url(img/icon24_add_primary.png);
 }
-.koi-ico.--24.ico--add--primary {
-	background-image: url(img/icon24_add_primary.png);
+.koi-ico.--24.ico--add--secondary {
+	background-image: url(img/icon24_add_secondary.png);
 }
 .koi-ico.--24.ico--allfeed {
 	background-image: url(img/icon24_allfeed.png);
@@ -858,6 +858,7 @@ p {
 .fill--secondary {
 	background-color: #08FFFF;
 	background-color: #00B3DA;
+	background-color: #5BD1EB;
 }
 
 
