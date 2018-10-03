@@ -6,7 +6,7 @@ export default (state = {}, action) => {
   	case ActionTypes.CREATE_PAGE_UNLOADED:
   		return {};
     case ActionTypes.CREATE_SUBMIT_ERROR:
-      if (action.source === Constants.ORG_INVITE_PAGE) {
+      if (action.source === Constants.INVITE_FORM) {
         return {
           ...state,
           errors: [action.error],
@@ -19,15 +19,8 @@ export default (state = {}, action) => {
         ...state,
         inProgress: true
       }
-    case ActionTypes.ORG_INVITE_PAGE_LOADED:
-      return {
-        ...state,
-        org: action.org
-      }
-    case ActionTypes.USERS_INVITED_TO_ORG:
-      return {}
   	case ActionTypes.UPDATE_FIELD_CREATE:
-      if(action.source === Constants.ORG_INVITE_PAGE) {
+      if(action.source === Constants.INVITE_FORM) {
         return { ...state, [action.key]: action.value };
       }
       else return {...state}

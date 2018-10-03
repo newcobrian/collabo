@@ -29,11 +29,11 @@ import addProject from './reducers/addProject';
 import addThread from './reducers/addThread';
 import projectList from './reducers/projectList';
 import createOrg from './reducers/createOrg';
-import orgInvite from './reducers/orgInvite';
 import organization from './reducers/organization';
 import acceptInvite from './reducers/acceptInvite';
 import orgSettings from './reducers/orgSettings';
 import projectSettings from './reducers/projectSettings';
+import inviteForm from './reducers/inviteForm';
 import Firebase from 'firebase';
 import mixpanel from 'mixpanel-browser';
 import MixpanelMiddleware from 'redux-mixpanel-middleware';
@@ -65,12 +65,12 @@ const reducer = combineReducers({
   thread,
   projectList,
   createOrg,
-  orgInvite,
   organization,
   acceptInvite,
   review,
   orgSettings,
   projectSettings,
+  inviteForm,
   // editForm: combineForms({
   //   editForm: initialItinerary
   // }, 'editForm')
