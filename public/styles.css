@@ -75,8 +75,31 @@ input[type="radio"]:checked + label span {
   border: 1px solid rgba(0,0,0,.1);
 }
 
-li {
+.ql-container {
+  font-family: inherit;
+  font-family: inherit !important;
+  font-size: 14px !important;
+}
 
+ol {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 30px;
+  list-style-position: outside;
+}
+/* TO COLOR ol {list-style: none; counter-reset: li}
+
+li::before {content: counter(li); color: red;
+  display: inline-block; width: 1em;
+  margin-left: -1em}
+
+  li {counter-increment: li}
+
+ol li::before {content: counter(li); color: red;
+    display: inline-block; width: 1em; margin-left: -1.5em;
+    margin-right: 0.5em; text-align: right; direction: rtl}*/
+li {
+  padding-left: 10px;
 }
 
 /*Reset Safari User Agent Styles*/

@@ -301,7 +301,9 @@ p {
 /*    background-repeat: repeat-y;
     background-position: 50px 0;*/
 }
-
+.comment-input {
+	padding: 10px;
+}
 
 .comment-indent {
     outline: none;
@@ -309,7 +311,6 @@ p {
     padding-right: 20px;
 }
 .comment-input textarea {
-	text-indent: 5px;
 }
 .comment-bg {
   background: rgba(255,171,140,.2);
