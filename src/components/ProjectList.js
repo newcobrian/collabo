@@ -127,7 +127,7 @@ class ProjectList extends React.Component {
             placeholder="Search" />
         </div>
 
-        <Link className={"sidebar-row group-row flx flx-row mrgn-top-lg mrgn-bottom-md flx-align-center " + (!this.props.projectId && this.props.source === Constants.PROJECT_PAGE ? 'active' : '')} onClick={this.onAllClick}>
+        <Link className={"sidebar-row group-row flx flx-row mrgn-bottom-md flx-align-center " + (!this.props.projectId && this.props.source === Constants.PROJECT_PAGE ? 'active' : '')} onClick={this.onAllClick}>
           <div className="sidebar-icon flx flx-center-all">
             <div className="koi-ico --24 ico--allupdates--primary"></div>
           </div>
@@ -136,6 +136,11 @@ class ProjectList extends React.Component {
           </div>
         </Link>
 
+        <div className="sidebar-row mrgn-bottom-md mrgn-top-lg">
+          <div className="co-type-h3 color--black w-100 pdding-bottom-sm brdr-bottom-thick">
+            Lists
+          </div>
+        </div>
           {
             (this.props.projectList || []).map((projectItem, index) => {
               return (

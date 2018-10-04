@@ -21,15 +21,23 @@ const ProjectInfo = props => {
         {
           (props.projectMembers || []).map((member, index) => {
             return (
-              <Link className="flx flx-row flx-align-center mrgn-bottom-sm" 
+              <Link className="info-row flx flx-row flx-align-center mrgn-bottom-sm" 
                 key={member.userId} 
                 to={'/' + props.orgName + '/user/' + member.username}>
                 <ProfilePic src={member.image} className="user-img center-img" /> 
-                <div className="mrgn-left-sm co-type-label">{member.username} ({member.fullName})</div>
+                <div className="mrgn-left-md co-type-label">{member.username} {/*({member.fullName})*/}</div>
               </Link>
             );
           })
         }
+        <Link to={'/'} className="info-row flx flx-row flx-align-center brdr-top pdding-top-md mrgn-top-md">
+          <div className="sidebar-icon flx flx-center-all mrgn-left-xs">
+            <div className="koi-ico --24 ico--add--secondary"></div>              
+          </div>
+          <div className="co-type-label color--secondary"> 
+            Add Member
+          </div>
+        </Link>
 
       </div>
     </div>

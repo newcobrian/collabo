@@ -114,14 +114,14 @@ textarea {
 	z-index: 10;
 }
 .org-row {
-	margin: 0px 20px 0px 20px;
+	margin: 0px 24px 0px 24px;
 	width: auto;
 	text-align: left;
 	background: transparent;
 	padding: 10px 0;
 }
 .org-row.org-row-selector {
-	border-bottom: 4px solid rgba(35,35,37,1);
+	border-bottom: 3px solid rgba(35,35,37,.1);
 	position: relative;
 	padding: 11px 0 8px;
 	height: 64px;
@@ -239,7 +239,7 @@ textarea {
 	font-size: 20px;
 }
 .co-type-project-name {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 400;
     letter-spacing: 1.2px;
     line-height: 30px;
@@ -471,6 +471,12 @@ p {
 
 .sidebar-row {
 	padding: 4px 24px;
+	width: 100%;
+	text-align: left;
+	height: 32px;
+}
+.info-row {
+	padding: 4px 0px;
 	width: 100%;
 	text-align: left;
 	height: 32px;
@@ -871,5 +877,9 @@ a.color--primary:focus {
   color: #46DFFF !important;
   color: #97B4FF !important;
   transition: all 0.23s ease-in-out 0s;
+}
+
+.brdr-bottom-thick {
+	border-bottom: 3px solid black;
 }
 
