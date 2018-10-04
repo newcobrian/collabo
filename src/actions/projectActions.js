@@ -1773,7 +1773,7 @@ export function inviteOrgUsersToProject(auth, orgName, projectId, invites) {
               let updates = {}
               for (let i = 0; i < invites.length; i++) {
                 // if user is an org member but not in the project, invite them
-                if (orgUsers[invites[i]] && !projectUsers[invites[i]]) {
+                if ((orgUsers && orgUsers[invites[i]]) && (!projectUsers || !projectUsers[invites[i]])) {
                   // create the project invite
                   let inviteObject = {
                     senderId: auth,
