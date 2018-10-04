@@ -1705,15 +1705,16 @@ export function changeOrgSettingsTab(tab, orgName) {
           Firebase.database().ref(Constants.INVITES_BY_ORG_PATH + '/' + nameSnap.val().orgId).off()
 
           // then watch the members in this org
-          Firebase.database().ref(Constants.INVITED_USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).on('value', usersSnap => {
-            let usersList = []
-            usersSnap.forEach(function(user) {
-              usersList = usersList.concat(Object.assign({}, { email: Helpers.cleanEmailFromFirebase(user.key) }, user.val()))
+          Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + nameSnap.val().orgId).on('value', projectSnap => {
+            console.log(JSON.stringify(projectSnap.val))
+            let payload = []
+            projectSnap.forEach(function(project) {
+              payload = payload.concat(Object.assign({}, { projectName: project.key }, project.val()))
             })
             dispatch({
               type: ActionTypes.CHANGE_ORG_SETTINGS_TAB,
               tab: Constants.LISTS_TAB,
-              payload: usersList
+              payload: payload
             })
           })
         }

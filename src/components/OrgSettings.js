@@ -104,7 +104,15 @@ const MembersList = props => {
   else if (props.tab === Constants.LISTS_TAB) {
     return (
       <div>
-        Lists
+        {
+          (props.payload || []).map((projectItem, index) => {
+            return (
+              <div className="flx flx-row flx-align-center mrgn-bottom-sm" key={projectItem.projectId}>
+                <div className="mrgn-left-sm co-type-label">{projectItem.projectName}</div>
+              </div>
+              )
+          })
+        }
       </div>
     )
   }
