@@ -1087,11 +1087,12 @@ export function acceptInvite(auth, email, inviteId) {
         })
       }
       else {
-        let cleanedEmail = Helpers.cleanEmailToFirebase(email)
-        // Firebase.database().ref(Constants.INVITES_BY_EMAIL_BY_ORG_PATH + '/' + cleanedEmail).once('value', nonappInviteSnap => {
+        Firebase.database().ref(Constants.USERS_PATH + '/' + auth).once('value', userSnap => {
+          let cleanedEmail = Helpers.cleanEmailToFirebase(email)
+        
           let updates = {}
           // add user to the org and orgs-by-user
-          updates[Constants.USERS_BY_ORG_PATH + '/' + inviteSnap.val().orgId + '/' + auth] = true
+          updates[Constants.USERS_BY_ORG_PATH + '/' + inviteSnap.val().orgId + '/' + auth] = Object.assign({}, userSnap.val())
           updates[Constants.ORGS_BY_USER_PATH + '/' + auth + '/' + inviteSnap.val().orgId] = { name: inviteSnap.val().orgName }
 
           // remove the invites
@@ -1108,7 +1109,7 @@ export function acceptInvite(auth, email, inviteId) {
             type: ActionTypes.INVITE_ACCEPTED,
             orgName: inviteSnap.val().orgName
           })
-        // })
+        })
       }
     })
   }
