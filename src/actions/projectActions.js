@@ -1321,10 +1321,12 @@ export function loadOrgUsers(auth, orgName, source) {
           usersSnap.forEach(function(user) {
             usersList = usersList.concat(Object.assign({}, { userId: user.key }, user.val()))
           })
+          usersList.sort(Helpers.byUsername)
+
           dispatch({
-            type: ActionTypes.CHANGE_ORG_SETTINGS_TAB,
-            tab: 'members',
-            usersList: usersList
+            type: ActionTypes.ORG_USERS_LOADED,
+            usersList: usersList,
+            source: source
           })
         })
         // Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).on('child_added', addedSnap => {
@@ -1360,7 +1362,7 @@ export function loadOrgUsers(auth, orgName, source) {
   }
 }
 
-export function unloadOrgUsers(source, orgName) {
+export function unloadOrgUsers(orgName, source) {
   return dispatch => {
     if (orgName) {
       Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgName.toLowerCase()).off()
@@ -1626,6 +1628,26 @@ export function unloadProjectMembers(projectId, orgName, source) {
   }
 }
 
+export function loadProjectMemberCheck(projectId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.USERS_BY_PROJECT_PATH + '/' + projectId).on('value', snap => {
+      dispatch({
+        type: ActionTypes.LOAD_PROJECT_MEMBER_CHECK,
+        payload: snap.val(),
+      })  
+    })
+  }
+}
+
+export function unloadProjectMemberCheck(projectId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.USERS_BY_PROJECT_PATH + '/' + projectId).off();
+    dispatch({
+      type: ActionTypes.UNLOAD_PROJECT_MEMBER_CHECK,
+    })  
+  }
+}
+
 export function createInvitesByOrg() {
   return dispatch => {
     let updates = {}
@@ -1732,6 +1754,59 @@ export function changeProjectSettingsTab(tab, projectId) {
           type: ActionTypes.CHANGE_PROJECT_SETTINGS_TAB,
           tab: Constants.PENDING_TAB,
           usersList: usersList
+        })
+      })
+    }
+  }
+}
+
+export function inviteOrgUsersToProject(auth, orgName, projectId, invites) {
+  return dispatch => {
+    if (invites && invites.length > 0) {
+      Firebase.database().ref(Constants.USERS_PATH + '/' + auth).once('value', authSnap => {
+        Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName).once('value', orgSnap => {
+          Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgSnap.val().orgId).once('value', orgUsersSnap => {
+            Firebase.database().ref(Constants.USERS_BY_PROJECT_PATH + '/' + projectId).once('value', projectUsersSnap => {
+              let orgUsers = orgUsersSnap.val()
+              let projectUsers = projectUsersSnap.val()
+              let updates = {}
+              for (let i = 0; i < invites.length; i++) {
+                // if user is an org member but not in the project, invite them
+                if (orgUsers[invites[i]] && !projectUsers[invites[i]]) {
+                  // create the project invite
+                  let inviteObject = {
+                    senderId: auth,
+                    recipientId: invites[i],
+                    timestamp: Firebase.database.ServerValue.TIMESTAMP,
+                    orgId: orgSnap.val().orgId,
+                    orgName: orgName
+                  }
+
+                  let inviteId = Firebase.database().ref(Constants.PROJECT_INVITES_PATH).push(inviteObject).key
+
+                  // add to project invites by user
+                  updates[Constants.PROJECT_INVITES_BY_USER_PATH + '/' + invites[i] + '/' + inviteId] = 
+                    Object.assign({}, omit(inviteObject, ['recipientId']))
+
+                  // add to pending invite list for the project
+                  updates[Constants.INVITED_USERS_BY_PROJECT_PATH + '/' + projectId + '/' + invites[i]] = 
+                    Object.assign({}, 
+                      { senderId: auth }, 
+                      { senderUsername:  authSnap.val().username },
+                      { timestamp: Firebase.database.ServerValue.TIMESTAMP })
+                }
+              }
+              Firebase.database().ref().update(updates)
+
+              // send invites to users
+
+              dispatch({
+                type: ActionTypes.INVITED_USERS_TO_PROJECT,
+                orgName,
+                projectId
+              })
+            })
+          })
         })
       })
     }

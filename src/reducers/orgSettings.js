@@ -48,6 +48,15 @@ export default (state = initialState, action) => {
     //   }
     //   return state;
     // }
+    case ActionTypes.ORG_USERS_LOADED: {
+        if (action.source === Constants.ORG_SETTINGS_PAGE) {
+            return {
+                ...state,
+                usersList: action.usersList
+            }
+        }
+        return state;
+    }
     case ActionTypes.UNLOAD_ORG_USERS: {
       if (action.source === Constants.ORG_SETTINGS_PAGE) {
         return {

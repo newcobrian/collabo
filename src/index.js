@@ -19,7 +19,7 @@ import AddReview from './components/AddReview';
 import Followers from './components/Followers';
 import Followings from './components/Followings';
 import Inbox from './components/Inbox';
-import FriendSelector from './components/FriendSelector';
+import ProjectInvite from './components/ProjectInvite';
 import Explore from './components/Explore';
 import Project from './components/Project';
 import ForgotPassword from './components/ForgotPassword';
@@ -72,6 +72,7 @@ ReactDOM.render((
         <Route path=":orgname/invite" component={OrgInvite} />
         <Route path=":orgname(/:pid)" component={Project} />
         <Route path=":orgname/:pid/addthread" component={AddThread} />
+        <Route path=":orgname/:pid/invite" component={ProjectInvite} />
         <Route path=":orgname/:pid/admin" component={ProjectSettings} />
         <Route path=":orgname/:pid/:tid" component={Thread} />
       </Route>

@@ -230,10 +230,13 @@ export default (state = initialState, action) => {
       return state;
     }
     case ActionTypes.UNLOAD_PROJECT_MEMBERS:
-      return {
-        ...state,
-        projectMembers: []
+      if (action.source === Constants.PROJECT_PAGE) {
+        return {
+          ...state,
+          projectMembers: []
+        }
       }
+      return state;
     // case ActionTypes.LIKES_BY_USER_ADDED_ACTION: {
     //   if (action.source === Constants.PROJECT_PAGE) {
     //     const newState = Object.assign({}, state);

@@ -13,7 +13,7 @@ import editor from './reducers/editor';
 import create from './reducers/create';
 import followers from './reducers/followers';
 import inbox from './reducers/inbox';
-import friendSelector from './reducers/friendSelector';
+import projectInvite from './reducers/projectInvite';
 import modal from './reducers/modal';
 import itinerary from './reducers/itinerary';
 import snackbarToaster from './reducers/snackbarToaster';
@@ -54,7 +54,7 @@ const reducer = combineReducers({
   profile,
   settings,
   inbox,
-  friendSelector,
+  projectInvite,
   modal,
   snackbarToaster,
   lightboxComponent,

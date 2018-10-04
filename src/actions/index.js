@@ -2130,28 +2130,28 @@ export function getFriends(userId) {
   }
 }
 
-export function onUpdateFriendsCheckbox(label, selectedFriends) {
+export function onUpdateFriendsCheckbox(label, selectedUsers) {
   return dispatch => {
     // if (selectedFriends.has(label)) {
     //   selectedFriends.delete(label);
     // } else {
     //   selectedFriends.add(label);
     // }
-    if (!selectedFriends) {
-      selectedFriends = [];
-      selectedFriends.push(label)
+    if (!selectedUsers) {
+      selectedUsers = [];
+      selectedUsers.push(label)
     }
     else {
-      let index = selectedFriends.indexOf(label);
+      let index = selectedUsers.indexOf(label);
       if (index > -1) {
-        selectedFriends.splice(index, 1);
+        selectedUsers.splice(index, 1);
       }
-      else selectedFriends.push(label);
+      else selectedUsers.push(label);
     }
 
     dispatch({
       type: UPDATE_FRIENDS_CHECKBOX,
-      payload: selectedFriends
+      payload: selectedUsers
     })
   }
 }

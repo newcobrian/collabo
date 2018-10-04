@@ -46,7 +46,7 @@ class AddProject extends React.Component {
 	      else {
 		   	let project = {
 		   		name: this.props.name,
-		   		isPublic: this.props.isPublic
+		   		isPublic: this.props.isPublic ? true : false
 		   	};
 
 		    this.props.setInProgress();
@@ -205,7 +205,6 @@ class AddProject extends React.Component {
 
 
 							{/* END CONTAINER */}
-					        
 
 					    </div>
 					</div>

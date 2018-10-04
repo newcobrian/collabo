@@ -6,12 +6,12 @@ import Dialog from 'material-ui/Dialog';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
-import FriendSelector from '../FriendSelector';
+// import FriendSelector from '../FriendSelector';
 import { FORWARD_MODAL } from '../../actions';
 
 const mapStateToProps = state => ({
   ...state.modal,
-  ...state.friendSelector,
+  // ...state.friendSelector,
   authenticated: state.common.authenticated
 });
 
@@ -48,7 +48,6 @@ class ForwardModal extends React.Component {
               
             }}
         >
-          <FriendSelector />
         </Dialog>
       </MuiThemeProvider>
     );

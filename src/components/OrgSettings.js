@@ -127,7 +127,7 @@ class OrgSettings extends React.Component {
     this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
     this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
     this.props.unloadOrg(Constants.ORG_SETTINGS_PAGE, this.props.params.orgname);
-    this.props.unloadOrgUsers(Constants.ORG_SETTINGS_PAGE, this.props.params.orgname);
+    this.props.unloadOrgUsers(this.props.params.orgname, Constants.ORG_SETTINGS_PAGE);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -135,7 +135,7 @@ class OrgSettings extends React.Component {
       this.props.unloadOrgList(this.props.authenticated, Constants.ORG_SETTINGS_PAGE)
       this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
       this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
-      this.props.unloadOrgUsers(Constants.ORG_SETTINGS_PAGE, this.props.params.orgname);
+      this.props.unloadOrgUsers(this.props.params.orgname, Constants.ORG_SETTINGS_PAGE);
 
       this.props.loadOrg(this.props.authenticated, nextProps.params.orgname, Constants.ORG_SETTINGS_PAGE);
       this.props.loadProjectList(this.props.authenticated, nextProps.params.orgname, null, Constants.ORG_SETTINGS_PAGE)

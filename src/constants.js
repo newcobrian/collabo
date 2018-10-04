@@ -103,6 +103,9 @@ export const ACTIVITY_BY_USER_BY_ORG_PATH = '/activity-by-user-by-org'
 export const UPDATES_PATH = '/updates'
 export const USERS_BY_PROJECT_PATH = '/users-by-project'
 export const INVITED_USERS_BY_ORG_PATH = '/invited-users-by-org'
+export const INVITED_USERS_BY_PROJECT_PATH = '/invited-users-by-project'
+export const PROJECT_INVITES_PATH = '/project-invites'
+export const PROJECT_INVITES_BY_USER_PATH = '/project-invites-by-user'
 
 /*** Counter Type Constants ***/
 export const LIKES_COUNT = 'likesCount'
@@ -190,6 +193,7 @@ export const INBOX_PAGE = 'INBOX_PAGE'
 export const ORG_SETTINGS_PAGE = 'ORG_SETTINGS_PAGE'
 export const PROJECT_SETTINGS_PAGE = 'PROJECT_SETTINGS_PAGE'
 export const INVITE_FORM = 'INVITE_FORM'
+export const PROJECT_INVITE_PAGE = 'PROJECT_INVITE_PAGE'
 
 /*** Tab Constants ***/
 export const MEMBERS_TAB = 'members'
