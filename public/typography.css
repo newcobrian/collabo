@@ -300,7 +300,6 @@ body a.nav-module {
   font-weight: 400;
   font-size: 12px;
   font-family: 'Montserrat';
-  text-indent: 5px;
 }
 :-ms-input-placeholder { /* IE 10+ */
   color: #3DCBF3 !important; /*DARK BLUE*/
@@ -310,7 +309,6 @@ body a.nav-module {
   font-weight: 400;
   font-size: 12px;
   font-family: 'Montserrat';
-  text-indent: 5px;
 }
 :-moz-placeholder { /* Firefox 18- */
   color: #3DCBF3 !important; /*DARK BLUE*/
@@ -320,7 +318,6 @@ body a.nav-module {
   font-weight: 400;
   font-size: 12px;
   font-family: 'Montserrat';
-  text-indent: 5px;
 }
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #3DCBF3 !important; /*DARK BLUE*/
@@ -330,7 +327,6 @@ body a.nav-module {
   font-weight: 400;
   font-size: 12px;
   font-family: 'Montserrat';
-  text-indent: 5px;
 }
 
 
