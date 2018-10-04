@@ -15,18 +15,19 @@ export function onAddProject(auth, project, orgName, userInfo) {
       })
     }
     else {
+
       let lowerCaseProject = project.name.toLowerCase()
       let lowerCaseOrgName = orgName.toLowerCase()
-      Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + lowerCaseOrgName + '/' + lowerCaseProject).once('value', nameSnapshot => {
-        if (nameSnapshot.exists()) {
-          dispatch({
-            type: ActionTypes.CREATE_SUBMIT_ERROR,
-            error: 'A project called "' + project.name + '" already exists. Please choose another name',
-            source: Constants.ADD_PROJECT_PAGE
-          })
-        }
-        else {
-          Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
+      Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
+        Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + orgSnap.val().orgId + '/' + lowerCaseProject).once('value', nameSnapshot => {
+          if (nameSnapshot.exists()) {
+            dispatch({
+              type: ActionTypes.CREATE_SUBMIT_ERROR,
+              error: 'A project called "' + project.name + '" already exists. Please choose another name',
+              source: Constants.ADD_PROJECT_PAGE
+            })
+          }
+          else {
             let serverTimestamp = Firebase.database.ServerValue.TIMESTAMP;
             let projectObject = {
               lastModified: serverTimestamp,
@@ -39,7 +40,7 @@ export function onAddProject(auth, project, orgName, userInfo) {
 
             let projectId = Firebase.database().ref(Constants.PROJECTS_PATH).push(projectObject).key;
 
-            updates[`/${Constants.PROJECT_NAMES_BY_ORG_PATH}/${lowerCaseOrgName}/${lowerCaseProject}/`] = Object.assign({}, {projectId: projectId}, {isPublic: project.isPublic})
+            updates[`/${Constants.PROJECT_NAMES_BY_ORG_PATH}/${orgSnap.val().orgId}/${lowerCaseProject}/`] = Object.assign({}, {projectId: projectId}, {isPublic: project.isPublic})
             // updates[`/${Constants.PROJECTS_BY_USER_PATH}/${auth}/${projectId}/`] = { name: project.name };
 
             // add the project to the creators Project List
@@ -69,8 +70,8 @@ export function onAddProject(auth, project, orgName, userInfo) {
               //   }
               // }
             })
-          })
-        }
+          }
+        })
       })
     }
   }
