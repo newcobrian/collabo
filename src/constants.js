@@ -83,6 +83,7 @@ export const FOLLOWED_ITINERARIES_BY_USER_PATH = '/followed-itineraries-by-user'
 
 export const PROJECTS_PATH = '/projects'
 export const PROJECT_NAMES_BY_ORG_PATH = '/projects-names-by-org'
+export const PROJECTS_BY_ORG_PATH = '/projects-by-org'
 export const PROJECTS_BY_USER_BY_ORG_NAME_PATH = '/projects-by-user-by-org-name'
 export const PROJECTS_BY_USER_PATH = '/projects-by-user'
 export const THREADS_BY_PROJECT_PATH = '/threads-by-project'
@@ -198,6 +199,7 @@ export const PROJECT_INVITE_PAGE = 'PROJECT_INVITE_PAGE'
 /*** Tab Constants ***/
 export const MEMBERS_TAB = 'members'
 export const PENDING_TAB = 'pending'
+export const LISTS_TAB = 'lists'
 
 /*** Tag list ***/
 export const TAG_LIST = []

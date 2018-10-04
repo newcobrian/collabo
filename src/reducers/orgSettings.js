@@ -3,7 +3,7 @@ import * as Constants from '../constants';
 import * as Helpers from '../helpers';
 import { find, isEqual } from 'lodash';
 
-const initialState = { tab: 'members' }
+const initialState = {}
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -52,7 +52,7 @@ export default (state = initialState, action) => {
         if (action.source === Constants.ORG_SETTINGS_PAGE) {
             return {
                 ...state,
-                usersList: action.usersList
+                payload: action.payload
             }
         }
         return state;
@@ -61,7 +61,7 @@ export default (state = initialState, action) => {
       if (action.source === Constants.ORG_SETTINGS_PAGE) {
         return {
           ...state,
-          usersList: []
+          payload: []
         }
       }
     }
@@ -70,7 +70,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         tab: action.tab,
-        usersList: action.usersList
+        payload: action.payload
       }
     }
     default:

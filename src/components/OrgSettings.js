@@ -11,6 +11,23 @@ import DisplayTimestamp from './DisplayTimestamp';
 
 const mql = window.matchMedia(`(min-width: 800px)`);
 
+const ListsTab = props => {
+  const clickHandler = ev => {
+    ev.preventDefault();
+    props.onTabClick(Constants.LISTS_TAB);
+  }
+
+  return (
+    <li className="nav-item">
+      <a  href=""
+          className={ props.tab === Constants.LISTS_TAB ? 'nav-link active' : 'nav-link' }
+          onClick={clickHandler}>
+        Lists
+      </a>
+    </li>
+  );
+};
+
 const MembersTab = props => {
   const clickHandler = ev => {
     ev.preventDefault();
@@ -50,7 +67,7 @@ const MembersList = props => {
     return (
       <div>
         {
-          (props.usersList || []).map((userItem, index) => {
+          (props.payload || []).map((userItem, index) => {
             return (
               <Link className="flx flx-row flx-align-center mrgn-bottom-sm" 
                 key={userItem.userId}
@@ -65,11 +82,11 @@ const MembersList = props => {
     )
   }
   // pending tab
-  else {
+  else if (props.tab === Constants.PENDING_TAB) {
     return (
       <div>
         {
-          (props.usersList || []).map((userItem, index) => {
+          (props.payload || []).map((userItem, index) => {
             return (
               <div className="flx flx-row flx-align-center mrgn-bottom-sm" key={userItem.email}>
                 <div className="mrgn-left-sm co-type-label">{userItem.email}</div>
@@ -84,6 +101,14 @@ const MembersList = props => {
       </div>
     )
   }
+  else if (props.tab === Constants.LISTS_TAB) {
+    return (
+      <div>
+        Lists
+      </div>
+    )
+  }
+  else return null
 }
 
 const mapStateToProps = state => ({
@@ -109,7 +134,6 @@ class OrgSettings extends React.Component {
   }
 
   componentDidMount() {
-    this.props.createInvitesByOrg()
     this.props.loadSidebar(mql);
     mql.addListener(this.mediaQueryChanged);
 
@@ -118,7 +142,7 @@ class OrgSettings extends React.Component {
     this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
     this.props.loadOrgList(this.props.authenticated, Constants.ORG_SETTINGS_PAGE)
     // this.props.loadOrgUsers(this.props.authenticated, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
-    this.props.changeOrgSettingsTab(Constants.MEMBERS_TAB, this.props.params.orgname)
+    this.props.changeOrgSettingsTab(this.props.tab ? this.props.tab : Constants.LISTS_TAB, this.props.params.orgname)
     // this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'settings'});
   }
 
@@ -146,7 +170,7 @@ class OrgSettings extends React.Component {
   }
 
   render() {
-    const { orgName, usersList, sidebarOpen, tab } = this.props;
+    const { orgName, payload, sidebarOpen, tab } = this.props;
     return (
       <div>
 
@@ -180,13 +204,13 @@ class OrgSettings extends React.Component {
                     <Link to={'/' + orgName + '/invite'}>+ Invite Users to Team</Link>
                     <div>
                       <ul className="nav nav-pills outline-active">
+                        <ListsTab tab={tab} onTabClick={this.onTabClick} />
                         <MembersTab tab={tab} onTabClick={this.onTabClick} />
-
                         <PendingTab tab={tab} onTabClick={this.onTabClick} />
                       </ul>
 
 
-                      <MembersList tab={tab} usersList={usersList} orgName={orgName} />
+                      <MembersList tab={tab} payload={payload} orgName={orgName} />
 
                         {/*<ListErrors errors={this.props.errors}></ListErrors>*/}
 
