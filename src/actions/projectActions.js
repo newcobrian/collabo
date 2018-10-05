@@ -396,17 +396,6 @@ export function watchProjectNames(dispatch, orgId) {
   })
 }
 
-export function unloadProjectNames(orgName) {
-  return dispatch => {
-    if (orgName) {
-      let lowercaseOrg = orgName.toLowerCase()
-      Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowercaseOrg).once('value', orgSnap => {
-        Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + orgSnap.val().orgId).off()
-      })
-    }
-  }
-}
-
 export function watchThreadCounts(dispatch, auth, orgId) {
   Firebase.database().ref(Constants.THREAD_SEEN_COUNTERS_PATH + '/' + auth + '/' + orgId).on('value', countSnap => {
     let countObject = {}
@@ -421,27 +410,39 @@ export function watchThreadCounts(dispatch, auth, orgId) {
   })
 }
 
-export function unloadThreadCounts(auth, orgName) {
+export function unloadProjectList(auth, orgName, source) {
   return dispatch => {
     Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', orgSnap => {
       if (orgSnap.exists()) {
-        Firebase.database().ref(Constants.THREAD_SEEN_COUNTERS_PATH + '/' + auth + '/' + orgSnap.val().orgId).off()
+        let orgId = orgSnap.val().orgId
 
-        dispatch({
-          type: ActionTypes.THREAD_COUNTS_UNLOADED
-        })
+        unwatchProjectsByUsers(dispatch, auth, orgId)
+        unwatchThreadCounts(dispatch, auth, orgId)
+        unwatchOrgList(dispatch, auth, source)
+        unwatchProjectNames(dispatch, orgId)
       }
     })
   }
 }
 
-export function unloadProjectList(auth, orgName) {
-  return dispatch => {
-     Firebase.database().ref(Constants.PROJECTS_BY_USER_BY_ORG_NAME_PATH + '/' + auth + '/' + orgName.toLowerCase()).off()
-     dispatch({
-      type: ActionTypes.UNLOAD_PROJECT_LIST
-     })
-  }
+export function unwatchProjectsByUsers(dispatch, auth, orgId) {
+  Firebase.database().ref(Constants.PROJECTS_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgId).off()
+
+  dispatch({
+    type: ActionTypes.UNLOAD_PROJECT_LIST
+  })
+}
+
+export function unwatchThreadCounts(dispatch, auth, orgId) {
+  Firebase.database().ref(Constants.THREAD_SEEN_COUNTERS_PATH + '/' + auth + '/' + orgId).off()
+
+  dispatch({
+    type: ActionTypes.THREAD_COUNTS_UNLOADED
+  })
+}
+
+export function unwatchProjectNames(dispatch, orgId) {
+  Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + orgId).off()
 }
 
 export function loadThread(threadId) {
@@ -1291,15 +1292,13 @@ export function watchOrgList(dispatch, auth, source) {
   })
 }
 
-export function unloadOrgList(auth, source) {
-  return dispatch => {
-    Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth).off();
+export function unwatchOrgList(dispatch, auth, source) {
+  Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth).off();
 
-    dispatch ({
-      type: ActionTypes.UNLOAD_ORG_LIST,
-      source: source
-    })
-  }
+  dispatch ({
+    type: ActionTypes.UNLOAD_ORG_LIST,
+    source: source
+  })
 }
 
 export function setEditMode(mode) {
