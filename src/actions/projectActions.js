@@ -422,23 +422,19 @@ export function loadThreadCounts(auth, orgName) {
   }
 }
 
-export function unloadThreadCounts(auth, orgName) {
+export function unloadThreadCounts(auth, orgId) {
   return dispatch => {
-    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', orgSnap => {
-      if (orgSnap.exists()) {
-        Firebase.database().ref(Constants.THREAD_SEEN_COUNTERS_PATH + '/' + auth + '/' + orgSnap.val().orgId).off()
+    Firebase.database().ref(Constants.THREAD_SEEN_COUNTERS_PATH + '/' + auth + '/' + orgId).off()
 
-        dispatch({
-          type: ActionTypes.THREAD_COUNTS_UNLOADED
-        })
-      }
+    dispatch({
+      type: ActionTypes.THREAD_COUNTS_UNLOADED
     })
   }
 }
 
-export function unloadProjectList(auth, orgName) {
+export function unloadProjectList(auth, orgId) {
   return dispatch => {
-     Firebase.database().ref(Constants.PROJECTS_BY_USER_BY_ORG_NAME_PATH + '/' + auth + '/' + orgName.toLowerCase()).off()
+     Firebase.database().ref(Constants.PROJECTS_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgId).off()
      dispatch({
       type: ActionTypes.UNLOAD_PROJECT_LIST
      })
@@ -1243,21 +1239,16 @@ export function watchThreadFeed(auth, orgName, projectId, endValue, source) {
   }
 }
 
-export function unwatchThreadFeed(auth, orgName, projectId, source) {
+export function unwatchThreadFeed(auth, orgId, projectId, source) {
   return dispatch => {
-    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', orgSnap => {
-      if (orgSnap.exists()) {
-        let orgId = orgSnap.val().orgId
-        let path = projectId ? (Constants.THREADS_BY_PROJECT_PATH + '/' + projectId) : 
-          (Constants.THREADS_BY_ORG_PATH + '/' + orgId)
+    let path = projectId ? (Constants.THREADS_BY_PROJECT_PATH + '/' + projectId) : 
+      (Constants.THREADS_BY_ORG_PATH + '/' + orgId)
 
-        Firebase.database().ref(path).off()
+    Firebase.database().ref(path).off()
 
-        dispatch({
-          type: ActionTypes.UNWATCH_THREAD_FEED,
-          source: source
-        })
-      }
+    dispatch({
+      type: ActionTypes.UNWATCH_THREAD_FEED,
+      source: source
     })
   }
 }
@@ -1637,13 +1628,11 @@ export function loadProjectMembers(projectId, orgName, source) {
   }
 }
 
-export function unloadProjectMembers(projectId, orgName, source) {
+export function unloadProjectMembers(projectId, orgId, source) {
   return dispatch => {
     if (!projectId) {
       // load all org members
-      Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', orgSnap => {
-        Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgSnap.val().orgId).off()
-      })
+      Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId).off()
     }
     else {
       // load members of the project

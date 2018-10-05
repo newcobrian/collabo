@@ -245,8 +245,8 @@ class Thread extends React.Component {
 
   componentWillUnmount() {
     this.props.unloadOrgList(this.props.authenticated, Constants.THREAD_PAGE)
-    this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname, Constants.THREAD_PAGE)
-    this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.THREAD_PAGE)
+    this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId, Constants.THREAD_PAGE)
+    this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.THREAD_PAGE)
     this.props.unloadOrg(Constants.THREAD_PAGE);
     this.props.unloadOrgUsers(Constants.THREAD_PAGE)
     this.props.unloadThread(this.props.params.tid);
@@ -268,8 +268,8 @@ class Thread extends React.Component {
     else if (nextProps.params.orgname !== this.props.params.orgname) {
       this.props.unloadOrgList(this.props.authenticated, Constants.THREAD_PAGE)
       this.props.unloadOrgUsers(Constants.THREAD_PAGE)
-      this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname, Constants.THREAD_PAGE)
-      this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.THREAD_PAGE)
+      this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId, Constants.THREAD_PAGE)
+      this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.THREAD_PAGE)
       this.props.unloadThread(this.props.params.tid);
       this.props.unloadThreadLikes(this.props.params.tid);
       this.props.unwatchThreadComments(this.props.params.tid);
