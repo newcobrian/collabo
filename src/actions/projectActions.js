@@ -1902,6 +1902,9 @@ export function joinProject(auth, userInfo, orgId, project) {
         let updates = {}
         updates[`/${Constants.PROJECTS_BY_USER_BY_ORG_PATH}/${auth}/${orgId}/${project.projectId}/`] = Object.assign({}, pick(project, ['name', 'isPublic']));
         updates[`/${Constants.USERS_BY_PROJECT_PATH}/${project.projectId}/${auth}/`] = Object.assign({}, userInfo);
+
+        // also remove them from pending invites list
+        updates[`/${Constants.INVITED_USERS_BY_PROJECT_PATH}/${project.projectId}/${auth}/`] = null
         
         Firebase.database().ref().update(updates)
       }
