@@ -375,7 +375,7 @@ export function loadProjectList(auth, orgName, projectId, source) {
   }
 }
 
-export function loadProjectNames(orgName) {
+export function loadProjectNames(orgName, source) {
   return dispatch => {
     if (orgName) {
       let lowercaseOrg = orgName.toLowerCase()
@@ -387,7 +387,8 @@ export function loadProjectNames(orgName) {
           })
           dispatch({
             type: ActionTypes.LOAD_PROJECT_NAMES,
-            projectNames: projectNames
+            projectNames: projectNames,
+            source
           })
         })
       })
