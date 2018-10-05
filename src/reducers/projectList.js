@@ -1,7 +1,7 @@
 import * as ActionTypes from '../actions/types';
 import * as Constants from '../constants';
 import * as Helpers from '../helpers';
-import { find, isEqual } from 'lodash';
+import { find, isEqual, omit } from 'lodash';
 
 const initialState = { projectList: [], orgList: [] }
 
@@ -12,7 +12,7 @@ export default (state = initialState, action) => {
       newState[action.listType] = newState[action.listType] || [];
       newState[action.listType] = newState[action.listType].slice();
       if (!find(newState[action.listType], ['id', action.id])) {
-        newState[action.listType] = newState[action.listType].concat(Object.assign({}, {id: action.id}, action.data));
+        newState[action.listType] = newState[action.listType].concat(Object.assign({}, {id: action.id}, omit(action.data, ['name'])));
 
         return newState;
       }
@@ -96,6 +96,16 @@ export default (state = initialState, action) => {
         ...state,
         projectId: null
       }
+    case ActionTypes.LOAD_PROJECT_NAMES:
+      return {
+        ...state,
+        projectNames: action.projectNames
+      }
+    // case ActionTypes.UNLOAD_PROJECT_NAMES:
+    //   return {
+    //     ...state,
+    //     projectNames: {}
+    //   }
     default:
       return state;
   }

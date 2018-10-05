@@ -87,10 +87,12 @@ class AddThread extends React.Component {
 	    this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, this.props.params.pid, Constants.ADD_THREAD_PAGE)
 	    this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
 	    this.props.loadOrgList(this.props.authenticated, Constants.ADD_THREAD_PAGE)
+	    this.props.loadProjectNames(this.props.params.orgname, Constants.ADD_THREAD_PAGE)
 	}
 
 	componentWillUnmount() {
 		this.props.onCreateUnload();
+		this.props.unloadProjectNames(this.props.params.orgname, Constants.ADD_THREAD_PAGE)
 		this.props.unloadOrgList(this.props.authenticated, Constants.ADD_THREAD_PAGE)
 	    this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname)
 	    this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.ADD_THREAD_PAGE)

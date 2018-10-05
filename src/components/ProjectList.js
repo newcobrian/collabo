@@ -44,7 +44,6 @@ const mapStateToProps = state => ({
   currentUser: state.common.currentUser,
   authenticated: state.common.authenticated,
   userInfo: state.common.userInfo,
-  orgName: state.organization.orgName,
   unreadMessages: state.common.unreadMessages
 });
 
@@ -70,17 +69,13 @@ class ProjectList extends React.Component {
   }
 
   render() {
-    if (!this.props.orgName) {
+    if (!this.props.orgName || !this.props.projectList || !this.props.projectNames) {
       return null
     }
 
     // let orgName = this.props.org ?  this.props.org.name : ''
     let orgName = this.props.orgName
     let threadCounts = this.props.threadCounts || {}
-
-    if(!this.props.projectList) {
-      return null;
-    }
 
     return (
       <div className="co-sidebar flx-col flx-item-left h-100">
@@ -150,7 +145,7 @@ class ProjectList extends React.Component {
                       {<DotJewel threadCount={threadCounts[projectItem.id]} />}
                     </div> 
                     <div className="co-type-project-name color--black">
-                      {projectItem.name}
+                      {this.props.projectNames[projectItem.id]}
                     </div>
                     {<ThreadCountJewel threadCount={threadCounts[projectItem.id]} />}
                   </Link>

@@ -77,6 +77,8 @@ class Inbox extends React.Component {
     this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, Constants.INBOX_PAGE)
     this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
     this.props.loadOrgList(this.props.authenticated, Constants.INBOX_PAGE)
+    this.props.loadProjectNames(this.props.params.orgname, Constants.INBOX_PAGE)
+
     this.props.getInbox(this.props.authenticated, null);
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'inbox'});
     this.props.updateInboxCount(this.props.authenticated);
@@ -85,6 +87,8 @@ class Inbox extends React.Component {
   componentWillUnmount() {
     this.props.updateInboxCount(this.props.authenticated);
     this.props.unloadInbox(this.props.authenticated);
+
+    this.props.unloadProjectNames(this.props.params.orgname, Constants.INBOX_PAGE)
     this.props.unloadOrgList(this.props.authenticated, Constants.INBOX_PAGE)
     this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname)
     this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.INBOX_PAGE)
