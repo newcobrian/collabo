@@ -115,6 +115,9 @@ class ProjectSettings extends React.Component {
 
     this.props.loadOrg(this.props.authenticated, this.props.params.orgname, Constants.PROJECT_SETTINGS_PAGE);
     this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, null, Constants.PROJECT_SETTINGS_PAGE)
+    this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
+    this.props.loadOrgList(this.props.authenticated, Constants.PROJECT_SETTINGS_PAGE)
+    this.props.loadProjectNames(this.props.params.orgname, Constants.PROJECT_SETTINGS_PAGE)
 
     this.props.loadProject(this.props.params.pid, Constants.PROJECT_SETTINGS_PAGE);
     this.props.changeProjectSettingsTab(Constants.MEMBERS_TAB, this.props.params.pid)
@@ -138,6 +141,8 @@ class ProjectSettings extends React.Component {
 
       this.props.loadOrg(this.props.authenticated, nextProps.params.orgname, Constants.PROJECT_SETTINGS_PAGE);
       this.props.loadProjectList(this.props.authenticated, nextProps.params.orgname, null, Constants.PROJECT_SETTINGS_PAGE)
+      this.props.loadThreadCounts(this.props.authenticated, nextProps.params.PROJECT_SETTINGS_PAGE)
+      this.props.loadProjectNames(nextProps.params.orgname, Constants.PROJECT_SETTINGS_PAGE)
 
       this.props.loadProject(nextProps.params.pid, Constants.PROJECT_SETTINGS_PAGE);
       this.props.changeProjectSettingsTab(this.props.tab, nextProps.params.pid)

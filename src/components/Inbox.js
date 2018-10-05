@@ -75,6 +75,9 @@ class Inbox extends React.Component {
 
     this.props.loadOrg(this.props.authenticated, this.props.params.orgname, Constants.INBOX_PAGE);
     this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, Constants.INBOX_PAGE)
+    this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
+    this.props.loadOrgList(this.props.authenticated, Constants.INBOX_PAGE)
+    this.props.loadProjectNames(this.props.params.orgname, Constants.INBOX_PAGE)
 
     this.props.getInbox(this.props.authenticated, null);
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'inbox'});
