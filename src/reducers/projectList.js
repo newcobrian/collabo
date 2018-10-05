@@ -12,7 +12,7 @@ export default (state = initialState, action) => {
       newState[action.listType] = newState[action.listType] || [];
       newState[action.listType] = newState[action.listType].slice();
       if (!find(newState[action.listType], ['id', action.id])) {
-        newState[action.listType] = newState[action.listType].concat(Object.assign({}, {id: action.id}, omit(action.data, ['name'])));
+        newState[action.listType] = newState[action.listType].concat(Object.assign({}, {id: action.id}, action.data));
 
         return newState;
       }
