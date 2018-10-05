@@ -166,7 +166,7 @@ class OrgSettings extends React.Component {
 
       this.props.loadOrg(this.props.authenticated, nextProps.params.orgname, Constants.ORG_SETTINGS_PAGE);
       this.props.loadProjectList(this.props.authenticated, nextProps.params.orgname, null, Constants.ORG_SETTINGS_PAGE)
-      this.props.changeOrgSettingsTab(this.props.tab, nextProps.params.orgname)
+      this.props.changeOrgSettingsTab(this.props.tab ? this.props.tab : Constants.LISTS_TAB, nextProps.params.orgname)
     }
   }
 
