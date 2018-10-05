@@ -60,8 +60,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
         projectList: [],
-        // projectId: undefined,
-        // source: ''
+        projectId: undefined,
+        source: ''
       }
     case ActionTypes.UNLOAD_ORG_LIST:
       return {

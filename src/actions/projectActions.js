@@ -416,7 +416,7 @@ export function unloadProjectList(auth, orgName, source) {
       if (orgSnap.exists()) {
         let orgId = orgSnap.val().orgId
 
-        // unwatchProjectsByUsers(dispatch, auth, orgId)
+        unwatchProjectsByUsers(dispatch, auth, orgId)
         unwatchThreadCounts(dispatch, auth, orgId)
         unwatchOrgList(dispatch, auth, source)
         unwatchProjectNames(dispatch, orgId)
@@ -428,9 +428,9 @@ export function unloadProjectList(auth, orgName, source) {
 export function unwatchProjectsByUsers(dispatch, auth, orgId) {
   Firebase.database().ref(Constants.PROJECTS_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgId).off()
 
-  // dispatch({
-  //   type: ActionTypes.UNLOAD_PROJECT_LIST
-  // })
+  dispatch({
+    type: ActionTypes.UNLOAD_PROJECT_LIST
+  })
 }
 
 export function unwatchThreadCounts(dispatch, auth, orgId) {
