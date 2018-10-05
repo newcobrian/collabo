@@ -130,8 +130,7 @@ class Profile extends React.Component {
   componentWillMount() {
     this.props.loadOrg(this.props.authenticated, this.props.params.orgname, Constants.PROFILE_PAGE);
     this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, Constants.PROFILE_PAGE)
-    this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
-    this.props.loadOrgList(this.props.authenticated, Constants.PROFILE_PAGE)
+    
     // look up userID from username and load profile
     this.loadUser(this.props.params.username)
   }

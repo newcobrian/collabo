@@ -343,87 +343,71 @@ export function loadProjectList(auth, orgName, projectId, source) {
     })
 
     Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowercaseName).once('value', orgSnap => {
-      Firebase.database().ref(Constants.PROJECTS_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgSnap.val().orgId).on('child_added', snap => {
-        dispatch({ 
-          type: ActionTypes.LIST_ADDED_ACTION,
-          id: snap.key,
-          data: snap.val(),
-          listType: Constants.PROJECT_LIST_TYPE,
-          source: source
-        })
-      })
+      let orgId = orgSnap.val().orgId
+      watchProjectsByUser(dispatch, auth, orgId, source)
+      watchThreadCounts(dispatch, auth, orgId)
+      watchOrgList(dispatch, auth, source)
+      watchProjectNames(dispatch, orgId)
+    })    
+  }
+}
 
-      Firebase.database().ref(Constants.PROJECTS_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgSnap.val().orgId).on('child_changed', snap => {
-        dispatch({
-          type: ActionTypes.LIST_CHANGED_ACTION,
-          id: snap.key,
-          data: snap.val(),
-          listType: Constants.PROJECT_LIST_TYPE,
-          source: source
-        })
-      })
-
-      Firebase.database().ref(Constants.PROJECTS_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgSnap.val().orgId).on('child_removed', snap => {
-        dispatch({
-          type: ActionTypes.LIST_REMOVED_ACTION,
-          id: snap.key,
-          listType: Constants.PROJECT_LIST_TYPE,
-          source: source
-        })
-      })
+export function watchProjectsByUser(dispatch, auth, orgId, source) {
+  Firebase.database().ref(Constants.PROJECTS_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgId).on('child_added', addedSnap => {
+    dispatch({ 
+      type: ActionTypes.LIST_ADDED_ACTION,
+      id: addedSnap.key,
+      data: addedSnap.val(),
+      listType: Constants.PROJECT_LIST_TYPE,
+      source: source
     })
-  }
-}
+  })
 
-export function loadProjectNames(orgName) {
-  return dispatch => {
-    if (orgName) {
-      let lowercaseOrg = orgName.toLowerCase()
-      Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowercaseOrg).once('value', orgSnap => {
-        Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + orgSnap.val().orgId).on('value', projectsSnap => {
-          let projectNames = {}
-          projectsSnap.forEach(function(project) {
-            projectNames[project.val().projectId] = project.key
-          })
-          dispatch({
-            type: ActionTypes.LOAD_PROJECT_NAMES,
-            projectNames: projectNames
-          })
-        })
-      })
-    }
-  }
-}
-
-export function unloadProjectNames(orgName) {
-  return dispatch => {
-    if (orgName) {
-      let lowercaseOrg = orgName.toLowerCase()
-      Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowercaseOrg).once('value', orgSnap => {
-        Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + orgSnap.val().orgId).off()
-      })
-    }
-  }
-}
-
-export function loadThreadCounts(auth, orgName) {
-  return dispatch => {
-    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', orgSnap => {
-      if (orgSnap.exists()) {
-        Firebase.database().ref(Constants.THREAD_SEEN_COUNTERS_PATH + '/' + auth + '/' + orgSnap.val().orgId).on('value', countSnap => {
-          let countObject = {}
-          countSnap.forEach(function(project) {
-            countObject[project.key] = project.numChildren()
-          })
-
-          dispatch({
-            type: ActionTypes.THREAD_COUNTS_LOADED,
-            threadCounts: countObject
-          })
-        })
-      }
+  Firebase.database().ref(Constants.PROJECTS_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgId).on('child_changed', changedSnap => {
+    dispatch({
+      type: ActionTypes.LIST_CHANGED_ACTION,
+      id: changedSnap.key,
+      data: changedSnap.val(),
+      listType: Constants.PROJECT_LIST_TYPE,
+      source: source
     })
-  }
+  })
+
+  Firebase.database().ref(Constants.PROJECTS_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgId).on('child_removed', removedSnap => {
+    dispatch({
+      type: ActionTypes.LIST_REMOVED_ACTION,
+      id: removedSnap.key,
+      listType: Constants.PROJECT_LIST_TYPE,
+      source: source
+    })
+  })
+}
+
+export function watchProjectNames(dispatch, orgId) {
+  Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + orgId).on('value', projectsSnap => {
+    let projectNames = {}
+    projectsSnap.forEach(function(project) {
+      projectNames[project.val().projectId] = project.key
+    })
+    dispatch({
+      type: ActionTypes.LOAD_PROJECT_NAMES,
+      projectNames: projectNames
+    })
+  })
+}
+
+export function watchThreadCounts(dispatch, auth, orgId) {
+  Firebase.database().ref(Constants.THREAD_SEEN_COUNTERS_PATH + '/' + auth + '/' + orgId).on('value', countSnap => {
+    let countObject = {}
+    countSnap.forEach(function(project) {
+      countObject[project.key] = project.numChildren()
+    })
+
+    dispatch({
+      type: ActionTypes.THREAD_COUNTS_LOADED,
+      threadCounts: countObject
+    })
+  })
 }
 
 export function unloadProjectList(auth, orgName, source) {
@@ -1278,36 +1262,34 @@ export function unwatchThreadFeed(auth, orgName, projectId, source) {
   }
 }
 
-export function loadOrgList(auth, source) {
-  return dispatch => {
-    Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth).on('child_added', snap => {
-      dispatch({
-        type: ActionTypes.LIST_ADDED_ACTION,
-        data: snap.val(),
-        id: snap.key,
-        listType: Constants.ORG_LIST_TYPE,
-        source: source
-      })
+export function watchOrgList(dispatch, auth, source) {
+  Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth).on('child_added', addedSnap => {
+    dispatch({
+      type: ActionTypes.LIST_ADDED_ACTION,
+      data: addedSnap.val(),
+      id: addedSnap.key,
+      listType: Constants.ORG_LIST_TYPE,
+      source: source
     })
-    Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth).on('child_changed', snap => {
-      dispatch({
-        type: ActionTypes.LIST_CHANGED_ACTION,
-        data: snap.val(),
-        id: snap.key,
-        listType: Constants.ORG_LIST_TYPE,
-        source: source
-      })
+  })
+  Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth).on('child_changed', changedSnap => {
+    dispatch({
+      type: ActionTypes.LIST_CHANGED_ACTION,
+      data: changedSnap.val(),
+      id: changedSnap.key,
+      listType: Constants.ORG_LIST_TYPE,
+      source: source
     })
-    Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth).on('child_removed', snap => {
-      dispatch({
-        type: ActionTypes.LIST_REMOVED_ACTION,
-        data: snap.val(),
-        id: snap.key,
-        listType: Constants.ORG_LIST_TYPE,
-        source: source
-      })
+  })
+  Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth).on('child_removed', removedSnap => {
+    dispatch({
+      type: ActionTypes.LIST_REMOVED_ACTION,
+      data: removedSnap.val(),
+      id: removedSnap.key,
+      listType: Constants.ORG_LIST_TYPE,
+      source: source
     })
-  }
+  })
 }
 
 export function unwatchOrgList(dispatch, auth, source) {

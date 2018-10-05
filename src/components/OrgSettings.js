@@ -147,9 +147,6 @@ class OrgSettings extends React.Component {
 
     this.props.loadOrg(this.props.authenticated, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE);
     this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, null, Constants.ORG_SETTINGS_PAGE)
-    this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
-    this.props.loadOrgList(this.props.authenticated, Constants.ORG_SETTINGS_PAGE)
-    this.props.loadProjectNames(this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
 
     // this.props.loadOrgUsers(this.props.authenticated, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
     this.props.changeOrgSettingsTab(this.props.tab ? this.props.tab : Constants.LISTS_TAB, this.props.params.orgname)
@@ -169,10 +166,7 @@ class OrgSettings extends React.Component {
 
       this.props.loadOrg(this.props.authenticated, nextProps.params.orgname, Constants.ORG_SETTINGS_PAGE);
       this.props.loadProjectList(this.props.authenticated, nextProps.params.orgname, null, Constants.ORG_SETTINGS_PAGE)
-      this.props.loadThreadCounts(this.props.authenticated, nextProps.params.ORG_SETTINGS_PAGE)
-      this.props.loadProjectNames(nextProps.params.orgname, Constants.ORG_SETTINGS_PAGE)
-      // this.props.loadOrgUsers(this.props.authenticated, nextProps.params.orgname, Constants.ORG_SETTINGS_PAGE)
-      this.props.changeOrgSettingsTab(this.props.tab, nextProps.params.orgname)
+      this.props.changeOrgSettingsTab(this.props.tab ? this.props.tab : Constants.LISTS_TAB, nextProps.params.orgname)
     }
   }
 

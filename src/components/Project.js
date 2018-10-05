@@ -44,9 +44,7 @@ class Project extends React.Component {
 
     this.props.loadOrg(this.props.authenticated, this.props.params.orgname, Constants.PROJECT_PAGE);
     this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, this.props.params.pid, Constants.PROJECT_PAGE)
-    this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
-    this.props.loadOrgList(this.props.authenticated, Constants.PROJECT_PAGE)
-    this.props.loadProjectNames(this.props.params.orgname, Constants.PROJECT_PAGE)
+
     this.props.loadProject(this.props.params.pid, Constants.PROJECT_PAGE);
     this.props.loadProjectMembers(this.props.params.pid, this.props.params.orgname, Constants.PROJECT_PAGE)
     // this.props.loadLikesByUser(this.props.authenticated, this.props.params.orgname)
@@ -57,11 +55,6 @@ class Project extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.unwatchThreadFeed(this.props.authenticated, this.props.params.orgname, this.props.params.pid, Constants.PROJECT_PAGE)
-    
-    this.props.unloadProjectNames(this.props.params.orgname, Constants.PROJECT_PAGE)
-    this.props.unloadOrgList(this.props.authenticated, Constants.PROJECT_PAGE)
-    this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname)
     this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.PROJECT_PAGE)
 
     this.props.unwatchThreadFeed(this.props.authenticated, this.props.params.orgname, this.props.params.pid, Constants.PROJECT_PAGE)
@@ -74,6 +67,7 @@ class Project extends React.Component {
     if (nextProps.params.pid !== this.props.params.pid && nextProps.params.orgname === this.props.params.orgname) {
       this.props.unwatchThreadFeed(this.props.authenticated, this.props.params.orgname, this.props.params.pid, Constants.PROJECT_PAGE)
       this.props.unloadProjectMembers(this.props.params.pid, this.props.params.orgname, Constants.PROJECT_PAGE)
+
       this.props.loadProject(nextProps.params.pid, Constants.PROJECT_PAGE);
       this.props.loadProjectMembers(nextProps.params.pid, this.props.params.orgname, Constants.PROJECT_PAGE)
       // this.props.watchThreadFeed(this.props.authenticated, this.props.params.orgname, nextProps.params.pid, this.props.feedEndValue, Constants.PROJECT_PAGE)
@@ -89,9 +83,8 @@ class Project extends React.Component {
       this.props.unloadProjectMembers(this.props.params.pid, this.props.params.orgname, Constants.PROJECT_PAGE)
 
       this.props.loadOrg(this.props.authenticated, nextProps.params.orgname, Constants.PROJECT_PAGE);
-      this.props.loadProjectList(this.props.authenticated, nextProps.params.orgname, this.props.params.pid, Constants.PROJECT_PAGE)
-      this.props.loadThreadCounts(this.props.authenticated, nextProps.params.orgname)
-      this.props.loadProjectNames(nextProps.params.orgname, Constants.PROJECT_PAGE)
+      this.props.loadProjectList(this.props.authenticated, nextProps.params.orgname, nextProps.params.pid, Constants.PROJECT_PAGE)
+
       this.props.loadProject(nextProps.params.pid, Constants.PROJECT_PAGE);
       this.props.loadProjectMembers(nextProps.params.pid, nextProps.params.orgname, Constants.PROJECT_PAGE)
       // this.props.watchThreadFeed(this.props.authenticated,nextProps.params.orgname, nextProps.params.pid, this.props.feedEndValue, Constants.PROJECT_PAGE)
