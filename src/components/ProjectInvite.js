@@ -37,7 +37,10 @@ class ProjectInvite extends React.Component {
     	mql.addListener(this.mediaQueryChanged);
 
     	this.props.loadOrg(this.props.authenticated, this.props.params.orgname, Constants.PROJECT_INVITE_PAGE);
+    	
 	    this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, this.props.params.pid, Constants.PROJECT_INVITE_PAGE)
+	    this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
+	    this.props.loadOrgList(this.props.authenticated, Constants.PROJECT_INVITE_PAGE)
 
 	    this.props.loadProject(this.props.params.pid, Constants.PROJECT_INVITE_PAGE);
 	    this.props.loadProjectMemberCheck(this.props.params.pid, this.props.params.orgname)
