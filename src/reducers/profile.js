@@ -327,7 +327,6 @@ export default (state = initialState, action) => {
         return {
           ...state,
           orgId: action.orgId,
-          org: action.organization,
           invalidOrgUser: false
         }
       }

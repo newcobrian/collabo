@@ -136,6 +136,15 @@ export default (state = { body: initialQuillState, usersList: [] }, action) => {
         projectId: action.projectId,
         projectName: action.projectName
       }
+    case ActionTypes.LOAD_ORG: {
+      if (action.source === Constants.ADD_THREAD_PAGE) {
+        return {
+          ...state,
+          orgId: action.orgId,
+          invalidOrgUser: false
+        }
+      }
+    }
     default:
       return state;
   }
