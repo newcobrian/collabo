@@ -145,7 +145,7 @@ class ProjectList extends React.Component {
                       {<DotJewel threadCount={threadCounts[projectItem.id]} />}
                     </div> 
                     <div className="co-type-project-name color--black">
-                      {this.props.projectNames[projectItem.id]}
+                      {this.props.projectNames[projectItem.id].name}
                     </div>
                     {<ThreadCountJewel threadCount={threadCounts[projectItem.id]} />}
                   </Link>

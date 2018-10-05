@@ -101,11 +101,11 @@ export default (state = initialState, action) => {
         ...state,
         projectNames: action.projectNames
       }
-    // case ActionTypes.UNLOAD_PROJECT_NAMES:
-    //   return {
-    //     ...state,
-    //     projectNames: {}
-    //   }
+    case ActionTypes.UNLOAD_PROJECT_NAMES:
+      return {
+        ...state,
+        projectNames: {}
+      }
     default:
       return state;
   }

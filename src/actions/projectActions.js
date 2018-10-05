@@ -383,7 +383,7 @@ export function loadProjectNames(orgName, source) {
         Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + orgSnap.val().orgId).on('value', projectsSnap => {
           let projectNames = {}
           projectsSnap.forEach(function(project) {
-            projectNames[project.val().projectId] = project.key
+            projectNames[project.val().projectId] = Object.assign({}, {name: project.key}, {isPublic: projectsSnap.val().isPublic ? true : false})
           })
           dispatch({
             type: ActionTypes.LOAD_PROJECT_NAMES,
@@ -1665,72 +1665,125 @@ export function unloadProjectMemberCheck(projectId) {
   }
 }
 
-export function changeOrgSettingsTab(tab, orgName) {
+export function changeOrgSettingsTab(tab, orgName, orgId) {
   return dispatch => {
-    if (tab === Constants.MEMBERS_TAB) {
-      Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', nameSnap => {
-        if (nameSnap.exists()) {
-          // stop watching previous paths
-          Firebase.database().ref(Constants.INVITES_BY_ORG_PATH + '/' + nameSnap.val().orgId).off()
-          Firebase.database().ref(Constants.PROJECTS_BY_ORG_PATH + '/' + nameSnap.val().orgId).off()
+    if (orgId) {
+      if (tab === Constants.MEMBERS_TAB) {
+        // stop watching previous paths
+        Firebase.database().ref(Constants.INVITES_BY_ORG_PATH + '/' + orgId).off()
+        Firebase.database().ref(Constants.PROJECTS_BY_ORG_PATH + '/' + orgId).off()
 
-          // then watch the members in this org
-          Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).on('value', usersSnap => {
-            let usersList = []
-            usersSnap.forEach(function(user) {
-              usersList = usersList.concat(Object.assign({}, { userId: user.key }, user.val()))
-            })
-            dispatch({
-              type: ActionTypes.CHANGE_ORG_SETTINGS_TAB,
-              tab: Constants.MEMBERS_TAB,
-              payload: usersList
-            })
+        // then watch the members in this org
+        Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' +orgId).on('value', usersSnap => {
+          let usersList = []
+          usersSnap.forEach(function(user) {
+            usersList = usersList.concat(Object.assign({}, { userId: user.key }, user.val()))
           })
-        }
-      })
+          dispatch({
+            type: ActionTypes.CHANGE_ORG_SETTINGS_TAB,
+            tab: Constants.MEMBERS_TAB,
+            payload: usersList
+          })
+        })
+      }
+      // else get the invited users
+      else if (tab === Constants.PENDING_TAB) {
+        // stop watching members list and projects list
+        Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId).off()
+        Firebase.database().ref(Constants.PROJECTS_BY_ORG_PATH + '/' + orgId).off()
+
+        // then watch the members in this org
+        Firebase.database().ref(Constants.INVITED_USERS_BY_ORG_PATH + '/' + orgId).on('value', usersSnap => {
+          let usersList = []
+          usersSnap.forEach(function(user) {
+            usersList = usersList.concat(Object.assign({}, { email: Helpers.cleanEmailFromFirebase(user.key) }, user.val()))
+          })
+          dispatch({
+            type: ActionTypes.CHANGE_ORG_SETTINGS_TAB,
+            tab: Constants.PENDING_TAB,
+            payload: usersList
+          })
+        })
+      }
+      else if (tab === Constants.LISTS_TAB) {
+        // stop watching members list and invites list
+        Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId).off()
+        Firebase.database().ref(Constants.INVITES_BY_ORG_PATH + '/' + orgId).off()
+
+        // then watch the members in this org
+        Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + orgId).on('value', projectSnap => {
+          let payload = []
+          projectSnap.forEach(function(project) {
+            payload = payload.concat(Object.assign({}, { projectName: project.key }, project.val()))
+          })
+          dispatch({
+            type: ActionTypes.CHANGE_ORG_SETTINGS_TAB,
+            tab: Constants.LISTS_TAB,
+            payload: payload
+          })
+        })
+      }
     }
-    // else get the invited users
-    else if (tab === Constants.PENDING_TAB) {
+    // if we don't have orgId (first page load), then fetch it first
+    else { 
+      console.log('else')
       Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', nameSnap => {
         if (nameSnap.exists()) {
-          // stop watching members list and projects list
-          Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).off()
-          Firebase.database().ref(Constants.PROJECTS_BY_ORG_PATH + '/' + nameSnap.val().orgId).off()
+          if (tab === Constants.MEMBERS_TAB) {
+            // stop watching previous paths
+            Firebase.database().ref(Constants.INVITES_BY_ORG_PATH + '/' + nameSnap.val().orgId).off()
+            Firebase.database().ref(Constants.PROJECTS_BY_ORG_PATH + '/' + nameSnap.val().orgId).off()
 
-          // then watch the members in this org
-          Firebase.database().ref(Constants.INVITED_USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).on('value', usersSnap => {
-            let usersList = []
-            usersSnap.forEach(function(user) {
-              usersList = usersList.concat(Object.assign({}, { email: Helpers.cleanEmailFromFirebase(user.key) }, user.val()))
+            // then watch the members in this org
+            Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).on('value', usersSnap => {
+              let usersList = []
+              usersSnap.forEach(function(user) {
+                usersList = usersList.concat(Object.assign({}, { userId: user.key }, user.val()))
+              })
+              dispatch({
+                type: ActionTypes.CHANGE_ORG_SETTINGS_TAB,
+                tab: Constants.MEMBERS_TAB,
+                payload: usersList
+              })
             })
-            dispatch({
-              type: ActionTypes.CHANGE_ORG_SETTINGS_TAB,
-              tab: Constants.PENDING_TAB,
-              payload: usersList
-            })
-          })
-        }
-      })
-    }
-    else if (tab === Constants.LISTS_TAB) {
-      Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', nameSnap => {
-        if (nameSnap.exists()) {
-          // stop watching members list and invites list
-          Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).off()
-          Firebase.database().ref(Constants.INVITES_BY_ORG_PATH + '/' + nameSnap.val().orgId).off()
+          }
+          // else get the invited users
+          else if (tab === Constants.PENDING_TAB) {
+            // stop watching members list and projects list
+            Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).off()
+            Firebase.database().ref(Constants.PROJECTS_BY_ORG_PATH + '/' + nameSnap.val().orgId).off()
 
-          // then watch the members in this org
-          Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + nameSnap.val().orgId).on('value', projectSnap => {
-            let payload = []
-            projectSnap.forEach(function(project) {
-              payload = payload.concat(Object.assign({}, { projectName: project.key }, project.val()))
+            // then watch the members in this org
+            Firebase.database().ref(Constants.INVITED_USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).on('value', usersSnap => {
+              let usersList = []
+              usersSnap.forEach(function(user) {
+                usersList = usersList.concat(Object.assign({}, { email: Helpers.cleanEmailFromFirebase(user.key) }, user.val()))
+              })
+              dispatch({
+                type: ActionTypes.CHANGE_ORG_SETTINGS_TAB,
+                tab: Constants.PENDING_TAB,
+                payload: usersList
+              })
             })
-            dispatch({
-              type: ActionTypes.CHANGE_ORG_SETTINGS_TAB,
-              tab: Constants.LISTS_TAB,
-              payload: payload
+          }
+          else if (tab === Constants.LISTS_TAB) {
+            // stop watching members list and invites list
+            Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).off()
+            Firebase.database().ref(Constants.INVITES_BY_ORG_PATH + '/' + nameSnap.val().orgId).off()
+
+            // then watch the members in this org
+            Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + nameSnap.val().orgId).on('value', projectSnap => {
+              let payload = []
+              projectSnap.forEach(function(project) {
+                payload = payload.concat(Object.assign({}, { projectName: project.key }, project.val()))
+              })
+              dispatch({
+                type: ActionTypes.CHANGE_ORG_SETTINGS_TAB,
+                tab: Constants.LISTS_TAB,
+                payload: payload
+              })
             })
-          })
+          }
         }
       })
     }

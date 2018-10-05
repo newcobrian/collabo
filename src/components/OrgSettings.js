@@ -137,7 +137,7 @@ class OrgSettings extends React.Component {
 
     this.onTabClick = (tab) => {
       // console.log('tab = ' + tab)
-      this.props.changeOrgSettingsTab(tab, this.props.params.orgname)
+      this.props.changeOrgSettingsTab(tab, this.props.params.orgname, this.props.orgId)
     }
   }
 
@@ -152,7 +152,7 @@ class OrgSettings extends React.Component {
     this.props.loadProjectNames(this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
 
     // this.props.loadOrgUsers(this.props.authenticated, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
-    this.props.changeOrgSettingsTab(this.props.tab ? this.props.tab : Constants.LISTS_TAB, this.props.params.orgname)
+    this.props.changeOrgSettingsTab(this.props.tab ? this.props.tab : Constants.LISTS_TAB, this.props.params.orgname, null)
     // this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'settings'});
   }
 

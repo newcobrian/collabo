@@ -74,7 +74,7 @@ export default (state = initialState, action) => {
       }
     }
     case ActionTypes.LOAD_ORG: {
-        if(action.source === Constants.ORG_SETTINGS_PAGE) {
+        if (action.source === Constants.ORG_SETTINGS_PAGE) {
           return {
             ...state,
             orgId: action.orgId,
@@ -83,6 +83,20 @@ export default (state = initialState, action) => {
           }
         }
     }
+    case ActionTypes.LOAD_PROJECT_NAMES:
+        if (action.source === Constants.ORG_SETTINGS_PAGE) {
+            return {
+                ...state,
+                projectNames: action.projectNames
+            }
+        }
+    case ActionTypes.UNLOAD_PROJECT_NAMES:
+        if (action.source === Constants.ORG_SETTINGS_PAGE) {
+            return {
+                ...state,
+                projectNames: {}
+            }
+        }
     default:
       return state;
   }
