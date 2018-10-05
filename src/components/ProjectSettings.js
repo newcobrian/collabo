@@ -109,7 +109,6 @@ class ProjectSettings extends React.Component {
   }
 
   componentDidMount() {
-    this.props.createInvitesByOrg()
     this.props.loadSidebar(mql);
     mql.addListener(this.mediaQueryChanged);
 

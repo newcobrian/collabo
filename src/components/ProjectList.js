@@ -132,9 +132,9 @@ class ProjectList extends React.Component {
         </Link>
 
         <div className="sidebar-row mrgn-bottom-md mrgn-top-lg">
-          <div className="co-type-h3 color--black w-100 pdding-bottom-sm brdr-bottom-thick">
+          <Link className="co-type-h3 color--black w-100 pdding-bottom-sm brdr-bottom-thick" to={'/' + orgName + '/admin'}>
             Lists
-          </div>
+          </Link>
         </div>
           {
             (this.props.projectList || []).map((projectItem, index) => {
