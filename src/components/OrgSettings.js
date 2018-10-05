@@ -11,6 +11,26 @@ import DisplayTimestamp from './DisplayTimestamp';
 
 const mql = window.matchMedia(`(min-width: 800px)`);
 
+const JoinProjectButton = props => {
+  const handleJoinClick = ev => {
+    ev.preventDefault();
+    
+    if (props.isJoined) {
+      props.leaveProject(props.authenticated, props.userInfo, props.orgId, props.project)
+    } else {
+      props.joinProject(props.authenticated, props.userInfo, props.orgId, props.project)
+    }
+  };
+
+  return (
+    <div className="flx flx-row flx-center-all">
+      <button onClick={handleJoinClick}>
+        { props.isJoined ? 'Leave' : 'Join' }
+      </button>
+    </div>
+  )
+}
+
 const ListsTab = props => {
   const clickHandler = ev => {
     ev.preventDefault();
@@ -101,16 +121,27 @@ const MembersList = props => {
       </div>
     )
   }
+  // lists tab
   else if (props.tab === Constants.LISTS_TAB) {
     return (
       <div>
         {
           (props.payload || []).map((projectItem, index) => {
-            return (
-              <div className="flx flx-row flx-align-center mrgn-bottom-sm" key={projectItem.projectId}>
-                <div className="mrgn-left-sm co-type-label">{projectItem.projectName}</div>
-              </div>
-              )
+            if (projectItem.isPublic || props.usersProjects[projectItem.projectId]) {
+              return (
+                <div className="flx flx-row flx-align-center mrgn-bottom-sm" key={projectItem.projectId}>
+                  <div className="mrgn-left-sm co-type-label">{projectItem.projectName}</div>
+                  <JoinProjectButton 
+                    authenticated={props.authenticated}
+                    userInfo={props.userInfo}
+                    orgId={props.orgId}
+                    isJoined={props.usersProjects[projectItem.projectId]}
+                    leaveProject={props.leaveProject}
+                    joinProject={props.joinProject}
+                    project={projectItem} />
+                </div>
+                )
+            }
           })
         }
       </div>
@@ -120,9 +151,10 @@ const MembersList = props => {
 }
 
 const mapStateToProps = state => ({
-  ...state.projectList,
+  // ...state.projectList,
   ...state.orgSettings,
   currentUser: state.common.currentUser,
+  userInfo: state.common.userInfo,
   authenticated: state.common.authenticated,
   sidebarOpen: state.common.sidebarOpen
 });
@@ -183,7 +215,7 @@ class OrgSettings extends React.Component {
   }
 
   render() {
-    const { orgName, payload, sidebarOpen, tab } = this.props;
+    const { orgName, payload, sidebarOpen, tab, usersProjects, orgId, authenticated, userInfo } = this.props;
     return (
       <div>
 
@@ -223,7 +255,16 @@ class OrgSettings extends React.Component {
                       </ul>
 
 
-                      <MembersList tab={tab} payload={payload} orgName={orgName} />
+                      <MembersList 
+                        authenticated={authenticated}
+                        userInfo={userInfo}
+                        tab={tab} 
+                        payload={payload} 
+                        orgId={orgId}
+                        orgName={orgName} 
+                        usersProjects={usersProjects || {}} 
+                        joinProject={this.props.joinProject}
+                        leaveProject={this.props.leaveProject} />
 
                         {/*<ListErrors errors={this.props.errors}></ListErrors>*/}
 

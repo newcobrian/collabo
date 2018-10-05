@@ -1726,7 +1726,6 @@ export function changeOrgSettingsTab(tab, orgName, orgId) {
     }
     // if we don't have orgId (first page load), then fetch it first
     else { 
-      console.log('else')
       Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', nameSnap => {
         if (nameSnap.exists()) {
           if (tab === Constants.MEMBERS_TAB) {
@@ -1880,6 +1879,33 @@ export function inviteOrgUsersToProject(auth, orgName, projectId, invites) {
         })
       })
     }
+  }
+}
+
+export function leaveProject(auth, userInfo, orgId, project) {
+  return dispatch => {
+    let updates = {}
+    updates[`/${Constants.PROJECTS_BY_USER_BY_ORG_PATH}/${auth}/${orgId}/${project.projectId}/`] = null
+    updates[`/${Constants.USERS_BY_PROJECT_PATH}/${project.projectId}/${auth}/`] = null
+    
+    Firebase.database().ref().update(updates)
+  }
+}
+
+export function joinProject(auth, userInfo, orgId, project) {
+  return dispatch => {
+    Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId).once('value', orgSnap => {
+      if (!orgSnap.exists()) {
+        // user isn't in org so they can't join
+      }
+      else {
+        let updates = {}
+        updates[`/${Constants.PROJECTS_BY_USER_BY_ORG_PATH}/${auth}/${orgId}/${project.projectId}/`] = Object.assign({}, pick(project, ['name', 'isPublic']));
+        updates[`/${Constants.USERS_BY_PROJECT_PATH}/${project.projectId}/${auth}/`] = Object.assign({}, userInfo);
+        
+        Firebase.database().ref().update(updates)
+      }
+    })
   }
 }
 

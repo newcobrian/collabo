@@ -83,20 +83,39 @@ export default (state = initialState, action) => {
           }
         }
     }
-    case ActionTypes.LOAD_PROJECT_NAMES:
-        if (action.source === Constants.ORG_SETTINGS_PAGE) {
-            return {
-                ...state,
-                projectNames: action.projectNames
-            }
+    case ActionTypes.LIST_ADDED_ACTION:
+    case ActionTypes.LIST_CHANGED_ACTION:
+        if (action.source === Constants.ORG_SETTINGS_PAGE && action.listType === Constants.PROJECT_LIST_TYPE) {
+            const newState = Object.assign({}, state);
+            newState.usersProjects = newState.usersProjects || {};
+            newState.usersProjects = Object.assign({}, newState.usersProjects);
+            newState.usersProjects[action.id] = action.data
+            return newState;
         }
-    case ActionTypes.UNLOAD_PROJECT_NAMES:
-        if (action.source === Constants.ORG_SETTINGS_PAGE) {
-            return {
-                ...state,
-                projectNames: {}
-            }
+        return state;
+    case ActionTypes.LIST_REMOVED_ACTION:
+        if (action.source === Constants.ORG_SETTINGS_PAGE && action.listType === Constants.PROJECT_LIST_TYPE) {
+            const newState = Object.assign({}, state);
+            newState.usersProjects = newState.usersProjects || {};
+            newState.usersProjects = Object.assign({}, newState.usersProjects);
+            delete newState.usersProjects[action.id]
+            return newState;
         }
+        return state;
+    // case ActionTypes.LOAD_PROJECT_NAMES:
+    //     if (action.source === Constants.ORG_SETTINGS_PAGE) {
+    //         return {
+    //             ...state,
+    //             projectNames: action.projectNames
+    //         }
+    //     }
+    // case ActionTypes.UNLOAD_PROJECT_NAMES:
+    //     if (action.source === Constants.ORG_SETTINGS_PAGE) {
+    //         return {
+    //             ...state,
+    //             projectNames: {}
+    //         }
+    //     }
     default:
       return state;
   }
