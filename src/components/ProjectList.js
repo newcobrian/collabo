@@ -103,7 +103,7 @@ class ProjectList extends React.Component {
                 )
               }
             })}
-
+            <option value='newteam'>+ New Team</option>
           </select>
           <div className="org-arrow flx flx-center-all">
             <div className="koi-ico --24 ico--down opa-30"></div>
