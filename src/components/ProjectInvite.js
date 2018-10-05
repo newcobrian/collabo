@@ -38,7 +38,7 @@ class ProjectInvite extends React.Component {
 
     	this.props.loadOrg(this.props.authenticated, this.props.params.orgname, Constants.PROJECT_INVITE_PAGE);
 	    this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, this.props.params.pid, Constants.PROJECT_INVITE_PAGE)
-
+	    
 	    this.props.loadProject(this.props.params.pid, Constants.PROJECT_INVITE_PAGE);
 	    this.props.loadProjectMemberCheck(this.props.params.pid, this.props.params.orgname)
 	    // this.props.loadProjectMembers(this.props.params.pid, this.props.params.orgname, Constants.PROJECT_INVITE_PAGE)
@@ -49,7 +49,9 @@ class ProjectInvite extends React.Component {
 
 	componentWillUnmount() {
 		this.props.unloadOrgUsers(this.props.params.orgname, Constants.PROJECT_INVITE_PAGE);
-		
+		// this.props.unloadProjectMembers(this.props.params.pid, this.props.params.orgname, Constants.PROJECT_PAGE)
+		this.props.unloadOrgList(this.props.authenticated, Constants.PROJECT_INVITE_PAGE)
+	    this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname)
 	    this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.PROJECT_INVITE_PAGE)
 	    this.props.unloadOrg(Constants.PROJECT_INVITE_PAGE);
 	}

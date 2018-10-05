@@ -85,6 +85,9 @@ class Inbox extends React.Component {
     this.props.updateInboxCount(this.props.authenticated);
     this.props.unloadInbox(this.props.authenticated);
 
+    this.props.unloadProjectNames(this.props.params.orgname, Constants.INBOX_PAGE)
+    this.props.unloadOrgList(this.props.authenticated, Constants.INBOX_PAGE)
+    this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname)
     this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.INBOX_PAGE)
     this.props.unloadOrg(Constants.INBOX_PAGE);
     if (!this.props.authenticated) {

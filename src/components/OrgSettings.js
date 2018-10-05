@@ -154,6 +154,9 @@ class OrgSettings extends React.Component {
   }
 
   componentWillUnmount() {
+    this.props.unloadProjectNames(this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
+    this.props.unloadOrgList(this.props.authenticated, Constants.ORG_SETTINGS_PAGE)
+    this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
     this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
     this.props.unloadOrg(Constants.ORG_SETTINGS_PAGE, this.props.params.orgname);
     this.props.unloadOrgUsers(this.props.params.orgname, Constants.ORG_SETTINGS_PAGE);
@@ -161,6 +164,9 @@ class OrgSettings extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.orgname !== this.props.params.orgname) {
+      this.props.loadProjectNames(this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
+      this.props.unloadOrgList(this.props.authenticated, Constants.ORG_SETTINGS_PAGE)
+      this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
       this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
       this.props.unloadOrgUsers(this.props.params.orgname, Constants.ORG_SETTINGS_PAGE);
 

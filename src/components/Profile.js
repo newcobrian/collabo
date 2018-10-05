@@ -142,6 +142,8 @@ class Profile extends React.Component {
 
   componentWillUnmount() {
     this.unloadUser(this.props.params.username, this.props.profile.userId);
+    this.props.unloadOrgList(this.props.authenticated, Constants.PROFILE_PAGE)
+    this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname)
     this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.PROFILE_PAGE)
     this.props.unloadOrg(Constants.PROFILE_PAGE);
 
