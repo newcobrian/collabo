@@ -58,7 +58,7 @@ class Project extends React.Component {
 
   componentWillUnmount() {
     this.props.unwatchThreadFeed(this.props.authenticated, this.props.params.orgname, this.props.params.pid, Constants.PROJECT_PAGE)
-    this.props.unloadProjectNames(this.props.params.orgname, Constants.PROJECT_PAGE)
+    this.props.unloadProjectNames(this.props.orgId, Constants.PROJECT_PAGE)
     this.props.unloadOrgList(this.props.authenticated, Constants.PROJECT_PAGE)
     this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname)
     this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.PROJECT_PAGE)
@@ -79,7 +79,7 @@ class Project extends React.Component {
       }
     }
     else if (nextProps.params.orgname !== this.props.params.orgname) {
-      this.props.unloadProjectNames(this.props.params.orgname, Constants.PROJECT_PAGE)
+      this.props.unloadProjectNames(this.props.orgId, Constants.PROJECT_PAGE)
       this.props.unwatchThreadFeed(this.props.authenticated, this.props.params.orgname, this.props.params.pid, Constants.PROJECT_PAGE)
       this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname)
       this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.PROJECT_PAGE)

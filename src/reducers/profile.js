@@ -322,6 +322,16 @@ export default (state = initialState, action) => {
           isFeedLoading: action.isFeedLoading
         }
       }
+    case ActionTypes.LOAD_ORG: {
+      if (action.source === Constants.PROFILE_PAGE) {
+        return {
+          ...state,
+          orgId: action.orgId,
+          org: action.organization,
+          invalidOrgUser: false
+        }
+      }
+    }
     default:
       return state;
   }

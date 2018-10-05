@@ -3,6 +3,16 @@ import * as Constants from '../constants';
 
 export default (state = { isPublic: true }, action) => {
   switch (action.type) {
+    case ActionTypes.LOAD_ORG: {
+      if (action.source === Constants.ADD_PROJECT_PAGE) {
+        return {
+          ...state,
+          orgId: action.orgId,
+          org: action.organization,
+          invalidOrgUser: false
+        }
+      }
+    }
   	case ActionTypes.CREATE_PAGE_LOADED:
       return {
         ...state,

@@ -157,7 +157,7 @@ class OrgSettings extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.unloadProjectNames(this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
+    this.props.unloadProjectNames(this.props.orgId, Constants.ORG_SETTINGS_PAGE)
     this.props.unloadOrgList(this.props.authenticated, Constants.ORG_SETTINGS_PAGE)
     this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
     this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)

@@ -1,4 +1,5 @@
 import { GET_INBOX, INBOX_COUNT_UPDATED, INBOX_UNLOADED } from '../actions'
+import * as Constants from '../constants'
 import { isEqual, isEmpty } from 'lodash'
 import * as ActionTypes from '../actions/types'
 
@@ -35,6 +36,16 @@ export default (state = {}, action) => {
         ...state,
         endOfInbox: true
       }
+    case ActionTypes.LOAD_ORG: {
+      if (action.source === Constants.INBOX_PAGE) {
+        return {
+          ...state,
+          orgId: action.orgId,
+          org: action.organization,
+          invalidOrgUser: false
+        }
+      }
+    }
     case INBOX_UNLOADED:
     	return {}
     default:

@@ -396,14 +396,9 @@ export function loadProjectNames(orgName, source) {
   }
 }
 
-export function unloadProjectNames(orgName) {
+export function unloadProjectNames(orgId) {
   return dispatch => {
-    if (orgName) {
-      let lowercaseOrg = orgName.toLowerCase()
-      Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowercaseOrg).once('value', orgSnap => {
-        Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + orgSnap.val().orgId).off()
-      })
-    }
+    Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + orgId).off()
   }
 }
 
@@ -1054,8 +1049,8 @@ export function loadOrg(auth, org, source) {
             else {
               dispatch({
                 type: ActionTypes.LOAD_ORG,
-                orgName: lowercaseName,
                 orgId: orgSnap.val().orgId,
+                orgName: lowercaseName,
                 source: source
               })
             }

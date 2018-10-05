@@ -83,7 +83,7 @@ class AddProject extends React.Component {
 	componentWillUnmount() {
 		if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
 		this.props.onCreateUnload();
-		this.props.unloadProjectNames(this.props.params.orgname, Constants.ADD_PROJECT_PAGE)
+		this.props.unloadProjectNames(this.props.orgId, Constants.ADD_PROJECT_PAGE)
 		this.props.unloadOrgList(this.props.authenticated, Constants.ADD_PROJECT_PAGE)
 	    this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname)
 	    this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.ADD_PROJECT_PAGE)

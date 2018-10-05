@@ -73,6 +73,16 @@ export default (state = initialState, action) => {
         payload: action.payload
       }
     }
+    case ActionTypes.LOAD_ORG: {
+        if(action.source === Constants.ORG_SETTINGS_PAGE) {
+          return {
+            ...state,
+            orgId: action.orgId,
+            org: action.organization,
+            invalidOrgUser: false
+          }
+        }
+    }
     default:
       return state;
   }
