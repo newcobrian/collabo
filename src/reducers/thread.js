@@ -99,7 +99,7 @@ export default (state = initialState, action) => {
     case ActionTypes.LOAD_ORG: {
       return {
         ...state,
-        org: action.organization,
+        orgId: action.orgId,
         invalidOrgUser: false
       }
     }

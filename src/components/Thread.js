@@ -234,6 +234,7 @@ class Thread extends React.Component {
     this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, this.props.params.pid, Constants.THREAD_PAGE)
     this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
     this.props.loadOrgList(this.props.authenticated, Constants.THREAD_PAGE)
+    this.props.loadProjectNames(this.props.params.orgname, Constants.THREAD_PAGE)
     this.props.loadOrgUsers(this.props.authenticated, this.props.params.orgname, Constants.THREAD_PAGE)
     this.props.loadThread(this.props.params.tid);
     this.props.loadThreadLikes(this.props.params.tid);
@@ -244,6 +245,7 @@ class Thread extends React.Component {
   }
 
   componentWillUnmount() {
+    this.props.unloadProjectNames(this.props.orgId, Constants.THREAD_PAGE)
     this.props.unloadOrgList(this.props.authenticated, Constants.THREAD_PAGE)
     this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId, Constants.THREAD_PAGE)
     this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.THREAD_PAGE)
@@ -266,6 +268,7 @@ class Thread extends React.Component {
       this.props.markThreadRead(this.props.authenticated, nextProps.params.tid)
     }
     else if (nextProps.params.orgname !== this.props.params.orgname) {
+      this.props.unloadProjectNames(this.props.orgId, Constants.THREAD_PAGE)
       this.props.unloadOrgList(this.props.authenticated, Constants.THREAD_PAGE)
       this.props.unloadOrgUsers(Constants.THREAD_PAGE)
       this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId, Constants.THREAD_PAGE)
@@ -278,6 +281,7 @@ class Thread extends React.Component {
       this.props.loadOrgUsers(this.props.authenticated, nextProps.params.orgname, Constants.THREAD_PAGE)
       this.props.loadProjectList(this.props.authenticated, nextProps.params.orgname, this.props.params.pid, Constants.THREAD_PAGE)
       this.props.loadThreadCounts(this.props.authenticated, nextProps.params.orgname)
+      this.props.loadProjectNames(nextProps.params.orgname, Constants.THREAD_PAGE)
       this.props.loadThread(nextProps.params.tid);
       this.props.loadThreadLikes(nextProps.params.tid);
       this.props.watchThreadComments(nextProps.props.params.tid);
