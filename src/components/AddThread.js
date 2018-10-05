@@ -133,6 +133,13 @@ class AddThread extends React.Component {
 						    	<OrgHeader />
 						    	{/* HEADER START */}
 						    	<div className="co-type-h1 mrgn-top-sm mrgn-left-md">Post a New Thread</div>
+
+						    	<Link onClick={this.onGoBackClick} activeClassName="active" className="nav-module create nav-editor flx flx-center-all">
+			                      <div className="nav-text flx flx-row flx-align-center opa-60 mrgn-bottom-md">
+			                          <i className="material-icons color--black md-18 opa-100 mrgn-right-xs">arrow_back_ios</i>
+			                          <div className="co-type-body mrgn-left-xs">Cancel</div>
+			                        </div>
+			                    </Link>
 						    </div>
 
 

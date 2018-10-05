@@ -136,6 +136,13 @@ class AddProject extends React.Component {
 						    	<div className="project-bar-wrapper w-100 flx flx-row flx-align-center mrgn-top-xs fill--white DN">
 							    	<div className="project-header-text mrgn-left-md co-type-h1 flx flx-row flx-align-center color--black">Create a New List</div>
 						    	</div>
+
+						    	<Link onClick={this.onGoBackClick} activeClassName="active" className="nav-module create nav-editor flx flx-center-all">
+			                      <div className="nav-text flx flx-row flx-align-center opa-60 mrgn-bottom-md">
+			                          <i className="material-icons color--black md-18 opa-100 mrgn-right-xs">arrow_back_ios</i>
+			                          <div className="co-type-body mrgn-left-xs">Cancel</div>
+			                        </div>
+			                    </Link>
 						    </div>
 
 						    {/* CONTAINER - START */}
