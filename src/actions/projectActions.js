@@ -1643,7 +1643,8 @@ export function unloadProjectMembers(projectId, orgId, source) {
     }
 
     dispatch({
-      type: ActionTypes.UNLOAD_PROJECT_MEMBERS
+      type: ActionTypes.UNLOAD_PROJECT_MEMBERS,
+      source
     })
   }
 }
