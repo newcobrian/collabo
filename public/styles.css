@@ -360,7 +360,7 @@ li {
   -webkit-animation: colorchange .8s 8;
   border: 1px solid rgba(0,0,0,.05);
 }
-.default-profile-wrapper.prof-60 {
+.co-sidebar .default-profile-wrapper {
   width: 60px;
   height: 60px;
 }
@@ -373,11 +373,6 @@ li {
 .threadlist .user-photo-wrapper {
   width: 36px;
   height: 36px;
-}
-.co-sidebar .default-profile-wrapper,
-.co-sidebar .user-photo-wrapper {
-  width: 24px;
-  height: 24px;
 }
 
 .comment-author-img .default-profile-wrapper,
@@ -877,7 +872,7 @@ width: 32px;
 
 .profile-page .user-info {
   background: white;
-  padding: 20px 20px 0;
+  padding: 40px 0;
   width: 50%;
 }
 .profile-page .user-info .user-img {

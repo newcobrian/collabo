@@ -84,7 +84,7 @@ const NewThreadItem = props => {
 
   return (
      <Link to={`/${props.orgName}/${props.projectId}/${props.activity.activityId}`} className={"flx flx-col flx-col w-100 w-max"}>
-        <div className="thread-preview-container flx flx-col flx-align-start w-100"> 
+        <div className="flx flx-col flx-align-start w-100"> 
         <div className="flx flx-row mrgn-left-xs DN">
           <Link to={'/' + props.orgName + '/user/' + createdBy.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
             <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
@@ -125,7 +125,7 @@ const EditThreadItem = props => {
   let createdBy = activity.createdBy
 
   return (
-    <div className="thread-preview-container flx flx-col flx-align-start w-100"> 
+    <div className="flx flx-col flx-align-start w-100"> 
       <div className="flx flx-row mrgn-left-xs">
 
         <Link to={'/' + props.orgName + '/user/' + createdBy.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row DN">
@@ -157,13 +157,18 @@ const CommentItem = props => {
             <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
           </Link>
           <div className="flx flx-col">
+            
+            <div className="co-type-sub color--black opa-100">
+              <Link className="color--black co-type-bold" to={'/' + props.orgName + '/user/' + createdBy.username}>{createdBy.username}</Link>
+
+              <strong>Commented on thread: &nbsp; </strong>
+              <Link className="color--black" to={'/' + props.orgName + '/' + activity.projectId + '/' + activity.threadId}>{activity.title}</Link>
+            </div>
+
             <div className="thread-timestamp">
               <DisplayTimestamp timestamp={activity.lastModified} />
             </div>
-            <div className="co-type-sub color--black flx flx-row opa-40">
-              <Link className="color--black co-type-bold" to={'/' + props.orgName + '/user/' + createdBy.username}>{createdBy.username}</Link>Commented on thread: &nbsp; 
-              <Link className="color--black co-type-bold" to={'/' + props.orgName + '/' + activity.projectId + '/' + activity.threadId}>{activity.title}</Link>
-            </div>
+
             <div className="co-type-body mrgn-top-sm">
               {activity.body}
             </div>

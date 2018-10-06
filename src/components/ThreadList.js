@@ -26,7 +26,7 @@ const ThreadList = props => {
   }
 
   return (
-    <div className="threadlist header-push w-100 flx flx-col flx-align-start">
+    <div className="threadlist header-push w-100 flx flx-col flx-align-center">
       {
         props.threads.map((threadItem, index) => {
           return (

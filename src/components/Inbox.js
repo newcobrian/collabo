@@ -165,9 +165,13 @@ class Inbox extends React.Component {
                             <div className="flx flx-col mrgn-right-md">
                               <div className="v2-type-body1 font--alpha">
                                 <strong><RenderUsername senderId={inboxItem.senderId} username={inboxItem.senderUsername} orgName={this.props.params.orgname} /></strong>
-                                {inboxItem.message}<Link to={inboxItem.link}><div className="color--primary inline">{inboxItem.reviewTitle}</div></Link>
-                                 <div className="thread-timestamp font--alpha"><DisplayTimestamp timestamp={inboxItem.lastModified} /></div>
+                                {inboxItem.message}
+
+                                <Link to={inboxItem.link}><span className="color--primary inline">{inboxItem.reviewTitle}</span></Link>
+
                               </div>
+                              <div className="thread-timestamp font--alpha"><DisplayTimestamp timestamp={inboxItem.lastModified} /></div>
+
                             </div>
                           </Link>
                         )

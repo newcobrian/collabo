@@ -294,13 +294,16 @@ class Profile extends React.Component {
               }}
             >
               <div className={this.props.sidebarOpen ? 'open-style' : 'closed-style'}>
-                <div className="page-common flx flx-col profile-page">
+                <div className="page-common page-profile flx flx-col flx-align-center profile-page">
                 
                   <div className="project-header text-left flx flx-col flx-align-start w-100">
                     <OrgHeader />
-                    {/* HEADER START */}
+                  </div>
+
+                  <div className="koi-view threadlist header-push ta-left flx flx-col w-100">
+
                     <div className="flx flx-row flx-align-center mrgn-top-sm w-100">
-                      <div className="co-type-h1 mrgn-left-md">{profile.username}</div>
+                      <div className="co-type-page-title">{profile.username}</div>
                       <div className="flx-item-right flx flx-row flx-align-center">
                         <EditProfileSettings 
                           isUser={isUser} 
@@ -309,9 +312,8 @@ class Profile extends React.Component {
                         <SignOutButton isUser={isUser} signOut={this.props.signOutUser}/>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="threadlist header-push ta-left flx flx-col w-100">
+
                     <ProfileInfo
                       authenticated={this.props.authenticated}
                       profile={profile}

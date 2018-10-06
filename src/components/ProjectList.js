@@ -178,41 +178,42 @@ class ProjectList extends React.Component {
 
             </Link>
 
-
-            <Link to={'/' + this.props.orgName + '/inbox'} activeClassName="active" className="sidebar-row group-row flx flx-row flx-align-center">
-                <div className="sidebar-icon flx flx-center-all">
-                  <InboxCounter unreadMessages={this.props.unreadMessages} />
-                </div>
-                <div className="co-type-label color--black">Activity</div>
-                <div className="group-badge badge-on color--black flx-item-right thread-timestamp">{this.props.unreadMessages}</div>
-            </Link>
-
-            
-
-            <Link activeClassName="active" className="sidebar-row group-row flx flx-row flx-align-center">
-                <div className="sidebar-icon flx flx-center-all">
-                  <div className="koi-ico --24 ico--bookmark--primary"></div>
-                </div>
-                <div className="co-type-label color--black">Saved Posts</div>
-                <div className="group-badge badge-on color--black flx-item-right">
-                </div>
-            </Link>
-
-            <Link to={'/' + this.props.orgName + '/admin'} activeClassName="active" className="sidebar-row group-row flx flx-row flx-align-center">
-                <div className="sidebar-icon flx flx-center-all">
-                  <div className="koi-ico --24 ico--orgsettings--primary"></div>
-                </div>
-                <div className="co-type-label color--black">Org Settings</div>
-                <div className="group-badge badge-on color--black flx-item-right">
-                </div>
-            </Link>
-
-            <Link className="sidebar-row group-row flx flx-row flx-align-center" to={`/${this.props.orgName}/user/${this.props.userInfo.username}`} activeClassName="active">
-              <div className="sidebar-icon flx flx-center-all">
+            <Link className="sidebar-row group-row flx flx-col flx-align-center pdding-all-md" to={`/${this.props.orgName}/user/${this.props.userInfo.username}`} activeClassName="active">
+              <div className="mrgn-bottom-sm flx flx-center-all">
                 <ProfilePic className="center-img" src={this.props.userInfo.image}/>
               </div>
               <div className="co-type-label color--black">{this.props.userInfo.username}</div>
             </Link>
+
+            <div className="flx flx-row w-100">
+
+              <Link to={'/' + this.props.orgName + '/inbox'} activeClassName="active" className="sidebar-row group-triplet flx flx-col flx-align-center">
+                  <div className="sidebar-icon--large flx flx-center-all">
+                    <div className="thread-timestamp color--black">{this.props.unreadMessages}</div>
+                  </div>
+                  <div className="co-type-label color--black">Activity</div>
+                  {/*-<InboxCounter unreadMessages={this.props.unreadMessages} className="DN"/>*/}
+                  <div className="group-badge badge-on color--black flx-item-right thread-timestamp DN"></div>
+              </Link>
+
+              
+
+              <Link activeClassName="active" className="sidebar-row group-triplet flx flx-col flx-align-center">
+                  <div className="sidebar-icon--large flx flx-center-all">
+                    <div className="koi-ico --24 ico--bookmark--primary"></div>
+                  </div>
+                  <div className="co-type-label color--black">Saved</div>
+              </Link>
+
+              <Link to={'/' + this.props.orgName + '/admin'} activeClassName="active" className="sidebar-row group-triplet flx flx-col flx-align-center">
+                  <div className="sidebar-icon--large flx flx-center-all">
+                    <div className="koi-ico --24 ico--orgsettings--primary"></div>
+                  </div>
+                  <div className="co-type-label color--black">Team</div>
+              </Link>
+            </div>
+
+            
 
             <div className="DN sidebar-row koi-sidebar-footer flx flx-row flx-align-center fill--primary mrgn-top-sm">
               <Link to='/' className="co-type-logo color--white">KOI</Link>

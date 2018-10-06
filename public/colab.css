@@ -301,6 +301,7 @@ p {
 .tp-wrapper {
 	margin: 0 0 30px;
 	width: 100%;
+	max-width: 960px;
 }
 .tp-container {
 	width: 100%;
@@ -317,14 +318,14 @@ p {
 .comment-indent {
     outline: none;
     padding-left: 60px;
-    padding-right: 20px;
+    padding-right: 10px;
 }
 .comment-input textarea {
 	overflow: auto !important;
 }
 .comment-bg {
   background: rgba(255,171,140,.2);
-  margin: 20px 0 0;
+  margin: 10px 0 0;
   padding-left: 4px;
 }
 .comment-input-container {
@@ -334,12 +335,12 @@ p {
   border: 1px solid rgba(255,171,140,.4);
   /*border-left: none;*/
   background-color: white;
-  padding: 24px;
+  padding: 16px;
 }
 .comment-wrapper {
   border-radius: 0;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .inline-comments .comment-indent {
@@ -359,7 +360,7 @@ p {
 
 }
 .thread-content-wrapper {
-	padding: 24px;
+	padding: 16px;
 	background-color: white;
 }
 .comment-outer-wrapper {
@@ -401,13 +402,16 @@ p {
     width: 100%;
     background:  white;
     bottom: 0;
-    padding-top: 10px;
 }
 
 .sidebar-icon {
 	width: 24px; 
 	height: 24px;
 	margin-right: 20px;
+}
+.sidebar-icon--large { 
+	width: 36px;
+	height: 36px;
 }
 .sidebar-dot {
 	width: 6px;
@@ -424,12 +428,15 @@ p {
 	box-shadow: inset 0px 0px 50px #FFECBB;
 }
 .sidebar-row.group-row.search-row {
-	padding: 24px;
+
 }
 .sidebar-row:hover .sidebar-dot,
 .sidebar-row.active .sidebar-dot {
 	background-color: black !important;
 	opacity: 1 !important;
+}
+.group-triplet {
+	width: 33.3333%;
 }
 .thread-icon {
 	width: 40px; 
@@ -485,7 +492,6 @@ p {
 	padding: 4px 24px;
 	width: 100%;
 	text-align: left;
-	height: 32px;
 }
 .info-row {
 	padding: 4px 0px;
