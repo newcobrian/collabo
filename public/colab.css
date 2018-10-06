@@ -5,7 +5,7 @@
 	padding: 10px 0;
 }
 .thread-body {
-	padding: 20px;
+	padding: 60px 20px;
 	width: 100%;
 }
 .public-DraftStyleDefault-block {
@@ -67,7 +67,7 @@ textarea {
 	margin-top: 64px;
 }
 .header-push-mini {
-	margin-top: 56px;
+	margin-top: 6px;
 }
 .org-block {
 	width: 200px;
@@ -247,6 +247,11 @@ textarea {
 
 .co-type-page-title {
     font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+}
+.co-type-thread-title {
+    font-size: 28px;
     font-weight: 600;
     letter-spacing: 1.2px;
 }
@@ -577,7 +582,7 @@ p {
     font-size: 11px;
     letter-spacing: 1px;
     line-height: 18px;
-    opacity: .5;
+    opacity: .7;
     font-family: 'Roboto Mono', monospace;
     /*text-transform: uppercase;*/
 }
@@ -623,9 +628,16 @@ p {
 .koi-view {
 	z-index: 3;
 	width: 100%;
-	padding: 70px 40px;
+	padding: 40px;
 	max-width: 960px;
 	min-width: 320px;
+}
+.thread-view {
+	z-index: 3;
+    width: 100%;
+    padding: 20px 0;
+    max-width: 960px;
+    min-width: 320px;
 }
 .open-style .page-common,
 .open-style .loading-module {
@@ -898,7 +910,7 @@ p {
 	border-color: rgba(255,171,140,1) !important;
 }
 .brdr-color--primary--10 {
-	border-color: rgba(255,171,140,.1) !important;
+	border-color: rgba(255,171,140,.2) !important;
 }
 
 .color--secondary {
@@ -937,6 +949,19 @@ a.color--primary:focus {
 .ql-toolbar.ql-snow + .ql-container.ql-snow {
 	min-height: 200px;
 }
+.ql-container.ql-snow {
+    border: none !important;
+}
+.ql-toolbar.ql-snow + .ql-container.ql-snow {
+    padding: 20px;
+    border: 1px solid rgba(0,0,0,.1) !important;
+    border-top: 0px !important;
+}
+.ql-editor {
+	padding: 0 !important;
+	min-height: 170px;
+}
+
 .indent-border {
 	border-left: 1px solid transparent;
 	margin-left: 18px;

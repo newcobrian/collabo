@@ -505,19 +505,18 @@ input.input--overline {
 }
 
 label {
- cursor: pointer;
-    opacity: 1;
-    font-weight: 400;
-    width: 100%;
-    color: #292F3D;
-    /* line-height: 15px !important; */
-    margin-bottom: 5px;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 13px;
-
-
+  cursor: pointer;
+  opacity: 1;
+  font-weight: 400;
+  width: auto;
+  color: #292F3D;
+  /* line-height: 15px !important; */
+  margin-bottom: 8px;
+  font-weight: bold;
+  letter-spacing: 1.2px;
+  font-size: 13px;
+  margin-top: 8px;
+  display: block;
 }
 
 .field-wrapper {
@@ -531,7 +530,7 @@ label {
   opacity: 1;
   color: black;
   font-weight: 300;
-  font-size: 16px;
+  font-size: 13px;
 }
 .field-wrapper.field-wrapper--dropzone {
   margin-left: -1px;

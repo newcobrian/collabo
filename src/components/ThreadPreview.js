@@ -159,7 +159,7 @@ const ThreadPreview = props => {
                       {thread.title}
                 </Link>
               </div>
-              <div className="color--black thread-timestamp flx flx-row flx-align-center mrgn-bottom-md opa-50">
+              <div className="color--black thread-timestamp flx flx-row flx-align-center mrgn-bottom-md">
                 <div>Created by {thread.createdBy.username}</div>
                 <ProjectLabel className="" projectNames={props.projectNames} projectId={thread.projectId} orgName={props.orgName} />
 
@@ -185,24 +185,23 @@ const ThreadPreview = props => {
         </div>
 
         <div className="comment-row-wrapper flx flx-row">
-          <div className="comment-row-wrapper flx flx-row">
-            <div className="co-thread-reply-wrapper">
-              <CommentContainer
-                authenticated={props.authenticated}
-                userInfo={props.userInfo}
-                comments={thread.comments || {}}
-                errors={props.commentErrors}
-                commentObject={thread}
-                threadId={thread.threadId}
-                thread={thread}
-                project={props.project}
-                orgName={props.orgName}
-                usersList={props.usersList}
-                type={Constants.THREAD_TYPE}
-                deleteComment={props.deleteComment} />
-            </div>
+          <div className="co-thread-reply-wrapper">
+            <CommentContainer
+              authenticated={props.authenticated}
+              userInfo={props.userInfo}
+              comments={thread.comments || {}}
+              errors={props.commentErrors}
+              commentObject={thread}
+              threadId={thread.threadId}
+              thread={thread}
+              project={props.project}
+              orgName={props.orgName}
+              usersList={props.usersList}
+              type={Constants.THREAD_TYPE}
+              deleteComment={props.deleteComment} />
           </div>
         </div>
+
 
 
    

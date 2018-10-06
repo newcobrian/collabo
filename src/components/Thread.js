@@ -65,10 +65,10 @@ const BodySection = props => {
           />
         </div>
         <div className="w-100 flx flx-row mrgn-top-md w-auto flx-item-right">
-          <div className="w-auto co-type-label color--black mrgn-right-md">
+          <div className="w-auto thread-timestamp color--black mrgn-right-md">
             <Link onClick={props.onEditClick(false)}>Cancel</Link>
           </div>
-          <div className="w-auto co-type-label color--black">
+          <div className="w-auto thread-timestamp color--secondary">
             <Link onClick={props.saveBody(props.thread)}>Save</Link>
           </div>
         </div>
@@ -94,11 +94,11 @@ const BodySection = props => {
             value={draftToHtml(convertToRaw(props.bodyText.getCurrentContent()))}
           />>*/}
           <div className="w-100 flx flx-row mrgn-top-md w-auto flx-item-right">
-            <div className="w-auto co-type-label color--black mrgn-right-md">
-              <Link onClick={props.onEditClick(true)}>Edit Post</Link>
+            <div className="w-auto thread-timestamp color--black mrgn-right-md">
+              <Link onClick={props.onDeleteClick}>Delete</Link>
             </div>
-            <div className="w-auto co-type-label color--black">
-              <Link onClick={props.onDeleteClick}>Delete Post</Link>
+            <div className="w-auto thread-timestamp color--secondary">
+              <Link onClick={props.onEditClick(true)}>Edit</Link>
             </div>
           </div>
 
@@ -347,96 +347,106 @@ class Thread extends React.Component {
             >
               <div className={this.props.sidebarOpen ? 'open-style' : 'closed-style'}>
 
-                <div className="page-common page-places flx flx-row flx-m-col flx-align-start">
-                  <div className="project-header text-left flx flx-col flx-align-start w-100">
+                <div className="page-common page-thread flx flx-row flx-m-col flx-just-start">
+
+                  <div className="project-header text-left brdr-bottom brdr-color--primary--10 flx flx-col flx-align-start w-100">
                     <OrgHeader />
                   </div>
 
-                    <div className="thread-area header-push-mini flx flx-col w-100">
 
-                    <div className={"thread-body left-text flx flx-col flx-align-start country-color-"}>
-                       <div>
-                    <Link onClick={this.onGoBackClick} activeClassName="active" className="nav-module create nav-editor flx flx-center-all">
+                  <div className={"thread-body header-push-mini left-text flx flx-col flx-align-center"}>
+                    
+                    <Link onClick={this.onGoBackClick} activeClassName="active" className="nav-module create nav-editor flx flx-align-start mrgn-top-sm w-100">
                       <div className="nav-text flx flx-row flx-align-center opa-60 mrgn-bottom-md">
-                          <i className="material-icons color--black md-18 opa-100 mrgn-right-xs">arrow_back_ios</i>
-                          <div className="co-type-body mrgn-left-xs">Back to group</div>
-                        </div>
+                        <i className="material-icons color--black md-18 opa-100 mrgn-right-xs">arrow_back_ios</i>
+                        <div className="co-type-body mrgn-left-xs">Back to list</div>
+                      </div>
                     </Link>
-                  </div>
-                      {/*<UniversalSearchBar />*/}
-
-
-                      <div className="v2-type-h3 mrgn-bottom-sm">{thread.title}</div>
-                      <div className="flx flx-row w-100 flx-align-center">
-                        <div className="v2-type-body1">Posted by {createdBy.username}
-                          <Link
-                            to={'/' + this.props.params.orgname + '/user/' + createdBy.username}
-                            className="show-in-list">
-                          <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm">
-                              <div className="tip__author-photo flx-hold mrgn-right-sm">
-                                <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
-                              </div> 
-                              <div className="color--black v2-type-body">
-                                {createdBy.username}
+                    <div className="thread-view w-100">
+                      <div className={"tp-wrapper fill--primary--20 flx flx-col flx-col"}>   
+                        <div className="tp-container b--secondary--10 flx flx-col flx-align-start bx-shadow">   
+                          <div className="thread-row-wrapper flx flx-row fill--secondary">
+                            <div className="thread-content-wrapper w-100">
+                              <div className="co-type-thread-title">{thread.title}</div>
+                              <div className="flx flx-row w-100 flx-align-center brdr-bottom pdding-bottom-sm mrgn-bottom-md">
+                                <span className="thread-timestamp">Posted by {createdBy.username}
+                                  <Link
+                                    to={'/' + this.props.params.orgname + '/user/' + createdBy.username}
+                                    className="show-in-list">
+                                  <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm">
+                                      <div className="tip__author-photo flx-hold mrgn-right-sm">
+                                        <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
+                                      </div> 
+                                      <div className="color--black">
+                                        {createdBy.username}
+                                      </div>
+                                  </div>
+                                </Link> 
+                                </span>
+                                <span className="thread-timestamp mrgn-left-md">Last updated:&nbsp;
+                                  <DisplayTimestamp timestamp={thread.lastModified} />
+                                </span>
                               </div>
+                              <div className="co-type-body opa-90 w-100 mrgn-top-sm">
+                                <BodySection
+                                  bodyText={this.props.bodyText}
+                                  updateText={this.updateText}
+                                  canModify={canModify}
+                                  thread={thread}
+                                  saveBody={this.saveBody}
+                                  onEditClick={this.onEditClick}
+                                  onDeleteClick={this.onDeleteClick}
+                                  isEditMode={this.props.isEditMode}
+                                  usersList={this.props.usersList}
+                                    />
+                              </div>
+                              <div className="cta-wrapper vb--outline--none flx flx-row flx-align-center mrgn-top-sm">
+                                <LikeReviewButton
+                                  authenticated={this.props.authenticated}
+                                  isLiked={this.props.likes && this.props.likes[this.props.authenticated] ? true : false}
+                                  likesCount={Object.keys(this.props.likes || {}).length}
+                                  objectId={this.props.params.tid}
+                                  thread={thread}
+                                  likeObject={thread}
+                                  type={Constants.THREAD_TYPE}
+                                  orgName={this.props.params.orgname} />
+                              </div>
+                              { this.renderChanges(this.props.updates, this.props.userId, this.props.comments, this.props.params.tid, this.props.googleDocs) }
+
+                            </div>
                           </div>
-                        </Link> 
-                        </div>
-                        <div className="v2-type-body1 opa-30 mrgn-left-md">Last updated: 
-                          <DisplayTimestamp timestamp={thread.lastModified} />
-                        </div>
-                        <div className="cta-wrapper vb--outline--none flx flx-row flx-item-right flx-align-center v2-type-body2">
-                          <LikeReviewButton
-                            authenticated={this.props.authenticated}
-                            isLiked={this.props.likes && this.props.likes[this.props.authenticated] ? true : false}
-                            likesCount={Object.keys(this.props.likes || {}).length}
-                            objectId={this.props.params.tid}
-                            thread={thread}
-                            likeObject={thread}
-                            type={Constants.THREAD_TYPE}
-                            orgName={this.props.params.orgname} />
-                        </div>
                       </div>
-                      <div className="v2-type-body2 opa-90 w-100 mrgn-top-sm">
-                        <BodySection
-                          bodyText={this.props.bodyText}
-                          updateText={this.updateText}
-                          canModify={canModify}
-                          thread={thread}
-                          saveBody={this.saveBody}
-                          onEditClick={this.onEditClick}
-                          onDeleteClick={this.onDeleteClick}
-                          isEditMode={this.props.isEditMode}
-                          usersList={this.props.usersList}
-                            />
-                      </div>
-                      { this.renderChanges(this.props.updates, this.props.userId, this.props.comments, this.props.params.tid, this.props.googleDocs) }
+
+
+                        <div className="comment-row-wrapper flx flx-row" id='guidecommentcontainer' name='guidecommentcontainer'>
+                          <div className="co-thread-reply-wrapper">
+                            <CommentContainer
+                              authenticated={this.props.authenticated}
+                              userInfo={this.props.userInfo}
+                              comments={this.props.comments || {}}
+                              errors={this.props.commentErrors}
+                              commentObject={thread}
+                              threadId={this.props.params.tid}
+                              thread={this.props.thread}
+                              project={this.props.project}
+                              orgName={this.props.params.orgname}
+                              usersList={this.props.usersList}
+                              type={Constants.THREAD_TYPE}
+                              deleteComment={this.props.onDeleteThreadComment} />
+                              </div>
+                            </div>
+                        </div>
+
+                   
+                        </div>
                     </div>
-                    
-                    
-                    <div className="comments-area flx flx-col flx-align-start flx-just-start w-max-2" id='guidecommentcontainer' name='guidecommentcontainer'>
-                      <div className="co-thread-reply-wrapper">
-                        <CommentContainer
-                          authenticated={this.props.authenticated}
-                          userInfo={this.props.userInfo}
-                          comments={this.props.comments || {}}
-                          errors={this.props.commentErrors}
-                          commentObject={thread}
-                          threadId={this.props.params.tid}
-                          thread={this.props.thread}
-                          project={this.props.project}
-                          orgName={this.props.params.orgname}
-                          usersList={this.props.usersList}
-                          type={Constants.THREAD_TYPE}
-                          deleteComment={this.props.onDeleteThreadComment} />
-                      </div>
 
                   </div>
+                  
+                  
+                  
 
-                  </div>
-
-                  </div>
-                </div>
+            </div>
 
             </Sidebar>
 

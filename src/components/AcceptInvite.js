@@ -36,24 +36,9 @@ class AcceptInvite extends React.Component {
 
     if (!this.props.authenticated) {
       return (
-        <div>
-         <div className="hero-container logged-out flx flx-col">
-          <div className="marketing-page navigation-bar flx flx-row flx-align-center flx-just-end pdding-right-md ">
-              <Link to="/login" className="nav-module nav-feed flx flx-center-all vb vb--sm fill--white color--black">
-                <div className="nav-text">
-                  Log in
-                </div>
-              </Link>
 
-              <Link to="/register" className="nav-module nav-feed flx flx-center-all vb vb--sm color--white">
-                <div className="nav-text">
-                  Sign up
-                </div>
-              </Link>
-          </div>
-         </div>
-         <div className="hero-container">
-                <div className="create-content flx flx-col flx-center-all ta-center">
+         <div className="page-common page-add-thread flx flx-col flx-center-all">
+          <div className="koi-view header-push ta-left flx flx-col">
               
               <div className="flx flx-col flx-center-all create-wrapper">
             
@@ -69,18 +54,25 @@ class AcceptInvite extends React.Component {
                   <div>– Seneca</div>
                 </div>  
 
-              </div>
-              <div className="hero-bg">
-                <div className="hero-map opa-20">
+          
+              
+
+              <Link to="/login" className="nav-module nav-feed flx flx-center-all vb vb--sm fill--white color--black">
+                <div className="nav-text">
+                  Log in
                 </div>
-                <div className="hero-grid opa-10">
+              </Link>
+
+              <Link to="/register" className="nav-module nav-feed flx flx-center-all vb vb--sm color--white">
+                <div className="nav-text">
+                  Sign up
                 </div>
+              </Link>
+
             </div>
 
-            
-
           </div>  
-        </div>
+
       )
     }
     if (!invite) {

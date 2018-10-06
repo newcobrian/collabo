@@ -145,7 +145,7 @@ class AddThread extends React.Component {
 													<fieldset className="field-wrapper  mrgn-top-sm">
 														<label>Post Title</label>
 								                      <input
-								                        className="input--underline edit-itinerary__name v2-type-body3 brdr-all"
+								                        className="input--underline edit-itinerary__name brdr-all"
 								                        type="text"
 								                        placeholder="My new post"
 								                        required
@@ -167,7 +167,7 @@ class AddThread extends React.Component {
 												          </select>
 								                    </fieldset>
 													<fieldset className="field-wrapper mrgn-top-sm">
-														<label>Body (Optional)</label>
+														<div className="flx flx-row flx-align-center"><label>Body</label> <span className="thread-timestamp mrgn-left-xs">(Optional)</span></div>
 								                      {/*<textarea
 								                        className="input--underline v2-type-body3"
 								                        type="text"
