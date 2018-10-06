@@ -236,18 +236,18 @@ class FirebaseSearchInput extends Component {
             fontFamily: 'Montserrat',
             paddingLeft: '4px'
           }}
-          menuItemStyle={{
-            borderBottom: '1px solid #ccc !important',
-            padding: '20px !important'
-          }}
-          selectedMenuItemStyle={{
-            backgroundColor:'#3DCBF3 !important',
-            color: 'white'
-          }}
-          innerDivStyle={{
-            borderBottom: '1px solid #ccc !important',
-            padding: '20px !important'
-          }}
+          // menuItemStyle={{
+          //   borderBottom: '1px solid #ccc !important',
+          //   padding: '20px !important'
+          // }}
+          // selectedMenuItemStyle={{
+          //   backgroundColor:'#3DCBF3 !important',
+          //   color: 'white'
+          // }}
+          // innerDivStyle={{
+          //   borderBottom: '1px solid #ccc !important',
+          //   padding: '20px !important'
+          // }}
           underlineStyle={{
             border: 'none',
             borderBottom: '1px solid #3DCBF3'
