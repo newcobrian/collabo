@@ -80,7 +80,6 @@ class CommentInput extends React.Component {
               rows="2"
               cols="2"
               wrap="hard"
-              textIndent="5px"
               placeholder="Add comment..."
               value={this.state.body} 
               onChange={this.setBody}
