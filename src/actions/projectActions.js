@@ -824,7 +824,6 @@ export function onDeleteThreadComment(thread, commentId, threadId, parentId) {
         snap.forEach(function(nestedComment) {
           nestedUpdate[Constants.COMMENTS_PATH + '/' + nestedComment.key] = null
           // Firebase.database().ref(Constants.COMMENTS_PATH + '/' + nestedComment.key).remove()
-          // console.log('delete this ' + nestedComment.key)
         })
         setTimeout(function() {
           Firebase.database().ref().update(nestedUpdate)
@@ -1829,51 +1828,47 @@ export function changeProjectSettingsTab(tab, projectId) {
   }
 }
 
-export function inviteOrgUsersToProject(auth, orgName, projectId, invites) {
+export function inviteOrgUsersToProject(auth, orgId, projectId, invites) {
   return dispatch => {
     if (invites && invites.length > 0) {
       Firebase.database().ref(Constants.USERS_PATH + '/' + auth).once('value', authSnap => {
-        Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName).once('value', orgSnap => {
-          Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgSnap.val().orgId).once('value', orgUsersSnap => {
-            Firebase.database().ref(Constants.USERS_BY_PROJECT_PATH + '/' + projectId).once('value', projectUsersSnap => {
-              let orgUsers = orgUsersSnap.val()
-              let projectUsers = projectUsersSnap.val()
-              let updates = {}
-              for (let i = 0; i < invites.length; i++) {
-                // if user is an org member but not in the project, invite them
-                if ((orgUsers && orgUsers[invites[i]]) && (!projectUsers || !projectUsers[invites[i]])) {
-                  // create the project invite
-                  let inviteObject = {
-                    senderId: auth,
-                    recipientId: invites[i],
-                    timestamp: Firebase.database.ServerValue.TIMESTAMP,
-                    orgId: orgSnap.val().orgId,
-                    orgName: orgName
-                  }
-
-                  let inviteId = Firebase.database().ref(Constants.PROJECT_INVITES_PATH).push(inviteObject).key
-
-                  // add to project invites by user
-                  updates[Constants.PROJECT_INVITES_BY_USER_PATH + '/' + invites[i] + '/' + inviteId] = 
-                    Object.assign({}, omit(inviteObject, ['recipientId']))
-
-                  // add to pending invite list for the project
-                  updates[Constants.INVITED_USERS_BY_PROJECT_PATH + '/' + projectId + '/' + invites[i]] = 
-                    Object.assign({}, 
-                      { senderId: auth }, 
-                      { senderUsername:  authSnap.val().username },
-                      { timestamp: Firebase.database.ServerValue.TIMESTAMP })
+        Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId).once('value', orgUsersSnap => {
+          Firebase.database().ref(Constants.USERS_BY_PROJECT_PATH + '/' + projectId).once('value', projectUsersSnap => {
+            let orgUsers = orgUsersSnap.val()
+            let projectUsers = projectUsersSnap.val()
+            let updates = {}
+            for (let i = 0; i < invites.length; i++) {
+              // if user is an org member but not in the project, invite them
+              if ((orgUsers && orgUsers[invites[i]]) && (!projectUsers || !projectUsers[invites[i]])) {
+                // create the project invite
+                let inviteObject = {
+                  senderId: auth,
+                  recipientId: invites[i],
+                  timestamp: Firebase.database.ServerValue.TIMESTAMP,
+                  orgId: orgId
                 }
+
+                let inviteId = Firebase.database().ref(Constants.PROJECT_INVITES_PATH).push(inviteObject).key
+
+                // add to project invites by user
+                updates[Constants.PROJECT_INVITES_BY_USER_PATH + '/' + invites[i] + '/' + inviteId] = 
+                  Object.assign({}, omit(inviteObject, ['recipientId']))
+
+                // add to pending invite list for the project
+                updates[Constants.INVITED_USERS_BY_PROJECT_PATH + '/' + projectId + '/' + invites[i]] = 
+                  Object.assign({}, 
+                    { senderId: auth }, 
+                    { senderUsername:  authSnap.val().username },
+                    { timestamp: Firebase.database.ServerValue.TIMESTAMP })
               }
-              Firebase.database().ref().update(updates)
+            }
+            Firebase.database().ref().update(updates)
 
-              // send invites to users
+            // send invites to users
 
-              dispatch({
-                type: ActionTypes.INVITED_USERS_TO_PROJECT,
-                orgName,
-                projectId
-              })
+            dispatch({
+              type: ActionTypes.INVITED_USERS_TO_PROJECT,
+              projectId
             })
           })
         })
@@ -1909,6 +1904,32 @@ export function joinProject(auth, userInfo, orgId, project) {
         Firebase.database().ref().update(updates)
       }
     })
+  }
+}
+
+export function showProjectInviteModal(projectId, project, orgId, orgName) {
+  return dispatch => {
+    if (projectId && orgId) {
+      Firebase.database().ref(Constants.USERS_BY_PROJECT_PATH + '/' + projectId).once('value', projectSnap => {
+        Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId).once('value', orgSnap => {
+          let usersList = []
+          orgSnap.forEach(function(user) {
+            usersList = usersList.concat(Object.assign({}, { userId: user.key }, user.val()))
+          })
+          usersList.sort(Helpers.byUsername)
+
+          dispatch({
+            type: ActionTypes.SHOW_PROJECT_INVITE_MODAL,
+            projectMemberCheck: projectSnap.val(),
+            project: project,
+            projectId: projectId,
+            usersList: usersList,
+            orgName: orgName,
+            orgId: orgId
+          })  
+        })
+      })
+    }
   }
 }
 

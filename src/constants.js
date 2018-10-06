@@ -174,6 +174,7 @@ export const CHANGE_EMAIL_MODAL = 'CHANGE_EMAIL_MODAL'
 export const CREATE_RECS_MODAL = 'CREATE_RECS_MODAL'
 export const SEND_RECS_MODAL = 'SEND_RECS_MODAL'
 export const DELETE_MODAL = 'DELETE_MODAL'
+export const PROJECT_INVITE_MODAL = 'PROJECT_INVITE_MODAL'
 
 /*** Page Sources ***/
 export const USER_FEED = 'USER_FEED'

@@ -36,6 +36,10 @@ class Project extends React.Component {
     this.mediaQueryChanged = () => {
       this.props.setSidebar(mql.matches);
     }
+
+    this.onInviteClick = (project) => {
+      this.props.showProjectInviteModal(this.props.params.pid, this.props.project, this.props.orgId, this.props.params.orgname)
+    }
   }
 
   componentDidMount() {
@@ -217,7 +221,8 @@ class Project extends React.Component {
                         projectMembers={this.props.projectMembers}
                         project={this.props.project}
                         projectId={this.props.params.pid}
-                        orgName={this.props.params.orgname} />
+                        orgName={this.props.params.orgname}
+                        onInviteClick={this.onInviteClick} />
                 </div>
               </div>
             </Sidebar>

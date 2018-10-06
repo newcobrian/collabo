@@ -27,7 +27,12 @@ export default function(state = initialState, action) {
           open:true
         };
       }
-
+    case ActionTypes.INVITED_USERS_TO_PROJECT:
+      return {
+        ...state,
+        message: 'Invites sent',
+        open: true
+      }
     case CLOSE_SNACKBAR:
       {
         return {...state,

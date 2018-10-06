@@ -978,7 +978,7 @@ export function createSubmitError(message, source) {
   
   return dispatch => {
     dispatch({
-      type: CREATE_SUBMIT_ERROR,
+      type: ActionTypes.CREATE_SUBMIT_ERROR,
       error: message,
       source: source
     })
@@ -2130,7 +2130,7 @@ export function getFriends(userId) {
   }
 }
 
-export function onUpdateFriendsCheckbox(label, selectedUsers) {
+export function onUpdateFriendsCheckbox(label, selectedUsers, source) {
   return dispatch => {
     // if (selectedFriends.has(label)) {
     //   selectedFriends.delete(label);
@@ -2151,7 +2151,8 @@ export function onUpdateFriendsCheckbox(label, selectedUsers) {
 
     dispatch({
       type: UPDATE_FRIENDS_CHECKBOX,
-      payload: selectedUsers
+      payload: selectedUsers,
+      source
     })
   }
 }

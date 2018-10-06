@@ -20,6 +20,17 @@ export default (state = initialState, action) => {
         images: action.images,
         itinerariesList: action.itinerariesList
   		}
+    case ActionTypes.SHOW_PROJECT_INVITE_MODAL:
+      return {
+        ...state,
+        modalType: Constants.PROJECT_INVITE_MODAL,
+        projectMemberCheck: action.projectMemberCheck,
+        project: action.project,
+        projectId: action.projectId,
+        usersList: action.usersList,
+        orgName: action.orgName,
+        orgId: action.orgId
+      }
     case SHOW_DELETE_ITINERARY_MODAL:
       return {
         ...state,
@@ -140,6 +151,7 @@ export default (state = initialState, action) => {
     case FRIEND_SELECTOR_SUBMIT:
     case ITINERARY_DELETED:
     case ActionTypes.THREAD_DELETED:
+    case ActionTypes.INVITED_USERS_TO_PROJECT:
       return initialState;
     case REVIEW_SUBMITTED:
       return {
@@ -147,8 +159,15 @@ export default (state = initialState, action) => {
         modalType: FORWARD_MODAL,
         review: action.review
       };
-    case CREATE_SUBMIT_ERROR:
-      if (action.source === NEW_ITINERARY_MODAL) {
+    case ActionTypes.UPDATE_FRIENDS_CHECKBOX:
+      if (action.source === Constants.PROJECT_INVITE_MODAL) {
+        return {
+          ...state,
+          selectedUsers: action.payload
+        }
+      }
+    case ActionTypes.CREATE_SUBMIT_ERROR:
+      if (action.source === NEW_ITINERARY_MODAL || action.source === Constants.PROJECT_INVITE_MODAL) {
         return {
           ...state,
           errors: [action.error],

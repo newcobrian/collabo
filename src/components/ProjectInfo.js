@@ -30,7 +30,7 @@ const ProjectInfo = props => {
             );
           })
         }
-        <Link to={'/' + props.orgName + '/' + props.projectId + '/invite'} className="info-row flx flx-row flx-align-center brdr-top pdding-top-md mrgn-top-md">
+        <Link onClick={props.onInviteClick} className="info-row flx flx-row flx-align-center brdr-top pdding-top-md mrgn-top-md">
           <div className="sidebar-icon flx flx-center-all mrgn-left-xs">
             <div className="koi-ico --24 ico--add--secondary"></div>              
           </div>
