@@ -9,7 +9,7 @@ const EditProfileSettings = props => {
       <Link
         to="/settings"
         className="vb vb--sm vb--outline fill--white mrgn-top-xs color--black w-100 mrgn-right-sm mrgn-right-m-none">
-         <i className="material-icons mrgn-right-sm color--black opa-60 md-18">mode_edit</i>Edit Profile
+         Edit Profile
       </Link>
     );
   }
@@ -39,34 +39,39 @@ const ProfileInfo = props => {
       props.profile.userId === props.authenticated;
 
     return ( 
-        <div className="user-info flx flx-col flx-just-start">
+        <div className="user-info flx flx-col flx-align-center w-100">
 
-          <div className="profile-info flx flx-row flx-just-start mrgn-bottom-xs">
-            <div className="flx flx-col flx-align-center mrgn-right-md">
+          <div className="profile-info flx flx-col flx-align-center mrgn-bottom-xs">
+            <div className="flx flx-col flx-align-center">
               <ProfilePic src={profile.image} className="user-img" />
             </div>
-            <div className="user-bio ta-left flx flx-col flx-align-start mrgn-bottom-sm">
-              <div className="v2-type-body3 font--beta">{profile.bio}</div>
-              <div className="user-action flx flx-row flx-just-start w-100 mobile-hide mrgn-top-sm flx-wrap">
-                <FollowUserButton
-                authenticated={props.authenticated}
-                isUser={isUser}
-                user={profile}
-                follow={props.follow}
-                unfollow={props.unfollow}
-                />
+
+            <div className="co-type-page-title mrgn-top-sm">{profile.username}</div>
+
+            <div className="user-bio ta-left flx flx-col flx-align-center mrgn-top-sm">
+
+
+              <div className="co-type-profile-status mrgn-top-xs mrgn-bottom-xs ta-center">
+                Coding up Prototype stage DOM and style for all pages, then testing more visual styles
+                {/*{profile.bio}*/}
               </div>
+              
+              <div className="thread-timestamp">
+                Status updated 2 hours ago
+              </div>
+              
+
             </div>
           </div>
           <div className="user-action flx flx-col flx-just-start pdding-left-md pdding-right-md w-100 mobile-show">
             
-            <FollowUserButton
+            {/*<FollowUserButton
             authenticated={props.authenticated}
             isUser={isUser}
             user={profile}
             follow={props.follow}
             unfollow={props.unfollow}
-            />
+            />*/}
           </div>
         </div>
     )

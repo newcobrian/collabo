@@ -189,15 +189,20 @@ class AddThread extends React.Component {
 
 								                    <ListErrors errors={this.props.errors}></ListErrors>
 								                    
-								                     <div
-								                        className="vb w-100 fill--secondary color--white mrgn-top-sm"
-								                        type="button"
-								                        disabled={this.props.inProgress}
-								                        onClick={this.submitForm}>
-								                        	<div className="flx flx-row flx-center-all ta-center">
-								    	                    	<div className="flx-grow1 mrgn-left-md">Create Post</div>
-								    						</div>
-								                      </div>
+								                    <div className="flx flx-row flx-just-end w-100">
+								                    	<Link onClick={this.onGoBackClick} activeClassName="active" className="vb vb--form-cta mrgn-top-md fill--gray color--black mrgn-right-sm">
+								                    	   Cancel
+								                    	</Link>
+														<div
+														className="vb vb--form-cta mrgn-top-md fill--secondary color--white"
+														type="button"
+														disabled={this.props.inProgress}
+														onClick={this.submitForm}>
+
+														   Create Post
+
+														</div>
+								                     </div>
 								                    
 										        </form>
 										        

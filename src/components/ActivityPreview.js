@@ -30,23 +30,23 @@ const UpdateSection = props => {
   if (!props.activity) return null
   else if (props.activity.lastUpdate === Constants.NEW_THREAD_TYPE) {
     return (
-      <div>
+      <span>
         Posted new thread&nbsp;
-      </div>
+      </span>
     )
   }
   else if (props.activity.lastUpdate === Constants.EDIT_THREAD_TYPE) {
     return (
-      <div>
+      <span>
         Modified thread&nbsp;
-      </div>
+      </span>
     )
   }
   else if (props.activity.lastUpdate === Constants.COMMENT_TYPE) {
     return (
-      <div>
+      <span>
         Commented&nbsp;
-      </div>
+      </span>
     )
   }
   else return null;
@@ -83,38 +83,31 @@ const NewThreadItem = props => {
   let createdBy = activity.createdBy
 
   return (
-     <Link to={`/${props.orgName}/${props.projectId}/${props.activity.activityId}`} className={"flx flx-col flx-col w-100 w-max"}>
+     <div className={"thread-preview-container flx flx-col flx-align-start w-100"}>
         <div className="flx flx-col flx-align-start w-100"> 
-        <div className="flx flx-row mrgn-left-xs ">
-          <Link to={'/' + props.orgName + '/user/' + createdBy.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
-            <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
-          </Link>
-          <div className="flx flx-col">
-            { /** Timestamp **/ }
-            <div className="tip__timestamp v2-type-caption opa-40">
-              <DisplayTimestamp timestamp={activity.lastModified} />
-            </div>
-            { /** END Timestamp **/ }
-            <div className="co-type-body flx flx-row">
-              <UpdateSection activity={activity} />: &nbsp;
-              <div className="co-type-bold ta-left">
-                  <Link to={`/${props.orgName}/${props.projectId}/${props.activity.activityId}`}> {activity.title}</Link>
+          
+          <div className="flx flx-row">
+            <Link to={'/' + props.orgName + '/user/' + createdBy.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
+              <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
+            </Link>
+            <div className="flx flx-col">
+
+              <div className="thread-timestamp">
+                Composed new thread&nbsp;&#xb7;&nbsp;<DisplayTimestamp timestamp={activity.lastModified} />
               </div>
-            </div>
-            <div className="tip__caption font--beta v2-type-body2 ta-left mrgn-top-sm">
-              <div dangerouslySetInnerHTML={{ __html: activity.body || '' }} />
-              {/*<div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(thread.body) || '' }} />*/}
-              </div>
+
+              <Link className="co-type-bold co-type-label--lg" to={`/${props.orgName}/${props.projectId}/${props.activity.activityId}`}> {activity.title}</Link>
+
             </div>
           </div>
+          
+          <div className="indent-border brdr-color--primary co-type-body ta-left mrgn-top-sm">
+            <div dangerouslySetInnerHTML={{ __html: activity.body || '' }} />
+            {/*<div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(thread.body) || '' }} />*/}
+          </div>
         </div>
-
-     
-
-       
-
-
-    </Link>
+          
+    </div>
   );
 }
 
@@ -125,19 +118,22 @@ const EditThreadItem = props => {
   let createdBy = activity.createdBy
 
   return (
-    <div className="flx flx-col flx-align-start w-100"> 
-      <div className="flx flx-row mrgn-left-xs">
+    <div className="thread-preview-container flx flx-col flx-align-start w-100"> 
+      <div className="flx flx-col flx-align-start w-100">
 
-        <Link to={'/' + props.orgName + '/user/' + createdBy.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row DN">
-          <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
-        </Link>
-        <div className="color--primary co-type-body flx flx-row">
-          <Link className="" to={'/' + props.orgName + '/user/' + createdBy.username}>{createdBy.username}</Link> edited post  
-          <Link to={'/' + props.orgname + '/' + activity.projectId + '/' + activity.threadId}>{activity.title}</Link>
+        <div className="flx flx-row">
+          <Link to={'/' + props.orgName + '/user/' + createdBy.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
+            <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
+          </Link>
+          <div className="co-type-label--lg">
+            <div className="thread-timestamp">
+              Edited thread&nbsp;&#xb7;&nbsp;<DisplayTimestamp timestamp={activity.lastModified} />
+            </div>
+            <Link className="co-type-bold" to={'/' + props.orgname + '/' + activity.projectId + '/' + activity.threadId}>{activity.title}</Link>
+
+          </div>
         </div>
-        <div className="thread-timestamp">
-          <DisplayTimestamp timestamp={activity.lastModified} />
-        </div>
+ 
       </div>
     </div>
   )
@@ -151,32 +147,27 @@ const CommentItem = props => {
 
   return (
     <div className="thread-preview-container flx flx-col flx-align-start w-100">
-      <div className="flx flx-col mrgn-left-xs">
+      <div className="flx flx-col flx-align-start w-100">
+
         <div className="flx flx-row">
-          <Link to={'/' + props.orgName + '/user/' + createdBy.username} className="DN mrgn-right-xs tip__author-photo flx-hold mrgn-right-sm flx flx-row">
+          <Link to={'/' + props.orgName + '/user/' + createdBy.username} className="mrgn-right-xs tip__author-photo flx-hold mrgn-right-sm flx flx-row">
             <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
           </Link>
           <div className="flx flx-col">
             
-            <div className="co-type-sub color--black opa-100">
-              <Link className="color--black co-type-bold" to={'/' + props.orgName + '/user/' + createdBy.username}>{createdBy.username}</Link>
-
-              Commented on thread: &nbsp; 
-              <Link className="color--black co-type-bold" to={'/' + props.orgName + '/' + activity.projectId + '/' + activity.threadId}>{activity.title}</Link>
-            </div>
-
             <div className="thread-timestamp">
-              <DisplayTimestamp timestamp={activity.lastModified} />
+              Commented&nbsp;&#xb7;&nbsp;<DisplayTimestamp timestamp={activity.lastModified} />
             </div>
+            <Link className="co-type-label--lg co-type-bold" to={'/' + props.orgName + '/' + activity.projectId + '/' + activity.threadId}>{activity.title}</Link>
 
-            <div className="co-type-body mrgn-top-sm">
-              {activity.body}
-            </div>
           </div>
 
         </div>
-        
-        
+
+        <div className="indent-border brdr-color--primary co-type-body mrgn-top-sm">
+          {activity.body}
+        </div>
+
       </div>
     </div>
   )

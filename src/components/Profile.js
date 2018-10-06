@@ -19,10 +19,7 @@ const EditProfileSettings = props => {
     return (
       <Link
         to={'/' + props.orgName + '/user/' + props.username + '/settings'}
-        className="flx flx-align-center mrgn-right-md">
-         <div className="icon-wrapper brdr--primary flx flx-center-all">
-            <i className="material-icons color--black md-18 opa-100">mode_edit</i>
-          </div>
+        className="flx flx-align-center mrgn-right-sm">
         <div className="color--black co-type-label">Edit Profile</div>
       </Link>
     );
@@ -34,7 +31,7 @@ const SignOutButton = props => {
   if (props.isUser) {
     return (
       <Link
-        className="flx flx-align-center mrgn-right-md"
+        className="flx flx-align-center mrgn-left-sm"
         onClick={props.signOut}>
         <div className="color--black co-type-label">Log out</div>
       </Link>
@@ -302,16 +299,7 @@ class Profile extends React.Component {
 
                   <div className="koi-view threadlist header-push ta-left flx flx-col w-100">
 
-                    <div className="flx flx-row flx-align-center mrgn-top-sm w-100">
-                      <div className="co-type-page-title">{profile.username}</div>
-                      <div className="flx-item-right flx flx-row flx-align-center">
-                        <EditProfileSettings 
-                          isUser={isUser} 
-                          orgName={this.props.params.orgname} 
-                          username={this.props.params.username}/>
-                        <SignOutButton isUser={isUser} signOut={this.props.signOutUser}/>
-                      </div>
-                    </div>
+                    
 
 
                     <ProfileInfo
@@ -320,6 +308,17 @@ class Profile extends React.Component {
                       signOut={this.props.signOutUser}
                       follow={this.props.followUser}
                       unfollow={this.props.unfollowUser} />
+
+
+                    <div className="flx flx-row flx-center-all w-100 brdr-bottom mrgn-bottom-lg pdding-bottom-lg">
+                      
+                        <EditProfileSettings 
+                          isUser={isUser} 
+                          orgName={this.props.params.orgname} 
+                          username={this.props.params.username}/>
+                        <SignOutButton isUser={isUser} signOut={this.props.signOutUser}/>
+
+                    </div>
 
                     <div className="flx flx-row flx-just-center w-100">
 

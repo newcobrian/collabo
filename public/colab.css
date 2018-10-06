@@ -176,6 +176,9 @@ textarea {
 	font-weight: 700;
 	letter-spacing: 5px;
 }
+.co-type-profile-status {
+	font-size: 18px;
+} 
 .co-type-h3 {
     font-weight: 600;
     line-height: 1.1;
@@ -185,6 +188,11 @@ textarea {
 }
 .co-type-org {
     font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+}
+.co-type-h1 {
+    font-size: 14px;
     font-weight: 600;
     letter-spacing: 1.2px;
 }
@@ -230,11 +238,13 @@ textarea {
 	letter-spacing: 1.2px;
 	line-height: 26px;
 }
-.co-type-h1 {
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 1.2px;
+.co-type-label--lg {
+	line-height: 18px;
+	color: inherit;
+	letter-spacing: 1.1px;
+	font-size: 14px;
 }
+
 .co-type-page-title {
     font-size: 24px;
     font-weight: 600;
@@ -615,6 +625,7 @@ p {
 	width: 100%;
 	padding: 70px 40px;
 	max-width: 960px;
+	min-width: 320px;
 }
 .open-style .page-common,
 .open-style .loading-module {
@@ -918,10 +929,16 @@ a.color--primary:focus {
 	width: 20%;
 }
 
+.page-profile .co-type-label,
 .page-team-settings .co-type-label {
-	line-height: 10px;
+	line-height: 16px;
 }
 
 .ql-toolbar.ql-snow + .ql-container.ql-snow {
 	min-height: 200px;
+}
+.indent-border {
+	border-left: 1px solid transparent;
+	margin-left: 18px;
+	padding: 10px 18px 5px 30px;
 }
