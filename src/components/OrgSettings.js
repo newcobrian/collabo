@@ -220,7 +220,7 @@ class OrgSettings extends React.Component {
   }
 
   render() {
-    const { orgName, payload, sidebarOpen, tab, usersProjects, orgId, authenticated, userInfo } = this.props;
+    const { payload, sidebarOpen, tab, usersProjects, orgId, authenticated, userInfo } = this.props;
     return (
       <div>
 
@@ -250,9 +250,9 @@ class OrgSettings extends React.Component {
                   <div className="koi-view header-push text-left flx flx-col flx-align-start w-100">
                     {/* HEADER START */}
                     <div className="flx flx-row flx-align-center w-100 mrgn-bottom-sm">
-                      <div className="co-type-page-title">{orgName} Team Directory</div>
+                      <div className="co-type-page-title">{this.props.params.orgname} Team Directory</div>
 
-                      <Link to={'/' + orgName + '/invite'} className="flx flx-row flx-align-center flx-item-right">
+                      <Link to={'/' + this.props.params.orgname + '/invite'} className="flx flx-row flx-align-center flx-item-right">
                         <div className="co-type-body color--secondary">
                           Invite Users
                         </div>
@@ -275,7 +275,7 @@ class OrgSettings extends React.Component {
                         tab={tab} 
                         payload={payload} 
                         orgId={orgId}
-                        orgName={orgName} 
+                        orgName={this.props.params.orgname} 
                         usersProjects={usersProjects || {}} 
                         joinProject={this.props.joinProject}
                         leaveProject={this.props.leaveProject} />

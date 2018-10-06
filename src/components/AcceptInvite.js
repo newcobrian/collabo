@@ -16,7 +16,7 @@ class AcceptInvite extends React.Component {
     super()
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.loadInvite(this.props.authenticated, this.props.params.iid);
     if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
   }
@@ -47,15 +47,7 @@ class AcceptInvite extends React.Component {
                         HEY MAN <Link to='/login'> LOGIN </Link> TO ACCEPT THIS INVITE <Link to='/register'> ....or Sign up</Link>
 
                       </div>
-                </div>
-
-                <div className="v2-type-body2 mrgn-top-lg ta-center DN">
-                  <div>“Travel and change of place impart new vigor to the mind.”</div>
-                  <div>– Seneca</div>
-                </div>  
-
-          
-              
+                </div>              
 
               <Link to="/login" className="nav-module nav-feed flx flx-center-all vb vb--sm fill--white color--black">
                 <div className="nav-text">
@@ -160,12 +152,6 @@ class AcceptInvite extends React.Component {
                       </div>
                   </div>
                 </div>
-
-                <div className="v2-type-body2 mrgn-top-lg ta-center DN">
-                  <div>“Travel and change of place impart new vigor to the mind.”</div>
-                  <div>– Seneca</div>
-                </div>  
-
               </div>
               <div className="hero-bg">
                 <div className="hero-map opa-20">
