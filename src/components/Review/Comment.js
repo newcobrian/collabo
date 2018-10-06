@@ -44,8 +44,8 @@ class Comment extends React.Component {
       regex: /\@([a-z0-9_\-]+?)( |\,|$|\.|\!|\:|\'|\"|\?)/gim, //regex to match a username
       fn: (key, result) => {
         return (
-          <span>
-          <Link className="color--primary" key={key} to={`/${orgName}/user/${result[1]}`}>@{result[1]}</Link>{result[2]}
+          <span key={key}>
+          <Link className="color--primary" to={`/${orgName}/user/${result[1]}`}>@{result[1]}</Link>{result[2]}
         </span>
         );
       }
