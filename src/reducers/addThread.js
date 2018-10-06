@@ -43,6 +43,7 @@ export default (state = { body: initialQuillState, usersList: [] }, action) => {
         inProgress: null
       }
     case ActionTypes.CREATE_SUBMIT_ERROR:
+      // console.log('reducer - ' + action.source)
       if (action.source === Constants.ADD_THREAD_PAGE) {
         return {
           ...state,

@@ -184,7 +184,7 @@ const CommentItem = props => {
 
 const ActivityPreview = props => {
   const activity = props.activity;
-  console.log(JSON.stringify(activity))
+
   if (activity.type === Constants.NEW_THREAD_TYPE) {
     return (
       <NewThreadItem activity={activity} orgName={props.orgName} />

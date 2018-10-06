@@ -975,7 +975,6 @@ export function editorSubmitError(missingField) {
 
 export function createSubmitError(message, source) {
   // let message = (missingField === 'location' ? 'Please select a valid location from the dropdown' : 'Please add a ' + missingField);
-  
   return dispatch => {
     dispatch({
       type: ActionTypes.CREATE_SUBMIT_ERROR,

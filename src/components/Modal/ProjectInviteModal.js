@@ -39,7 +39,6 @@ class ProjectInviteModal extends React.Component {
       ev.preventDefault();
 
       if (!this.props.selectedUsers || this.props.selectedUsers.length < 1) {
-        console.log('hi')
         this.props.createSubmitError('Select at least one person to invite', Constants.PROJECT_INVITE_MODAL);
       }
       else {

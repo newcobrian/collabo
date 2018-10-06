@@ -82,8 +82,8 @@ export default (state = initialState, action) => {
         ...state,
         modalType: Constants.CREATE_RECS_MODAL
       }
-    case CREATE_SUBMIT_ERROR:
-      if (action.source === Constants.CREATE_RECS_MODAL || action.source === Constants.NEW_ITINERARY_MODAL) {
+    case ActionTypes.CREATE_SUBMIT_ERROR:
+      if (action.source === Constants.CREATE_RECS_MODAL || action.source === Constants.NEW_ITINERARY_MODAL || action.source === Constants.PROJECT_INVITE_MODAL) {
         return {
           ...state,
           errors: [action.error],
@@ -166,15 +166,7 @@ export default (state = initialState, action) => {
           selectedUsers: action.payload
         }
       }
-    case ActionTypes.CREATE_SUBMIT_ERROR:
-      if (action.source === NEW_ITINERARY_MODAL || action.source === Constants.PROJECT_INVITE_MODAL) {
-        return {
-          ...state,
-          errors: [action.error],
-          inProgress: null
-        }
-      }
-      else return {...state}
+      else return {...state};
     case GOOGLE_MAP_LOADED:
       if (action.source === NEW_ITINERARY_MODAL) {
         return {
