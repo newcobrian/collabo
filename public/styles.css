@@ -903,23 +903,31 @@ width: 32px;
   padding: 4px 0px;
   margin-right: 0px;
   color: #526166;
+  border-bottom: 4px solid transparent;
   opacity: .5;
 }
-.nav-pills.outline-active .nav-link.active,
-.nav-pills.outline-active .nav-link:hover {
+.nav-pills.outline-active .nav-link.brdr-color--primary.active,
+.nav-pills.outline-active .nav-link.brdr-color--primary:hover {
     color: #0C111D !important;
+    font-weight: 600;
     opacity: 1;
     background-color: transparent !important;
 }
+.page-common .nav {
+  margin-bottom: 20px;
+}
 .nav-pills .nav-item {
-    height: 30px;
+    height: 40px;
     display: inline-block;
     width: auto;
     white-space: normal;
     float: none;
-    font-size: 12px;
+    font-size: 14px;
     text-transform: none;
     letter-spacing: 1px;
+    text-align: left;
+    padding-left: 0;
+    margin-right: 30px;
 }
 li.nav-divider {
     height: 10px;
@@ -944,13 +952,7 @@ li.nav-divider {
 ******/
 
 
-.profile-page .nav-pills.outline-active .nav-link {
-    width: auto;
-    margin: 0 10px;
-}
-.profile-page .nav-pills .nav-link {
-    display: block;
-}
+
 .page-common.settings-page {
 
 }

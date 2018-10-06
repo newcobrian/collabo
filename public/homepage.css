@@ -44,38 +44,6 @@
   font-family: 'Arimo';
 }
 
-.search-wrapper-wrapper {
-  z-index: 100;
-  padding: 0;
-  background-color: #121419;
-  background-color: white;
-}
-  .page-landing.search-wrapper-wrapper {
-    display: none;
-  }
-.short-width-search {
-	width: 32%;
-	border: none;
-  overflow: hidden;
-}
-.search-wrapper {
-}
-.search-wrapper.page-top-search {
-  margin-top: 0;
-  padding: 10px;
-  width: 340px;
-  overflow: visible;
-  height: auto;
-}
-.nav-pills .nav-item { 
-    font-size: 13px;
-    padding: 0 20px;
-    width: auto;
-    text-align: center;
-}
-.friend-popular-toggle .nav-pills .nav-item:first-child {
-
-}
 
 
 

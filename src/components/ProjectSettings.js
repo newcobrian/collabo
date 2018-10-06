@@ -184,7 +184,7 @@ class ProjectSettings extends React.Component {
                       <OrgHeader />
                       {/* HEADER START */}
                       <div className="flx flx-row flx-align-center mrgn-top-sm w-100">
-                        <div className="co-type-h1 mrgn-left-md">{project.name} Admin</div>
+                        <div className="co-type-page-title mrgn-left-md">{project.name} admin</div>
                         <div>
                           {project.isPublic ? 'Public' : 'Private'}
                         </div>

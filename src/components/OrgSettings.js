@@ -23,9 +23,9 @@ const JoinProjectButton = props => {
   };
 
   return (
-    <div className="flx flx-row flx-center-all">
-      <button onClick={handleJoinClick}>
-        { props.isJoined ? 'Leave' : 'Join' }
+    <div className="flx flx-center-all mrgn-right-md">
+      <button onClick={handleJoinClick} className="vb vb--xs vb--round flx flx-row flx-center-all fill--secondary color--white">
+          { props.isJoined ? 'Leave' : 'Join' }
       </button>
     </div>
   )
@@ -40,7 +40,7 @@ const ListsTab = props => {
   return (
     <li className="nav-item">
       <a  href=""
-          className={ props.tab === Constants.LISTS_TAB ? 'nav-link active' : 'nav-link' }
+          className={ props.tab === Constants.LISTS_TAB ? 'nav-link brdr-color--primary active' : 'nav-link ' }
           onClick={clickHandler}>
         Lists
       </a>
@@ -57,7 +57,7 @@ const MembersTab = props => {
   return (
     <li className="nav-item">
       <a  href=""
-          className={ props.tab === Constants.MEMBERS_TAB ? 'nav-link active' : 'nav-link' }
+          className={ props.tab === Constants.MEMBERS_TAB ? 'nav-link brdr-color--primary active' : 'nav-link' }
           onClick={clickHandler}>
         Team Members
       </a>
@@ -74,7 +74,7 @@ const PendingTab = props => {
     <li className="nav-item">
       <a
         href=""
-        className={ props.tab === Constants.PENDING_TAB ? 'nav-link active' : 'nav-link' }
+        className={ props.tab === Constants.PENDING_TAB ? 'nav-link brdr-color--primary active' : 'nav-link' }
         onClick={clickHandler}>
         Pending Invites
       </a>
@@ -85,7 +85,7 @@ const PendingTab = props => {
 const MembersList = props => {
   if (props.tab === Constants.MEMBERS_TAB) {
     return (
-      <div>
+      <div className="">
         {
           (props.payload || []).map((userItem, index) => {
             return (
@@ -93,7 +93,7 @@ const MembersList = props => {
                 key={userItem.userId}
                 to={'/' + props.orgName + '/user/' + userItem.username} >
                 <ProfilePic src={userItem.image} className="user-img center-img" /> 
-                <div className="mrgn-left-sm co-type-label">{userItem.username} ({userItem.fullName})</div>
+                <div className="mrgn-left-sm co-type-body">{userItem.username} ({userItem.fullName})</div>
               </Link>
               )
           })
@@ -104,12 +104,12 @@ const MembersList = props => {
   // pending tab
   else if (props.tab === Constants.PENDING_TAB) {
     return (
-      <div>
+      <div className="">
         {
           (props.payload || []).map((userItem, index) => {
             return (
               <div className="flx flx-row flx-align-center mrgn-bottom-sm" key={userItem.email}>
-                <div className="mrgn-left-sm co-type-label">{userItem.email}</div>
+                <div className="co-type-label">{userItem.email}</div>
                 <div>
                   from <Link to={'/' + props.orgName + '/user/' + userItem.senderUsername}>{userItem.senderUsername}</Link>
                    <DisplayTimestamp timestamp={userItem.timestamp} />
@@ -124,13 +124,13 @@ const MembersList = props => {
   // lists tab
   else if (props.tab === Constants.LISTS_TAB) {
     return (
-      <div>
+      <div className="">
         {
           (props.payload || []).map((projectItem, index) => {
+
             if (projectItem.isPublic || props.usersProjects[projectItem.projectId]) {
               return (
                 <div className="flx flx-row flx-align-center mrgn-bottom-sm" key={projectItem.projectId}>
-                  <div className="mrgn-left-sm co-type-label">{projectItem.projectName}</div>
                   <JoinProjectButton 
                     authenticated={props.authenticated}
                     userInfo={props.userInfo}
@@ -139,9 +139,11 @@ const MembersList = props => {
                     leaveProject={props.leaveProject}
                     joinProject={props.joinProject}
                     project={projectItem} />
+                  <div className="co-type-body">{projectItem.projectName}</div>
                 </div>
                 )
             }
+
           })
         }
       </div>
@@ -238,16 +240,17 @@ class OrgSettings extends React.Component {
             >
               <div className={sidebarOpen ? 'open-style' : 'closed-style'}>
 
-                <div className="page-common page-places flx flx-row flx-m-col flx-align-start">
-                  <div className="project-header text-left flx flx-col flx-align-start w-100">
+                <div className="page-common page-places flx flx-col flx-m-col flx-align-start">
+                  <div className={"project-header brdr-bottom brdr-color--primary--10 text-left flx flx-col flx-align-start w-100"}>
                     <OrgHeader />
+                  </div>
+                  <div className="koi-view header-push text-left flx flx-col flx-align-start w-100">
                     {/* HEADER START */}
-                    <div className="flx flx-row flx-align-center mrgn-top-sm w-100">
-                      <div className="co-type-h1 mrgn-left-md">{orgName} Admin</div>
-                      
+                    <div className="flx flx-row flx-align-center w-100">
+                      <div className="co-type-page-title mrgn-left-md">{orgName} Team Directory</div>
+                      <Link to={'/' + orgName + '/invite'} className="vb vb--sm color--white fill--primary flx-item-right">+ Invite Users to Team</Link>
                     </div>
-                    <Link to={'/' + orgName + '/invite'}>+ Invite Users to Team</Link>
-                    <div>
+                    <div className="pdding-all-md w-100">
                       <ul className="nav nav-pills outline-active">
                         <ListsTab tab={tab} onTabClick={this.onTabClick} />
                         <MembersTab tab={tab} onTabClick={this.onTabClick} />

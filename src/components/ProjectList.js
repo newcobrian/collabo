@@ -15,7 +15,7 @@ const DotJewel = props => {
     );
   }
   return (
-    <div className="sidebar-dot fill--primary"></div>
+    <div className="sidebar-dot fill--black--10"></div>
   );
 }
 const ThreadCountJewel = props => {
@@ -92,9 +92,9 @@ class ProjectList extends React.Component {
           </Link>
 
         </div>
-        <div className="org-row org-row-selector flx flx-row flx-align-center">
+        <div className="org-row org-row-selector flx flx-row flx-align-center fill--primary">
 
-          <select className="org-selector co-type-org color--black" onChange={this.onOrgChange}>
+          <select className="org-selector co-type-org color--white" onChange={this.onOrgChange}>
             <option value={orgName}>{orgName}</option>
             {(this.props.orgList || []).map((orgItem, index) => {
               if (orgItem && orgItem.name && orgName && orgItem.name.toLowerCase() !== orgName.toLowerCase()) {
@@ -110,7 +110,7 @@ class ProjectList extends React.Component {
           </div>
         </div> 
 
-        <div className="sidebar-row group-row flx flx-row mrgn-top-md flx-align-center">
+        <div className="sidebar-row group-row search-row fill--primary--20 flx flx-row flx-align-center">
           <div className="sidebar-icon flx flx-center-all">
             <div className="koi-ico --24 ico--search--primary"></div>
           </div>
@@ -122,20 +122,32 @@ class ProjectList extends React.Component {
             placeholder="Search" />
         </div>
 
-        <Link className={"sidebar-row group-row flx flx-row mrgn-bottom-md flx-align-center " + (!this.props.projectId && this.props.source === Constants.PROJECT_PAGE ? 'active' : '')} onClick={this.onAllClick}>
+        
+
+        <div className="sidebar-row flx flx-row flx-align-center mrgn-bottom-sm mrgn-top-md">
+          <div className="co-type-h3 color--black">
+            Lists
+          </div>
+          <Link to={'/' + orgName + '/createList'} className="flx flx-row flx-align-center flx-item-right">
+            <div className="co-type-project-name color--secondary"> 
+              Add List
+            </div>
+            <div className="mrgn-left-sm flx flx-center-all">
+              <div className="koi-ico --24 ico--add--secondary"></div>              
+            </div>
+          </Link>
+        </div>
+
+        <Link className={"sidebar-row group-row flx flx-row flx-align-center " + (!this.props.projectId && this.props.source === Constants.PROJECT_PAGE ? 'active' : '')} onClick={this.onAllClick}>
           <div className="sidebar-icon flx flx-center-all">
-            <div className="koi-ico --24 ico--allupdates--primary"></div>
+            {/*<div className="koi-ico --24 ico--allupdates--primary"></div>*/}
+            <div className="sidebar-dot fill--primary"></div>
           </div>
           <div className="co-type-project-name color--black"> 
             All Threads
           </div>
         </Link>
 
-        <div className="sidebar-row mrgn-bottom-md mrgn-top-lg">
-          <Link className="co-type-h3 color--black w-100 pdding-bottom-sm brdr-bottom-thick" to={'/' + orgName + '/admin'}>
-            Lists
-          </Link>
-        </div>
           {
             (this.props.projectList || []).map((projectItem, index) => {
               return (
@@ -154,16 +166,8 @@ class ProjectList extends React.Component {
             })
           }
 
-          <Link to={'/' + orgName + '/createList'} className="sidebar-row group-row flx flx-row flx-align-center">
-            <div className="sidebar-icon flx flx-center-all">
-              <div className="koi-ico --24 ico--add--secondary"></div>              
-            </div>
-            <div className="co-type-project-name color--secondary"> 
-              Add List
-            </div>
-          </Link>
 
-          <div className="sidebar-footer brdr-top brdr-color--primary flx flx-col">
+          <div className="sidebar-footer brdr-top brdr-color--primary--10 flx flx-col">
 
             <Link className="DN sidebar-row flx flx-row flx-align-center" to={'/' + orgName + '/invite'}>
                 <div className="sidebar-icon flx flx-center-all">
@@ -210,7 +214,7 @@ class ProjectList extends React.Component {
               <div className="co-type-label color--black">{this.props.userInfo.username}</div>
             </Link>
 
-            <div className="sidebar-row koi-sidebar-footer flx flx-row flx-align-center fill--primary mrgn-top-sm">
+            <div className="DN sidebar-row koi-sidebar-footer flx flx-row flx-align-center fill--primary mrgn-top-sm">
               <Link to='/' className="co-type-logo color--white">KOI</Link>
             </div>
           </div>

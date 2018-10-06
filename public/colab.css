@@ -64,7 +64,7 @@ textarea {
 	padding: 10px !important;
 }
 .header-push {
-	margin-top: 104px;
+	margin-top: 64px;
 }
 .header-push-mini {
 	margin-top: 56px;
@@ -109,10 +109,6 @@ textarea {
 	animation: spin 50s infinite linear;
 	moz-animation: spin 50s infinite linear;
 }
-.org-selector {
-	width: 320px;
-	z-index: 10;
-}
 .org-row {
 	margin: 0px 24px 0px 24px;
 	width: auto;
@@ -121,16 +117,24 @@ textarea {
 	padding: 10px 0;
 }
 .org-row.org-row-selector {
-	border-bottom: 3px solid rgba(35,35,37,.1);
-	position: relative;
-	padding: 11px 0 8px;
-	height: 64px;
+    padding: 0 24px;
+    height: 64px;
+    margin: 0;
+}
+.org-selector {
+	width: 320px;
+	z-index: 10;
 }
 .org-arrow {
 	position: absolute;
-	right: 4px;
+	right: 24px;
 
 }
+
+
+
+
+
 .thread-preview-container {
 	padding: 10px 0 20px;
 	margin-bottom: 10px;
@@ -177,10 +181,10 @@ textarea {
     line-height: 1.1;
     color: inherit;
     letter-spacing: 1.2px;
-    font-size: 13px;
+    font-size: 15px;
 }
 .co-type-org {
-    font-size: 16px;
+    font-size: 22px;
     font-weight: 600;
     letter-spacing: 1.2px;
 }
@@ -231,6 +235,11 @@ textarea {
     font-weight: 600;
     letter-spacing: 1.2px;
 }
+.co-type-page-title {
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+}
 .co-type-logotype {
 	font-size: 44px;
 	font-weight: bold;
@@ -260,7 +269,7 @@ p {
 
 
 .threadlist {
-	padding: 0 40px;
+	padding: 40px;
 	z-index: 1;
 }
 .open-style .threadlist-wrapper {
@@ -401,10 +410,10 @@ p {
 	margin-right: 20px;
 }
 .sidebar-dot {
-	width: 8px;
-	height: 8px;
+	width: 6px;
+	height: 6px;
 	border-radius: 32px;
-	opacity: .1;
+	opacity: 1;
 }
 .sidebar-dot.active {
 	visibility: visible;
@@ -413,6 +422,9 @@ p {
 .sidebar-row.koi-sidebar-footer {
 	height: 50px;
 	box-shadow: inset 0px 0px 50px #FFECBB;
+}
+.sidebar-row.group-row.search-row {
+	padding: 24px;
 }
 .sidebar-row:hover .sidebar-dot,
 .sidebar-row.active .sidebar-dot {
@@ -589,7 +601,12 @@ p {
 }
 .content-wrapper {
 	z-index: 3;
-	width: auto;
+	width: 100%;
+	padding: 20px;
+}
+.koi-view {
+	z-index: 3;
+	width: 100%;
 	padding: 20px;
 }
 .open-style .page-common,
@@ -826,6 +843,9 @@ p {
 .fill--black {
   background-color: black;
 }
+.fill--black--10 {
+	background-color: rgba(0,0,0,.1)
+}
 
 
 
@@ -857,7 +877,10 @@ p {
 	background-color: #5B93FF;
 }
 .brdr-color--primary {
-	border-color: rgba(255,171,140,.2) !important;
+	border-color: rgba(255,171,140,1) !important;
+}
+.brdr-color--primary--10 {
+	border-color: rgba(255,171,140,.1) !important;
 }
 
 .color--secondary {

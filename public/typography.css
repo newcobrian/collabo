@@ -239,9 +239,7 @@ textarea {
 .navigation-bar .nav-module.nav-editor.active,
 .nav-pills.outline-active .nav-link.active,
 .nav-pills.outline-active .nav-link:hover  {
-  color: #3DCBF3;
-  color: blue;
-  border-bottom-color: blue;
+
   transition: all 0.23s ease-in-out 0s;
 }
 .navigation-bar .nav-module.active.create:hover,
