@@ -114,7 +114,7 @@ export function onAddThread(auth, projectId, thread, orgName, userInfo) {
           updates[`/${Constants.THREADS_BY_ORG_PATH}/${projectSnapshot.val().orgId}/${threadId}/`] = omit(threadObject, ['orgId']);
 
           // also update user's activity feed
-          let activityObject = Object.assign({}, omit(threadObject, ['userId'], ['orgId']), { threadId: threadId }, { type: Constants.NEW_THREAD_TYPE })
+          let activityObject = Object.assign({}, omit(threadObject, ['userId', 'orgId', 'lastUpdate', 'lastUpdater']), { threadId: threadId }, { type: Constants.NEW_THREAD_TYPE })
           Firebase.database().ref(Constants.ACTIVITY_BY_USER_BY_ORG_PATH + '/' + auth + '/' + projectSnapshot.val().orgId).push(activityObject)
 
           Firebase.database().ref().update(updates);
@@ -532,6 +532,10 @@ export function updateThreadField(auth, threadId, thread, orgName, field, value,
       if (field === 'body') {
         Object.assign(updates, getThreadFieldUpdates(threadId, thread, 'lastUpdate', Constants.EDIT_THREAD_TYPE));
         Object.assign(updates, getThreadFieldUpdates(threadId, thread, 'lastUpdater', pick(userInfo, ['username', 'userId', 'fullName', 'image'])));
+
+        // also update user's activity feed
+        let activityObject = Object.assign({}, omit(thread, ['userId', 'orgId', 'lastUpdate', 'lastUpdater']), { threadId: threadId }, { type: Constants.EDIT_THREAD_TYPE })
+        Firebase.database().ref(Constants.ACTIVITY_BY_USER_BY_ORG_PATH + '/' + auth + '/' + thread.orgId).push(activityObject)
       }
 
       Firebase.database().ref().update(updates);

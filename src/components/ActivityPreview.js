@@ -85,7 +85,7 @@ const NewThreadItem = props => {
   return (
      <Link to={`/${props.orgName}/${props.projectId}/${props.activity.activityId}`} className={"flx flx-col flx-col w-100 w-max"}>
         <div className="flx flx-col flx-align-start w-100"> 
-        <div className="flx flx-row mrgn-left-xs DN">
+        <div className="flx flx-row mrgn-left-xs ">
           <Link to={'/' + props.orgName + '/user/' + createdBy.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
             <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
           </Link>
@@ -184,7 +184,7 @@ const CommentItem = props => {
 
 const ActivityPreview = props => {
   const activity = props.activity;
-
+  console.log(JSON.stringify(activity))
   if (activity.type === Constants.NEW_THREAD_TYPE) {
     return (
       <NewThreadItem activity={activity} orgName={props.orgName} />
