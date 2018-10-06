@@ -161,8 +161,8 @@ const CommentItem = props => {
             <div className="co-type-sub color--black opa-100">
               <Link className="color--black co-type-bold" to={'/' + props.orgName + '/user/' + createdBy.username}>{createdBy.username}</Link>
 
-              <strong>Commented on thread: &nbsp; </strong>
-              <Link className="color--black" to={'/' + props.orgName + '/' + activity.projectId + '/' + activity.threadId}>{activity.title}</Link>
+              Commented on thread: &nbsp; 
+              <Link className="color--black co-type-bold" to={'/' + props.orgName + '/' + activity.projectId + '/' + activity.threadId}>{activity.title}</Link>
             </div>
 
             <div className="thread-timestamp">

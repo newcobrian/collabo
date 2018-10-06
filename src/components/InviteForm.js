@@ -2,11 +2,21 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
+import OrgHeader from './OrgHeader';
 import ListErrors from './ListErrors';
+import Sidebar from 'react-sidebar';
+import ProjectList from './ProjectList';
+import { Link, browserHistory } from 'react-router';
+
+
+const mql = window.matchMedia(`(min-width: 800px)`);
+
 
 const mapStateToProps = state => ({
   ...state.inviteForm,
-  authenticated: state.common.authenticated
+  authenticated: state.common.authenticated,
+  sidebarOpen: state.common.sidebarOpen,
+
 });
 
 class InviteForm extends React.Component {
@@ -30,6 +40,10 @@ class InviteForm extends React.Component {
 		    this.props.onInviteSubmit(invites);
 		  }
     	}
+    	this.onGoBackClick = ev => {
+    	  ev.preventDefault();
+    	  browserHistory.goBack()
+    	}
 	}
 
 	componentWillMount() {
@@ -46,15 +60,13 @@ class InviteForm extends React.Component {
 
 	render() {
 		return (
-			<div className="page-common flx flx-col flx-center-all">
-
-				{/* FORM START */}
-	            <div className="content-wrapper header-push ta-left flx flx-col">
-		            <form>
+			<div className="koi-view header-push text-left flx flx-col flx-align-start w-100">
+				
+		            <form className="flx flx-col flx-align-start w-100">
 	                    <fieldset className="field-wrapper">
-							<div className="field-label">Invite team members</div>
+							<div className="co-type-page-title mrgn-bottom-sm">Invite team members</div>
 	                      <textarea
-	                        className="input--underline v2-type-body3"
+	                        className="input--underline edit-itinerary__name brdr-all"
 	                        type="text"
 	                        rows="4"
 	                        maxLength="184"
@@ -65,18 +77,23 @@ class InviteForm extends React.Component {
 	                    </fieldset>
 
 	                    <ListErrors errors={this.props.errors}></ListErrors>
-	                    
-	                    <div
-	                    className="vb vb--create w-100 mrgn-top-md fill--light-green"
-	                    type="button"
-	                    disabled={this.props.inProgress}
-	                    onClick={this.submitForm}>
-	                    	<div className="flx flx-row flx-center-all ta-center">
-		                    	<div className="flx-grow1 mrgn-left-md color--green">Send invites</div>
-							</div>
+
+	                    <div className="flx flx-row flx-just-end w-100">
+
+		                    <Link onClick={this.onGoBackClick} activeClassName="active" className="vb vb--form-cta mrgn-top-md fill--gray color--black mrgn-right-sm">
+		                       Cancel
+		                    </Link>
+		                    <div
+		                    className="vb vb--form-cta mrgn-top-md fill--secondary color--white"
+		                    type="button"
+		                    disabled={this.props.inProgress}
+		                    onClick={this.submitForm}>
+		                    	Send Invites
+		                  	</div>
 	                  </div>
+
 			        </form>
-			    </div>
+
 				{/* FORM END */}
 			</div>
 		)

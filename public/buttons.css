@@ -230,7 +230,9 @@ input.input--underline {
   line-height: 18px;
   min-width: 60px;
 }
-
+.vb--form-cta {
+  min-width: 180px;
+}
 
 .vb--sm.tip-count {
   font-size: 16px;
