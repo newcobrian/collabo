@@ -360,6 +360,15 @@ li {
   -webkit-animation: colorchange .8s 8;
   border: 1px solid rgba(0,0,0,.05);
 }
+.default-profile-wrapper.prof-60 {
+  width: 60px;
+  height: 60px;
+}
+.page-team-settings .default-profile-wrapper {
+  width: 48px;
+  height: 48px;
+}
+
 .threadlist .default-profile-wrapper,
 .threadlist .user-photo-wrapper {
   width: 36px;
@@ -922,7 +931,7 @@ width: 32px;
     width: auto;
     white-space: normal;
     float: none;
-    font-size: 14px;
+    font-size: 12px;
     text-transform: none;
     letter-spacing: 1px;
     text-align: left;

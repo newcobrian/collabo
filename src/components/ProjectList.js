@@ -129,7 +129,7 @@ class ProjectList extends React.Component {
             Lists
           </div>
           <Link to={'/' + orgName + '/createList'} className="flx flx-row flx-align-center flx-item-right">
-            <div className="co-type-project-name color--secondary"> 
+            <div className="co-type-label color--secondary"> 
               Add List
             </div>
             <div className="mrgn-left-sm flx flx-center-all">

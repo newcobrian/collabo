@@ -141,14 +141,14 @@ class Inbox extends React.Component {
               }}
             >
           <div className={this.props.sidebarOpen ? 'open-style' : 'closed-style'}>
-            <div className="page-common flx flx-col flx-center-all ">
-              <div className="project-header text-left flx flx-col flx-align-start w-100">
+            <div className="page-common page-activity flx flx-col flx-center-all ">
+              <div className="project-header brdr-bottom brdr-color--primary--10 text-left flx flx-col flx-align-start w-100">
                 <OrgHeader />
                 {/* HEADER START */}
-                <div className="co-type-h1 mrgn-top-sm mrgn-left-md">Activity</div>
               </div>
               {/* CONTAINER - START */}
-                <div className="content-wrapper header-push flx flx-col ta-left">
+                <div className="koi-view header-push flx flx-col ta-left">
+                  <div className="co-post-title mrgn-bottom-md">Activity</div>
 
 
                   {
@@ -174,7 +174,7 @@ class Inbox extends React.Component {
                     })
                   }
                     <div className="w-100 flx flx-row flx-center-all mrgn-top-lg">
-                    {!this.props.endOfInbox && <button className="vb vb--sm vb--outline-none fill--none" onClick={this.onLoadMoreClick}>
+                    {!this.props.endOfInbox && <button className="vb vb--sm vb--outline-none fill--white" onClick={this.onLoadMoreClick}>
                       <div className="mobile-hide mrgn-right-sm">Load more messages</div>
                       <i className="material-icons color--primary md-32 DN">keyboard_arrow_right</i>
                     </button>}

@@ -607,7 +607,8 @@ p {
 .koi-view {
 	z-index: 3;
 	width: 100%;
-	padding: 20px;
+	padding: 70px 40px;
+	max-width: 960px;
 }
 .open-style .page-common,
 .open-style .loading-module {
@@ -802,7 +803,7 @@ p {
 }
 
 .fill--gray {
-  background-color: #D5E3E5;
+  background-color: rgba(0,0,0,.1);
 }
 .color--dark-gray {
   color: #99A8AA;
@@ -906,3 +907,15 @@ a.color--primary:focus {
 	border-bottom: 3px solid black;
 }
 
+
+.sheet-col-md {
+	width: 20%;
+}
+
+.page-team-settings .co-type-label {
+	line-height: 10px;
+}
+
+.ql-toolbar.ql-snow + .ql-container.ql-snow {
+	min-height: 200px;
+}

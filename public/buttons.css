@@ -228,6 +228,7 @@ input.input--underline {
   text-transform: none;
   height: 32px;
   line-height: 18px;
+  min-width: 60px;
 }
 
 

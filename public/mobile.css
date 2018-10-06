@@ -1019,6 +1019,18 @@ body .back-to-top {
 }
 
 
+
+.koi-view {
+  padding: 20px !important;
+}
+
+.project-header {
+  padding-left: 0 !important;
+}
+.co-type-page-title {
+  font-size: 18px !Important;
+}
+
 }
 
 

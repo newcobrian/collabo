@@ -166,6 +166,8 @@
   .flx-row.flx-m-col {
     -webkit-flex-direction: column;
      flex-direction: column;
-}
+  }
+
+
 
 }

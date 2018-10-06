@@ -129,31 +129,23 @@ class AddThread extends React.Component {
 	              	<div className={this.props.sidebarOpen ? 'open-style' : 'closed-style'}>
 
 						<div className="page-common page-add-thread flx flx-col flx-center-all">
-							<div className="project-header text-left flx flx-col flx-align-start w-100">
+							<div className="project-header brdr-bottom brdr-color--primary--10 text-left flx flx-col flx-align-start w-100">
 						    	<OrgHeader />
-						    	{/* HEADER START */}
-						    	<div className="co-type-h1 mrgn-top-sm mrgn-left-md">Post a New Thread</div>
-
-						    	<Link onClick={this.onGoBackClick} activeClassName="active" className="nav-module create nav-editor flx flx-center-all">
-			                      <div className="nav-text flx flx-row flx-align-center opa-60 mrgn-bottom-md">
-			                          <i className="material-icons color--black md-18 opa-100 mrgn-right-xs">arrow_back_ios</i>
-			                          <div className="co-type-body mrgn-left-xs">Cancel</div>
-			                        </div>
-			                    </Link>
 						    </div>
 
 
-							  <div className="content-wrapper header-push ta-left flx flx-col">
-							  		<div className="co-type-body opa-40 color--black mrgn-bottom-md">
+							  <div className="koi-view header-push ta-left flx flx-col">
+							  	<div className="co-type-page-title mrgn-bottom-md">Post a New Thread</div>
+							  		<div className="co-type-body color--black mrgn-bottom-md">
 							  		Share discussions, ideas, links to files, meeting notes, etc here.
 							  		<br/>
 							  		We'll keep them organized, updated and easily accessible for you.</div>
 									            <form>
 
-													<fieldset className="field-wrapper">
+													<fieldset className="field-wrapper  mrgn-top-sm">
 														<label>Post Title</label>
 								                      <input
-								                        className="input--underline edit-itinerary__name v2-type-body3"
+								                        className="input--underline edit-itinerary__name v2-type-body3 brdr-all"
 								                        type="text"
 								                        placeholder="My new post"
 								                        required
@@ -161,9 +153,9 @@ class AddThread extends React.Component {
 								                        maxLength="42"
 								                        onChange={this.changeTitle} />
 								                    </fieldset>
-								                    <fieldset className="field-wrapper">
+								                    <fieldset className="field-wrapper mrgn-top-sm">
 														<label>List</label>
-									                      <select className="org-selector co-type-org color--black co-project-dropdown" onChange={this.onProjectChange}>
+									                      <select className="org-selector pdding-all-sm w-100 color--black brdr-all" onChange={this.onProjectChange}>
 												            <option value={this.props.projectId}>{this.props.projectName}</option>
 												            {
 												            	Object.keys(this.props.projectObject || {}).map(function (projectId) {
@@ -174,7 +166,7 @@ class AddThread extends React.Component {
 
 												          </select>
 								                    </fieldset>
-													<fieldset className="field-wrapper">
+													<fieldset className="field-wrapper mrgn-top-sm">
 														<label>Body (Optional)</label>
 								                      {/*<textarea
 								                        className="input--underline v2-type-body3"
@@ -198,25 +190,19 @@ class AddThread extends React.Component {
 								                    <ListErrors errors={this.props.errors}></ListErrors>
 								                    
 								                     <div
-								                        className="vb vb--create w-100 color--white fill--light-green mrgn-top-sm"
+								                        className="vb w-100 fill--secondary color--white mrgn-top-sm"
 								                        type="button"
 								                        disabled={this.props.inProgress}
 								                        onClick={this.submitForm}>
 								                        	<div className="flx flx-row flx-center-all ta-center">
-								    	                    	<div className="flx-grow1 mrgn-left-md color--green">Create Post</div>
-								    							<img className="flx-item-right DN" src="/img/icons/icon32_next.png"/>
+								    	                    	<div className="flx-grow1 mrgn-left-md">Create Post</div>
 								    						</div>
 								                      </div>
 								                    
 										        </form>
 										        
 								{/* END CONTAINER */}
-								<Link onClick={this.onGoBackClick} activeClassName="active" className="nav-module create nav-editor mrgn-top-md flx flx-center-all opa-50 w-100">
-			                      	<div className="nav-text flx flx-row flx-align-center opa-60 mrgn-bottom-md">
-			                          <i className="material-icons color--black md-18 opa-100 mrgn-right-xs DN">arrow_back_ios</i>
-			                          <div className="co-type-body mrgn-left-xs">Cancel</div>
-			                        </div>
-		                    	</Link>
+								
 						    </div>
 				    	</div>
 				    </div>

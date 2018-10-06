@@ -24,7 +24,7 @@ const JoinProjectButton = props => {
 
   return (
     <div className="flx flx-center-all mrgn-right-md">
-      <button onClick={handleJoinClick} className="vb vb--xs vb--round flx flx-row flx-center-all fill--secondary color--white">
+      <button onClick={handleJoinClick} className={"vb vb--xs vb--round flx flx-row flx-center-all " + (props.isJoined ? 'fill--gray color--black' : 'fill--secondary color--white' )}>
           { props.isJoined ? 'Leave' : 'Join' }
       </button>
     </div>
@@ -89,11 +89,14 @@ const MembersList = props => {
         {
           (props.payload || []).map((userItem, index) => {
             return (
-              <Link className="flx flx-row flx-align-center mrgn-bottom-sm" 
+              <Link className="flx flx-row flx-align-center mrgn-bottom-sm brdr-bottom pdding-bottom-sm" 
                 key={userItem.userId}
                 to={'/' + props.orgName + '/user/' + userItem.username} >
-                <ProfilePic src={userItem.image} className="user-img center-img" /> 
-                <div className="mrgn-left-sm co-type-body">{userItem.username} ({userItem.fullName})</div>
+                <ProfilePic src={userItem.image} className="user-img center-img prof-48" /> 
+                <div className="flx flx-col flx-align-start w-100">
+                  <div className="mrgn-left-sm co-type-body co-type-bold">{userItem.username}</div>
+                  <div className="mrgn-left-sm co-type-label">{userItem.fullName}</div>
+                </div>
               </Link>
               )
           })
@@ -108,10 +111,10 @@ const MembersList = props => {
         {
           (props.payload || []).map((userItem, index) => {
             return (
-              <div className="flx flx-row flx-align-center mrgn-bottom-sm" key={userItem.email}>
-                <div className="co-type-label">{userItem.email}</div>
-                <div>
-                  from <Link to={'/' + props.orgName + '/user/' + userItem.senderUsername}>{userItem.senderUsername}</Link>
+              <div className="flx flx-col flx-align-start mrgn-bottom-sm brdr-bottom pdding-bottom-sm" key={userItem.email}>
+                <div className="co-type-body co-type-bold">{userItem.email}</div>
+                <div className="co-type-label opa-60">
+                  from <Link to={'/' + props.orgName + '/user/' + userItem.senderUsername}>{userItem.senderUsername}</Link> on&nbsp;
                    <DisplayTimestamp timestamp={userItem.timestamp} />
                 </div>
               </div>
@@ -240,17 +243,25 @@ class OrgSettings extends React.Component {
             >
               <div className={sidebarOpen ? 'open-style' : 'closed-style'}>
 
-                <div className="page-common page-places flx flx-col flx-m-col flx-align-start">
+                <div className="page-common page-team-settings flx flx-col flx-center-all">
                   <div className={"project-header brdr-bottom brdr-color--primary--10 text-left flx flx-col flx-align-start w-100"}>
                     <OrgHeader />
                   </div>
                   <div className="koi-view header-push text-left flx flx-col flx-align-start w-100">
                     {/* HEADER START */}
-                    <div className="flx flx-row flx-align-center w-100">
-                      <div className="co-type-page-title mrgn-left-md">{orgName} Team Directory</div>
-                      <Link to={'/' + orgName + '/invite'} className="vb vb--sm color--white fill--primary flx-item-right">+ Invite Users to Team</Link>
+                    <div className="flx flx-row flx-align-center w-100 mrgn-bottom-sm">
+                      <div className="co-type-page-title">{orgName} Team Directory</div>
+
+                      <Link to={'/' + orgName + '/invite'} className="flx flx-row flx-align-center flx-item-right">
+                        <div className="co-type-body color--secondary">
+                          Invite Users
+                        </div>
+                        <div className="mrgn-left-sm flx flx-center-all">
+                          <div className="koi-ico --24 ico--add--secondary"></div>              
+                        </div>
+                      </Link>
                     </div>
-                    <div className="pdding-all-md w-100">
+                    <div className="w-100">
                       <ul className="nav nav-pills outline-active">
                         <ListsTab tab={tab} onTabClick={this.onTabClick} />
                         <MembersTab tab={tab} onTabClick={this.onTabClick} />

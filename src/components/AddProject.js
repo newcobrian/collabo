@@ -120,7 +120,7 @@ class AddProject extends React.Component {
 	              >
 	              	<div className={this.props.sidebarOpen ? 'open-style' : 'closed-style'}>
 
-						<div className="page-common flx flx-col flx-center-all">
+						<div className="page-common page-team-settings flx flx-col flx-center-all">
 							{/**}			
 							<div>
 						        <Script
@@ -131,13 +131,13 @@ class AddProject extends React.Component {
 						        /> 
 						    </div> 
 						    <div ref="GMap"></div>**/}
-							<div className="project-header text-left flx flx-col flx-align-start w-100">
+							<div className="project-header brdr-bottom brdr-color--primary--10 text-left flx flx-col flx-align-start w-100">
 						    	<OrgHeader />
 						    	<div className="project-bar-wrapper w-100 flx flx-row flx-align-center mrgn-top-xs fill--white DN">
-							    	<div className="project-header-text mrgn-left-md co-type-h1 flx flx-row flx-align-center color--black">Create a New List</div>
+							    	<div className="co-type-page-title mrgn-left-md co-type-h1 flx flx-row flx-align-center color--black">Create a New List</div>
 						    	</div>
 
-						    	<Link onClick={this.onGoBackClick} activeClassName="active" className="nav-module create nav-editor flx flx-center-all">
+						    	<Link onClick={this.onGoBackClick} activeClassName="active" className="DN nav-module create nav-editor flx flx-center-all">
 			                      <div className="nav-text flx flx-row flx-align-center opa-60 mrgn-bottom-md">
 			                          <i className="material-icons color--black md-18 opa-100 mrgn-right-xs">arrow_back_ios</i>
 			                          <div className="co-type-body mrgn-left-xs">Cancel</div>
@@ -146,7 +146,7 @@ class AddProject extends React.Component {
 						    </div>
 
 						    {/* CONTAINER - START */}
-					        <div className="content-wrapper flx flx-col ta-left header-push">
+					        <div className="koi-view flx flx-col ta-left header-push">
 			        			<div className="co-post-title mrgn-bottom-md">
 			        				Create a New List
 			        			</div>
@@ -193,7 +193,7 @@ class AddProject extends React.Component {
 				                    <ListErrors errors={this.props.errors}></ListErrors>
 				                    
 				                    <div
-				                    className="vb mrgn-top-md color--white fill--primary"
+				                    className="vb mrgn-top-md color--white fill--secondary"
 				                    type="button"
 				                    disabled={this.props.inProgress}
 				                    onClick={this.submitForm}>
