@@ -1075,16 +1075,74 @@ export function unloadOrg(source) {
   }
 }
 
-export function loadInvite(auth, inviteId) {
+export function loadInvite(auth, inviteId, userInfo) {
   return dispatch => {
-    Firebase.database().ref(Constants.INVITES_PATH + '/' + inviteId).on('value', inviteSnap => {
-      if (inviteSnap.exists()) {
-        Firebase.database().ref(Constants.USERS_PATH + '/' + inviteSnap.val().senderId).once('value', senderSnap => {
-          dispatch({
-            type: ActionTypes.INVITE_LOADED,
-            invite: inviteSnap.val(),
-            sender: senderSnap.val()
+    Firebase.database().ref(Constants.PROJECT_INVITES_PATH + '/' + inviteId).on('value', projectInviteSnap => {
+      if (projectInviteSnap.exists()) {
+        if (auth === projectInviteSnap.val().recipientId) {
+          Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + projectInviteSnap.val().orgId).once('value', usersByOrgSnap => {
+            if (!usersByOrgSnap.exists()) {
+              // if user isnt in org, tell them they must join first
+              // v2 - let user ask for invite
+              dispatch({
+                type: ActionTypes.LOAD_INVITE_ERROR,
+                errorMessage: "Sorry, you need to be a team member to join this list."
+              })
+            }
+            else {
+              /// add user to project
+              Firebase.database().ref(Constants.PROJECTS_PATH + '/' + projectInviteSnap.val().projectId).once('value', projectSnap => {
+                Firebase.database().ref(Constants.ORGS_PATH + '/' + projectInviteSnap.val().orgId).once('value', orgSnap => {
+                  let updates = {}
+                  updates[`/${Constants.PROJECTS_BY_USER_BY_ORG_PATH}/${auth}/${projectInviteSnap.val().orgId}/${projectInviteSnap.val().projectId}/`] = Object.assign({}, pick(projectSnap.val(), ['name', 'isPublic']));
+                  updates[`/${Constants.USERS_BY_PROJECT_PATH}/${projectInviteSnap.val().projectId}/${auth}/`] = Object.assign({}, userInfo);
+
+                  // also remove them from pending invites list
+                  updates[`/${Constants.INVITED_USERS_BY_PROJECT_PATH}/${projectInviteSnap.val().projectId}/${auth}/`] = null
+                  
+                  Firebase.database().ref().update(updates)
+
+                  dispatch({
+                    type: ActionTypes.PROJECT_INVITE_ACCEPTED,
+                    orgName: orgSnap.val().name,
+                    projectId: projectInviteSnap.val().projectId
+                  })
+                })
+              })
+            }
           })
+        }
+        else {
+          Firebase.database().ref(Constants.USERS_PATH + '/' + projectInviteSnap.val().senderId).once('value', senderSnap => {
+            dispatch({
+              type: ActionTypes.INVITE_LOADED,
+              invite: projectInviteSnap.val(),
+              sender: senderSnap.val(),
+              inviteType: Constants.PROJECT_TYPE
+            })
+          })
+        }
+      }
+      else {
+        Firebase.database().ref(Constants.INVITES_PATH + '/' + inviteId).on('value', orgInviteSnap => {
+          if (orgInviteSnap.exists()) {
+            Firebase.database().ref(Constants.ORGS_PATH + '/' + orgInviteSnap.val().orgId).once('value', orgSnap => {
+              Firebase.database().ref(Constants.USERS_PATH + '/' + orgInviteSnap.val().senderId).once('value', senderSnap => {
+                dispatch({
+                  type: ActionTypes.INVITE_LOADED,
+                  invite: Object.assign({}, orgInviteSnap.val(), { orgName: orgSnap.val().name }),
+                  sender: senderSnap.val(),
+                  inviteType: Constants.ORG_TYPE
+                })
+              })
+            })
+          }
+          else {
+            dispatch({
+              type: ActionTypes.LOAD_INVITE_ERROR,
+              errorMessage: "Sorry, we couldn't find this invite"
+            })
+          }
         })
       }
     })
@@ -1093,6 +1151,7 @@ export function loadInvite(auth, inviteId) {
 
 export function unloadInvite(inviteId) {
   return dispatch => {
+    Firebase.database().ref(Constants.PROJECT_INVITES_PATH + '/' + inviteId).off()
     Firebase.database().ref(Constants.INVITES_PATH + '/' + inviteId).off();
   }
 }
@@ -1850,7 +1909,8 @@ export function inviteOrgUsersToProject(auth, orgId, projectId, invites) {
                   senderId: auth,
                   recipientId: invites[i],
                   timestamp: Firebase.database.ServerValue.TIMESTAMP,
-                  orgId: orgId
+                  orgId: orgId,
+                  projectId: projectId
                 }
 
                 let inviteId = Firebase.database().ref(Constants.PROJECT_INVITES_PATH).push(inviteObject).key

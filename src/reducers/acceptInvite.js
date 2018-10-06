@@ -7,12 +7,20 @@ export default (state = {}, action) => {
       return {
         ...state,
         invite: action.invite,
-        sender: action.sender
+        sender: action.sender,
+        loadInviteError: false,
+        inviteType: action.inviteType
       }
     case ActionTypes.ACCEPT_INVITE_ERROR:
       return {
         ...state,
         message: action.message
+      }
+    case ActionTypes.LOAD_INVITE_ERROR:
+      return {
+        ...state,
+        loadInviteError: true,
+        errorMessage: action.errorMessage
       }
     default:
       return state;

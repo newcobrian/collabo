@@ -49,7 +49,7 @@ class SnackbarToaster extends React.Component {
             className="ta-center"
             style={{opacity:"1", height:"90px", marginBottom:"20px"}}
             bodyStyle={{opacity:".95", backgroundColor: "#121419", marginBottom:"20px", height:"90px", padding: "20px", border:"2px solid #00E2C8"}}
-            contentStyle={{fontWeight: "bold;", fontSize: "16px"}}
+            contentStyle={{fontWeight: "bold", fontSize: "16px"}}
 
 	        />
 	    </MuiThemeProvider>
