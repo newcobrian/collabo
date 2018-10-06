@@ -160,7 +160,9 @@ class AddThread extends React.Component {
 												            {
 												            	Object.keys(this.props.projectObject || {}).map(function (projectId) {
 													                return (
-													                  <option className="color--black" key={projectId} value={projectId}>{this.props.projectObject[projectId]}</option>  
+													                  <option className="color--black" key={projectId} value={projectId}>
+													                  	{this.props.projectNames && this.props.projectNames[projectId] ? this.props.projectNames[projectId].name : ''}
+													                  </option>  
 													                )
 												            }, this)}
 

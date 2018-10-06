@@ -146,6 +146,22 @@ export default (state = { body: initialQuillState, usersList: [] }, action) => {
         }
       }
     }
+    case ActionTypes.LOAD_PROJECT_NAMES:
+      if (action.source === Constants.ADD_THREAD_PAGE) {
+        return {
+          ...state,
+          projectNames: action.projectNames
+        }
+      }
+      return state;
+    case ActionTypes.UNLOAD_PROJECT_NAMES:
+      if (action.source === Constants.ADD_THREAD_PAGE) {
+        return {
+          ...state,
+          projectNames: {}
+        }
+      }
+      return state
     default:
       return state;
   }

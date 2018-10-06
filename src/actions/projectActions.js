@@ -396,7 +396,7 @@ export function loadProjectNames(orgName, source) {
   }
 }
 
-export function unloadProjectNames(orgId) {
+export function unloadProjectNames(orgId, source) {
   return dispatch => {
     Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + orgId).off()
   }
