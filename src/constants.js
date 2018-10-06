@@ -202,6 +202,9 @@ export const MEMBERS_TAB = 'members'
 export const PENDING_TAB = 'pending'
 export const LISTS_TAB = 'lists'
 
+/*** User Roles ***/
+export const OWNER_ROLE = 'owner'
+
 /*** Tag list ***/
 export const TAG_LIST = []
 

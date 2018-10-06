@@ -980,14 +980,14 @@ export function onCreateOrg(auth, org) {
         }
         else {
           let serverTimestamp = Firebase.database.ServerValue.TIMESTAMP;
-          Object.assign(org, { lastModified: serverTimestamp })
+          Object.assign(org, { lastModified: serverTimestamp }, { owner: auth })
           let updates = {};
 
           let orgId = Firebase.database().ref(Constants.ORGS_PATH).push(org).key;
 
           updates[`/${Constants.ORGS_BY_NAME_PATH}/${lowercaseName}/`] = Object.assign({}, {orgId: orgId}, omit(org, ['name']));
           updates[`/${Constants.ORGS_BY_USER_PATH}/${auth}/${orgId}/`] = { name: org.name };
-          updates[`/${Constants.USERS_BY_ORG_PATH}/${orgId}/${auth}/`] = true
+          updates[`/${Constants.USERS_BY_ORG_PATH}/${orgId}/${auth}/`] = Constants.OWNER_ROLE
 
           Firebase.database().ref().update(updates);
 
