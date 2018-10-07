@@ -34,8 +34,8 @@ class AddProject extends React.Component {
 	    
 	    this.changeDescription = updateFieldEvent('description');
 
-	    this.togglePublic = ev => {
-	    	this.props.onUpdateCreateField('isPublic', ev.target.checked, Constants.ADD_PROJECT_PAGE)
+	    this.togglePublic = key => ev => {
+	    	this.props.onUpdateCreateField('isPublic', key, Constants.ADD_PROJECT_PAGE)
 	    }
 
 		this.submitForm = ev => {
@@ -193,14 +193,14 @@ class AddProject extends React.Component {
 				                        <label className="koi-radio">
 				                        	<div className="co-type-body co-type-bold">Public</div>
 				                         	<div className="thread-timestamp">Anyone can join and view</div>
-				                          	<input type="radio" checked="checked" name="radio"/>
+				                          	<input type="radio" value={true} checked={this.props.isPublic} onChange={this.togglePublic(true)}/>
 				                          	<span className="checkmark"></span>
 				                        </label>
 
 				                        <label className="koi-radio">
 				                        	<div className="co-type-body co-type-bold">Private</div>
 				                         	<div className="thread-timestamp">Members must be invited</div>
-				                          	<input type="radio" name="radio"/>
+				                          	<input type="radio" value={false} checked={!this.props.isPublic} onChange={this.togglePublic(false)}/>
 				                          	<span className="checkmark"></span>
 				                        </label>
 				                    </fieldset>
