@@ -88,7 +88,11 @@ const ProjectLabel = props => {
     return null
   }
   else return (
-    <div className="co-project-name mrgn-left-xs"><Link to={'/' + props.orgName + '/' + props.projectId}>{/**{props.projectNames[props.projectId]}**/} in Design</Link></div> 
+    <div className="co-project-name mrgn-left-xs">
+      <Link to={'/' + props.orgName + '/' + props.projectId}>
+        in {props.projectNames[props.projectId] ? props.projectNames[props.projectId].name : ''}
+      </Link>
+    </div> 
   )
 }
 

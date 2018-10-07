@@ -169,23 +169,39 @@ export default (state = initialState, action) => {
           isFeedLoading: action.isFeedLoading
         }
       }
-    case ActionTypes.LIST_ADDED_ACTION:
-    case ActionTypes.LIST_CHANGED_ACTION:
-      if (action.source === Constants.PROJECT_PAGE && action.listType === Constants.PROJECT_LIST_TYPE) {
-        const newState = Object.assign({}, state);
-        newState.projectNames = newState.projectNames || {};
-        newState.projectNames = Object.assign({}, newState.projectNames);
-        newState.projectNames[action.id] = action.name
-        return newState;
+    case ActionTypes.LOAD_PROJECT_NAMES:
+      if (action.source === Constants.PROJECT_PAGE) {
+        return {
+          ...state,
+          projectNames: action.projectNames
+        }
       }
-    case ActionTypes.UNLOAD_PROJECT_LIST: {
+      return state;
+    case ActionTypes.UNLOAD_PROJECT_NAMES:
       if (action.source === Constants.PROJECT_PAGE) {
         return {
           ...state,
           projectNames: {}
         }
       }
-    }
+      return state;
+    // case ActionTypes.LIST_ADDED_ACTION:
+    // case ActionTypes.LIST_CHANGED_ACTION:
+    //   if (action.source === Constants.PROJECT_PAGE && action.listType === Constants.PROJECT_LIST_TYPE) {
+    //     const newState = Object.assign({}, state);
+    //     newState.projectNames = newState.projectNames || {};
+    //     newState.projectNames = Object.assign({}, newState.projectNames);
+    //     newState.projectNames[action.id] = action.name
+    //     return newState;
+    //   }
+    // case ActionTypes.UNLOAD_PROJECT_LIST: {
+    //   if (action.source === Constants.PROJECT_PAGE) {
+    //     return {
+    //       ...state,
+    //       projectNames: {}
+    //     }
+    //   }
+    // }
     case ActionTypes.PROJECT_MEMBER_ADDED: {
       if (action.source === Constants.PROJECT_PAGE) {
         const newState = Object.assign({}, state);
