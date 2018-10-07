@@ -180,36 +180,5 @@ a.logo-module:focus {
   background-color: white;
 }
 
-.black.header-container {
-  background-color: #121419;
-  border-bottom: rgba(255,255,255,.1);
-  color: white;
-}
-
-.black.header-container .navigation-bar {
-  background-color:  #121419;
-  color:  rgba(255,255,255,.1);
-}
-
-.black.header-container .logo-main {
-  color: white;
-}
-.black.header-container .navigation-bar .nav-module {
-  color: white;
-  border-top-color: #121419;
-}
-.black.header-container .navigation-bar .nav-module.active,
-.black.header-container .navigation-bar .nav-module:hover,
-.black.header-container .navigation-bar .nav-module.nav-editor.active,
-.black.header-container .nav-pills.outline-active .nav-link.active,
-.black.header-container .nav-pills.outline-active .nav-link:hover  {
-  color: #3DCBF3;
-}
-.black.header-container .navigation-bar .nav-module.active.create:hover,
-.black.header-container .navigation-bar .nav-module.create:hover,
-.black.header-container .navigation-bar .nav-module.active.create,
-.black.header-container .navigation-bar .nav-module.nav-editor.active.create {
-  color: #00E2C8;
-}
 
 

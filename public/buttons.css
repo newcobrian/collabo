@@ -27,68 +27,6 @@ input, select, textarea {
   color: black;
 }
 
-.page-edit-own input,
-.page-edit-own textarea {
-  border-color: white;
-  border: 1px solid white; 
-  background-color: transparent;
-  text-transform: inherit;
-  border-color: white;
-  padding: 0;
-  text-transform: inherit;
-  background-color: transparent;
-  text-align: left;
-}
-.page-edit-own .tip__caption  input,
-.page-edit-own .tip__caption textarea {
- padding: 10px;
-}
-
-.page-edit-own .tip-container input,
-.page-edit-own .tip-container textarea {
-  /*font-family: 'Rokkitt', 'Roboto', sans-serif;*/
-
-}
-.page-edit-own .itinerary__cover__descrip textarea {
-  /*font-family: 'Rokkitt', 'Roboto', sans-serif;*/
-
-}
-
-.page-edit-own input.show-border,
-.page-edit-own textarea.show-border {
-  border: 1px solid rgba(0,0,0,.1);
-  min-height: 48px;
-}
-
-.page-edit-own input:hover,
-.page-edit-own textarea:hover {
-  border-color: rgba(0,199,205,.6);
-  border-color: blue;
-  background-color: rgba(251,255,205,.2);
-
-  /*background-color: rgba(251,255,205,.5);*/
-  /*background-color: rgba(102,144,224,.1);*/
-}
-
-.page-edit-own input:focus,
-.page-edit-own textarea:focus {
-  border-color: #6694E0;
-  border-color: rgba(0,199,205,1);
-  border-color: blue;
-  background-color: rgba(251,255,205,.3);
-}
-.page-edit-own .comment-input {
-  border: 1px solid rgba(0,0,0,.1);
-}
-.edit-itinerary-link button {
-  margin: 0 !important;
-}
-
-
-
-.page-edit-own textarea.has-error {
-  border-color: rgba(255,0,0,1);
-}
 .vb.comment-send {
   background: transparent;
   z-index: 0;
@@ -184,19 +122,6 @@ input.input--underline {
   /*background-image: linear-gradient(216deg, #5AFFF9 -7%, #4DBDE9 54%);*/
   /*box-shadow: 0 2px 0 0 #D5E3E5, 0 7px 12px 0 rgba(0,0,0,0.06);*/
 }
-.page-subject .vb.vb--save {
-  -webkit-flex-direction: row;
-  flex-direction: row;
-  width: 180px;
-  height: 40px;
-  margin-bottom: 0px;
-  padding-right: 10px;
-}
-.vb.vb--save img {
-  width: 30px;
-  height: 30px;
-  margin: 0 5px;
-}
 
 .vb--circle {
   border-radius: 32px;
@@ -231,7 +156,7 @@ input.input--underline {
   min-width: 60px;
 }
 .vb--form-cta {
-  min-width: 180px;
+  min-width: 140px;
 }
 
 .vb--sm.tip-count {
@@ -428,62 +353,6 @@ input.input--underline {
 ******
 ******/
 
-.geosuggest__input {
-  padding: 8px;
-  width: 100%;
-}
-.geosuggest__input-wrapper {
-}
-.page-edit-own .it__title-module .geosuggest__input {
-  opacity: .5;
-  text-transform: uppercase;
-  padding: 6px 5px 2px;
-  font-family: 'Roboto Condensed', sans-serif;
-}
-
-.geosuggest__suggests {
-  list-style: none;
-  z-index: 1;
-  background: white;
-  padding: 0;
-  box-shadow: 0 14px 24px 0 rgba(0,0,0,0.03);
-  border: 1px solid rgba(0,0,0,.1);
-  border-radius: 4px;
-  display: block;
-  width: 100%;
-}
-.geosuggest__item {
-  padding: 20px;
-  font-weight: 100;
-  font-size: 15px;
-  letter-spacing: 0px;
-  text-align: left;
-  border-bottom: rgba(0,0,0,.1) 1px solid;
-}
-.geosuggest__item:first-child {
-
-}
-.geosuggest__item:last-child {
-
-}
-.geosuggest__item:hover {
-  cursor: pointer;
-  opacity: 1;
-  background: #3DCBF3;
-  color: white;
-}
-.geosuggest__suggests--hidden {
-  max-height: 0;
-  overflow: hidden;
-  border-width: 0;
-  box-shadow: none;
-  height: 0;
-  display: none;
-}
-.geosuggest__item--active {
-  background: #267dc0;
-  color: #fff;
-}
 input[type="number"] {
   padding: 10px;
   text-align: right;
@@ -574,28 +443,6 @@ label {
     background: white;
     font-family: 'Arimo', sans-serif;
     color: #161F34;
-}
-.icon-circle {
-  border: 1px solid inhert;
-  border-radius: 60px;
-  width: 5px;
-  height: 5px;
-}
-.vertical-line {
-  width:1px;
-  height: 14px;
-}
-.ask-for-recs-button {
-
-}
-
-
-
-.big-share-button {
-  width: 200px !important;
-  height: 200px;
-  border-radius: 140px;
-  margin: 50px 20px 50px;
 }
 
 

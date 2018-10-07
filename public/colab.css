@@ -702,10 +702,6 @@ p {
     /*border: 1px solid rgba(0,0,0,.1);*/
     padding: 0px;
 }
-.co-icon-wrapper {
-	width: 32px;
-	height: 32px;
-}
 
 .project-info {
 	width: 290px;
@@ -721,9 +717,13 @@ p {
 
 
 
-.sidebar-row .koi-ico {
-	opacity: .7;
+/* ICONS */
+
+.co-icon-wrapper {
+	width: 32px;
+	height: 32px;
 }
+
 
 .koi-ico {
 	width: 32px;
@@ -734,6 +734,13 @@ p {
 	background-size: contain;
 	cursor: pointer;
 }
+
+
+.sidebar-row .koi-ico {
+	opacity: .7;
+}
+
+
 .koi-ico.ico--hamburger {
 	background-image: url(img/icon_hamburger.png);
 }
@@ -827,6 +834,9 @@ p {
 
 
 
+
+/* COLOR */
+
 .color--gray {
   color: #D5E3E5;
 }
@@ -877,9 +887,6 @@ p {
 	background-color: rgba(0,0,0,.1)
 }
 
-
-
-/* CHANGE ME FOR COLOR TEST!!!! */
 
 .color--primary {
   color: #FFAB8C !important;
@@ -932,6 +939,11 @@ a.color--primary:focus {
   transition: all 0.23s ease-in-out 0s;
 }
 
+
+
+/* UNCATEGORIZED */
+
+
 .brdr-bottom-thick {
 	border-bottom: 3px solid black;
 }
@@ -966,4 +978,78 @@ a.color--primary:focus {
 	border-left: 1px solid transparent;
 	margin-left: 18px;
 	padding: 10px 18px 5px 30px;
+}
+
+
+
+
+
+
+
+
+
+.koi-radio {
+    display: block;
+    position: relative;
+    padding-left: 40px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.koi-radio input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.koi-radio:hover input ~ .checkmark {
+    background-color: #ccc;
+    transition: all 0.23s ease-in-out 0s;
+
+}
+
+/* When the radio button is checked, add a blue background */
+.koi-radio input:checked ~ .checkmark {
+    background-color: #5BD1EB;
+    transition: all 0.23s ease-in-out 0s;
+
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.koi-radio input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.koi-radio .checkmark:after {
+ 	top: 9px;
+	left: 9px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: white;
 }

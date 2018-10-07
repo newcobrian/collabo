@@ -178,8 +178,8 @@ class ProjectList extends React.Component {
 
             </Link>
 
-            <Link className="sidebar-row group-row flx flx-col flx-align-center pdding-all-md" to={`/${this.props.orgName}/user/${this.props.userInfo.username}`} activeClassName="active">
-              <div className="mrgn-bottom-sm flx flx-center-all">
+            <Link className="sidebar-row group-row flx flx-col flx-align-center pdding-top-md pdding-bottom-sm" to={`/${this.props.orgName}/user/${this.props.userInfo.username}`} activeClassName="active">
+              <div className="mrgn-bottom-xs flx flx-center-all">
                 <ProfilePic className="center-img" src={this.props.userInfo.image}/>
               </div>
               <div className="co-type-label color--black">{this.props.userInfo.username}</div>

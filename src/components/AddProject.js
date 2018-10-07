@@ -13,7 +13,7 @@ import ProjectList from './ProjectList';
 // import Checkbox from 'material-ui/Checkbox';
 // import getMuiTheme from 'material-ui/styles/getMuiTheme';
 // import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
+ 
 const mql = window.matchMedia(`(min-width: 800px)`);
 
 const mapStateToProps = state => ({
@@ -120,7 +120,7 @@ class AddProject extends React.Component {
 	              >
 	              	<div className={this.props.sidebarOpen ? 'open-style' : 'closed-style'}>
 
-						<div className="page-common page-team-settings flx flx-col flx-center-all">
+						<div className="page-common page-create-list flx flx-col flx-center-all">
 							{/**}			
 							<div>
 						        <Script
@@ -133,9 +133,9 @@ class AddProject extends React.Component {
 						    <div ref="GMap"></div>**/}
 							<div className="project-header brdr-bottom brdr-color--primary--10 text-left flx flx-col flx-align-start w-100">
 						    	<OrgHeader />
-						    	<div className="project-bar-wrapper w-100 flx flx-row flx-align-center mrgn-top-xs fill--white DN">
+						    	{/*<div className="project-bar-wrapper w-100 flx flx-row flx-align-center mrgn-top-xs fill--white">
 							    	<div className="co-type-page-title mrgn-left-md co-type-h1 flx flx-row flx-align-center color--black">Create a New List</div>
-						    	</div>
+						    	</div>*/}
 
 						    	<Link onClick={this.onGoBackClick} activeClassName="active" className="DN nav-module create nav-editor flx flx-center-all">
 			                      <div className="nav-text flx flx-row flx-align-center opa-60 mrgn-bottom-md">
@@ -146,7 +146,7 @@ class AddProject extends React.Component {
 						    </div>
 
 						    {/* CONTAINER - START */}
-					        <div className="koi-view flx flx-col ta-left header-push">
+					        <div className="koi-view header-push ta-left flx flx-col">
 			        			<div className="co-post-title mrgn-bottom-md">
 			        				Create a New List
 			        			</div>
@@ -157,15 +157,7 @@ class AddProject extends React.Component {
 
 
 					            <form>
-					            	<fieldset className="field-wrapper">
-					            		<label>Public
-				                      <input
-				                      	className="mrgn-left-xs"
-				                        type="checkbox"
-				                        checked={this.props.isPublic}
-				                        onChange={this.togglePublic} />
-				                        </label>
-				                    </fieldset>
+
 									<fieldset className="field-wrapper">
 										<label>List name</label>
 				                      <input
@@ -189,27 +181,52 @@ class AddProject extends React.Component {
 				                        value={this.props.description}
 				                        onChange={this.changeDescription} />
 				                    </fieldset>
+				                    <fieldset className="field-wrapper mrgn-top-md">
+					            		<label>
+				                      <input
+				                      	className="mrgn-left-xs DN"
+				                        type="checkbox"
+				                        checked={this.props.isPublic}
+				                        onChange={this.togglePublic} />
+				                        </label>
 
+				                        <label className="koi-radio">
+				                        	<div className="co-type-body co-type-bold">Public</div>
+				                         	<div className="thread-timestamp">Anyone can join and view</div>
+				                          	<input type="radio" checked="checked" name="radio"/>
+				                          	<span className="checkmark"></span>
+				                        </label>
+
+				                        <label className="koi-radio">
+				                        	<div className="co-type-body co-type-bold">Private</div>
+				                         	<div className="thread-timestamp">Members must be invited</div>
+				                          	<input type="radio" name="radio"/>
+				                          	<span className="checkmark"></span>
+				                        </label>
+				                    </fieldset>
+				                    
 				                    <ListErrors errors={this.props.errors}></ListErrors>
 				                    
-				                    <div
-				                    className="vb mrgn-top-md color--white fill--secondary"
-				                    type="button"
-				                    disabled={this.props.inProgress}
-				                    onClick={this.submitForm}>
-				                    	<div className="flx flx-row flx-center-all ta-center">
-					                    	<div className="flx-grow1 mrgn-left-md color--white">Create List</div>
+				                    <div className="flx flx-row flx-just-end w-100">
+				                    	<Link onClick={this.onGoBackClick} activeClassName="active" className="vb vb--form-cta mrgn-top-md fill--gray color--black mrgn-right-sm">
+				                    	   Cancel
+				                    	</Link>
+										<div
+										className="vb vb--form-cta mrgn-top-md fill--secondary color--white"
+										type="button"
+										disabled={this.props.inProgress}
+										onClick={this.submitForm}>
+										    	
+											Create List
+
 										</div>
-				                  </div>
+					                 </div>
+
+
 						        </form>
 						        
 
-	    				        <Link onClick={this.onGoBackClick} activeClassName="active" className="DN nav-module create nav-editor flx flx-center-all opa-50 w-100">
-	    	                      	<div className="nav-text flx flx-row flx-align-center opa-60 mrgn-bottom-md">
-	    	                          <i className="material-icons color--black md-18 opa-100 mrgn-right-xs DN">arrow_back_ios</i>
-	    	                          <div className="co-type-body vb fill--white color--black">Cancel</div>
-	    	                        </div>
-	                        	</Link>	
+	    				        
 						    </div>
 
 
