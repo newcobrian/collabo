@@ -60,42 +60,40 @@ class InviteForm extends React.Component {
 
 	render() {
 		return (
-			<div className="koi-view header-push text-left flx flx-col flx-align-start w-100">
-				
-		            <form className="flx flx-col flx-align-start w-100">
-	                    <fieldset className="field-wrapper">
-							<div className="co-type-page-title mrgn-bottom-sm">Invite team members</div>
-	                      <textarea
-	                        className="input--underline edit-itinerary__name brdr-all"
-	                        type="text"
-	                        rows="4"
-	                        maxLength="184"
-	                        placeholder="Add email addresses separated by commas..."
-	                        required
-	                        value={this.props.invites}
-	                        onChange={this.changeInvites} />
-	                    </fieldset>
+					<div className="koi-view header-push text-left flx flx-col flx-align-start w-100">
+						
+				            <form className="flx flx-col flx-align-start w-100">
+			                    <fieldset className="field-wrapper">
+									<div className="co-type-page-title mrgn-bottom-sm">Invite team members</div>
+			                      <textarea
+			                        className="input--underline edit-itinerary__name brdr-all"
+			                        type="text"
+			                        rows="4"
+			                        maxLength="184"
+			                        placeholder="Add email addresses separated by commas..."
+			                        required
+			                        value={this.props.invites}
+			                        onChange={this.changeInvites} />
+			                    </fieldset>
 
-	                    <ListErrors errors={this.props.errors}></ListErrors>
+			                    <ListErrors errors={this.props.errors}></ListErrors>
 
-	                    <div className="flx flx-row flx-just-end w-100">
+			                    <div className="flx flx-row flx-just-end w-100">
 
-		                    <Link onClick={this.onGoBackClick} activeClassName="active" className="vb vb--form-cta mrgn-top-md fill--gray color--black mrgn-right-sm">
-		                       Cancel
-		                    </Link>
-		                    <div
-		                    className="vb vb--form-cta mrgn-top-md fill--secondary color--white"
-		                    type="button"
-		                    disabled={this.props.inProgress}
-		                    onClick={this.submitForm}>
-		                    	Send Invites
-		                  	</div>
-	                  </div>
+				                    <Link onClick={this.onGoBackClick} activeClassName="active" className="vb vb--form-cta mrgn-top-md fill--gray color--black mrgn-right-sm">
+				                       Cancel
+				                    </Link>
+				                    <div
+				                    className="vb vb--form-cta mrgn-top-md fill--secondary color--white"
+				                    type="button"
+				                    disabled={this.props.inProgress}
+				                    onClick={this.submitForm}>
+				                    	Send Invites
+				                  	</div>
+			                  </div>
 
-			        </form>
-
-				{/* FORM END */}
-			</div>
+					        </form>
+          			</div>
 		)
 	}
 }

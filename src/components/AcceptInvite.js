@@ -39,33 +39,16 @@ class AcceptInvite extends React.Component {
     if (!authenticated) {
       return (
 
-         <div className="page-common page-add-thread flx flx-col flx-center-all">
-          <div className="koi-view header-push ta-left flx flx-col">
-              
-              <div className="flx flx-col flx-center-all create-wrapper">
-            
-                      <div className="create-form-wrapper form-wrapper ta-left flx flx-col-left bx-shadow">
-                        
-                        HEY MAN <Link to='/login'> LOGIN </Link> TO ACCEPT THIS INVITE <Link to='/register'> ....or Sign up</Link>
-
-                      </div>
-                </div>              
-
-              <Link to="/login" className="nav-module nav-feed flx flx-center-all vb vb--sm fill--white color--black">
-                <div className="nav-text">
-                  Log in
+         <div className="koi-view ta-left flx flx-col flx-center-all w-100">
+              <div className="ta-left flx flx-col brdr-all bx-shadow color--black fill--white pdding-all-lg">
+                <div className="co-type-page-title">You've been invited to join a team on Koi.</div>
+                Login or signup to accept.
+                <div className="flx flx-row flx-just-end mrgn-top-md">
+                  <Link className="vb fill--secondary color--white mrgn-right-sm" to='/login'>Login</Link>
+                  <Link className="vb fill--gray color--black" to='/register'>Sign up</Link>
                 </div>
-              </Link>
-
-              <Link to="/register" className="nav-module nav-feed flx flx-center-all vb vb--sm color--white">
-                <div className="nav-text">
-                  Sign up
-                </div>
-              </Link>
-
-            </div>
-
-          </div>  
+              </div>
+          </div>     
 
       )
     }

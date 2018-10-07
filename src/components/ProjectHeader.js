@@ -9,7 +9,7 @@ const ProjectHeader = props => {
       <div className={"project-header brdr-bottom brdr-color--primary--10 text-left flx flx-col flx-align-start w-100"}>
         <OrgHeader />
         <div className="project-bar-wrapper flx flx-row flx-align-center fill--white">
-          <div className="project-header-row mrgn-left-md co-type-h1 flx flx-row flx-align-center color--black">
+          <div className="project-header-row co-type-h1 flx flx-row flx-align-center color--black">
             <div className="project-header-text">{props.project.name}</div>
           </div>
 
@@ -31,7 +31,7 @@ const ProjectHeader = props => {
     <div className={"project-header brdr-bottom brdr-color--primary--10 text-left flx flx-col flx-align-start w-100"}>
         <OrgHeader />
         <div className="project-bar-wrapper flx flx-row flx-align-center fill--white">
-          <div className="project-header-row mrgn-left-md co-type-h1 flx flx-row flx-align-center color--black">
+          <div className="project-header-row co-type-h1 flx flx-row flx-align-center color--black">
             <div className="project-header-text">All Updates</div>
           </div>
 
