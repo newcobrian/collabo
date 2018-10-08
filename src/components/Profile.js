@@ -124,7 +124,7 @@ class Profile extends React.Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.loadOrg(this.props.authenticated, this.props.params.orgname, Constants.PROFILE_PAGE);
     this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, Constants.PROFILE_PAGE)
     this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
