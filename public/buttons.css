@@ -69,9 +69,9 @@ input.input--underline {
     border: none;
     height: auto;
     text-align: center;
-    letter-spacing: 1px;
-    font-weight: 500;
-    font-size: 14px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    font-size: 12px;
     cursor: pointer;
     padding: 18px;
     text-transform: uppercase;
@@ -141,7 +141,7 @@ input.input--underline {
   font-size: 14px;
   letter-spacing: 0px;
   text-transform: none;
-  height: 40px;
+  height: 42px;
   line-height: 18px;
 }
 .vb--xs {

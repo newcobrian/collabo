@@ -145,13 +145,13 @@ class SettingsForm extends React.Component {
           </fieldset> */}
 
           <button
-            className="vb fill--primary color--white ta-center mrgn-bottom-sm w-100"
+            className="vb fill--secondary color--white ta-center mrgn-bottom-sm w-100"
             type="submit"
             disabled={this.state.inProgress}>
             Save Changes
           </button>
 
-          <Link onClick={()=>browserHistory.goBack()}>Cancel</Link>
+          {/*<Link onClick={()=>browserHistory.goBack()}>Cancel</Link>*/}
         </fieldset>
       </form>
     );
@@ -201,6 +201,7 @@ class Settings extends React.Component {
 
   render() {
     return (
+
       <div>
         <Sidebar
               sidebar={<ProjectList />}
@@ -220,29 +221,37 @@ class Settings extends React.Component {
                 }}
               >
                 <div className={this.props.sidebarOpen ? 'open-style' : 'closed-style'}>
-                  <div className="page-common page-profile flx flx-col flx-align-center profile-page">
-                  
-                    <div className="project-header text-left flx flx-col flx-align-start w-100">
-                      <OrgHeader />
-                    </div>
+<div className="page-common page-create-list flx flx-col flx-center-all">
+            <div className="project-header text-left flx flx-col flx-align-start w-100">
+              <OrgHeader />
+              {/* HEADER START */}
+            </div>
+            <div className="koi-view header-push ta-left flx flx-col">
+              <Link onClick={()=>browserHistory.goBack()} activeClassName="active" className="nav-module create nav-editor flx flx-center-all">
+                <div className="nav-text flx flx-row flx-align-center opa-60 mrgn-bottom-md">
+                    <i className="material-icons color--black md-18 opa-100 mrgn-right-xs">arrow_back_ios</i>
+                    <div className="co-type-body mrgn-left-xs">Cancel</div>
+                  </div>
+              </Link>
+              <div className="co-post-title mrgn-bottom-md">
+                Settings
+              </div>
+              <ListErrors errors={this.props.errors}></ListErrors>
 
-                    <div className="koi-view threadlist header-push ta-left flx flx-col w-100">
-
-                    <ListErrors errors={this.props.errors}></ListErrors>
-
-                    <SettingsForm
-                      authenticated={this.props.authenticated}
-                      currentUser={this.props.firebaseUser}
-                      onSubmitForm={this.props.saveSettings}
-                      showChangeEmailModal={this.props.showChangeEmailModal}
-                      orgName={this.props.params.orgname} />
+              <SettingsForm
+                authenticated={this.props.authenticated}
+                currentUser={this.props.firebaseUser}
+                onSubmitForm={this.props.saveSettings}
+                showChangeEmailModal={this.props.showChangeEmailModal}
+                orgName={this.props.params.orgname} />
 
 
-                    <div
-                      className="fill--none color--black opa-60 w-100 mrgn-top-md ta-center w-100"
-                      onClick={this.props.signOutUser}>
-                      Logout
-                    </div>
+              <div
+                className="fill--none color--black opa-60 w-100 mrgn-top-md ta-center w-100"
+                onClick={this.props.signOutUser}>
+                Logout
+              </div>
+
 
 
                   </div>

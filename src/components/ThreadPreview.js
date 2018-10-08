@@ -132,14 +132,14 @@ const ThreadPreview = props => {
   // let canModify = props.authenticated === tip.userId ? true : false;
 
   return (
-    <div className={"tp-wrapper fill--primary--20 flx flx-col flx-col"}>
+    <div className={"tp-wrapper fill--secondary--10 flx flx-col flx-col"}>
         
-        <div className="tp-container b--secondary--10 flx flx-col flx-align-start bx-shadow">           
-          <div className="top-bar w-100 fill--secondary">
+        <div className="tp-container flx flx-col flx-align-start bx-shadow">           
+          <div className="top-bar w-100 fill--primary">
           </div>
           <div className="thread-row-wrapper flx flx-row fill--secondary">
             <div className="thread-content-wrapper w-100">
-              <div className="flx flx-row flx-align-center w-100 mrgn-bottom-md brdr-bottom pdding-bottom-md">
+              <div className="flx flx-row flx-align-center w-100 mrgn-bottom-sm brdr-bottom pdding-bottom-sm">
                 <Link to={'/' + props.orgName + '/user/' + lastUpdater.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
                   <ProfilePic src={lastUpdater.image} className="user-image user-image-sm center-img" />
                 </Link>
@@ -172,7 +172,7 @@ const ThreadPreview = props => {
                 {/*<div className="tip__caption color--gray ta-left flx flx-row" dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(thread.body)) || '' }} />*/}
 
                 <div className="cta-container flx flx-row flx-align-start mrgn-top-sm">
-                  <div className="koi-ico ico--bookmark mrgn-right-md"></div>
+                  <div className="koi-ico ico--bookmark mrgn-right-md opa-60"></div>
                   <LikeReviewButton
                     authenticated={props.authenticated}
                     isLiked={thread.likes && thread.likes[props.authenticated] ? true : false}

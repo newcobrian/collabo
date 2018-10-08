@@ -62,93 +62,69 @@ class CreateOrg extends React.Component {
 	render() {
 		return (
 
-				<div className="flx flx-col flx-center-all page-common editor-page create-page">
-	{/**}			
-					<div>
-				        <Script
-				          url={url}
-				          onCreate={this.handleScriptCreate.bind(this)}
-				          onError={this.handleScriptError.bind(this)}
-				          onLoad={this.handleScriptLoad.bind(this)}
-				        /> 
-				    </div> 
-				    <div ref="GMap"></div>**/}
-					
 
-				    {/* CONTAINER - START */}
-			        <div className="hero-container">
-			         	<div className="create-content flx flx-col flx-center-all ta-center">
+
+
+      				<div className="page-common page-create-org flx flx-col flx-center-all">
+			         	<div className="koi-view header-push ta-left flx flx-col">
+							<div className="co-post-title mrgn-bottom-md">
+                				Create your new team
+              				</div>
+				            <div className="co-type-body color--black mrgn-bottom-md">
+							This is your team/company name (ie "Tesla", "Bonniecylde")
+							</div>
 							
-							<div className="flx flx-col flx-center-all create-wrapper">
-						
-					            <div className="create-form-wrapper form-wrapper ta-left flx flx-col-left">
-						            <div className="co-type-body opa-40 color--black mrgn-bottom-md">
-									This is your team/company name (ie "Tesla", "Bonniecylde")
-									</div>
-									
-						            <form>
-						            	<div className="co-type-h1 mrgn-left-sm mrgn-bottom-sm">Create your new team</div>
+				            <form>
 
-										<fieldset className="field-wrapper">
-											<label>Team Name</label>
-					                      <input
-					                        className="input--underline edit-itinerary__name v2-type-body3"
-					                        type="text"
-					                        placeholder="Biz Co"
-					                        required
-					                        value={this.props.name}
-					                        maxLength="42"
-					                        onChange={this.changeName} />
-					                    </fieldset>
 
-					                    <fieldset className="DN field-wrapper">
-											<label>Invite team members</label>
-					                      <textarea
-					                        className="input--underline v2-type-body3"
-					                        type="text"
-					                        rows="4"
-					                        maxLength="184"
-					                        placeholder="Add email addresses separated by commas..."
-					                        required
-					                        value={this.props.invites}
-					                        onChange={this.changeInvites} />
-					                    </fieldset>
+								<fieldset className="field-wrapper">
+									<label>Team Name</label>
+			                      <input
+			                        className="input--underline edit-itinerary__name brdr-all"
+			                        type="text"
+			                        placeholder="Biz Co"
+			                        required
+			                        value={this.props.name}
+			                        maxLength="42"
+			                        onChange={this.changeName} />
+			                    </fieldset>
 
-					                    <ListErrors errors={this.props.errors}></ListErrors>
-					                    
-					                    <div
-					                    className="vb vb--create w-100 mrgn-top-md color--white fill--primary"
-					                    type="button"
-					                    disabled={this.props.inProgress}
-					                    onClick={this.submitForm}>
-					                    	<div className="flx flx-row flx-center-all ta-center">
-						                    	<div className="flx-grow1 mrgn-left-md">Create</div>
-												<img className="flx-item-right" src="/img/icons/icon32_next.png"/>
-											</div>
-					                  </div>
-							        </form>
+			                    <fieldset className="DN field-wrapper">
+									<label>Invite team members</label>
+			                      <textarea
+			                        className="input--underline v2-type-body3"
+			                        type="text"
+			                        rows="4"
+			                        maxLength="184"
+			                        placeholder="Add email addresses separated by commas..."
+			                        required
+			                        value={this.props.invites}
+			                        onChange={this.changeInvites} />
+			                    </fieldset>
 
-							        <Link onClick={this.onGoBackClick} activeClassName="active" className="nav-module create nav-editor flx flx-center-all w-100">
-				                      	<div className="nav-text flx flx-row flx-align-center opa-60 mrgn-bottom-md">
-				                          <i className="material-icons color--black md-18 opa-100 mrgn-right-xs DN">arrow_back_ios</i>
-				                          <div className="co-type-body mrgn-left-xs">Cancel</div>
-				                        </div>
+			                    <ListErrors errors={this.props.errors}></ListErrors>
+			                    
+			                    <div className="flx flx-row flx-just-end w-100">
+			                    	<Link onClick={()=>browserHistory.goBack()} activeClassName="active" className="vb vb--form-cta mrgn-top-md fill--gray color--black mrgn-right-sm">
+			                    	   Cancel
 			                    	</Link>
-							    </div>
-						    </div>
+									<div
+									className="vb vb--form-cta mrgn-top-md fill--secondary color--white"
+									type="button"
+									disabled={this.props.inProgress}
+									onClick={this.submitForm}>
+									    	
+										Create List
+
+									</div>
+				                 </div>
+					        </form>
+
+					       
+					    </div>
+				    </div>
 
 
-					  	</div>
-
-
-						
-
-					</div>	
-					{/* END CONTAINER */}
-					
-
-			    </div>
-			    
 
 
 

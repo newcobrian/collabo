@@ -76,7 +76,7 @@ class CommentInput extends React.Component {
             </Textarea>*/}
 
             <MentionsInput 
-              className="comment-input co-type-body input--overline w-100 mrgn-right-sm"
+              className="comment-input co-type-body brdr-all b--primary input--overline w-100 fill--white"
               rows="2"
               cols="2"
               wrap="hard"

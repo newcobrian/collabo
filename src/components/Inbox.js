@@ -193,7 +193,7 @@ class Inbox extends React.Component {
                               image={inboxItem.senderImage}
                               orgName={this.props.params.orgname} />
                             <div className="flx flx-col mrgn-right-md">
-                              <div className="v2-type-body1 font--alpha">
+                              <div className="co-type-body">
                                 <strong><RenderUsername senderId={inboxItem.senderId} username={inboxItem.senderUsername} orgName={this.props.params.orgname} /></strong>
                                 {inboxItem.message}
 

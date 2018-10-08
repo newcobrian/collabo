@@ -171,65 +171,12 @@ textarea {
 .co-sidebar ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #3DCBF3 !important; /*DARK BLUE*/
   color: #97B4FF !important; /*DARK BLUE*/
-  color: #000 !important; /*DARK BLUE*/
-  opacity: .4;
+  color: #fff !important; /*DARK BLUE*/
+  opacity: 1;
   font-weight: 400;
   font-size: 12px;
   letter-spacing: 1.2px;
   font-family: 'Montserrat';
-}
-
-
-
-
-.font--beta ::-webkit-input-placeholder,
-.tip-wrapper ::-webkit-input-placeholder,
-.comment-wrapper ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-
-}
-.font--beta ::-moz-placeholder,
-.tip-wrapper ::-moz-placeholder,
-.comment-wrapper ::-moz-placeholder { /* Firefox 19+ */
-
-}
-.font--beta :-ms-input-placeholder,
-.tip-wrapper :-ms-input-placeholder,
-.comment-wrapper :-ms-input-placeholder { /* IE 10+ */
-
-}
-.font--beta :-moz-placeholder,
-.tip-wrapper :-moz-placeholder,
-.comment-wrapper :-moz-placeholder { /* Firefox 18- */
-
-}
-
-
-.tag-input-wrapper .comment-wrapper ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  opacity: .4;
-  font-weight: 400;
-  font-family: 'Roboto', sans-serif !important;
-  font-size: 11px;
-}
-
-.tag-input-wrapper .comment-wrapper ::-moz-placeholder { /* Firefox 19+ */
-  opacity: .4;
-  font-weight: 400;
-  font-family: 'Roboto', sans-serif !important;
-  font-size: 11px;
-}
-
-.tag-input-wrapper .comment-wrapper :-ms-input-placeholder { /* IE 10+ */
-  opacity: .4;
-  font-weight: 400;
-  font-family: 'Roboto', sans-serif !important;
-  font-size: 11px;
-}
-
-.tag-input-wrapper .comment-wrapper :-moz-placeholder { /* Firefox 18- */
-  opacity: .4;
-  font-weight: 400;
-  font-family: 'Roboto', sans-serif !important;
-  font-size: 11px;
 }
 
 

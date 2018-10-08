@@ -15,7 +15,7 @@ const DotJewel = props => {
     );
   }
   return (
-    <div className="sidebar-dot fill--black--10"></div>
+    <div className="sidebar-dot fill--tertiary--10"></div>
   );
 }
 const ThreadCountJewel = props => {
@@ -31,11 +31,15 @@ const ThreadCountJewel = props => {
 const InboxCounter = props => {
   if (props.inboxCount > 0) {
     return (
-      <div className="sidebar-dot fill--secondary active"></div>
+      <div className="group-badge fill--secondary color--white active">
+        {this.props.unreadMessages}
+      </div>
     );
   }
   return (
-    <div className="sidebar-dot fill--primary"></div>
+    <div className="color--white group-badge fill--primary">
+      0
+    </div>
   );
 }
 
@@ -93,8 +97,10 @@ class ProjectList extends React.Component {
           </Link>
 
         </div>
-        <div className="org-row org-row-selector flx flx-row flx-align-center fill--primary">
-
+        <div className="org-row org-row-selector flx flx-row flx-align-center">
+          <Link to='/'  className="co-logo flx-hold">
+            <img className="center-img" src="/img/icon24_orgsettings_color.png"/>
+          </Link>
           <select className="org-selector co-type-org color--white" onChange={this.onOrgChange}>
             <option value={orgName}>{orgName}</option>
             {(this.props.orgList || []).map((orgItem, index) => {
@@ -107,34 +113,34 @@ class ProjectList extends React.Component {
             <option value='newteam'>+ New Team</option>
           </select>
           <div className="org-arrow flx flx-center-all">
-            <div className="koi-ico --24 ico--down opa-30"></div>
+            <div className="koi-ico --24 ico--down--white"></div>
           </div>
         </div> 
 
-        <div className="sidebar-row group-row search-row fill--primary--20 flx flx-row flx-align-center">
+        <div className="sidebar-row group-row active search-row flx flx-row flx-align-center color--white">
           <div className="sidebar-icon flx flx-center-all">
-            <div className="koi-ico --24 ico--search--primary"></div>
+            <div className="koi-ico --24 ico--search--white"></div>
           </div>
           <FirebaseSearchInput 
             type={Constants.POSTS_SEARCH}
             callback={this.searchInputCallback}
             orgName={orgName}
-            className={""}
+            className={"color--white"}
             placeholder="Search" />
         </div>
 
         
 
         <div className="sidebar-row flx flx-row flx-align-center mrgn-bottom-sm mrgn-top-md">
-          <div className="co-type-h3 color--black">
+          <div className="co-type-h3 color--white">
             Lists
           </div>
           <Link to={'/' + orgName + '/createList'} className="flx flx-row flx-align-center flx-item-right">
-            <div className="co-type-label color--secondary"> 
+            <div className="co-type-label color--white"> 
               Add List
             </div>
             <div className="mrgn-left-sm flx flx-center-all">
-              <div className="koi-ico --24 ico--add--secondary"></div>              
+              <div className="koi-ico --24 ico--add--tertiary"></div>              
             </div>
           </Link>
         </div>
@@ -142,9 +148,9 @@ class ProjectList extends React.Component {
         <Link className={"sidebar-row group-row flx flx-row flx-align-center " + (!this.props.projectId && this.props.source === Constants.PROJECT_PAGE ? 'active' : '')} onClick={this.onAllClick}>
           <div className="sidebar-icon flx flx-center-all">
             {/*<div className="koi-ico --24 ico--allupdates--primary"></div>*/}
-            <div className="sidebar-dot fill--primary"></div>
+            <div className="sidebar-dot fill--tertiary--10"></div>
           </div>
-          <div className="co-type-project-name color--black"> 
+          <div className="co-type-project-name color--white"> 
             All Threads
           </div>
         </Link>
@@ -157,7 +163,7 @@ class ProjectList extends React.Component {
                     <div className="sidebar-icon flx flx-center-all">
                       {<DotJewel threadCount={threadCounts[projectItem.id]} />}
                     </div> 
-                    <div className="co-type-project-name color--black">
+                    <div className="co-type-project-name color--white">
                       {this.props.projectNames[projectItem.id].name}
                     </div>
                     {<ThreadCountJewel threadCount={threadCounts[projectItem.id]} />}
@@ -168,14 +174,14 @@ class ProjectList extends React.Component {
           }
 
 
-          <div className="sidebar-footer brdr-top brdr-color--primary--10 flx flx-col">
+          <div className="sidebar-footer fill--primary flx flx-col">
 
             <Link className="DN sidebar-row flx flx-row flx-align-center" to={'/' + orgName + '/invite'}>
                 <div className="sidebar-icon flx flx-center-all">
                   <i className="material-icons color--primary md-24 opa-70">accessibility_new
                   </i>
                 </div>
-                <div className="co-type-label color--black">Invite team members</div>
+                <div className="co-type-label color--white">Invite team members</div>
 
             </Link>
 
@@ -183,34 +189,32 @@ class ProjectList extends React.Component {
               <div className="mrgn-bottom-xs flx flx-center-all">
                 <ProfilePic className="center-img" src={this.props.userInfo.image}/>
               </div>
-              <div className="co-type-label color--black">{this.props.userInfo.username}</div>
+              <div className="co-type-label color--white">{this.props.userInfo.username}</div>
             </Link>
 
             <div className="flx flx-row w-100">
 
               <Link to={'/' + this.props.orgName + '/inbox'} activeClassName="active" className="sidebar-row group-triplet flx flx-col flx-align-center">
                   <div className="sidebar-icon--large flx flx-center-all">
-                    <div className="thread-timestamp color--black">{inboxCount}</div>
+                    <div className=""><InboxCounter unreadMessages={this.props.unreadMessages} className=""/></div>
                   </div>
-                  <div className="co-type-label color--black">Activity</div>
-                  {/*-<InboxCounter inboxCount={inboxCount} className="DN"/>*/}
-                  <div className="group-badge badge-on color--black flx-item-right thread-timestamp DN"></div>
+                  <div className="co-type-label color--white">Activity</div>
               </Link>
 
               
 
               <Link activeClassName="active" className="sidebar-row group-triplet flx flx-col flx-align-center">
                   <div className="sidebar-icon--large flx flx-center-all">
-                    <div className="koi-ico --24 ico--bookmark--primary"></div>
+                    <div className="koi-ico ico--bookmark--tertiary"></div>
                   </div>
-                  <div className="co-type-label color--black">Saved</div>
+                  <div className="co-type-label color--white">Saved</div>
               </Link>
 
               <Link to={'/' + this.props.orgName + '/admin'} activeClassName="active" className="sidebar-row group-triplet flx flx-col flx-align-center">
                   <div className="sidebar-icon--large flx flx-center-all">
-                    <div className="koi-ico --24 ico--orgsettings--primary"></div>
+                    <div className="koi-ico ico--orgsettings--tertiary"></div>
                   </div>
-                  <div className="co-type-label color--black">Team</div>
+                  <div className="co-type-label color--white">Team</div>
               </Link>
             </div>
 

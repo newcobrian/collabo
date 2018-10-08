@@ -33,7 +33,7 @@ const ProjectInfo = props => {
           <div className="sidebar-icon flx flx-center-all mrgn-left-xs">
             <div className="koi-ico --24 ico--add--secondary"></div>              
           </div>
-          <div className="co-type-label color--secondary"> 
+          <div className="co-type-label color--primary"> 
             Add Member
           </div>
         </Link>}

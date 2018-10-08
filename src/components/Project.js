@@ -165,7 +165,7 @@ class Project extends React.Component {
               open={this.props.sidebarOpen}
               onSetOpen={mql.matches ? this.props.setSidebarOpen : () => this.props.setSidebar(!this.props.sidebarOpen)}
               styles={{ sidebar: {
-                    borderRight: "1px solid rgba(255,171,140,.4)",
+                    borderRight: "none",
                     boxShadow: "none",
                     zIndex: "100"
                   },

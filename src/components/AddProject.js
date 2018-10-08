@@ -131,7 +131,7 @@ class AddProject extends React.Component {
 						        /> 
 						    </div> 
 						    <div ref="GMap"></div>**/}
-							<div className="project-header brdr-bottom brdr-color--primary--10 text-left flx flx-col flx-align-start w-100">
+							<div className="project-header brdr-bottom b--primary--20 text-left flx flx-col flx-align-start w-100">
 						    	<OrgHeader />
 						    	{/*<div className="project-bar-wrapper w-100 flx flx-row flx-align-center mrgn-top-xs fill--white">
 							    	<div className="co-type-page-title mrgn-left-md co-type-h1 flx flx-row flx-align-center color--black">Create a New List</div>
@@ -172,7 +172,7 @@ class AddProject extends React.Component {
 									<fieldset className="field-wrapper DN">
 									<div className="field-label">List Description</div>
 				                      <textarea
-				                        className="input--underline v2-type-body3"
+				                        className="input--underline edit-itinerary__name brdr-all"
 				                        type="text"
 				                        rows="3"
 				                        maxLength="184"

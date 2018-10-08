@@ -222,7 +222,8 @@ class FirebaseSearchInput extends Component {
           onNewRequest={this.onNewRequest}
           className={this.props.className}
           style={{
-            backgroundColor: 'transparent'
+            backgroundColor: 'transparent',
+            color: 'white'
           }}
           underlineFocusStyle={{
             borderColor: '#5B9D3A'
@@ -234,7 +235,8 @@ class FirebaseSearchInput extends Component {
             fontSize: '14px',
             letterSpacing: '1.2px',
             fontFamily: 'Montserrat',
-            paddingLeft: '4px'
+            paddingLeft: '0px',
+            color: 'white'
           }}
           // menuItemStyle={{
           //   borderBottom: '1px solid #ccc !important',

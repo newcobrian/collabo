@@ -12,21 +12,21 @@ const mapStateToProps = state => ({
 const ThreadList = props => {
   if (props.emptyThreadFeed) {
     return (
-      <div className="threadlist threadlist-loading header-push w-100 flx flx-col ta-center color--black opa-60">
+      <div className="threadlist brdr-right b--primary--20 threadlist-loading header-push w-100 flx flx-col ta-center color--black opa-60">
         This project has no posts yet. Why don't you add one?
       </div>
     )
   }
   else if (!props.threads) {
     return (
-      <div className="threadlist threadlist-loading header-push w-100 flx flx-col ta-center h-100 fill--secondary color--white">
+      <div className="threadlist threadlist-loading header-push w-100 flx flx-col ta-center h-100 fill--white color--primary">
         <div className="w-100 ta-center">Loading threads...</div>
       </div>
     );
   }
 
   return (
-    <div className="threadlist header-push w-100 flx flx-col flx-align-center">
+    <div className="threadlist brdr-right b--primary--20 header-push w-100 flx flx-col flx-align-center">
       {
         props.threads.map((threadItem, index) => {
           return (

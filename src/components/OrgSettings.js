@@ -244,7 +244,7 @@ class OrgSettings extends React.Component {
               <div className={sidebarOpen ? 'open-style' : 'closed-style'}>
 
                 <div className="page-common page-team-settings flx flx-col flx-center-all">
-                  <div className={"project-header brdr-bottom brdr-color--primary--10 text-left flx flx-col flx-align-start w-100"}>
+                  <div className={"project-header brdr-bottom b--primary--20 text-left flx flx-col flx-align-start w-100"}>
                     <OrgHeader />
                   </div>
                   <div className="koi-view header-push text-left flx flx-col flx-align-start w-100">

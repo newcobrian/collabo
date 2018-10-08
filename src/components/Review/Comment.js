@@ -71,8 +71,8 @@ class Comment extends React.Component {
 
     return (
       <div className="comment-indent inline-comments flx flx-col flx-align-center" id={'comment' + comment.id}>
-        <div className="comment-bg w-100">
-        <div className="comment-inner w-100">
+        <div className="comment-bg fill--secondary--10 w-100">
+        <div className="comment-inner fill--white brdr-left b--secondary--40 w-100">
           <div className="flx flx-col flx-just-start w-100">
             <div className="flx flx-row flx-just-start flx-align-center w-100">
               <Link
@@ -99,7 +99,7 @@ class Comment extends React.Component {
             </div>
 
             <div className="cta-wrapper flx flx-row flx-align-center mrgn-top-sm w-100">
-              <div className="koi-ico ico--bookmark mrgn-right-md"></div>
+              <div className="koi-ico ico--bookmark mrgn-right-md opa-60"></div>
 
               <LikeReviewButton
                 authenticated={authenticated}
@@ -112,7 +112,7 @@ class Comment extends React.Component {
                 orgName={orgName} />
               {!parentId && hideCommentInput && (!comment.nestedComments || comment.nestedComments.lenght > 0) &&
                 <Link className="reply-ico-wrapper flx flx-row flx-center-all mrgn-left-md" onClick={this.toggleHideCommentInput}>
-                  <div className="koi-ico ico--reply mrgn-right-xs"></div>
+                  <div className="koi-ico ico--reply mrgn-right-xs opa-60"></div>
                   <div className="co-type-label ta-left mobile-hide">Reply</div>
                 </Link>}
               <div className="thread-timestamp inline-block flx flx-row flx-item-right">

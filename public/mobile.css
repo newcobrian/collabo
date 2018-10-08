@@ -1005,7 +1005,7 @@ body .back-to-top {
 .tip__caption {
 }
 .threadlist-wrapper .threadlist {
-    padding: 0 12px;
+    padding: 20px 0;
 }
 .content-wrapper {
   width: 100%;
@@ -1028,7 +1028,7 @@ body .back-to-top {
   padding-left: 0 !important;
 }
 .co-type-page-title {
-  font-size: 18px !Important;
+  font-size: 18px !important;
 }
 .header-push-mini {
     margin-top: 60px !important;
