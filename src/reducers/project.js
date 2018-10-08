@@ -122,11 +122,14 @@ export default (state = initialState, action) => {
       return state;
     }
     case ActionTypes.LOAD_ORG: {
-      return {
-        ...state,
-        orgId: action.orgId,
-        invalidOrgUser: false
+      if (action.source === Constants.PROJECT_PAGE) {
+        return {
+          ...state,
+          orgId: action.orgId,
+          invalidOrgUser: false
+        }
       }
+      return state;
     }
     case ActionTypes.UNLOAD_ORG: {
       return {

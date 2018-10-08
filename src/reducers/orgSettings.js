@@ -102,6 +102,16 @@ export default (state = initialState, action) => {
             return newState;
         }
         return state;
+    case ActionTypes.LOAD_ORG: {
+      if (action.source === Constants.ORG_SETTINGS_PAGE) {
+        return {
+          ...state,
+          orgId: action.orgId,
+          invalidOrgUser: false
+        }
+      }
+      return state;
+    }
     // case ActionTypes.LOAD_PROJECT_NAMES:
     //     if (action.source === Constants.ORG_SETTINGS_PAGE) {
     //         return {
