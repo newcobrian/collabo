@@ -719,7 +719,7 @@ export function sendCommentInboxMessage(senderId, recipientId, messageType, org,
 		lastModified: Firebase.database.ServerValue.TIMESTAMP
 	};
 	let emailData = {
-		threadLink: Constants.COLLABO_URL + '/' + org.name + '/' + project.projectId + '/' + thread.threadId
+		threadLink: Constants.COLLABO_URL + '/' + org.name + '/' + thread.projectId + '/' + thread.threadId
 	};
 
 	Firebase.database().ref(Constants.USERS_PATH + '/' + recipientId).once('value', recipientSnapshot => {
@@ -728,7 +728,7 @@ export function sendCommentInboxMessage(senderId, recipientId, messageType, org,
 				case Constants.COMMENT_IN_THREAD_MESSAGE:
 					inboxObject.senderId = senderId;
 					inboxObject.message = ' commented on your post: ' + thread.title;
-					inboxObject.link = '/' + org.name + '/' + project.projectId + '/' + thread.threadId;
+					inboxObject.link = '/' + org.name + '/' + thread.projectId + '/' + thread.threadId;
 					emailData.emailSubject = senderSnapshot.val().username + ' commented on your post'
 					emailData.threadTitle = '"' + thread.title + '"'
 					emailData.commentBody = sendObject.message
@@ -737,7 +737,7 @@ export function sendCommentInboxMessage(senderId, recipientId, messageType, org,
 				case Constants.COMMENT_MENTION_MESSAGE:
 					inboxObject.senderId = senderId;
 					inboxObject.message = ' mentioned you in a comment in the thread: ' + thread.title;
-					inboxObject.link = '/' + org.name + '/' + project.projectId + '/' + thread.threadId;
+					inboxObject.link = '/' + org.name + '/' + thread.projectId + '/' + thread.threadId;
 					emailData.emailSubject = senderSnapshot.val().username + ' mentioned you in a comment'
 					emailData.threadTitle = '"' + thread.title + '"'
 					emailData.commentBody = sendObject.message
@@ -746,7 +746,7 @@ export function sendCommentInboxMessage(senderId, recipientId, messageType, org,
 				case Constants.ALSO_COMMENTED_MESSAGE:
 					inboxObject.senderId = senderId;
 					inboxObject.message = ' also commented in the post: ' + thread.title;
-					inboxObject.link = '/' + org.name + '/' + project.projectId + '/' + thread.threadId;
+					inboxObject.link = '/' + org.name + '/' + thread.projectId + '/' + thread.threadId;
 					emailData.emailSubject = senderSnapshot.val().username + ' commented on the same post'
 					emailData.threadTitle = '"' + thread.title + '"'
 					emailData.commentBody = sendObject.message
