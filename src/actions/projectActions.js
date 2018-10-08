@@ -1892,6 +1892,19 @@ export function changeProjectSettingsTab(tab, projectId) {
   }
 }
 
+export function createInboxByOrg() {
+  return dispatch => {
+    Firebase.database().ref(Constants.INBOX_PATH).once('value', inboxSnap => {
+      let updates = {}
+      inboxSnap.forEach(function(user) {
+        user.forEach(function(post) {
+
+        })
+      })
+    })
+  }
+}
+
 export function inviteOrgUsersToProject(auth, orgId, projectId, invites) {
   return dispatch => {
     if (invites && invites.length > 0) {

@@ -21,6 +21,7 @@ export default (state = {}, action) => {
       newState.inbox = newState.inbox.slice();
       newState.inbox.push(action.payload);
       newState.inbox.sort(lastModifiedDesc);
+      newState.inboxIsEmpty = false
 
       if (!newState.dateIndex || action.payload.lastModified < newState.dateIndex) {
         newState.dateIndex = action.payload.lastModified
@@ -45,6 +46,11 @@ export default (state = {}, action) => {
         }
       }
     }
+    case ActionTypes.INBOX_IS_EMPTY:
+      return {
+        ...state,
+        inboxIsEmpty: true
+      }
     case INBOX_UNLOADED:
     	return {}
     default:

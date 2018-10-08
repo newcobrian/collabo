@@ -642,7 +642,7 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 				case Constants.THREAD_MENTION_MESSAGE:
 					inboxObject.senderId = senderId;
 					inboxObject.message = ' mentioned you in the post: ' + thread.title;
-					inboxObject.link = '/' + org.name + '/' + project.projectId + '/' + thread.threadId;
+					inboxObject.link = '/' + project.projectId + '/' + thread.threadId;
 					emailData.emailSubject = senderSnapshot.val().username + ' mentioned you in a post'
 					emailData.body = sendObject
 					emailData.threadTitle = '"' + thread.title + '"'
@@ -651,13 +651,13 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 				case Constants.LIKE_THREAD_MESSAGE:
 					inboxObject.senderId = senderId;
 					inboxObject.message = ' upvoted your post "' + thread.title + '"';
-					inboxObject.link = '/' + org.name + '/' + thread.projectId + '/' + thread.threadId;
+					inboxObject.link = '/' + thread.projectId + '/' + thread.threadId;
 					sendEmail = false
 					break;
 				case Constants.LIKE_COMMENT_MESSAGE:
 					inboxObject.senderId = senderId;
 					inboxObject.message = ' upvoted your comment: "' + sendObject.body + '"';
-					inboxObject.link = '/' + org.name + '/' + thread.projectId + '/' + thread.threadId;
+					inboxObject.link = '/' + thread.projectId + '/' + thread.threadId;
 					sendEmail = false
 					break;
 				// case Constants.COMMENT_ON_COMMENT_REVIEW_MESSAGE:
@@ -701,8 +701,8 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 				// 	break;
 			}
 			if (senderId !== recipientId) {
-				Firebase.database().ref(Constants.INBOX_PATH + '/' + recipientId).push().set(inboxObject);
-				Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + recipientId + '/messageCount').transaction(function (current_count) {
+				Firebase.database().ref(Constants.INBOX_BY_USER_BY_ORG_PATH + '/' + recipientId + '/' + thread.orgId).push().set(inboxObject);
+				Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + recipientId + '/' + thread.orgId + '/messageCount').transaction(function (current_count) {
 		            return (current_count || 0) + 1;
 		        })
 	        	if (sendEmail && recipientSnapshot.exists() && recipientSnapshot.val().email) {
@@ -728,7 +728,7 @@ export function sendCommentInboxMessage(senderId, recipientId, messageType, org,
 				case Constants.COMMENT_IN_THREAD_MESSAGE:
 					inboxObject.senderId = senderId;
 					inboxObject.message = ' commented on your post "' + thread.title + '": ' + sendObject.message;
-					inboxObject.link = '/' + org.name + '/' + thread.projectId + '/' + thread.threadId;
+					inboxObject.link = '/' + thread.projectId + '/' + thread.threadId;
 					emailData.emailSubject = senderSnapshot.val().username + ' commented on your post'
 					emailData.threadTitle = '"' + thread.title + '"'
 					emailData.commentBody = sendObject.message
@@ -737,7 +737,7 @@ export function sendCommentInboxMessage(senderId, recipientId, messageType, org,
 				case Constants.COMMENT_MENTION_MESSAGE:
 					inboxObject.senderId = senderId;
 					inboxObject.message = ' mentioned you in a comment in the thread "' + thread.title + '": ' + sendObject.message;
-					inboxObject.link = '/' + org.name + '/' + thread.projectId + '/' + thread.threadId;
+					inboxObject.link = '/' + thread.projectId + '/' + thread.threadId;
 					emailData.emailSubject = senderSnapshot.val().username + ' mentioned you in a comment'
 					emailData.threadTitle = '"' + thread.title + '"'
 					emailData.commentBody = sendObject.message
@@ -746,7 +746,7 @@ export function sendCommentInboxMessage(senderId, recipientId, messageType, org,
 				case Constants.ALSO_COMMENTED_MESSAGE:
 					inboxObject.senderId = senderId;
 					inboxObject.message = ' also commented in the post "' + thread.title + '": ' + sendObject.message;
-					inboxObject.link = '/' + org.name + '/' + thread.projectId + '/' + thread.threadId;
+					inboxObject.link = '/' + thread.projectId + '/' + thread.threadId;
 					emailData.emailSubject = senderSnapshot.val().username + ' commented on the same post'
 					emailData.threadTitle = '"' + thread.title + '"'
 					emailData.commentBody = sendObject.message
@@ -754,8 +754,8 @@ export function sendCommentInboxMessage(senderId, recipientId, messageType, org,
 					break;
 			}
 			if (senderId !== recipientId) {
-				Firebase.database().ref(Constants.INBOX_PATH + '/' + recipientId).push().set(inboxObject);
-				Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + recipientId + '/messageCount').transaction(function (current_count) {
+				Firebase.database().ref(Constants.INBOX_BY_USER_BY_ORG_PATH + '/' + recipientId + '/' + thread.orgId).push().set(inboxObject);
+				Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + recipientId + '/' + thread.orgId + '/messageCount').transaction(function (current_count) {
 		            return (current_count || 0) + 1;
 		        })
 	        	if (recipientSnapshot.exists() && recipientSnapshot.val().email) {

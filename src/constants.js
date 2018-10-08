@@ -107,6 +107,7 @@ export const INVITED_USERS_BY_ORG_PATH = '/invited-users-by-org'
 export const INVITED_USERS_BY_PROJECT_PATH = '/invited-users-by-project'
 export const PROJECT_INVITES_PATH = '/project-invites'
 export const PROJECT_INVITES_BY_USER_PATH = '/project-invites-by-user'
+export const INBOX_BY_USER_BY_ORG_PATH = '/inbox-by-user-by-org'
 
 /*** Counter Type Constants ***/
 export const LIKES_COUNT = 'likesCount'

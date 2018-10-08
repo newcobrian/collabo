@@ -29,7 +29,7 @@ const ThreadCountJewel = props => {
   );
 }
 const InboxCounter = props => {
-  if (props.unreadMessages > 0) {
+  if (props.inboxCount > 0) {
     return (
       <div className="sidebar-dot fill--secondary active"></div>
     );
@@ -76,6 +76,7 @@ class ProjectList extends React.Component {
     // let orgName = this.props.org ?  this.props.org.name : ''
     let orgName = this.props.orgName
     let threadCounts = this.props.threadCounts || {}
+    let inboxCount = this.props.unreadMessages && this.props.unreadMessages[this.props.orgId] ? this.props.unreadMessages[this.props.orgId] : 0
 
     return (
       <div className="co-sidebar flx-col flx-item-left h-100">
@@ -189,10 +190,10 @@ class ProjectList extends React.Component {
 
               <Link to={'/' + this.props.orgName + '/inbox'} activeClassName="active" className="sidebar-row group-triplet flx flx-col flx-align-center">
                   <div className="sidebar-icon--large flx flx-center-all">
-                    <div className="thread-timestamp color--black">{this.props.unreadMessages}</div>
+                    <div className="thread-timestamp color--black">{inboxCount}</div>
                   </div>
                   <div className="co-type-label color--black">Activity</div>
-                  {/*-<InboxCounter unreadMessages={this.props.unreadMessages} className="DN"/>*/}
+                  {/*-<InboxCounter inboxCount={inboxCount} className="DN"/>*/}
                   <div className="group-badge badge-on color--black flx-item-right thread-timestamp DN"></div>
               </Link>
 

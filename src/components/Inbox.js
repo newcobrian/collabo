@@ -79,14 +79,14 @@ class Inbox extends React.Component {
     this.props.loadOrgList(this.props.authenticated, Constants.INBOX_PAGE)
     this.props.loadProjectNames(this.props.params.orgname, Constants.INBOX_PAGE)
 
-    this.props.getInbox(this.props.authenticated, null);
+    this.props.getInbox(this.props.authenticated, null, null, this.props.params.orgname);
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'inbox'});
-    this.props.updateInboxCount(this.props.authenticated);
+    this.props.updateInboxCount(this.props.authenticated, this.props.params.orgname);
   }
 
   componentWillUnmount() {
     this.props.updateInboxCount(this.props.authenticated);
-    this.props.unloadInbox(this.props.authenticated);
+    this.props.unloadInbox(this.props.authenticated, this.props.orgId);
 
     this.props.unloadProjectNames(this.props.orgId, Constants.INBOX_PAGE)
     this.props.unloadOrgList(this.props.authenticated, Constants.INBOX_PAGE)
@@ -100,24 +100,54 @@ class Inbox extends React.Component {
 
   onLoadMoreClick = ev => {
     ev.preventDefault()
-    this.props.getInbox(this.props.authenticated, this.props.dateIndex)
+    this.props.getInbox(this.props.authenticated, this.props.dateIndex, this.props.orgId, this.props.params.orgname)
   }
 
   render() {
+    if (this.props.inboxIsEmpty) {
+      return (
+        <div>
+        <Sidebar
+            sidebar={<ProjectList />}
+            open={this.props.sidebarOpen}
+            onSetOpen={mql.matches ? this.props.setSidebarOpen : () => this.props.setSidebar(!this.props.sidebarOpen)}
+            styles={{ sidebar: {
+                  borderRight: "1px solid rgba(0,0,0,.1)",
+                  boxShadow: "none",
+                  zIndex: "100"
+                },
+                overlay: mql.matches ? {
+                  backgroundColor: "rgba(255,255,255,1)"
+                } : {
+                  zIndex: 12,
+                  backgroundColor: "rgba(0, 0, 0, 0.5)"
+                },
+              }}
+            >
+          <div className={this.props.sidebarOpen ? 'open-style' : 'closed-style'}>
+            <div className="page-common page-activity flx flx-col flx-center-all ">
+              <div className="project-header brdr-bottom brdr-color--primary--10 text-left flx flx-col flx-align-start w-100">
+                <OrgHeader />
+                {/* HEADER START */}
+              </div>
+              {/* CONTAINER - START */}
+                <div className="koi-view header-push flx flx-col ta-left">
+                  <div className="co-post-title mrgn-bottom-md">Activity</div>
+
+                  No activity messages
+                </div>
+              </div>
+            </div>
+          </Sidebar>
+        </div>
+      );
+    }
 	  if (!this.props.inbox) {
       return (
         <div className="loading-module flx flx-col flx-center-all v2-type-body3 fill--primary">
           <div className="loader-wrapper flx flx-col flx-center-all">
             <div className="v2-type-body2 color--white">Loading Activity</div>
           </div>
-        </div>
-      );
-    }
-    if (this.props.inbox.length === 0) {
-      return (
-        <div className="loading-module flx flx-col flx-center-all v2-type-body3">
-          <div>You don't have any messages from anyone yet</div>
-          <div>Go explore the site and maybe someone will find you interesting...</div>
         </div>
       );
     }
@@ -156,7 +186,7 @@ class Inbox extends React.Component {
                       // const isUser = this.props.currentUser &&
                       //   follower.userId === this.props.currentUser.uid;
                         return (
-                          <Link className="flx flx-row flx-just-start brdr-bottom flx-align-center pdding-all-sm list-row" key={inboxItem.key} to={inboxItem.link}>
+                          <Link className="flx flx-row flx-just-start brdr-bottom flx-align-center pdding-all-sm list-row" key={inboxItem.key} to={'/' + this.props.params.orgname + inboxItem.link}>
                             <LeftSenderPic 
                               senderId={inboxItem.senderId} 
                               username={inboxItem.senderUsername} 
@@ -167,7 +197,7 @@ class Inbox extends React.Component {
                                 <strong><RenderUsername senderId={inboxItem.senderId} username={inboxItem.senderUsername} orgName={this.props.params.orgname} /></strong>
                                 {inboxItem.message}
 
-                                <Link to={inboxItem.link}><span className="color--primary inline">{inboxItem.reviewTitle}</span></Link>
+                                <Link to={'/' + this.props.params.orgname + inboxItem.link}><span className="color--primary inline">{inboxItem.reviewTitle}</span></Link>
 
                               </div>
                               <div className="thread-timestamp font--alpha"><DisplayTimestamp timestamp={inboxItem.lastModified} /></div>
