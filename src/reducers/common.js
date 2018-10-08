@@ -39,7 +39,6 @@ export default (state = defaultState, action) => {
         userInfo: action.payload ? action.payload : null
       }
     case GET_INBOX_COUNT:
-    console.log('reducer payload = ' + JSON.stringify(action.payload))
       return {
         ...state,
         unreadMessages: action.payload

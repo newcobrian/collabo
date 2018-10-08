@@ -6,7 +6,11 @@ import * as Actions from '../actions';
 import * as Constants from '../constants';
 import ProxyImage from './ProxyImage';
 import ProfilePic from './ProfilePic';
+import ProjectList from './ProjectList';
 import OrgHeader from './OrgHeader';
+import Sidebar from 'react-sidebar';
+
+const mql = window.matchMedia(`(min-width: 800px)`);
 
 class SettingsForm extends React.Component {
   constructor() {
@@ -51,9 +55,6 @@ class SettingsForm extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.props.authenticated) {
-      Actions.askForAuth();
-    }
     if (this.props.currentUser) {
       Object.assign(this.state, {
         image: this.props.currentUser.image || '',
@@ -63,10 +64,6 @@ class SettingsForm extends React.Component {
       });
     }
   }
-
-  // componentWillUnmount() {
-  //   this.props.onUnload();
-  // }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.currentUser) {
@@ -164,49 +161,95 @@ class SettingsForm extends React.Component {
 const mapStateToProps = state => ({
   ...state.settings,
   currentUser: state.common.currentUser,
-  authenticated: state.common.authenticated
+  authenticated: state.common.authenticated,
+  sidebarOpen: state.common.sidebarOpen
 });
 
 class Settings extends React.Component {
-  componentWillMount() {
+  constructor() {
+    super()
+
+    this.mediaQueryChanged = () => {
+      this.props.setSidebar(mql.matches);
+    }
+  }
+
+  componentDidMount() {
+    if (!this.props.authenticated) {
+      Actions.askForAuth();
+    }
+
+    this.props.loadOrg(this.props.authenticated, this.props.params.orgname, Constants.SETTINGS_PAGE);
+    this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, Constants.SETTINGS_PAGE)
+    this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
+    this.props.loadProjectNames(this.props.params.orgname, Constants.SETTINGS_PAGE)
+    this.props.loadOrgList(this.props.authenticated, Constants.SETTINGS_PAGE)
+
     this.props.getProfileUser(this.props.authenticated);
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'settings'});
   }
 
   componentWillUnmount() {
+    this.props.unloadProjectNames(this.props.orgId, Constants.SETTINGS_PAGE)
+    this.props.unloadOrgList(this.props.authenticated, Constants.SETTINGS_PAGE)
+    this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId)
+    this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.SETTINGS_PAGE)
+    this.props.unloadOrg(Constants.SETTINGS_PAGE);
+
     this.props.unloadSettings(this.props.authenticated);
   }
 
   render() {
     return (
-      <div className="page-common flx flx-col profile-page">
-            <div className="project-header text-left flx flx-col flx-align-start w-100">
-              <OrgHeader />
-              {/* HEADER START */}
-              <div className="co-type-h1 mrgn-top-sm mrgn-left-md">Settings</div>
-            </div>
-            <div className="content-wrapper header-push ta-left flx flx-col w-100">
+      <div>
+        <Sidebar
+              sidebar={<ProjectList />}
+              open={this.props.sidebarOpen}
+              onSetOpen={mql.matches ? this.props.setSidebarOpen : () => this.props.setSidebar(!this.props.sidebarOpen)}
+              styles={{ sidebar: {
+                    borderRight: "1px solid rgba(0,0,0,.1)",
+                    boxShadow: "none",
+                    zIndex: "100"
+                  },
+                  overlay: mql.matches ? {
+                    backgroundColor: "rgba(255,255,255,1)"
+                  } : {
+                    zIndex: 12,
+                    backgroundColor: "rgba(0, 0, 0, 0.5)"
+                  },
+                }}
+              >
+                <div className={this.props.sidebarOpen ? 'open-style' : 'closed-style'}>
+                  <div className="page-common page-profile flx flx-col flx-align-center profile-page">
+                  
+                    <div className="project-header text-left flx flx-col flx-align-start w-100">
+                      <OrgHeader />
+                    </div>
 
-              <ListErrors errors={this.props.errors}></ListErrors>
+                    <div className="koi-view threadlist header-push ta-left flx flx-col w-100">
 
-              <SettingsForm
-                authenticated={this.props.authenticated}
-                currentUser={this.props.firebaseUser}
-                onSubmitForm={this.props.saveSettings}
-                showChangeEmailModal={this.props.showChangeEmailModal}
-                orgName={this.props.params.orgname} />
+                    <ListErrors errors={this.props.errors}></ListErrors>
+
+                    <SettingsForm
+                      authenticated={this.props.authenticated}
+                      currentUser={this.props.firebaseUser}
+                      onSubmitForm={this.props.saveSettings}
+                      showChangeEmailModal={this.props.showChangeEmailModal}
+                      orgName={this.props.params.orgname} />
 
 
-              <div
-                className="fill--none color--black opa-60 w-100 mrgn-top-md ta-center w-100"
-                onClick={this.props.signOutUser}>
-                Logout
+                    <div
+                      className="fill--none color--black opa-60 w-100 mrgn-top-md ta-center w-100"
+                      onClick={this.props.signOutUser}>
+                      Logout
+                    </div>
+
+
+                  </div>
+                </div>
               </div>
-
-
-            </div>
-
-      </div>
+            </Sidebar>
+        </div>
     );
   }
 }

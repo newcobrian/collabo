@@ -1,8 +1,9 @@
-import { UPDATE_FIELD } from '../actions'
+import * as ActionTypes from '../actions/types';
+import * as Constants from '../constants';
 
 export default (state = {}, action) => {
   switch (action.type) {
-    case UPDATE_FIELD:
+    case ActionTypes.UPDATE_FIELD:
       return { ...state, [action.key]: action.value };
     case 'SETTINGS_SAVED':
       return {
@@ -26,6 +27,15 @@ export default (state = {}, action) => {
         ...state,
         errors: [action.error]
       }
+    case ActionTypes.LOAD_ORG:
+      if (action.source === Constants.SETTINGS_PAGE) {
+        return {
+          ...state,
+          orgId: action.orgId,
+          invalidOrgUser: false
+        }
+      }
+      return state;
     default:
       return state;
   }
