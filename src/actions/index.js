@@ -1759,25 +1759,25 @@ export function likeReview(authenticated, type, objectId, thread, user, orgName,
       //   type: type,
       //   // lastModified: Firebase.database.ServerValue.TIMESTAMP
       // }
-      let likeObject = Object.assign({}, pick(user, ['username', 'image', 'fullName']))
+      let saveObject = Object.assign({}, pick(user, ['username', 'image', 'fullName']))
       if (type === Constants.THREAD_TYPE) {
         // updates[`/${Constants.LIKES_BY_USER_BY_ORG_PATH}/${authenticated}/${thread.orgId}/${id}`] = type;
-        updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = likeObject
-        updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${thread.projectId}/${id}/likes/${authenticated}`] = likeObject
-        updates[`/${Constants.THREADS_BY_ORG_PATH}/${thread.orgId}/${id}/likes/${authenticated}`] = likeObject
+        updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = saveObject
+        updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${thread.projectId}/${id}/likes/${authenticated}`] = saveObject
+        updates[`/${Constants.THREADS_BY_ORG_PATH}/${thread.orgId}/${id}/likes/${authenticated}`] = saveObject
       }
       else if (type === Constants.COMMENT_TYPE) {
         // updates[`/${Constants.LIKES_BY_USER_BY_ORG_PATH}/${authenticated}/${thread.orgId}/${id}`] = type;
         updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = 
-        updates[`/${Constants.COMMENTS_BY_THREAD_PATH}/${thread.threadId}/${id}/likes/${authenticated}`] = likeObject
-        updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${thread.projectId}/${thread.threadId}/comments/${id}/likes/${authenticated}`] = likeObject
-        updates[`/${Constants.THREADS_BY_ORG_PATH}/${thread.orgId}/${thread.threadId}/comments/${id}/likes/${authenticated}`] = likeObject
+        updates[`/${Constants.COMMENTS_BY_THREAD_PATH}/${thread.threadId}/${id}/likes/${authenticated}`] = saveObject
+        updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${thread.projectId}/${thread.threadId}/comments/${id}/likes/${authenticated}`] = saveObject
+        updates[`/${Constants.THREADS_BY_ORG_PATH}/${thread.orgId}/${thread.threadId}/comments/${id}/likes/${authenticated}`] = saveObject
       }
       else if (type === Constants.NESTED_COMMENT_TYPE) {
         updates[`/${Constants.LIKES_PATH}/${id}/${authenticated}`] = Object.assign({}, pick(user, ['username', 'image']));
-        updates[`/${Constants.COMMENTS_BY_THREAD_PATH}/${thread.threadId}/${likeObject.parentId}/nestedComments/${id}/likes/${authenticated}`] = likeObject
-        updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${thread.projectId}/${thread.threadId}/comments/${likeObject.parentId}/nestedComments/${id}/likes/${authenticated}`] = likeObject
-        updates[`/${Constants.THREADS_BY_ORG_PATH}/${thread.orgId}/${thread.threadId}/comments/${likeObject.parentId}/nestedComments/${id}/likes/${authenticated}`] = likeObject
+        updates[`/${Constants.COMMENTS_BY_THREAD_PATH}/${thread.threadId}/${likeObject.parentId}/nestedComments/${id}/likes/${authenticated}`] = saveObject
+        updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${thread.projectId}/${thread.threadId}/comments/${likeObject.parentId}/nestedComments/${id}/likes/${authenticated}`] = saveObject
+        updates[`/${Constants.THREADS_BY_ORG_PATH}/${thread.orgId}/${thread.threadId}/comments/${likeObject.parentId}/nestedComments/${id}/likes/${authenticated}`] = saveObject
       }
 
       Firebase.database().ref().update(updates).then(response => {
