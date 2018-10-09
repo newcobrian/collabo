@@ -11,6 +11,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import ProjectInfo from './ProjectInfo';
 import ProjectHeader from './ProjectHeader';
 import Sidebar from 'react-sidebar';
+import InvalidOrg from './InvalidOrg'
 
 const mql = window.matchMedia(`(min-width: 800px)`);
 
@@ -112,9 +113,7 @@ class Project extends React.Component {
     }
     else if(this.props.invalidOrgUser) {
       return (
-        <div>
-          You don't have permission to view this team. <Link to='/'>Go Home</Link>
-        </div>
+        <InvalidOrg/>
       )
     }
     // if (this.props.projectNotFoundError) {
