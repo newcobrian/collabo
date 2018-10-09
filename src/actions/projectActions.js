@@ -215,23 +215,48 @@ export function onDeleteThread(auth, threadId, thread, orgName) {
   }
 }
 
-export function loadProject(projectId, source) {
+export function loadProject(projectId, orgName, source) {
   return dispatch => {
-    Firebase.database().ref(Constants.PROJECTS_PATH + '/' + projectId).once('value', projectSnapshot => {
-      if (projectSnapshot.exists()) {
-        dispatch({
-          type: ActionTypes.LOAD_PROJECT,
-          project: projectSnapshot.val(),
-          projectId: projectId,
-          source: source
-        })
-      }
-      else {
-        dispatch({
-          type: ActionTypes.PROJECT_NOT_FOUND_ERROR,
-          source: source
-        })
-      }
+    let lowercaseOrg = orgName ? orgName.toLowerCase() : ''
+    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowercaseOrg).once('value', orgSnap => {
+      Firebase.database().ref(Constants.PROJECTS_PATH + '/' + projectId).once('value', projectSnapshot => {
+        if (projectSnapshot.exists()) {
+          // make sure project's org matches whats in the url
+          if (orgSnap.val() && orgSnap.val().orgId === projectSnapshot.val().orgId) {
+            dispatch({
+              type: ActionTypes.LOAD_PROJECT,
+              project: projectSnapshot.val(),
+              projectId: projectId,
+              source: source
+            })
+          }
+          else {
+            Firebase.database().ref(Constants.ORGS_PATH + '/' + projectSnapshot.val().orgId).once('value', correctOrgSnap => {
+              if (correctOrgSnap.exists()) {
+                // if not, then redirect to correct org
+                dispatch({
+                  type: ActionTypes.ORG_PROJECT_MISMATCH,
+                  projectId: projectId,
+                  orgName: correctOrgSnap.val().name
+                })
+              }
+              // if we cant find the correct org, give an error
+              else {
+                dispatch({
+                  type: ActionTypes.PROJECT_NOT_FOUND_ERROR,
+                  source: source
+                })
+              }
+            }) 
+          }
+        }
+        else {
+          dispatch({
+            type: ActionTypes.PROJECT_NOT_FOUND_ERROR,
+            source: source
+          })
+        }
+      })
     })
   }
 }

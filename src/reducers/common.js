@@ -181,6 +181,11 @@ export default (state = defaultState, action) => {
         ...state,
         redirectTo: '/' + action.orgName + '/' + action.projectId
       }
+    case ActionTypes.ORG_PROJECT_MISMATCH:
+      return {
+        ...state,
+        redirectTo: '/' + action.orgName + '/' + action.projectId
+      }
     // case ActionTypes.INVITED_USERS_TO_PROJECT:
     //   return {
     //     ...state,
