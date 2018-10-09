@@ -109,7 +109,7 @@ class Profile extends React.Component {
     }
     
     this.unloadUser = (username, userId) => {
-      if (this.props.profile) {
+      if (this.props.profile && userId) {
         this.props.unloadProfileUser(userId);
         this.props.watchActivityFeed(this.props.authenticated, this.props.params.orgname, Constants.PROFILE_PAGE)
         // this.props.unloadProfileFollowing(this.props.authenticated, userId);

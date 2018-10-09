@@ -1177,7 +1177,8 @@ export function acceptInvite(auth, email, inviteId) {
         
           let updates = {}
           // add user to the org and orgs-by-user
-          updates[Constants.USERS_BY_ORG_PATH + '/' + inviteSnap.val().orgId + '/' + auth] = Object.assign({}, userSnap.val())
+          // updates[Constants.USERS_BY_ORG_PATH + '/' + inviteSnap.val().orgId + '/' + auth] = Object.assign({}, userSnap.val())
+          updates[Constants.USERS_BY_ORG_PATH + '/' + inviteSnap.val().orgId + '/' + auth] = true
           updates[Constants.ORGS_BY_USER_PATH + '/' + auth + '/' + inviteSnap.val().orgId] = { name: inviteSnap.val().orgName }
 
           // remove the invites
@@ -1633,22 +1634,26 @@ export function loadProjectMembers(projectId, orgName, source) {
       // load all org members
       Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', orgSnap => {
         Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgSnap.val().orgId).on('child_added', addedSnap => {
-          dispatch({
-            type: ActionTypes.PROJECT_MEMBER_ADDED,
-            userId: addedSnap.key,
-            userData: addedSnap.val(),
-            source: source
-          })  
+          Firebase.database().ref(Constants.USERS_PATH + '/' + addedSnap.key).once('value', userSnap => {
+            if (addedSnap.key == '')
+            dispatch({
+              type: ActionTypes.PROJECT_MEMBER_ADDED,
+              userId: addedSnap.key,
+              userData: userSnap.val(),
+              source: source
+            })
+          })
         })
 
-        Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgSnap.val().orgId).on('child_changed', changedSnap => {
-          dispatch({
-            type: ActionTypes.PROJECT_MEMBER_CHANGED,
-            userId: changedSnap.key,
-            userData: changedSnap.val(),
-            source: source
-          })  
-        })
+        // Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgSnap.val().orgId).on('child_changed', changedSnap => {
+        //   Firebase.database().ref(Constants.USERS_PATH + '/' + addedSnap.key).once('value', userSnap => {
+        //     dispatch({
+        //       type: ActionTypes.PROJECT_MEMBER_CHANGED,
+        //       userId: changedSnap.key,
+        //       userData: userSnap.val(),
+        //       source: source
+        //     })  
+        // })
 
         Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgSnap.val().orgId).on('child_removed', removedSnap => {
           dispatch({
@@ -1662,22 +1667,24 @@ export function loadProjectMembers(projectId, orgName, source) {
     else {
       // load members of the project
       Firebase.database().ref(Constants.USERS_BY_PROJECT_PATH + '/' + projectId).on('child_added', addedSnap => {
-        dispatch({
-          type: ActionTypes.PROJECT_MEMBER_ADDED,
-          userId: addedSnap.key,
-          userData: addedSnap.val(),
-          source: source
-        })  
+        Firebase.database().ref(Constants.USERS_PATH + '/' + addedSnap.key).once('value', userSnap => {
+          dispatch({
+            type: ActionTypes.PROJECT_MEMBER_ADDED,
+            userId: addedSnap.key,
+            userData: userSnap.val(),
+            source: source
+          })
+        })
       })
 
-      Firebase.database().ref(Constants.USERS_BY_PROJECT_PATH + '/' + projectId).on('child_changed', changedSnap => {
-        dispatch({
-          type: ActionTypes.PROJECT_MEMBER_CHANGED,
-          userId: changedSnap.key,
-          userData: changedSnap.val(),
-          source: source
-        })  
-      })
+      // Firebase.database().ref(Constants.USERS_BY_PROJECT_PATH + '/' + projectId).on('child_changed', changedSnap => {
+      //   dispatch({
+      //     type: ActionTypes.PROJECT_MEMBER_CHANGED,
+      //     userId: changedSnap.key,
+      //     userData: changedSnap.val(),
+      //     source: source
+      //   })  
+      // })
 
       Firebase.database().ref(Constants.USERS_BY_PROJECT_PATH + '/' + projectId).on('child_removed', removedSnap => {
         dispatch({
@@ -1974,7 +1981,8 @@ export function joinProject(auth, userInfo, orgId, project) {
       else {
         let updates = {}
         updates[`/${Constants.PROJECTS_BY_USER_BY_ORG_PATH}/${auth}/${orgId}/${project.projectId}/`] = Object.assign({}, pick(project, ['name', 'isPublic']));
-        updates[`/${Constants.USERS_BY_PROJECT_PATH}/${project.projectId}/${auth}/`] = Object.assign({}, userInfo);
+        updates[`/${Constants.USERS_BY_PROJECT_PATH}/${project.projectId}/${auth}/`] = true
+        // updates[`/${Constants.USERS_BY_PROJECT_PATH}/${project.projectId}/${auth}/`] = Object.assign({}, userInfo);
 
         // also remove them from pending invites list
         updates[`/${Constants.INVITED_USERS_BY_PROJECT_PATH}/${project.projectId}/${auth}/`] = null
