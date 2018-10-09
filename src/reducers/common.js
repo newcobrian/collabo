@@ -4,12 +4,13 @@ import { AUTH_USER, SIGN_OUT_USER, REVIEW_SUBMITTED, APP_USER_LOADED, EMPTY_FRIE
 import * as ActionTypes from '../actions/types'
 
 const defaultState = {
-  appName: 'Collabo',
+  appName: 'Koi',
   authenticated: false,
   token: null,
   authRedirect: '',
   orgList: [],
   organization: {},
+  invalidOrgUser: false
 };
 
 export default (state = defaultState, action) => {

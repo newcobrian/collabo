@@ -3,7 +3,7 @@ import * as Constants from '../constants';
 import * as Helpers from '../helpers';
 import { find, isEqual } from 'lodash';
 
-const initialState = { usersData: {}, threadCounts: {}, feedEndValue: null, isFeedLoading: false, projectNames: {} }
+const initialState = { usersData: {}, threadCounts: {}, feedEndValue: null, isFeedLoading: false, projectNames: {}, invalidOrgUser: false }
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -135,7 +135,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
         org: {},
-        feedEndValue: new Date().getTime()
+        feedEndValue: new Date().getTime(),
+        invalidOrgUser: false
       }
     }
     case ActionTypes.NOT_AN_ORG_USER:

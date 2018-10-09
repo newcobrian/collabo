@@ -4,6 +4,7 @@ import { Link, browserHistory } from 'react-router';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
 import ListErrors from './ListErrors';
+import LoggedOutMessage from './LoggedOutMessage';
 
 const mapStateToProps = state => ({
   ...state.createOrg,
@@ -60,69 +61,70 @@ class CreateOrg extends React.Component {
 	}
 
 	render() {
+		if (!this.props.authenticated) {
+	      return (
+	        <LoggedOutMessage />
+	      )
+	    }
 		return (
+			<div className="page-common page-create-org flx flx-col flx-center-all">
+	         	<div className="koi-view header-push ta-left flx flx-col">
+					<div className="co-post-title mrgn-bottom-md">
+	    				Create your new team
+	  				</div>
+		            <div className="co-type-body color--black mrgn-bottom-md">
+					This is your team/company name (ie "Tesla", "Bonniecylde")
+					</div>
+					
+		            <form>
 
 
+						<fieldset className="field-wrapper">
+							<label>Team Name</label>
+	                      <input
+	                        className="input--underline edit-itinerary__name brdr-all"
+	                        type="text"
+	                        placeholder="Biz Co"
+	                        required
+	                        value={this.props.name}
+	                        maxLength="42"
+	                        onChange={this.changeName} />
+	                    </fieldset>
 
+	                    <fieldset className="DN field-wrapper">
+							<label>Invite team members</label>
+	                      <textarea
+	                        className="input--underline v2-type-body3"
+	                        type="text"
+	                        rows="4"
+	                        maxLength="184"
+	                        placeholder="Add email addresses separated by commas..."
+	                        required
+	                        value={this.props.invites}
+	                        onChange={this.changeInvites} />
+	                    </fieldset>
 
-      				<div className="page-common page-create-org flx flx-col flx-center-all">
-			         	<div className="koi-view header-push ta-left flx flx-col">
-							<div className="co-post-title mrgn-bottom-md">
-                				Create your new team
-              				</div>
-				            <div className="co-type-body color--black mrgn-bottom-md">
-							This is your team/company name (ie "Tesla", "Bonniecylde")
+	                    <ListErrors errors={this.props.errors}></ListErrors>
+	                    
+	                    <div className="flx flx-row flx-just-end w-100">
+	                    	<Link onClick={()=>browserHistory.goBack()} activeClassName="active" className="vb vb--form-cta mrgn-top-md fill--gray color--black mrgn-right-sm">
+	                    	   Cancel
+	                    	</Link>
+							<div
+							className="vb vb--form-cta mrgn-top-md fill--secondary color--white"
+							type="button"
+							disabled={this.props.inProgress}
+							onClick={this.submitForm}>
+							    	
+								Create List
+
 							</div>
-							
-				            <form>
+		                 </div>
+			        </form>
 
-
-								<fieldset className="field-wrapper">
-									<label>Team Name</label>
-			                      <input
-			                        className="input--underline edit-itinerary__name brdr-all"
-			                        type="text"
-			                        placeholder="Biz Co"
-			                        required
-			                        value={this.props.name}
-			                        maxLength="42"
-			                        onChange={this.changeName} />
-			                    </fieldset>
-
-			                    <fieldset className="DN field-wrapper">
-									<label>Invite team members</label>
-			                      <textarea
-			                        className="input--underline v2-type-body3"
-			                        type="text"
-			                        rows="4"
-			                        maxLength="184"
-			                        placeholder="Add email addresses separated by commas..."
-			                        required
-			                        value={this.props.invites}
-			                        onChange={this.changeInvites} />
-			                    </fieldset>
-
-			                    <ListErrors errors={this.props.errors}></ListErrors>
-			                    
-			                    <div className="flx flx-row flx-just-end w-100">
-			                    	<Link onClick={()=>browserHistory.goBack()} activeClassName="active" className="vb vb--form-cta mrgn-top-md fill--gray color--black mrgn-right-sm">
-			                    	   Cancel
-			                    	</Link>
-									<div
-									className="vb vb--form-cta mrgn-top-md fill--secondary color--white"
-									type="button"
-									disabled={this.props.inProgress}
-									onClick={this.submitForm}>
-									    	
-										Create List
-
-									</div>
-				                 </div>
-					        </form>
-
-					       
-					    </div>
-				    </div>
+		       
+		    </div>
+	    </div>
 
 
 

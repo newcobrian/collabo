@@ -10,6 +10,8 @@ import OrgHeader from './OrgHeader';
 import ProfileInfo from './ProfileInfo'
 import Sidebar from 'react-sidebar';
 import ProjectList from './ProjectList';
+import InvalidOrg from './InvalidOrg'
+import LoggedOutMessage from './LoggedOutMessage';
 // import Checkbox from 'material-ui/Checkbox';
 // import getMuiTheme from 'material-ui/styles/getMuiTheme';
 // import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -20,7 +22,8 @@ const mapStateToProps = state => ({
   ...state.addProject,
   authenticated: state.common.authenticated,
   sidebarOpen: state.common.sidebarOpen,
-  userInfo: state.common.userInfo
+  userInfo: state.common.userInfo,
+  invalidOrgUser: state.common.invalidOrgUser
 });
 
 class AddProject extends React.Component {
@@ -91,12 +94,15 @@ class AddProject extends React.Component {
 	}
 
 	render() {
-		if(this.props.invalidOrgUser) {
+		if (!this.props.authenticated) {
 	      return (
-	        <div>
-	          You don't have permission to view this team. <Link to='/'>Go Home</Link>
-	        </div>
+	        <LoggedOutMessage />
 	      )
+	    }
+	    if (this.props.invalidOrgUser) {
+	      return (
+	        <InvalidOrg/>
+	        )
 	    }
 
 		return (

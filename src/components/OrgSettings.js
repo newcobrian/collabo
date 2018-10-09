@@ -8,6 +8,8 @@ import ProjectList from './ProjectList';
 import Sidebar from 'react-sidebar';
 import ProfilePic from './ProfilePic';
 import DisplayTimestamp from './DisplayTimestamp';
+import InvalidOrg from './InvalidOrg'
+import LoggedOutMessage from './LoggedOutMessage';
 
 const mql = window.matchMedia(`(min-width: 800px)`);
 
@@ -161,6 +163,7 @@ const mapStateToProps = state => ({
   currentUser: state.common.currentUser,
   userInfo: state.common.userInfo,
   authenticated: state.common.authenticated,
+  invalidOrgUser: state.common.invalidOrgUser,
   sidebarOpen: state.common.sidebarOpen
 });
 
@@ -220,6 +223,17 @@ class OrgSettings extends React.Component {
   }
 
   render() {
+    if (!this.props.authenticated) {
+      return (
+        <LoggedOutMessage />
+      )
+    }
+    if (this.props.invalidOrgUser) {
+      return (
+        <InvalidOrg/>
+        )
+    }
+
     const { payload, sidebarOpen, tab, usersProjects, orgId, authenticated, userInfo } = this.props;
     return (
       <div>

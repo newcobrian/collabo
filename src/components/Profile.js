@@ -11,6 +11,7 @@ import ProjectList from './ProjectList';
 import InfiniteScroll from 'react-infinite-scroller';
 import OrgHeader from './OrgHeader';
 import Sidebar from 'react-sidebar';
+import InvalidOrg from './InvalidOrg';
 
 const mql = window.matchMedia(`(min-width: 800px)`);
 
@@ -60,7 +61,8 @@ const mapStateToProps = state => ({
   currentUser: state.common.currentUser,
   authenticated: state.common.authenticated,
   userInfo: state.common.userInfo,
-  sidebarOpen: state.common.sidebarOpen
+  sidebarOpen: state.common.sidebarOpen,
+  invalidOrgUser: state.common.invalidOrgUser
 });
 
 // const mapDispatchToProps = dispatch => ({
@@ -234,13 +236,7 @@ class Profile extends React.Component {
     }
     if (this.props.invalidOrgUser) {
       return (
-        <div className="error-module flx flx-col flx-center-all ta-center v2-type-body3 color--black">
-          <div className="xiao-img-wrapper mrgn-bottom-sm">
-            <img className="center-img" src="/img/xiaog.png"/>
-          </div>
-          <div className="mrgn-bottom-md">You don't have permission to view this org</div>
-
-        </div>
+        <InvalidOrg/>
         )
     }
     if (!this.props.profile) {

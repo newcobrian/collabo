@@ -9,6 +9,8 @@ import OrgHeader from './OrgHeader';
 import Sidebar from 'react-sidebar';
 import ProjectList from './ProjectList';
 import RichTextEditor from './RichTextEditor';
+import InvalidOrg from './InvalidOrg'
+import LoggedOutMessage from './LoggedOutMessage';
 // import { EditorState, convertFromRaw, convertToRaw } from 'draft-js';
 // import draftToHtml from 'draftjs-to-html';
  
@@ -19,7 +21,8 @@ const mapStateToProps = state => ({
   authenticated: state.common.authenticated,
   userInfo: state.common.userInfo,
   currentUser: state.common.currentUser,
-  sidebarOpen: state.common.sidebarOpen
+  sidebarOpen: state.common.sidebarOpen,
+  invalidOrgUser: state.common.invalidOrgUser
 });
 
 class AddThread extends React.Component {
@@ -101,11 +104,7 @@ class AddThread extends React.Component {
 
 	render() {
 		if(this.props.invalidOrgUser) {
-	      return (
-	        <div>
-	          You don't have permission to view this team. <Link to='/'>Go Home</Link>
-	        </div>
-	      )
+	      <InvalidOrg/>
 	    }
 		return (
 			<div>

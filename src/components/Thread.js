@@ -25,6 +25,7 @@ import OrgHeader from './OrgHeader';
 import Sidebar from 'react-sidebar';
 import LikeReviewButton from './LikeReviewButton';
 import RichTextEditor from './RichTextEditor';
+import InvalidOrg from './InvalidOrg'
 
 const mql = window.matchMedia(`(min-width: 800px)`);
 
@@ -297,12 +298,7 @@ class Thread extends React.Component {
     }
     else if(this.props.invalidOrgUser) {
       return (
-        <div className="error-module flx flx-col flx-center-all ta-center v2-type-body3 color--black">
-          <div className="xiao-img-wrapper mrgn-bottom-sm">
-            <img className="center-img" src="/img/xiaog.png"/>
-          </div>
-          <div className="mrgn-bottom-md">Sorry, you don't have permission to view this team.</div>
-        </div>
+        <InvalidOrg />
       )
     }
     else if (this.props.threadNotFoundError) {
