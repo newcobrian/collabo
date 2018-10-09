@@ -243,7 +243,14 @@ export const INVALID_USERNAMES = ['account', 'send', 'message', 'inbox', 'notifi
  'itinerary', 'messenger', 'settings', 'admin', 'administrator', 'settings', 'global', 'saved', 'login', 'register',
   'review', 'followers', 'isfollowing', 'likes', 'saves', 'select', 'explore', 'search', 'user', 'users', 'location', 'city', 
   'geo', 'attraction', 'subject', 'home', 'places', 'countries', 'api', 'guide', 'popular', 'privacy', 'terms', 'about',
-  'contact', 'recommend', 'recommendations', 'new', 'addthread', 'addproject', 'thread', 'project', 'organization', 'team']
+  'contact', 'recommend', 'recommendations', 'new', 'addthread', 'addproject', 'thread', 'project', 'organization',
+   'team', 'undefined', 'null', 'forgotpassword', 'invitation']
+
+  export const INVALID_ORG_NAMES = ['koi', 'account', 'send', 'message', 'inbox', 'notification', 'create', 'edit', 'editor',
+  'messenger', 'settings', 'admin', 'administrator', 'settings', 'global', 'saved', 'login', 'register',
+  'followers', 'isfollowing', 'likes', 'saves', 'select', 'explore', 'search', 'user', 'users', 
+  'home', 'api', 'privacy', 'terms', 'about', 'contact', 'new', 'addthread', 'addproject', 'thread', 'project', 
+  'organization', 'team', 'undefined', 'null', 'default', 'accept', 'forgotpassword', 'newteam', 'seo', 'invitation']
 
 export const ADMIN_USERS = [
 
