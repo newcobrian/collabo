@@ -20,7 +20,7 @@ const InviteLink = props => {
   // if no project, then send to invite org
   else {
     return (
-      <Link to={'/' + props.orgName + '/invite'}> 
+      <Link className="info-row flx flx-row flx-align-center brdr-top pdding-top-md mrgn-top-md" to={'/' + props.orgName + '/invite'}> 
         <div className="sidebar-icon flx flx-center-all mrgn-left-xs">
           <div className="koi-ico --24 ico--add--secondary"></div>              
         </div>

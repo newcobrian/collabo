@@ -49,14 +49,14 @@ class ProjectInviteModal extends React.Component {
     const actions = [
       <FlatButton
         label="Cancel"
-        className="vb vb--outline-none fill--secondary color--grey"
+        className="vb vb--outline-none fill--white color--grey"
         onClick={handleClose}
         style={{}}
         labelStyle={{}}
       />,
       <FlatButton
         label="Invite"
-        className="vb vb--outline-none fill--primary color--white"
+        className="vb vb--outline-none fill--secondary color--white"
         onClick={handleInvite}
         style={{}}
         labelStyle={{}}
@@ -75,9 +75,9 @@ class ProjectInviteModal extends React.Component {
           // lockToContainerEdges={true}
           modal={false}
           
-          title="Select people to invite"
+          title="Add Members to List"
 
-          titleClassName="dialog__title v2-type-h2"
+          titleClassName="co-type-page-title color--black"
           titleStyle={{}}
 
           className="dialog dialog--save"
@@ -96,11 +96,9 @@ class ProjectInviteModal extends React.Component {
           actionsContainerStyle={{}}
         >
 
-        <div className="dialog--save flx flx-col">
+        <div className="dialog--save flx flx-col w-100">
            
           <div>
-
-            <div className="v2-type-h2 subtitle">Select users to invite</div>
             
             <ListErrors errors={this.props.errors}></ListErrors>
 
@@ -111,20 +109,21 @@ class ProjectInviteModal extends React.Component {
                   //this.props.projectMembers[teammate.userId]
                   if (!projectMemberCheck || !projectMemberCheck[teammate.userId]) {
                       return (
-                        <div className="roow roow-row mrgn-bottom-sm pdding-all-sm list-row default-card-white bx-shadow" key={teammate.userId}>
-                          <div>
+                        <div className="mrgn-bottom-sm pdding-all-sm w-100 flx flx-row flx-align-center" key={teammate.userId}>
+                          <div className="sidebar-icon mrgn-right-md pdding-left-xs">
                           <input
                               name={teammate.userId}
                               type="checkbox"
+                              className="koi-ico --24"
                               onChange={this.toggleCheckbox(teammate.userId)} />
                           </div>
                           <div className="">
-                            <div className="reviewer-photo center-img">
+                            <div className="reviewer-photo photo-lg mrgn-right-sm">
                               <ProfilePic src={teammate.image} />
                           </div>
                       </div>
-                      <div className="roow roow-col-left">
-                        <div>
+                      <div className="co-type-body w-100">
+                        <div className="co-type-bold color--black">
                             {teammate.username}
                         </div>
                         </div>
@@ -135,19 +134,23 @@ class ProjectInviteModal extends React.Component {
                   // otherwise just show username
                   else {
                     return (
-                      <div className="roow roow-row mrgn-bottom-sm pdding-all-sm list-row default-card-white bx-shadow" key={teammate.userId}>
-                          <div className="">
-                            <div className="reviewer-photo center-img">
-                              <ProfilePic src={teammate.image} />
+                      <div>
+                        <div className="mrgn-bottom-sm pdding-all-sm w-100 flx flx-row flx-align-center" key={teammate.userId}>
+                          <div className="sidebar-icon mrgn-right-md">
+                            <div className="koi-ico --24 ico--checkmark--primary opa-20"></div>
                           </div>
+                          <div className="reviewer-photo photo-lg mrgn-right-sm">
+                            <ProfilePic src={teammate.image} />
+                          </div>
+
+                          <div className="co-type-body w-100 color--black flx flx-col flx-just-start flx-align-start">
+                                <div className="co-type-bold">{teammate.username}</div>
+                                <div className="thread-timestamp opa-60">Joined</div>
+
+                          </div>
+                        </div>
                       </div>
-                      <div className="roow roow-col-left">
-                        <div>
-                            {teammate.username} - joined
-                        </div>
-                        </div>
-                        
-                  </div>
+
                     )
                   }
                 })

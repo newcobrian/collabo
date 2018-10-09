@@ -21,11 +21,11 @@ const DotJewel = props => {
 const ThreadCountJewel = props => {
   if (props.threadCount > 0) {
     return (
-      <div className="group-badge badge-on color--black flx-item-right thread-timestamp"> {props.threadCount}</div>
+      <div className="group-badge badge-on color--white flx-item-right thread-timestamp"> {props.threadCount}</div>
     );
   }
   return (
-    <div className="group-badge badge-on color--black flx-item-right"></div>
+    <div className="group-badge badge-on color--white flx-item-right"></div>
   );
 }
 const InboxCounter = props => {

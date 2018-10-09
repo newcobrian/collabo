@@ -1,7 +1,6 @@
 body div.dialog--save {
-  padding-top: 0 !important;
   overflow: scroll;
-  padding: 0 0 100px;
+  padding: 20px;
 }
 .dialog--save__wrapper {
   margin: 0;
@@ -93,17 +92,19 @@ body div.dialog--save {
    border: 1px solid rgba(0,0,0,.3) !important;
    border: 0px solid #D7E3E5 !important;
    border-radius: 0px !important;
+   text-transform: uppercase;
+   font-weight: 600 !important;
+   font-size: 12px !important;
 }
 .dialog--save__actions .vb.vb--outline-none button {
   border: none !important;
 }
 .dialog--save__actions button:hover {
-  background-color: rgba(247,247,247,.4) !important;
+  opacity: .8 !important;
 }
 .dialog--save__actions button span {
-  text-transform: none !important;
-  font-weight: 400 !important;
-  font-family: 'Arimo', 'Roboto', sans-serif;
+  letter-spacing: 2px !important;
+  font-size: 13px !important;
 }
 .dialog--save__tip-name {
   padding-top: 0;

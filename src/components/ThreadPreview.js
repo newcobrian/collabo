@@ -25,21 +25,21 @@ const UpdateSection = props => {
   if (!props.thread) return null
   else if (props.thread.lastUpdate === Constants.NEW_THREAD_TYPE) {
     return (
-      <div className="flx-hold mrgn-right-xs opa-80 color--black">
+      <div className="mrgn-right-xs opa-80 color--black">
         created a new thread.
       </div>
     )
   }
   else if (props.thread.lastUpdate === Constants.EDIT_THREAD_TYPE) {
     return (
-      <div className="flx-hold mrgn-right-xs opa-80 color--black">
+      <div className="mrgn-right-xs opa-80 color--black">
         edited the post. 
       </div>
     )
   }
   else if (props.thread.lastUpdate === Constants.COMMENT_TYPE) {
     return (
-      <div className="flx-hold mrgn-right-xs opa-80 color--black">
+      <div className="mrgn-right-xs opa-80 color--black">
         added a comment
       </div>
     )

@@ -12,7 +12,7 @@ const SignOutButton = props => {
     <Link
       className="flx flx-align-center mrgn-right-md w-100"
       onClick={props.signOut}>
-      <div className="flx-item-right color--black co-type-label">Log out</div>
+      <div className="flx-item-right color--white co-type-label">Log out</div>
     </Link>
   )
 }

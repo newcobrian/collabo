@@ -249,9 +249,10 @@ textarea {
 }
 
 .co-type-page-title {
-    font-size: 24px;
-    font-weight: 600;
+	font-size: 24px !important;
+    font-weight: 600 !important;
     letter-spacing: 1.2px;
+    font-family: 'Montserrat';
 }
 .co-type-thread-title {
     font-size: 28px;
@@ -300,7 +301,7 @@ p {
 .threadlist-outer {
 	position: absolute;
 	left: 0;
-	right: 310px;
+	right: 240px;
 	background-color: transparent;
 }
 
@@ -692,7 +693,7 @@ p {
 	position: absolute;
 	left: 0;
 	top: 0px;
-	right: 310px;
+	right: 240px;
 	padding: 0 0 0 30px;
 	height: 64px;
 	z-index: 200;
@@ -727,12 +728,12 @@ p {
 }
 
 .project-info {
-	width: 250px;
+	width: 180px;
     height: auto;
     z-index: 1;
     position: fixed;
     top: 104px;
-    right: 20px;
+    right: 30px;
     padding: 0px;
     overflow: hidden;
     background-color: white;
@@ -819,6 +820,10 @@ p {
 }
 .koi-ico.--24.ico--add {
 	background-image: url(img/icon24_add.png);
+}
+
+.koi-ico.--24.ico--checkmark--primary {
+	background-image: url(img/icon24_checkmark_primary.png);
 }
 
 .koi-ico.--24.ico--add--primary {
