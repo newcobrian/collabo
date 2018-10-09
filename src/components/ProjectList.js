@@ -32,7 +32,7 @@ const InboxCounter = props => {
   if (props.inboxCount > 0) {
     return (
       <div className="group-badge fill--secondary color--white active">
-        {this.props.unreadMessages}
+        {props.inboxCount}
       </div>
     );
   }
@@ -196,7 +196,7 @@ class ProjectList extends React.Component {
 
               <Link to={'/' + this.props.orgName + '/inbox'} activeClassName="active" className="sidebar-row group-triplet flx flx-col flx-align-center">
                   <div className="sidebar-icon--large flx flx-center-all">
-                    <div className=""><InboxCounter unreadMessages={this.props.unreadMessages} className=""/></div>
+                    <div className=""><InboxCounter inboxCount={inboxCount} className=""/></div>
                   </div>
                   <div className="co-type-label color--white">Activity</div>
               </Link>
