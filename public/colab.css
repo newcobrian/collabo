@@ -30,10 +30,10 @@
 .home-page.page-common {
     background-attachment: fixed;
     min-height: 500px;
-    background-color: #F9FDFF !important;
-    padding: 20px;
+    padding: 60px 20px 120px;
     margin-left: 0 !important;
     z-index: 1;
+    background: linear-gradient(0deg, #0F6987 -8.14%, #17174E 36.88%);
 }
 .project-sidebar {
     min-height: 800px;
@@ -69,20 +69,17 @@ textarea {
 	margin-top: 6px;
 }
 .org-block {
-	width: 200px;
-	height: 200px;
-	padding: 20px;
-	flex-basis: 50%;
-	border: 1px solid rgba(0,0,0,.1);
-	border-radius: 10px;
-	margin: 20px;
-	background-color: white;
+	min-width: 300px;
+    height: 60px;
+    padding: 20px;
+    flex-basis: 50%;
+    border-radius: 0px;
+    margin: 0px;
 	transition: all 0.23s ease-in-out 0s;
 
 }
 .org-block:hover {
-	margin-top: 18px;
-	transition: all 0.23s ease-in-out 0s;
+	opacity: .8;
 }
 .org-logo {
 	width: 88px;
@@ -99,9 +96,14 @@ textarea {
 	animation: spin 50s infinite linear;
 	moz-animation: spin 50s infinite linear;
 }
+.co-logotype {
+	background-color: transparent;
+	height: 69px;
+	width: 155px;
+}
 .co-logo.large-logo {
-	width: 100px;
-	height: 100px;
+	width: 80px;
+	height: 80px;
 	margin-right: 0;
 	-webkit-animation: spin 50s infinite linear;
 	animation: spin 50s infinite linear;
@@ -261,7 +263,9 @@ textarea {
 	font-weight: bold;
 }
 .co-type-tagline {
-	font-size: 20px;
+	font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 2px;
 }
 .co-type-project-name {
     font-size: 11px;

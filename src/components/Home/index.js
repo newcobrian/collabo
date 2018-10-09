@@ -23,14 +23,14 @@ const OrgList = props => {
   }
   else {
     return (
-      <div className="flx flx-row flx-m-col flx-center-all">
+      <div className="flx flx-col flx-center-all">
         {
           props.orgList.map((orgItem, index) => {
             return (
-              <a target="_blank" href={Constants.COLLABO_URL + '/' + orgItem.name} className="org-block flx flx-col flx-center-all bx-shadow" key={index}>
-                <div className="org-logo mrgn-bottom-md">
+              <a target="_blank" href={Constants.COLLABO_URL + '/' + orgItem.name} className="org-block flx flx-col flx-center-all" key={index}>
+                <div className="org-logo mrgn-bottom-md DN">
                 </div>
-                <div className="co-type-org">{orgItem.name}</div>
+                <div className="co-type-org color--white">{orgItem.name}</div>
               </a>
               )
           })
@@ -139,18 +139,18 @@ class Home extends React.Component {
             <SignOutButton signOut={this.props.signOutUser}/>
             
             <div className="co-logo large-logo">
-              <img className="center-img" src="/img/logo_temp.png"/>
+              <img className="center-img" src="/img/logomark.png"/>
             </div>
-            <div className="co-type-logotype w-100">Koi</div>
-            <div className="co-type-tagline w-100 mrgn-bottom-md">Focus. Relax. Get Shit Done.</div>
+            <div className="co-logotype w-100 mrgn-top-lg">
+              <img className="center-img" src="/img/logotype.png"/>
+            </div>
+            <div className="co-type-tagline w-100 mrgn-bottom-lg mrgn-top-lg color--white">Harmonious Team Communication</div>
 
             <OrgList
               orgList={this.props.orgList} />
-              <Link target="blank" to='/newteam' className="org-block flx flx-col flx-center-all bx-shadow">
-                <div className="org-logo mrgn-bottom-md fill--white flx flx-col flx-center-all">
-                  <i className="material-icons color--black md-48 opa-20">add</i>
-                </div>
-                <div className="co-type-normal co-type-org opa-40">Create New Team</div>
+              <Link target="blank" to='/newteam' className="org-block flx flx-row flx-center-all">
+                  <i className="material-icons color--white md-24 mrgn-right-sm opa-80">add</i>
+                <div className="co-type-org color--white">Create New Team</div>
               </Link>
               {/*<div className="guide-feed-wrapper w-100 flx flx-row flx-just-center flx-self-end flx-align-start flx-wrap">
                 
@@ -166,26 +166,26 @@ class Home extends React.Component {
             
 
             
-
+          </div>
+            <div className="footer color--white flx flx-col flx-center-all flx-item-bottom co-type-data pdding-top-lg">
+              <div className="homepage-logo mrgn-bottom-lg DN">  
+              </div>
+              <div className="co-type-data color--white opa-70 mrgn-bottom-md">
+                &copy;2018 Futurehumans, LLC All Rights Reserved
+              </div>
+              <div className="flx flx-row flx-center-all mrgn-bottom-lg">
+                <Link to="/terms.html" target="blank" className="color--white opa-70">
+                  Terms of Service
+                </Link>
+                <div className="middle-dot color--white flx-hold">&middot;</div>
+                <Link to="/privacy.html" target="blank" className="color--white opa-70">
+                  Privacy Policy
+                </Link>
+            </div>
           </div>
           
 
-          <div className="footer fill--black color--white flx flx-col flx-center-all flx-item-bottom">
-            <div className="homepage-logo mrgn-bottom-lg DN">  
-            </div>
-            <div className="v2-type-body0 color--white opa-70 mrgn-bottom-md">
-              &copy;2018 Futurehumans, LLC All Rights Reserved
-            </div>
-            <div className="flx flx-row flx-center-all mrgn-bottom-lg">
-              <Link to="/terms.html" target="blank" className="v2-type-body0 color--white opa-70">
-                Terms of Service
-              </Link>
-              <div className="middle-dot color--white flx-hold">&middot;</div>
-              <Link to="/privacy.html" target="blank" className="v2-type-body0 color--white opa-70">
-                Privacy Policy
-              </Link>
-            </div>
-          </div>
+          
         </div>
       );
     }
