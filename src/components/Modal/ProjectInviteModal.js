@@ -134,8 +134,8 @@ class ProjectInviteModal extends React.Component {
                   // otherwise just show username
                   else {
                     return (
-                      <div>
-                        <div className="mrgn-bottom-sm pdding-all-sm w-100 flx flx-row flx-align-center" key={teammate.userId}>
+                      <div key={teammate.userId}>
+                        <div className="mrgn-bottom-sm pdding-all-sm w-100 flx flx-row flx-align-center">
                           <div className="sidebar-icon mrgn-right-md">
                             <div className="koi-ico --24 ico--checkmark--primary opa-20"></div>
                           </div>
