@@ -75,9 +75,9 @@ class ProjectInviteModal extends React.Component {
           // lockToContainerEdges={true}
           modal={false}
           
-          title="Add Members to List"
+          title={'Add Members to List: ' + this.props.project.name}
 
-          titleClassName="co-type-page-title color--black"
+          titleClassName="co-type-h3 color--black"
           titleStyle={{}}
 
           className="dialog dialog--save"
