@@ -1662,35 +1662,37 @@ export function loadProjectMembers(projectId, orgName, source) {
     if (!projectId) {
       // load all org members
       Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', orgSnap => {
-        Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgSnap.val().orgId).on('child_added', addedSnap => {
-          Firebase.database().ref(Constants.USERS_PATH + '/' + addedSnap.key).once('value', userSnap => {
-            if (addedSnap.key == '')
-            dispatch({
-              type: ActionTypes.PROJECT_MEMBER_ADDED,
-              userId: addedSnap.key,
-              userData: userSnap.val(),
-              source: source
+        if (orgSnap.exists()) {
+          Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgSnap.val().orgId).on('child_added', addedSnap => {
+            Firebase.database().ref(Constants.USERS_PATH + '/' + addedSnap.key).once('value', userSnap => {
+              if (addedSnap.key == '')
+              dispatch({
+                type: ActionTypes.PROJECT_MEMBER_ADDED,
+                userId: addedSnap.key,
+                userData: userSnap.val(),
+                source: source
+              })
             })
           })
-        })
 
-        // Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgSnap.val().orgId).on('child_changed', changedSnap => {
-        //   Firebase.database().ref(Constants.USERS_PATH + '/' + addedSnap.key).once('value', userSnap => {
-        //     dispatch({
-        //       type: ActionTypes.PROJECT_MEMBER_CHANGED,
-        //       userId: changedSnap.key,
-        //       userData: userSnap.val(),
-        //       source: source
-        //     })  
-        // })
+          // Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgSnap.val().orgId).on('child_changed', changedSnap => {
+          //   Firebase.database().ref(Constants.USERS_PATH + '/' + addedSnap.key).once('value', userSnap => {
+          //     dispatch({
+          //       type: ActionTypes.PROJECT_MEMBER_CHANGED,
+          //       userId: changedSnap.key,
+          //       userData: userSnap.val(),
+          //       source: source
+          //     })  
+          // })
 
-        Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgSnap.val().orgId).on('child_removed', removedSnap => {
-          dispatch({
-            type: ActionTypes.PROJECT_MEMBER_REMOVED,
-            userId: removedSnap.key,
-            source: source
-          })  
-        })
+          Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgSnap.val().orgId).on('child_removed', removedSnap => {
+            dispatch({
+              type: ActionTypes.PROJECT_MEMBER_REMOVED,
+              userId: removedSnap.key,
+              source: source
+            })  
+          })
+        }
       })
     }
     else {
