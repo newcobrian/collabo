@@ -32,24 +32,28 @@ const ThreadList = props => {
     <div className="threadlist brdr-right b--primary--20 header-push w-100 flx flx-col flx-align-center">
       {
         props.threads.map((threadItem, index) => {
-          return (
-            <ThreadPreview 
-              authenticated={props.authenticated}
-              userInfo={props.userInfo}
-              thread={threadItem}
-              orgName={props.orgName}
-              projectId={threadItem.projectId}
-              key={threadItem.threadId} 
-              authenticated={props.authenticated}
-              userInfo={props.userInfo}
-              deleteComment={props.deleteComment}
-              index={index+1}
-              projectNames={props.projectNames}
-              project={props.project}
-              usersList={props.usersList}
-              deleteComment={props.deleteComment}
-            />
-          );
+          // only show posts from projects that user belongs to
+          if (props.projectCheck && props.projectCheck[threadItem.projectId]) {
+            return (
+              <ThreadPreview 
+                authenticated={props.authenticated}
+                userInfo={props.userInfo}
+                thread={threadItem}
+                orgName={props.orgName}
+                projectId={threadItem.projectId}
+                key={threadItem.threadId} 
+                authenticated={props.authenticated}
+                userInfo={props.userInfo}
+                deleteComment={props.deleteComment}
+                index={index+1}
+                projectNames={props.projectNames}
+                project={props.project}
+                usersList={props.usersList}
+                deleteComment={props.deleteComment}
+              />
+            );
+          }
+          else return null
         })
       }
     </div>

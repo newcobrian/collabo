@@ -479,11 +479,12 @@ export function unloadThreadCounts(auth, orgId) {
   }
 }
 
-export function unloadProjectList(auth, orgId) {
+export function unloadProjectList(auth, orgId, source) {
   return dispatch => {
      Firebase.database().ref(Constants.PROJECTS_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgId).off()
      dispatch({
-      type: ActionTypes.UNLOAD_PROJECT_LIST
+      type: ActionTypes.UNLOAD_PROJECT_LIST,
+      source
      })
   }
 }
@@ -1293,6 +1294,7 @@ export function watchThreadFeed(auth, orgName, projectId, endValue, source) {
             }
           })
 
+          // if this is the first load, there's no endValue
           if (endValue === null) {
             Firebase.database().ref(path)
               .orderByChild('lastModified')

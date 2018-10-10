@@ -210,6 +210,7 @@ class Project extends React.Component {
                             project={this.props.project}
                             usersList={this.props.usersList}
                             deleteComment={this.props.onDeleteThreadComment}
+                            projectCheck={this.props.projectCheck}
                             className={"w-100 h-100"} />
 
 
