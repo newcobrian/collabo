@@ -1020,6 +1020,9 @@ p {
 	}
 	
 
+.color--tertiary {
+	color: rgba(101,212,236,1);
+}
 .fill--tertiary--10 {
 	background-color: rgba(101,212,236,.2);
 }
