@@ -353,7 +353,8 @@ p {
   /*border-left: none;*/
   background-color: white;
   padding: 16px;
-  border-left-width: 4px;
+  border-left-width: 4px !important;
+  border-left-color: rgba(255,171,140,.8) !important;
 }
 .comment-wrapper {
   border-radius: 0;
