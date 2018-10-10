@@ -1665,7 +1665,6 @@ export function loadProjectMembers(projectId, orgName, source) {
         if (orgSnap.exists()) {
           Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgSnap.val().orgId).on('child_added', addedSnap => {
             Firebase.database().ref(Constants.USERS_PATH + '/' + addedSnap.key).once('value', userSnap => {
-              if (addedSnap.key == '')
               dispatch({
                 type: ActionTypes.PROJECT_MEMBER_ADDED,
                 userId: addedSnap.key,
