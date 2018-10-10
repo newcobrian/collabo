@@ -157,6 +157,7 @@ class ProjectList extends React.Component {
 
           {
             (this.props.projectList || []).map((projectItem, index) => {
+              let projectName = this.props.projectNames && this.props.projectNames[projectItem.id] ? this.props.projectNames[projectItem.id].name : ''
               return (
 
                   <Link className={"sidebar-row group-row flx flx-row flx-align-center " + (this.props.projectId === projectItem.id ? 'active' : '')} key={projectItem.id} to={'/' + orgName + '/' + projectItem.id}>
@@ -164,7 +165,7 @@ class ProjectList extends React.Component {
                       {<DotJewel threadCount={threadCounts[projectItem.id]} />}
                     </div> 
                     <div className="co-type-project-name color--white">
-                      {this.props.projectNames[projectItem.id].name}
+                      {projectName}
                     </div>
                     {<ThreadCountJewel threadCount={threadCounts[projectItem.id]} />}
                   </Link>

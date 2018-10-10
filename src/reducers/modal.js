@@ -21,6 +21,7 @@ export default (state = initialState, action) => {
         itinerariesList: action.itinerariesList
   		}
     case ActionTypes.SHOW_PROJECT_INVITE_MODAL:
+    case ActionTypes.PROJECT_CREATED:
       return {
         ...state,
         modalType: Constants.PROJECT_INVITE_MODAL,

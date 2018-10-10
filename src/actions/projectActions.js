@@ -55,20 +55,38 @@ export function onAddProject(auth, project, orgName, userInfo) {
             // mixpanel.people.increment("total itineraries");
             // mixpanel.people.set({ "last itinerary created": (new Date()).toISOString() });
             // mixpanel.identify(auth);
+          
 
-            dispatch({
-              type: ActionTypes.PROJECT_CREATED,
-              project: projectObject,
-              projectId: projectId,
-              orgName: orgName
-              // meta: {
-              //   mixpanel: {
-              //     event: 'Itinerary created',
-              //     source: 'create page',
-              //     itineraryId: itineraryId,
-              //     geo: itinerary.geo.placeId
-              //   }
-              // }
+
+
+
+            Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgSnap.val().orgId).once('value', orgUsersSnap => {
+              let usersList = []
+              orgUsersSnap.forEach(function(user) {
+                usersList = usersList.concat(Object.assign({}, { userId: user.key }, user.val()))
+              })
+              usersList.sort(Helpers.byUsername)
+
+              let projectMemberCheck = {}
+              projectMemberCheck[auth] = true
+
+              dispatch({
+                type: ActionTypes.PROJECT_CREATED,
+                project: projectObject,
+                projectId: projectId,
+                orgName: orgName,
+                orgId: orgSnap.val().orgId,
+                usersList: usersList,
+                projectMemberCheck: projectMemberCheck
+                // meta: {
+                //   mixpanel: {
+                //     event: 'Itinerary created',
+                //     source: 'create page',
+                //     itineraryId: itineraryId,
+                //     geo: itinerary.geo.placeId
+                //   }
+                // }
+              })
             })
           }
         })
