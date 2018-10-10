@@ -150,7 +150,7 @@ export default (state = defaultState, action) => {
     case ActionTypes.INVITE_ACCEPTED:
       return {
         ...state,
-        redirectTo: '/' + action.orgName
+        redirectTo: '/' + action.orgName + '/admin'
       }
     case ActionTypes.THREAD_DELETED:
       return { 
