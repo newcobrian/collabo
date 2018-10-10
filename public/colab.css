@@ -29,7 +29,7 @@
 }
 .home-page.page-common {
     background-attachment: fixed;
-    min-height: 500px;
+    min-height: 820px;
     padding: 60px 20px 120px;
     margin-left: 0 !important;
     z-index: 1;
@@ -86,6 +86,13 @@ textarea {
 	height: 88px;
 	border-radius: 100px;
 	background-color: transparent;
+}
+.loading-koi {
+	width: 48px;
+	height: 48px;
+	-webkit-animation: spin 2s infinite linear;
+	animation: spin 2s infinite linear;
+	moz-animation: spin 2s infinite linear;
 }
 .co-logo {
 	background-color: transparent;
@@ -307,7 +314,7 @@ p {
 
 .threadlist.threadlist-loading {
 	padding: 180px;
-	min-height: 1000px;
+	min-height: 600px;
 }
 .threadlist-wrapper {
 	margin: 0;

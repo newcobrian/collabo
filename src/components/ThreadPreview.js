@@ -89,8 +89,8 @@ const ProjectLabel = props => {
   }
   else return (
     <div className="co-project-name mrgn-left-xs">
-      <Link to={'/' + props.orgName + '/' + props.projectId}>
-        in {props.projectNames[props.projectId] ? props.projectNames[props.projectId].name : ''}
+      <Link className="co-type-bold text-hover" to={'/' + props.orgName + '/' + props.projectId}>
+        {props.projectNames[props.projectId] ? props.projectNames[props.projectId].name : ''}
       </Link>
     </div> 
   )
@@ -146,7 +146,7 @@ const ThreadPreview = props => {
 
                 <div className="flx flx-col flx-align-start">
                   <div className="flx flx-row co-type-body mrgn-left-xs">
-                    <div className="co-type-bold">{lastUpdater.username || ''}</div> 
+                    <Link className="co-type-bold text-hover" to={'/' + props.orgName + '/user/' + lastUpdater.username}>{lastUpdater.username || ''}</Link> 
                     &nbsp;<UpdateSection thread={thread} />
                   </div>
                   
@@ -164,7 +164,7 @@ const ThreadPreview = props => {
                 </Link>
               </div>
               <div className="color--black thread-timestamp flx flx-row flx-align-center mrgn-bottom-md">
-                <div>Created by {thread.createdBy.username}</div>
+                <div>Created by <Link to={'/' + props.orgName + '/user/' + thread.createdBy.username} className="co-type-bold text-hover">{thread.createdBy.username}</Link> in </div>
                 <ProjectLabel className="" projectNames={props.projectNames} projectId={thread.projectId} orgName={props.orgName} />
 
               </div>

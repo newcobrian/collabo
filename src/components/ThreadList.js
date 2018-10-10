@@ -19,8 +19,11 @@ const ThreadList = props => {
   }
   else if (!props.threads) {
     return (
-      <div className="threadlist threadlist-loading header-push w-100 flx flx-col ta-center h-100 fill--white color--primary">
-        <div className="w-100 ta-center">Loading threads...</div>
+      <div className="threadlist threadlist-loading header-push w-100 flx flx-col flx-center-all ta-center h-100 fill--white color--primary">
+        <div className="loading-koi mrgn-bottom-md">
+          <img className="center-img" src="/img/logomark.png"/>
+        </div>
+        <div className="w-100 ta-center co-type-body">Loading threads...</div>
       </div>
     );
   }

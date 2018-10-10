@@ -161,7 +161,10 @@ class Inbox extends React.Component {
       return (
         <div className="loading-module flx flx-col flx-center-all v2-type-body3 fill--primary">
           <div className="loader-wrapper flx flx-col flx-center-all">
-            <div className="v2-type-body2 color--white">Loading Activity</div>
+            <div className="loading-koi mrgn-bottom-lg">
+              <img className="center-img" src="/img/logomark.png"/>
+            </div>
+            <div className="co-type-body color--white">Loading Activity</div>
           </div>
         </div>
       );

@@ -17,9 +17,11 @@ body a {
 .comment-row a {
   color: #5B93FF;
 }
-body a: hover {
+body a:hover {
   opacity: .9;
-  transition: all 0.23s ease-in-out 0s;
+}
+body a.text-hover:hover {
+  text-decoration: underline;
 }
 .strong {
 font-weight: 500;
