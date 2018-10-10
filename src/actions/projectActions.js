@@ -1942,15 +1942,16 @@ export function createInboxByOrg() {
   }
 }
 
-export function inviteOrgUsersToProject(auth, orgId, projectId, invites) {
+export function inviteOrgUsersToProject(auth, org, project, invites) {
   return dispatch => {
     if (invites && invites.length > 0) {
       Firebase.database().ref(Constants.USERS_PATH + '/' + auth).once('value', authSnap => {
-        Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId).once('value', orgUsersSnap => {
-          Firebase.database().ref(Constants.USERS_BY_PROJECT_PATH + '/' + projectId).once('value', projectUsersSnap => {
+        Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + org.orgId).once('value', orgUsersSnap => {
+          Firebase.database().ref(Constants.USERS_BY_PROJECT_PATH + '/' + project.projectId).once('value', projectUsersSnap => {
             let orgUsers = orgUsersSnap.val()
             let projectUsers = projectUsersSnap.val()
             let updates = {}
+            let sendList = []
             for (let i = 0; i < invites.length; i++) {
               // if user is an org member but not in the project, invite them
               if ((orgUsers && orgUsers[invites[i]]) && (!projectUsers || !projectUsers[invites[i]])) {
@@ -1959,8 +1960,8 @@ export function inviteOrgUsersToProject(auth, orgId, projectId, invites) {
                   senderId: auth,
                   recipientId: invites[i],
                   timestamp: Firebase.database.ServerValue.TIMESTAMP,
-                  orgId: orgId,
-                  projectId: projectId
+                  orgId: org.orgId,
+                  projectId: project.projectId
                 }
 
                 let inviteId = Firebase.database().ref(Constants.PROJECT_INVITES_PATH).push(inviteObject).key
@@ -1970,20 +1971,26 @@ export function inviteOrgUsersToProject(auth, orgId, projectId, invites) {
                   Object.assign({}, omit(inviteObject, ['recipientId']))
 
                 // add to pending invite list for the project
-                updates[Constants.INVITED_USERS_BY_PROJECT_PATH + '/' + projectId + '/' + invites[i]] = 
+                updates[Constants.INVITED_USERS_BY_PROJECT_PATH + '/' + project.projectId + '/' + invites[i]] = 
                   Object.assign({}, 
                     { senderId: auth }, 
                     { senderUsername:  authSnap.val().username },
                     { timestamp: Firebase.database.ServerValue.TIMESTAMP })
+
+                sendList = sendList.concat(Object.assign({}, {recipientId: invites[i]}, {inviteId: inviteId}));
               }
             }
             Firebase.database().ref().update(updates)
 
             // send invites to users
 
+            for (let i = 0; i < sendList.length; i++) {
+              Helpers.sendCollaboInboxMessage(auth, sendList[i].recipientId, Constants.PROJECT_INVITE_MESSAGE, org, project, null, sendList[i].inviteId)
+            }
+
             dispatch({
               type: ActionTypes.INVITED_USERS_TO_PROJECT,
-              projectId
+              projectId: project.projectId
             })
           })
         })

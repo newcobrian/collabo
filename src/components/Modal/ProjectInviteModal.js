@@ -42,7 +42,9 @@ class ProjectInviteModal extends React.Component {
         this.props.createSubmitError('Select at least one person to invite', Constants.PROJECT_INVITE_MODAL);
       }
       else {
-        this.props.inviteOrgUsersToProject(this.props.authenticated, this.props.orgId, this.props.projectId, this.props.selectedUsers)
+        let org = Object.assign({}, {orgId: this.props.orgId}, {name: this.props.orgName})
+        let project = Object.assign({}, {projectId: this.props.projectId}, this.props.project)
+        this.props.inviteOrgUsersToProject(this.props.authenticated, org, project, this.props.selectedUsers)
       }
     }
 

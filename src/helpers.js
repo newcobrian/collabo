@@ -636,6 +636,8 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 
 	let sendEmail = true;
 
+	let orgId = thread ? thread.orgId : org.orgId
+
 	Firebase.database().ref(Constants.USERS_PATH + '/' + recipientId).once('value', recipientSnapshot => {
 		Firebase.database().ref(Constants.USERS_PATH + '/' + senderId).once('value', senderSnapshot => {
 			switch(messageType) {
@@ -669,17 +671,31 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 				// 	emailMessage = senderSnapshot.val().username + 
 				// 		' also commented on a tip you commented on. Click here to check it out: https://myviews.io' + inboxObject.link;
 				// 	break;
-				case Constants.ORG_INVITE_MESSAGE:
+				// case Constants.ORG_INVITE_MESSAGE:
+				// 	console.log('orgname = ' + org.name)
+				// 	inboxObject.senderId = senderId;
+				// 	inboxObject.message = ' invited you join their team: ' + org.name;
+				// 	inboxObject.link = '/invitation/' + sendObject;
+				// 	inboxObject.type = Constants.INBOX_INVITE_TYPE
+				// 	emailData.unitType = 'team'
+				// 	emailData.message = ' invited you to join the team: '
+				// 	emailData.name = org.name
+				// 	emailData.link = Constants.COLLABO_URL + '/invitation/' + sendObject;
+				// 	emailData.senderLink = Constants.COLLABO_URL + '/' + org.name + '/users/' + senderSnapshot.val().username
+				// 	emailTemplateID = "0a991f3c-3079-4d45-90d2-eff7c64f9cc5"
+					// emailMessage = senderSnapshot.val().username + 
+					// 	' invited you to join their team "' + org.name + '". Click here to check it out: ' + Constants.COLLABO_URL + '/invitation/' + sendObject;
+					break;
+				case Constants.PROJECT_INVITE_MESSAGE:
 					inboxObject.senderId = senderId;
-					inboxObject.message = ' invited you join their team: ' + org.name;
+					inboxObject.message = ' invited you join the list: ' + project.name;
 					inboxObject.link = '/invitation/' + sendObject;
 					inboxObject.type = Constants.INBOX_INVITE_TYPE
-					emailData.orgName = org.name
+					emailData.unitType = 'list'
+					emailData.message = ' invited you to join the list: ' + project.name + ' in the ' + org.name + ' team.'
 					emailData.link = Constants.COLLABO_URL + '/invitation/' + sendObject;
 					emailData.senderLink = Constants.COLLABO_URL + '/' + org.name + '/users/' + senderSnapshot.val().username
 					emailTemplateID = "0a991f3c-3079-4d45-90d2-eff7c64f9cc5"
-					// emailMessage = senderSnapshot.val().username + 
-					// 	' invited you to join their team "' + org.name + '". Click here to check it out: ' + Constants.COLLABO_URL + '/invitation/' + sendObject;
 					break;
 				// case Constants.PROJECT_INVITE_MESSAGE:
 				// 	inboxObject.senderId = senderId;
@@ -701,8 +717,8 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 				// 	break;
 			}
 			if (senderId !== recipientId) {
-				Firebase.database().ref(Constants.INBOX_BY_USER_BY_ORG_PATH + '/' + recipientId + '/' + thread.orgId).push().set(inboxObject);
-				Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + recipientId + '/' + thread.orgId + '/messageCount').transaction(function (current_count) {
+				Firebase.database().ref(Constants.INBOX_BY_USER_BY_ORG_PATH + '/' + recipientId + '/' + orgId).push().set(inboxObject);
+				Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + recipientId + '/' + orgId + '/messageCount').transaction(function (current_count) {
 		            return (current_count || 0) + 1;
 		        })
 	        	if (sendEmail && recipientSnapshot.exists() && recipientSnapshot.val().email) {
@@ -773,7 +789,14 @@ export function sendInviteEmail(auth, recipientEmail, orgName, inviteId) {
 		// 	' Click here to check it out: ' + Constants.COLLABO_URL + '/invitation/' + inviteId;
 		let link = Constants.COLLABO_URL + '/invitation/' + inviteId
 
-		let data = Object.assign({}, {orgName: orgName}, {senderName: senderSnap.val().username }, {link: link});
+		let data = Object.assign({}, 
+			{ name: orgName }, 
+			{ senderName: senderSnap.val().username }, 
+			{ link: link }, 
+			{ unitType: 'team' },
+			{ message: ' invited you to join the team: ' }
+			);
+		console.log(JSON.stringify(data))
 		sendContentManagerEmail("0a991f3c-3079-4d45-90d2-eff7c64f9cc5", recipientEmail, data);
 	})
 }
