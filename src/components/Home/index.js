@@ -11,7 +11,7 @@ import LoggedOutMessage from '../LoggedOutMessage';
 const SignOutButton = props => {
   return (
     <Link
-      className="flx flx-align-center mrgn-right-md w-100"
+      className="flx flx-align-center mrgn-right-md w-100 mrgn-bottom-lg"
       onClick={props.signOut}>
       <div className="flx-item-right color--white co-type-label">Log out</div>
     </Link>
@@ -85,36 +85,26 @@ class Home extends React.Component {
   LoggedOutIntro(authenticated) {
     if (!authenticated) {
       return (
-       <div className="hero-container logged-out flx flx-col">
-        <div className="marketing-page navigation-bar flx flx-row flx-align-center flx-just-end pdding-right-md DN">
-            <Link to="/login" className="nav-module nav-feed flx flx-center-all vb vb--sm fill--white color--black">
-              <div className="nav-text">
-                Log in
-              </div>
-            </Link>
+       <div className="home-page page-common flx flx-col flx-center-all flx-align-center flx-just-start ta-center">
+        
 
-            <Link to="/register" className="nav-module nav-feed flx flx-center-all vb vb--sm color--white">
-              <div className="nav-text">
-                Sign up
-              </div>
-            </Link>
-          </div>
-
-        <div className="error-module flx flx-col flx-center-all ta-center v2-type-body3 color--black">
-          <div className="xiao-img-wrapper mrgn-bottom-sm">
-            <img className="center-img" src="/img/xiaog.png"/>
-          </div>
-          <div className="mrgn-bottom-md">Some cool marketing copy goes here</div>
+        <div className="error-module flx flx-col flx-center-all ta-center co-type-body color--black">
+           <div className="co-logo large-logo mrgn-top-md">
+              <img className="center-img" src="/img/logomark.png"/>
+            </div>
+            <div className="co-logotype w-100 mrgn-top-lg">
+              <img className="center-img" src="/img/logotype.png"/>
+            </div>
+          <div className="co-type-tagline w-100 mrgn-bottom-lg mrgn-top-lg color--white">Harmonious Team Communication</div>
             
           <Link to="/register" className="">
-            <div className="vb vb--light vb--intro--register fill--primary color--white flx flx-row flx-center-all ta-center bx-shadow">
-              <div className="flx-grow1">JOIN NOW</div>
-              <i className="material-icons md-32 color--white flex-item-right mrgn-left-sm DN">flight_takeoff</i>
+            <div className="vb fill--secondary color--white">
+              Sign up
             </div>
           </Link>
-          <div className="flx flx-row flx-align-center v2-type-body1 mrgn-top-md">
-            <Link to="/login" className="color--primary">
-              login
+          <div className="flx flx-row flx-align-center co-type-body mrgn-top-md">
+            <Link to="/login" className="color--tertiary">
+              Login
             </Link>
           </div>
         </div>         
@@ -135,17 +125,17 @@ class Home extends React.Component {
     else {
       return (
         <div>
-          <div className={'home-page page-common fill--white flx flx-col flx-center-all ta-center'}>
+          <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
 
             <SignOutButton signOut={this.props.signOutUser}/>
             
-            <div className="co-logo large-logo">
+            <div className="co-logo large-logo mrgn-top-lg">
               <img className="center-img" src="/img/logomark.png"/>
             </div>
             <div className="co-logotype w-100 mrgn-top-lg">
               <img className="center-img" src="/img/logotype.png"/>
             </div>
-            <div className="co-type-tagline w-100 mrgn-bottom-lg mrgn-top-lg color--white">Harmonious Team Communication</div>
+            <div className="co-type-tagline w-100 mrgn-bottom-lg mrgn-top-lg color--white">Work Together in Harmony</div>
 
             <OrgList
               orgList={this.props.orgList} />
@@ -168,20 +158,18 @@ class Home extends React.Component {
 
             
           </div>
-            <div className="footer color--white flx flx-col flx-center-all flx-item-bottom co-type-data pdding-top-lg">
-              <div className="homepage-logo mrgn-bottom-lg DN">  
-              </div>
-              <div className="co-type-data color--white opa-70 mrgn-bottom-md">
-                &copy;2018 Futurehumans, LLC All Rights Reserved
-              </div>
-              <div className="flx flx-row flx-center-all mrgn-bottom-lg">
-                <Link to="/terms.html" target="blank" className="color--white opa-70">
-                  Terms of Service
-                </Link>
-                <div className="middle-dot color--white flx-hold">&middot;</div>
-                <Link to="/privacy.html" target="blank" className="color--white opa-70">
-                  Privacy Policy
-                </Link>
+          <div className="footer color--white flx flx-col flx-center-all flx-item-bottom co-type-data pdding-top-lg">
+            <div className="co-type-data color--white opa-70 mrgn-bottom-md">
+              &copy; 2018 Futurehumans, LLC All Rights Reserved
+            </div>
+            <div className="flx flx-row flx-center-all mrgn-bottom-lg">
+              <Link to="/terms.html" target="blank" className="color--white opa-70">
+                Terms of Service
+              </Link>
+              <div className="middle-dot color--white flx-hold">&middot;</div>
+              <Link to="/privacy.html" target="blank" className="color--white opa-70">
+                Privacy Policy
+              </Link>
             </div>
           </div>
           

@@ -30,7 +30,7 @@
 .home-page.page-common {
     background-attachment: fixed;
     min-height: 820px;
-    padding: 60px 20px 120px;
+    padding: 20px 20px 120px;
     margin-left: 0 !important;
     z-index: 1;
     background: linear-gradient(0deg, #0F6987 -8.14%, #17174E 36.88%);
@@ -1028,10 +1028,13 @@ p {
 	
 
 .color--tertiary {
-	color: rgba(101,212,236,1);
+	color: rgba(124,256,216,1);
+}
+.fill--tertiary {
+	background-color: rgba(124,256,216,1);
 }
 .fill--tertiary--10 {
-	background-color: rgba(101,212,236,.2);
+	background-color: rgba(124,256,216,.2);
 }
 
 
@@ -1039,8 +1042,6 @@ a.color--primary:hover i,
 a.color--primary:focus i,
 a.color--primary:hover,
 a.color--primary:focus {
-  color: #46DFFF !important;
-  color: #97B4FF !important;
   transition: all 0.23s ease-in-out 0s;
 }
 
