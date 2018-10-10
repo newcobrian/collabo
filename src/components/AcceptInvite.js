@@ -4,6 +4,7 @@ import * as Actions from '../actions';
 import * as Constants from '../constants';
 import { Link } from 'react-router';
 import LoadingSpinner from './LoadingSpinner';
+import LoggedOutMessage from './LoggedOutMessage';
 
 const mapStateToProps = state => ({
   ...state.acceptInvite,
@@ -20,6 +21,8 @@ class AcceptInvite extends React.Component {
   componentDidMount() {
     this.props.loadInvite(this.props.authenticated, this.props.params.iid, this.props.userInfo);
     if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
+
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'accept invite'});
   }
 
   componentWillUnmount() {
@@ -38,18 +41,7 @@ class AcceptInvite extends React.Component {
 
     if (!authenticated) {
       return (
-
-         <div className="koi-view ta-left flx flx-col flx-center-all w-100">
-              <div className="ta-left flx flx-col brdr-all bx-shadow color--black fill--white pdding-all-lg">
-                <div className="co-type-page-title">You've been invited to join a team on Koi.</div>
-                Login or signup to accept.
-                <div className="flx flx-row flx-just-end mrgn-top-md">
-                  <Link className="vb fill--secondary color--white mrgn-right-sm" to='/login'>Login</Link>
-                  <Link className="vb fill--gray color--black" to='/register'>Sign up</Link>
-                </div>
-              </div>
-          </div>     
-
+        <LoggedOutMessage />        
       )
     }
     if (loadInviteError) {

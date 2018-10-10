@@ -6,6 +6,7 @@ import * as Constants from '../../constants';
 import { Link, browserHistory } from 'react-router';
 import UniversalSearchBar from '../UniversalSearchBar';
 import ProjectList from '../ProjectList';
+import LoggedOutMessage from '../LoggedOutMessage';
 
 const SignOutButton = props => {
   return (
@@ -60,6 +61,8 @@ class Home extends React.Component {
   componentDidMount() {
     this.props.loadOrganizationList(this.props.authenticated)
     this.props.setSidebar(false)
+
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'homepage'});
   } 
 
   componentWillUnmount() {
@@ -126,9 +129,7 @@ class Home extends React.Component {
   render() {
     if (!this.props.authenticated) {
       return (
-        <div>
-          {this.LoggedOutIntro(this.props.authenticated)}
-        </div>
+        <LoggedOutMessage/>
       )
     }
     else {

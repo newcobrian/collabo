@@ -57,6 +57,8 @@ class Project extends React.Component {
     this.props.loadProjectMembers(this.props.params.pid, this.props.params.orgname, Constants.PROJECT_PAGE)
     // this.props.loadLikesByUser(this.props.authenticated, this.props.params.orgname)
 
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project'});
+
     if (this.props.params.pid) {
       this.props.markProjectRead(this.props.authenticated, this.props.params.pid)
     }

@@ -9,6 +9,8 @@ import DisplayTimestamp from './DisplayTimestamp';
 import ProjectList from './ProjectList';
 import OrgHeader from './OrgHeader';
 import Sidebar from 'react-sidebar';
+import LoggedOutMessage from './LoggedOutMessage'
+import InvalidOrg from './InvalidOrg'
 
 const mql = window.matchMedia(`(min-width: 800px)`);
 
@@ -65,7 +67,8 @@ const RenderUsername = props => {
 const mapStateToProps = state => ({
   ...state.inbox,
   authenticated: state.common.authenticated,
-  sidebarOpen: state.common.sidebarOpen
+  sidebarOpen: state.common.sidebarOpen,
+  invalidOrgUser: state.common.invalidOrgUser
 });
 
 class Inbox extends React.Component {
@@ -80,7 +83,9 @@ class Inbox extends React.Component {
     this.props.loadProjectNames(this.props.params.orgname, Constants.INBOX_PAGE)
 
     this.props.getInbox(this.props.authenticated, null, null, this.props.params.orgname);
+
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'inbox'});
+
     this.props.updateInboxCount(this.props.authenticated, this.props.params.orgname);
   }
 
@@ -104,6 +109,16 @@ class Inbox extends React.Component {
   }
 
   render() {
+    if (!this.authenticated) {
+      return (
+        <LoggedOutMessage />
+      )
+    }
+    if(this.props.invalidOrgUser) {
+      return (
+        <InvalidOrg/>
+      )
+    }
     if (this.props.inboxIsEmpty) {
       return (
         <div>

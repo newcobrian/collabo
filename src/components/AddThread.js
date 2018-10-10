@@ -91,6 +91,8 @@ class AddThread extends React.Component {
 	    this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
 	    this.props.loadOrgList(this.props.authenticated, Constants.ADD_THREAD_PAGE)
 	    this.props.loadProjectNames(this.props.params.orgname, Constants.ADD_THREAD_PAGE)
+
+	    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'add thread'});
 	}
 
 	componentWillUnmount() {

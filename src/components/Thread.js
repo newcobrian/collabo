@@ -240,7 +240,8 @@ class Thread extends React.Component {
     this.props.loadThread(this.props.params.tid);
     this.props.loadThreadLikes(this.props.params.tid);
     this.props.watchThreadComments(this.props.params.tid);
-    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project'});
+    
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'thread'});
     
     this.props.markThreadRead(this.props.authenticated, this.props.params.tid)
   }

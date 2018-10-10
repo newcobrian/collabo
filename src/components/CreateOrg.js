@@ -53,7 +53,7 @@ class CreateOrg extends React.Component {
     		this.props.askForAuth();
     	}
 
-    	// this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'create guide'});
+    	this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'create org'});
 	}
 
 	componentWillUnmount() {
