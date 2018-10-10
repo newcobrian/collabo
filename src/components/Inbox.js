@@ -109,7 +109,7 @@ class Inbox extends React.Component {
   }
 
   render() {
-    if (!this.authenticated) {
+    if (!this.props.authenticated) {
       return (
         <LoggedOutMessage />
       )
