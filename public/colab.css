@@ -55,6 +55,7 @@
 	padding-bottom: 228px;
     overflow-y: scroll;
     background: linear-gradient(0deg, #17174E 41.86%, #0F6987 106.88%);
+    background: linear-gradient(90deg, #17174E 11.86%, #0F6987 276.88%);
 
 }
 .co-search-wrapper {
@@ -432,6 +433,7 @@ p {
     background:  white;
     bottom: 0;
     border-top: 1px solid rgba(101,212,236,.2);
+    background: linear-gradient(90deg, #17174E 11.86%, #0F6987 276.88%);
 }
 
 .sidebar-icon {
@@ -465,7 +467,7 @@ p {
 }
 .sidebar-row.group-triplet {
 	width: 33.3333%;
-	padding: 8px 24px 4px;
+	padding: 8px 24px 12px;
 }
 .thread-icon {
 	width: 40px; 
@@ -845,6 +847,9 @@ p {
 }
 .koi-ico.--24.ico--add--tertiary {
 	background-image: url(img/icon24_add_tertiary.png);
+}
+.koi-ico.--24.ico--add--white {
+	background-image: url(img/icon24_add_white.png);
 }
 
 .koi-ico.--24.ico--allfeed {

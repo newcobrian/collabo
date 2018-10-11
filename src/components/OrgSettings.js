@@ -263,15 +263,15 @@ class OrgSettings extends React.Component {
                   </div>
                   <div className="koi-view header-push text-left flx flx-col flx-align-start w-100">
                     {/* HEADER START */}
-                    <div className="flx flx-row flx-align-center w-100 mrgn-bottom-sm">
+                    <div className="flx flx-col flx-align-start flx-just-center w-100 mrgn-bottom-sm">
                       <div className="co-type-page-title">{this.props.params.orgname} Team Directory</div>
 
-                      <Link to={'/' + this.props.params.orgname + '/invite'} className="flx flx-row flx-align-center flx-item-right">
-                        <div className="co-type-body color--secondary">
-                          Invite Users
+                      <Link to={'/' + this.props.params.orgname + '/invite'} className="flx flx-row flx-align-center vb vb--sm fill--primary mrgn-top-md mrgn-bottom-sm">
+                        <div className="mrgn-right-sm flx flx-center-all">
+                          <div className="koi-ico --24 ico--add--white"></div>              
                         </div>
-                        <div className="mrgn-left-sm flx flx-center-all">
-                          <div className="koi-ico --24 ico--add--secondary"></div>              
+                        <div className="co-type-body color--white">
+                          Invite Users
                         </div>
                       </Link>
                     </div>

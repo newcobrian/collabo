@@ -175,7 +175,7 @@ class ProjectList extends React.Component {
           }
 
 
-          <div className="sidebar-footer fill--primary flx flx-col">
+          <div className="sidebar-footer flx flx-col">
 
             <Link className="DN sidebar-row flx flx-row flx-align-center" to={'/' + orgName + '/invite'}>
                 <div className="sidebar-icon flx flx-center-all">
@@ -209,7 +209,6 @@ class ProjectList extends React.Component {
                     <div className="koi-ico ico--bookmark--tertiary opa-20"></div>
                   </div>
                   <div className="co-type-label color--white opa-40">Saved</div>
-                  <div className="co-type-label color--white opa-40">(N/A)</div>
               </Link>
 
               <Link to={'/' + this.props.orgName + '/admin'} activeClassName="active" className="sidebar-row group-triplet flx flx-col flx-align-center">
