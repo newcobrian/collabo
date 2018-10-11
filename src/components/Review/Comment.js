@@ -127,10 +127,10 @@ class Comment extends React.Component {
             </div>
 
           </div>
-          {
+          {/*
             isOpenNotification &&
             <GoogleDriveLink content={comment.body} onClose={this.closeNotification}/>
-          }
+          */}
         </div>
           { !parentId && 
             <CommentContainer

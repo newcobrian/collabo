@@ -7,7 +7,7 @@ import ProfilePic from './../ProfilePic';
 import ProxyImage from './../ProxyImage'
 import Textarea from 'react-textarea-autosize';
 import { MentionsInput, Mention } from 'react-mentions'
-import { getLinks, isGoogleDocLink, getFileId } from '../../helpers';
+// import { getLinks, isGoogleDocLink, getFileId } from '../../helpers';
 
 const mapStateToProps = state => ({
   userInfo: state.common.userInfo
@@ -35,35 +35,34 @@ class CommentInput extends React.Component {
         this.setState({ body: '' });
         this.props.onThreadCommentSubmit(this.props.authenticated, this.props.userInfo, this.props.type, this.props.commentObject, commentBody, this.props.threadId, this.props.project, this.props.orgName, this.props.parentId);
 
-        const links = getLinks(commentBody).filter((l) => isGoogleDocLink(l));
-        const ids = [];
-        if (links && links.length > 0) {
-          links.forEach(link => {
-            const fileId = getFileId(link);
-            if (fileId) {
-              ids.push(fileId);
-            }
-          });
-        }
-        if (ids.length > 0) {
-          const newIds = uniq(ids);
-          if (newIds.length > 0) {
-            this.props.updateGoogleDocsChanges(newIds.map((id) => ({
-              from: 'ui',
-              userInfo: this.props.userInfo,
-              threadId: this.props.threadId,
-              fileId: id,
-              added: (new Date()).toString()
-            })), this.props.threadId)  
-          }
-        }
+        // const links = getLinks(commentBody).filter((l) => isGoogleDocLink(l));
+        // const ids = [];
+        // if (links && links.length > 0) {
+        //   links.forEach(link => {
+        //     const fileId = getFileId(link);
+        //     if (fileId) {
+        //       ids.push(fileId);
+        //     }
+        //   });
+        // }
+        // if (ids.length > 0) {
+        //   const newIds = uniq(ids);
+        //   if (newIds.length > 0) {
+        //     this.props.updateGoogleDocsChanges(newIds.map((id) => ({
+        //       from: 'ui',
+        //       userInfo: this.props.userInfo,
+        //       threadId: this.props.threadId,
+        //       fileId: id,
+        //       added: (new Date()).toString()
+        //     })), this.props.threadId)  
+        //   }
+        // }
       }
     }
   }
 
   render() {
     return (
-
       <form className="comment-wrapper comment-form flx flx-row flx-just-center" onSubmit={this.createComment}>
 
             {/*<Textarea className="comment-input font--beta input--overline w-100"
@@ -106,7 +105,6 @@ class CommentInput extends React.Component {
 
             **/}
 
-        
       </form>
 
     );

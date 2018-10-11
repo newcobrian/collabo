@@ -408,7 +408,7 @@ class Thread extends React.Component {
                                   type={Constants.THREAD_TYPE}
                                   orgName={this.props.params.orgname} />
                               </div>
-                              { this.renderChanges(this.props.updates, this.props.userId, this.props.comments, this.props.params.tid, this.props.googleDocs) }
+                              {/* this.renderChanges(this.props.updates, this.props.userId, this.props.comments, this.props.params.tid, this.props.googleDocs) */}
 
                             </div>
                           </div>
@@ -453,9 +453,11 @@ class Thread extends React.Component {
   }
 }
 
-export default compose(
-  firebaseConnect([
-    "updates"
-  ]),
-  connect(mapStateToProps, Actions)
-)(Thread);
+// export default compose(
+//   firebaseConnect([
+//     "updates"
+//   ]),
+//   connect(mapStateToProps, Actions)
+// )(Thread);
+
+export default connect(mapStateToProps, Actions)(Thread);
