@@ -12,6 +12,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import OrgHeader from './OrgHeader';
 import Sidebar from 'react-sidebar';
 import InvalidOrg from './InvalidOrg';
+import LoadingSpinner from './LoadingSpinner';
 
 const mql = window.matchMedia(`(min-width: 800px)`);
 
@@ -241,11 +242,7 @@ class Profile extends React.Component {
     }
     if (!this.props.profile) {
       return (
-        <div className="loading-module flx flx-col flx-center-all v2-type-body3 fill--primary">
-          <div className="loader-wrapper flx flx-col flx-center-all">
-            <div className="v2-type-body2 color--white">Loading inbox</div>
-          </div>
-        </div>
+        <LoadingSpinner />
         )
     } 
     if (!this.props.profile.username) {

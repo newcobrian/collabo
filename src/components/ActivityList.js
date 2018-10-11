@@ -19,8 +19,11 @@ const ActivityList = props => {
   }
   else if (!props.feed) {
     return (
-      <div className="status-module flx flx-col flx-center-all v2-type-body3">
-        Loading activity feed...
+      <div className="threadlist threadlist-loading header-push w-100 flx flx-col flx-center-all ta-center h-100 fill--white color--primary">
+        <div className="loading-koi mrgn-bottom-md">
+          <img className="center-img" src="/img/logomark.png"/>
+        </div>
+        <div className="w-100 ta-center co-type-body">Loading user activity...</div>
       </div>
     );
   }
