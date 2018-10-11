@@ -7,7 +7,7 @@ const InvalidOrg = props => {
           <div className="xiao-img-wrapper mrgn-bottom-lg opa-40">
             <img className="center-img" src="/img/logomark.png"/>
           </div>
-          <div className="mrgn-bottom-md co-type-body">You don't have permission to access this team. You must find another pond to look at.</div>
+          <div className="mrgn-bottom-md co-type-body">You don't have permission to access this team. You must find another pond to swim in.</div>
           <Link className="color--tertiary co-type-body" to={'/'}>Return to homepage</Link>
 
         </div>
