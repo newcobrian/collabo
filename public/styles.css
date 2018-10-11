@@ -130,6 +130,21 @@ li {
   max-width: 350px;
 }
 
+
+.error-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(0deg, #0F6987 -8.14%, #17174E 36.88%);
+  color: white;
+  font-size: 24px;
+}
+.error-module .co-type-body {
+  max-width: 350px;
+}
+
 .ta-left {
   text-align: left;
 }

@@ -226,11 +226,11 @@ class Profile extends React.Component {
   render() {
     if (this.props.userNotFound) {
       return (
-        <div className="error-module flx flx-col flx-center-all ta-center v2-type-body3 color--black">
-          <div className="xiao-img-wrapper mrgn-bottom-sm">
-            <img className="center-img" src="/img/xiaog.png"/>
-          </div>
-          <div className="mrgn-bottom-md">Sorry, we couldn't find this user.</div>
+        <div className="error-page flx flx-col flx-center-all ta-center co-type-body">
+          <div className="co-logo mrgn-top-md mrgn-bottom-md">
+              <img className="center-img" src="/img/logomark.png"/>
+            </div>
+          <div className="mrgn-bottom-md co-type-body color--white">Sorry, we couldn't find this user.</div>
         </div>
       );
     }
@@ -251,11 +251,11 @@ class Profile extends React.Component {
     } 
     if (!this.props.profile.username) {
       return (
-        <div className="error-module flx flx-col flx-center-all ta-center v2-type-body3 color--black">
-          <div className="xiao-img-wrapper mrgn-bottom-sm">
-            <img className="center-img" src="/img/xiaog.png"/>
-          </div>
-          <div className="mrgn-bottom-md">Sorry, we couldn't find this user.</div>
+        <div className="error-page flx flx-col flx-center-all ta-center co-type-body">
+          <div className="co-logo mrgn-top-md mrgn-bottom-md">
+              <img className="center-img" src="/img/logomark.png"/>
+            </div>
+          <div className="mrgn-bottom-md co-type-body color--white">Sorry, we couldn't find this user.</div>
         </div>
         );
     }
