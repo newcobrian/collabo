@@ -115,6 +115,7 @@ export default (state = defaultState, action) => {
         ...state,
         authenticated: false,
         error: null,
+        userInfo: null,
         redirectTo: action.error ? null : '/'
       };
     case EDITOR_PAGE_NO_AUTH:
