@@ -924,7 +924,8 @@ export function onDeleteThreadComment(thread, commentId, threadId, parentId) {
 export function inviteUsersToOrg(auth, orgName, invites) {
   return dispatch => {
     let updates = {}
-    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', orgSnap => {
+    let lowercaseOrgName = orgName ? orgName.toLowerCase() : ''
+    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowercaseOrgName).once('value', orgSnap => {
       let orgId = orgSnap.val().orgId
       
       Firebase.database().ref(Constants.USERS_PATH + '/' + auth).once('value', authSnap => {
@@ -994,6 +995,7 @@ export function inviteUsersToOrg(auth, orgName, invites) {
             dispatch({
               type: ActionTypes.USERS_INVITED_TO_ORG,
               orgName: orgName,
+              invitesSent: invitesSent,
               meta: {
                 mixpanel: {
                   event: 'Invite to org',
@@ -2133,6 +2135,16 @@ export function showProjectInviteModal(projectId, project, orgId, orgName, orgMe
       //   })
       })
     }
+  }
+}
+
+export function showOrgInviteModal(orgId, orgName) {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.SHOW_ORG_INVITE_MODAL,
+      orgId: orgId,
+      orgName: orgName
+    })
   }
 }
 

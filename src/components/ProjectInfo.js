@@ -7,7 +7,7 @@ const InviteLink = props => {
   // if this is a project, launch project invite
   if (props.projectId) {
     return (
-      <Link onClick={props.onInviteClick} className="info-row flx flx-row flx-align-center brdr-top pdding-top-md mrgn-top-md">
+      <Link onClick={props.onProjectInviteClick} className="info-row flx flx-row flx-align-center brdr-top pdding-top-md mrgn-top-md">
         <div className="sidebar-icon flx flx-center-all mrgn-left-xs">
           <div className="koi-ico --24 ico--add--secondary"></div>              
         </div>
@@ -20,7 +20,7 @@ const InviteLink = props => {
   // if no project, then send to invite org
   else {
     return (
-      <Link className="info-row flx flx-row flx-align-center brdr-top pdding-top-md mrgn-top-md" to={'/' + props.orgName + '/invite'}> 
+      <Link onClick={props.onOrgInviteClick} className="info-row flx flx-row flx-align-center brdr-top pdding-top-md mrgn-top-md"> 
         <div className="sidebar-icon flx flx-center-all mrgn-left-xs">
           <div className="koi-ico --24 ico--add--secondary"></div>              
         </div>
@@ -60,7 +60,7 @@ const ProjectInfo = props => {
           })
         }
         
-        <InviteLink projectId={props.projectId} orgName={props.orgName} onInviteClick={props.onInviteClick} />
+        <InviteLink projectId={props.projectId} orgName={props.orgName} onProjectInviteClick={props.onProjectInviteClick} onOrgInviteClick={props.onOrgInviteClick} />
 
       </div>
     </div>

@@ -33,6 +33,12 @@ export default function(state = initialState, action) {
         message: 'Invites sent',
         open: true
       }
+    case ActionTypes.USERS_INVITED_TO_ORG:
+      return {
+        ...state,
+        message: action.invitesSent + ' people invited to ' + action.orgName,
+        open: true
+      }
     case CLOSE_SNACKBAR:
       {
         return {...state,

@@ -38,8 +38,12 @@ class Project extends React.Component {
       this.props.setSidebar(mql.matches);
     }
 
-    this.onInviteClick = (project) => {
+    this.onProjectInviteClick = (project) => {
       this.props.showProjectInviteModal(this.props.params.pid, this.props.project, this.props.orgId, this.props.params.orgname, this.props.orgMembers)
+    }
+
+    this.onOrgInviteClick = ev => {
+      this.props.showOrgInviteModal(this.props.orgId, this.props.params.orgname)
     }
   }
 
@@ -231,7 +235,8 @@ class Project extends React.Component {
                         project={this.props.project}
                         projectId={this.props.params.pid}
                         orgName={this.props.params.orgname}
-                        onInviteClick={this.onInviteClick} />
+                        onProjectInviteClick={this.onProjectInviteClick}
+                        onOrgInviteClick={this.onOrgInviteClick} />
                 </div>
               </div>
             </Sidebar>

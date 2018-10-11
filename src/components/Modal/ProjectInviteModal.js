@@ -7,7 +7,6 @@ import Dialog from 'material-ui/Dialog';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
-// import ProjectInvite from './../ProjectInvite'
 import ProfilePic from './../ProfilePic'
 import ListErrors from './../ListErrors'
 
@@ -26,7 +25,7 @@ class ProjectInviteModal extends React.Component {
   }
 
   componentWillMount() {
-    // this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project invite modal' });
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project invite modal' });
   }
 
   render() {

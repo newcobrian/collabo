@@ -640,7 +640,6 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 
 	Firebase.database().ref(Constants.USERS_PATH + '/' + recipientId).once('value', recipientSnapshot => {
 		Firebase.database().ref(Constants.USERS_PATH + '/' + senderId).once('value', senderSnapshot => {
-			console.log('messagetype = ' + messageType)
 			switch(messageType) {
 				case Constants.THREAD_MENTION_MESSAGE:
 					inboxObject.senderId = senderId;

@@ -179,6 +179,10 @@ class OrgSettings extends React.Component {
       // console.log('tab = ' + tab)
       this.props.changeOrgSettingsTab(tab, this.props.params.orgname, this.props.orgId)
     }
+
+    this.onOrgInviteClick = ev => {
+      this.props.showOrgInviteModal(this.props.orgId, this.props.params.orgname)
+    }
   }
 
   componentDidMount() {
@@ -267,7 +271,7 @@ class OrgSettings extends React.Component {
                     <div className="flx flx-col flx-align-start flx-just-center w-100 mrgn-bottom-sm">
                       <div className="co-type-page-title">{this.props.params.orgname} Team Directory</div>
 
-                      <Link to={'/' + this.props.params.orgname + '/invite'} className="flx flx-row flx-align-center vb vb--sm fill--primary mrgn-top-md mrgn-bottom-sm">
+                      <Link onClick={this.onOrgInviteClick} className="flx flx-row flx-align-center vb vb--sm fill--primary mrgn-top-md mrgn-bottom-sm">
                         <div className="mrgn-right-sm flx flx-center-all">
                           <div className="koi-ico --24 ico--add--white"></div>              
                         </div>

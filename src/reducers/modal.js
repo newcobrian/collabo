@@ -31,6 +31,14 @@ export default (state = initialState, action) => {
         orgName: action.orgName,
         orgId: action.orgId
       }
+    case ActionTypes.SHOW_ORG_INVITE_MODAL:
+    case ActionTypes.ORG_CREATED:
+      return {
+        ...state,
+        modalType: Constants.ORG_INVITE_MODAL,
+        orgName: action.orgName,
+        orgId: action.orgId
+      }
     case ActionTypes.PROJECT_CREATED:
       if (!action.isPublic) {
         return {
@@ -97,7 +105,8 @@ export default (state = initialState, action) => {
         modalType: Constants.CREATE_RECS_MODAL
       }
     case ActionTypes.CREATE_SUBMIT_ERROR:
-      if (action.source === Constants.CREATE_RECS_MODAL || action.source === Constants.NEW_ITINERARY_MODAL || action.source === Constants.PROJECT_INVITE_MODAL) {
+      if (action.source === Constants.CREATE_RECS_MODAL || action.source === Constants.NEW_ITINERARY_MODAL || 
+          action.source === Constants.PROJECT_INVITE_MODAL || action.source === Constants.ORG_INVITE_MODAL) {
         return {
           ...state,
           errors: [action.error],
@@ -106,7 +115,7 @@ export default (state = initialState, action) => {
       }
       else return {...state}
     case ActionTypes.UPDATE_FIELD_CREATE:
-      if(action.source === Constants.CREATE_RECS_MODAL || action.source === Constants.NEW_ITINERARY_MODAL) {
+      if(action.source === Constants.CREATE_RECS_MODAL || action.source === Constants.NEW_ITINERARY_MODAL || action.source === Constants.ORG_INVITE_MODAL) {
         return { ...state, [action.key]: action.value };
       }
       else return {...state}
@@ -166,6 +175,7 @@ export default (state = initialState, action) => {
     case ITINERARY_DELETED:
     case ActionTypes.THREAD_DELETED:
     case ActionTypes.INVITED_USERS_TO_PROJECT:
+    case ActionTypes.USERS_INVITED_TO_ORG:
       return initialState;
     case REVIEW_SUBMITTED:
       return {
