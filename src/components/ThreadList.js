@@ -13,7 +13,7 @@ const ThreadList = props => {
   if (props.emptyThreadFeed) {
     return (
       <div className="threadlist brdr-right b--primary--20 threadlist-loading header-push w-100 flx flx-col ta-center color--black opa-60">
-        This project has no posts yet. Why don't you add one?
+        This list has no threads yet. Why don't you add one?
       </div>
     )
   }
