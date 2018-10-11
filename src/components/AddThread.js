@@ -84,7 +84,7 @@ class AddThread extends React.Component {
 		this.props.loadSidebar(mql);
     	mql.addListener(this.mediaQueryChanged);
 
-    	this.props.loadOrgUsers(this.props.authenticated, this.props.params.orgname, Constants.ADD_THREAD_PAGE)
+    	this.props.loadOrgMembers(this.props.params.orgname,  Constants.ADD_THREAD_PAGE)
     	this.props.loadOrg(this.props.authenticated, this.props.params.orgname, Constants.ADD_THREAD_PAGE);
     	this.props.loadAddThreadProject(this.props.params.pid)
 	    this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, this.props.params.pid, Constants.ADD_THREAD_PAGE)
@@ -101,6 +101,7 @@ class AddThread extends React.Component {
 		this.props.unloadOrgList(this.props.authenticated, Constants.ADD_THREAD_PAGE)
 	    this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId)
 	    this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.ADD_THREAD_PAGE)
+	    this.props.unloadOrgMembers(this.props.orgId,  Constants.ADD_THREAD_PAGE)
 	    this.props.unloadOrg(Constants.ADD_THREAD_PAGE);
 	}
 
@@ -185,7 +186,7 @@ class AddThread extends React.Component {
 												        wrapperClass="demo-wrapper"
 												        editorClass="demo-editor"
 												        onChange={this.changeBody}
-												        usersList={this.props.usersList}
+												        usersList={this.props.orgMembers}
 													    />
 
 								                    </fieldset>

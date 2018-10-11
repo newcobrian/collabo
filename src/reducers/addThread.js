@@ -1,5 +1,6 @@
 import * as ActionTypes from '../actions/types';
 import * as Constants from '../constants';
+import * as Helpers from '../helpers';
 // import { EditorState, convertFromRaw } from 'draft-js';
 
 // const initialContentState = {"entityMap":{},"blocks":[{"key":"637gr","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}]}
@@ -8,7 +9,7 @@ import * as Constants from '../constants';
 const initialQuillState = { text: '' }
 
 // export default (state = { body: initialEditorState, usersList: [] }, action) => {
-export default (state = { body: initialQuillState, usersList: [] }, action) => {
+export default (state = { body: initialQuillState }, action) => {
   switch (action.type) {
   	case ActionTypes.CREATE_PAGE_LOADED:
       return {
@@ -76,16 +77,67 @@ export default (state = { body: initialQuillState, usersList: [] }, action) => {
         return { ...state, [action.key]: action.value };
       }
       else return {...state}
-    case ActionTypes.USERNAME_LOADED: {
+    // case ActionTypes.USERNAME_LOADED: {
+    //   if (action.source === Constants.ADD_THREAD_PAGE) {
+    //     const newState = Object.assign({}, state);
+    //     newState.usersList = newState.usersList || [];
+    //     newState.usersList = newState.usersList.slice();
+    //     newState.usersList = newState.usersList.concat(Object.assign({}, {text: action.username}, {value: action.username}, {url: '/user/' + action.username}));
+    //     return newState;
+    //   }
+    //   return state;
+    // }
+    case ActionTypes.MEMBER_ADDED: {
       if (action.source === Constants.ADD_THREAD_PAGE) {
         const newState = Object.assign({}, state);
-        newState.usersList = newState.usersList || [];
-        newState.usersList = newState.usersList.slice();
-        newState.usersList = newState.usersList.concat(Object.assign({}, {text: action.username}, {value: action.username}, {url: '/user/' + action.username}));
+        newState[action.membersList] = newState[action.membersList] || [];
+        newState[action.membersList] = newState[action.membersList].slice();
+        newState[action.membersList] = newState[action.membersList].concat(Object.assign({}, { userId: action.userId }, action.userData, { id: action.userId }, {display: action.userData.username}));
+        newState[action.membersList].sort(Helpers.byUsername);
         return newState;
       }
       return state;
     }
+    case ActionTypes.MEMBER_CHANGED: {
+      if (action.source === Constants.ADD_THREAD_PAGE) {
+        const newState = Object.assign({}, state);
+        newState[action.membersList] = newState[action.membersList] || [];
+        newState[action.membersList] = newState[action.membersList].slice();
+        for (let i = 0; i < newState[action.membersList].length; i++) {
+          if (newState[action.membersList][i].id === action.id) {
+            newState[action.membersList][i] = Object.assign({}, { userId: action.userId }, action.userData, { id: action.userId }, {display: action.userData.username})
+            newState[action.membersList].sort(Helpers.byUsername);
+            return newState;
+          }
+        }
+        return state;
+      }
+      return state;
+    }
+    case ActionTypes.MEMBER_REMOVED: {
+      if (action.source === Constants.ADD_THREAD_PAGE) {
+        const newState = Object.assign({}, state);
+        newState[action.membersList] = newState[action.membersList] || [];
+        newState[action.membersList] = newState[action.membersList].slice();
+        
+        for (let i = 0; i < newState[action.membersList].length; i++) {
+          if (newState[action.membersList][i].id === action.id) {
+            newState[action.membersList].splice(i, 1);
+            return newState;    
+          }
+        }
+        return state;
+      }
+      return state;
+    }
+    case ActionTypes.UNLOAD_MEMBERS:
+      if (action.source === Constants.ADD_THREAD_PAGE) {
+        return {
+          ...state,
+          [action.membersList]: []
+        }
+      }
+      return state
     case ActionTypes.LIST_ADDED_ACTION: {
       if (action.source === Constants.ADD_THREAD_PAGE && action.listType === Constants.PROJECT_LIST_TYPE) {
         const newState = Object.assign({}, state);

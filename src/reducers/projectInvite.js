@@ -36,23 +36,23 @@ import * as Helpers from '../helpers';
         ...state,
         selectedUsers: action.payload
       }
-    case ActionTypes.ORG_USERS_LOADED: {
-      if (action.source === Constants.PROJECT_INVITE_PAGE) {
-        return {
-          ...state,
-          usersList: action.usersList
-        }
-      }
-      return state;
-    }
-    case ActionTypes.UNLOAD_ORG_USERS: {
-      if (action.source === Constants.PROJECT_INVITE_PAGE) {
-        return {
-          ...state,
-          usersList: []
-        }
-      }
-    }
+    // case ActionTypes.ORG_USERS_LOADED: {
+    //   if (action.source === Constants.PROJECT_INVITE_PAGE) {
+    //     return {
+    //       ...state,
+    //       usersList: action.usersList
+    //     }
+    //   }
+    //   return state;
+    // }
+    // case ActionTypes.UNLOAD_ORG_USERS: {
+    //   if (action.source === Constants.PROJECT_INVITE_PAGE) {
+    //     return {
+    //       ...state,
+    //       usersList: []
+    //     }
+    //   }
+    // }
     case ActionTypes.LOAD_PROJECT: {
       if (action.source === Constants.PROJECT_INVITE_PAGE) {
         return {

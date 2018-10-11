@@ -7,47 +7,6 @@ const initialState = {}
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    // case ActionTypes.USERNAME_ADDED_ACTION: {
-    //   if (action.source === Constants.ORG_SETTINGS_PAGE) {
-    //     const newState = Object.assign({}, state);
-    //     newState.usersList = newState.usersList || [];
-    //     newState.usersList = newState.usersList.slice();
-    //     newState.usersList = newState.usersList.concat(Object.assign({}, { userId: action.userId }, action.userData));
-    //     return newState;
-    //   }
-    //   return state;
-    // }
-    // case ActionTypes.USERNAME_CHANGED_ACTION: {
-    //   if (action.source === Constants.ORG_SETTINGS_PAGE) {
-    //     const newState = Object.assign({}, state);
-    //     newState.usersList = newState.usersList || [];
-    //     newState.usersList = newState.usersList.slice();
-    //     for (let i = 0; i < newState.usersList.length; i++) {
-    //       if (newState.usersList[i].userId === action.userId) {
-    //         newState.usersList[i] = Object.assign({}, {userId: action.userId}, action.userData)
-    //         return newState;
-    //       }
-    //     }
-    //     return state;
-    //   }
-    //   return state;
-    // }
-    // case ActionTypes.USERNAME_REMOVED_ACTION: {
-    //   if (action.source === Constants.ORG_SETTINGS_PAGE) {
-    //     const newState = Object.assign({}, state);
-    //     newState.usersList = newState.usersList || [];
-    //     newState.usersList = newState.usersList.slice();
-        
-    //     for (let i = 0; i < newState.usersList.length; i++) {
-    //       if (newState.usersList[i].userId === action.userId) {
-    //         newState.usersList.splice(i, 1);
-    //         return newState;    
-    //       }
-    //     }
-    //     return state;
-    //   }
-    //   return state;
-    // }
     case ActionTypes.ORG_USERS_LOADED: {
         if (action.source === Constants.ORG_SETTINGS_PAGE) {
             return {
@@ -126,6 +85,57 @@ export default (state = initialState, action) => {
     //             projectNames: {}
     //         }
     //     }
+    case ActionTypes.MEMBER_ADDED: {
+      if (action.source === Constants.ORG_SETTINGS_PAGE) {
+        const newState = Object.assign({}, state);
+        newState[action.membersList] = newState[action.membersList] || [];
+        newState[action.membersList] = newState[action.membersList].slice();
+        newState[action.membersList] = newState[action.membersList].concat(Object.assign({}, { userId: action.userId }, action.userData, { id: action.userId }, {display: action.userData.username}));
+        newState[action.membersList].sort(Helpers.byUsername);
+        return newState;
+      }
+      return state;
+    }
+    case ActionTypes.MEMBER_CHANGED: {
+      if (action.source === Constants.ORG_SETTINGS_PAGE) {
+        const newState = Object.assign({}, state);
+        newState[action.membersList] = newState[action.membersList] || [];
+        newState[action.membersList] = newState[action.membersList].slice();
+        for (let i = 0; i < newState[action.membersList].length; i++) {
+          if (newState[action.membersList][i].id === action.id) {
+            newState[action.membersList][i] = Object.assign({}, { userId: action.userId }, action.userData, { id: action.userId }, {display: action.userData.username})
+            newState[action.membersList].sort(Helpers.byUsername);
+            return newState;
+          }
+        }
+        return state;
+      }
+      return state;
+    }
+    case ActionTypes.MEMBER_REMOVED: {
+      if (action.source === Constants.ORG_SETTINGS_PAGE) {
+        const newState = Object.assign({}, state);
+        newState[action.membersList] = newState[action.membersList] || [];
+        newState[action.membersList] = newState[action.membersList].slice();
+        
+        for (let i = 0; i < newState[action.membersList].length; i++) {
+          if (newState[action.membersList][i].id === action.id) {
+            newState[action.membersList].splice(i, 1);
+            return newState;    
+          }
+        }
+        return state;
+      }
+      return state;
+    }
+    case ActionTypes.UNLOAD_MEMBERS:
+      if (action.source === Constants.ORG_SETTINGS_PAGE) {
+        return {
+          ...state,
+          [action.membersList]: []
+        }
+      }
+      return state
     default:
       return state;
   }

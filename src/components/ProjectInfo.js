@@ -5,7 +5,7 @@ import { Link } from 'react-router'
 
 const InviteLink = props => {
   // if this is a project, launch project invite
-  if (props.project) {
+  if (props.projectId) {
     return (
       <Link onClick={props.onInviteClick} className="info-row flx flx-row flx-align-center brdr-top pdding-top-md mrgn-top-md">
         <div className="sidebar-icon flx flx-center-all mrgn-left-xs">
@@ -33,12 +33,13 @@ const InviteLink = props => {
 }
 
 const ProjectInfo = props => {
+  let membersList = props.projectId ? props.projectMembers : props.orgMembers
   return (
     <div className="project-info b--primary--10 flx flx-col flx-align-start">
       <div className="co-type-h3 mrgn-bottom-sm">{props.project ? props.project.name + ' Members' : props.orgName + ' Members'}</div>
       <div className="info-row flx flx-row thread-timestamp mrgn-bottom-sm w-100">
         <div>
-          {(props.projectMembers || []).length + ' Members'}
+          {(membersList || []).length + ' Members'}
         </div>
 
         <div className="flx-item-right">
@@ -47,7 +48,7 @@ const ProjectInfo = props => {
       </div>
       <div className="flx flx-col flx-align-start w-100">
         {
-          (props.projectMembers || []).map((member, index) => {
+          (membersList || []).map((member, index) => {
             return (
               <Link className="info-row flx flx-row flx-align-center mrgn-bottom-sm" 
                 key={member.userId} 
@@ -59,7 +60,7 @@ const ProjectInfo = props => {
           })
         }
         
-        <InviteLink project={props.project} orgName={props.orgName} onInviteClick={props.onInviteClick} />
+        <InviteLink projectId={props.projectId} orgName={props.orgName} onInviteClick={props.onInviteClick} />
 
       </div>
     </div>

@@ -89,7 +89,7 @@ const MembersList = props => {
     return (
       <div className="">
         {
-          (props.payload || []).map((userItem, index) => {
+          (props.orgMembers || []).map((userItem, index) => {
             return (
               <Link className="flx flx-row flx-align-center mrgn-bottom-sm brdr-bottom pdding-bottom-sm" 
                 key={userItem.userId}
@@ -191,7 +191,7 @@ class OrgSettings extends React.Component {
     this.props.loadOrgList(this.props.authenticated, Constants.ORG_SETTINGS_PAGE)
     this.props.loadProjectNames(this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
 
-    // this.props.loadOrgUsers(this.props.authenticated, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
+    this.props.loadOrgMembers(this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
     this.props.changeOrgSettingsTab(this.props.tab ? this.props.tab : Constants.LISTS_TAB, this.props.params.orgname, null)
     // this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'settings'});
   }
@@ -202,7 +202,7 @@ class OrgSettings extends React.Component {
     this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId, Constants.ORG_SETTINGS_PAGE)
     this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.ORG_SETTINGS_PAGE)
     this.props.unloadOrg(Constants.ORG_SETTINGS_PAGE, this.props.params.orgname);
-    this.props.unloadOrgUsers(this.props.params.orgname, Constants.ORG_SETTINGS_PAGE);
+    this.props.unloadOrgMembers(this.props.orgId, Constants.ORG_SETTINGS_PAGE)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -211,12 +211,13 @@ class OrgSettings extends React.Component {
       this.props.unloadOrgList(this.props.authenticated, Constants.ORG_SETTINGS_PAGE)
       this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId, Constants.ORG_SETTINGS_PAGE)
       this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.ORG_SETTINGS_PAGE)
-      this.props.unloadOrgUsers(this.props.params.orgname, Constants.ORG_SETTINGS_PAGE);
+      this.props.unloadOrgMembers(this.props.orgId, Constants.ORG_SETTINGS_PAGE)
 
       this.props.loadOrg(this.props.authenticated, nextProps.params.orgname, Constants.ORG_SETTINGS_PAGE);
       this.props.loadProjectList(this.props.authenticated, nextProps.params.orgname, null, Constants.ORG_SETTINGS_PAGE)
       this.props.loadThreadCounts(this.props.authenticated, nextProps.params.ORG_SETTINGS_PAGE)
       this.props.loadProjectNames(nextProps.params.orgname, Constants.ORG_SETTINGS_PAGE)
+      this.props.loadOrgMembers(nextProps.params.orgname, Constants.ORG_SETTINGS_PAGE)
       // this.props.loadOrgUsers(this.props.authenticated, nextProps.params.orgname, Constants.ORG_SETTINGS_PAGE)
       this.props.changeOrgSettingsTab(this.props.tab, nextProps.params.orgname)
     }
@@ -290,6 +291,7 @@ class OrgSettings extends React.Component {
                         payload={payload} 
                         orgId={orgId}
                         orgName={this.props.params.orgname} 
+                        orgMembers={this.props.orgMembers}
                         usersProjects={usersProjects || {}} 
                         joinProject={this.props.joinProject}
                         leaveProject={this.props.leaveProject} />

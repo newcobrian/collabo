@@ -5,7 +5,7 @@ import { filter, omit } from 'lodash';
 
 // import { EditorState, ContentState, convertToRaw, convertFromRaw } from 'draft-js';
 
-const initialState = { threadCounts: {}, usersList: [] }
+const initialState = { threadCounts: {}, }
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -132,26 +132,26 @@ export default (state = initialState, action) => {
         return { ...state, [action.key]: action.value };
       }
       else return {...state}
-    case ActionTypes.USERNAME_LOADED: {
-      if (action.source === Constants.THREAD_PAGE) {
-        const newState = Object.assign({}, state);
-        newState.usersList = newState.usersList || [];
-        newState.usersList = newState.usersList.slice();
-        newState.usersList = newState.usersList.concat(Object.assign({}, {text: action.username}, 
-          {value: action.username}, {url: '/' + action.orgName + '/user/' + action.username}, {email: action.email}, {id: action.username}, {display: action.username}));
-        return newState;
-      }
-      return state;
-    }
-    case ActionTypes.UNLOAD_ORG_USERS: {
-      if (action.source === Constants.THREAD_PAGE) {
-        return {
-          ...state,
-          usersList: []
-        }
-      }
-      return state
-    }
+    // case ActionTypes.USERNAME_LOADED: {
+    //   if (action.source === Constants.THREAD_PAGE) {
+    //     const newState = Object.assign({}, state);
+    //     newState.usersList = newState.usersList || [];
+    //     newState.usersList = newState.usersList.slice();
+    //     newState.usersList = newState.usersList.concat(Object.assign({}, {text: action.username}, 
+    //       {value: action.username}, {url: '/' + action.orgName + '/user/' + action.username}, {email: action.email}, {id: action.username}, {display: action.username}));
+    //     return newState;
+    //   }
+    //   return state;
+    // }
+    // case ActionTypes.UNLOAD_ORG_USERS: {
+    //   if (action.source === Constants.THREAD_PAGE) {
+    //     return {
+    //       ...state,
+    //       usersList: []
+    //     }
+    //   }
+    //   return state
+    // }
     case ActionTypes.THREAD_LIKES_ADDED_ACTION: {
       const newState = Object.assign({}, state);
       newState.likes = newState.likes || {};
@@ -177,6 +177,57 @@ export default (state = initialState, action) => {
         ...state,
         likes: {}
       }
+    case ActionTypes.MEMBER_ADDED: {
+      if (action.source === Constants.THREAD_PAGE) {
+        const newState = Object.assign({}, state);
+        newState[action.membersList] = newState[action.membersList] || [];
+        newState[action.membersList] = newState[action.membersList].slice();
+        newState[action.membersList] = newState[action.membersList].concat(Object.assign({}, { userId: action.userId }, action.userData, { id: action.userId }, {display: action.userData.username}));
+        newState[action.membersList].sort(Helpers.byUsername);
+        return newState;
+      }
+      return state;
+    }
+    case ActionTypes.MEMBER_CHANGED: {
+      if (action.source === Constants.THREAD_PAGE) {
+        const newState = Object.assign({}, state);
+        newState[action.membersList] = newState[action.membersList] || [];
+        newState[action.membersList] = newState[action.membersList].slice();
+        for (let i = 0; i < newState[action.membersList].length; i++) {
+          if (newState[action.membersList][i].id === action.id) {
+            newState[action.membersList][i] = Object.assign({}, { userId: action.userId }, action.userData, { id: action.userId }, {display: action.userData.username})
+            newState[action.membersList].sort(Helpers.byUsername);
+            return newState;
+          }
+        }
+        return state;
+      }
+      return state;
+    }
+    case ActionTypes.MEMBER_REMOVED: {
+      if (action.source === Constants.THREAD_PAGE) {
+        const newState = Object.assign({}, state);
+        newState[action.membersList] = newState[action.membersList] || [];
+        newState[action.membersList] = newState[action.membersList].slice();
+        
+        for (let i = 0; i < newState[action.membersList].length; i++) {
+          if (newState[action.membersList][i].id === action.id) {
+            newState[action.membersList].splice(i, 1);
+            return newState;    
+          }
+        }
+        return state;
+      }
+      return state;
+    }
+    case ActionTypes.UNLOAD_MEMBERS:
+      if (action.source === Constants.THREAD_PAGE) {
+        return {
+          ...state,
+          [action.membersList]: []
+        }
+      }
+      return state
     default:
       return state;
   }

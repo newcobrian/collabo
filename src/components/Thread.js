@@ -236,7 +236,7 @@ class Thread extends React.Component {
     this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
     this.props.loadOrgList(this.props.authenticated, Constants.THREAD_PAGE)
     this.props.loadProjectNames(this.props.params.orgname, Constants.THREAD_PAGE)
-    this.props.loadOrgUsers(this.props.authenticated, this.props.params.orgname, Constants.THREAD_PAGE)
+    this.props.loadOrgMembers(this.props.params.orgname,  Constants.THREAD_PAGE)
     this.props.loadThread(this.props.params.tid);
     this.props.loadThreadLikes(this.props.params.tid);
     this.props.watchThreadComments(this.props.params.tid);
@@ -252,7 +252,7 @@ class Thread extends React.Component {
     this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId, Constants.THREAD_PAGE)
     this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.THREAD_PAGE)
     this.props.unloadOrg(Constants.THREAD_PAGE);
-    this.props.unloadOrgUsers(Constants.THREAD_PAGE)
+    this.props.loadOrgMembers(this.props.orgId,  Constants.THREAD_PAGE)
     this.props.unloadThread(this.props.params.tid);
     this.props.unloadThreadLikes(this.props.params.tid);
     this.props.unwatchThreadComments(this.props.params.tid);
@@ -272,7 +272,7 @@ class Thread extends React.Component {
     else if (nextProps.params.orgname !== this.props.params.orgname) {
       this.props.unloadProjectNames(this.props.orgId, Constants.THREAD_PAGE)
       this.props.unloadOrgList(this.props.authenticated, Constants.THREAD_PAGE)
-      this.props.unloadOrgUsers(Constants.THREAD_PAGE)
+      this.props.loadOrgMembers(this.props.orgId,  Constants.THREAD_PAGE)
       this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId, Constants.THREAD_PAGE)
       this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.THREAD_PAGE)
       this.props.unloadThread(this.props.params.tid);
@@ -280,7 +280,7 @@ class Thread extends React.Component {
       this.props.unwatchThreadComments(this.props.params.tid);
 
       this.props.loadOrg(this.props.authenticated, nextProps.params.orgname, Constants.THREAD_PAGE);
-      this.props.loadOrgUsers(this.props.authenticated, nextProps.params.orgname, Constants.THREAD_PAGE)
+      this.props.loadOrgMembers(nextProps.params.orgname,  Constants.THREAD_PAGE)
       this.props.loadProjectList(this.props.authenticated, nextProps.params.orgname, this.props.params.pid, Constants.THREAD_PAGE)
       this.props.loadThreadCounts(this.props.authenticated, nextProps.params.orgname)
       this.props.loadProjectNames(nextProps.params.orgname, Constants.THREAD_PAGE)
@@ -302,16 +302,16 @@ class Thread extends React.Component {
         <InvalidOrg />
       )
     }
-    else if (this.props.threadNotFoundError) {
-      return (
-        <div className="error-page flx flx-col flx-center-all ta-center co-type-body">
-          <div className="co-logo mrgn-top-md mrgn-bottom-md">
-              <img className="center-img" src="/img/logomark.png"/>
-            </div>
-          <div className="mrgn-bottom-md co-type-body color--white">Sorry, we couldn't find this thread.</div>
-        </div>
-      )
-    }
+    // else if (this.props.threadNotFoundError) {
+    //   return (
+    //     <div className="error-page flx flx-col flx-center-all ta-center co-type-body">
+    //       <div className="co-logo mrgn-top-md mrgn-bottom-md">
+    //           <img className="center-img" src="/img/logomark.png"/>
+    //         </div>
+    //       <div className="mrgn-bottom-md co-type-body color--white">Sorry, we couldn't find this thread.</div>
+    //     </div>
+    //   )
+    // }
     else if (!this.props.thread) {
       return (
         <LoadingSpinner message="Loading thread" />

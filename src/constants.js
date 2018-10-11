@@ -210,6 +210,9 @@ export const LISTS_TAB = 'lists'
 /*** User Roles ***/
 export const OWNER_ROLE = 'owner'
 
+export const ORG_MEMBERS_LIST = 'orgMembers'
+export const PROJECT_MEMBERS_LIST = 'projectMembers'
+
 /*** Tag list ***/
 export const TAG_LIST = []
 

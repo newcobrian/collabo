@@ -39,7 +39,7 @@ class Project extends React.Component {
     }
 
     this.onInviteClick = (project) => {
-      this.props.showProjectInviteModal(this.props.params.pid, this.props.project, this.props.orgId, this.props.params.orgname)
+      this.props.showProjectInviteModal(this.props.params.pid, this.props.project, this.props.orgId, this.props.params.orgname, this.props.orgMembers)
     }
   }
 
@@ -54,7 +54,8 @@ class Project extends React.Component {
     this.props.loadProjectNames(this.props.params.orgname, Constants.PROJECT_PAGE)
     
     this.props.loadProject(this.props.params.pid, this.props.params.orgname, Constants.PROJECT_PAGE);
-    this.props.loadProjectMembers(this.props.params.pid, this.props.params.orgname, Constants.PROJECT_PAGE)
+    this.props.loadProjectMembers(this.props.params.pid,  Constants.PROJECT_PAGE)
+    this.props.loadOrgMembers(this.props.params.orgname,  Constants.PROJECT_PAGE)
     // this.props.loadLikesByUser(this.props.authenticated, this.props.params.orgname)
 
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project'});
@@ -71,16 +72,18 @@ class Project extends React.Component {
     this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId)
     this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.PROJECT_PAGE)
     this.props.unloadOrg(Constants.PROJECT_PAGE);
-    this.props.unloadProjectMembers(this.props.params.pid, this.props.orgId, Constants.PROJECT_PAGE)
+    this.props.unloadProjectMembers(this.props.params.pid, Constants.PROJECT_PAGE)
+    this.props.unloadOrgMembers(this.props.orgId, Constants.PROJECT_PAGE)
     if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.pid !== this.props.params.pid && nextProps.params.orgname === this.props.params.orgname) {
       this.props.unwatchThreadFeed(this.props.authenticated, this.props.orgId, this.props.params.pid, Constants.PROJECT_PAGE)
-      this.props.unloadProjectMembers(this.props.params.pid, this.props.orgId, Constants.PROJECT_PAGE)
+      this.props.unloadProjectMembers(this.props.params.pid, Constants.PROJECT_PAGE)
+
       this.props.loadProject(nextProps.params.pid, this.props.params.orgname, Constants.PROJECT_PAGE);
-      this.props.loadProjectMembers(nextProps.params.pid, this.props.params.orgname, Constants.PROJECT_PAGE)
+      this.props.loadProjectMembers(nextProps.params.pid, Constants.PROJECT_PAGE)
       // this.props.watchThreadFeed(this.props.authenticated, this.props.params.orgname, nextProps.params.pid, this.props.feedEndValue, Constants.PROJECT_PAGE)
       if (nextProps.params.pid) {
         this.props.markProjectRead(this.props.authenticated, nextProps.params.pid)
@@ -92,13 +95,16 @@ class Project extends React.Component {
       this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId)
       this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.PROJECT_PAGE)
       this.props.unloadOrg(Constants.PROJECT_PAGE);
-      this.props.unloadProjectMembers(this.props.params.pid, this.props.orgId, Constants.PROJECT_PAGE)
+      this.props.unloadProjectMembers(this.props.params.pid, Constants.PROJECT_PAGE)
+      this.props.unloadOrgMembers(this.props.orgId, Constants.PROJECT_PAGE)
+
       this.props.loadOrg(this.props.authenticated, nextProps.params.orgname, Constants.PROJECT_PAGE);
       this.props.loadProjectList(this.props.authenticated, nextProps.params.orgname, this.props.params.pid, Constants.PROJECT_PAGE)
       this.props.loadThreadCounts(this.props.authenticated, nextProps.params.orgname)
       this.props.loadProjectNames(nextProps.params.orgname, Constants.PROJECT_PAGE)
       this.props.loadProject(nextProps.params.pid, nextProps.params.orgname, Constants.PROJECT_PAGE);
-      this.props.loadProjectMembers(nextProps.params.pid, nextProps.params.orgname, Constants.PROJECT_PAGE)
+      this.props.loadProjectMembers(nextProps.params.pid, Constants.PROJECT_PAGE)
+      this.props.loadOrgMembers(nextProps.params.orgname, Constants.PROJECT_PAGE)
       // this.props.watchThreadFeed(this.props.authenticated,nextProps.params.orgname, nextProps.params.pid, this.props.feedEndValue, Constants.PROJECT_PAGE)
       if (nextProps.params.pid) {
         this.props.markProjectRead(this.props.authenticated, nextProps.params.pid)
@@ -208,7 +214,7 @@ class Project extends React.Component {
                             projectNotFoundError={this.props.projectNotFoundError}
                             projectNames={this.props.projectNames}
                             project={this.props.project}
-                            usersList={this.props.usersList}
+                            usersList={this.props.orgMembers}
                             deleteComment={this.props.onDeleteThreadComment}
                             projectCheck={this.props.projectCheck}
                             className={"w-100 h-100"} />
@@ -221,6 +227,7 @@ class Project extends React.Component {
                       <ProjectInfo 
                         className="threadlist-wrapper flx flx-col flx-align-start w-100 h-100"
                         projectMembers={this.props.projectMembers}
+                        orgMembers={this.props.orgMembers}
                         project={this.props.project}
                         projectId={this.props.params.pid}
                         orgName={this.props.params.orgname}

@@ -49,8 +49,6 @@ class ProjectInvite extends React.Component {
 	}
 
 	render() {
-		console.log('org = ' + JSON.stringify(this.props.org))
-		console.log(JSON.stringify(this.props.project))
 		const { usersList, projectMemberCheck } = this.props;
 
 	    return (
