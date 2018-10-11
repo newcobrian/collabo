@@ -106,7 +106,7 @@ class AcceptInvite extends React.Component {
       const handleClick = ev => {
         ev.preventDefault();
         
-        this.props.acceptInvite(this.props.authenticated, this.props.userInfo.email, this.props.params.iid)
+        this.props.acceptOrgInvite(this.props.authenticated, this.props.userInfo.email, this.props.params.iid)
       };
       return (
         <div>

@@ -147,7 +147,7 @@ export default (state = defaultState, action) => {
         ...state,
         redirectTo: '/' + action.orgName
       }
-    case ActionTypes.INVITE_ACCEPTED:
+    case ActionTypes.ORG_INVITE_ACCEPTED:
       return {
         ...state,
         redirectTo: '/' + action.orgName
