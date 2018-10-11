@@ -13,7 +13,7 @@ const ProjectHeader = props => {
             <div className="project-header-text">{props.project.name}</div>
           </div>
 
-          <Link to={'/' + props.orgName + '/' + props.projectId + '/addthread'}
+          <Link to={'/' + props.orgName + '/addthread/' + props.projectId}
             className="flx flx-align-center pdding-left-sm flx-item-right mrgn-right-md">
               <div className="color--primary co-type-label mrgn-right-sm mobile-hide">Compose Thread</div>
               <div className="icon-wrapper flx flx-center-all fill--white brdr-all b--primary--20">
@@ -35,7 +35,7 @@ const ProjectHeader = props => {
             <div className="project-header-text">All Threads</div>
           </div>
 
-            <Link to={'/' + props.orgName + '/' + props.projectId + '/addthread'}
+            <Link to={'/' + props.orgName + '/addthread/'}
               activeClassName="active"
               className="flx flx-align-center pdding-left-sm flx-item-right mrgn-right-md">
               <div className="color--primary co-type-label mrgn-right-sm mobile-hide">Compose Thread</div>
