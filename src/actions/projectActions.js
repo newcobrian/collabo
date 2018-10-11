@@ -1037,7 +1037,7 @@ export function onCreateOrg(auth, org) {
           let orgId = Firebase.database().ref(Constants.ORGS_PATH).push(org).key;
 
           updates[`/${Constants.ORGS_BY_NAME_PATH}/${lowercaseName}/`] = Object.assign({}, {orgId: orgId}, omit(org, ['name']));
-          updates[`/${Constants.ORGS_BY_USER_PATH}/${auth}/${orgId}/`] = { name: org.name };
+          updates[`/${Constants.ORGS_BY_USER_PATH}/${auth}/${orgId}/`] = true;
           updates[`/${Constants.USERS_BY_ORG_PATH}/${orgId}/${auth}/`] = Constants.OWNER_ROLE
 
           // create dummy data
@@ -1251,7 +1251,7 @@ export function acceptOrgInvite(auth, email, inviteId) {
             // add user to the org and orgs-by-user
             // updates[Constants.USERS_BY_ORG_PATH + '/' + inviteSnap.val().orgId + '/' + auth] = Object.assign({}, userSnap.val())
             updates[Constants.USERS_BY_ORG_PATH + '/' + inviteSnap.val().orgId + '/' + auth] = true
-            updates[Constants.ORGS_BY_USER_PATH + '/' + auth + '/' + inviteSnap.val().orgId] = { name: inviteSnap.val().orgName }
+            updates[Constants.ORGS_BY_USER_PATH + '/' + auth + '/' + inviteSnap.val().orgId] = true
 
             // remove the invites
             updates[Constants.INVITES_PATH + '/' + inviteId + '/status/'] = Constants.ACCEPTED_STATUS
@@ -1408,27 +1408,28 @@ export function unwatchThreadFeed(auth, orgId, projectId, source) {
 export function loadOrgList(auth, source) {
   return dispatch => {
     Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth).on('child_added', snap => {
-      dispatch({
-        type: ActionTypes.LIST_ADDED_ACTION,
-        data: snap.val(),
-        id: snap.key,
-        listType: Constants.ORG_LIST_TYPE,
-        source: source
+      Firebase.database().ref(Constants.ORGS_PATH + '/' + snap.key).once('value', orgSnap => {
+        dispatch({
+          type: ActionTypes.LIST_ADDED_ACTION,
+          data: orgSnap.val(),
+          id: snap.key,
+          listType: Constants.ORG_LIST_TYPE,
+          source: source
+        })
       })
     })
-    Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth).on('child_changed', snap => {
-      dispatch({
-        type: ActionTypes.LIST_CHANGED_ACTION,
-        data: snap.val(),
-        id: snap.key,
-        listType: Constants.ORG_LIST_TYPE,
-        source: source
-      })
-    })
+    // Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth).on('child_changed', snap => {
+    //   dispatch({
+    //     type: ActionTypes.LIST_CHANGED_ACTION,
+    //     data: snap.val(),
+    //     id: snap.key,
+    //     listType: Constants.ORG_LIST_TYPE,
+    //     source: source
+    //   })
+    // })
     Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth).on('child_removed', snap => {
       dispatch({
         type: ActionTypes.LIST_REMOVED_ACTION,
-        data: snap.val(),
         id: snap.key,
         listType: Constants.ORG_LIST_TYPE,
         source: source
