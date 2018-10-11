@@ -5,6 +5,7 @@ import * as Constants from '../constants';
 import { Link } from 'react-router';
 import LoadingSpinner from './LoadingSpinner';
 import LoggedOutMessage from './LoggedOutMessage';
+import ErrorPage from './ErrorPage';
 
 const mapStateToProps = state => ({
   ...state.acceptInvite,
@@ -46,14 +47,7 @@ class AcceptInvite extends React.Component {
     }
     if (loadInviteError) {
       return (
-        <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
-          <div className="co-logo large-logo mrgn-bottom-lg mrgn-top-md">
-            <img className="center-img" src="/img/logomark.png"/>
-          </div>
-          <div className="mrgn-bottom-md color--white co-type-body">{ errorMessage ? errorMessage : 'Sorry, we couldn\'t find this invite.'}
-          </div>
-          <Link className="co-type-body color--tertiary" to='/'> Go to homepage</Link>
-        </div>
+        <ErrorPage message={ errorMessage ? errorMessage : 'Sorry, we couldn\'t find this invite.'} />
       )
     }
     if (!invite) {
