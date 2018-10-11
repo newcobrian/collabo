@@ -254,7 +254,8 @@ export const INVALID_USERNAMES = ['account', 'send', 'message', 'inbox', 'notifi
   'messenger', 'settings', 'admin', 'administrator', 'settings', 'global', 'saved', 'login', 'register',
   'followers', 'isfollowing', 'likes', 'saves', 'select', 'explore', 'search', 'user', 'users', 
   'home', 'api', 'privacy', 'terms', 'about', 'contact', 'new', 'addthread', 'addproject', 'thread', 'project', 
-  'organization', 'team', 'undefined', 'null', 'default', 'accept', 'forgotpassword', 'newteam', 'seo', 'invitation']
+  'organization', 'team', 'undefined', 'null', 'default', 'accept', 'forgotpassword', 'newteam', 'seo', 'invitation', 'koi',
+  'joinkoi', 'koiteam', 'koifish']
 
 export const ADMIN_USERS = [
 
@@ -311,3 +312,7 @@ export const GOOGLE_DRIVE_CLIENT_ID = '438121995352-h6nr2939gti9mh11vit36e9conrs
 export const GOOGLE_DRIVE_API_KEY = 'AIzaSyDM-kc1XYMc8mGDCNqXa7vidvXvUHTgE9k'
 
 export const CHANGE_DETECTION_DEBOUNCE_TIME = 10 * 1000; // 1 mins
+
+export const DUMMY_PROJECTS = [
+{ name: 'General' }
+]

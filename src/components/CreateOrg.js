@@ -73,7 +73,7 @@ class CreateOrg extends React.Component {
 	    				Create your new team
 	  				</div>
 		            <div className="co-type-body color--black mrgn-bottom-md">
-					This is your team/company name (ie "Tesla", "Bonniecylde")
+					This is your team/company name (ie "Tesla", "Nike")
 					</div>
 					
 		            <form>

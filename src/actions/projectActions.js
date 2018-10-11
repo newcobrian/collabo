@@ -1038,6 +1038,27 @@ export function onCreateOrg(auth, org) {
           updates[`/${Constants.ORGS_BY_USER_PATH}/${auth}/${orgId}/`] = { name: org.name };
           updates[`/${Constants.USERS_BY_ORG_PATH}/${orgId}/${auth}/`] = Constants.OWNER_ROLE
 
+          // create dummy data
+          Constants.DUMMY_PROJECTS.forEach(function(project) {
+            let projectObject = {
+              name: project.name,
+              isPublic: true,
+              lastModified: serverTimestamp,
+              createdOn: serverTimestamp,
+              orgId: orgId
+            }
+
+            let projectId = Firebase.database().ref(Constants.PROJECTS_PATH).push(projectObject).key;
+            let lowerCaseProject = project.name.toLowerCase()
+
+            // put projects in org
+            updates[`/${Constants.PROJECT_NAMES_BY_ORG_PATH}/${orgId}/${lowerCaseProject}/`] = Object.assign({}, {projectId: projectId}, {isPublic: true})
+
+            // add the project to the creators Project List
+            updates[`/${Constants.PROJECTS_BY_USER_BY_ORG_PATH}/${auth}/${orgId}/${projectId}/`] = Object.assign({}, {isPublic: true});
+            updates[`/${Constants.USERS_BY_PROJECT_PATH}/${projectId}/${auth}/`] = true
+          })
+
           Firebase.database().ref().update(updates);
 
           dispatch({

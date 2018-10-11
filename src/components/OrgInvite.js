@@ -39,7 +39,7 @@ class OrgInvite extends React.Component {
 	    this.props.loadProjectNames(this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
 	    this.props.loadOrgList(this.props.authenticated, Constants.ORG_SETTINGS_PAGE)
 
-    	// this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'create guide'});
+    	this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'org invite page'});
 	}
 
 	componentWillUnmount() {
