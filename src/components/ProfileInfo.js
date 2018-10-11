@@ -48,7 +48,7 @@ const ProfileInfo = props => {
 
             <div className="co-type-page-title mrgn-top-sm">{profile.username}</div>
 
-            <div className="user-bio ta-left flx flx-col flx-align-center mrgn-top-sm">
+            <div className="user-bio ta-left flx flx-col flx-align-center mrgn-top-sm DN">
 
 
               <div className="co-type-profile-status mrgn-top-xs mrgn-bottom-xs ta-center">

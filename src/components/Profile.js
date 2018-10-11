@@ -12,7 +12,6 @@ import InfiniteScroll from 'react-infinite-scroller';
 import OrgHeader from './OrgHeader';
 import Sidebar from 'react-sidebar';
 import InvalidOrg from './InvalidOrg';
-import LoadingSpinner from './LoadingSpinner';
 
 const mql = window.matchMedia(`(min-width: 800px)`);
 
@@ -242,7 +241,12 @@ class Profile extends React.Component {
     }
     if (!this.props.profile) {
       return (
-        <LoadingSpinner />
+        <div className="threadlist threadlist-loading header-push w-100 flx flx-col flx-center-all ta-center h-100 fill--white color--primary">
+        <div className="loading-koi mrgn-bottom-md">
+          <img className="center-img" src="/img/logomark.png"/>
+        </div>
+        <div className="w-100 ta-center co-type-body">Loading user profile...</div>
+      </div>
         )
     } 
     if (!this.props.profile.username) {
