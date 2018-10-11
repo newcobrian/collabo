@@ -35,7 +35,7 @@ const InviteLink = props => {
 const ProjectInfo = props => {
   return (
     <div className="project-info b--primary--10 flx flx-col flx-align-start">
-      <div className="co-type-h3 mrgn-bottom-sm">{props.project ? 'List Members' : 'Team Members'}</div>
+      <div className="co-type-h3 mrgn-bottom-sm">{props.project ? props.project.name + ' Members' : props.orgName + ' Members'}</div>
       <div className="info-row flx flx-row thread-timestamp mrgn-bottom-sm w-100">
         <div>
           {(props.projectMembers || []).length + ' Members'}
