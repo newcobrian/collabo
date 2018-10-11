@@ -1,6 +1,7 @@
 import ThreadPreview from './ThreadPreview';
 import React from 'react';
 import * as Constants from '../constants';
+import { Link } from 'react-router'
 
 const mapStateToProps = state => ({
   ...state.project,
@@ -13,7 +14,7 @@ const ThreadList = props => {
   if (props.emptyThreadFeed) {
     return (
       <div className="threadlist brdr-right b--primary--20 threadlist-loading header-push w-100 flx flx-col ta-center color--black opa-60">
-        This list has no threads yet. Why don't you add one?
+        This list has no threads yet. <Link to={'/' + props.orgName + '/addthread/' + (props.projectId ? props.projectId : '')}>Why don't you add one?</Link>
       </div>
     )
   }
