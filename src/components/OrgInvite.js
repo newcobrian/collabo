@@ -61,7 +61,7 @@ class OrgInvite extends React.Component {
 		            onSetOpen={mql.matches ? this.props.setSidebarOpen : () => this.props.setSidebar(!this.props.sidebarOpen)}
 		            styles={{ sidebar: {
 		                  borderRight: "1px solid rgba(0,0,0,.1)",
-		                  boxShadow: "none",
+		                  boxShadow: "none", 
 		                  zIndex: "100"
 		                },
 		                overlay: mql.matches ? {

@@ -14,7 +14,7 @@ body a.active,
 body a:active,
 body a:focus,
 body a:hover {
-  color: inherit;
+  color: rgba(124,256,216,1);
   opacity: 1;
   transition: all 0.23s ease-in-out 0s;
 }

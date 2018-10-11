@@ -46,14 +46,13 @@ class AcceptInvite extends React.Component {
     }
     if (loadInviteError) {
       return (
-        <div className="error-module flx flx-col flx-center-all ta-center v2-type-body3 color--black">
-          <div className="xiao-img-wrapper mrgn-bottom-sm">
-            <img className="center-img" src="/img/xiaog.png"/>
+        <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
+          <div className="co-logo large-logo mrgn-bottom-lg mrgn-top-md">
+            <img className="center-img" src="/img/logomark.png"/>
           </div>
-          <div className="mrgn-bottom-md">{ errorMessage ? errorMessage : 'Sorry, we couldn\'t find this invite.'}
-            <Link to='/'> Go to homepage</Link>
-          }
+          <div className="mrgn-bottom-md color--white co-type-body">{ errorMessage ? errorMessage : 'Sorry, we couldn\'t find this invite.'}
           </div>
+          <Link className="co-type-body color--tertiary" to='/'> Go to homepage</Link>
         </div>
       )
     }
@@ -64,13 +63,13 @@ class AcceptInvite extends React.Component {
     }
     if (inviteType === Constants.PROJECT_TYPE && invite.recipientId !== authenticated) {
       return (
-          <div className="error-module flx flx-col flx-center-all ta-center v2-type-body3 color--black">
-            <div className="xiao-img-wrapper mrgn-bottom-sm">
-              <img className="center-img" src="/img/xiaog.png"/>
+          <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
+            <div className="co-logo large-logo mrgn-bottom-lg mrgn-top-md">
+              <img className="center-img" src="/img/logomark.png"/>
             </div>
-            <div className="mrgn-bottom-md">Sorry, this invite was sent to a different user. 
-              <Link to='/'> Go to homepage</Link>
+            <div className="mrgn-bottom-md color--white co-type-body">Sorry, this invite was sent to a different user. 
             </div>
+            <Link className="co-type-body color--tertiary" to='/'> Go to homepage</Link>
           </div>
         )
     }
@@ -78,26 +77,26 @@ class AcceptInvite extends React.Component {
     if (inviteType === Constants.ORG_TYPE && (!invite.senderId || !invite.recipientEmail ||
     !invite.orgId)) {
       return (
-        <div className="error-module flx flx-col flx-center-all ta-center v2-type-body3 color--black">
-          <div className="xiao-img-wrapper mrgn-bottom-sm">
-            <img className="center-img" src="/img/xiaog.png"/>
+        <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
+          <div className="co-logo large-logo mrgn-bottom-lg mrgn-top-md">
+            <img className="center-img" src="/img/logomark.png"/>
           </div>
-          <div className="mrgn-bottom-md">Sorry, we couldn't find this invite.
-            <Link to='/'> Go to homepage</Link>
+          <div className="mrgn-bottom-md color--white co-type-body">Sorry, we couldn't find this invite.
           </div>
+          <Link className="co-type-body color--tertiary" to='/'> Go to homepage</Link>
         </div>
       )
     }
     // check that org invite was sent to this user's email address
     if (inviteType === Constants.ORG_TYPE && (!userInfo || invite.recipientEmail !== userInfo.email)) {
       return (
-        <div className="error-module flx flx-col flx-center-all ta-center v2-type-body3 color--black">
-          <div className="xiao-img-wrapper mrgn-bottom-sm">
-            <img className="center-img" src="/img/xiaog.png"/>
+        <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
+          <div className="co-logo large-logo mrgn-bottom-lg mrgn-top-md">
+            <img className="center-img" src="/img/logomark.png"/>
           </div>
-          <div className="mrgn-bottom-md">Sorry, this invite was sent to a different email address. 
-            <Link to='/'> Go to homepage</Link>
+          <div className="mrgn-bottom-md color--white co-type-body">Sorry, this invite was sent to a different email address. 
           </div>
+          <Link className="co-type-body color--tertiary" to='/'> Go to homepage</Link>
         </div>
       )
     }
@@ -110,8 +109,31 @@ class AcceptInvite extends React.Component {
       };
       return (
         <div>
-          <div className="flx flx-col flx-center-all page-common editor-page create-page">
-    {/**}     
+          <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
+            
+            <div className="co-logo large-logo mrgn-top-md">
+              <img className="center-img" src="/img/logomark.png"/>
+            </div>
+            <div className="co-logotype w-100 mrgn-top-lg mrgn-bottom-lg">
+              <img className="center-img" src="/img/logotype.png"/>
+            </div>
+
+            <div className="brdr-all b--tertiary pdding-all-lg flx flx-col flx-center-all">
+              <div className="co-type-h3 color--white mrgn-bottom-sm">
+                {sender.username} invited you to join their team "{invite.orgName}"
+              </div>
+              <div
+                className="vb fill--tertiary max-300 vb--wide mrgn-top-md color--black mrgn-bottom-md"
+                type="button"
+                disabled={this.props.inProgress}
+                >
+                    Accept
+              </div>
+              <Link className="co-type-body color--white" to='/'>No thanks</Link>
+            </div>
+            
+          </div>
+            {/**}     
             <div>
                   <Script
                     url={url}
@@ -121,75 +143,21 @@ class AcceptInvite extends React.Component {
                   /> 
               </div> 
               <div ref="GMap"></div>**/}
-            
-
-              {/* CONTAINER - START */}
-                <div className="hero-container">
-                  <div className="page-title-wrapper center-text DN">
-                        <div className="v2-type-page-header">Create a new Project</div>
-                        <div className="v2-type-body2 opa-60">This could be a list of top spots or plans for an upcoming trip</div>
-                      </div>
-                  <div className="create-content flx flx-col flx-center-all ta-center">
-                
-                <div className="flx flx-col flx-center-all create-wrapper">
-              
-                        <div className="create-form-wrapper form-wrapper ta-left flx flx-col-left bx-shadow">
-                          
-                          <div>
-                            <div className="v2-type-page mrgn-bottom-sm">
-                              {sender.username} invited you to join their team "{invite.orgName}"
-                            </div>
-
-                      
-
-                      
-                                
-                              <div
-                                className="vb vb--create w-100 mrgn-top-md color--white fill--primary"
-                                type="button"
-                                disabled={this.props.inProgress}
-                                onClick={handleClick}>
-                                  <div className="flx flx-row flx-center-all ta-center">
-                                    <div className="flx-grow1 mrgn-left-md">Accept</div>
-                                    <img className="flx-item-right" src="/img/icons/icon32_next.png"/>
-                                  </div>
-                              </div>
-                              <Link to='/'>or Cancel</Link>
-                        </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="hero-bg">
-                  <div className="hero-map opa-20">
-                  </div>
-                  <div className="hero-grid opa-10">
-                  </div>
-              </div>
-
-              
-
-            </div>  
-            {/* END CONTAINER */}
-            
-
-            </div>
-            
-
         </div>
-
 
       )
     }
     // else this is a project invite error
     else {
       return (
-        <div className="error-module flx flx-col flx-center-all ta-center v2-type-body3 color--black">
-          <div className="xiao-img-wrapper mrgn-bottom-sm">
-            <img className="center-img" src="/img/xiaog.png"/>
+       <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
+          <div className="co-logo large-logo mrgn-bottom-lg mrgn-top-md">
+            <img className="center-img" src="/img/logomark.png"/>
           </div>
-          <div className="mrgn-bottom-md">Sorry, we couldn't find this invite.
-            <Link to='/'> Go to homepage</Link>
+          <div className="mrgn-bottom-md color--white co-type-body">Sorry, we couldn't find this invite.
           </div>
+          <Link className="co-type-body color--tertiary" to='/'> Go to homepage</Link>
+
         </div>
       )
     }

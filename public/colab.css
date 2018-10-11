@@ -1,6 +1,9 @@
 .comments-area {
 	width: 100%;
 }
+.max-300 {
+	max-width: 300px;
+}
 .co-googledoc-wrapper p {
 	padding: 10px 0;
 }
@@ -1036,7 +1039,9 @@ p {
 .fill--tertiary--10 {
 	background-color: rgba(124,256,216,.2);
 }
-
+.b--tertiary {
+  border-color: rgba(124,256,216,1) !important;
+}
 
 a.color--primary:hover i,
 a.color--primary:focus i,
