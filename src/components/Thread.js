@@ -427,7 +427,7 @@ class Thread extends React.Component {
                               thread={this.props.thread}
                               project={this.props.project}
                               orgName={this.props.params.orgname}
-                              usersList={this.props.usersList}
+                              usersList={this.props.orgMembers}
                               type={Constants.THREAD_TYPE}
                               deleteComment={this.props.onDeleteThreadComment} />
                               </div>
