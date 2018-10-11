@@ -13,7 +13,7 @@ const ActivityList = props => {
   if (props.emptyActivityFeed) {
     return (
       <div className="status-module flx flx-col flx-center-all v2-type-body3">
-        This user has not done anything yet
+        This user hasn't done anything yet
       </div>
     )
   }

@@ -290,7 +290,7 @@ export default (state = initialState, action) => {
       if (action.source === Constants.PROFILE_PAGE) {
         return {
           ...state,
-          emptyThreadFeed: true
+          emptyActivityFeed: true
         }
       }
       return state;

@@ -323,7 +323,7 @@ class Profile extends React.Component {
                           hasMore={true}
                           loader={<div className="loader" key={0}>Loading ...</div>} >
                     
-                      <ActivityList feed={this.props.feed} orgName={this.props.params.orgname} />
+                      <ActivityList feed={this.props.feed} orgName={this.props.params.orgname} emptyActivityFeed={this.props.emptyActivityFeed} />
 
                     </InfiniteScroll>
                       

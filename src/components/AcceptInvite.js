@@ -38,7 +38,7 @@ class AcceptInvite extends React.Component {
 
   render() {
     const { authenticated, invite, loadInviteError, errorMessage, inviteType, userInfo, sender } = this.props;
-console.log('auth = ' + authenticated)
+
     if (!authenticated || !userInfo) {
       return (
         <LoggedOutMessage />        
