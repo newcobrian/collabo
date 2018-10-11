@@ -204,11 +204,12 @@ class ProjectList extends React.Component {
 
               
 
-              <Link activeClassName="active" className="sidebar-row group-triplet flx flx-col flx-align-center">
+              <Link activeClassName="active" className="sidebar-row group-triplet flx flx-col flx-align-center no-click">
                   <div className="sidebar-icon--large flx flx-center-all">
-                    <div className="koi-ico ico--bookmark--tertiary"></div>
+                    <div className="koi-ico ico--bookmark--tertiary opa-20"></div>
                   </div>
-                  <div className="co-type-label color--white">Saved</div>
+                  <div className="co-type-label color--white opa-40">Saved</div>
+                  <div className="co-type-label color--white opa-40">(N/A)</div>
               </Link>
 
               <Link to={'/' + this.props.orgName + '/admin'} activeClassName="active" className="sidebar-row group-triplet flx flx-col flx-align-center">

@@ -172,7 +172,7 @@ const ThreadPreview = props => {
                 {/*<div className="tip__caption color--gray ta-left flx flx-row" dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(thread.body)) || '' }} />*/}
 
                 <div className="cta-container flx flx-row flx-align-start mrgn-top-sm">
-                  <div className="koi-ico ico--bookmark mrgn-right-md opa-60"></div>
+                  <div className="koi-ico ico--bookmark mrgn-right-md opa-20 no-click"></div>
                   <LikeReviewButton
                     authenticated={props.authenticated}
                     isLiked={thread.likes && thread.likes[props.authenticated] ? true : false}
