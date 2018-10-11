@@ -149,14 +149,14 @@ export function signUpUser(username, email, password, fullName, redirect) {
                 type: ActionTypes.SIGN_UP_USER,
                 payload: userId,
                 redirect: redirect,
-                // meta: {
-                //   mixpanel: {
-                //     event: 'Sign up', 
-                //     props: {
-                //       'account created': (new Date()).toISOString()
-                //     }
-                //   }
-                // }
+                meta: {
+                  mixpanel: {
+                    event: 'Register', 
+                    props: {
+                      'account created': (new Date()).toISOString()
+                    }
+                  }
+                }
               })
             })
           })

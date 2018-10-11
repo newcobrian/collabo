@@ -77,15 +77,16 @@ export function onAddProject(auth, project, orgName, userInfo) {
                 orgId: orgSnap.val().orgId,
                 usersList: usersList,
                 projectMemberCheck: projectMemberCheck,
-                isPublic: project.isPublic
-                // meta: {
-                //   mixpanel: {
-                //     event: 'Itinerary created',
-                //     source: 'create page',
-                //     itineraryId: itineraryId,
-                //     geo: itinerary.geo.placeId
-                //   }
-                // }
+                isPublic: project.isPublic,
+                meta: {
+                  mixpanel: {
+                    event: 'Created new project',
+                    source: Constants.ADD_PROJECT_PAGE,
+                    projectId: projectId,
+                    orgId: orgSnap.val().orgId,
+                    isPublic: project.isPublic ? 'public' : 'private'
+                  }
+                }
               })
             })
           }
@@ -161,23 +162,23 @@ export function onAddThread(auth, projectId, thread, orgName, userInfo) {
             Helpers.updateAlgoliaIndex(threadId, algoliaObject);
           })
 
-          // mixpanel.people.increment("total itineraries");
-          // mixpanel.people.set({ "last itinerary created": (new Date()).toISOString() });
-          // mixpanel.identify(auth);
+          mixpanel.people.increment("threads created");
+          mixpanel.people.set({ "last thread created": (new Date()).toISOString() });
+          mixpanel.identify(auth);
 
           dispatch({
             type: ActionTypes.THREAD_CREATED,
             threadId: threadId,
             orgName: orgName,
-            projectId: projectId
-            // meta: {
-            //   mixpanel: {
-            //     event: 'Itinerary created',
-            //     source: 'create page',
-            //     itineraryId: itineraryId,
-            //     geo: itinerary.geo.placeId
-            //   }
-            // }
+            projectId: projectId,
+            meta: {
+              mixpanel: {
+                event: 'Created new thread',
+                source: Constants.ADD_THREAD_PAGE,
+                projectId: projectId,
+                orgId: projectSnapshot.val().orgId
+              }
+            }
           })
         }
       })
@@ -218,15 +219,15 @@ export function onDeleteThread(auth, threadId, thread, orgName) {
         dispatch({
           type: ActionTypes.THREAD_DELETED,
           redirect: '/' + orgName + '/' + thread.projectId,
-          message: 'Thread deleted'
-          // meta: {
-          //   mixpanel: {
-          //     event: 'Itinerary created',
-          //     source: 'create page',
-          //     itineraryId: itineraryId,
-          //     geo: itinerary.geo.placeId
-          //   }
-          // }
+          message: 'Thread deleted',
+          meta: {
+            mixpanel: {
+              event: 'Thread deleted',
+              source: Constants.THREAD_PAGE,
+              projectId: thread.projectId,
+              orgId: thread.projectId
+            }
+          }
         })
       })
     }
@@ -831,13 +832,11 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
       // const mixpanelProps = ( (type === Constants.TIPS_TYPE ||  type === Constants.RECOMMENDATIONS_TYPE) ? {subjectId: commentObject.subjectId} : {itineraryId: commentObject.id});
       dispatch({
         type: ActionTypes.ADD_COMMENT,
-        // meta: {
-        //   mixpanel: {
-        //     event: 'Comment added',
-        //     dataType: type,
-        //     props: mixpanelProps
-        //   }
-        // }
+        meta: {
+          mixpanel: {
+            event: 'Comment added',
+          }
+        }
       })
 
       // mixpanel.people.increment("total comments");
@@ -935,6 +934,7 @@ export function inviteUsersToOrg(auth, orgName, invites) {
 
             let emailSeen = {}
             emailSeen[authSnap.val().email] = true
+            let invitesSent = 0
 
             emailArray.forEach(function(email) {
               let cleanedEmail = Helpers.cleanEmailToFirebase(email)
@@ -985,6 +985,7 @@ export function inviteUsersToOrg(auth, orgName, invites) {
 
                 // save to seen emails so we don't duplicate
                 emailSeen[email] = true;
+                invitesSent++
               }
             })
 
@@ -992,15 +993,15 @@ export function inviteUsersToOrg(auth, orgName, invites) {
 
             dispatch({
               type: ActionTypes.USERS_INVITED_TO_ORG,
-              orgName: orgName
-              // meta: {
-              //   mixpanel: {
-              //     event: 'Itinerary created',
-              //     source: 'create page',
-              //     itineraryId: itineraryId,
-              //     geo: itinerary.geo.placeId
-              //   }
-              // }
+              orgName: orgName,
+              meta: {
+                mixpanel: {
+                  event: 'Invite to org',
+                  source: Constants.ORG_INVITE_PAGE,
+                  orgId: orgSnap.val().orgId,
+                  numInvites: invitesSent
+                }
+              }
             })
           })
         })
@@ -1043,14 +1044,13 @@ export function onCreateOrg(auth, org) {
             type: ActionTypes.ORG_CREATED,
             orgName: org.name,
             orgId: orgId,
-            // meta: {
-            //   mixpanel: {
-            //     event: 'Itinerary created',
-            //     source: 'create page',
-            //     itineraryId: itineraryId,
-            //     geo: itinerary.geo.placeId
-            //   }
-            // }
+            meta: {
+              mixpanel: {
+                event: 'Create new org',
+                source: Constants.CREATE_ORG_PAGE,
+                orgId: orgId
+              }
+            }
           })
         }
       })
@@ -1250,7 +1250,14 @@ export function acceptOrgInvite(auth, email, inviteId) {
 
             dispatch({
               type: ActionTypes.ORG_INVITE_ACCEPTED,
-              orgName: inviteSnap.val().orgName
+              orgName: inviteSnap.val().orgName,
+              meta: {
+                mixpanel: {
+                  event: 'Org invite accepted',
+                  orgId: inviteSnap.val().orgId,
+                  senderId: inviteSnap.val().senderId
+                }
+              }
             })
           })
         })
@@ -1725,7 +1732,8 @@ export function loadProjectMembers(projectId, source) {
 export function loadOrgMembers(orgName, source) {
   return dispatch => {
     // load all org members
-    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', orgSnap => {
+    let lowercaseName = orgName ? orgName.toLowerCase() : ''
+    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowercaseName).once('value', orgSnap => {
       if (orgSnap.exists()) {
         Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgSnap.val().orgId).on('child_added', addedSnap => {
           Firebase.database().ref(Constants.USERS_PATH + '/' + addedSnap.key).once('value', userSnap => {
@@ -2033,7 +2041,15 @@ export function inviteOrgUsersToProject(auth, org, project, invites) {
 
             dispatch({
               type: ActionTypes.INVITED_USERS_TO_PROJECT,
-              projectId: project.projectId
+              projectId: project.projectId,
+              meta: {
+                mixpanel: {
+                  event: 'Invite users to project',
+                  projectId: project.projectId,
+                  orgId: org.orgId,
+                  numInvites: sendList.length
+                }
+              }
             })
           })
         })

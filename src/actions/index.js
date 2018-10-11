@@ -1786,18 +1786,19 @@ export function likeReview(authenticated, type, objectId, thread, user, orgName,
           // Helpers.incrementThreadCount(Constants.LIKES_COUNT, id, thread, authenticated)
           Helpers.sendCollaboInboxMessage(authenticated, thread.userId, Constants.LIKE_THREAD_MESSAGE, Object.assign({}, {name: orgName}), null, Object.assign({}, thread, {threadId: id}), null)
 
-          // mixpanel.people.increment("total likes");
+          mixpanel.people.increment("total likes");
 
           dispatch({
             type: ActionTypes.REVIEW_LIKED,
-            // meta: {
-            //   mixpanel: {
-            //     event: 'Liked thread',
-            //     props: {
-            //       itineraryId: likeObject.itineraryId
-            //     }
-            //   }
-            // }
+            meta: {
+              mixpanel: {
+                event: 'Liked action',
+                props: {
+                  type: type,
+                  orgId: thread.orgId
+                }
+              }
+            }
           })
           // dispatch({
           //   type: SEND_INBOX_MESSAGE,
@@ -1866,18 +1867,19 @@ export function unlikeReview(authenticated, type, objectId, thread, userInfo, li
           // update threads, threads-by-org, threads-by-project
           // Helpers.decrementThreadCount(Constants.LIKES_COUNT, id, likeObject, authenticated)
 
-          // mixpanel.people.decrement("total likes");
+          mixpanel.people.decrement("total likes");
 
           dispatch({
             type: ActionTypes.REVIEW_UNLIKED,
-            // meta: {
-            //   mixpanel: {
-            //     event: 'Liked thread',
-            //     props: {
-            //       itineraryId: likeObject.itineraryId
-            //     }
-            //   }
-            // }
+            meta: {
+              mixpanel: {
+                event: 'Unlike action',
+                props: {
+                  type: type,
+                  orgId: thread.orgId
+                }
+              }
+            }
           })
           // dispatch({
           //   type: SEND_INBOX_MESSAGE,
