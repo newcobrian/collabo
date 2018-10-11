@@ -28,47 +28,46 @@ export function onAddProject(auth, project, orgName, userInfo) {
             })
           }
           else {
-            let serverTimestamp = Firebase.database.ServerValue.TIMESTAMP;
-            let projectObject = {
-              lastModified: serverTimestamp,
-              createdOn: serverTimestamp,
-              orgName: orgName,
-              orgId: orgSnap.val().orgId
-            }
-            let updates = {};
-            Object.assign(projectObject, project)
-
-            let projectId = Firebase.database().ref(Constants.PROJECTS_PATH).push(projectObject).key;
-
-            updates[`/${Constants.PROJECT_NAMES_BY_ORG_PATH}/${orgSnap.val().orgId}/${lowerCaseProject}/`] = Object.assign({}, {projectId: projectId}, {isPublic: project.isPublic})
-            // updates[`/${Constants.PROJECTS_BY_USER_PATH}/${auth}/${projectId}/`] = { name: project.name };
-
-            // add the project to the creators Project List
-            updates[`/${Constants.PROJECTS_BY_USER_BY_ORG_PATH}/${auth}/${orgSnap.val().orgId}/${projectId}/`] = Object.assign({}, {isPublic: project.isPublic});
-            updates[`/${Constants.USERS_BY_PROJECT_PATH}/${projectId}/${auth}/`] = true
-
-            Firebase.database().ref().update(updates);
-
-            // // update Algolia index
-            // Helpers.updateAlgloiaGeosIndex(itinerary.geo)
-
-            // mixpanel.people.increment("total itineraries");
-            // mixpanel.people.set({ "last itinerary created": (new Date()).toISOString() });
-            // mixpanel.identify(auth);
-          
-
-
-
-
             Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgSnap.val().orgId).once('value', orgUsersSnap => {
-              let usersList = []
-              orgUsersSnap.forEach(function(user) {
-                usersList = usersList.concat(Object.assign({}, { userId: user.key }, user.val()))
-              })
-              usersList.sort(Helpers.byUsername)
+              let serverTimestamp = Firebase.database.ServerValue.TIMESTAMP;
+              let projectObject = {
+                lastModified: serverTimestamp,
+                createdOn: serverTimestamp,
+                orgName: orgName,
+                orgId: orgSnap.val().orgId
+              }
+              let updates = {};
+              Object.assign(projectObject, project)
 
+              let projectId = Firebase.database().ref(Constants.PROJECTS_PATH).push(projectObject).key;
+
+              updates[`/${Constants.PROJECT_NAMES_BY_ORG_PATH}/${orgSnap.val().orgId}/${lowerCaseProject}/`] = Object.assign({}, {projectId: projectId}, {isPublic: project.isPublic})
+              // updates[`/${Constants.PROJECTS_BY_USER_PATH}/${auth}/${projectId}/`] = { name: project.name };
+
+              // add the project to the creators Project List
+              updates[`/${Constants.PROJECTS_BY_USER_BY_ORG_PATH}/${auth}/${orgSnap.val().orgId}/${projectId}/`] = Object.assign({}, {isPublic: project.isPublic});
+              updates[`/${Constants.USERS_BY_PROJECT_PATH}/${projectId}/${auth}/`] = true
+
+              let usersList = []
               let projectMemberCheck = {}
               projectMemberCheck[auth] = true
+
+              // if project is public, add it to everyone's project list
+              if (project.isPublic) {
+                orgUsersSnap.forEach(function(user) {
+                  updates[`/${Constants.PROJECTS_BY_USER_BY_ORG_PATH}/${user.key}/${orgSnap.val().orgId}/${projectId}/`] = Object.assign({}, {isPublic: project.isPublic});
+                  updates[`/${Constants.USERS_BY_PROJECT_PATH}/${projectId}/${user.key}/`] = true
+                })
+              }
+              // else if private, create usersList to pass to ProjectInvite modal
+              else {
+                orgUsersSnap.forEach(function(user) {
+                usersList = usersList.concat(Object.assign({}, { userId: user.key }, user.val()))
+                })
+                usersList.sort(Helpers.byUsername)
+              }
+
+              Firebase.database().ref().update(updates);
 
               dispatch({
                 type: ActionTypes.PROJECT_CREATED,
@@ -77,7 +76,8 @@ export function onAddProject(auth, project, orgName, userInfo) {
                 orgName: orgName,
                 orgId: orgSnap.val().orgId,
                 usersList: usersList,
-                projectMemberCheck: projectMemberCheck
+                projectMemberCheck: projectMemberCheck,
+                isPublic: project.isPublic
                 // meta: {
                 //   mixpanel: {
                 //     event: 'Itinerary created',

@@ -21,7 +21,6 @@ export default (state = initialState, action) => {
         itinerariesList: action.itinerariesList
   		}
     case ActionTypes.SHOW_PROJECT_INVITE_MODAL:
-    case ActionTypes.PROJECT_CREATED:
       return {
         ...state,
         modalType: Constants.PROJECT_INVITE_MODAL,
@@ -32,6 +31,20 @@ export default (state = initialState, action) => {
         orgName: action.orgName,
         orgId: action.orgId
       }
+    case ActionTypes.PROJECT_CREATED:
+      if (!action.isPublic) {
+        return {
+          ...state,
+          modalType: Constants.PROJECT_INVITE_MODAL,
+          projectMemberCheck: action.projectMemberCheck,
+          project: action.project,
+          projectId: action.projectId,
+          usersList: action.usersList,
+          orgName: action.orgName,
+          orgId: action.orgId
+        }
+      }
+      return state;
     case SHOW_DELETE_ITINERARY_MODAL:
       return {
         ...state,
