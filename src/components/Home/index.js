@@ -28,7 +28,8 @@ const OrgList = props => {
         {
           props.orgList.map((orgItem, index) => {
             return (
-              <a target="_blank" href={Constants.COLLABO_URL + '/' + orgItem.name} className="org-block flx flx-col flx-center-all" key={index}>
+              <a target="_blank" href={'/' + orgItem.name} className="org-block flx flx-col flx-center-all" key={index}>
+              {/*<a target="_blank" href={Constants.COLLABO_URL + '/' + orgItem.name} className="org-block flx flx-col flx-center-all" key={index}>*/}
                 <div className="org-logo mrgn-bottom-md DN">
                 </div>
                 <div className="co-type-org color--white">{orgItem.name}</div>
