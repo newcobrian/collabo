@@ -73,7 +73,7 @@ class Comment extends React.Component {
       <div className="comment-indent inline-comments flx flx-col flx-align-center" id={'comment' + comment.id}>
         <div className="comment-bg fill--secondary--10 w-100">
         <div className="comment-inner fill--white brdr-left b--secondary--40 w-100">
-          <div className="flx flx-col flx-just-start w-100">
+          <div className="comment-inner-inner flx flx-col flx-just-start w-100">
             <div className="flx flx-row flx-just-start flx-align-center w-100">
               <Link
                 to={`/user/${comment.username}`}

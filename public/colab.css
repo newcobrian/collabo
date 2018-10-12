@@ -349,7 +349,7 @@ p {
 
 .comment-indent {
     outline: none;
-    padding-left: 60px;
+    padding-left: 40px;
     padding-right: 10px;
 }
 .comment-input textarea {
@@ -366,6 +366,9 @@ p {
   padding: 16px;
   border-left-width: 4px !important;
   border-left-color: rgba(255,171,140,.8) !important;
+}
+.tp-wrapper .comment-inner-inner {
+	overflow-y: hidden;
 }
 .comment-wrapper {
   border-radius: 0;

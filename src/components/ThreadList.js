@@ -13,7 +13,7 @@ const mapStateToProps = state => ({
 const ThreadList = props => {
   if (props.emptyThreadFeed) {
     return (
-      <div className="threadlist brdr-right b--primary--20 threadlist-loading header-push w-100 flx flx-col ta-center color--black opa-60">
+      <div className="threadlist brdr-right b--primary--20 threadlist-loading header-push w-100 flx flx-col flx-center-all ta-center color--black opa-60">
         This list has no threads yet. <Link to={'/' + props.orgName + '/addthread/' + (props.projectId ? props.projectId : '')}>Click here to add one?</Link>
       </div>
     )

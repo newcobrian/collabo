@@ -89,7 +89,7 @@ class Home extends React.Component {
        <div className="home-page page-common flx flx-col flx-center-all flx-align-center flx-just-start ta-center">
         
 
-        <div className="error-module flx flx-col flx-center-all ta-center co-type-body color--black">
+        <div className="error-module flx flx-col flx-center-all ta-center co-type-body">
            <div className="co-logo large-logo mrgn-top-md">
               <img className="center-img" src="/img/logomark.png"/>
             </div>
