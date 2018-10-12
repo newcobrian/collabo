@@ -41,7 +41,7 @@ export function onAddProject(auth, project, orgName, userInfo) {
 
               let projectId = Firebase.database().ref(Constants.PROJECTS_PATH).push(projectObject).key;
 
-              updates[`/${Constants.PROJECT_NAMES_BY_ORG_PATH}/${orgSnap.val().orgId}/${lowerCaseProject}/`] = Object.assign({}, {projectId: projectId}, {isPublic: project.isPublic})
+              updates[`/${Constants.PROJECT_NAMES_BY_ORG_PATH}/${orgSnap.val().orgId}/${project.name}/`] = Object.assign({}, {projectId: projectId}, {isPublic: project.isPublic})
               // updates[`/${Constants.PROJECTS_BY_USER_PATH}/${auth}/${projectId}/`] = { name: project.name };
 
               // add the project to the creators Project List
