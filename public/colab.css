@@ -345,6 +345,7 @@ p {
 }
 .comment-input {
 	padding: 0 10px;
+	height: 120px;
 }
 
 .comment-indent {
@@ -374,6 +375,12 @@ p {
   border-radius: 0;
   margin-top: 10px;
   margin-bottom: 10px;
+  position: relative;
+}
+.comment-post-button {
+	position: absolute;
+    right: 0;
+    bottom: 0;
 }
 
 .inline-comments .comment-indent {
@@ -1090,6 +1097,8 @@ a.color--primary:focus {
 }
 .ql-editor {
 	padding: 0 !important;
+}
+.page-add-thread .ql-editor {
 	min-height: 170px;
 }
 
