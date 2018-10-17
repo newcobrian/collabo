@@ -605,7 +605,7 @@ p {
     -webkit-box-orient: vertical;*/
   }
   .tip__caption ol, li, span {
-      white-space: normal;
+      white-space: pre-wrap;
   }
   .tip__caption img {
   	width: 100%;
