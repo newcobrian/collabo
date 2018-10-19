@@ -49,10 +49,12 @@ export default (state = {}, action) => {
         ...state,
         inProgress: true
       }
-    case ActionTypes.SET_WATCH_ID:
+    case ActionTypes.LOAD_CREATE_ORG_PAGE:
       return {
         ...state,
-        watchId: action.payload
+        username: action.username ? action.username : null,
+        fullName: action.fullName ? action.fullName : null,
+        image: action.image ? action.image : null
       }
     case ActionTypes.ORG_CREATED:
       return {}

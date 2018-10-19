@@ -151,6 +151,7 @@ export * from './modalActions';
 export * from './loggingActions';
 export * from './profileActions';
 export * from './projectActions';
+export * from './orgActions';
 
 export function unloadProfileUser(uid) {
   return dispatch => {
