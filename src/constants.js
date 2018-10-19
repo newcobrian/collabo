@@ -108,6 +108,8 @@ export const INVITED_USERS_BY_PROJECT_PATH = '/invited-users-by-project'
 export const PROJECT_INVITES_PATH = '/project-invites'
 export const PROJECT_INVITES_BY_USER_PATH = '/project-invites-by-user'
 export const INBOX_BY_USER_BY_ORG_PATH = '/inbox-by-user-by-org'
+export const EMAIL_VERIFICATION_PATH = '/email-verification'
+export const VERIFICATION_BY_EMAIL_PATH = '/verification-by-email'
 
 /*** Counter Type Constants ***/
 export const LIKES_COUNT = 'likesCount'
@@ -202,6 +204,7 @@ export const ORG_SETTINGS_PAGE = 'ORG_SETTINGS_PAGE'
 export const PROJECT_SETTINGS_PAGE = 'PROJECT_SETTINGS_PAGE'
 export const INVITE_FORM = 'INVITE_FORM'
 export const PROJECT_INVITE_PAGE = 'PROJECT_INVITE_PAGE'
+export const ENTER_EMAIL_PAGE = 'ENTER_EMAIL_PAGE'
 
 /*** Tab Constants ***/
 export const MEMBERS_TAB = 'members'
@@ -245,18 +248,17 @@ export const HOME_PAGE_MIXPANEL_SOURCE = 'home page'
 export const ITINERARY_PAGE_MIXPANEL_SOURCE = 'itinerary page'
 
 export const INVALID_USERNAMES = ['account', 'send', 'message', 'inbox', 'notification', 'create', 'edit', 'editor',
- 'itinerary', 'messenger', 'settings', 'admin', 'administrator', 'settings', 'global', 'saved', 'login', 'register',
-  'review', 'followers', 'isfollowing', 'likes', 'saves', 'select', 'explore', 'search', 'user', 'users', 'location', 'city', 
-  'geo', 'attraction', 'subject', 'home', 'places', 'countries', 'api', 'guide', 'popular', 'privacy', 'terms', 'about',
-  'contact', 'recommend', 'recommendations', 'new', 'addthread', 'addproject', 'thread', 'project', 'organization',
-   'team', 'undefined', 'null', 'forgotpassword', 'invitation']
+ 'itinerary', 'messenger', 'settings', 'admin', 'administrator', 'settings', 'saved', 'login', 'register',
+  'followers', 'isfollowing', 'likes', 'saves', 'select', 'explore', 'search', 'user', 'users','home', 
+  'api', 'popular', 'privacy', 'terms', 'about', 'contact', 'recommend', 'recommendations', 'new', 'addthread', 
+  'addproject', 'thread', 'project', 'organization', 'team', 'undefined', 'null', 'forgotpassword', 'invitation', 'verify']
 
   export const INVALID_ORG_NAMES = ['koi', 'account', 'send', 'message', 'inbox', 'notification', 'create', 'edit', 'editor',
   'messenger', 'settings', 'admin', 'administrator', 'settings', 'global', 'saved', 'login', 'register',
   'followers', 'isfollowing', 'likes', 'saves', 'select', 'explore', 'search', 'user', 'users', 
   'home', 'api', 'privacy', 'terms', 'about', 'contact', 'new', 'addthread', 'addproject', 'thread', 'project', 
   'organization', 'team', 'undefined', 'null', 'default', 'accept', 'forgotpassword', 'newteam', 'seo', 'invitation', 'koi',
-  'joinkoi', 'koiteam', 'koifish']
+  'joinkoi', 'koiteam', 'koifish', 'verify']
 
 export const ADMIN_USERS = [
 

@@ -797,6 +797,15 @@ export function sendInviteEmail(auth, recipientEmail, orgName, inviteId) {
 	})
 }
 
+export function sendVerifyEmail(recipientEmail, verifiyId) {
+	let link = Constants.COLLABO_URL + '/' + verifiyId
+
+	let data = Object.assign({}, 
+		{ clickthroughLink: link }, 
+		);
+	sendContentManagerEmail("23853246-d1de-4e0f-8d9c-657446db8adb", recipientEmail, data);
+}
+
 export function incrementThreadSeenCounts(auth, orgId, projectId, threadId) {
 	Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId).once('value', orgUsersSnap => {
 		let updates = {}

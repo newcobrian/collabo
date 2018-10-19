@@ -2149,6 +2149,55 @@ export function showOrgInviteModal(orgId, orgName) {
   }
 }
 
+export function enterEmail(email) {
+  return dispatch => {
+    let cleanedEmail = Helpers.cleanEmailToFirebase(email)
+    Firebase.database().ref(Constants.USERS_BY_EMAIL_PATH + '/' + cleanedEmail).once('value', snap => {
+      // if email address already belongs to a user tell them
+      if (snap.exists()) {
+        dispatch({
+          type: ActionTypes.EMAIL_ADDRESS_TAKEN
+        })
+      }
+      else {
+        Firebase.database().ref(Constants.VERIFICATION_BY_EMAIL_PATH + '/' + cleanedEmail).once('value', emailSnap => {
+          let updates = {}
+          let verifyObject = {
+            email: email,
+            timeSent: Firebase.database.ServerValue.TIMESTAMP
+          }
+
+          let verifyId = Firebase.database().ref(Constants.EMAIL_VERIFICATION_PATH).push(verifyObject).key
+
+          // if we already sent the user a code, clear out the old one
+          if (emailSnap.exists()) {
+            updates[Constants.EMAIL_VERIFICATION_PATH + '/' + emailSnap.val().verifyId] = null
+          }
+          
+          // save new verification code in verification-by-email
+          updates[Constants.VERIFICATION_BY_EMAIL_PATH + '/' + cleanedEmail] = Object.assign({}, omit(verifyObject, ['email']), {verifyId: verifyId})
+
+          Firebase.database().ref().update(updates)
+
+          // send verification email
+          Helpers.sendVerifyEmail(email, verifyId);
+
+          dispatch({
+            type: ActionTypes.EMAIL_VERIFICATION_SENT
+          })
+        })
+      }
+    })
+  }
+}
+
+export function resetVerificationPage() {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.RESET_VERIFICATION_PAGE
+    })
+  }
+}
 // export function loadLikesByUser(auth, orgName) {
 //   return dispatch => {
 //     Firebase.database()).ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', orgSnap => {

@@ -29,6 +29,8 @@ import OrgInvite from './components/OrgInvite';
 import AcceptInvite from './components/AcceptInvite';
 import OrgSettings from './components/OrgSettings';
 import ProjectSettings from './components/ProjectSettings';
+import VerifyEmail from './components/VerifyEmail';
+import EnterEmail from './components/EnterEmail';
 import SEO from './components/SEO';
 import store from './store';
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -56,10 +58,12 @@ ReactDOM.render((
         <IndexRoute component={Home} />
         <Route path="login" component={Login} />
         <Route path="register" component={Register} />
+        <Route path="whatsyouremail" component={EnterEmail} />
         <Route path="forgotPassword" component={ForgotPassword} />
         <Route path="newteam" component={CreateOrg} />
         <Route path="seo" component={SEO} />
         <Route path ="invitation/:iid" component={AcceptInvite} />
+        <Route path ="verify/(:vid)" component={VerifyEmail} />
         {/*<Route path="user/:username/followers" component={Followers} />
         <Route path="user/:username/isfollowing" component={Followings} />
         <Route path="user/:username/likes" component={ProfileLikes} />*/}
