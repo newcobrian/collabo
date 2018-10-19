@@ -128,6 +128,9 @@ export function onCreateOrg(auth, org, userData) {
           updates[`/${Constants.USERS_BY_ORG_PATH}/${orgId}/${auth}/`] = 
             Object.assign({}, userData, {role: Constants.OWNER_ROLE})
 
+          // save to usernames by org
+          updates[`/${Constants.USERNAMES_BY_ORG_PATH}/${orgId}/${userData.username.toLowerCase()}/`] = auth
+
           // create dummy data
           Constants.DUMMY_PROJECTS.forEach(function(project) {
             let projectObject = {
@@ -250,47 +253,60 @@ export function acceptOrgInvite(auth, email, inviteId, userData) {
         })
       }
       else {
-        Firebase.database().ref(Constants.USERS_PATH + '/' + auth).once('value', userSnap => {
-          Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + inviteSnap.val().orgId).once('value', projectNamesSnap => {
-            let cleanedEmail = Helpers.cleanEmailToFirebase(email)
-        
-            let updates = {}
-            // add user to the org and orgs-by-user
-            // updates[Constants.USERS_BY_ORG_PATH + '/' + inviteSnap.val().orgId + '/' + auth] = Object.assign({}, userSnap.val())
-            updates[Constants.USERS_BY_ORG_PATH + '/' + inviteSnap.val().orgId + '/' + auth] = 
-              Object.assign({}, userData, {role: Constants.USER_ROLE})
-            updates[Constants.ORGS_BY_USER_PATH + '/' + auth + '/' + inviteSnap.val().orgId] = true
-
-            // remove the invites
-            updates[Constants.INVITES_PATH + '/' + inviteId + '/status/'] = Constants.ACCEPTED_STATUS
-            updates[Constants.INVITED_USERS_BY_ORG_PATH + '/' + inviteSnap.val().orgId + '/' + Helpers.cleanEmailToFirebase(email)] = null
-
-            // remove the inbox item?
-            // updates[Constants.INVITES_BY_ORG_PATH + '/' + inviteSnap.val().orgId + '/users/' + auth] = null
-            // updates[Constants.INVITES_BY_ORG_PATH + '/' + inviteSnap.val().orgId + '/emails/' + email] = null
-
-            // add all public projects for the user
-            projectNamesSnap.forEach(function(projectItem) {
-              if (projectItem.val().isPublic) {
-                updates[`/${Constants.PROJECTS_BY_USER_BY_ORG_PATH}/${auth}/${inviteSnap.val().orgId}/${projectItem.val().projectId}/`] = Object.assign({}, {isPublic: projectItem.val().isPublic});
-                updates[`/${Constants.USERS_BY_PROJECT_PATH}/${projectItem.val().projectId}/${auth}/`] = true
-              }
-            })
-
-            Firebase.database().ref().update(updates)
-
+        let lowerCaseName = userData && userData.username ? userData.username.toLowerCase() : ''
+        Firebase.database().ref(Constants.USERNAMES_BY_ORG_PATH + '/' + inviteSnap.val().orgId + '/' + lowerCaseName).once('value', usernameSnap => {
+          if (usernameSnap.exists()) {
             dispatch({
-              type: ActionTypes.ORG_INVITE_ACCEPTED,
-              orgName: inviteSnap.val().orgName,
-              meta: {
-                mixpanel: {
-                  event: 'Org invite accepted',
-                  orgId: inviteSnap.val().orgId,
-                  senderId: inviteSnap.val().senderId
-                }
-              }
+              type: ActionTypes.CREATE_SUBMIT_ERROR,
+              source: Constants.ACCEPT_INVITE_PAGE,
+              error: 'The username \'' + userData.username + '\' is already taken. Please choose another username'
             })
-          })
+          }
+          else {
+            Firebase.database().ref(Constants.USERS_PATH + '/' + auth).once('value', userSnap => {
+              Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + inviteSnap.val().orgId).once('value', projectNamesSnap => {
+                let cleanedEmail = Helpers.cleanEmailToFirebase(email)
+            
+                let updates = {}
+                // add user to the org and orgs-by-user
+                // updates[Constants.USERS_BY_ORG_PATH + '/' + inviteSnap.val().orgId + '/' + auth] = Object.assign({}, userSnap.val())
+                updates[Constants.USERS_BY_ORG_PATH + '/' + inviteSnap.val().orgId + '/' + auth] = 
+                  Object.assign({}, userData, {role: Constants.USER_ROLE})
+                updates[Constants.USERNAMES_BY_ORG_PATH + '/' + inviteSnap.val().orgId + '/' + lowerCaseName] = auth
+                updates[Constants.ORGS_BY_USER_PATH + '/' + auth + '/' + inviteSnap.val().orgId] = true
+
+                // remove the invites
+                updates[Constants.INVITES_PATH + '/' + inviteId + '/status/'] = Constants.ACCEPTED_STATUS
+                updates[Constants.INVITED_USERS_BY_ORG_PATH + '/' + inviteSnap.val().orgId + '/' + Helpers.cleanEmailToFirebase(email)] = null
+
+                // remove the inbox item?
+                // updates[Constants.INVITES_BY_ORG_PATH + '/' + inviteSnap.val().orgId + '/users/' + auth] = null
+                // updates[Constants.INVITES_BY_ORG_PATH + '/' + inviteSnap.val().orgId + '/emails/' + email] = null
+
+                // add all public projects for the user
+                projectNamesSnap.forEach(function(projectItem) {
+                  if (projectItem.val().isPublic) {
+                    updates[`/${Constants.PROJECTS_BY_USER_BY_ORG_PATH}/${auth}/${inviteSnap.val().orgId}/${projectItem.val().projectId}/`] = Object.assign({}, {isPublic: projectItem.val().isPublic});
+                    updates[`/${Constants.USERS_BY_PROJECT_PATH}/${projectItem.val().projectId}/${auth}/`] = true
+                  }
+                })
+
+                Firebase.database().ref().update(updates)
+
+                dispatch({
+                  type: ActionTypes.ORG_INVITE_ACCEPTED,
+                  orgName: inviteSnap.val().orgName,
+                  meta: {
+                    mixpanel: {
+                      event: 'Org invite accepted',
+                      orgId: inviteSnap.val().orgId,
+                      senderId: inviteSnap.val().senderId
+                    }
+                  }
+                })
+              })
+            })
+          }
         })
       }
     })

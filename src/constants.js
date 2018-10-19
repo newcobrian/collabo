@@ -110,6 +110,7 @@ export const PROJECT_INVITES_BY_USER_PATH = '/project-invites-by-user'
 export const INBOX_BY_USER_BY_ORG_PATH = '/inbox-by-user-by-org'
 export const EMAIL_VERIFICATION_PATH = '/email-verification'
 export const VERIFICATION_BY_EMAIL_PATH = '/verification-by-email'
+export const USERNAMES_BY_ORG_PATH = 'usernames-by-org'
 
 /*** Counter Type Constants ***/
 export const LIKES_COUNT = 'likesCount'
