@@ -49,13 +49,16 @@ export default (state = {}, action) => {
         ...state,
         inProgress: true
       }
-    case ActionTypes.LOAD_CREATE_ORG_PAGE:
-      return {
-        ...state,
-        username: action.username ? action.username : null,
-        fullName: action.fullName ? action.fullName : null,
-        image: action.image ? action.image : null
+    case ActionTypes.LOAD_NEW_ORG_USER_INFO:
+      if (action.source === Constants.CREATE_ORG_PAGE) {
+        return {
+          ...state,
+          username: action.username ? action.username : null,
+          fullName: action.fullName ? action.fullName : null,
+          image: action.image ? action.image : null
+        }
       }
+      else return state;
     case ActionTypes.ORG_CREATED:
       return {}
   	case ActionTypes.UPDATE_FIELD_CREATE:

@@ -205,6 +205,7 @@ export const PROJECT_SETTINGS_PAGE = 'PROJECT_SETTINGS_PAGE'
 export const INVITE_FORM = 'INVITE_FORM'
 export const PROJECT_INVITE_PAGE = 'PROJECT_INVITE_PAGE'
 export const ENTER_EMAIL_PAGE = 'ENTER_EMAIL_PAGE'
+export const ACCEPT_INVITE_PAGE = 'ACCEPT_INVITE_PAGE'
 
 /*** Tab Constants ***/
 export const MEMBERS_TAB = 'members'
@@ -213,6 +214,7 @@ export const LISTS_TAB = 'lists'
 
 /*** User Roles ***/
 export const OWNER_ROLE = 'owner'
+export const USER_ROLE = 'user'
 
 export const ORG_MEMBERS_LIST = 'orgMembers'
 export const PROJECT_MEMBERS_LIST = 'projectMembers'

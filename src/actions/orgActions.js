@@ -234,7 +234,7 @@ export function unloadOrg(source) {
   }
 }
 
-export function acceptOrgInvite(auth, email, inviteId) {
+export function acceptOrgInvite(auth, email, inviteId, userData) {
   return dispatch => {
     Firebase.database().ref(Constants.INVITES_PATH + '/' + inviteId).once('value', inviteSnap => {
       if (!inviteSnap.exists()) {
@@ -257,7 +257,8 @@ export function acceptOrgInvite(auth, email, inviteId) {
             let updates = {}
             // add user to the org and orgs-by-user
             // updates[Constants.USERS_BY_ORG_PATH + '/' + inviteSnap.val().orgId + '/' + auth] = Object.assign({}, userSnap.val())
-            updates[Constants.USERS_BY_ORG_PATH + '/' + inviteSnap.val().orgId + '/' + auth] = true
+            updates[Constants.USERS_BY_ORG_PATH + '/' + inviteSnap.val().orgId + '/' + auth] = 
+              Object.assign({}, userData, {role: Constants.USER_ROLE})
             updates[Constants.ORGS_BY_USER_PATH + '/' + auth + '/' + inviteSnap.val().orgId] = true
 
             // remove the invites
@@ -296,12 +297,13 @@ export function acceptOrgInvite(auth, email, inviteId) {
   }
 }
 
-export function loadCreateOrgPage(userInfo) {
+export function loadNewOrgUserInfo(userInfo, source) {
   return dispatch => {
     // Firebase.database().ref(Constants.USERS_PATH + '/' + auth).once('value', snap => {
       // if (snap.exists()) {
         dispatch(Object.assign({}, 
-          { type: ActionTypes.LOAD_CREATE_ORG_PAGE },
+          { type: ActionTypes.LOAD_NEW_ORG_USER_INFO },
+          { source: source },
           userInfo))
       // }
     // })

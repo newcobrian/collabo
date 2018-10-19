@@ -36,10 +36,10 @@ class CreateOrg extends React.Component {
 		  else if(!(/^[a-zA-Z\s]*$/.test(this.props.name))) {
 			this.props.createSubmitError('Your team name can only contain letters', Constants.CREATE_ORG_PAGE);
 		  }
-		  else if (!this.props.username) {
+		  else if (!this.props.username || this.props.username.length < 1) {
 		  	this.props.createSubmitError('Please add your username', Constants.CREATE_ORG_PAGE);
 		  }
-		  else if (!this.props.fullName) {
+		  else if (!this.props.fullName || this.props.fullName.length < 1) {
 		  	this.props.createSubmitError('Please add your full name', Constants.CREATE_ORG_PAGE);
 		  }
 	      else {
@@ -67,7 +67,7 @@ class CreateOrg extends React.Component {
     		this.props.askForAuth();
     	}
 
-    	this.props.loadCreateOrgPage(this.props.userInfo)
+    	this.props.loadNewOrgUserInfo(this.props.userInfo, Constants.CREATE_ORG_PAGE)
 
     	this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'create org'});
 	}

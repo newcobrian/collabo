@@ -6,6 +6,7 @@ import { Link } from 'react-router';
 import LoadingSpinner from './LoadingSpinner';
 import LoggedOutMessage from './LoggedOutMessage';
 import ErrorPage from './ErrorPage';
+import ListErrors from './ListErrors';
 
 const mapStateToProps = state => ({
   ...state.acceptInvite,
@@ -17,11 +18,38 @@ const mapStateToProps = state => ({
 class AcceptInvite extends React.Component {
   constructor() {
     super()
+
+    const updateFieldEvent =
+        key => ev => this.props.onUpdateCreateField(key, ev.target.value, Constants.ACCEPT_INVITE_PAGE);
+
+    this.changeUsername = updateFieldEvent('username');
+    this.changeFullName = updateFieldEvent('fullName');
+
+    this.handleSubmit = ev => {
+      ev.preventDefault()
+      
+      if (!this.props.username || this.props.username.length < 1) {
+        this.props.createSubmitError('Please add your username', Constants.ACCEPT_INVITE_PAGE);
+      }
+      else if (!this.props.fullName || this.props.fullName.length < 1) {
+        this.props.createSubmitError('Please add your full name', Constants.ACCEPT_INVITE_PAGE);
+      }
+      else {
+        let userData = Object.assign({}, 
+          {username: this.props.username},
+          {fullName: this.props.fullName},
+          {image: this.props.image}
+        )
+        this.props.acceptOrgInvite(this.props.authenticated, this.props.userInfo.email, this.props.params.iid, userData)
+      }
+    }
   }
 
   componentDidMount() {
     this.props.loadInvite(this.props.authenticated, this.props.params.iid, this.props.userInfo);
     if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
+
+    this.props.loadNewOrgUserInfo(this.props.userInfo, Constants.ACCEPT_INVITE_PAGE)
 
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'accept invite'});
   }
@@ -96,11 +124,6 @@ class AcceptInvite extends React.Component {
     }
 
     if (inviteType === Constants.ORG_TYPE) {
-      const handleClick = ev => {
-        ev.preventDefault();
-        
-        this.props.acceptOrgInvite(this.props.authenticated, this.props.userInfo.email, this.props.params.iid)
-      };
       return (
         <div>
           <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
@@ -116,10 +139,38 @@ class AcceptInvite extends React.Component {
               <div className="co-type-h3 color--white mrgn-bottom-sm">
                 {sender.username} invited you to join their team "{invite.orgName}"
               </div>
+
+              <form>
+                <fieldset className="field-wrapper">
+                  <label>What's your username?</label>
+                  <input
+                    className="input--underline edit-itinerary__name brdr-all"
+                    type="text"
+                    placeholder="Username" 
+                    required
+                    value={this.props.username}
+                    onChange={this.changeUsername} />
+                </fieldset>
+
+                <fieldset className="field-wrapper">
+                  <label>What's your full name?</label>
+                  <input
+                    className="input--underline edit-itinerary__name brdr-all"
+                    type="fullName"
+                    placeholder="Full Name"
+                    required
+                    value={this.props.fullName}
+                    onChange={this.changeFullName} />
+                </fieldset>
+
+                <ListErrors errors={this.props.errors}></ListErrors>
+              </form>
+
               <div
                 className="vb fill--tertiary max-300 vb--wide mrgn-top-md color--black mrgn-bottom-md"
                 type="button"
                 disabled={this.props.inProgress}
+                onClick={this.handleSubmit}
                 >
                     Accept
               </div>
