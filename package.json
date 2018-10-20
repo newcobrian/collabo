@@ -21,6 +21,7 @@
     "algoliasearch": "^3.22.1",
     "express": "^4.16.2",
     "firebase": "^3.6.9",
+    "firebase-tools": "^5.1.1",
     "google-maps-react": "^1.1.0",
     "googleapis": "^33.0.0",
     "immutable": "^3.8.1",
@@ -72,14 +73,18 @@
     "superagent": "^3.4.1",
     "superagent-promise": "^1.1.0",
     "superagent-promise-plugin": "^3.2.0",
+    "to": "^0.2.9",
+    "update": "^0.7.4",
     "whatwg-fetch": "^2.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "cron-test": "gcloud pubsub topics publish hourly-tick --message=Hello",
+    "cron-log": "firebase functions:log --project collabo-bc9b2",
     "eject": "react-scripts eject",
-    "deploy": "react-scripts build; firebase deploy"
+    "deploy": "react-scripts build; cd appengine && npm run deploy; firebase deploy"
   },
   "description": "% npm install",
   "main": ".eslintrc.js",
