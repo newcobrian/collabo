@@ -87,33 +87,32 @@ class Profile extends React.Component {
     this.scrolledToBottom = () => {
       if (!this.props.isFeedLoading) {
         let userId = this.props.profile ? this.props.profile.userId : null
-        this.props.watchActivityFeed(userId, this.props.params.orgname, this.props.feedEndValue, Constants.PROFILE_PAGE)
+        this.props.watchActivityFeed(userId, this.props.orgId, this.props.feedEndValue, Constants.PROFILE_PAGE)
       }
     }
 
-    this.loadUser = username => {
+    this.loadUser = (username, orgName) => {
+      let lowerCaseOrgName = orgName ? orgName.toLowerCase() : ''
       Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + username).on('value', snapshot => {
-        if (snapshot.exists()) {
-          let userId = snapshot.val().userId;
-          this.props.getProfileUser(userId);
-          // this.props.watchActivityFeed(this.props.authenticated, this.props.params.orgname, this.props.feedEndValue, Constants.PROFILE_PAGE)
-          
-          // this.props.checkFollowing(this.props.authenticated, userId);
-          // this.props.getItinerariesByUser(this.props.authenticated, userId);
-          // this.props.getReviewsByUser(this.props.authenticated, userId);
-          // this.props.getProfileCounts(userId);
-          this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'profile'});
-        }
-        else {
-          this.props.userDoesntExist();
-        }
+        Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
+          if (snapshot.exists() && orgSnap.exists()) {
+            let userId = snapshot.val().userId;
+            this.props.getProfileUser(userId, orgSnap.val().orgId);
+            this.props.watchActivityFeed(this.props.authenticated, orgSnap.val().orgId, this.props.feedEndValue, Constants.PROFILE_PAGE)
+
+            this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'profile'});
+          }
+          else {
+            this.props.userDoesntExist();
+          }
+        })
       });
     }
     
-    this.unloadUser = (username, userId) => {
+    this.unloadUser = (username, userId, orgId) => {
       if (this.props.profile && userId) {
         this.props.unloadProfileUser(userId);
-        this.props.watchActivityFeed(this.props.authenticated, this.props.params.orgname, Constants.PROFILE_PAGE)
+        this.props.unwatchActivityFeed(this.props.authenticated, orgId, Constants.PROFILE_PAGE)
         // this.props.unloadProfileFollowing(this.props.authenticated, userId);
         // this.props.unloadItinerariesByUser(this.props.authenticated, userId);
         // this.props.unloadReviewsByUser(this.props.authenticated, userId);
@@ -136,11 +135,11 @@ class Profile extends React.Component {
     this.props.loadProjectNames(this.props.params.orgname, Constants.PROFILE_PAGE)
     this.props.loadOrgList(this.props.authenticated, Constants.PROFILE_PAGE)
     // look up userID from username and load profile
-    this.loadUser(this.props.params.username)
+    this.loadUser(this.props.params.username, this.props.params.orgname)
   }
 
   componentWillUnmount() {
-    this.unloadUser(this.props.params.username, this.props.profile.userId);
+    this.unloadUser(this.props.params.username, this.props.profile.userId, this.props.orgId);
     this.props.unloadProjectNames(this.props.orgId, Constants.PROFILE_PAGE)
     this.props.unloadOrgList(this.props.authenticated, Constants.PROFILE_PAGE)
     this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId)
@@ -154,8 +153,9 @@ class Profile extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.username !== this.props.params.username) {
-      this.unloadUser(this.props.params.username, this.props.profile.userId);
-      this.loadUser(nextProps.params.username);
+      let orgName = nextProps.params.orgname ? nextProps.params.orgname : this.props.params.orgname
+      this.unloadUser(this.props.params.username, this.props.profile.userId, this.props.orgId);
+      this.loadUser(nextProps.params.username, orgName);
     }
   }
 

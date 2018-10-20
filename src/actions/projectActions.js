@@ -1261,84 +1261,67 @@ export function markThreadRead(auth, threadId) {
 //   }
 // }
 
-export function watchActivityFeed(auth, orgName, endValue, source) {
+export function watchActivityFeed(auth, orgId, endValue, source) {
   return dispatch => {
     if (auth) {
       dispatch(setIsFeedLoading(source));
-      Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', orgSnap => {
-        if (!orgSnap.exists()) {
-          dispatch({
-            type: ActionTypes.NOT_AN_ORG_USER
+      Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + auth).once('value', userSnap => {
+        Firebase.database().ref(Constants.ACTIVITY_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgId).once('value', emptySnap => {
+          if (!emptySnap.exists()) {
+            dispatch({
+              type: ActionTypes.EMPTY_ACTIVITY_FEED,
+              source: source
+            })
+          }
+        })
+
+        if (endValue === null) {
+          Firebase.database().ref(Constants.ACTIVITY_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgId)
+            .orderByChild('lastModified')
+            .limitToLast(Constants.TIPS_TO_LOAD)
+            .on('child_added', activitySnap => {
+              dispatch(activityAddedAction(activitySnap.key, activitySnap.val(), userSnap.val(), source));
+              dispatch(updateEndValue(activitySnap.val().lastModified ? activitySnap.val().lastModified : endValue, source));
+              debounceSetFeedNotLoading(dispatch, source);
           })
         }
         else {
-          Firebase.database().ref(Constants.USERS_PATH + '/' + auth).once('value', userSnap => {
-            let orgId = orgSnap.val().orgId
-
-            Firebase.database().ref(Constants.ACTIVITY_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgId).once('value', emptySnap => {
-              if (!emptySnap.exists()) {
-                dispatch({
-                  type: ActionTypes.EMPTY_ACTIVITY_FEED,
-                  source: source
-                })
-              }
-            })
-
-            if (endValue === null) {
-              Firebase.database().ref(Constants.ACTIVITY_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgId)
-                .orderByChild('lastModified')
-                .limitToLast(Constants.TIPS_TO_LOAD)
-                .on('child_added', activitySnap => {
-                  dispatch(activityAddedAction(activitySnap.key, activitySnap.val(), userSnap.val(), source));
-                  dispatch(updateEndValue(activitySnap.val().lastModified ? activitySnap.val().lastModified : endValue, source));
-                  debounceSetFeedNotLoading(dispatch, source);
-              })
-            }
-            else {
-              Firebase.database().ref(Constants.ACTIVITY_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgId)
-                .orderByChild('lastModified')
-                .limitToLast(Constants.TIPS_TO_LOAD)
-                .endAt(endValue)
-                .on('child_added', activitySnap => {
-                  dispatch(activityAddedAction(activitySnap.key, activitySnap.val(), userSnap.val(), source));
-                  dispatch(updateEndValue(activitySnap.val().lastModified ? activitySnap.val().lastModified : endValue, source));
-                  debounceSetFeedNotLoading(dispatch, source);
-              })
-            }
-
-            // on child changed, how do we unwatch old refs?
-            Firebase.database().ref(Constants.ACTIVITY_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgId)
-              .orderByChild('lastModified')
-              .on('child_changed', activitySnap => {
-                dispatch(activityChangedAction(activitySnap.key, activitySnap.val(), userSnap.val(), source));
-                dispatch(updateEndValue(activitySnap.val().lastModified ? activitySnap.val().lastModified : endValue, source));
-            })
-
-            Firebase.database().ref(Constants.ACTIVITY_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgId)
-              .orderByChild('lastModified')
-              .on('child_removed', activitySnap => {
-              dispatch(activityRemovedAction(activitySnap.key, source));
-            })
+          Firebase.database().ref(Constants.ACTIVITY_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgId)
+            .orderByChild('lastModified')
+            .limitToLast(Constants.TIPS_TO_LOAD)
+            .endAt(endValue)
+            .on('child_added', activitySnap => {
+              dispatch(activityAddedAction(activitySnap.key, activitySnap.val(), userSnap.val(), source));
+              dispatch(updateEndValue(activitySnap.val().lastModified ? activitySnap.val().lastModified : endValue, source));
+              debounceSetFeedNotLoading(dispatch, source);
           })
         }
+
+        // on child changed, how do we unwatch old refs?
+        Firebase.database().ref(Constants.ACTIVITY_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgId)
+          .orderByChild('lastModified')
+          .on('child_changed', activitySnap => {
+            dispatch(activityChangedAction(activitySnap.key, activitySnap.val(), userSnap.val(), source));
+            dispatch(updateEndValue(activitySnap.val().lastModified ? activitySnap.val().lastModified : endValue, source));
+        })
+
+        Firebase.database().ref(Constants.ACTIVITY_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgId)
+          .orderByChild('lastModified')
+          .on('child_removed', activitySnap => {
+          dispatch(activityRemovedAction(activitySnap.key, source));
+        })
       })
     }
   }
 }
 
-export function unwatchActivityFeed(auth, orgName, source) {
+export function unwatchActivityFeed(auth, orgId, source) {
   return dispatch => {
-    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', orgSnap => {
-      if (orgSnap.exists()) {
-        let orgId = orgSnap.val().orgId
+    Firebase.database().ref(Constants.ACTIVITY_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgId).off()
 
-        Firebase.database().ref(Constants.ACTIVITY_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgId).off()
-
-        dispatch({
-          type: ActionTypes.UNWATCH_ACTIVITY_FEED,
-          source: source
-        })
-      }
+    dispatch({
+      type: ActionTypes.UNWATCH_ACTIVITY_FEED,
+      source: source
     })
   }
 }

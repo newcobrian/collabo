@@ -153,11 +153,11 @@ export * from './profileActions';
 export * from './projectActions';
 export * from './orgActions';
 
-export function unloadProfileUser(uid) {
+export function unloadProfileUser(uid, orgId) {
   return dispatch => {
     dispatch({
       type: PROFILE_USER_UNLOADED,
-      payload: Firebase.database().ref(Constants.USERS_PATH + '/' + uid + '/').off()
+      payload: Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + uid + '/').off()
     });
   }
 }
@@ -171,9 +171,9 @@ export function unloadProfileFollowing(auth, uid) {
   }
 }
 
-export function getProfileUser(userId) {
+export function getProfileUser(userId, orgId) {
   return dispatch => {
-    Firebase.database().ref(Constants.USERS_PATH + '/' + userId + '/').on('value', snapshot => {
+    Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + userId + '/').on('value', snapshot => {
       let profile = Object.assign( {}, { userId: userId }, snapshot.val());
       dispatch({
         type: ActionTypes.GET_USER,
