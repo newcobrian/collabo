@@ -81,8 +81,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "cron-test": "gcloud pubsub topics publish hourly-tick --message=Hello",
+    "cron-log": "firebase functions:log --project collabo-bc9b2",
     "eject": "react-scripts eject",
-    "deploy": "react-scripts build; firebase deploy"
+    "deploy": "react-scripts build; cd appengine && npm run deploy; firebase deploy"
   },
   "description": "% npm install",
   "main": ".eslintrc.js",
