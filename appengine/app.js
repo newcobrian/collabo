@@ -18,7 +18,7 @@ app.get('/publish/:topic', async (req, res) => {
   try {
     await pubsubClient.topic(topic)
         .publisher()
-        .publish(Buffer.from(''));
+        .publish(Buffer.from('Hello!'));
 
     res.status(200).send('Published to ' + topic).end();
   } catch (e) {
