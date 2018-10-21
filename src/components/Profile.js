@@ -93,25 +93,28 @@ class Profile extends React.Component {
 
     this.loadUser = (username, orgName) => {
       let lowerCaseOrgName = orgName ? orgName.toLowerCase() : ''
-      Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + username).on('value', snapshot => {
-        Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
-          if (snapshot.exists() && orgSnap.exists()) {
-            let userId = snapshot.val().userId;
-            this.props.getProfileUser(userId, orgSnap.val().orgId);
-            this.props.watchActivityFeed(this.props.authenticated, orgSnap.val().orgId, this.props.feedEndValue, Constants.PROFILE_PAGE)
+      Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
+        if (orgSnap.exists()) {
+          let lowerCaseUserName = username ? username.toLowerCase() : ''
+          Firebase.database().ref(Constants.USERNAMES_BY_ORG_PATH + '/' + orgSnap.val().orgId + '/' + lowerCaseUserName).on('value', snapshot => {
+            if (snapshot.exists()) {
+              let userId = snapshot.val();
+              this.props.getProfileUser(userId, orgSnap.val().orgId);
+              this.props.watchActivityFeed(this.props.authenticated, orgSnap.val().orgId, this.props.feedEndValue, Constants.PROFILE_PAGE)
 
-            this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'profile'});
-          }
-          else {
-            this.props.userDoesntExist();
-          }
-        })
+              this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'profile'});
+            }
+            else {
+              this.props.userDoesntExist();
+            }
+          })
+        }
       });
     }
     
     this.unloadUser = (username, userId, orgId) => {
       if (this.props.profile && userId) {
-        this.props.unloadProfileUser(userId);
+        this.props.unloadProfileUser(userId, orgId);
         this.props.unwatchActivityFeed(this.props.authenticated, orgId, Constants.PROFILE_PAGE)
         // this.props.unloadProfileFollowing(this.props.authenticated, userId);
         // this.props.unloadItinerariesByUser(this.props.authenticated, userId);

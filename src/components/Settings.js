@@ -1,5 +1,6 @@
 import ListErrors from './ListErrors';
 import React from 'react';
+import Firebase from 'firebase';
 import { connect } from 'react-redux';
 import { Link, browserHistory } from 'react-router';
 import * as Actions from '../actions';
@@ -45,7 +46,7 @@ class SettingsForm extends React.Component {
       if(this.state.email) user.email = this.state.email;
       if(this.state.password) user.password = this.state.password;
 
-      this.props.onSubmitForm(this.props.authenticated, user, this.props.currentUser, this.state.imageFile, this.props.orgName);
+      this.props.onSubmitForm(this.props.authenticated, user, this.props.currentUser, this.state.imageFile, this.props.orgName, this.props.orgId);
     };
 
     this.changeEmailClick = ev => {
@@ -185,7 +186,13 @@ class Settings extends React.Component {
     this.props.loadProjectNames(this.props.params.orgname, Constants.SETTINGS_PAGE)
     this.props.loadOrgList(this.props.authenticated, Constants.SETTINGS_PAGE)
 
-    this.props.getProfileUser(this.props.authenticated);
+    let lowerCaseOrgName = this.props.params.orgname ? this.props.params.orgname.toLowerCase() : ''
+    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
+      if (orgSnap.exists()) {
+        this.props.getProfileUser(this.props.authenticated, orgSnap.val().orgId);
+      }
+    })
+
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'settings'});
   }
 
@@ -196,6 +203,7 @@ class Settings extends React.Component {
     this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.SETTINGS_PAGE)
     this.props.unloadOrg(Constants.SETTINGS_PAGE);
 
+    this.props.unloadProfileUser(this.props.userId, this.props.orgId);
     this.props.unloadSettings(this.props.authenticated);
   }
 
@@ -243,7 +251,8 @@ class Settings extends React.Component {
                 currentUser={this.props.firebaseUser}
                 onSubmitForm={this.props.saveSettings}
                 showChangeEmailModal={this.props.showChangeEmailModal}
-                orgName={this.props.params.orgname} />
+                orgName={this.props.params.orgname}
+                orgId={this.props.orgId} />
 
 
               <div

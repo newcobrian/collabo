@@ -240,15 +240,16 @@ export function signOutUser() {
   }
 }
 
-export function updateUsername(oldName, newName, userId) {
+export function updateUsername(oldName, newName, userId, orgId) {
   let updates = {}
-
-  updates[Constants.USERNAMES_TO_USERIDS_PATH + '/' + newName] = { userId: userId };
-  updates[Constants.USERNAMES_TO_USERIDS_PATH + '/' + oldName] = null;
+  // updates[Constants.USERNAMES_TO_USERIDS_PATH + '/' + newName] = { userId: userId };
+  // updates[Constants.USERNAMES_TO_USERIDS_PATH + '/' + oldName] = null;
+  updates[Constants.USERNAMES_BY_ORG_PATH + '/' + orgId + '/' + newName] = userId;
+  updates[Constants.USERNAMES_BY_ORG_PATH + '/' + orgId + '/' + oldName] = null;
   
   Firebase.database().ref().update(updates);
 
-  Helpers.updateAlgloiaUsersIndex(newName, userId);
+  // Helpers.updateAlgloiaUsersIndex(newName, userId);
 }
 
 export function makeUser(newUser, currentUser) {
@@ -297,11 +298,10 @@ export function updateFirebasePassword(password) {
   }
 }
 
-export function saveSettings(auth, user, currentUser, imageFile, orgName) {
-  const uid = Firebase.auth().currentUser.uid;
+export function saveSettings(auth, user, currentUser, imageFile, orgName, orgId) {
   return dispatch => {
     if (user && currentUser) {
-      Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + user.username).once('value', snapshot => {
+      Firebase.database().ref(Constants.USERNAMES_BY_ORG_PATH + '/' + orgId + '/' + user.username).once('value', snapshot => {
         if (user.username && user.username !== currentUser.username && snapshot.exists()) {
           dispatch({
             type: ActionTypes.SETTINGS_SAVED_ERROR,
@@ -315,7 +315,7 @@ export function saveSettings(auth, user, currentUser, imageFile, orgName) {
 
           if (user.username !== currentUser.username) {
             // need to also update usernames_to_userids
-            updateUsername(currentUser.username, user.username, auth);
+            updateUsername(currentUser.username, user.username, auth, orgId);
           }
 
           // if user uploaded an image, save it
@@ -340,7 +340,7 @@ export function saveSettings(auth, user, currentUser, imageFile, orgName) {
                   userObject.image = downloadURL;
 
                   // save the user
-                  Firebase.database().ref(Constants.USERS_PATH + '/' + uid + '/').set(userObject);
+                  Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + auth + '/').set(userObject);
 
                   dispatch({
                     type: ActionTypes.SETTINGS_SAVED,
@@ -356,7 +356,7 @@ export function saveSettings(auth, user, currentUser, imageFile, orgName) {
                 }
                 else {
                   // no image, but still save the user 
-                  Firebase.database().ref(Constants.USERS_PATH + '/' + uid + '/').set(userObject);
+                  Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + auth + '/').set(userObject);
 
                   dispatch({
                     type: ActionTypes.SETTINGS_SAVED,
@@ -376,7 +376,7 @@ export function saveSettings(auth, user, currentUser, imageFile, orgName) {
           else {
             let userObject = makeUser(user, currentUser);
             // no new imageFile
-            Firebase.database().ref(Constants.USERS_PATH + '/' + uid + '/').set(userObject);
+            Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + auth + '/').set(userObject);
 
             dispatch({
               type: ActionTypes.SETTINGS_SAVED,

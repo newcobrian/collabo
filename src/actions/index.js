@@ -175,9 +175,11 @@ export function getProfileUser(userId, orgId) {
   return dispatch => {
     Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + userId + '/').on('value', snapshot => {
       let profile = Object.assign( {}, { userId: userId }, snapshot.val());
+      
       dispatch({
         type: ActionTypes.GET_USER,
-        payload: profile
+        payload: profile,
+        userId: userId
       });
     });
   };
