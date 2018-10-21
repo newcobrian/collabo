@@ -18,7 +18,9 @@ export default (state = {}, action) => {
       };
     case 'GET_USER':
       return {
-        firebaseUser: action.payload
+        ...state,
+        firebaseUser: action.payload,
+        userId: action.userId
       };
     case 'SETTINGS_UNLOADED':
       return {};
