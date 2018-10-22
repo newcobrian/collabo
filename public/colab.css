@@ -151,6 +151,9 @@ textarea {
 	margin-bottom: 10px;
 	border-bottom: 1px solid rgba(0,0,0,.1);
 }
+.thread-preview-container img {
+	width: 100%;
+}
 .thread-area {
     position: absolute;
     padding:  20px;
