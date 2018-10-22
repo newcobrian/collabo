@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Firebase from 'firebase';
 import { Link } from 'react-router';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
@@ -189,15 +190,26 @@ class OrgSettings extends React.Component {
     this.props.loadSidebar(mql);
     mql.addListener(this.mediaQueryChanged);
 
-    this.props.loadOrg(this.props.authenticated, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE);
-    this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, null, Constants.ORG_SETTINGS_PAGE)
-    this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
-    this.props.loadOrgList(this.props.authenticated, Constants.ORG_SETTINGS_PAGE)
-    this.props.loadProjectNames(this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
+    let lowerCaseOrgName = this.props.params.orgname ? this.props.params.orgname.toLowerCase() : ''
+    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
+      if (!orgSnap.exists()) {
+        this.props.notAnOrgUserError(Constants.PROJECT_PAGE)
+      }
+      else {
+        let orgId = orgSnap.val().orgId
+        this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE);
+        this.props.loadProjectList(this.props.authenticated, orgId, null, Constants.ORG_SETTINGS_PAGE)
+        this.props.loadThreadCounts(this.props.authenticated, orgId)
+        this.props.loadOrgList(this.props.authenticated, Constants.ORG_SETTINGS_PAGE)
+        this.props.loadProjectNames(orgId, Constants.ORG_SETTINGS_PAGE)
 
-    this.props.loadOrgMembers(this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
-    this.props.changeOrgSettingsTab(this.props.tab ? this.props.tab : Constants.LISTS_TAB, this.props.params.orgname, null)
-    // this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'settings'});
+        this.props.loadOrgMembers(orgId, Constants.ORG_SETTINGS_PAGE)
+
+        this.props.changeOrgSettingsTab(this.props.tab ? this.props.tab : Constants.LISTS_TAB, this.props.params.orgname, orgId)
+      }
+    })
+
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'org settings'});
   }
 
   componentWillUnmount() {
@@ -217,13 +229,22 @@ class OrgSettings extends React.Component {
       this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.ORG_SETTINGS_PAGE)
       this.props.unloadOrgMembers(this.props.orgId, Constants.ORG_SETTINGS_PAGE)
 
-      this.props.loadOrg(this.props.authenticated, nextProps.params.orgname, Constants.ORG_SETTINGS_PAGE);
-      this.props.loadProjectList(this.props.authenticated, nextProps.params.orgname, null, Constants.ORG_SETTINGS_PAGE)
-      this.props.loadThreadCounts(this.props.authenticated, nextProps.params.ORG_SETTINGS_PAGE)
-      this.props.loadProjectNames(nextProps.params.orgname, Constants.ORG_SETTINGS_PAGE)
-      this.props.loadOrgMembers(nextProps.params.orgname, Constants.ORG_SETTINGS_PAGE)
-      // this.props.loadOrgUsers(this.props.authenticated, nextProps.params.orgname, Constants.ORG_SETTINGS_PAGE)
-      this.props.changeOrgSettingsTab(this.props.tab, nextProps.params.orgname)
+      let lowerCaseOrgName = this.props.params.orgname ? this.props.params.orgname.toLowerCase() : ''
+      Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
+        if (!orgSnap.exists()) {
+          this.props.notAnOrgUserError(Constants.PROJECT_PAGE)
+        }
+        else {
+          let orgId = orgSnap.val().orgId
+          this.props.loadOrg(this.props.authenticated, orgId, nextProps.params.orgname, Constants.ORG_SETTINGS_PAGE);
+          this.props.loadProjectList(this.props.authenticated, orgId, null, Constants.ORG_SETTINGS_PAGE)
+          this.props.loadThreadCounts(this.props.authenticated, nextProps.params.ORG_SETTINGS_PAGE)
+          this.props.loadProjectNames(orgId, Constants.ORG_SETTINGS_PAGE)
+          this.props.loadOrgMembers(orgId, Constants.ORG_SETTINGS_PAGE)
+          // this.props.loadOrgUsers(this.props.authenticated, nextProps.params.orgname, Constants.ORG_SETTINGS_PAGE)
+          this.props.changeOrgSettingsTab(this.props.tab, nextProps.params.orgname, orgId)
+        }
+      })
     }
   }
 

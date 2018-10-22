@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Firebase from 'firebase';
 import { Link, browserHistory } from 'react-router';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
@@ -84,13 +85,23 @@ class AddThread extends React.Component {
 		this.props.loadSidebar(mql);
     	mql.addListener(this.mediaQueryChanged);
 
-    	this.props.loadOrgMembers(this.props.params.orgname,  Constants.ADD_THREAD_PAGE)
-    	this.props.loadOrg(this.props.authenticated, this.props.params.orgname, Constants.ADD_THREAD_PAGE);
-    	this.props.loadAddThreadProject(this.props.params.pid)
-	    this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, this.props.params.pid, Constants.ADD_THREAD_PAGE)
-	    this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
-	    this.props.loadOrgList(this.props.authenticated, Constants.ADD_THREAD_PAGE)
-	    this.props.loadProjectNames(this.props.params.orgname, Constants.ADD_THREAD_PAGE)
+	    let lowerCaseOrgName = this.props.params.orgname ? this.props.params.orgname.toLowerCase() : ''
+	    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
+		    if (!orgSnap.exists()) {
+		        this.props.notAnOrgUserError(Constants.ADD_THREAD_PAGE)
+		    }
+		    else {
+        		let orgId = orgSnap.val().orgId
+
+		    	this.props.loadOrgMembers(orgId,  Constants.ADD_THREAD_PAGE)
+		    	this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgname, Constants.ADD_THREAD_PAGE);
+		    	this.props.loadAddThreadProject(this.props.params.pid)
+			    this.props.loadProjectList(this.props.authenticated, orgId, this.props.params.pid, Constants.ADD_THREAD_PAGE)
+			    this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
+			    this.props.loadOrgList(this.props.authenticated, Constants.ADD_THREAD_PAGE)
+			    this.props.loadProjectNames(orgId, Constants.ADD_THREAD_PAGE)
+			}
+		})
 
 	    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'add thread'});
 	}

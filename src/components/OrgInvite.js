@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Firebase from 'firebase';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
 import ListErrors from './ListErrors';
@@ -33,11 +34,23 @@ class OrgInvite extends React.Component {
     		this.props.askForAuth();
     	}
 
-    	this.props.loadOrg(this.props.authenticated, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE);
-	    this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
-	    this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
-	    this.props.loadProjectNames(this.props.params.orgname, Constants.ORG_SETTINGS_PAGE)
-	    this.props.loadOrgList(this.props.authenticated, Constants.ORG_SETTINGS_PAGE)
+	    let lowerCaseOrgName = this.props.params.orgname ? this.props.params.orgname.toLowerCase() : ''
+	    console.log(lowerCaseOrgName)
+	    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
+	    	if (!orgSnap.exists()) {
+	    		console.log('inf')
+	        	this.props.notAnOrgUserError(Constants.ORG_SETTINGS_PAGE)
+	    	}
+	    	else {
+	    		console.log('else')
+	        	let orgId = orgSnap.val().orgId
+		    	this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE);
+			    this.props.loadProjectList(this.props.authenticated, orgId, Constants.ORG_SETTINGS_PAGE)
+			    this.props.loadThreadCounts(this.props.authenticated, orgId)
+			    this.props.loadProjectNames(orgId, Constants.ORG_SETTINGS_PAGE)
+			    this.props.loadOrgList(this.props.authenticated, Constants.ORG_SETTINGS_PAGE)
+			}
+		})
 
     	this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'org invite page'});
 	}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Firebase from 'firebase';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
 import { Link, browserHistory } from 'react-router';
@@ -51,15 +52,25 @@ class Project extends React.Component {
     this.props.loadSidebar(mql);
     mql.addListener(this.mediaQueryChanged);
 
-    this.props.loadOrg(this.props.authenticated, this.props.params.orgname, Constants.PROJECT_PAGE);
-    this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, this.props.params.pid, Constants.PROJECT_PAGE)
-    this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
-    this.props.loadOrgList(this.props.authenticated, Constants.PROJECT_PAGE)
-    this.props.loadProjectNames(this.props.params.orgname, Constants.PROJECT_PAGE)
+    let lowerCaseOrgName = this.props.params.orgname ? this.props.params.orgname.toLowerCase() : ''
+    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
+      if (!orgSnap.exists()) {
+        this.props.notAnOrgUserError(Constants.PROJECT_PAGE)
+      }
+      else {
+        let orgId = orgSnap.val().orgId
+        this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgname, Constants.PROJECT_PAGE);
+        this.props.loadProjectList(this.props.authenticated, orgId, this.props.params.pid, Constants.PROJECT_PAGE)
+        this.props.loadThreadCounts(this.props.authenticated, orgId)
+        this.props.loadOrgList(this.props.authenticated, Constants.PROJECT_PAGE)
+        this.props.loadProjectNames(orgId, Constants.PROJECT_PAGE)
+        
+        this.props.loadProject(this.props.params.pid, orgId, Constants.PROJECT_PAGE);
+        this.props.loadProjectMembers(this.props.params.pid,  Constants.PROJECT_PAGE)
+        this.props.loadOrgMembers(orgId,  Constants.PROJECT_PAGE)
+      }
+    })
     
-    this.props.loadProject(this.props.params.pid, this.props.params.orgname, Constants.PROJECT_PAGE);
-    this.props.loadProjectMembers(this.props.params.pid,  Constants.PROJECT_PAGE)
-    this.props.loadOrgMembers(this.props.params.orgname,  Constants.PROJECT_PAGE)
     // this.props.loadLikesByUser(this.props.authenticated, this.props.params.orgname)
 
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project'});
@@ -86,7 +97,7 @@ class Project extends React.Component {
       this.props.unwatchThreadFeed(this.props.authenticated, this.props.orgId, this.props.params.pid, Constants.PROJECT_PAGE)
       this.props.unloadProjectMembers(this.props.params.pid, Constants.PROJECT_PAGE)
 
-      this.props.loadProject(nextProps.params.pid, this.props.params.orgname, Constants.PROJECT_PAGE);
+      this.props.loadProject(nextProps.params.pid, this.props.orgId, Constants.PROJECT_PAGE);
       this.props.loadProjectMembers(nextProps.params.pid, Constants.PROJECT_PAGE)
       // this.props.watchThreadFeed(this.props.authenticated, this.props.params.orgname, nextProps.params.pid, this.props.feedEndValue, Constants.PROJECT_PAGE)
       if (nextProps.params.pid) {
@@ -102,17 +113,27 @@ class Project extends React.Component {
       this.props.unloadProjectMembers(this.props.params.pid, Constants.PROJECT_PAGE)
       this.props.unloadOrgMembers(this.props.orgId, Constants.PROJECT_PAGE)
 
-      this.props.loadOrg(this.props.authenticated, nextProps.params.orgname, Constants.PROJECT_PAGE);
-      this.props.loadProjectList(this.props.authenticated, nextProps.params.orgname, this.props.params.pid, Constants.PROJECT_PAGE)
-      this.props.loadThreadCounts(this.props.authenticated, nextProps.params.orgname)
-      this.props.loadProjectNames(nextProps.params.orgname, Constants.PROJECT_PAGE)
-      this.props.loadProject(nextProps.params.pid, nextProps.params.orgname, Constants.PROJECT_PAGE);
-      this.props.loadProjectMembers(nextProps.params.pid, Constants.PROJECT_PAGE)
-      this.props.loadOrgMembers(nextProps.params.orgname, Constants.PROJECT_PAGE)
-      // this.props.watchThreadFeed(this.props.authenticated,nextProps.params.orgname, nextProps.params.pid, this.props.feedEndValue, Constants.PROJECT_PAGE)
-      if (nextProps.params.pid) {
-        this.props.markProjectRead(this.props.authenticated, nextProps.params.pid)
-      }
+
+      let lowerCaseOrgName = this.props.params.orgname ? this.props.params.orgname.toLowerCase() : ''
+      Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
+        if (!orgSnap.exists()) {
+          this.props.notAnOrgUserError(Constants.PROJECT_PAGE)
+        }
+        else {
+          let orgId = orgSnap.val().orgId
+          this.props.loadOrg(this.props.authenticated, orgId, nextProps.params.orgname, Constants.PROJECT_PAGE);
+          this.props.loadProjectList(this.props.authenticated, orgId, this.props.params.pid, Constants.PROJECT_PAGE)
+          this.props.loadThreadCounts(this.props.authenticated, orgId)
+          this.props.loadProjectNames(orgId, Constants.PROJECT_PAGE)
+          this.props.loadProject(nextProps.params.pid, orgId, Constants.PROJECT_PAGE);
+          this.props.loadProjectMembers(nextProps.params.pid, Constants.PROJECT_PAGE)
+          this.props.loadOrgMembers(orgId, Constants.PROJECT_PAGE)
+          // this.props.watchThreadFeed(this.props.authenticated,nextProps.params.orgname, nextProps.params.pid, this.props.feedEndValue, Constants.PROJECT_PAGE)
+          if (nextProps.params.pid) {
+            this.props.markProjectRead(this.props.authenticated, nextProps.params.pid)
+          }
+        }
+      })
     }
   }
 

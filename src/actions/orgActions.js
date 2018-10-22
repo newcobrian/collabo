@@ -194,32 +194,32 @@ export function unloadOrganizationList(auth) {
   }
 }
 
-export function loadOrg(auth, org, source) {
+export function notAnOrgUserError(source) {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.NOT_AN_ORG_USER,
+      source: source
+    })
+  }
+}
+
+export function loadOrg(auth, orgId, orgName, source) {
   return dispatch => {
     if (auth) {
-      let lowercaseName = org.toLowerCase()
-      Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowercaseName).once('value', orgSnap => {
-        if (orgSnap.exists()) {
-          Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth + '/' + orgSnap.val().orgId).once('value', userSnap => {
-            if (!userSnap.exists()) {
-              dispatch({
-                type: ActionTypes.NOT_AN_ORG_USER,
-                source: source
-              })
-            }
-            else {
-              dispatch({
-                type: ActionTypes.LOAD_ORG,
-                orgId: orgSnap.val().orgId,
-                orgName: lowercaseName,
-                source: source
-              })
-            }
+      let lowercaseName = orgName.toLowerCase()
+
+      Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth + '/' + orgId).once('value', userSnap => {
+        if (!userSnap.exists()) {
+          dispatch({
+            type: ActionTypes.NOT_AN_ORG_USER,
+            source: source
           })
         }
         else {
           dispatch({
-            type: ActionTypes.NOT_AN_ORG_USER,
+            type: ActionTypes.LOAD_ORG,
+            orgId: orgId,
+            orgName: lowercaseName,
             source: source
           })
         }

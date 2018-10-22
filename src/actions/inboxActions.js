@@ -134,18 +134,14 @@ export function getInboxCount(userId, orgId) {
   }
 }
 
-export function updateInboxCount(userId, orgName) {
+export function updateInboxCount(userId, orgId) {
   return dispatch => {
-    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName).once('value', orgSnap => {
-      if (orgSnap.exists()) {
-        Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + userId + '/' + orgSnap.val().orgId + '/messageCount').once('value', countSnapshot => {
-        if (countSnapshot.exists()) {
-          const update = { messagesRead: countSnapshot.val() };
-          Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + userId + '/' + orgSnap.val().orgId).update(update);
-            dispatch({
-              type: ActionTypes.INBOX_COUNT_UPDATED
-            })
-          }
+    Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + userId + '/' + orgId + '/messageCount').once('value', countSnapshot => {
+    if (countSnapshot.exists()) {
+      const update = { messagesRead: countSnapshot.val() };
+      Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + userId + '/' + orgId).update(update);
+        dispatch({
+          type: ActionTypes.INBOX_COUNT_UPDATED
         })
       }
     })

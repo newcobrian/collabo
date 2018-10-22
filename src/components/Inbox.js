@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import Firebase from 'firebase';
 import ProfilePic from './ProfilePic';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
@@ -76,17 +77,25 @@ class Inbox extends React.Component {
     this.props.loadSidebar(mql);
     mql.addListener(this.mediaQueryChanged);
 
-    this.props.loadOrg(this.props.authenticated, this.props.params.orgname, Constants.INBOX_PAGE);
-    this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, Constants.INBOX_PAGE)
-    this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
-    this.props.loadOrgList(this.props.authenticated, Constants.INBOX_PAGE)
-    this.props.loadProjectNames(this.props.params.orgname, Constants.INBOX_PAGE)
+    let lowerCaseOrgName = this.props.params.orgname ? this.props.params.orgname.toLowerCase() : ''
+    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
+      if (!orgSnap.exists()) {
+        this.props.notAnOrgUserError(Constants.INBOX_PAGE)
+      }
+      else {
+        let orgId = orgSnap.val().orgId
+        this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgname, Constants.INBOX_PAGE);
+        this.props.loadProjectList(this.props.authenticated, orgId, Constants.INBOX_PAGE)
+        this.props.loadThreadCounts(this.props.authenticated, orgId)
+        this.props.loadOrgList(this.props.authenticated, Constants.INBOX_PAGE)
+        this.props.loadProjectNames(orgId, Constants.INBOX_PAGE)
 
-    this.props.getInbox(this.props.authenticated, null, null, this.props.params.orgname);
+        this.props.getInbox(this.props.authenticated, null, null, this.props.params.orgname);
+        this.props.updateInboxCount(this.props.authenticated, orgId);
+      }
+    })
 
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'inbox'});
-
-    this.props.updateInboxCount(this.props.authenticated, this.props.params.orgname);
   }
 
   componentWillUnmount() {

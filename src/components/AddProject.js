@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Firebase from 'firebase';
 import { Link, browserHistory } from 'react-router';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
@@ -75,11 +76,20 @@ class AddProject extends React.Component {
 		this.props.loadSidebar(mql);
     	mql.addListener(this.mediaQueryChanged);
 
-    	this.props.loadOrg(this.props.authenticated, this.props.params.orgname, Constants.ADD_PROJECT_PAGE);
-    	this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, this.props.params.pid, Constants.ADD_PROJECT_PAGE)
-	    this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
-	    this.props.loadOrgList(this.props.authenticated, Constants.ADD_PROJECT_PAGE)
-	    this.props.loadProjectNames(this.props.params.orgname, Constants.ADD_PROJECT_PAGE)
+	    let lowerCaseOrgName = this.props.params.orgname ? this.props.params.orgname.toLowerCase() : ''
+	    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
+		     if (!orgSnap.exists()) {
+		        this.props.notAnOrgUserError(Constants.ADD_PROJECT_PAGE)
+		     }
+		     else {
+		        let orgId = orgSnap.val().orgId
+		    	this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgname, Constants.ADD_PROJECT_PAGE);
+		    	this.props.loadProjectList(this.props.authenticated, orgId, this.props.params.pid, Constants.ADD_PROJECT_PAGE)
+			    this.props.loadThreadCounts(this.props.authenticated, orgId)
+			    this.props.loadOrgList(this.props.authenticated, Constants.ADD_PROJECT_PAGE)
+			    this.props.loadProjectNames(orgId, Constants.ADD_PROJECT_PAGE)
+			}
+		})
 
     	this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'add project'});
 	}

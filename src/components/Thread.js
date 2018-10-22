@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firebaseConnect } from 'react-redux-firebase';
+import Firebase from 'firebase';
 import * as Actions from '../actions';
 import * as Constants from '../constants';
 import * as Helpers from '../helpers';
@@ -231,15 +232,24 @@ class Thread extends React.Component {
     this.props.loadSidebar(mql);
     mql.addListener(this.mediaQueryChanged);
 
-    this.props.loadOrg(this.props.authenticated, this.props.params.orgname, Constants.THREAD_PAGE);
-    this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, this.props.params.pid, Constants.THREAD_PAGE)
-    this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
-    this.props.loadOrgList(this.props.authenticated, Constants.THREAD_PAGE)
-    this.props.loadProjectNames(this.props.params.orgname, Constants.THREAD_PAGE)
-    this.props.loadOrgMembers(this.props.params.orgname,  Constants.THREAD_PAGE)
-    this.props.loadThread(this.props.params.tid);
-    this.props.loadThreadLikes(this.props.params.tid);
-    this.props.watchThreadComments(this.props.params.tid);
+    let lowerCaseOrgName = this.props.params.orgname ? this.props.params.orgname.toLowerCase() : ''
+    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
+      if (!orgSnap.exists()) {
+        this.props.notAnOrgUserError(Constants.PROJECT_PAGE)
+      }
+      else {
+        let orgId = orgSnap.val().orgId
+        this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgname, Constants.THREAD_PAGE);
+        this.props.loadProjectList(this.props.authenticated, orgId, this.props.params.pid, Constants.THREAD_PAGE)
+        this.props.loadThreadCounts(this.props.authenticated, orgId)
+        this.props.loadOrgList(this.props.authenticated, Constants.THREAD_PAGE)
+        this.props.loadProjectNames(orgId, Constants.THREAD_PAGE)
+        this.props.loadOrgMembers(orgId,  Constants.THREAD_PAGE)
+        this.props.loadThread(this.props.params.tid);
+        this.props.loadThreadLikes(this.props.params.tid);
+        this.props.watchThreadComments(this.props.params.tid);
+      }
+    })
     
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'thread'});
     
@@ -279,15 +289,24 @@ class Thread extends React.Component {
       this.props.unloadThreadLikes(this.props.params.tid);
       this.props.unwatchThreadComments(this.props.params.tid);
 
-      this.props.loadOrg(this.props.authenticated, nextProps.params.orgname, Constants.THREAD_PAGE);
-      this.props.loadOrgMembers(nextProps.params.orgname,  Constants.THREAD_PAGE)
-      this.props.loadProjectList(this.props.authenticated, nextProps.params.orgname, this.props.params.pid, Constants.THREAD_PAGE)
-      this.props.loadThreadCounts(this.props.authenticated, nextProps.params.orgname)
-      this.props.loadProjectNames(nextProps.params.orgname, Constants.THREAD_PAGE)
-      this.props.loadThread(nextProps.params.tid);
-      this.props.loadThreadLikes(nextProps.params.tid);
-      this.props.watchThreadComments(nextProps.props.params.tid);
-      this.props.markThreadRead(this.props.authenticated, nextProps.params.tid)
+      let lowerCaseOrgName = this.props.params.orgname ? this.props.params.orgname.toLowerCase() : ''
+      Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
+        if (!orgSnap.exists()) {
+          this.props.notAnOrgUserError(Constants.PROJECT_PAGE)
+        }
+        else {
+          let orgId = orgSnap.val().orgId
+          this.props.loadOrg(this.props.authenticated, orgId, nextProps.params.orgname, Constants.THREAD_PAGE);
+          this.props.loadOrgMembers(orgId,  Constants.THREAD_PAGE)
+          this.props.loadProjectList(this.props.authenticated, orgId, this.props.params.pid, Constants.THREAD_PAGE)
+          this.props.loadThreadCounts(this.props.authenticated, orgId)
+          this.props.loadProjectNames(orgId, Constants.THREAD_PAGE)
+          this.props.loadThread(nextProps.params.tid);
+          this.props.loadThreadLikes(nextProps.params.tid);
+          this.props.watchThreadComments(nextProps.props.params.tid);
+          this.props.markThreadRead(this.props.authenticated, nextProps.params.tid)
+        }
+      })
     }
   }
 

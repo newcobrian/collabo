@@ -101,8 +101,6 @@ class Profile extends React.Component {
               let userId = snapshot.val();
               this.props.getProfileUser(userId, orgSnap.val().orgId);
               this.props.watchActivityFeed(this.props.authenticated, orgSnap.val().orgId, this.props.feedEndValue, Constants.PROFILE_PAGE)
-
-              this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'profile'});
             }
             else {
               this.props.userDoesntExist();
@@ -132,13 +130,24 @@ class Profile extends React.Component {
     this.props.loadSidebar(mql);
     mql.addListener(this.mediaQueryChanged);
 
-    this.props.loadOrg(this.props.authenticated, this.props.params.orgname, Constants.PROFILE_PAGE);
-    this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, Constants.PROFILE_PAGE)
-    this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
-    this.props.loadProjectNames(this.props.params.orgname, Constants.PROFILE_PAGE)
-    this.props.loadOrgList(this.props.authenticated, Constants.PROFILE_PAGE)
+    let lowerCaseOrgName = this.props.params.orgname ? this.props.params.orgname.toLowerCase() : ''
+    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
+      if (!orgSnap.exists()) {
+        this.props.notAnOrgUserError(Constants.PROFILE_PAGE)
+      }
+      else {
+        let orgId = orgSnap.val().orgId
+        this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgname, Constants.PROFILE_PAGE);
+        this.props.loadProjectList(this.props.authenticated, orgId, Constants.PROFILE_PAGE)
+        this.props.loadThreadCounts(this.props.authenticated, orgId)
+        this.props.loadProjectNames(orgId, Constants.PROFILE_PAGE)
+        this.props.loadOrgList(this.props.authenticated, Constants.PROFILE_PAGE)
+      }
+    })
     // look up userID from username and load profile
     this.loadUser(this.props.params.username, this.props.params.orgname)
+
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'profile'});
   }
 
   componentWillUnmount() {
