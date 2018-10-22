@@ -61,3 +61,13 @@ exports.hourly_job =
   functions.pubsub.topic('hourly-tick').onPublish((event) => {
     console.log("This job is run every hour!")
   });
+
+exports.daily_job =
+  functions.pubsub.topic('daily-tick').onPublish((event) => {
+    console.log("This job is run every day!")
+  });
+
+exports.weekly_job =
+  functions.pubsub.topic('weekly-tick').onPublish((event) => {
+    console.log("This job is run every week!")
+  });
