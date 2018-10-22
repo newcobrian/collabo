@@ -132,7 +132,7 @@
   flex-wrap: nowrap;
 }
 .flx-item-right {
-  margin-left: auto;
+  margin-left: auto !important;
 }
 .flx-item-center {
   margin-left: auto;

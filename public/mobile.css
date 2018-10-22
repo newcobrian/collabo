@@ -23,7 +23,7 @@ body {
   display: none;
 }
 .mobile-show {
-  display: inline-block !important;
+  display: flex !important;
 }
 .header-container {
 }
@@ -1037,9 +1037,16 @@ body .back-to-top {
 
 
 
-
-
-
+.updater-col {
+  width: 40px !important;
+  margin-right: 10px !important;
+}
+.body-preview {
+  max-width: 300px;
+}
+.preview-content {
+  width: 100%;
+}
 
 }
 

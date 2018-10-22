@@ -1,7 +1,9 @@
 .cta-container {
   font-size: 9px;
   width: 100%;
-  margin-top: 10px;
+}
+.like-review-wrapper {
+  width: 50px;
 }
 .cta-wrapper {
 

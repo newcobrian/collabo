@@ -16,10 +16,10 @@ class LikeReviewButton extends React.Component {
     let classes = '';
     if (this.props.isLiked) {
       // classes += ' btn-secondary';
-      classes += 'koi-ico ico--like--active mrgn-right-sm';
+      classes += 'koi-ico --24 ico--like--active mrgn-right-sm';
     } else {
       // classes += ' btn-outline-secondary';
-      classes += 'koi-ico ico--like mrgn-right-sm opa-60';
+      classes += 'koi-ico --24 ico--like mrgn-right-sm opa-60';
     }
 
     let likeText = '';
@@ -40,7 +40,7 @@ class LikeReviewButton extends React.Component {
     };
 
     return (
-      <div className="flx flx-row flx-center-all">
+      <div className="like-review-wrapper flx flx-row flx-just-start flx-align-center">
         <div onClick={handleLikeClick} className={classes}></div>
         <div className="co-type-data ta-left">{this.props.likesCount ? this.props.likesCount : 0} </div>
       </div>

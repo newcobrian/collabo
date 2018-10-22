@@ -139,7 +139,7 @@ textarea {
   opacity: .6;
   font-weight: 400;
   font-size: 12px;
-  font-family: 'Montserrat';
+  font-family: 'Karla';
 }
 :-ms-input-placeholder { /* IE 10+ */
   color: #3DCBF3 !important; /*DARK BLUE*/
@@ -148,7 +148,7 @@ textarea {
   opacity: .6;
   font-weight: 400;
   font-size: 12px;
-  font-family: 'Montserrat';
+  font-family: 'Karla';
 }
 :-moz-placeholder { /* Firefox 18- */
   color: #3DCBF3 !important; /*DARK BLUE*/
@@ -157,7 +157,7 @@ textarea {
   opacity: .6;
   font-weight: 400;
   font-size: 12px;
-  font-family: 'Montserrat';
+  font-family: 'Karla';
 }
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #3DCBF3 !important; /*DARK BLUE*/
@@ -166,7 +166,7 @@ textarea {
   opacity: .6;
   font-weight: 400;
   font-size: 12px;
-  font-family: 'Montserrat';
+  font-family: 'Karla';
 }
 
 
@@ -178,7 +178,7 @@ textarea {
   font-weight: 400;
   font-size: 12px;
   letter-spacing: 1.2px;
-  font-family: 'Montserrat';
+  font-family: 'Karla';
 }
 
 

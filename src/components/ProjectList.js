@@ -150,7 +150,7 @@ class ProjectList extends React.Component {
             {/*<div className="koi-ico --24 ico--allupdates--primary"></div>*/}
             <div className="sidebar-dot fill--tertiary--10"></div>
           </div>
-          <div className="co-type-project-name color--white"> 
+          <div className="sidebar-project-name color--white"> 
             All Threads
           </div>
         </Link>
@@ -164,7 +164,7 @@ class ProjectList extends React.Component {
                     <div className="sidebar-icon flx flx-center-all">
                       {<DotJewel threadCount={threadCounts[projectItem.id]} />}
                     </div> 
-                    <div className="co-type-project-name color--white">
+                    <div className="sidebar-project-name color--white">
                       {projectName}
                     </div>
                     {<ThreadCountJewel threadCount={threadCounts[projectItem.id]} />}

@@ -198,7 +198,7 @@ textarea {
     color: inherit ;
     letter-spacing: 1.2px !important;
     font-size: 15px !important;
-    font-family: 'Montserrat';
+    font-family: 'Karla';
 }
 .co-type-org {
     font-size: 15px;
@@ -221,24 +221,33 @@ textarea {
     font-weight: 500;
 }
 .co-type-thread-body {
-	font-weight: 400;
-	font-size: 13px;
-	letter-spacing: 1px;
-	line-height: 20px;
-	white-space: nowrap;
+    height: 14px;
+    overflow: hidden;
+    display: inline-block;
+    width: 270px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 .co-type-body {
     font-weight: 400;
-    font-size: 12px;
+    font-size: 13px;
     letter-spacing: 1.1px;
     line-height: 20px;
     white-space: normal;
 }
+.co-type-caption {
+	font-weight: 400;
+	font-size: 12px;
+	letter-spacing: 1.1px;
+	line-height: 16px;
+	white-space: normal;
+}
 .co-post-title {
     font-weight: 600;
-    font-size: 24px;
+    font-size: 15px;
     letter-spacing: 0px;
-    line-height: 36px;
+    line-height: 20px;
 }
 .co-type-sub {
 	font-weight: 400;
@@ -263,7 +272,7 @@ textarea {
 	font-size: 24px !important;
     font-weight: 600 !important;
     letter-spacing: 1.2px;
-    font-family: 'Montserrat';
+    font-family: 'Karla';
 }
 .co-type-thread-title {
     font-size: 28px;
@@ -283,7 +292,15 @@ textarea {
     font-size: 11px;
     font-weight: 400;
     letter-spacing: 1.2px;
-    line-height: 30px;
+    line-height: 16px;
+    margin-bottom: 2px;
+}
+.sidebar-project-name {
+	font-size: 12px;
+	font-weight: 400;
+	letter-spacing: 1.2px;
+	line-height: 24px;
+	padding: 2px 0 0;
 }
 p {
 	margin-bottom: 0 !important;
@@ -301,7 +318,7 @@ p {
 
 
 .threadlist {
-	padding: 40px;
+	padding: 0px;
 	z-index: 1;
 }
 .open-style .threadlist-wrapper {
@@ -331,9 +348,8 @@ p {
 	width: 100%;
 }
 .tp-wrapper {
-	margin: 0 0 30px;
+	margin: 0;
 	width: 100%;
-	max-width: 960px;
 }
 .tp-container {
 	width: 100%;
@@ -394,14 +410,15 @@ p {
 }
 .thread-row-wrapper {
 	width: 100%;
-	padding-top: 6px;
+	padding: 0 10px;
 }
 .top-bar {
 
 }
 .thread-content-wrapper {
-	padding: 8px 16px 12px;
+	padding: 8px;
 	background-color: white;
+	overflow: hidden;
 }
 .comment-outer-wrapper {
 	background-color: white;
@@ -700,6 +717,7 @@ p {
 .project-header-text {
 	margin-left: 8px;
 	padding-top: 0px;
+	font-size: 21px;
 }
 .inbox-list {
 	margin-left: 0px;
@@ -813,7 +831,7 @@ p {
 .thread-content-wrapper .koi-ico.ico--bookmark,
 .comments-module .koi-ico.ico--bookmark {
 	background-image: url(img/icon_bookmark.png);
-	margin-left: -8px;
+	margin-right: -6px;
 }
 .koi-ico.ico--bookmark--active {
 	background-image: url(img/icon_bookmark_active.png);
@@ -1180,4 +1198,15 @@ a.color--primary:focus {
 	height: 8px;
 	border-radius: 50%;
 	background: white;
+}
+
+.updater-col {
+	width: 120px;
+	margin-right: 40px;
+}
+.preview-action {
+	height: 21px;
+}
+.body-preview {
+	max-width: 600px;
 }
