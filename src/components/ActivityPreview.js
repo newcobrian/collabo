@@ -96,7 +96,7 @@ const NewThreadItem = props => {
                 Composed new thread&nbsp;&#xb7;&nbsp;<DisplayTimestamp timestamp={activity.lastModified} />
               </div>
 
-              <Link className="co-type-bold co-type-label--lg" to={`/${props.orgName}/${props.projectId}/${props.activity.activityId}`}> {activity.title}</Link>
+              <Link className="co-type-bold co-type-label--lg" to={`/${props.orgName}/${activity.projectId}/${activity.activityId}`}> {activity.title}</Link>
 
             </div>
           </div>
