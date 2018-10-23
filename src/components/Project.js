@@ -19,7 +19,8 @@ const mql = window.matchMedia(`(min-width: 800px)`);
 const mapStateToProps = state => ({
   ...state.project,
   authenticated: state.common.authenticated,
-  userInfo: state.common.userInfo,
+  // userInfo: state.common.userInfo,
+  orgUser: state.common.orgUser,
   organization: state.common.organization,
   invalidOrgUser: state.common.invalidOrgUser,
   sidebarOpen: state.common.sidebarOpen
@@ -60,6 +61,7 @@ class Project extends React.Component {
       else {
         let orgId = orgSnap.val().orgId
         this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgname, Constants.PROJECT_PAGE);
+        this.props.loadOrgUser(this.props.authenticated, orgId, Constants.PROJECT_PAGE)
         this.props.loadProjectList(this.props.authenticated, orgId, this.props.params.pid, Constants.PROJECT_PAGE)
         this.props.loadThreadCounts(this.props.authenticated, orgId)
         this.props.loadOrgList(this.props.authenticated, Constants.PROJECT_PAGE)
@@ -232,7 +234,7 @@ class Project extends React.Component {
 
                           <ThreadList
                             authenticated={this.props.authenticated}
-                            userInfo={this.props.userInfo}
+                            userInfo={this.props.orgUser}
                             threads={this.props.threads} 
                             orgName={this.props.params.orgname}
                             emptyThreadFeed={this.props.emptyThreadFeed}

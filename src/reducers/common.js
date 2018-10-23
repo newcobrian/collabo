@@ -188,6 +188,11 @@ export default (state = defaultState, action) => {
         ...state,
         redirectTo: '/' + action.orgName + '/' + action.projectId
       }
+    case ActionTypes.LOAD_ORG_USER:
+      return {
+        ...state,
+        orgUser: action.orgUser
+      }
     // case ActionTypes.INVITED_USERS_TO_PROJECT:
     //   return {
     //     ...state,

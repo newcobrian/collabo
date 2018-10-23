@@ -237,6 +237,28 @@ export function unloadOrg(source) {
   }
 }
 
+export function loadOrgUser(auth, orgId, source) {
+  return dispatch => {
+    Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + auth).on('value', snap => {
+      dispatch({
+        type: ActionTypes.LOAD_ORG_USER,
+        orgUser: snap.val(),
+        source
+      })
+    })
+  }
+}
+
+export function unloadOrgUser(auth, orgId, source) {
+  return dispatch => {
+    Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + auth).off()
+    dispatch({
+      type: ActionTypes.UNLOAD_ORG_USER,
+      source
+    })
+  }
+}
+
 export function acceptOrgInvite(auth, email, inviteId, userData) {
   return dispatch => {
     Firebase.database().ref(Constants.INVITES_PATH + '/' + inviteId).once('value', inviteSnap => {

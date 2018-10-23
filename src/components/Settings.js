@@ -180,15 +180,20 @@ class Settings extends React.Component {
       Actions.askForAuth();
     }
 
-    this.props.loadOrg(this.props.authenticated, this.props.params.orgname, Constants.SETTINGS_PAGE);
-    this.props.loadProjectList(this.props.authenticated, this.props.params.orgname, Constants.SETTINGS_PAGE)
-    this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
-    this.props.loadProjectNames(this.props.params.orgname, Constants.SETTINGS_PAGE)
-    this.props.loadOrgList(this.props.authenticated, Constants.SETTINGS_PAGE)
-
     let lowerCaseOrgName = this.props.params.orgname ? this.props.params.orgname.toLowerCase() : ''
     Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
-      if (orgSnap.exists()) {
+      if (!orgSnap.exists()) {
+        this.props.notAnOrgUserError(Constants.PROJECT_PAGE)
+      }
+      else {
+        let orgId = orgSnap.val().orgId
+
+        this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgname, Constants.SETTINGS_PAGE);
+        this.props.loadProjectList(this.props.authenticated, orgId, Constants.SETTINGS_PAGE)
+        this.props.loadThreadCounts(this.props.authenticated, orgId)
+        this.props.loadProjectNames(orgId, Constants.SETTINGS_PAGE)
+        this.props.loadOrgList(this.props.authenticated, Constants.SETTINGS_PAGE)
+
         this.props.getProfileUser(this.props.authenticated, orgSnap.val().orgId);
       }
     })

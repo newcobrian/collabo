@@ -103,6 +103,7 @@ class Profile extends React.Component {
               this.props.watchActivityFeed(this.props.authenticated, orgSnap.val().orgId, this.props.feedEndValue, Constants.PROFILE_PAGE)
             }
             else {
+              console.log('else')
               this.props.userDoesntExist();
             }
           })
@@ -151,12 +152,16 @@ class Profile extends React.Component {
   }
 
   componentWillUnmount() {
-    this.unloadUser(this.props.params.username, this.props.profile.userId, this.props.orgId);
-    this.props.unloadProjectNames(this.props.orgId, Constants.PROFILE_PAGE)
-    this.props.unloadOrgList(this.props.authenticated, Constants.PROFILE_PAGE)
-    this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId)
-    this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.PROFILE_PAGE)
-    this.props.unloadOrg(Constants.PROFILE_PAGE);
+    if (this.props.userId) {
+      this.unloadUser(this.props.params.username, this.props.profile.userId, this.props.orgId);
+    }
+    if (this.props.orgId) {
+      this.props.unloadProjectNames(this.props.orgId, Constants.PROFILE_PAGE)
+      this.props.unloadOrgList(this.props.authenticated, Constants.PROFILE_PAGE)
+      this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId)
+      this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.PROFILE_PAGE)
+      this.props.unloadOrg(Constants.PROFILE_PAGE);
+    }
 
     if (!this.props.authenticated) {
       this.props.setAuthRedirect(this.props.location.pathname);
