@@ -47,7 +47,7 @@ const mapStateToProps = state => ({
   ...state.projectList,
   currentUser: state.common.currentUser,
   authenticated: state.common.authenticated,
-  userInfo: state.common.userInfo,
+  orgUser: state.common.orgUser,
   unreadMessages: state.common.unreadMessages
 });
 
@@ -91,9 +91,9 @@ class ProjectList extends React.Component {
             <img className="center-img" src="/img/logo_koi01.png"/>
           </Link>
 
-          <Link className="flx flx-row flx-align-center flx-item-right" to={`/${this.props.orgName}/user/${this.props.userInfo.username}`} activeClassName="active">
-            <div className="co-type-label color--black mrgn-right-sm">{this.props.userInfo.username}</div>
-            <div className=""><ProfilePic className="center-img" src={this.props.userInfo.image}/></div>
+          <Link className="flx flx-row flx-align-center flx-item-right" to={`/${this.props.orgName}/user/${this.props.orgUser.username}`} activeClassName="active">
+            <div className="co-type-label color--black mrgn-right-sm">{this.props.orgUser.username}</div>
+            <div className=""><ProfilePic className="center-img" src={this.props.orgUser.image}/></div>
           </Link>
 
         </div>
@@ -186,11 +186,11 @@ class ProjectList extends React.Component {
 
             </Link>
 
-            <Link className="sidebar-row group-row flx flx-col flx-align-center pdding-top-md pdding-bottom-sm" to={`/${this.props.orgName}/user/${this.props.userInfo.username}`} activeClassName="active">
+            <Link className="sidebar-row group-row flx flx-col flx-align-center pdding-top-md pdding-bottom-sm" to={`/${this.props.orgName}/user/${this.props.orgUser.username}`} activeClassName="active">
               <div className="mrgn-bottom-xs flx flx-center-all">
-                <ProfilePic className="center-img" src={this.props.userInfo.image}/>
+                <ProfilePic className="center-img" src={this.props.orgUser.image}/>
               </div>
-              <div className="co-type-label color--white">{this.props.userInfo.username}</div>
+              <div className="co-type-label color--white">{this.props.orgUser.username}</div>
             </Link>
 
             <div className="flx flx-row w-100">
