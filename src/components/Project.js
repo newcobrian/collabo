@@ -241,7 +241,6 @@ class Project extends React.Component {
                             projectNotFoundError={this.props.projectNotFoundError}
                             projectNames={this.props.projectNames}
                             project={this.props.project}
-                            usersList={this.props.orgMembers}
                             deleteComment={this.props.onDeleteThreadComment}
                             projectCheck={this.props.projectCheck}
                             className={"w-100 h-100"} />

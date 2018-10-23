@@ -48,10 +48,10 @@ export default (state = initialState, action) => {
         newState.threads = newState.threads.slice();
         newState.usersData = newState.usersData || {};
         if (!find(newState.threads, ['threadId', action.threadId])) {
-          let createdBy = { createdBy: Object.assign({}, action.user) };
+          let lastUpdater = { lastUpdater: Object.assign({}, action.user) };
           // let comments = { comments: newState.commentsData[action.tipId] ? [].concat(newState.commentsData[action.tipId]) : [] };
           // let isLiked = { isLiked: newState.likesData[action.tipId] ? true : false };
-          newState.threads = newState.threads.concat(Object.assign({}, {threadId: action.threadId}, action.thread, createdBy));
+          newState.threads = newState.threads.concat(Object.assign({}, {threadId: action.threadId}, action.thread, lastUpdater));
           newState.threads.sort(Helpers.lastModifiedDesc);
 
           newState.emptyThreadFeed = false;
@@ -67,11 +67,11 @@ export default (state = initialState, action) => {
         const newState = Object.assign({}, state);
         newState.threads = newState.threads || [];
         newState.threads = newState.threads.slice();
-        let createdBy = { createdBy: Object.assign({}, action.user) };
+        let lastUpdater = { lastUpdater: Object.assign({}, action.user) };
         
         for (let i = 0; i < newState.threads.length; i++) {
           if (newState.threads[i].threadId === action.threadId) {
-            newState.threads[i] = Object.assign({}, {threadId: action.threadId}, action.thread, createdBy);
+            newState.threads[i] = Object.assign({}, {threadId: action.threadId}, action.thread, lastUpdater);
             // newState.threads.sort(Helpers.lastModifiedDesc);
             newState.emptyThreadFeed = false;
             return newState;

@@ -7,7 +7,7 @@ import mixpanel from 'mixpanel-browser'
 import 'whatwg-fetch';
 import { pick, omit, debounce } from 'lodash'
 
-export function onAddProject(auth, project, orgName, userInfo) {
+export function onAddProject(auth, project, orgName) {
   return dispatch => {
     if (!auth) {
       dispatch({
@@ -96,7 +96,7 @@ export function onAddProject(auth, project, orgName, userInfo) {
   }
 }
 
-export function onAddThread(auth, projectId, thread, orgName, userInfo) {
+export function onAddThread(auth, projectId, thread, orgName) {
   return dispatch => {
     if (!auth) {
       dispatch({
@@ -121,7 +121,7 @@ export function onAddThread(auth, projectId, thread, orgName, userInfo) {
             userId: auth,
             projectId: projectId,
             lastUpdate: Constants.NEW_THREAD_TYPE,
-            lastUpdater: pick(userInfo, ['username', 'userId', 'fullName', 'image'])
+            lastUpdater: auth
           }
           let updates = {};
           Object.assign(threadObject, thread)
@@ -1035,10 +1035,10 @@ export function watchThreadFeed(auth, orgName, projectId, endValue, source) {
               .orderByChild('lastModified')
               .limitToLast(Constants.TIPS_TO_LOAD)
               .on('child_added', threadSnapshot => {
-              if (threadSnapshot.val().userId) {
-                Firebase.database().ref(Constants.USERS_PATH + '/' + threadSnapshot.val().userId).once('value', userSnap => {
+              if (threadSnapshot.val().lastUpdater) {
+                Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + threadSnapshot.val().lastUpdater).once('value', updaterSnap => {
                   let thread = projectId ? Object.assign({}, threadSnapshot.val(), {projectId: projectId}) : Object.assign({}, threadSnapshot.val(), {orgId: orgId})
-                  dispatch(threadAddedAction(threadSnapshot.key, thread, userSnap.val(), source));  
+                  dispatch(threadAddedAction(threadSnapshot.key, thread, updaterSnap.val(), source));  
                   dispatch(updateEndValue(threadSnapshot.val().lastModified ? threadSnapshot.val().lastModified : endValue, source));
                   debounceSetFeedNotLoading(dispatch, source);
                 })
@@ -1051,10 +1051,11 @@ export function watchThreadFeed(auth, orgName, projectId, endValue, source) {
               .limitToLast(Constants.TIPS_TO_LOAD)
               .endAt(endValue)
               .on('child_added', threadSnapshot => {
-              if (threadSnapshot.val().userId) {
-                Firebase.database().ref(Constants.USERS_PATH + '/' + threadSnapshot.val().userId).once('value', userSnap => {
+              if (threadSnapshot.val().lastUpdater) {
+                Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + threadSnapshot.val().lastUpdater).once('value', updaterSnap => {
                   let thread = projectId ? Object.assign({}, threadSnapshot.val(), {projectId: projectId}) : Object.assign({}, threadSnapshot.val(), {orgId: orgId})
-                  dispatch(threadAddedAction(threadSnapshot.key, thread, userSnap.val(), source));  
+                  let updateUser = updaterSnap.exists() ? updaterSnap.val() : {}
+                  dispatch(threadAddedAction(threadSnapshot.key, thread, updaterSnap.val(), source));  
                   dispatch(updateEndValue(threadSnapshot.val().lastModified ? threadSnapshot.val().lastModified : endValue, source));
                   debounceSetFeedNotLoading(dispatch, source);
                 })
@@ -1066,11 +1067,11 @@ export function watchThreadFeed(auth, orgName, projectId, endValue, source) {
           Firebase.database().ref(path)
             .orderByChild('lastModified')
             .on('child_changed', threadSnapshot => {
-            if (threadSnapshot.val().userId) {
+            if (threadSnapshot.val().lastUpdater) {
               // watchUser(dispatch, threadSnapshot.val().userId, Constants.PROJECTS_PAGE)
-              Firebase.database().ref(Constants.USERS_PATH + '/' + threadSnapshot.val().userId).once('value', userSnap => {
+              Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + threadSnapshot.val().lastUpdater).once('value', updaterSnap => {
                 let thread = projectId ? Object.assign({}, threadSnapshot.val(), {projectId: projectId}) : Object.assign({}, threadSnapshot.val(), {orgId: orgId})
-                dispatch(threadChangedAction(threadSnapshot.key, thread, userSnap.val(), source));
+                dispatch(threadChangedAction(threadSnapshot.key, thread, updaterSnap.val(), source));
               })
             }
           })
@@ -1444,15 +1445,14 @@ export function loadOrgMembers(orgId, source) {
       })
     })
 
-    // Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId).on('child_changed', changedSnap => {
-    //   Firebase.database().ref(Constants.USERS_PATH + '/' + addedSnap.key).once('value', userSnap => {
-    //     dispatch({
-    //       type: ActionTypes.PROJECT_MEMBER_CHANGED,
-    //       userId: changedSnap.key,
-    //       userData: userSnap.val(),
-    //       source: source
-    //     })  
-    // })
+    Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId).on('child_changed', changedSnap => {
+      dispatch({
+        type: ActionTypes.PROJECT_MEMBER_CHANGED,
+        userId: changedSnap.key,
+        userData: changedSnap.val(),
+        source: source
+      })  
+    })
 
     Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId).on('child_removed', removedSnap => {
       dispatch({

@@ -214,7 +214,7 @@ const ThreadPreview = props => {
                   <div className="koi-ico --24 ico--bookmark mrgn-left-md opa-20 no-click flx-item-right"></div>
               </div>
           
-              <div className="DN color--black thread-timestamp flx flx-row flx-align-center mrgn-bottom-md">
+              {/*<div className="DN color--black thread-timestamp flx flx-row flx-align-center mrgn-bottom-md">
                 <div>Created by <Link to={'/' + props.orgName + '/user/' + thread.createdBy.username} className="co-type-bold text-hover">{thread.createdBy.username}</Link> in </div>
                 <ProjectLabel className="" projectNames={props.projectNames} projectId={thread.projectId} orgName={props.orgName} />
                 <UpdateSection thread={thread} />

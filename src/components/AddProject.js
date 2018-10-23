@@ -23,7 +23,6 @@ const mapStateToProps = state => ({
   ...state.addProject,
   authenticated: state.common.authenticated,
   sidebarOpen: state.common.sidebarOpen,
-  userInfo: state.common.userInfo,
   invalidOrgUser: state.common.invalidOrgUser
 });
 
@@ -54,7 +53,7 @@ class AddProject extends React.Component {
 		   	};
 
 		    this.props.setInProgress();
-		    this.props.onAddProject(this.props.authenticated, project, this.props.params.orgname, this.props.userInfo);
+		    this.props.onAddProject(this.props.authenticated, project, this.props.params.orgname);
 		  }
     	}
 
@@ -84,6 +83,7 @@ class AddProject extends React.Component {
 		     else {
 		        let orgId = orgSnap.val().orgId
 		    	this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgname, Constants.ADD_PROJECT_PAGE);
+		    	this.props.loadOrgUser(this.props.authenticated, orgId, Constants.ADD_PROJECT_PAGE)
 		    	this.props.loadProjectList(this.props.authenticated, orgId, this.props.params.pid, Constants.ADD_PROJECT_PAGE)
 			    this.props.loadThreadCounts(this.props.authenticated, orgId)
 			    this.props.loadOrgList(this.props.authenticated, Constants.ADD_PROJECT_PAGE)
@@ -96,12 +96,16 @@ class AddProject extends React.Component {
 
 	componentWillUnmount() {
 		if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
+
+		if (this.props.authenticated && this.props.orgId) {
+			this.props.unloadProjectNames(this.props.orgId, Constants.ADD_PROJECT_PAGE)
+			this.props.unloadOrgList(this.props.authenticated, Constants.ADD_PROJECT_PAGE)
+		    this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId)
+		    this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.ADD_PROJECT_PAGE)
+		    this.props.unloadOrgUser(this.props.authenticated, this.props.orgId, Constants.ADD_PROJECT_PAGE)
+		    this.props.unloadOrg(Constants.ADD_PROJECT_PAGE);
+		}
 		this.props.onCreateUnload();
-		this.props.unloadProjectNames(this.props.orgId, Constants.ADD_PROJECT_PAGE)
-		this.props.unloadOrgList(this.props.authenticated, Constants.ADD_PROJECT_PAGE)
-	    this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId)
-	    this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.ADD_PROJECT_PAGE)
-	    this.props.unloadOrg(Constants.ADD_PROJECT_PAGE);
 	}
 
 	render() {

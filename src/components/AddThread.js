@@ -20,8 +20,6 @@ const mql = window.matchMedia(`(min-width: 800px)`);
 const mapStateToProps = state => ({
   ...state.addThread,
   authenticated: state.common.authenticated,
-  userInfo: state.common.userInfo,
-  currentUser: state.common.currentUser,
   sidebarOpen: state.common.sidebarOpen,
   invalidOrgUser: state.common.invalidOrgUser
 });
@@ -39,10 +37,6 @@ class AddThread extends React.Component {
 	    	this.props.onUpdateCreateField('body', value, Constants.ADD_THREAD_PAGE)
 	    }
 
-	    this.changeConvertedBody = value => {
-
-	    }
-
 		this.submitForm = ev => {
 	      ev.preventDefault();
 	      if (!this.props.title) {
@@ -58,7 +52,7 @@ class AddThread extends React.Component {
 	     //  	let bodyDelta = Helpers.convertEditorStateToStorable(this.props.body)
 		   	let thread = Object.assign({}, {title: this.props.title}, { body: this.props.body } )
 		    this.props.setInProgress();
-		    this.props.onAddThread(this.props.authenticated, this.props.projectId, thread, this.props.params.orgname, this.props.userInfo);
+		    this.props.onAddThread(this.props.authenticated, this.props.projectId, thread, this.props.params.orgname);
 		  }
     	}
 
@@ -95,6 +89,7 @@ class AddThread extends React.Component {
 
 		    	this.props.loadOrgMembers(orgId,  Constants.ADD_THREAD_PAGE)
 		    	this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgname, Constants.ADD_THREAD_PAGE);
+		    	this.props.loadOrgUser(this.props.authenticated, orgId, Constants.ADD_THREAD_PAGE)
 		    	this.props.loadAddThreadProject(this.props.params.pid)
 			    this.props.loadProjectList(this.props.authenticated, orgId, this.props.params.pid, Constants.ADD_THREAD_PAGE)
 			    this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgname)
@@ -108,12 +103,15 @@ class AddThread extends React.Component {
 
 	componentWillUnmount() {
 		this.props.onCreateUnload();
-		this.props.unloadProjectNames(this.props.orgId, Constants.ADD_THREAD_PAGE)
-		this.props.unloadOrgList(this.props.authenticated, Constants.ADD_THREAD_PAGE)
-	    this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId)
-	    this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.ADD_THREAD_PAGE)
-	    this.props.unloadOrgMembers(this.props.orgId,  Constants.ADD_THREAD_PAGE)
-	    this.props.unloadOrg(Constants.ADD_THREAD_PAGE);
+		if (this.props.authenticated && this.props.orgId) {
+			this.props.unloadProjectNames(this.props.orgId, Constants.ADD_THREAD_PAGE)
+			this.props.unloadOrgList(this.props.authenticated, Constants.ADD_THREAD_PAGE)
+		    this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId)
+		    this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.ADD_THREAD_PAGE)
+		    this.props.unloadOrgMembers(this.props.orgId,  Constants.ADD_THREAD_PAGE)
+		    this.props.unloadOrgUser(this.props.authenticated, this.props.orgId, Constants.ADD_THREAD_PAGE)
+		    this.props.unloadOrg(Constants.ADD_THREAD_PAGE);
+		}
 	}
 
 	render() {

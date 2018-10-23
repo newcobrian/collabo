@@ -35,6 +35,19 @@ const ThreadList = props => {
         props.threads.map((threadItem, index) => {
           // only show posts from projects that user belongs to
           if (props.projectCheck && props.projectCheck[threadItem.projectId]) {
+            // let lastUpdateUser = threadItem.lastUpdater && props.usersList[threadItem.lastUpdater] ? props.usersList[threadItem.lastUpdater] : 
+            //   Object.assign({}, {
+            //     userId: null,
+            //     username: '',
+            //     image: ''
+            //   })
+
+            //   if(threadItem.threadId === '-LPU_RbrLfRKzqg0o5TN') {
+            //     console.log(JSON.stringify(threadItem.lastUpdater))
+            //     console.log(JSON.stringify(lastUpdateUser))
+            //     console.log(JSON.stringify(props.usersList[threadItem.lastUpdater]))
+            //   }
+
             return (
               <ThreadPreview 
                 authenticated={props.authenticated}
@@ -49,7 +62,6 @@ const ThreadList = props => {
                 index={index+1}
                 projectNames={props.projectNames}
                 project={props.project}
-                usersList={props.usersList}
                 deleteComment={props.deleteComment}
               />
             );
