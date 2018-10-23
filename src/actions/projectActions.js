@@ -562,7 +562,7 @@ export function updateThreadField(auth, threadId, thread, orgName, field, value,
       // if body was updated, make this the lastUpdate
       if (field === 'body') {
         Object.assign(updates, getThreadFieldUpdates(threadId, thread, 'lastUpdate', Constants.EDIT_THREAD_TYPE));
-        Object.assign(updates, getThreadFieldUpdates(threadId, thread, 'lastUpdater', pick(userInfo, ['username', 'userId', 'fullName', 'image'])));
+        Object.assign(updates, getThreadFieldUpdates(threadId, thread, 'lastUpdater', auth));
 
         // also update user's activity feed
         let activityObject = Object.assign({}, omit(thread, ['userId', 'orgId', 'lastUpdate', 'lastUpdater']), { threadId: threadId }, { type: Constants.EDIT_THREAD_TYPE })
@@ -705,7 +705,7 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
       Object.assign(updates, getThreadFieldUpdates(threadId, thread, 'lastUpdate', Constants.COMMENT_TYPE));
 
       // update lastUpdater as the commenter
-      Object.assign(updates, getThreadFieldUpdates(threadId, thread, 'lastUpdater', pick(userInfo, ['username', 'userId', 'fullName', 'image'])));
+      Object.assign(updates, getThreadFieldUpdates(threadId, thread, 'lastUpdater', authenticated));
 
       // update the last comment
       // Object.assign(updates, getThreadFieldUpdates(threadId, thread, 'lastComment', Object.assign({}, comment, { commentId: commentId })))
