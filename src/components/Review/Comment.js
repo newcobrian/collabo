@@ -36,7 +36,7 @@ class Comment extends React.Component {
 
   render () {
     const { isOpenNotification, hideCommentInput } = this.state;
-    const { comment, authenticated, userInfo, orgName, project, commentObject, 
+    const { comment, authenticated, orgName, project, commentObject, 
       deleteComment, threadId, type, likes, thread, usersList, parentId } = this.props;
     const show = authenticated && authenticated === comment.userId;
 
@@ -135,7 +135,6 @@ class Comment extends React.Component {
           { !parentId && 
             <CommentContainer
               authenticated={authenticated}
-              userInfo={userInfo}
               comments={comment.nestedComments || {}}
               commentObject={thread}
               threadId={threadId}

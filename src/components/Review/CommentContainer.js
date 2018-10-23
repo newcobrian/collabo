@@ -7,7 +7,7 @@ import ListErrors from '../ListErrors';
 var linkify = require('linkify-it')();
 
 const CommentContainer = props => {
-	if (props.authenticated && props.userInfo) {
+	if (props.authenticated) {
 		return (
 			<div className="comments-module w-100">
 		          
@@ -17,7 +17,6 @@ const CommentContainer = props => {
 					comments={props.comments}
 					commentObject={props.commentObject}
 					authenticated={props.authenticated}
-					userInfo={props.userInfo}
 					threadId={props.threadId}
 					thread={props.thread}
 					project={props.project}
@@ -37,7 +36,6 @@ const CommentContainer = props => {
 						  	commentObject={props.commentObject} 
 						  	threadId={props.threadId}
 						  	authenticated={props.authenticated} 
-						  	userInfo={props.userInfo}
 						  	project={props.project}
 						  	orgName={props.orgName}
 						  	type={props.type}
@@ -65,7 +63,6 @@ const CommentContainer = props => {
 					comments={props.comments}
 					commentObject={props.commentObject}
 					authenticated={props.authenticated}
-					userInfo={props.userInfo}
 					threadId={props.threadId}
 					deleteComment={props.deleteComment}
 					type={props.type} />

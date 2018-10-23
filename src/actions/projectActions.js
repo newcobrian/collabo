@@ -477,7 +477,7 @@ export function loadThread(threadId) {
     Firebase.database().ref(Constants.THREADS_PATH + '/' + threadId).on('value', threadSnapshot => {
       if (threadSnapshot.exists()) {
         Firebase.database().ref(Constants.PROJECTS_PATH + '/' + threadSnapshot.val().projectId).on('value', projectSnapshot => {
-          Firebase.database().ref(Constants.USERS_PATH + '/' + threadSnapshot.val().userId).on('value', userSnapshot => {
+          Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + threadSnapshot.val().orgId + '/' + threadSnapshot.val().userId).on('value', userSnapshot => {
             dispatch({
               type: ActionTypes.LOAD_THREAD,
               thread: threadSnapshot.val(),
@@ -542,7 +542,7 @@ export function changeEditorState(editorState) {
   }
 }
 
-export function updateThreadField(auth, threadId, thread, orgName, field, value, userInfo) {
+export function updateThreadField(auth, threadId, thread, orgName, field, value) {
   return dispatch => {
     if (thread && threadId && thread.userId && thread.orgId) {
       let updates = {}
@@ -674,7 +674,7 @@ export function getThreadFieldUpdates(threadId, thread, field, value) {
   return updates;
 }
 
-export function onThreadCommentSubmit(authenticated, userInfo, type, thread, body, threadId, project, orgName, parentId) {
+export function onThreadCommentSubmit(authenticated, type, thread, body, threadId, project, orgName, parentId) {
   return dispatch => {
     if(!authenticated) {
       dispatch({
@@ -683,12 +683,9 @@ export function onThreadCommentSubmit(authenticated, userInfo, type, thread, bod
     }
     const comment = {
       userId: authenticated,
-      username: userInfo.username,
-      fullName: userInfo.fullName,
       body: body ? body : '',
       lastModified: Firebase.database.ServerValue.TIMESTAMP
     }
-    if (userInfo.image) comment.image = userInfo.image;
 
     if (threadId) {
       let org = Object.assign({}, {orgId: thread.orgId}, {name: orgName})
