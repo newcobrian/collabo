@@ -198,6 +198,7 @@ class OrgSettings extends React.Component {
       else {
         let orgId = orgSnap.val().orgId
         this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE);
+        this.props.loadOrgUser(this.props.authenticated, orgId, Constants.ORG_SETTINGS_PAGE)
         this.props.loadProjectList(this.props.authenticated, orgId, null, Constants.ORG_SETTINGS_PAGE)
         this.props.loadThreadCounts(this.props.authenticated, orgId)
         this.props.loadOrgList(this.props.authenticated, Constants.ORG_SETTINGS_PAGE)
@@ -217,13 +218,15 @@ class OrgSettings extends React.Component {
     this.props.unloadOrgList(this.props.authenticated, Constants.ORG_SETTINGS_PAGE)
     this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId, Constants.ORG_SETTINGS_PAGE)
     this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.ORG_SETTINGS_PAGE)
+    this.props.unloadOrgUser(this.props.authenticated, this.props.orgId, Constants.ORG_SETTINGS_PAGE)
     this.props.unloadOrg(Constants.ORG_SETTINGS_PAGE, this.props.params.orgname);
     this.props.unloadOrgMembers(this.props.orgId, Constants.ORG_SETTINGS_PAGE)
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.orgname !== this.props.params.orgname) {
-      this.props.loadProjectNames(this.props.orgId, Constants.ORG_SETTINGS_PAGE)
+      this.props.unloadOrgUser(this.props.authenticated, this.props.orgId, Constants.ORG_SETTINGS_PAGE)
+      this.props.unloadProjectNames(this.props.orgId, Constants.ORG_SETTINGS_PAGE)
       this.props.unloadOrgList(this.props.authenticated, Constants.ORG_SETTINGS_PAGE)
       this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId, Constants.ORG_SETTINGS_PAGE)
       this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.ORG_SETTINGS_PAGE)
@@ -237,6 +240,7 @@ class OrgSettings extends React.Component {
         else {
           let orgId = orgSnap.val().orgId
           this.props.loadOrg(this.props.authenticated, orgId, nextProps.params.orgname, Constants.ORG_SETTINGS_PAGE);
+          this.props.loadOrgUser(this.props.authenticated, orgId, Constants.ORG_SETTINGS_PAGE)
           this.props.loadProjectList(this.props.authenticated, orgId, null, Constants.ORG_SETTINGS_PAGE)
           this.props.loadThreadCounts(this.props.authenticated, nextProps.params.ORG_SETTINGS_PAGE)
           this.props.loadProjectNames(orgId, Constants.ORG_SETTINGS_PAGE)

@@ -38,11 +38,9 @@ class OrgInvite extends React.Component {
 	    console.log(lowerCaseOrgName)
 	    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
 	    	if (!orgSnap.exists()) {
-	    		console.log('inf')
 	        	this.props.notAnOrgUserError(Constants.ORG_SETTINGS_PAGE)
 	    	}
 	    	else {
-	    		console.log('else')
 	        	let orgId = orgSnap.val().orgId
 		    	this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE);
 			    this.props.loadProjectList(this.props.authenticated, orgId, Constants.ORG_SETTINGS_PAGE)

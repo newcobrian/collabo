@@ -85,6 +85,7 @@ class Inbox extends React.Component {
       else {
         let orgId = orgSnap.val().orgId
         this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgname, Constants.INBOX_PAGE);
+        this.props.loadOrgUser(this.props.authenticated, orgId, Constants.INBOX_PAGE)
         this.props.loadProjectList(this.props.authenticated, orgId, Constants.INBOX_PAGE)
         this.props.loadThreadCounts(this.props.authenticated, orgId)
         this.props.loadOrgList(this.props.authenticated, Constants.INBOX_PAGE)
@@ -106,6 +107,7 @@ class Inbox extends React.Component {
     this.props.unloadOrgList(this.props.authenticated, Constants.INBOX_PAGE)
     this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId)
     this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.INBOX_PAGE)
+    this.props.unloadOrgUser(this.props.authenticated, this.props.orgId, Constants.INBOX_PAGE)
     this.props.unloadOrg(Constants.INBOX_PAGE);
     if (!this.props.authenticated) {
       this.props.setAuthRedirect(this.props.location.pathname);

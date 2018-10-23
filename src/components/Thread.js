@@ -137,7 +137,7 @@ class Thread extends React.Component {
     }
 
     const updateThreadFieldEvent = (field, value, thread) =>
-      this.props.updateThreadField(this.props.authenticated, this.props.params.tid, thread, this.props.params.orgname, field, value, this.props.userInfo)
+      this.props.updateThreadField(this.props.authenticated, this.props.params.tid, thread, this.props.params.orgname, field, value)
 
     this.saveBody = thread => ev => {
       ev.preventDefault()
@@ -240,6 +240,7 @@ class Thread extends React.Component {
       else {
         let orgId = orgSnap.val().orgId
         this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgname, Constants.THREAD_PAGE);
+        this.props.loadOrgUser(this.props.authenticated, orgId, Constants.THREAD_PAGE)
         this.props.loadProjectList(this.props.authenticated, orgId, this.props.params.pid, Constants.THREAD_PAGE)
         this.props.loadThreadCounts(this.props.authenticated, orgId)
         this.props.loadOrgList(this.props.authenticated, Constants.THREAD_PAGE)
@@ -261,6 +262,7 @@ class Thread extends React.Component {
     this.props.unloadOrgList(this.props.authenticated, Constants.THREAD_PAGE)
     this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId, Constants.THREAD_PAGE)
     this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.THREAD_PAGE)
+    this.props.unloadOrgUser(this.props.authenticated, this.props.orgId, Constants.THREAD_PAGE)
     this.props.unloadOrg(Constants.THREAD_PAGE);
     this.props.loadOrgMembers(this.props.orgId,  Constants.THREAD_PAGE)
     this.props.unloadThread(this.props.params.tid);
@@ -280,6 +282,8 @@ class Thread extends React.Component {
       this.props.markThreadRead(this.props.authenticated, nextProps.params.tid)
     }
     else if (nextProps.params.orgname !== this.props.params.orgname) {
+      this.props.unloadOrg(Constants.THREAD_PAGE);
+      this.props.unloadOrgUser(this.props.authenticated, this.props.orgId, Constants.THREAD_PAGE)
       this.props.unloadProjectNames(this.props.orgId, Constants.THREAD_PAGE)
       this.props.unloadOrgList(this.props.authenticated, Constants.THREAD_PAGE)
       this.props.loadOrgMembers(this.props.orgId,  Constants.THREAD_PAGE)
@@ -297,6 +301,7 @@ class Thread extends React.Component {
         else {
           let orgId = orgSnap.val().orgId
           this.props.loadOrg(this.props.authenticated, orgId, nextProps.params.orgname, Constants.THREAD_PAGE);
+          this.props.loadOrgUser(this.props.authenticated, orgId, Constants.THREAD_PAGE)
           this.props.loadOrgMembers(orgId,  Constants.THREAD_PAGE)
           this.props.loadProjectList(this.props.authenticated, orgId, this.props.params.pid, Constants.THREAD_PAGE)
           this.props.loadThreadCounts(this.props.authenticated, orgId)
@@ -438,7 +443,6 @@ class Thread extends React.Component {
                           <div className="co-thread-reply-wrapper">
                             <CommentContainer
                               authenticated={this.props.authenticated}
-                              userInfo={this.props.userInfo}
                               comments={this.props.comments || {}}
                               errors={this.props.commentErrors}
                               commentObject={thread}

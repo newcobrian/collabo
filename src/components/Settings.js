@@ -189,6 +189,7 @@ class Settings extends React.Component {
         let orgId = orgSnap.val().orgId
 
         this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgname, Constants.SETTINGS_PAGE);
+        this.props.loadOrgUser(this.props.authenticated, orgId, Constants.SETTINGS_PAGE)
         this.props.loadProjectList(this.props.authenticated, orgId, Constants.SETTINGS_PAGE)
         this.props.loadThreadCounts(this.props.authenticated, orgId)
         this.props.loadProjectNames(orgId, Constants.SETTINGS_PAGE)
@@ -206,6 +207,7 @@ class Settings extends React.Component {
     this.props.unloadOrgList(this.props.authenticated, Constants.SETTINGS_PAGE)
     this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId)
     this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.SETTINGS_PAGE)
+    this.props.unloadOrgUser(this.props.authenticated, this.props.orgId, Constants.THREAD_PAGE)
     this.props.unloadOrg(Constants.SETTINGS_PAGE);
 
     this.props.unloadProfileUser(this.props.userId, this.props.orgId);
