@@ -1389,15 +1389,15 @@ export function loadProjectMembers(projectId, source) {
   return dispatch => {
     // load members of the project
     Firebase.database().ref(Constants.USERS_BY_PROJECT_PATH + '/' + projectId).on('child_added', addedSnap => {
-      Firebase.database().ref(Constants.USERS_PATH + '/' + addedSnap.key).once('value', userSnap => {
+      // Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + addedSnap.key).once('value', userSnap => {
         dispatch({
-          type: ActionTypes.MEMBER_ADDED,
+          type: ActionTypes.PROJECT_MEMBER_ADDED,
           userId: addedSnap.key,
-          userData: userSnap.val(),
-          membersList: Constants.PROJECT_MEMBERS_LIST,
+          // userData: userSnap.val(),
+          // membersList: Constants.PROJECT_MEMBERS_LIST,
           source: source
         })
-      })
+      // })
     })
 
     // Firebase.database().ref(Constants.USERS_BY_PROJECT_PATH + '/' + projectId).on('child_changed', changedSnap => {
@@ -1406,14 +1406,14 @@ export function loadProjectMembers(projectId, source) {
     //     userId: changedSnap.key,
     //     userData: changedSnap.val(),
     //     source: source
-    //   })  
+    //   })
     // })
 
     Firebase.database().ref(Constants.USERS_BY_PROJECT_PATH + '/' + projectId).on('child_removed', removedSnap => {
       dispatch({
-        type: ActionTypes.MEMBER_REMOVED,
+        type: ActionTypes.PROJECT_MEMBER_REMOVED,
         userId: removedSnap.key,
-        membersList: Constants.PROJECT_MEMBERS_LIST,
+        // membersList: Constants.PROJECT_MEMBERS_LIST,
         source: source
       })  
     })
@@ -1425,17 +1425,17 @@ export function loadOrgMembers(orgId, source) {
     // load all org members
     Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId).on('child_added', addedSnap => {
       dispatch({
-        type: ActionTypes.MEMBER_ADDED,
+        type: ActionTypes.ORG_MEMBER_ADDED,
         userId: addedSnap.key,
         userData: addedSnap.val(),
-        membersList: Constants.ORG_MEMBERS_LIST,
+        // membersList: Constants.ORG_MEMBERS_LIST,
         source: source
       })
     })
 
     Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId).on('child_changed', changedSnap => {
       dispatch({
-        type: ActionTypes.PROJECT_MEMBER_CHANGED,
+        type: ActionTypes.ORG_MEMBER_CHANGED,
         userId: changedSnap.key,
         userData: changedSnap.val(),
         source: source
@@ -1444,9 +1444,9 @@ export function loadOrgMembers(orgId, source) {
 
     Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId).on('child_removed', removedSnap => {
       dispatch({
-        type: ActionTypes.MEMBER_REMOVED,
+        type: ActionTypes.ORG_MEMBER_REMOVED,
         userId: removedSnap.key,
-        membersList: Constants.ORG_MEMBERS_LIST,
+        // membersList: Constants.ORG_MEMBERS_LIST,
         source: source
       })  
     })
@@ -1459,8 +1459,7 @@ export function unloadProjectMembers(projectId, source) {
     Firebase.database().ref(Constants.USERS_BY_PROJECT_PATH + '/' + projectId).off()
 
     dispatch({
-      type: ActionTypes.UNLOAD_MEMBERS,
-      membersList: Constants.PROJECT_MEMBERS_LIST,
+      type: ActionTypes.UNLOAD_PROJECT_MEMBERS,
       source
     })
   }
@@ -1472,8 +1471,7 @@ export function unloadOrgMembers(orgId, source) {
       Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId).off()
 
       dispatch({
-        type: ActionTypes.UNLOAD_MEMBERS,
-        membersList: Constants.ORG_MEMBERS_LIST,
+        type: ActionTypes.UNLOAD_ORG_MEMBERS,
         source
       })
   }

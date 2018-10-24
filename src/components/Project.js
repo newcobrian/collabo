@@ -68,7 +68,7 @@ class Project extends React.Component {
         this.props.loadProjectNames(orgId, Constants.PROJECT_PAGE)
         
         this.props.loadProject(this.props.params.pid, orgId, Constants.PROJECT_PAGE);
-        this.props.loadProjectMembers(this.props.params.pid,  Constants.PROJECT_PAGE)
+        this.props.loadProjectMembers(this.props.params.pid, Constants.PROJECT_PAGE)
         this.props.loadOrgMembers(orgId,  Constants.PROJECT_PAGE)
       }
     })

@@ -3,7 +3,8 @@ import * as Constants from '../constants';
 import * as Helpers from '../helpers';
 import { find, isEqual } from 'lodash';
 
-const initialState = { usersData: {}, threadCounts: {}, feedEndValue: null, isFeedLoading: false, projectNames: {}, invalidOrgUser: false }
+const initialState = { usersData: {}, threadCounts: {}, feedEndValue: null, isFeedLoading: false, 
+  projectNames: {}, invalidOrgUser: false, orgUserData: {}, orgMembers: [], projectMembers: [] }
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -216,55 +217,168 @@ export default (state = initialState, action) => {
         }
       }
       return state;
-    case ActionTypes.MEMBER_ADDED: {
-      if (action.source === Constants.PROJECT_PAGE) {
-        const newState = Object.assign({}, state);
-        // first create orgMembers array
-        newState[action.membersList] = newState[action.membersList] || [];
-        newState[action.membersList] = newState[action.membersList].slice();
-        newState[action.membersList] = newState[action.membersList].concat(Object.assign({}, { userId: action.userId }, action.userData, { id: action.userId }, {display: action.userData.username}));
-        newState[action.membersList].sort(Helpers.byUsername);
+    // case ActionTypes.ORG_MEMBER_ADDED: {
+    //   if (action.source === Constants.PROJECT_PAGE) {
+    //     const newState = Object.assign({}, state);
+    //     // first create orgMembers array
+    //     newState[action.membersList] = newState[action.membersList] || [];
+    //     newState[action.membersList] = newState[action.membersList].slice();
+    //     newState[action.membersList] = newState[action.membersList].concat(Object.assign({}, { userId: action.userId }, action.userData, { id: action.userId }, {display: action.userData.username}));
+    //     newState[action.membersList].sort(Helpers.byUsername);
 
-        // if this is an org user, update the org user object
-        if (action.membersList === Constants.ORG_MEMBERS_LIST) {
-          newState.orgUserData = Object.assign({}, state.orgUserData || {});
-          newState.orgUserData[action.userId] = Object.assign({}, action.userData)
-        }
-        return newState;
-      }
-      return state;
-    }
-    case ActionTypes.MEMBER_CHANGED: {
+    //     // if this is an org user, update the org user object
+    //     if (action.membersList === Constants.ORG_MEMBERS_LIST) {
+    //       newState.orgUserData = Object.assign({}, state.orgUserData || {});
+    //       newState.orgUserData[action.userId] = Object.assign({}, action.userData)
+    //     }
+    //     return newState;
+    //   }
+    //   return state;
+    // }
+    // case ActionTypes.ORG_MEMBER_CHANGED: {
+    //   if (action.source === Constants.PROJECT_PAGE) {
+    //     const newState = Object.assign({}, state);
+    //     newState[action.membersList] = newState[action.membersList] || [];
+    //     newState[action.membersList] = newState[action.membersList].slice();
+    //     for (let i = 0; i < newState[action.membersList].length; i++) {
+    //       if (newState[action.membersList][i].id === action.id) {
+    //         newState[action.membersList][i] = Object.assign({}, { userId: action.userId }, action.userData, { id: action.userId }, {display: action.userData.username})
+    //         newState[action.membersList].sort(Helpers.byUsername);
+    //         break;
+    //       }
+    //     }
+
+    //     // if this is an org user, update the org user object
+    //     if (action.membersList === Constants.ORG_MEMBERS_LIST) {
+    //       newState.orgUserData = Object.assign({}, state.orgUserData || {});
+    //       newState.orgUserData[action.userId] = Object.assign({}, action.userData)
+    //     }
+    //     return newState;
+    //   }
+    //   return state;
+    // }
+    // case ActionTypes.ORG_MEMBER_REMOVED: {
+    //   if (action.source === Constants.PROJECT_PAGE) {
+    //     const newState = Object.assign({}, state);
+    //     newState[action.membersList] = newState[action.membersList] || [];
+    //     newState[action.membersList] = newState[action.membersList].slice();
+        
+    //     for (let i = 0; i < newState[action.membersList].length; i++) {
+    //       if (newState[action.membersList][i].id === action.id) {
+    //         newState[action.membersList].splice(i, 1);
+    //         return newState;    
+    //       }
+    //     }
+    //     return state;
+    //   }
+    //   return state;
+    // }
+    case ActionTypes.ORG_MEMBER_ADDED: {
       if (action.source === Constants.PROJECT_PAGE) {
         const newState = Object.assign({}, state);
-        newState[action.membersList] = newState[action.membersList] || [];
-        newState[action.membersList] = newState[action.membersList].slice();
-        for (let i = 0; i < newState[action.membersList].length; i++) {
-          if (newState[action.membersList][i].id === action.id) {
-            newState[action.membersList][i] = Object.assign({}, { userId: action.userId }, action.userData, { id: action.userId }, {display: action.userData.username})
-            newState[action.membersList].sort(Helpers.byUsername);
+
+        // add user to orgUserData, which other lists can reference for all data for all users in org
+        newState.orgUserData = Object.assign({}, state.orgUserData || {});
+        newState.orgUserData[action.userId] = Object.assign({}, action.userData)
+
+        // create array of org members sorted by username for displaying list of org members
+        newState.orgMembers = newState.orgMembers || [];
+        newState.orgMembers = newState.orgMembers.slice();
+        newState.orgMembers = newState.orgMembers.concat(Object.assign({}, { userId: action.userId }, action.userData, { id: action.userId }, {display: action.userData.username}));
+        newState.orgMembers.sort(Helpers.byUsername);
+
+        // run through projectMembers list and update user data if found
+        for (let i = 0; i < newState.projectMembers.length; i++) {
+          if (newState.projectMembers[i].userId === action.userId) {
+            newState.projectMembers[i] = Object.assign({}, { userId: action.userId }, action.userData)
+            newState.projectMembers.sort(Helpers.byUsername);
             break;
           }
         }
 
-        // if this is an org user, update the org user object
-        if (action.membersList === Constants.ORG_MEMBERS_LIST) {
-          newState.orgUserData = Object.assign({}, state.orgUserData || {});
-          newState.orgUserData[action.userId] = Object.assign({}, action.userData)
-        }
         return newState;
       }
       return state;
     }
-    case ActionTypes.MEMBER_REMOVED: {
+    case ActionTypes.ORG_MEMBER_CHANGED: {
       if (action.source === Constants.PROJECT_PAGE) {
         const newState = Object.assign({}, state);
-        newState[action.membersList] = newState[action.membersList] || [];
-        newState[action.membersList] = newState[action.membersList].slice();
+
+        // update user info in global org user data
+        newState.orgUserData = Object.assign({}, state.orgUserData || {});
+        newState.orgUserData[action.userId] = Object.assign({}, action.userData)
+
+        // update info for the user in the orgMembers array
+        newState.orgMembers = newState.orgMembers || [];
+        newState.orgMembers = newState.orgMembers.slice();
+        for (let i = 0; i < newState.orgMembers.length; i++) {
+          if (newState.orgMembers[i].userId === action.userId) {
+            newState.orgMembers[i] = Object.assign({}, { userId: action.userId }, action.userData, { id: action.userId }, {display: action.userData.username})
+            newState.orgMembers.sort(Helpers.byUsername);
+            break;
+          }
+        }
+
+        // run through projectMembers list and update user data if found
+        for (let i = 0; i < newState.projectMembers.length; i++) {
+          if (newState.projectMembers[i].userId === action.userId) {
+            newState.projectMembers[i] = Object.assign({}, { userId: action.userId }, action.userData)
+            newState.projectMembers.sort(Helpers.byUsername);
+            break;
+          }
+        }
+
+        return newState;
+      }
+      return state;
+    }
+    case ActionTypes.ORG_MEMBER_REMOVED: {
+      if (action.source === Constants.PROJECT_PAGE) {
+        const newState = Object.assign({}, state);
+
+        // remove user info in global org user data
+        newState.orgUserData = Object.assign({}, state.orgUserData || {});
+        delete newState.orgUserData[action.userId]
+
+        // remove from orgMembers list
+        newState.orgMembers = newState.orgMembers || [];
+        newState.orgMembers = newState.orgMembers.slice();
         
-        for (let i = 0; i < newState[action.membersList].length; i++) {
-          if (newState[action.membersList][i].id === action.id) {
-            newState[action.membersList].splice(i, 1);
+        for (let i = 0; i < newState.orgMembers.length; i++) {
+          if (newState.orgMembers[i].userId === action.userId) {
+            newState.orgMembers.splice(i, 1);
+            break;
+          }
+        }
+        // do we need to remove from projectMembers?
+
+        return newState;
+      }
+      return state;
+    }
+    case ActionTypes.PROJECT_MEMBER_ADDED: {
+      if (action.source === Constants.PROJECT_PAGE) {
+        const newState = Object.assign({}, state);
+        // first create orgMembers array
+        newState.projectMembers = newState.projectMembers || [];
+        newState.projectMembers = newState.projectMembers.slice();
+        let memberData = newState.orgUserData && newState.orgUserData[action.userId] ? newState.orgUserData[action.userId] : { username: '' }
+        newState.projectMembers = newState.projectMembers.concat(Object.assign({}, { userId: action.userId }, memberData, { id: action.userId }, {display: memberData}));
+        newState.projectMembers.sort(Helpers.byUsername);
+
+        return newState;
+      }
+      return state;
+    }
+    case ActionTypes.PROJECT_MEMBER_REMOVED: {
+      if (action.source === Constants.PROJECT_PAGE) {
+        const newState = Object.assign({}, state);
+        newState.projectMembers = newState.projectMembers || [];
+        newState.projectMembers = newState.projectMembers.slice();
+        
+        for (let i = 0; i < newState.projectMembers.length; i++) {
+          if (newState.projectMembers[i].userId === action.userId) {
+            newState.projectMembers.splice(i, 1);
             return newState;    
           }
         }
@@ -272,11 +386,20 @@ export default (state = initialState, action) => {
       }
       return state;
     }
-    case ActionTypes.UNLOAD_MEMBERS:
+    case ActionTypes.UNLOAD_PROJECT_MEMBERS:
       if (action.source === Constants.PROJECT_PAGE) {
         return {
           ...state,
-          [action.membersList]: []
+          projectMembers: []
+        }
+      }
+      return state
+     case ActionTypes.UNLOAD_ORG_MEMBERS:
+      if (action.source === Constants.PROJECT_PAGE) {
+        return {
+          ...state,
+          orgMembers: [],
+          orgUserData: {}
         }
       }
       return state

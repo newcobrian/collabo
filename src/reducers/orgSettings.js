@@ -85,54 +85,63 @@ export default (state = initialState, action) => {
     //             projectNames: {}
     //         }
     //     }
-    case ActionTypes.MEMBER_ADDED: {
+    case ActionTypes.ORG_MEMBER_ADDED: {
       if (action.source === Constants.ORG_SETTINGS_PAGE) {
         const newState = Object.assign({}, state);
-        newState[action.membersList] = newState[action.membersList] || [];
-        newState[action.membersList] = newState[action.membersList].slice();
-        newState[action.membersList] = newState[action.membersList].concat(Object.assign({}, { userId: action.userId }, action.userData, { id: action.userId }, {display: action.userData.username}));
-        newState[action.membersList].sort(Helpers.byUsername);
+
+        // create array of org members sorted by username for displaying list of org members
+        newState.orgMembers = newState.orgMembers || [];
+        newState.orgMembers = newState.orgMembers.slice();
+        newState.orgMembers = newState.orgMembers.concat(Object.assign({}, { userId: action.userId }, action.userData, { id: action.userId }, {display: action.userData.username}));
+        newState.orgMembers.sort(Helpers.byUsername);
+
         return newState;
       }
       return state;
     }
-    case ActionTypes.MEMBER_CHANGED: {
+    case ActionTypes.ORG_MEMBER_CHANGED: {
       if (action.source === Constants.ORG_SETTINGS_PAGE) {
         const newState = Object.assign({}, state);
-        newState[action.membersList] = newState[action.membersList] || [];
-        newState[action.membersList] = newState[action.membersList].slice();
-        for (let i = 0; i < newState[action.membersList].length; i++) {
-          if (newState[action.membersList][i].id === action.id) {
-            newState[action.membersList][i] = Object.assign({}, { userId: action.userId }, action.userData, { id: action.userId }, {display: action.userData.username})
-            newState[action.membersList].sort(Helpers.byUsername);
-            return newState;
+
+        // update info for the user in the orgMembers array
+        newState.orgMembers = newState.orgMembers || [];
+        newState.orgMembers = newState.orgMembers.slice();
+        for (let i = 0; i < newState.orgMembers.length; i++) {
+          if (newState.orgMembers[i].userId === action.userId) {
+            newState.orgMembers[i] = Object.assign({}, { userId: action.userId }, action.userData, { id: action.userId }, {display: action.userData.username})
+            newState.orgMembers.sort(Helpers.byUsername);
+            break;
           }
         }
-        return state;
+
+        return newState;
       }
       return state;
     }
-    case ActionTypes.MEMBER_REMOVED: {
+    case ActionTypes.ORG_MEMBER_REMOVED: {
       if (action.source === Constants.ORG_SETTINGS_PAGE) {
         const newState = Object.assign({}, state);
-        newState[action.membersList] = newState[action.membersList] || [];
-        newState[action.membersList] = newState[action.membersList].slice();
+
+        // remove from orgMembers list
+        newState.orgMembers = newState.orgMembers || [];
+        newState.orgMembers = newState.orgMembers.slice();
         
-        for (let i = 0; i < newState[action.membersList].length; i++) {
-          if (newState[action.membersList][i].id === action.id) {
-            newState[action.membersList].splice(i, 1);
-            return newState;    
+        for (let i = 0; i < newState.orgMembers.length; i++) {
+          if (newState.orgMembers[i].userId === action.userId) {
+            newState.orgMembers.splice(i, 1);
+            break;
           }
         }
-        return state;
+
+        return newState;
       }
       return state;
     }
-    case ActionTypes.UNLOAD_MEMBERS:
+    case ActionTypes.UNLOAD_ORG_MEMBERS:
       if (action.source === Constants.ORG_SETTINGS_PAGE) {
         return {
           ...state,
-          [action.membersList]: []
+          orgMembers: []
         }
       }
       return state
