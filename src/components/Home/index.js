@@ -45,8 +45,7 @@ const OrgList = props => {
 const mapStateToProps = state => ({
   ...state.home,
   appName: state.common.appName,
-  authenticated: state.common.authenticated,
-  orgList: state.common.orgList
+  authenticated: state.common.authenticated
 });
 
 class Home extends React.Component {
@@ -60,27 +59,15 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    this.props.loadOrganizationList(this.props.authenticated)
+    this.props.loadOrgList(this.props.authenticated, Constants.HOME_PAGE)
     this.props.setSidebar(false)
 
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'homepage'});
   } 
 
   componentWillUnmount() {
-    this.props.unloadOrganizationList(this.props.authenticated)
+    this.props.unloadOrgList(this.props.authenticated, Constants.HOME_PAGE)
     this.props.setSidebar(true)
-  }
-
-  onPrevClick = ev => {
-    ev.preventDefault()
-    // this.props.unwatchGlobalFeed(this.props.authenticated, this.props.currentDateIndex)
-    this.props.startUsersFeedWatchScroller(this.props.authenticated, this.props.dateIndex)
-  }
-
-  onAskForRecsClick = ev => {
-    ev.preventDefault();
-    this.props.logMixpanelClickEvent(Constants.ASK_FOR_RECS_MIXPANEL_CLICK, Constants.HOME_PAGE_MIXPANEL_SOURCE);
-    this.props.showCreateRecs(null);
   }
 
   LoggedOutIntro(authenticated) {

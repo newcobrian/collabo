@@ -171,25 +171,47 @@ export function onCreateOrg(auth, org, userData) {
   }
 }
 
-export function loadOrganizationList(auth) {
+export function loadOrgList(auth, source) {
   return dispatch => {
-    Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth).on('value', snap => {
-      let orgList = []
-      snap.forEach(function(orgItem) {
-        orgList = orgList.concat(Object.assign({}, orgItem.val(), { orgId: orgItem.key }))
+    Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth).on('child_added', snap => {
+      Firebase.database().ref(Constants.ORGS_PATH + '/' + snap.key).once('value', orgSnap => {
+        dispatch({
+          type: ActionTypes.LIST_ADDED_ACTION,
+          data: orgSnap.val(),
+          id: snap.key,
+          listType: Constants.ORG_LIST_TYPE,
+          source: source
+        })
       })
-
+    })
+    // Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth).on('child_changed', snap => {
+    //   dispatch({
+    //     type: ActionTypes.LIST_CHANGED_ACTION,
+    //     data: snap.val(),
+    //     id: snap.key,
+    //     listType: Constants.ORG_LIST_TYPE,
+    //     source: source
+    //   })
+    // })
+    Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth).on('child_removed', snap => {
       dispatch({
-        type: ActionTypes.LOAD_ORGANIZATION_LIST,
-        orgList: orgList
+        type: ActionTypes.LIST_REMOVED_ACTION,
+        id: snap.key,
+        listType: Constants.ORG_LIST_TYPE,
+        source: source
       })
     })
   }
 }
 
-export function unloadOrganizationList(auth) {
+export function unloadOrgList(auth, source) {
   return dispatch => {
     Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth).off();
+
+    dispatch ({
+      type: ActionTypes.UNLOAD_ORG_LIST,
+      source: source
+    })
   }
 }
 
