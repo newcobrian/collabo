@@ -2,13 +2,6 @@ import ActivityPreview from './ActivityPreview';
 import React from 'react';
 import * as Constants from '../constants';
 
-const mapStateToProps = state => ({
-  ...state.project,
-  currentUser: state.common.currentUser,
-  authenticated: state.common.authenticated,
-  userInfo: state.common.userInfo
-});
-
 const ActivityList = props => {
   if (props.emptyActivityFeed) {
     return (
@@ -39,6 +32,7 @@ const ActivityList = props => {
               authenticated={props.authenticated}
               userInfo={props.userInfo}
               index={index+1}
+              profile={props.profile}
             />
           );
         })

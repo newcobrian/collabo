@@ -60,7 +60,6 @@ const mapStateToProps = state => ({
   ...state.profile,
   currentUser: state.common.currentUser,
   authenticated: state.common.authenticated,
-  userInfo: state.common.userInfo,
   sidebarOpen: state.common.sidebarOpen,
   invalidOrgUser: state.common.invalidOrgUser
 });
@@ -343,7 +342,7 @@ class Profile extends React.Component {
                           hasMore={true}
                           loader={<div className="loader" key={0}>Loading ...</div>} >
                     
-                      <ActivityList feed={this.props.feed} orgName={this.props.params.orgname} emptyActivityFeed={this.props.emptyActivityFeed} />
+                      <ActivityList feed={this.props.feed} orgName={this.props.params.orgname} emptyActivityFeed={this.props.emptyActivityFeed} profile={this.props.profile} />
 
                     </InfiniteScroll>
                       

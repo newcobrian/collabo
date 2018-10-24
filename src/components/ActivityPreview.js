@@ -19,13 +19,6 @@ var Scroll = require('react-scroll');
 var Element = Scroll.Element;
 var linkify = require('linkify-it')();
 
-const mapStateToProps = state => ({
-  ...state.project,
-  currentUser: state.common.currentUser,
-  authenticated: state.common.authenticated,
-  userInfo: state.common.userInfo
-});
-
 const UpdateSection = props => {
   if (!props.activity) return null
   else if (props.activity.lastUpdate === Constants.NEW_THREAD_TYPE) {
@@ -80,15 +73,15 @@ const CommentPreview = props => {
 const NewThreadItem = props => {
   if (!props.activity) return null
   let activity = props.activity
-  let createdBy = activity.createdBy
+  let profile = props.profile
 
   return (
      <div className={"thread-preview-container flx flx-col flx-align-start w-100"}>
         <div className="flx flx-col flx-align-start w-100"> 
           
           <div className="flx flx-row">
-            <Link to={'/' + props.orgName + '/user/' + createdBy.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
-              <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
+            <Link to={'/' + props.orgName + '/user/' + profile.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
+              <ProfilePic src={profile.image} className="user-image user-image-sm center-img" />
             </Link>
             <div className="flx flx-col">
 
@@ -115,15 +108,15 @@ const EditThreadItem = props => {
   if (!props.activity) return null;
   
   let activity = props.activity
-  let createdBy = activity.createdBy
+  let profile = props.profile
 
   return (
     <div className="thread-preview-container flx flx-col flx-align-start w-100"> 
       <div className="flx flx-col flx-align-start w-100">
 
         <div className="flx flx-row">
-          <Link to={'/' + props.orgName + '/user/' + createdBy.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
-            <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
+          <Link to={'/' + props.orgName + '/user/' + profile.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
+            <ProfilePic src={profile.image} className="user-image user-image-sm center-img" />
           </Link>
           <div className="co-type-label--lg">
             <div className="thread-timestamp">
@@ -143,15 +136,15 @@ const CommentItem = props => {
   if (!props.activity) return null;
 
   let activity = props.activity
-  let createdBy = activity.lastComment ? activity.lastComment : { username: '', userId: null, image: '' }
+  let profile = props.profile
 
   return (
     <div className="thread-preview-container flx flx-col flx-align-start w-100">
       <div className="flx flx-col flx-align-start w-100">
 
         <div className="flx flx-row">
-          <Link to={'/' + props.orgName + '/user/' + createdBy.username} className="mrgn-right-xs tip__author-photo flx-hold mrgn-right-sm flx flx-row">
-            <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
+          <Link to={'/' + props.orgName + '/user/' + profile.username} className="mrgn-right-xs tip__author-photo flx-hold mrgn-right-sm flx flx-row">
+            <ProfilePic src={profile.image} className="user-image user-image-sm center-img" />
           </Link>
           <div className="flx flx-col">
             
@@ -178,17 +171,17 @@ const ActivityPreview = props => {
 
   if (activity.type === Constants.NEW_THREAD_TYPE) {
     return (
-      <NewThreadItem activity={activity} orgName={props.orgName} />
+      <NewThreadItem activity={activity} orgName={props.orgName} profile={props.profile} />
       )
   }
   else if (activity.type === Constants.EDIT_THREAD_TYPE) {
     return (
-      <EditThreadItem activity={activity} orgName={props.orgName} />
+      <EditThreadItem activity={activity} orgName={props.orgName} profile={props.profile} />
     )
   }
   else if (activity.type === Constants.COMMENT_TYPE) {
     return (
-      <CommentItem activity={activity} orgName={props.orgName} />
+      <CommentItem activity={activity} orgName={props.orgName} profile={props.profile} />
       )
   }
   else return null
