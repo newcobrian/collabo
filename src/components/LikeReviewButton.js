@@ -35,7 +35,7 @@ class LikeReviewButton extends React.Component {
         this.props.unlikeReview(this.props.authenticated, this.props.type, this.props.objectId, this.props.thread, this.props.userInfo, this.props.likeObject);
       } else {
         let username = this.props.userInfo.username
-        this.props.likeReview(this.props.authenticated, this.props.type, this.props.objectId, this.props.thread, this.props.userInfo, this.props.orgName, this.props.likeObject);
+        this.props.likeReview(this.props.authenticated, this.props.type, this.props.objectId, this.props.thread, this.props.orgName, this.props.likeObject);
       }
     };
 
