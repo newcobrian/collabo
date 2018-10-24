@@ -146,7 +146,7 @@ export function onAddThread(auth, projectId, thread, orgName) {
           // Helpers.sendCollaboUpdateNotifs(auth, Constants.NEW_THREAD_MESSAGE, org ,project, Object.assign({}, thread, {threadId: threadId}, null))
 
           // // update Algolia index
-          Firebase.database().ref(Constants.USERS_PATH + '/' + auth).once('value', userSnap => {
+          Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + projectSnapshot.val().orgId + '/' + auth).once('value', userSnap => {
             let algoliaObject = Object.assign({}, 
               { orgName: orgName },
               { title: thread.title },
@@ -937,7 +937,7 @@ export function loadInvite(auth, inviteId, userInfo) {
           })
         }
         else {
-          Firebase.database().ref(Constants.USERS_PATH + '/' + projectInviteSnap.val().senderId).once('value', senderSnap => {
+          Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + projectInviteSnap.val().orgId + '/' + projectInviteSnap.val().senderId).once('value', senderSnap => {
             dispatch({
               type: ActionTypes.INVITE_LOADED,
               invite: projectInviteSnap.val(),
@@ -951,7 +951,7 @@ export function loadInvite(auth, inviteId, userInfo) {
         Firebase.database().ref(Constants.INVITES_PATH + '/' + inviteId).on('value', orgInviteSnap => {
           if (orgInviteSnap.exists()) {
             Firebase.database().ref(Constants.ORGS_PATH + '/' + orgInviteSnap.val().orgId).once('value', orgSnap => {
-              Firebase.database().ref(Constants.USERS_PATH + '/' + orgInviteSnap.val().senderId).once('value', senderSnap => {
+              Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgInviteSnap.val().orgId + '/' + orgInviteSnap.val().senderId).once('value', senderSnap => {
                 dispatch({
                   type: ActionTypes.INVITE_LOADED,
                   invite: Object.assign({}, orgInviteSnap.val(), { orgName: orgSnap.val().name }),
@@ -1662,61 +1662,59 @@ export function changeProjectSettingsTab(tab, projectId) {
 export function inviteOrgUsersToProject(auth, org, project, invites) {
   return dispatch => {
     if (invites && invites.length > 0) {
-      Firebase.database().ref(Constants.USERS_PATH + '/' + auth).once('value', authSnap => {
-        Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + org.orgId).once('value', orgUsersSnap => {
-          Firebase.database().ref(Constants.USERS_BY_PROJECT_PATH + '/' + project.projectId).once('value', projectUsersSnap => {
-            let orgUsers = orgUsersSnap.val()
-            let projectUsers = projectUsersSnap.val()
-            let updates = {}
-            let sendList = []
-            for (let i = 0; i < invites.length; i++) {
-              // if user is an org member but not in the project, invite them
-              if ((orgUsers && orgUsers[invites[i]]) && (!projectUsers || !projectUsers[invites[i]])) {
-                // create the project invite
-                let inviteObject = {
-                  senderId: auth,
-                  recipientId: invites[i],
-                  timestamp: Firebase.database.ServerValue.TIMESTAMP,
-                  orgId: org.orgId,
-                  projectId: project.projectId
-                }
+      Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + org.orgId).once('value', orgUsersSnap => {
+        Firebase.database().ref(Constants.USERS_BY_PROJECT_PATH + '/' + project.projectId).once('value', projectUsersSnap => {
+          let orgUsers = orgUsersSnap.val()
+          let projectUsers = projectUsersSnap.val()
+          let updates = {}
+          let sendList = []
+          for (let i = 0; i < invites.length; i++) {
+            // if user is an org member but not in the project, invite them
+            if ((orgUsers && orgUsers[invites[i]]) && (!projectUsers || !projectUsers[invites[i]])) {
+              // create the project invite
+              let inviteObject = {
+                senderId: auth,
+                recipientId: invites[i],
+                timestamp: Firebase.database.ServerValue.TIMESTAMP,
+                orgId: org.orgId,
+                projectId: project.projectId
+              }
 
-                let inviteId = Firebase.database().ref(Constants.PROJECT_INVITES_PATH).push(inviteObject).key
+              let inviteId = Firebase.database().ref(Constants.PROJECT_INVITES_PATH).push(inviteObject).key
 
-                // add to project invites by user
-                updates[Constants.PROJECT_INVITES_BY_USER_PATH + '/' + invites[i] + '/' + inviteId] = 
-                  Object.assign({}, omit(inviteObject, ['recipientId']))
+              // add to project invites by user
+              updates[Constants.PROJECT_INVITES_BY_USER_PATH + '/' + invites[i] + '/' + inviteId] = 
+                Object.assign({}, omit(inviteObject, ['recipientId']))
 
-                // add to pending invite list for the project
-                updates[Constants.INVITED_USERS_BY_PROJECT_PATH + '/' + project.projectId + '/' + invites[i]] = 
-                  Object.assign({}, 
-                    { senderId: auth }, 
-                    { senderUsername:  authSnap.val().username },
-                    { timestamp: Firebase.database.ServerValue.TIMESTAMP })
+              // add to pending invite list for the project
+              updates[Constants.INVITED_USERS_BY_PROJECT_PATH + '/' + project.projectId + '/' + invites[i]] = 
+                Object.assign({}, 
+                  { senderId: auth }, 
+                  { senderUsername:  orgUsersSnap.val()[auth] ? orgUsersSnap.val()[auth].username : '' },
+                  { timestamp: Firebase.database.ServerValue.TIMESTAMP })
 
-                sendList = sendList.concat(Object.assign({}, {recipientId: invites[i]}, {inviteId: inviteId}));
+              sendList = sendList.concat(Object.assign({}, {recipientId: invites[i]}, {inviteId: inviteId}));
+            }
+          }
+          Firebase.database().ref().update(updates)
+
+          // send invites to users
+
+          for (let i = 0; i < sendList.length; i++) {
+            Helpers.sendCollaboInboxMessage(auth, sendList[i].recipientId, Constants.PROJECT_INVITE_MESSAGE, org, project, null, sendList[i].inviteId)
+          }
+
+          dispatch({
+            type: ActionTypes.INVITED_USERS_TO_PROJECT,
+            projectId: project.projectId,
+            meta: {
+              mixpanel: {
+                event: 'Invite users to project',
+                projectId: project.projectId,
+                orgId: org.orgId,
+                numInvites: sendList.length
               }
             }
-            Firebase.database().ref().update(updates)
-
-            // send invites to users
-
-            for (let i = 0; i < sendList.length; i++) {
-              Helpers.sendCollaboInboxMessage(auth, sendList[i].recipientId, Constants.PROJECT_INVITE_MESSAGE, org, project, null, sendList[i].inviteId)
-            }
-
-            dispatch({
-              type: ActionTypes.INVITED_USERS_TO_PROJECT,
-              projectId: project.projectId,
-              meta: {
-                mixpanel: {
-                  event: 'Invite users to project',
-                  projectId: project.projectId,
-                  orgId: org.orgId,
-                  numInvites: sendList.length
-                }
-              }
-            })
           })
         })
       })
