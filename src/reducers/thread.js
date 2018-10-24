@@ -19,7 +19,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         thread: action.thread,
-        createdBy: action.createdBy,
+        // createdBy: action.createdBy,
         project: action.project,
         bodyText: action.thread.body
         // bodyText: Helpers.convertStoredToEditorState(action.thread.body)
@@ -180,10 +180,18 @@ export default (state = initialState, action) => {
     case ActionTypes.MEMBER_ADDED: {
       if (action.source === Constants.THREAD_PAGE) {
         const newState = Object.assign({}, state);
+        // first add to members list array
         newState[action.membersList] = newState[action.membersList] || [];
         newState[action.membersList] = newState[action.membersList].slice();
         newState[action.membersList] = newState[action.membersList].concat(Object.assign({}, { userId: action.userId }, action.userData, { id: action.userId }, {display: action.userData.username}));
         newState[action.membersList].sort(Helpers.byUsername);
+
+         // if this is an org user, update the org user object
+        if (action.membersList === Constants.ORG_MEMBERS_LIST) {
+          newState.orgUserData = Object.assign({}, state.orgUserData || {});
+          newState.orgUserData[action.userId] = Object.assign({}, action.userData)
+        }
+
         return newState;
       }
       return state;
@@ -197,10 +205,17 @@ export default (state = initialState, action) => {
           if (newState[action.membersList][i].id === action.id) {
             newState[action.membersList][i] = Object.assign({}, { userId: action.userId }, action.userData, { id: action.userId }, {display: action.userData.username})
             newState[action.membersList].sort(Helpers.byUsername);
-            return newState;
+            break;
           }
         }
-        return state;
+
+         // if this is an org user, update the org user object
+        if (action.membersList === Constants.ORG_MEMBERS_LIST) {
+          newState.orgUserData = Object.assign({}, state.orgUserData || {});
+          newState.orgUserData[action.userId] = Object.assign({}, action.userData)
+        }
+
+        return newState;
       }
       return state;
     }

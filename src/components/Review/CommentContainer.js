@@ -23,6 +23,7 @@ const CommentContainer = props => {
 					orgName={props.orgName}
 					deleteComment={props.deleteComment}
 					usersList={props.usersList}
+					orgUserData={props.orgUserData}
 					type={props.type}
 					parentId={props.parentId} />
 

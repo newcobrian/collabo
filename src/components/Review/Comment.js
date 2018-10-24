@@ -37,8 +37,9 @@ class Comment extends React.Component {
   render () {
     const { isOpenNotification, hideCommentInput } = this.state;
     const { comment, authenticated, orgName, project, commentObject, 
-      deleteComment, threadId, type, likes, thread, usersList, parentId } = this.props;
+      deleteComment, threadId, type, likes, thread, usersList, orgUserData, parentId } = this.props;
     const show = authenticated && authenticated === comment.userId;
+    const commenter = orgUserData && orgUserData[comment.userId] ? orgUserData[comment.userId] : { username: '' }
 
     const processed = processString([{
       regex: /\@([a-z0-9_\-]+?)( |\,|$|\.|\!|\:|\'|\"|\?)/gim, //regex to match a username
@@ -76,15 +77,15 @@ class Comment extends React.Component {
           <div className="comment-inner-inner flx flx-col flx-just-start w-100">
             <div className="flx flx-row flx-just-start flx-align-center w-100">
               <Link
-                to={`/user/${comment.username}`}
+                to={`/user/${commenter.username}`}
                 className="mrgn-right-sm">
-                <ProfilePic src={comment.image} className="user-image user-image-sm center-img" />
+                <ProfilePic src={commenter.image} className="user-image user-image-sm center-img" />
               </Link>
               <div className="co-type-body flx flx-col flx-just-start mrgn-left-xs">
                 <Link
-                  to={`/user/${comment.username}`}
+                  to={`/user/${commenter.username}`}
                   className="co-type-bold color--black">
-                  {comment.username}
+                  {commenter.username}
                 </Link>
               </div>
               <div className="thread-timestamp inline-block flx flx-row flx-item-right">
@@ -142,6 +143,7 @@ class Comment extends React.Component {
               orgName={orgName}
               project={project}
               usersList={usersList}
+              orgUserData={orgUserData}
               type={Constants.COMMENT_TYPE}
               parentId={comment.id}
               deleteComment={deleteComment}

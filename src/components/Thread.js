@@ -343,7 +343,8 @@ class Thread extends React.Component {
     }
     else {
       let thread = this.props.thread
-      let createdBy = this.props.createdBy
+      // let createdBy = this.props.createdBy
+      let createdBy = this.props.orgUserData && this.props.orgUserData[thread.userId] ? this.props.orgUserData[thread.userId] : { username: '', image: '', fullName: ''}
       let canModify = this.props.authenticated === this.props.thread.userId ? true : false
 
       return (
@@ -451,6 +452,7 @@ class Thread extends React.Component {
                               project={this.props.project}
                               orgName={this.props.params.orgname}
                               usersList={this.props.orgMembers}
+                              orgUserData={this.props.orgUserData}
                               type={Constants.THREAD_TYPE}
                               deleteComment={this.props.onDeleteThreadComment} />
                               </div>

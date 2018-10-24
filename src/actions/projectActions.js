@@ -477,14 +477,14 @@ export function loadThread(threadId) {
     Firebase.database().ref(Constants.THREADS_PATH + '/' + threadId).on('value', threadSnapshot => {
       if (threadSnapshot.exists()) {
         Firebase.database().ref(Constants.PROJECTS_PATH + '/' + threadSnapshot.val().projectId).on('value', projectSnapshot => {
-          Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + threadSnapshot.val().orgId + '/' + threadSnapshot.val().userId).on('value', userSnapshot => {
+          // Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + threadSnapshot.val().orgId + '/' + threadSnapshot.val().userId).on('value', userSnapshot => {
             dispatch({
               type: ActionTypes.LOAD_THREAD,
               thread: threadSnapshot.val(),
-              createdBy: userSnapshot.val(),
+              // createdBy: userSnapshot.val(),
               project: Object.assign({}, projectSnapshot.val(), {projectId: threadSnapshot.val().projectId})
             })
-          })
+          // })
         })
       }
       else {
