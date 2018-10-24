@@ -211,7 +211,6 @@ class Settings extends React.Component {
     this.props.unloadOrg(Constants.SETTINGS_PAGE);
 
     this.props.unloadProfileUser(this.props.userId, this.props.orgId);
-    this.props.unloadSettings(this.props.authenticated);
   }
 
   render() {
