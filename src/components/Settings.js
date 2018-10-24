@@ -131,7 +131,7 @@ class SettingsForm extends React.Component {
               value={this.state.email}
               onChange={this.updateState('email')} />*/}
               <div className="">{this.state.email}</div>
-              <a className="color--primary v2-type-body1" onClick={this.changeEmailClick}>Change email address</a>
+              <a className="color--primary v2-type-body1 DN" onClick={this.changeEmailClick}>Change email address</a>
 
           </fieldset>
 
