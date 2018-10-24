@@ -48,6 +48,8 @@ const ThreadList = props => {
             //     console.log(JSON.stringify(props.usersList[threadItem.lastUpdater]))
             //   }
 
+            let lastUpdater = props.orgUserData && props.orgUserData[threadItem.lastUpdater] ? props.orgUserData[threadItem.lastUpdater] : { username: '' }
+
             return (
               <ThreadPreview 
                 authenticated={props.authenticated}
@@ -63,6 +65,7 @@ const ThreadList = props => {
                 projectNames={props.projectNames}
                 project={props.project}
                 deleteComment={props.deleteComment}
+                lastUpdater={lastUpdater}
               />
             );
           }

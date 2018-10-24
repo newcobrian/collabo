@@ -306,13 +306,12 @@ export function loadProject(projectId, orgId, source) {
 //   }
 // }
 
-function threadAddedAction(threadId, thread, user, source) {
+function threadAddedAction(threadId, thread, source) {
   // delete thread.lastModified;
   return {
     type: ActionTypes.THREAD_ADDED_ACTION,
     threadId,
     thread,
-    user,
     source
   }
 }
@@ -1033,12 +1032,10 @@ export function watchThreadFeed(auth, orgName, projectId, endValue, source) {
               .limitToLast(Constants.TIPS_TO_LOAD)
               .on('child_added', threadSnapshot => {
               if (threadSnapshot.val().lastUpdater) {
-                Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + threadSnapshot.val().lastUpdater).once('value', updaterSnap => {
-                  let thread = projectId ? Object.assign({}, threadSnapshot.val(), {projectId: projectId}) : Object.assign({}, threadSnapshot.val(), {orgId: orgId})
-                  dispatch(threadAddedAction(threadSnapshot.key, thread, updaterSnap.val(), source));  
-                  dispatch(updateEndValue(threadSnapshot.val().lastModified ? threadSnapshot.val().lastModified : endValue, source));
-                  debounceSetFeedNotLoading(dispatch, source);
-                })
+                let thread = projectId ? Object.assign({}, threadSnapshot.val(), {projectId: projectId}) : Object.assign({}, threadSnapshot.val(), {orgId: orgId})
+                dispatch(threadAddedAction(threadSnapshot.key, thread, source));  
+                dispatch(updateEndValue(threadSnapshot.val().lastModified ? threadSnapshot.val().lastModified : endValue, source));
+                debounceSetFeedNotLoading(dispatch, source);
               }
             })
           }
@@ -1049,13 +1046,10 @@ export function watchThreadFeed(auth, orgName, projectId, endValue, source) {
               .endAt(endValue)
               .on('child_added', threadSnapshot => {
               if (threadSnapshot.val().lastUpdater) {
-                Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + threadSnapshot.val().lastUpdater).once('value', updaterSnap => {
-                  let thread = projectId ? Object.assign({}, threadSnapshot.val(), {projectId: projectId}) : Object.assign({}, threadSnapshot.val(), {orgId: orgId})
-                  let updateUser = updaterSnap.exists() ? updaterSnap.val() : {}
-                  dispatch(threadAddedAction(threadSnapshot.key, thread, updaterSnap.val(), source));  
-                  dispatch(updateEndValue(threadSnapshot.val().lastModified ? threadSnapshot.val().lastModified : endValue, source));
-                  debounceSetFeedNotLoading(dispatch, source);
-                })
+                let thread = projectId ? Object.assign({}, threadSnapshot.val(), {projectId: projectId}) : Object.assign({}, threadSnapshot.val(), {orgId: orgId})
+                dispatch(threadAddedAction(threadSnapshot.key, thread, source));  
+                dispatch(updateEndValue(threadSnapshot.val().lastModified ? threadSnapshot.val().lastModified : endValue, source));
+                debounceSetFeedNotLoading(dispatch, source);
               }
             })
           }
@@ -1065,11 +1059,8 @@ export function watchThreadFeed(auth, orgName, projectId, endValue, source) {
             .orderByChild('lastModified')
             .on('child_changed', threadSnapshot => {
             if (threadSnapshot.val().lastUpdater) {
-              // watchUser(dispatch, threadSnapshot.val().userId, Constants.PROJECTS_PAGE)
-              Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + threadSnapshot.val().lastUpdater).once('value', updaterSnap => {
-                let thread = projectId ? Object.assign({}, threadSnapshot.val(), {projectId: projectId}) : Object.assign({}, threadSnapshot.val(), {orgId: orgId})
-                dispatch(threadChangedAction(threadSnapshot.key, thread, updaterSnap.val(), source));
-              })
+              let thread = projectId ? Object.assign({}, threadSnapshot.val(), {projectId: projectId}) : Object.assign({}, threadSnapshot.val(), {orgId: orgId})
+              dispatch(threadChangedAction(threadSnapshot.key, thread, source));
             }
           })
 

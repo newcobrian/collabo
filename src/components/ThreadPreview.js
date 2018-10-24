@@ -106,7 +106,7 @@ const CommentPreview = props => {
 const UpdateSection = props => {
   
   const thread = props.thread;
-  const lastUpdater = thread.lastUpdater ? thread.lastUpdater : { username: '', userId: null, firstName: '', lastName: '', image: '' }
+  const lastUpdater = props.lastUpdater;
 
   if (!props.thread) return null
   else if (props.thread.lastUpdate === Constants.NEW_THREAD_TYPE) {
@@ -138,9 +138,10 @@ const UpdateSection = props => {
 
 const ThreadPreview = props => {
   const thread = props.thread;
+  const lastUpdater = props.lastUpdater;
   // const postAuthor = thread.lastUpdate === Constants.COMMENT_TYPE ? 
   //   ( thread.lastUpdater ? thread.lastUpdater : { username: '', userId: null, image: '' } ) : thread.createdBy;
-  const lastUpdater = thread.lastUpdater ? thread.lastUpdater : { username: '', userId: null, firstName: '', lastName: '', image: '' }
+  // const lastUpdater = thread.lastUpdater ? thread.lastUpdater : { username: '', userId: null, firstName: '', lastName: '', image: '' }
   // let title = tip.subject ? tip.subject.title : ''
   // let canModify = props.authenticated === tip.userId ? true : false;
 
@@ -178,7 +179,7 @@ const ThreadPreview = props => {
                         to={`/${props.orgName}/${props.projectId}/${thread.threadId}`}>
                         {thread.title}
                   </Link>
-                   <UpdateSection thread={thread} />
+                   <UpdateSection thread={thread} lastUpdater={lastUpdater} />
                 </div>
 
                 <div className="flx-item-right flx flx-col flx-just-end flx-hold">
