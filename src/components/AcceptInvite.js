@@ -40,7 +40,8 @@ class AcceptInvite extends React.Component {
           {fullName: this.props.fullName},
           {image: this.props.image}
         )
-        this.props.acceptOrgInvite(this.props.authenticated, this.props.userInfo.email, this.props.params.iid, userData)
+        let lowerCaseEmail = this.props.userInfo.email ? this.props.userInfo.email.toLowerCase() : ''
+        this.props.acceptOrgInvite(this.props.authenticated, lowerCaseEmail, this.props.params.iid, userData)
       }
     }
   }
@@ -70,7 +71,15 @@ class AcceptInvite extends React.Component {
 
     if (!authenticated || !userInfo) {
       return (
-        <LoggedOutMessage />        
+        <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
+          <div className="co-logo large-logo mrgn-bottom-lg mrgn-top-md">
+            <img className="center-img" src="/img/logomark.png"/>
+          </div>
+          <div className="mrgn-bottom-md color--white co-type-body">Should we show who the invite was sent to (email address) here?
+          </div>
+          <Link className="co-type-body color--tertiary" to='/login'>Login to accept</Link>
+          <Link className="co-type-body color--tertiary" to='/register'>or Register</Link>
+        </div>
       )
     }
     if (loadInviteError) {

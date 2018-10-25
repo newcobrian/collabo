@@ -86,6 +86,96 @@ export function unloadInvite(inviteId) {
   }
 }
 
+export function inviteUsersToOrg(auth, orgName, invites) {
+  return dispatch => {
+    let updates = {}
+    let lowercaseOrgName = orgName ? orgName.toLowerCase() : ''
+    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowercaseOrgName).once('value', orgSnap => {
+      let orgId = orgSnap.val().orgId
+      
+      Firebase.database().ref(Constants.USERS_BY_EMAIL_PATH).once('value', emailHashSnap => {
+        Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId).once('value', usersByOrgSnap => {
+          let emailArray = invites.match(/([a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
+
+          let authUser = usersByOrgSnap.val()[auth]
+          let emailSeen = {}
+          emailSeen[authUser.email] = true
+          let invitesSent = 0
+
+          emailArray.forEach(function(email) {
+            let cleanedEmail = Helpers.cleanEmailToFirebase(email)
+            // check that this user isn't already on the team
+            if (!emailSeen[email] && 
+              !(usersByOrgSnap.exists() && emailHashSnap.exists() && emailHashSnap.val()[cleanedEmail] &&
+                emailHashSnap.val()[cleanedEmail].userId &&
+                usersByOrgSnap.val()[emailHashSnap.val()[cleanedEmail].userId])) {
+              let inviteObject = {
+                  senderId: auth,
+                  recipientEmail: email,
+                  timestamp: Firebase.database.ServerValue.TIMESTAMP,
+                  orgId: orgId,
+                  orgName: orgName
+                }
+
+              // if email address already belongs to a user
+              if (emailHashSnap.val()[cleanedEmail]) {
+                inviteObject.recipientId = emailHashSnap.val()[cleanedEmail].userId;
+                
+                let inviteId = Firebase.database().ref(Constants.INVITES_PATH).push(inviteObject).key
+
+                 // just send an invite to the user
+                Helpers.sendCollaboInboxMessage(auth, emailHashSnap.val()[cleanedEmail].userId, Constants.ORG_INVITE_MESSAGE, 
+                    Object.assign({}, {name: orgName}, {orgId: orgId}), null, null, inviteId);
+
+                // add to invited list for the org
+                // updates[Constants.INVITES_BY_ORG_PATH + '/' + orgId + '/users/' + emailHashSnap.val()[cleanedEmail].userId + '/' + inviteId] = true;
+              }
+              else {
+                let inviteId = Firebase.database().ref(Constants.INVITES_PATH).push(inviteObject).key
+
+                // otherwise add invite for this email address and send it
+                // let nonAppInvite = Object.assign({}, { senderId: auth }, { senderName: authSnap.val().username })
+                // updates[Constants.INVITES_BY_EMAIL_BY_ORG_PATH + '/' + cleanedEmail + '/' + orgId + '/' + inviteId] = auth
+                updates[Constants.INVITED_USERS_BY_ORG_PATH + '/' + orgId + '/' + cleanedEmail] = 
+                  Object.assign({}, 
+                    { senderId: auth }, 
+                    { senderUsername:  authUser.username },
+                    { timestamp: Firebase.database.ServerValue.TIMESTAMP })
+
+                // add to invited list for the org
+                // updates[Constants.INVITES_BY_ORG_PATH + '/' + orgId + '/emails/' + cleanedEmail + '/' + inviteId] = true
+
+                // send the email
+                Helpers.sendInviteEmail(auth, email, orgName, inviteId);
+              }
+
+              // save to seen emails so we don't duplicate
+              emailSeen[email] = true;
+              invitesSent++
+            }
+          })
+
+          Firebase.database().ref().update(updates);
+
+          dispatch({
+            type: ActionTypes.USERS_INVITED_TO_ORG,
+            orgName: orgName,
+            invitesSent: invitesSent,
+            meta: {
+              mixpanel: {
+                event: 'Invite to org',
+                source: Constants.ORG_INVITE_PAGE,
+                orgId: orgSnap.val().orgId,
+                numInvites: invitesSent
+              }
+            }
+          })
+        })
+      })
+    })
+  }
+}
+
 export function inviteOrgUsersToProject(auth, org, project, invites) {
   return dispatch => {
     if (invites && invites.length > 0) {
@@ -192,7 +282,7 @@ export function enterEmail(email) {
       // if email address already belongs to a user tell them
       if (snap.exists()) {
         dispatch({
-          type: ActionTypes.EMAIL_ADDRESS_TAKEN
+          type: ActionTypes.INVALID_EMAIL_CODE
         })
       }
       else {

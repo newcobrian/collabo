@@ -3,7 +3,7 @@ import { AUTH_USER, SIGN_OUT_USER, AUTH_ERROR, UNLOAD_AUTH,
 import * as ActionTypes from '../actions/types'
 import * as Constants from '../constants'
 
-const initialState = { emailNotFound: false }
+const initialState = { emailCodeNotFound: false }
 export default (state = {}, action) => {
   switch (action.type) {
     case 'LOGIN':
@@ -12,6 +12,7 @@ export default (state = {}, action) => {
         ...state,
         authenticated: true,
         inProgress: false,
+        emailCodeNotFound: false,
         // errors: action.error ? action.payload.errors : null
         errors: action.error ? [action.payload] : null
       };
@@ -82,12 +83,12 @@ export default (state = {}, action) => {
         ...state,
         email: action.email,
         timeSent: action.timeSent,
-        emailNotFound: false
+        emailCodeNotFound: false
       }
     case ActionTypes.EMAIL_CODE_NOT_FOUND:
       return {
         ...state,
-        emailNotFound: true
+        emailCodeNotFound: true
       }
     default:
       return state;
