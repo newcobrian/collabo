@@ -90,8 +90,7 @@ export function signUpUser(email, password, fullName, verificationId, redirect) 
       Firebase.database().ref(Constants.EMAIL_VERIFICATION_PATH + '/' + verificationId).once('value', verifySnap => {
         if (!verifySnap.exists()) {
           dispatch({
-            type: ActionTypes.AUTH_ERROR,
-            error: { message: 'Invalid email verification code' }
+            type: ActionTypes.EMAIL_CODE_NOT_FOUND
           })
         }
         else {
