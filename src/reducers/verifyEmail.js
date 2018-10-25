@@ -1,29 +1,23 @@
 import * as ActionTypes from '../actions/types';
 import * as Constants from '../constants';
 
-export default (state = {}, action) => {
+const initialState = { emailNotFound: false }
+export default (state = initialState, action) => {
   switch (action.type) {
-  	case ActionTypes.CREATE_PAGE_UNLOADED:
-  		return {};
-    case ActionTypes.CREATE_SUBMIT_ERROR:
-      if (action.source === Constants.INVITE_FORM) {
-        return {
-          ...state,
-          errors: [action.error],
-          inProgress: null
-        }
-      }
-      else return {...state}
-    case ActionTypes.SET_IN_PROGRESS:
+  	case ActionTypes.EMAIL_CODE_LOADED:
       return {
         ...state,
-        inProgress: true
+        email: action.email,
+        timeSent: action.timeSent,
+        emailNotFound: false
       }
-  	case ActionTypes.UPDATE_FIELD_CREATE:
-      if(action.source === Constants.INVITE_FORM) {
-        return { ...state, [action.key]: action.value };
+    case ActionTypes.EMAIL_CODE_NOT_FOUND:
+      return {
+        ...state,
+        emailNotFound: true
       }
-      else return {...state}
+    case ActionTypes.UNLOAD_EMAIL_CODE:
+      return initialState
     default:
       return state;
   }

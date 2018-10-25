@@ -145,13 +145,13 @@ export const UPDATE_GOOGLE_DOCS_PERMISSION = 'UPDATE_GOOGLE_DOCS_PERMISSION'
 export const UPDATE_GOOGLE_DOCS_PAGE_TOKEN = 'UPDATE_GOOGLE_DOCS_PAGE_TOKEN'
 
 export * from './authActions';
-export * from './itineraryActions';
 export * from './inboxActions';
 export * from './modalActions';
 export * from './loggingActions';
 export * from './profileActions';
 export * from './projectActions';
 export * from './orgActions';
+export * from './inviteActions';
 
 export function unloadProfileUser(uid, orgId) {
   return dispatch => {

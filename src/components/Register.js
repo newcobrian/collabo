@@ -32,9 +32,9 @@ class Register extends React.Component {
     const updateFieldEvent =
         key => ev => this.props.onUpdateCreateField(key, ev.target.value, Constants.REGISTER_PAGE);
 
-    this.changeEmail = updateFieldEvent('email');
+    // this.changeEmail = updateFieldEvent('email');
     this.changePassword = updateFieldEvent('password');
-    this.changeUsername = updateFieldEvent('username');
+    // this.changeUsername = updateFieldEvent('username');
     this.changeFullName = updateFieldEvent('fullName');
     // this.changeLastName = updateFieldEvent('lastName');
     // this.changeEmail = ev => this.props.onChangeEmail(ev.target.value);
@@ -44,14 +44,14 @@ class Register extends React.Component {
     // this.changePassword = ev => onChangePassword(ev.target.value);
     // this.changeUsername = ev => onChangeUsername(ev.target.value);
     // this.submitForm = (username, email, password) => ev => {
-    this.submitForm = (username, email, password, fullName) => ev => {
+    this.submitForm = (email, password, fullName) => ev => {
       ev.preventDefault();
-      // this.props.onSubmit(username, email, password);
-      this.props.signUpUser(username.toLowerCase(), email.toLowerCase(), password, fullName, this.props.authRedirect);
+      this.props.signUpUser(this.props.email.toLowerCase(), password, fullName, this.props.params.vid, this.props.authRedirect);
     }
   }
   
   componentDidMount () {
+    this.props.loadEmailCode(this.props.params.vid)
     this.props.setSidebar(false);
   }
 
@@ -64,7 +64,7 @@ class Register extends React.Component {
   }
 
   render() {
-    const { email, password, username, fullName } = this.props;
+    const { email, password, fullName } = this.props;
     return (
       <div>
         <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
@@ -88,10 +88,10 @@ class Register extends React.Component {
 
                 <ListErrors errors={this.props.errors} />
 
-                <form onSubmit={this.submitForm(username, email, password, fullName)}>
+                <form onSubmit={this.submitForm(email, password, fullName)}>
                   <fieldset>
 
-                    <fieldset className="form-group">
+                    {/*<fieldset className="form-group ">
                       <input
                         className="form-control form-control-lg"
                         type="text"
@@ -100,20 +100,22 @@ class Register extends React.Component {
                         onChange={this.changeUsername} />
                     </fieldset>
 
-                    <fieldset className="form-group">
+                    <fieldset className="form-group ">
                       <input
                         className="form-control form-control-lg"
                         type="email"
                         placeholder="Email"
                         value={this.props.email}
                         onChange={this.changeEmail} />
-                    </fieldset>
+                    </fieldset>*/}
+
+                    Verified email: {email}
 
                     <fieldset className="form-group">
                       <input
                         className="form-control form-control-lg"
                         type="fullName"
-                        placeholder="Full Name"
+                        placeholder="Enter your full name"
                         value={this.props.fullName}
                         onChange={this.changeFullName} />
                     </fieldset>
@@ -122,7 +124,7 @@ class Register extends React.Component {
                       <input
                         className="form-control form-control-lg"
                         type="password"
-                        placeholder="Password"
+                        placeholder="Choose a password"
                         value={this.props.password}
                         onChange={this.changePassword} />
                     </fieldset>
@@ -131,7 +133,7 @@ class Register extends React.Component {
                       className="vb fill--tertiary color--primary vb--round w-100 ta-center"
                       type="submit"
                       disabled={this.props.inProgress}>
-                      Sign in
+                      Register
                     </button>
 
                   </fieldset>

@@ -798,7 +798,7 @@ export function sendInviteEmail(auth, recipientEmail, orgName, inviteId) {
 }
 
 export function sendVerifyEmail(recipientEmail, verifiyId) {
-	let link = Constants.COLLABO_URL + '/' + verifiyId
+	let link = Constants.COLLABO_URL + '/verify/' + verifiyId
 
 	let data = Object.assign({}, 
 		{ clickthroughLink: link }, 

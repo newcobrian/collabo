@@ -51,11 +51,6 @@ const mapStateToProps = state => ({
 class Home extends React.Component {
   constructor() {
     super();
-
-    this.selectTab = tag => ev => {
-      ev.preventDefault();
-      this.props.applyTag(tag);
-    }
   }
 
   componentDidMount() {
@@ -69,40 +64,6 @@ class Home extends React.Component {
     this.props.unloadOrgList(this.props.authenticated, Constants.HOME_PAGE)
     this.props.setSidebar(true)
   }
-
-  LoggedOutIntro(authenticated) {
-    if (!authenticated) {
-      return (
-       <div className="home-page page-common flx flx-col flx-center-all flx-align-center flx-just-start ta-center">
-        
-
-        <div className="error-module flx flx-col flx-center-all ta-center co-type-body">
-           <div className="co-logo large-logo mrgn-top-md">
-              <img className="center-img" src="/img/logomark.png"/>
-            </div>
-            <div className="co-logotype w-100 mrgn-top-lg">
-              <img className="center-img" src="/img/logotype.png"/>
-            </div>
-          <div className="co-type-tagline w-100 mrgn-bottom-lg mrgn-top-lg color--white">Harmonious Team Communication</div>
-            
-          <Link to="/register" className="">
-            <div className="vb fill--secondary color--white">
-              Sign up
-            </div>
-          </Link>
-          <div className="flx flx-row flx-align-center co-type-body mrgn-top-md">
-            <Link to="/login" className="color--tertiary">
-              Login
-            </Link>
-          </div>
-        </div>         
-      </div>
-      );
-    }
-    return null;
-  };
-
-
 
   render() {
     if (!this.props.authenticated) {

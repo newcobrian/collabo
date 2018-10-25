@@ -3,6 +3,7 @@ import { AUTH_USER, SIGN_OUT_USER, AUTH_ERROR, UNLOAD_AUTH,
 import * as ActionTypes from '../actions/types'
 import * as Constants from '../constants'
 
+const initialState = { emailNotFound: false }
 export default (state = {}, action) => {
   switch (action.type) {
     case 'LOGIN':
@@ -16,7 +17,7 @@ export default (state = {}, action) => {
       };
     case 'LOGIN_PAGE_UNLOADED':
     case 'REGISTER_PAGE_UNLOADED':
-      return {};
+      return initialState;
     case 'ASYNC_START':
       if (action.subtype === 'LOGIN' || action.subtype === 'REGISTER') {
         return { ...state, inProgress: true };
@@ -71,11 +72,22 @@ export default (state = {}, action) => {
         ...state,
         isGoogleAuthored: action.payload
       }
-
     case SET_GOOGLE_SDK_LOADED:
       return {
         ...state,
         isGoogleSDKLoaded: true
+      }
+    case ActionTypes.EMAIL_CODE_LOADED:
+      return {
+        ...state,
+        email: action.email,
+        timeSent: action.timeSent,
+        emailNotFound: false
+      }
+    case ActionTypes.EMAIL_CODE_NOT_FOUND:
+      return {
+        ...state,
+        emailNotFound: true
       }
     default:
       return state;

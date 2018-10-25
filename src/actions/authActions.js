@@ -54,32 +54,32 @@ function validateEmail(email) {
     return re.test(String(email).toLowerCase());
 }
 
-export function signUpUser(username, email, password, fullName, redirect) {
+export function signUpUser(email, password, fullName, verifyId, redirect) {
   return dispatch => {
-    if (!username || username.length < 3) {
-      dispatch({
-        type: ActionTypes.AUTH_ERROR,
-        error: {message: 'Username must be at least 3 characters'}
-      })
-    }
+    // if (!username || username.length < 3) {
+    //   dispatch({
+    //     type: ActionTypes.AUTH_ERROR,
+    //     error: {message: 'Username must be at least 3 characters'}
+    //   })
+    // }
     if (!password || password.length < 6) {
       dispatch({
         type: ActionTypes.AUTH_ERROR,
         error: {message: 'Password must be at least 6 characters'}
       })
     }
-    else if (Constants.INVALID_USERNAMES.indexOf(username) > -1) {
-      dispatch({
-        type: ActionTypes.AUTH_ERROR,
-        error: {message: 'Username is already taken'}
-      })
-    }
-    else if (/\s/g.test(username)) {
-      dispatch({
-        type: ActionTypes.AUTH_ERROR,
-        error: {message: 'Username cannot contain spaces'}
-      })
-    }
+    // else if (Constants.INVALID_USERNAMES.indexOf(username) > -1) {
+    //   dispatch({
+    //     type: ActionTypes.AUTH_ERROR,
+    //     error: {message: 'Username is already taken'}
+    //   })
+    // }
+    // else if (/\s/g.test(username)) {
+    //   dispatch({
+    //     type: ActionTypes.AUTH_ERROR,
+    //     error: {message: 'Username cannot contain spaces'}
+    //   })
+    // }
     if (!fullName) {
       dispatch({
         type: ActionTypes.AUTH_ERROR,
@@ -87,85 +87,79 @@ export function signUpUser(username, email, password, fullName, redirect) {
       })
     }
     else {
-      Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + username).once('value', snapshot => {
-        if (snapshot.exists()) {
-          dispatch({
-            type: ActionTypes.AUTH_ERROR,
-            error: {message: 'Username is already taken'}
-          });
-        } 
-        else {
-          Firebase.auth().createUserWithEmailAndPassword(email, password)
-          .then(response => {
-            let userId = response.uid;
-            let updates = {};
+      Firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then(response => {
+        let userId = response.uid;
+        let updates = {};
 
-            let cleanedEmail = Helpers.cleanEmailToFirebase(email)
-            Firebase.database().ref(Constants.INVITES_BY_EMAIL_BY_ORG_PATH + '/' + cleanedEmail).once('value', inviteSnap => {
-              // need to save users profile info
-              updates[Constants.USERS_PATH + '/' + userId] = { username: username, email: email, fullName: fullName }
+        let cleanedEmail = Helpers.cleanEmailToFirebase(email)
+        Firebase.database().ref(Constants.INVITES_BY_EMAIL_BY_ORG_PATH + '/' + cleanedEmail).once('value', inviteSnap => {
+          // need to save users profile info
+          updates[Constants.USERS_PATH + '/' + userId] = { email: email, fullName: fullName }
 
-              // save userId lookup from username
-              updates[Constants.USERNAMES_TO_USERIDS_PATH + '/' + username] = {userId: userId }
-              
-              // save email address lookup
-              updates[Constants.USERS_BY_EMAIL_PATH + '/' + Helpers.cleanEmailToFirebase(email)] = { userId: userId }
+          // save userId lookup from username
+          // updates[Constants.USERNAMES_TO_USERIDS_PATH + '/' + username] = {userId: userId }
+          
+          // save email address lookup
+          updates[Constants.USERS_BY_EMAIL_PATH + '/' + cleanedEmail] = { userId: userId }
 
-              Firebase.database().ref().update(updates);
+          // remove email verification
+          updates[Constants.VERIFICATION_BY_EMAIL_PATH + '/' + cleanedEmail] = null
+          updates[Constants.EMAIL_VERIFICATION_PATH + '/' + verifyId] = null
 
-              // migrate invites sent to user's email address to their inbox
-              let lastModified = Firebase.database.ServerValue.TIMESTAMP
-              let inboxCounter = 0
-              inviteSnap.forEach(function(orgInvite) {
-                // update recipientId on invite
-                if (orgInvite.val()) {
-                  orgInvite.forEach(function(inviteItem) {
-                    Firebase.database().ref(Constants.ORGS_PATH + '/' + orgInvite.key).once('value', orgSnap => {
-                      let inviteObject = Object.assign({}, 
-                      { link: '/invitation/' + inviteItem.key }, 
-                      { message: ' invited you to join the "' + orgSnap.val().name + '" team.'}, 
-                      { senderId: inviteItem.val() }, 
-                      { type: Constants.INBOX_INVITE_TYPE }, 
-                      { lastModified: lastModified} );
-                    
-                      Firebase.database().ref(Constants.INBOX_PATH + '/' + userId).push(inviteObject)
-                      inboxCounter++;
-                    })
-                  })
-                }
+          Firebase.database().ref().update(updates);
+
+          // migrate invites sent to user's email address to their inbox
+          let lastModified = Firebase.database.ServerValue.TIMESTAMP
+          let inboxCounter = 0
+          inviteSnap.forEach(function(orgInvite) {
+            // update recipientId on invite
+            if (orgInvite.val()) {
+              orgInvite.forEach(function(inviteItem) {
+                Firebase.database().ref(Constants.ORGS_PATH + '/' + orgInvite.key).once('value', orgSnap => {
+                  let inviteObject = Object.assign({}, 
+                  { link: '/invitation/' + inviteItem.key }, 
+                  { message: ' invited you to join the "' + orgSnap.val().name + '" team.'}, 
+                  { senderId: inviteItem.val() }, 
+                  { type: Constants.INBOX_INVITE_TYPE }, 
+                  { lastModified: lastModified} );
+                
+                  Firebase.database().ref(Constants.INBOX_PATH + '/' + userId).push(inviteObject)
+                  inboxCounter++;
+                })
               })
-              Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + userId).update({messageCount: inboxCounter})
-
-              // set account created date super property
-              // mixpanel.register({
-              //   'account created': (new Date()).toISOString()
-              // });
-
-              // set acount created date people property
-              // mixpanel.people.set({ "account created": (new Date()).toISOString() });
-              // mixpanel.identify(userId);
-
-              dispatch({
-                type: ActionTypes.SIGN_UP_USER,
-                payload: userId,
-                redirect: redirect,
-                meta: {
-                  mixpanel: {
-                    event: 'Register', 
-                    props: {
-                      'account created': (new Date()).toISOString()
-                    }
-                  }
-                }
-              })
-            })
+            }
           })
-          .catch(error => {
-            console.log(error);
-            dispatch(authError(error));
-          });
-        }
+          Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + userId).update({messageCount: inboxCounter})
+
+          // set account created date super property
+          // mixpanel.register({
+          //   'account created': (new Date()).toISOString()
+          // });
+
+          // set acount created date people property
+          // mixpanel.people.set({ "account created": (new Date()).toISOString() });
+          // mixpanel.identify(userId);
+
+          dispatch({
+            type: ActionTypes.SIGN_UP_USER,
+            payload: userId,
+            redirect: redirect,
+            meta: {
+              mixpanel: {
+                event: 'Register', 
+                props: {
+                  'account created': (new Date()).toISOString()
+                }
+              }
+            }
+          })
+        })
       })
+      .catch(error => {
+        console.log(error);
+        dispatch(authError(error));
+      });
     }
   }
 }

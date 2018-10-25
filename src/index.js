@@ -57,16 +57,13 @@ ReactDOM.render((
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
         <Route path="login" component={Login} />
-        <Route path="register" component={Register} />
-        <Route path="whatsyouremail" component={EnterEmail} />
+        {/*<Route path="register" component={Register} />*/}
+        <Route path="register" component={EnterEmail} />
         <Route path="forgotPassword" component={ForgotPassword} />
         <Route path="newteam" component={CreateOrg} />
         <Route path="seo" component={SEO} />
         <Route path ="invitation/:iid" component={AcceptInvite} />
-        <Route path ="verify/(:vid)" component={VerifyEmail} />
-        {/*<Route path="user/:username/followers" component={Followers} />
-        <Route path="user/:username/isfollowing" component={Followings} />
-        <Route path="user/:username/likes" component={ProfileLikes} />*/}
+        <Route path ="verify/(:vid)" component={Register} />
         <Route path =":orgname/invitation/:iid" component={AcceptInvite} />
         <Route path=":orgname/inbox" component={Inbox} />
         <Route path=":orgname/admin" component={OrgSettings} />
