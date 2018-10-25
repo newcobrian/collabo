@@ -29,7 +29,6 @@ import OrgInvite from './components/OrgInvite';
 import AcceptInvite from './components/AcceptInvite';
 import OrgSettings from './components/OrgSettings';
 import ProjectSettings from './components/ProjectSettings';
-import VerifyEmail from './components/VerifyEmail';
 import EnterEmail from './components/EnterEmail';
 import SEO from './components/SEO';
 import store from './store';

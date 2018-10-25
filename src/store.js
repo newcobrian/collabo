@@ -34,7 +34,6 @@ import acceptInvite from './reducers/acceptInvite';
 import orgSettings from './reducers/orgSettings';
 import projectSettings from './reducers/projectSettings';
 import inviteForm from './reducers/inviteForm';
-import verifyEmail from './reducers/verifyEmail';
 import enterEmail from './reducers/enterEmail';
 import Firebase from 'firebase';
 import mixpanel from 'mixpanel-browser';
@@ -73,7 +72,6 @@ const reducer = combineReducers({
   orgSettings,
   projectSettings,
   inviteForm,
-  verifyEmail,
   enterEmail,
   // editForm: combineForms({
   //   editForm: initialItinerary
