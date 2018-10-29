@@ -1,4 +1,4 @@
-import ThreadPreview from './ThreadPreview';
+import ThreadPreviewFull from './ThreadPreviewFull';
 import React from 'react';
 import * as Constants from '../constants';
 import { Link } from 'react-router'
@@ -51,7 +51,7 @@ const ThreadList = props => {
             let lastUpdater = props.orgUserData && props.orgUserData[threadItem.lastUpdater] ? props.orgUserData[threadItem.lastUpdater] : { username: '' }
 
             return (
-              <ThreadPreview 
+              <ThreadPreviewFull
                 authenticated={props.authenticated}
                 userInfo={props.userInfo}
                 thread={threadItem}

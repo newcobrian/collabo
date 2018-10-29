@@ -164,7 +164,7 @@ const ThreadPreviewFull = props => {
                       {thread.title}
                 </Link>
               </div>
-              <div className="color--black thread-timestamp flx flx-row flx-align-center mrgn-bottom-md">
+              {/*<div className="color--black thread-timestamp flx flx-row flx-align-center mrgn-bottom-md">
                 <div>Created by <Link to={'/' + props.orgName + '/user/' + thread.createdBy.username} className="co-type-bold text-hover">{thread.createdBy.username}</Link> in </div>
                 <ProjectLabel className="" projectNames={props.projectNames} projectId={thread.projectId} orgName={props.orgName} />
 
