@@ -372,6 +372,7 @@ p {
 }
 .tp-container {
 	width: 600px;
+	width: 50%;
 	border-left: none;
 	background-color: white;
     /*background-image: url(img/pixel-black.png);*/
@@ -471,7 +472,7 @@ p {
 }
 .co-thread-reply-wrapper {
 	padding: 0 10px;
-    width: auto;
+    width: 100%;
     position: relative;
     bottom: 0px;
     height: auto;
@@ -484,8 +485,7 @@ p {
 
 
 .comment-row-wrapper {
-	width: 100%;
-	position: absolute;
+	/*position: absolute;*/
     right: 0;
     width: 530px;
     background: white;
@@ -494,6 +494,9 @@ p {
     border-left: 1px solid rgba(0,0,0,.1);
     min-height: 600px;
     max-height: 600px;
+    overflow: hidden;
+
+    width: 50%;
 }
 
 .input-indent-wrapper {

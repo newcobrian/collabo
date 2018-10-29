@@ -133,7 +133,7 @@ const ThreadPreviewFull = props => {
   // let canModify = props.authenticated === tip.userId ? true : false;
 
   return (
-    <div className={"tp-wrapper tp-full"}>
+    <div className={"tp-wrapper tp-full flx flx-row"}>
         
         <div className="tp-container flx flx-col flx-align-start">           
           <div className="top-bar w-100 fill--primary">
