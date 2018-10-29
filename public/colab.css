@@ -227,10 +227,19 @@ textarea {
     height: 14px;
     overflow: hidden;
     display: inline-block;
-    width: 270px;
+    width: auto;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+}
+.co-type-thread-body img {
+	width: 100%;
+}
+.tp-full .co-type-thread-body {
+	height: auto;
+}
+.tp-full .tp-wrapper {
+	position: relative !important;
 }
 .co-type-body {
     font-weight: 400;
@@ -278,9 +287,9 @@ textarea {
     font-family: 'Karla';
 }
 .co-type-thread-title {
-    font-size: 28px;
+    font-size: 32px;
     font-weight: 600;
-    letter-spacing: 1.2px;
+    letter-spacing: .1px;
 }
 .co-type-logotype {
 	font-size: 44px;
@@ -323,6 +332,7 @@ p {
 .threadlist {
 	padding: 0px;
 	z-index: 1;
+	background-color: #F6F6F6;
 }
 .open-style .threadlist-wrapper {
 }
@@ -332,7 +342,7 @@ p {
 .threadlist-outer {
 	position: absolute;
 	left: 0;
-	right: 240px;
+	right: 0px;
 	background-color: transparent;
 }
 
@@ -351,19 +361,23 @@ p {
 	width: 100%;
 }
 .tp-wrapper {
-	margin: 0;
+	margin: 0 0 40px 0;
 	width: 100%;
+	min-height: 400px;
+	position: relative;
 }
 .tp-small .tp-container  {
 	width: 100%;
 }
 .tp-container {
-	width: 570px;
+	width: 600px;
 	border-left: none;
 	background-color: white;
     /*background-image: url(img/pixel-black.png);*/
 /*    background-repeat: repeat-y;
     background-position: 50px 0;*/
+    max-height: 600px;
+    min-height: 600px;
 }
 .comment-input {
 	padding: 0 10px;
@@ -376,11 +390,11 @@ p {
     padding-right: 10px;
 }
 .commentlist-wrapper .main-reply {
-	position: relative!important;
+	position: relative !important;
 	width: 470px;
 }
 .main-reply {
-	position: fixed;
+	position: relative;
     bottom: 0;
     z-index: 10000000000;
     width: 520px;
@@ -436,6 +450,7 @@ p {
 	padding: 8px;
 	background-color: white;
 	overflow: hidden;
+	max-height: 600px;
 }
 .comment-outer-wrapper {
 	background-color: white;
@@ -455,11 +470,11 @@ p {
 .co-thread-reply-wrapper {
 	    padding: 0;
     width: 510px;
-    position: fixed;
-    bottom: 140px;
+    position: relative;
+    bottom: 0px;
     height: auto;
     overflow: scroll;
-    top: 65px;
+    top: 0px;
 }
 .thread-indent-1 {
 	padding-left: 60px;
@@ -468,13 +483,15 @@ p {
 
 .comment-row-wrapper {
 	width: 100%;
-	position: fixed;
+	position: absolute;
     right: 0;
     width: 530px;
     background: white;
     bottom: 0;
-    top: 65px;
+    top: 0;
     border-left: 1px solid rgba(0,0,0,.1);
+    min-height: 600px;
+    max-height: 600px;
 }
 
 .input-indent-wrapper {
@@ -811,6 +828,7 @@ p {
     padding: 0px;
     overflow: hidden;
     background-color: white;
+    display: none;
 }
 
 

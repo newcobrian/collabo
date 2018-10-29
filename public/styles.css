@@ -1150,6 +1150,8 @@ li.nav-divider {
 }
 .comments-module-wrapper {
   height: 100%;
+  position: relative;
+  max-height: 600px;
 }
 .delete-wrapper {
  position: relative;

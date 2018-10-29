@@ -133,14 +133,14 @@ const ThreadPreviewFull = props => {
   // let canModify = props.authenticated === tip.userId ? true : false;
 
   return (
-    <div className={"tp-wrapper fill--secondary--10 flx flx-col flx-col"}>
+    <div className={"tp-wrapper tp-full"}>
         
-        <div className="tp-container flx flx-col flx-align-start bx-shadow">           
+        <div className="tp-container flx flx-col flx-align-start">           
           <div className="top-bar w-100 fill--primary">
           </div>
-          <div className="thread-row-wrapper flx flx-row fill--secondary">
+          <div className="thread-row-wrapper flx flx-row">
             <div className="thread-content-wrapper w-100">
-              <div className="flx flx-row flx-align-center w-100 mrgn-bottom-sm brdr-bottom pdding-bottom-sm">
+              <div className="flx flx-row flx-align-center w-100 mrgn-bottom-sm brdr-bottom pdding-bottom-sm DN">
                 <Link to={'/' + props.orgName + '/user/' + lastUpdater.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
                   <ProfilePic src={lastUpdater.image} className="user-image user-image-sm center-img" />
                 </Link>
@@ -158,16 +158,18 @@ const ThreadPreviewFull = props => {
 
               </div>
 
-              <div className="color--black co-post-title flx flx-row">
+              <div className="color--black co-type-thread-title flx flx-row">
                 <Link className="color--black" 
                       to={`/${props.orgName}/${props.projectId}/${thread.threadId}`}>
                       {thread.title}
                 </Link>
               </div>
+              <div className="co-type-thread-body" dangerouslySetInnerHTML={{ __html: thread.body || '' }}></div>
+
               {/*<div className="color--black thread-timestamp flx flx-row flx-align-center mrgn-bottom-md">
                 <div>Created by <Link to={'/' + props.orgName + '/user/' + thread.createdBy.username} className="co-type-bold text-hover">{thread.createdBy.username}</Link> in </div>
                 <ProjectLabel className="" projectNames={props.projectNames} projectId={thread.projectId} orgName={props.orgName} />
-
+              
               </div>
               <div className="tip__caption mrgn-top-xs co-type-thread-body flx flx-col w-100 flx-align-start" dangerouslySetInnerHTML={{ __html: thread.body || '' }} />
                 {/*<div className="tip__caption color--gray ta-left flx flx-row" dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(thread.body)) || '' }} />*/}
