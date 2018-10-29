@@ -385,7 +385,7 @@ class Thread extends React.Component {
                       </div>
                     </Link>
                     <div className="thread-view w-100">
-                      <div className={"tp-wrapper fill--secondary--20 flx flx-col flx-col"}>   
+                      <div className={"tp-wrapper flx flx-row"}>   
                         <div className="tp-container b--primary--10 flx flx-col flx-align-start">   
                           <div className="thread-row-wrapper flx flx-row">
                             <div className="thread-content-wrapper w-100">

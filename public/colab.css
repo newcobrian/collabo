@@ -354,8 +354,11 @@ p {
 	margin: 0;
 	width: 100%;
 }
-.tp-container {
+.tp-small .tp-container  {
 	width: 100%;
+}
+.tp-container {
+	width: 570px;
 	border-left: none;
 	background-color: white;
     /*background-image: url(img/pixel-black.png);*/
@@ -372,6 +375,17 @@ p {
     padding-left: 40px;
     padding-right: 10px;
 }
+.commentlist-wrapper .main-reply {
+	position: relative!important;
+	width: 470px;
+}
+.main-reply {
+	position: fixed;
+    bottom: 0;
+    z-index: 10000000000;
+    width: 520px;
+    background: white;
+}
 .comment-input textarea {
 	overflow: auto !important;
 }
@@ -384,8 +398,8 @@ p {
   /*border-left: none;*/
   background-color: white;
   padding: 16px;
-  border-left-width: 4px !important;
-  border-left-color: rgba(255,171,140,.8) !important;
+/*  border-left-width: 4px !important;
+  border-left-color: rgba(255,171,140,.8) !important;*/
 }
 .tp-wrapper .comment-inner-inner {
 	overflow-y: hidden;
@@ -439,8 +453,13 @@ p {
 	border-bottom: none;
 }
 .co-thread-reply-wrapper {
-	padding: 0;
-	width: 100%;
+	    padding: 0;
+    width: 510px;
+    position: fixed;
+    bottom: 140px;
+    height: auto;
+    overflow: scroll;
+    top: 65px;
 }
 .thread-indent-1 {
 	padding-left: 60px;
@@ -449,6 +468,13 @@ p {
 
 .comment-row-wrapper {
 	width: 100%;
+	position: fixed;
+    right: 0;
+    width: 530px;
+    background: white;
+    bottom: 0;
+    top: 65px;
+    border-left: 1px solid rgba(0,0,0,.1);
 }
 
 .input-indent-wrapper {
@@ -480,6 +506,10 @@ p {
 	height: 6px;
 	border-radius: 32px;
 	opacity: 1;
+}
+.co-sidebar .sidebar-dot {
+	width: 10px;
+	height: 10px;
 }
 .sidebar-dot.active {
 	visibility: visible;
@@ -703,7 +733,7 @@ p {
 	z-index: 3;
     width: 100%;
     padding: 20px 0;
-    max-width: 960px;
+    /*max-width: 960px;*/
     min-width: 320px;
 }
 .open-style .page-common,

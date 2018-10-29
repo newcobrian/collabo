@@ -9,7 +9,7 @@ var linkify = require('linkify-it')();
 const CommentContainer = props => {
 	if (props.authenticated) {
 		return (
-			<div className="comments-module w-100">
+			<div className="comments-module-wrapper w-100">
 		          
 		          
 

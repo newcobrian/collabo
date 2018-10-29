@@ -71,9 +71,9 @@ class Comment extends React.Component {
     }]);
 
     return (
-      <div className="comment-indent inline-comments flx flx-col flx-align-center" id={'comment' + comment.id}>
-        <div className="comment-bg fill--secondary--10 w-100">
-        <div className="comment-inner fill--white brdr-left b--secondary--40 w-100">
+      <div className="comment-indent inline-comments flx flx-col flx-align-center brdr-bottom" id={'comment' + comment.id}>
+        <div className="comment-bg w-100">
+        <div className="comment-inner fill--white w-100">
           <div className="comment-inner-inner flx flx-col flx-just-start w-100">
             <div className="flx flx-row flx-just-start flx-align-center w-100">
               <Link
@@ -100,7 +100,7 @@ class Comment extends React.Component {
             </div>
 
             <div className="cta-wrapper flx flx-row flx-align-center mrgn-top-sm w-100">
-              <div className="koi-ico ico--bookmark mrgn-right-md opa-60"></div>
+              <div className="koi-ico ico--bookmark mrgn-right-md opa-60 DN"></div>
 
               <LikeReviewButton
                 authenticated={authenticated}

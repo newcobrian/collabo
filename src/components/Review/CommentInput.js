@@ -62,7 +62,7 @@ class CommentInput extends React.Component {
 
   render() {
     return (
-      <form className="comment-wrapper comment-form brdr-all b--primary flx flx-row flx-just-center" onSubmit={this.createComment}>
+      <form className="comment-wrapper comment-form brdr-all flx flx-row flx-just-center" onSubmit={this.createComment}>
 
             {/*<Textarea className="comment-input font--beta input--overline w-100"
               placeholder="Add a comment..."

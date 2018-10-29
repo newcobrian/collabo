@@ -1148,11 +1148,14 @@ li.nav-divider {
 .comments-module {
   width: 100%;
 }
+.comments-module-wrapper {
+  height: 100%;
+}
 .delete-wrapper {
  position: relative;
-    width: 40px;
-    height: 40px;
-    background: red;
+  width: 40px;
+  height: 40px;
+  background: red;
 
 }
 .delete-button {

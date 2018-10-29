@@ -125,9 +125,10 @@ const CommentPreview = props => {
 
 const ThreadPreviewFull = props => {
   const thread = props.thread;
+  const lastUpdater = props.lastUpdater;
   // const postAuthor = thread.lastUpdate === Constants.COMMENT_TYPE ? 
   //   ( thread.lastUpdater ? thread.lastUpdater : { username: '', userId: null, image: '' } ) : thread.createdBy;
-  const lastUpdater = thread.lastUpdater ? thread.lastUpdater : { username: '', userId: null, firstName: '', lastName: '', image: '' }
+  //const lastUpdater = thread.lastUpdater ? thread.lastUpdater : { username: '', userId: null, firstName: '', lastName: '', image: '' }
   // let title = tip.subject ? tip.subject.title : ''
   // let canModify = props.authenticated === tip.userId ? true : false;
 

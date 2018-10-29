@@ -91,7 +91,7 @@ class CommentList extends React.Component {
     const { comments, authenticated, commentObject, orgName, project, 
       deleteComment, threadId, thread, usersList, orgUserData, parentId, type } = this.props;
     return (
-      <div>
+      <div className="commentlist-wrapper">
         {
           Object.keys(comments || {}).map(function (commentId) {
             return (
