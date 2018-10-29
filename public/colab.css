@@ -56,6 +56,7 @@
     overflow-y: scroll;
     background: linear-gradient(0deg, #17174E 41.86%, #0F6987 106.88%);
     background: linear-gradient(90deg, #17174E 11.86%, #0F6987 276.88%);
+    background: linear-gradient(90deg, #FFFFFF 61.43%, rgba(217, 217, 217, .2) 116.79%);
 
 }
 .co-search-wrapper {
@@ -330,7 +331,7 @@ p {
 
 
 .threadlist {
-	padding: 0px;
+	padding: 10px 0px;
 	z-index: 1;
 	background-color: #F6F6F6;
 }
@@ -386,18 +387,19 @@ p {
 
 .comment-indent {
     outline: none;
-    padding-left: 40px;
-    padding-right: 10px;
+    padding-left: 0px;
+    padding-right: 0px;
 }
 .commentlist-wrapper .main-reply {
 	position: relative !important;
-	width: 470px;
+	width: auto;
+	padding-left: 40px;
 }
 .main-reply {
 	position: relative;
     bottom: 0;
     z-index: 10000000000;
-    width: 520px;
+    width: auto;
     background: white;
 }
 .comment-input textarea {
@@ -468,8 +470,8 @@ p {
 	border-bottom: none;
 }
 .co-thread-reply-wrapper {
-	    padding: 0;
-    width: 510px;
+	padding: 0 10px;
+    width: auto;
     position: relative;
     bottom: 0px;
     height: auto;
@@ -507,6 +509,7 @@ p {
     bottom: 0;
     border-top: 1px solid rgba(101,212,236,.2);
     background: linear-gradient(90deg, #17174E 11.86%, #0F6987 276.88%);
+    background: linear-gradient(90deg, #FFFFFF 61.43%, rgba(217, 217, 217, .2) 116.79%);
 }
 
 .sidebar-icon {

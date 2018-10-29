@@ -21,23 +21,23 @@ const DotJewel = props => {
 const ThreadCountJewel = props => {
   if (props.threadCount > 0) {
     return (
-      <div className="group-badge badge-on color--white flx-item-right thread-timestamp"> {props.threadCount}</div>
+      <div className="group-badge badge-on color--black flx-item-right thread-timestamp"> {props.threadCount}</div>
     );
   }
   return (
-    <div className="group-badge badge-on color--white flx-item-right"></div>
+    <div className="group-badge badge-on color--black flx-item-right"></div>
   );
 }
 const InboxCounter = props => {
   if (props.inboxCount > 0) {
     return (
-      <div className="group-badge fill--secondary color--white active">
+      <div className="group-badge fill--secondary color--black active">
         {props.inboxCount}
       </div>
     );
   }
   return (
-    <div className="color--white group-badge fill--primary">
+    <div className="color--black group-badge fill--primary">
       0
     </div>
   );
@@ -101,7 +101,7 @@ class ProjectList extends React.Component {
           <Link to='/'  className="co-logo flx-hold">
             <img className="center-img" src="/img/icon24_orgsettings_color.png"/>
           </Link>
-          <select className="org-selector co-type-org color--white" onChange={this.onOrgChange}>
+          <select className="org-selector co-type-org color--black" onChange={this.onOrgChange}>
             <option value={orgName}>{orgName}</option>
             {(this.props.orgList || []).map((orgItem, index) => {
               if (orgItem && orgItem.name && orgName && orgItem.name.toLowerCase() !== orgName.toLowerCase()) {
@@ -117,7 +117,7 @@ class ProjectList extends React.Component {
           </div>
         </div> 
 
-        <div className="sidebar-row group-row active search-row flx flx-row flx-align-center color--white">
+        <div className="sidebar-row group-row active search-row flx flx-row flx-align-center color--black">
           <div className="sidebar-icon flx flx-center-all">
             <div className="koi-ico --24 ico--search--white"></div>
           </div>
@@ -132,11 +132,11 @@ class ProjectList extends React.Component {
         
 
         <div className="sidebar-row flx flx-row flx-align-center mrgn-bottom-sm mrgn-top-md">
-          <div className="co-type-h3 color--white">
-            Lists
+          <div className="co-type-h3 color--black">
+            Groups
           </div>
           <Link to={'/' + orgName + '/createList'} className="flx flx-row flx-align-center flx-item-right">
-            <div className="co-type-label color--white"> 
+            <div className="co-type-label color--black"> 
               Add List
             </div>
             <div className="mrgn-left-sm flx flx-center-all">
@@ -150,7 +150,7 @@ class ProjectList extends React.Component {
             {/*<div className="koi-ico --24 ico--allupdates--primary"></div>*/}
             <div className="sidebar-dot fill--tertiary--10"></div>
           </div>
-          <div className="sidebar-project-name color--white"> 
+          <div className="sidebar-project-name color--black"> 
             All Threads
           </div>
         </Link>
@@ -164,7 +164,7 @@ class ProjectList extends React.Component {
                     <div className="sidebar-icon flx flx-center-all">
                       {<DotJewel threadCount={threadCounts[projectItem.id]} />}
                     </div> 
-                    <div className="sidebar-project-name color--white">
+                    <div className="sidebar-project-name color--black">
                       {projectName}
                     </div>
                     {<ThreadCountJewel threadCount={threadCounts[projectItem.id]} />}
