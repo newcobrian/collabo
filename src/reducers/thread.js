@@ -51,8 +51,7 @@ export default (state = initialState, action) => {
         //   commentObject.nestedComments = [].concat(nestedArray)
         // }
         newState.comments = newState.comments.concat(commentObject)
-
-        // newState.commentsData[action.objectId].sort(Helpers.lastModifiedAsc);
+        newState.comments.sort(Helpers.lastModifiedDesc);
 
         return newState;
       }
