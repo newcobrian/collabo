@@ -43,13 +43,15 @@ export default (state = initialState, action) => {
         let commentObject = Object.assign({}, {id: action.commentId}, action.comment)
         // let commentObject = Object.assign({}, {id: action.commentId}, omit(action.comment, ['nestedComments']))
 
-        // if (action.comment.nestedComments) {
-        //   let nestedArray = []
-        //   Object.keys(action.comment.nestedComments || {}).map(function(nestedId) {
-        //     nestedArray = nestedArray.concat(Object.assign({}, {id: nestedId}, action.comment.nestedComments[nestedId]))
-        //   })
-        //   commentObject.nestedComments = [].concat(nestedArray)
-        // }
+        if (action.comment.nestedComments) {
+          let nestedArray = []
+          Object.keys(action.comment.nestedComments).map(function(nestedId) {
+            // nestedArray = nestedArray.concat(Object.assign({}, {id: nestedId}, action.comment.nestedComments[nestedId]))
+            let nestedObject = Object.assign({}, {id: nestedId}, action.comment.nestedComments[nestedId])
+            nestedArray = [nestedObject].concat(nestedArray)
+          })
+          commentObject.nestedComments = [].concat(nestedArray)
+        }
         newState.comments = newState.comments.concat(commentObject)
         newState.comments.sort(Helpers.lastModifiedDesc);
 
@@ -66,13 +68,16 @@ export default (state = initialState, action) => {
           let commentObject = Object.assign({}, {id: action.commentId}, action.comment)
           // let commentObject = Object.assign({}, {id: action.commentId}, omit(action.comment, ['nestedComments']))
 
-          // if (action.comment.nestedComments) {
-          //   let nestedArray = []
-          //   Object.keys(action.comment.nestedComments || {}).map(function(nestedId) {
-          //     nestedArray = nestedArray.concat(Object.assign({}, {id: nestedId}, action.comment.nestedComments[nestedId]))
-          //   })
-          //   commentObject.nestedComments = [].concat(nestedArray)
-          // }
+          if (action.comment.nestedComments) {
+            let nestedArray = []
+            Object.keys(action.comment.nestedComments).map(function(nestedId) {
+              // nestedArray = nestedArray.concat(Object.assign({}, {id: nestedId}, action.comment.nestedComments[nestedId]))
+              let nestedObject = Object.assign({}, {id: nestedId}, action.comment.nestedComments[nestedId])
+              nestedArray = [nestedObject].concat(nestedArray)
+            })
+            commentObject.nestedComments = [].concat(nestedArray)
+          }
+
           newState.comments[i] = commentObject
           return newState;    
         }
