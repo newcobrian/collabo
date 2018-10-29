@@ -117,15 +117,15 @@ class ProjectList extends React.Component {
           </div>
         </div> 
 
-        <div className="sidebar-row group-row active search-row flx flx-row flx-align-center color--black">
+        <div className="sidebar-row group-row search-row flx flx-row flx-align-center color--black">
           <div className="sidebar-icon flx flx-center-all">
-            <div className="koi-ico --24 ico--search--white"></div>
+            <div className="koi-ico --24 ico--search opa-40"></div>
           </div>
           <FirebaseSearchInput 
             type={Constants.POSTS_SEARCH}
             callback={this.searchInputCallback}
             orgName={orgName}
-            className={"color--white"}
+            className={"color--black"}
             placeholder="Search" />
         </div>
 
@@ -137,7 +137,7 @@ class ProjectList extends React.Component {
           </div>
           <Link to={'/' + orgName + '/createList'} className="flx flx-row flx-align-center flx-item-right">
             <div className="co-type-label color--black"> 
-              Add List
+              Add Group
             </div>
             <div className="mrgn-left-sm flx flx-center-all">
               <div className="koi-ico --24 ico--add--tertiary"></div>              

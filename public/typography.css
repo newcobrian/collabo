@@ -173,7 +173,7 @@ textarea {
 .co-sidebar ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #3DCBF3 !important; /*DARK BLUE*/
   color: #97B4FF !important; /*DARK BLUE*/
-  color: #fff !important; /*DARK BLUE*/
+  color: rgba(0,0,0,.3) !important; /*DARK BLUE*/
   opacity: 1;
   font-weight: 400;
   font-size: 12px;

@@ -10,6 +10,7 @@ const ProjectHeader = props => {
         <OrgHeader />
         <div className="project-bar-wrapper flx flx-row flx-align-center fill--white brdr-right b--primary--20">
           <div className="project-header-row co-type-h1 flx flx-row flx-align-center color--black">
+            <div className="group-icon mrgn-right-sm"></div>
             <div className="project-header-text">{props.project.name}</div>
           </div>
 
@@ -32,6 +33,7 @@ const ProjectHeader = props => {
         <OrgHeader />
         <div className="project-bar-wrapper flx flx-row flx-align-center fill--white brdr-right b--primary--20">
           <div className="project-header-row co-type-h1 flx flx-row flx-align-center color--black">
+            <div className="group-icon mrgn-right-sm"></div>
             <div className="project-header-text">All Threads</div>
           </div>
 

@@ -205,14 +205,14 @@ textarea {
     font-family: 'Karla';
 }
 .co-type-org {
-    font-size: 15px;
-    font-weight: 500;
-    letter-spacing: 1.2px;
+    font-size: 21px;
+    font-weight: 600;
+    letter-spacing: .5px;
 }
 .co-type-h1 {
     font-size: 14px;
     font-weight: 600;
-    letter-spacing: 1.2px;
+    letter-spacing: .5px;
 }
 .co-type-h4 {
 	/*font-family: 'Doppio One', sans-serif;*/
@@ -309,12 +309,16 @@ textarea {
     margin-bottom: 2px;
 }
 .sidebar-project-name {
-	font-size: 12px;
-	font-weight: 400;
-	letter-spacing: 1.2px;
-	line-height: 24px;
-	padding: 2px 0 0;
+	font-size: 16px;
+    font-weight: 400;
+    letter-spacing: .2px;
+    line-height: 24px;
+    padding: 2px 0 0;
 }
+.active .sidebar-project-name {
+	font-weight: 600;
+}
+
 p {
 	margin-bottom: 0 !important;
 	white-space: normal
@@ -531,8 +535,15 @@ p {
 	opacity: 1;
 }
 .co-sidebar .sidebar-dot {
-	width: 10px;
-	height: 10px;
+    width: 16px;
+    height: 16px;
+    background: radial-gradient(10px at 50% 50%, #30C1D6 40%, #A4F6E6 72%);
+}
+.group-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 100px;
+    background: radial-gradient(10px at 50% 50%, #30C1D6 90%, #A4F6E6 152%);
 }
 .sidebar-dot.active {
 	visibility: visible;
@@ -630,7 +641,7 @@ p {
 }
 .sidebar-row.group-row.search-row {
 	padding: 10px 24px;
-	background-color: rgba(101,212,236,.1);
+	/*background-color: rgba(101,212,236,.1);*/
 }
 .sidebar-row.group-row.search-row input {
 	color: white !important;
@@ -768,7 +779,7 @@ p {
 	margin-left: 0px;
 }
 .project-header-row {
-	margin-left: 50px;
+	margin-left: 30px;
 }
 .project-header-text {
 	margin-left: 8px;
