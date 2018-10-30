@@ -185,6 +185,10 @@ export default (state = initialState, action) => {
       if (action.source === Constants.THREAD_PAGE) {
         const newState = Object.assign({}, state);
 
+        // add user to orgUserData, which other lists can reference for all data for all users in org
+        newState.orgUserData = Object.assign({}, state.orgUserData || {});
+        newState.orgUserData[action.userId] = Object.assign({}, action.userData)
+
         // create array of org members sorted by username for displaying list of org members
         newState.orgMembers = newState.orgMembers || [];
         newState.orgMembers = newState.orgMembers.slice();
@@ -198,6 +202,10 @@ export default (state = initialState, action) => {
     case ActionTypes.ORG_MEMBER_CHANGED: {
       if (action.source === Constants.THREAD_PAGE) {
         const newState = Object.assign({}, state);
+
+        // update user info in global org user data
+        newState.orgUserData = Object.assign({}, state.orgUserData || {});
+        newState.orgUserData[action.userId] = Object.assign({}, action.userData)
 
         // update info for the user in the orgMembers array
         newState.orgMembers = newState.orgMembers || [];
@@ -217,6 +225,10 @@ export default (state = initialState, action) => {
     case ActionTypes.ORG_MEMBER_REMOVED: {
       if (action.source === Constants.THREAD_PAGE) {
         const newState = Object.assign({}, state);
+
+        // remove user info in global org user data
+        newState.orgUserData = Object.assign({}, state.orgUserData || {});
+        delete newState.orgUserData[action.userId]
 
         // remove from orgMembers list
         newState.orgMembers = newState.orgMembers || [];
