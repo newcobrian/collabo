@@ -55,7 +55,19 @@ export function loadInvite(auth, inviteId, userInfo) {
       }
       else {
         Firebase.database().ref(Constants.INVITES_PATH + '/' + inviteId).on('value', orgInviteSnap => {
-          if (orgInviteSnap.exists()) {
+          if (!orgInviteSnap.exists()) {
+            dispatch({
+              type: ActionTypes.LOAD_INVITE_ERROR,
+              errorMessage: "Sorry, we couldn't find this invite"
+            })
+          }
+          else if (orgInviteSnap.val().status === Constants.ACCEPTED_STATUS) {
+            dispatch({
+              type: ActionTypes.LOAD_INVITE_ERROR,
+              errorMessage: "Sorry, this invite has already been accepted"
+            })
+          }
+          else {
             Firebase.database().ref(Constants.ORGS_PATH + '/' + orgInviteSnap.val().orgId).once('value', orgSnap => {
               Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgInviteSnap.val().orgId + '/' + orgInviteSnap.val().senderId).once('value', senderSnap => {
                 dispatch({
@@ -65,12 +77,6 @@ export function loadInvite(auth, inviteId, userInfo) {
                   inviteType: Constants.ORG_TYPE
                 })
               })
-            })
-          }
-          else {
-            dispatch({
-              type: ActionTypes.LOAD_INVITE_ERROR,
-              errorMessage: "Sorry, we couldn't find this invite"
             })
           }
         })
@@ -410,4 +416,43 @@ export function loadEmailCode(verifyId) {
 			}
 		})
 	}
+}
+
+export function onRegisterWithEmailClick(email) {
+  return dispatch => {
+    let cleanedEmail = Helpers.cleanEmailToFirebase(email)
+    Firebase.database().ref(Constants.USERS_BY_EMAIL_PATH + '/' + cleanedEmail).once('value', userSnap => {
+      if (userSnap.exists()) {
+        dispatch({
+
+        })
+      }
+      else {
+        Firebase.database().ref(Constants.VERIFICATION_BY_EMAIL_PATH + '/' + cleanedEmail).once('value', emailSnap => {
+          let updates = {}
+          let verifyObject = {
+            email: email,
+            timeSent: Firebase.database.ServerValue.TIMESTAMP
+          }
+
+          let verifyId = Firebase.database().ref(Constants.EMAIL_VERIFICATION_PATH).push(verifyObject).key
+
+          // if we already sent the user a code, clear out the old one
+          if (emailSnap.exists()) {
+            updates[Constants.EMAIL_VERIFICATION_PATH + '/' + emailSnap.val().verifyId] = null
+          }
+          
+          // save new verification code in verification-by-email
+          updates[Constants.VERIFICATION_BY_EMAIL_PATH + '/' + cleanedEmail] = Object.assign({}, omit(verifyObject, ['email']), {verifyId: verifyId})
+
+          Firebase.database().ref().update(updates)
+
+          dispatch({
+            type: ActionTypes.LOAD_REGISTER_WITH_EMAIL,
+            verifyId: verifyId
+          })
+        })
+      }
+    })
+  }
 }

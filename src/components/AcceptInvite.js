@@ -30,6 +30,11 @@ class AcceptInvite extends React.Component {
       this.props.onUpdateCreateField('image', ev.target.files[0], Constants.ACCEPT_INVITE_PAGE)
     }
 
+    this.onRegisterClick = ev => {
+      ev.preventDefault()
+      this.props.onRegisterWithEmailClick(this.props.invite.recipientEmail)      
+    }
+
     this.handleSubmit = ev => {
       ev.preventDefault()
       
@@ -73,20 +78,6 @@ class AcceptInvite extends React.Component {
 
   render() {
     const { authenticated, invite, loadInviteError, errorMessage, inviteType, userInfo, sender } = this.props;
-
-    if (!authenticated || !userInfo) {
-      return (
-        <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
-          <div className="co-logo large-logo mrgn-bottom-lg mrgn-top-md">
-            <img className="center-img" src="/img/logomark.png"/>
-          </div>
-          <div className="mrgn-bottom-md color--white co-type-body">Should we show who the invite was sent to (email address) here?
-          </div>
-          <Link className="co-type-body color--tertiary" to='/login'>Login to accept</Link>
-          <Link className="co-type-body color--tertiary" to='/register'>or Register</Link>
-        </div>
-      )
-    }
     if (loadInviteError) {
       return (
         <ErrorPage message={ errorMessage ? errorMessage : 'Sorry, we couldn\'t find this invite.'} />
@@ -96,6 +87,19 @@ class AcceptInvite extends React.Component {
       return (
         <LoadingSpinner message="Loading invite" />
       );
+    }
+    if (!authenticated || !userInfo) {
+      return (
+        <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
+          <div className="co-logo large-logo mrgn-bottom-lg mrgn-top-md">
+            <img className="center-img" src="/img/logomark.png"/>
+          </div>
+          <div className="mrgn-bottom-md color--white co-type-body">{sender.username} invited you to join their team "{invite.orgName}"
+          </div>
+          <Link className="co-type-body color--tertiary" to='/login'>Login to accept</Link>
+          <Link className="co-type-body color--tertiary" onClick={this.onRegisterClick}>or Register</Link>
+        </div>
+      )
     }
     if (inviteType === Constants.PROJECT_TYPE && invite.recipientId !== authenticated) {
       return (

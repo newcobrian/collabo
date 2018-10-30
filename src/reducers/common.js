@@ -134,6 +134,11 @@ export default (state = defaultState, action) => {
         ...state,
         orgUser: action.orgUser
       }
+    case ActionTypes.LOAD_REGISTER_WITH_EMAIL:
+      return {
+        ...state,
+        redirectTo: '/verify/' + action.verifyId
+      }
     // case ActionTypes.INVITED_USERS_TO_PROJECT:
     //   return {
     //     ...state,
