@@ -125,101 +125,107 @@ const CommentPreview = props => {
   }
 }
 
-const ThreadPreviewFull = props => {
-  const thread = props.thread;
-  const lastUpdater = props.lastUpdater;
-  const createdBy = props.orgUserData && props.orgUserData[thread.userId] ? props.orgUserData[thread.userId] : { username: '' }
+// const ThreadPreviewFull = props => {
+class ThreadPreviewFull extends React.Component {
+  constructor() {
+    super()
+  }
 
-  // const postAuthor = thread.lastUpdate === Constants.COMMENT_TYPE ? 
-  //   ( thread.lastUpdater ? thread.lastUpdater : { username: '', userId: null, image: '' } ) : thread.createdBy;
-  //const lastUpdater = thread.lastUpdater ? thread.lastUpdater : { username: '', userId: null, firstName: '', lastName: '', image: '' }
-  // let title = tip.subject ? tip.subject.title : ''
-  // let canModify = props.authenticated === tip.userId ? true : false;
+  componentDidUpdate() {
+    let scrollHeight = this.commentContainer.scrollHeight
+    this.commentContainer.scrollTop = scrollHeight
+  }
 
-  return (
-    <div className={"tp-wrapper tp-full flx flx-row"}>
-        
-        <div className="tp-container flx flx-col flx-align-start">           
+  render() {
+    const { authenticated, thread, lastUpdater, orgUserData, orgName, projectId, projectNames, userInfo, commentErrors, project, deleteComment } = this.props
+    // const lastUpdater = props.lastUpdater;
+    const createdBy = orgUserData && orgUserData[thread.userId] ? orgUserData[thread.userId] : { username: '' }
+
+    // const postAuthor = thread.lastUpdate === Constants.COMMENT_TYPE ? 
+    //   ( thread.lastUpdater ? thread.lastUpdater : { username: '', userId: null, image: '' } ) : thread.createdBy;
+    //const lastUpdater = thread.lastUpdater ? thread.lastUpdater : { username: '', userId: null, firstName: '', lastName: '', image: '' }
+    // let title = tip.subject ? tip.subject.title : ''
+    // let canModify = props.authenticated === tip.userId ? true : false;
+
+    return (
+      <div className={"tp-wrapper tp-full flx flx-row"}>
           
-          <div className="thread-row-wrapper flx flx-row">
-            <div className="thread-content-wrapper w-100">
-              <div className="flx flx-row flx-align-center w-100 mrgn-bottom-sm brdr-bottom pdding-bottom-sm DN">
-                <Link to={'/' + props.orgName + '/user/' + lastUpdater.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
-                  <ProfilePic src={lastUpdater.image} className="user-image user-image-sm center-img" />
-                </Link>
+          <div className="tp-container flx flx-col flx-align-start">           
+            
+            <div className="thread-row-wrapper flx flx-row">
+              <div className="thread-content-wrapper w-100">
+                <div className="flx flx-row flx-align-center w-100 mrgn-bottom-sm brdr-bottom pdding-bottom-sm DN">
+                  <Link to={'/' + orgName + '/user/' + lastUpdater.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
+                    <ProfilePic src={lastUpdater.image} className="user-image user-image-sm center-img" />
+                  </Link>
 
-                <div className="flx flx-col flx-align-start">
-                  <div className="flx flx-row co-type-body mrgn-left-xs">
-                    <Link className="co-type-bold text-hover" to={'/' + props.orgName + '/user/' + lastUpdater.username}>{lastUpdater.username || ''}</Link> 
-                    &nbsp;<UpdateSection thread={thread} />
+                  <div className="flx flx-col flx-align-start">
+                    <div className="flx flx-row co-type-body mrgn-left-xs">
+                      <Link className="co-type-bold text-hover" to={'/' + orgName + '/user/' + lastUpdater.username}>{lastUpdater.username || ''}</Link> 
+                      &nbsp;<UpdateSection thread={thread} />
+                    </div>
+                    
                   </div>
-                  
+                  <div className="thread-timestamp color--black flx-item-right">
+                    <DisplayTimestamp timestamp={thread.lastModified} />
+                  </div>
+
                 </div>
-                <div className="thread-timestamp color--black flx-item-right">
-                  <DisplayTimestamp timestamp={thread.lastModified} />
+
+                <div className="color--black co-type-thread-title flx flx-row">
+                
+                  <Link className="color--black" 
+                        to={`/${orgName}/${projectId}/${thread.threadId}`}>
+                        {thread.title}
+                  </Link>
+                </div>
+                <div className="co-type-thread-body" dangerouslySetInnerHTML={{ __html: thread.body || '' }}></div>
+
+                <div className="color--black thread-timestamp flx flx-row flx-align-center mrgn-bottom-md">
+                  <div>Created by <Link to={'/' + orgName + '/user/' + createdBy.username} className="co-type-bold text-hover">{createdBy.username}</Link> in </div>
+                  <ProjectLabel className="" projectNames={projectNames} projectId={thread.projectId} orgName={orgName} />
+                
+                </div>
+                <div className="tip__caption mrgn-top-xs co-type-thread-body flx flx-col w-100 flx-align-start" dangerouslySetInnerHTML={{ __html: thread.body || '' }} />
+                  {/*<div className="tip__caption color--gray ta-left flx flx-row" dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(thread.body)) || '' }} />*/}
+
+                  <div className="cta-container flx flx-row flx-align-start mrgn-top-sm">
+                    <div className="koi-ico ico--bookmark mrgn-right-md opa-20 no-click"></div>
+                    <LikeReviewButton
+                      authenticated={authenticated}
+                      isLiked={thread.likes && thread.likes[authenticated] ? true : false}
+                      likesCount={Object.keys(thread.likes || {}).length}
+                      objectId={thread.threadId}
+                      thread={thread}
+                      likeObject={thread}
+                      type={Constants.THREAD_TYPE}
+                      orgName={orgName} />
+                  </div>
                 </div>
 
-              </div>
-
-              <div className="color--black co-type-thread-title flx flx-row">
-              
-                <Link className="color--black" 
-                      to={`/${props.orgName}/${props.projectId}/${thread.threadId}`}>
-                      {thread.title}
-                </Link>
-              </div>
-              <div className="co-type-thread-body" dangerouslySetInnerHTML={{ __html: thread.body || '' }}></div>
-
-              <div className="color--black thread-timestamp flx flx-row flx-align-center mrgn-bottom-md">
-                <div>Created by <Link to={'/' + props.orgName + '/user/' + createdBy.username} className="co-type-bold text-hover">{createdBy.username}</Link> in </div>
-                <ProjectLabel className="" projectNames={props.projectNames} projectId={thread.projectId} orgName={props.orgName} />
-              
-              </div>
-              <div className="tip__caption mrgn-top-xs co-type-thread-body flx flx-col w-100 flx-align-start" dangerouslySetInnerHTML={{ __html: thread.body || '' }} />
-                {/*<div className="tip__caption color--gray ta-left flx flx-row" dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(thread.body)) || '' }} />*/}
-
-                <div className="cta-container flx flx-row flx-align-start mrgn-top-sm">
-                  <div className="koi-ico ico--bookmark mrgn-right-md opa-20 no-click"></div>
-                  <LikeReviewButton
-                    authenticated={props.authenticated}
-                    isLiked={thread.likes && thread.likes[props.authenticated] ? true : false}
-                    likesCount={Object.keys(thread.likes || {}).length}
-                    objectId={thread.threadId}
-                    thread={thread}
-                    likeObject={thread}
-                    type={Constants.THREAD_TYPE}
-                    orgName={props.orgName} />
-                </div>
-              </div>
-
+            </div>
           </div>
-        </div>
 
-        <div className="comment-row-wrapper flx flx-row">
-          <div className="co-thread-reply-wrapper">
-            <CommentContainer
-              authenticated={props.authenticated}
-              userInfo={props.userInfo}
-              comments={thread.comments || {}}
-              errors={props.commentErrors}
-              commentObject={thread}
-              threadId={thread.threadId}
-              thread={thread}
-              project={props.project}
-              orgName={props.orgName}
-              orgUserData={props.orgUserData}
-              type={Constants.THREAD_TYPE}
-              deleteComment={props.deleteComment} />
+          <div className="comment-row-wrapper flx flx-row">
+            <div className="co-thread-reply-wrapper" ref={(el) => { this.commentContainer = el; }}>
+              <CommentContainer
+                authenticated={authenticated}
+                userInfo={userInfo}
+                comments={thread.comments || {}}
+                errors={commentErrors}
+                commentObject={thread}
+                threadId={thread.threadId}
+                thread={thread}
+                project={project}
+                orgName={orgName}
+                orgUserData={orgUserData}
+                type={Constants.THREAD_TYPE}
+                deleteComment={deleteComment} />
+            </div>
           </div>
-        </div>
-
-
-
-   
-
-
-    </div>
-  );
+      </div>
+    );
+  }
 }
 
 export default ThreadPreviewFull;
