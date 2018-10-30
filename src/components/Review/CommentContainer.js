@@ -11,6 +11,22 @@ const CommentContainer = props => {
 		return (
 			<div className="comments-module-wrapper w-100">
 		          
+		          
+
+		          <CommentList
+					comments={props.comments}
+					commentObject={props.commentObject}
+					authenticated={props.authenticated}
+					threadId={props.threadId}
+					thread={props.thread}
+					project={props.project}
+					orgName={props.orgName}
+					deleteComment={props.deleteComment}
+					usersList={props.usersList}
+					orgUserData={props.orgUserData}
+					type={props.type}
+					parentId={props.parentId} />
+
 		          <div className="comment-indent main-reply">
 						<div className="comment-input-container">
 
@@ -28,22 +44,6 @@ const CommentContainer = props => {
 						  }
 						</div>
 					</div>
-
-		          <CommentList
-					comments={props.comments}
-					commentObject={props.commentObject}
-					authenticated={props.authenticated}
-					threadId={props.threadId}
-					thread={props.thread}
-					project={props.project}
-					orgName={props.orgName}
-					deleteComment={props.deleteComment}
-					usersList={props.usersList}
-					orgUserData={props.orgUserData}
-					type={props.type}
-					parentId={props.parentId} />
-
-					
 				</div>
 
 		);

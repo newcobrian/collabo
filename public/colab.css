@@ -439,6 +439,7 @@ p {
 
 .inline-comments .comment-indent {
   /*display: none;*/
+  padding-left: 40px;
 }
 
 

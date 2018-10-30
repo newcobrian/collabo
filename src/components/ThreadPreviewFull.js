@@ -16,6 +16,8 @@ import MoreHorizIcon from 'material-ui/svg-icons/navigation/more-horiz';
 import ThreadList from './ThreadList';
 import ProjectList from './ProjectList';
 import LikeReviewButton from './LikeReviewButton';
+import AnimateHeight from 'react-animate-height';
+
 
 var Scroll = require('react-scroll');
 var Element = Scroll.Element;
@@ -136,8 +138,7 @@ const ThreadPreviewFull = props => {
     <div className={"tp-wrapper tp-full flx flx-row"}>
         
         <div className="tp-container flx flx-col flx-align-start">           
-          <div className="top-bar w-100 fill--primary">
-          </div>
+          
           <div className="thread-row-wrapper flx flx-row">
             <div className="thread-content-wrapper w-100">
               <div className="flx flx-row flx-align-center w-100 mrgn-bottom-sm brdr-bottom pdding-bottom-sm DN">
@@ -159,6 +160,7 @@ const ThreadPreviewFull = props => {
               </div>
 
               <div className="color--black co-type-thread-title flx flx-row">
+              
                 <Link className="color--black" 
                       to={`/${props.orgName}/${props.projectId}/${thread.threadId}`}>
                       {thread.title}
