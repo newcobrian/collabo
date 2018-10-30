@@ -128,6 +128,8 @@ const CommentPreview = props => {
 const ThreadPreviewFull = props => {
   const thread = props.thread;
   const lastUpdater = props.lastUpdater;
+  const createdBy = props.orgUserData && props.orgUserData[thread.userId] ? props.orgUserData[thread.userId] : { username: '' }
+
   // const postAuthor = thread.lastUpdate === Constants.COMMENT_TYPE ? 
   //   ( thread.lastUpdater ? thread.lastUpdater : { username: '', userId: null, image: '' } ) : thread.createdBy;
   //const lastUpdater = thread.lastUpdater ? thread.lastUpdater : { username: '', userId: null, firstName: '', lastName: '', image: '' }
@@ -168,8 +170,8 @@ const ThreadPreviewFull = props => {
               </div>
               <div className="co-type-thread-body" dangerouslySetInnerHTML={{ __html: thread.body || '' }}></div>
 
-              {/*<div className="color--black thread-timestamp flx flx-row flx-align-center mrgn-bottom-md">
-                <div>Created by <Link to={'/' + props.orgName + '/user/' + thread.createdBy.username} className="co-type-bold text-hover">{thread.createdBy.username}</Link> in </div>
+              <div className="color--black thread-timestamp flx flx-row flx-align-center mrgn-bottom-md">
+                <div>Created by <Link to={'/' + props.orgName + '/user/' + createdBy.username} className="co-type-bold text-hover">{createdBy.username}</Link> in </div>
                 <ProjectLabel className="" projectNames={props.projectNames} projectId={thread.projectId} orgName={props.orgName} />
               
               </div>
