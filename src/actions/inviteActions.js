@@ -5,10 +5,16 @@ import * as ActionTypes from './types'
 import mixpanel from 'mixpanel-browser'
 import { pick, omit, debounce } from 'lodash'
 
-export function loadInvite(auth, inviteId, userInfo) {
+export function loadProjectInvite(auth, inviteId) {
   return dispatch => {
     Firebase.database().ref(Constants.PROJECT_INVITES_PATH + '/' + inviteId).on('value', projectInviteSnap => {
-      if (projectInviteSnap.exists()) {
+      if (!projectInviteSnap.exists()) {
+        dispatch({
+          type: ActionTypes.LOAD_INVITE_ERROR,
+          errorMessage: "Sorry, we couldn't find this invite"
+        })
+      }
+      else {
         if (auth === projectInviteSnap.val().recipientId) {
           Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + projectInviteSnap.val().orgId).once('value', usersByOrgSnap => {
             if (!usersByOrgSnap.exists()) {
@@ -25,7 +31,7 @@ export function loadInvite(auth, inviteId, userInfo) {
                 Firebase.database().ref(Constants.ORGS_PATH + '/' + projectInviteSnap.val().orgId).once('value', orgSnap => {
                   let updates = {}
                   updates[`/${Constants.PROJECTS_BY_USER_BY_ORG_PATH}/${auth}/${projectInviteSnap.val().orgId}/${projectInviteSnap.val().projectId}/`] = Object.assign({}, pick(projectSnap.val(), ['name', 'isPublic']));
-                  updates[`/${Constants.USERS_BY_PROJECT_PATH}/${projectInviteSnap.val().projectId}/${auth}/`] = Object.assign({}, userInfo);
+                  updates[`/${Constants.USERS_BY_PROJECT_PATH}/${projectInviteSnap.val().projectId}/${auth}/`] = true
 
                   // also remove them from pending invites list
                   updates[`/${Constants.INVITED_USERS_BY_PROJECT_PATH}/${projectInviteSnap.val().projectId}/${auth}/`] = null
@@ -43,6 +49,7 @@ export function loadInvite(auth, inviteId, userInfo) {
           })
         }
         else {
+          // otherwise this invite was for a different user
           Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + projectInviteSnap.val().orgId + '/' + projectInviteSnap.val().senderId).once('value', senderSnap => {
             dispatch({
               type: ActionTypes.INVITE_LOADED,
@@ -53,41 +60,49 @@ export function loadInvite(auth, inviteId, userInfo) {
           })
         }
       }
+    })
+  }
+}
+
+export function unloadProjectInvite(inviteId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.PROJECT_INVITES_PATH + '/' + inviteId).off()
+  }
+}
+
+export function loadOrgInvite(auth, inviteId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.INVITES_PATH + '/' + inviteId).on('value', orgInviteSnap => {
+      if (!orgInviteSnap.exists()) {
+        dispatch({
+          type: ActionTypes.LOAD_INVITE_ERROR,
+          errorMessage: "Sorry, we couldn't find this invite"
+        })
+      }
+      else if (orgInviteSnap.val().status === Constants.ACCEPTED_STATUS) {
+        dispatch({
+          type: ActionTypes.LOAD_INVITE_ERROR,
+          errorMessage: "Sorry, this invite has already been accepted"
+        })
+      }
       else {
-        Firebase.database().ref(Constants.INVITES_PATH + '/' + inviteId).on('value', orgInviteSnap => {
-          if (!orgInviteSnap.exists()) {
+        Firebase.database().ref(Constants.ORGS_PATH + '/' + orgInviteSnap.val().orgId).once('value', orgSnap => {
+          Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgInviteSnap.val().orgId + '/' + orgInviteSnap.val().senderId).once('value', senderSnap => {
             dispatch({
-              type: ActionTypes.LOAD_INVITE_ERROR,
-              errorMessage: "Sorry, we couldn't find this invite"
+              type: ActionTypes.INVITE_LOADED,
+              invite: Object.assign({}, orgInviteSnap.val(), { orgName: orgSnap.val().name }),
+              sender: senderSnap.val(),
+              inviteType: Constants.ORG_TYPE
             })
-          }
-          else if (orgInviteSnap.val().status === Constants.ACCEPTED_STATUS) {
-            dispatch({
-              type: ActionTypes.LOAD_INVITE_ERROR,
-              errorMessage: "Sorry, this invite has already been accepted"
-            })
-          }
-          else {
-            Firebase.database().ref(Constants.ORGS_PATH + '/' + orgInviteSnap.val().orgId).once('value', orgSnap => {
-              Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgInviteSnap.val().orgId + '/' + orgInviteSnap.val().senderId).once('value', senderSnap => {
-                dispatch({
-                  type: ActionTypes.INVITE_LOADED,
-                  invite: Object.assign({}, orgInviteSnap.val(), { orgName: orgSnap.val().name }),
-                  sender: senderSnap.val(),
-                  inviteType: Constants.ORG_TYPE
-                })
-              })
-            })
-          }
+          })
         })
       }
     })
   }
 }
 
-export function unloadInvite(inviteId) {
+export function unloadOrgInvite(inviteId) {
   return dispatch => {
-    Firebase.database().ref(Constants.PROJECT_INVITES_PATH + '/' + inviteId).off()
     Firebase.database().ref(Constants.INVITES_PATH + '/' + inviteId).off();
   }
 }

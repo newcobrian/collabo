@@ -30,7 +30,8 @@ import addThread from './reducers/addThread';
 import projectList from './reducers/projectList';
 import createOrg from './reducers/createOrg';
 import organization from './reducers/organization';
-import acceptInvite from './reducers/acceptInvite';
+import acceptOrgInvite from './reducers/acceptOrgInvite';
+import acceptProjectInvite from './reducers/acceptProjectInvite';
 import orgSettings from './reducers/orgSettings';
 import projectSettings from './reducers/projectSettings';
 import inviteForm from './reducers/inviteForm';
@@ -67,7 +68,8 @@ const reducer = combineReducers({
   projectList,
   createOrg,
   organization,
-  acceptInvite,
+  acceptOrgInvite,
+  acceptProjectInvite,
   review,
   orgSettings,
   projectSettings,

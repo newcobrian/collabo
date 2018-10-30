@@ -686,7 +686,7 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 				case Constants.PROJECT_INVITE_MESSAGE:
 					inboxObject.senderId = senderId;
 					inboxObject.message = ' invited you join the list: ' + project.name;
-					inboxObject.link = '/invitation/' + sendObject;
+					inboxObject.link = '/joinproject/' + sendObject;
 					inboxObject.type = Constants.INBOX_INVITE_TYPE
 					emailData.unitType = 'list'
 					emailData.message = ' invited you to join the list: ' + project.name + ' in the ' + org.name + ' team.'
@@ -694,16 +694,6 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 					emailData.senderLink = Constants.COLLABO_URL + '/' + org.name + '/users/' + senderSnapshot.val().username
 					emailTemplateID = "0a991f3c-3079-4d45-90d2-eff7c64f9cc5"
 					break;
-				// case Constants.PROJECT_INVITE_MESSAGE:
-				// 	inboxObject.senderId = senderId;
-				// 	inboxObject.message = ' invited you join their list: ' + org.name;
-				// 	inboxObject.link = '/invitation/' + sendObject;
-				// 	inboxObject.type = Constants.INBOX_INVITE_TYPE
-				// 	emailData.orgName = org.name
-				// 	emailData.link = Constants.COLLABO_URL + '/invitation/' + sendObject;
-				// 	emailData.senderLink = Constants.COLLABO_URL + '/' + org.name + '/users/' + senderSnapshot.val().username
-				// 	emailTemplateID = "0a991f3c-3079-4d45-90d2-eff7c64f9cc5"
-				// 	break;
 				// case Constants.NEW_THREAD_MESSAGE:
 				// 	inboxObject.senderId = senderId;
 				// 	inboxObject.message = org.name + ': ' + senderSnapshot.val().name + ' created a new thread "' + thread.title + '" in the ' + project.name + ' project';

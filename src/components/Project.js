@@ -223,6 +223,7 @@ class Project extends React.Component {
                       orgName={this.props.params.orgname}
                       projectId={this.props.params.pid}
                       project={this.props.project}
+                      onProjectInviteClick={this.onProjectInviteClick}
                     />
                     <div className="threadlist-outer flx flx-row">              
                       <div className="threadlist-wrapper flx flx-col flx-align-start w-100 h-100">

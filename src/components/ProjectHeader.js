@@ -14,6 +14,15 @@ const ProjectHeader = props => {
             <div className="project-header-text">{props.project.name}</div>
           </div>
 
+          <Link onClick={props.onProjectInviteClick} className="info-row flx flx-row flx-align-center brdr-top pdding-top-md mrgn-top-md">
+            <div className="sidebar-icon flx flx-center-all mrgn-left-xs">
+              <div className="koi-ico --24 ico--add--secondary"></div>              
+            </div>
+            <div className="co-type-label color--primary"> 
+              Add Member
+            </div>
+          </Link>
+
           <Link to={'/' + props.orgName + '/addthread/' + props.projectId}
             className="flx flx-align-center pdding-left-sm flx-item-right mrgn-right-md">
               <div className="color--primary co-type-label mrgn-right-sm mobile-hide">Compose Thread</div>

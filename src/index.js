@@ -26,7 +26,8 @@ import ForgotPassword from './components/ForgotPassword';
 import CreateOrg from './components/CreateOrg';
 import OrgInvite from './components/OrgInvite';
 // import Organization from './components/Organization';
-import AcceptInvite from './components/AcceptInvite';
+import AcceptOrgInvite from './components/AcceptOrgInvite';
+import AcceptProjectInvite from './components/AcceptProjectInvite';
 import OrgSettings from './components/OrgSettings';
 import ProjectSettings from './components/ProjectSettings';
 import EnterEmail from './components/EnterEmail';
@@ -61,9 +62,10 @@ ReactDOM.render((
         <Route path="forgotPassword" component={ForgotPassword} />
         <Route path="newteam" component={CreateOrg} />
         <Route path="seo" component={SEO} />
-        <Route path ="invitation/:iid" component={AcceptInvite} />
+        <Route path ="invitation/:iid" component={AcceptOrgInvite} />
+        <Route path ="joinproject/:iid" component={AcceptProjectInvite} />
         <Route path ="verify/(:vid)" component={Register} />
-        <Route path =":orgname/invitation/:iid" component={AcceptInvite} />
+        <Route path =":orgname/invitation/:iid" component={AcceptOrgInvite} />
         <Route path=":orgname/inbox" component={Inbox} />
         <Route path=":orgname/admin" component={OrgSettings} />
         <Route path=":orgname/addthread" component={AddThread} />

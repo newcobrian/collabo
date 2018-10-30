@@ -23,7 +23,7 @@ export default (state = {}, action) => {
         errorMessage: action.errorMessage
       }
     case ActionTypes.LOAD_NEW_ORG_USER_INFO:
-      if (action.source === Constants.ACCEPT_INVITE_PAGE) {
+      if (action.source === Constants.ACCEPT_ORG_INVITE_PAGE) {
         return {
           ...state,
           username: action.username ? action.username : null,
@@ -33,12 +33,12 @@ export default (state = {}, action) => {
       }
       else return state;
     case ActionTypes.UPDATE_FIELD_CREATE:
-      if(action.source === Constants.ACCEPT_INVITE_PAGE) {
+      if(action.source === Constants.ACCEPT_ORG_INVITE_PAGE) {
         return { ...state, [action.key]: action.value };
       }
       else return {...state}
     case ActionTypes.CREATE_SUBMIT_ERROR:
-      if (action.source === Constants.ACCEPT_INVITE_PAGE) {
+      if (action.source === Constants.ACCEPT_ORG_INVITE_PAGE) {
         return {
           ...state,
           errors: [action.error],

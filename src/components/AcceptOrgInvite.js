@@ -10,24 +10,24 @@ import ListErrors from './ListErrors';
 import ProfilePic from './ProfilePic';
 
 const mapStateToProps = state => ({
-  ...state.acceptInvite,
+  ...state.acceptOrgInvite,
   appName: state.common.appName,
   authenticated: state.common.authenticated,
   userInfo: state.common.userInfo
 });
 
-class AcceptInvite extends React.Component {
+class AcceptOrgInvite extends React.Component {
   constructor() {
     super()
 
     const updateFieldEvent =
-        key => ev => this.props.onUpdateCreateField(key, ev.target.value, Constants.ACCEPT_INVITE_PAGE);
+        key => ev => this.props.onUpdateCreateField(key, ev.target.value, Constants.ACCEPT_ORG_INVITE_PAGE);
 
     this.changeUsername = updateFieldEvent('username');
     this.changeFullName = updateFieldEvent('fullName');
 
     this.changeFile = ev => {
-      this.props.onUpdateCreateField('image', ev.target.files[0], Constants.ACCEPT_INVITE_PAGE)
+      this.props.onUpdateCreateField('image', ev.target.files[0], Constants.ACCEPT_ORG_INVITE_PAGE)
     }
 
     this.onRegisterClick = ev => {
@@ -39,10 +39,10 @@ class AcceptInvite extends React.Component {
       ev.preventDefault()
       
       if (!this.props.username || this.props.username.length < 1) {
-        this.props.createSubmitError('Please add your username', Constants.ACCEPT_INVITE_PAGE);
+        this.props.createSubmitError('Please add your username', Constants.ACCEPT_ORG_INVITE_PAGE);
       }
       else if (!this.props.fullName || this.props.fullName.length < 1) {
-        this.props.createSubmitError('Please add your full name', Constants.ACCEPT_INVITE_PAGE);
+        this.props.createSubmitError('Please add your full name', Constants.ACCEPT_ORG_INVITE_PAGE);
       }
       else {
         let userData = Object.assign({}, 
@@ -57,22 +57,22 @@ class AcceptInvite extends React.Component {
   }
 
   componentDidMount() {
-    this.props.loadInvite(this.props.authenticated, this.props.params.iid, this.props.userInfo);
+    this.props.loadOrgInvite(this.props.authenticated, this.props.params.iid);
     if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
 
-    this.props.loadNewOrgUserInfo(this.props.userInfo, Constants.ACCEPT_INVITE_PAGE)
+    this.props.loadNewOrgUserInfo(this.props.userInfo, Constants.ACCEPT_ORG_INVITE_PAGE)
 
-    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'accept invite'});
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'accept org invite'});
   }
 
   componentWillUnmount() {
-    this.props.unloadInvite(this.props.params.iid);
+    this.props.unloadOrgInvite(this.props.params.iid);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.iid !== this.props.params.iid) {
-      this.props.unloadInvite(this.props.params.pid);
-      this.props.loadInvite(this.props.authenticated, nextProps.params.pid);
+      this.props.unloadOrgInvite(this.props.params.iid);
+      this.props.loadOrgInvite(this.props.authenticated, nextProps.params.iid);
     }
   }
 
@@ -100,18 +100,6 @@ class AcceptInvite extends React.Component {
           <Link className="co-type-body color--tertiary" onClick={this.onRegisterClick}>or Register</Link>
         </div>
       )
-    }
-    if (inviteType === Constants.PROJECT_TYPE && invite.recipientId !== authenticated) {
-      return (
-          <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
-            <div className="co-logo large-logo mrgn-bottom-lg mrgn-top-md">
-              <img className="center-img" src="/img/logomark.png"/>
-            </div>
-            <div className="mrgn-bottom-md color--white co-type-body">Sorry, this invite was sent to a different user. 
-            </div>
-            <Link className="co-type-body color--tertiary" to='/'> Go to homepage</Link>
-          </div>
-        )
     }
     // orgInvites need orgId and recipientEmail
     if (inviteType === Constants.ORG_TYPE && (!invite.senderId || !invite.recipientEmail ||
@@ -231,7 +219,7 @@ class AcceptInvite extends React.Component {
 
       )
     }
-    // else this is a project invite error
+    // else show an error
     else {
       return (
        <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
@@ -248,4 +236,4 @@ class AcceptInvite extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, Actions)(AcceptInvite)
+export default connect(mapStateToProps, Actions)(AcceptOrgInvite)
