@@ -116,7 +116,7 @@ class Project extends React.Component {
       this.props.unloadOrgMembers(this.props.orgId, Constants.PROJECT_PAGE)
 
 
-      let lowerCaseOrgName = this.props.params.orgname ? this.props.params.orgname.toLowerCase() : ''
+      let lowerCaseOrgName = nextProps.params.orgname ? nextProps.params.orgname.toLowerCase() : ''
       Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
         if (!orgSnap.exists()) {
           this.props.notAnOrgUserError(Constants.PROJECT_PAGE)
@@ -130,7 +130,9 @@ class Project extends React.Component {
           this.props.loadProject(nextProps.params.pid, orgId, Constants.PROJECT_PAGE);
           this.props.loadProjectMembers(nextProps.params.pid, Constants.PROJECT_PAGE)
           this.props.loadOrgMembers(orgId, Constants.PROJECT_PAGE)
-          // this.props.watchThreadFeed(this.props.authenticated,nextProps.params.orgname, nextProps.params.pid, this.props.feedEndValue, Constants.PROJECT_PAGE)
+
+          // this.props.watchThreadFeed(this.props.authenticated, orgId, nextProps.params.pid, Constants.PROJECT_PAGE)
+
           if (nextProps.params.pid) {
             this.props.markProjectRead(this.props.authenticated, nextProps.params.pid)
           }
@@ -141,6 +143,7 @@ class Project extends React.Component {
 
 
   render() {
+    // console.log(JSON.stringify(this.props.threads))
     if (!this.props.authenticated) {
       return (
         <LoggedOutMessage />
