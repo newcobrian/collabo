@@ -353,6 +353,9 @@ export function acceptOrgInvite(auth, email, inviteId, userData) {
               updates[Constants.USERNAMES_BY_ORG_PATH + '/' + inviteSnap.val().orgId + '/' + lowerCaseName] = auth
               updates[Constants.ORGS_BY_USER_PATH + '/' + auth + '/' + inviteSnap.val().orgId] = true
 
+              // update user's preferred username
+              updates[Constants.USERS_PATH + '/' + auth + '/username/'] = userData.username
+
               // remove the invites
               updates[Constants.INVITES_PATH + '/' + inviteId + '/status/'] = Constants.ACCEPTED_STATUS
               updates[Constants.INVITED_USERS_BY_ORG_PATH + '/' + inviteSnap.val().orgId + '/' + Helpers.cleanEmailToFirebase(email)] = null
