@@ -205,7 +205,7 @@ const ThreadPreviewFull = props => {
               thread={thread}
               project={props.project}
               orgName={props.orgName}
-              usersList={props.usersList}
+              orgUserData={props.orgUserData}
               type={Constants.THREAD_TYPE}
               deleteComment={props.deleteComment} />
           </div>
