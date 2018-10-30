@@ -40,6 +40,9 @@ export function onCreateOrg(auth, org, userData) {
           // save to usernames by org
           updates[`/${Constants.USERNAMES_BY_ORG_PATH}/${orgId}/${userData.username.toLowerCase()}/`] = auth
 
+          // save user's last username to users-path
+          updates[`/${Constants.USERS_PATH}/${auth}/`] = userData.username
+
           // create dummy data
           Constants.DUMMY_PROJECTS.forEach(function(project) {
             let projectObject = {
