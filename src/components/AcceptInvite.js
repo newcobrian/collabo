@@ -7,6 +7,7 @@ import LoadingSpinner from './LoadingSpinner';
 import LoggedOutMessage from './LoggedOutMessage';
 import ErrorPage from './ErrorPage';
 import ListErrors from './ListErrors';
+import ProfilePic from './ProfilePic';
 
 const mapStateToProps = state => ({
   ...state.acceptInvite,
@@ -24,6 +25,10 @@ class AcceptInvite extends React.Component {
 
     this.changeUsername = updateFieldEvent('username');
     this.changeFullName = updateFieldEvent('fullName');
+
+    this.changeFile = ev => {
+      this.props.onUpdateCreateField('image', ev.target.files[0], Constants.ACCEPT_INVITE_PAGE)
+    }
 
     this.handleSubmit = ev => {
       ev.preventDefault()
@@ -171,6 +176,27 @@ class AcceptInvite extends React.Component {
                     value={this.props.fullName}
                     onChange={this.changeFullName} />
                 </fieldset>
+
+                {/*<fieldset>
+                  {this.props.image && 
+                    <div className="profile-image flx flx-center-all">
+                      <ProfilePic src={this.props.image ? this.props.image : ''} className="center-img" />
+                      </div>
+                  }
+                  <fieldset className="form-group">
+                    <div className="upload-wrapper">
+                      <div className="upload-overlay">Upload Image</div>
+                      <div className="fileUpload">
+                        <input
+                        className="form-control upload-image-button"
+                        type="file"
+                        accept="image/jpeg,image/png,application/pdf"
+                        onChange={this.changeFile} />
+
+                      </div>
+                    </div> 
+                  </fieldset>
+                </fieldset>*/}
 
                 <ListErrors errors={this.props.errors}></ListErrors>
               </form>
