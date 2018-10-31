@@ -14,12 +14,12 @@ export function loadProjectInvite(auth, inviteId) {
           errorMessage: "Sorry, we couldn't find this invite"
         })
       }
-      // else if (projectInviteSnap.val().status === Constants.ACCEPTED_STATUS) {
-      //   dispatch({
-      //     type: ActionTypes.LOAD_INVITE_ERROR,
-      //     errorMessage: "Sorry, this invite has already been accepted"
-      //   })
-      // }
+      else if (projectInviteSnap.val().status === Constants.ACCEPTED_STATUS) {
+        dispatch({
+          type: ActionTypes.LOAD_INVITE_ERROR,
+          errorMessage: "Sorry, this invite has already been accepted"
+        })
+      }
       else {
         if (auth === projectInviteSnap.val().recipientId) {
           Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + projectInviteSnap.val().orgId).once('value', usersByOrgSnap => {
@@ -41,6 +41,9 @@ export function loadProjectInvite(auth, inviteId) {
 
                   // also remove them from pending invites list
                   updates[`/${Constants.INVITED_USERS_BY_PROJECT_PATH}/${projectInviteSnap.val().projectId}/${auth}/`] = null
+
+                  // mark invite as accepted
+                  updates[`/${Constants.PROJECT_INVITES_PATH}/${inviteId}/status/`] = Constants.ACCEPTED_STATUS
                   
                   Firebase.database().ref().update(updates)
 
