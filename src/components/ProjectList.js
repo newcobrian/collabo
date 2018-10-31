@@ -67,7 +67,7 @@ class ProjectList extends React.Component {
 
     this.searchInputCallback = result => {
       if (result.value && result.projectId) {
-        browserHistory.push('/' + this.props.orgName + '/' + result.projectId + '/' + result.value);
+        browserHistory.push('/' + this.props.orgName + '/' + result.projectId + '/' + result.objectId);
       }
     }
   }

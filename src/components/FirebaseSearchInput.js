@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { AutoComplete } from 'material-ui';
+import { AutoComplete, MenuItem } from 'material-ui';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import * as Constants from '../constants';
 import * as Actions from '../actions';
-import 'whatwg-fetch';
 
 const algoliasearch = require('algoliasearch');
 const client = algoliasearch('NFI90PSOIY', '03fbdcb4cee86d78bd04217626a3a52b', {protocol:'https:'});
@@ -118,11 +117,12 @@ class FirebaseSearchInput extends Component {
               let algoliaSearchObject = {};
               if(result.title) {
                 algoliaSearchObject.text = result.title;
-                algoliaSearchObject.value = result.objectID;
+                algoliaSearchObject.objectId = result.objectID;
                 algoliaSearchObject.body = result.body;
                 algoliaSearchObject.projectName = result.projectName;
                 algoliaSearchObject.projectId = result.projectId;
                 algoliaSearchObject.username = result.author ? result.author.username : '';
+                algoliaSearchObject.value = (<MenuItem primaryText={result.title} secondaryText={result.body} style={{whiteSpace: 'normal'}}/>)
                 retrievedSearchTerms.push(algoliaSearchObject);
               }
               break;
@@ -208,13 +208,14 @@ class FirebaseSearchInput extends Component {
   }
 
   render() {
+    // filter={function filter(searchText, key) {
+    //         return key.toLowerCase().includes(searchText.toLowerCase());
+    //       }}
     return (
       <MuiThemeProvider name={this.props.name} muiTheme={getMuiTheme()}>
 
         <AutoComplete
-          filter={function filter(searchText, key) {
-            return key.toLowerCase().includes(searchText.toLowerCase());
-          }}
+          filter={AutoComplete.noFilter}
           fullWidth={true}
           placeholder={this.props.placeholder}
           dataSource={this.state.dataSource}
