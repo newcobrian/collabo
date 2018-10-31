@@ -173,7 +173,7 @@ class AcceptOrgInvite extends React.Component {
                 <fieldset>
                   {this.props.image && 
                     <div className="profile-image flx flx-center-all">
-                      <ProfilePic src={this.props.image ? this.props.image : ''} className="center-img" />
+                      <ProfilePic src={this.props.imageFile ? URL.createObjectURL(this.props.imageFile) : (this.props.image ? this.props.image : '')} className="center-img" />
                       </div>
                   }
                   <fieldset className="form-group">

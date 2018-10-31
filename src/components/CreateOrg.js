@@ -135,11 +135,11 @@ class CreateOrg extends React.Component {
 	                    </fieldset>
 
 	                    <fieldset>
-		                  {this.props.image && 
-		                    <div className="profile-image flx flx-center-all">
-		                      <ProfilePic src={this.props.image ? this.props.image : ''} className="center-img" />
-		                      </div>
-		                  }
+		                  
+	                    	<div className="profile-image flx flx-center-all">
+	                      		<ProfilePic src={this.props.imageFile ? URL.createObjectURL(this.props.imageFile) : (this.props.image ? this.props.image : '')} className="center-img" />
+	                      	</div>
+		                  
 		                  <fieldset className="form-group">
 		                    <div className="upload-wrapper">
 		                      <div className="upload-overlay">Upload Image (optional)</div>
