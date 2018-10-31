@@ -26,8 +26,8 @@ class AcceptOrgInvite extends React.Component {
     this.changeUsername = updateFieldEvent('username');
     this.changeFullName = updateFieldEvent('fullName');
 
-    this.changeFile = ev => {
-      this.props.onUpdateCreateField('image', ev.target.files[0], Constants.ACCEPT_ORG_INVITE_PAGE)
+    this.changeImage = ev => {
+      this.props.onUpdateCreateField('imageFile', ev.target.files[0], Constants.ACCEPT_ORG_INVITE_PAGE)
     }
 
     this.onRegisterClick = ev => {
@@ -47,11 +47,12 @@ class AcceptOrgInvite extends React.Component {
       else {
         let userData = Object.assign({}, 
           {username: this.props.username},
-          {fullName: this.props.fullName},
-          {image: this.props.image}
+          {fullName: this.props.fullName}
         )
+        if (this.props.image) userData.image = this.props.image
+
         let lowerCaseEmail = this.props.userInfo.email ? this.props.userInfo.email.toLowerCase() : ''
-        this.props.acceptOrgInvite(this.props.authenticated, lowerCaseEmail, this.props.params.iid, userData)
+        this.props.acceptOrgInvite(this.props.authenticated, lowerCaseEmail, this.props.params.iid, userData, this.props.imageFile)
       }
     }
   }
@@ -169,7 +170,7 @@ class AcceptOrgInvite extends React.Component {
                     onChange={this.changeFullName} />
                 </fieldset>
 
-                {/*<fieldset>
+                <fieldset>
                   {this.props.image && 
                     <div className="profile-image flx flx-center-all">
                       <ProfilePic src={this.props.image ? this.props.image : ''} className="center-img" />
@@ -183,12 +184,12 @@ class AcceptOrgInvite extends React.Component {
                         className="form-control upload-image-button"
                         type="file"
                         accept="image/jpeg,image/png,application/pdf"
-                        onChange={this.changeFile} />
+                        onChange={this.changeImage} />
 
                       </div>
                     </div> 
                   </fieldset>
-                </fieldset>*/}
+                </fieldset>
 
                 <ListErrors errors={this.props.errors}></ListErrors>
               </form>

@@ -338,7 +338,7 @@ export function enterEmail(email) {
   }
 }
 
-export function acceptOrgInvite(auth, email, inviteId, userData) {
+export function acceptOrgInvite(auth, email, inviteId, userData, imageFile) {
   return dispatch => {
     Firebase.database().ref(Constants.INVITES_PATH + '/' + inviteId).once('value', inviteSnap => {
       if (!inviteSnap.exists()) {
@@ -369,8 +369,6 @@ export function acceptOrgInvite(auth, email, inviteId, userData) {
           
               let updates = {}
               // add user to the org and orgs-by-user
-              updates[Constants.USERS_BY_ORG_PATH + '/' + inviteSnap.val().orgId + '/' + auth] = 
-                Object.assign({}, userData, {role: Constants.USER_ROLE})
               updates[Constants.USERNAMES_BY_ORG_PATH + '/' + inviteSnap.val().orgId + '/' + lowerCaseName] = auth
               updates[Constants.ORGS_BY_USER_PATH + '/' + auth + '/' + inviteSnap.val().orgId] = true
 
@@ -393,19 +391,65 @@ export function acceptOrgInvite(auth, email, inviteId, userData) {
                 }
               })
 
-              Firebase.database().ref().update(updates)
-
-              dispatch({
-                type: ActionTypes.ORG_INVITE_ACCEPTED,
-                orgName: inviteSnap.val().orgName,
-                meta: {
-                  mixpanel: {
-                    event: 'Org invite accepted',
-                    orgId: inviteSnap.val().orgId,
-                    senderId: inviteSnap.val().senderId
-                  }
+              // if user uploaded an image, save it
+              if (imageFile) {
+                const storageRef = Firebase.storage().ref();
+                const metadata = {
+                  contentType: 'image/jpeg'
                 }
-              })
+                let fileName = Helpers.generateImageFileName();
+                const uploadTask = storageRef.child('images/' + fileName).put(imageFile, metadata);
+                uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+                function(snapshot) {
+                  }, function(error) {
+                    console.log(error.message)
+                }, function() {
+                  const downloadURL = uploadTask.snapshot.downloadURL;
+
+                  // set user's image to the new downloadURL
+                  userData.image = downloadURL
+
+                  // save image in users-by-org
+                  updates[Constants.USERS_BY_ORG_PATH + '/' + inviteSnap.val().orgId + '/' + auth] = 
+                    Object.assign({}, userData, {role: Constants.USER_ROLE})
+
+                  // save image in users-path
+                  updates[Constants.USERS_PATH + '/' + auth + '/image'] = downloadURL;
+
+                  Firebase.database().ref().update(updates)
+
+                  dispatch({
+                    type: ActionTypes.ORG_INVITE_ACCEPTED,
+                    orgName: inviteSnap.val().orgName,
+                    meta: {
+                      mixpanel: {
+                        event: 'Org invite accepted',
+                        orgId: inviteSnap.val().orgId,
+                        senderId: inviteSnap.val().senderId
+                      }
+                    }
+                  })
+                })
+              }
+              // else no image, just save the user
+              else {
+                updates[Constants.USERS_BY_ORG_PATH + '/' + inviteSnap.val().orgId + '/' + auth] = 
+                  Object.assign({}, userData, {role: Constants.USER_ROLE})
+
+                Firebase.database().ref().update(updates)
+
+                dispatch({
+                  type: ActionTypes.ORG_INVITE_ACCEPTED,
+                  orgName: inviteSnap.val().orgName,
+                  meta: {
+                    mixpanel: {
+                      event: 'Org invite accepted',
+                      orgId: inviteSnap.val().orgId,
+                      senderId: inviteSnap.val().senderId
+                    }
+                  }
+                })
+              }
             })
           }
         })
