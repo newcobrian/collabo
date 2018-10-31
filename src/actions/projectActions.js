@@ -96,6 +96,11 @@ export function onAddProject(auth, project, orgName) {
   }
 }
 
+function strip(html){
+   var doc = new DOMParser().parseFromString(html, 'text/html');
+   return doc.body.textContent || "";
+}
+
 export function onAddThread(auth, projectId, thread, orgName) {
   return dispatch => {
     if (!auth) {
@@ -150,7 +155,7 @@ export function onAddThread(auth, projectId, thread, orgName) {
             let algoliaObject = Object.assign({}, 
               { orgName: orgName },
               { title: thread.title },
-              { body: Helpers.stripImageTags(thread.body) },
+              { body: Helpers.stripHTML(thread.body) },
               { projectName: projectSnapshot.val().name },
               { username: userSnap.val().username },
               { userId: auth },
@@ -577,7 +582,7 @@ export function updateThreadField(auth, threadId, thread, orgName, field, value)
         let project = Object.assign({}, {projectId: thread.projectId})
         Helpers.findThreadMentions(auth, value, org, project, Object.assign({}, thread, {threadId: threadId}))
 
-        let algoliaObject = Object.assign({}, {body: Helpers.stripImageTags(value) })
+        let algoliaObject = Object.assign({}, {body: Helpers.stripHTML(value) })
         Helpers.updateAlgoliaIndex(threadId, algoliaObject);
       }
 

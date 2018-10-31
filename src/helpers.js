@@ -879,8 +879,8 @@ export function sendItineraryUpdateEmails(auth, itinerary, lastUpdate) {
 //   	}
 // }
 
-export function stripImageTags(content) {
-	return content.replace(/<img .*?>/g,'')
+export function stripHTML(content) {
+	return (content.replace(/<img .*?>/g,'')).replace(/<(?:.|\n)*?>/gm, '')
 }
 
 export function getLinks (content) {
