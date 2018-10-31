@@ -14,6 +14,12 @@ export function loadProjectInvite(auth, inviteId) {
           errorMessage: "Sorry, we couldn't find this invite"
         })
       }
+      // else if (projectInviteSnap.val().status === Constants.ACCEPTED_STATUS) {
+      //   dispatch({
+      //     type: ActionTypes.LOAD_INVITE_ERROR,
+      //     errorMessage: "Sorry, this invite has already been accepted"
+      //   })
+      // }
       else {
         if (auth === projectInviteSnap.val().recipientId) {
           Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + projectInviteSnap.val().orgId).once('value', usersByOrgSnap => {
