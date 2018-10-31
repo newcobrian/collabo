@@ -15,7 +15,7 @@ body a {
   transition: none;
 }
 .comment-row a {
-  color: #5B93FF;
+  color: rgba(48,193,214,1) !important;
 }
 body a:hover {
   opacity: .9;

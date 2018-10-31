@@ -8,6 +8,8 @@ import ProxyImage from './../ProxyImage';
 import DisplayTimestamp from './../DisplayTimestamp';
 import LikeReviewButton from './../LikeReviewButton';
 import CommentContainer from './CommentContainer'
+import ShowMore from 'react-show-more';
+
 var linkify = require('linkify-it')();
 
 const processString = require('react-process-string');
@@ -94,9 +96,14 @@ class Comment extends React.Component {
             </div>
 
             <div className="comment-row co-type-body">
-              <span className="">
+              <ShowMore
+                lines={3}
+                more='Show more'
+                less='Show less'
+                anchorClass=''
+            >
                 {processed(comment.body)}
-              </span>
+              </ShowMore>
             </div>
 
             <div className="cta-wrapper flx flx-row flx-align-center mrgn-top-sm w-100">
