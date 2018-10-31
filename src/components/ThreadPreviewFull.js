@@ -16,6 +16,7 @@ import MoreHorizIcon from 'material-ui/svg-icons/navigation/more-horiz';
 import ThreadList from './ThreadList';
 import ProjectList from './ProjectList';
 import LikeReviewButton from './LikeReviewButton';
+import ThreadPreviewCommentSection from './ThreadPreviewCommentSection';
 import AnimateHeight from 'react-animate-height';
 
 
@@ -131,21 +132,9 @@ class ThreadPreviewFull extends React.Component {
     super()
   }
 
-  componentDidUpdate() {
-    let scrollHeight = this.commentContainer.scrollHeight
-    this.commentContainer.scrollTop = scrollHeight
-  }
-
   render() {
     const { authenticated, thread, lastUpdater, orgUserData, orgName, projectId, projectNames, userInfo, commentErrors, project, deleteComment } = this.props
-    // const lastUpdater = props.lastUpdater;
     const createdBy = orgUserData && orgUserData[thread.userId] ? orgUserData[thread.userId] : { username: '' }
-
-    // const postAuthor = thread.lastUpdate === Constants.COMMENT_TYPE ? 
-    //   ( thread.lastUpdater ? thread.lastUpdater : { username: '', userId: null, image: '' } ) : thread.createdBy;
-    //const lastUpdater = thread.lastUpdater ? thread.lastUpdater : { username: '', userId: null, firstName: '', lastName: '', image: '' }
-    // let title = tip.subject ? tip.subject.title : ''
-    // let canModify = props.authenticated === tip.userId ? true : false;
 
     return (
       <div className={"tp-wrapper tp-full flx flx-row"}>
@@ -206,7 +195,21 @@ class ThreadPreviewFull extends React.Component {
             </div>
           </div>
 
-          <div className="comment-row-wrapper flx flx-row">
+          <ThreadPreviewCommentSection
+            authenticated={authenticated}
+            userInfo={userInfo}
+            comments={thread.comments || {}}
+            errors={commentErrors}
+            commentObject={thread}
+            threadId={thread.threadId}
+            thread={thread}
+            project={project}
+            orgName={orgName}
+            orgUserData={orgUserData}
+            type={Constants.THREAD_TYPE}
+            deleteComment={deleteComment} />
+
+          {/*<div className="comment-row-wrapper flx flx-row">
             <div className="co-thread-reply-wrapper" ref={(el) => { this.commentContainer = el; }}>
               <CommentContainer
                 authenticated={authenticated}
@@ -222,7 +225,7 @@ class ThreadPreviewFull extends React.Component {
                 type={Constants.THREAD_TYPE}
                 deleteComment={deleteComment} />
             </div>
-          </div>
+          </div>*/}
       </div>
     );
   }
