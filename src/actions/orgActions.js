@@ -6,7 +6,7 @@ import mixpanel from 'mixpanel-browser'
 import 'whatwg-fetch';
 import { pick, omit, debounce } from 'lodash'
 
-export function onCreateOrg(auth, org, userData) {
+export function onCreateOrg(auth, org, userData, imageFile) {
   return dispatch => {
     if (!auth) {
       dispatch({
@@ -33,15 +33,11 @@ export function onCreateOrg(auth, org, userData) {
           updates[`/${Constants.ORGS_BY_NAME_PATH}/${lowercaseName}/`] = Object.assign({}, {orgId: orgId}, omit(org, ['name']));
           updates[`/${Constants.ORGS_BY_USER_PATH}/${auth}/${orgId}/`] = true;
 
-          // save the user's username, etc to users-by-org
-          updates[`/${Constants.USERS_BY_ORG_PATH}/${orgId}/${auth}/`] = 
-            Object.assign({}, userData, {role: Constants.OWNER_ROLE})
-
           // save to usernames by org
           updates[`/${Constants.USERNAMES_BY_ORG_PATH}/${orgId}/${userData.username.toLowerCase()}/`] = auth
 
           // save user's last username to users-path
-          updates[`/${Constants.USERS_PATH}/${auth}/`] = userData.username
+          updates[`/${Constants.USERS_PATH}/${auth}/username`] = userData.username
 
           // create dummy data
           Constants.DUMMY_PROJECTS.forEach(function(project) {
@@ -64,20 +60,67 @@ export function onCreateOrg(auth, org, userData) {
             updates[`/${Constants.USERS_BY_PROJECT_PATH}/${projectId}/${auth}/`] = true
           })
 
-          Firebase.database().ref().update(updates);
-
-          dispatch({
-            type: ActionTypes.ORG_CREATED,
-            orgName: org.name,
-            orgId: orgId,
-            meta: {
-              mixpanel: {
-                event: 'Create new org',
-                source: Constants.CREATE_ORG_PAGE,
-                orgId: orgId
-              }
+          // if user uploaded an image, save it
+          if (imageFile) {
+            const storageRef = Firebase.storage().ref();
+            const metadata = {
+              contentType: 'image/jpeg'
             }
-          })
+            let fileName = Helpers.generateImageFileName();
+            const uploadTask = storageRef.child('images/' + fileName).put(imageFile, metadata);
+            uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+            function(snapshot) {
+              }, function(error) {
+                console.log(error.message)
+            }, function() {
+              const downloadURL = uploadTask.snapshot.downloadURL;
+
+              userData.image = downloadURL
+
+              // save the user's username, etc to users-by-org
+              updates[`/${Constants.USERS_BY_ORG_PATH}/${orgId}/${auth}/`] = 
+                Object.assign({}, userData, {role: Constants.OWNER_ROLE})
+
+              // save pic to global user table
+              updates[`/${Constants.USERS_PATH}/${auth}/image`] = downloadURL
+
+
+              Firebase.database().ref().update(updates);
+
+              dispatch({
+                type: ActionTypes.ORG_CREATED,
+                orgName: org.name,
+                orgId: orgId,
+                meta: {
+                  mixpanel: {
+                    event: 'Create new org',
+                    source: Constants.CREATE_ORG_PAGE,
+                    orgId: orgId
+                  }
+                }
+              })
+            })
+          }
+          else {
+            // no image, just save the user
+            updates[`/${Constants.USERS_BY_ORG_PATH}/${orgId}/${auth}/`] = 
+              Object.assign({}, userData, {role: Constants.OWNER_ROLE})
+
+            Firebase.database().ref().update(updates);
+
+            dispatch({
+              type: ActionTypes.ORG_CREATED,
+              orgName: org.name,
+              orgId: orgId,
+              meta: {
+                mixpanel: {
+                  event: 'Create new org',
+                  source: Constants.CREATE_ORG_PAGE,
+                  orgId: orgId
+                }
+              }
+            })
+          }
         }
       })
     }
@@ -193,15 +236,15 @@ export function unloadOrgUser(auth, orgId, source) {
   }
 }
 
-export function loadNewOrgUserInfo(userInfo, source) {
+export function loadNewOrgUserInfo(auth, source) {
   return dispatch => {
-    // Firebase.database().ref(Constants.USERS_PATH + '/' + auth).once('value', snap => {
-      // if (snap.exists()) {
+    Firebase.database().ref(Constants.USERS_PATH + '/' + auth).once('value', snap => {
+      if (snap.exists()) {
         dispatch(Object.assign({}, 
           { type: ActionTypes.LOAD_NEW_ORG_USER_INFO },
           { source: source },
-          userInfo))
-      // }
-    // })
+          snap.val()))
+      }
+    })
   }
 }

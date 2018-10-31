@@ -5,6 +5,7 @@ import * as Actions from '../actions';
 import * as Constants from '../constants';
 import ListErrors from './ListErrors';
 import LoggedOutMessage from './LoggedOutMessage';
+import ProfilePic from './ProfilePic';
 
 const mapStateToProps = state => ({
   ...state.createOrg,
@@ -24,6 +25,10 @@ class CreateOrg extends React.Component {
 	    this.changeFullName = updateFieldEvent('fullName');
 
 	    this.changeInvites = updateFieldEvent('invites');
+
+	    this.changeImage = ev => {
+	      this.props.onUpdateCreateField('imageFile', ev.target.files[0], Constants.CREATE_ORG_PAGE)
+	    }
 
 		this.submitForm = ev => {
 	      ev.preventDefault();
@@ -52,7 +57,7 @@ class CreateOrg extends React.Component {
 		   	// let invites = this.props.invites ? this.props.invites : ''
             
 		    this.props.setInProgress();
-		    this.props.onCreateOrg(this.props.authenticated, org, userData);
+		    this.props.onCreateOrg(this.props.authenticated, org, userData, this.props.imageFile);
 		  }
     	}
 
@@ -67,7 +72,7 @@ class CreateOrg extends React.Component {
     		this.props.askForAuth();
     	}
 
-    	this.props.loadNewOrgUserInfo(this.props.userInfo, Constants.CREATE_ORG_PAGE)
+    	this.props.loadNewOrgUserInfo(this.props.authenticated, Constants.CREATE_ORG_PAGE)
 
     	this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'create org'});
 	}
@@ -129,6 +134,27 @@ class CreateOrg extends React.Component {
 	                        onChange={this.changeFullName} />
 	                    </fieldset>
 
+	                    <fieldset>
+		                  {this.props.image && 
+		                    <div className="profile-image flx flx-center-all">
+		                      <ProfilePic src={this.props.image ? this.props.image : ''} className="center-img" />
+		                      </div>
+		                  }
+		                  <fieldset className="form-group">
+		                    <div className="upload-wrapper">
+		                      <div className="upload-overlay">Upload Image (optional)</div>
+		                      <div className="fileUpload">
+		                        <input
+		                        className="form-control upload-image-button"
+		                        type="file"
+		                        accept="image/jpeg,image/png,application/pdf"
+		                        onChange={this.changeImage} />
+
+		                      </div>
+		                    </div> 
+		                  </fieldset>
+		                </fieldset>
+
 	                    <fieldset className="DN field-wrapper">
 							<label>Invite team members</label>
 	                      <textarea
@@ -154,7 +180,7 @@ class CreateOrg extends React.Component {
 							disabled={this.props.inProgress}
 							onClick={this.submitForm}>
 							    	
-								Create List
+								Create Team
 
 							</div>
 		                 </div>

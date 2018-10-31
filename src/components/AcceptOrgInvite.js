@@ -178,7 +178,7 @@ class AcceptOrgInvite extends React.Component {
                   }
                   <fieldset className="form-group">
                     <div className="upload-wrapper">
-                      <div className="upload-overlay">Upload Image</div>
+                      <div className="upload-overlay">Upload Image (optional)</div>
                       <div className="fileUpload">
                         <input
                         className="form-control upload-image-button"
