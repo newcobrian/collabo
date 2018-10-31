@@ -6,26 +6,28 @@ const ProjectHeader = props => {
   if (props.projectId) {
     if (!props.project) return null
     else return (
-      <div className={"project-header brdr-bottom b--primary--20 text-left flx flx-col flx-align-start w-100"}>
+      <div className={"project-header text-left flx flx-col flx-align-start w-100"}>
         <OrgHeader />
-        <div className="project-bar-wrapper flx flx-row flx-align-center fill--white brdr-right b--primary--20">
-          <div className="project-header-row co-type-h1 flx flx-row flx-align-center color--black">
-            <div className="group-icon mrgn-right-sm"></div>
-            <div className="project-header-text">{props.project.name}</div>
-          </div>
+        <div className="project-bar-wrapper flx flx-row flx-align-center">
+          
+            <div className="project-header-row co-type-h1 flx flx-row flx-align-center color--black">
+              <div className="group-icon mrgn-right-sm"></div>
+              <div className="mrgn-left-xs flx flx-col flx-just-start">
+                <div className="project-header-text">{props.project.name}</div>
+                <Link onClick={props.onProjectInviteClick} className="flx flx-row flx-align-center">
+                  <div className="co-type-label color--black opa-70"> 
+                    Add Member
+                  </div>
+                </Link>
+              </div>
+            </div>
 
-          <Link onClick={props.onProjectInviteClick} className="info-row flx flx-row flx-align-center brdr-top pdding-top-md mrgn-top-md">
-            <div className="sidebar-icon flx flx-center-all mrgn-left-xs">
-              <div className="koi-ico --24 ico--add--secondary"></div>              
-            </div>
-            <div className="co-type-label color--primary"> 
-              Add Member
-            </div>
-          </Link>
+            
+          
 
           <Link to={'/' + props.orgName + '/addthread/' + props.projectId}
             className="flx flx-align-center pdding-left-sm flx-item-right mrgn-right-md">
-              <div className="color--primary co-type-label mrgn-right-sm mobile-hide">Compose Thread</div>
+              <div className="color--black co-type-bold co-type-label mrgn-right-sm mobile-hide">Compose Thread</div>
               <div className="icon-wrapper flx flx-center-all fill--white brdr-all b--primary--20">
                 <div className="koi-ico --24 ico--add--primary"></div>
               </div>
@@ -38,9 +40,9 @@ const ProjectHeader = props => {
     )
   }
   else return (
-    <div className={"project-header brdr-bottom b--primary--20 text-left flx flx-col flx-align-start w-100"}>
+    <div className={"project-header text-left flx flx-col flx-align-start w-100"}>
         <OrgHeader />
-        <div className="project-bar-wrapper flx flx-row flx-align-center fill--white brdr-right b--primary--20">
+        <div className="project-bar-wrapper flx flx-row flx-align-center">
           <div className="project-header-row co-type-h1 flx flx-row flx-align-center color--black">
             <div className="group-icon mrgn-right-sm"></div>
             <div className="project-header-text">All Threads</div>

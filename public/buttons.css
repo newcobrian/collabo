@@ -76,7 +76,7 @@ input.input--underline {
     padding: 18px;
     text-transform: uppercase;
     flex-shrink: 0;
-    border-radius: 0;
+    border-radius: 3px;
     display: -webkit-flex;
     display: flex;
     -webkit-align-items: center;

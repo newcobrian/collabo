@@ -225,7 +225,7 @@ textarea {
     font-weight: 500;
 }
 .co-type-thread-body {
-    height: 14px;
+    font-size: 16px;
     overflow: hidden;
     display: inline-block;
     width: auto;
@@ -288,9 +288,9 @@ textarea {
     font-family: 'Karla';
 }
 .co-type-thread-title {
-    font-size: 32px;
+    font-size: 34px;
     font-weight: 600;
-    letter-spacing: .1px;
+    letter-spacing: -2px;
 }
 .co-type-logotype {
 	font-size: 44px;
@@ -335,9 +335,9 @@ p {
 
 
 .threadlist {
-	padding: 10px 0px;
+	padding: 20px;
 	z-index: 1;
-	background-color: #F6F6F6;
+	background-color: #FAFAFA;
 }
 .open-style .threadlist-wrapper {
 }
@@ -379,11 +379,13 @@ p {
 	width: 50%;
 	border-left: none;
 	background-color: white;
+	padding: 20px;
     /*background-image: url(img/pixel-black.png);*/
 /*    background-repeat: repeat-y;
     background-position: 50px 0;*/
     max-height: 600px;
     min-height: 600px;
+    position: relative;
 }
 .comment-input {
 	padding: 0 10px;
@@ -414,6 +416,7 @@ p {
   margin: 10px 0 0;
 }
 .comment-input-container {
+	padding: 10px;
 }
 .tp-wrapper .comment-inner {
   /*border-left: none;*/
@@ -427,14 +430,12 @@ p {
 }
 .comment-wrapper {
   border-radius: 0;
-  margin-top: 10px;
-  margin-bottom: 10px;
   position: relative;
 }
 .comment-post-button {
 	position: absolute;
-    right: 0;
-    bottom: 0;
+    right: 10px;
+    bottom: 10px;
 }
 
 .inline-comments .comment-indent {
@@ -450,6 +451,7 @@ p {
 .thread-row-wrapper {
 	width: 100%;
 	padding: 0 10px;
+	overflow: hidden;
 }
 .top-bar {
 
@@ -476,7 +478,7 @@ p {
 	border-bottom: none;
 }
 .co-thread-reply-wrapper {
-	padding: 0 10px;
+	padding: 0;
     width: 100%;
     position: relative;
     bottom: 0px;
@@ -499,9 +501,9 @@ p {
     border-left: 1px solid rgba(0,0,0,.1);
     min-height: 600px;
     max-height: 600px;
-    overflow: hidden;
-
+    overflow-y: scroll;
     width: 50%;
+    z-index: 0;
 }
 
 .input-indent-wrapper {
@@ -704,11 +706,11 @@ p {
 }
 .thread-timestamp {
 	font-weight: 400;
-    font-size: 11px;
+    font-size: 13px;
     letter-spacing: 1px;
     line-height: 18px;
     opacity: .7;
-    font-family: 'Roboto Mono', monospace;
+    /*font-family: 'Roboto Mono', monospace;*/
     /*text-transform: uppercase;*/
 }
 .co-type-data {
@@ -716,7 +718,7 @@ p {
     font-size: 13px;
     line-height: 18px;
     opacity: 1;
-    font-family: 'Roboto Mono', monospace;
+    /*font-family: 'Roboto Mono', monospace;*/
 }
 
 .icon-wrapper {
@@ -730,7 +732,8 @@ p {
     background: rgba(255,255,255,.98);
     background: rgba(255,171,140,.05);
     background: #FEFBF9;
-    background: #fff;
+    background: #FAFAFA;
+
     z-index: 11;
     /*box-shadow: white 0 30px 40px;*/
     top: 0;
@@ -783,7 +786,6 @@ p {
 	margin-left: 30px;
 }
 .project-header-text {
-	margin-left: 8px;
 	padding-top: 0px;
 	font-size: 21px;
 }
@@ -802,10 +804,17 @@ p {
 	position: absolute;
 	left: 0;
 	top: 0px;
-	right: 240px;
+	right: 0px;
 	padding: 0 0 0 30px;
 	height: 64px;
 	z-index: 200;
+}
+.show-all-button {
+	position: absolute;
+	bottom: 0;
+	left: 0; right: 0;
+	padding: 10px;
+	z-index: 100;
 }
 .co-project-name {
 }
@@ -1044,10 +1053,13 @@ p {
 .color--primary {
   color: #FFAB8C !important;
   color: #17174E !important;
+  color: rgba(48,193,214,1) !important;
+
 }
 .fill--primary {
   background-color: #FFAB8C !important;
   background-color: #17174E !important;
+  background-color: rgba(48,193,214,1) !important;
   /*background-color: #65D4EC !important;*/
 }
 	.fill--primary--10 {
@@ -1089,9 +1101,11 @@ p {
 
 .brdr-color--primary {
 	border-color: rgba(255,171,140,1) !important;
+	border-color: rgba(48,193,214,1) !important;
 }
 .brdr-color--primary--10 {
 	border-color: rgba(255,171,140,.2) !important;
+	border-color: rgba(48,193,214,.2) !important;
 }
 
 

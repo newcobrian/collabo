@@ -137,12 +137,13 @@ class ThreadPreviewFull extends React.Component {
     const createdBy = orgUserData && orgUserData[thread.userId] ? orgUserData[thread.userId] : { username: '' }
 
     return (
-      <div className={"tp-wrapper tp-full flx flx-row"}>
+      <div className={"tp-wrapper tp-full flx flx-row bx-shadow"}>
           
           <div className="tp-container flx flx-col flx-align-start">           
             
             <div className="thread-row-wrapper flx flx-row">
               <div className="thread-content-wrapper w-100">
+
                 <div className="flx flx-row flx-align-center w-100 mrgn-bottom-sm brdr-bottom pdding-bottom-sm DN">
                   <Link to={'/' + orgName + '/user/' + lastUpdater.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
                     <ProfilePic src={lastUpdater.image} className="user-image user-image-sm center-img" />
@@ -155,7 +156,7 @@ class ThreadPreviewFull extends React.Component {
                     </div>
                     
                   </div>
-                  <div className="thread-timestamp color--black flx-item-right">
+                  <div className="thread-timestamp color--black flx-item-right DN">
                     <DisplayTimestamp timestamp={thread.lastModified} />
                   </div>
 
@@ -168,31 +169,36 @@ class ThreadPreviewFull extends React.Component {
                         {thread.title}
                   </Link>
                 </div>
-                <div className="co-type-thread-body" dangerouslySetInnerHTML={{ __html: thread.body || '' }}></div>
+                <div className="co-type-thread-body DN" dangerouslySetInnerHTML={{ __html: thread.body || '' }}></div>
 
-                <div className="color--black thread-timestamp flx flx-row flx-align-center mrgn-bottom-md">
+                <div className="color--black thread-timestamp flx flx-row flx-align-center mrgn-bottom-xs">
                   <div>Created by <Link to={'/' + orgName + '/user/' + createdBy.username} className="co-type-bold text-hover">{createdBy.username}</Link> in </div>
-                  <ProjectLabel className="" projectNames={projectNames} projectId={thread.projectId} orgName={orgName} />
+                  <ProjectLabel className="" projectNames={projectNames} projectId={thread.projectId} orgName={orgName} />&nbsp;on&nbsp;<DisplayTimestamp timestamp={thread.lastModified} />
                 
                 </div>
-                <div className="tip__caption mrgn-top-xs co-type-thread-body flx flx-col w-100 flx-align-start" dangerouslySetInnerHTML={{ __html: thread.body || '' }} />
-                  {/*<div className="tip__caption color--gray ta-left flx flx-row" dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(thread.body)) || '' }} />*/}
 
-                  <div className="cta-container flx flx-row flx-align-start mrgn-top-sm">
-                    <div className="koi-ico ico--bookmark mrgn-right-md opa-20 no-click"></div>
-                    <LikeReviewButton
-                      authenticated={authenticated}
-                      isLiked={thread.likes && thread.likes[authenticated] ? true : false}
-                      likesCount={Object.keys(thread.likes || {}).length}
-                      objectId={thread.threadId}
-                      thread={thread}
-                      likeObject={thread}
-                      type={Constants.THREAD_TYPE}
-                      orgName={orgName} />
-                  </div>
+                <div className="cta-container flx flx-row flx-align-center mrgn-top-xs mrgn-bottom-sm">
+                  <div className="koi-ico ico--bookmark mrgn-right-md opa-20 no-click DN"></div>
+                  <LikeReviewButton
+                    authenticated={authenticated}
+                    isLiked={thread.likes && thread.likes[authenticated] ? true : false}
+                    likesCount={Object.keys(thread.likes || {}).length}
+                    objectId={thread.threadId}
+                    thread={thread}
+                    likeObject={thread}
+                    type={Constants.THREAD_TYPE}
+                    orgName={orgName} />
                 </div>
 
+                <div className="tip__caption mrgn-top-xs co-type-thread-body flx flx-col w-100 flx-align-start" dangerouslySetInnerHTML={{ __html: thread.body || '' }} />
+                  {/*<div className="tip__caption color--gray ta-left flx flx-row" dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(thread.body)) || '' }} />*/}
+                </div>
+                
+
             </div>
+            <Link to={`/${orgName}/${projectId}/${thread.threadId}`} className="show-all-button fill--white co-type-body color--black ta-center brdr-top">
+              Show full post
+            </Link>
           </div>
 
           <ThreadPreviewCommentSection
