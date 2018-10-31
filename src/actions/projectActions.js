@@ -96,11 +96,6 @@ export function onAddProject(auth, project, orgName) {
   }
 }
 
-function strip(html){
-   var doc = new DOMParser().parseFromString(html, 'text/html');
-   return doc.body.textContent || "";
-}
-
 export function onAddThread(auth, projectId, thread, orgName) {
   return dispatch => {
     if (!auth) {
@@ -811,6 +806,23 @@ export function onThreadCommentSubmit(authenticated, type, thread, body, threadI
           })
         })
       }, 3000);
+
+      const algoliasearch = require('algoliasearch');
+      const client = algoliasearch('NFI90PSOIY', '2bbae42da8376a35748f4817449e0b23', {protocol:'https:'});
+      const index = client.initIndex('posts');
+
+      index.getObject(threadId, ['comments'], function(err, content) {
+        if (err) throw err;
+        let algoliaComments = content.comments || []
+        algoliaComments.push(body)
+        Helpers.updateAlgoliaIndex(threadId, {comments: algoliaComments});
+      });
+
+      // let algoliaComments = Helpers.getAlgoliaObject(threadId, ['comments']) || []
+      // console.log('algliacomments = ' + JSON.stringify(algoliaComments))
+      // algoliaComments.push(body)
+      // console.log('second = ' + JSON.stringify(algoliaComments))
+      // Helpers.updateAlgoliaIndex(threadId, {comments: algoliaComments});
 
       // const mixpanelProps = ( (type === Constants.TIPS_TYPE ||  type === Constants.RECOMMENDATIONS_TYPE) ? {subjectId: commentObject.subjectId} : {itineraryId: commentObject.id});
       dispatch({

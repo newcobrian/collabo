@@ -53,22 +53,34 @@ export function cleanEmailFromFirebase(email) {
 // 	});
 // }
 
-export function updateAlgoliaGeosIndex(geo) {
-	//update Algolia index
-	var algoliasearch = require('algoliasearch');
-	var client = algoliasearch('NFI90PSOIY', '2bbae42da8376a35748f4817449e0b23', {protocol:'https:'});
-	var index = client.initIndex('collabo-posts');
-	index.saveObject({
-	  objectID: geo.placeId,
-	  label: geo.label,
-	  fullCountry: geo.fullCountry
-	}, function(err, content) {
-	  if (err) {
-	    console.error(err);
-	    return;
-	  }
+export function getAlgoliaObject(objectId, objects) {
+	const algoliasearch = require('algoliasearch');
+	const client = algoliasearch('NFI90PSOIY', '2bbae42da8376a35748f4817449e0b23', {protocol:'https:'});
+	const index = client.initIndex('posts');
+
+	index.getObject(objectId, objects, function(err, content) {
+	  if (err) throw err;
+
+	  return content
 	});
 }
+
+// export function updateAlgoliaGeosIndex(geo) {
+// 	//update Algolia index
+// 	var algoliasearch = require('algoliasearch');
+// 	var client = algoliasearch('NFI90PSOIY', '2bbae42da8376a35748f4817449e0b23', {protocol:'https:'});
+// 	var index = client.initIndex('collabo-posts');
+// 	index.saveObject({
+// 	  objectID: geo.placeId,
+// 	  label: geo.label,
+// 	  fullCountry: geo.fullCountry
+// 	}, function(err, content) {
+// 	  if (err) {
+// 	    console.error(err);
+// 	    return;
+// 	  }
+// 	});
+// }
 
 export function updateAlgoliaIndex(objectID, object) {
 	const algoliasearch = require('algoliasearch');
