@@ -807,16 +807,7 @@ export function onThreadCommentSubmit(authenticated, type, thread, body, threadI
         })
       }, 3000);
 
-      const algoliasearch = require('algoliasearch');
-      const client = algoliasearch('NFI90PSOIY', '2bbae42da8376a35748f4817449e0b23', {protocol:'https:'});
-      const index = client.initIndex('posts');
-
-      index.getObject(threadId, ['comments'], function(err, content) {
-        if (err) throw err;
-        let algoliaComments = content.comments || []
-        algoliaComments.push(body)
-        Helpers.updateAlgoliaIndex(threadId, {comments: algoliaComments});
-      });
+      Helpers.addAlgoliaComment(threadId, body, commentId, authenticated)
 
       // let algoliaComments = Helpers.getAlgoliaObject(threadId, ['comments']) || []
       // console.log('algliacomments = ' + JSON.stringify(algoliaComments))
@@ -884,6 +875,8 @@ export function onDeleteThreadComment(thread, commentId, threadId, parentId) {
         Firebase.database().ref().update(updates)
       })      
     }
+
+    Helpers.deleteAlgoliaComment(threadId, commentId)
     
     // Helpers.decrementThreadCount(Constants.COMMENTS_COUNT, threadId, thread, thread.userId);
 

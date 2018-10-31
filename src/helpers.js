@@ -53,16 +53,36 @@ export function cleanEmailFromFirebase(email) {
 // 	});
 // }
 
-export function getAlgoliaObject(objectId, objects) {
+export function addAlgoliaComment(objectId, body, commentId, user) {
 	const algoliasearch = require('algoliasearch');
-	const client = algoliasearch('NFI90PSOIY', '2bbae42da8376a35748f4817449e0b23', {protocol:'https:'});
-	const index = client.initIndex('posts');
+ 	const client = algoliasearch('NFI90PSOIY', '2bbae42da8376a35748f4817449e0b23', {protocol:'https:'});
+  	const index = client.initIndex('posts');
 
-	index.getObject(objectId, objects, function(err, content) {
-	  if (err) throw err;
+  	index.getObject(objectId, ['comments'], function(err, content) {
+	    if (err) throw err;
+	    let algoliaComments = content.comments || []
+	    algoliaComments.push(Object.assign({}, {body: body}, {commentId: commentId}))
+	    updateAlgoliaIndex(objectId, {comments: algoliaComments});
+  	});
+}
 
-	  return content
-	});
+export function deleteAlgoliaComment(objectId, commentId) {
+	const algoliasearch = require('algoliasearch');
+ 	const client = algoliasearch('NFI90PSOIY', '2bbae42da8376a35748f4817449e0b23', {protocol:'https:'});
+  	const index = client.initIndex('posts');
+
+  	index.getObject(objectId, ['comments'], function(err, content) {
+	    if (err) throw err;
+	    let algoliaComments = content.comments || []
+
+	    for (let i = 0; i < algoliaComments.length; i++) {
+          if (algoliaComments[i].commentId === commentId) {
+            algoliaComments.splice(i, 1);
+            break
+          }
+        }
+	    updateAlgoliaIndex(objectId, {comments: algoliaComments});
+  	});
 }
 
 // export function updateAlgoliaGeosIndex(geo) {
