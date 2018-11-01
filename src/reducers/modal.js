@@ -56,11 +56,7 @@ export default (state = initialState, action) => {
     case ActionTypes.SHOW_THREAD_MODAL:
       return {
         ...state,
-        modalType: Constants.THREAD_MODAL,
-        thread: action.thread,
-        project: action.project,
-        bodyText: action.thread.body,
-        orgName: action.orgName
+        modalType: Constants.THREAD_MODAL
       }
     case ActionTypes.THREAD_LIKES_ADDED_ACTION: {
       if (action.source === Constants.THREAD_MODAL) {

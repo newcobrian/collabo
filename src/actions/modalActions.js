@@ -253,13 +253,16 @@ export function askForItineraryRecs(itineraryId, itinerary) {
   }
 }
 
-export function showThreadModal(thread, project, orgName) {
+export function showThreadModal(thread, project, orgName, orgMembers, orgUserData) {
   return dispatch => {
     dispatch({
       type: ActionTypes.SHOW_THREAD_MODAL,
       thread,
       project,
-      orgName
+      orgName,
+      orgMembers,
+      orgUserData,
+      
     })
   }
 }

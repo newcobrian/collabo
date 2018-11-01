@@ -74,7 +74,7 @@ class Thread extends React.Component {
 
     this.onEditClick = mode => ev => {
       ev.preventDefault()
-      this.props.setEditMode(mode)
+      this.props.setEditMode(mode, Constants.THREAD_PAGE)
     }
 
     this.onDeleteClick = ev => {

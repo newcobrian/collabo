@@ -1021,11 +1021,12 @@ export function unwatchThreadFeed(auth, orgId, projectId, source) {
   }
 }
 
-export function setEditMode(mode) {
+export function setEditMode(mode, source) {
   return dispatch => {
     dispatch({
       type:ActionTypes.SET_EDIT_MODE,
-      editMode: mode
+      editMode: mode,
+      source
     })
   }
 }

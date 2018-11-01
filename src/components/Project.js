@@ -247,6 +247,7 @@ class Project extends React.Component {
                             project={this.props.project}
                             deleteComment={this.props.onDeleteThreadComment}
                             projectCheck={this.props.projectCheck}
+                            orgMembers={this.props.orgMembers}
                             orgUserData={this.props.orgUserData}
                             showThreadModal={this.props.showThreadModal}
                             className={"w-100 h-100"} />

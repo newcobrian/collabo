@@ -66,6 +66,7 @@ const ThreadList = props => {
                 project={props.project}
                 deleteComment={props.deleteComment}
                 lastUpdater={lastUpdater}
+                orgMembers={props.orgMembers}
                 orgUserData={props.orgUserData}
                 showThreadModal={props.showThreadModal}
               />

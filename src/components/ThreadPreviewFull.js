@@ -133,7 +133,7 @@ class ThreadPreviewFull extends React.Component {
 
     this.openThread = ev => {
       ev.preventDefault()
-      this.props.showThreadModal(this.props.thread, this.props.project, this.props.orgName)
+      this.props.showThreadModal(this.props.thread, this.props.project, this.props.orgName, this.props.orgMembers, this.props.orgUserData)
     }
   }
 
@@ -169,8 +169,8 @@ class ThreadPreviewFull extends React.Component {
 
                 <div className="color--black co-type-thread-title flx flx-row">
                   
-                  {/*<Link className="color--black" onClick={this.openThread} >*/}
-                  <Link className="color--black" to={'/' + orgName + '/' + thread.projectId + '/' + thread.threadId }>
+                  <Link className="color--black" onClick={this.openThread} >
+                  {/*<Link className="color--black" to={'/' + orgName + '/' + thread.projectId + '/' + thread.threadId }>*/}
                         {thread.title}
                   </Link>
                 </div>

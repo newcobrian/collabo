@@ -132,7 +132,7 @@ export default (state = initialState, action) => {
       }
     }
     case ActionTypes.UPDATE_FIELD_CREATE:
-      if(action.source === Constants.THREAD_PAGE) {
+      if(action.source === Constants.THREAD_PAGE || action.source === Constants.THREAD_MODAL) {
         return { ...state, [action.key]: action.value };
       }
       else return {...state}
@@ -157,7 +157,7 @@ export default (state = initialState, action) => {
     //   return state
     // }
     case ActionTypes.THREAD_LIKES_ADDED_ACTION: {
-      if (action.source === Constants.THREAD_PAGE) {
+      if (action.source === Constants.THREAD_PAGE || action.source === Constants.THREAD_MODAL) {
         const newState = Object.assign({}, state);
         newState.likes = newState.likes || {};
         newState.likes = Object.assign({}, newState.likes);
@@ -170,7 +170,7 @@ export default (state = initialState, action) => {
       return state;
     }
     case ActionTypes.THREAD_LIKES_REMOVED_ACTION: {
-      if (action.source === Constants.THREAD_PAGE) {
+      if (action.source === Constants.THREAD_PAGE || action.source === Constants.THREAD_MODAL) {
         const newState = Object.assign({}, state);
         newState.likes = newState.likes || {};
         newState.likes = Object.assign({}, newState.likes);
@@ -259,6 +259,16 @@ export default (state = initialState, action) => {
         }
       }
       return state
+    case ActionTypes.SHOW_THREAD_MODAL:
+      return {
+        ...state,
+        thread: action.thread,
+        project: action.project,
+        bodyText: action.thread.body,
+        orgName: action.orgName,
+        orgMembers: action.orgMembers,
+        orgUserData: action.orgUserData
+      }
     default:
       return state;
   }
