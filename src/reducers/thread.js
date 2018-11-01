@@ -162,7 +162,7 @@ export default (state = initialState, action) => {
         newState.likes = newState.likes || {};
         newState.likes = Object.assign({}, newState.likes);
         if (!newState.likes[action.userId]) {
-          newState.likes[action.userId] = Object.assign({}, action.userData)
+          newState.likes[action.userId] = true
           return newState;
         }
         return state;
@@ -170,18 +170,18 @@ export default (state = initialState, action) => {
       return state;
     }
     case ActionTypes.THREAD_LIKES_REMOVED_ACTION: {
-      if (action.source === Constants._THREAD_PAGE) {
+      if (action.source === Constants.THREAD_PAGE) {
         const newState = Object.assign({}, state);
-          newState.likes = newState.likes || {};
-          newState.likes = Object.assign({}, newState.likes);
-          if (newState.likes[action.userId]) {
-            delete newState.likes[action.userId]
-            return newState;
-          }
-          return state;
+        newState.likes = newState.likes || {};
+        newState.likes = Object.assign({}, newState.likes);
+        if (newState.likes[action.userId]) {
+          delete newState.likes[action.userId]
+          return newState;
         }
         return state;
       }
+      return state;
+    }
     case ActionTypes.UNLOAD_THREAD_LIKES:
       return {
         ...state,

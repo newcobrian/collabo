@@ -1870,7 +1870,7 @@ export function unlikeReview(authenticated, type, objectId, thread, userInfo, li
           // update threads, threads-by-org, threads-by-project
           // Helpers.decrementThreadCount(Constants.LIKES_COUNT, id, likeObject, authenticated)
 
-          mixpanel.people.decrement("total likes");
+          // mixpanel.people.decrement("total likes");
 
           dispatch({
             type: ActionTypes.REVIEW_UNLIKED,
