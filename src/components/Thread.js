@@ -34,8 +34,8 @@ var linkify = require('linkify-it')();
 
 const mapStateToProps = state => ({
   ...state.thread,
-  googleDocs: state.review.googleDocs,
-  updates: state.firebase.data.updates,
+  // googleDocs: state.review.googleDocs,
+  // updates: state.firebase.data.updates,
   userInfo: state.common.userInfo,
   authenticated: state.common.authenticated,
   invalidOrgUser: state.common.invalidOrgUser,
@@ -169,59 +169,59 @@ class Thread extends React.Component {
       browserHistory.goBack()
     }
 
-    this.renderState = (update) => {
-      if (!update) {
-        return null;
-      }
-      let message = "";
-      const state = update.state;
-      const changed = update.changed;
-      if (changed && changed.indexOf("permissions") !== -1) {
-        message = "changed permission of";
-      } else {
-        if (state === "add") {
-          message = "created or shared";
-        } else if (state === "remove") {
-          message = "deleted or unshared";
-        } else if (state === "update") {
-          message = "updated";
-        } else if (state === "trash") {
-          message = "trashed";
-        } else if (state === "untrash") {
-          message = "untrashed";
-        } else if (state === "change") {
-          message = "changed";
-        }
-      }
-      return message;
-    }
+    // this.renderState = (update) => {
+    //   if (!update) {
+    //     return null;
+    //   }
+    //   let message = "";
+    //   const state = update.state;
+    //   const changed = update.changed;
+    //   if (changed && changed.indexOf("permissions") !== -1) {
+    //     message = "changed permission of";
+    //   } else {
+    //     if (state === "add") {
+    //       message = "created or shared";
+    //     } else if (state === "remove") {
+    //       message = "deleted or unshared";
+    //     } else if (state === "update") {
+    //       message = "updated";
+    //     } else if (state === "trash") {
+    //       message = "trashed";
+    //     } else if (state === "untrash") {
+    //       message = "untrashed";
+    //     } else if (state === "change") {
+    //       message = "changed";
+    //     }
+    //   }
+    //   return message;
+    // }
 
-    this.renderChanges = (updates, userId, comments, threadId, docs) => {
-      const fileIds = Helpers.getFileIds(comments || []);
-      if (updates && threadId && updates[threadId] && updates[threadId].length > 0) {
-        return updates[threadId]
-          .filter((update) => fileIds.indexOf(update.fileId) !== -1)
-          .map((u, i) => {
-            if (u.added && u.threadId === threadId) {
-              return (
-                <div key={i}>
-                  {u.userInfo.username} added {(docs && docs[u.fileId]) ? docs[u.fileId].meta.name : "a file"}
-                </div>  
-              )
-            }
-            if (!u.added) {
-              return (
-                <div key={i}>
-                  {u.lastModifyingUser ? u.lastModifyingUser.displayName : "Anonymous user"} {this.renderState(u)} {u.name} at <DisplayTimestamp timestamp={u.stamp}/>
-                </div>
-              )
-            }
-            return null;
-          }
-        )
-      }
-      return null;
-    }
+    // this.renderChanges = (updates, userId, comments, threadId, docs) => {
+    //   const fileIds = Helpers.getFileIds(comments || []);
+    //   if (updates && threadId && updates[threadId] && updates[threadId].length > 0) {
+    //     return updates[threadId]
+    //       .filter((update) => fileIds.indexOf(update.fileId) !== -1)
+    //       .map((u, i) => {
+    //         if (u.added && u.threadId === threadId) {
+    //           return (
+    //             <div key={i}>
+    //               {u.userInfo.username} added {(docs && docs[u.fileId]) ? docs[u.fileId].meta.name : "a file"}
+    //             </div>  
+    //           )
+    //         }
+    //         if (!u.added) {
+    //           return (
+    //             <div key={i}>
+    //               {u.lastModifyingUser ? u.lastModifyingUser.displayName : "Anonymous user"} {this.renderState(u)} {u.name} at <DisplayTimestamp timestamp={u.stamp}/>
+    //             </div>
+    //           )
+    //         }
+    //         return null;
+    //       }
+    //     )
+    //   }
+    //   return null;
+    // }
 
     this.mediaQueryChanged = () => {
       this.props.setSidebar(mql.matches);
@@ -247,7 +247,7 @@ class Thread extends React.Component {
         this.props.loadProjectNames(orgId, Constants.THREAD_PAGE)
         this.props.loadOrgMembers(orgId,  Constants.THREAD_PAGE)
         this.props.loadThread(this.props.params.tid);
-        this.props.loadThreadLikes(this.props.params.tid);
+        this.props.loadThreadLikes(this.props.params.tid, Constants.THREAD_PAGE);
         this.props.watchThreadComments(this.props.params.tid);
       }
     })
@@ -266,7 +266,7 @@ class Thread extends React.Component {
     this.props.unloadOrg(Constants.THREAD_PAGE);
     this.props.loadOrgMembers(this.props.orgId,  Constants.THREAD_PAGE)
     this.props.unloadThread(this.props.params.tid);
-    this.props.unloadThreadLikes(this.props.params.tid);
+    this.props.unloadThreadLikes(this.props.params.tid, Constants.THREAD_PAGE);
     this.props.unwatchThreadComments(this.props.params.tid);
     if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
   }
@@ -274,10 +274,10 @@ class Thread extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.tid !== this.props.params.tid && this.props.params.orgname === nextProps.params.orgname) {
       this.props.unloadThread(this.props.params.tid);
-      this.props.unloadThreadLikes(this.props.params.tid);
+      this.props.unloadThreadLikes(this.props.params.tid, Constants.THREAD_PAGE);
       this.props.unwatchThreadComments(this.props.params.tid);
       this.props.loadThread(nextProps.params.tid);
-      this.props.loadThreadLikes(nextProps.params.tid);
+      this.props.loadThreadLikes(nextProps.params.tid, Constants.THREAD_PAGE);
       this.props.watchThreadComments(nextProps.params.tid);
       this.props.markThreadRead(this.props.authenticated, nextProps.params.tid)
     }
@@ -290,7 +290,7 @@ class Thread extends React.Component {
       this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId, Constants.THREAD_PAGE)
       this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.THREAD_PAGE)
       this.props.unloadThread(this.props.params.tid);
-      this.props.unloadThreadLikes(this.props.params.tid);
+      this.props.unloadThreadLikes(this.props.params.tid, Constants.THREAD_PAGE);
       this.props.unwatchThreadComments(this.props.params.tid);
 
       let lowerCaseOrgName = nextProps.params.orgname ? nextProps.params.orgname.toLowerCase() : ''
@@ -307,7 +307,7 @@ class Thread extends React.Component {
           this.props.loadThreadCounts(this.props.authenticated, orgId)
           this.props.loadProjectNames(orgId, Constants.THREAD_PAGE)
           this.props.loadThread(nextProps.params.tid);
-          this.props.loadThreadLikes(nextProps.params.tid);
+          this.props.loadThreadLikes(nextProps.params.tid, Constants.THREAD_PAGE);
           this.props.watchThreadComments(nextProps.props.params.tid);
           this.props.markThreadRead(this.props.authenticated, nextProps.params.tid)
         }

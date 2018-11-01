@@ -130,6 +130,11 @@ const CommentPreview = props => {
 class ThreadPreviewFull extends React.Component {
   constructor() {
     super()
+
+    this.openThread = ev => {
+      ev.preventDefault()
+      this.props.showThreadModal(this.props.thread, this.props.project, this.props.orgName)
+    }
   }
 
   render() {
@@ -164,8 +169,7 @@ class ThreadPreviewFull extends React.Component {
 
                 <div className="color--black co-type-thread-title flx flx-row">
                 
-                  <Link className="color--black" 
-                        to={`/${orgName}/${projectId}/${thread.threadId}`}>
+                  <Link className="color--black" onClick={this.openThread} >
                         {thread.title}
                   </Link>
                 </div>

@@ -17,6 +17,7 @@ import SendRecsModal from './SendRecsModal'
 import DeleteModal from './DeleteModal'
 import ProjectInviteModal from './ProjectInviteModal'
 import OrgInviteModal from './OrgInviteModal'
+import ThreadModal from './ThreadModal'
 
 const MODAL_COMPONENTS = {
   FORWARD_MODAL: ForwardModal,
@@ -32,7 +33,8 @@ const MODAL_COMPONENTS = {
   SEND_RECS_MODAL: SendRecsModal,
   DELETE_MODAL: DeleteModal,
   PROJECT_INVITE_MODAL: ProjectInviteModal,
-  ORG_INVITE_MODAL: OrgInviteModal
+  ORG_INVITE_MODAL: OrgInviteModal,
+  THREAD_MODAL: ThreadModal
 }
 
 const mapStateToProps = state => ({

@@ -53,6 +53,41 @@ export default (state = initialState, action) => {
         }
       }
       return state;
+    case ActionTypes.SHOW_THREAD_MODAL:
+      return {
+        ...state,
+        modalType: Constants.THREAD_MODAL,
+        thread: action.thread,
+        project: action.project,
+        bodyText: action.thread.body,
+        orgName: action.orgName
+      }
+    case ActionTypes.THREAD_LIKES_ADDED_ACTION: {
+      if (action.source === Constants.THREAD_MODAL) {
+        const newState = Object.assign({}, state);
+        newState.likes = newState.likes || {};
+        newState.likes = Object.assign({}, newState.likes);
+        if (!newState.likes[action.userId]) {
+          newState.likes[action.userId] = Object.assign({}, action.userData)
+          return newState;
+        }
+        return state;
+      }
+      return state;
+    }
+    case ActionTypes.THREAD_LIKES_REMOVED_ACTION: {
+      if (action.source === Constants.THREAD_MODAL) {
+        const newState = Object.assign({}, state);
+          newState.likes = newState.likes || {};
+          newState.likes = Object.assign({}, newState.likes);
+          if (newState.likes[action.userId]) {
+            delete newState.likes[action.userId]
+            return newState;
+          }
+          return state;
+        }
+        return state;
+      }
     case SHOW_DELETE_ITINERARY_MODAL:
       return {
         ...state,
@@ -106,7 +141,8 @@ export default (state = initialState, action) => {
       }
     case ActionTypes.CREATE_SUBMIT_ERROR:
       if (action.source === Constants.CREATE_RECS_MODAL || action.source === Constants.NEW_ITINERARY_MODAL || 
-          action.source === Constants.PROJECT_INVITE_MODAL || action.source === Constants.ORG_INVITE_MODAL) {
+          action.source === Constants.PROJECT_INVITE_MODAL || action.source === Constants.ORG_INVITE_MODAL ||
+          action.source === Constants.THREAD_MODAL) {
         return {
           ...state,
           errors: [action.error],
@@ -115,7 +151,8 @@ export default (state = initialState, action) => {
       }
       else return {...state}
     case ActionTypes.UPDATE_FIELD_CREATE:
-      if(action.source === Constants.CREATE_RECS_MODAL || action.source === Constants.NEW_ITINERARY_MODAL || action.source === Constants.ORG_INVITE_MODAL) {
+      if(action.source === Constants.CREATE_RECS_MODAL || action.source === Constants.NEW_ITINERARY_MODAL || 
+        action.source === Constants.ORG_INVITE_MODAL || action.source === Constants.THREAD_MODAL) {
         return { ...state, [action.key]: action.value };
       }
       else return {...state}
