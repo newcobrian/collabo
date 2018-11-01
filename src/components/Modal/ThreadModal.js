@@ -147,6 +147,7 @@ class ThreadModal extends React.Component {
               comments={comments}
               commentErrors={commentErrors}
               onDeleteThreadComment={this.props.onDeleteThreadComment}
+              onBackClick={handleClose}
              />
           </Dialog>
         </MuiThemeProvider>

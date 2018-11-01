@@ -313,6 +313,7 @@ class Thread extends React.Component {
                     comments={this.props.comments}
                     commentErrors={this.props.commentErrors}
                     onDeleteThreadComment={this.props.onDeleteThreadComment}
+                    onBackClick={this.onGoBackClick}
                    />
 
 

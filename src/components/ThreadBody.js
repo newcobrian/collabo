@@ -114,14 +114,10 @@ const ThreadBody = props => {
     const { authenticated, threadId, thread, project, comments, commentErrors, createdBy, canModify, orgName, 
       orgMembers, orgUserData, bodyText, likes } = props
 
-    const onGoBackClick = ev => {
-      browserHistory.goBack()
-    }
-
     return (
       <div className={"thread-body header-push-mini left-text flx flx-col flx-align-center"}>
                       
-          <Link onClick={onGoBackClick} activeClassName="active" className="nav-module create nav-editor flx flx-align-start mrgn-top-sm w-100">
+          <Link onClick={props.onBackClick} activeClassName="active" className="nav-module create nav-editor flx flx-align-start mrgn-top-sm w-100">
             <div className="nav-text flx flx-row flx-align-center opa-60 mrgn-bottom-md">
               <i className="material-icons color--black md-18 opa-100 mrgn-right-xs">arrow_back_ios</i>
               <div className="co-type-body mrgn-left-xs">Back to list</div>
