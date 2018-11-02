@@ -64,6 +64,41 @@ const mapStateToProps = state => ({
   invalidOrgUser: state.common.invalidOrgUser
 });
 
+const mapDispatchToProps = {
+  setSidebar: Actions.setSidebar,
+  setSidebarOpen: Actions.setSidebarOpen,
+  showProjectInviteModal: Actions.showProjectInviteModal,
+  showOrgInviteModal: Actions.showOrgInviteModal,
+  loadSidebar: Actions.loadSidebar,
+  loadOrg: Actions.loadOrg,
+  loadOrgUser: Actions.loadOrgUser,
+  unloadOrgUser: Actions.unloadOrgUser,
+  loadProjectList: Actions.loadProjectList,
+  loadThreadCounts: Actions.loadThreadCounts,
+  loadOrgList: Actions.loadOrgList,
+  loadProjectNames: Actions.loadProjectNames,
+  loadProject: Actions.loadProject,
+  loadProjectMembers: Actions.loadProjectMembers,
+  loadOrgMembers: Actions.loadOrgMembers,
+  sendMixpanelEvent: Actions.sendMixpanelEvent,
+  unloadProjectNames: Actions.unloadProjectNames,
+  unloadOrgList: Actions.unloadOrgList,
+  unloadThreadCounts: Actions.unloadThreadCounts,
+  unloadProjectList: Actions.unloadProjectList,
+  unloadOrg: Actions.unloadOrg,
+  unloadProjectMembers: Actions.unloadProjectMembers,
+  unloadOrgMembers: Actions.unloadOrgMembers,
+  setAuthRedirect: Actions.setAuthRedirect,
+  notAnOrgUserError: Actions.notAnOrgUserError,
+  watchActivityFeed: Actions.watchActivityFeed,
+  getProfileUser: Actions.getProfileUser,
+  userDoesntExist: Actions.userDoesntExist,
+  unloadProfileUser: Actions.unloadProfileUser,
+  watchActivityFeed: Actions.watchActivityFeed,
+  signOutUser: Actions.signOutUser,
+  followUser: Actions.followUser
+}
+
 // const mapDispatchToProps = dispatch => ({
 //   onFollow: username => dispatch({
 //     type: 'FOLLOW_USER',
