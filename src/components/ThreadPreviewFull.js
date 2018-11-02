@@ -210,7 +210,7 @@ class ThreadPreviewFull extends React.Component {
             </Link>
           </div>
 
-          <ThreadPreviewCommentSection
+          {/*<ThreadPreviewCommentSection
             authenticated={authenticated}
             userInfo={userInfo}
             comments={thread.comments || {}}
@@ -222,10 +222,10 @@ class ThreadPreviewFull extends React.Component {
             orgName={orgName}
             orgUserData={orgUserData}
             type={Constants.THREAD_TYPE}
-            deleteComment={deleteComment} />
+            deleteComment={deleteComment} />*/}
 
-          {/*<div className="comment-row-wrapper flx flx-row">
-            <div className="co-thread-reply-wrapper" ref={(el) => { this.commentContainer = el; }}>
+          <div className="comment-row-wrapper flx flx-row">
+            <div className="co-thread-reply-wrapper">
               <CommentContainer
                 authenticated={authenticated}
                 userInfo={userInfo}
@@ -240,7 +240,7 @@ class ThreadPreviewFull extends React.Component {
                 type={Constants.THREAD_TYPE}
                 deleteComment={deleteComment} />
             </div>
-          </div>*/}
+          </div>
       </div>
     );
   }

@@ -1,9 +1,9 @@
 import * as ActionTypes from '../actions/types';
 import * as Constants from '../constants';
 import * as Helpers from '../helpers';
-import { find, isEqual } from 'lodash';
+import { find, isEqual, omit } from 'lodash';
 
-const initialState = { usersData: {}, threadCounts: {}, feedEndValue: null, isFeedLoading: false, 
+const initialState = { threadCounts: {}, feedEndValue: null, isFeedLoading: false, 
   projectNames: {}, invalidOrgUser: false, orgUserData: {}, orgMembers: [], projectMembers: [] }
 
 export default (state = initialState, action) => {
@@ -47,9 +47,21 @@ export default (state = initialState, action) => {
         const newState = Object.assign({}, state);
         newState.threads = newState.threads || [];
         newState.threads = newState.threads.slice();
-        newState.usersData = newState.usersData || {};
+        
         if (!find(newState.threads, ['threadId', action.threadId])) {
-          newState.threads = newState.threads.concat(Object.assign({}, {threadId: action.threadId}, action.thread));
+          let threadObject = Object.assign({}, {threadId: action.threadId}, omit(action.thread, ['comments']))
+          if (action.thread.comments) {
+            let commentObject = {}
+            let keysArray = Object.keys(action.thread.comments)
+            for (let i = 0; i < keysArray.length; i++) {
+              if (i > keysArray.length - 4) {
+                commentObject[keysArray[i]] = action.thread.comments[keysArray[i]]
+              }
+            }
+            threadObject.comments = Object.assign({}, commentObject)
+          }
+
+          newState.threads = newState.threads.concat(threadObject);
           newState.threads.sort(Helpers.lastModifiedDesc);
 
           newState.emptyThreadFeed = false;
@@ -93,31 +105,31 @@ export default (state = initialState, action) => {
       }
       return state;
     }
-    case ActionTypes.USER_VALUE_ACTION: {
-      if (action.source === Constants.PROJECTS_PAGE) {
-        const newState = Object.assign({}, state);
-        // update usersData
-        newState.usersData = newState.usersData || {};
-        newState.usersData = Object.assign({}, newState.usersData);
+    // case ActionTypes.USER_VALUE_ACTION: {
+    //   if (action.source === Constants.PROJECTS_PAGE) {
+    //     const newState = Object.assign({}, state);
+    //     // update usersData
+    //     newState.usersData = newState.usersData || {};
+    //     newState.usersData = Object.assign({}, newState.usersData);
 
-        if (!isEqual(action.userInfo, newState.usersData[action.userId])) {
-          newState.usersData[action.userId] = Object.assign({}, action.userInfo);
-          // return newState;
-        }
+    //     if (!isEqual(action.userInfo, newState.usersData[action.userId])) {
+    //       newState.usersData[action.userId] = Object.assign({}, action.userInfo);
+    //       // return newState;
+    //     }
 
-        // update any threads
-        newState.threads = newState.threads || [];
-        newState.threads = newState.threads.slice();
-        for (let i = 0; i < newState.threads.length; i++) {
-          if (newState.threads[i].userId === action.userId) {
-            newState.threads[i].createdBy = Object.assign({}, action.userInfo);
-          }
-        }
+    //     // update any threads
+    //     newState.threads = newState.threads || [];
+    //     newState.threads = newState.threads.slice();
+    //     for (let i = 0; i < newState.threads.length; i++) {
+    //       if (newState.threads[i].userId === action.userId) {
+    //         newState.threads[i].createdBy = Object.assign({}, action.userInfo);
+    //       }
+    //     }
         
-        return newState;
-      }
-      return state;
-    }
+    //     return newState;
+    //   }
+    //   return state;
+    // }
     case ActionTypes.LOAD_ORG: {
       if (action.source === Constants.PROJECT_PAGE) {
         return {
