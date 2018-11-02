@@ -137,7 +137,6 @@ class Profile extends React.Component {
               this.props.watchActivityFeed(this.props.authenticated, orgSnap.val().orgId, this.props.feedEndValue, Constants.PROFILE_PAGE)
             }
             else {
-              console.log('else')
               this.props.userDoesntExist();
             }
           })
