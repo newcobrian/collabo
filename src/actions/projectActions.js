@@ -116,6 +116,7 @@ export function onAddThread(auth, projectId, thread, orgName) {
           let serverTimestamp = Firebase.database.ServerValue.TIMESTAMP;
           let threadObject = {
             lastModified: serverTimestamp,
+            lastEdit: serverTimestamp,
             createdOn: serverTimestamp,
             orgId: projectSnapshot.val().orgId,
             userId: auth,
@@ -554,12 +555,16 @@ export function updateThreadField(auth, threadId, thread, orgName, field, value)
       updates[`/${Constants.THREADS_BY_USER_BY_ORG_PATH}/${thread.userId}/${thread.orgId}/${threadId}/${field}/`] = value
       updates[`/${Constants.THREADS_BY_ORG_PATH}/${thread.orgId}/${threadId}/${field}/`] = value
 
-      // update lastModified timestamps
+      // update lastModified and lastEdit timestamps
       let timestamp = Firebase.database.ServerValue.TIMESTAMP;
       updates[`/${Constants.THREADS_PATH}/${threadId}/lastModified/`] = timestamp
       updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${thread.projectId}/${threadId}/lastModified/`] = timestamp
       updates[`/${Constants.THREADS_BY_USER_BY_ORG_PATH}/${thread.userId}/${thread.orgId}/${threadId}/lastModified/`] = timestamp
       updates[`/${Constants.THREADS_BY_ORG_PATH}/${thread.orgId}/${threadId}/lastModified`] = timestamp
+      updates[`/${Constants.THREADS_PATH}/${threadId}/lastEdit/`] = timestamp
+      updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${thread.projectId}/${threadId}/lastEdit/`] = timestamp
+      updates[`/${Constants.THREADS_BY_USER_BY_ORG_PATH}/${thread.userId}/${thread.orgId}/${threadId}/lastEdit/`] = timestamp
+      updates[`/${Constants.THREADS_BY_ORG_PATH}/${thread.orgId}/${threadId}/lastEdit`] = timestamp
 
       // if body was updated, make this the lastUpdate
       if (field === 'body') {
