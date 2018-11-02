@@ -261,8 +261,15 @@ export function showThreadModal(thread, project, orgName, orgMembers, orgUserDat
       project,
       orgName,
       orgMembers,
-      orgUserData,
-      
+      orgUserData
+    })
+  }
+}
+
+export function unloadThreadModal() {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.UNLOAD_THREAD_MODAL
     })
   }
 }

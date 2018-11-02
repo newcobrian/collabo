@@ -269,6 +269,8 @@ export default (state = initialState, action) => {
         orgMembers: action.orgMembers,
         orgUserData: action.orgUserData
       }
+    case ActionTypes.UNLOAD_THREAD_MODAL:
+      return initialState
     default:
       return state;
   }

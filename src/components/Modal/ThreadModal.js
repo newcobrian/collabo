@@ -66,6 +66,7 @@ class ThreadModal extends React.Component {
   componentWillUnmount() {
     this.props.unloadThreadLikes(this.props.thread.threadId, Constants.THREAD_MODAL);
     this.props.unwatchThreadComments(this.props.thread.threadId);
+    this.props.unloadThreadModal()
   }
 
   render() {
