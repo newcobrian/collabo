@@ -11,7 +11,11 @@ const ProjectHeader = props => {
         <div className="project-bar-wrapper flx flx-row flx-align-center">
           
             <div className="project-header-row co-type-h1 flx flx-row flx-align-center color--black">
-              <div className="group-icon mrgn-right-sm"></div>
+              <div className="group-icon mrgn-right-sm flx flx-col flx-center-all">
+                <Link to='/'  className="co-logo flx-hold">
+                  <img className="center-img" src="/img/logo_a.png"/>
+                </Link>
+              </div>
               <div className="mrgn-left-xs flx flx-col flx-just-start">
                 <div className="project-header-text">{props.project.name}</div>
                 <Link onClick={props.onProjectInviteClick} className="flx flx-row flx-align-center">
@@ -44,7 +48,11 @@ const ProjectHeader = props => {
         <OrgHeader />
         <div className="project-bar-wrapper flx flx-row flx-align-center">
           <div className="project-header-row co-type-h1 flx flx-row flx-align-center color--black">
-            <div className="group-icon mrgn-right-sm"></div>
+            <div className="group-icon mrgn-right-sm flx flx-col flx-center-all">
+              <Link to='/'  className="co-logo flx-hold">
+                <img className="center-img" src="/img/logo_a.png"/>
+              </Link>
+            </div>
             <div className="project-header-text">All Threads</div>
           </div>
 

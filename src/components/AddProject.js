@@ -233,7 +233,7 @@ class AddProject extends React.Component {
 				                    	   Cancel
 				                    	</Link>
 										<div
-										className="vb vb--form-cta mrgn-top-md fill--secondary color--white"
+										className="vb vb--form-cta mrgn-top-md fill--seaweed color--white"
 										type="button"
 										disabled={this.props.inProgress}
 										onClick={this.submitForm}>

@@ -31,13 +31,13 @@ const ThreadCountJewel = props => {
 const InboxCounter = props => {
   if (props.inboxCount > 0) {
     return (
-      <div className="group-badge fill--secondary color--black active">
+      <div className="group-badge color--black active">
         {props.inboxCount}
       </div>
     );
   }
   return (
-    <div className="color--black group-badge fill--primary">
+    <div className="color--black group-badge">
       0
     </div>
   );
@@ -85,22 +85,10 @@ class ProjectList extends React.Component {
     return (
       <div className="co-sidebar flx-col flx-item-left h-100">
 
-
-        <div className="org-row flx flx-row flx-align-center DN">
-          <Link to='/'  className="co-logo flx-hold">
-            <img className="center-img" src="/img/logo_koi01.png"/>
-          </Link>
-
-          <Link className="flx flx-row flx-align-center flx-item-right" to={`/${this.props.orgName}/user/${this.props.orgUser.username}`} activeClassName="active">
-            <div className="co-type-label color--black mrgn-right-sm">{this.props.orgUser.username}</div>
-            <div className=""><ProfilePic className="center-img" src={this.props.orgUser.image}/></div>
-          </Link>
-
-        </div>
         <div className="org-row org-row-selector flx flx-row flx-align-center">
-          <Link to='/'  className="co-logo flx-hold">
+          {/*<Link to='/'  className="co-logo flx-hold">
             <img className="center-img" src="/img/icon24_orgsettings_color.png"/>
-          </Link>
+          </Link>*/}
           <select className="org-selector co-type-org color--black" onChange={this.onOrgChange}>
             <option value={orgName}>{orgName}</option>
             {(this.props.orgList || []).map((orgItem, index) => {
@@ -135,14 +123,14 @@ class ProjectList extends React.Component {
           <div className="co-type-h3 color--black">
             Groups
           </div>
-          <Link to={'/' + orgName + '/createList'} className="flx flx-row flx-align-center flx-item-right">
+          {/*<Link to={'/' + orgName + '/createList'} className="flx flx-row flx-align-center flx-item-right">
             <div className="co-type-label color--black"> 
               Add Group
             </div>
             <div className="mrgn-left-sm flx flx-center-all">
               <div className="koi-ico --24 ico--add--tertiary"></div>              
             </div>
-          </Link>
+          </Link>*/}
         </div>
 
         <Link className={"sidebar-row group-row flx flx-row flx-align-center " + (!this.props.projectId && this.props.source === Constants.PROJECT_PAGE ? 'active' : '')} onClick={this.onAllClick}>
@@ -173,7 +161,14 @@ class ProjectList extends React.Component {
               );
             })
           }
-
+          <Link to={'/' + orgName + '/createList'} className="sidebar-row group-row flx flx-row flx-align-center">
+            <div className="sidebar-icon flx flx-center-all">
+              <div className="koi-ico --24 ico--add"></div> 
+            </div>
+            <div className="sidebar-project-name color--black"> 
+              Add Group
+            </div>
+          </Link>
 
           <div className="sidebar-footer flx flx-col">
 
@@ -186,25 +181,27 @@ class ProjectList extends React.Component {
 
             </Link>
 
-            <Link className="sidebar-row group-row flx flx-col flx-align-center pdding-top-md pdding-bottom-sm" to={`/${this.props.orgName}/user/${this.props.orgUser.username}`} activeClassName="active">
-              <div className="mrgn-bottom-xs flx flx-center-all">
-                <ProfilePic className="center-img" src={this.props.orgUser.image}/>
-              </div>
-              <div className="co-type-label color--white">{this.props.orgUser.username}</div>
-            </Link>
+           
 
-            <div className="flx flx-row w-100">
+            <div className="flx flx-row flx-align-center w-100">
+
+              <Link className="sidebar-row group-triplet flx flx-col flx-align-center" to={`/${this.props.orgName}/user/${this.props.orgUser.username}`} activeClassName="active">
+                <div className="mrgn-bottom-xs flx flx-center-all">
+                  <ProfilePic className="center-img" src={this.props.orgUser.image}/>
+                </div>
+                <div className="co-type-label color--black">{this.props.orgUser.username}</div>
+              </Link>
 
               <Link to={'/' + this.props.orgName + '/inbox'} activeClassName="active" className="sidebar-row group-triplet flx flx-col flx-align-center">
                   <div className="sidebar-icon--large flx flx-center-all">
                     <div className=""><InboxCounter inboxCount={inboxCount} className=""/></div>
                   </div>
-                  <div className="co-type-label color--white">Activity</div>
+                  <div className="co-type-label color--black">Activity</div>
               </Link>
 
               
 
-              <Link activeClassName="active" className="sidebar-row group-triplet flx flx-col flx-align-center no-click">
+              <Link activeClassName="active" className="sidebar-row group-triplet flx flx-col flx-align-center no-click DN">
                   <div className="sidebar-icon--large flx flx-center-all">
                     <div className="koi-ico ico--bookmark--tertiary opa-20"></div>
                   </div>
@@ -215,7 +212,7 @@ class ProjectList extends React.Component {
                   <div className="sidebar-icon--large flx flx-center-all">
                     <div className="koi-ico ico--orgsettings--tertiary"></div>
                   </div>
-                  <div className="co-type-label color--white">Team</div>
+                  <div className="co-type-label color--black">Team</div>
               </Link>
             </div>
 
