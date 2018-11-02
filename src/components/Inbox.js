@@ -72,6 +72,35 @@ const mapStateToProps = state => ({
   invalidOrgUser: state.common.invalidOrgUser
 });
 
+const mapDispatchToProps = {
+  setSidebar: Actions.setSidebar,
+  setSidebarOpen: Actions.setSidebarOpen,
+  loadSidebar: Actions.loadSidebar,
+  loadOrg: Actions.loadOrg,
+  loadOrgUser: Actions.loadOrgUser,
+  unloadOrgUser: Actions.unloadOrgUser,
+  loadProjectList: Actions.loadProjectList,
+  loadThreadCounts: Actions.loadThreadCounts,
+  loadOrgList: Actions.loadOrgList,
+  loadProjectNames: Actions.loadProjectNames,
+  loadProject: Actions.loadProject,
+  loadProjectMembers: Actions.loadProjectMembers,
+  loadOrgMembers: Actions.loadOrgMembers,
+  sendMixpanelEvent: Actions.sendMixpanelEvent,
+  unloadProjectNames: Actions.unloadProjectNames,
+  unloadOrgList: Actions.unloadOrgList,
+  unloadThreadCounts: Actions.unloadThreadCounts,
+  unloadProjectList: Actions.unloadProjectList,
+  unloadOrg: Actions.unloadOrg,
+  unloadProjectMembers: Actions.unloadProjectMembers,
+  unloadOrgMembers: Actions.unloadOrgMembers,
+  setAuthRedirect: Actions.setAuthRedirect,
+  notAnOrgUserError: Actions.notAnOrgUserError,
+  getInbox: Actions.getInbox,
+  updateInboxCount: Actions.updateInboxCount,
+  unloadInbox: Actions.unloadInbox
+}
+
 class Inbox extends React.Component {
   componentDidMount() {
     this.props.loadSidebar(mql);
@@ -252,4 +281,4 @@ class Inbox extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, Actions)(Inbox);
+export default connect(mapStateToProps, mapDispatchToProps)(Inbox);
