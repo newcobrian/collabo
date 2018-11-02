@@ -26,6 +26,35 @@ const mapStateToProps = state => ({
   sidebarOpen: state.common.sidebarOpen
 });
 
+const mapDispatchToProps = {
+  watchThreadFeed: Actions.watchThreadFeed,
+  setSidebar: Actions.setSidebar,
+  showProjectInviteModal: Actions.showProjectInviteModal,
+  showOrgInviteModal: Actions.showOrgInviteModal,
+  loadSidebar: Actions.loadSidebar,
+  loadOrg: Actions.loadOrg,
+  loadOrgUser: Actions.loadOrgUser,
+  loadProjectList: Actions.loadProjectList,
+  loadThreadCounts: Actions.loadThreadCounts,
+  loadOrgList: Actions.loadOrgList,
+  loadProjectNames: Actions.loadProjectNames,
+  loadProject: Actions.loadProject,
+  loadProjectMembers: Actions.loadProjectMembers,
+  loadOrgMembers: Actions.loadOrgMembers,
+  sendMixpanelEvent: Actions.sendMixpanelEvent,
+  markProjectRead: Actions.markProjectRead,
+  unwatchThreadFeed: Actions.unwatchThreadFeed,
+  unloadProjectNames: Actions.unloadProjectNames,
+  unloadOrgList: Actions.unloadOrgList,
+  unloadThreadCounts: Actions.unloadThreadCounts,
+  unloadProjectList: Actions.unloadProjectList,
+  unloadOrg: Actions.unloadOrg,
+  unloadProjectMembers: Actions.unloadProjectMembers,
+  unloadOrgMembers: Actions.unloadOrgMembers,
+  setAuthRedirect: Actions.setAuthRedirect,
+  notAnOrgUserError: Actions.notAnOrgUserError
+}
+
 class Project extends React.Component {
   constructor() {
     super();
@@ -275,4 +304,4 @@ class Project extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, Actions)(Project);
+export default connect(mapStateToProps, mapDispatchToProps)(Project);
