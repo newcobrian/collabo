@@ -46,11 +46,13 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   setSidebar: Actions.setSidebar,
+  setSidebarOpen: Actions.setSidebarOpen,
   showProjectInviteModal: Actions.showProjectInviteModal,
   showOrgInviteModal: Actions.showOrgInviteModal,
   loadSidebar: Actions.loadSidebar,
   loadOrg: Actions.loadOrg,
   loadOrgUser: Actions.loadOrgUser,
+  unloadOrgUser: Actions.unloadOrgUser,
   loadProjectList: Actions.loadProjectList,
   loadThreadCounts: Actions.loadThreadCounts,
   loadOrgList: Actions.loadOrgList,
@@ -80,7 +82,7 @@ const mapDispatchToProps = {
   unloadThreadLikes: Actions.unloadThreadLikes,
   unwatchThreadComments: Actions.unwatchThreadComments,
   markThreadRead: Actions.markThreadRead,
-
+  onDeleteThreadComment: Actions.onDeleteThreadComment
 }
 
 class Thread extends React.Component {

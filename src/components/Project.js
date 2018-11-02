@@ -29,11 +29,13 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   watchThreadFeed: Actions.watchThreadFeed,
   setSidebar: Actions.setSidebar,
+  setSidebarOpen: Actions.setSidebarOpen,
   showProjectInviteModal: Actions.showProjectInviteModal,
   showOrgInviteModal: Actions.showOrgInviteModal,
   loadSidebar: Actions.loadSidebar,
   loadOrg: Actions.loadOrg,
   loadOrgUser: Actions.loadOrgUser,
+  unloadOrgUser: Actions.unloadOrgUser,
   loadProjectList: Actions.loadProjectList,
   loadThreadCounts: Actions.loadThreadCounts,
   loadOrgList: Actions.loadOrgList,
@@ -52,7 +54,9 @@ const mapDispatchToProps = {
   unloadProjectMembers: Actions.unloadProjectMembers,
   unloadOrgMembers: Actions.unloadOrgMembers,
   setAuthRedirect: Actions.setAuthRedirect,
-  notAnOrgUserError: Actions.notAnOrgUserError
+  notAnOrgUserError: Actions.notAnOrgUserError,
+  showThreadModal: Actions.showThreadModal,
+  onDeleteThreadComment: Actions.onDeleteThreadComment
 }
 
 class Project extends React.Component {

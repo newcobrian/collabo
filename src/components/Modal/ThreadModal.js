@@ -20,6 +20,24 @@ const mapStateToProps = state => ({
   authenticated: state.common.authenticated
 });
 
+const mapDispatchToProps = {
+  sendMixpanelEvent: Actions.sendMixpanelEvent,
+  setAuthRedirect: Actions.setAuthRedirect,
+  updateThreadField: Actions.updateThreadField,
+  onUpdateCreateField: Actions.onUpdateCreateField,
+  changeEditorState: Actions.changeEditorState,
+  setEditMode: Actions.setEditMode,
+  showDeleteModal: Actions.showDeleteModal,
+  loadThreadLikes: Actions.loadThreadLikes,
+  watchThreadComments: Actions.watchThreadComments,
+  unloadThreadLikes: Actions.unloadThreadLikes,
+  unwatchThreadComments: Actions.unwatchThreadComments,
+  markThreadRead: Actions.markThreadRead,
+  onDeleteThreadComment: Actions.onDeleteThreadComment,
+  hideModal: Actions.hideModal,
+  unloadThreadModal: Actions.unloadThreadModal
+}
+
 class ThreadModal extends React.Component {
   constructor() {
     super()
@@ -157,4 +175,4 @@ class ThreadModal extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, Actions)(ThreadModal);
+export default connect(mapStateToProps, mapDispatchToProps)(ThreadModal);
