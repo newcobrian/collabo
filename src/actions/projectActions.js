@@ -316,13 +316,12 @@ function threadAddedAction(threadId, thread, source) {
   }
 }
 
-function threadChangedAction(threadId, thread, userId, source) {
+function threadChangedAction(threadId, thread, source) {
   // delete thread.lastModified;
   return {
     type: ActionTypes.THREAD_CHANGED_ACTION,
     threadId,
     thread,
-    userId,
     source
   }
 }
