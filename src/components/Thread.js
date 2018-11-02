@@ -44,6 +44,45 @@ const mapStateToProps = state => ({
   userId: state.firebase.auth.uid
 })
 
+const mapDispatchToProps = {
+  setSidebar: Actions.setSidebar,
+  showProjectInviteModal: Actions.showProjectInviteModal,
+  showOrgInviteModal: Actions.showOrgInviteModal,
+  loadSidebar: Actions.loadSidebar,
+  loadOrg: Actions.loadOrg,
+  loadOrgUser: Actions.loadOrgUser,
+  loadProjectList: Actions.loadProjectList,
+  loadThreadCounts: Actions.loadThreadCounts,
+  loadOrgList: Actions.loadOrgList,
+  loadProjectNames: Actions.loadProjectNames,
+  loadProject: Actions.loadProject,
+  loadProjectMembers: Actions.loadProjectMembers,
+  loadOrgMembers: Actions.loadOrgMembers,
+  sendMixpanelEvent: Actions.sendMixpanelEvent,
+  unloadProjectNames: Actions.unloadProjectNames,
+  unloadOrgList: Actions.unloadOrgList,
+  unloadThreadCounts: Actions.unloadThreadCounts,
+  unloadProjectList: Actions.unloadProjectList,
+  unloadOrg: Actions.unloadOrg,
+  unloadProjectMembers: Actions.unloadProjectMembers,
+  unloadOrgMembers: Actions.unloadOrgMembers,
+  setAuthRedirect: Actions.setAuthRedirect,
+  notAnOrgUserError: Actions.notAnOrgUserError,
+  updateThreadField: Actions.updateThreadField,
+  onUpdateCreateField: Actions.onUpdateCreateField,
+  changeEditorState: Actions.changeEditorState,
+  setEditMode: Actions.setEditMode,
+  showDeleteModal: Actions.showDeleteModal,
+  loadThread: Actions.loadThread,
+  loadThreadLikes: Actions.loadThreadLikes,
+  watchThreadComments: Actions.watchThreadComments,
+  unloadThread: Actions.unloadThread,
+  unloadThreadLikes: Actions.unloadThreadLikes,
+  unwatchThreadComments: Actions.unwatchThreadComments,
+  markThreadRead: Actions.markThreadRead,
+
+}
+
 class Thread extends React.Component {
   constructor() {
     super();
@@ -336,4 +375,4 @@ class Thread extends React.Component {
 //   connect(mapStateToProps, Actions)
 // )(Thread);
 
-export default connect(mapStateToProps, Actions)(Thread);
+export default connect(mapStateToProps, mapDispatchToProps)(Thread);
