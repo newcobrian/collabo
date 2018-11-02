@@ -79,7 +79,7 @@ const reducer = combineReducers({
   //   editForm: initialItinerary
   // }, 'editForm')
   form: formReducer,
-  firebase: firebaseReducer
+  // firebase: firebaseReducer
 });
 
 // init mixpanel and pass mixpanel client to middleware 
@@ -128,9 +128,9 @@ Firebase.initializeApp(firebaseConfig);
 
 const mixpanelMiddleware = new MixpanelMiddleware(mixpanel)
 
-const createStoreWithFirebase = compose(
-  reactReduxFirebase(Firebase, { userProfile: 'users' })
-)(createStore)
+// const createStoreWithFirebase = compose(
+//   reactReduxFirebase(Firebase, { userProfile: 'users' })
+// )(createStore)
 
 // const middleware = applyMiddleware(promiseMiddleware, localStorageMiddleware);
 
@@ -138,7 +138,8 @@ const createStoreWithFirebase = compose(
 // const store = createStoreWithFirebase(reducer, middleware);
 // const store = createStore(reducer, middleware);
 
-const store = createStoreWithFirebase(
+// const store = createStoreWithFirebase(
+const store = createStore(
   reducer,
   // initialState,
   compose (

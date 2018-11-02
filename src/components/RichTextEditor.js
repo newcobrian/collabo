@@ -21,8 +21,7 @@ import * as Helpers from '../helpers';
 // ]
 
 
-import ReactQuill from 'react-quill';
-import Quill from 'quill'
+import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import MagicUrl from 'quill-magic-url';
 // import QuillMentions from 'quill-mentions'
