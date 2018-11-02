@@ -28,6 +28,7 @@ import LikeReviewButton from './LikeReviewButton';
 import RichTextEditor from './RichTextEditor';
 import InvalidOrg from './InvalidOrg'
 import ThreadBody from './ThreadBody'
+import ProjectHeader from './ProjectHeader'
 
 const mql = window.matchMedia(`(min-width: 800px)`);
 
@@ -126,6 +127,10 @@ class Thread extends React.Component {
     this.onGoBackClick = ev => {
       ev.preventDefault();
       browserHistory.goBack()
+    }
+
+    this.onProjectInviteClick = (project) => {
+      this.props.showProjectInviteModal(this.props.thread.projectId, this.props.project, this.props.orgId, this.props.params.orgname, this.props.orgMembers)
     }
 
     // this.renderState = (update) => {
@@ -333,6 +338,13 @@ class Thread extends React.Component {
                   <div className="project-header text-left brdr-bottom brdr-color--primary--10 flx flx-col flx-align-start w-100">
                     <OrgHeader />
                   </div>
+
+                  <ProjectHeader 
+                      orgName={this.props.params.orgname}
+                      projectId={thread.projectId}
+                      project={this.props.project}
+                      onProjectInviteClick={this.onProjectInviteClick}
+                    />
 
                   <ThreadBody
                     authenticated={this.props.authenticated}
