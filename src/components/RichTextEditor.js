@@ -56,7 +56,7 @@ const RichTextEditor = props => {
 	        }
 	    }
 	    
-	   e.PreventDefault()
+	   // e.PreventDefault()
 	}
 
 	const toolbarOptions = props.toolbarHidden ? false : [
