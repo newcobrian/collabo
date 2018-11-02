@@ -25,7 +25,8 @@ const CommentContainer = props => {
 					usersList={props.usersList}
 					orgUserData={props.orgUserData}
 					type={props.type}
-					parentId={props.parentId} />
+					parentId={props.parentId}
+					isFeed={props.isFeed} />
 
 		          <div className="comment-indent main-reply">
 						<div className="comment-input-container">
@@ -49,29 +50,30 @@ const CommentContainer = props => {
 
 		);
 	} else {
-		return (
-			<div className="pdding-top-sm w-100">
+		return null
+	// 	return (
+	// 		<div className="pdding-top-sm w-100">
 
-				<div className="v2-type-body1 mrgn-bottom-sm brdr-all fill--white brdr--primary w-100 pdding-all-sm ta-center">
-					<Link className="color--primary weight-500" to="/login">Log in</Link>
-					&nbsp;or&nbsp;
-					<Link className="color--primary weight-500" to="/register">Sign up</Link>
-					&nbsp;to comment
-				</div>
+	// 			<div className="v2-type-body1 mrgn-bottom-sm brdr-all fill--white brdr--primary w-100 pdding-all-sm ta-center">
+	// 				<Link className="color--primary weight-500" to="/login">Log in</Link>
+	// 				&nbsp;or&nbsp;
+	// 				<Link className="color--primary weight-500" to="/register">Sign up</Link>
+	// 				&nbsp;to comment
+	// 			</div>
 
 
-				<CommentList
-					comments={props.comments}
-					commentObject={props.commentObject}
-					authenticated={props.authenticated}
-					threadId={props.threadId}
-					deleteComment={props.deleteComment}
-					type={props.type} />
+	// 			<CommentList
+	// 				comments={props.comments}
+	// 				commentObject={props.commentObject}
+	// 				authenticated={props.authenticated}
+	// 				threadId={props.threadId}
+	// 				deleteComment={props.deleteComment}
+	// 				type={props.type} />
 
 				
 
-			</div>
-		);
+	// 		</div>
+	// 	);
 	}
 }
 

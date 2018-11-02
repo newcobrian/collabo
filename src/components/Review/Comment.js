@@ -14,8 +14,46 @@ var linkify = require('linkify-it')();
 
 const processString = require('react-process-string');
 
-class Comment extends React.Component {
+const NestedCommentContainer = props => {
+  // if this has a parent Id already, it's nested and we don't need to go deeper
+  if (props.parentId || !props.comments) {
+    return null
+  }
+  // if this is from the feed, just show the count of nested comments
+  else if (props.isFeed) {
+    let numComments = Object.keys(props.comments || {}).length
+    if (numComments === 0) return null
+    else {
+      return (
+      <div>
+          { numComments + ' ' + (numComments > 1 ? ' replies' : ' reply') }
+        </div>
+      )
+    }
+  }
+  // else show full nested
+  else {
+    return (
+      <CommentContainer
+        authenticated={props.authenticated}
+        comments={props.comments}
+        commentObject={props.commentObject}
+        threadId={props.threadId}
+        thread={props.thread}
+        orgName={props.orgName}
+        project={props.project}
+        usersList={props.usersList}
+        orgUserData={props.orgUserData}
+        type={Constants.COMMENT_TYPE}
+        parentId={props.parentId}
+        deleteComment={props.deleteComment}
+        hideCommentInput={props.hideCommentInput}
+      />
+    )
+  }
+}
 
+class Comment extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -39,7 +77,7 @@ class Comment extends React.Component {
   render () {
     const { isOpenNotification, hideCommentInput } = this.state;
     const { comment, authenticated, orgName, project, commentObject, 
-      deleteComment, threadId, type, likes, thread, usersList, orgUserData, parentId } = this.props;
+      deleteComment, threadId, type, likes, thread, usersList, orgUserData, parentId, isFeed } = this.props;
     const show = authenticated && authenticated === comment.userId;
     const commenter = orgUserData && orgUserData[comment.userId] ? orgUserData[comment.userId] : { username: '' }
 
@@ -140,7 +178,24 @@ class Comment extends React.Component {
             <GoogleDriveLink content={comment.body} onClose={this.closeNotification}/>
           */}
         </div>
-          { !parentId && 
+          <NestedCommentContainer
+            authenticated={authenticated}
+            comments={comment.nestedComments || {}}
+            commentObject={thread}
+            threadId={threadId}
+            thread={thread}
+            orgName={orgName}
+            project={project}
+            usersList={usersList}
+            orgUserData={orgUserData}
+            type={Constants.COMMENT_TYPE}
+            parentId={comment.id}
+            deleteComment={deleteComment}
+            hideCommentInput={hideCommentInput && (!comment.nestedComments || comment.nestedComments.length === 0)}
+            parentId={parentId}
+            isFeed={isFeed} />
+
+          {/* !parentId && 
             <CommentContainer
               authenticated={authenticated}
               comments={comment.nestedComments || {}}
@@ -156,7 +211,7 @@ class Comment extends React.Component {
               deleteComment={deleteComment}
               hideCommentInput={hideCommentInput && (!comment.nestedComments || comment.nestedComments.length === 0)}
             />
-          }
+          */}
       </div>
       </div>
     );
