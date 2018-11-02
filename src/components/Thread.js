@@ -41,7 +41,7 @@ const mapStateToProps = state => ({
   authenticated: state.common.authenticated,
   invalidOrgUser: state.common.invalidOrgUser,
   sidebarOpen: state.common.sidebarOpen,
-  userId: state.firebase.auth.uid
+  // userId: state.firebase.auth.uid
 })
 
 const mapDispatchToProps = {
