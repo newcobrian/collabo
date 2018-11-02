@@ -142,7 +142,7 @@ class ThreadPreviewFull extends React.Component {
     const createdBy = orgUserData && orgUserData[thread.userId] ? orgUserData[thread.userId] : { username: '' }
 
     return (
-      <div className={"tp-wrapper tp-full flx flx-row"}>
+      <div className={"tp-wrapper tp-preview-full tp-full flx flx-row"}>
           
           <div className="tp-container flx flx-col flx-align-start">           
             

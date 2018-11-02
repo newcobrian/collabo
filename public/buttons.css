@@ -73,10 +73,10 @@ input.input--underline {
     font-weight: 600;
     font-size: 12px;
     cursor: pointer;
-    padding: 18px;
+    padding: 16px 24px;
     text-transform: uppercase;
     flex-shrink: 0;
-    border-radius: 3px;
+    border-radius: 0;
     display: -webkit-flex;
     display: flex;
     -webkit-align-items: center;

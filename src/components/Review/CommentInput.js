@@ -95,7 +95,7 @@ class CommentInput extends React.Component {
                 />
             </MentionsInput>
 
-            <button className="comment-post-button flx-item-right vb vb--sm fill--white opa-100 color--primary brdr-all brdr-color--primary" onClick={this.createComment}>
+            <button className="comment-post-button flx-item-right vb vb--sm fill--white opa-100 color--primary brdr-all brdr-color--seaweed" onClick={this.createComment}>
               Post
               <i className="material-icons color--primary md-18 color--primary DN">send</i>
             </button>
