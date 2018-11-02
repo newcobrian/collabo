@@ -560,6 +560,7 @@ export function updateThreadField(auth, threadId, thread, orgName, field, value)
       updates[`/${Constants.THREADS_PATH}/${threadId}/lastModified/`] = timestamp
       updates[`/${Constants.THREADS_BY_PROJECT_PATH}/${thread.projectId}/${threadId}/lastModified/`] = timestamp
       updates[`/${Constants.THREADS_BY_USER_BY_ORG_PATH}/${thread.userId}/${thread.orgId}/${threadId}/lastModified/`] = timestamp
+      updates[`/${Constants.THREADS_BY_ORG_PATH}/${thread.orgId}/${threadId}/lastModified`] = timestamp
 
       // if body was updated, make this the lastUpdate
       if (field === 'body') {
@@ -569,13 +570,8 @@ export function updateThreadField(auth, threadId, thread, orgName, field, value)
         // also update user's activity feed
         let activityObject = Object.assign({}, omit(thread, ['userId', 'orgId', 'lastUpdate', 'lastUpdater']), { threadId: threadId }, { type: Constants.EDIT_THREAD_TYPE })
         Firebase.database().ref(Constants.ACTIVITY_BY_USER_BY_ORG_PATH + '/' + auth + '/' + thread.orgId).push(activityObject)
-      }
 
-      Firebase.database().ref().update(updates);
-
-      Helpers.incrementThreadSeenCounts(auth, thread.orgId, thread.projectId, threadId)
-
-      if (field === 'body') {
+        // update algolia
         let org = Object.assign({}, {name: orgName})
         let project = Object.assign({}, {projectId: thread.projectId})
         Helpers.findThreadMentions(auth, value, org, project, Object.assign({}, thread, {threadId: threadId}))
@@ -583,6 +579,10 @@ export function updateThreadField(auth, threadId, thread, orgName, field, value)
         let algoliaObject = Object.assign({}, {body: Helpers.stripHTML(value) })
         Helpers.updateAlgoliaIndex(threadId, algoliaObject);
       }
+
+      Firebase.database().ref().update(updates);
+
+      Helpers.incrementThreadSeenCounts(auth, thread.orgId, thread.projectId, threadId)
 
       dispatch({
         type: ActionTypes.THREAD_UPDATED,
