@@ -115,20 +115,13 @@ const ThreadBody = props => {
       orgMembers, orgUserData, bodyText, likes } = props
 
     return (
-      <div className={"thread-body header-push-mini left-text flx flx-col flx-align-center"}>
-                      
-          <Link onClick={props.onBackClick} activeClassName="active" className="nav-module create nav-editor flx flx-align-start mrgn-top-sm w-100">
-            <div className="nav-text flx flx-row flx-align-center opa-60 mrgn-bottom-md">
-              <i className="material-icons color--black md-18 opa-100 mrgn-right-xs">arrow_back_ios</i>
-              <div className="co-type-body mrgn-left-xs">Back to list</div>
-            </div>
-          </Link>
+      <div className={"thread-body left-text flx flx-col flx-align-center"}>
           <div className="thread-view w-100">
             <div className={"tp-wrapper flx flx-row"}>   
               <div className="tp-container b--primary--10 flx flx-col flx-align-start">   
                 <div className="thread-row-wrapper flx flx-row">
                   <div className="thread-content-wrapper w-100">
-                    <div className="co-type-thread-title">{thread.title}</div>
+                    <div className="co-type-thread-title color--black mrgn-bottom-xs">{thread.title}</div>
                     <div className="flx flx-row w-100 flx-align-center brdr-bottom pdding-bottom-sm mrgn-bottom-md">
                       <span className="thread-timestamp">Posted by {createdBy.username}
                         <Link

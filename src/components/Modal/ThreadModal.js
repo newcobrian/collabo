@@ -119,17 +119,18 @@ class ThreadModal extends React.Component {
       return (
         <MuiThemeProvider muiTheme={getMuiTheme()}>
           <Dialog
+            fullScreen={false}
             actions={actions}
             open={(this.props.modalType === Constants.THREAD_MODAL) ? true : false}
-            autoScrollBodyContent={true}
+            autoScrollBodyContent={false}
             onRequestClose={handleClose}
-            // lockToContainerEdges={true}
+            lockToContainerEdges={false}
             modal={false}
             
             title={thread.title}
 
             titleClassName="co-type-h3 color--black"
-            titleStyle={{}}
+            titleStyle={{display: "none"}}
 
             className="dialog dialog--save"
             style={{}}
@@ -138,7 +139,7 @@ class ThreadModal extends React.Component {
             overlayStyle={{}}
             
             contentClassName="dialog--save__wrapper"
-            contentStyle={{width: "auto", maxWidth: "600px"}}
+            contentStyle={{width: "auto", maxWidth: "none"}}
             
             bodyClassName="dialog--save__body"
             bodyStyle={{padding: "0px"}}
@@ -146,6 +147,7 @@ class ThreadModal extends React.Component {
             actionsContainerClassName="dialog--save__actions"
             actionsContainerStyle={{}}
           >
+         
             <ThreadBody
               authenticated={authenticated}
               orgName={orgName}

@@ -1,11 +1,11 @@
 body div.dialog--save {
   overflow: scroll;
-  padding: 20px;
+  padding-top: 0 !important;
 }
 .dialog--save__wrapper {
   margin: 0;
   height: 100%;
-  width: 500px;
+  transform: none !important;
 }
 .dialog--save__content {
   padding-bottom: 60px;
@@ -52,7 +52,9 @@ body div.dialog--save {
   z-index: 2;
 }
 .dialog--save__body {
-  padding: 0px 0 50px !important;
+  padding: 0;
+  max-height: none !important;
+  font-family: 'Karla';
 }
 .itinerary__contents .itinerary__cover__flag {
 

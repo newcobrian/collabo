@@ -8,7 +8,7 @@
 	padding: 10px 0;
 }
 .thread-body {
-	padding: 60px 20px;
+	padding: 0px 8px;
 	width: 100%;
 }
 .public-DraftStyleDefault-block {
@@ -113,9 +113,9 @@
 	min-width: 320px;
 }
 .thread-view {
-	z-index: 3;
+	z-index: 0;
     width: 100%;
-    padding: 20px 0;
+    padding: 0;
     /*max-width: 960px;*/
     min-width: 320px;
 }
@@ -420,7 +420,7 @@ p {
 }
 
 .comment-input {
-	padding: 0 10px;
+	padding: 0;
 	height: 120px;
 	border: 2px solid rgba(40, 90, 0, .3);
 }
@@ -450,6 +450,8 @@ p {
 }
 .comment-input-container {
 	padding: 0px;
+	background: white;
+    margin-top: 4px;
 }
 .tp-wrapper .comment-inner {
   /*border-left: none;*/
@@ -464,7 +466,7 @@ p {
 .comment-wrapper {
   border-radius: 0;
   position: relative;
-  margin: 10px 0;
+  margin: 0;
 }
 
 
@@ -478,16 +480,20 @@ p {
 	height: 100%;
 	width: 4px;
 }
+
 .thread-row-wrapper {
 	width: 100%;
 	padding: 0 10px;
 	overflow: hidden;
 }
+.tp-preview-full .thread-row-wrapper {
+	padding: 8px 20px;
+}
 .top-bar {
 
 }
 .thread-content-wrapper {
-	padding: 8px;
+	padding-right: 32px;
 	background-color: white;
 	overflow: hidden;
 }
