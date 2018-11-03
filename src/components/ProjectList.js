@@ -161,11 +161,11 @@ class ProjectList extends React.Component {
               );
             })
           }
-          <Link to={'/' + orgName + '/createList'} className="sidebar-row group-row flx flx-row flx-align-center">
+          <Link to={'/' + orgName + '/createList'} className="sidebar-row group-row flx flx-row flx-align-center mrgn-top-sm">
             <div className="sidebar-icon flx flx-center-all">
               <div className="koi-ico --24 ico--add"></div> 
             </div>
-            <div className="sidebar-project-name color--black"> 
+            <div className="sidebar-project-name color--seaweed co-type-bold"> 
               Add Group
             </div>
           </Link>

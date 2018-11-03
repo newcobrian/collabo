@@ -111,7 +111,7 @@ class Comment extends React.Component {
     }]);
 
     return (
-      <div className="comment-indent inline-comments flx flx-col flx-align-center brdr-bottom" id={'comment' + comment.id}>
+      <div className="comment-indent inline-comments flx flx-col flx-align-center" id={'comment' + comment.id}>
         <div className="comment-bg w-100">
         <div className="comment-inner fill--white w-100">
           <div className="comment-inner-inner flx flx-col flx-just-start w-100">

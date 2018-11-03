@@ -36,6 +36,7 @@
     "quill-mention": "^2.0.4",
     "react": "^15.6.2",
     "react-animate-height": "^2.0.6",
+    "react-app-rewire-provide-plugin": "^1.0.0",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^15.4.2",
     "react-draft-wysiwyg": "^1.12.13",

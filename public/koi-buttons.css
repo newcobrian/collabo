@@ -1,0 +1,90 @@
+.koi-button {
+    border: none;
+    height: auto;
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 16px 24px;
+    flex-shrink: 0;
+    border-radius: 0;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+
+.koi-button-fancy-wrapper {
+    height: auto;
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    flex-shrink: 0;
+    border-radius: 0;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    position: relative;
+    height: 48px;
+}
+.koi-button-fancy-outer {
+    border: 2px solid rgba(0,0,0,.5);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 6px;
+    bottom: 6px;
+    height: auto;
+}
+.koi-button-fancy-inner {
+    border: 2px solid rgba(0,0,0,.3);
+    position: absolute;
+    left: 6px;
+    right: 6px;
+    top: 0;
+    bottom: 0;
+    height: auto;
+}
+.koi-button-fancy-text {
+    padding: 0 24px;
+}
+
+.border--seaweed .koi-button-fancy-outer {
+    border: 2px solid rgba(40,90,0,.5);
+}
+.border--seaweed .koi-button-fancy-inner {
+    border: 2px solid rgba(40,90,0,.3);
+}
+
+.koi-comment-post-button {
+    height: auto;
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 4px 24px;
+    flex-shrink: 0;
+    border-radius: 0;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    border: 2px solid black;
+    font-size: 16px;
+}
+.koi-comment-post-button:hover {
+    background-color: rgba(40,90,0) !important;
+    color: white !important;
+    transition: all 0.23s ease-in-out 0s;
+}

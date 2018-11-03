@@ -30,10 +30,13 @@ const ProjectHeader = props => {
           
 
           <Link to={'/' + props.orgName + '/addthread/' + props.projectId}
-            className="flx flx-align-center pdding-left-sm flx-item-right mrgn-right-md">
-              <div className="color--black co-type-bold co-type-label mrgn-right-sm mobile-hide">Compose Thread</div>
-              <div className="icon-wrapper flx flx-center-all fill--white brdr-all b--primary--20">
-                <div className="koi-ico --24 ico--add--primary"></div>
+            className="flx flx-col flx-center-all koi-button-fancy-wrapper flx-item-right mrgn-right-md border--seaweed">
+              <div className="koi-button-fancy-outer">
+              </div>
+              <div className="koi-button-fancy-inner">
+              </div>
+              <div className="koi-button-fancy-text color--seaweed">
+                Compose Thread
               </div>
           </Link>
 
@@ -56,18 +59,21 @@ const ProjectHeader = props => {
             <div className="project-header-text">All Threads</div>
           </div>
 
-            <Link to={'/' + props.orgName + '/addthread/'}
-              activeClassName="active"
-              className="flx flx-align-center pdding-left-sm flx-item-right mrgn-right-md">
-              <div className="color--primary co-type-label mrgn-right-sm mobile-hide">Compose Thread</div>
-              <div className="icon-wrapper flx flx-center-all fill--white brdr-all b--primary--20">
-                <div className="koi-ico --24 ico--add--primary"></div>
+          <Link to={'/' + props.orgName + '/addthread/'}
+            activeClassName="active"
+            className="flx flx-col flx-center-all koi-button-fancy-wrapper flx-item-right mrgn-right-md border--seaweed">
+              <div className="koi-button-fancy-outer">
               </div>
-            </Link>
-            
-          </div>
+              <div className="koi-button-fancy-inner">
+              </div>
+              <div className="koi-button-fancy-text color--seaweed">
+                Compose Thread
+              </div>
+          </Link>
           
         </div>
+        
+      </div>
   )
 }
 

@@ -151,7 +151,7 @@ textarea {
 	padding: 10px !important;
 }
 .header-push {
-	margin-top: 64px;
+	margin-top: 80px;
 }
 .header-push-mini {
 	margin-top: 6px;
@@ -214,7 +214,7 @@ textarea {
 }
 .org-row.org-row-selector {
     padding: 0 18px;
-    height: 64px;
+    height: 80px;
     margin: 0;
 }
 .org-selector {
@@ -328,7 +328,7 @@ textarea {
 }
 .co-type-body {
     font-weight: 400;
-    font-size: 15px;
+    font-size: 16px;
     letter-spacing: .5px;
     line-height: 20px;
     white-space: normal;
@@ -374,8 +374,8 @@ textarea {
 .co-type-thread-title {
     font-size: 34px;
     font-weight: 600;
-    letter-spacing: -4px;
-    margin-top: -10px;
+    letter-spacing: 0px;
+    margin-top: -5px;
     line-height: 38px;
 }
 .co-type-logotype {
@@ -429,6 +429,7 @@ p {
     outline: none;
     padding-left: 0px;
     padding-right: 0px;
+    /*border-top: 2px solid #F4F9FB;*/
 }
 .commentlist-wrapper .main-reply {
 	position: relative !important;
@@ -440,16 +441,15 @@ p {
     bottom: 0;
     z-index: 10000000000;
     width: auto;
-    background: white;
 }
 .comment-input textarea {
 	overflow: auto !important;
 }
 .comment-bg {
-  margin: 10px 0 0;
+  margin: 4px 0 0;
 }
 .comment-input-container {
-	padding: 10px;
+	padding: 0px;
 }
 .tp-wrapper .comment-inner {
   /*border-left: none;*/
@@ -464,13 +464,9 @@ p {
 .comment-wrapper {
   border-radius: 0;
   position: relative;
+  margin: 10px 0;
 }
-.comment-post-button {
-	position: absolute;
-    right: 10px;
-    bottom: 10px;
-    border-width: 2px;
-}
+
 
 .inline-comments .comment-indent {
   /*display: none;*/
@@ -518,6 +514,8 @@ p {
     height: auto;
     overflow: scroll;
     top: 0px;
+    overflow-x: hidden;
+    background: transparent;
 }
 .thread-indent-1 {
 	padding-left: 60px;
@@ -528,10 +526,10 @@ p {
 	/*position: absolute;*/
     right: 0;
     width: 530px;
-    background: white;
+    background: transparent;
     bottom: 0;
     top: 0;
-    border-left: 1px solid rgba(0,0,0,.1);
+    margin-left: 4px;
     width: 50%;
     z-index: 0;
 }
@@ -762,7 +760,7 @@ p {
 }
 .org-header {
     z-index: 210;
-    height: 64px;
+    height: 80px;
     width: 70px;
 }
 .project-bar-wrapper {
@@ -771,7 +769,7 @@ p {
 	top: 0px;
 	right: 0px;
 	padding: 0 0 0 30px;
-	height: 64px;
+	height: 80px;
 	z-index: 200;
 }
 .show-all-button {
@@ -780,6 +778,7 @@ p {
 	left: 0; right: 0;
 	padding: 20px;
 	z-index: 100;
+	border-top: 4px solid #F4F9FB;
 }
 .co-project-name {
 }
