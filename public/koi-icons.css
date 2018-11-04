@@ -30,7 +30,7 @@
 }
 .koi-ico.ico--like--active,
 .koi-ico.ico--like:hover {
-	background-image: url(img/icon_like_secondary.png);
+	background-image: url(img/icon_like_chagoi.png);
 	transition: all 0.23s ease-in-out 0s;
 }
 .koi-ico.ico--bookmark {
@@ -56,10 +56,13 @@
 	background-image: url(img/icon_bookmark_active.png);
 }
 .koi-ico.ico--reply {
-	background-image: url(img/icon_reply.png);
+	background-image: url(img/icon_nest.png);
+}
+.koi-ico.ico--divider {
+	background-image: url(img/icon_divider.png);
 }
 .reply-ico-wrapper:hover .koi-ico.ico--reply {
-	background-image: url(img/icon_reply_active.png);
+	background-image: url(img/icon_nest_active.png);
 	transition: all 0.23s ease-in-out 0s;
 }
 .koi-ico.ico--reply--active {
@@ -79,7 +82,11 @@
 	background-image: url(img/icon24_bookmark_primary.png);
 }
 .koi-ico.--24.ico--add {
-	background-image: url(img/icon24_add.png);
+	background-image: url(img/icon_add.png);
+}
+.koi-ico.--24.ico--add.ico-color--seaweed {
+	background-image: url(img/icon_add_seaweed.png);
+	margin-left: 1px;
 }
 
 .koi-ico.--24.ico--checkmark--primary {
@@ -102,20 +109,20 @@
 .koi-ico.--24.ico--allfeed {
 	background-image: url(img/icon24_allfeed.png);
 }
-.koi-ico.--24.ico--down {
-	background-image: url(img/icon24_arrow-down_primary.png);
+.koi-ico.ico--down {
+	background-image: url(img/icon_arrow-down.png);
 }
 .koi-ico.--24.ico--down--white {
 	background-image: url(img/icon24_arrow-down_white.png);
 }
 
-.koi-ico.--24.ico--search {
+.koi-ico.ico--search {
 	background-image: url(img/icon24_search.png);
 }
-.koi-ico.--24.ico--search--primary {
+.koi-ico.ico--search--primary {
 	background-image: url(img/icon24_search_primary.png);
 }
-.koi-ico.--24.ico--search--white {
+.koi-ico.ico--search--white {
 	background-image: url(img/icon24_search_white.png);
 }
 

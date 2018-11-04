@@ -57,7 +57,7 @@ const RenderUsername = props => {
     return (
       <Link
           to={`${props.orgName}/user/${props.username}`}
-          className="">
+          className="color--black">
           {props.username}
       </Link>
     )
@@ -244,21 +244,21 @@ class Inbox extends React.Component {
                       // const isUser = this.props.currentUser &&
                       //   follower.userId === this.props.currentUser.uid;
                         return (
-                          <Link className="flx flx-row flx-just-start brdr-bottom flx-align-center pdding-all-sm list-row" key={inboxItem.key} to={'/' + this.props.params.orgname + inboxItem.link}>
+                          <Link className="flx flx-row brdr-bottom flx-align-start pdding-all-sm list-row" key={inboxItem.key} to={'/' + this.props.params.orgname + inboxItem.link}>
                             <LeftSenderPic 
                               senderId={inboxItem.senderId} 
                               username={inboxItem.senderUsername} 
                               image={inboxItem.senderImage}
                               orgName={this.props.params.orgname} />
                             <div className="flx flx-col mrgn-right-md">
-                              <div className="co-type-body">
+                              <div className="co-type-body color--black">
                                 <strong><RenderUsername senderId={inboxItem.senderId} username={inboxItem.senderUsername} orgName={this.props.params.orgname} /></strong>
                                 {inboxItem.message}
 
                                 <Link to={'/' + this.props.params.orgname + inboxItem.link}><span className="color--primary inline">{inboxItem.reviewTitle}</span></Link>
 
                               </div>
-                              <div className="thread-timestamp font--alpha"><DisplayTimestamp timestamp={inboxItem.lastModified} /></div>
+                              <div className="thread-timestamp color--black"><DisplayTimestamp timestamp={inboxItem.lastModified} /></div>
 
                             </div>
                           </Link>

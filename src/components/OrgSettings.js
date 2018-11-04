@@ -43,7 +43,7 @@ const ListsTab = props => {
   return (
     <li className="nav-item">
       <a  href=""
-          className={ props.tab === Constants.LISTS_TAB ? 'nav-link brdr-color--primary active' : 'nav-link ' }
+          className={ props.tab === Constants.LISTS_TAB ? 'nav-link color--black brdr-color--primary active' : 'nav-link color--black ' }
           onClick={clickHandler}>
         Lists
       </a>
@@ -60,7 +60,7 @@ const MembersTab = props => {
   return (
     <li className="nav-item">
       <a  href=""
-          className={ props.tab === Constants.MEMBERS_TAB ? 'nav-link brdr-color--primary active' : 'nav-link' }
+          className={ props.tab === Constants.MEMBERS_TAB ? 'nav-link color--black brdr-color--primary active' : 'nav-link color--black' }
           onClick={clickHandler}>
         Team Members
       </a>
@@ -77,7 +77,7 @@ const PendingTab = props => {
     <li className="nav-item">
       <a
         href=""
-        className={ props.tab === Constants.PENDING_TAB ? 'nav-link brdr-color--primary active' : 'nav-link' }
+        className={ props.tab === Constants.PENDING_TAB ? 'nav-link color--black brdr-color--primary active' : 'nav-link color--black' }
         onClick={clickHandler}>
         Pending Invites
       </a>

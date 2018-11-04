@@ -82,7 +82,7 @@
   background-color: #ffffff !important;
 }
 .color--black {
-  color: #121419;
+  color: #121419 !important;
 }
 .fill--black {
   background-color: black;

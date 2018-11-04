@@ -89,7 +89,7 @@ class ProjectList extends React.Component {
           {/*<Link to='/'  className="co-logo flx-hold">
             <img className="center-img" src="/img/icon24_orgsettings_color.png"/>
           </Link>*/}
-          <select className="org-selector co-type-org color--black" onChange={this.onOrgChange}>
+          <select className="org-selector co-type-org color--utsuri opa-40" onChange={this.onOrgChange}>
             <option value={orgName}>{orgName}</option>
             {(this.props.orgList || []).map((orgItem, index) => {
               if (orgItem && orgItem.name && orgName && orgItem.name.toLowerCase() !== orgName.toLowerCase()) {
@@ -105,70 +105,72 @@ class ProjectList extends React.Component {
           </div>
         </div> 
 
-        <div className="sidebar-row group-row search-row flx flx-row flx-align-center color--black">
-          <div className="sidebar-icon flx flx-center-all">
-            <div className="koi-ico --24 ico--search opa-40"></div>
-          </div>
-          <FirebaseSearchInput 
-            type={Constants.POSTS_SEARCH}
-            callback={this.searchInputCallback}
-            orgName={orgName}
-            className={"color--black"}
-            placeholder="Search" />
-        </div>
-
-        
-
-        <div className="sidebar-row flx flx-row flx-align-center mrgn-bottom-sm mrgn-top-sm">
-          <div className="koi-type-caption koi-type-bold opa-30 color--black">
-            Groups
-          </div>
-          {/*<Link to={'/' + orgName + '/createList'} className="flx flx-row flx-align-center flx-item-right">
-            <div className="co-type-label color--black"> 
-              Add Group
-            </div>
-            <div className="mrgn-left-sm flx flx-center-all">
-              <div className="koi-ico --24 ico--add--tertiary"></div>              
-            </div>
-          </Link>*/}
-        </div>
-
-        <Link className={"sidebar-row group-row flx flx-row flx-align-center " + (!this.props.projectId && this.props.source === Constants.PROJECT_PAGE ? 'active' : '')} onClick={this.onAllClick}>
-          <div className="sidebar-icon flx flx-center-all">
-            {/*<div className="koi-ico --24 ico--allupdates--primary"></div>*/}
-            <div className="sidebar-dot fill--tertiary--10"></div>
-          </div>
-          <div className="sidebar-project-name color--black"> 
-            All Threads
-          </div>
-        </Link>
-
-          {
-            (this.props.projectList || []).map((projectItem, index) => {
-              let projectName = this.props.projectNames && this.props.projectNames[projectItem.id] ? this.props.projectNames[projectItem.id].name : ''
-              return (
-
-                  <Link className={"sidebar-row group-row flx flx-row flx-align-center " + (this.props.projectId === projectItem.id ? 'active' : '')} key={projectItem.id} to={'/' + orgName + '/' + projectItem.id}>
-                    <div className="sidebar-icon flx flx-center-all">
-                      {<DotJewel threadCount={threadCounts[projectItem.id]} />}
-                    </div> 
-                    <div className="sidebar-project-name color--black">
-                      {projectName}
-                    </div>
-                    {<ThreadCountJewel threadCount={threadCounts[projectItem.id]} />}
-                  </Link>
-
-              );
-            })
-          }
-          <Link to={'/' + orgName + '/createList'} className="sidebar-row group-row flx flx-row flx-align-center mrgn-top-sm">
+        <div className="sidebar-groups-wrapper">
+          <div className="sidebar-row group-row search-row flx flx-row flx-align-center color--black">
             <div className="sidebar-icon flx flx-center-all">
-              <div className="koi-ico --24 ico--add"></div> 
+              <div className="koi-ico --24 ico--search opa-40"></div>
             </div>
-            <div className="sidebar-project-name color--seaweed co-type-bold"> 
-              Add Group
+            <FirebaseSearchInput 
+              type={Constants.POSTS_SEARCH}
+              callback={this.searchInputCallback}
+              orgName={orgName}
+              className={"color--black"}
+              placeholder="Search" />
+          </div>
+
+          <div className="group-title-wrapper flx flx-row flx-align-center mrgn-bottom-sm">
+            <div className="koi-type-caption koi-type-bold opa-30 color--black">
+              Groups
+            </div>
+            {/*<Link to={'/' + orgName + '/createList'} className="flx flx-row flx-align-center flx-item-right">
+              <div className="co-type-label color--black"> 
+                Add Group
+              </div>
+              <div className="mrgn-left-sm flx flx-center-all">
+                <div className="koi-ico --24 ico--add--tertiary"></div>              
+              </div>
+            </Link>*/}
+          </div>
+
+          <Link className={"sidebar-row group-row flx flx-row flx-align-center " + (!this.props.projectId && this.props.source === Constants.PROJECT_PAGE ? 'active' : '')} onClick={this.onAllClick}>
+            <div className="sidebar-icon flx flx-center-all">
+              {/*<div className="koi-ico --24 ico--allupdates--primary"></div>*/}
+              <div className="sidebar-dot fill--tertiary--10"></div>
+            </div>
+            <div className="sidebar-project-name color--black"> 
+              All Threads
             </div>
           </Link>
+
+            {
+              (this.props.projectList || []).map((projectItem, index) => {
+                let projectName = this.props.projectNames && this.props.projectNames[projectItem.id] ? this.props.projectNames[projectItem.id].name : ''
+                return (
+
+                    <Link className={"sidebar-row group-row flx flx-row flx-align-center " + (this.props.projectId === projectItem.id ? 'active' : '')} key={projectItem.id} to={'/' + orgName + '/' + projectItem.id}>
+                      <div className="sidebar-icon flx flx-center-all">
+                        {<DotJewel threadCount={threadCounts[projectItem.id]} />}
+                      </div> 
+                      <div className="sidebar-project-name color--black">
+                        {projectName}
+                      </div>
+                      {<ThreadCountJewel threadCount={threadCounts[projectItem.id]} />}
+                    </Link>
+
+                );
+              })
+            }
+            <Link to={'/' + orgName + '/createList'} className="sidebar-row group-row flx flx-row flx-align-center mrgn-top-sm">
+              <div className="sidebar-icon flx flx-center-all">
+                <div className="koi-ico --24 ico--add ico-color--seaweed"></div> 
+              </div>
+              <div className="sidebar-project-name color--seaweed co-type-bold"> 
+                Add Group
+              </div>
+            </Link>
+          </div>
+
+
 
           <div className="sidebar-footer flx flx-col">
 

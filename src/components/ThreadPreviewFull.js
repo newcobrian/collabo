@@ -92,7 +92,7 @@ const ProjectLabel = props => {
   }
   else return (
     <div className="co-project-name mrgn-left-xs">
-      <Link className="text-hover" to={'/' + props.orgName + '/' + props.projectId}>
+      <Link className="text-hover color--black" to={'/' + props.orgName + '/' + props.projectId}>
         {props.projectNames[props.projectId] ? props.projectNames[props.projectId].name : ''}
       </Link>
     </div> 
@@ -140,7 +140,8 @@ class ThreadPreviewFull extends React.Component {
     const createdBy = orgUserData && orgUserData[thread.userId] ? orgUserData[thread.userId] : { username: '' }
 
     return (
-      <div className={"tp-wrapper tp-preview-full tp-full flx flx-row flx-m-col"}>
+      <div className="flx flx-col flx-align-center w-100">
+      <div className="tp-wrapper tp-preview-full tp-full flx flx-row flx-m-col w-100">
           
           <div className="tp-container flx flx-col flx-align-start">           
             
@@ -175,8 +176,8 @@ class ThreadPreviewFull extends React.Component {
                           {thread.title}
                     </Link>
                     <div className="color--black thread-timestamp flx flx-row flx-align-center mrgn-bottom-xs">
-                      <div><Link to={'/' + orgName + '/user/' + createdBy.username} className="text-hover">{createdBy.username}</Link>&nbsp;&#xb7;&nbsp;</div>
-                      <ProjectLabel className="" projectNames={projectNames} projectId={thread.projectId} orgName={orgName} />&nbsp;&#xb7;&nbsp;<DisplayTimestamp timestamp={thread.lastModified} /> 
+                      <div><Link to={'/' + orgName + '/user/' + createdBy.username} className="text-hover color--black">{createdBy.username}</Link>&nbsp;&#xb7;&nbsp;</div>
+                      <ProjectLabel className="color--black" projectNames={projectNames} projectId={thread.projectId} orgName={orgName} />&nbsp;&#xb7;&nbsp;<DisplayTimestamp timestamp={thread.lastModified} /> 
                     </div>
                   </div>
                 </div>
@@ -228,7 +229,7 @@ class ThreadPreviewFull extends React.Component {
             <Link onClick={this.openThread} className="discussion-info color--black thread-timestamp flx flx-row flx-align-center w-100">
               <div>3 New&nbsp;&#xb7;&nbsp;</div>
               <div>{this.props.thread.commentsCount} Replies&nbsp;&#xb7;&nbsp;</div>
-              <div>8 Participants&nbsp;&#xb7;&nbsp;</div>
+              <div>8 Participants</div>
               <div className="flx-item-right">View All</div>
             </Link>
 
@@ -250,6 +251,10 @@ class ThreadPreviewFull extends React.Component {
             </div>
           </div>
       </div>
+      <div className="w-100 pdding-all-md flx flx-col flx-center-all">
+        <div className="koi-ico ico--divider opa-20 no-click"></div>
+      </div>
+    </div>
     );
   }
 }

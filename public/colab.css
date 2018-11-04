@@ -59,6 +59,10 @@
     background: linear-gradient(90deg, #FFFFFF 61.43%, rgba(217, 217, 217, .2) 116.79%);
     background: rgba(201,224,236,.2);
 }
+.group-title-wrapper {
+	padding-left: 8px;
+	margin-top: 20px;
+}
 .sidebar-footer {
 	position: absolute;
     width: 100%;
@@ -212,7 +216,7 @@ textarea {
 	padding: 10px 0;
 }
 .org-row.org-row-selector {
-    padding: 0 18px;
+    padding: 0 16px;
     height: 80px;
     margin: 0;
 }
@@ -397,7 +401,7 @@ textarea {
     border-radius: 100px;
     background: radial-gradient(10px at 50% 50%, #30C1D6 90%, #A4F6E6 152%);
     background: #9FCEE2;
-    margin-right: 16px;
+    margin-right: 12px;
 }
 .sidebar-dot.active {
 	visibility: visible;
@@ -467,9 +471,13 @@ textarea {
 
 
 .sidebar-row {
-	padding: 4px 16px;
+	padding: 4px 8px;
 	width: 100%;
 	text-align: left;
+	border-radius: 32px;
+}
+.sidebar-groups-wrapper {
+	padding: 0 0 0 8px;
 }
 .info-row {
 	padding: 4px 0px;
@@ -494,10 +502,10 @@ textarea {
 }
 .sidebar-row.group-triplet:hover,
 .sidebar-row.group-triplet.active {
-
+	background-color: transparent !important;
 }
 .sidebar-row.group-row.search-row {
-	padding: 0px 12px;
+	padding: 0px 4px;
 	height: 24px;
 	/*background-color: rgba(101,212,236,.1);*/
 }
@@ -512,7 +520,7 @@ textarea {
 	margin: 30px 0 40px;
 }
 .sidebar-row.group-row {
-	padding: 0 12px 0 12px;
+	padding: 0 12px 0 4px;
 }
 .sidebar-row.group-row .sidebar-icon {
 	height: 16px;

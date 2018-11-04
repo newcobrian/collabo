@@ -168,7 +168,7 @@ class AddProject extends React.Component {
 
 						    {/* CONTAINER - START */}
 					        <div className="koi-view header-push ta-left flx flx-col">
-			        			<div className="koi-page-title mrgn-bottom-md">
+			        			<div className="koi-type-page-title mrgn-bottom-md">
 			        				Create a New List
 			        			</div>
 						       	<div className="co-type-body color--black mrgn-bottom-md">

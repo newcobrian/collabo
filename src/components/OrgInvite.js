@@ -91,7 +91,7 @@ class OrgInvite extends React.Component {
 			                    <OrgHeader />
 			                </div>
 
-	                  		<div className="koi-view threadlist header-push ta-left flx flx-col w-100 fill--white">
+	                  		<div className="koi-view threadlist ta-left flx flx-col w-100 fill--white">
 
 								{/* FORM START */}
 					            <div className="content-wrapper header-push ta-left flx flx-col">

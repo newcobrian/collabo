@@ -5,7 +5,7 @@
 ******/
 
 body a {
-  color: #292F3D;
+  color: #285A00 !important;
 
   -webkit-transition: none;
   transition: none;
@@ -14,9 +14,7 @@ body a {
   -webkit-transition: none;
   transition: none;
 }
-.comment-row a {
-  color: rgba(48,193,214,1) !important;
-}
+
 body a:hover {
   opacity: .9;
 }

@@ -16,7 +16,7 @@ const ProjectHeader = props => {
                   <img className="center-img" src="/img/logo_a.png"/>
                 </Link>
               </div>
-              <div className="mrgn-left-xs flx flx-col flx-just-start">
+              <div className="flx flx-col flx-just-start">
                 <div className="project-header-text">{props.project.name}</div>
                 <Link onClick={props.onProjectInviteClick} className="flx flx-row flx-align-center">
                   <div className="co-type-label color--black opa-70"> 

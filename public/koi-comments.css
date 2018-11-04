@@ -46,3 +46,6 @@
 .discussion-info {
 	padding: 12px 16px 6px !important;
 }
+.comment-row a {
+  color: #285A00 !important;
+}

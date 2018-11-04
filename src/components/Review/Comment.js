@@ -160,8 +160,8 @@ class Comment extends React.Component {
                 orgName={orgName} />
               {!parentId && hideCommentInput && (!comment.nestedComments || comment.nestedComments.lenght > 0) &&
                 <Link className="reply-ico-wrapper flx flx-row flx-center-all mrgn-left-md" onClick={this.toggleHideCommentInput}>
-                  <div className="koi-ico ico--reply mrgn-right-xs opa-60"></div>
-                  <div className="co-type-label ta-left mobile-hide">Reply</div>
+                  <div className="koi-ico --24 ico--reply mrgn-right-xs opa-60"></div>
+                  <div className="co-type-label color--black ta-left mobile-hide">Reply</div>
                 </Link>}
               <div className="thread-timestamp inline-block flx flx-row flx-item-right">
                 <DeleteButton
