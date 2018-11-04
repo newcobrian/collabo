@@ -115,7 +115,7 @@ const ThreadBody = props => {
       orgMembers, orgUserData, bodyText, likes } = props
 
     return (
-      <div className={"thread-body left-text flx flx-col flx-align-center"}>
+      <div className={"thread-body left-text flx flx-col flx-align-center fill--mist"}>
           <div className="thread-view w-100">
             <div className={"tp-wrapper flx flx-row flx-m-col"}>   
               <div className="tp-container b--primary--10 flx flx-col flx-align-start">   

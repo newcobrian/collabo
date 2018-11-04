@@ -40,7 +40,7 @@ const OrgList = props => {
       </div>
       )
   }
-}
+} 
 
 const mapStateToProps = state => ({
   ...state.home,
@@ -74,7 +74,7 @@ class Home extends React.Component {
     else {
       return (
         <div>
-          <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
+          <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center fill--pond">
 
             <SignOutButton signOut={this.props.signOutUser}/>
             

@@ -57,7 +57,10 @@
 	margin-top: 4px;
 }
 
-
+.thread-body {
+	padding: 12px 0;
+	width: 100%;
+}
 
 
 

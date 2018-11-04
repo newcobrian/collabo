@@ -11,10 +11,10 @@
 
 .fill--utsuri {
 	background: #1E213F;
-	background: rgba(30,33,63);
+	background: rgba(30,33,63) !important;
 }
 .color--utsuri {
-	color: rgba(30,33,63);
+	color: rgba(30,33,63) !important;
 }
 .brdr-color--utsuri {
 	border-color: rgba(30,33,63) !important;
