@@ -55,6 +55,17 @@
     padding: 0 24px;
 }
 
+.koi-button-fancy-wrapper:hover .koi-button-fancy-outer {
+    left: 2px;
+    right: 2px;
+    transition: all 0.23s ease-in-out 0s;
+}
+.koi-button-fancy-wrapper:hover .koi-button-fancy-inner {
+    top: 2px;
+    bottom: 2px;
+    transition: all 0.23s ease-in-out 0s;
+}
+
 .border--seaweed .koi-button-fancy-outer {
     border: 2px solid rgba(40,90,0,.5);
 }

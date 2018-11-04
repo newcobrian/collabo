@@ -1,8 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router';
 import OrgHeader from './OrgHeader';
+import ProfilePic from './ProfilePic';
+import * as Constants from '../constants';
 
 const ProjectHeader = props => {
+  let membersList = props.projectId ? props.projectMembers : props.orgMembers
+
   if (props.projectId) {
     if (!props.project) return null
     else return (
@@ -18,11 +22,14 @@ const ProjectHeader = props => {
               </div>
               <div className="flx flx-col flx-just-start">
                 <div className="project-header-text">{props.project.name}</div>
-                <Link onClick={props.onProjectInviteClick} className="flx flx-row flx-align-center">
-                  <div className="co-type-label color--black opa-70"> 
-                    Add Member
+                <div className="flx flx-row flx-align-center">
+                  <div className="co-type-label color--black opa-70 mrgn-right-sm"> 
+                    {(membersList || []).length + ' Members'}
                   </div>
-                </Link>
+                  <Link onClick={props.onProjectInviteClick} className="co-type-label color--black opa-70"> 
+                      Add Member
+                  </Link>
+                </div>
               </div>
             </div>
 

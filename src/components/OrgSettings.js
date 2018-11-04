@@ -27,7 +27,7 @@ const JoinProjectButton = props => {
 
   return (
     <div className="flx flx-center-all mrgn-right-md">
-      <button onClick={handleJoinClick} className={"vb vb--xs vb--round flx flx-row flx-center-all " + (props.isJoined ? 'fill--gray color--black' : 'fill--secondary color--white' )}>
+      <button onClick={handleJoinClick} className={"vb vb--xs vb--round flx flx-row flx-center-all " + (props.isJoined ? 'fill--mist color--black' : 'fill--seaweed color--white' )}>
           { props.isJoined ? 'Leave' : 'Join' }
       </button>
     </div>
@@ -62,7 +62,7 @@ const MembersTab = props => {
       <a  href=""
           className={ props.tab === Constants.MEMBERS_TAB ? 'nav-link color--black brdr-color--primary active' : 'nav-link color--black' }
           onClick={clickHandler}>
-        Team Members
+        Members
       </a>
     </li>
   );
@@ -97,8 +97,8 @@ const MembersList = props => {
                 to={'/' + props.orgName + '/user/' + userItem.username} >
                 <ProfilePic src={userItem.image} className="user-img center-img prof-48" /> 
                 <div className="flx flx-col flx-align-start w-100">
-                  <div className="mrgn-left-sm koi-type-body koi-type-bold">{userItem.username}</div>
-                  <div className="mrgn-left-sm koi-type-caption">{userItem.fullName}</div>
+                  <div className="mrgn-left-sm koi-type-body koi-type-bold color--black">{userItem.username}</div>
+                  <div className="mrgn-left-sm koi-type-caption color--black">{userItem.fullName}</div>
                 </div>
               </Link>
               )
@@ -117,7 +117,7 @@ const MembersList = props => {
               <div className="flx flx-col flx-align-start mrgn-bottom-sm brdr-bottom pdding-bottom-sm" key={userItem.email}>
                 <div className="koi-type-body koi-type-bold">{userItem.email}</div>
                 <div className="koi-type-caption opa-60">
-                  from <Link to={'/' + props.orgName + '/user/' + userItem.senderUsername}>{userItem.senderUsername}</Link> on&nbsp;
+                  from <Link className="color--black" to={'/' + props.orgName + '/user/' + userItem.senderUsername}>{userItem.senderUsername}</Link> on&nbsp;
                    <DisplayTimestamp timestamp={userItem.timestamp} />
                 </div>
               </div>
@@ -297,8 +297,8 @@ class OrgSettings extends React.Component {
                       <div className="koi-type-page-title">{this.props.params.orgname} Team Directory</div>
 
                       <Link onClick={this.onOrgInviteClick} className="flx flx-row flx-align-center vb vb--sm fill--utsuri mrgn-top-md mrgn-bottom-sm">
-                        <div className="mrgn-right-sm flx flx-center-all">
-                          <div className="koi-ico --24 ico--add--white DN"></div>              
+                        <div className="mrgn-right-sm flx flx-center-all DN">
+                          <div className="koi-ico --24 ico--add--white"></div>              
                         </div>
                         <div className="koi-type-body koi-type-bold color--white">
                           Invite Users
