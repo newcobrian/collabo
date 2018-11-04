@@ -62,6 +62,13 @@
     border: 2px solid rgba(40,90,0,.3);
 }
 
+.border--utsuri .koi-button-fancy-outer {
+    border: 2px solid rgba(30,33,63,.5);
+}
+.border--utsuri .koi-button-fancy-inner {
+    border: 2px solid rgba(30,33,63,.3);
+}
+
 .koi-comment-post-button {
     height: auto;
     text-align: center;

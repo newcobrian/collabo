@@ -9,6 +9,18 @@
 }
 
 
+.fill--utsuri {
+	background: #1E213F;
+	background: rgba(30,33,63);
+}
+.color--utsuri {
+	color: rgba(30,33,63);
+}
+.brdr-color--utsuri {
+	border-color: rgba(30,33,63) !important;
+}
+
+
 .fill--tancho {
 	background-color: #FF6D59 !important;
 }
@@ -30,4 +42,63 @@
 
 .fill--mist {
 	background: rgba(244,249,251);
+}
+
+
+
+
+
+
+/* COLOR */
+
+.color--gray {
+  color: #D5E3E5;
+}
+.fill--gray {
+  background-color: rgba(0,0,0,.1);
+}
+.color--dark-gray {
+  color: #99A8AA;
+}
+.fill--dark-gray {
+  background-color: #99A8AA;
+}
+.color--fb {
+  color: #3b5998;
+}
+.color--tw {
+  color: #00aced;
+}
+.fill--dark {
+  background-color: #011946;
+}
+.fill--lighter-gray {
+  background-color: #f7f7f7;
+}
+.color--white {
+  color: #ffffff !important;
+}
+.fill--white {
+  background-color: #ffffff !important;
+}
+.color--black {
+  color: #121419;
+}
+.fill--black {
+  background-color: black;
+}
+.fill--black--10 {
+	background-color: rgba(0,0,0,.1)
+}
+
+
+
+
+
+
+a.color--primary:hover i,
+a.color--primary:focus i,
+a.color--primary:hover,
+a.color--primary:focus {
+  transition: all 0.23s ease-in-out 0s;
 }

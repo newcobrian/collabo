@@ -60,11 +60,11 @@ class InviteForm extends React.Component {
 
 	render() {
 		return (
-					<div className="koi-view header-push text-left flx flx-col flx-align-start w-100">
+					<div className="koi-view text-left flx flx-col flx-align-start w-100 fill--white">
 						
 				            <form className="flx flx-col flx-align-start w-100">
 			                    <fieldset className="field-wrapper">
-									<div className="co-type-page-title mrgn-bottom-sm">Invite team members</div>
+									<div className="co-post-title mrgn-bottom-md">Invite team members</div>
 			                      <textarea
 			                        className="input--underline edit-itinerary__name brdr-all"
 			                        type="text"
@@ -84,7 +84,7 @@ class InviteForm extends React.Component {
 				                       Cancel
 				                    </Link>
 				                    <div
-				                    className="vb vb--form-cta mrgn-top-md fill--secondary color--white"
+				                    className="vb vb--form-cta mrgn-top-md fill--utsuri color--white"
 				                    type="button"
 				                    disabled={this.props.inProgress}
 				                    onClick={this.submitForm}>

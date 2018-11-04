@@ -120,7 +120,7 @@ class ProjectList extends React.Component {
         
 
         <div className="sidebar-row flx flx-row flx-align-center mrgn-bottom-sm mrgn-top-md">
-          <div className="co-type-h3 color--black">
+          <div className="koi-type-caption koi-type-bold opa-30 color--black">
             Groups
           </div>
           {/*<Link to={'/' + orgName + '/createList'} className="flx flx-row flx-align-center flx-item-right">
@@ -181,6 +181,19 @@ class ProjectList extends React.Component {
 
             </Link>
 
+            <div className="sidebar-row flx flx-row flx-center-all mrgn-bottom-sm">
+              <Link to={'/' + orgName + '/invite'}
+                className="flx flx-col flx-center-all koi-button-fancy-wrapper mrgn-right-lg mrgn-left-lg border--utsuri w-100">
+                  <div className="koi-button-fancy-outer">
+                  </div>
+                  <div className="koi-button-fancy-inner">
+                  </div>
+                  <div className="koi-button-fancy-text color--utsuri">
+                    Invite Team
+                  </div>
+              </Link>
+            </div>
+
            
 
             <div className="flx flx-row flx-align-center w-100">
@@ -189,14 +202,14 @@ class ProjectList extends React.Component {
                 <div className="mrgn-bottom-xs flx flx-center-all">
                   <ProfilePic className="center-img" src={this.props.orgUser.image}/>
                 </div>
-                <div className="co-type-label color--black">{this.props.orgUser.username}</div>
+                <div className="koi-type-caption koi-type-bold color--black">{this.props.orgUser.username}</div>
               </Link>
 
               <Link to={'/' + this.props.orgName + '/inbox'} activeClassName="active" className="sidebar-row group-triplet flx flx-col flx-align-center">
                   <div className="sidebar-icon--large flx flx-center-all">
                     <div className=""><InboxCounter inboxCount={inboxCount} className=""/></div>
                   </div>
-                  <div className="co-type-label color--black">Activity</div>
+                  <div className="koi-type-caption color--black koi-type-bold">Activity</div>
               </Link>
 
               
@@ -205,14 +218,14 @@ class ProjectList extends React.Component {
                   <div className="sidebar-icon--large flx flx-center-all">
                     <div className="koi-ico ico--bookmark--tertiary opa-20"></div>
                   </div>
-                  <div className="co-type-label color--white opa-40">Saved</div>
+                  <div className="koi-type-label color--white opa-40 koi-type-bold">Saved</div>
               </Link>
 
               <Link to={'/' + this.props.orgName + '/admin'} activeClassName="active" className="sidebar-row group-triplet flx flx-col flx-align-center">
                   <div className="sidebar-icon--large flx flx-center-all">
-                    <div className="koi-ico ico--orgsettings--tertiary"></div>
+                    <div className="koi-ico ico--orgsettings"></div>
                   </div>
-                  <div className="co-type-label color--black">Team</div>
+                  <div className="koi-type-caption color--black koi-type-bold">Team</div>
               </Link>
             </div>
 

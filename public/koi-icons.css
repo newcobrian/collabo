@@ -1,0 +1,143 @@
+/* ICONS */
+
+.co-icon-wrapper {
+	width: 32px;
+	height: 32px;
+}
+
+
+.koi-ico {
+	width: 32px;
+	height: 32px;
+	background-image: url(img/icon_like.png);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	cursor: pointer;
+}
+
+
+.sidebar-row .koi-ico {
+	opacity: 1;
+}
+
+
+.koi-ico.ico--hamburger {
+	background-image: url(img/icon_hamburger.png);
+}
+.koi-ico.ico--like {
+	background-image: url(img/icon_like.png);
+}
+.koi-ico.ico--like--active,
+.koi-ico.ico--like:hover {
+	background-image: url(img/icon_like_secondary.png);
+	transition: all 0.23s ease-in-out 0s;
+}
+.koi-ico.ico--bookmark {
+	background-image: url(img/icon_bookmark.png);
+}
+.koi-ico.ico--bookmark--tertiary {
+	background-image: url(img/icon_bookmark_tertiary.png);
+}
+
+.koi-ico.ico--orgsettings {
+	background-image: url(img/icon24_orgsettings.png);
+}
+.koi-ico.ico--orgsettings--tertiary {
+	background-image: url(img/icon24_orgsettings_tertiary.png);
+}
+
+.thread-content-wrapper .koi-ico.ico--bookmark,
+.comments-module .koi-ico.ico--bookmark {
+	background-image: url(img/icon_bookmark.png);
+	margin-right: -6px;
+}
+.koi-ico.ico--bookmark--active {
+	background-image: url(img/icon_bookmark_active.png);
+}
+.koi-ico.ico--reply {
+	background-image: url(img/icon_reply.png);
+}
+.reply-ico-wrapper:hover .koi-ico.ico--reply {
+	background-image: url(img/icon_reply_active.png);
+	transition: all 0.23s ease-in-out 0s;
+}
+.koi-ico.ico--reply--active {
+	background-image: url(img/icon_reply_active.png);
+}
+
+
+.koi-ico.--24 {
+	width: 24px;
+	height: 24px;
+}
+
+.koi-ico.--24.ico--bookmark {
+	background-image: url(img/icon24_bookmark.png);
+}
+.koi-ico.--24.ico--bookmark--primary {
+	background-image: url(img/icon24_bookmark_primary.png);
+}
+.koi-ico.--24.ico--add {
+	background-image: url(img/icon24_add.png);
+}
+
+.koi-ico.--24.ico--checkmark--primary {
+	background-image: url(img/icon24_checkmark_primary.png);
+}
+
+.koi-ico.--24.ico--add--primary {
+	background-image: url(img/icon24_add_primary.png);
+}
+.koi-ico.--24.ico--add--secondary {
+	background-image: url(img/icon24_add_secondary.png);
+}
+.koi-ico.--24.ico--add--tertiary {
+	background-image: url(img/icon24_add_tertiary.png);
+}
+.koi-ico.--24.ico--add--white {
+	background-image: url(img/icon24_add_white.png);
+}
+
+.koi-ico.--24.ico--allfeed {
+	background-image: url(img/icon24_allfeed.png);
+}
+.koi-ico.--24.ico--down {
+	background-image: url(img/icon24_arrow-down_primary.png);
+}
+.koi-ico.--24.ico--down--white {
+	background-image: url(img/icon24_arrow-down_white.png);
+}
+
+.koi-ico.--24.ico--search {
+	background-image: url(img/icon24_search.png);
+}
+.koi-ico.--24.ico--search--primary {
+	background-image: url(img/icon24_search_primary.png);
+}
+.koi-ico.--24.ico--search--white {
+	background-image: url(img/icon24_search_white.png);
+}
+
+.koi-ico.--24.ico--allupdates {
+	background-image: url(img/icon24_allupdates.png);
+}
+.koi-ico.--24.ico--allupdates--primary {
+	background-image: url(img/icon24_allupdates_primary.png);
+}
+.koi-ico.--24.ico--orgsettings {
+	background-image: url(img/icon24_orgsettings.png);
+}
+.koi-ico.--24.ico--orgsettings--primary {
+	background-image: url(img/icon24_orgsettings_primary.png);
+}
+
+
+
+.koi-ico.--36 {
+	width: 36px;
+	height: 36px;
+}
+.koi-ico.--36.ico--add--primary {
+	background-image: url(img/icon36_add_primary.png);
+}

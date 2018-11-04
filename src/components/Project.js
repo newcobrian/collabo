@@ -250,7 +250,7 @@ class Project extends React.Component {
 
               <div className={this.props.sidebarOpen ? 'open-style' : 'closed-style'}>
 
-                <div className="page-common page-places flx flx-row flx-align-start">
+                <div className="page-common page-places flx flx-row flx-align-start fill--mist">
                   
                     <ProjectHeader 
                       orgName={this.props.params.orgname}
@@ -258,8 +258,8 @@ class Project extends React.Component {
                       project={this.props.project}
                       onProjectInviteClick={this.onProjectInviteClick}
                     />
-                    <div className="threadlist-outer flx flx-row">              
-                      <div className="threadlist-wrapper flx flx-col flx-align-start w-100 h-100">
+                    <div className="threadlist-outer fill--mist flx flx-row">              
+                      <div className="threadlist-wrapper fill--mist flx flx-col flx-align-start w-100 h-100">
 
 
                         <InfiniteScroll
