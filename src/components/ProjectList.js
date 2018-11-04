@@ -31,13 +31,13 @@ const ThreadCountJewel = props => {
 const InboxCounter = props => {
   if (props.inboxCount > 0) {
     return (
-      <div className="group-badge color--black active">
+      <div className="group-badge fill--utsuri olor--black active koi-type-count">
         {props.inboxCount}
       </div>
     );
   }
   return (
-    <div className="color--black group-badge">
+    <div className="color--black group-badge koi-type-count">
       0
     </div>
   );
@@ -119,7 +119,7 @@ class ProjectList extends React.Component {
 
         
 
-        <div className="sidebar-row flx flx-row flx-align-center mrgn-bottom-sm mrgn-top-md">
+        <div className="sidebar-row flx flx-row flx-align-center mrgn-bottom-sm mrgn-top-sm">
           <div className="koi-type-caption koi-type-bold opa-30 color--black">
             Groups
           </div>
@@ -183,7 +183,7 @@ class ProjectList extends React.Component {
 
             <div className="sidebar-row flx flx-row flx-center-all mrgn-bottom-sm">
               <Link to={'/' + orgName + '/invite'}
-                className="flx flx-col flx-center-all koi-button-fancy-wrapper mrgn-right-lg mrgn-left-lg border--utsuri w-100">
+                className="flx flx-col flx-center-all koi-button-fancy-wrapper mrgn-right-lg mrgn-left-lg border--utsuri">
                   <div className="koi-button-fancy-outer">
                   </div>
                   <div className="koi-button-fancy-inner">
@@ -207,7 +207,7 @@ class ProjectList extends React.Component {
 
               <Link to={'/' + this.props.orgName + '/inbox'} activeClassName="active" className="sidebar-row group-triplet flx flx-col flx-align-center">
                   <div className="sidebar-icon--large flx flx-center-all">
-                    <div className=""><InboxCounter inboxCount={inboxCount} className=""/></div>
+                    <div className="koi-type-count"><InboxCounter inboxCount={inboxCount} className=""/></div>
                   </div>
                   <div className="koi-type-caption color--black koi-type-bold">Activity</div>
               </Link>

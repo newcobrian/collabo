@@ -97,8 +97,8 @@ const MembersList = props => {
                 to={'/' + props.orgName + '/user/' + userItem.username} >
                 <ProfilePic src={userItem.image} className="user-img center-img prof-48" /> 
                 <div className="flx flx-col flx-align-start w-100">
-                  <div className="mrgn-left-sm co-type-body co-type-bold">{userItem.username}</div>
-                  <div className="mrgn-left-sm co-type-label">{userItem.fullName}</div>
+                  <div className="mrgn-left-sm koi-type-body koi-type-bold">{userItem.username}</div>
+                  <div className="mrgn-left-sm koi-type-caption">{userItem.fullName}</div>
                 </div>
               </Link>
               )
@@ -115,8 +115,8 @@ const MembersList = props => {
           (props.payload || []).map((userItem, index) => {
             return (
               <div className="flx flx-col flx-align-start mrgn-bottom-sm brdr-bottom pdding-bottom-sm" key={userItem.email}>
-                <div className="co-type-body co-type-bold">{userItem.email}</div>
-                <div className="co-type-label opa-60">
+                <div className="koi-type-body koi-type-bold">{userItem.email}</div>
+                <div className="koi-type-caption opa-60">
                   from <Link to={'/' + props.orgName + '/user/' + userItem.senderUsername}>{userItem.senderUsername}</Link> on&nbsp;
                    <DisplayTimestamp timestamp={userItem.timestamp} />
                 </div>
@@ -145,7 +145,7 @@ const MembersList = props => {
                     leaveProject={props.leaveProject}
                     joinProject={props.joinProject}
                     project={projectItem} />
-                  <div className="co-type-body">{projectItem.projectName}</div>
+                  <div className="koi-type-body">{projectItem.projectName}</div>
                 </div>
                 )
             }
@@ -294,13 +294,13 @@ class OrgSettings extends React.Component {
                   <div className="koi-view header-push text-left flx flx-col flx-align-start w-100">
                     {/* HEADER START */}
                     <div className="flx flx-col flx-align-start flx-just-center w-100 mrgn-bottom-sm">
-                      <div className="co-type-page-title">{this.props.params.orgname} Team Directory</div>
+                      <div className="koi-type-page-title">{this.props.params.orgname} Team Directory</div>
 
-                      <Link onClick={this.onOrgInviteClick} className="flx flx-row flx-align-center vb vb--sm fill--primary mrgn-top-md mrgn-bottom-sm">
+                      <Link onClick={this.onOrgInviteClick} className="flx flx-row flx-align-center vb vb--sm fill--utsuri mrgn-top-md mrgn-bottom-sm">
                         <div className="mrgn-right-sm flx flx-center-all">
-                          <div className="koi-ico --24 ico--add--white"></div>              
+                          <div className="koi-ico --24 ico--add--white DN"></div>              
                         </div>
-                        <div className="co-type-body color--white">
+                        <div className="koi-type-body koi-type-bold color--white">
                           Invite Users
                         </div>
                       </Link>

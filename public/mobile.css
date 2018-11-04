@@ -1053,6 +1053,7 @@ body .back-to-top {
 }
 .comment-row-wrapper {
   width: 100%;
+  margin-left: 0;
 }
 
 

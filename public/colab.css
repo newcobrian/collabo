@@ -351,6 +351,7 @@ textarea {
 }
 .tp-preview-full .thread-row-wrapper {
 	padding: 8px 18px;
+	min-height: 200px;
 }
 .top-bar {
 
@@ -484,17 +485,20 @@ textarea {
 .sidebar-row.active .co-type-project-name {
 	font-weight: 600;
 }
-.sidebar-row.group-row:hover,
-.sidebar-row.group-triplet:hover {
-	background-color: rgba(121,255,247,.5);
-	background-color: rgba(116,246,191,.3);
-	background-color: rgba(255,171,140,.1);
-	background-color: rgba(101,212,236,.15);
+.sidebar-row.group-row:hover {
 	background-color: rgba(201,224,236);
 	transition: all 0.23s ease-in-out 0s;
 }
+.sidebar-row.group-row.search-row:hover {
+	background-color: transparent !important;
+}
+.sidebar-row.group-triplet:hover,
+.sidebar-row.group-triplet.active {
+
+}
 .sidebar-row.group-row.search-row {
-	padding: 10px 12px;
+	padding: 0px 12px;
+	height: 24px;
 	/*background-color: rgba(101,212,236,.1);*/
 }
 .sidebar-row.group-row.search-row input {
@@ -525,7 +529,11 @@ textarea {
     border-radius: 100px;
     padding: 3px;
 }
-
+.group-triplet .group-badge {
+	padding: 1px;
+	border: 2px solid black;
+	border-color: rgba(30,33,63,.2) !important;
+}
 
 
 .tip__caption {
