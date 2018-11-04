@@ -42,10 +42,67 @@
 }
 .thread-body .comment-row-wrapper {
     margin-left: 0;
+    position: 8px 12px;
 }
 .discussion-info {
 	padding: 12px 16px 6px !important;
 }
 .comment-row a {
   color: #285A00 !important;
+}
+
+.comment-input {
+    padding: 0;
+    height: 120px;
+    border: 2px solid rgba(40, 90, 0, .3);
+}
+
+.comment-indent {
+    outline: none;
+    padding-left: 0px;
+    padding-right: 0px;
+    /*border-top: 2px solid #F4F9FB;*/
+}
+.commentlist-wrapper .main-reply {
+    position: relative !important;
+    width: auto;
+    padding-left: 40px;
+}
+.main-reply {
+    position: relative;
+    bottom: 0;
+    z-index: 10000000000;
+    width: auto;
+}
+.comment-input textarea {
+    overflow: auto !important;
+}
+.comment-bg {
+  margin: 0 0 4px;
+}
+.comment-input-container {
+    padding: 0px;
+    background: white;
+    margin-top: 2px;
+}
+.tp-wrapper .comment-inner {
+  /*border-left: none;*/
+  background-color: white;
+  padding: 16px;
+/*  border-left-width: 4px !important;
+  border-left-color: rgba(255,171,140,.8) !important;*/
+}
+.tp-wrapper .comment-inner-inner {
+    overflow-y: hidden;
+}
+.comment-wrapper {
+  border-radius: 0;
+  position: relative;
+  margin: 0;
+}
+
+
+.inline-comments .comment-indent {
+  /*display: none;*/
+  padding-left: 40px;
 }

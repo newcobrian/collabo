@@ -21,9 +21,9 @@ input, select, textarea {
 }
 
 .dialog input, .dialog select, .dialog textarea {
-  border: 1px solid rgba(0,0,0,.1);
   padding: 10px;
   background-color: #FFFEE8;
+  background-color: white;
   color: black;
 }
 
