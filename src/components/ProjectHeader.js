@@ -6,12 +6,12 @@ const ProjectHeader = props => {
   if (props.projectId) {
     if (!props.project) return null
     else return (
-      <div className={"project-header text-left flx flx-col flx-align-start w-100"}>
+      <div className={"project-header with-shadow text-left flx flx-col flx-align-start w-100"}>
         <OrgHeader />
         <div className="project-bar-wrapper flx flx-row flx-align-center">
           
             <div className="project-header-row co-type-h1 flx flx-row flx-align-center color--black">
-              <div className="group-icon mrgn-right-sm flx flx-col flx-center-all">
+              <div className="group-icon flx flx-col flx-center-all">
                 <Link to='/'  className="co-logo flx-hold">
                   <img className="center-img" src="/img/logo_a.png"/>
                 </Link>
@@ -47,11 +47,11 @@ const ProjectHeader = props => {
     )
   }
   else return (
-    <div className={"project-header text-left flx flx-col flx-align-start w-100"}>
+    <div className={"project-header with-shadow text-left flx flx-col flx-align-start w-100"}>
         <OrgHeader />
         <div className="project-bar-wrapper flx flx-row flx-align-center">
           <div className="project-header-row co-type-h1 flx flx-row flx-align-center color--black">
-            <div className="group-icon mrgn-right-sm flx flx-col flx-center-all">
+            <div className="group-icon flx flx-col flx-center-all">
               <Link to='/'  className="co-logo flx-hold">
                 <img className="center-img" src="/img/logo_a.png"/>
               </Link>

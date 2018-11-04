@@ -1,14 +1,18 @@
 body div.dialog--save {
   overflow: scroll;
   padding-top: 0 !important;
+  background-color: white;
 }
 .dialog--save__wrapper {
   margin: 0;
   height: 100%;
   transform: none !important;
+  background: white;
+  overflow: hidden;
 }
 .dialog--save__content {
   padding-bottom: 60px;
+  overflow: hidden !Important;
 /*  height: 100%;
   position: relative;*/
 }
@@ -65,6 +69,7 @@ body div.dialog--save {
     margin-right: 38px;
 }
 .dialog__overlay {
+  background-color: white !important;
 }
 .dialog--save__actions {
   position: fixed;

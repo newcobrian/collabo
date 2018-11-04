@@ -25,9 +25,11 @@ const NestedCommentContainer = props => {
     if (numComments === 0) return null
     else {
       return (
-      <div>
-          { numComments + ' ' + (numComments > 1 ? ' replies' : ' reply') }
+      <div className="comment-indent">
+        <div className="hidden-comments flx flx-col flx-align-center fill--white koi-type-body koi-type-bold">
+          <div className="opa-40">{ numComments + ' ' + (numComments > 1 ? ' replies' : ' reply') }</div>
         </div>
+      </div>
       )
     }
   }

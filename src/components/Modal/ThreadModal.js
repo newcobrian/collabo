@@ -138,6 +138,8 @@ class ThreadModal extends React.Component {
             overlayClassName="dialog__overlay"
             overlayStyle={{}}
             
+            paperClassName="dialog--paper"
+            
             contentClassName="dialog--save__wrapper"
             contentStyle={{width: "auto", maxWidth: "none"}}
             

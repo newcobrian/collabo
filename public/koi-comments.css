@@ -1,0 +1,48 @@
+.comment-outer-wrapper {
+	background-color: white;
+	padding: 20px;
+}
+.comment-content-wrapper {
+	background: white;
+}
+
+.comment-input__control {
+	min-height: 40px;
+}
+.tp-container.new-thread {
+	padding: 0 30px;
+	border-bottom: none;
+}
+.co-thread-reply-wrapper {
+	padding: 0;
+    width: 100%;
+    position: relative;
+    bottom: 0px;
+    height: auto;
+    overflow: scroll;
+    top: 0px;
+    overflow-x: hidden;
+    background: transparent;
+}
+.thread-indent-1 {
+	padding-left: 60px;
+}
+
+
+.comment-row-wrapper {
+	/*position: absolute;*/
+    right: 0;
+    width: 530px;
+    background: transparent;
+    bottom: 0;
+    top: 0;
+    margin-left: 4px;
+    width: 50%;
+    z-index: 0;
+}
+.thread-body .comment-row-wrapper {
+    margin-left: 0;
+}
+.discussion-info {
+	padding: 12px 16px 6px !important;
+}

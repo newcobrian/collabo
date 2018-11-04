@@ -146,13 +146,13 @@ li {
 }
 
 .ta-left {
-  text-align: left;
+  text-align: left !important;
 }
 .ta-right {
-  text-align: right;
+  text-align: right !important;
 }
 .ta-center {
-  text-align: center;
+  text-align: center !important;
 }
 
 

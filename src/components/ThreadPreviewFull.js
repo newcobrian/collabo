@@ -105,25 +105,23 @@ const CommentPreview = props => {
   if (!props.thread) return null
   else if (props.thread.commentsCount) {
     return (
-      <Link to={`/${props.orgName}/${props.thread.projectId}/${props.thread.threadId}`}>
-        <div className="cta-wrapper cta-wrapper-comment v2-type-body2 flx flx-row flx-align-center w-100">
-          <div className="material-icons color--black md-18 opa-60 mrgn-right-sm">comment</div>
-          {props.thread.commentsCount} Comments
-        </div>
-      </Link>
+      
+      <div className="color--black thread-timestamp flx flx-row flx-align-center pdding-all-sm w-100">
+        <div>3 New&nbsp;&#xb7;&nbsp;</div>
+        <div>{props.thread.commentsCount} Replies&nbsp;&#xb7;&nbsp;</div>
+        <div>8 Participants&nbsp;&#xb7;&nbsp;</div>
+        <div className="flx-item-right">View All</div>
+      </div>
+
     )
   }
-  else {
-    return null
-    // return (
-    //   <Link to={`/thread/${props.thread.threadId}`}>
-    //     <div className="cta-wrapper cta-wrapper-comment flx flx-col">
-    //       <div className="cta-icon cta-comment comment-on"></div>
-    //       Comment
-    //     </div>
-    //   </Link>
-    // )
-  }
+  else return (
+  
+    <div className="color--black thread-timestamp flx flx-row flx-align-center pdding-all-sm w-100">
+        <div>Be the first to respond</div>
+    </div>  
+    )
+  
 }
 
 // const ThreadPreviewFull = props => {
@@ -172,7 +170,7 @@ class ThreadPreviewFull extends React.Component {
                     <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
                   </Link>
                   <div className="flx flx-col">
-                    <Link className="color--black co-type-thread-title" onClick={this.openThread} >
+                    <Link className="color--black co-type-thread-title mrgn-bottom-xs" onClick={this.openThread} >
                     {/*<Link className="color--black" to={'/' + orgName + '/' + thread.projectId + '/' + thread.threadId }>*/}
                           {thread.title}
                     </Link>
@@ -205,7 +203,8 @@ class ThreadPreviewFull extends React.Component {
                 
 
             </div>
-            <Link to={`/${orgName}/${projectId}/${thread.threadId}`} className="show-all-button fill--white co-type-body co-type-bold color--black ta-center">
+            <Link onClick={this.openThread} className="show-all-button fill--white co-type-body co-type-bold color--black ta-center">
+              {/*to={`/${orgName}/${projectId}/${thread.threadId}`}*/}
               <span className="opa-40">Show full post</span>
             </Link>
           </div>
@@ -224,7 +223,15 @@ class ThreadPreviewFull extends React.Component {
             type={Constants.THREAD_TYPE}
             deleteComment={deleteComment} />*/}
 
-          <div className="comment-row-wrapper flx flx-row">
+          <div className="comment-row-wrapper flx flx-col">
+            
+            <Link onClick={this.openThread} className="discussion-info color--black thread-timestamp flx flx-row flx-align-center w-100">
+              <div>3 New&nbsp;&#xb7;&nbsp;</div>
+              <div>{this.props.thread.commentsCount} Replies&nbsp;&#xb7;&nbsp;</div>
+              <div>8 Participants&nbsp;&#xb7;&nbsp;</div>
+              <div className="flx-item-right">View All</div>
+            </Link>
+
             <div className="co-thread-reply-wrapper">
               <CommentContainer
                 authenticated={authenticated}

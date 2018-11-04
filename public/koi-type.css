@@ -1,0 +1,163 @@
+.koi-type-count {
+	font-weight: 600;
+    font-size: 16px !important;
+    letter-spacing: 0;
+    line-height: 18px;
+    opacity: 1;
+}
+.thread-timestamp,
+.koi-caption {
+	font-weight: 400;
+    font-size: 14px;
+    letter-spacing: .5px;
+    line-height: 18px;
+    opacity: .65;
+}
+.co-type-data,
+.koi-type-data {
+	font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+    opacity: 1;
+}
+
+.co-type-body,
+.koi-type-body {
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: .5px;
+    line-height: 20px;
+    white-space: normal;
+}
+.co-type-caption {
+	font-weight: 400;
+	font-size: 12px;
+	letter-spacing: 1.1px;
+	line-height: 16px;
+	white-space: normal;
+}
+.co-post-title {
+    font-weight: 600;
+    font-size: 42px;
+    letter-spacing: 0px;
+    line-height: 20px;
+}
+.co-type-sub {
+	font-weight: 400;
+	font-size: 12px;
+	letter-spacing: 1.2px;
+	line-height: 20px;
+}
+.co-type-label {
+	font-size: 11px;
+	font-weight: 400;
+	letter-spacing: 1.2px;
+	line-height: 16px;
+}
+.co-type-label--lg {
+	line-height: 18px;
+	color: inherit;
+	letter-spacing: 1.1px;
+	font-size: 14px;
+}
+
+.co-type-page-title {
+	font-size: 24px !important;
+    font-weight: 600 !important;
+    letter-spacing: 1.2px;
+    font-family: 'Karla';
+}
+.co-type-thread-title {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: 0px;
+    margin-top: 0px;
+    line-height: 29px;
+}
+.co-type-logotype {
+	font-size: 44px;
+	font-weight: bold;
+}
+.co-type-tagline {
+	font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 2px;
+}
+.co-type-project-name {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 1.2px;
+    line-height: 16px;
+    margin-bottom: 2px;
+}
+.sidebar-project-name {
+	font-size: 16px;
+    font-weight: 400;
+    letter-spacing: .2px;
+    line-height: 24px;
+    padding: 2px 0 0;
+}
+.active .sidebar-project-name {
+	font-weight: 600;
+}
+
+p {
+	margin-bottom: 0 !important;
+	white-space: normal
+}
+.co-type-bold,
+.koi-type-bold {
+	font-weight: bold;
+}
+.co-type-normal {
+	font-weight: normal;
+}
+.color--gray {
+	color: #999999;
+}
+
+.co-type-profile-status {
+	font-size: 18px;
+} 
+.co-type-h3 {
+    font-weight: 600 !important;
+    color: inherit ;
+    letter-spacing: 1.2px !important;
+    font-size: 14px !important;
+    font-family: 'Karla';
+}
+.co-type-org {
+    font-size: 21px;
+    font-weight: 600;
+    letter-spacing: .5px;
+}
+.co-type-h1 {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: .5px;
+}
+.co-type-h4 {
+	/*font-family: 'Doppio One', sans-serif;*/
+    font-size: 22px;
+    font-weight: 500;
+}
+.co-type-h5 {
+	/*font-family: 'Doppio One', sans-serif;*/
+    font-size: 14px;
+    font-weight: 500;
+}
+.co-type-thread-body {
+    font-size: 16px;
+    overflow: hidden;
+    display: inline-block;
+    width: auto;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.co-type-thread-body img {
+	width: 100%;
+}
+.tp-full .co-type-thread-body {
+	height: auto;
+}

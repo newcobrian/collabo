@@ -7,3 +7,27 @@
 .brdr-color--seaweed {
 	border-color: #285A00 !important;
 }
+
+
+.fill--tancho {
+	background-color: #FF6D59 !important;
+}
+
+
+
+.fill--pond {
+	background-color: #C9E0EC !important;
+	background-color: rgba(201,224,236) !important;
+}
+.color--pond {
+	color: #C9E0EC !important;
+}
+.brdr-color--pond {
+	border-color: #C9E0EC !important;
+}
+
+
+
+.fill--mist {
+	background: rgba(244,249,251);
+}

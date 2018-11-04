@@ -229,7 +229,7 @@ class AddProject extends React.Component {
 				                    <ListErrors errors={this.props.errors}></ListErrors>
 				                    
 				                    <div className="flx flx-row flx-just-end w-100">
-				                    	<Link onClick={this.onGoBackClick} activeClassName="active" className="vb vb--form-cta mrgn-top-md fill--gray color--black mrgn-right-sm">
+				                    	<Link onClick={this.onGoBackClick} activeClassName="active" className="vb vb--form-cta mrgn-top-md fill--mist color--black mrgn-right-sm">
 				                    	   Cancel
 				                    	</Link>
 										<div

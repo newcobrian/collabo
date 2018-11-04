@@ -10,7 +10,7 @@ import FirebaseSearchInput from './FirebaseSearchInput';
 const DotJewel = props => {
   if (props.threadCount > 0) {
     return (
-      <div className="sidebar-dot fill--secondary active">
+      <div className="sidebar-dot fill--tancho active">
       </div>
     );
   }
@@ -21,7 +21,7 @@ const DotJewel = props => {
 const ThreadCountJewel = props => {
   if (props.threadCount > 0) {
     return (
-      <div className="group-badge badge-on color--black flx-item-right thread-timestamp"> {props.threadCount}</div>
+      <div className="group-badge badge-on color--black flx-item-right koi-type-count ta-right">{props.threadCount}</div>
     );
   }
   return (
@@ -101,7 +101,7 @@ class ProjectList extends React.Component {
             <option value='newteam'>+ New Team</option>
           </select>
           <div className="org-arrow flx flx-center-all">
-            <div className="koi-ico --24 ico--down--white"></div>
+            <div className="koi-ico --24 ico--down"></div>
           </div>
         </div> 
 
