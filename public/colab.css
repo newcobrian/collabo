@@ -179,8 +179,8 @@ textarea {
 	background-color: transparent;
 }
 .loading-koi {
-	width: 48px;
-	height: 48px;
+	width: 60px;
+	height: 60px;
 	-webkit-animation: spin 2s infinite linear;
 	animation: spin 2s infinite linear;
 	moz-animation: spin 2s infinite linear;
