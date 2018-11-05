@@ -10,8 +10,12 @@ const LoggedOutMessage = props => {
           <div className="koi-home-page-wrapper w-100 flx flx-col">
             <div className="koi-home-hero-wrapper w-100 flx flx-col">
               <Link to="/login" className="login brdr-color--utsuri color--utsuri">Login</Link>
-              <div className="hero-logotext color--black">Koi</div>
-              <div className="hero-tagline color--black">
+              <div className="koi-shiro-down mobile-show"></div>
+              <div className="flx flx-row flx-align-center flx-just-start w-100">
+                <div className="hero-logotext color--black">Koi</div>
+                <div className="koi-tancho-left mobile-show"></div>
+              </div>
+              <div className="hero-tagline color--black ta-left">
                 A place for deep team discussion
               </div>
               <div className="hero-blurb color--black ta-left">

@@ -166,7 +166,25 @@ body input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill 
     background-image: none !important;
     color: rgb(0, 0, 0) !important;
 }
+.koi-shiro-down {
+	background: url(img/koi-shiro-down.png) top center no-repeat;
+	width: 50px;
+	height: 86px;
+	background-size: 100%;
+	position: relative;
+	margin-left: 60px;
+	margin-top: 70px;
+	margin-bottom: 40px;
+}
 
+.koi-tancho-left {
+	background: url(img/koi-tancho-left.png) top center no-repeat;
+	width: 86px;
+	height: 52px;
+	background-size: 100%;
+	position: relative;
+	margin-left: 20px;
+}
 
 
 /* Dashboard */

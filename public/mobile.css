@@ -1070,6 +1070,73 @@ body .back-to-top {
   height: 110px;
 }
 
+/* Home Page */
+.login {
+  top: 0;
+}
+.lily1 {
+  top: 70px;
+  width: 120px;
+  right: 20px;
+  height: 120px;
+}
+.hero-logotext {
+    font-weight: 600;
+    font-size: 140px;
+    letter-spacing: 0px;
+    line-height: 140px;
+    margin-left: -13px;
+    margin-top: 0;
+    margin-bottom: 0px;
+}
+.koigroup {
+    margin-top: 50px;
+}
+.lilyflower { 
+  position: absolute;
+    top: 220px;
+    right: 0px;
+    width: 140px;
+    height: 140px;
+}
+.lily2 {
+    position: absolute;
+    top: 220px;
+    left: 40px;
+    width: 90px;
+    height: 90px;
+}
+.hero-tagline {
+    font-weight: 600;
+    font-size: 22px;
+    letter-spacing: 0px;
+    line-height: 24px;
+    margin-bottom: 10px;
+}
+.hero-blurb {
+    font-size: 16px;
+    line-height: 24px;
+    max-width: 540px;
+    margin-top: 10px;
+}
+.hero-tagline {
+    margin-top: 8px;
+}
+.three-points {
+    position: absolute;
+    bottom: 0;
+    left: 0px;
+    font-weight: 400;
+    font-size: 20px;
+    letter-spacing: 0px;
+    line-height: 28px;
+    text-align: left;
+    top: 430px;
+}
+.koigroup {
+    margin-top: 50px;
+    height: 620px;
+}
 
 }
 
