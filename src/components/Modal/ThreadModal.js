@@ -96,7 +96,7 @@ class ThreadModal extends React.Component {
     const actions = [
       <FlatButton
         label="Close"
-        className="vb vb--outline-none fill--white color--grey"
+        className="vb vb--outline-none fill--pond color--utsuri"
         onClick={handleClose}
         style={{}}
         labelStyle={{}}
@@ -146,7 +146,7 @@ class ThreadModal extends React.Component {
             bodyClassName="dialog--save__body"
             bodyStyle={{padding: "0px"}}
 
-            actionsContainerClassName="dialog--save__actions"
+            actionsContainerClassName="dialog--save__actions fill--pond"
             actionsContainerStyle={{}}
           >
          

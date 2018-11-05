@@ -73,17 +73,18 @@
     bottom: 0;
     z-index: 10000000000;
     width: auto;
+    margin: 0 0 4px;
 }
 .comment-input textarea {
     overflow: auto !important;
 }
 .comment-bg {
-  margin: 0 0 4px;
+  /*margin: 0 0 4px;*/
 }
 .comment-input-container {
     padding: 0px;
     background: white;
-    margin-top: 2px;
+    /*margin-top: 2px;*/
 }
 .tp-wrapper .comment-inner {
   /*border-left: none;*/
