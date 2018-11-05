@@ -35,7 +35,7 @@ class OrgInvite extends React.Component {
     	}
 
 	    let lowerCaseOrgName = this.props.params.orgname ? this.props.params.orgname.toLowerCase() : ''
-	    console.log(lowerCaseOrgName)
+	    
 	    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
 	    	if (!orgSnap.exists()) {
 	        	this.props.notAnOrgUserError(Constants.ORG_SETTINGS_PAGE)
