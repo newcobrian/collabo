@@ -745,3 +745,10 @@ textarea {
 .body-preview {
 	max-width: 600px;
 }
+
+.infinite-loader {
+	background: red !important;
+}
+.ql-editor li.ql-indent-1:not(.ql-direction-rtl) {
+    padding-left: 3.5em;
+}

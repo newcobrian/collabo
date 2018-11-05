@@ -143,7 +143,7 @@ class ThreadPreviewFull extends React.Component {
       <div className="flx flx-col flx-align-center w-100">
       <div className="tp-wrapper tp-preview-full tp-full flx flx-row flx-m-col w-100">
           
-          <div className="tp-container flx flx-col flx-align-start">           
+          <div className="tp-container ql-editor flx flx-col flx-align-start">           
             
             <div className="thread-row-wrapper flx flx-row">
               <div className="thread-content-wrapper w-100">
