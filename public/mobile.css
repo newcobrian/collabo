@@ -1057,7 +1057,18 @@ body .back-to-top {
   margin-left: 0;
 }
 
-
+.dash-logotext {
+    font-weight: 600;
+    font-size: 60px;
+    letter-spacing: 0px;
+    line-height: 51px;
+}
+.dash-inner {
+  padding: 20px;
+}
+.dash-left-wrapper {
+  height: 110px;
+}
 
 
 }

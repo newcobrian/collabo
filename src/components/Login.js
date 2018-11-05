@@ -52,10 +52,8 @@ class Login extends React.Component {
     return (
       <div>
         <div className="home-page page-common page-login flx flx-col flx-align-center flx-just-start ta-center fill--pond">
-          <div className="container page">
-            <div className="row">
 
-              <div className="col-md-6 offset-md-3 col-xs-12 flx flx-col flx-center-all">
+            <div className="w-100 w-max-400 flx flx-col flx-center-all">
               <div className="loggedout-logo mrgn-bottom-xs mrgn-top-md">
                 <img className="center-img" src="/img/koi-logo_a.png"/>
               </div>
@@ -112,9 +110,9 @@ class Login extends React.Component {
               </form>
             </div>
 
-            </div>
           </div>
-        </div>
+
+
         <div className="footer color--black fill--pond flx flx-col flx-center-all flx-item-bottom co-type-data pdding-top-lg">
         <div className="koi-type-body color--black opa-70 mrgn-bottom-md">
           &copy; 2018 Futurehumans, LLC All Rights Reserved

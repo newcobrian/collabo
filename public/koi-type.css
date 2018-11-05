@@ -128,10 +128,11 @@ p {
     font-size: 14px !important;
     font-family: 'Karla';
 }
-.co-type-org {
-    font-size: 20px;
-    font-weight: 600;
-    letter-spacing: .5px;
+.koi-type-org {
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 48px;
 }
 .co-type-h1 {
     font-size: 14px;

@@ -11,9 +11,9 @@ import LoggedOutMessage from '../LoggedOutMessage';
 const SignOutButton = props => {
   return (
     <Link
-      className="flx flx-align-center mrgn-right-md w-100 mrgn-bottom-lg"
+      className="flx flx-align-center flx-item-right ta-right text-hover color--utsuri koi-type-body opa-40 flx-hold"
       onClick={props.signOut}>
-      <div className="flx-item-right color--white co-type-label">Log out</div>
+      Log out
     </Link>
   )
 }
@@ -28,11 +28,11 @@ const OrgList = props => {
         {
           props.orgList.map((orgItem, index) => {
             return (
-              <a target="_blank" href={'/' + orgItem.name} className="org-block flx flx-col flx-center-all" key={index}>
+              <a target="_blank" href={'/' + orgItem.name} className="w-100 flx flx-col flx-just-start" key={index}>
               {/*<a target="_blank" href={Constants.COLLABO_URL + '/' + orgItem.name} className="org-block flx flx-col flx-center-all" key={index}>*/}
                 <div className="org-logo mrgn-bottom-md DN">
                 </div>
-                <div className="co-type-org color--white">{orgItem.name}</div>
+                <div className="koi-type-org color--black">{orgItem.name}</div>
               </a>
               )
           })
@@ -74,53 +74,46 @@ class Home extends React.Component {
     else {
       return (
         <div>
-          <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center fill--pond">
-
-            <SignOutButton signOut={this.props.signOutUser}/>
+          <div className="home-page page-common page-dash flx flx-row flx-m-col flx-align-center flx-just-start ta-center fill--pond">
             
-            <div className="co-logo large-logo mrgn-top-lg">
-              <img className="center-img" src="/img/logomark.png"/>
+            <div className="dash-left-wrapper fill--pond w-100">
+              <div className="dash-inner flx flx-col flx-just-start fill--pond w-100">
+                <div className="flx flx-row flx-align-center w-100">
+                  <div className="dash-logo mobile-show mrgn-right-md flx-hold">
+                    <img className="center-img" src="/img/koi-logo_a.png"/>
+                  </div>
+                  <div className="dash-logotext color--black w-100 ta-left">Koi</div>
+                </div>
+                <div className="dash-graphic mobile-hide w-100 mrgn-top-lg">
+                  <img className="center-img" src="/img/dash-graphic.png"/>
+                </div>
+              </div>
             </div>
-            <div className="co-logotype w-100 mrgn-top-lg">
-              <img className="center-img" src="/img/logotype.png"/>
+            <div className="dash-right-wrapper flx flx-col fill--mist w-100">
+              <div className="dash-inner flx flx-col flx-just-start fill--mist w-100">
+                <div className="flx flx-row flx-just-start w-100">
+                  <div className="koi-type-body koi-type-bold w-100 mrgn-bottom-lg color--black opa-20 ta-left">
+                    My Teams
+                  </div>
+                  <SignOutButton signOut={this.props.signOutUser}/>
+                </div>
+                <OrgList
+                  orgList={this.props.orgList} />
+
+                <Link target="blank" to='/newteam' className="flx flx-row flx-center-all mrgn-top-md">
+                    <i className="material-icons color--white md-24 mrgn-right-sm opa-80 DN">add</i>
+                  <div className="koi-type-org color--green">Create New Team</div>
+                </Link>
+                {/*<div className="guide-feed-wrapper w-100 flx flx-row flx-just-center flx-self-end flx-align-start flx-wrap">
+                  <ProjectList />
+                </div>*/}
+              </div>
+
             </div>
-            <div className="co-type-tagline w-100 mrgn-bottom-lg mrgn-top-lg color--white">Work Together in Harmony</div>
-
-            <OrgList
-              orgList={this.props.orgList} />
-              <Link target="blank" to='/newteam' className="org-block flx flx-row flx-center-all">
-                  <i className="material-icons color--white md-24 mrgn-right-sm opa-80">add</i>
-                <div className="co-type-org color--white">Create New Team</div>
-              </Link>
-              {/*<div className="guide-feed-wrapper w-100 flx flx-row flx-just-center flx-self-end flx-align-start flx-wrap">
-                
-                
-
-                <ProjectList />
-
-                
-
-                
-              </div>*/}
-
-            
 
             
           </div>
-          <div className="footer color--white flx flx-col flx-center-all flx-item-bottom co-type-data pdding-top-lg">
-            <div className="co-type-data color--white opa-70 mrgn-bottom-md">
-              &copy; 2018 Futurehumans, LLC All Rights Reserved
-            </div>
-            <div className="flx flx-row flx-center-all mrgn-bottom-lg">
-              <Link to="/terms.html" target="blank" className="color--white opa-70">
-                Terms of Service
-              </Link>
-              <div className="middle-dot color--white flx-hold">&middot;</div>
-              <Link to="/privacy.html" target="blank" className="color--white opa-70">
-                Privacy Policy
-              </Link>
-            </div>
-          </div>
+          
           
 
           

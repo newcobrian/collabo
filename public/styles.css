@@ -198,6 +198,12 @@ li {
 .w-max-3 {
   max-width: 1180px;
 }
+.w-max-400 {
+  max-width: 400px;
+}
+.w-max-600 {
+  max-width: 600px;
+}
 .w-100 {
   width: 100%;
 }
