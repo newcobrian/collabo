@@ -65,7 +65,7 @@ class Login extends React.Component {
 
                 <div className="co-type-page-title color--black ta-center">Welcome Back</div>
                 <div className="text-xs-center mrgn-bottom-sm mrgn-top-sm">
-                  <Link className="co-type-body color--utsuri opa-60" to="/register">
+                  <Link className="text-hover co-type-body color--utsuri opa-60" to="/register">
                     Create an account
                   </Link>
                 </div>
@@ -106,7 +106,7 @@ class Login extends React.Component {
                   </button>
 
                   <fieldset className="text-xs-center mrgn-bottom-sm mrgn-top-md">
-                    <Link className="koi-type-body color--utsuri opa-60" to='/ForgotPassword'>Forgot password?</Link>
+                    <Link className="koi-type-body text-hover color--utsuri opa-60" to='/ForgotPassword'>Forgot password?</Link>
                   </fieldset>
                 </fieldset>
               </form>

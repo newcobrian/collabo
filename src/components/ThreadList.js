@@ -13,8 +13,13 @@ const mapStateToProps = state => ({
 const ThreadList = props => {
   if (props.emptyThreadFeed) {
     return (
-      <div className="threadlist brdr-right b--primary--20 threadlist-loading header-push w-100 flx flx-col flx-center-all ta-center color--black opa-60">
-        This list has no threads yet. <Link to={'/' + props.orgName + '/addthread/' + (props.projectId ? props.projectId : '')}>Click here to add one?</Link>
+      <div className="threadlist brdr-right b--primary--20 threadlist-loading header-push w-100 flx flx-col flx-center-all ta-center color--black">
+        This group has no posts yet.
+        <Link to={'/' + props.orgName + '/addthread/' + (props.projectId ? props.projectId : '')}>
+        Click the lilypad to post one</Link>
+        <Link to={'/' + props.orgName + '/addthread/' + (props.projectId ? props.projectId : '')} className="illustration square-sm flx flx-col flx-center-all mrgn-top-sm">
+          <img className="center-img" src="/img/illu_lilypad.png"/>
+        </Link>
       </div>
     )
   }

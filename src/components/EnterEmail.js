@@ -84,7 +84,7 @@ class EnterEmail extends React.Component {
 		  					 You should have receieved a verification email (check spam folder). Click back on the link in the email to complete the sign up process.
 		  				</div>
 		  				<div>
-		  					<Link className="color--utsuri opa-40" to='/login'>Click here to login</Link> or <Link className="color--utsuri opa-40" onClick={this.onResendVerification}>click here to send another verification email</Link>
+		  					<Link className="text-hover color--utsuri opa-40" to='/login'>Click here to login</Link> or <Link className="text-hover color--utsuri opa-40" onClick={this.onResendVerification}>click here to send another verification email</Link>
 		  				</div>
 		  			</div>
 		  		</div>

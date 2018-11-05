@@ -146,7 +146,10 @@ class AddThread extends React.Component {
 
 
 							  <div className="koi-view header-push ta-left flx flx-col">
-							  	<div className="co-type-page-title mrgn-bottom-md">Compose a New Thread</div>
+							  		<div className="illustration flx-hold flx flx-col flx-center-all">
+							  		  <img className="center-img" src="/img/illu_newthread.png"/>
+							  		</div>
+							  		<div className="co-type-page-title mrgn-bottom-md">Compose a New Thread</div>
 							  		<div className="co-type-body color--black mrgn-bottom-md">
 							  		Share discussions, ideas, links to files, meeting notes, etc here.
 							  		<br/>

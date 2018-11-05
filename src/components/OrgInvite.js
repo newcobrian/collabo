@@ -91,10 +91,12 @@ class OrgInvite extends React.Component {
 			                    <OrgHeader />
 			                </div>
 
-	                  		<div className="koi-view threadlist ta-left flx flx-col w-100 fill--white">
-
+	                  		<div className="koi-view header-push threadlist ta-left flx flx-col w-100 fill--white">
 								{/* FORM START */}
-					            <div className="content-wrapper header-push ta-left flx flx-col">
+					            <div className="content-wrapper ta-left flx flx-col">
+					            	<div className="illustration flx-hold flx flx-col flx-center-all">
+					            	  <img className="center-img" src="/img/illu_orginvite.png"/>
+					            	</div>
 						            <InviteForm onInviteSubmit={this.submitForm} />
 							    </div>
 								{/* FORM END */}

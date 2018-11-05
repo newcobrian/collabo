@@ -110,7 +110,7 @@ const CommentPreview = props => {
         <div>3 New&nbsp;&#xb7;&nbsp;</div>
         <div>{props.thread.commentsCount} Replies&nbsp;&#xb7;&nbsp;</div>
         <div>8 Participants&nbsp;&#xb7;&nbsp;</div>
-        <div className="flx-item-right">View All</div>
+        <div className="text-hover flx-item-right">View All</div>
       </div>
 
     )

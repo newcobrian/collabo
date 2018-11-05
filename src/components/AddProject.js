@@ -168,11 +168,15 @@ class AddProject extends React.Component {
 
 						    {/* CONTAINER - START */}
 					        <div className="koi-view header-push ta-left flx flx-col">
+					        	<div className="illustration flx-hold flx flx-col flx-center-all">
+					        	  <img className="center-img" src="/img/illu_createlist.png"/>
+					        	</div>
+					        	
 			        			<div className="koi-type-page-title mrgn-bottom-md">
-			        				Create a New List
+			        				Create a New Group
 			        			</div>
 						       	<div className="co-type-body color--black mrgn-bottom-md">
-						       	Use lists to organize your team communications and files (ie. "Design", "Marketing", etc)
+						       	Use groups	 to organize your team communications and files (ie. "Design", "Marketing", etc)
 						       	<br/>
 						       	Access lists quickly in the left sidebar.</div>
 

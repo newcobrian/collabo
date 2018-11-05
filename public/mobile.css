@@ -1031,8 +1031,9 @@ body .back-to-top {
 .project-header {
   padding-left: 0 !important;
 }
+.koi-type-page-title,
 .co-type-page-title {
-  font-size: 18px !important;
+  font-size: 28px !important;
 }
 .header-push-mini {
     margin-top: 60px !important;
