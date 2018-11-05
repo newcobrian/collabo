@@ -34,7 +34,12 @@
 	width: 100%;
 	min-height: 0px;
 	position: relative;
+	padding: 0 12px;
 }
+.tp-full .tp-wrapper {
+	position: relative !important;
+}
+
 .tp-small .tp-container  {
 	width: 100%;
 }
