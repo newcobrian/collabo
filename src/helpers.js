@@ -912,7 +912,8 @@ export function sendItineraryUpdateEmails(auth, itinerary, lastUpdate) {
 // }
 
 export function stripHTML(content) {
-	return ((content.replace(/<img .*?>/g,'')).replace(/<\/?\w+[^>]*\/?>/g, ''))
+	let noImages = content.replace(/<img .*?>/g,' ')
+	return noImages.replace(/<\/?\w+[^>]*\/?>/g, ' ')
 }
 
 export function getLinks (content) {
