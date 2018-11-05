@@ -72,16 +72,19 @@ class EnterEmail extends React.Component {
 	render() {
 		if (this.props.emailSent) {
 			return (
-				<div className="page-common page-create-org flx flx-col flx-center-all">
-		         	<div className="koi-view header-push ta-left flx flx-col">
+				<div className="home-page  page-register fill--pond flx flx-col flx-center-all">
+		         	<div className="koi-view ta-left flx flx-col">
+						<div className="koi-big-header mrgn-bottom-md color--utsuri opa-30">
+		    				Almost Done
+		  				</div>
 						<div className="co-post-title mrgn-bottom-md">
-		    				Verification email sent.
+		    				Check your email
 		  				</div>
 		  				<div className="co-type-body color--black mrgn-bottom-md">
-		  					 Please check your email (and spam folder) and click back on the link in the email to complete the sign up process.
+		  					 You should have receieved a verification email (check spam folder). Click back on the link in the email to complete the sign up process.
 		  				</div>
 		  				<div>
-		  					Or <Link to='/login'>click here to login</Link> or <Link onClick={this.onResendVerification}>click here to send another verification email</Link>
+		  					<Link className="color--utsuri opa-40" to='/login'>Click here to login</Link> or <Link className="color--utsuri opa-40" onClick={this.onResendVerification}>click here to send another verification email</Link>
 		  				</div>
 		  			</div>
 		  		</div>
@@ -89,9 +92,12 @@ class EnterEmail extends React.Component {
 		}
 		else {
 			return (
-				<div className="page-common page-create-org flx flx-col flx-center-all">
+				<div className="home-page page-common page-register fill--pond flx flx-col flx-center-all">
 		         	<div className="koi-view header-push ta-left flx flx-col">
-						<div className="co-post-title mrgn-bottom-md">
+						<div className="koi-big-header mrgn-bottom-md color--utsuri opa-30">
+		    				Join Koi
+		  				</div>
+		  				<div className="co-post-title mrgn-bottom-md">
 		    				Enter your email address
 		  				</div>
 			            <div className="DN co-type-body color--black mrgn-bottom-md">
@@ -104,9 +110,9 @@ class EnterEmail extends React.Component {
 							<fieldset className="field-wrapper">
 								
 		                      <input
-		                        className="input--underline edit-itinerary__name brdr-all"
+		                        className="input--underline edit-itinerary__name"
 		                        type="text"
-		                        placeholder="email"
+		                        placeholder="'kd@warriors.com'"
 		                        required
 		                        value={this.props.email}
 		                        maxLength="42"
@@ -117,11 +123,11 @@ class EnterEmail extends React.Component {
 		                    <EmailTakenError emailTaken={this.props.emailTaken} />
 		                    
 		                    <div className="flx flx-row flx-just-end w-100">
-		                    	<Link onClick={()=>browserHistory.goBack()} activeClassName="active" className="vb vb--form-cta mrgn-top-md fill--gray color--black mrgn-right-sm">
+		                    	<Link onClick={()=>browserHistory.goBack()} activeClassName="active" className="vb mrgn-top-md fill--gray color--black mrgn-right-sm">
 		                    	   Cancel
 		                    	</Link>
 								<div
-								className="vb vb--form-cta mrgn-top-md fill--secondary color--white"
+								className="vb mrgn-top-md fill--seaweed color--white"
 								type="button"
 								disabled={this.props.inProgress}
 								onClick={this.submitForm}>

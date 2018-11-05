@@ -51,8 +51,9 @@ input.input--underline {
   margin: 0;
   line-height: inherit;
   border-radius: 2px;
-  padding: 10px;
+  padding: 20px;
   width: 100%;
+  font-size: 16px;
 }
 
 
@@ -395,7 +396,7 @@ label {
   padding: 0 0 5px;
   margin-top: -1px;
   min-width: 100px;
-  background-color: white;
+  /*background-color: white;*/
   width: 100%;
   margin-bottom: 20px;
   opacity: 1;

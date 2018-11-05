@@ -90,7 +90,7 @@ class Register extends React.Component {
     else {
       return (
         <div>
-          <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
+          <div className="home-page page-common page-register flx flx-col flx-align-center flx-just-start ta-center">
             <div className="container page">
               <div className="row">
 
@@ -152,11 +152,17 @@ class Register extends React.Component {
                           onChange={this.changePassword} />
                       </fieldset>
 
-                      <button
-                        className="vb fill--tertiary color--primary vb--round w-100 ta-center"
-                        type="submit"
-                        disabled={this.props.inProgress}>
-                        Register
+
+                      <button type="submit"
+                        disabled={this.props.inProgress}
+                        className="flx flx-col flx-center-all koi-button-fancy-wrapper home-register-button border--seaweed w-100">
+                          <div className="koi-button-fancy-outer">
+                          </div>
+                          <div className="koi-button-fancy-inner">
+                          </div>
+                          <div className="koi-button-fancy-text color--seaweed">
+                            Register
+                          </div>
                       </button>
 
                     </fieldset>
