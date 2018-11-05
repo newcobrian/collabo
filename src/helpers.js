@@ -912,7 +912,7 @@ export function sendItineraryUpdateEmails(auth, itinerary, lastUpdate) {
 // }
 
 export function stripHTML(content) {
-	return (content.replace(/<img .*?>/g,'')).replace(/<(?:.|\n)*?>/gm, '')
+	return ((content.replace(/<img .*?>/g,'')).replace(/<\/?\w+[^>]*\/?>/g, ''))
 }
 
 export function getLinks (content) {
