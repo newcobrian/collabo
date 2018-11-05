@@ -47,7 +47,7 @@ const NestedCommentContainer = props => {
         usersList={props.usersList}
         orgUserData={props.orgUserData}
         type={Constants.COMMENT_TYPE}
-        parentId={props.parentId}
+        parentId={props.commentId}
         deleteComment={props.deleteComment}
         hideCommentInput={props.hideCommentInput}
       />
@@ -191,7 +191,8 @@ class Comment extends React.Component {
             usersList={usersList}
             orgUserData={orgUserData}
             type={Constants.COMMENT_TYPE}
-            parentId={comment.id}
+            parentId={parentId}
+            commentId={comment.id}
             deleteComment={deleteComment}
             hideCommentInput={hideCommentInput && (!comment.nestedComments || comment.nestedComments.length === 0)}
             parentId={parentId}
