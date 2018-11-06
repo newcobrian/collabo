@@ -1249,20 +1249,13 @@ padding: 20px;
 .loader {
   margin: 0 auto;
   width: 50px;
-  height: 30px;
+  height: auto;
   text-align: center;
-  font-size: 10px;
-  display: none; 
-  /*hide old animation*/
+/*  display: none; 
+*/  /*hide old animation*/
 }
 .loader > div {
-  height: 3px;
-  width: 50px;
-  display: inline-block;
-  float: left;
-  margin-top: 4px;
-  -webkit-animation: delay 0.8s infinite ease-in-out;
-  animation: delay 0.8s infinite ease-in-out;
+  
 }
 .loader .bar1 {
   background-color: #FF85A6;

@@ -266,7 +266,13 @@ class Project extends React.Component {
                             pageStart={0}
                             loadMore={this.scrolledToBottom}
                             hasMore={true}
-                            loader={<div className="infinite-loader loader" key={0}>Loading ...</div>}
+                            loader={
+                              <div className="infinite-loader fill--mist loader w-100 flx flx-col flx-center-all" key={0}>
+                                <div className="loading-koi mrgn-bottom-md">
+                                  <img className="center-img" src="/img/loading-graphic.png"/>
+                                </div>
+                                <div className="w-100 ta-center co-type-body">Loading more threads...</div>
+                              </div>}
                             useWindow={false} >
 
                           <ThreadList

@@ -747,7 +747,10 @@ textarea {
 }
 
 .infinite-loader {
-	background: red !important;
+	display: inline-block;
+    width: 100%;
+    padding: 20px 20px 40px;
+    height: auto;
 }
 .ql-editor li.ql-indent-1:not(.ql-direction-rtl) {
     padding-left: 3.5em;
