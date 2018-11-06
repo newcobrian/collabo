@@ -4,13 +4,9 @@ import React from 'react';
 import * as Constants from '../../constants';
 import ProfilePic from './../ProfilePic';
 import GoogleDriveLink from './GoogleDriveLink';
-import ProxyImage from './../ProxyImage';
 import DisplayTimestamp from './../DisplayTimestamp';
 import LikeReviewButton from './../LikeReviewButton';
 import CommentContainer from './CommentContainer'
-import ShowMore from 'react-show-more';
-
-var linkify = require('linkify-it')();
 
 const processString = require('react-process-string');
 
@@ -79,7 +75,7 @@ class Comment extends React.Component {
   render () {
     const { isOpenNotification, hideCommentInput } = this.state;
     const { comment, authenticated, org, project, commentObject, 
-      deleteComment, threadId, type, likes, thread, usersList, orgUserData, parentId, isFeed } = this.props;
+      deleteComment, threadId, likes, thread, usersList, orgUserData, parentId, isFeed } = this.props;
     const show = authenticated && authenticated === comment.userId;
     const commenter = orgUserData && orgUserData[comment.userId] ? orgUserData[comment.userId] : { username: '' }
     const orgURL = org && org.url ? org.url : ''

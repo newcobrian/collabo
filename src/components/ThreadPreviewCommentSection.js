@@ -1,11 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
-import ProfilePic from './ProfilePic';
-import ImagePicker from './ImagePicker';
-import * as Constants from '../constants';
-import * as Helpers from '../helpers';
 import CommentContainer from './Review/CommentContainer';
-import DisplayTimestamp from './DisplayTimestamp';
 
 class ThreadPreviewCommentSection extends React.Component {
 	constructor() {

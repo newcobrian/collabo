@@ -1,90 +1,72 @@
 import React from 'react';
 import { Link } from 'react-router';
-import ProfilePic from './ProfilePic';
-import ImagePicker from './ImagePicker';
 import * as Constants from '../constants';
-import * as Helpers from '../helpers';
 import CommentContainer from './Review/CommentContainer';
 import DisplayTimestamp from './DisplayTimestamp';
-import MediaQuery from 'react-responsive';
-import RenderDebounceInput from './RenderDebounceInput';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import IconMenu from 'material-ui/IconMenu';
-import IconButton from 'material-ui/IconButton';
-import MoreHorizIcon from 'material-ui/svg-icons/navigation/more-horiz';
-import ThreadList from './ThreadList';
-import ProjectList from './ProjectList';
 import LikeReviewButton from './LikeReviewButton';
-import ThreadPreviewCommentSection from './ThreadPreviewCommentSection';
-import AnimateHeight from 'react-animate-height';
+import ProfilePic from './ProfilePic';
 
+// const UpdateSection = props => {
+//   if (!props.thread) return null
+//   else if (props.thread.lastUpdate === Constants.NEW_THREAD_TYPE) {
+//     return (
+//       <div className="mrgn-right-xs opa-80 color--black">
+//         created a new thread.
+//       </div>
+//     )
+//   }
+//   else if (props.thread.lastUpdate === Constants.EDIT_THREAD_TYPE) {
+//     return (
+//       <div className="mrgn-right-xs opa-80 color--black">
+//         edited the post. 
+//       </div>
+//     )
+//   }
+//   else if (props.thread.lastUpdate === Constants.COMMENT_TYPE) {
+//     return (
+//       <div className="mrgn-right-xs opa-80 color--black">
+//         added a comment
+//       </div>
+//     )
+//   }
+//   else return null;
+// }
 
-var Scroll = require('react-scroll');
-var Element = Scroll.Element;
-var linkify = require('linkify-it')();
-
-const UpdateSection = props => {
-  if (!props.thread) return null
-  else if (props.thread.lastUpdate === Constants.NEW_THREAD_TYPE) {
-    return (
-      <div className="mrgn-right-xs opa-80 color--black">
-        created a new thread.
-      </div>
-    )
-  }
-  else if (props.thread.lastUpdate === Constants.EDIT_THREAD_TYPE) {
-    return (
-      <div className="mrgn-right-xs opa-80 color--black">
-        edited the post. 
-      </div>
-    )
-  }
-  else if (props.thread.lastUpdate === Constants.COMMENT_TYPE) {
-    return (
-      <div className="mrgn-right-xs opa-80 color--black">
-        added a comment
-      </div>
-    )
-  }
-  else return null;
-}
-
-const UpdateIcon = props => {
-  if (!props.thread) return null
-  else if (props.thread.lastUpdate === Constants.NEW_THREAD_TYPE) {
-    return (
-      <div className="co-icon-wrapper flx flx-center-all">
-        <img className="center-img" src="/img/icon_post.png"/>
-        {/**<div className="feed-gem circle"></div>**/}
-        {/**<i className="material-icons color--primary md-24">assignment</i>**/}
-      </div>
-    )
-  }
-  else if (props.thread.lastUpdate === Constants.EDIT_THREAD_TYPE) {
-    return (
-      <div className="co-icon-wrapper flx flx-center-all">
-        <img className="center-img" src="/img/icon_edit.png"/>
-        {/**<div className="feed-gem square"></div>**/}
-        {/**<i className="material-icons color--primary md-24">edit</i>**/}
-      </div>
-    )
-  }
-  else if (props.thread.lastUpdate === Constants.COMMENT_TYPE) {
-    return (
-      <div className="co-icon-wrapper flx flx-center-all">
-        <img className="center-img" src="/img/icon_comment.png"/>
-        {/**<div className="feed-gem diamond"></div>**/}
-        {/**<i className="material-icons color--primary md-24">comment</i>**/}
-      </div>
-    )
-  }
-  else return (
-    <div className="co-icon-wrapper flx flx-center-all">
-      <div className="feed-gem"></div>
-    </div>
-    )
-}
+// const UpdateIcon = props => {
+//   if (!props.thread) return null
+//   else if (props.thread.lastUpdate === Constants.NEW_THREAD_TYPE) {
+//     return (
+//       <div className="co-icon-wrapper flx flx-center-all">
+//         <img className="center-img" src="/img/icon_post.png"/>
+//         {/**<div className="feed-gem circle"></div>**/}
+//         {/**<i className="material-icons color--primary md-24">assignment</i>**/}
+//       </div>
+//     )
+//   }
+//   else if (props.thread.lastUpdate === Constants.EDIT_THREAD_TYPE) {
+//     return (
+//       <div className="co-icon-wrapper flx flx-center-all">
+//         <img className="center-img" src="/img/icon_edit.png"/>
+//         {/**<div className="feed-gem square"></div>**/}
+//         {/**<i className="material-icons color--primary md-24">edit</i>**/}
+//       </div>
+//     )
+//   }
+//   else if (props.thread.lastUpdate === Constants.COMMENT_TYPE) {
+//     return (
+//       <div className="co-icon-wrapper flx flx-center-all">
+//         <img className="center-img" src="/img/icon_comment.png"/>
+//         {/**<div className="feed-gem diamond"></div>**/}
+//         {/**<i className="material-icons color--primary md-24">comment</i>**/}
+//       </div>
+//     )
+//   }
+//   else return (
+//     <div className="co-icon-wrapper flx flx-center-all">
+//       <div className="feed-gem"></div>
+//     </div>
+//     )
+// }
 
 const ProjectLabel = props => {
   if (!props.projectId || !props.projectNames) {
@@ -101,28 +83,28 @@ const ProjectLabel = props => {
 
 
  
-const CommentPreview = props => {
-  if (!props.thread) return null
-  else if (props.thread.commentsCount) {
-    return (
+// const CommentPreview = props => {
+//   if (!props.thread) return null
+//   else if (props.thread.commentsCount) {
+//     return (
       
-      <div className="color--black thread-timestamp flx flx-row flx-align-center pdding-all-sm w-100">
-        <div>3 New&nbsp;&#xb7;&nbsp;</div>
-        <div>{props.thread.commentsCount} Replies&nbsp;&#xb7;&nbsp;</div>
-        <div>8 Participants&nbsp;&#xb7;&nbsp;</div>
-        <div className="text-hover flx-item-right">View All</div>
-      </div>
+//       <div className="color--black thread-timestamp flx flx-row flx-align-center pdding-all-sm w-100">
+//         <div>3 New&nbsp;&#xb7;&nbsp;</div>
+//         <div>{props.thread.commentsCount} Replies&nbsp;&#xb7;&nbsp;</div>
+//         <div>8 Participants&nbsp;&#xb7;&nbsp;</div>
+//         <div className="text-hover flx-item-right">View All</div>
+//       </div>
 
-    )
-  }
-  else return (
+//     )
+//   }
+//   else return (
   
-    <div className="color--black thread-timestamp flx flx-row flx-align-center pdding-all-sm w-100">
-        <div>Be the first to respond</div>
-    </div>  
-    )
+//     <div className="color--black thread-timestamp flx flx-row flx-align-center pdding-all-sm w-100">
+//         <div>Be the first to respond</div>
+//     </div>  
+//     )
   
-}
+// }
 
 // const ThreadPreviewFull = props => {
 class ThreadPreviewFull extends React.Component {
@@ -138,7 +120,7 @@ class ThreadPreviewFull extends React.Component {
   }
 
   render() {
-    const { authenticated, thread, lastUpdater, orgUserData, org, projectId, projectNames, userInfo, commentErrors, project, deleteComment } = this.props
+    const { authenticated, thread, lastUpdater, orgUserData, org, projectNames, userInfo, commentErrors, project, deleteComment } = this.props
     const createdBy = orgUserData && orgUserData[thread.userId] ? orgUserData[thread.userId] : { username: '' }
 
     return (
