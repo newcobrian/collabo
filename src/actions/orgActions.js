@@ -14,12 +14,12 @@ export function onCreateOrg(auth, org, userData, imageFile) {
       })
     }
     else if (org) {
-      let lowercaseName = org.name.toLowerCase()
-      Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowercaseName).once('value', nameSnapshot => {
-        if (nameSnapshot.exists() || Constants.INVALID_ORG_NAMES.indexOf(lowercaseName) > -1) {
+      let lowercaseURL = org.url.toLowerCase()
+      Firebase.database().ref(Constants.ORGS_BY_URL_PATH + '/' + lowercaseURL).once('value', nameSnapshot => {
+        if (nameSnapshot.exists() || Constants.INVALID_ORG_NAMES.indexOf(lowercaseURL) > -1) {
           dispatch({
             type: ActionTypes.CREATE_SUBMIT_ERROR,
-            error: 'An organization with the name "' + org.name + '" already exists. Please choose another name',
+            error: 'An organization with the url "' + org.url + '" already exists. Please choose another URL',
             source: Constants.CREATE_ORG_PAGE
           })
         }
@@ -30,7 +30,7 @@ export function onCreateOrg(auth, org, userData, imageFile) {
 
           let orgId = Firebase.database().ref(Constants.ORGS_PATH).push(org).key;
 
-          updates[`/${Constants.ORGS_BY_NAME_PATH}/${lowercaseName}/`] = Object.assign({}, {orgId: orgId}, omit(org, ['name']));
+          updates[`/${Constants.ORGS_BY_URL_PATH}/${lowercaseURL}/`] = Object.assign({}, {orgId: orgId}, omit(org, ['name']));
           updates[`/${Constants.ORGS_BY_USER_PATH}/${auth}/${orgId}/`] = true;
 
           // save to usernames by org
@@ -89,7 +89,7 @@ export function onCreateOrg(auth, org, userData, imageFile) {
 
               dispatch({
                 type: ActionTypes.ORG_CREATED,
-                orgName: org.name,
+                orgURL: org.url,
                 orgId: orgId,
                 meta: {
                   mixpanel: {
@@ -110,7 +110,7 @@ export function onCreateOrg(auth, org, userData, imageFile) {
 
             dispatch({
               type: ActionTypes.ORG_CREATED,
-              orgName: org.name,
+              orgURL: org.url,
               orgId: orgId,
               meta: {
                 mixpanel: {

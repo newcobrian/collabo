@@ -23,6 +23,7 @@ class CreateOrg extends React.Component {
 	    this.changeName = updateFieldEvent('name');
 	    this.changeUsername = updateFieldEvent('username');
 	    this.changeFullName = updateFieldEvent('fullName');
+	    this.changeURL = updateFieldEvent('url');
 
 	    this.changeInvites = updateFieldEvent('invites');
 
@@ -47,8 +48,14 @@ class CreateOrg extends React.Component {
 		  else if (!this.props.fullName || this.props.fullName.length < 1) {
 		  	this.props.createSubmitError('Please add your full name', Constants.CREATE_ORG_PAGE);
 		  }
+		  else if (!this.props.url) {
+		  	this.props.createSubmitError('Please add a url', Constants.CREATE_ORG_PAGE);
+		  }
+		  else if (!(/^[A-Za-z0-9]+$/.test(this.props.url)))  {
+		  	this.props.createSubmitError('Your URL can only contain letters and numbers, no spaces', Constants.CREATE_ORG_PAGE);
+		  }
 	      else {
-		   	let org = Object.assign({}, {name: this.props.name} )
+		   	let org = Object.assign({}, {name: this.props.name}, {url: this.props.url})
 		   	let userData = Object.assign({}, 
 		   		{username: this.props.username},
 		   		{fullName: this.props.fullName},
@@ -110,6 +117,18 @@ class CreateOrg extends React.Component {
 	                        value={this.props.name}
 	                        maxLength="42"
 	                        onChange={this.changeName} />
+	                    </fieldset>
+
+	                    <fieldset className="field-wrapper">
+							<label>Your team's URL (joinkoi.com/url)</label>
+	                      <input
+	                        className="input--underline edit-itinerary__name brdr-all"
+	                        type="text"
+	                        placeholder="bizco (go to joinkoi.com/bizco to access your team)"
+	                        required
+	                        value={this.props.url}
+	                        maxLength="42"
+	                        onChange={this.changeURL} />
 	                    </fieldset>
 
 	                    <fieldset className="field-wrapper">

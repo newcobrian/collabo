@@ -82,7 +82,7 @@ export default (state = defaultState, action) => {
     case ActionTypes.ORG_CREATED:
       return {
         ...state,
-        redirectTo: '/' + action.orgName
+        redirectTo: '/' + action.orgURL
       }
     case ActionTypes.USERS_INVITED_TO_ORG:
       return {
