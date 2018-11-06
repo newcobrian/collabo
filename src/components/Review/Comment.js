@@ -135,7 +135,7 @@ class Comment extends React.Component {
               </div>
             </div>
 
-            <div className="comment-row co-type-body">
+            <div className="comment-row color--black opa-90 co-type-body">
               {/*<ShowMore
                 lines={3}
                 more='Show more'
