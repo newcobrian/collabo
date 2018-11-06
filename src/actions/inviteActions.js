@@ -49,7 +49,7 @@ export function loadProjectInvite(auth, inviteId) {
 
                   dispatch({
                     type: ActionTypes.PROJECT_INVITE_ACCEPTED,
-                    orgName: orgSnap.val().name,
+                    orgURL: orgSnap.val().url,
                     projectId: projectInviteSnap.val().projectId
                   })
                 })
@@ -116,11 +116,11 @@ export function unloadOrgInvite(inviteId) {
   }
 }
 
-export function inviteUsersToOrg(auth, orgName, invites) {
+export function inviteUsersToOrg(auth, org, invites) {
   return dispatch => {
     let updates = {}
-    let lowercaseOrgName = orgName ? orgName.toLowerCase() : ''
-    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowercaseOrgName).once('value', orgSnap => {
+    let lowerCaseOrgURL = org.url ? org.url.toLowerCase() : ''
+    Firebase.database().ref(Constants.ORGS_BY_URL_PATH + '/' + lowerCaseOrgURL).once('value', orgSnap => {
       let orgId = orgSnap.val().orgId
       
       Firebase.database().ref(Constants.USERS_BY_EMAIL_PATH).once('value', emailHashSnap => {
@@ -143,8 +143,9 @@ export function inviteUsersToOrg(auth, orgName, invites) {
                   senderId: auth,
                   recipientEmail: email,
                   timestamp: Firebase.database.ServerValue.TIMESTAMP,
-                  orgId: orgId,
-                  orgName: orgName
+                  orgId: org.id,
+                  orgName: org.name,
+                  orgURL: org.url
                 }
 
               // if email address already belongs to a user
@@ -155,7 +156,7 @@ export function inviteUsersToOrg(auth, orgName, invites) {
 
                  // just send an invite to the user
                 Helpers.sendCollaboInboxMessage(auth, emailHashSnap.val()[cleanedEmail].userId, Constants.ORG_INVITE_MESSAGE, 
-                    Object.assign({}, {name: orgName}, {orgId: orgId}), null, null, inviteId);
+                    org, null, null, inviteId);
 
                 // add to invited list for the org
                 // updates[Constants.INVITES_BY_ORG_PATH + '/' + orgId + '/users/' + emailHashSnap.val()[cleanedEmail].userId + '/' + inviteId] = true;
@@ -176,7 +177,7 @@ export function inviteUsersToOrg(auth, orgName, invites) {
                 // updates[Constants.INVITES_BY_ORG_PATH + '/' + orgId + '/emails/' + cleanedEmail + '/' + inviteId] = true
 
                 // send the email
-                Helpers.sendInviteEmail(auth, email, orgName, inviteId);
+                Helpers.sendInviteEmail(auth, email, org, inviteId);
               }
 
               // save to seen emails so we don't duplicate
@@ -189,7 +190,8 @@ export function inviteUsersToOrg(auth, orgName, invites) {
 
           dispatch({
             type: ActionTypes.USERS_INVITED_TO_ORG,
-            orgName: orgName,
+            orgURL: org.url,
+            orgName: org.name,
             invitesSent: invitesSent,
             meta: {
               mixpanel: {
@@ -209,7 +211,7 @@ export function inviteUsersToOrg(auth, orgName, invites) {
 export function inviteOrgUsersToProject(auth, org, project, invites) {
   return dispatch => {
     if (invites && invites.length > 0) {
-      Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + org.orgId).once('value', orgUsersSnap => {
+      Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + org.id).once('value', orgUsersSnap => {
         Firebase.database().ref(Constants.USERS_BY_PROJECT_PATH + '/' + project.projectId).once('value', projectUsersSnap => {
           let orgUsers = orgUsersSnap.val()
           let projectUsers = projectUsersSnap.val()
@@ -223,7 +225,7 @@ export function inviteOrgUsersToProject(auth, org, project, invites) {
                 senderId: auth,
                 recipientId: invites[i],
                 timestamp: Firebase.database.ServerValue.TIMESTAMP,
-                orgId: org.orgId,
+                orgId: org.id,
                 projectId: project.projectId
               }
 
@@ -246,7 +248,6 @@ export function inviteOrgUsersToProject(auth, org, project, invites) {
           Firebase.database().ref().update(updates)
 
           // send invites to users
-
           for (let i = 0; i < sendList.length; i++) {
             Helpers.sendCollaboInboxMessage(auth, sendList[i].recipientId, Constants.PROJECT_INVITE_MESSAGE, org, project, null, sendList[i].inviteId)
           }
@@ -258,7 +259,7 @@ export function inviteOrgUsersToProject(auth, org, project, invites) {
               mixpanel: {
                 event: 'Invite users to project',
                 projectId: project.projectId,
-                orgId: org.orgId,
+                orgId: org.id,
                 numInvites: sendList.length
               }
             }
@@ -269,9 +270,9 @@ export function inviteOrgUsersToProject(auth, org, project, invites) {
   }
 }
 
-export function showProjectInviteModal(projectId, project, orgId, orgName, orgMembers) {
+export function showProjectInviteModal(projectId, project, org, orgMembers) {
   return dispatch => {
-    if (projectId && orgId) {
+    if (projectId && org) {
       Firebase.database().ref(Constants.USERS_BY_PROJECT_PATH + '/' + projectId).once('value', projectSnap => {
       //   Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId).once('value', orgSnap => {
           // let usersList = []
@@ -286,8 +287,7 @@ export function showProjectInviteModal(projectId, project, orgId, orgName, orgMe
             project: project,
             projectId: projectId,
             usersList: orgMembers,
-            orgName: orgName,
-            orgId: orgId
+            org: org
           })  
       //   })
       })
@@ -295,12 +295,11 @@ export function showProjectInviteModal(projectId, project, orgId, orgName, orgMe
   }
 }
 
-export function showOrgInviteModal(orgId, orgName) {
+export function showOrgInviteModal(org) {
   return dispatch => {
     dispatch({
       type: ActionTypes.SHOW_ORG_INVITE_MODAL,
-      orgId: orgId,
-      orgName: orgName
+      org: org
     })
   }
 }
@@ -427,16 +426,19 @@ export function acceptOrgInvite(auth, email, inviteId, userData, imageFile) {
 
                   Firebase.database().ref().update(updates)
 
-                  dispatch({
-                    type: ActionTypes.ORG_INVITE_ACCEPTED,
-                    orgName: inviteSnap.val().orgName,
-                    meta: {
-                      mixpanel: {
-                        event: 'Org invite accepted',
-                        orgId: inviteSnap.val().orgId,
-                        senderId: inviteSnap.val().senderId
+                  Firebase.database().ref(Constants.ORGS_PATH + '/' + inviteSnap.val().orgId).once('value', orgURLSnap => {
+                    dispatch({
+                      type: ActionTypes.ORG_INVITE_ACCEPTED,
+                      orgName: inviteSnap.val().orgName,
+                      orgURL: orgURLSnap.val().url,
+                      meta: {
+                        mixpanel: {
+                          event: 'Org invite accepted',
+                          orgId: inviteSnap.val().orgId,
+                          senderId: inviteSnap.val().senderId
+                        }
                       }
-                    }
+                    })
                   })
                 })
               }
@@ -492,7 +494,7 @@ export function onRegisterWithEmailClick(email) {
     Firebase.database().ref(Constants.USERS_BY_EMAIL_PATH + '/' + cleanedEmail).once('value', userSnap => {
       if (userSnap.exists()) {
         dispatch({
-
+          type: ActionTypes.EMAIL_ALREADY_REGISTERED
         })
       }
       else {

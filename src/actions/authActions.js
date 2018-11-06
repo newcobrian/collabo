@@ -301,7 +301,7 @@ export function updateFirebasePassword(password) {
   }
 }
 
-export function saveSettings(auth, user, currentUser, imageFile, orgName, orgId) {
+export function saveSettings(auth, user, currentUser, imageFile, orgURL, orgId) {
   return dispatch => {
     if (user && currentUser) {
       Firebase.database().ref(Constants.USERNAMES_BY_ORG_PATH + '/' + orgId + '/' + user.username).once('value', snapshot => {
@@ -349,7 +349,7 @@ export function saveSettings(auth, user, currentUser, imageFile, orgName, orgId)
                     type: ActionTypes.SETTINGS_SAVED,
                     username: user.username,
                     message: 'Your profile has been saved.',
-                    orgName: orgName,
+                    orgURL: orgURL,
                     meta: {
                       mixpanel: {
                         event: 'Settings saved'
@@ -365,7 +365,7 @@ export function saveSettings(auth, user, currentUser, imageFile, orgName, orgId)
                     type: ActionTypes.SETTINGS_SAVED,
                     username: user.username,
                     message: 'Your profile has been saved.',
-                    orgName: orgName,
+                    orgURL: orgURL,
                     meta: {
                       mixpanel: {
                         event: 'Settings saved'
@@ -385,7 +385,7 @@ export function saveSettings(auth, user, currentUser, imageFile, orgName, orgId)
               type: ActionTypes.SETTINGS_SAVED,
               username: user.username,
               message: 'Your profile has been saved.',
-              orgName: orgName,
+              orgURL: orgURL,
               meta: {
                 mixpanel: {
                   event: 'Settings saved'

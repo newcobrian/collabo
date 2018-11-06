@@ -45,7 +45,7 @@ export default (state = defaultState, action) => {
     case ActionTypes.PROJECT_CREATED:
       return {
         ...state,
-        redirectTo: '/' + action.orgName + '/' + action.projectId
+        redirectTo: '/' + action.orgURL + '/' + action.projectId
       }
     case ASK_FOR_AUTH:
       return {
@@ -77,7 +77,7 @@ export default (state = defaultState, action) => {
     case ActionTypes.THREAD_CREATED:
       return {
         ...state,
-        redirectTo: '/' + action.orgName + '/' + action.projectId + '/' + action.threadId
+        redirectTo: '/' + action.orgURL + '/' + action.projectId + '/' + action.threadId
       }
     case ActionTypes.ORG_CREATED:
       return {
@@ -87,12 +87,12 @@ export default (state = defaultState, action) => {
     case ActionTypes.USERS_INVITED_TO_ORG:
       return {
         ...state,
-        redirectTo: '/' + action.orgName
+        redirectTo: '/' + action.orgURL
       }
     case ActionTypes.ORG_INVITE_ACCEPTED:
       return {
         ...state,
-        redirectTo: '/' + action.orgName
+        redirectTo: '/' + action.orgURL
       }
     case ActionTypes.THREAD_DELETED:
       return { 
@@ -117,17 +117,17 @@ export default (state = defaultState, action) => {
     case ActionTypes.ON_ALL_PROJECTS_CLICK:
       return {
         ...state,
-        redirectTo: '/' + action.orgName
+        redirectTo: '/' + action.orgURL
       }
     case ActionTypes.PROJECT_INVITE_ACCEPTED:
       return {
         ...state,
-        redirectTo: '/' + action.orgName + '/' + action.projectId
+        redirectTo: '/' + action.orgURL + '/' + action.projectId
       }
     case ActionTypes.ORG_PROJECT_MISMATCH:
       return {
         ...state,
-        redirectTo: '/' + action.orgName + '/' + action.projectId
+        redirectTo: '/' + action.orgURL + '/' + action.projectId
       }
     case ActionTypes.LOAD_ORG_USER:
       return {
@@ -139,11 +139,11 @@ export default (state = defaultState, action) => {
         ...state,
         redirectTo: '/verify/' + action.verifyId
       }
-    // case ActionTypes.INVITED_USERS_TO_PROJECT:
-    //   return {
-    //     ...state,
-    //     redirectTo: '/' + action.orgName + '/' + action.projectId
-    //   }
+    case ActionTypes.SETTINGS_SAVED:
+      return {
+        ...state,
+        redirectTo: '/' + action.orgURL + '/user/' + action.username
+      }
     default: 
       return state;
   }

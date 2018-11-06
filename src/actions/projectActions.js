@@ -7,7 +7,7 @@ import mixpanel from 'mixpanel-browser'
 import 'whatwg-fetch';
 import { pick, omit, debounce } from 'lodash'
 
-export function onAddProject(auth, project, orgName) {
+export function onAddProject(auth, project, orgURL) {
   return dispatch => {
     if (!auth) {
       dispatch({
@@ -17,8 +17,8 @@ export function onAddProject(auth, project, orgName) {
     else {
 
       let lowerCaseProject = project.name.toLowerCase()
-      let lowerCaseOrgName = orgName.toLowerCase()
-      Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
+      let lowerCaseOrgURL = orgURL.toLowerCase()
+      Firebase.database().ref(Constants.ORGS_BY_URL_PATH + '/' + lowerCaseOrgURL).once('value', orgSnap => {
         Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + orgSnap.val().orgId + '/' + lowerCaseProject).once('value', nameSnapshot => {
           if (nameSnapshot.exists()) {
             dispatch({
@@ -33,7 +33,6 @@ export function onAddProject(auth, project, orgName) {
               let projectObject = {
                 lastModified: serverTimestamp,
                 createdOn: serverTimestamp,
-                orgName: orgName,
                 orgId: orgSnap.val().orgId
               }
               let updates = {};
@@ -73,7 +72,7 @@ export function onAddProject(auth, project, orgName) {
                 type: ActionTypes.PROJECT_CREATED,
                 project: projectObject,
                 projectId: projectId,
-                orgName: orgName,
+                orgURL: orgURL,
                 orgId: orgSnap.val().orgId,
                 usersList: usersList,
                 projectMemberCheck: projectMemberCheck,
@@ -96,7 +95,7 @@ export function onAddProject(auth, project, orgName) {
   }
 }
 
-export function onAddThread(auth, projectId, thread, orgName) {
+export function onAddThread(auth, projectId, thread, org) {
   return dispatch => {
     if (!auth) {
       dispatch({
@@ -141,7 +140,6 @@ export function onAddThread(auth, projectId, thread, orgName) {
 
           Helpers.incrementThreadSeenCounts(auth, projectSnapshot.val().orgId, projectId, threadId)
 
-          let org = Object.assign({}, {name: orgName}, {orgId: projectSnapshot.val().orgId})
           let project = Object.assign({},  projectSnapshot.val(), {projectId: projectId})
           Helpers.findThreadMentions(auth, thread.body, org, project, Object.assign({}, thread, {threadId: threadId}))
           // Helpers.sendCollaboUpdateNotifs(auth, Constants.NEW_THREAD_MESSAGE, org ,project, Object.assign({}, thread, {threadId: threadId}, null))
@@ -149,7 +147,7 @@ export function onAddThread(auth, projectId, thread, orgName) {
           // // update Algolia index
           Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + projectSnapshot.val().orgId + '/' + auth).once('value', userSnap => {
             let algoliaObject = Object.assign({}, 
-              { orgName: orgName },
+              { orgName: org.url },
               { title: thread.title },
               { body: Helpers.stripHTML(thread.body) },
               { projectName: projectSnapshot.val().name },
@@ -170,7 +168,7 @@ export function onAddThread(auth, projectId, thread, orgName) {
           dispatch({
             type: ActionTypes.THREAD_CREATED,
             threadId: threadId,
-            orgName: orgName,
+            orgURL: org.url,
             projectId: projectId,
             meta: {
               mixpanel: {
@@ -187,7 +185,7 @@ export function onAddThread(auth, projectId, thread, orgName) {
   }
 }
 
-export function onDeleteThread(auth, threadId, thread, orgName) {
+export function onDeleteThread(auth, threadId, thread, orgURL) {
   return dispatch => {
     if (!auth) {
       dispatch({
@@ -219,14 +217,14 @@ export function onDeleteThread(auth, threadId, thread, orgName) {
 
         dispatch({
           type: ActionTypes.THREAD_DELETED,
-          redirect: '/' + orgName + '/' + thread.projectId,
+          redirect: '/' + orgURL + '/' + thread.projectId,
           message: 'Thread deleted',
           meta: {
             mixpanel: {
               event: 'Thread deleted',
               source: Constants.THREAD_PAGE,
               projectId: thread.projectId,
-              orgId: thread.projectId
+              orgId: thread.orgId
             }
           }
         })
@@ -255,7 +253,7 @@ export function loadProject(projectId, orgId, source) {
               dispatch({
                 type: ActionTypes.ORG_PROJECT_MISMATCH,
                 projectId: projectId,
-                orgName: correctOrgSnap.val().name
+                orgURL: correctOrgSnap.val().url
               })
             }
             // if we cant find the correct org, give an error
@@ -544,7 +542,7 @@ export function changeEditorState(editorState) {
   }
 }
 
-export function updateThreadField(auth, threadId, thread, orgName, field, value) {
+export function updateThreadField(auth, threadId, thread, org, field, value) {
   return dispatch => {
     if (thread && threadId && thread.userId && thread.orgId) {
       let updates = {}
@@ -576,7 +574,6 @@ export function updateThreadField(auth, threadId, thread, orgName, field, value)
         Firebase.database().ref(Constants.ACTIVITY_BY_USER_BY_ORG_PATH + '/' + auth + '/' + thread.orgId).push(activityObject)
 
         // update algolia
-        let org = Object.assign({}, {name: orgName})
         let project = Object.assign({}, {projectId: thread.projectId})
         Helpers.findThreadMentions(auth, value, org, project, Object.assign({}, thread, {threadId: threadId}))
 
@@ -680,7 +677,7 @@ export function getThreadFieldUpdates(threadId, thread, field, value) {
   return updates;
 }
 
-export function onThreadCommentSubmit(authenticated, type, thread, body, threadId, project, orgName, parentId) {
+export function onThreadCommentSubmit(authenticated, type, thread, body, threadId, project, org, parentId) {
   return dispatch => {
     if(!authenticated) {
       dispatch({
@@ -694,8 +691,6 @@ export function onThreadCommentSubmit(authenticated, type, thread, body, threadI
     }
 
     if (threadId) {
-      let org = Object.assign({}, {orgId: thread.orgId}, {name: orgName})
-
       let commentObject = Object.assign({}, comment, {threadId: threadId}, { type: type })
       // let commentId = Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).push(comment).key;
       let commentId = Firebase.database().ref(Constants.COMMENTS_PATH).push(commentObject).key;
@@ -942,11 +937,11 @@ export function feedIsNotLoading(dispatch, source) {
   })
 }
 
-export function watchThreadFeed(auth, orgName, projectId, endValue, source) {
+export function watchThreadFeed(auth, orgURL, projectId, endValue, source) {
   return dispatch => {
     if (auth) {
       dispatch(setIsFeedLoading(source));
-      Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', orgSnap => {
+      Firebase.database().ref(Constants.ORGS_BY_URL_PATH + '/' + orgURL.toLowerCase()).once('value', orgSnap => {
         if (orgSnap.exists()) {
           let orgId = orgSnap.val().orgId
           let path = projectId ? (Constants.THREADS_BY_PROJECT_PATH + '/' + projectId) : 
@@ -1247,11 +1242,11 @@ export function setSidebar(mql) {
   }
 }
 
-export function onAllProjectsClick(orgName) {
+export function onAllProjectsClick(orgURL) {
   return dispatch => {
     dispatch ({
       type: ActionTypes.ON_ALL_PROJECTS_CLICK,
-      orgName: orgName
+      orgURL: orgURL
     })
   }
 }
@@ -1390,7 +1385,7 @@ export function unloadProjectMemberCheck(projectId) {
   }
 }
 
-export function changeOrgSettingsTab(tab, orgName, orgId) {
+export function changeOrgSettingsTab(tab, orgId) {
   return dispatch => {
     if (orgId) {
       if (tab === Constants.MEMBERS_TAB) {

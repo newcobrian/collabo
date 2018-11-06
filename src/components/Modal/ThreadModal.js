@@ -43,7 +43,7 @@ class ThreadModal extends React.Component {
     super()
 
     const updateThreadFieldEvent = (field, value, thread) =>
-      this.props.updateThreadField(this.props.authenticated, this.props.thread.threadId, thread, this.props.orgName, field, value)
+      this.props.updateThreadField(this.props.authenticated, this.props.thread.threadId, thread, this.props.org, field, value)
 
     this.saveBody = thread => ev => {
       ev.preventDefault()
@@ -65,7 +65,7 @@ class ThreadModal extends React.Component {
 
     this.onDeleteClick = ev => {
       ev.preventDefault()
-      this.props.showDeleteModal(this.props.thread.threadId, this.props.thread, this.props.orgName, Constants.THREAD_MODAL)
+      this.props.showDeleteModal(this.props.thread.threadId, this.props.thread, this.props.org.url, Constants.THREAD_MODAL)
     }
 
     this.onGoBackClick = ev => {
@@ -90,7 +90,7 @@ class ThreadModal extends React.Component {
   render() {
     const handleClose = ev => {
       ev.preventDefault();
-      window.history.pushState( {} , null, '/' + this.props.orgName );
+      window.history.pushState( {} , null, '/' + this.props.org.url );
       this.props.hideModal();
     }
 
@@ -110,7 +110,7 @@ class ThreadModal extends React.Component {
         )
     }
     else {
-      const { authenticated, orgName, thread, threadId, project, orgMembers, orgUserData, bodyText, isEditMode, 
+      const { authenticated, org, thread, threadId, project, orgMembers, orgUserData, bodyText, isEditMode, 
         likes, comments, commentErrors } = this.props
       // let createdBy = this.props.createdBy
       let createdBy = orgUserData && orgUserData[thread.userId] ? orgUserData[thread.userId] : 
@@ -153,7 +153,7 @@ class ThreadModal extends React.Component {
          
             <ThreadBody
               authenticated={authenticated}
-              orgName={orgName}
+              org={org}
               thread={thread}
               threadId={thread.threadId}
               project={project}

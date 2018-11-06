@@ -44,7 +44,7 @@ class OrgInviteModal extends React.Component {
       }
       else {
         let lowerCaseInvites = this.props.invites.toLowerCase()
-        this.props.inviteUsersToOrg(this.props.authenticated, this.props.orgName, lowerCaseInvites);
+        this.props.inviteUsersToOrg(this.props.authenticated, this.props.org, lowerCaseInvites);
       }
     }
 
@@ -65,7 +65,7 @@ class OrgInviteModal extends React.Component {
       />
     ];
 
-    const { orgName, invites } = this.props;
+    const { org, invites } = this.props;
 
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
@@ -77,7 +77,7 @@ class OrgInviteModal extends React.Component {
           // lockToContainerEdges={true}
           modal={false}
           
-          title={'Add Members to Team: ' + orgName}
+          title={'Add Members to Team: ' + org.name}
 
           titleClassName="co-type-h3 color--black"
           titleStyle={{}}

@@ -28,16 +28,14 @@ export default (state = initialState, action) => {
         project: action.project,
         projectId: action.projectId,
         usersList: action.usersList,
-        orgName: action.orgName,
-        orgId: action.orgId
+        org: action.org
       }
     case ActionTypes.SHOW_ORG_INVITE_MODAL:
     case ActionTypes.ORG_CREATED:
       return {
         ...state,
         modalType: Constants.ORG_INVITE_MODAL,
-        orgName: action.orgName,
-        orgId: action.orgId
+        org: action.org
       }
     case ActionTypes.PROJECT_CREATED:
       if (!action.isPublic) {
@@ -96,7 +94,7 @@ export default (state = initialState, action) => {
         ...state,
         modalType: action.modalType,
         threadId: action.threadId,
-        orgName: action.orgName,
+        orgURL: action.orgURL,
         thread: action.thread,
         source: action.source
       }

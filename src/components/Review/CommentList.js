@@ -88,7 +88,7 @@ class CommentList extends React.Component {
   // }
 
   render () {
-    const { comments, authenticated, commentObject, orgName, project, 
+    const { comments, authenticated, commentObject, org, project, 
       deleteComment, threadId, thread, usersList, orgUserData, parentId, type, isFeed } = this.props;
     return (
       <div className="commentlist-wrapper">
@@ -101,7 +101,7 @@ class CommentList extends React.Component {
                 commentObject={commentObject}
                 thread={thread}
                 key={commentId}
-                orgName={orgName}
+                org={org}
                 project={project}
                 deleteComment={deleteComment}
                 threadId={threadId}

@@ -15,9 +15,9 @@ const ThreadList = props => {
     return (
       <div className="threadlist brdr-right b--primary--20 threadlist-loading header-push w-100 flx flx-col flx-center-all ta-center color--black">
         This group has no posts yet.
-        <Link to={'/' + props.orgName + '/addthread/' + (props.projectId ? props.projectId : '')}>
+        <Link to={'/' + props.org.url + '/addthread/' + (props.projectId ? props.projectId : '')}>
         Click the lilypad to post one</Link>
-        <Link to={'/' + props.orgName + '/addthread/' + (props.projectId ? props.projectId : '')} className="illustration square-sm flx flx-col flx-center-all mrgn-top-sm">
+        <Link to={'/' + props.org.url + '/addthread/' + (props.projectId ? props.projectId : '')} className="illustration square-sm flx flx-col flx-center-all mrgn-top-sm">
           <img className="center-img" src="/img/illu_lilypad.png"/>
         </Link>
       </div>
@@ -60,7 +60,7 @@ const ThreadList = props => {
                 authenticated={props.authenticated}
                 userInfo={props.userInfo}
                 thread={threadItem}
-                orgName={props.orgName}
+                org={props.org}
                 projectId={threadItem.projectId}
                 key={threadItem.threadId} 
                 authenticated={props.authenticated}

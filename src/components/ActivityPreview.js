@@ -49,7 +49,7 @@ const CommentPreview = props => {
   if (!props.activity) return null
   else if (props.activity.commentsCount) {
     return (
-      <Link to={`/${props.orgName}/${props.activity.projectId}/${props.activity.activityId}`}>
+      <Link to={`/${props.orgURL}/${props.activity.projectId}/${props.activity.threadId}`}>
         <div className="cta-wrapper cta-wrapper-comment v2-type-body2 flx flx-row flx-align-center">
           <div className="material-icons color--black md-18 opa-60 mrgn-right-sm">comment</div>
           {props.activity.commentsCount} Comments
@@ -80,7 +80,7 @@ const NewThreadItem = props => {
         <div className="flx flx-col flx-align-start w-100"> 
           
           <div className="flx flx-row">
-            <Link to={'/' + props.orgName + '/user/' + profile.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
+            <Link to={'/' + props.orgURL + '/user/' + profile.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
               <ProfilePic src={profile.image} className="user-image user-image-sm center-img" />
             </Link>
             <div className="flx flx-col">
@@ -89,7 +89,7 @@ const NewThreadItem = props => {
                 Composed new thread&nbsp;&#xb7;&nbsp;<DisplayTimestamp timestamp={activity.lastModified} />
               </div>
 
-              <Link className="co-type-bold co-type-label--lg" to={`/${props.orgName}/${activity.projectId}/${activity.activityId}`}> {activity.title}</Link>
+              <Link className="co-type-bold co-type-label--lg" to={`/${props.orgURL}/${activity.projectId}/${activity.threadId}`}> {activity.title}</Link>
 
             </div>
           </div>
@@ -115,14 +115,14 @@ const EditThreadItem = props => {
       <div className="flx flx-col flx-align-start w-100">
 
         <div className="flx flx-row">
-          <Link to={'/' + props.orgName + '/user/' + profile.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
+          <Link to={'/' + props.orgURL + '/user/' + profile.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
             <ProfilePic src={profile.image} className="user-image user-image-sm center-img" />
           </Link>
           <div className="co-type-label--lg">
             <div className="thread-timestamp">
               Edited thread&nbsp;&#xb7;&nbsp;<DisplayTimestamp timestamp={activity.lastModified} />
             </div>
-            <Link className="co-type-bold" to={'/' + props.orgname + '/' + activity.projectId + '/' + activity.threadId}>{activity.title}</Link>
+            <Link className="co-type-bold" to={'/' + props.orgURL + '/' + activity.projectId + '/' + activity.threadId}>{activity.title}</Link>
 
           </div>
         </div>
@@ -143,7 +143,7 @@ const CommentItem = props => {
       <div className="flx flx-col flx-align-start w-100">
 
         <div className="flx flx-row">
-          <Link to={'/' + props.orgName + '/user/' + profile.username} className="mrgn-right-xs tip__author-photo flx-hold mrgn-right-sm flx flx-row">
+          <Link to={'/' + props.orgURL + '/user/' + profile.username} className="mrgn-right-xs tip__author-photo flx-hold mrgn-right-sm flx flx-row">
             <ProfilePic src={profile.image} className="user-image user-image-sm center-img" />
           </Link>
           <div className="flx flx-col">
@@ -151,7 +151,7 @@ const CommentItem = props => {
             <div className="thread-timestamp">
               Commented&nbsp;&#xb7;&nbsp;<DisplayTimestamp timestamp={activity.lastModified} />
             </div>
-            <Link className="co-type-label--lg co-type-bold" to={'/' + props.orgName + '/' + activity.projectId + '/' + activity.threadId}>{activity.title}</Link>
+            <Link className="co-type-label--lg co-type-bold" to={'/' + props.orgURL + '/' + activity.projectId + '/' + activity.threadId}>{activity.title}</Link>
 
           </div>
 
@@ -171,17 +171,17 @@ const ActivityPreview = props => {
 
   if (activity.type === Constants.NEW_THREAD_TYPE) {
     return (
-      <NewThreadItem activity={activity} orgName={props.orgName} profile={props.profile} />
+      <NewThreadItem activity={activity} orgURL={props.orgURL} profile={props.profile} />
       )
   }
   else if (activity.type === Constants.EDIT_THREAD_TYPE) {
     return (
-      <EditThreadItem activity={activity} orgName={props.orgName} profile={props.profile} />
+      <EditThreadItem activity={activity} orgURL={props.orgURL} profile={props.profile} />
     )
   }
   else if (activity.type === Constants.COMMENT_TYPE) {
     return (
-      <CommentItem activity={activity} orgName={props.orgName} profile={props.profile} />
+      <CommentItem activity={activity} orgURL={props.orgURL} profile={props.profile} />
       )
   }
   else return null

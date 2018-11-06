@@ -168,7 +168,7 @@ class Register extends React.Component {
               </div>
             </div>
           </div>
-          <div className="footer color--white flx flx-col flx-center-all flx-item-bottom co-type-data pdding-top-lg">
+          <div className="DN footer color--white flx flx-col flx-center-all flx-item-bottom co-type-data pdding-top-lg">
             <div className="co-type-data color--white opa-70 mrgn-bottom-md">
               &copy; 2018 Futurehumans, LLC All Rights Reserved
             </div>

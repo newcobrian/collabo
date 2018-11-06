@@ -21,7 +21,7 @@ const mapStateToProps = state => ({
   authenticated: state.common.authenticated,
   // userInfo: state.common.userInfo,
   orgUser: state.common.orgUser,
-  organization: state.common.organization,
+  org: state.projectList.org,
   invalidOrgUser: state.common.invalidOrgUser,
   sidebarOpen: state.common.sidebarOpen
 });
@@ -65,7 +65,7 @@ class Project extends React.Component {
 
     this.scrolledToBottom = () => {
       if (!this.props.isFeedLoading) {
-        this.props.watchThreadFeed(this.props.authenticated, this.props.params.orgname, this.props.params.pid, this.props.feedEndValue, Constants.PROJECT_PAGE)
+        this.props.watchThreadFeed(this.props.authenticated, this.props.params.orgurl, this.props.params.pid, this.props.feedEndValue, Constants.PROJECT_PAGE)
       }
     }
 
@@ -74,11 +74,11 @@ class Project extends React.Component {
     }
 
     this.onProjectInviteClick = (project) => {
-      this.props.showProjectInviteModal(this.props.params.pid, this.props.project, this.props.orgId, this.props.params.orgname, this.props.orgMembers)
+      this.props.showProjectInviteModal(this.props.params.pid, this.props.project, this.props.org, this.props.orgMembers)
     }
 
     this.onOrgInviteClick = ev => {
-      this.props.showOrgInviteModal(this.props.orgId, this.props.params.orgname)
+      this.props.showOrgInviteModal(this.props.org)
     }
   }
 
@@ -86,14 +86,15 @@ class Project extends React.Component {
     this.props.loadSidebar(mql);
     mql.addListener(this.mediaQueryChanged);
 
-    let lowerCaseOrgName = this.props.params.orgname ? this.props.params.orgname.toLowerCase() : ''
-    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
+    let lowerCaseOrgURL = this.props.params.orgurl ? this.props.params.orgurl.toLowerCase() : ''
+    Firebase.database().ref(Constants.ORGS_BY_URL_PATH + '/' + lowerCaseOrgURL).once('value', orgSnap => {
       if (!orgSnap.exists()) {
         this.props.notAnOrgUserError(Constants.PROJECT_PAGE)
       }
       else {
         let orgId = orgSnap.val().orgId
-        this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgname, Constants.PROJECT_PAGE);
+        let orgName = orgSnap.val().name
+        this.props.loadOrg(this.props.authenticated, orgId, orgName, this.props.params.orgurl, Constants.PROJECT_PAGE);
         this.props.loadOrgUser(this.props.authenticated, orgId, Constants.PROJECT_PAGE)
         this.props.loadProjectList(this.props.authenticated, orgId, this.props.params.pid, Constants.PROJECT_PAGE)
         this.props.loadThreadCounts(this.props.authenticated, orgId)
@@ -106,7 +107,7 @@ class Project extends React.Component {
       }
     })
     
-    // this.props.loadLikesByUser(this.props.authenticated, this.props.params.orgname)
+    // this.props.loadLikesByUser(this.props.authenticated, this.props.params.orgurl)
 
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project'});
 
@@ -128,18 +129,18 @@ class Project extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.params.pid !== this.props.params.pid && nextProps.params.orgname === this.props.params.orgname) {
+    if (nextProps.params.pid !== this.props.params.pid && nextProps.params.orgurl === this.props.params.orgurl) {
       this.props.unwatchThreadFeed(this.props.authenticated, this.props.orgId, this.props.params.pid, Constants.PROJECT_PAGE)
       this.props.unloadProjectMembers(this.props.params.pid, Constants.PROJECT_PAGE)
 
       this.props.loadProject(nextProps.params.pid, this.props.orgId, Constants.PROJECT_PAGE);
       this.props.loadProjectMembers(nextProps.params.pid, Constants.PROJECT_PAGE)
-      // this.props.watchThreadFeed(this.props.authenticated, this.props.params.orgname, nextProps.params.pid, this.props.feedEndValue, Constants.PROJECT_PAGE)
+      // this.props.watchThreadFeed(this.props.authenticated, this.props.params.orgURL, nextProps.params.pid, this.props.feedEndValue, Constants.PROJECT_PAGE)
       if (nextProps.params.pid) {
         this.props.markProjectRead(this.props.authenticated, nextProps.params.pid)
       }
     }
-    else if (nextProps.params.orgname !== this.props.params.orgname) {
+    else if (nextProps.params.orgurl !== this.props.params.orgurl) {
       this.props.unloadProjectNames(this.props.orgId, Constants.PROJECT_PAGE)
       this.props.unwatchThreadFeed(this.props.authenticated, this.props.orgId, this.props.params.pid, Constants.PROJECT_PAGE)
       this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId)
@@ -149,14 +150,14 @@ class Project extends React.Component {
       this.props.unloadOrgMembers(this.props.orgId, Constants.PROJECT_PAGE)
 
 
-      let lowerCaseOrgName = nextProps.params.orgname ? nextProps.params.orgname.toLowerCase() : ''
-      Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
+      let lowerCaseOrgURL = nextProps.params.orgurl ? nextProps.params.orgurl.toLowerCase() : ''
+      Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgURL).once('value', orgSnap => {
         if (!orgSnap.exists()) {
           this.props.notAnOrgUserError(Constants.PROJECT_PAGE)
         }
         else {
           let orgId = orgSnap.val().orgId
-          this.props.loadOrg(this.props.authenticated, orgId, nextProps.params.orgname, Constants.PROJECT_PAGE);
+          this.props.loadOrg(this.props.authenticated, orgId, nextProps.params.orgurl, Constants.PROJECT_PAGE);
           this.props.loadProjectList(this.props.authenticated, orgId, this.props.params.pid, Constants.PROJECT_PAGE)
           this.props.loadThreadCounts(this.props.authenticated, orgId)
           this.props.loadProjectNames(orgId, Constants.PROJECT_PAGE)
@@ -252,7 +253,7 @@ class Project extends React.Component {
                 <div className="page-common page-places flx flx-row flx-align-start fill--mist">
                   
                     <ProjectHeader 
-                      orgName={this.props.params.orgname}
+                      orgURL={this.props.params.orgurl}
                       projectId={this.props.params.pid}
                       project={this.props.project}
                       onProjectInviteClick={this.onProjectInviteClick}
@@ -278,7 +279,7 @@ class Project extends React.Component {
                             authenticated={this.props.authenticated}
                             userInfo={this.props.orgUser}
                             threads={this.props.threads} 
-                            orgName={this.props.params.orgname}
+                            org={this.props.org}
                             emptyThreadFeed={this.props.emptyThreadFeed}
                             projectNotFoundError={this.props.projectNotFoundError}
                             projectNames={this.props.projectNames}
@@ -301,7 +302,7 @@ class Project extends React.Component {
                         orgMembers={this.props.orgMembers}
                         project={this.props.project}
                         projectId={this.props.params.pid}
-                        orgName={this.props.params.orgname}
+                        org={this.props.org}
                         onProjectInviteClick={this.onProjectInviteClick}
                         onOrgInviteClick={this.onOrgInviteClick} />
                 </div>

@@ -92,7 +92,7 @@ const ProjectLabel = props => {
   }
   else return (
     <div className="co-project-name mrgn-left-xs">
-      <Link className="text-hover color--black" to={'/' + props.orgName + '/' + props.projectId}>
+      <Link className="text-hover color--black" to={'/' + props.orgURL + '/' + props.projectId}>
         {props.projectNames[props.projectId] ? props.projectNames[props.projectId].name : ''}
       </Link>
     </div> 
@@ -131,14 +131,14 @@ class ThreadPreviewFull extends React.Component {
 
     this.openThread = ev => {
       ev.preventDefault()
-      let threadURL = '/' + this.props.orgName + '/' + this.props.thread.projectId + '/' + this.props.thread.threadId
+      let threadURL = '/' + this.props.org.url + '/' + this.props.thread.projectId + '/' + this.props.thread.threadId
       window.history.pushState( {} , null, threadURL );
-      this.props.showThreadModal(this.props.thread, this.props.project, this.props.orgName, this.props.orgMembers, this.props.orgUserData)
+      this.props.showThreadModal(this.props.thread, this.props.project, this.props.org, this.props.orgMembers, this.props.orgUserData)
     }
   }
 
   render() {
-    const { authenticated, thread, lastUpdater, orgUserData, orgName, projectId, projectNames, userInfo, commentErrors, project, deleteComment } = this.props
+    const { authenticated, thread, lastUpdater, orgUserData, org, projectId, projectNames, userInfo, commentErrors, project, deleteComment } = this.props
     const createdBy = orgUserData && orgUserData[thread.userId] ? orgUserData[thread.userId] : { username: '' }
 
     return (
@@ -151,13 +151,13 @@ class ThreadPreviewFull extends React.Component {
               <div className="thread-content-wrapper w-100">
 
                 {/*<div className="flx flx-row flx-align-center w-100 mrgn-bottom-sm brdr-bottom pdding-bottom-sm">
-                  <Link to={'/' + orgName + '/user/' + createdBy.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
+                  <Link to={'/' + org.url + '/user/' + createdBy.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
                     <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
                   </Link>
 
                   <div className="flx flx-col flx-align-start">
                     <div className="flx flx-row co-type-body mrgn-left-xs">
-                      <Link className="co-type-bold text-hover" to={'/' + orgName + '/user/' + lastUpdater.username}>{lastUpdater.username || ''}</Link> 
+                      <Link className="co-type-bold text-hover" to={'/' + org.url + '/user/' + lastUpdater.username}>{lastUpdater.username || ''}</Link> 
                       &nbsp;<UpdateSection thread={thread} />
                     </div>
                     
@@ -169,17 +169,17 @@ class ThreadPreviewFull extends React.Component {
                 </div>*/}
 
                 <div className="flx flx-row">
-                  <Link to={'/' + orgName + '/user/' + createdBy.username} className="thread-creator-image flx-hold mrgn-right-sm flx flx-row mrgn-right-sm">
+                  <Link to={'/' + org.url + '/user/' + createdBy.username} className="thread-creator-image flx-hold mrgn-right-sm flx flx-row mrgn-right-sm">
                     <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
                   </Link>
                   <div className="flx flx-col">
                     <Link className="color--black co-type-thread-title mrgn-bottom-xs" onClick={this.openThread} >
-                    {/*<Link className="color--black" to={'/' + orgName + '/' + thread.projectId + '/' + thread.threadId }>*/}
+                    {/*<Link className="color--black" to={'/' + org.url + '/' + thread.projectId + '/' + thread.threadId }>*/}
                           {thread.title}
                     </Link>
                     <div className="color--black thread-timestamp flx flx-row flx-align-center mrgn-bottom-xs">
-                      <div><Link to={'/' + orgName + '/user/' + createdBy.username} className="text-hover color--black">{createdBy.username}</Link>&nbsp;&#xb7;&nbsp;</div>
-                      <ProjectLabel className="color--black" projectNames={projectNames} projectId={thread.projectId} orgName={orgName} />&nbsp;&#xb7;&nbsp;<DisplayTimestamp timestamp={thread.lastModified} /> 
+                      <div><Link to={'/' + org.url + '/user/' + createdBy.username} className="text-hover color--black">{createdBy.username}</Link>&nbsp;&#xb7;&nbsp;</div>
+                      <ProjectLabel className="color--black" projectNames={projectNames} projectId={thread.projectId} orgURL={org.url} />&nbsp;&#xb7;&nbsp;<DisplayTimestamp timestamp={thread.lastModified} /> 
                     </div>
                   </div>
                 </div>
@@ -197,7 +197,7 @@ class ThreadPreviewFull extends React.Component {
                     thread={thread}
                     likeObject={thread}
                     type={Constants.THREAD_TYPE}
-                    orgName={orgName} />
+                    org={org} />
                 </div>
 
                 <div className="tip__caption mrgn-top-xs co-type-thread-body flx flx-col w-100 flx-align-start" dangerouslySetInnerHTML={{ __html: thread.body || '' }} />
@@ -245,7 +245,7 @@ class ThreadPreviewFull extends React.Component {
                 threadId={thread.threadId}
                 thread={thread}
                 project={project}
-                orgName={orgName}
+                org={org}
                 orgUserData={orgUserData}
                 type={Constants.THREAD_TYPE}
                 deleteComment={deleteComment}

@@ -32,7 +32,7 @@ class CommentInput extends React.Component {
         let pattern = /\B@[$][|][{][a-z0-9_-]+(\1)[}][|][$]/gi;
         const commentBody = ''.concat(this.state.body.replace(/\B@[$][|][{]([a-z0-9_-]+)[}][|][$]/gi, "@$1"))
         this.setState({ body: '' });
-        this.props.onThreadCommentSubmit(this.props.authenticated, this.props.type, this.props.commentObject, commentBody, this.props.threadId, this.props.project, this.props.orgName, this.props.parentId);
+        this.props.onThreadCommentSubmit(this.props.authenticated, this.props.type, this.props.commentObject, commentBody, this.props.threadId, this.props.project, this.props.org, this.props.parentId);
 
         // const links = getLinks(commentBody).filter((l) => isGoogleDocLink(l));
         // const ids = [];

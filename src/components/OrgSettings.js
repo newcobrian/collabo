@@ -94,7 +94,7 @@ const MembersList = props => {
             return (
               <Link className="flx flx-row flx-align-center mrgn-bottom-sm brdr-bottom pdding-bottom-sm" 
                 key={userItem.userId}
-                to={'/' + props.orgName + '/user/' + userItem.username} >
+                to={'/' + props.org.url + '/user/' + userItem.username} >
                 <ProfilePic src={userItem.image} className="user-img center-img prof-48" /> 
                 <div className="flx flx-col flx-align-start w-100">
                   <div className="mrgn-left-sm koi-type-body koi-type-bold color--black">{userItem.username}</div>
@@ -117,7 +117,7 @@ const MembersList = props => {
               <div className="flx flx-col flx-align-start mrgn-bottom-sm brdr-bottom pdding-bottom-sm" key={userItem.email}>
                 <div className="koi-type-body koi-type-bold">{userItem.email}</div>
                 <div className="koi-type-caption opa-60">
-                  from <Link className="color--black" to={'/' + props.orgName + '/user/' + userItem.senderUsername}>{userItem.senderUsername}</Link> on&nbsp;
+                  from <Link className="color--black" to={'/' + props.org.url + '/user/' + userItem.senderUsername}>{userItem.senderUsername}</Link> on&nbsp;
                    <DisplayTimestamp timestamp={userItem.timestamp} />
                 </div>
               </div>
@@ -140,7 +140,7 @@ const MembersList = props => {
                   <JoinProjectButton 
                     authenticated={props.authenticated}
                     userInfo={props.userInfo}
-                    orgId={props.orgId}
+                    orgId={props.org.id}
                     isJoined={props.usersProjects[projectItem.projectId]}
                     leaveProject={props.leaveProject}
                     joinProject={props.joinProject}
@@ -161,6 +161,7 @@ const MembersList = props => {
 const mapStateToProps = state => ({
   // ...state.projectList,
   ...state.orgSettings,
+  org: state.projectList.org,
   currentUser: state.common.currentUser,
   userInfo: state.common.userInfo,
   authenticated: state.common.authenticated,
@@ -178,11 +179,11 @@ class OrgSettings extends React.Component {
 
     this.onTabClick = (tab) => {
       // console.log('tab = ' + tab)
-      this.props.changeOrgSettingsTab(tab, this.props.params.orgname, this.props.orgId)
+      this.props.changeOrgSettingsTab(tab, this.props.org.id)
     }
 
     this.onOrgInviteClick = ev => {
-      this.props.showOrgInviteModal(this.props.orgId, this.props.params.orgname)
+      this.props.showOrgInviteModal(this.props.org)
     }
   }
 
@@ -190,23 +191,24 @@ class OrgSettings extends React.Component {
     this.props.loadSidebar(mql);
     mql.addListener(this.mediaQueryChanged);
 
-    let lowerCaseOrgName = this.props.params.orgname ? this.props.params.orgname.toLowerCase() : ''
-    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
+    let lowerCaseOrgURL = this.props.params.orgurl ? this.props.params.orgurl.toLowerCase() : ''
+    Firebase.database().ref(Constants.ORGS_BY_URL_PATH + '/' + lowerCaseOrgURL).once('value', orgSnap => {
       if (!orgSnap.exists()) {
         this.props.notAnOrgUserError(Constants.PROJECT_PAGE)
       }
       else {
         let orgId = orgSnap.val().orgId
-        this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE);
+        let orgName = orgSnap.val().name
+        this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgurl, orgName, Constants.ORG_SETTINGS_PAGE);
         this.props.loadOrgUser(this.props.authenticated, orgId, Constants.ORG_SETTINGS_PAGE)
         this.props.loadProjectList(this.props.authenticated, orgId, null, Constants.ORG_SETTINGS_PAGE)
-        this.props.loadThreadCounts(this.props.authenticated, orgId)
+        this.props.loadThreadCounts(this.props.authenticated, orgId, Constants.ORG_SETTINGS_PAGE)
         this.props.loadOrgList(this.props.authenticated, Constants.ORG_SETTINGS_PAGE)
         this.props.loadProjectNames(orgId, Constants.ORG_SETTINGS_PAGE)
 
         this.props.loadOrgMembers(orgId, Constants.ORG_SETTINGS_PAGE)
 
-        this.props.changeOrgSettingsTab(this.props.tab ? this.props.tab : Constants.LISTS_TAB, this.props.params.orgname, orgId)
+        this.props.changeOrgSettingsTab(this.props.tab ? this.props.tab : Constants.LISTS_TAB, orgId)
       }
     })
 
@@ -214,39 +216,42 @@ class OrgSettings extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.unloadProjectNames(this.props.orgId, Constants.ORG_SETTINGS_PAGE)
-    this.props.unloadOrgList(this.props.authenticated, Constants.ORG_SETTINGS_PAGE)
-    this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId, Constants.ORG_SETTINGS_PAGE)
-    this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.ORG_SETTINGS_PAGE)
-    this.props.unloadOrgUser(this.props.authenticated, this.props.orgId, Constants.ORG_SETTINGS_PAGE)
-    this.props.unloadOrg(Constants.ORG_SETTINGS_PAGE, this.props.params.orgname);
-    this.props.unloadOrgMembers(this.props.orgId, Constants.ORG_SETTINGS_PAGE)
+    if (this.props.org && this.props.org.id) {
+      this.props.unloadProjectNames(this.props.org.id, Constants.ORG_SETTINGS_PAGE)
+      this.props.unloadOrgList(this.props.authenticated, Constants.ORG_SETTINGS_PAGE)
+      this.props.unloadThreadCounts(this.props.authenticated, this.props.org.id, Constants.ORG_SETTINGS_PAGE)
+      this.props.unloadProjectList(this.props.authenticated, this.props.org.id, Constants.ORG_SETTINGS_PAGE)
+      this.props.unloadOrgUser(this.props.authenticated, this.props.org.id, Constants.ORG_SETTINGS_PAGE)
+      this.props.unloadOrg(Constants.ORG_SETTINGS_PAGE);
+      this.props.unloadOrgMembers(this.props.org.id, Constants.ORG_SETTINGS_PAGE)
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.orgname !== this.props.params.orgname) {
-      this.props.unloadOrgUser(this.props.authenticated, this.props.orgId, Constants.ORG_SETTINGS_PAGE)
-      this.props.unloadProjectNames(this.props.orgId, Constants.ORG_SETTINGS_PAGE)
+      this.props.unloadOrgUser(this.props.authenticated, this.props.org.id, Constants.ORG_SETTINGS_PAGE)
+      this.props.unloadProjectNames(this.props.org.id, Constants.ORG_SETTINGS_PAGE)
       this.props.unloadOrgList(this.props.authenticated, Constants.ORG_SETTINGS_PAGE)
-      this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId, Constants.ORG_SETTINGS_PAGE)
-      this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.ORG_SETTINGS_PAGE)
-      this.props.unloadOrgMembers(this.props.orgId, Constants.ORG_SETTINGS_PAGE)
+      this.props.unloadThreadCounts(this.props.authenticated, this.props.org.id, Constants.ORG_SETTINGS_PAGE)
+      this.props.unloadProjectList(this.props.authenticated, this.props.org.id, Constants.ORG_SETTINGS_PAGE)
+      this.props.unloadOrgMembers(this.props.org.id, Constants.ORG_SETTINGS_PAGE)
 
-      let lowerCaseOrgName = this.props.params.orgname ? this.props.params.orgname.toLowerCase() : ''
-      Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
+      let lowerCaseOrgURL = this.props.params.orgurl ? this.props.params.orgurl.toLowerCase() : ''
+      Firebase.database().ref(Constants.ORGS_BY_URL_PATH + '/' + lowerCaseOrgURL).once('value', orgSnap => {
         if (!orgSnap.exists()) {
           this.props.notAnOrgUserError(Constants.PROJECT_PAGE)
         }
         else {
           let orgId = orgSnap.val().orgId
-          this.props.loadOrg(this.props.authenticated, orgId, nextProps.params.orgname, Constants.ORG_SETTINGS_PAGE);
+          let orgName = orgSnap.val().name
+          this.props.loadOrg(this.props.authenticated, orgId, nextProps.params.orgurl, orgName, Constants.ORG_SETTINGS_PAGE);
           this.props.loadOrgUser(this.props.authenticated, orgId, Constants.ORG_SETTINGS_PAGE)
           this.props.loadProjectList(this.props.authenticated, orgId, null, Constants.ORG_SETTINGS_PAGE)
-          this.props.loadThreadCounts(this.props.authenticated, nextProps.params.ORG_SETTINGS_PAGE)
+          this.props.loadThreadCounts(this.props.authenticated, orgId, Constants.ORG_SETTINGS_PAGE)
           this.props.loadProjectNames(orgId, Constants.ORG_SETTINGS_PAGE)
           this.props.loadOrgMembers(orgId, Constants.ORG_SETTINGS_PAGE)
           // this.props.loadOrgUsers(this.props.authenticated, nextProps.params.orgname, Constants.ORG_SETTINGS_PAGE)
-          this.props.changeOrgSettingsTab(this.props.tab, nextProps.params.orgname, orgId)
+          this.props.changeOrgSettingsTab(this.props.tab, orgId)
         }
       })
     }
@@ -264,7 +269,8 @@ class OrgSettings extends React.Component {
         )
     }
 
-    const { payload, sidebarOpen, tab, usersProjects, orgId, authenticated, userInfo } = this.props;
+    const { payload, sidebarOpen, tab, usersProjects, org, authenticated, userInfo } = this.props;
+    const orgName = org && org.name ? org.name : ''
     return (
       <div>
 
@@ -294,7 +300,7 @@ class OrgSettings extends React.Component {
                   <div className="koi-view header-push text-left flx flx-col flx-align-start w-100">
                     {/* HEADER START */}
                     <div className="flx flx-col flx-align-start flx-just-center w-100 mrgn-bottom-sm">
-                      <div className="koi-type-page-title">{this.props.params.orgname} Team Directory</div>
+                      <div className="koi-type-page-title">{orgName} Team Directory</div>
 
                       <Link onClick={this.onOrgInviteClick} className="flx flx-row flx-align-center vb vb--sm fill--utsuri mrgn-top-md mrgn-bottom-sm">
                         <div className="mrgn-right-sm flx flx-center-all DN">
@@ -318,8 +324,7 @@ class OrgSettings extends React.Component {
                         userInfo={userInfo}
                         tab={tab} 
                         payload={payload} 
-                        orgId={orgId}
-                        orgName={this.props.params.orgname} 
+                        org={org}
                         orgMembers={this.props.orgMembers}
                         usersProjects={usersProjects || {}} 
                         joinProject={this.props.joinProject}

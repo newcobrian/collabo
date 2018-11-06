@@ -42,7 +42,7 @@ const NestedCommentContainer = props => {
         commentObject={props.commentObject}
         threadId={props.threadId}
         thread={props.thread}
-        orgName={props.orgName}
+        org={props.org}
         project={props.project}
         usersList={props.usersList}
         orgUserData={props.orgUserData}
@@ -78,17 +78,18 @@ class Comment extends React.Component {
 
   render () {
     const { isOpenNotification, hideCommentInput } = this.state;
-    const { comment, authenticated, orgName, project, commentObject, 
+    const { comment, authenticated, org, project, commentObject, 
       deleteComment, threadId, type, likes, thread, usersList, orgUserData, parentId, isFeed } = this.props;
     const show = authenticated && authenticated === comment.userId;
     const commenter = orgUserData && orgUserData[comment.userId] ? orgUserData[comment.userId] : { username: '' }
+    const orgURL = org && org.url ? org.url : ''
 
     const processed = processString([{
       regex: /\@([a-z0-9_\-]+?)( |\,|$|\.|\!|\:|\'|\"|\?)/gim, //regex to match a username
       fn: (key, result) => {
         return (
           <span key={key}>
-          <Link className="color--primary" to={`/${orgName}/user/${result[1]}`}>@{result[1]}</Link>{result[2]}
+          <Link className="color--primary" to={`/${orgURL}/user/${result[1]}`}>@{result[1]}</Link>{result[2]}
         </span>
         );
       }
@@ -157,7 +158,7 @@ class Comment extends React.Component {
                 thread={Object.assign({}, thread, {threadId: threadId})}
                 likeObject={parentId ? Object.assign({}, comment, {parentId: parentId}) : comment}
                 type={parentId ? Constants.NESTED_COMMENT_TYPE : Constants.COMMENT_TYPE}
-                orgName={orgName} />
+                org={org} />
               {!parentId && hideCommentInput && (!comment.nestedComments || comment.nestedComments.lenght > 0) &&
                 <Link className="reply-ico-wrapper flx flx-row flx-center-all mrgn-left-md" onClick={this.toggleHideCommentInput}>
                   <div className="koi-ico --24 ico--reply mrgn-right-xs opa-60"></div>
@@ -186,7 +187,7 @@ class Comment extends React.Component {
             commentObject={thread}
             threadId={threadId}
             thread={thread}
-            orgName={orgName}
+            org={org}
             project={project}
             usersList={usersList}
             orgUserData={orgUserData}
@@ -205,7 +206,7 @@ class Comment extends React.Component {
               commentObject={thread}
               threadId={threadId}
               thread={thread}
-              orgName={orgName}
+              org={org}
               project={project}
               usersList={usersList}
               orgUserData={orgUserData}

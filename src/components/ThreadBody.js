@@ -111,7 +111,7 @@ const ThreadBody = props => {
     return null
   }
   else {
-    const { authenticated, threadId, thread, project, comments, commentErrors, createdBy, canModify, orgName, 
+    const { authenticated, threadId, thread, project, comments, commentErrors, createdBy, canModify, org, 
       orgMembers, orgUserData, bodyText, likes } = props
 
     return (
@@ -125,7 +125,7 @@ const ThreadBody = props => {
                     <div className="flx flx-row w-100 flx-align-center mrgn-bottom-xs">
                       <span className="thread-timestamp">Posted by {createdBy.username}
                         <Link
-                          to={'/' + orgName + '/user/' + createdBy.username}
+                          to={'/' + org.url + '/user/' + createdBy.username}
                           className="show-in-list">
                         <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm">
                             <div className="tip__author-photo flx-hold mrgn-right-sm">
@@ -150,7 +150,7 @@ const ThreadBody = props => {
                         thread={thread}
                         likeObject={thread}
                         type={Constants.THREAD_TYPE}
-                        orgName={orgName} />
+                        org={org} />
                     </div>
                     <div className="co-type-body color--black w-100 mrgn-top-sm opa-90">
                       <BodySection
@@ -183,7 +183,7 @@ const ThreadBody = props => {
                     threadId={threadId}
                     thread={thread}
                     project={project}
-                    orgName={orgName}
+                    org={org}
                     usersList={orgMembers}
                     orgUserData={orgUserData}
                     type={Constants.THREAD_TYPE}

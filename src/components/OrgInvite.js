@@ -13,6 +13,7 @@ const mql = window.matchMedia(`(min-width: 800px)`);
 
 const mapStateToProps = state => ({
   authenticated: state.common.authenticated,
+  org: state.projectList.org,
   sidebarOpen: state.common.sidebarOpen
 });
 
@@ -21,7 +22,7 @@ class OrgInvite extends React.Component {
 		super();
 
 		this.submitForm = invites => {
-			this.props.inviteUsersToOrg(this.props.authenticated, this.props.params.orgname.toLowerCase(), invites);
+			this.props.inviteUsersToOrg(this.props.authenticated, this.props.org, invites);
     	}
 
     	this.mediaQueryChanged = () => {
@@ -34,15 +35,16 @@ class OrgInvite extends React.Component {
     		this.props.askForAuth();
     	}
 
-	    let lowerCaseOrgName = this.props.params.orgname ? this.props.params.orgname.toLowerCase() : ''
+	    let lowerCaseOrgURL = this.props.params.orgurl ? this.props.params.orgurl.toLowerCase() : ''
 	    
-	    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
+	    Firebase.database().ref(Constants.ORGS_BY_URL_PATH + '/' + lowerCaseOrgURL).once('value', orgSnap => {
 	    	if (!orgSnap.exists()) {
 	        	this.props.notAnOrgUserError(Constants.ORG_SETTINGS_PAGE)
 	    	}
 	    	else {
 	        	let orgId = orgSnap.val().orgId
-		    	this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgname, Constants.ORG_SETTINGS_PAGE);
+	        	let orgName = orgSnap.val().name
+		    	this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgurl, orgName, Constants.ORG_SETTINGS_PAGE);
 			    this.props.loadProjectList(this.props.authenticated, orgId, Constants.ORG_SETTINGS_PAGE)
 			    this.props.loadThreadCounts(this.props.authenticated, orgId)
 			    this.props.loadProjectNames(orgId, Constants.ORG_SETTINGS_PAGE)
@@ -54,10 +56,12 @@ class OrgInvite extends React.Component {
 	}
 
 	componentWillUnmount() {
-		this.props.unloadProjectNames(this.props.orgId, Constants.ORG_SETTINGS_PAGE)
-	    this.props.unloadOrgList(this.props.authenticated, Constants.ORG_SETTINGS_PAGE)
-	    this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId)
-	    this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.ORG_SETTINGS_PAGE)
+		if (this.props.org && this.props.org.id) {
+			this.props.unloadProjectNames(this.props.org.id, Constants.ORG_SETTINGS_PAGE)
+		    this.props.unloadThreadCounts(this.props.authenticated, this.props.org.id)
+		    this.props.unloadProjectList(this.props.authenticated, this.props.org.id, Constants.ORG_SETTINGS_PAGE)
+		}
+		this.props.unloadOrgList(this.props.authenticated, Constants.ORG_SETTINGS_PAGE)
 	    this.props.unloadOrg(Constants.ORG_SETTINGS_PAGE);
 
 		this.props.onCreateUnload();

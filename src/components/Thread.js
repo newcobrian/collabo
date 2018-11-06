@@ -39,6 +39,7 @@ const mapStateToProps = state => ({
   // googleDocs: state.review.googleDocs,
   // updates: state.firebase.data.updates,
   userInfo: state.common.userInfo,
+  org: state.projectList.org,
   authenticated: state.common.authenticated,
   invalidOrgUser: state.common.invalidOrgUser,
   sidebarOpen: state.common.sidebarOpen,
@@ -97,7 +98,7 @@ class Thread extends React.Component {
     }
 
     const updateThreadFieldEvent = (field, value, thread) =>
-      this.props.updateThreadField(this.props.authenticated, this.props.params.tid, thread, this.props.params.orgname, field, value)
+      this.props.updateThreadField(this.props.authenticated, this.props.params.tid, thread, this.props.params.org, field, value)
 
     this.saveBody = thread => ev => {
       ev.preventDefault()
@@ -121,7 +122,7 @@ class Thread extends React.Component {
 
     this.onDeleteClick = ev => {
       ev.preventDefault()
-      this.props.showDeleteModal(this.props.params.tid, this.props.thread, this.props.params.orgname, Constants.THREAD_PAGE)
+      this.props.showDeleteModal(this.props.params.tid, this.props.thread, this.props.params.orgurl, Constants.THREAD_PAGE)
     }
 
     this.onGoBackClick = ev => {
@@ -130,7 +131,7 @@ class Thread extends React.Component {
     }
 
     this.onProjectInviteClick = (project) => {
-      this.props.showProjectInviteModal(this.props.thread.projectId, this.props.project, this.props.orgId, this.props.params.orgname, this.props.orgMembers)
+      this.props.showProjectInviteModal(this.props.thread.projectId, this.props.project, this.props.orgId, this.props.org, this.props.orgMembers)
     }
 
     // this.renderState = (update) => {
@@ -196,14 +197,15 @@ class Thread extends React.Component {
     this.props.loadSidebar(mql);
     mql.addListener(this.mediaQueryChanged);
 
-    let lowerCaseOrgName = this.props.params.orgname ? this.props.params.orgname.toLowerCase() : ''
-    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
+    let lowerCaseOrgURL = this.props.params.orgurl ? this.props.params.orgurl.toLowerCase() : ''
+    Firebase.database().ref(Constants.ORGS_BY_URL_PATH + '/' + lowerCaseOrgURL).once('value', orgSnap => {
       if (!orgSnap.exists()) {
         this.props.notAnOrgUserError(Constants.PROJECT_PAGE)
       }
       else {
         let orgId = orgSnap.val().orgId
-        this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgname, Constants.THREAD_PAGE);
+        let orgName = orgSnap.val().name
+        this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgurl, orgName, Constants.THREAD_PAGE);
         this.props.loadOrgUser(this.props.authenticated, orgId, Constants.THREAD_PAGE)
         this.props.loadProjectList(this.props.authenticated, orgId, this.props.params.pid, Constants.THREAD_PAGE)
         this.props.loadThreadCounts(this.props.authenticated, orgId)
@@ -222,13 +224,15 @@ class Thread extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.unloadProjectNames(this.props.orgId, Constants.THREAD_PAGE)
-    this.props.unloadOrgList(this.props.authenticated, Constants.THREAD_PAGE)
-    this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId, Constants.THREAD_PAGE)
-    this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.THREAD_PAGE)
-    this.props.unloadOrgUser(this.props.authenticated, this.props.orgId, Constants.THREAD_PAGE)
-    this.props.unloadOrg(Constants.THREAD_PAGE);
-    this.props.loadOrgMembers(this.props.orgId,  Constants.THREAD_PAGE)
+    if (this.props.org && this.props.org.id) {
+      this.props.unloadProjectNames(this.props.org.id, Constants.THREAD_PAGE)
+      this.props.unloadOrgList(this.props.authenticated, Constants.THREAD_PAGE)
+      this.props.unloadThreadCounts(this.props.authenticated, this.props.org.id, Constants.THREAD_PAGE)
+      this.props.unloadProjectList(this.props.authenticated, this.props.org.id, Constants.THREAD_PAGE)
+      this.props.unloadOrgUser(this.props.authenticated, this.props.org.id, Constants.THREAD_PAGE)
+      this.props.unloadOrg(Constants.THREAD_PAGE);
+      this.props.loadOrgMembers(this.props.org.id,  Constants.THREAD_PAGE)
+    }
     this.props.unloadThread(this.props.params.tid);
     this.props.unloadThreadLikes(this.props.params.tid, Constants.THREAD_PAGE);
     this.props.unwatchThreadComments(this.props.params.tid);
@@ -236,7 +240,7 @@ class Thread extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.params.tid !== this.props.params.tid && this.props.params.orgname === nextProps.params.orgname) {
+    if (nextProps.params.tid !== this.props.params.tid && this.props.params.orgurl === nextProps.params.orgurl) {
       this.props.unloadThread(this.props.params.tid);
       this.props.unloadThreadLikes(this.props.params.tid, Constants.THREAD_PAGE);
       this.props.unwatchThreadComments(this.props.params.tid);
@@ -245,26 +249,29 @@ class Thread extends React.Component {
       this.props.watchThreadComments(nextProps.params.tid);
       this.props.markThreadRead(this.props.authenticated, nextProps.params.tid)
     }
-    else if (nextProps.params.orgname !== this.props.params.orgname) {
-      this.props.unloadOrg(Constants.THREAD_PAGE);
-      this.props.unloadOrgUser(this.props.authenticated, this.props.orgId, Constants.THREAD_PAGE)
-      this.props.unloadProjectNames(this.props.orgId, Constants.THREAD_PAGE)
+    else if (nextProps.params.orgurl !== this.props.params.orgurl) {
+      if (this.props.org && this.props.org.id) {
+        this.props.unloadOrg(Constants.THREAD_PAGE);
+        this.props.unloadOrgUser(this.props.authenticated, this.props.org.id, Constants.THREAD_PAGE)
+        this.props.unloadProjectNames(this.props.org.id, Constants.THREAD_PAGE)
+        this.props.unloadThreadCounts(this.props.authenticated, this.props.org.id, Constants.THREAD_PAGE)
+        this.props.unloadProjectList(this.props.authenticated, this.props.org.id, Constants.THREAD_PAGE)
+        this.props.unloadOrgMembers(this.props.org.id,  Constants.THREAD_PAGE)
+      }
       this.props.unloadOrgList(this.props.authenticated, Constants.THREAD_PAGE)
-      this.props.loadOrgMembers(this.props.orgId,  Constants.THREAD_PAGE)
-      this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId, Constants.THREAD_PAGE)
-      this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.THREAD_PAGE)
       this.props.unloadThread(this.props.params.tid);
       this.props.unloadThreadLikes(this.props.params.tid, Constants.THREAD_PAGE);
       this.props.unwatchThreadComments(this.props.params.tid);
 
-      let lowerCaseOrgName = nextProps.params.orgname ? nextProps.params.orgname.toLowerCase() : ''
-      Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
+      let lowerCaseOrgURL = this.props.params.orgurl ? this.props.params.orgurl.toLowerCase() : ''
+      Firebase.database().ref(Constants.ORGS_BY_URL_PATH + '/' + lowerCaseOrgURL).once('value', orgSnap => {
         if (!orgSnap.exists()) {
           this.props.notAnOrgUserError(Constants.PROJECT_PAGE)
         }
         else {
           let orgId = orgSnap.val().orgId
-          this.props.loadOrg(this.props.authenticated, orgId, nextProps.params.orgname, Constants.THREAD_PAGE);
+          let orgName = orgSnap.val().name
+          this.props.loadOrg(this.props.authenticated, orgId, nextProps.params.orgurl, orgName, Constants.THREAD_PAGE);
           this.props.loadOrgUser(this.props.authenticated, orgId, Constants.THREAD_PAGE)
           this.props.loadOrgMembers(orgId,  Constants.THREAD_PAGE)
           this.props.loadProjectList(this.props.authenticated, orgId, this.props.params.pid, Constants.THREAD_PAGE)
@@ -342,7 +349,7 @@ class Thread extends React.Component {
                   
 
                   <ProjectHeader 
-                      orgName={this.props.params.orgname}
+                      orgURL={this.props.params.orgurl}
                       projectId={thread.projectId}
                       project={this.props.project}
                       onProjectInviteClick={this.onProjectInviteClick}
@@ -350,7 +357,7 @@ class Thread extends React.Component {
 
                   <ThreadBody
                     authenticated={this.props.authenticated}
-                    orgName={this.props.params.orgname}
+                    org={this.props.org}
                     thread={thread}
                     threadId={this.props.params.tid}
                     project={this.props.project}

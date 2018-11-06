@@ -4,13 +4,13 @@ import * as Helpers from '../helpers'
 import * as ActionTypes from './types'
 import mixpanel from 'mixpanel-browser'
 
-export function showDeleteModal(threadId, thread, orgName, source) {
+export function showDeleteModal(threadId, thread, orgURL, source) {
   return dispatch => {
     dispatch({
       type: ActionTypes.SHOW_DELETE_MODAL,
       modalType: Constants.DELETE_MODAL,
       threadId: threadId,
-      orgName: orgName,
+      orgURL: orgURL,
       thread: thread,
       source: source
     })
@@ -253,13 +253,13 @@ export function askForItineraryRecs(itineraryId, itinerary) {
   }
 }
 
-export function showThreadModal(thread, project, orgName, orgMembers, orgUserData) {
+export function showThreadModal(thread, project, org, orgMembers, orgUserData) {
   return dispatch => {
     dispatch({
       type: ActionTypes.SHOW_THREAD_MODAL,
       thread,
       project,
-      orgName,
+      org,
       orgMembers,
       orgUserData
     })

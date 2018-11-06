@@ -46,7 +46,7 @@ class SettingsForm extends React.Component {
       if(this.state.email) user.email = this.state.email;
       if(this.state.password) user.password = this.state.password;
 
-      this.props.onSubmitForm(this.props.authenticated, user, this.props.currentUser, this.state.imageFile, this.props.orgName, this.props.orgId);
+      this.props.onSubmitForm(this.props.authenticated, user, this.props.currentUser, this.state.imageFile, this.props.orgURL, this.props.orgId);
     };
 
     this.changeEmailClick = ev => {
@@ -165,6 +165,7 @@ const mapStateToProps = state => ({
   ...state.settings,
   currentUser: state.common.currentUser,
   authenticated: state.common.authenticated,
+  org: state.projectList.org,
   sidebarOpen: state.common.sidebarOpen
 });
 
@@ -182,15 +183,16 @@ class Settings extends React.Component {
       Actions.askForAuth();
     }
 
-    let lowerCaseOrgName = this.props.params.orgname ? this.props.params.orgname.toLowerCase() : ''
-    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
+    let lowerCaseOrgURL = this.props.params.orgurl ? this.props.params.orgurl.toLowerCase() : ''
+    Firebase.database().ref(Constants.ORGS_BY_URL_PATH + '/' + lowerCaseOrgURL).once('value', orgSnap => {
       if (!orgSnap.exists()) {
         this.props.notAnOrgUserError(Constants.PROJECT_PAGE)
       }
       else {
         let orgId = orgSnap.val().orgId
+        let orgName = orgSnap.val().name
 
-        this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgname, Constants.SETTINGS_PAGE);
+        this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgurl, orgName, Constants.SETTINGS_PAGE);
         this.props.loadOrgUser(this.props.authenticated, orgId, Constants.SETTINGS_PAGE)
         this.props.loadProjectList(this.props.authenticated, orgId, Constants.SETTINGS_PAGE)
         this.props.loadThreadCounts(this.props.authenticated, orgId)
@@ -205,11 +207,13 @@ class Settings extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.unloadProjectNames(this.props.orgId, Constants.SETTINGS_PAGE)
+    if (this.props.org && this.props.org.id) {
+      this.props.unloadProjectNames(this.props.org.id, Constants.SETTINGS_PAGE)
     this.props.unloadOrgList(this.props.authenticated, Constants.SETTINGS_PAGE)
-    this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId)
-    this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.SETTINGS_PAGE)
-    this.props.unloadOrgUser(this.props.authenticated, this.props.orgId, Constants.THREAD_PAGE)
+    this.props.unloadThreadCounts(this.props.authenticated, this.props.org.id)
+    this.props.unloadProjectList(this.props.authenticated, this.props.org.id, Constants.SETTINGS_PAGE)
+    this.props.unloadOrgUser(this.props.authenticated, this.props.org.id, Constants.SETTINGS_PAGE)
+    }
     this.props.unloadOrg(Constants.SETTINGS_PAGE);
 
     this.props.unloadProfileUser(this.props.userId, this.props.orgId);
@@ -237,37 +241,37 @@ class Settings extends React.Component {
                 }}
               >
                 <div className={this.props.sidebarOpen ? 'open-style' : 'closed-style'}>
-<div className="page-common page-create-list flx flx-col flx-center-all">
-            <div className="project-header text-left flx flx-col flx-align-start w-100">
-              <OrgHeader />
-              {/* HEADER START */}
-            </div>
-            <div className="koi-view header-push ta-left flx flx-col">
-              <Link onClick={()=>browserHistory.goBack()} activeClassName="active" className="nav-module create nav-editor flx flx-center-all">
-                <div className="nav-text flx flx-row flx-align-center opa-60 mrgn-bottom-md">
-                    <i className="material-icons color--black md-18 opa-100 mrgn-right-xs">arrow_back_ios</i>
-                    <div className="co-type-body mrgn-left-xs">Cancel</div>
-                  </div>
-              </Link>
-              <div className="co-post-title mrgn-bottom-md">
-                Settings
-              </div>
-              <ListErrors errors={this.props.errors}></ListErrors>
+                  <div className="page-common page-create-list flx flx-col flx-center-all">
+                    <div className="project-header text-left flx flx-col flx-align-start w-100">
+                      <OrgHeader />
+                      {/* HEADER START */}
+                    </div>
+                    <div className="koi-view header-push ta-left flx flx-col">
+                      <Link onClick={()=>browserHistory.goBack()} activeClassName="active" className="nav-module create nav-editor flx flx-center-all">
+                        <div className="nav-text flx flx-row flx-align-center opa-60 mrgn-bottom-md">
+                            <i className="material-icons color--black md-18 opa-100 mrgn-right-xs">arrow_back_ios</i>
+                            <div className="co-type-body mrgn-left-xs">Cancel</div>
+                          </div>
+                      </Link>
+                      <div className="co-post-title mrgn-bottom-md">
+                        Settings
+                      </div>
+                      <ListErrors errors={this.props.errors}></ListErrors>
 
-              <SettingsForm
-                authenticated={this.props.authenticated}
-                currentUser={this.props.firebaseUser}
-                onSubmitForm={this.props.saveSettings}
-                showChangeEmailModal={this.props.showChangeEmailModal}
-                orgName={this.props.params.orgname}
-                orgId={this.props.orgId} />
+                      <SettingsForm
+                        authenticated={this.props.authenticated}
+                        currentUser={this.props.firebaseUser}
+                        onSubmitForm={this.props.saveSettings}
+                        showChangeEmailModal={this.props.showChangeEmailModal}
+                        orgURL={this.props.params.orgurl}
+                        orgId={this.props.orgId} />
 
 
-              <div
-                className="fill--none color--black opa-60 w-100 mrgn-top-md ta-center w-100"
-                onClick={this.props.signOutUser}>
-                Logout
-              </div>
+                      <div
+                        className="fill--none color--black opa-60 w-100 mrgn-top-md ta-center w-100"
+                        onClick={this.props.signOutUser}>
+                        Logout
+                      </div>
 
 
 

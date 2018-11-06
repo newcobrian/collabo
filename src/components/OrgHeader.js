@@ -7,7 +7,7 @@ import FirebaseSearchInput from './FirebaseSearchInput';
 
 const mapStateToProps = state => ({
   authenticated: state.common.authenticated,
-  orgName: state.organization.orgName,
+  org: state.projectList.org,
   projectName: state.common.projectName,
   invalidOrgUser: state.common.invalidOrgUser,
   sidebarOpen: state.common.sidebarOpen
@@ -23,14 +23,14 @@ class OrgHeader extends React.Component {
 
     this.searchInputCallback = result => {
       if (result.value && result.projectName) {
-        browserHistory.push('/' + this.props.orgName + '/' + result.projectId + '/' + result.value);
+        browserHistory.push('/' + this.props.org.name + '/' + result.projectId + '/' + result.value);
       }
     }
     
   }
 
   render() {
-    if (!this.props.orgName) {
+    if (!this.props.org || !this.props.org.name) {
       return null
     }
 
@@ -46,7 +46,7 @@ class OrgHeader extends React.Component {
           <FirebaseSearchInput 
             type={Constants.POSTS_SEARCH}
             callback={this.searchInputCallback}
-            orgName={this.props.orgName}
+            orgName={this.props.org.url}
             className={""}
             placeholder="Type to search..." />
           </div>

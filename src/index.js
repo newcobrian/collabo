@@ -65,19 +65,20 @@ ReactDOM.render((
         <Route path ="invitation/:iid" component={AcceptOrgInvite} />
         <Route path ="joinproject/:iid" component={AcceptProjectInvite} />
         <Route path ="verify/(:vid)" component={Register} />
-        <Route path =":orgname/invitation/:iid" component={AcceptOrgInvite} />
-        <Route path=":orgname/inbox" component={Inbox} />
-        <Route path=":orgname/admin" component={OrgSettings} />
-        <Route path=":orgname/addthread" component={AddThread} />
-        <Route path=":orgname/user/:username" component={Profile} />
-        <Route path=":orgname/user/:username/settings" component={Settings} />
-        <Route path=":orgname/createlist" component={AddProject} />
-        <Route path=":orgname/invite" component={OrgInvite} />
-        <Route path=":orgname(/:pid)" component={Project} />
-        <Route path=":orgname/addthread/(:pid)" component={AddThread} />
-        <Route path=":orgname/:pid/invite" component={ProjectInvite} />
-        <Route path=":orgname/:pid/admin" component={ProjectSettings} />
-        <Route path=":orgname/:pid/:tid" component={Thread} />
+        <Route path =":orgurl/invitation/:iid" component={AcceptOrgInvite} />
+        <Route path=":orgurl/inbox" component={Inbox} />
+        <Route path=":orgurl/admin" component={OrgSettings} />
+        <Route path=":orgurl/addthread" component={AddThread} />
+        <Route path=":orgurl/user/:username" component={Profile} />
+        <Route path=":orgurl/user/:username/settings" component={Settings} />
+        <Route path=":orgurl/creategroup" component={AddProject} />
+        <Route path=":orgurl/invite" component={OrgInvite} />
+        <Route path =":orgurl/joinproject/:iid" component={AcceptProjectInvite} />
+        <Route path=":orgurl(/:pid)" component={Project} />
+        <Route path=":orgurl/addthread/(:pid)" component={AddThread} />
+        <Route path=":orgurl/:pid/invite" component={ProjectInvite} />
+        <Route path=":orgurl/:pid/admin" component={ProjectSettings} />
+        <Route path=":orgurl/:pid/:tid" component={Thread} />
       </Route>
     </Router>
   </Provider>

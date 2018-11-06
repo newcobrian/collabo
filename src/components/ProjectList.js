@@ -62,25 +62,24 @@ class ProjectList extends React.Component {
 
     this.onAllClick = ev => {
       ev.preventDefault()
-      this.props.onAllProjectsClick(this.props.orgName)
+      this.props.onAllProjectsClick(this.props.org.url)
     }
 
     this.searchInputCallback = result => {
       if (result.value && result.projectId) {
-        browserHistory.push('/' + this.props.orgName + '/' + result.projectId + '/' + result.objectId);
+        browserHistory.push('/' + this.props.org.url + '/' + result.projectId + '/' + result.objectId);
       }
     }
   }
 
   render() {
-    if (!this.props.orgName || !this.props.projectList || !this.props.projectNames) {
+    if (!this.props.org || !this.props.projectList || !this.props.projectNames) {
       return null
     }
 
-    // let orgName = this.props.org ?  this.props.org.name : ''
-    let orgName = this.props.orgName
+    let org = this.props.org
     let threadCounts = this.props.threadCounts || {}
-    let inboxCount = this.props.unreadMessages && this.props.unreadMessages[this.props.orgId] ? this.props.unreadMessages[this.props.orgId] : 0
+    let inboxCount = this.props.unreadMessages && this.props.unreadMessages[this.props.org.id] ? this.props.unreadMessages[this.props.org.id] : 0
 
     return (
       <div className="co-sidebar flx-col flx-item-left h-100">
@@ -90,11 +89,11 @@ class ProjectList extends React.Component {
             <img className="center-img" src="/img/icon24_orgsettings_color.png"/>
           </Link>*/}
           <select className="org-selector co-type-org color--utsuri opa-40" onChange={this.onOrgChange}>
-            <option value={orgName}>{orgName}</option>
+            <option value={org.name}>{org.name}</option>
             {(this.props.orgList || []).map((orgItem, index) => {
-              if (orgItem && orgItem.name && orgName && orgItem.name.toLowerCase() !== orgName.toLowerCase()) {
+              if (orgItem && orgItem.name && org.name && orgItem.name.toLowerCase() !== org.name.toLowerCase()) {
                 return (
-                  <option key={index} value={orgItem.name}>{orgItem.name}</option>  
+                  <option key={index} value={orgItem.url}>{orgItem.name}</option>  
                 )
               }
             })}
@@ -113,7 +112,7 @@ class ProjectList extends React.Component {
             <FirebaseSearchInput 
               type={Constants.POSTS_SEARCH}
               callback={this.searchInputCallback}
-              orgName={orgName}
+              orgURL={org.url}
               className={"color--black"}
               placeholder="Search" />
           </div>
@@ -122,7 +121,7 @@ class ProjectList extends React.Component {
             <div className="koi-type-caption koi-type-bold opa-30 color--black">
               Groups
             </div>
-            {/*<Link to={'/' + orgName + '/createList'} className="flx flx-row flx-align-center flx-item-right">
+            {/*<Link to={'/' + org.name + '/createGroup'} className="flx flx-row flx-align-center flx-item-right">
               <div className="co-type-label color--black"> 
                 Add Group
               </div>
@@ -147,7 +146,7 @@ class ProjectList extends React.Component {
                 let projectName = this.props.projectNames && this.props.projectNames[projectItem.id] ? this.props.projectNames[projectItem.id].name : ''
                 return (
 
-                    <Link className={"sidebar-row group-row flx flx-row flx-align-center " + (this.props.projectId === projectItem.id ? 'active' : '')} key={projectItem.id} to={'/' + orgName + '/' + projectItem.id}>
+                    <Link className={"sidebar-row group-row flx flx-row flx-align-center " + (this.props.projectId === projectItem.id ? 'active' : '')} key={projectItem.id} to={'/' + org.url + '/' + projectItem.id}>
                       <div className="sidebar-icon flx flx-center-all">
                         {<DotJewel threadCount={threadCounts[projectItem.id]} />}
                       </div> 
@@ -160,7 +159,7 @@ class ProjectList extends React.Component {
                 );
               })
             }
-            <Link to={'/' + orgName + '/createList'} className="sidebar-row group-row flx flx-row flx-align-center mrgn-top-sm">
+            <Link to={'/' + org.url + '/createGroup'} className="sidebar-row group-row flx flx-row flx-align-center mrgn-top-sm">
               <div className="sidebar-icon flx flx-center-all">
                 <div className="koi-ico --24 ico--add ico-color--seaweed"></div> 
               </div>
@@ -174,7 +173,7 @@ class ProjectList extends React.Component {
 
           <div className="sidebar-footer flx flx-col">
 
-            <Link className="DN sidebar-row flx flx-row flx-align-center" to={'/' + orgName + '/invite'}>
+            <Link className="DN sidebar-row flx flx-row flx-align-center" to={'/' + org.url + '/invite'}>
                 <div className="sidebar-icon flx flx-center-all">
                   <i className="material-icons color--primary md-24 opa-70">accessibility_new
                   </i>
@@ -184,7 +183,7 @@ class ProjectList extends React.Component {
             </Link>
 
             <div className="sidebar-row flx flx-row flx-center-all mrgn-bottom-sm">
-              <Link to={'/' + orgName + '/invite'}
+              <Link to={'/' + org.url + '/invite'}
                 className="flx flx-col flx-center-all koi-button-fancy-wrapper mrgn-right-lg mrgn-left-lg border--utsuri">
                   <div className="koi-button-fancy-outer">
                   </div>
@@ -200,14 +199,14 @@ class ProjectList extends React.Component {
 
             <div className="flx flx-row flx-align-center w-100">
 
-              <Link className="sidebar-row group-triplet flx flx-col flx-align-center" to={`/${this.props.orgName}/user/${this.props.orgUser.username}`} activeClassName="active">
+              <Link className="sidebar-row group-triplet flx flx-col flx-align-center" to={`/${org.url}/user/${this.props.orgUser.username}`} activeClassName="active">
                 <div className="mrgn-bottom-xs flx flx-center-all">
                   <ProfilePic className="center-img" src={this.props.orgUser.image}/>
                 </div>
                 <div className="koi-type-caption koi-type-bold color--black">{this.props.orgUser.username}</div>
               </Link>
 
-              <Link to={'/' + this.props.orgName + '/inbox'} activeClassName="active" className="sidebar-row group-triplet flx flx-col flx-align-center">
+              <Link to={'/' + org.url + '/inbox'} activeClassName="active" className="sidebar-row group-triplet flx flx-col flx-align-center">
                   <div className="sidebar-icon--large flx flx-center-all">
                     <div className="koi-type-count"><InboxCounter inboxCount={inboxCount} className=""/></div>
                   </div>
@@ -223,7 +222,7 @@ class ProjectList extends React.Component {
                   <div className="koi-type-label color--white opa-40 koi-type-bold">Saved</div>
               </Link>
 
-              <Link to={'/' + this.props.orgName + '/admin'} activeClassName="active" className="sidebar-row group-triplet flx flx-col flx-align-center">
+              <Link to={'/' + org.url + '/admin'} activeClassName="active" className="sidebar-row group-triplet flx flx-col flx-align-center">
                   <div className="sidebar-icon--large flx flx-center-all">
                     <div className="koi-ico ico--orgsettings"></div>
                   </div>

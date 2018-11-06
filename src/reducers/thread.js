@@ -136,26 +136,6 @@ export default (state = initialState, action) => {
         return { ...state, [action.key]: action.value };
       }
       else return {...state}
-    // case ActionTypes.USERNAME_LOADED: {
-    //   if (action.source === Constants.THREAD_PAGE) {
-    //     const newState = Object.assign({}, state);
-    //     newState.usersList = newState.usersList || [];
-    //     newState.usersList = newState.usersList.slice();
-    //     newState.usersList = newState.usersList.concat(Object.assign({}, {text: action.username}, 
-    //       {value: action.username}, {url: '/' + action.orgName + '/user/' + action.username}, {email: action.email}, {id: action.username}, {display: action.username}));
-    //     return newState;
-    //   }
-    //   return state;
-    // }
-    // case ActionTypes.UNLOAD_ORG_USERS: {
-    //   if (action.source === Constants.THREAD_PAGE) {
-    //     return {
-    //       ...state,
-    //       usersList: []
-    //     }
-    //   }
-    //   return state
-    // }
     case ActionTypes.THREAD_LIKES_ADDED_ACTION: {
       if (action.source === Constants.THREAD_PAGE || action.source === Constants.THREAD_MODAL) {
         const newState = Object.assign({}, state);
@@ -265,7 +245,7 @@ export default (state = initialState, action) => {
         thread: action.thread,
         project: action.project,
         bodyText: action.thread.body,
-        orgName: action.orgName,
+        org: action.org,
         orgMembers: action.orgMembers,
         orgUserData: action.orgUserData
       }

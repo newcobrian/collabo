@@ -106,7 +106,7 @@ class FirebaseSearchInput extends Component {
       // this.state.index.search({
       //   filters: 'orgName:' + this.props.orgName
       // });
-      this.state.index.search({ 'query': this.state.inputValue, 'filters': 'orgName:' + this.props.orgName}, function(err, content) {
+      this.state.index.search({ 'query': this.state.inputValue, 'filters': 'orgName:' + this.props.orgURL}, function(err, content) {
         if (err) {
           console.error(err);
           return;

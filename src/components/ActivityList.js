@@ -27,7 +27,7 @@ const ActivityList = props => {
         props.feed.map((activity, index) => {
           return (
             <ActivityPreview activity={activity}
-              orgName={props.orgName}
+              orgURL={props.orgURL}
               key={activity.activityId} 
               authenticated={props.authenticated}
               userInfo={props.userInfo}

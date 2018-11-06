@@ -20,7 +20,7 @@ const CommentContainer = props => {
 					threadId={props.threadId}
 					thread={props.thread}
 					project={props.project}
-					orgName={props.orgName}
+					org={props.org}
 					deleteComment={props.deleteComment}
 					usersList={props.usersList}
 					orgUserData={props.orgUserData}
@@ -38,7 +38,7 @@ const CommentContainer = props => {
 						  	threadId={props.threadId}
 						  	authenticated={props.authenticated} 
 						  	project={props.project}
-						  	orgName={props.orgName}
+						  	org={props.org}
 						  	type={props.type}
 						  	usersList={props.usersList}
 						  	parentId={props.parentId} />

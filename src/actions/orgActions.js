@@ -30,7 +30,8 @@ export function onCreateOrg(auth, org, userData, imageFile) {
 
           let orgId = Firebase.database().ref(Constants.ORGS_PATH).push(org).key;
 
-          updates[`/${Constants.ORGS_BY_URL_PATH}/${lowercaseURL}/`] = Object.assign({}, {orgId: orgId}, omit(org, ['name']));
+          updates[`/${Constants.ORGS_BY_URL_PATH}/${lowercaseURL}/`] = Object.assign({}, {orgId: orgId}, omit(org, ['url']));
+          updates[`/${Constants.ORGS_BY_NAME_PATH}/${lowercaseURL}/`] = Object.assign({}, {orgId: orgId}, omit(org, ['name']));
           updates[`/${Constants.ORGS_BY_USER_PATH}/${auth}/${orgId}/`] = true;
 
           // save to usernames by org
@@ -180,10 +181,10 @@ export function notAnOrgUserError(source) {
   }
 }
 
-export function loadOrg(auth, orgId, orgName, source) {
+export function loadOrg(auth, orgId, orgName, orgURL, source) {
   return dispatch => {
     if (auth) {
-      let lowercaseName = orgName.toLowerCase()
+      let lowercaseOrgURL = orgURL.toLowerCase()
 
       Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth + '/' + orgId).once('value', userSnap => {
         if (!userSnap.exists()) {
@@ -195,8 +196,7 @@ export function loadOrg(auth, orgId, orgName, source) {
         else {
           dispatch({
             type: ActionTypes.LOAD_ORG,
-            orgId: orgId,
-            orgName: lowercaseName,
+            org: Object.assign({}, {id: orgId}, {name: orgName}, {url: lowercaseOrgURL}),
             source: source
           })
         }

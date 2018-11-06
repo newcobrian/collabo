@@ -61,7 +61,7 @@ class AcceptOrgInvite extends React.Component {
     this.props.loadOrgInvite(this.props.authenticated, this.props.params.iid);
     if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
 
-    this.props.loadNewOrgUserInfo(this.props.userInfo, Constants.ACCEPT_ORG_INVITE_PAGE)
+    this.props.loadNewOrgUserInfo(this.props.authenticated, Constants.ACCEPT_ORG_INVITE_PAGE)
 
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'accept org invite'});
   }
@@ -78,7 +78,8 @@ class AcceptOrgInvite extends React.Component {
   }
 
   render() {
-    const { authenticated, invite, loadInviteError, errorMessage, inviteType, userInfo, sender } = this.props;
+    const { authenticated, invite, loadInviteError, errorMessage, inviteType, userInfo, sender, emailRegistered } = this.props;
+
     if (loadInviteError) {
       return (
         <ErrorPage message={ errorMessage ? errorMessage : 'Sorry, we couldn\'t find this invite.'} />
@@ -89,6 +90,18 @@ class AcceptOrgInvite extends React.Component {
         <LoadingSpinner message="Loading invite" />
       );
     }
+    if (emailRegistered) {
+      return (
+        <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
+          <div className="co-logo large-logo mrgn-bottom-lg mrgn-top-md">
+            <img className="center-img" src="/img/logomark.png"/>
+          </div>
+          <div className="mrgn-bottom-md color--white co-type-body">The email {invite.recipientEmail} has already been registered.
+          </div>
+          <Link className="co-type-body color--tertiary" to='/login'>Please login to accept this invite</Link>
+        </div>
+      )
+    }
     if (!authenticated || !userInfo) {
       return (
         <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
@@ -98,7 +111,7 @@ class AcceptOrgInvite extends React.Component {
           <div className="mrgn-bottom-md color--white co-type-body">{sender.username} invited you to join their team "{invite.orgName}"
           </div>
           <Link className="co-type-body color--tertiary" to='/login'>Login to accept</Link>
-          <Link className="co-type-body color--tertiary" onClick={this.onRegisterClick}>or Register</Link>
+          <Link className="co-type-body color--tertiary" onClick={this.onRegisterClick}>or Register.........</Link>
         </div>
       )
     }

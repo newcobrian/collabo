@@ -35,7 +35,7 @@ const ProjectHeader = props => {
 
             
 
-          <Link to={'/' + props.orgName + '/addthread/' + props.projectId}
+          <Link to={'/' + props.orgURL + '/addthread/' + props.projectId}
             className="flx flx-col flx-center-all koi-button-fancy-wrapper flx-item-right mrgn-right-md border--seaweed">
               <div className="koi-button-fancy-outer">
               </div>
@@ -65,7 +65,7 @@ const ProjectHeader = props => {
             <div className="project-header-text">All Threads</div>
           </div>
 
-          <Link to={'/' + props.orgName + '/addthread/'}
+          <Link to={'/' + props.orgURL + '/addthread/'}
             activeClassName="active"
             className="flx flx-col flx-center-all koi-button-fancy-wrapper flx-item-right mrgn-right-md border--seaweed">
               <div className="koi-button-fancy-outer">

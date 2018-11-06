@@ -34,9 +34,11 @@ const InviteLink = props => {
 
 const ProjectInfo = props => {
   let membersList = props.projectId ? props.projectMembers : props.orgMembers
+  let orgName = props.org && props.org.name ? props.org.name : ''
+  let orgURL = props.org && props.org.url ? props.org.url : ''
   return (
     <div className="project-info b--primary--10 flx flx-col flx-align-start">
-      <div className="co-type-h3 mrgn-bottom-sm">{props.project ? props.project.name + ' Members' : props.orgName + ' Members'}</div>
+      <div className="co-type-h3 mrgn-bottom-sm">{props.project ? props.project.name + ' Members' : orgName + ' Members'}</div>
       <div className="info-row flx flx-row thread-timestamp mrgn-bottom-sm w-100">
         <div>
           {(membersList || []).length + ' Members'}
@@ -52,7 +54,7 @@ const ProjectInfo = props => {
             return (
               <Link className="info-row flx flx-row flx-align-center mrgn-bottom-sm" 
                 key={member.userId} 
-                to={'/' + props.orgName + '/user/' + member.username}>
+                to={'/' + orgURL + '/user/' + member.username}>
                 <ProfilePic src={member.image} className="user-img center-img" /> 
                 <div className="mrgn-left-md co-type-label">{member.username} {/*({member.fullName})*/}</div>
               </Link>
@@ -60,7 +62,7 @@ const ProjectInfo = props => {
           })
         }
         
-        <InviteLink projectId={props.projectId} orgName={props.orgName} onProjectInviteClick={props.onProjectInviteClick} onOrgInviteClick={props.onOrgInviteClick} />
+        <InviteLink projectId={props.projectId} onProjectInviteClick={props.onProjectInviteClick} onOrgInviteClick={props.onOrgInviteClick} />
 
       </div>
     </div>

@@ -19,7 +19,7 @@ export function checkEndOfInbox(dispatch, auth, dateIndex, orgId) {
   })
 }
 
-export function getInbox(authenticated, dateIndex, orgId, orgName) {
+export function getInbox(authenticated, dateIndex, orgId, orgURL) {
   return dispatch => {
     if (!authenticated) {
       dispatch({
@@ -27,7 +27,8 @@ export function getInbox(authenticated, dateIndex, orgId, orgName) {
       })
     }
     else if (!orgId) {
-      Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName).once('value', orgSnap => {
+      let lowerCaseURL = orgURL ? orgURL.toLowerCase() : ''
+      Firebase.database().ref(Constants.ORGS_BY_URL_PATH + '/' + lowerCaseURL).once('value', orgSnap => {
         watchInbox(dispatch, authenticated, dateIndex, orgSnap.val().orgId)
       })
     }

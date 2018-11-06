@@ -19,7 +19,7 @@ const EditProfileSettings = props => {
   if (props.isUser) {
     return (
       <Link
-        to={'/' + props.orgName + '/user/' + props.username + '/settings'}
+        to={'/' + props.orgURL + '/user/' + props.username + '/settings'}
         className="flx flx-align-center mrgn-right-sm">
         <div className="color--black co-type-label">Edit Profile</div>
       </Link>
@@ -58,6 +58,7 @@ const LogoutButton = props => {
 
 const mapStateToProps = state => ({
   ...state.profile,
+  org: state.projectList.org,
   currentUser: state.common.currentUser,
   authenticated: state.common.authenticated,
   sidebarOpen: state.common.sidebarOpen,
@@ -125,9 +126,9 @@ class Profile extends React.Component {
       }
     }
 
-    this.loadUser = (username, orgName) => {
-      let lowerCaseOrgName = orgName ? orgName.toLowerCase() : ''
-      Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
+    this.loadUser = (username, orgURL) => {
+      let lowerCaseOrgURL = this.props.params.orgurl ? this.props.params.orgurl.toLowerCase() : ''
+      Firebase.database().ref(Constants.ORGS_BY_URL_PATH + '/' + lowerCaseOrgURL).once('value', orgSnap => {
         if (orgSnap.exists()) {
           let lowerCaseUserName = username ? username.toLowerCase() : ''
           Firebase.database().ref(Constants.USERNAMES_BY_ORG_PATH + '/' + orgSnap.val().orgId + '/' + lowerCaseUserName).on('value', snapshot => {
@@ -164,14 +165,15 @@ class Profile extends React.Component {
     this.props.loadSidebar(mql);
     mql.addListener(this.mediaQueryChanged);
 
-    let lowerCaseOrgName = this.props.params.orgname ? this.props.params.orgname.toLowerCase() : ''
-    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
+    let lowerCaseOrgURL = this.props.params.orgurl ? this.props.params.orgurl.toLowerCase() : ''
+    Firebase.database().ref(Constants.ORGS_BY_URL_PATH + '/' + lowerCaseOrgURL).once('value', orgSnap => {
       if (!orgSnap.exists()) {
         this.props.notAnOrgUserError(Constants.PROFILE_PAGE)
       }
       else {
         let orgId = orgSnap.val().orgId
-        this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgname, Constants.PROFILE_PAGE);
+        let orgName = orgSnap.val().name
+        this.props.loadOrg(this.props.authenticated, orgId, this.props.params.url, orgName, Constants.PROFILE_PAGE);
         this.props.loadOrgUser(this.props.authenticated, orgId, Constants.PROFILE_PAGE)
         this.props.loadProjectList(this.props.authenticated, orgId, Constants.PROFILE_PAGE)
         this.props.loadThreadCounts(this.props.authenticated, orgId)
@@ -180,21 +182,21 @@ class Profile extends React.Component {
       }
     })
     // look up userID from username and load profile
-    this.loadUser(this.props.params.username, this.props.params.orgname)
+    this.loadUser(this.props.params.username, this.props.params.orgurl)
 
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'profile'});
   }
 
   componentWillUnmount() {
-    if (this.props.userId) {
-      this.unloadUser(this.props.params.username, this.props.profile.userId, this.props.orgId);
+    if (this.props.userId && this.props.org && this.props.org.id) {
+      this.unloadUser(this.props.params.username, this.props.profile.userId, this.props.org.id);
     }
-    if (this.props.orgId) {
-      this.props.unloadProjectNames(this.props.orgId, Constants.PROFILE_PAGE)
+    if (this.props.org && this.props.org.id) {
+      this.props.unloadProjectNames(this.props.org.id, Constants.PROFILE_PAGE)
       this.props.unloadOrgList(this.props.authenticated, Constants.PROFILE_PAGE)
-      this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId)
-      this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.PROFILE_PAGE)
-      this.props.unloadOrgUser(this.props.authenticated, this.props.orgId, Constants.PROFILE_PAGE)
+      this.props.unloadThreadCounts(this.props.authenticated, this.props.org.id)
+      this.props.unloadProjectList(this.props.authenticated, this.props.org.id, Constants.PROFILE_PAGE)
+      this.props.unloadOrgUser(this.props.authenticated, this.props.org.id, Constants.PROFILE_PAGE)
       this.props.unloadOrg(Constants.PROFILE_PAGE);
     }
 
@@ -205,9 +207,9 @@ class Profile extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.username !== this.props.params.username) {
-      let orgName = nextProps.params.orgname ? nextProps.params.orgname : this.props.params.orgname
+      let orgURL = nextProps.params.orgurl ? nextProps.params.orgurl : this.props.params.orgurl
       this.unloadUser(this.props.params.username, this.props.profile.userId, this.props.orgId);
-      this.loadUser(nextProps.params.username, orgName);
+      this.loadUser(nextProps.params.username, orgURL);
     }
   }
 
@@ -361,7 +363,7 @@ class Profile extends React.Component {
                       
                         <EditProfileSettings 
                           isUser={isUser} 
-                          orgName={this.props.params.orgname} 
+                          orgURL={this.props.params.orgurl} 
                           username={this.props.params.username}/>
                         <SignOutButton isUser={isUser} signOut={this.props.signOutUser}/>
 
@@ -376,7 +378,7 @@ class Profile extends React.Component {
                           hasMore={true}
                           loader={<div className="loader" key={0}>Loading ...</div>} >
                     
-                      <ActivityList feed={this.props.feed} orgName={this.props.params.orgname} emptyActivityFeed={this.props.emptyActivityFeed} profile={this.props.profile} />
+                      <ActivityList feed={this.props.feed} orgURL={this.props.org.url} emptyActivityFeed={this.props.emptyActivityFeed} profile={this.props.profile} />
 
                     </InfiniteScroll>
                       

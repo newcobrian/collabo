@@ -53,7 +53,7 @@ class AddProject extends React.Component {
 		   	};
 
 		    this.props.setInProgress();
-		    this.props.onAddProject(this.props.authenticated, project, this.props.params.orgname);
+		    this.props.onAddProject(this.props.authenticated, project, this.props.params.orgurl);
 		  }
     	}
 
@@ -75,14 +75,14 @@ class AddProject extends React.Component {
 		this.props.loadSidebar(mql);
     	mql.addListener(this.mediaQueryChanged);
 
-	    let lowerCaseOrgName = this.props.params.orgname ? this.props.params.orgname.toLowerCase() : ''
-	    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
+	    let lowerCaseOrgURL = this.props.params.orgurl ? this.props.params.orgurl.toLowerCase() : ''
+	    Firebase.database().ref(Constants.ORGS_BY_URL_PATH + '/' + lowerCaseOrgURL).once('value', orgSnap => {
 		     if (!orgSnap.exists()) {
 		        this.props.notAnOrgUserError(Constants.ADD_PROJECT_PAGE)
 		     }
 		     else {
 		        let orgId = orgSnap.val().orgId
-		    	this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgname, Constants.ADD_PROJECT_PAGE);
+		    	this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgurl, orgSnap.val().name, Constants.ADD_PROJECT_PAGE);
 		    	this.props.loadOrgUser(this.props.authenticated, orgId, Constants.ADD_PROJECT_PAGE)
 		    	this.props.loadProjectList(this.props.authenticated, orgId, this.props.params.pid, Constants.ADD_PROJECT_PAGE)
 			    this.props.loadThreadCounts(this.props.authenticated, orgId)
@@ -97,12 +97,12 @@ class AddProject extends React.Component {
 	componentWillUnmount() {
 		if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
 
-		if (this.props.authenticated && this.props.orgId) {
-			this.props.unloadProjectNames(this.props.orgId, Constants.ADD_PROJECT_PAGE)
+		if (this.props.authenticated && this.props.org && this.props.org.id) {
+			this.props.unloadProjectNames(this.props.org.id, Constants.ADD_PROJECT_PAGE)
 			this.props.unloadOrgList(this.props.authenticated, Constants.ADD_PROJECT_PAGE)
-		    this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId)
-		    this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.ADD_PROJECT_PAGE)
-		    this.props.unloadOrgUser(this.props.authenticated, this.props.orgId, Constants.ADD_PROJECT_PAGE)
+		    this.props.unloadThreadCounts(this.props.authenticated, this.props.org.id)
+		    this.props.unloadProjectList(this.props.authenticated, this.props.org.id, Constants.ADD_PROJECT_PAGE)
+		    this.props.unloadOrgUser(this.props.authenticated, this.props.org.id, Constants.ADD_PROJECT_PAGE)
 		    this.props.unloadOrg(Constants.ADD_PROJECT_PAGE);
 		}
 		this.props.onCreateUnload();
@@ -242,7 +242,7 @@ class AddProject extends React.Component {
 										disabled={this.props.inProgress}
 										onClick={this.submitForm}>
 										    	
-											Create List
+											Create Group
 
 										</div>
 					                 </div>

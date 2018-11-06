@@ -35,7 +35,7 @@ const LeftSenderPic = props => {
     return (
       <div className="mrgn-left-sm mrgn-right-md">
         <Link
-        to={`${props.orgName}/user/${props.username}`}
+        to={`${props.orgURL}/user/${props.username}`}
         className="">
           <ProfilePic src={props.image} className="center-img" />
         </Link>
@@ -56,7 +56,7 @@ const RenderUsername = props => {
   if (props.senderId) {
     return (
       <Link
-          to={`${props.orgName}/user/${props.username}`}
+          to={`${props.orgURL}/user/${props.username}`}
           className="color--black">
           {props.username}
       </Link>
@@ -106,21 +106,22 @@ class Inbox extends React.Component {
     this.props.loadSidebar(mql);
     mql.addListener(this.mediaQueryChanged);
 
-    let lowerCaseOrgName = this.props.params.orgname ? this.props.params.orgname.toLowerCase() : ''
-    Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgName).once('value', orgSnap => {
+    let lowerCaseOrgURL = this.props.params.orgurl ? this.props.params.orgurl.toLowerCase() : ''
+    Firebase.database().ref(Constants.ORGS_BY_URL_PATH + '/' + lowerCaseOrgURL).once('value', orgSnap => {
       if (!orgSnap.exists()) {
         this.props.notAnOrgUserError(Constants.INBOX_PAGE)
       }
       else {
         let orgId = orgSnap.val().orgId
-        this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgname, Constants.INBOX_PAGE);
+        let orgName = orgSnap.val().name
+        this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgurl, orgName, Constants.INBOX_PAGE);
         this.props.loadOrgUser(this.props.authenticated, orgId, Constants.INBOX_PAGE)
         this.props.loadProjectList(this.props.authenticated, orgId, Constants.INBOX_PAGE)
         this.props.loadThreadCounts(this.props.authenticated, orgId)
         this.props.loadOrgList(this.props.authenticated, Constants.INBOX_PAGE)
         this.props.loadProjectNames(orgId, Constants.INBOX_PAGE)
 
-        this.props.getInbox(this.props.authenticated, null, null, this.props.params.orgname);
+        this.props.getInbox(this.props.authenticated, null, null, this.props.params.orgurl);
         this.props.updateInboxCount(this.props.authenticated, orgId);
       }
     })
@@ -145,7 +146,7 @@ class Inbox extends React.Component {
 
   onLoadMoreClick = ev => {
     ev.preventDefault()
-    this.props.getInbox(this.props.authenticated, this.props.dateIndex, this.props.orgId, this.props.params.orgname)
+    this.props.getInbox(this.props.authenticated, this.props.dateIndex, this.props.orgId, this.props.params.orgurl)
   }
 
   render() {
@@ -244,18 +245,18 @@ class Inbox extends React.Component {
                       // const isUser = this.props.currentUser &&
                       //   follower.userId === this.props.currentUser.uid;
                         return (
-                          <Link className="flx flx-row brdr-bottom flx-align-start pdding-all-sm list-row" key={inboxItem.key} to={'/' + this.props.params.orgname + inboxItem.link}>
+                          <Link className="flx flx-row brdr-bottom flx-align-start pdding-all-sm list-row" key={inboxItem.key} to={'/' + this.props.params.orgurl + inboxItem.link}>
                             <LeftSenderPic 
                               senderId={inboxItem.senderId} 
                               username={inboxItem.senderUsername} 
                               image={inboxItem.senderImage}
-                              orgName={this.props.params.orgname} />
+                              orgURL={this.props.params.orgurl} />
                             <div className="flx flx-col mrgn-right-md">
                               <div className="co-type-body color--black">
-                                <strong><RenderUsername senderId={inboxItem.senderId} username={inboxItem.senderUsername} orgName={this.props.params.orgname} /></strong>
+                                <strong><RenderUsername senderId={inboxItem.senderId} username={inboxItem.senderUsername} orgURL={this.props.params.orgurl} /></strong>
                                 {inboxItem.message}
 
-                                <Link to={'/' + this.props.params.orgname + inboxItem.link}><span className="color--primary inline">{inboxItem.reviewTitle}</span></Link>
+                                <Link to={'/' + this.props.params.orgurl + inboxItem.link}><span className="color--primary inline">{inboxItem.reviewTitle}</span></Link>
 
                               </div>
                               <div className="thread-timestamp color--black"><DisplayTimestamp timestamp={inboxItem.lastModified} /></div>

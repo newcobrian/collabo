@@ -25,7 +25,7 @@ class DeleteModal extends React.Component {
 
     const deleteClick = ev => {
       ev.preventDefault();
-      this.props.onDeleteThread(this.props.authenticated, this.props.threadId, this.props.thread, this.props.orgName)
+      this.props.onDeleteThread(this.props.authenticated, this.props.threadId, this.props.thread, this.props.orgURL)
     }
 
     const actions = [

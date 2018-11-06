@@ -1747,7 +1747,7 @@ export function likeItinerary(authenticated, type, likeObject, itineraryId, user
   }
 }
 
-export function likeReview(authenticated, type, objectId, thread, orgName, likeObject) {
+export function likeReview(authenticated, type, objectId, thread, org, likeObject) {
   return dispatch => {
     if (!authenticated) {
       dispatch({
@@ -1787,7 +1787,7 @@ export function likeReview(authenticated, type, objectId, thread, orgName, likeO
         if (type === Constants.THREAD_TYPE) {
           // update threads, threads-by-org, threads-by-project
           // Helpers.incrementThreadCount(Constants.LIKES_COUNT, id, thread, authenticated)
-          Helpers.sendCollaboInboxMessage(authenticated, thread.userId, Constants.LIKE_THREAD_MESSAGE, Object.assign({}, {name: orgName}), null, Object.assign({}, thread, {threadId: id}), null)
+          Helpers.sendCollaboInboxMessage(authenticated, thread.userId, Constants.LIKE_THREAD_MESSAGE, org, null, Object.assign({}, thread, {threadId: id}), null)
 
           mixpanel.people.increment("total likes");
 
@@ -1816,7 +1816,7 @@ export function likeReview(authenticated, type, objectId, thread, orgName, likeO
           // })
         }
         else if (type === Constants.COMMENT_TYPE || type === Constants.NESTED_COMMENT_TYPE) {
-          Helpers.sendCollaboInboxMessage(authenticated, likeObject.userId, Constants.LIKE_COMMENT_MESSAGE, Object.assign({}, {name: orgName}), null, thread, likeObject)
+          Helpers.sendCollaboInboxMessage(authenticated, likeObject.userId, Constants.LIKE_COMMENT_MESSAGE, org, null, thread, likeObject)
           dispatch({
             type: ActionTypes.REVIEW_LIKED
           })
