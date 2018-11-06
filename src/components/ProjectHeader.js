@@ -34,7 +34,6 @@ const ProjectHeader = props => {
             </div>
 
             
-          
 
           <Link to={'/' + props.orgName + '/addthread/' + props.projectId}
             className="flx flx-col flx-center-all koi-button-fancy-wrapper flx-item-right mrgn-right-md border--seaweed">
@@ -59,9 +58,9 @@ const ProjectHeader = props => {
         <div className="project-bar-wrapper flx flx-row flx-align-center">
           <div className="project-header-row co-type-h1 flx flx-row flx-align-center color--black">
             <div className="group-icon flx flx-col flx-center-all">
-              <Link to='/'  className="co-logo flx-hold">
+              <div className="co-logo flx-hold">
                 <img className="center-img" src="/img/logo_a.png"/>
-              </Link>
+              </div>
             </div>
             <div className="project-header-text">All Threads</div>
           </div>

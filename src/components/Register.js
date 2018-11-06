@@ -68,23 +68,19 @@ class Register extends React.Component {
     if (emailCodeNotFound) {
       return (
         <div>
-          <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
-            <div className="container page">
-              <div className="row">
-
-                <div className="col-md-6 offset-md-3 col-xs-12 flx flx-col flx-center-all">
-                <div className="co-logo large-logo mrgn-bottom-sm mrgn-top-md">
-                  <img className="center-img" src="/img/logomark.png"/>
-                </div>
-                <div className="register-msg co-type-body ta-center mrgn-bottom-sm color--white w-100 pdding-left-sm pdding-right-sm pdding-bottom-md">
-                  Sorry, this email link has expired.
-                  <Link to={'/register'}>Click here to send another verification email?</Link>
+          <div className="home-page page-common page-register fill--pond flx flx-col flx-just-start">
+            <div className="koi-view ta-left flx flx-col pdding-top-lg">
+                <div className="register-msg">
+                  <div className="koi-big-header mrgn-bottom-md color--utsuri opa-30">Oops</div>
+                  <div className="co-post-title mrgn-bottom-md color--black">
+                    This email link has expired.
+                  </div>
+                  <Link className="text-hover color--seaweed mrgn-top-sm" to={'/register'}>Click here to send another verification email?</Link>
                 </div>
               </div>
-            </div>
           </div>
         </div>
-        </div>
+
       )
     }
     else {

@@ -97,7 +97,7 @@ class EnterEmail extends React.Component {
 						<div className="koi-big-header mrgn-bottom-md color--utsuri opa-30">
 		    				Join Koi
 		  				</div>
-		  				<div className="co-post-title mrgn-bottom-md">
+		  				<div className="co-post-title mrgn-bottom-md color--black">
 		    				Enter your email address
 		  				</div>
 			            <div className="DN co-type-body color--black mrgn-bottom-md">
