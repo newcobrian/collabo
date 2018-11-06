@@ -20,7 +20,7 @@
 	font-size: 32px;
 	letter-spacing: 0px;
 	line-height: 35px;
-	margin-bottom: 10px;
+	margin-bottom: 8px;
 }
 .hero-blurb {
     font-size: 18px;
@@ -185,7 +185,18 @@ body input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill 
 	position: relative;
 	margin-left: 20px;
 }
-
+.product-group {
+	margin-bottom: 80px;
+}
+.screenshot {
+}
+.product-title {
+    font-weight: 600;
+    font-size: 42px;
+    letter-spacing: 0px;
+    line-height: 42px;
+    margin-bottom: 8px;
+}
 
 /* Dashboard */
 .home-page.page-dash {

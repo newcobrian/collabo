@@ -46,6 +46,61 @@ const LoggedOutMessage = props => {
                 Organization
               </div>
             </div>
+
+            {/* Screenshot */}
+            <div className="product-group flx flx-col flx-center-all w-100">
+              <div className="product-section">
+                <div className="illustration square-220 flx flx-col flx-center-all mrgn-bottom-md">
+                  <img className="center-img" src="/img/graphic_focus.png"/>
+                </div>
+              </div>
+              <div className="product-title color--black">
+                Focused Discussions
+              </div>
+              <div className="hero-blurb color--black ta-center mrgn-bottom-md">
+                Why are you unhappy? Because 99.9 percent, Of everything you think, And of everything you do, Is for yourself.
+              </div>
+              <div className="screenshot fill--white w-100">
+                <img className="center-img" src="/img/ss-ph.png"/>
+              </div>
+            </div>
+
+            {/* Screenshot */}
+            <div className="product-group flx flx-col flx-center-all w-100">
+              <div className="product-section">
+                <div className="illustration square-220 flx flx-col flx-center-all mrgn-bottom-md">
+                  <img className="center-img" src="/img/graphic_organization.png"/>
+                </div>
+              </div>
+              <div className="product-title color--black">
+                Organization
+              </div>
+              <div className="hero-blurb color--black ta-center mrgn-bottom-md">
+                Why are you unhappy? Because 99.9 percent, Of everything you think, And of everything you do, Is for yourself.
+              </div>
+              <div className="screenshot fill--white w-100">
+                <img className="center-img" src="/img/ss-ph.png"/>
+              </div>
+            </div>
+
+            {/* Screenshot */}
+            <div className="product-group flx flx-col flx-center-all w-100">
+              <div className="product-section">
+                <div className="illustration square-220 flx flx-col flx-center-all mrgn-bottom-md">
+                  <img className="center-img" src="/img/graphic_transparency.png"/>
+                </div>
+              </div>
+              <div className="product-title color--black">
+                Transparency
+              </div>
+              <div className="hero-blurb color--black ta-center mrgn-bottom-md mrgn-bottom-lg">
+                Why are you unhappy? Because 99.9 percent, Of everything you think, And of everything you do, Is for yourself.
+              </div>
+              <div className="screenshot fill--white w-100">
+                <img className="center-img" src="/img/ss-ph.png"/>
+              </div>
+            </div>
+
         </div>  
 
          {/*} <Link to="/register" className="vb fill--tertiary color--primary vb--round vb--wide">
