@@ -130,10 +130,10 @@ class Project extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.pid !== this.props.params.pid && nextProps.params.orgurl === this.props.params.orgurl) {
-      this.props.unwatchThreadFeed(this.props.authenticated, this.props.orgId, this.props.params.pid, Constants.PROJECT_PAGE)
+      this.props.unwatchThreadFeed(this.props.authenticated, this.props.org.id, this.props.params.pid, Constants.PROJECT_PAGE)
       this.props.unloadProjectMembers(this.props.params.pid, Constants.PROJECT_PAGE)
 
-      this.props.loadProject(nextProps.params.pid, this.props.orgId, Constants.PROJECT_PAGE);
+      this.props.loadProject(nextProps.params.pid, this.props.org.id, Constants.PROJECT_PAGE);
       this.props.loadProjectMembers(nextProps.params.pid, Constants.PROJECT_PAGE)
       // this.props.watchThreadFeed(this.props.authenticated, this.props.params.orgURL, nextProps.params.pid, this.props.feedEndValue, Constants.PROJECT_PAGE)
       if (nextProps.params.pid) {
@@ -141,13 +141,15 @@ class Project extends React.Component {
       }
     }
     else if (nextProps.params.orgurl !== this.props.params.orgurl) {
-      this.props.unloadProjectNames(this.props.orgId, Constants.PROJECT_PAGE)
-      this.props.unwatchThreadFeed(this.props.authenticated, this.props.orgId, this.props.params.pid, Constants.PROJECT_PAGE)
-      this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId)
-      this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.PROJECT_PAGE)
-      this.props.unloadOrg(Constants.PROJECT_PAGE);
+      if (this.props.org && this.props.org.id) {
+        this.props.unloadProjectNames(this.props.org.id, Constants.PROJECT_PAGE)
+        this.props.unwatchThreadFeed(this.props.authenticated, this.props.org.id, this.props.params.pid, Constants.PROJECT_PAGE)
+        this.props.unloadThreadCounts(this.props.authenticated, this.props.org.id)
+        this.props.unloadProjectList(this.props.authenticated, this.props.org.id, Constants.PROJECT_PAGE)
+        this.props.unloadOrg(Constants.PROJECT_PAGE);  
+        this.props.unloadOrgMembers(this.props.orgId, Constants.PROJECT_PAGE)
+      }
       this.props.unloadProjectMembers(this.props.params.pid, Constants.PROJECT_PAGE)
-      this.props.unloadOrgMembers(this.props.orgId, Constants.PROJECT_PAGE)
 
 
       let lowerCaseOrgURL = nextProps.params.orgurl ? nextProps.params.orgurl.toLowerCase() : ''
@@ -157,7 +159,8 @@ class Project extends React.Component {
         }
         else {
           let orgId = orgSnap.val().orgId
-          this.props.loadOrg(this.props.authenticated, orgId, nextProps.params.orgurl, Constants.PROJECT_PAGE);
+          let orgName = orgSnap.val().name
+          this.props.loadOrg(this.props.authenticated, orgId, nextProps.params.orgurl, orgName, Constants.PROJECT_PAGE);
           this.props.loadProjectList(this.props.authenticated, orgId, this.props.params.pid, Constants.PROJECT_PAGE)
           this.props.loadThreadCounts(this.props.authenticated, orgId)
           this.props.loadProjectNames(orgId, Constants.PROJECT_PAGE)
