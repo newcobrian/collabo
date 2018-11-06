@@ -136,14 +136,14 @@ class Comment extends React.Component {
             </div>
 
             <div className="comment-row co-type-body">
-              <ShowMore
+              {/*<ShowMore
                 lines={3}
                 more='Show more'
                 less='Show less'
                 anchorClass=''
-            >
+              >*/}
                 {processed(comment.body)}
-              </ShowMore>
+             {/* </ShowMore>>*/}
             </div>
 
             <div className="cta-wrapper flx flx-row flx-align-center mrgn-top-sm w-100">

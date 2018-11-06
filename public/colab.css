@@ -122,11 +122,11 @@
 .open-style .page-common,
 .open-style .loading-module {
 	margin-left: 300px;
-	height: 100%;
+/*	height: 100%;
 	position: absolute;
 	left: 0;
 	right: 0;
-	bottom: 0;
+	bottom: 0;*/
 }
 .close-style .page-common,
 .close-style .loading-module {
@@ -513,6 +513,10 @@ textarea {
   .tip__caption ol, li, span {
       white-space: pre-wrap;
   }
+  .comment-row .tip__caption ol, li, span {
+      white-space: normal;
+  }
+
   .tip__caption img {
   	width: 100%;
   }
