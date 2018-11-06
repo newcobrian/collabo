@@ -176,7 +176,6 @@ class Project extends React.Component {
 
 
   render() {
-    // console.log(JSON.stringify(this.props.threads))
     if (!this.props.authenticated) {
       return (
         <LoggedOutMessage />

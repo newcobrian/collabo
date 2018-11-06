@@ -131,6 +131,8 @@ class ThreadPreviewFull extends React.Component {
 
     this.openThread = ev => {
       ev.preventDefault()
+      let threadURL = '/' + this.props.orgName + '/' + this.props.thread.projectId + '/' + this.props.thread.threadId
+      window.history.pushState( {} , null, threadURL );
       this.props.showThreadModal(this.props.thread, this.props.project, this.props.orgName, this.props.orgMembers, this.props.orgUserData)
     }
   }
