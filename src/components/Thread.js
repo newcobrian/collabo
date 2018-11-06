@@ -335,9 +335,11 @@ class Thread extends React.Component {
 
                 <div className="page-common page-thread flx flx-row flx-m-col flx-just-start">
 
-                  <div className="project-header text-left brdr-bottom brdr-color--primary--10 flx flx-col flx-align-start w-100">
+                  {/*<div className="DN project-header text-left brdr-bottom brdr-color--primary--10 flx flx-col flx-align-start w-100">
                     <OrgHeader />
-                  </div>
+                  </div>*/}
+                   
+                  
 
                   <ProjectHeader 
                       orgName={this.props.params.orgname}

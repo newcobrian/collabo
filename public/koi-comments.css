@@ -80,7 +80,7 @@
     padding-right: 80px !important;
 }
 .comment-bg {
-  margin: 0 0 4px;
+  margin: 0;
 }
 .comment-input-container {
     padding: 0px;
@@ -91,6 +91,7 @@
   /*border-left: none;*/
   background-color: white;
   padding: 16px;
+  margin-bottom: 4px;
 /*  border-left-width: 4px !important;
   border-left-color: rgba(255,171,140,.8) !important;*/
 }

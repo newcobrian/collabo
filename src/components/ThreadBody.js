@@ -122,7 +122,7 @@ const ThreadBody = props => {
                 <div className="thread-row-wrapper flx flx-row">
                   <div className="thread-content-wrapper w-100">
                     <div className="co-type-thread-title color--black mrgn-bottom-xs">{thread.title}</div>
-                    <div className="flx flx-row w-100 flx-align-center brdr-bottom pdding-bottom-sm mrgn-bottom-md">
+                    <div className="flx flx-row w-100 flx-align-center mrgn-bottom-xs">
                       <span className="thread-timestamp">Posted by {createdBy.username}
                         <Link
                           to={'/' + orgName + '/user/' + createdBy.username}
@@ -141,6 +141,17 @@ const ThreadBody = props => {
                         <DisplayTimestamp timestamp={thread.lastModified} />
                       </span>
                     </div>
+                    <div className="cta-wrapper vb--outline--none flx flx-row flx-align-center brdr-bottom pdding-bottom-sm">
+                      <LikeReviewButton
+                        authenticated={authenticated}
+                        isLiked={likes && likes[authenticated] ? true : false}
+                        likesCount={Object.keys(likes || {}).length}
+                        objectId={threadId}
+                        thread={thread}
+                        likeObject={thread}
+                        type={Constants.THREAD_TYPE}
+                        orgName={orgName} />
+                    </div>
                     <div className="co-type-body opa-90 w-100 mrgn-top-sm">
                       <BodySection
                         bodyText={bodyText}
@@ -154,17 +165,7 @@ const ThreadBody = props => {
                         usersList={props.orgMembers}
                           />
                     </div>
-                    <div className="cta-wrapper vb--outline--none flx flx-row flx-align-center mrgn-top-sm">
-                      <LikeReviewButton
-                        authenticated={authenticated}
-                        isLiked={likes && likes[authenticated] ? true : false}
-                        likesCount={Object.keys(likes || {}).length}
-                        objectId={threadId}
-                        thread={thread}
-                        likeObject={thread}
-                        type={Constants.THREAD_TYPE}
-                        orgName={orgName} />
-                    </div>
+                    
                     {/* this.renderChanges(this.props.updates, this.props.userId, this.props.comments, this.props.params.tid, this.props.googleDocs) */}
 
                   </div>

@@ -78,6 +78,7 @@ body div.dialog--save {
   right: 0;
   background: white;
   padding: 0px !important;
+  z-index: 2;
 }
 .dialog--save__actions button {
   text-align: center !important;

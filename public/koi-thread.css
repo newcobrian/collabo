@@ -62,9 +62,12 @@
 	max-height: 460px;
 	margin-bottom: 0;
 }
+.tp-full .thread-view {
+	margin-top: 80px;
+}
 .hidden-comments {
 	padding: 8px 12px;
-	margin-top: 4px;
+	margin: 4px 0;
 }
 
 .thread-body {
@@ -72,6 +75,14 @@
 	width: 100%;
 }
 
+.thread-content-wrapper {
+	padding: 0 16px;
+	background-color: white;
+	overflow: hidden;
+}
+.tp-preview-full .thread-content-wrapper {
+	padding: 0;
+}
 
 
 .thread-creator-image .default-profile-wrapper,

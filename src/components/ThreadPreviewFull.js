@@ -143,7 +143,7 @@ class ThreadPreviewFull extends React.Component {
 
     return (
       <div className="flx flx-col flx-align-center w-100">
-      <div className="tp-wrapper tp-preview-full tp-full flx flx-row flx-m-col w-100">
+      <div className="tp-wrapper tp-full flx flx-row flx-m-col w-100">
           
           <div className="tp-container ql-editor flx flx-col flx-align-start">           
             
@@ -229,8 +229,8 @@ class ThreadPreviewFull extends React.Component {
           <div className="comment-row-wrapper flx flx-col">
             
             <Link onClick={this.openThread} className="discussion-info color--black thread-timestamp flx flx-row flx-align-center w-100">
-              <div>3 New&nbsp;&#xb7;&nbsp;</div>
-              <div>{this.props.thread.commentsCount} Replies&nbsp;&#xb7;&nbsp;</div>
+              {/*<div>3 New&nbsp;&#xb7;&nbsp;</div>*/}
+              <div>{this.props.thread.commentsCount} Total Replies&nbsp;&#xb7;&nbsp;</div>
               <div>8 Participants</div>
               <div className="flx-item-right">View All</div>
             </Link>

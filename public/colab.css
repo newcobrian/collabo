@@ -83,8 +83,12 @@
     width: auto;
     padding-left: 10px;
 }
+
 .project-header.with-shadow {
 	box-shadow: rgba(244,249,251) 0 12px 18px;
+}
+.page-thread .project-header.with-shadow {
+	box-shadow: none;
 }
 
 .open-style .project-header {
@@ -113,7 +117,7 @@
 	min-width: 320px;
 }
 .thread-view {
-	z-index: 0;
+	z-index: 1;
     width: 100%;
     padding: 0;
     /*max-width: 960px;*/
@@ -313,11 +317,6 @@ textarea {
 }
 .top-bar {
 
-}
-.thread-content-wrapper {
-	padding: 0 16px;
-	background-color: white;
-	overflow: hidden;
 }
 
 
