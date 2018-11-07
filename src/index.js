@@ -7,20 +7,13 @@ import App from './components/App';
 import Home from './components/Home';
 import Login from './components/Login';
 import Profile from './components/Profile';
-import ProfileLikes from './components/ProfileLikes';
-import ProfileSaves from './components/ProfileSaves';
-import ProfileGuides from './components/ProfileGuides';
 import Register from './components/Register';
 import Settings from './components/Settings';
 import AddProject from './components/AddProject';
 import AddThread from './components/AddThread';
 import Thread from './components/Thread';
-import AddReview from './components/AddReview';
-import Followers from './components/Followers';
-import Followings from './components/Followings';
 import Inbox from './components/Inbox';
 import ProjectInvite from './components/ProjectInvite';
-import Explore from './components/Explore';
 import Project from './components/Project';
 import ForgotPassword from './components/ForgotPassword';
 import CreateOrg from './components/CreateOrg';
@@ -62,10 +55,10 @@ ReactDOM.render((
         <Route path="forgotPassword" component={ForgotPassword} />
         <Route path="newteam" component={CreateOrg} />
         <Route path="seo" component={SEO} />
-        <Route path ="invitation/:iid" component={AcceptOrgInvite} />
-        <Route path ="joinproject/:iid" component={AcceptProjectInvite} />
-        <Route path ="verify/(:vid)" component={Register} />
-        <Route path =":orgurl/invitation/:iid" component={AcceptOrgInvite} />
+        <Route path="invitation/:iid" component={AcceptOrgInvite} />
+        <Route path="joinproject/:iid" component={AcceptProjectInvite} />
+        <Route path="verify/(:vid)" component={Register} />
+        <Route path=":orgurl/invitation/:iid" component={AcceptOrgInvite} />
         <Route path=":orgurl/inbox" component={Inbox} />
         <Route path=":orgurl/admin" component={OrgSettings} />
         <Route path=":orgurl/addthread" component={AddThread} />
@@ -73,7 +66,7 @@ ReactDOM.render((
         <Route path=":orgurl/user/:username/settings" component={Settings} />
         <Route path=":orgurl/creategroup" component={AddProject} />
         <Route path=":orgurl/invite" component={OrgInvite} />
-        <Route path =":orgurl/joinproject/:iid" component={AcceptProjectInvite} />
+        <Route path=":orgurl/joinproject/:iid" component={AcceptProjectInvite} />
         <Route path=":orgurl(/:pid)" component={Project} />
         <Route path=":orgurl/addthread/(:pid)" component={AddThread} />
         <Route path=":orgurl/:pid/invite" component={ProjectInvite} />
