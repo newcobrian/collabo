@@ -184,7 +184,7 @@ export function notAnOrgUserError(source) {
 export function loadOrg(auth, orgId, orgName, orgURL, source) {
   return dispatch => {
     if (auth) {
-      let lowercaseOrgURL = orgURL.toLowerCase()
+      let lowercaseOrgURL = orgURL ? orgURL.toLowerCase() : ''
 
       Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth + '/' + orgId).once('value', userSnap => {
         if (!userSnap.exists()) {
