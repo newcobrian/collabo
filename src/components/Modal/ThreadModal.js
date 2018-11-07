@@ -2,17 +2,13 @@ import React from 'react';
 import * as Actions from '../../actions';
 import * as Constants from '../../constants';
 import { connect } from 'react-redux';
-import { browserHistory, Link } from 'react-router';
+import { browserHistory } from 'react-router';
 import Dialog from 'material-ui/Dialog';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
-import ProfilePic from './../ProfilePic'
-import DisplayTimestamp from './../DisplayTimestamp'
-import LikeReviewButton from './../LikeReviewButton'
-import RichTextEditor from './../RichTextEditor'
-import CommentContainer from './../Review/CommentContainer'
 import ThreadBody from './../ThreadBody'
+import LoadingSpinner from './../LoadingSpinner'
 
 const mapStateToProps = state => ({
   ...state.modal,
@@ -110,7 +106,7 @@ class ThreadModal extends React.Component {
         )
     }
     else {
-      const { authenticated, org, thread, threadId, project, orgMembers, orgUserData, bodyText, isEditMode, 
+      const { authenticated, org, thread, project, orgMembers, orgUserData, bodyText, isEditMode, 
         likes, comments, commentErrors } = this.props
       // let createdBy = this.props.createdBy
       let createdBy = orgUserData && orgUserData[thread.userId] ? orgUserData[thread.userId] : 
