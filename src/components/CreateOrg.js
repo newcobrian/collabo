@@ -39,11 +39,11 @@ class CreateOrg extends React.Component {
 	      else if (this.props.name.length < 3) {
 	      	this.props.createSubmitError('Team name must be at least 3 characters long', Constants.CREATE_ORG_PAGE);
 	      }
-		  else if(!(/^[a-zA-Z\s]*$/.test(this.props.name))) {
-			this.props.createSubmitError('Your team name can only contain letters', Constants.CREATE_ORG_PAGE);
-		  }
 		  else if (!this.props.username || this.props.username.length < 1) {
 		  	this.props.createSubmitError('Please add your username', Constants.CREATE_ORG_PAGE);
+		  }
+		  else if (!(/^[A-Za-z0-9-_.]+$/.test(this.props.username)))  {
+		  	this.props.createSubmitError('Your username can only contain letters, numbers, \'_\' and \'-\'', Constants.CREATE_ORG_PAGE);
 		  }
 		  else if (!this.props.fullName || this.props.fullName.length < 1) {
 		  	this.props.createSubmitError('Please add your full name', Constants.CREATE_ORG_PAGE);

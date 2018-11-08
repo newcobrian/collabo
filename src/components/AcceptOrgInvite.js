@@ -37,6 +37,9 @@ class AcceptOrgInvite extends React.Component {
       if (!this.props.username || this.props.username.length < 1) {
         this.props.createSubmitError('Please add your username', Constants.ACCEPT_ORG_INVITE_PAGE);
       }
+      else if (!(/^[A-Za-z0-9-_.]+$/.test(this.props.username)))  {
+        this.props.createSubmitError('Your username can only contain letters, numbers, \'_\' and \'-\'', Constants.ACCEPT_ORG_INVITE_PAGE);
+      }
       else if (!this.props.fullName || this.props.fullName.length < 1) {
         this.props.createSubmitError('Please add your full name', Constants.ACCEPT_ORG_INVITE_PAGE);
       }
