@@ -953,3 +953,69 @@ export function getFileIds (comments) {
 		return totalLinks.concat(ids);
 	}, []);
 }
+
+export function addUserToOrg(auth, email, orgId, inviteId, userData, imageFile) {
+  Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + orgId).once('value', projectNamesSnap => {
+    let cleanedEmail = cleanEmailToFirebase(email)
+    let lowerCaseName = userData && userData.username ? userData.username.toLowerCase() : ''
+
+    let updates = {}
+    // add user to the org and orgs-by-user
+    updates[Constants.USERNAMES_BY_ORG_PATH + '/' + orgId + '/' + lowerCaseName] = auth
+    updates[Constants.ORGS_BY_USER_PATH + '/' + auth + '/' + orgId] = true
+
+    // update user's preferred username and fullName if necessary
+    updates[Constants.USERS_PATH + '/' + auth + '/username/'] = userData.username
+    if (userData.fullName) {
+      updates[Constants.USERS_PATH + '/' + auth + '/fullName/'] = userData.fullName
+    }
+
+    // remove the invites
+    updates[Constants.INVITES_PATH + '/' + inviteId + '/status/'] = Constants.ACCEPTED_STATUS
+    updates[Constants.INVITED_USERS_BY_ORG_PATH + '/' + orgId + '/' + cleanedEmail] = null
+
+    // add all public projects for the user
+    projectNamesSnap.forEach(function(projectItem) {
+      if (projectItem.val().isPublic) {
+        updates[`/${Constants.PROJECTS_BY_USER_BY_ORG_PATH}/${auth}/${orgId}/${projectItem.val().projectId}/`] = Object.assign({}, {isPublic: projectItem.val().isPublic});
+        updates[`/${Constants.USERS_BY_PROJECT_PATH}/${projectItem.val().projectId}/${auth}/`] = true
+      }
+    })
+
+    // if user uploaded an image, save it
+    if (imageFile) {
+      const storageRef = Firebase.storage().ref();
+      const metadata = {
+        contentType: 'image/jpeg'
+      }
+      let fileName = generateImageFileName();
+      const uploadTask = storageRef.child('images/' + fileName).put(imageFile, metadata);
+      uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+      function(snapshot) {
+        }, function(error) {
+          console.log(error.message)
+      }, function() {
+        const downloadURL = uploadTask.snapshot.downloadURL;
+
+        // set user's image to the new downloadURL
+        userData.image = downloadURL
+
+        // save image in users-by-org
+        updates[Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + auth] = 
+          Object.assign({}, userData, {role: Constants.USER_ROLE})
+
+        // save image in users-path
+        updates[Constants.USERS_PATH + '/' + auth + '/image'] = downloadURL;
+
+        Firebase.database().ref().update(updates)
+      })
+    }
+    // else no image, just save the user
+    else {
+      updates[Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + auth] = 
+        Object.assign({}, userData, {role: Constants.USER_ROLE})
+
+      Firebase.database().ref().update(updates)
+    }
+  })
+}

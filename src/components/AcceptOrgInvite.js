@@ -25,14 +25,10 @@ class AcceptOrgInvite extends React.Component {
 
     this.changeUsername = updateFieldEvent('username');
     this.changeFullName = updateFieldEvent('fullName');
+    this.changePassword = updateFieldEvent('password');
 
     this.changeImage = ev => {
       this.props.onUpdateCreateField('imageFile', ev.target.files[0], Constants.ACCEPT_ORG_INVITE_PAGE)
-    }
-
-    this.onRegisterClick = ev => {
-      ev.preventDefault()
-      this.props.onRegisterWithEmailClick(this.props.invite.recipientEmail)      
     }
 
     this.handleSubmit = ev => {
@@ -44,6 +40,11 @@ class AcceptOrgInvite extends React.Component {
       else if (!this.props.fullName || this.props.fullName.length < 1) {
         this.props.createSubmitError('Please add your full name', Constants.ACCEPT_ORG_INVITE_PAGE);
       }
+      if (!this.props.authenticated) {
+        if (!this.props.password || this.props.password < 6) {
+          this.props.createSubmitError('Please add a password that is at least 6 characters', Constants.ACCEPT_ORG_INVITE_PAGE);
+        }
+      }
       else {
         let userData = Object.assign({}, 
           {username: this.props.username},
@@ -52,7 +53,7 @@ class AcceptOrgInvite extends React.Component {
         if (this.props.image) userData.image = this.props.image
 
         let lowerCaseEmail = this.props.userInfo.email ? this.props.userInfo.email.toLowerCase() : ''
-        this.props.acceptOrgInvite(this.props.authenticated, lowerCaseEmail, this.props.params.iid, userData, this.props.imageFile)
+        this.props.acceptOrgInvite(this.props.authenticated, lowerCaseEmail, this.props.params.iid, userData, this.props.imageFile, this.props.password)
       }
     }
   }
@@ -90,34 +91,21 @@ class AcceptOrgInvite extends React.Component {
         <LoadingSpinner message="Loading invite" />
       );
     }
-    if (emailRegistered) {
-      return (
-        <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
-          <div className="co-logo large-logo mrgn-bottom-lg mrgn-top-md">
-            <img className="center-img" src="/img/logomark.png"/>
-          </div>
-          <div className="mrgn-bottom-md color--white co-type-body">The email {invite.recipientEmail} has already been registered.
-          </div>
-          <Link className="co-type-body color--tertiary" to='/login'>Please login to accept this invite</Link>
-        </div>
-      )
-    }
-    if (!authenticated || !userInfo) {
-      return (
-        <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
-          <div className="co-logo large-logo mrgn-bottom-lg mrgn-top-md">
-            <img className="center-img" src="/img/logomark.png"/>
-          </div>
-          <div className="mrgn-bottom-md color--white co-type-body">{sender.username} invited you to join their team "{invite.orgName}"
-          </div>
-          <Link className="co-type-body color--tertiary" to='/login'>Login to accept</Link>
-          <Link className="co-type-body color--tertiary" onClick={this.onRegisterClick}>or Register.........</Link>
-        </div>
-      )
-    }
+    // if (emailRegistered) {
+    //   return (
+    //     <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
+    //       <div className="co-logo large-logo mrgn-bottom-lg mrgn-top-md">
+    //         <img className="center-img" src="/img/logomark.png"/>
+    //       </div>
+    //       <div className="mrgn-bottom-md color--white co-type-body">The email {invite.recipientEmail} has already been registered.
+    //       </div>
+    //       <Link className="co-type-body color--tertiary" to='/login'>Please login to accept this invite</Link>
+    //     </div>
+    //   )
+    // }
     // orgInvites need orgId and recipientEmail
-    if (inviteType === Constants.ORG_TYPE && (!invite.senderId || !invite.recipientEmail ||
-    !invite.orgId)) {
+    else if (!invite.senderId || !invite.recipientEmail ||
+    !invite.orgId) {
       return (
         <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
           <div className="co-logo large-logo mrgn-bottom-lg mrgn-top-md">
@@ -129,22 +117,24 @@ class AcceptOrgInvite extends React.Component {
         </div>
       )
     }
-    // check that org invite was sent to this user's email address
-    if (inviteType === Constants.ORG_TYPE && (!userInfo || invite.recipientEmail !== userInfo.email)) {
-      return (
-        <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
-          <div className="co-logo large-logo mrgn-bottom-lg mrgn-top-md">
-            <img className="center-img" src="/img/logomark.png"/>
+    // if user is logged out
+    if (!authenticated || !userInfo) {
+      // if invite was sent to a registered email, tell the user to login
+      if (emailRegistered) {
+        return (
+          <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
+            <div className="co-logo large-logo mrgn-bottom-lg mrgn-top-md">
+              <img className="center-img" src="/img/logomark.png"/>
+            </div>
+            <div className="mrgn-bottom-md color--white co-type-body">{sender.username} invited you to join their team "{invite.orgName}"
+            </div>
+            <Link className="co-type-body color--tertiary" to='/login'>Login to accept</Link>
           </div>
-          <div className="mrgn-bottom-md color--white co-type-body">Sorry, this invite was sent to a different email address. 
-          </div>
-          <Link className="co-type-body color--tertiary" to='/'> Go to homepage</Link>
-        </div>
-      )
-    }
-
-    if (inviteType === Constants.ORG_TYPE) {
-      return (
+        )
+      }
+      // otherwise the email address has not registerd, make the user sign up and accept the invite
+      else {
+        return (
         <div>
           <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
             
@@ -162,7 +152,12 @@ class AcceptOrgInvite extends React.Component {
 
               <form>
                 <fieldset className="field-wrapper">
-                  <label>What's your username?</label>
+                  <label>Email Address</label>
+                  {invite.recipientEmail}
+                </fieldset>
+
+                <fieldset className="field-wrapper">
+                  <label>Choose a username for this team</label>
                   <input
                     className="input--underline edit-itinerary__name brdr-all"
                     type="text"
@@ -181,6 +176,17 @@ class AcceptOrgInvite extends React.Component {
                     required
                     value={this.props.fullName}
                     onChange={this.changeFullName} />
+                </fieldset>
+
+                <fieldset className="field-wrapper">
+                  <label>Choose a password (at least 6 characters)</label>
+                  <input
+                    className="input--underline edit-itinerary__name brdr-all"
+                    type="text"
+                    placeholder="Password" 
+                    required
+                    value={this.props.password}
+                    onChange={this.changePassword} />
                 </fieldset>
 
                 <fieldset>
@@ -219,33 +225,106 @@ class AcceptOrgInvite extends React.Component {
             </div>
             
           </div>
-            {/**}     
-            <div>
-                  <Script
-                    url={url}
-                    onCreate={this.handleScriptCreate.bind(this)}
-                    onError={this.handleScriptError.bind(this)}
-                    onLoad={this.handleScriptLoad.bind(this)}
-                  /> 
-              </div> 
-              <div ref="GMap"></div>**/}
         </div>
-
-      )
+        )
+      }
     }
-    // else show an error
+    // else user is logged in already
     else {
-      return (
-       <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
-          <div className="co-logo large-logo mrgn-bottom-lg mrgn-top-md">
-            <img className="center-img" src="/img/logomark.png"/>
-          </div>
-          <div className="mrgn-bottom-md color--white co-type-body">Sorry, we couldn't find this invite.
-          </div>
-          <Link className="co-type-body color--tertiary" to='/'> Go to homepage</Link>
+      // check that org invite was sent to this user's email address and let them join the team
+      if (invite.recipientEmail === userInfo.email) {
+        return (
+          <div>
+            <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
+              
+              <div className="co-logo large-logo mrgn-top-md">
+                <img className="center-img" src="/img/logomark.png"/>
+              </div>
+              <div className="co-logotype w-100 mrgn-top-lg mrgn-bottom-lg">
+                <img className="center-img" src="/img/logotype.png"/>
+              </div>
 
-        </div>
-      )
+              <div className="brdr-all b--tertiary pdding-all-lg flx flx-col flx-center-all">
+                <div className="co-type-h3 color--white mrgn-bottom-sm">
+                  {sender.username} invited you to join their team "{invite.orgName}"
+                </div>
+
+                <form>
+                  <fieldset className="field-wrapper">
+                    <label>What's your username?</label>
+                    <input
+                      className="input--underline edit-itinerary__name brdr-all"
+                      type="text"
+                      placeholder="Username" 
+                      required
+                      value={this.props.username}
+                      onChange={this.changeUsername} />
+                  </fieldset>
+
+                  <fieldset className="field-wrapper">
+                    <label>What's your full name?</label>
+                    <input
+                      className="input--underline edit-itinerary__name brdr-all"
+                      type="fullName"
+                      placeholder="Full Name"
+                      required
+                      value={this.props.fullName}
+                      onChange={this.changeFullName} />
+                  </fieldset>
+
+                  <fieldset>
+                    {this.props.image && 
+                      <div className="profile-image flx flx-center-all">
+                        <ProfilePic src={this.props.imageFile ? URL.createObjectURL(this.props.imageFile) : (this.props.image ? this.props.image : '')} className="center-img" />
+                        </div>
+                    }
+                    <fieldset className="form-group">
+                      <div className="upload-wrapper">
+                        <div className="upload-overlay">Upload Image (optional)</div>
+                        <div className="fileUpload">
+                          <input
+                          className="form-control upload-image-button"
+                          type="file"
+                          accept="image/jpeg,image/png,application/pdf"
+                          onChange={this.changeImage} />
+
+                        </div>
+                      </div> 
+                    </fieldset>
+                  </fieldset>
+
+                  <ListErrors errors={this.props.errors}></ListErrors>
+                </form>
+
+                <div
+                  className="vb fill--tertiary max-300 vb--wide mrgn-top-md color--black mrgn-bottom-md"
+                  type="button"
+                  disabled={this.props.inProgress}
+                  onClick={this.handleSubmit}
+                  >
+                      Accept
+                </div>
+                <Link className="co-type-body color--white" to='/'>No thanks</Link>
+              </div>
+              
+            </div>
+          </div>
+
+        )
+      }
+      // otherwise email was sent to a different user
+      else {
+        return (
+          <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
+            <div className="co-logo large-logo mrgn-bottom-lg mrgn-top-md">
+              <img className="center-img" src="/img/logomark.png"/>
+            </div>
+            <div className="mrgn-bottom-md color--white co-type-body">Sorry, this invite was sent to a different email address. 
+            </div>
+            <Link className="co-type-body color--tertiary" to='/'> Go to homepage</Link>
+          </div>
+        )
+      }
     }
   }
 }

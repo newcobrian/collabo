@@ -10,20 +10,18 @@ export default (state = {}, action) => {
         sender: action.sender,
         loadInviteError: false,
         inviteType: action.inviteType,
-        emailRegistered: false
+        emailRegistered: action.emailRegistered,
       }
     case ActionTypes.ACCEPT_INVITE_ERROR:
       return {
         ...state,
-        message: action.message,
-        emailRegistered: false
+        message: action.message
       }
     case ActionTypes.LOAD_INVITE_ERROR:
       return {
         ...state,
         loadInviteError: true,
-        errorMessage: action.errorMessage,
-        emailRegistered: false
+        errorMessage: action.errorMessage
       }
     case ActionTypes.LOAD_NEW_ORG_USER_INFO:
       if (action.source === Constants.ACCEPT_ORG_INVITE_PAGE) {
@@ -49,11 +47,6 @@ export default (state = {}, action) => {
         }
       }
       else return {...state}
-    case ActionTypes.EMAIL_ALREADY_REGISTERED:
-    return {
-      ...state,
-      emailRegistered: true
-    }
     default:
       return state;
   }
