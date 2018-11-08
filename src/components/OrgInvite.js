@@ -45,6 +45,7 @@ class OrgInvite extends React.Component {
 	        	let orgId = orgSnap.val().orgId
 	        	let orgName = orgSnap.val().name
 		    	this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgurl, orgName, Constants.ORG_SETTINGS_PAGE);
+		    	this.props.loadOrgUser(this.props.authenticated, orgId, Constants.ORG_SETTINGS_PAGE)
 			    this.props.loadProjectList(this.props.authenticated, orgId, Constants.ORG_SETTINGS_PAGE)
 			    this.props.loadThreadCounts(this.props.authenticated, orgId)
 			    this.props.loadProjectNames(orgId, Constants.ORG_SETTINGS_PAGE)

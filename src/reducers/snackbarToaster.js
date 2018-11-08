@@ -34,9 +34,10 @@ export default function(state = initialState, action) {
         open: true
       }
     case ActionTypes.USERS_INVITED_TO_ORG:
+      let text = action.invitesSent === 1 ? ' person invited to ' : ' people invited to '
       return {
         ...state,
-        message: action.invitesSent + ' people invited to ' + action.orgName,
+        message: action.invitesSent + text + action.orgName,
         open: true
       }
     case CLOSE_SNACKBAR:
