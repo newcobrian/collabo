@@ -190,7 +190,7 @@ class ProjectList extends React.Component {
                   <div className="koi-button-fancy-inner">
                   </div>
                   <div className="koi-button-fancy-text color--utsuri">
-                    Invite Team
+                    Invite Team Members
                   </div>
               </Link>
             </div>
