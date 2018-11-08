@@ -53,7 +53,7 @@ class AcceptOrgInvite extends React.Component {
         if (this.props.image) userData.image = this.props.image
 
         let lowerCaseEmail = this.props.userInfo.email ? this.props.userInfo.email.toLowerCase() : ''
-        this.props.acceptOrgInvite(this.props.authenticated, lowerCaseEmail, this.props.params.iid, userData, this.props.imageFile, this.props.password)
+        this.props.acceptOrgInvite(this.props.authenticated, lowerCaseEmail, this.props.params.iid, userData, this.props.imageFile)
       }
     }
   }

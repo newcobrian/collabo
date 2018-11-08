@@ -375,8 +375,7 @@ class Profile extends React.Component {
                           pageStart={0}
                           className="w-100"
                           loadMore={this.scrolledToBottom}
-                          hasMore={true}
-                          loader={<div className="loader" key={0}>Loading ...</div>} >
+                          hasMore={true} >
                     
                       <ActivityList feed={this.props.feed} orgURL={this.props.org.url} emptyActivityFeed={this.props.emptyActivityFeed} profile={this.props.profile} />
 
