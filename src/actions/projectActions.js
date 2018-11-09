@@ -621,16 +621,17 @@ function threadCommentRemovedAction(threadId, commentId) {
 
 export function watchThreadComments(threadId) {
   return dispatch => {
-    Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).on('child_added', commentSnap => {
-      dispatch(threadCommentAddedAction(threadId, commentSnap.key, commentSnap.val()));
+    Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).on('child_added', addedSnap => {
+      console.log('action ' + addedSnap.key)
+      dispatch(threadCommentAddedAction(threadId, addedSnap.key, addedSnap.val()));
     })
 
-    Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).on('child_changed', commentSnap => {
-      dispatch(threadCommentChangedAction(threadId, commentSnap.key, commentSnap.val()));
+    Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).on('child_changed', changedSnap => {
+      dispatch(threadCommentChangedAction(threadId, changedSnap.key, changedSnap.val()));
     })
 
-    Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).on('child_removed', commentSnap => {
-      dispatch(threadCommentRemovedAction(threadId, commentSnap.key));
+    Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).on('child_removed', removedSnap => {
+      dispatch(threadCommentRemovedAction(threadId, removedSnap.key));
     })
   }
 }

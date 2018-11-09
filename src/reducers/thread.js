@@ -1,7 +1,7 @@
 import * as ActionTypes from '../actions/types';
 import * as Constants from '../constants';
 import * as Helpers from '../helpers';
-import { filter, omit } from 'lodash';
+import { filter, omit, find } from 'lodash';
 
 // import { EditorState, ContentState, convertToRaw, convertFromRaw } from 'draft-js';
 
