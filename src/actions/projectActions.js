@@ -622,7 +622,6 @@ function threadCommentRemovedAction(threadId, commentId) {
 export function watchThreadComments(threadId) {
   return dispatch => {
     Firebase.database().ref(Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId).on('child_added', addedSnap => {
-      console.log('action ' + addedSnap.key)
       dispatch(threadCommentAddedAction(threadId, addedSnap.key, addedSnap.val()));
     })
 
