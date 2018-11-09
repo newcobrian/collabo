@@ -43,11 +43,6 @@ class AcceptOrgInvite extends React.Component {
       else if (!this.props.fullName || this.props.fullName.length < 1) {
         this.props.createSubmitError('Please add your full name', Constants.ACCEPT_ORG_INVITE_PAGE);
       }
-      if (!this.props.authenticated) {
-        if (!this.props.password || this.props.password < 6) {
-          this.props.createSubmitError('Please add a password that is at least 6 characters', Constants.ACCEPT_ORG_INVITE_PAGE);
-        }
-      }
       else {
         let userData = Object.assign({}, 
           {username: this.props.username},
@@ -55,8 +50,26 @@ class AcceptOrgInvite extends React.Component {
         )
         if (this.props.image) userData.image = this.props.image
 
-        let lowerCaseEmail = this.props.userInfo.email ? this.props.userInfo.email.toLowerCase() : ''
-        this.props.acceptOrgInvite(this.props.authenticated, lowerCaseEmail, this.props.params.iid, userData, this.props.imageFile)
+        // if user is logged in, just accept the invite
+        if (this.props.authenticated) {
+          let lowerCaseEmail = this.props.userInfo.email ? this.props.userInfo.email.toLowerCase() : ''
+          this.props.acceptOrgInvite(this.props.authenticated, lowerCaseEmail, this.props.params.iid, userData, this.props.imageFile)
+        }
+        // else user isnt logged in, register and accept
+        else {
+          // check password is long enough
+          if (!this.props.password || this.props.password < 6) {
+            this.props.createSubmitError('Please add a password that is at least 6 characters', Constants.ACCEPT_ORG_INVITE_PAGE);
+          }
+
+          if (!(this.props.invite && this.props.invite.orgId && this.props.invite.recipientEmail)) {
+            this.props.createSubmitError('Sorry, there was an error with the invite', Constants.ACCEPT_ORG_INVITE_PAGE);
+          }
+          else {
+            // register user and accept invite
+            this.props.signUpUser(this.props.invite.recipientEmail, this.props.password, this.props.fullName, null, '/', this.props.invite.orgId, this.props.username, this.props.imageFile)
+          }
+        }
       }
     }
   }
@@ -185,8 +198,8 @@ class AcceptOrgInvite extends React.Component {
                   <label>Choose a password (at least 6 characters)</label>
                   <input
                     className="input--underline edit-itinerary__name brdr-all"
-                    type="text"
-                    placeholder="Password" 
+                    type="password"
+                    placeholder="Password"
                     required
                     value={this.props.password}
                     onChange={this.changePassword} />

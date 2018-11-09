@@ -213,69 +213,69 @@ class Profile extends React.Component {
     }
   }
 
-  renderTabs() {
-    return (
-      <div className="feed-toggle">
-          <ul className="nav nav-pills  flx flx-row flx-just-space-around flx-align-space-around outline-active">
-            {/*<li className="nav-item">
-              <Link
-                className="nav-link active flx flx-col flx-center-all ta-center"
-                to={`/${this.props.profile.username}/`}>
-                <div className="stats-number">
-                  {this.props.numReviews || 0}
-                </div>
-                Reviews
-              </Link>
-            </li>*/}
+  // renderTabs() {
+  //   return (
+  //     <div className="feed-toggle">
+  //         <ul className="nav nav-pills  flx flx-row flx-just-space-around flx-align-space-around outline-active">
+  //           {/*<li className="nav-item">
+  //             <Link
+  //               className="nav-link active flx flx-col flx-center-all ta-center"
+  //               to={`/${this.props.profile.username}/`}>
+  //               <div className="stats-number">
+  //                 {this.props.numReviews || 0}
+  //               </div>
+  //               Reviews
+  //             </Link>
+  //           </li>*/}
 
-            <li className="nav-item">
-              <Link
-                className="nav-link flx flx-col flx-center-all ta-center"
-                to={`/${this.props.profile.username}/guides`}>
-                <div className="stats-number">
-                  {this.props.numGuides}
-                </div>
-                Guides
-              </Link>
-            </li>
+  //           <li className="nav-item">
+  //             <Link
+  //               className="nav-link flx flx-col flx-center-all ta-center"
+  //               to={`/${this.props.profile.username}/guides`}>
+  //               <div className="stats-number">
+  //                 {this.props.numGuides}
+  //               </div>
+  //               Guides
+  //             </Link>
+  //           </li>
 
-            <li className="nav-item">
-              <Link
-                className="nav-link flx flx-col flx-center-all ta-center"
-                to={`/${this.props.profile.username}/likes`}>
-                <div className="stats-number">
-                {this.props.numLikes}
-                </div>
-                Likes
-              </Link>
-            </li>
+  //           <li className="nav-item">
+  //             <Link
+  //               className="nav-link flx flx-col flx-center-all ta-center"
+  //               to={`/${this.props.profile.username}/likes`}>
+  //               <div className="stats-number">
+  //               {this.props.numLikes}
+  //               </div>
+  //               Likes
+  //             </Link>
+  //           </li>
  
-            <li className="nav-item">
-              <Link
-                className="nav-link flx flx-col flx-center-all ta-center"
-                to={`/${this.props.profile.username}/followers`}>
-                <div className="stats-number">
-                  {this.props.numFollowers}
-                </div>
-                Followers
-              </Link>
-            </li>
+  //           <li className="nav-item">
+  //             <Link
+  //               className="nav-link flx flx-col flx-center-all ta-center"
+  //               to={`/${this.props.profile.username}/followers`}>
+  //               <div className="stats-number">
+  //                 {this.props.numFollowers}
+  //               </div>
+  //               Followers
+  //             </Link>
+  //           </li>
 
-            <li className="nav-item">
-              <Link
-                className="nav-link flx flx-col flx-center-all ta-center"
-                to={`/${this.props.profile.username}/isfollowing`}>
-                <div className="stats-number">
-                {this.props.numFollowing}
-                </div>
-                Following
-              </Link>
-            </li>
+  //           <li className="nav-item">
+  //             <Link
+  //               className="nav-link flx flx-col flx-center-all ta-center"
+  //               to={`/${this.props.profile.username}/isfollowing`}>
+  //               <div className="stats-number">
+  //               {this.props.numFollowing}
+  //               </div>
+  //               Following
+  //             </Link>
+  //           </li>
 
-          </ul>
-        </div>
-    );
-  }
+  //         </ul>
+  //       </div>
+  //   );
+  // }
 
   render() {
     if (this.props.userNotFound) {

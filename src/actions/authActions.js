@@ -54,7 +54,7 @@ function validateEmail(email) {
     return re.test(String(email).toLowerCase());
 }
 
-export function signUpUser(email, password, fullName, verificationId, redirect) {
+export function signUpUser(email, password, fullName, verificationId, redirect, orgId, username, imageFile) {
   return dispatch => {
     // if (!username || username.length < 3) {
     //   dispatch({
@@ -87,86 +87,106 @@ export function signUpUser(email, password, fullName, verificationId, redirect) 
       })
     }
     else {
-      Firebase.database().ref(Constants.EMAIL_VERIFICATION_PATH + '/' + verificationId).once('value', verifySnap => {
-        if (!verifySnap.exists()) {
+      let lowerCaseUsername = username ? username.toLowerCase() : ''
+      Firebase.database().ref(Constants.USERNAMES_BY_ORG_PATH + '/' + orgId + '/' + lowerCaseUsername).once('value', usernameSnap => {
+        if (orgId && usernameSnap.exists()) {
           dispatch({
-            type: ActionTypes.EMAIL_CODE_NOT_FOUND
+            type: ActionTypes.CREATE_SUBMIT_ERROR,
+            source: Constants.ACCEPT_INVITE_PAGE,
+            error: 'The username \'' + username + '\' is already taken. Please choose another username'
           })
         }
         else {
-          Firebase.auth().createUserWithEmailAndPassword(email, password)
-          .then(response => {
-            let userId = response.uid;
-            let updates = {};
-
-            let cleanedEmail = Helpers.cleanEmailToFirebase(email)
-            Firebase.database().ref(Constants.INVITES_BY_EMAIL_BY_ORG_PATH + '/' + cleanedEmail).once('value', inviteSnap => {
-              // need to save users profile info
-              updates[Constants.USERS_PATH + '/' + userId] = { email: email, fullName: fullName }
-
-              // save userId lookup from username
-              // updates[Constants.USERNAMES_TO_USERIDS_PATH + '/' + username] = {userId: userId }
-              
-              // save email address lookup
-              updates[Constants.USERS_BY_EMAIL_PATH + '/' + cleanedEmail] = { userId: userId }
-
-              // remove email verification
-              updates[Constants.VERIFICATION_BY_EMAIL_PATH + '/' + cleanedEmail] = null
-              updates[Constants.EMAIL_VERIFICATION_PATH + '/' + verificationId] = null
-
-              Firebase.database().ref().update(updates);
-
-              // migrate invites sent to user's email address to their inbox
-              let lastModified = Firebase.database.ServerValue.TIMESTAMP
-              let inboxCounter = 0
-              inviteSnap.forEach(function(orgInvite) {
-                // update recipientId on invite
-                if (orgInvite.val()) {
-                  orgInvite.forEach(function(inviteItem) {
-                    Firebase.database().ref(Constants.ORGS_PATH + '/' + orgInvite.key).once('value', orgSnap => {
-                      let inviteObject = Object.assign({}, 
-                      { link: '/invitation/' + inviteItem.key }, 
-                      { message: ' invited you to join the "' + orgSnap.val().name + '" team.'}, 
-                      { senderId: inviteItem.val() }, 
-                      { type: Constants.INBOX_INVITE_TYPE }, 
-                      { lastModified: lastModified} );
-                    
-                      Firebase.database().ref(Constants.INBOX_PATH + '/' + userId).push(inviteObject)
-                      inboxCounter++;
-                    })
-                  })
-                }
-              })
-              Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + userId).update({messageCount: inboxCounter})
-
-              // set account created date super property
-              // mixpanel.register({
-              //   'account created': (new Date()).toISOString()
-              // });
-
-              // set acount created date people property
-              // mixpanel.people.set({ "account created": (new Date()).toISOString() });
-              // mixpanel.identify(userId);
-
+          email = email.toLowerCase()
+          Firebase.database().ref(Constants.EMAIL_VERIFICATION_PATH + '/' + verificationId).once('value', verifySnap => {
+            if (!orgId && !verifySnap.exists()) {
               dispatch({
-                type: ActionTypes.SIGN_UP_USER,
-                payload: userId,
-                redirect: redirect,
-                meta: {
-                  mixpanel: {
-                    event: 'Register', 
-                    props: {
-                      'account created': (new Date()).toISOString()
-                    }
-                  }
-                }
+                type: ActionTypes.EMAIL_CODE_NOT_FOUND
               })
-            })
+            }
+            else {
+              Firebase.auth().createUserWithEmailAndPassword(email, password)
+              .then(response => {
+                let userId = response.uid;
+                let userData = Object.assign({}, { email: email}, {fullName: fullName })
+                if (username) userData.username = username
+                let updates = {};
+
+                let cleanedEmail = Helpers.cleanEmailToFirebase(email)
+                Firebase.database().ref(Constants.INVITES_BY_EMAIL_BY_ORG_PATH + '/' + cleanedEmail).once('value', inviteSnap => {
+                  // need to save users profile info
+                  updates[Constants.USERS_PATH + '/' + userId] = userData
+
+                  // save userId lookup from username
+                  // updates[Constants.USERNAMES_TO_USERIDS_PATH + '/' + username] = {userId: userId }
+                  
+                  // save email address lookup
+                  updates[Constants.USERS_BY_EMAIL_PATH + '/' + cleanedEmail] = { userId: userId }
+
+                  // remove email verification
+                  updates[Constants.VERIFICATION_BY_EMAIL_PATH + '/' + cleanedEmail] = null
+                  updates[Constants.EMAIL_VERIFICATION_PATH + '/' + verificationId] = null
+
+                  Firebase.database().ref().update(updates);
+
+                  // migrate invites sent to user's email address to their inbox
+                  let lastModified = Firebase.database.ServerValue.TIMESTAMP
+                  let inboxCounter = 0
+                  inviteSnap.forEach(function(orgInvite) {
+                    // update recipientId on invite
+                    if (orgInvite.val()) {
+                      orgInvite.forEach(function(inviteItem) {
+                        Firebase.database().ref(Constants.ORGS_PATH + '/' + orgInvite.key).once('value', orgSnap => {
+                          let inviteObject = Object.assign({}, 
+                          { link: '/invitation/' + inviteItem.key }, 
+                          { message: ' invited you to join the "' + orgSnap.val().name + '" team.'}, 
+                          { senderId: inviteItem.val() }, 
+                          { type: Constants.INBOX_INVITE_TYPE }, 
+                          { lastModified: lastModified} );
+                        
+                          Firebase.database().ref(Constants.INBOX_PATH + '/' + userId).push(inviteObject)
+                          inboxCounter++;
+                        })
+                      })
+                    }
+                  })
+                  Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + userId).update({messageCount: inboxCounter})
+
+                  // if an orgId was passed, also add this user to the org
+                  if (orgId) {
+                    Helpers.addUserToOrg(userId, email, orgId, null, userData, imageFile)  
+                  }
+
+                  // set account created date super property
+                  // mixpanel.register({
+                  //   'account created': (new Date()).toISOString()
+                  // });
+
+                  // set acount created date people property
+                  // mixpanel.people.set({ "account created": (new Date()).toISOString() });
+                  // mixpanel.identify(userId);
+
+                  dispatch({
+                    type: ActionTypes.SIGN_UP_USER,
+                    payload: userId,
+                    redirect: redirect,
+                    meta: {
+                      mixpanel: {
+                        event: 'Register', 
+                        props: {
+                          'account created': (new Date()).toISOString()
+                        }
+                      }
+                    }
+                  })
+                })
+              })
+              .catch(error => {
+                console.log(error);
+                dispatch(authError(error));
+              });
+            }
           })
-          .catch(error => {
-            console.log(error);
-            dispatch(authError(error));
-          });
         }
       })
     }
