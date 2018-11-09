@@ -173,7 +173,7 @@ class Profile extends React.Component {
       else {
         let orgId = orgSnap.val().orgId
         let orgName = orgSnap.val().name
-        this.props.loadOrg(this.props.authenticated, orgId, this.props.params.url, orgName, Constants.PROFILE_PAGE);
+        this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgurl, orgName, Constants.PROFILE_PAGE);
         this.props.loadOrgUser(this.props.authenticated, orgId, Constants.PROFILE_PAGE)
         this.props.loadProjectList(this.props.authenticated, orgId, Constants.PROFILE_PAGE)
         this.props.loadThreadCounts(this.props.authenticated, orgId)
