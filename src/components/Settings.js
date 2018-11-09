@@ -46,7 +46,9 @@ class SettingsForm extends React.Component {
       if(this.state.email) user.email = this.state.email;
       if(this.state.password) user.password = this.state.password;
 
-      this.props.onSubmitForm(this.props.authenticated, user, this.props.currentUser, this.state.imageFile, this.props.orgURL, this.props.orgId);
+      if (this.props.org && this.props.org.id && this.props.org.url) {
+        this.props.onSubmitForm(this.props.authenticated, user, this.props.currentUser, this.state.imageFile, this.props.org.url, this.props.org.id);
+      }
     };
 
     this.changeEmailClick = ev => {
@@ -263,8 +265,7 @@ class Settings extends React.Component {
                         currentUser={this.props.firebaseUser}
                         onSubmitForm={this.props.saveSettings}
                         showChangeEmailModal={this.props.showChangeEmailModal}
-                        orgURL={this.props.params.orgurl}
-                        orgId={this.props.orgId} />
+                        org={this.props.org} />
 
 
                       <div
