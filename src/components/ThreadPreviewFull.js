@@ -6,6 +6,7 @@ import DisplayTimestamp from './DisplayTimestamp';
 import LikeReviewButton from './LikeReviewButton';
 import ProfilePic from './ProfilePic';
 
+
 // const UpdateSection = props => {
 //   if (!props.thread) return null
 //   else if (props.thread.lastUpdate === Constants.NEW_THREAD_TYPE) {
@@ -68,6 +69,73 @@ import ProfilePic from './ProfilePic';
 //     )
 // }
 
+var Scroll = require('react-scroll');
+var Element = Scroll.Element;
+var linkify = require('linkify-it')();
+
+const UpdateSection = props => {
+  if (!props.thread) return null
+  else if (props.thread.lastUpdate === Constants.NEW_THREAD_TYPE) {
+    return (
+      <div className="mrgn-right-xs opa-80 color--black">
+        created a new thread.
+      </div>
+    )
+  } 
+  else if (props.thread.lastUpdate === Constants.EDIT_THREAD_TYPE) {
+    return (
+      <div className="mrgn-right-xs opa-80 color--black">
+        edited the post. 
+      </div>
+    )
+  }
+  else if (props.thread.lastUpdate === Constants.COMMENT_TYPE) {
+    return (
+      <div className="mrgn-right-xs opa-80 color--black">
+        added a comment
+      </div>
+    )
+  }
+  else return null;
+}
+
+const UpdateIcon = props => {
+  if (!props.thread) return null
+  else if (props.thread.lastUpdate === Constants.NEW_THREAD_TYPE) {
+    return (
+      <div className="co-icon-wrapper flx flx-center-all">
+        <img className="center-img" src="/img/icon_post.png"/>
+        {/**<div className="feed-gem circle"></div>**/}
+        {/**<i className="material-icons color--primary md-24">assignment</i>**/}
+      </div>
+    )
+  }
+  else if (props.thread.lastUpdate === Constants.EDIT_THREAD_TYPE) {
+    return (
+      <div className="co-icon-wrapper flx flx-center-all">
+        <img className="center-img" src="/img/icon_edit.png"/>
+        {/**<div className="feed-gem square"></div>**/}
+        {/**<i className="material-icons color--primary md-24">edit</i>**/}
+      </div>
+    )
+  }
+  else if (props.thread.lastUpdate === Constants.COMMENT_TYPE) {
+    return (
+      <div className="co-icon-wrapper flx flx-center-all">
+        <img className="center-img" src="/img/icon_comment.png"/>
+        {/**<div className="feed-gem diamond"></div>**/}
+        {/**<i className="material-icons color--primary md-24">comment</i>**/}
+      </div>
+    )
+  }
+  else return (
+    <div className="co-icon-wrapper flx flx-center-all">
+      <div className="feed-gem"></div>
+    </div>
+    )
+}
+
+
 const ProjectLabel = props => {
   if (!props.projectId || !props.projectNames) {
     return null
@@ -125,7 +193,7 @@ class ThreadPreviewFull extends React.Component {
 
     return (
       <div className="flx flx-col flx-align-center w-100">
-      <div className="tp-wrapper tp-full flx flx-row flx-m-col w-100">
+      <div className="tp-wrapper tp-preview-full tp-full flx flx-row flx-m-col w-100">
           
           <div className="tp-container ql-editor flx flx-col flx-align-start">           
             

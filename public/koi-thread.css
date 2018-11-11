@@ -28,6 +28,7 @@
 	z-index: 1;
 	padding-bottom: 200px;
 	min-width: 200px;
+	min-height: 1000px;
 }
 .threadlist-wrapper > div {
 	width: 100%;
@@ -39,6 +40,10 @@
 	position: relative;
 	padding: 0 12px;
 }
+.tp-wrapper.tp-preview-full {
+	padding: 0!important;
+}
+
 .tp-full .tp-wrapper {
 	position: relative !important;
 }
@@ -62,7 +67,7 @@
 	max-height: 460px;
 	margin-bottom: 0;
 }
-.tp-full .thread-view {
+.page-thread .thread-view {
 	margin-top: 80px;
 }
 .hidden-comments {

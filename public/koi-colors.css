@@ -1,8 +1,8 @@
 .fill--seaweed {
-	background: #285A00;
+	background: #285A00 !important;
 }
 .color--seaweed {
-	color: #285A00;
+	color: #285A00 !important;
 }
 .brdr-color--seaweed {
 	border-color: #285A00 !important;

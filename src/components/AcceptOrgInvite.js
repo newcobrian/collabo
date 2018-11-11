@@ -138,11 +138,8 @@ class AcceptOrgInvite extends React.Component {
       // if invite was sent to a registered email, tell the user to login
       if (emailRegistered) {
         return (
-          <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
-            <div className="co-logo large-logo mrgn-bottom-lg mrgn-top-md">
-              <img className="center-img" src="/img/logomark.png"/>
-            </div>
-            <div className="mrgn-bottom-md color--white co-type-body">{sender.username} invited you to join their team "{invite.orgName}"
+          <div className="home-page page-register fill--pond flx flx-col flx-just-start">
+            <div className="mrgn-bottom-md color--white koi-type-body">{sender.username} invited you to join their team "{invite.orgName}"
             </div>
             <Link className="co-type-body color--tertiary" to='/login'>Login to accept</Link>
           </div>
@@ -152,28 +149,37 @@ class AcceptOrgInvite extends React.Component {
       else {
         return (
         <div>
-          <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
+          <div className="home-page page-register fill--pond flx flx-row flx-m-col flx-align-center flx-align-start">
             
-            <div className="co-logo large-logo mrgn-top-md">
-              <img className="center-img" src="/img/logomark.png"/>
-            </div>
-            <div className="co-logotype w-100 mrgn-top-lg mrgn-bottom-lg">
-              <img className="center-img" src="/img/logotype.png"/>
-            </div>
-
-            <div className="brdr-all b--tertiary pdding-all-lg flx flx-col flx-center-all">
-              <div className="co-type-h3 color--white mrgn-bottom-sm">
-                {sender.username} invited you to join their team "{invite.orgName}"
+            <div className="dash-left-wrapper flx flx-col flx-align-start pdding-all-lg w-100">
+              <div className="dash-inner flx flx-col flx-just-start fill--pond w-100">
+                <div className="flx flx-row flx-align-center w-100 flx-hold">
+                  <div className="dash-logo mobile-show mrgn-right-md flx-hold">
+                    <img className="center-img" src="/img/koi-logo_a.png"/>
+                  </div>
+                  <div className="dash-logotext color--black w-100 ta-left">Koi</div>
+                </div>
+                <div className="dash-graphic mobile-hide w-100 mrgn-top-lg">
+                  <img className="center-img" src="/img/dash-graphic.png"/>
+                </div>
               </div>
+            </div>
 
+
+            <div className="dash-right-wrapper fill--mist pdding-all-lg pdding-all-m-md flx flx-col w-100">
+              <div className="koi-type-body-lg color--black ta-center mrgn-bottom-md">
+                <span className="koi-type-bold">{sender.username}</span> invited you to join their team "{invite.orgName}"
+                {/*Jordan invited you to join their team "Many Aeons"*/}
+              </div>
               <form>
-                <fieldset className="field-wrapper">
-                  <label>Email Address</label>
+
+                <label>Email Address</label>
+                <fieldset className="koi-type-body mrgn-bottom-md pdding-all-sm fill--gray">
                   {invite.recipientEmail}
                 </fieldset>
 
-                <fieldset className="field-wrapper">
-                  <label>Choose a username for this team</label>
+                <label>Choose your username for this team</label>
+                <fieldset className="field-wrapper mrgn-bottom-md">
                   <input
                     className="input--underline edit-itinerary__name brdr-all"
                     type="text"
@@ -183,8 +189,8 @@ class AcceptOrgInvite extends React.Component {
                     onChange={this.changeUsername} />
                 </fieldset>
 
-                <fieldset className="field-wrapper">
-                  <label>What's your full name?</label>
+                <label>What's your full name?</label>
+                <fieldset className="field-wrapper mrgn-bottom-md">
                   <input
                     className="input--underline edit-itinerary__name brdr-all"
                     type="fullName"
@@ -194,8 +200,8 @@ class AcceptOrgInvite extends React.Component {
                     onChange={this.changeFullName} />
                 </fieldset>
 
-                <fieldset className="field-wrapper">
-                  <label>Choose a password (at least 6 characters)</label>
+                <label>Choose a password (at least 6 characters)</label>
+                <fieldset className="field-wrapper mrgn-bottom-md">
                   <input
                     className="input--underline edit-itinerary__name brdr-all"
                     type="password"
@@ -211,7 +217,9 @@ class AcceptOrgInvite extends React.Component {
                       <ProfilePic src={this.props.imageFile ? URL.createObjectURL(this.props.imageFile) : (this.props.image ? this.props.image : '')} className="center-img" />
                       </div>
                   }
-                  <fieldset className="form-group">
+
+                  <label>Upload a profile image</label>
+                  <fieldset className="">
                     <div className="upload-wrapper">
                       <div className="upload-overlay">Upload Image (optional)</div>
                       <div className="fileUpload">
@@ -229,15 +237,29 @@ class AcceptOrgInvite extends React.Component {
                 <ListErrors errors={this.props.errors}></ListErrors>
               </form>
 
-              <div
-                className="vb fill--tertiary max-300 vb--wide mrgn-top-md color--black mrgn-bottom-md"
+              {/*<div
+                className="vb fill--seaweed w-100 mrgn-top-md color--white mrgn-bottom-md"
                 type="button"
                 disabled={this.props.inProgress}
                 onClick={this.handleSubmit}
                 >
                     Accept
+              </div>*/}
+
+              <div 
+                type="button"
+                disabled={this.props.inProgress}
+                onClick={this.handleSubmit}
+                className="flx flx-col flx-center-all koi-button-fancy-wrapper home-register-button border--seaweed w-100 mrgn-bottom-md">
+                  <div className="koi-button-fancy-outer">
+                  </div>
+                  <div className="koi-button-fancy-inner">
+                  </div>
+                  <div className="koi-button-fancy-text color--seaweed">
+                    Accept Invite
+                  </div>
               </div>
-              <Link className="co-type-body color--white" to='/'>No thanks</Link>
+              <Link className="koi-type-body color--utsuri text-hover opa-60 w-100 ta-center" to='/'>No thanks</Link>
             </div>
             
           </div>
@@ -251,93 +273,137 @@ class AcceptOrgInvite extends React.Component {
       if (invite.recipientEmail === userInfo.email) {
         return (
           <div>
-            <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
-              
-              <div className="co-logo large-logo mrgn-top-md">
-                <img className="center-img" src="/img/logomark.png"/>
-              </div>
-              <div className="co-logotype w-100 mrgn-top-lg mrgn-bottom-lg">
-                <img className="center-img" src="/img/logotype.png"/>
-              </div>
-
-              <div className="brdr-all b--tertiary pdding-all-lg flx flx-col flx-center-all">
-                <div className="co-type-h3 color--white mrgn-bottom-sm">
-                  {sender.username} invited you to join their team "{invite.orgName}"
+          <div className="home-page page-register fill--pond flx flx-row flx-m-col flx-align-center flx-align-start">
+            
+            <div className="dash-left-wrapper flx flx-col flx-align-start pdding-all-lg w-100">
+              <div className="dash-inner flx flx-col flx-just-start fill--pond w-100">
+                <div className="flx flx-row flx-align-center w-100 flx-hold">
+                  <div className="dash-logo mobile-show mrgn-right-md flx-hold">
+                    <img className="center-img" src="/img/koi-logo_a.png"/>
+                  </div>
+                  <div className="dash-logotext color--black w-100 ta-left">Koi</div>
                 </div>
-
-                <form>
-                  <fieldset className="field-wrapper">
-                    <label>What's your username?</label>
-                    <input
-                      className="input--underline edit-itinerary__name brdr-all"
-                      type="text"
-                      placeholder="Username" 
-                      required
-                      value={this.props.username}
-                      onChange={this.changeUsername} />
-                  </fieldset>
-
-                  <fieldset className="field-wrapper">
-                    <label>What's your full name?</label>
-                    <input
-                      className="input--underline edit-itinerary__name brdr-all"
-                      type="fullName"
-                      placeholder="Full Name"
-                      required
-                      value={this.props.fullName}
-                      onChange={this.changeFullName} />
-                  </fieldset>
-
-                  <fieldset>
-                    {this.props.image && 
-                      <div className="profile-image flx flx-center-all">
-                        <ProfilePic src={this.props.imageFile ? URL.createObjectURL(this.props.imageFile) : (this.props.image ? this.props.image : '')} className="center-img" />
-                        </div>
-                    }
-                    <fieldset className="form-group">
-                      <div className="upload-wrapper">
-                        <div className="upload-overlay">Upload Image (optional)</div>
-                        <div className="fileUpload">
-                          <input
-                          className="form-control upload-image-button"
-                          type="file"
-                          accept="image/jpeg,image/png,application/pdf"
-                          onChange={this.changeImage} />
-
-                        </div>
-                      </div> 
-                    </fieldset>
-                  </fieldset>
-
-                  <ListErrors errors={this.props.errors}></ListErrors>
-                </form>
-
-                <div
-                  className="vb fill--tertiary max-300 vb--wide mrgn-top-md color--black mrgn-bottom-md"
-                  type="button"
-                  disabled={this.props.inProgress}
-                  onClick={this.handleSubmit}
-                  >
-                      Accept
+                <div className="dash-graphic mobile-hide w-100 mrgn-top-lg">
+                  <img className="center-img" src="/img/dash-graphic.png"/>
                 </div>
-                <Link className="co-type-body color--white" to='/'>No thanks</Link>
               </div>
-              
             </div>
+
+
+            <div className="dash-right-wrapper fill--mist pdding-all-lg pdding-all-m-md flx flx-col w-100">
+              <div className="koi-type-body-lg color--black ta-center mrgn-bottom-md">
+                <span className="koi-type-bold">{sender.username}</span> invited you to join their team "{invite.orgName}"
+                {/*Jordan invited you to join their team "Many Aeons"*/}
+              </div>
+              <form>
+
+                <label>Email Address</label>
+                <fieldset className="koi-type-body mrgn-bottom-md pdding-all-sm fill--gray">
+                  {invite.recipientEmail}
+                </fieldset>
+
+                <label>Choose your username for this team</label>
+                <fieldset className="field-wrapper mrgn-bottom-md">
+                  <input
+                    className="input--underline edit-itinerary__name brdr-all"
+                    type="text"
+                    placeholder="Username" 
+                    required
+                    value={this.props.username}
+                    onChange={this.changeUsername} />
+                </fieldset>
+
+                <label>What's your full name?</label>
+                <fieldset className="field-wrapper mrgn-bottom-md">
+                  <input
+                    className="input--underline edit-itinerary__name brdr-all"
+                    type="fullName"
+                    placeholder="Full Name"
+                    required
+                    value={this.props.fullName}
+                    onChange={this.changeFullName} />
+                </fieldset>
+
+                <label>Choose a password (at least 6 characters)</label>
+                <fieldset className="field-wrapper mrgn-bottom-md">
+                  <input
+                    className="input--underline edit-itinerary__name brdr-all"
+                    type="password"
+                    placeholder="Password"
+                    required
+                    value={this.props.password}
+                    onChange={this.changePassword} />
+                </fieldset>
+
+                <fieldset>
+                  {this.props.image && 
+                    <div className="profile-image flx flx-center-all">
+                      <ProfilePic src={this.props.imageFile ? URL.createObjectURL(this.props.imageFile) : (this.props.image ? this.props.image : '')} className="center-img" />
+                      </div>
+                  }
+
+                  <label>Upload a profile image</label>
+                  <fieldset className="">
+                    <div className="upload-wrapper">
+                      <div className="upload-overlay">Upload Image (optional)</div>
+                      <div className="fileUpload">
+                        <input
+                        className="form-control upload-image-button"
+                        type="file"
+                        accept="image/jpeg,image/png,application/pdf"
+                        onChange={this.changeImage} />
+
+                      </div>
+                    </div> 
+                  </fieldset>
+                </fieldset>
+
+                <ListErrors errors={this.props.errors}></ListErrors>
+              </form>
+
+              {/*<div
+                className="vb fill--seaweed w-100 mrgn-top-md color--white mrgn-bottom-md"
+                type="button"
+                disabled={this.props.inProgress}
+                onClick={this.handleSubmit}
+                >
+                    Accept
+              </div>*/}
+
+              <div 
+                type="button"
+                disabled={this.props.inProgress}
+                onClick={this.handleSubmit}
+                className="flx flx-col flx-center-all koi-button-fancy-wrapper home-register-button border--seaweed w-100 mrgn-bottom-md">
+                  <div className="koi-button-fancy-outer">
+                  </div>
+                  <div className="koi-button-fancy-inner">
+                  </div>
+                  <div className="koi-button-fancy-text color--seaweed">
+                    Accept Invite
+                  </div>
+              </div>
+              <Link className="koi-type-body color--utsuri text-hover opa-60 w-100 ta-center" to='/'>No thanks</Link>
+            </div>
+            
           </div>
+        </div>
 
         )
       }
       // otherwise email was sent to a different user
       else {
         return (
-          <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
-            <div className="co-logo large-logo mrgn-bottom-lg mrgn-top-md">
-              <img className="center-img" src="/img/logomark.png"/>
-            </div>
-            <div className="mrgn-bottom-md color--white co-type-body">Sorry, this invite was sent to a different email address. 
-            </div>
-            <Link className="co-type-body color--tertiary" to='/'> Go to homepage</Link>
+          <div className="home-page page-common page-register fill--pond flx flx-col flx-just-start">
+            <div className="koi-view ta-left flx flx-col pdding-top-lg">
+                <div className="register-msg">
+                  <div className="koi-big-header mrgn-bottom-md color--utsuri opa-30">Oops</div>
+                  <div className="co-post-title mrgn-bottom-md color--black">
+                    Sorry, this invite was sent to a different user.
+                  </div>
+                  <Link className="text-hover color--seaweed mrgn-top-sm" to='/'>Go to homepage</Link>
+                </div>
+              </div>
           </div>
         )
       }

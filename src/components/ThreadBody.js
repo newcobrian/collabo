@@ -52,7 +52,7 @@ const BodySection = props => {
           <div className="w-auto thread-timestamp color--secondary">
             <Link onClick={props.saveBody(props.thread)}>Save</Link>
           </div>
-        </div>
+        </div> 
       </div>
     )
   }
@@ -115,7 +115,7 @@ const ThreadBody = props => {
       orgMembers, orgUserData, bodyText, likes } = props
 
     return (
-      <div className={"thread-body tp-full left-text flx flx-col flx-align-center fill--mist"}>
+      <div className={"thread-body tp-page left-text flx flx-col flx-align-center"}>
           <div className="thread-view w-100">
             <div className={"tp-wrapper flx flx-row flx-m-col"}>   
               <div className="tp-container b--primary--10 flx flx-col flx-align-start">   

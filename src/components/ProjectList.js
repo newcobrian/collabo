@@ -11,13 +11,17 @@ const DotJewel = props => {
   if (props.threadCount > 0) {
     return (
       <div className="sidebar-dot fill--tancho active">
+
       </div>
     );
   }
   return (
-    <div className="sidebar-dot fill--tertiary--10"></div>
+    <div className="sidebar-dot fill--tertiary--10">
+      {/*<img className="center-img" src="/img/lock--pond.png"/>*/}
+    </div>
   );
 }
+
 const ThreadCountJewel = props => {
   if (props.threadCount > 0) {
     return (

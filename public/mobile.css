@@ -19,6 +19,76 @@ body {
   padding-right: 0 !important;
   padding-left: 0 !important;
 }
+/* PADDING */
+.pdding-m-none {
+  padding: 0px !important;
+}
+.pdding-all-m-sm {
+  padding: 10px !important;
+}
+.pdding-top-m-sm {
+  padding-top: 10px !important;
+}
+.pdding-right-m-sm  {
+  padding-right: 10px !important;
+}
+.pdding-bottom-m-sm  {
+  padding-bottom: 10px !important;
+}
+.pdding-left-m-sm  {
+  padding-left: 10px !important;
+}
+
+.pdding-all-m-xs {
+  padding: 5px;
+}
+.pdding-top-m-xs {
+  padding-top: 5px;
+}
+.pdding-right-m-xs  {
+  padding-right: 5px;
+}
+.pdding-bottom-m-xs  {
+  padding-bottom: 5px;
+}
+.pdding-left-m-xs  {
+  padding-left: 5px;
+}
+
+.pdding-all-m-md {
+  padding: 20px !important;
+}
+.pdding-top-m-md {
+  padding-top: 20px !important;
+}
+.pdding-right-m-md {
+  padding-right: 20px !important;
+}
+.pdding-bottom-m-md {
+  padding-bottom: 20px !important;
+}
+.pdding-left-m-md {
+  padding-left: 20px !important;
+}
+
+.pdding-all-m-lg {
+  padding: 40px;
+}
+.pdding-top-m-lg {
+  padding-top: 40px;
+}
+.pdding-right-m-lg {
+  padding-right: 40px;
+}
+.pdding-bottom-m-lg {
+  padding-bottom: 40px;
+}
+.pdding-left-m-lg {
+  padding-left: 40px;
+}
+
+
+
 .flx.flx-row.flx-m-col {
   -webkit-flex-direction: column;
    flex-direction: column;

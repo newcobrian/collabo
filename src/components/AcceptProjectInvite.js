@@ -73,7 +73,7 @@ class AcceptProjectInvite extends React.Component {
       this.props.loadProjectInvite(this.props.authenticated, nextProps.params.iid);
     }
   }
-
+ 
   render() {
     const { authenticated, invite, loadInviteError, errorMessage, inviteType, userInfo, sender } = this.props;
     if (loadInviteError) {
@@ -93,28 +93,33 @@ class AcceptProjectInvite extends React.Component {
     }
     if (inviteType === Constants.PROJECT_TYPE && invite.recipientId !== authenticated) {
       return (
-          <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
-            <div className="co-logo large-logo mrgn-bottom-lg mrgn-top-md">
-              <img className="center-img" src="/img/logomark.png"/>
-            </div>
-            <div className="mrgn-bottom-md color--white co-type-body">Sorry, this invite was sent to a different user. 
-            </div>
-            <Link className="co-type-body color--tertiary" to='/'> Go to homepage</Link>
+          <div className="home-page page-common page-register fill--pond flx flx-col flx-just-start">
+            <div className="koi-view ta-left flx flx-col pdding-top-lg">
+                <div className="register-msg">
+                  <div className="koi-big-header mrgn-bottom-md color--utsuri opa-30">Oops</div>
+                  <div className="co-post-title mrgn-bottom-md color--black">
+                    Sorry, this invite was sent to a different user.
+                  </div>
+                  <Link className="text-hover color--seaweed mrgn-top-sm" to='/'>Go to homepage</Link>
+                </div>
+              </div>
           </div>
         )
     }
     // else this is a project invite error
     else {
       return (
-       <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
-          <div className="co-logo large-logo mrgn-bottom-lg mrgn-top-md">
-            <img className="center-img" src="/img/logomark.png"/>
+          <div className="home-page page-common page-register fill--pond flx flx-col flx-just-start">
+            <div className="koi-view ta-left flx flx-col pdding-top-lg">
+                <div className="register-msg">
+                  <div className="koi-big-header mrgn-bottom-md color--utsuri opa-30">Oops</div>
+                  <div className="co-post-title mrgn-bottom-md color--black">
+                    Sorry, we couldn't find this invite.
+                  </div>
+                  <Link className="text-hover color--seaweed mrgn-top-sm" to='/'>Go to homepage</Link>
+                </div>
+              </div>
           </div>
-          <div className="mrgn-bottom-md color--white co-type-body">Sorry, we couldn't find this invite.
-          </div>
-          <Link className="co-type-body color--tertiary" to='/'> Go to homepage</Link>
-
-        </div>
       )
     }
   }

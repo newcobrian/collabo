@@ -605,6 +605,9 @@ width: 32px;
 .brdr-left--02 {
   border-left: 1px solid rgba(0,0,0,.2) !important;
 }
+.brdr-none  {
+  border: none !important;
+}
 
 /* OPACITY */
 
