@@ -109,3 +109,23 @@
   /*display: none;*/
   padding-left: 40px;
 }
+
+.comment-input__suggestions {
+  color: #285A00;
+    padding: 0;
+    border: 1px solid rgba(0,0,0,.1);
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(0,0,0,.1);
+}
+.comment-input__suggestions__item {
+  padding: 6px 8px !important;
+}
+.comment-input__suggestions__item.comment-input__suggestions__item--focused {
+  background: #285A00;
+  color: white;
+}
+
+
+
+
+
