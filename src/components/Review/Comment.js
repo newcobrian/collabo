@@ -85,7 +85,7 @@ class Comment extends React.Component {
       fn: (key, result) => {
         return (
           <span key={key}>
-          <Link className="color--primary" to={`/${orgURL}/user/${result[1]}`}>@{result[1]}</Link>{result[2]}
+          <Link className="color--seaweed" to={`/${orgURL}/user/${result[1]}`}>@{result[1]}</Link>{result[2]}
         </span>
         );
       }
