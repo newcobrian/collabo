@@ -1,7 +1,7 @@
 .threadlist {
 	padding: 20px;
 	z-index: 1;
-	background-color: #F4F9FB;
+	/*background-color: #F4F9FB;*/
 }
 .open-style .threadlist-wrapper {
 }
@@ -19,8 +19,7 @@
 }
 
 .threadlist.threadlist-loading {
-	padding: 180px;
-	min-height: 720px;
+	padding: 100px 180px;
 }
 .threadlist-wrapper {
 	margin: 0;
@@ -28,6 +27,7 @@
 	z-index: 1;
 	padding-bottom: 200px;
 	min-width: 200px;
+	min-height: 1000px;
 }
 .threadlist-wrapper > div {
 	width: 100%;
@@ -39,6 +39,10 @@
 	position: relative;
 	padding: 0 12px;
 }
+.tp-wrapper.tp-preview-full {
+	padding: 0!important;
+}
+
 .tp-full .tp-wrapper {
 	position: relative !important;
 }
@@ -61,8 +65,9 @@
 .tp-preview-full .tp-container {
 	max-height: 460px;
 	margin-bottom: 0;
+	padding: 12px 0 !important;
 }
-.tp-full .thread-view {
+.page-thread .thread-view {
 	margin-top: 80px;
 }
 .hidden-comments {
@@ -71,7 +76,7 @@
 }
 
 .thread-body {
-	padding: 12px 0;
+	padding: 0;
 	width: 100%;
 }
 
@@ -97,5 +102,13 @@
 .ql-editor {
 	line-height: unset;
 }
-
+.threadmodal-header {
+	position: fixed;
+	top: 0; right: 0; left: 0;
+	height: 60px;
+	z-index: 2;
+}
+.dialog--save__body .thread-body {
+	margin-top: 60px;
+}
 

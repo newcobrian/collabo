@@ -520,6 +520,9 @@ width: 32px;
   cursor: pointer;
 }
 
+.link-pointer {
+  cursor: pointer;
+}
 
 /******
 ******
@@ -604,6 +607,9 @@ width: 32px;
 }
 .brdr-left--02 {
   border-left: 1px solid rgba(0,0,0,.2) !important;
+}
+.brdr-none  {
+  border: none !important;
 }
 
 /* OPACITY */
@@ -817,7 +823,7 @@ width: 32px;
 }
 
 .profile-page .user-info {
-  background: white;
+  background: transparent;
   padding: 20px 0;
 }
 .profile-page .user-info .user-img {

@@ -56,7 +56,7 @@ class ProjectInviteModal extends React.Component {
       />,
       <FlatButton
         label="Invite"
-        className="vb vb--outline-none fill--secondary color--white"
+        className="vb vb--outline-none fill--seaweed color--white"
         onClick={handleInvite}
         style={{}}
         labelStyle={{}}
@@ -75,7 +75,7 @@ class ProjectInviteModal extends React.Component {
           // lockToContainerEdges={true}
           modal={false}
           
-          title={'Add Members to List: ' + this.props.project.name}
+          title={'Add Mdfsers to List: ' + this.props.project.name}
 
           titleClassName="co-type-h3 color--black"
           titleStyle={{}}

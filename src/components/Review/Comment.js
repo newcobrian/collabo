@@ -23,8 +23,8 @@ const NestedCommentContainer = props => {
     else {
       return (
       <div className="comment-indent">
-        <div className="hidden-comments flx flx-col flx-align-center fill--white koi-type-body koi-type-bold">
-          <div className="opa-40">{ numComments + ' ' + (numComments > 1 ? ' replies' : ' reply') }</div>
+        <div className="hidden-comments flx flx-col flx-align-center fill--white koi-type-body koi-type-bold color--utsuri">
+          <div className="opa-30">{ numComments + ' ' + (numComments > 1 ? ' replies' : ' reply') }</div>
         </div>
       </div>
       )
@@ -98,7 +98,7 @@ class Comment extends React.Component {
       fn: (key, result) => {
         return (
           <span key={key}>
-          <Link className="color--primary" to={`/${orgURL}/user/${result[1]}`}>@{result[1]}</Link>{result[2]}
+          <Link className="color--seaweed" to={`/${orgURL}/user/${result[1]}`}>@{result[1]}</Link>{result[2]}
         </span>
         );
       }
@@ -150,7 +150,7 @@ class Comment extends React.Component {
       return (
         <div className="comment-indent inline-comments flx flx-col flx-align-center" id={'comment' + comment.id}>
           <div className="comment-bg w-100">
-          <div className="comment-inner fill--white w-100">
+          <div className="comment-inner fill--white w-100 bx-shadow">
             <div className="comment-inner-inner flx flx-col flx-just-start w-100">
               <div className="flx flx-row flx-just-start flx-align-center w-100">
                 <Link

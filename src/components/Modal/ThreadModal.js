@@ -10,6 +10,7 @@ import FlatButton from 'material-ui/FlatButton';
 import ThreadBody from './../ThreadBody'
 import LoadingSpinner from './../LoadingSpinner'
 
+
 const mapStateToProps = state => ({
   ...state.modal,
   ...state.thread,
@@ -33,6 +34,7 @@ const mapDispatchToProps = {
   hideModal: Actions.hideModal,
   unloadThreadModal: Actions.unloadThreadModal
 }
+
 
 class ThreadModal extends React.Component {
   constructor() {
@@ -89,6 +91,7 @@ class ThreadModal extends React.Component {
       window.history.pushState( {} , null, '/' + this.props.org.url );
       this.props.hideModal();
     }
+    const { classes } = this.props;
 
     const actions = [
       <FlatButton
@@ -116,7 +119,7 @@ class ThreadModal extends React.Component {
       return (
         <MuiThemeProvider muiTheme={getMuiTheme()}>
           <Dialog
-            fullScreen={false}
+            fullScreen={true}
             actions={actions}
             open={(this.props.modalType === Constants.THREAD_MODAL) ? true : false}
             autoScrollBodyContent={false}
@@ -143,10 +146,15 @@ class ThreadModal extends React.Component {
             bodyClassName="dialog--save__body"
             bodyStyle={{padding: "0px"}}
 
-            actionsContainerClassName="dialog--save__actions fill--pond"
+            actionsContainerClassName="dialog--save__actions fill--pond DN"
             actionsContainerStyle={{}}
           >
-         
+            <div className="threadmodal-header w-100 fill--white flx flx-row flx-align-center brdr-bottom pdding-all-sm pdding-right-md">
+              <div onClick={handleClose} className="koi-icon-wrapper color--utsuri flx-item-right link-pointer">
+                <img className="center-img" src="/img/icon-close.png"/>
+              </div>
+            </div>
+
             <ThreadBody
               authenticated={authenticated}
               org={org}

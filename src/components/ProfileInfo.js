@@ -43,7 +43,7 @@ const ProfileInfo = props => {
 
           <div className="profile-info flx flx-col flx-align-center mrgn-bottom-xs">
             <div className="flx flx-col flx-align-center">
-              <ProfilePic src={profile.image} className="user-img" />
+              <ProfilePic src={profile.image} className="center-img" />
             </div>
 
             <div className="co-type-page-title mrgn-top-sm">{profile.username}</div>

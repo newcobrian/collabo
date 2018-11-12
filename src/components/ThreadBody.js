@@ -52,7 +52,7 @@ const BodySection = props => {
           <div className="w-auto thread-timestamp color--secondary">
             <Link onClick={props.saveBody(props.thread)}>Save</Link>
           </div>
-        </div>
+        </div> 
       </div>
     )
   }
@@ -115,11 +115,11 @@ const ThreadBody = props => {
       orgMembers, orgUserData, bodyText, likes } = props
 
     return (
-      <div className={"thread-body tp-full left-text flx flx-col flx-align-center fill--mist"}>
+      <div className={"thread-body tp-page left-text flx flx-col flx-align-center"}>
           <div className="thread-view w-100">
             <div className={"tp-wrapper flx flx-row flx-m-col"}>   
               <div className="tp-container b--primary--10 flx flx-col flx-align-start">   
-                <div className="thread-row-wrapper brdr-right flx flx-row">
+                <div className="thread-row-wrapper flx flx-row">
                   <div className="thread-content-wrapper w-100">
                     <div className="co-type-thread-title color--black mrgn-bottom-xs">{thread.title}</div>
                     <div className="flx flx-row w-100 flx-align-center mrgn-bottom-xs">
@@ -173,7 +173,7 @@ const ThreadBody = props => {
             </div>
 
 
-              <div className="comment-row-wrapper flx flx-row" id='guidecommentcontainer' name='guidecommentcontainer'>
+              <div className="comment-row-wrapper brdr-left flx flx-row" id='guidecommentcontainer' name='guidecommentcontainer'>
                 <div className="co-thread-reply-wrapper">
                   <CommentContainer
                     authenticated={authenticated}

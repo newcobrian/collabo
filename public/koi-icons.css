@@ -1,6 +1,7 @@
 /* ICONS */
 
-.co-icon-wrapper {
+.co-icon-wrapper,
+.koi-icon-wrapper {
 	width: 32px;
 	height: 32px;
 }
@@ -147,4 +148,8 @@
 }
 .koi-ico.--36.ico--add--primary {
 	background-image: url(img/icon36_add_primary.png);
+}
+.lock-wrapper {
+	width: 12px;
+	height: 20px;
 }

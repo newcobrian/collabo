@@ -6,6 +6,7 @@ import DisplayTimestamp from './DisplayTimestamp';
 import LikeReviewButton from './LikeReviewButton';
 import ProfilePic from './ProfilePic';
 
+
 // const UpdateSection = props => {
 //   if (!props.thread) return null
 //   else if (props.thread.lastUpdate === Constants.NEW_THREAD_TYPE) {
@@ -68,13 +69,80 @@ import ProfilePic from './ProfilePic';
 //     )
 // }
 
+var Scroll = require('react-scroll');
+var Element = Scroll.Element;
+var linkify = require('linkify-it')();
+
+const UpdateSection = props => {
+  if (!props.thread) return null
+  else if (props.thread.lastUpdate === Constants.NEW_THREAD_TYPE) {
+    return (
+      <div className="mrgn-right-xs opa-80 color--black">
+        created a new thread.
+      </div>
+    )
+  } 
+  else if (props.thread.lastUpdate === Constants.EDIT_THREAD_TYPE) {
+    return (
+      <div className="mrgn-right-xs opa-80 color--black">
+        edited the post. 
+      </div>
+    )
+  }
+  else if (props.thread.lastUpdate === Constants.COMMENT_TYPE) {
+    return (
+      <div className="mrgn-right-xs opa-80 color--black">
+        added a comment
+      </div>
+    )
+  }
+  else return null;
+}
+
+const UpdateIcon = props => {
+  if (!props.thread) return null
+  else if (props.thread.lastUpdate === Constants.NEW_THREAD_TYPE) {
+    return (
+      <div className="co-icon-wrapper flx flx-center-all">
+        <img className="center-img" src="/img/icon_post.png"/>
+        {/**<div className="feed-gem circle"></div>**/}
+        {/**<i className="material-icons color--primary md-24">assignment</i>**/}
+      </div>
+    )
+  }
+  else if (props.thread.lastUpdate === Constants.EDIT_THREAD_TYPE) {
+    return (
+      <div className="co-icon-wrapper flx flx-center-all">
+        <img className="center-img" src="/img/icon_edit.png"/>
+        {/**<div className="feed-gem square"></div>**/}
+        {/**<i className="material-icons color--primary md-24">edit</i>**/}
+      </div>
+    )
+  }
+  else if (props.thread.lastUpdate === Constants.COMMENT_TYPE) {
+    return (
+      <div className="co-icon-wrapper flx flx-center-all">
+        <img className="center-img" src="/img/icon_comment.png"/>
+        {/**<div className="feed-gem diamond"></div>**/}
+        {/**<i className="material-icons color--primary md-24">comment</i>**/}
+      </div>
+    )
+  }
+  else return (
+    <div className="co-icon-wrapper flx flx-center-all">
+      <div className="feed-gem"></div>
+    </div>
+    )
+}
+
+
 const ProjectLabel = props => {
   if (!props.projectId || !props.projectNames) {
     return null
   }
   else return (
-    <div className="co-project-name mrgn-left-xs">
-      <Link className="text-hover color--black" to={'/' + props.orgURL + '/' + props.projectId}>
+    <div className="koi-project-name">
+      <Link className="text-hover color--black koi-type-bold" to={'/' + props.orgURL + '/' + props.projectId}>
         {props.projectNames[props.projectId] ? props.projectNames[props.projectId].name : ''}
       </Link>
     </div> 
@@ -125,9 +193,9 @@ class ThreadPreviewFull extends React.Component {
 
     return (
       <div className="flx flx-col flx-align-center w-100">
-      <div className="tp-wrapper tp-full flx flx-row flx-m-col w-100">
+      <div className="tp-wrapper tp-preview-full tp-full flx flx-row flx-m-col w-100">
           
-          <div className="tp-container ql-editor flx flx-col flx-align-start">           
+          <div className="tp-container ql-editor flx flx-col flx-align-start bx-shadow">           
             
             <div className="thread-row-wrapper flx flx-row">
               <div className="thread-content-wrapper w-100">
@@ -154,15 +222,16 @@ class ThreadPreviewFull extends React.Component {
                   <Link to={'/' + org.url + '/user/' + createdBy.username} className="thread-creator-image flx-hold mrgn-right-sm flx flx-row mrgn-right-sm">
                     <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
                   </Link>
-                  <div className="flx flx-col">
-                    <Link className="color--black co-type-thread-title mrgn-bottom-xs" onClick={this.openThread} >
+                  <div className="flx flx-col w-100">
+                    <div className="color--black thread-timestamp flx flx-row flx-align-center mrgn-bottom-xs w-100 opa-90">
+                      <ProjectLabel className="color--black koi-type-bold" projectNames={projectNames} projectId={thread.projectId} orgURL={org.url} />&nbsp;&#xb7;&nbsp;
+                      <div><Link to={'/' + org.url + '/user/' + createdBy.username} className="text-hover color--black">{createdBy.username}</Link></div>
+                      <div className="flx-item-right opa-80"><DisplayTimestamp timestamp={thread.lastModified} /></div>
+                    </div>
+                    <Link className="color--black co-type-thread-title mrgn-bottom-xs text-hover" onClick={this.openThread} >
                     {/*<Link className="color--black" to={'/' + org.url + '/' + thread.projectId + '/' + thread.threadId }>*/}
                           {thread.title}
                     </Link>
-                    <div className="color--black thread-timestamp flx flx-row flx-align-center mrgn-bottom-xs">
-                      <div><Link to={'/' + org.url + '/user/' + createdBy.username} className="text-hover color--black">{createdBy.username}</Link>&nbsp;&#xb7;&nbsp;</div>
-                      <ProjectLabel className="color--black" projectNames={projectNames} projectId={thread.projectId} orgURL={org.url} />&nbsp;&#xb7;&nbsp;<DisplayTimestamp timestamp={thread.lastModified} /> 
-                    </div>
                   </div>
                 </div>
                 {/*<div className="co-type-thread-body DN" dangerouslySetInnerHTML={{ __html: thread.body || '' }}></div>*/}
@@ -188,9 +257,9 @@ class ThreadPreviewFull extends React.Component {
                 
 
             </div>
-            <Link onClick={this.openThread} className="show-all-button fill--white co-type-body co-type-bold color--black ta-center">
+            <Link onClick={this.openThread} className="show-all-button fill--white co-type-body co-type-bold color--utsuri ta-center">
               {/*to={`/${orgName}/${projectId}/${thread.threadId}`}*/}
-              <span className="opa-40">Show full post</span>
+              <span className="opa-30">Show full post</span>
             </Link>
           </div>
 
@@ -210,7 +279,7 @@ class ThreadPreviewFull extends React.Component {
 
           <div className="comment-row-wrapper flx flx-col">
             
-            <Link onClick={this.openThread} className="discussion-info color--black thread-timestamp flx flx-row flx-align-center w-100">
+            <Link onClick={this.openThread} className="discussion-info color--utsuri thread-timestamp flx flx-row flx-align-center w-100 opa-30">
               {/*<div>3 New&nbsp;&#xb7;&nbsp;</div>*/}
               <div>{this.props.thread.commentsCount} Total Replies&nbsp;&#xb7;&nbsp;</div>
               <div>8 Participants</div>

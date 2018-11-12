@@ -55,6 +55,7 @@
     padding: 0;
     height: 120px;
     border: 2px solid rgba(40, 90, 0, .3);
+    border: 3px solid rgba(40, 90, 0, .4);
 }
 
 .comment-indent {
@@ -90,7 +91,7 @@
 .tp-wrapper .comment-inner {
   /*border-left: none;*/
   background-color: white;
-  padding: 16px;
+  padding: 12px 16px 8px;
   margin-bottom: 4px;
 /*  border-left-width: 4px !important;
   border-left-color: rgba(255,171,140,.8) !important;*/
@@ -109,3 +110,23 @@
   /*display: none;*/
   padding-left: 40px;
 }
+
+.comment-input__suggestions {
+  color: #285A00;
+    padding: 0;
+    border: 1px solid rgba(0,0,0,.1);
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(0,0,0,.1);
+}
+.comment-input__suggestions__item {
+  padding: 6px 8px !important;
+}
+.comment-input__suggestions__item.comment-input__suggestions__item--focused {
+  background: #285A00;
+  color: white;
+}
+
+
+
+
+

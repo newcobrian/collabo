@@ -87,7 +87,7 @@ class CommentInput extends React.Component {
               rows="2"
               cols="2"
               wrap="hard"
-              placeholder="Add comment..."
+              placeholder="Reply..."
               value={this.state.body} 
               onChange={this.setBody}
               displayTransform={id => `@${id}`}

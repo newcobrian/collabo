@@ -12,12 +12,12 @@ const ActivityList = props => {
   }
   else if (!props.activity) {
     return (
-      <div className="threadlist threadlist-loading header-push w-100 flx flx-col flx-center-all ta-center h-100 fill--white color--primary">
-        <div className="loading-koi mrgn-bottom-md">
-          <img className="center-img" src="/img/logomark.png"/>
+      <div className="threadlist threadlist-loading w-100 flx flx-col flx-center-all ta-center h-100 fill--white color--black">
+          <div className="loading-koi mrgn-bottom-md">
+            <img className="center-img" src="/img/loading-graphic.png"/>
+          </div>
+          <div className="w-100 ta-center co-type-body">Loading activity...</div>
         </div>
-        <div className="w-100 ta-center co-type-body">Loading user activity...</div>
-      </div>
     );
   }
 

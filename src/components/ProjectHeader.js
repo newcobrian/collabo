@@ -42,7 +42,8 @@ const ProjectHeader = props => {
               <div className="koi-button-fancy-inner">
               </div>
               <div className="koi-button-fancy-text color--seaweed">
-                Compose Thread
+                <div className="mobile-hide">Compose Thread</div>
+                <div className="mobile-show">New</div>
               </div>
           </Link>
 
@@ -73,7 +74,8 @@ const ProjectHeader = props => {
               <div className="koi-button-fancy-inner">
               </div>
               <div className="koi-button-fancy-text color--seaweed">
-                Compose Thread
+                <div className="mobile-hide">Compose Thread</div>
+                <div className="mobile-show">New</div>
               </div>
           </Link>
           

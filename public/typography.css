@@ -169,13 +169,12 @@ textarea {
 
 
 .co-sidebar ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: #3DCBF3 !important; /*DARK BLUE*/
-  color: #97B4FF !important; /*DARK BLUE*/
   color: rgba(0,0,0,.3) !important; /*DARK BLUE*/
+  color: rgba(30,33,63,.3) !important;
   opacity: 1;
   font-weight: 400;
-  font-size: 16px;
-  letter-spacing: 1.2px;
+  font-size: 14px;
+  letter-spacing: .2px;
   font-family: 'Karla';
 }
 

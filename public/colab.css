@@ -243,6 +243,7 @@ textarea {
 .org-selector {
 	width: 320px;
 	z-index: 10;
+	font-weight: 700;
 }
 .org-arrow {
 	position: absolute;
@@ -334,7 +335,6 @@ textarea {
 .sidebar-icon {
 	width: 24px; 
 	height: 24px;
-	margin-right: 20px;
 }
 .sidebar-icon--large { 
 	width: 36px;
@@ -467,6 +467,9 @@ textarea {
 	/*background-color: rgba(101,212,236,.1);*/
 }
 .sidebar-row.group-row.search-row input {
+}
+.sidebar-row.group-row.search-row .sidebar-icon {
+	margin-right: 16px;
 }
 
 .sidebar-row.active .co-type-label,
@@ -756,7 +759,7 @@ textarea {
 .infinite-loader {
 	display: inline-block;
     width: 100%;
-    padding: 20px 20px 40px;
+    padding: 120px 20px 40px;
     height: auto;
 }
 .ql-editor li.ql-indent-1:not(.ql-direction-rtl) {

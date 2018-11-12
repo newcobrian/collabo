@@ -78,7 +78,7 @@ class Home extends React.Component {
             
             <div className="dash-left-wrapper fill--pond w-100">
               <div className="dash-inner flx flx-col flx-just-start fill--pond w-100">
-                <div className="flx flx-row flx-align-center w-100">
+                <div className="flx flx-row flx-align-center w-100 flx-hold">
                   <div className="dash-logo mobile-show mrgn-right-md flx-hold">
                     <img className="center-img" src="/img/koi-logo_a.png"/>
                   </div>
