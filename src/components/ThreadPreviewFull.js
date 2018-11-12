@@ -195,7 +195,7 @@ class ThreadPreviewFull extends React.Component {
       <div className="flx flx-col flx-align-center w-100">
       <div className="tp-wrapper tp-preview-full tp-full flx flx-row flx-m-col w-100">
           
-          <div className="tp-container ql-editor flx flx-col flx-align-start">           
+          <div className="tp-container ql-editor flx flx-col flx-align-start bx-shadow">           
             
             <div className="thread-row-wrapper flx flx-row">
               <div className="thread-content-wrapper w-100">
@@ -223,12 +223,12 @@ class ThreadPreviewFull extends React.Component {
                     <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
                   </Link>
                   <div className="flx flx-col w-100">
-                    <div className="color--black thread-timestamp flx flx-row flx-align-center mrgn-bottom-xs w-100">
+                    <div className="color--black thread-timestamp flx flx-row flx-align-center mrgn-bottom-xs w-100 opa-90">
                       <ProjectLabel className="color--black koi-type-bold" projectNames={projectNames} projectId={thread.projectId} orgURL={org.url} />&nbsp;&#xb7;&nbsp;
                       <div><Link to={'/' + org.url + '/user/' + createdBy.username} className="text-hover color--black">{createdBy.username}</Link></div>
-                      <div className="flx-item-right"><DisplayTimestamp timestamp={thread.lastModified} /></div>
+                      <div className="flx-item-right opa-80"><DisplayTimestamp timestamp={thread.lastModified} /></div>
                     </div>
-                    <Link className="color--black co-type-thread-title mrgn-bottom-xs" onClick={this.openThread} >
+                    <Link className="color--black co-type-thread-title mrgn-bottom-xs text-hover" onClick={this.openThread} >
                     {/*<Link className="color--black" to={'/' + org.url + '/' + thread.projectId + '/' + thread.threadId }>*/}
                           {thread.title}
                     </Link>

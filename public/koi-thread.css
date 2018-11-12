@@ -65,6 +65,7 @@
 .tp-preview-full .tp-container {
 	max-height: 460px;
 	margin-bottom: 0;
+	padding: 12px 0 !important;
 }
 .page-thread .thread-view {
 	margin-top: 80px;
