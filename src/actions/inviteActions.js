@@ -311,7 +311,7 @@ export function enterEmail(email) {
       // if email address already belongs to a user tell them
       if (snap.exists()) {
         dispatch({
-          type: ActionTypes.INVALID_EMAIL_CODE
+          type: ActionTypes.EMAIL_ADDRESS_TAKEN
         })
       }
       else {
