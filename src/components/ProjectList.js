@@ -140,6 +140,8 @@ class ProjectList extends React.Component {
               {/*<div className="koi-ico --24 ico--allupdates--primary"></div>*/}
               <div className="sidebar-dot fill--tertiary--10"></div>
             </div>
+            <div className="lock-wrapper flx flx-center-all mrgn-right-xs">
+            </div>
             <div className="sidebar-project-name color--black"> 
               All Threads
             </div>
@@ -153,7 +155,11 @@ class ProjectList extends React.Component {
                     <Link className={"sidebar-row group-row flx flx-row flx-align-center " + (this.props.projectId === projectItem.id ? 'active' : '')} key={projectItem.id} to={'/' + org.url + '/' + projectItem.id}>
                       <div className="sidebar-icon flx flx-center-all">
                         {<DotJewel threadCount={threadCounts[projectItem.id]} />}
-                      </div> 
+                      </div>
+                      <div className="lock-wrapper flx flx-center-all mrgn-right-xs">
+                        <img className="center-img" src="/img/lock-icon.png"/>
+                      </div>
+
                       <div className="sidebar-project-name color--black">
                         {projectName}
                       </div>
@@ -166,6 +172,8 @@ class ProjectList extends React.Component {
             <Link to={'/' + org.url + '/createGroup'} className="sidebar-row group-row flx flx-row flx-align-center mrgn-top-sm">
               <div className="sidebar-icon flx flx-center-all">
                 <div className="koi-ico --24 ico--add ico-color--seaweed"></div> 
+              </div>
+              <div className="lock-wrapper flx flx-center-all mrgn-right-xs">
               </div>
               <div className="sidebar-project-name color--seaweed co-type-bold"> 
                 Add Group
