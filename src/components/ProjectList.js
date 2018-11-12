@@ -86,7 +86,7 @@ class ProjectList extends React.Component {
     let inboxCount = this.props.unreadMessages && this.props.unreadMessages[this.props.org.id] ? this.props.unreadMessages[this.props.org.id] : 0
 
     return (
-      <div className="co-sidebar flx-col flx-item-left h-100">
+      <div className="co-sidebar flx-col flx-item-left h-100 fill--mist">
 
         <div className="org-row org-row-selector flx flx-row flx-align-center">
           {/*<Link to='/'  className="co-logo flx-hold">

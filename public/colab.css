@@ -468,6 +468,9 @@ textarea {
 }
 .sidebar-row.group-row.search-row input {
 }
+.sidebar-row.group-row.search-row .sidebar-icon {
+	margin-right: 16px;
+}
 
 .sidebar-row.active .co-type-label,
 .sidebar-row.active .material-icons {
