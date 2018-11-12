@@ -1075,6 +1075,12 @@ body .back-to-top {
 .project-header {
   right: 0 !Important;
 }
+.project-header-row {
+    margin-left: 12px;
+}
+.project-header-text {
+    font-size: 16px;
+}
 
 .tip__caption {
 }

@@ -222,11 +222,11 @@ class ThreadPreviewFull extends React.Component {
                   <Link to={'/' + org.url + '/user/' + createdBy.username} className="thread-creator-image flx-hold mrgn-right-sm flx flx-row mrgn-right-sm">
                     <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
                   </Link>
-                  <div className="flx flx-col">
-                    <div className="color--black thread-timestamp flx flx-row flx-align-center mrgn-bottom-xs">
+                  <div className="flx flx-col w-100">
+                    <div className="color--black thread-timestamp flx flx-row flx-align-center mrgn-bottom-xs w-100">
                       <ProjectLabel className="color--black koi-type-bold" projectNames={projectNames} projectId={thread.projectId} orgURL={org.url} />&nbsp;&#xb7;&nbsp;
-                      <div><Link to={'/' + org.url + '/user/' + createdBy.username} className="text-hover color--black">{createdBy.username}</Link>&nbsp;&#xb7;&nbsp;</div>
-                      <DisplayTimestamp timestamp={thread.lastModified} /> 
+                      <div><Link to={'/' + org.url + '/user/' + createdBy.username} className="text-hover color--black">{createdBy.username}</Link></div>
+                      <div className="flx-item-right"><DisplayTimestamp timestamp={thread.lastModified} /></div>
                     </div>
                     <Link className="color--black co-type-thread-title mrgn-bottom-xs" onClick={this.openThread} >
                     {/*<Link className="color--black" to={'/' + org.url + '/' + thread.projectId + '/' + thread.threadId }>*/}
@@ -257,9 +257,9 @@ class ThreadPreviewFull extends React.Component {
                 
 
             </div>
-            <Link onClick={this.openThread} className="show-all-button fill--white co-type-body co-type-bold color--black ta-center">
+            <Link onClick={this.openThread} className="show-all-button fill--white co-type-body co-type-bold color--utsuri ta-center">
               {/*to={`/${orgName}/${projectId}/${thread.threadId}`}*/}
-              <span className="opa-40">Show full post</span>
+              <span className="opa-30">Show full post</span>
             </Link>
           </div>
 
@@ -279,7 +279,7 @@ class ThreadPreviewFull extends React.Component {
 
           <div className="comment-row-wrapper flx flx-col">
             
-            <Link onClick={this.openThread} className="discussion-info color--black thread-timestamp flx flx-row flx-align-center w-100">
+            <Link onClick={this.openThread} className="discussion-info color--utsuri thread-timestamp flx flx-row flx-align-center w-100 opa-30">
               {/*<div>3 New&nbsp;&#xb7;&nbsp;</div>*/}
               <div>{this.props.thread.commentsCount} Total Replies&nbsp;&#xb7;&nbsp;</div>
               <div>8 Participants</div>

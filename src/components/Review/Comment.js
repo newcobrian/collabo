@@ -22,8 +22,8 @@ const NestedCommentContainer = props => {
     else {
       return (
       <div className="comment-indent">
-        <div className="hidden-comments flx flx-col flx-align-center fill--white koi-type-body koi-type-bold">
-          <div className="opa-40">{ numComments + ' ' + (numComments > 1 ? ' replies' : ' reply') }</div>
+        <div className="hidden-comments flx flx-col flx-align-center fill--white koi-type-body koi-type-bold color--utsuri">
+          <div className="opa-30">{ numComments + ' ' + (numComments > 1 ? ' replies' : ' reply') }</div>
         </div>
       </div>
       )
@@ -127,7 +127,7 @@ class Comment extends React.Component {
                   {commenter.username}
                 </Link>
               </div>
-              <div className="thread-timestamp inline-block flx flx-row flx-item-right">
+              <div className="thread-timestamp inline-block flx flx-row flx-item-right color--utsuri">
                 <DisplayTimestamp timestamp={comment.lastModified} />
               </div>
             </div>
