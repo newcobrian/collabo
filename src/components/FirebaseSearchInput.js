@@ -234,8 +234,8 @@ class FirebaseSearchInput extends Component {
             fontWeight: '400',
             lineHeight: '14px',
             fontSize: '14px',
-            letterSpacing: '1.2px',
-            fontFamily: 'Montserrat',
+            letterSpacing: '.2px',
+            fontFamily: 'Karla',
             paddingLeft: '0px',
             color: 'white'
           }}

@@ -141,8 +141,8 @@ const ProjectLabel = props => {
     return null
   }
   else return (
-    <div className="co-project-name mrgn-left-xs">
-      <Link className="text-hover color--black" to={'/' + props.orgURL + '/' + props.projectId}>
+    <div className="co-project-name">
+      <Link className="text-hover color--black koi-type-bold" to={'/' + props.orgURL + '/' + props.projectId}>
         {props.projectNames[props.projectId] ? props.projectNames[props.projectId].name : ''}
       </Link>
     </div> 
@@ -223,14 +223,15 @@ class ThreadPreviewFull extends React.Component {
                     <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
                   </Link>
                   <div className="flx flx-col">
+                    <div className="color--black thread-timestamp flx flx-row flx-align-center mrgn-bottom-xs">
+                      <ProjectLabel className="color--black koi-type-bold" projectNames={projectNames} projectId={thread.projectId} orgURL={org.url} />&nbsp;&#xb7;&nbsp;
+                      <div><Link to={'/' + org.url + '/user/' + createdBy.username} className="text-hover color--black">{createdBy.username}</Link>&nbsp;&#xb7;&nbsp;</div>
+                      <DisplayTimestamp timestamp={thread.lastModified} /> 
+                    </div>
                     <Link className="color--black co-type-thread-title mrgn-bottom-xs" onClick={this.openThread} >
                     {/*<Link className="color--black" to={'/' + org.url + '/' + thread.projectId + '/' + thread.threadId }>*/}
                           {thread.title}
                     </Link>
-                    <div className="color--black thread-timestamp flx flx-row flx-align-center mrgn-bottom-xs">
-                      <div><Link to={'/' + org.url + '/user/' + createdBy.username} className="text-hover color--black">{createdBy.username}</Link>&nbsp;&#xb7;&nbsp;</div>
-                      <ProjectLabel className="color--black" projectNames={projectNames} projectId={thread.projectId} orgURL={org.url} />&nbsp;&#xb7;&nbsp;<DisplayTimestamp timestamp={thread.lastModified} /> 
-                    </div>
                   </div>
                 </div>
                 {/*<div className="co-type-thread-body DN" dangerouslySetInnerHTML={{ __html: thread.body || '' }}></div>*/}

@@ -1,7 +1,7 @@
 .threadlist {
 	padding: 20px;
 	z-index: 1;
-	background-color: #F4F9FB;
+	/*background-color: #F4F9FB;*/
 }
 .open-style .threadlist-wrapper {
 }
@@ -19,8 +19,7 @@
 }
 
 .threadlist.threadlist-loading {
-	padding: 180px;
-	min-height: 720px;
+	padding: 100px 180px;
 }
 .threadlist-wrapper {
 	margin: 0;

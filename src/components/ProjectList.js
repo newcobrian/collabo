@@ -117,7 +117,7 @@ class ProjectList extends React.Component {
               type={Constants.POSTS_SEARCH}
               callback={this.searchInputCallback}
               orgURL={org.url}
-              className={"color--black"}
+              className={"color--black koi-type-body"}
               placeholder="Search" />
           </div>
 
