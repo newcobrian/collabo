@@ -153,7 +153,7 @@ class Project extends React.Component {
 
 
       let lowerCaseOrgURL = nextProps.params.orgurl ? nextProps.params.orgurl.toLowerCase() : ''
-      Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + lowerCaseOrgURL).once('value', orgSnap => {
+      Firebase.database().ref(Constants.ORGS_BY_URL_PATH + '/' + lowerCaseOrgURL).once('value', orgSnap => {
         if (!orgSnap.exists()) {
           this.props.notAnOrgUserError(Constants.PROJECT_PAGE)
         }

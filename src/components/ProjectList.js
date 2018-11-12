@@ -93,9 +93,9 @@ class ProjectList extends React.Component {
             <img className="center-img" src="/img/icon24_orgsettings_color.png"/>
           </Link>*/}
           <select className="org-selector co-type-org color--utsuri opa-40" onChange={this.onOrgChange}>
-            <option value={org.name}>{org.name}</option>
+            <option value={org.url}>{org.name}</option>
             {(this.props.orgList || []).map((orgItem, index) => {
-              if (orgItem && orgItem.name && org.name && orgItem.name.toLowerCase() !== org.name.toLowerCase()) {
+              if (orgItem && orgItem.name && orgItem.url && org.url && orgItem.url.toLowerCase() !== org.url.toLowerCase()) {
                 return (
                   <option key={index} value={orgItem.url}>{orgItem.name}</option>  
                 )
