@@ -677,6 +677,20 @@ export function getThreadFieldUpdates(threadId, thread, field, value) {
   return updates;
 }
 
+export function onThreadCommentUpdate(auth, thread, body, threadId, project, org, parentId) {
+  return dispatch => {
+    console.log('update thread ' + JSON.stringify(thread))
+    console.log('body = ' + JSON.stringify(body))
+    console.log('threadid = ' + JSON.stringify(threadId))
+    console.log('project = ' + JSON.stringify(project))
+    console.log('org = ' + JSON.stringify(org))
+    console.log('pid = ' + JSON.stringify(parentId))
+    // if no parent ID update comment
+    // else update nested comment
+    // findthreadmentions and notify people
+  }
+}
+
 export function onThreadCommentSubmit(authenticated, type, thread, body, threadId, project, org, parentId) {
   return dispatch => {
     if(!authenticated) {

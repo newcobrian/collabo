@@ -13,11 +13,12 @@ const mapStateToProps = state => ({
 });
 
 class CommentInput extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
     this.state = {
       // body: toContentState('')
-      body: ''
+      body: props.comment ? props.comment.body : ''
     };
     
     this.setBody = ev => {
@@ -32,7 +33,15 @@ class CommentInput extends React.Component {
         let pattern = /\B@[$][|][{][a-z0-9_-]+(\1)[}][|][$]/gi;
         const commentBody = ''.concat(this.state.body.replace(/\B@[$][|][{]([a-z0-9_-]+)[}][|][$]/gi, "@$1"))
         this.setState({ body: '' });
-        this.props.onThreadCommentSubmit(this.props.authenticated, this.props.type, this.props.commentObject, commentBody, this.props.threadId, this.props.project, this.props.org, this.props.parentId);
+
+        // if theres a commentId already, then just update the comment
+        if (this.props.commentId) {
+          this.props.onThreadCommentUpdate(this.props.authenticated, this.props.commentObject, commentBody, this.props.threadId, this.props.project, this.props.org, this.props.parentId);
+        }
+        // otherwise this is a new comment, create it
+        else {
+          this.props.onThreadCommentSubmit(this.props.authenticated, this.props.type, this.props.commentObject, commentBody, this.props.threadId, this.props.project, this.props.org, this.props.parentId);
+        }
 
         // const links = getLinks(commentBody).filter((l) => isGoogleDocLink(l));
         // const ids = [];
@@ -97,13 +106,7 @@ class CommentInput extends React.Component {
 
             <button className="koi-comment-post-button flx-item-right fill--white color--seaweed brdr-color--seaweed" onClick={this.createComment}>
               Post
-              <i className="material-icons color--primary md-18 color--primary DN">send</i>
             </button>
-
-            {/**<ProfilePic src={this.props.userInfo.image} className="user-image user-image-sm center-img" />
-
-            **/}
-
       </form>
 
     );

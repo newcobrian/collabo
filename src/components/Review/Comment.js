@@ -7,6 +7,7 @@ import GoogleDriveLink from './GoogleDriveLink';
 import DisplayTimestamp from './../DisplayTimestamp';
 import LikeReviewButton from './../LikeReviewButton';
 import CommentContainer from './CommentContainer'
+import CommentInput from './CommentInput'
 
 const processString = require('react-process-string');
 
@@ -51,12 +52,24 @@ const NestedCommentContainer = props => {
   }
 }
 
+const EditButton = props => {
+  if (props.show && !props.isEditMode) {
+    return (
+      <Link onClick={props.onEditClick}>
+        Edit
+      </Link>
+    )
+  } 
+  else return null
+}
+
 class Comment extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
       isOpenNotification: true,
-      hideCommentInput: true
+      hideCommentInput: true,
+      isEditMode: false
     };
   }
 
@@ -109,94 +122,105 @@ class Comment extends React.Component {
       }
     }]);
 
-    return (
-      <div className="comment-indent inline-comments flx flx-col flx-align-center" id={'comment' + comment.id}>
-        <div className="comment-bg w-100">
-        <div className="comment-inner fill--white w-100">
-          <div className="comment-inner-inner flx flx-col flx-just-start w-100">
-            <div className="flx flx-row flx-just-start flx-align-center w-100">
-              <Link
-                to={`/user/${commenter.username}`}
-                className="mrgn-right-sm">
-                <ProfilePic src={commenter.image} className="user-image user-image-sm center-img" />
-              </Link>
-              <div className="co-type-body flx flx-col flx-just-start mrgn-left-xs">
+    const onEditClick = ev => {
+      ev.preventDefault()
+      this.setState({isEditMode: !this.state.isEditMode})
+    }
+
+    if (this.state.isEditMode) {
+      return (
+        <div>
+          <CommentInput 
+            commentId={comment.id}
+            comment={comment}
+            commentObject={commentObject} 
+            threadId={threadId}
+            authenticated={authenticated} 
+            project={project}
+            org={org}
+            type={Constants.COMMENT_TYPE}
+            usersList={usersList}
+            parentId={parentId} />
+            <Link onClick={onEditClick}>Cancel</Link>
+        </div>
+
+      )
+    }
+    else {
+      return (
+        <div className="comment-indent inline-comments flx flx-col flx-align-center" id={'comment' + comment.id}>
+          <div className="comment-bg w-100">
+          <div className="comment-inner fill--white w-100">
+            <div className="comment-inner-inner flx flx-col flx-just-start w-100">
+              <div className="flx flx-row flx-just-start flx-align-center w-100">
                 <Link
                   to={`/user/${commenter.username}`}
-                  className="co-type-bold color--black">
-                  {commenter.username}
+                  className="mrgn-right-sm">
+                  <ProfilePic src={commenter.image} className="user-image user-image-sm center-img" />
                 </Link>
+                <div className="co-type-body flx flx-col flx-just-start mrgn-left-xs">
+                  <Link
+                    to={`/user/${commenter.username}`}
+                    className="co-type-bold color--black">
+                    {commenter.username}
+                  </Link>
+                </div>
+                <div className="thread-timestamp inline-block flx flx-row flx-item-right">
+                  <DisplayTimestamp timestamp={comment.lastModified} />
+                </div>
               </div>
-              <div className="thread-timestamp inline-block flx flx-row flx-item-right">
-                <DisplayTimestamp timestamp={comment.lastModified} />
+
+              <div className="comment-row color--black opa-90 co-type-body">
+                {/*<ShowMore
+                  lines={3}
+                  more='Show more'
+                  less='Show less'
+                  anchorClass=''
+                >*/}
+                  {processed(comment.body)}
+               {/* </ShowMore>>*/}
               </div>
-            </div>
 
-            <div className="comment-row color--black opa-90 co-type-body">
-              {/*<ShowMore
-                lines={3}
-                more='Show more'
-                less='Show less'
-                anchorClass=''
-              >*/}
-                {processed(comment.body)}
-             {/* </ShowMore>>*/}
-            </div>
+              <div className="cta-wrapper flx flx-row flx-align-center mrgn-top-sm w-100">
+                <div className="koi-ico ico--bookmark mrgn-right-md opa-60 DN"></div>
 
-            <div className="cta-wrapper flx flx-row flx-align-center mrgn-top-sm w-100">
-              <div className="koi-ico ico--bookmark mrgn-right-md opa-60 DN"></div>
-
-              <LikeReviewButton
-                authenticated={authenticated}
-                isLiked={comment.likes && comment.likes[authenticated] ? true : false}
-                likesCount={Object.keys(comment.likes || {}).length}
-                objectId={comment.id}
-                thread={Object.assign({}, thread, {threadId: threadId})}
-                likeObject={parentId ? Object.assign({}, comment, {parentId: parentId}) : comment}
-                type={parentId ? Constants.NESTED_COMMENT_TYPE : Constants.COMMENT_TYPE}
-                org={org} />
-              {!parentId && hideCommentInput && (!comment.nestedComments || comment.nestedComments.lenght > 0) &&
-                <Link className="reply-ico-wrapper flx flx-row flx-center-all mrgn-left-md" onClick={this.toggleHideCommentInput}>
-                  <div className="koi-ico --24 ico--reply mrgn-right-xs opa-60"></div>
-                  <div className="co-type-label color--black ta-left mobile-hide">Reply</div>
-                </Link>}
-              <div className="thread-timestamp inline-block flx flx-row flx-item-right">
-                <DeleteButton
-                  show={show}
-                  commentObject={commentObject}
-                  commentId={comment.id}
-                  deleteComment={deleteComment}
-                  threadId={threadId}
-                  parentId={parentId} />
+                <LikeReviewButton
+                  authenticated={authenticated}
+                  isLiked={comment.likes && comment.likes[authenticated] ? true : false}
+                  likesCount={Object.keys(comment.likes || {}).length}
+                  objectId={comment.id}
+                  thread={Object.assign({}, thread, {threadId: threadId})}
+                  likeObject={parentId ? Object.assign({}, comment, {parentId: parentId}) : comment}
+                  type={parentId ? Constants.NESTED_COMMENT_TYPE : Constants.COMMENT_TYPE}
+                  org={org} />
+                {!parentId && hideCommentInput && (!comment.nestedComments || comment.nestedComments.lenght > 0) &&
+                  <Link className="reply-ico-wrapper flx flx-row flx-center-all mrgn-left-md" onClick={this.toggleHideCommentInput}>
+                    <div className="koi-ico --24 ico--reply mrgn-right-xs opa-60"></div>
+                    <div className="co-type-label color--black ta-left mobile-hide">Reply</div>
+                  </Link>}
+                <div className="thread-timestamp inline-block flx flx-row flx-item-right">
+                  <DeleteButton
+                    show={show}
+                    commentObject={commentObject}
+                    commentId={comment.id}
+                    deleteComment={deleteComment}
+                    threadId={threadId}
+                    parentId={parentId} />
+                </div>
+                <div className="thread-timestamp inline-block flx flx-row flx-item-right">
+                  <EditButton
+                    show={show}
+                    onEditClick={onEditClick} />
+                </div>
               </div>
-            </div>
 
+            </div>
+            {/*
+              isOpenNotification &&
+              <GoogleDriveLink content={comment.body} onClose={this.closeNotification}/>
+            */}
           </div>
-          {/*
-            isOpenNotification &&
-            <GoogleDriveLink content={comment.body} onClose={this.closeNotification}/>
-          */}
-        </div>
-          <NestedCommentContainer
-            authenticated={authenticated}
-            comments={comment.nestedComments || {}}
-            commentObject={thread}
-            threadId={threadId}
-            thread={thread}
-            org={org}
-            project={project}
-            usersList={usersList}
-            orgUserData={orgUserData}
-            type={Constants.COMMENT_TYPE}
-            parentId={parentId}
-            commentId={comment.id}
-            deleteComment={deleteComment}
-            hideCommentInput={hideCommentInput && (!comment.nestedComments || comment.nestedComments.length === 0)}
-            parentId={parentId}
-            isFeed={isFeed} />
-
-          {/* !parentId && 
-            <CommentContainer
+            <NestedCommentContainer
               authenticated={authenticated}
               comments={comment.nestedComments || {}}
               commentObject={thread}
@@ -207,14 +231,34 @@ class Comment extends React.Component {
               usersList={usersList}
               orgUserData={orgUserData}
               type={Constants.COMMENT_TYPE}
-              parentId={comment.id}
+              parentId={parentId}
+              commentId={comment.id}
               deleteComment={deleteComment}
               hideCommentInput={hideCommentInput && (!comment.nestedComments || comment.nestedComments.length === 0)}
-            />
-          */}
-      </div>
-      </div>
-    );
+              parentId={parentId}
+              isFeed={isFeed} />
+
+            {/* !parentId && 
+              <CommentContainer
+                authenticated={authenticated}
+                comments={comment.nestedComments || {}}
+                commentObject={thread}
+                threadId={threadId}
+                thread={thread}
+                org={org}
+                project={project}
+                usersList={usersList}
+                orgUserData={orgUserData}
+                type={Constants.COMMENT_TYPE}
+                parentId={comment.id}
+                deleteComment={deleteComment}
+                hideCommentInput={hideCommentInput && (!comment.nestedComments || comment.nestedComments.length === 0)}
+              />
+            */}
+          </div>
+        </div>
+      );
+    }
   }
 
 };
