@@ -141,7 +141,7 @@ const ProjectLabel = props => {
     return null
   }
   else return (
-    <div className="co-project-name">
+    <div className="koi-project-name">
       <Link className="text-hover color--black koi-type-bold" to={'/' + props.orgURL + '/' + props.projectId}>
         {props.projectNames[props.projectId] ? props.projectNames[props.projectId].name : ''}
       </Link>

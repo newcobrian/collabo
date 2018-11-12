@@ -146,9 +146,14 @@ class ThreadModal extends React.Component {
             bodyClassName="dialog--save__body"
             bodyStyle={{padding: "0px"}}
 
-            actionsContainerClassName="dialog--save__actions fill--pond"
+            actionsContainerClassName="dialog--save__actions fill--pond DN"
             actionsContainerStyle={{}}
           >
+            <div className="threadmodal-header w-100 fill--white flx flx-row flx-align-center brdr-bottom pdding-all-sm pdding-right-md">
+              <div onClick={handleClose} className="koi-icon-wrapper color--utsuri flx-item-right link-pointer">
+                <img className="center-img" src="/img/icon-close.png"/>
+              </div>
+            </div>
 
             <ThreadBody
               authenticated={authenticated}

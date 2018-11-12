@@ -1,6 +1,7 @@
 /* ICONS */
 
-.co-icon-wrapper {
+.co-icon-wrapper,
+.koi-icon-wrapper {
 	width: 32px;
 	height: 32px;
 }

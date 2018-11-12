@@ -178,3 +178,6 @@ p {
 .tp-full .co-type-thread-body {
 	height: auto;
 }
+.thread-content-wrapper .koi-project-name {
+    margin-left: 2px;
+}
