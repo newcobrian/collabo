@@ -300,6 +300,7 @@ class ThreadPreviewFull extends React.Component {
                 orgUserData={orgUserData}
                 type={Constants.THREAD_TYPE}
                 deleteComment={deleteComment}
+                openThread={this.openThread}
                 isFeed={true} />
             </div>
           </div>

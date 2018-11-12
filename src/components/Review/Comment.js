@@ -88,7 +88,7 @@ class Comment extends React.Component {
   render () {
     const { isOpenNotification, hideCommentInput } = this.state;
     const { comment, authenticated, org, project, commentObject, 
-      deleteComment, threadId, likes, thread, usersList, orgUserData, parentId, isFeed } = this.props;
+      deleteComment, threadId, likes, thread, usersList, orgUserData, parentId, isFeed, openThread } = this.props;
     const show = authenticated && authenticated === comment.userId;
     const commenter = orgUserData && orgUserData[comment.userId] ? orgUserData[comment.userId] : { username: '' }
     const orgURL = org && org.url ? org.url : ''
@@ -166,7 +166,9 @@ class Comment extends React.Component {
                   </Link>
                 </div>
                 <div className="thread-timestamp inline-block flx flx-row flx-item-right">
+                <Link onClick={openThread}>
                   <DisplayTimestamp timestamp={comment.lastModified} />
+                  </Link>
                 </div>
               </div>
 

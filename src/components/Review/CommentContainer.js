@@ -26,6 +26,7 @@ const CommentContainer = props => {
 					orgUserData={props.orgUserData}
 					type={props.type}
 					parentId={props.parentId}
+					openThread={props.openThread}
 					isFeed={props.isFeed} />
 
 		          <div className="comment-indent main-reply">
