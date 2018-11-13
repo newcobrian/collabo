@@ -16,7 +16,7 @@ body a {
 }
 
 body a:hover {
-  opacity: .9;
+  /*opacity: .9;*/
 }
 body a.text-hover:hover {
   text-decoration: underline;

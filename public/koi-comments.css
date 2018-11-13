@@ -109,6 +109,8 @@
 .inline-comments .comment-indent {
   /*display: none;*/
   padding-left: 40px;
+  display: block;
+  width: 100%;
 }
 
 .comment-input__suggestions {

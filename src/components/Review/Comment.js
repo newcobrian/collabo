@@ -12,6 +12,8 @@ import CommentInput from './CommentInput'
 const processString = require('react-process-string');
 
 const NestedCommentContainer = props => {
+
+
   // if this has a parent Id already, it's nested and we don't need to go deeper
   if (props.parentId || !props.comments) {
     return null
@@ -22,11 +24,9 @@ const NestedCommentContainer = props => {
     if (numComments === 0) return null
     else {
       return (
-      <div className="comment-indent">
         <div className="hidden-comments flx flx-col flx-align-center fill--white koi-type-body koi-type-bold color--utsuri">
           <div className="opa-30">{ numComments + ' ' + (numComments > 1 ? ' replies' : ' reply') }</div>
         </div>
-      </div>
       )
     }
   }
@@ -222,6 +222,7 @@ class Comment extends React.Component {
               <GoogleDriveLink content={comment.body} onClose={this.closeNotification}/>
             */}
           </div>
+            <Link onClick={openThread} className="comment-indent">
             <NestedCommentContainer
               authenticated={authenticated}
               comments={comment.nestedComments || {}}
@@ -239,7 +240,7 @@ class Comment extends React.Component {
               hideCommentInput={hideCommentInput && (!comment.nestedComments || comment.nestedComments.length === 0)}
               parentId={parentId}
               isFeed={isFeed} />
-
+              </Link>
             {/* !parentId && 
               <CommentContainer
                 authenticated={authenticated}
