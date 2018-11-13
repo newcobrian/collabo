@@ -140,7 +140,8 @@ class Comment extends React.Component {
             org={org}
             type={Constants.COMMENT_TYPE}
             usersList={usersList}
-            parentId={parentId} />
+            parentId={parentId}
+            toggleShowEdit={onEditClick} />
             <Link onClick={onEditClick}>Cancel</Link>
         </div>
 
@@ -210,9 +211,9 @@ class Comment extends React.Component {
                     parentId={parentId} />
                 </div>
                 <div className="thread-timestamp inline-block flx flx-row flx-item-right">
-                  <EditButton
+                  {/*<EditButton
                     show={show}
-                    onEditClick={onEditClick} />
+                    onEditClick={onEditClick} />*/}
                 </div>
               </div>
 
