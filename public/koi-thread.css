@@ -42,7 +42,9 @@
 .tp-wrapper.tp-preview-full {
 	padding: 0!important;
 }
-
+.tp-page .comment-inner {
+	box-shadow: none !important;
+}
 .tp-full .tp-wrapper {
 	position: relative !important;
 }

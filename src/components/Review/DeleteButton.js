@@ -16,7 +16,7 @@ const DeleteButton = props => {
   if (props.show) {
     return (
       <span className="mod-options">
-        <div className="font--alpha danger-hover mrgn-left-md opa-30" onClick={del}>Delete</div>
+        <div className="font--alpha danger-hover mrgn-left-md opa-40" onClick={del}>Delete</div>
       </span>
     );
   }

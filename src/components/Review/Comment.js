@@ -200,19 +200,21 @@ class Comment extends React.Component {
                     <div className="koi-ico --24 ico--reply mrgn-right-xs opa-60"></div>
                     <div className="co-type-label color--black ta-left mobile-hide">Reply</div>
                   </Link>}
-                <div className="thread-timestamp inline-block flx flx-row flx-item-right">
-                  <DeleteButton
-                    show={show}
-                    commentObject={commentObject}
-                    commentId={comment.id}
-                    deleteComment={deleteComment}
-                    threadId={threadId}
-                    parentId={parentId} />
-                </div>
-                <div className="thread-timestamp inline-block flx flx-row flx-item-right">
-                  <EditButton
-                    show={show}
-                    onEditClick={onEditClick} />
+                <div className="flx flx-row flx-item-right">
+                  <div className="thread-timestamp inline-block mrgn-right-sm">
+                    <DeleteButton
+                      show={show}
+                      commentObject={commentObject}
+                      commentId={comment.id}
+                      deleteComment={deleteComment}
+                      threadId={threadId}
+                      parentId={parentId} />
+                  </div>
+                  <div className="thread-timestamp inline-block">
+                    <EditButton
+                      show={show}
+                      onEditClick={onEditClick} />
+                  </div>
                 </div>
               </div>
 
