@@ -10,14 +10,14 @@ import FirebaseSearchInput from './FirebaseSearchInput';
 const DotJewel = props => {
   if (props.threadCount > 0) {
     return (
-      <div className={"sidebar-dot fill--tancho active " + props.isPublic ? '' : 'whtaeveryouwanttocallthisprivateclass'}>
+      <div className={'sidebar-dot fill--tancho active ' + (props.isPublic === true ? ' hi' : 'bye')}>
 
       </div>
     );
   }
   return (
-    <div className={'sidebar-dot fill--tertiary--10' + props.isPublic ? '' : 'whtaeveryouwanttocallthisprivateclass'}>
-      {/*<img className="center-img" src="/img/lock--pond.png"/>*/}
+    <div className={'sidebar-dot fill--tertiary--10 ' + (props.isPublic === true ? ' hi' : 'bye')}>
+      <img className="center-img" src="/img/lock--pond.png"/>
     </div>
   );
 }
@@ -154,11 +154,11 @@ class ProjectList extends React.Component {
 
                     <Link className={"sidebar-row group-row flx flx-row flx-align-center " + (this.props.projectId === projectItem.id ? 'active' : '')} key={projectItem.id} to={'/' + org.url + '/' + projectItem.id}>
                       <div className="sidebar-icon flx flx-center-all">
-                        {<DotJewel threadCount={threadCounts[projectItem.id]} isPublic={projectItem.isPublic} />}
+                        <DotJewel threadCount={threadCounts[projectItem.id]} isPublic={projectItem.isPublic} />
                       </div>
-                      <div className="lock-wrapper flx flx-center-all mrgn-right-xs">
+                      {/*<div className="lock-wrapper flx flx-center-all mrgn-right-xs">
                         <img className="center-img" src="/img/lock-icon.png"/>
-                      </div>
+                      </div>*/}
 
                       <div className="sidebar-project-name color--black">
                         {projectName}
