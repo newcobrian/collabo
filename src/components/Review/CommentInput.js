@@ -36,7 +36,8 @@ class CommentInput extends React.Component {
 
         // if theres a commentId already, then just update the comment
         if (this.props.commentId) {
-          this.props.onThreadCommentUpdate(this.props.authenticated, this.props.commentObject, commentBody, this.props.threadId, this.props.project, this.props.org, this.props.parentId);
+          this.props.onThreadCommentUpdate(this.props.authenticated, this.props.commentObject, commentBody, this.props.threadId, this.props.org, this.props.commentId, this.props.parentId);
+          this.props.toggleShowEdit()
         }
         // otherwise this is a new comment, create it
         else {

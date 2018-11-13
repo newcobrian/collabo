@@ -677,17 +677,53 @@ export function getThreadFieldUpdates(threadId, thread, field, value) {
   return updates;
 }
 
-export function onThreadCommentUpdate(auth, thread, body, threadId, project, org, parentId) {
+export function onThreadCommentUpdate(auth, thread, body, threadId, org, commentId, parentId) {
   return dispatch => {
-    console.log('update thread ' + JSON.stringify(thread))
-    console.log('body = ' + JSON.stringify(body))
-    console.log('threadid = ' + JSON.stringify(threadId))
-    console.log('project = ' + JSON.stringify(project))
-    console.log('org = ' + JSON.stringify(org))
-    console.log('pid = ' + JSON.stringify(parentId))
+    let updates = {}
+    let lastModified = Firebase.database.ServerValue.TIMESTAMP
+    // let updates = getThreadFieldUpdates(threadId, thread, 'lastModified', Firebase.database.ServerValue.TIMESTAMP)
+
+    // // last update is a comment
+    // Object.assign(updates, getThreadFieldUpdates(threadId, thread, 'lastUpdate', Constants.COMMENT_TYPE));
+
+    // // update lastUpdater as the commenter
+    // Object.assign(updates, getThreadFieldUpdates(threadId, thread, 'lastUpdater', authenticated));
+
+    // update comment
+    updates[Constants.COMMENTS_PATH + '/' + commentId + '/body'] = body
+    updates[Constants.COMMENTS_PATH + '/' + commentId + '/lastModified'] = lastModified
+
     // if no parent ID update comment
-    // else update nested comment
+    if (!parentId) {
+      // this is a regular comment, add it under comments/
+      updates[Constants.THREADS_BY_PROJECT_PATH + '/' + thread.projectId + '/' + threadId + '/comments/' + commentId + '/body'] = body
+      updates[Constants.THREADS_BY_ORG_PATH + '/' + thread.orgId + '/' + threadId + '/comments/' + commentId + '/body'] = body
+      updates[Constants.THREADS_BY_PROJECT_PATH + '/' + thread.projectId + '/' + threadId + '/comments/' + commentId + '/lastModified'] = lastModified
+      updates[Constants.THREADS_BY_ORG_PATH + '/' + thread.orgId + '/' + threadId + '/comments/' + commentId + '/lastModified'] = lastModified
+
+      // and update comments by thread
+      updates[Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId + '/' + commentId + '/body'] = body
+      updates[Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId + '/' + commentId + '/lastModified'] = lastModified
+    }
+    else {
+      // this is a nested comment, so add it under the parent's nestedComments/
+      updates[Constants.THREADS_BY_PROJECT_PATH + '/' + thread.projectId + '/' + threadId + '/comments/' + parentId + '/nestedComments/' + commentId + '/body'] = body
+      updates[Constants.THREADS_BY_ORG_PATH + '/' + thread.orgId + '/' + threadId + '/comments/' + parentId + '/nestedComments/' + commentId + '/body'] = body
+      updates[Constants.THREADS_BY_PROJECT_PATH + '/' + thread.projectId + '/' + threadId + '/comments/' + parentId + '/nestedComments/' + commentId + '/lastModified'] = lastModified
+      updates[Constants.THREADS_BY_ORG_PATH + '/' + thread.orgId + '/' + threadId + '/comments/' + parentId + '/nestedComments/' + commentId + '/lastModified'] = lastModified
+
+      // and update comments-by-thread
+      updates[Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId + '/' + parentId + '/nestedComments/' + commentId + '/body'] = body
+      updates[Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId + '/' + parentId + '/nestedComments/' + commentId + '/lastModified'] = lastModified
+    }
+
     // findthreadmentions and notify people
+
+    Firebase.database().ref().update(updates)
+
+    // dispatch({
+    //   type: ActionTypes.COMMENT_BODY_UPDATED
+    // })
   }
 }
 
