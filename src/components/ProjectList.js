@@ -16,7 +16,7 @@ const DotJewel = props => {
     );
   }
   return (
-    <div className="sidebar-dot fill--tertiary--10">
+    <div className={'sidebar-dot fill--tertiary--10' + props.isPublic ? '' : 'whtaeveryouwanttocallthisprivateclass'}>
       {/*<img className="center-img" src="/img/lock--pond.png"/>*/}
     </div>
   );

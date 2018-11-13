@@ -218,8 +218,11 @@ export const PENDING_TAB = 'pending'
 export const LISTS_TAB = 'lists'
 
 /*** User Roles ***/
+export const PRIMARY_OWNER_ROLE = 'primary_owner'
 export const OWNER_ROLE = 'owner'
+export const ADMIN_ROLE = 'admin'
 export const USER_ROLE = 'user'
+export const GUEST_ROLE = 'guest'
 
 export const ORG_MEMBERS_LIST = 'orgMembers'
 export const PROJECT_MEMBERS_LIST = 'projectMembers'
@@ -237,7 +240,7 @@ export const POPULARITY_PAGE_COUNT = 9
 export const POPULARITY_MODULE_COUNT = 3
 export const HOME_PAGE_FEED_COUNT = 15
 export const INBOX_FEED_COUNT = 20
-export const TIPS_TO_LOAD = 12
+export const TIPS_TO_LOAD = 8
 
 /*** Mixpanel events ***/
 export const MIXPANEL_PAGE_VIEWED = 'page viewed'
@@ -266,49 +269,6 @@ export const INVALID_USERNAMES = ['account', 'send', 'message', 'inbox', 'notifi
   'home', 'api', 'privacy', 'terms', 'about', 'contact', 'new', 'addthread', 'addproject', 'thread', 'project', 
   'organization', 'team', 'undefined', 'null', 'default', 'accept', 'forgotpassword', 'newteam', 'seo', 'invitation', 'koi',
   'joinkoi', 'koiteam', 'koifish', 'verify']
-
-export const ADMIN_USERS = [
-
-'WZPmzQzrHtPxMk3DyXpUDn0HU513',
-'Pv4pCJ7a11TxXTU28mcUmxgyXc92', 
-'HZ1g4L39qnW3rdrhduUwUbGnUx82', 
-'S0kpgk8Gk5dlsEvUbGj6QmV40Wl2', /** agent4 - curiousviews - jordan++4@futurehumans.co **/
-'uarrgwLgVdQ2P2oyj5goPcfi2KY2', /** agent7 - sausagemuffin - jordan++7@futurehumans.co - culturetrip **/
-'9rzXLUFdnWRzZXxEv3ZSuVDeI7P2', /** agent6 - derek - jordan++6@futurehumans.co - eater **/
-'C9bHnCTVVzVzIIkm3tdT84jNQRT2' /** agent8 - globehopper - jordan++8@futurehumans.co - jetset and hostel **/
-
-]
-
-/** Top Cities for homepage and explore page searchbar **/
-export const POPULAR_CITIES = [
-	{id: 'ChIJ51cu8IcbXWARiRtXIothAS4', label: 'Tokyo, Japan', shortName: 'Tokyo'},
-	{id: 'ChIJ5TCOcRaYpBIRCmZHTz37sEQ', label: 'Barcelona', shortName: 'Barcelona'},
-	{id: 'ChIJmQrivHKsQjQR4MIK3c41aj8', label: 'Taipei', shortName: 'Taipei'},
-	{id: 'ChIJIQBpAG2ahYAR_6128GcTUEo', label: 'San Francisco', shortName: 'San Francisco'},
-	{id: 'ChIJOwg_06VPwokRYv534QaPC8g', label: 'New York', shortName: 'New York'}
-]
-
-/** Itineraries that everyone can edit (for testing shared itineraries feature) **/
-export const SHARED_ITINERARIES = ['-KpiW2sKdc81qIKD_iOO', '-KqURO44kTCwkDyISjBe', 
-'-KuM-90vgN_wWHSZvlKu','-KuaQCOTUBL8_NDoiKem','-KuaQosck60hUhKH1BX0', '-KufYkqOAT7OxCadeFXH', '-KzQyXDw3nzTeuXRbYMl', 
-'-KxxGWFNNkZtgpGeUj4C', '-Kwyr30538oLpC-WUgDG', '-L-0Sen8H68WqsmGKgNG', '-LF6HrbEQNKPp9BPupJK', '-LFA74T2lqknE5wPfX7G',
-'-LFA7AJQpHlU-Meg40rq', '-LFA6njv2MRF1umxEbAT', '-LHAfWhZaNzppJPQICTD']
-
-/** Sample guides for logged out view of homepage **/
-export const HOMEPAGE_SAMPLE_GUIDES = ['-KsHtCGxX10pSPFRFw6p','-KsaEC85tRyFPhyx_vRI', '-Kr6_OAy780JwQQKlmZE', '-KseiC5dp80TPD6EOnKk']
-
-/** Featured guides on homepage **/
-export const FEATURED_GUIDES = ['-KsHtCGxX10pSPFRFw6p','-KsaEC85tRyFPhyx_vRI', '-Kr6_OAy780JwQQKlmZE', '-KseiC5dp80TPD6EOnKk']
-
-/*** Guide preview sizes ***/
-export const SMALL_GUIDE_PREVIEW = 'small-guide'
-export const MEDIUM_GUIDE_PREVIEW = 'medium-guide'
-export const LARGE_GUIDE_PREVIEW = 'large-guide'
-
-/*** Meta tag info ***/
-export const DEFAULT_META_TITLE = 'Views'
-export const DEFAULT_META_DESCRIPTION = 'Save and Share Travel Guides'
-export const DEFAULT_META_URL = 'http://www.myviews.io'
 
 /*** Inbox types ***/
 export const INBOX_INVITE_TYPE = 'INBOX_INVITE_TYPE'
