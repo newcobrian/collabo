@@ -152,4 +152,10 @@
 .lock-wrapper {
 	width: 12px;
 	height: 20px;
+	visibility: visible;
+}
+.lock-wrapper.listname--public {
+	width: 12px;
+	height: 20px;
+	visibility: hidden;
 }

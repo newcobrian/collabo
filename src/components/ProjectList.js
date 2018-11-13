@@ -10,14 +10,30 @@ import FirebaseSearchInput from './FirebaseSearchInput';
 const DotJewel = props => {
   if (props.threadCount > 0) {
     return (
-      <div className={'sidebar-dot fill--tancho active ' + (props.isPublic === true ? ' hi' : 'bye')}>
-
+      <div className="sidebar-dot fill--tancho active">
       </div>
     );
   }
   return (
-    <div className={'sidebar-dot fill--tertiary--10 ' + (props.isPublic === true ? ' hi' : 'bye')}>
-      <img className="center-img" src="/img/lock--pond.png"/>
+
+    <div className="sidebar-dot fill--tertiary--10">
+      {/*<img className="center-img" src="/img/lock--pond.png"/>*/}
+
+    </div>
+  );
+}
+
+const PrivateIcon = props => {
+  if (props.threadCount > 0) {
+    return (
+      <div className={'lock-wrapper flx flx-center-all mrgn-right-xs ' + (props.isPublic === true ? ' listname--public' : 'listname--private')}>
+        <img className="center-img" src="/img/lock-icon.png"/>
+      </div>
+    );
+  }
+  return (
+    <div className={'lock-wrapper flx flx-center-all mrgn-right-xs ' + (props.isPublic === true ? ' listname--public' : 'listname--private')}>
+      <img className="center-img" src="/img/lock-icon.png"/>
     </div>
   );
 }
@@ -156,9 +172,7 @@ class ProjectList extends React.Component {
                       <div className="sidebar-icon flx flx-center-all">
                         <DotJewel threadCount={threadCounts[projectItem.id]} isPublic={projectItem.isPublic} />
                       </div>
-                      {/*<div className="lock-wrapper flx flx-center-all mrgn-right-xs">
-                        <img className="center-img" src="/img/lock-icon.png"/>
-                      </div>*/}
+                      {<PrivateIcon threadCount={threadCounts[projectItem.id]} isPublic={projectItem.isPublic} />}
 
                       <div className="sidebar-project-name color--black">
                         {projectName}
