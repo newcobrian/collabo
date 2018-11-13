@@ -123,7 +123,6 @@ class Comment extends React.Component {
     }]);
 
     const onEditClick = ev => {
-      ev.preventDefault()
       this.setState({isEditMode: !this.state.isEditMode})
     }
 
@@ -211,9 +210,9 @@ class Comment extends React.Component {
                     parentId={parentId} />
                 </div>
                 <div className="thread-timestamp inline-block flx flx-row flx-item-right">
-                  {/*<EditButton
+                  <EditButton
                     show={show}
-                    onEditClick={onEditClick} />*/}
+                    onEditClick={onEditClick} />
                 </div>
               </div>
 
