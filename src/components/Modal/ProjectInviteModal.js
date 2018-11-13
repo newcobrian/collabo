@@ -75,24 +75,24 @@ class ProjectInviteModal extends React.Component {
           // lockToContainerEdges={true}
           modal={false}
           
-          title={'Add Mdfsers to List: ' + this.props.project.name}
+          title={'Add members to group: ' + this.props.project.name}
 
           titleClassName="co-type-h3 color--black"
           titleStyle={{}}
 
-          className="dialog dialog--save"
+          className="dialog dialog--basic"
           style={{}}
 
-          overlayClassName="dialog__overlay"
+          overlayClassName="dialog-overlay--basic"
           overlayStyle={{}}
           
-          contentClassName="dialog--save__wrapper"
+          contentClassName="dialog-content--basic"
           contentStyle={{width: "auto", maxWidth: "600px"}}
           
-          bodyClassName="dialog--save__body"
+          bodyClassName="dialog-body--basic"
           bodyStyle={{padding: "0px"}}
 
-          actionsContainerClassName="dialog--save__actions"
+          actionsContainerClassName="dialog-actions--basic"
           actionsContainerStyle={{}}
         >
 

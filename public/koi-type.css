@@ -56,13 +56,15 @@
 	letter-spacing: 1.2px;
 	line-height: 20px;
 }
-.co-type-label {
+.co-type-label,
+.koi-type-label {
 	font-size: 12px;
 	font-weight: 400;
 	letter-spacing: 1px;
 	line-height: 16px;
 }
-.co-type-label--lg {
+.co-type-label--lg,
+.koi-type-label--lg {
 	line-height: 18px;
 	color: inherit;
 	letter-spacing: 1.1px;

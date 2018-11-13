@@ -23,10 +23,10 @@ const ProjectHeader = props => {
               <div className="flx flx-col flx-just-start">
                 <div className="project-header-text">{props.project.name}</div>
                 <div className="flx flx-row flx-align-center">
-                  <div className="co-type-label color--black opa-70 mrgn-right-sm"> 
+                  <div className="koi-type-label color--black opa-70 mrgn-right-sm text-hover"> 
                     {(membersList || []).length + ' Members'}
                   </div>
-                  <Link onClick={props.onProjectInviteClick} className="co-type-label color--black opa-70"> 
+                  <Link onClick={props.onProjectInviteClick} className="koi-type-label text-hover color--black opa-70"> 
                       Add Member
                   </Link>
                 </div>

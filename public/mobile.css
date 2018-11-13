@@ -961,17 +961,21 @@ body .back-to-top {
   margin-left: 10px;
 }
 
-.dialog--save__wrapper {
+.dialog--save__wrapper,
+.dialog-content--basic {
   width: 100%;
   transform: none !important;
 }
-.dialog--save__body {
+.dialog--save__body,
+.dialog-body--basic {
   max-height: unset !important;
 }
-.dialog--save__wrapper > div {
+.dialog--save__wrapper > div,
+.dialog-content--basic > div {
   box-shadow: none !important;
 }
-.dialog__overlay {
+.dialog__overlay,
+.dialog-overlay--basic {
     background-color: white !important;
 }
 

@@ -3,6 +3,41 @@ body div.dialog--save {
   padding-top: 0 !important;
   background-color: white;
 }
+
+body div.dialog--basic {
+  overflow: scroll;
+  padding-top: 0 !important;
+}
+
+.dialog-content--basic {
+  margin: 0;
+  height: 100%;
+  /*transform: none !important;*/
+  background: white;
+  overflow: hidden;
+  min-height: 210px;
+}
+.dialog-overlay--basic {
+}
+.dialog-body--basic {
+  padding-bottom: 50px !important;
+  max-height: none !important;
+  font-family: 'Karla';
+}
+.dialog-actions--basic {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  padding: 0px !important;
+  z-index: 2;
+}
+
+
+
+
+
 .dialog--save__wrapper {
   margin: 0;
   height: 100%;
@@ -60,14 +95,7 @@ body div.dialog--save {
   max-height: none !important;
   font-family: 'Karla';
 }
-.itinerary__contents .itinerary__cover__flag {
 
-}
-.dialog--save__body .itinerary__cover__flag {
-    height: 30px;
-    width: 43px;
-    margin-right: 38px;
-}
 .dialog__overlay {
   background-color: white !important;
 }
@@ -80,7 +108,8 @@ body div.dialog--save {
   padding: 0px !important;
   z-index: 2;
 }
-.dialog--save__actions button {
+.dialog--save__actions button,
+.dialog-actions--basic button {
   text-align: center !important;
   font-weight: 500 !important;
   font-size: 14px !important;
@@ -104,13 +133,16 @@ body div.dialog--save {
    font-weight: 600 !important;
    font-size: 12px !important;
 }
-.dialog--save__actions .vb.vb--outline-none button {
+.dialog--save__actions .vb.vb--outline-none button,
+.dialog-actions--basic .vb.vb--outline-none button {
   border: none !important;
 }
-.dialog--save__actions button:hover {
+.dialog--save__actions button:hover.
+.dialog-actions--basic button:hover {
   opacity: .8 !important;
 }
-.dialog--save__actions button span {
+.dialog--save__actions button span,
+.dialog-actions--basic button span {
   letter-spacing: 2px !important;
   font-size: 13px !important;
 }
