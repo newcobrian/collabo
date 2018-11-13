@@ -95,12 +95,12 @@ class CreateOrg extends React.Component {
 	      )
 	    }
 		return (
-			<div className="page-common page-create-org flx flx-col flx-center-all">
-	         	<div className="koi-view header-push ta-left flx flx-col">
-					<div className="co-post-title mrgn-bottom-md">
+			<div className="page-common page-create-org flx flx-col flx-center-all fill--pond">
+	         	<div className="koi-view header-push ta-left flx flx-col flx-hold">
+					<div className="koi-type-page-title mrgn-bottom-md">
 	    				Create your new team
 	  				</div>
-		            <div className="co-type-body color--black mrgn-bottom-md">
+		            <div className="koi-type-body color--black mrgn-bottom-md opa-80">
 					This is your team/company name (ie "Tesla", "Nike")
 					</div>
 					
@@ -155,7 +155,7 @@ class CreateOrg extends React.Component {
 
 	                    <fieldset>
 		                  
-	                    	<div className="profile-image flx flx-center-all">
+	                    	<div className="profile-image flx flx-center-all mrgn-top-md">
 	                      		<ProfilePic src={this.props.imageFile ? URL.createObjectURL(this.props.imageFile) : (this.props.image ? this.props.image : '')} className="center-img" />
 	                      	</div>
 		                  
@@ -194,7 +194,7 @@ class CreateOrg extends React.Component {
 	                    	   Cancel
 	                    	</Link>
 							<div
-							className="vb vb--form-cta mrgn-top-md fill--secondary color--white"
+							className="vb vb--form-cta mrgn-top-md fill--seaweed color--white"
 							type="button"
 							disabled={this.props.inProgress}
 							onClick={this.submitForm}>
