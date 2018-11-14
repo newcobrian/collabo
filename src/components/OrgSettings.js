@@ -14,35 +14,6 @@ import LoggedOutMessage from './LoggedOutMessage';
 
 const mql = window.matchMedia(`(min-width: 800px)`);
 
-const EditUserRole = props => {
-  const onChange = () => {
-    console.log('hi')
-  }
-
-  const user = props.user
-  if (user.role > Constants.ADMIN_ROLE) return null
-  else {
-    return (
-    <div className="org-row org-row-selector flx flx-row flx-align-center">
-      <select className="org-selector co-type-org color--utsuri opa-40" onChange={onChange}>
-        <option value={user.userId}>{user.name}</option>
-        {/*(this.props.orgList || []).map((orgItem, index) => {
-          if (orgItem && orgItem.name && orgItem.url && org.url && orgItem.url.toLowerCase() !== org.url.toLowerCase()) {
-            return (
-              <option key={index} value={orgItem.url}>{orgItem.name}</option>  
-            )
-          }
-        })*/}
-        <option value='newteam'>+ New Team</option>
-      </select>
-      <div className="org-arrow flx flx-center-all">
-        <div className="koi-ico --24 ico--down"></div>
-      </div>
-    </div> 
-    )
-  }
-}
-
 const JoinProjectButton = props => {
   const handleJoinClick = ev => {
     ev.preventDefault();
@@ -113,6 +84,55 @@ const PendingTab = props => {
     </li>
   );
 };
+// { Object.keys(Constants.USER_ROLES_MAP).forEach(function(roleType) {
+//             if (roleType > orgUser.role) {
+//               console.log(roleType)
+//               return (
+//                 <option value={roleType}>Change to</option>  
+//               )
+//             }
+//             else {
+//               console.log('else role type = ' + roleType)
+//             }
+//           })}
+const EditUserRole = props => {
+  const onChange = ev => {
+    console.log('hi i be changin')
+  }
+  const { user, orgUser } = props
+
+  // check if org user's role is primary owner, owner, or admin
+  if (orgUser.role > Constants.ADMIN_ROLE) return null
+  else {
+    return (
+    <div className="org-row org-row-selector flx flx-row flx-align-center">
+      <select className="org-selector co-type-org color--utsuri opa-40" onChange={onChange}>
+        <option selected disabled hidden>
+          ...
+        </option>
+        {(props.roleArray || []).map((roleType, index) => {
+          if (orgUser.role < index) {
+            return (
+              <option key={index} value={index}>Change to {roleType}</option>  
+            )
+          }
+        })}
+      </select>
+    </div> 
+    )
+  }
+}
+
+const RoleRender = props => {
+  if (props.orgUser.role > Constants.ADMIN_ROLE) return null;
+  else {
+    return (
+      <div className="mrgn-left-sm koi-type-body">
+        {Constants.USER_ROLES_MAP[props.user.role]}
+      </div>
+    )
+  }
+}
 
 const MembersList = props => {
   if (props.tab === Constants.MEMBERS_TAB) {
@@ -121,7 +141,7 @@ const MembersList = props => {
         {
           (props.orgMembers || []).map((userItem, index) => {
             return (
-              <div className="flx flx-row flx-align-center mrgn-bottom-sm brdr-bottom pdding-bottom-sm" >
+              <div className="flx flx-row flx-align-center mrgn-bottom-sm brdr-bottom pdding-bottom-sm" key={index}>
                 <Link
                   key={userItem.userId}
                   to={'/' + props.org.url + '/user/' + userItem.username} >
@@ -131,13 +151,14 @@ const MembersList = props => {
                     <div className="mrgn-left-sm koi-type-caption color--black">{userItem.fullName}</div>
                   </div>
                 </Link>
-                  {/*<div className="mrgn-left-sm koi-type-body">
-                    {Constants.USER_ROLES_MAP[userItem.role]}
-                  </div>
+                  <RoleRender user={userItem} orgUser={props.orgUser} />
                   <div className="mrgn-left-sm koi-type-body">
                     {userItem.status}
                   </div>
-                  <EditUserRole user={userItem} />*/}
+                  <EditUserRole
+                    orgUser={props.orgUser} 
+                    user={userItem}
+                    roleArray={props.roleArray} />
                 </div>
               )
           })
@@ -314,8 +335,18 @@ class OrgSettings extends React.Component {
         )
     }
 
-    const { payload, sidebarOpen, tab, usersProjects, org, authenticated, userInfo } = this.props;
+    const { payload, sidebarOpen, tab, usersProjects, org, authenticated, orgUser, userInfo } = this.props;
     const orgName = org && org.name ? org.name : ''
+
+    let roleArray = []
+    // for (let i = 0; i <= Constants.GUEST_ROLE; i++) {
+    //   roleArray = Constants.USER_ROLES_MAP[i]
+    // }
+
+    Object.keys(Constants.USER_ROLES_MAP).forEach(function(item) {
+      roleArray[item] = Constants.USER_ROLES_MAP[item]
+    })
+
     return (
       <div>
 
@@ -367,13 +398,15 @@ class OrgSettings extends React.Component {
                       <MembersList 
                         authenticated={authenticated}
                         userInfo={userInfo}
+                        orgUser={orgUser}
                         tab={tab} 
                         payload={payload} 
                         org={org}
                         orgMembers={this.props.orgMembers}
                         usersProjects={usersProjects || {}} 
                         joinProject={this.props.joinProject}
-                        leaveProject={this.props.leaveProject} />
+                        leaveProject={this.props.leaveProject}
+                        roleArray={roleArray} />
 
                         {/*<ListErrors errors={this.props.errors}></ListErrors>*/}
 

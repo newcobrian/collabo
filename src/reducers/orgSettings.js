@@ -7,20 +7,11 @@ const initialState = {}
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case ActionTypes.ORG_USERS_LOADED: {
-        if (action.source === Constants.ORG_SETTINGS_PAGE) {
-            return {
-                ...state,
-                payload: action.payload
-            }
-        }
-        return state;
-    }
-    case ActionTypes.UNLOAD_ORG_USERS: {
+    case ActionTypes.LOAD_ORG_USER: {
       if (action.source === Constants.ORG_SETTINGS_PAGE) {
         return {
           ...state,
-          payload: []
+          orgUser: action.orgUser
         }
       }
     }
