@@ -16,6 +16,7 @@ import DeleteModal from './DeleteModal'
 import ProjectInviteModal from './ProjectInviteModal'
 import OrgInviteModal from './OrgInviteModal'
 import ThreadModal from './ThreadModal'
+import ProjectSettingsModal from './ProjectSettingsModal'
 
 const MODAL_COMPONENTS = {
   FORWARD_MODAL: ForwardModal,
@@ -30,7 +31,8 @@ const MODAL_COMPONENTS = {
   DELETE_MODAL: DeleteModal,
   PROJECT_INVITE_MODAL: ProjectInviteModal,
   ORG_INVITE_MODAL: OrgInviteModal,
-  THREAD_MODAL: ThreadModal
+  THREAD_MODAL: ThreadModal,
+  PROJECT_SETTINGS_MODAL: ProjectSettingsModal
 }
 
 const mapStateToProps = state => ({

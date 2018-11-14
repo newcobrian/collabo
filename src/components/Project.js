@@ -56,7 +56,8 @@ const mapDispatchToProps = {
   setAuthRedirect: Actions.setAuthRedirect,
   notAnOrgUserError: Actions.notAnOrgUserError,
   showThreadModal: Actions.showThreadModal,
-  onDeleteThreadComment: Actions.onDeleteThreadComment
+  onDeleteThreadComment: Actions.onDeleteThreadComment,
+  showProjectSettingsModal: Actions.showProjectSettingsModal
 }
 
 class Project extends React.Component {
@@ -79,6 +80,10 @@ class Project extends React.Component {
 
     this.onOrgInviteClick = ev => {
       this.props.showOrgInviteModal(this.props.org)
+    }
+
+    this.openProjectSettings = ev => {
+      this.props.showProjectSettingsModal(this.props.project, this.props.projectMembers, this.props.org.url)
     }
   }
 
@@ -262,6 +267,7 @@ class Project extends React.Component {
                       onProjectInviteClick={this.onProjectInviteClick}
                       projectMembers={this.props.projectMembers}
                       orgMembers={this.props.orgMembers}
+                      openProjectSettings={this.openProjectSettings}
                     />
                     <div className="threadlist-outer fill--mist flx flx-row">              
                       <div className="threadlist-wrapper fill--mist flx flx-col flx-align-start w-100 h-100">

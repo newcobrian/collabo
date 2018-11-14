@@ -82,6 +82,14 @@ export default (state = initialState, action) => {
         }
         return state;
       }
+    case ActionTypes.SHOW_PROJECT_SETTINGS_MODAL:
+      return {
+        ...state,
+        modalType: Constants.PROJECT_SETTINGS_MODAL,
+        project: action.project,
+        projectMembers: action.projectMembers,
+        orgURL: action.orgURL
+      }
     case SHOW_DELETE_ITINERARY_MODAL:
       return {
         ...state,
