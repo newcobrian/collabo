@@ -224,6 +224,19 @@ export const ADMIN_ROLE = '2'
 export const USER_ROLE = '3'
 export const GUEST_ROLE = '4'
 
+/*** User role names map ***/
+export const USER_ROLES_MAP = {
+	0: 'Primary Owner',
+	1: 'Owner',
+	2: 'Admin',
+	3: 'User',
+	4: 'Guest'
+}
+
+/*** USER STATUS ***/
+export const ACTIVE_STATUS = 'Active'
+export const DEACTIVE_STATUS = 'Deactivated'
+
 export const ORG_MEMBERS_LIST = 'orgMembers'
 export const PROJECT_MEMBERS_LIST = 'projectMembers'
 

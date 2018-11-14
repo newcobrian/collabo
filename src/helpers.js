@@ -1002,7 +1002,7 @@ export function addUserToOrg(auth, email, orgId, inviteId, userData, imageFile) 
 
         // save image in users-by-org
         updates[Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + auth] = 
-          Object.assign({}, userData, {role: Constants.USER_ROLE})
+          Object.assign({}, userData, {role: Constants.USER_ROLE}, {status: Constants.ACTIVE_STATUS})
 
         // save image in users-path
         updates[Constants.USERS_PATH + '/' + auth + '/image'] = downloadURL;
@@ -1013,7 +1013,7 @@ export function addUserToOrg(auth, email, orgId, inviteId, userData, imageFile) 
     // else no image, just save the user
     else {
       updates[Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + auth] = 
-        Object.assign({}, userData, {role: Constants.USER_ROLE})
+        Object.assign({}, userData, {role: Constants.USER_ROLE}, {status: Constants.ACTIVE_STATUS})
 
       Firebase.database().ref().update(updates)
     }

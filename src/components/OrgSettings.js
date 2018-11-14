@@ -14,6 +14,35 @@ import LoggedOutMessage from './LoggedOutMessage';
 
 const mql = window.matchMedia(`(min-width: 800px)`);
 
+const EditUserRole = props => {
+  const onChange = () => {
+    console.log('hi')
+  }
+
+  const user = props.user
+  if (user.role > Constants.ADMIN_ROLE) return null
+  else {
+    return (
+    <div className="org-row org-row-selector flx flx-row flx-align-center">
+      <select className="org-selector co-type-org color--utsuri opa-40" onChange={onChange}>
+        <option value={user.userId}>{user.name}</option>
+        {/*(this.props.orgList || []).map((orgItem, index) => {
+          if (orgItem && orgItem.name && orgItem.url && org.url && orgItem.url.toLowerCase() !== org.url.toLowerCase()) {
+            return (
+              <option key={index} value={orgItem.url}>{orgItem.name}</option>  
+            )
+          }
+        })*/}
+        <option value='newteam'>+ New Team</option>
+      </select>
+      <div className="org-arrow flx flx-center-all">
+        <div className="koi-ico --24 ico--down"></div>
+      </div>
+    </div> 
+    )
+  }
+}
+
 const JoinProjectButton = props => {
   const handleJoinClick = ev => {
     ev.preventDefault();
@@ -92,16 +121,24 @@ const MembersList = props => {
         {
           (props.orgMembers || []).map((userItem, index) => {
             return (
-              <Link className="flx flx-row flx-align-center mrgn-bottom-sm brdr-bottom pdding-bottom-sm" 
-                key={userItem.userId}
-                to={'/' + props.org.url + '/user/' + userItem.username} >
-                <ProfilePic src={userItem.image} className="user-img center-img prof-48" /> 
-                <div className="flx flx-col flx-align-start w-100">
-                  <div className="mrgn-left-sm koi-type-body koi-type-bold color--black">{userItem.username}</div>
-                  <span>{userItem.role}</span>
-                  <div className="mrgn-left-sm koi-type-caption color--black">{userItem.fullName}</div>
+              <div className="flx flx-row flx-align-center mrgn-bottom-sm brdr-bottom pdding-bottom-sm" >
+                <Link
+                  key={userItem.userId}
+                  to={'/' + props.org.url + '/user/' + userItem.username} >
+                  <ProfilePic src={userItem.image} className="user-img center-img prof-48" /> 
+                  <div className="flx flx-col flx-align-start w-100">
+                    <div className="mrgn-left-sm koi-type-body koi-type-bold color--black">{userItem.username}</div>
+                    <div className="mrgn-left-sm koi-type-caption color--black">{userItem.fullName}</div>
+                  </div>
+                </Link>
+                  {/*<div className="mrgn-left-sm koi-type-body">
+                    {Constants.USER_ROLES_MAP[userItem.role]}
+                  </div>
+                  <div className="mrgn-left-sm koi-type-body">
+                    {userItem.status}
+                  </div>
+                  <EditUserRole user={userItem} />*/}
                 </div>
-              </Link>
               )
           })
         }
@@ -199,7 +236,6 @@ class OrgSettings extends React.Component {
   componentDidMount() {
     this.props.loadSidebar(mql);
     mql.addListener(this.mediaQueryChanged);
-
     let lowerCaseOrgURL = this.props.params.orgurl ? this.props.params.orgurl.toLowerCase() : ''
     Firebase.database().ref(Constants.ORGS_BY_URL_PATH + '/' + lowerCaseOrgURL).once('value', orgSnap => {
       if (!orgSnap.exists()) {

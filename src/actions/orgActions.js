@@ -80,7 +80,7 @@ export function onCreateOrg(auth, org, userData, imageFile) {
 
               // save the user's username, etc to users-by-org
               updates[`/${Constants.USERS_BY_ORG_PATH}/${orgId}/${auth}/`] = 
-                Object.assign({}, userData, {role: Constants.PRIMARY_OWNER_ROLE})
+                Object.assign({}, userData, {role: Constants.PRIMARY_OWNER_ROLE}, {status: Constants.ACTIVE_STATUS})
 
               // save pic to global user table
               updates[`/${Constants.USERS_PATH}/${auth}/image`] = downloadURL
