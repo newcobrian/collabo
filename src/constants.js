@@ -218,11 +218,11 @@ export const PENDING_TAB = 'pending'
 export const LISTS_TAB = 'lists'
 
 /*** User Roles ***/
-export const PRIMARY_OWNER_ROLE = 'primaryOwner'
-export const OWNER_ROLE = 'owner'
-export const ADMIN_ROLE = 'admin'
-export const USER_ROLE = 'user'
-export const GUEST_ROLE = 'guest'
+export const PRIMARY_OWNER_ROLE = '0'
+export const OWNER_ROLE = '1'
+export const ADMIN_ROLE = '2'
+export const USER_ROLE = '3'
+export const GUEST_ROLE = '4'
 
 export const ORG_MEMBERS_LIST = 'orgMembers'
 export const PROJECT_MEMBERS_LIST = 'projectMembers'
