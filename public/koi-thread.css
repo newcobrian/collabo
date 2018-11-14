@@ -45,7 +45,7 @@
 .tp-page .tp-wrapper {
 	padding: 12px;
 }
-.tp-page .comment-inner {
+.thread-body .comment-inner {
 	box-shadow: none !important;
 }
 .tp-full .tp-wrapper {

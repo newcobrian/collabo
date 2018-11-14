@@ -115,7 +115,7 @@ const ThreadBody = props => {
       orgMembers, orgUserData, bodyText, likes } = props
 
     return (
-      <div className={"thread-body tp-page left-text flx flx-col flx-align-center"}>
+      <div className={"thread-body left-text flx flx-col flx-align-center"}>
           <div className="thread-view w-100">
             <div className={"tp-wrapper flx flx-row flx-m-col"}>   
               <div className="tp-container b--primary--10 flx flx-col flx-align-start">   
@@ -173,7 +173,10 @@ const ThreadBody = props => {
             </div>
 
 
-              <div className="comment-row-wrapper brdr-left flx flx-row" id='guidecommentcontainer' name='guidecommentcontainer'>
+              <div className="comment-row-wrapper brdr-left flx flx-col" id='guidecommentcontainer' name='guidecommentcontainer'>
+                <div className="koi-type-h2b color--utsuri mrgn-top-md mrgn-left-xs mrgn-bottom-md opa-50">
+                  Discussion
+                </div>
                 <div className="co-thread-reply-wrapper">
                   <CommentContainer
                     authenticated={authenticated}
