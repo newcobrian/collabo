@@ -166,9 +166,7 @@ class Comment extends React.Component {
                   </Link>
                 </div>
                 <div className="thread-timestamp inline-block flx flx-row flx-item-right">
-                <Link onClick={openThread}>
                   <DisplayTimestamp timestamp={comment.lastModified} />
-                  </Link>
                 </div>
               </div>
 

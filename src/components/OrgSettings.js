@@ -98,6 +98,7 @@ const MembersList = props => {
                 <ProfilePic src={userItem.image} className="user-img center-img prof-48" /> 
                 <div className="flx flx-col flx-align-start w-100">
                   <div className="mrgn-left-sm koi-type-body koi-type-bold color--black">{userItem.username}</div>
+                  <span>{userItem.role}</span>
                   <div className="mrgn-left-sm koi-type-caption color--black">{userItem.fullName}</div>
                 </div>
               </Link>

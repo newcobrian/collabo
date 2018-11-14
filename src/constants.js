@@ -218,7 +218,7 @@ export const PENDING_TAB = 'pending'
 export const LISTS_TAB = 'lists'
 
 /*** User Roles ***/
-export const PRIMARY_OWNER_ROLE = 'primary_owner'
+export const PRIMARY_OWNER_ROLE = 'primaryOwner'
 export const OWNER_ROLE = 'owner'
 export const ADMIN_ROLE = 'admin'
 export const USER_ROLE = 'user'
