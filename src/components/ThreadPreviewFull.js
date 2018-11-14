@@ -69,6 +69,21 @@ import ProfilePic from './ProfilePic';
 //     )
 // }
 
+
+// const ReplyCounter = props => {
+//   const { authenticated, thread, lastUpdater, orgUserData, org, projectNames, userInfo, commentErrors, project, deleteComment } = this.props
+
+//   if (this.props.thread.commentsCount > 0) {
+//     return (
+//       <div>{this.props.thread.commentsCount} Total Replies&nbsp;&#xb7;&nbsp;</div>
+//     );
+//   }
+//   return (
+//     <div>0 Replies&nbsp;&#xb7;&nbsp;</div>
+//   );
+// }
+
+
 var Scroll = require('react-scroll');
 var Element = Scroll.Element;
 var linkify = require('linkify-it')();
@@ -278,12 +293,15 @@ class ThreadPreviewFull extends React.Component {
             deleteComment={deleteComment} />*/}
 
           <div className="comment-row-wrapper flx flx-col">
-            
-            <Link onClick={this.openThread} className="discussion-info color--utsuri thread-timestamp flx flx-row flx-align-center w-100 opa-30">
+            <div className="koi-type-h2b color--utsuri mrgn-top-md mrgn-left-sm opa-50">
+              Discussion
+            </div>
+            <Link onClick={this.openThread} className="discussion-info color--utsuri thread-timestamp flx flx-row flx-align-center w-100 opa-50">
               {/*<div>3 New&nbsp;&#xb7;&nbsp;</div>*/}
-              <div>{this.props.thread.commentsCount} Total Replies&nbsp;&#xb7;&nbsp;</div>
-              <div>8 Participants</div>
-              <div className="flx-item-right">View All</div>
+              <div className="text-hover">{this.props.thread.commentsCount} Total Replies</div>
+              {/*<ReplyCounter/>*/}
+              {/*<div> &nbsp;&#xb7;&nbsp;8 Participants</div>*/}
+              <div className="flx-item-right text-hover">View All</div>
             </Link>
 
             <div className="co-thread-reply-wrapper">

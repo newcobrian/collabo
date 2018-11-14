@@ -138,6 +138,32 @@ p {
 .co-type-profile-status {
 	font-size: 18px;
 } 
+
+.koi-type-org {
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 48px;
+}
+
+.co-type-h1 {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: .5px;
+}
+.koi-type-h2 {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0;
+}
+.koi-type-h2b {
+    font-weight: 600 !important;
+    color: inherit;
+    letter-spacing: 0;
+    font-size: 24px !important;
+    font-family: 'Karla';
+    line-height: 30px;
+}
 .co-type-h3,
 .koi-type-h3 {
     font-weight: 600 !important;
@@ -146,22 +172,7 @@ p {
     font-size: 14px !important;
     font-family: 'Karla';
 }
-.koi-type-org {
-    font-size: 18px;
-    font-weight: 400;
-    letter-spacing: 0;
-    line-height: 48px;
-}
-.koi-type-h2 {
-    font-size: 18px;
-    font-weight: 600;
-    letter-spacing: 0;
-}
-.co-type-h1 {
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: .5px;
-}
+
 .co-type-h4 {
 	/*font-family: 'Doppio One', sans-serif;*/
     font-size: 22px;
