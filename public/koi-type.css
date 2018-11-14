@@ -29,12 +29,19 @@
     line-height: 20px;
     white-space: pre-line;
 }
-
-.koi-type-body-lg {
+.koi-type-body-lg,
+.koi-type-body--lg {
     font-weight: 400;
     font-size: 20px;
     letter-spacing: .1px;
     line-height: 22px;
+    white-space: pre-line;
+}
+.koi-type-body--sm {
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: .1px;
+    line-height: 20px;
     white-space: pre-line;
 }
 .co-type-caption {
