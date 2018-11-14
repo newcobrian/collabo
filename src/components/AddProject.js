@@ -175,7 +175,7 @@ class AddProject extends React.Component {
 			        			<div className="koi-type-page-title mrgn-bottom-md">
 			        				Create a New Group
 			        			</div>
-						       	<div className="co-type-body color--black mrgn-bottom-md">
+						       	<div className="koi-type-body color--black mrgn-bottom-md opa-80">
 						       	Use groups	 to organize your team communications and files (ie. "Design", "Marketing", etc)
 						       	<br/>
 						       	Access lists quickly in the left sidebar.</div>

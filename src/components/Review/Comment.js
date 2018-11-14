@@ -198,7 +198,7 @@ class Comment extends React.Component {
                     <div className="koi-ico --24 ico--reply mrgn-right-xs opa-60"></div>
                     <div className="co-type-label color--black ta-left mobile-hide">Reply</div>
                   </Link>}
-                <div className="flx flx-row flx-item-right">
+                <div className="comment-edit-wrapper flx flx-row flx-item-right">
                   <div className="thread-timestamp inline-block mrgn-right-sm">
                     <DeleteButton
                       show={show && !isFeed}

@@ -28,7 +28,12 @@
 	padding-left: 60px;
 }
 
-
+.tp-preview-full .comment-edit-wrapper {
+  display: none;
+}
+.tp-preview-full .reply-ico-wrapper {
+  display: none;
+}
 .comment-row-wrapper {
 	/*position: absolute;*/
     right: 0;
