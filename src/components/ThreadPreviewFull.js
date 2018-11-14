@@ -305,8 +305,10 @@ class ThreadPreviewFull extends React.Component {
             </div>
           </div>
       </div>
-      <div className="w-100 pdding-all-md flx flx-col flx-center-all">
-        <div className="koi-ico ico--divider opa-20 no-click"></div>
+      <div className="w-100 pdding-top-md pdding-bottom-md flx flx-row flx-center-all">
+        <div className="brdr-bottom w-100 mrgn-right-sm"></div>
+        <div className="koi-ico ico--divider opa-20 no-click flx-hold"></div>
+        <div className="brdr-bottom w-100 mrgn-left-sm"></div>
       </div>
     </div>
     );

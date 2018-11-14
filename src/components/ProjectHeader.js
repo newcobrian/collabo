@@ -26,7 +26,7 @@ const ProjectHeader = props => {
                   <div className="koi-type-label color--black opa-70 mrgn-right-sm text-hover"> 
                     {(membersList || []).length + ' Members'}
                   </div>
-                  <Link onClick={props.onProjectInviteClick} className="koi-type-label text-hover color--black opa-70"> 
+                  <Link onClick={props.onProjectInviteClick} className="koi-type-label text-hover color--utsuri opa-80"> 
                       Add Member
                   </Link>
                 </div>
