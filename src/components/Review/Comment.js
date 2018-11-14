@@ -193,7 +193,7 @@ class Comment extends React.Component {
                   likeObject={parentId ? Object.assign({}, comment, {parentId: parentId}) : comment}
                   type={parentId ? Constants.NESTED_COMMENT_TYPE : Constants.COMMENT_TYPE}
                   org={org} />
-                {!parentId && hideCommentInput && (!comment.nestedComments || comment.nestedComments.lenght > 0) &&
+                {!isFeed && !parentId && hideCommentInput && (!comment.nestedComments || comment.nestedComments.lenght > 0) &&
                   <Link className="reply-ico-wrapper flx flx-row flx-center-all mrgn-left-md" onClick={this.toggleHideCommentInput}>
                     <div className="koi-ico --24 ico--reply mrgn-right-xs opa-60"></div>
                     <div className="co-type-label color--black ta-left mobile-hide">Reply</div>
@@ -201,7 +201,7 @@ class Comment extends React.Component {
                 <div className="flx flx-row flx-item-right">
                   <div className="thread-timestamp inline-block mrgn-right-sm">
                     <DeleteButton
-                      show={show}
+                      show={show && !isFeed}
                       commentObject={commentObject}
                       commentId={comment.id}
                       deleteComment={deleteComment}
@@ -210,7 +210,7 @@ class Comment extends React.Component {
                   </div>
                   <div className="thread-timestamp inline-block">
                     <EditButton
-                      show={show}
+                      show={show && !isFeed}
                       onEditClick={onEditClick} />
                   </div>
                 </div>
