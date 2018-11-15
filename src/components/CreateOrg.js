@@ -59,7 +59,8 @@ class CreateOrg extends React.Component {
 		   	let userData = Object.assign({}, 
 		   		{username: this.props.username},
 		   		{fullName: this.props.fullName},
-		   		{image: this.props.image}
+		   		{image: this.props.image},
+		   		{email: this.props.userInfo.email}
 		   	)
 		   	// let invites = this.props.invites ? this.props.invites : ''
             
