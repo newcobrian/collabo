@@ -185,6 +185,9 @@ class Settings extends React.Component {
       Actions.askForAuth();
     }
 
+    this.props.loadSidebar(mql);
+    mql.addListener(this.mediaQueryChanged);
+
     let lowerCaseOrgURL = this.props.params.orgurl ? this.props.params.orgurl.toLowerCase() : ''
     Firebase.database().ref(Constants.ORGS_BY_URL_PATH + '/' + lowerCaseOrgURL).once('value', orgSnap => {
       if (!orgSnap.exists()) {
