@@ -120,8 +120,7 @@ class AcceptOrgInvite extends React.Component {
     //   )
     // }
     // orgInvites need orgId and recipientEmail
-    else if (!invite.senderId || !invite.recipientEmail ||
-    !invite.orgId) {
+    else if (!invite.senderId || !invite.recipientEmail || !invite.orgId) {
       return (
         <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
           <div className="co-logo large-logo mrgn-bottom-lg mrgn-top-md">

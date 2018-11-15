@@ -95,13 +95,17 @@ export function loadOrgInvite(auth, inviteId) {
         })
       }
       else {
+        let cleanedEmail = Helpers.cleanEmailToFirebase(orgInviteSnap.val().recipientEmail)
         Firebase.database().ref(Constants.ORGS_PATH + '/' + orgInviteSnap.val().orgId).once('value', orgSnap => {
           Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgInviteSnap.val().orgId + '/' + orgInviteSnap.val().senderId).once('value', senderSnap => {
-            dispatch({
-              type: ActionTypes.INVITE_LOADED,
-              invite: Object.assign({}, orgInviteSnap.val(), { orgName: orgSnap.val().name }),
-              sender: senderSnap.val(),
-              inviteType: Constants.ORG_TYPE
+            Firebase.database().ref(Constants.USERS_BY_EMAIL_PATH + '/' + cleanedEmail).once('value', emailSnap => {
+              dispatch({
+                type: ActionTypes.INVITE_LOADED,
+                invite: Object.assign({}, orgInviteSnap.val(), { orgName: orgSnap.val().name }),
+                sender: senderSnap.val(),
+                inviteType: Constants.ORG_TYPE,
+                emailRegistered: emailSnap.exists()
+              })
             })
           })
         })
