@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "algoliasearch": "^3.22.1",
+    "bootstrap": "^4.1.3",
     "express": "^4.16.2",
     "firebase": "^3.6.9",
     "firebase-tools": "^5.1.1",

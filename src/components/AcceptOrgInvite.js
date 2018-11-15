@@ -122,13 +122,16 @@ class AcceptOrgInvite extends React.Component {
     // orgInvites need orgId and recipientEmail
     else if (!invite.senderId || !invite.recipientEmail || !invite.orgId) {
       return (
-        <div className="home-page page-common flx flx-col flx-align-center flx-just-start ta-center">
-          <div className="co-logo large-logo mrgn-bottom-lg mrgn-top-md">
-            <img className="center-img" src="/img/logomark.png"/>
-          </div>
-          <div className="mrgn-bottom-md color--white co-type-body">Sorry, we couldn't find this invite.
-          </div>
-          <Link className="co-type-body color--tertiary" to='/'> Go to homepage</Link>
+        <div className="home-page page-common page-register fill--pond flx flx-col flx-just-start">
+          <div className="koi-view ta-left flx flx-col pdding-top-lg">
+              <div className="register-msg">
+                <div className="koi-big-header mrgn-bottom-md color--utsuri opa-30">Hmmm...</div>
+                <div className="co-post-title mrgn-bottom-md color--black">
+                  Sorry, we couldn't find this invite.
+                </div>
+                <Link className="text-hover color--seaweed mrgn-top-sm" to='/'>Go to homepage</Link>
+              </div>
+            </div>
         </div>
       )
     }
@@ -137,10 +140,16 @@ class AcceptOrgInvite extends React.Component {
       // if invite was sent to a registered email, tell the user to login
       if (emailRegistered) {
         return (
-          <div className="home-page page-register fill--pond flx flx-col flx-just-start">
-            <div className="mrgn-bottom-md color--white koi-type-body">{sender.username} invited you to join their team "{invite.orgName}"
-            </div>
-            <Link className="co-type-body color--tertiary" to='/login'>Login to accept</Link>
+          <div className="home-page page-common page-register fill--pond flx flx-col flx-just-start">
+            <div className="koi-view ta-left flx flx-col pdding-top-lg">
+                <div className="register-msg">
+                  <div className="koi-big-header mrgn-bottom-md color--utsuri opa-30">Hello!</div>
+                  <div className="co-post-title mrgn-bottom-md color--black">
+                    {sender.username} invited you to join their team "{invite.orgName}"
+                  </div>
+                  <Link className="text-hover color--seaweed mrgn-top-sm" to='/'>Login to accept</Link>
+                </div>
+              </div>
           </div>
         )
       }
