@@ -96,11 +96,11 @@ const PendingTab = props => {
 //             }
 //           })}
 const EditUserRole = props => {
-  const onChange = ev => {
-    console.log('hi i be changin')
-  }
   const { user, orgUser } = props
 
+  const onChange = ev => {
+    props.onChangeUserRole(user, ev.target.value)
+  }
   // check if org user's role is primary owner, owner, or admin
   if (orgUser.role > Constants.ADMIN_ROLE) return null
   else {
@@ -112,6 +112,11 @@ const EditUserRole = props => {
         </option>
         {(props.roleArray || []).map((roleType, index) => {
           if (orgUser.role < index) {
+            return (
+              <option key={index} value={index}>Change to {roleType}</option>  
+            )
+          }
+          else if ((orgUser.role === Constants.OWNER_ROLE || orgUser.role === Constants.ADMIN_ROLE) && orgUser.role == index) {
             return (
               <option key={index} value={index}>Change to {roleType}</option>  
             )
@@ -158,7 +163,8 @@ const MembersList = props => {
                   <EditUserRole
                     orgUser={props.orgUser} 
                     user={userItem}
-                    roleArray={props.roleArray} />
+                    roleArray={props.roleArray}
+                    onChangeUserRole={props.onChangeUserRole} />
                 </div>
               )
           })
@@ -251,6 +257,10 @@ class OrgSettings extends React.Component {
 
     this.onOrgInviteClick = ev => {
       this.props.showOrgInviteModal(this.props.org)
+    }
+
+    this.onChangeUserRole = (user, role) => {
+      this.props.changeUserRole(this.props.authenticated, this.props.org.id, user, role)
     }
   }
 
@@ -406,8 +416,8 @@ class OrgSettings extends React.Component {
                         usersProjects={usersProjects || {}} 
                         joinProject={this.props.joinProject}
                         leaveProject={this.props.leaveProject}
-                        roleArray={roleArray} />
-
+                        roleArray={roleArray}
+                        onChangeUserRole={this.onChangeUserRole} />
                         {/*<ListErrors errors={this.props.errors}></ListErrors>*/}
 
                         

@@ -40,6 +40,12 @@ export default function(state = initialState, action) {
         message: action.invitesSent + text + action.orgName,
         open: true
       }
+    case ActionTypes.USER_ROLE_UPDATED:
+      return {
+        ...state,
+        message: action.message,
+        open: true
+      }
     case CLOSE_SNACKBAR:
       {
         return {...state,
