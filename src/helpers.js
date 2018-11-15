@@ -670,8 +670,8 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 
 	let orgId = thread ? thread.orgId : org.id
 
-	Firebase.database().ref(Constants.USERS_PATH + '/' + recipientId).once('value', recipientSnapshot => {
-		Firebase.database().ref(Constants.USERS_PATH + '/' + senderId).once('value', senderSnapshot => {
+	Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + org.id + '/' + recipientId).once('value', recipientSnapshot => {
+		Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + org.id + '/' + senderId).once('value', senderSnapshot => {
 			switch(messageType) {
 				case Constants.THREAD_MENTION_MESSAGE:
 					inboxObject.senderId = senderId;
@@ -803,7 +803,7 @@ export function sendCommentInboxMessage(senderId, recipientId, messageType, org,
 }
 
 export function sendInviteEmail(auth, recipientEmail, org, inviteId) {
-	Firebase.database().ref(Constants.USERS_PATH + '/' + auth).once('value', senderSnap => {
+	Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + org.id + '/' + auth).once('value', senderSnap => {
 		// let emailMessage = senderSnap.val().username + ' invited you to join their team "' + org.name + '" on Collabo.' +
 		// 	' Click here to check it out: ' + Constants.COLLABO_URL + '/invitation/' + inviteId;
 		let link = Constants.COLLABO_URL + '/invitation/' + inviteId
