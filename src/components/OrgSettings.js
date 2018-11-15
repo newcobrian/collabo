@@ -11,6 +11,7 @@ import ProfilePic from './ProfilePic';
 import DisplayTimestamp from './DisplayTimestamp';
 import InvalidOrg from './InvalidOrg'
 import LoggedOutMessage from './LoggedOutMessage';
+import { SplitButton, MenuItem } from 'react-bootstrap'
 
 const mql = window.matchMedia(`(min-width: 800px)`);
 
@@ -98,34 +99,54 @@ const PendingTab = props => {
 const EditUserRole = props => {
   const { user, orgUser } = props
 
-  const onChange = ev => {
-    props.onChangeUserRole(user, ev.target.value)
+  const onChange = eventKey => {
+    props.onChangeUserRole(user, eventKey)
   }
   // check if org user's role is primary owner, owner, or admin
   if (orgUser.role > Constants.ADMIN_ROLE) return null
   else {
     return (
     <div className="org-row org-row-selector flx flx-row flx-align-center">
-      <select className="org-selector co-type-org color--utsuri opa-40" onChange={onChange}>
-        <option selected disabled hidden>
-          ...
-        </option>
+      <SplitButton title='Edit'>
         {(props.roleArray || []).map((roleType, index) => {
           if (orgUser.role < index) {
             return (
-              <option key={index} value={index}>Change to {roleType}</option>  
+              <MenuItem eventKey={index} key={index} onSelect={onChange}>Change to {roleType}</MenuItem>
             )
           }
           else if ((orgUser.role === Constants.OWNER_ROLE || orgUser.role === Constants.ADMIN_ROLE) && orgUser.role == index) {
             return (
-              <option key={index} value={index}>Change to {roleType}</option>  
+              <MenuItem eventKey={index} key={index} onSelect={onChange}>Change to {roleType}</MenuItem>  
             )
           }
         })}
-      </select>
+      </SplitButton>
     </div> 
     )
   }
+  // else {
+  //   return (
+  //   <div className="org-row org-row-selector flx flx-row flx-align-center">
+  //     <select className="org-selector co-type-org color--utsuri opa-40" onChange={onChange}>
+  //       <option selected disabled hidden>
+  //         ...
+  //       </option>
+  //       {(props.roleArray || []).map((roleType, index) => {
+  //         if (orgUser.role < index) {
+  //           return (
+  //             <option key={index} value={index}>Change to {roleType}</option>  
+  //           )
+  //         }
+  //         else if ((orgUser.role === Constants.OWNER_ROLE || orgUser.role === Constants.ADMIN_ROLE) && orgUser.role == index) {
+  //           return (
+  //             <option key={index} value={index}>Change to {roleType}</option>  
+  //           )
+  //         }
+  //       })}
+  //     </select>
+  //   </div> 
+  //   )
+  // }
 }
 
 const RoleRender = props => {
