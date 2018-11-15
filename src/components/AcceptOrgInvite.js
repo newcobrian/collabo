@@ -323,17 +323,6 @@ class AcceptOrgInvite extends React.Component {
                     onChange={this.changeFullName} />
                 </fieldset>
 
-                <label>Choose a password (at least 6 characters)</label>
-                <fieldset className="field-wrapper mrgn-bottom-md">
-                  <input
-                    className="input--underline edit-itinerary__name brdr-all"
-                    type="password"
-                    placeholder="Password"
-                    required
-                    value={this.props.password}
-                    onChange={this.changePassword} />
-                </fieldset>
-
                 <fieldset>
                   {this.props.image && 
                     <div className="profile-image flx flx-center-all">
