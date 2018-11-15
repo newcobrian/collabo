@@ -671,80 +671,82 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 	let orgId = thread ? thread.orgId : org.id
 
 	Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + org.id + '/' + recipientId).once('value', recipientSnapshot => {
-		Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + org.id + '/' + senderId).once('value', senderSnapshot => {
-			switch(messageType) {
-				case Constants.THREAD_MENTION_MESSAGE:
-					inboxObject.senderId = senderId;
-					inboxObject.message = ' mentioned you in the post: ' + thread.title;
-					inboxObject.link = '/' + project.projectId + '/' + thread.threadId;
-					emailData.emailSubject = senderSnapshot.val().username + ' mentioned you in a post'
-					emailData.body = sendObject
-					emailData.threadTitle = '"' + thread.title + '"'
-					emailData.senderLink = Constants.COLLABO_URL + '/' + org.url + '/users/' + senderSnapshot.val().username
-					break;
-				case Constants.LIKE_THREAD_MESSAGE:
-					inboxObject.senderId = senderId;
-					inboxObject.message = ' upvoted your post "' + thread.title + '"';
-					inboxObject.link = '/' + thread.projectId + '/' + thread.threadId;
-					sendEmail = false
-					break;
-				case Constants.LIKE_COMMENT_MESSAGE:
-					inboxObject.senderId = senderId;
-					inboxObject.message = ' upvoted your comment: "' + sendObject.body + '"';
-					inboxObject.link = '/' + thread.projectId + '/' + thread.threadId;
-					sendEmail = false
-					break;
-				// case Constants.COMMENT_ON_COMMENT_REVIEW_MESSAGE:
-				// 	inboxObject.senderId = senderId;
-				// 	inboxObject.message = ' also commented: ' + sendObject.message;
-				// 	inboxObject.link = threadId ? '/guide/' + itineraryId + '#comment' + sendObject.commentId : 
-				// 		'/review/' + sendObject.subjectId + '/' + sendObject.id;
-				// 	inboxObject.reviewTitle = '';
-				// 	emailMessage = senderSnapshot.val().username + 
-				// 		' also commented on a tip you commented on. Click here to check it out: https://myviews.io' + inboxObject.link;
-				// 	break;
-				case Constants.ORG_INVITE_MESSAGE:
-					inboxObject.senderId = senderId;
-					inboxObject.message = ' invited you join their team: ' + org.url;
-					inboxObject.link = '/invitation/' + sendObject;
-					inboxObject.type = Constants.INBOX_INVITE_TYPE
-					emailData.unitType = 'team'
-					emailData.message = ' invited you to join the team: '
-					emailData.name = org.name
-					emailData.link = Constants.COLLABO_URL + '/invitation/' + sendObject;
-					emailData.senderLink = Constants.COLLABO_URL + '/' + org.url + '/users/' + senderSnapshot.val().username
-					emailTemplateID = "0a991f3c-3079-4d45-90d2-eff7c64f9cc5"
-					break;
-				case Constants.PROJECT_INVITE_MESSAGE:
-					inboxObject.senderId = senderId;
-					inboxObject.message = ' invited you join the group: ' + project.name;
-					inboxObject.link = '/joinproject/' + sendObject;
-					inboxObject.type = Constants.INBOX_INVITE_TYPE
-					emailData.unitType = 'group'
-					emailData.message = ' invited you to join the group: ' + project.name + ' in the ' + org.name + ' team.'
-					emailData.link = Constants.COLLABO_URL + '/invitation/' + sendObject;
-					emailData.senderLink = Constants.COLLABO_URL + '/' + org.url + '/users/' + senderSnapshot.val().username
-					emailTemplateID = "0a991f3c-3079-4d45-90d2-eff7c64f9cc5"
-					break;
-				// case Constants.NEW_THREAD_MESSAGE:
-				// 	inboxObject.senderId = senderId;
-				// 	inboxObject.message = org.name + ': ' + senderSnapshot.val().name + ' created a new thread "' + thread.title + '" in the ' + project.name + ' project';
-				// 	inboxObject.link = '/' + org.url + '/' + project.projectId + '/' + thread.threadId;
-				// 	inboxObject.type = Constants.INBOX_INVITE_TYPE
-				// 	emailMessage = org.name + ' team: ' + senderSnapshot.val().username + 
-				// 		' created a new thread in the ' + project.name + ' project. Click here to check it out: '+ Constants.COLLABO_URL + '/' + org.url + '/' + project.projectId + '/' + thread.threadId;
-				// 	break;
-			}
-			if (senderId !== recipientId) {
-				Firebase.database().ref(Constants.INBOX_BY_USER_BY_ORG_PATH + '/' + recipientId + '/' + orgId).push().set(inboxObject);
-				Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + recipientId + '/' + orgId + '/messageCount').transaction(function (current_count) {
-		            return (current_count || 0) + 1;
-		        })
-	        	if (sendEmail && recipientSnapshot.exists() && recipientSnapshot.val().email) {
-	        		let data = Object.assign({}, emailData, {senderName: senderSnapshot.val().username});
-	        		sendContentManagerEmail(emailTemplateID, recipientSnapshot.val().email, data);
-			    }
-			}
+		Firebase.database().ref(Constants.USERS_PATH + '/' + recipientId).once('value', recipientEmailSnapshot => {
+			Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + org.id + '/' + senderId).once('value', senderSnapshot => {
+				switch(messageType) {
+					case Constants.THREAD_MENTION_MESSAGE:
+						inboxObject.senderId = senderId;
+						inboxObject.message = ' mentioned you in the post: ' + thread.title;
+						inboxObject.link = '/' + project.projectId + '/' + thread.threadId;
+						emailData.emailSubject = senderSnapshot.val().username + ' mentioned you in a post'
+						emailData.body = sendObject
+						emailData.threadTitle = '"' + thread.title + '"'
+						emailData.senderLink = Constants.COLLABO_URL + '/' + org.url + '/users/' + senderSnapshot.val().username
+						break;
+					case Constants.LIKE_THREAD_MESSAGE:
+						inboxObject.senderId = senderId;
+						inboxObject.message = ' upvoted your post "' + thread.title + '"';
+						inboxObject.link = '/' + thread.projectId + '/' + thread.threadId;
+						sendEmail = false
+						break;
+					case Constants.LIKE_COMMENT_MESSAGE:
+						inboxObject.senderId = senderId;
+						inboxObject.message = ' upvoted your comment: "' + sendObject.body + '"';
+						inboxObject.link = '/' + thread.projectId + '/' + thread.threadId;
+						sendEmail = false
+						break;
+					// case Constants.COMMENT_ON_COMMENT_REVIEW_MESSAGE:
+					// 	inboxObject.senderId = senderId;
+					// 	inboxObject.message = ' also commented: ' + sendObject.message;
+					// 	inboxObject.link = threadId ? '/guide/' + itineraryId + '#comment' + sendObject.commentId : 
+					// 		'/review/' + sendObject.subjectId + '/' + sendObject.id;
+					// 	inboxObject.reviewTitle = '';
+					// 	emailMessage = senderSnapshot.val().username + 
+					// 		' also commented on a tip you commented on. Click here to check it out: https://myviews.io' + inboxObject.link;
+					// 	break;
+					case Constants.ORG_INVITE_MESSAGE:
+						inboxObject.senderId = senderId;
+						inboxObject.message = ' invited you join their team: ' + org.url;
+						inboxObject.link = '/invitation/' + sendObject;
+						inboxObject.type = Constants.INBOX_INVITE_TYPE
+						emailData.unitType = 'team'
+						emailData.message = ' invited you to join the team: '
+						emailData.name = org.name
+						emailData.link = Constants.COLLABO_URL + '/invitation/' + sendObject;
+						emailData.senderLink = Constants.COLLABO_URL + '/' + org.url + '/users/' + senderSnapshot.val().username
+						emailTemplateID = "0a991f3c-3079-4d45-90d2-eff7c64f9cc5"
+						break;
+					case Constants.PROJECT_INVITE_MESSAGE:
+						inboxObject.senderId = senderId;
+						inboxObject.message = ' invited you join the group: ' + project.name;
+						inboxObject.link = '/joinproject/' + sendObject;
+						inboxObject.type = Constants.INBOX_INVITE_TYPE
+						emailData.unitType = 'group'
+						emailData.message = ' invited you to join the group: ' + project.name + ' in the ' + org.name + ' team.'
+						emailData.link = Constants.COLLABO_URL + '/invitation/' + sendObject;
+						emailData.senderLink = Constants.COLLABO_URL + '/' + org.url + '/users/' + senderSnapshot.val().username
+						emailTemplateID = "0a991f3c-3079-4d45-90d2-eff7c64f9cc5"
+						break;
+					// case Constants.NEW_THREAD_MESSAGE:
+					// 	inboxObject.senderId = senderId;
+					// 	inboxObject.message = org.name + ': ' + senderSnapshot.val().name + ' created a new thread "' + thread.title + '" in the ' + project.name + ' project';
+					// 	inboxObject.link = '/' + org.url + '/' + project.projectId + '/' + thread.threadId;
+					// 	inboxObject.type = Constants.INBOX_INVITE_TYPE
+					// 	emailMessage = org.name + ' team: ' + senderSnapshot.val().username + 
+					// 		' created a new thread in the ' + project.name + ' project. Click here to check it out: '+ Constants.COLLABO_URL + '/' + org.url + '/' + project.projectId + '/' + thread.threadId;
+					// 	break;
+				}
+				if (senderId !== recipientId) {
+					Firebase.database().ref(Constants.INBOX_BY_USER_BY_ORG_PATH + '/' + recipientId + '/' + orgId).push().set(inboxObject);
+					Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + recipientId + '/' + orgId + '/messageCount').transaction(function (current_count) {
+			            return (current_count || 0) + 1;
+			        })
+		        	if (sendEmail && recipientSnapshot.exists() && recipientEmailSnapshot.val().email) {
+		        		let data = Object.assign({}, emailData, {senderName: senderSnapshot.val().username});
+		        		sendContentManagerEmail(emailTemplateID, recipientEmailSnapshot.val().email, data);
+				    }
+				}
+			})
 		})
 	})
 }
@@ -757,47 +759,49 @@ export function sendCommentInboxMessage(senderId, recipientId, messageType, org,
 		threadLink: Constants.COLLABO_URL + '/' + org.url + '/' + thread.projectId + '/' + thread.threadId
 	};
 
-	Firebase.database().ref(Constants.USERS_PATH + '/' + recipientId).once('value', recipientSnapshot => {
-		Firebase.database().ref(Constants.USERS_PATH + '/' + senderId).once('value', senderSnapshot => {
-			switch(messageType) {
-				case Constants.COMMENT_IN_THREAD_MESSAGE:
-					inboxObject.senderId = senderId;
-					inboxObject.message = ' commented on your post "' + thread.title + '": ' + sendObject.message;
-					inboxObject.link = '/' + thread.projectId + '/' + thread.threadId;
-					emailData.emailSubject = senderSnapshot.val().username + ' commented on your post'
-					emailData.threadTitle = '"' + thread.title + '"'
-					emailData.commentBody = sendObject.message
-					emailData.bodyText = ' commented on your post '
-					break;
-				case Constants.COMMENT_MENTION_MESSAGE:
-					inboxObject.senderId = senderId;
-					inboxObject.message = ' mentioned you in a comment in the thread "' + thread.title + '": ' + sendObject.message;
-					inboxObject.link = '/' + thread.projectId + '/' + thread.threadId;
-					emailData.emailSubject = senderSnapshot.val().username + ' mentioned you in a comment'
-					emailData.threadTitle = '"' + thread.title + '"'
-					emailData.commentBody = sendObject.message
-					emailData.bodyText1 = ' mentioned you in a comment on the post '
-					break;
-				case Constants.ALSO_COMMENTED_MESSAGE:
-					inboxObject.senderId = senderId;
-					inboxObject.message = ' also commented in the post "' + thread.title + '": ' + sendObject.message;
-					inboxObject.link = '/' + thread.projectId + '/' + thread.threadId;
-					emailData.emailSubject = senderSnapshot.val().username + ' commented on the same post'
-					emailData.threadTitle = '"' + thread.title + '"'
-					emailData.commentBody = sendObject.message
-					emailData.bodyText = ' commented also commented in the post '
-					break;
-			}
-			if (senderId !== recipientId) {
-				Firebase.database().ref(Constants.INBOX_BY_USER_BY_ORG_PATH + '/' + recipientId + '/' + thread.orgId).push().set(inboxObject);
-				Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + recipientId + '/' + thread.orgId + '/messageCount').transaction(function (current_count) {
-		            return (current_count || 0) + 1;
-		        })
-	        	if (recipientSnapshot.exists() && recipientSnapshot.val().email) {
-	        		let data = Object.assign({}, {senderName: senderSnapshot.val().username}, emailData);
-	        		sendContentManagerEmail("15b9b758-e546-4998-91e9-7d33e4841968", recipientSnapshot.val().email, data);
-			    }
-			}
+	Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + org.id + '/' + recipientId).once('value', recipientSnapshot => {
+		Firebase.database().ref(Constants.USERS_PATH + '/' + recipientId).once('value', recipientEmailSnapshot => {
+			Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + org.id + '/' + senderId).once('value', senderSnapshot => {
+				switch(messageType) {
+					case Constants.COMMENT_IN_THREAD_MESSAGE:
+						inboxObject.senderId = senderId;
+						inboxObject.message = ' commented on your post "' + thread.title + '": ' + sendObject.message;
+						inboxObject.link = '/' + thread.projectId + '/' + thread.threadId;
+						emailData.emailSubject = senderSnapshot.val().username + ' commented on your post'
+						emailData.threadTitle = '"' + thread.title + '"'
+						emailData.commentBody = sendObject.message
+						emailData.bodyText = ' commented on your post '
+						break;
+					case Constants.COMMENT_MENTION_MESSAGE:
+						inboxObject.senderId = senderId;
+						inboxObject.message = ' mentioned you in a comment in the thread "' + thread.title + '": ' + sendObject.message;
+						inboxObject.link = '/' + thread.projectId + '/' + thread.threadId;
+						emailData.emailSubject = senderSnapshot.val().username + ' mentioned you in a comment'
+						emailData.threadTitle = '"' + thread.title + '"'
+						emailData.commentBody = sendObject.message
+						emailData.bodyText1 = ' mentioned you in a comment on the post '
+						break;
+					case Constants.ALSO_COMMENTED_MESSAGE:
+						inboxObject.senderId = senderId;
+						inboxObject.message = ' also commented in the post "' + thread.title + '": ' + sendObject.message;
+						inboxObject.link = '/' + thread.projectId + '/' + thread.threadId;
+						emailData.emailSubject = senderSnapshot.val().username + ' commented on the same post'
+						emailData.threadTitle = '"' + thread.title + '"'
+						emailData.commentBody = sendObject.message
+						emailData.bodyText = ' commented also commented in the post '
+						break;
+				}
+				if (senderId !== recipientId) {
+					Firebase.database().ref(Constants.INBOX_BY_USER_BY_ORG_PATH + '/' + recipientId + '/' + thread.orgId).push().set(inboxObject);
+					Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + recipientId + '/' + thread.orgId + '/messageCount').transaction(function (current_count) {
+			            return (current_count || 0) + 1;
+			        })
+		        	if (recipientSnapshot.exists() && recipientEmailSnapshot.val().email) {
+		        		let data = Object.assign({}, {senderName: senderSnapshot.val().username}, emailData);
+		        		sendContentManagerEmail("15b9b758-e546-4998-91e9-7d33e4841968", recipientEmailSnapshot.val().email, data);
+				    }
+				}
+			})
 		})
 	})
 }
