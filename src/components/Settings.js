@@ -274,7 +274,7 @@ class Settings extends React.Component {
                       <div
                         className="fill--none color--utsuri text-hover koi-type-body opa-60 w-100 mrgn-top-md ta-center w-100"
                         onClick={()=>browserHistory.goBack()}>
-                        Logout
+                        Cancel
                       </div>
 
 
