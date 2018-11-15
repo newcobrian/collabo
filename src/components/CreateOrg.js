@@ -96,7 +96,7 @@ class CreateOrg extends React.Component {
 	    }
 		return (
 			<div className="page-common page-create-org flx flx-col flx-center-all fill--pond">
-	         	<div className="koi-view header-push ta-left flx flx-col flx-hold">
+	         	<div className="koi-view ta-left flx flx-col">
 					<div className="koi-type-page-title mrgn-bottom-md">
 	    				Create your new team
 	  				</div>
