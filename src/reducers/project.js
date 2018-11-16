@@ -200,7 +200,7 @@ export default (state = initialState, action) => {
       return state;
     case ActionTypes.LIST_ADDED_ACTION:
     case ActionTypes.LIST_CHANGED_ACTION: {
-      if (action.source === Constants.PROJECT_PAGE) {
+      if (action.source === Constants.PROJECT_PAGE && action.listType === Constants.PROJECT_LIST_TYPE) {
         const newState = Object.assign({}, state);
         newState.projectCheck = Object.assign({}, state.projectCheck || {});
 
@@ -211,7 +211,7 @@ export default (state = initialState, action) => {
       return state;
     }
     case ActionTypes.LIST_REMOVED_ACTION: {
-      if (action.source === Constants.PROJECT_PAGE) {
+      if (action.source === Constants.PROJECT_PAGE && action.listType === Constants.PROJECT_LIST_TYPE) {
         const newState = Object.assign({}, state);
         newState.projectCheck = Object.assign({}, state.projectCheck || {});
 

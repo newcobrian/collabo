@@ -100,7 +100,7 @@ class Home extends React.Component {
                 <OrgList
                   orgList={this.props.orgList} />
 
-                <Link target="blank" to='/newteam' className="flx flx-row flx-center-all mrgn-top-md">
+                <Link to='/newteam' className="flx flx-row flx-center-all mrgn-top-md">
                     <i className="material-icons color--white md-24 mrgn-right-sm opa-80 DN">add</i>
                   <div className="koi-type-org color--green">Create New Team</div>
                 </Link>

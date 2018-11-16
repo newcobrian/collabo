@@ -90,8 +90,7 @@ export function onCreateOrg(auth, org, userData, imageFile) {
 
               dispatch({
                 type: ActionTypes.ORG_CREATED,
-                orgURL: org.url,
-                orgId: orgId,
+                org: Object.assign({}, org, {id: orgId}),
                 meta: {
                   mixpanel: {
                     event: 'Create new org',
@@ -111,8 +110,7 @@ export function onCreateOrg(auth, org, userData, imageFile) {
 
             dispatch({
               type: ActionTypes.ORG_CREATED,
-              orgURL: org.url,
-              orgId: orgId,
+              org: Object.assign({}, org, {id: orgId}),
               meta: {
                 mixpanel: {
                   event: 'Create new org',

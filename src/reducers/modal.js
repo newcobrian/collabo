@@ -30,8 +30,8 @@ export default (state = initialState, action) => {
         usersList: action.usersList,
         org: action.org
       }
-    case ActionTypes.SHOW_ORG_INVITE_MODAL:
     case ActionTypes.ORG_CREATED:
+    case ActionTypes.SHOW_ORG_INVITE_MODAL:
       return {
         ...state,
         modalType: Constants.ORG_INVITE_MODAL,
