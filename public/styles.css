@@ -239,7 +239,7 @@ li {
 
 .bx-shadow,
 .box-shadow {
-  -webkit-box-shadow: 0px 6px 38px rgba(0,0,0,0.05) !important;
+  -webkit-box-shadow: 0px 6px 38px rgba(0,0,0,0,.05) !important;
 
 }
 .bx-shadow-2 {

@@ -55,10 +55,10 @@ class OrgInviteModal extends React.Component {
         onClick={handleClose}
         style={{}}
         labelStyle={{}}
-      />,
+      />, 
       <FlatButton
         label="Invite"
-        className="vb vb--outline-none fill--secondary color--white"
+        className="vb vb--outline-none fill--seaweed color--white"
         onClick={handleInvite}
         style={{}}
         labelStyle={{}}
@@ -79,34 +79,39 @@ class OrgInviteModal extends React.Component {
           
           title={'Add Members to Team: ' + org.name}
 
-          titleClassName="co-type-h3 color--black"
+          titleClassName="DN co-type-h3 color--black"
           titleStyle={{}}
 
-          className="dialog dialog--save"
+          className="dialog dialog--basic"
           style={{}}
 
-          overlayClassName="dialog__overlay"
+          overlayClassName="dialog-overlay--basic"
           overlayStyle={{}}
           
-          contentClassName="dialog--save__wrapper"
+          contentClassName="dialog-content--basic"
           contentStyle={{width: "auto", maxWidth: "600px"}}
           
-          bodyClassName="dialog--save__body"
+          bodyClassName="dialog-body--basic"
           bodyStyle={{padding: "0px"}}
 
-          actionsContainerClassName="dialog--save__actions"
+          actionsContainerClassName="dialog-actions--basic"
           actionsContainerStyle={{}}
         >
 
         <div className="dialog--save flx flx-col w-100">
            
-          <div>
-            
+          <div className="w-100">
+            <div className="koi-type-dialog-title mrgn-bottom-sm mrgn-top-md color--black">Invite members to your team</div>
+
+            <div className="illustration mrgn-bottom-md flx-hold flx flx-col flx-center-all">
+              <img className="center-img" src="/img/illu_orginvite.png"/>
+            </div>
+            <form>
             <ListErrors errors={this.props.errors}></ListErrors>
 
-            <form>
-              <fieldset className="field-wrapper">
-                <div className="co-type-page-title mrgn-bottom-sm">Invite team members</div>
+            
+              <fieldset className="field-wrapper w-100">
+                
                 <textarea
                   className="input--underline edit-itinerary__name brdr-all"
                   type="text"

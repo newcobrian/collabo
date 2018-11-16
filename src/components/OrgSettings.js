@@ -258,14 +258,16 @@ const MembersList = props => {
 
           })
         }
-        <Link to={'/' + props.org.url + '/createGroup'} className="sidebar-row group-row flx flx-row flx-align-center mrgn-top-sm">
-          <div className="sidebar-icon flx flx-center-all">
+        <Link to={'/' + props.org.url + '/createGroup'} className="flx flx-row flx-align-center mrgn-bottom-sm">
+          <div className="vb vb--xs vb--round flx flx-row flx-center-all fill--white mrgn-right-md">
             <div className="koi-ico --24 ico--add ico-color--seaweed"></div> 
           </div>
-          <div className="sidebar-project-name color--seaweed co-type-bold"> 
+          <div className="koi-type-body color--seaweed co-type-bold"> 
             Add Group
           </div>
         </Link>
+
+
       </div>
     )
   }
