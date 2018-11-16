@@ -46,6 +46,9 @@ class AddProject extends React.Component {
 	      if (!this.props.name) {
 	        this.props.createSubmitError('Please name your list', Constants.ADD_PROJECT_PAGE);
 	      }
+	      else if (!(/^[A-Za-z0-9- ]+$/.test(this.props.name)))  {
+	      	this.props.createSubmitError('Project names can only contain letters, numbers, spaces, and \'-\'', Constants.ADD_PROJECT_PAGE);
+	      }
 	      else {
 		   	let project = {
 		   		name: this.props.name,
