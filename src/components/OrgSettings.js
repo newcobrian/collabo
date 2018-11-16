@@ -111,7 +111,8 @@ const EditUserRole = props => {
     props.onChangeUserRole(user, eventKey)
   }
   // check if org user's role is primary owner, owner, or admin
-  if (orgUser.role > Constants.ADMIN_ROLE || orgUser.userId === user.userId) return null
+  // user can't change their own role, and primary owner cant change their role
+  if (orgUser.role > Constants.ADMIN_ROLE || orgUser.userId === user.userId || user.role === Constants.PRIMARY_OWNER_ROLE) return null
   else {
     return (
     <div className="org-row org-row-selector flx flx-row flx-align-center">
