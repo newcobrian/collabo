@@ -51,7 +51,7 @@ class CreateOrg extends React.Component {
 		  else if (!this.props.url) {
 		  	this.props.createSubmitError('Please add a url', Constants.CREATE_ORG_PAGE);
 		  }
-		  else if (!(/^[A-Za-z0-9]+$/.test(this.props.url)))  {
+		  else if (!(/^[A-Za-z0-9-]+$/.test(this.props.url)))  {
 		  	this.props.createSubmitError('Your URL can only contain letters and numbers, no spaces', Constants.CREATE_ORG_PAGE);
 		  }
 	      else {
