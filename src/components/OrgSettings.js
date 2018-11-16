@@ -85,17 +85,25 @@ const PendingTab = props => {
     </li>
   );
 };
-// { Object.keys(Constants.USER_ROLES_MAP).forEach(function(roleType) {
-//             if (roleType > orgUser.role) {
-//               console.log(roleType)
-//               return (
-//                 <option value={roleType}>Change to</option>  
-//               )
-//             }
-//             else {
-//               console.log('else role type = ' + roleType)
-//             }
-//           })}
+
+const ManageTab = props => {
+  const clickHandler = ev => {
+    ev.preventDefault();
+    props.onTabClick(Constants.MANAGE_TAB);
+  };
+
+  return (
+    <li className="nav-item">
+      <a
+        href=""
+        className={ props.tab === Constants.MANAGE_TAB ? 'nav-link color--black brdr-color--primary active' : 'nav-link color--black' }
+        onClick={clickHandler}>
+        Manage Settings
+      </a>
+    </li>
+  );
+};
+
 const EditUserRole = props => {
   const { user, orgUser } = props
 
@@ -103,11 +111,11 @@ const EditUserRole = props => {
     props.onChangeUserRole(user, eventKey)
   }
   // check if org user's role is primary owner, owner, or admin
-  if (orgUser.role > Constants.ADMIN_ROLE) return null
+  if (orgUser.role > Constants.ADMIN_ROLE || orgUser.userId === user.userId) return null
   else {
     return (
     <div className="org-row org-row-selector flx flx-row flx-align-center">
-      <SplitButton title='Edit'>
+      <SplitButton title='Edit' id={`split-button-basic`}>
         {(props.roleArray || []).map((roleType, index) => {
           if (orgUser.role < index) {
             return (
@@ -160,6 +168,17 @@ const RoleRender = props => {
   }
 }
 
+const SettingsForm = props => {
+  if (props.tab === Constants.SETTINGS_TAB) {
+    return (
+      <div>
+      Settings tab
+      </div>
+      )
+  }
+  else return null
+}
+
 const MembersList = props => {
   if (props.tab === Constants.MEMBERS_TAB) {
     return (
@@ -182,7 +201,7 @@ const MembersList = props => {
                     {userItem.status}
                   </div>
                   <EditUserRole
-                    orgUser={props.orgUser} 
+                    orgUser={Object.assign({}, props.orgUser, {userId: props.authenticated})} 
                     user={userItem}
                     roleArray={props.roleArray}
                     onChangeUserRole={props.onChangeUserRole} />
@@ -423,6 +442,7 @@ class OrgSettings extends React.Component {
                         <ListsTab tab={tab} onTabClick={this.onTabClick} />
                         <MembersTab tab={tab} onTabClick={this.onTabClick} />
                         <PendingTab tab={tab} onTabClick={this.onTabClick} />
+                        {/*=<ManageTab tab={tab} onTabClick={this.onTabClick} />*/}
                       </ul>
 
 
