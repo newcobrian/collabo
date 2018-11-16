@@ -38,7 +38,7 @@ class EnterEmail extends React.Component {
 		this.submitForm = ev => {
 	      ev.preventDefault();
 
-		  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		  const re = /^(([^<>()\[\]\\.,;:\s@"/*]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		  let lowerCaseEmail = this.props.email ? this.props.email.toLowerCase() : ''
 
 	      if (!re.test(lowerCaseEmail)) {
