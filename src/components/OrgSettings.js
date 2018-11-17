@@ -251,7 +251,7 @@ const MembersList = props => {
                     leaveProject={props.leaveProject}
                     joinProject={props.joinProject}
                     project={projectItem} />
-                  <div className="koi-type-body">{projectItem.projectName}</div>
+                  <div className="koi-type-body">{projectItem.name}</div>
                 </div>
                 )
             }

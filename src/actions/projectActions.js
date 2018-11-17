@@ -40,7 +40,8 @@ export function onAddProject(auth, project, orgURL) {
 
               let projectId = Firebase.database().ref(Constants.PROJECTS_PATH).push(projectObject).key;
 
-              updates[`/${Constants.PROJECT_NAMES_BY_ORG_PATH}/${orgSnap.val().orgId}/${project.name}/`] = Object.assign({}, {projectId: projectId}, {isPublic: project.isPublic})
+              updates[`/${Constants.PROJECT_NAMES_BY_ORG_PATH}/${orgSnap.val().orgId}/${project.name}/`] = projectId
+              updates[`/${Constants.PROJECTS_BY_ORG_PATH}/${orgSnap.val().orgId}/${projectId}/`] = Object.assign({}, {name: project.name}, {isPublic: project.isPublic})
               // updates[`/${Constants.PROJECTS_BY_USER_PATH}/${auth}/${projectId}/`] = { name: project.name };
 
               // add the project to the creators Project List
@@ -411,11 +412,11 @@ export function loadProjectList(auth, orgId, projectId, source) {
 
 export function loadProjectNames(orgId, source) {
   return dispatch => {
-    Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + orgId).on('value', projectsSnap => {
+    Firebase.database().ref(Constants.PROJECTS_BY_ORG_PATH + '/' + orgId).on('value', projectsSnap => {
       if (projectsSnap.exists()) {
         let projectNames = {}
         projectsSnap.forEach(function(project) {
-          projectNames[project.val().projectId] = Object.assign({}, {name: project.key}, {isPublic: projectsSnap.val().isPublic ? true : false})
+          projectNames[project.key] = Object.assign({}, project.val())
         })
         dispatch({
           type: ActionTypes.LOAD_PROJECT_NAMES,
@@ -429,7 +430,7 @@ export function loadProjectNames(orgId, source) {
 
 export function unloadProjectNames(orgId, source) {
   return dispatch => {
-    Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + orgId).off()
+    Firebase.database().ref(Constants.PROJECTS_BY_ORG_PATH + '/' + orgId).off()
   }
 }
 
@@ -1415,10 +1416,10 @@ export function changeOrgSettingsTab(tab, orgId) {
         Firebase.database().ref(Constants.INVITES_BY_ORG_PATH + '/' + orgId).off()
 
         // then watch the members in this org
-        Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + orgId).on('value', projectSnap => {
+        Firebase.database().ref(Constants.PROJECTS_BY_ORG_PATH + '/' + orgId).on('value', projectSnap => {
           let payload = []
           projectSnap.forEach(function(project) {
-            payload = payload.concat(Object.assign({}, { projectName: project.key }, project.val()))
+            payload = payload.concat(Object.assign({}, {projectId: project.key}, project.val()))
           })
           dispatch({
             type: ActionTypes.CHANGE_ORG_SETTINGS_TAB,

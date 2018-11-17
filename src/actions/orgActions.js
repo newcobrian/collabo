@@ -54,7 +54,8 @@ export function onCreateOrg(auth, org, userData, imageFile) {
             let lowerCaseProject = project.name.toLowerCase()
 
             // put projects in org
-            updates[`/${Constants.PROJECT_NAMES_BY_ORG_PATH}/${orgId}/${lowerCaseProject}/`] = Object.assign({}, {projectId: projectId}, {isPublic: true})
+            updates[`/${Constants.PROJECT_NAMES_BY_ORG_PATH}/${orgId}/${lowerCaseProject}/`] = projectId
+            updates[`/${Constants.PROJECTS_BY_ORG_PATH}/${orgId}/${projectId}/`] = Object.assign({}, {name: project.name}, {isPublic: true})
 
             // add the project to the creators Project List
             updates[`/${Constants.PROJECTS_BY_USER_BY_ORG_PATH}/${auth}/${orgId}/${projectId}/`] = Object.assign({}, {isPublic: true});

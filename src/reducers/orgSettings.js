@@ -16,7 +16,6 @@ export default (state = initialState, action) => {
       }
     }
     case ActionTypes.CHANGE_ORG_SETTINGS_TAB: {
-
       return {
         ...state,
         tab: action.tab,
