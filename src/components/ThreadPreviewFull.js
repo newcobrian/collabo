@@ -70,18 +70,17 @@ import ProfilePic from './ProfilePic';
 // }
 
 
-// const ReplyCounter = props => {
-//   const { authenticated, thread, lastUpdater, orgUserData, org, projectNames, userInfo, commentErrors, project, deleteComment } = this.props
+const ReplyCounter = props => {
 
-//   if (this.props.thread.commentsCount > 0) {
-//     return (
-//       <div>{this.props.thread.commentsCount} Total Replies&nbsp;&#xb7;&nbsp;</div>
-//     );
-//   }
-//   return (
-//     <div>0 Replies&nbsp;&#xb7;&nbsp;</div>
-//   );
-// }
+  if (props.commentCount > 0) {
+    return (
+      <div>{props.commentCount} Total Replies</div>
+    );
+  }
+  return (
+    <div>No replies yet</div>
+  );
+}
 
 
 var Scroll = require('react-scroll');
@@ -298,8 +297,7 @@ class ThreadPreviewFull extends React.Component {
             </div>
             <Link onClick={this.openThread} className="discussion-info color--utsuri thread-timestamp flx flx-row flx-align-center w-100 opa-50">
               {/*<div>3 New&nbsp;&#xb7;&nbsp;</div>*/}
-              <div className="text-hover">{this.props.thread.commentsCount} Total Replies</div>
-              {/*<ReplyCounter/>*/}
+              <ReplyCounter commentCount={this.props.thread.commentsCount} />
               {/*<div> &nbsp;&#xb7;&nbsp;8 Participants</div>*/}
               <div className="flx-item-right text-hover">View All</div>
             </Link>

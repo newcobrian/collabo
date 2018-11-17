@@ -46,6 +46,18 @@
 .tp-page .tp-wrapper {
 	padding: 12px;
 }
+
+
+.new-badge {
+	border-radius: 32px;
+	width: 8px;
+	height: 8px;
+	display: none;
+}
+.tp-preview-full .new-badge {
+	display: inline-block;
+}
+
 .thread-body .comment-inner {
 	box-shadow: none !important;
 }

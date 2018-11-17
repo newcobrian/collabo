@@ -165,8 +165,11 @@ class Comment extends React.Component {
                     {commenter.username}
                   </Link>
                 </div>
-                <div className="thread-timestamp inline-block flx flx-row flx-item-right">
-                  <DisplayTimestamp timestamp={comment.lastModified} />
+                <div className="flx flx-row flx-align-center flx-item-right">
+                  <div className="thread-timestamp inline-block">
+                    <DisplayTimestamp timestamp={comment.lastModified} />
+                  </div>
+                  <div className="new-badge active fill--tancho mrgn-left-xs"></div>
                 </div>
               </div>
 
