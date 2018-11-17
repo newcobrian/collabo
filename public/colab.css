@@ -241,9 +241,19 @@ textarea {
 	padding: 10px 0;
 }
 .org-row.org-row-selector {
-    padding: 0 16px;
+    padding: 0;
     height: 80px;
     margin: 0;
+    width: 120px;
+}
+.org-row .btn {
+	font-size: 16px;
+}
+.user-column {
+	width: 180px;
+}
+.org-row .dropdown li {
+	font-size: 14px;
 }
 .org-selector {
 	width: 320px;

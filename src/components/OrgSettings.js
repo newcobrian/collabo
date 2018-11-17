@@ -112,10 +112,16 @@ const EditUserRole = props => {
   }
   // check if org user's role is primary owner, owner, or admin
   // user can't change their own role, and primary owner cant change their role
-  if (orgUser.role > Constants.ADMIN_ROLE || orgUser.userId === user.userId || user.role === Constants.PRIMARY_OWNER_ROLE) return null
+  if (orgUser.role > Constants.ADMIN_ROLE || orgUser.userId === user.userId || user.role === Constants.PRIMARY_OWNER_ROLE) {
+    return (
+      <div className="org-row org-row-selector flx flx-row flx-align-center flx-hold color--utsuri">
+      </div>
+      )
+  }
+  
   else {
     return (
-    <div className="org-row org-row-selector flx flx-row flx-align-center">
+    <div className="org-row org-row-selector flx flx-row flx-align-center flx-hold color--utsuri">
       <SplitButton title='Edit' id={`split-button-basic`}>
         {(props.roleArray || []).map((roleType, index) => {
           if (orgUser.role < index) {
@@ -159,10 +165,15 @@ const EditUserRole = props => {
 }
 
 const RoleRender = props => {
-  if (props.orgUser.role > Constants.ADMIN_ROLE) return null;
+  if (props.orgUser.role > Constants.ADMIN_ROLE) {
+    return (
+      <div className="user-column ta-left mrgn-left-sm koi-type-body">
+      </div>
+      )
+  }
   else {
     return (
-      <div className="mrgn-left-sm koi-type-body">
+      <div className="user-column ta-left mrgn-left-sm koi-type-body">
         {Constants.USER_ROLES_MAP[props.user.role]}
       </div>
     )
@@ -190,15 +201,18 @@ const MembersList = props => {
               <div className="flx flx-row flx-align-center mrgn-bottom-sm brdr-bottom pdding-bottom-sm" key={index}>
                 <Link
                   key={userItem.userId}
-                  to={'/' + props.org.url + '/user/' + userItem.username} >
+                  to={'/' + props.org.url + '/user/' + userItem.username}
+                  className="flx flx-row flx-align-center w-100"
+                   >
                   <ProfilePic src={userItem.image} className="user-img center-img prof-48" /> 
-                  <div className="flx flx-col flx-align-start w-100">
+                  <div className="flx flx-col flx-align-start">
                     <div className="mrgn-left-sm koi-type-body koi-type-bold color--black">{userItem.username}</div>
                     <div className="mrgn-left-sm koi-type-caption color--black">{userItem.fullName}</div>
                   </div>
                 </Link>
+                <div className="flx-item-right flx flx-row flx-align-center">
                   <RoleRender user={userItem} orgUser={props.orgUser} />
-                  <div className="mrgn-left-sm koi-type-body">
+                  <div className="user-column ta-left mrgn-left-sm koi-type-body">
                     {userItem.status}
                   </div>
                   <EditUserRole
@@ -206,6 +220,7 @@ const MembersList = props => {
                     user={userItem}
                     roleArray={props.roleArray}
                     onChangeUserRole={props.onChangeUserRole} />
+                  </div>
                 </div>
               )
           })
