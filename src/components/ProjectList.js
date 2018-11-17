@@ -90,6 +90,11 @@ class ProjectList extends React.Component {
         browserHistory.push('/' + this.props.org.url + '/' + result.projectId + '/' + result.objectId);
       }
     }
+
+    this.onOrgInviteClick = ev => {
+      ev.preventDefault()
+      this.props.showOrgInviteModal(this.props.org)
+    }
   }
 
   render() {
@@ -198,18 +203,8 @@ class ProjectList extends React.Component {
 
 
           <div className="sidebar-footer flx flx-col">
-
-            <Link className="DN sidebar-row flx flx-row flx-align-center" to={'/' + org.url + '/invite'}>
-                <div className="sidebar-icon flx flx-center-all">
-                  <i className="material-icons color--primary md-24 opa-70">accessibility_new
-                  </i>
-                </div>
-                <div className="co-type-label color--white">Invite team members</div>
-
-            </Link>
-
             <div className="sidebar-row flx flx-row flx-center-all mrgn-bottom-sm">
-              <Link to={'/' + org.url + '/invite'}
+              <Link onClick={this.onOrgInviteClick}
                 className="flx flx-col flx-center-all koi-button-fancy-wrapper mrgn-right-lg mrgn-left-lg border--utsuri">
                   <div className="koi-button-fancy-outer">
                   </div>
