@@ -114,24 +114,24 @@ const EditUserRole = props => {
   // user can't change their own role, and primary owner cant change their role
   if (orgUser.role > Constants.ADMIN_ROLE || orgUser.userId === user.userId || user.role === Constants.PRIMARY_OWNER_ROLE) {
     return (
-      <div className="org-row org-row-selector flx flx-row flx-align-center flx-hold color--utsuri">
+      <div className="koi-dropdown flx flx-row flx-align-center flx-hold color--utsuri">
       </div>
       )
   }
   
   else {
     return (
-    <div className="org-row org-row-selector flx flx-row flx-align-center flx-hold color--utsuri">
+    <div className="koi-dropdown flx flx-row flx-align-center flx-hold color--utsuri">
       <SplitButton title='Edit' id={`split-button-basic`}>
         {(props.roleArray || []).map((roleType, index) => {
           if (orgUser.role < index) {
             return (
-              <MenuItem eventKey={index} key={index} onSelect={onChange}>Change to {roleType}</MenuItem>
+              <MenuItem title='Edit' eventKey={index} key={index} onSelect={onChange}>Change to {roleType}</MenuItem>
             )
           }
           else if ((orgUser.role === Constants.OWNER_ROLE || orgUser.role === Constants.ADMIN_ROLE) && orgUser.role == index) {
             return (
-              <MenuItem eventKey={index} key={index} onSelect={onChange}>Change to {roleType}</MenuItem>  
+              <MenuItem title='Edit' eventKey={index} key={index} onSelect={onChange}>Change to {roleType}</MenuItem>  
             )
           }
         })}

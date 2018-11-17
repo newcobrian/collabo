@@ -241,18 +241,22 @@ textarea {
 	padding: 10px 0;
 }
 .org-row.org-row-selector {
-    padding: 0;
-    height: 80px;
+    padding: 0 16px;
+    height: 60px;
+    margin: 0;
+ }
+.koi-dropdown {
+    padding: 0 16px;
     margin: 0;
     width: 120px;
 }
-.org-row .btn {
+.koi-dropdown .btn {
 	font-size: 16px;
 }
 .user-column {
 	width: 180px;
 }
-.org-row .dropdown li {
+.koi-dropdown .dropdown li {
 	font-size: 14px;
 }
 .org-selector {
