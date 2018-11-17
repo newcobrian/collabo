@@ -9,6 +9,41 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
 import ProfilePic from './../ProfilePic'
 
+const MembersTab = props => {
+  const clickHandler = ev => {
+    ev.preventDefault();
+    props.onTabClick(Constants.MEMBERS_TAB);
+  }
+
+  return (
+    <li className="nav-item">
+      <a  href=""
+          className={ props.tab === Constants.MEMBERS_TAB ? 'nav-link color--black brdr-color--primary active' : 'nav-link color--black' }
+          onClick={clickHandler}>
+        Members
+      </a>
+    </li>
+  );
+};
+
+const ManageTab = props => {
+  const clickHandler = ev => {
+    ev.preventDefault();
+    props.onTabClick(Constants.MANAGE_TAB);
+  };
+
+  return (
+    <li className="nav-item">
+      <a
+        href=""
+        className={ props.tab === Constants.MANAGE_TAB ? 'nav-link color--black brdr-color--primary active' : 'nav-link color--black' }
+        onClick={clickHandler}>
+        Manage Settings
+      </a>
+    </li>
+  );
+};
+
 const mapStateToProps = state => ({
   ...state.modal,
   authenticated: state.common.authenticated
@@ -20,6 +55,10 @@ class ProjectSettingsModal extends React.Component {
 
     this.toggleCheckbox = label => ev => {
       this.props.onUpdateFriendsCheckbox(label, this.props.selectedUsers, Constants.PROJECT_INVITE_MODAL)
+    }
+
+    this.onTabClick = tab => {
+      
     }
   }
 
@@ -86,7 +125,13 @@ class ProjectSettingsModal extends React.Component {
         >
 
         <div className="dialog--save flx flx-col w-100">
-           
+           <div className="w-100">
+              {/*<ul className="nav nav-pills outline-active">
+                <MembersTab tab={this.props.tab} onTabClick={this.onTabClick} />
+                <ManageTab tab={this.props.tab} onTabClick={this.onTabClick} />
+              </ul>*/}
+            </div>
+
           <div>
             {
               (this.props.projectMembers || []).map(teammate => {

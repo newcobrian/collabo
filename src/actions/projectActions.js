@@ -1427,69 +1427,13 @@ export function changeOrgSettingsTab(tab, orgId) {
           })
         })
       }
+      else if (tab === Constants.MANAGE_TAB) {
+        dispatch({
+          type: ActionTypes.CHANGE_ORG_SETTINGS_TAB,
+          tab: Constants.MANAGE_TAB,
+        })
+      }
     }
-    // if we don't have orgId (first page load), then fetch it first
-    // else { 
-    //   Firebase.database().ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', nameSnap => {
-    //     if (nameSnap.exists()) {
-    //       if (tab === Constants.MEMBERS_TAB) {
-    //         // stop watching previous paths
-    //         Firebase.database().ref(Constants.INVITES_BY_ORG_PATH + '/' + nameSnap.val().orgId).off()
-    //         Firebase.database().ref(Constants.PROJECTS_BY_ORG_PATH + '/' + nameSnap.val().orgId).off()
-
-    //         // then watch the members in this org
-    //         Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).on('value', usersSnap => {
-    //           let usersList = []
-    //           usersSnap.forEach(function(user) {
-    //             usersList = usersList.concat(Object.assign({}, { userId: user.key }, user.val()))
-    //           })
-    //           dispatch({
-    //             type: ActionTypes.CHANGE_ORG_SETTINGS_TAB,
-    //             tab: Constants.MEMBERS_TAB,
-    //             payload: usersList
-    //           })
-    //         })
-    //       }
-    //       // else get the invited users
-    //       else if (tab === Constants.PENDING_TAB) {
-    //         // stop watching members list and projects list
-    //         Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).off()
-    //         Firebase.database().ref(Constants.PROJECTS_BY_ORG_PATH + '/' + nameSnap.val().orgId).off()
-
-    //         // then watch the members in this org
-    //         Firebase.database().ref(Constants.INVITED_USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).on('value', usersSnap => {
-    //           let usersList = []
-    //           usersSnap.forEach(function(user) {
-    //             usersList = usersList.concat(Object.assign({}, { email: Helpers.cleanEmailFromFirebase(user.key) }, user.val()))
-    //           })
-    //           dispatch({
-    //             type: ActionTypes.CHANGE_ORG_SETTINGS_TAB,
-    //             tab: Constants.PENDING_TAB,
-    //             payload: usersList
-    //           })
-    //         })
-    //       }
-    //       else if (tab === Constants.LISTS_TAB) {
-    //         // stop watching members list and invites list
-    //         Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + nameSnap.val().orgId).off()
-    //         Firebase.database().ref(Constants.INVITES_BY_ORG_PATH + '/' + nameSnap.val().orgId).off()
-
-    //         // then watch the members in this org
-    //         Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + nameSnap.val().orgId).on('value', projectSnap => {
-    //           let payload = []
-    //           projectSnap.forEach(function(project) {
-    //             payload = payload.concat(Object.assign({}, { projectName: project.key }, project.val()))
-    //           })
-    //           dispatch({
-    //             type: ActionTypes.CHANGE_ORG_SETTINGS_TAB,
-    //             tab: Constants.LISTS_TAB,
-    //             payload: payload
-    //           })
-    //         })
-    //       }
-    //     }
-    //   })
-    // }
   }
 }
 

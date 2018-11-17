@@ -217,6 +217,7 @@ export const HOME_PAGE = 'HOME_PAGE'
 export const MEMBERS_TAB = 'members'
 export const PENDING_TAB = 'pending'
 export const LISTS_TAB = 'lists'
+export const MANAGE_TAB = 'manage'
 
 /*** User Roles ***/
 export const PRIMARY_OWNER_ROLE = '0'
