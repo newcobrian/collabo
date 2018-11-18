@@ -670,7 +670,7 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 
 	let orgId = thread ? thread.orgId : org.id
 
-	Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + org.id + '/' + recipientId).once('value', recipientSnapshot => {
+	Firebase.database().ref(Constants.USERS_PATH + '/' + recipientId).once('value', recipientSnapshot => {
 		Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + org.id + '/' + senderId).once('value', senderSnapshot => {
 			switch(messageType) {
 				case Constants.THREAD_MENTION_MESSAGE:
@@ -757,7 +757,7 @@ export function sendCommentInboxMessage(senderId, recipientId, messageType, org,
 		threadLink: Constants.COLLABO_URL + '/' + org.url + '/' + thread.projectId + '/' + thread.threadId
 	};
 
-	Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + org.id + '/' + recipientId).once('value', recipientSnapshot => {
+	Firebase.database().ref(Constants.USERS_PATH + '/' + recipientId).once('value', recipientSnapshot => {
 		Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + org.id + '/' + senderId).once('value', senderSnapshot => {
 			switch(messageType) {
 				case Constants.COMMENT_IN_THREAD_MESSAGE:

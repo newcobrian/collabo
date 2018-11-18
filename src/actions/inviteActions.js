@@ -179,7 +179,7 @@ export function inviteUsersToOrg(auth, org, invites) {
 
                 // add to invited list for the org
                 // updates[Constants.INVITES_BY_ORG_PATH + '/' + orgId + '/emails/' + cleanedEmail + '/' + inviteId] = true
-
+                
                 // send the email
                 Helpers.sendInviteEmail(auth, email, org, inviteId);
               }
