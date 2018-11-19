@@ -1592,3 +1592,54 @@ export function updateProjectName(auth, projectId, project, newName) {
     })
   }
 }
+
+export function onToggleDeleteProjectMode(key) {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.TOGGLE_DELETE_PROJECT_MODE,
+      key
+    })
+  }
+}
+
+export function deleteProject(auth, projectId, project, orgURL) {
+  return dispatch => {
+    Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + project.orgId + '/' + auth).once('value', orgSnap => {
+      Firebase.database().ref(Constants.USERS_BY_PROJECT_PATH + '/' + projectId).once('value', usersSnap => {
+        Firebase.database().ref(Constants.THREADS_BY_PROJECT_PATH + '/' + projectId).once('value', threadsSnap => {
+          // make sure user is at least an admin of the org and a member of the project
+          if (orgSnap.exists() && orgSnap.val().role <= Constants.ADMIN_ROLE && usersSnap.exists() && usersSnap.val()[auth]) {
+            let updates = {}
+            updates[Constants.PROJECTS_PATH + '/' + projectId] = null
+            updates[Constants.PROJECTS_BY_ORG_PATH + '/' + project.orgId + '/' + projectId] = null
+            updates[Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + project.orgId + '/' + project.name.toLowerCase()] = null
+            updates[Constants.USERS_BY_PROJECT_PATH + '/' + projectId] = null
+            updates[Constants.THREADS_BY_PROJECT_PATH + '/' + projectId] = null
+
+            // remove all threads
+            if (threadsSnap.exists()) {
+              Helpers.deleteThreadData(threadsSnap.val())
+            }
+            
+            let itemsProcessed = 0
+            // loop through users by project, delete projects_by_user_by_org
+            usersSnap.forEach(function(user) {
+              updates[Constants.PROJECTS_BY_USER_BY_ORG_PATH + '/' +user.key + '/' + project.orgId + '/' + projectId] = null
+              itemsProcessed++;
+
+              if (itemsProcessed === usersSnap.numChildren()) {
+                Firebase.database().ref().update(updates)
+
+                dispatch({
+                  type: ActionTypes.PROJECT_DELETED,
+                  orgURL: orgURL,
+                  projectName: project.name
+                })
+              }
+            })
+          }
+        })
+      })
+    })
+  }
+}

@@ -77,71 +77,63 @@ const MembersList = props => {
   else return null
 }
 
-// class ManageForm extends React.Component {
-//   constructor() {
-//     super();
+const DeleteSection = props => {
 
-//     this.state = {
-//       name: ''
-//     };
+  const onDeleteClick = () => {
+    if (props.confirmedDelete) {
+      props.onDelete()
+    }
+  }
 
-//     this.updateState = field => ev => {
-//       const state = this.state;
-//       const newState = Object.assign({}, state, { [field]: ev.target.value });
-//       this.setState(newState);
-//     };
+  if (props.isDeleteMode) {
+    return (
+      <div>
+        <div>Are you sure you want to delete this group? All threads will be permanently deleted.</div>
+        <input
+            type="checkbox"
+            checked={props.confirmedDelete}
+            onChange={props.onToggleConfirm} />
+            Click this checkbox to confirm and then click the delete button
+        <button onClick={onDeleteClick}>Delete</button>
+      </div>
+    )
+  }
+  else return null
+}
 
-//     this.submitForm = ev => {
-//       ev.preventDefault();
-
-//       if (!this.state.name || this.state.name.length < 2) {
-//         this.props.createSubmitError('Please enter a project name', Constants.PROJECT_SETTINGS_MODAL);
-//       }
-//       else {
-//         this.props.updateProjectName(this.props.authenticated, this.props.project, this.state.name)
-//       }
-//     }
-//   }
-
-//   componentDidMount() {
-//     if (this.props.project) {
-//       Object.assign(this.state, {
-//         name: this.props.project.name || '',
-//       });
-//     }
-//   }
-
-//   componentWillReceiveProps(nextProps) {
-//     if (nextProps.project && nextProps.project.name) {
-//       this.setState(Object.assign({}, this.state, {
-//         name: nextProps.project.name || '',
-//       }));
-//     }
-//   }
-
-//   render() {
 const ManageForm = props => {
   if (props.tab === Constants.MANAGE_TAB) {
     return (
-      <form onSubmit={props.onSubmit}>
-          <fieldset className="form-group">
-            <input
-              className="form-control form-control-lg"
-              type="text"
-              placeholder="Project Name"
-              required
-              value={props.projectName}
-              onChange={props.updateField('projectName')} />
-          </fieldset>
+      <div>
+        <div>
+          <Link onClick={props.onToggleDeleteText}>Delete this group</Link>
+          <DeleteSection 
+            isDeleteMode={props.isDeleteMode}
+            confirmedDelete={props.confirmedDelete}
+            onToggleConfirm={props.onToggleConfirm}
+            onDelete={props.onDelete} />
+        </div>
+        <form onSubmit={props.onSubmit}>
+            <fieldset className="form-group">
+              <label>Project Name</label>
+              <input
+                className="form-control form-control-lg"
+                type="text"
+                placeholder="Project Name"
+                required
+                value={props.projectName}
+                onChange={props.updateField('projectName')} />
+            </fieldset>
 
-          <ListErrors errors={props.errors}></ListErrors>
+            <ListErrors errors={props.errors}></ListErrors>
 
-          <button
-            className="vb fill--utsuri color--white ta-center mrgn-bottom-sm w-100"
-            type="submit" >
-            Save Changes
-          </button>
-      </form>
+            <button
+              className="vb fill--utsuri color--white ta-center mrgn-bottom-sm w-100"
+              type="submit" >
+              Save Changes
+            </button>
+        </form>
+      </div>
     );
   }
   else return null
@@ -167,16 +159,6 @@ class ProjectSettingsModal extends React.Component {
     this.onTabClick = tab => {
       this.props.changeProjectSettingsTab(tab)
     }
-  }
-
-  componentWillMount() {
-    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project settings modal' });
-  }
-
-  render() {
-    const handleClose = ev => {
-      this.props.hideModal();
-    }
 
     this.onUpdateProjectSettings = ev => {
       ev.preventDefault();
@@ -190,6 +172,31 @@ class ProjectSettingsModal extends React.Component {
       else {
         this.props.updateProjectName(this.props.authenticated, this.props.projectId, this.props.project, this.props.projectName)
       }
+    }
+
+    this.onDelete = ev => {
+      if (this.props.confirmedDelete) {
+        this.props.deleteProject(this.props.authenticated, this.props.projectId, this.props.project, this.props.orgURL)
+      }
+    }
+
+    this.onToggleDeleteText = ev => {
+      ev.preventDefault()
+      this.props.onToggleDeleteProjectMode('isDeleteMode')
+    }
+
+     this.onToggleConfirm = ev => {
+      this.props.onToggleDeleteProjectMode('confirmedDelete')
+    }
+  }
+
+  componentWillMount() {
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project settings modal' });
+  }
+
+  render() {
+    const handleClose = ev => {
+      this.props.hideModal();
     }
 
     // const handleInvite = ev => {
@@ -214,7 +221,8 @@ class ProjectSettingsModal extends React.Component {
       />
     ];
 
-    const { authenticated, tab, projectId, project, projectName, projectMembers, orgURL, errors } = this.props
+    const { authenticated, tab, projectId, project, projectName, projectMembers, orgURL, errors, 
+      isDeleteMode, confirmedDelete } = this.props
 
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
@@ -267,8 +275,13 @@ class ProjectSettingsModal extends React.Component {
             projectName={projectName}
             authenticated={authenticated}
             updateField={this.updateField}
+            isDeleteMode={isDeleteMode}
             onSubmit={this.onUpdateProjectSettings}
             errors={errors}
+            onToggleDeleteText={this.onToggleDeleteText}
+            onToggleConfirm={this.onToggleConfirm}
+            confirmedDelete={confirmedDelete}
+            onDelete={this.onDelete}
             />
 
             

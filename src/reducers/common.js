@@ -144,6 +144,11 @@ export default (state = defaultState, action) => {
         ...state,
         redirectTo: '/' + action.orgURL + '/user/' + action.username
       }
+    case ActionTypes.PROJECT_DELETED:
+      return {
+        ...state,
+        redirectTo: '/' + action.orgURL
+      }
     default: 
       return state;
   }

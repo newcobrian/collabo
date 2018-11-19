@@ -3,7 +3,7 @@ import * as Constants from '../constants';
 import * as Helpers from '../helpers';
 import { find, isEqual } from 'lodash';
 
-const initialState = { tab: 'members' }
+const initialState = { tab: 'members', isDeleteMode: false, confirmedDelete: false }
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -65,7 +65,13 @@ export default (state = initialState, action) => {
         }
         else return state;
     }
+    case ActionTypes.TOGGLE_DELETE_PROJECT_MODE:
+      return { 
+        ...state,
+        [action.key]: !state[action.key] 
+      }
     case ActionTypes.HIDE_MODAL:
+    case ActionTypes.PROJECT_DELETED:
         return initialState
     default:
       return state;

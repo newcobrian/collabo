@@ -212,6 +212,7 @@ export default (state = initialState, action) => {
     case ActionTypes.THREAD_DELETED:
     case ActionTypes.INVITED_USERS_TO_PROJECT:
     case ActionTypes.USERS_INVITED_TO_ORG:
+    case ActionTypes.PROJECT_DELETED:
       return initialState;
     case REVIEW_SUBMITTED:
       return {

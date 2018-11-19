@@ -49,8 +49,13 @@ export default function(state = initialState, action) {
     case ActionTypes.PROJECT_SETTINGS_UPDATED:
       return {
         ...state,
-        message: 'Project updated',
+        message: 'Group updated',
         open: true
+      }
+    case ActionTypes.PROJECT_DELETED:
+      return {
+        ...state,
+        message: action.projectName + ' has been permanently deleted'
       }
     case CLOSE_SNACKBAR:
       {
