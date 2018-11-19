@@ -55,7 +55,8 @@ export default function(state = initialState, action) {
     case ActionTypes.PROJECT_DELETED:
       return {
         ...state,
-        message: action.projectName + ' has been permanently deleted'
+        message: action.projectName + ' has been permanently deleted',
+        open: true
       }
     case CLOSE_SNACKBAR:
       {
