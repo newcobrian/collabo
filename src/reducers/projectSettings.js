@@ -7,47 +7,6 @@ const initialState = { tab: 'members' }
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    // case ActionTypes.USERNAME_ADDED_ACTION: {
-    //   if (action.source === Constants.ORG_SETTINGS_PAGE) {
-    //     const newState = Object.assign({}, state);
-    //     newState.usersList = newState.usersList || [];
-    //     newState.usersList = newState.usersList.slice();
-    //     newState.usersList = newState.usersList.concat(Object.assign({}, { userId: action.userId }, action.userData));
-    //     return newState;
-    //   }
-    //   return state;
-    // }
-    // case ActionTypes.USERNAME_CHANGED_ACTION: {
-    //   if (action.source === Constants.ORG_SETTINGS_PAGE) {
-    //     const newState = Object.assign({}, state);
-    //     newState.usersList = newState.usersList || [];
-    //     newState.usersList = newState.usersList.slice();
-    //     for (let i = 0; i < newState.usersList.length; i++) {
-    //       if (newState.usersList[i].userId === action.userId) {
-    //         newState.usersList[i] = Object.assign({}, {userId: action.userId}, action.userData)
-    //         return newState;
-    //       }
-    //     }
-    //     return state;
-    //   }
-    //   return state;
-    // }
-    // case ActionTypes.USERNAME_REMOVED_ACTION: {
-    //   if (action.source === Constants.ORG_SETTINGS_PAGE) {
-    //     const newState = Object.assign({}, state);
-    //     newState.usersList = newState.usersList || [];
-    //     newState.usersList = newState.usersList.slice();
-        
-    //     for (let i = 0; i < newState.usersList.length; i++) {
-    //       if (newState.usersList[i].userId === action.userId) {
-    //         newState.usersList.splice(i, 1);
-    //         return newState;    
-    //       }
-    //     }
-    //     return state;
-    //   }
-    //   return state;
-    // }
     case ActionTypes.UNLOAD_ORG_USERS: {
       if (action.source === Constants.ORG_SETTINGS_PAGE) {
         return {
@@ -56,14 +15,27 @@ export default (state = initialState, action) => {
         }
       }
     }
+    case ActionTypes.SHOW_PROJECT_SETTINGS_MODAL: {
+        return {
+            ...state,
+            projectId: action.projectId,
+            project: action.project,
+            projectMembers: action.projectMembers,
+            orgURL: action.orgURL,
+            projectName: action.project && action.project.name ? action.project.name : ''
+        }
+    }
     case ActionTypes.CHANGE_PROJECT_SETTINGS_TAB: {
-
       return {
         ...state,
-        tab: action.tab,
-        usersList: action.usersList
+        tab: action.tab
       }
     }
+    case ActionTypes.UPDATE_FIELD_CREATE:
+      if(action.source === Constants.PROJECT_SETTINGS_MODAL) {
+        return { ...state, [action.key]: action.value };
+      }
+      else return {...state}
     case ActionTypes.LOAD_PROJECT: {
         if (action.source === Constants.PROJECT_SETTINGS_PAGE) {
             return {
@@ -84,6 +56,17 @@ export default (state = initialState, action) => {
       }
       return state;
     }
+    case ActionTypes.CREATE_SUBMIT_ERROR: {
+        if (action.source === Constants.PROJECT_SETTINGS_MODAL) {
+            return {
+                ...state,
+                errors: [action.error]
+            }
+        }
+        else return state;
+    }
+    case ActionTypes.HIDE_MODAL:
+        return initialState
     default:
       return state;
   }

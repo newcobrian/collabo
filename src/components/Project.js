@@ -41,6 +41,7 @@ const mapDispatchToProps = {
   loadOrgList: Actions.loadOrgList,
   loadProjectNames: Actions.loadProjectNames,
   loadProject: Actions.loadProject,
+  unloadProject: Actions.unloadProject,
   loadProjectMembers: Actions.loadProjectMembers,
   loadOrgMembers: Actions.loadOrgMembers,
   sendMixpanelEvent: Actions.sendMixpanelEvent,
@@ -83,7 +84,7 @@ class Project extends React.Component {
     }
 
     this.openProjectSettings = ev => {
-      this.props.showProjectSettingsModal(this.props.project, this.props.projectMembers, this.props.org.url)
+      this.props.showProjectSettingsModal(this.props.params.pid, this.props.project, this.props.projectMembers, this.props.org.url, Constants.MEMBERS_TAB)
     }
   }
 
@@ -122,14 +123,15 @@ class Project extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.unwatchThreadFeed(this.props.authenticated, this.props.orgId, this.props.params.pid, Constants.PROJECT_PAGE)
-    this.props.unloadProjectNames(this.props.orgId, Constants.PROJECT_PAGE)
+    this.props.unwatchThreadFeed(this.props.authenticated, this.props.org.id, this.props.params.pid, Constants.PROJECT_PAGE)
+    this.props.unloadProjectNames(this.props.org.id, Constants.PROJECT_PAGE)
     this.props.unloadOrgList(this.props.authenticated, Constants.PROJECT_PAGE)
-    this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId)
-    this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.PROJECT_PAGE)
+    this.props.unloadThreadCounts(this.props.authenticated, this.props.org.id)
+    this.props.unloadProjectList(this.props.authenticated, this.props.org.id, Constants.PROJECT_PAGE)
     this.props.unloadOrg(Constants.PROJECT_PAGE);
     this.props.unloadProjectMembers(this.props.params.pid, Constants.PROJECT_PAGE)
-    this.props.unloadOrgMembers(this.props.orgId, Constants.PROJECT_PAGE)
+    this.props.unloadOrgMembers(this.props.org.id, Constants.PROJECT_PAGE)
+    this.props.unloadProject(this.props.params.pid, this.props.org.id, Constants.PROJECT_PAGE);
     if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
   }
 
@@ -137,6 +139,7 @@ class Project extends React.Component {
     if (nextProps.params.pid !== this.props.params.pid && nextProps.params.orgurl === this.props.params.orgurl) {
       this.props.unwatchThreadFeed(this.props.authenticated, this.props.org.id, this.props.params.pid, Constants.PROJECT_PAGE)
       this.props.unloadProjectMembers(this.props.params.pid, Constants.PROJECT_PAGE)
+      this.props.unloadProject(this.props.params.pid, this.props.org.id, Constants.PROJECT_PAGE);
 
       this.props.loadProject(nextProps.params.pid, this.props.org.id, Constants.PROJECT_PAGE);
       this.props.loadProjectMembers(nextProps.params.pid, Constants.PROJECT_PAGE)
@@ -152,7 +155,8 @@ class Project extends React.Component {
         this.props.unloadThreadCounts(this.props.authenticated, this.props.org.id)
         this.props.unloadProjectList(this.props.authenticated, this.props.org.id, Constants.PROJECT_PAGE)
         this.props.unloadOrg(Constants.PROJECT_PAGE);  
-        this.props.unloadOrgMembers(this.props.orgId, Constants.PROJECT_PAGE)
+        this.props.unloadOrgMembers(this.props.org.id, Constants.PROJECT_PAGE)
+        this.props.unloadProject(this.props.params.pid, this.props.org.id, Constants.PROJECT_PAGE);
       }
       this.props.unloadProjectMembers(this.props.params.pid, Constants.PROJECT_PAGE)
 

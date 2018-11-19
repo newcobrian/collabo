@@ -236,7 +236,7 @@ export function onDeleteThread(auth, threadId, thread, orgURL) {
 
 export function loadProject(projectId, orgId, source) {
   return dispatch => {
-    Firebase.database().ref(Constants.PROJECTS_PATH + '/' + projectId).once('value', projectSnapshot => {
+    Firebase.database().ref(Constants.PROJECTS_PATH + '/' + projectId).on('value', projectSnapshot => {
       if (projectSnapshot.exists()) {
         // make sure project's org matches whats in the url
         if (orgId === projectSnapshot.val().orgId) {
@@ -274,6 +274,17 @@ export function loadProject(projectId, orgId, source) {
         })
       }
     })
+  }
+}
+
+export function unloadProject(projectId, orgId, source) {
+  return dispatch => {
+    if (projectId) {
+      Firebase.database().ref(Constants.PROJECTS_PATH + '/' + projectId).off()
+    }
+    else {
+      Firebase.database().ref(Constants.ORGS_PATH + '/' + orgId).off()
+    }
   }
 }
 
@@ -1440,45 +1451,62 @@ export function changeOrgSettingsTab(tab, orgId) {
 
 export function changeProjectSettingsTab(tab, projectId) {
   return dispatch => {
-    if (tab === Constants.MEMBERS_TAB) {
-      // stop watching previous path
-      Firebase.database().ref(Constants.INVITES_BY_PROJECT_PATH + '/' + projectId).off()
+    dispatch({
+      type: ActionTypes.CHANGE_PROJECT_SETTINGS_TAB,
+      tab: tab
+    })
 
-      // then watch the members in this org
-      Firebase.database().ref(Constants.USERS_BY_PROJECT_PATH + '/' + projectId).on('value', usersSnap => {
-        let usersList = []
-        usersSnap.forEach(function(user) {
-          usersList = usersList.concat(Object.assign({}, { userId: user.key }, user.val()))
-        })
-        dispatch({
-          type: ActionTypes.CHANGE_PROJECT_SETTINGS_TAB,
-          tab: Constants.MEMBERS_TAB,
-          usersList: usersList
-        })
-      })
-    }
-    // else get the invited users
-    else {
-      // stop watching members list
-      Firebase.database().ref(Constants.USERS_BY_PROJECT_PATH + '/' + projectId).off()
+    // if (tab === Constants.MEMBERS_TAB) {
+    //   // stop watching previous path
+    //   Firebase.database().ref(Constants.INVITES_BY_PROJECT_PATH + '/' + projectId).off()
 
-      // then watch the members in this org
-      Firebase.database().ref(Constants.INVITED_USERS_BY_PROJECT_PATH + '/' + projectId).on('value', usersSnap => {
-        let usersList = []
-        usersSnap.forEach(function(user) {
-          usersList = usersList.concat(Object.assign({}, { email: Helpers.cleanEmailFromFirebase(user.key) }, user.val()))
-        })
-        dispatch({
-          type: ActionTypes.CHANGE_PROJECT_SETTINGS_TAB,
-          tab: Constants.PENDING_TAB,
-          usersList: usersList
-        })
-      })
-    }
+    //   // then watch the members in this org
+    //   Firebase.database().ref(Constants.USERS_BY_PROJECT_PATH + '/' + projectId).on('value', usersSnap => {
+    //     let usersList = []
+    //     usersSnap.forEach(function(user) {
+    //       usersList = usersList.concat(Object.assign({}, { userId: user.key }, user.val()))
+    //     })
+    //     dispatch({
+    //       type: ActionTypes.CHANGE_PROJECT_SETTINGS_TAB,
+    //       tab: Constants.MEMBERS_TAB,
+    //       usersList: usersList
+    //     })
+    //   })
+    // }
+    // // else get the invited users
+    // else {
+    //   // stop watching members list
+    //   Firebase.database().ref(Constants.USERS_BY_PROJECT_PATH + '/' + projectId).off()
+
+    //   // then watch the members in this org
+    //   Firebase.database().ref(Constants.INVITED_USERS_BY_PROJECT_PATH + '/' + projectId).on('value', usersSnap => {
+    //     let usersList = []
+    //     usersSnap.forEach(function(user) {
+    //       usersList = usersList.concat(Object.assign({}, { email: Helpers.cleanEmailFromFirebase(user.key) }, user.val()))
+    //     })
+    //     dispatch({
+    //       type: ActionTypes.CHANGE_PROJECT_SETTINGS_TAB,
+    //       tab: Constants.PENDING_TAB,
+    //       usersList: usersList
+    //     })
+    //   })
+    // }
   }
 }
 
+export function showProjectSettingsModal(projectId, project, projectMembers, orgURL, tab) {
+  return dispatch => {
+    changeProjectSettingsTab(tab)
 
+    dispatch({
+      type: ActionTypes.SHOW_PROJECT_SETTINGS_MODAL,
+      projectId,
+      project,
+      projectMembers,
+      orgURL
+    })
+  }
+}
 
 export function leaveProject(auth, userInfo, orgId, project) {
   return dispatch => {
@@ -1519,24 +1547,48 @@ export function resetVerificationPage() {
   }
 }
 
-// export function loadLikesByUser(auth, orgName) {
-//   return dispatch => {
-//     Firebase.database()).ref(Constants.ORGS_BY_NAME_PATH + '/' + orgName.toLowerCase()).once('value', orgSnap => {
-//       if (orgSnap.exists()) {
-//         Firebase.database().ref(Constants.LIKES_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgSnap.val().orgId).on('child_added', likesSnap => {
-//           dispatch({
-//             type: ActionTypes.LIKES_BY_USER_ADDED_ACTION,
-//             id: likesSnap.key
-//           })
-//         })
+export function updateProjectName(auth, projectId, project, newName) {
+  return dispatch => {
+    let lowercaseName = newName.toLowerCase()
+    Firebase.database().ref(Constants.PROJECTS_PATH + '/' + projectId).once('value', projectSnap => {
+      Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + project.orgId + '/' + lowercaseName).once('value', nameSnap => {
+        if (!projectSnap.exists()) {
+          dispatch({
+            type: ActionTypes.CREATE_SUBMIT_ERROR,
+            error: 'Sorry, we couldn\'t find this project',
+            source: Constants.PROJECT_SETTINGS_MODAL
+          })
+        }
+        else if (newName === project.name) {
+          dispatch({
+            type: ActionTypes.CREATE_SUBMIT_ERROR,
+            error: 'You entered the same project name',
+            source: Constants.PROJECT_SETTINGS_MODAL
+          })
+        }
+        else if (nameSnap.exists()) {
+          dispatch({
+            type: ActionTypes.CREATE_SUBMIT_ERROR,
+            error: 'Sorry, the project name ' + newName + ' already exists. Please choose another project name.',
+            source: Constants.PROJECT_SETTINGS_MODAL
+          })
+        }
+        else {
+          let updates = {}
+          let oldName = project.name.toLowerCase()
 
-//         Firebase.database().ref(Constants.LIKES_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgSnap.val().orgId).on('child_removed', likesSnap => {
-//           dispatch({
-//             type: ActionTypes.LIEKS_BY_USER_REMOVED_ACTION,
-//             id: likesSnap.key
-//           })
-//         })
-//       }
-//     })
-//   }
-// }
+          updates[Constants.PROJECTS_PATH + '/' + projectId + '/name'] = newName
+          updates[Constants.PROJECTS_BY_ORG_PATH + '/' + project.orgId + '/' + projectId + '/name'] = newName
+          updates[Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + project.orgId + '/' + oldName] = null
+          updates[Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + project.orgId + '/' + lowercaseName] = projectId
+
+          Firebase.database().ref().update(updates)
+
+          dispatch({
+            type: ActionTypes.PROJECT_SETTINGS_UPDATED
+          })
+        }
+      })
+    })
+  }
+}

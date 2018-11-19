@@ -46,6 +46,12 @@ export default function(state = initialState, action) {
         message: action.message,
         open: true
       }
+    case ActionTypes.PROJECT_SETTINGS_UPDATED:
+      return {
+        ...state,
+        message: 'Project updated',
+        open: true
+      }
     case CLOSE_SNACKBAR:
       {
         return {...state,

@@ -273,14 +273,3 @@ export function unloadThreadModal() {
     })
   }
 }
-
-export function showProjectSettingsModal(project, projectMembers, orgURL) {
-  return dispatch => {
-    dispatch({
-      type: ActionTypes.SHOW_PROJECT_SETTINGS_MODAL,
-      project,
-      projectMembers,
-      orgURL
-    })
-  }
-}
