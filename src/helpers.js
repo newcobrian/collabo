@@ -770,7 +770,7 @@ export function getFileIds (comments) {
 }
 
 export function addUserToOrg(auth, email, orgId, inviteId, userData, imageFile) {
-  Firebase.database().ref(Constants.PROJECT_NAMES_BY_ORG_PATH + '/' + orgId).once('value', projectNamesSnap => {
+  Firebase.database().ref(Constants.PROJECTS_BY_ORG_PATH + '/' + orgId).once('value', projectsSnap => {
     let cleanedEmail = cleanEmailToFirebase(email)
     let lowerCaseName = userData && userData.username ? userData.username.toLowerCase() : ''
 
@@ -790,10 +790,10 @@ export function addUserToOrg(auth, email, orgId, inviteId, userData, imageFile) 
     updates[Constants.INVITED_USERS_BY_ORG_PATH + '/' + orgId + '/' + cleanedEmail] = null
 
     // add all public projects for the user
-    projectNamesSnap.forEach(function(projectItem) {
+    projectsSnap.forEach(function(projectItem) {
       if (projectItem.val().isPublic) {
-        updates[`/${Constants.PROJECTS_BY_USER_BY_ORG_PATH}/${auth}/${orgId}/${projectItem.val().projectId}/`] = Object.assign({}, {isPublic: projectItem.val().isPublic});
-        updates[`/${Constants.USERS_BY_PROJECT_PATH}/${projectItem.val().projectId}/${auth}/`] = true
+        updates[`/${Constants.PROJECTS_BY_USER_BY_ORG_PATH}/${auth}/${orgId}/${projectItem.key}/`] = Object.assign({}, {isPublic: projectItem.val().isPublic});
+        updates[`/${Constants.USERS_BY_PROJECT_PATH}/${projectItem.key}/${auth}/`] = true
       }
     })
 
