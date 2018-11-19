@@ -361,8 +361,8 @@ export function acceptOrgInvite(auth, email, inviteId, userData, imageFile) {
       }
       else if (email !== inviteSnap.val().recipientEmail) {
         dispatch({
-          type: ActionTypes.ACCEPT_INVITE_ERROR,
-          message: 'Sorry, this invite was not sent to your email address'
+          type: ActionTypes.WRONG_EMAIL_ORG_INVITE,
+          invite: inviteSnap.val()
         })
       }
       else {

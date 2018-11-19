@@ -396,7 +396,9 @@ class AcceptOrgInvite extends React.Component {
                 <div className="register-msg">
                   <div className="koi-big-header mrgn-bottom-md color--utsuri opa-30">Oops</div>
                   <div className="co-post-title mrgn-bottom-md color--black">
-                    Sorry, this invite was sent to a different user.
+                    Sorry, this email was sent to {invite.recipientEmail} but you're currently logged in as {userInfo.email}. To accept this invite, please log out and log in or sign up as {invite.recipientEmail}.
+
+                    We currently only allow one email address to be logged in at a time, but we'll be working to add multiple concurrent logins in the future.
                   </div>
                   <Link className="text-hover color--seaweed mrgn-top-sm" to='/'>Go to homepage</Link>
                 </div>

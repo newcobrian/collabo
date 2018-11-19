@@ -23,6 +23,11 @@ export default (state = {}, action) => {
         loadInviteError: true,
         errorMessage: action.errorMessage
       }
+    case ActionTypes.WRONG_EMAIL_ORG_INVITE:
+      return {
+        ...state,
+        invite: action.invite
+      }
     case ActionTypes.LOAD_NEW_ORG_USER_INFO:
       if (action.source === Constants.ACCEPT_ORG_INVITE_PAGE) {
         return {
