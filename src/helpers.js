@@ -836,17 +836,19 @@ export function addUserToOrg(auth, email, orgId, inviteId, userData, imageFile) 
 }
 
 export function deleteThreadData(threads) {
-	let updates = {}
-	let itemsProcessed = 0;
-	for (var key in threads) {
-	    if (threads.hasOwnProperty(key)) {
-	        updates[Constants.THREADS_PATH + '/' + key] = null
-			updates[Constants.THREADS_BY_ORG_PATH + '/' + threads[key].orgId + '/' + key] = null
-			updates[Constants.THREADS_BY_USER_BY_ORG_PATH + '/' + threads[key].userId + '/' + threads[key].orgId + '/' + key] = null
-	    }
-	}	  
-	  
-	// delete comments too?
-	
-    Firebase.database().ref().update(updates)
+	if (threads) {
+		let updates = {}
+		let itemsProcessed = 0;
+		for (var key in threads) {
+		    if (threads.hasOwnProperty(key)) {
+		        updates[Constants.THREADS_PATH + '/' + key] = null
+				updates[Constants.THREADS_BY_ORG_PATH + '/' + threads[key].orgId + '/' + key] = null
+				updates[Constants.THREADS_BY_USER_BY_ORG_PATH + '/' + threads[key].userId + '/' + threads[key].orgId + '/' + key] = null
+		    }
+		}	  
+		  
+		// delete comments too?
+
+	    Firebase.database().ref().update(updates)
+	}
 }
