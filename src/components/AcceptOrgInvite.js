@@ -147,7 +147,7 @@ class AcceptOrgInvite extends React.Component {
                   <div className="co-post-title mrgn-bottom-md color--black">
                     {sender.username} invited you to join their team "{invite.orgName}"
                   </div>
-                  <Link className="text-hover color--seaweed mrgn-top-sm" to='/'>Login to accept</Link>
+                  <Link className="text-hover color--seaweed mrgn-top-sm" to='/login'>Login to accept</Link>
                 </div>
               </div>
           </div>
@@ -234,7 +234,7 @@ class AcceptOrgInvite extends React.Component {
                         <input
                         className="form-control upload-image-button"
                         type="file"
-                        accept="image/jpeg,image/png,application/pdf"
+                        accept="image/gif,image/jpg,image/jpeg,image/png,application/pdf"
                         onChange={this.changeImage} />
 
                       </div>
@@ -347,7 +347,7 @@ class AcceptOrgInvite extends React.Component {
                         <input
                         className="form-control upload-image-button"
                         type="file"
-                        accept="image/jpeg,image/png,application/pdf"
+                        accept="image/gif,image/jpg,image/jpeg,image/png,application/pdf"
                         onChange={this.changeImage} />
 
                       </div>

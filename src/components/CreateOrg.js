@@ -167,7 +167,7 @@ class CreateOrg extends React.Component {
 		                        <input
 		                        className="form-control upload-image-button"
 		                        type="file"
-		                        accept="image/jpeg,image/png,application/pdf"
+		                        accept="image/jpg,image/gif,image/jpeg,image/png,application/pdf"
 		                        onChange={this.changeImage} />
 
 		                      </div>
