@@ -1,5 +1,6 @@
 import Firebase from 'firebase';
 import * as Constants from './constants';
+import { sendMixpanelEvent } from './actions/modalActions'
 import 'whatwg-fetch';
 // import { convertToRaw, convertFromRaw, EditorState, ContentState, convertFromHTML } from 'draft-js';
 // import draftToHtml from 'draftjs-to-html';
@@ -467,6 +468,11 @@ export function fanOutUnFollowUser(isFollowing, theFollowed) {
 }
 
 export function sendContentManagerEmail(templateId, recipientEmail, data) {
+	let params = {
+		templateId: templateId,
+		recipientEmail: recipientEmail
+	}
+
 	let formData = new FormData();
 	formData.append("template-id", templateId);
 	formData.append("recipient", recipientEmail);
@@ -477,11 +483,14 @@ export function sendContentManagerEmail(templateId, recipientEmail, data) {
 	  body: formData
 	})
 	.catch(function(response) {
+		sendMixpanelEvent(Constants.MIXPANEL_EMAIL_SENT, params); 
 		console.log(response)
 	})
 	.catch(function(error) {
+		sendMixpanelEvent(Constants.MIXPANEL_EMAIL_FAILED, Object.assign({}, params, error)); 
 	    console.log('Content Manager email send request failed', error)
 	})
+	console.log('end send data')
 }
 
 export function sendCollaboUpdateNotifs(senderId, messageType, org, project, thread, sendObject) {
@@ -495,11 +504,12 @@ export function sendCollaboUpdateNotifs(senderId, messageType, org, project, thr
 }
 
 export function sendCollaboInboxMessage(senderId, recipientId, messageType, org, project, thread, sendObject) {
+	console.log('in send collabo inbox ')
 	const inboxObject = {
 		lastModified: Firebase.database.ServerValue.TIMESTAMP
 	};
 	let emailMessage = '';
-	let emailData = {};
+	let emailData = { emailType: messageType };
 	let emailTemplateID = "5d7dc9ce-f38d-47b9-b73c-09d3e187a6d9"
 
 	let sendEmail = true;
@@ -577,6 +587,7 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 		            return (current_count || 0) + 1;
 		        })
 	        	if (sendEmail && recipientSnapshot.exists() && recipientSnapshot.val().email) {
+	        		console.log('in if about to send')
 	        		let data = Object.assign({}, emailData, {senderName: senderSnapshot.val().username});
 	        		sendContentManagerEmail(emailTemplateID, recipientSnapshot.val().email, data);
 			    }
@@ -590,7 +601,8 @@ export function sendCommentInboxMessage(senderId, recipientId, messageType, org,
 		lastModified: Firebase.database.ServerValue.TIMESTAMP
 	};
 	let emailData = {
-		threadLink: Constants.COLLABO_URL + '/' + org.url + '/' + thread.projectId + '/' + thread.threadId
+		threadLink: Constants.COLLABO_URL + '/' + org.url + '/' + thread.projectId + '/' + thread.threadId,
+		emailType: messageType
 	};
 
 	Firebase.database().ref(Constants.USERS_PATH + '/' + recipientId).once('value', recipientSnapshot => {
@@ -650,7 +662,8 @@ export function sendInviteEmail(auth, recipientEmail, org, inviteId) {
 			{ senderName: senderSnap.val().username }, 
 			{ link: link }, 
 			{ unitType: 'team' },
-			{ message: ' invited you to join the team: ' }
+			{ message: ' invited you to join the team: ' },
+			{ emailType: Constants.ORG_INVITE_MESSAGE }
 			);
 		sendContentManagerEmail("0a991f3c-3079-4d45-90d2-eff7c64f9cc5", recipientEmail, data);
 	})
@@ -661,6 +674,7 @@ export function sendVerifyEmail(recipientEmail, verifiyId) {
 
 	let data = Object.assign({}, 
 		{ clickthroughLink: link }, 
+		{ emailType: Constants.VERIFY_EMAIL }
 		);
 	sendContentManagerEmail("23853246-d1de-4e0f-8d9c-657446db8adb", recipientEmail, data);
 }

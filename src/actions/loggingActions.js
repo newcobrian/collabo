@@ -4,6 +4,20 @@ import * as Helpers from '../helpers'
 import * as ActionTypes from './types'
 import mixpanel from 'mixpanel-browser'
 
+export function sendMixpanelEvent(eventName, params={}) {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.MIXPANEL_EVENT,
+      meta: {
+        mixpanel: {
+          event: eventName,
+          props: Object.assign({}, params)
+        }
+      }
+    })
+  }
+}
+
 export function logMixpanelClickEvent(clickName, source) {
 	return dispatch => {
 		let props = Object.assign({}, {type: clickName})

@@ -2224,20 +2224,6 @@ export function unmountFriendSelector(selectedFriends) {
   }
 }
 
-export function sendMixpanelEvent(eventName, params={}) {
-  return dispatch => {
-    dispatch({
-      type: MIXPANEL_EVENT,
-      meta: {
-        mixpanel: {
-          event: eventName,
-          props: Object.assign({}, params)
-        }
-      }
-    })
-  }
-}
-
 export function applyTag(tag) {
   return dispatch => {
     dispatch({
