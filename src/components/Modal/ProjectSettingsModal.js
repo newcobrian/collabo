@@ -53,20 +53,17 @@ const MembersList = props => {
           (props.projectMembers || []).map(teammate => {
             return (
               <div key={teammate.userId}>
-                <div className="mrgn-bottom-sm pdding-all-sm w-100 flx flx-row flx-align-center">
-                  <div className="sidebar-icon mrgn-right-md">
-                  </div>
-                  <Link to={'/' + props.orgURL + '/user/' + teammate.username}>
+                <Link to={'/' + props.orgURL + '/user/' + teammate.username} className="mrgn-bottom-sm pdding-all-sm w-100 flx flx-row flx-align-center">
+
                     <div className="reviewer-photo photo-lg mrgn-right-sm">
                       <ProfilePic src={teammate.image} />
                     </div>
 
                     <div className="co-type-body w-100 color--black flx flx-col flx-just-start flx-align-start">
-                          <div className="co-type-bold">{teammate.username}</div>
-                          <div className="">{teammate.fullName}</div>
+                          <div className="co-type-bold color--black">{teammate.username}</div>
+                          <div className="thread-timestamp opa-60">{teammate.fullName}</div>
                     </div>
-                  </Link>
-                </div>
+                </Link>
               </div>
               )
             })
@@ -104,8 +101,8 @@ const DeleteSection = props => {
 const ManageForm = props => {
   if (props.tab === Constants.MANAGE_TAB) {
     return (
-      <div>
-        <div>
+      <div className="w-100">
+        <div className="w-100">
           <Link onClick={props.onToggleDeleteText}>Delete this group</Link>
           <DeleteSection 
             isDeleteMode={props.isDeleteMode}
@@ -236,7 +233,7 @@ class ProjectSettingsModal extends React.Component {
           
           title={project.name + ' Group Members'}
 
-          titleClassName="co-type-h3 color--black"
+          titleClassName="co-type-h3 color--black DN"
           titleStyle={{}}
 
           className="dialog dialog--basic"
@@ -246,24 +243,30 @@ class ProjectSettingsModal extends React.Component {
           overlayStyle={{}}
           
           contentClassName="dialog-content--basic"
-          contentStyle={{width: "auto", maxWidth: "600px"}}
+          contentStyle={{}}
           
-          bodyClassName="dialog-body--basic"
-          bodyStyle={{padding: "0px"}}
+          bodyClassName="dialog-body--basic dialog-header-push"
+          bodyStyle={{}}
 
-          actionsContainerClassName="dialog-actions--basic"
+          actionsContainerClassName="dialog-actions--basic DN"
           actionsContainerStyle={{}}
         >
+        <div className="threadmodal-header w-100 fill--white flx flx-row flx-align-center brdr-bottom pdding-all-sm pdding-right-md">
+          <div className="koi-type-dialog-title color--black pdding-left-sm">Group Settings</div>  
+          <div onClick={handleClose} className="koi-icon-wrapper color--utsuri flx-item-right link-pointer">
+            <img className="center-img" src="/img/icon-close.png"/>
+          </div>
+        </div>
 
-        <div className="dialog--save flx flx-col w-100">
-           <div className="w-100">
-              <ul className="nav nav-pills outline-active">
-                <MembersTab tab={tab} onTabClick={this.onTabClick} />
-                <ManageTab tab={tab} onTabClick={this.onTabClick} />
-              </ul>
-            </div>
 
-          <div>
+         <div className="w-100">
+            <ul className="nav nav-pills outline-active">
+              <MembersTab tab={tab} onTabClick={this.onTabClick} />
+              <ManageTab tab={tab} onTabClick={this.onTabClick} />
+            </ul>
+          </div>
+
+
 
           <MembersList
             tab={tab}
@@ -285,9 +288,8 @@ class ProjectSettingsModal extends React.Component {
             />
 
             
-          </div>
+
          
-        </div>
 
           {/*{JSON.stringify(this.props.review)}*/}
 

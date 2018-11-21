@@ -89,15 +89,16 @@ class ProjectInviteModal extends React.Component {
           contentStyle={{width: "auto", maxWidth: "600px"}}
           
           bodyClassName="dialog-body--basic"
-          bodyStyle={{padding: "0px"}}
+          bodyStyle={{}}
 
           actionsContainerClassName="dialog-actions--basic"
           actionsContainerStyle={{}}
         >
-
-        <div className="dialog--save flx flx-col w-100">
-           
-          <div>
+        <div className="top-right-exit fill--white flx flx-row flx-align-center pdding-all-sm pdding-right-md">
+          <div onClick={handleClose} className="koi-icon-wrapper color--utsuri flx-item-right link-pointer">
+            <img className="center-img" src="/img/icon-close.png"/>
+          </div>
+        </div>
             
             <ListErrors errors={this.props.errors}></ListErrors>
 
@@ -156,9 +157,7 @@ class ProjectInviteModal extends React.Component {
               }
 
             </form> 
-          </div>
-         
-        </div>
+ 
 
           {/*{JSON.stringify(this.props.review)}*/}
 

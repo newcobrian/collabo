@@ -7,6 +7,7 @@ body div.dialog--save {
 
 body div.dialog--basic {
   overflow: auto;
+  padding-top: 0 !important;
 }
 
 .dialog-content--basic {
@@ -20,7 +21,7 @@ body div.dialog--basic {
 }
 .koi-type-dialog-title {
     font-weight: 600;
-    font-size: 32px;
+    font-size: 24px;
     letter-spacing: 0px;
     line-height: 36px;
     font-family: 'Karla';
@@ -30,6 +31,7 @@ body div.dialog--basic {
   max-height: none !important;*/
   font-family: 'Karla';
   padding: 24px !important;
+  min-height: 400px;
 }
 .dialog-actions--basic {
 /*  position: fixed;
@@ -37,12 +39,14 @@ body div.dialog--basic {
   left: 0;
   right: 0;*/
   background: white;
-  padding: 0px !important;
+  /*padding: 0px !important;*/
   z-index: 10;
   margin-top: 0 !important;
 }
 
-
+.dialog-header-push {
+  padding-top: 80px !important;
+}
 
 
 
@@ -226,6 +230,15 @@ li:hover .v-button--temp {
   height: 100%;
 }
 
+
+.top-right-exit {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 80px;
+    height: 60px;
+    z-index: 2;
+}
 
 
 
