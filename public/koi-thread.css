@@ -81,7 +81,7 @@
     margin-bottom: 60px;
 }
 .tp-preview-full .tp-container {
-	max-height: 460px;
+	/*max-height: 460px;*/
 	margin-bottom: 0;
 	padding: 12px 0 !important;
 }

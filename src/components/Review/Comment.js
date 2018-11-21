@@ -19,17 +19,17 @@ const NestedCommentContainer = props => {
     return null
   }
   // if this is from the feed, just show the count of nested comments
-  else if (props.isFeed) {
-    let numComments = Object.keys(props.comments || {}).length
-    if (numComments === 0) return null
-    else {
-      return (
-        <div className="hidden-comments flx flx-col flx-align-center fill--white koi-type-body koi-type-bold color--utsuri">
-          <div className="opa-30">{ numComments + ' ' + (numComments > 1 ? ' replies' : ' reply') }</div>
-        </div>
-      )
-    }
-  }
+  // else if (props.isFeed) {
+  //   let numComments = Object.keys(props.comments || {}).length
+  //   if (numComments === 0) return null
+  //   else {
+  //     return (
+  //       <div className="hidden-comments flx flx-col flx-align-center fill--white koi-type-body koi-type-bold color--utsuri">
+  //         <div className="opa-30">{ numComments + ' ' + (numComments > 1 ? ' replies' : ' reply') }</div>
+  //       </div>
+  //     )
+  //   }
+  // }
   // else show full nested
   else {
     return (
@@ -196,15 +196,15 @@ class Comment extends React.Component {
                   likeObject={parentId ? Object.assign({}, comment, {parentId: parentId}) : comment}
                   type={parentId ? Constants.NESTED_COMMENT_TYPE : Constants.COMMENT_TYPE}
                   org={org} />
-                {!isFeed && !parentId && hideCommentInput && (!comment.nestedComments || comment.nestedComments.lenght > 0) &&
+                {/*{!isFeed && !parentId && hideCommentInput && (!comment.nestedComments || comment.nestedComments.lenght > 0) &&*/}
                   <Link className="reply-ico-wrapper flx flx-row flx-center-all mrgn-left-md" onClick={this.toggleHideCommentInput}>
                     <div className="koi-ico --24 ico--reply mrgn-right-xs opa-60"></div>
                     <div className="co-type-label color--black ta-left mobile-hide">Reply</div>
-                  </Link>}
+                  </Link>
                 <div className="comment-edit-wrapper flx flx-row flx-item-right">
                   <div className="thread-timestamp inline-block mrgn-right-sm">
                     <DeleteButton
-                      show={show && !isFeed}
+                      show={show}
                       commentObject={commentObject}
                       commentId={comment.id}
                       deleteComment={deleteComment}
@@ -213,7 +213,7 @@ class Comment extends React.Component {
                   </div>
                   <div className="thread-timestamp inline-block">
                     <EditButton
-                      show={show && !isFeed}
+                      show={show}
                       onEditClick={onEditClick} />
                   </div>
                 </div>
@@ -225,7 +225,7 @@ class Comment extends React.Component {
               <GoogleDriveLink content={comment.body} onClose={this.closeNotification}/>
             */}
           </div>
-            <Link onClick={openThread} className="comment-indent">
+             {/*<Link onClick={openThread} className="comment-indent">*/}
             <NestedCommentContainer
               authenticated={authenticated}
               comments={comment.nestedComments || {}}
@@ -243,7 +243,7 @@ class Comment extends React.Component {
               hideCommentInput={hideCommentInput && (!comment.nestedComments || comment.nestedComments.length === 0)}
               parentId={parentId}
               isFeed={isFeed} />
-              </Link>
+               {/*</Link>*/}
             {/* !parentId && 
               <CommentContainer
                 authenticated={authenticated}

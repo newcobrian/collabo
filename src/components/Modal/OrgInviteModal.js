@@ -100,7 +100,7 @@ class OrgInviteModal extends React.Component {
         <div className="dialog--save flx flx-col w-100">
            
           <div className="w-100">
-            <div className="koi-type-dialog-title mrgn-bottom-sm mrgn-top-md color--black">Invite members to your team</div>
+            <div className="koi-type-dialog-title mrgn-bottom-sm color--black">Invite members to your team</div>
 
             <div className="illustration mrgn-bottom-md flx-hold flx flx-col flx-center-all">
               <img className="center-img" src="/img/illu_orginvite.png"/>
