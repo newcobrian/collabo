@@ -132,6 +132,7 @@
 .open-style .page-common,
 .open-style .loading-module {
 	margin-left: 300px;
+	min-width: 360px;
 /*	height: 100%;
 	position: absolute;
 	left: 0;
