@@ -85,7 +85,8 @@
 }
 
 .project-header.with-shadow {
-	box-shadow: rgba(244,249,251) 0 12px 18px;
+	box-shadow: #F4F9FB 0 12px 18px 0;
+	-webkit-box-shadow: #F4F9FB 0 12px 18px 0;
 }
 .page-thread .project-header.with-shadow {
 	box-shadow: none;

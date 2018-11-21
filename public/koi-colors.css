@@ -14,9 +14,11 @@
 	background: rgba(30,33,63) !important;
 }
 .color--utsuri {
+	color: rgb(30,33,63) !important;
 	color: rgba(30,33,63) !important;
 }
 .brdr-color--utsuri {
+	border-color: rgb(30,33,63) !important;
 	border-color: rgba(30,33,63) !important;
 }
 
@@ -29,6 +31,7 @@
 
 .fill--pond {
 	background-color: #C9E0EC !important;
+	background-color: rgb(201,224,236) !important;
 	background-color: rgba(201,224,236) !important;
 }
 .color--pond {
@@ -41,6 +44,7 @@
 
 
 .fill--mist {
+	background: rgb(244,249,251);
 	background: rgba(244,249,251);
 }
 

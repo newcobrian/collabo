@@ -1,13 +1,12 @@
 body div.dialog--save {
-  overflow: scroll;
+  overflow: auto;
   padding-top: 0 !important;
   background-color: white;
-  padding: 20px;
+  padding: 0px;
 }
 
 body div.dialog--basic {
-  overflow: scroll;
-  padding-top: 0 !important;
+  overflow: auto;
 }
 
 .dialog-content--basic {
@@ -15,7 +14,6 @@ body div.dialog--basic {
   height: 100%;
   /*transform: none !important;*/
   background: white;
-  overflow: hidden;
   min-height: 210px;
 }
 .dialog-overlay--basic {
@@ -28,19 +26,22 @@ body div.dialog--basic {
     font-family: 'Karla';
 }
 .dialog-body--basic {
-  padding-bottom: 50px !important;
-  max-height: none !important;
+/*  padding-bottom: 50px !important;
+  max-height: none !important;*/
   font-family: 'Karla';
+  padding: 24px !important;
 }
 .dialog-actions--basic {
-  position: fixed;
+/*  position: fixed;
   bottom: 0;
   left: 0;
-  right: 0;
+  right: 0;*/
   background: white;
   padding: 0px !important;
-  z-index: 2;
+  z-index: 10;
+  margin-top: 0 !important;
 }
+
 
 
 
