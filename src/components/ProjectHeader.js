@@ -16,7 +16,7 @@ const ProjectHeader = props => {
           
             <div className="project-header-row co-type-h1 flx flx-row flx-align-center color--black">
               <div className="group-icon flx flx-col flx-center-all flx-hold">
-                <Link to='/'  className="co-logo flx-hold">
+                <Link to='/'  className="co-logo flx-hold flx flx-col flx-center-all">
                   <img className="center-img" src="/img/logo_a.png"/>
                 </Link>
               </div>
@@ -59,7 +59,7 @@ const ProjectHeader = props => {
         <div className="project-bar-wrapper flx flx-row flx-align-center">
           <div className="project-header-row co-type-h1 flx flx-row flx-align-center color--black">
             <div className="group-icon flx flx-col flx-center-all flx-hold">
-              <div className="co-logo flx-hold">
+              <div className="co-logo flx-hold flx flx-col flx-center-all">
                 <img className="center-img" src="/img/logo_a.png"/>
               </div>
             </div>
