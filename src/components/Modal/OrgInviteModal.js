@@ -67,10 +67,11 @@ const ProjectSelector = props => {
           Sorry, you aren't in any groups
         </div>
         )
-    }
+    } 
     else {
       return (
-        <div>
+        <div className="w-100">
+          <div className="koi-type-dialog-title mrgn-bottom-md color--black">Which groups will they have access to?</div>
           <ListErrors errors={props.errors}></ListErrors>
           {
             props.projectList.map((projectItem, index) => {
@@ -83,11 +84,13 @@ const ProjectSelector = props => {
                           className="koi-ico --24"
                           onChange={props.toggleCheckbox(projectItem.id)} />
                     </div>
-                    <div className="koi-type-body">
-                      {props.projectNames[projectItem.id] ? props.projectNames[projectItem.id].name : 'unknown project name'}
-                    </div>
-                    <div className="koi-type-body">
-                      ({projectItem.isPublic ? 'Public' : 'Private'})
+                    <div className="koi-type-body w-100 color--black flx flx-col flx-just-start flx-align-start">
+                      <div className="koi-type-bold">
+                        {props.projectNames[projectItem.id] ? props.projectNames[projectItem.id].name : 'unknown project name'}
+                      </div>
+                      <div className="thread-timestamp opa-60">
+                        {projectItem.isPublic ? 'Public' : 'Private'}
+                      </div>
                     </div>
                   </div>
                 )
@@ -164,7 +167,7 @@ class OrgInviteModal extends React.Component {
     const actions = [
       <FlatButton
         label="Cancel"
-        className="vb vb--outline-none fill--white color--grey"
+        className="vb vb--outline-none fill--mist color--grey"
         onClick={handleClose}
         style={{}}
         labelStyle={{}}

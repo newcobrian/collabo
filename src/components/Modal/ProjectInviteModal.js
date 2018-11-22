@@ -143,8 +143,8 @@ class ProjectInviteModal extends React.Component {
                             <ProfilePic src={teammate.image} />
                           </div>
 
-                          <div className="co-type-body w-100 color--black flx flx-col flx-just-start flx-align-start">
-                                <div className="co-type-bold">{teammate.username}</div>
+                          <div className="koi-type-body w-100 color--black flx flx-col flx-just-start flx-align-start">
+                                <div className="koi-type-bold">{teammate.username}</div>
                                 <div className="thread-timestamp opa-60">Joined</div>
 
                           </div>

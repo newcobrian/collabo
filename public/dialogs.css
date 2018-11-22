@@ -156,8 +156,10 @@ body div.dialog--basic {
 }
 .dialog--save__actions button span,
 .dialog-actions--basic button span {
-  letter-spacing: 2px !important;
-  font-size: 13px !important;
+  letter-spacing: .2px !important;
+  font-size: 16px !important;
+  text-transform: none !important;
+  font-weight: 600 !important;
 }
 .dialog--save__tip-name {
   padding-top: 0;
