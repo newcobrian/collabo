@@ -210,14 +210,6 @@ class AddProject extends React.Component {
 				                        onChange={this.changeDescription} />
 				                    </fieldset>
 				                    <fieldset className="field-wrapper mrgn-top-md">
-					            		<label>
-				                      <input
-				                      	className="mrgn-left-xs DN"
-				                        type="checkbox"
-				                        checked={this.props.isPublic}
-				                        onChange={this.togglePublic} />
-				                        </label>
-
 				                        <label className="koi-radio">
 				                        	<div className="co-type-body co-type-bold">Public</div>
 				                         	<div className="thread-timestamp">Anyone can join and view</div>

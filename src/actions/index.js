@@ -2161,6 +2161,28 @@ export function onUpdateFriendsCheckbox(label, selectedUsers, source) {
   }
 }
 
+export function onUpdateSelector(label, selected, source) {
+  return dispatch => {
+    if (!selected) {
+      selected = [];
+      selected.push(label)
+    }
+    else {
+      let index = selected.indexOf(label);
+      if (index > -1) {
+        selected.splice(index, 1);
+      }
+      else selected.push(label);
+    }
+
+    dispatch({
+      type: ActionTypes.UPDATE_SELECTOR,
+      payload: selected,
+      source
+    })
+  }
+}
+
 export function onFriendSelectorSubmit(authenticated, selectedFriends, review, path=null) {
   return dispatch => {
     let recipientCount = 0;

@@ -54,7 +54,7 @@ function validateEmail(email) {
     return re.test(String(email).toLowerCase());
 }
 
-export function signUpUser(email, password, fullName, verificationId, redirect, orgId, username, imageFile) {
+export function signUpUser(email, password, fullName, verificationId, redirect, invite, username, imageFile) {
   return dispatch => {
     // if (!username || username.length < 3) {
     //   dispatch({
@@ -87,9 +87,10 @@ export function signUpUser(email, password, fullName, verificationId, redirect, 
       })
     }
     else {
+      let orgId = invite ? invite.orgId : undefined
       let lowerCaseUsername = username ? username.toLowerCase() : ''
       Firebase.database().ref(Constants.USERNAMES_BY_ORG_PATH + '/' + orgId + '/' + lowerCaseUsername).once('value', usernameSnap => {
-        if (orgId && usernameSnap.exists()) {
+        if (invite && orgId && usernameSnap.exists()) {
           dispatch({
             type: ActionTypes.CREATE_SUBMIT_ERROR,
             source: Constants.ACCEPT_INVITE_PAGE,
@@ -113,7 +114,7 @@ export function signUpUser(email, password, fullName, verificationId, redirect, 
                 let updates = {};
 
                 let cleanedEmail = Helpers.cleanEmailToFirebase(email)
-                Firebase.database().ref(Constants.INVITES_BY_EMAIL_BY_ORG_PATH + '/' + cleanedEmail).once('value', inviteSnap => {
+                Firebase.database().ref(Constants.INVITES_BY_EMAIL_BY_ORG_PATH + '/' + cleanedEmail).once('value', invitesByEmailSnap => {
                   // need to save users profile info
                   updates[Constants.USERS_PATH + '/' + userId] = userData
 
@@ -132,7 +133,7 @@ export function signUpUser(email, password, fullName, verificationId, redirect, 
                   // migrate invites sent to user's email address to their inbox
                   let lastModified = Firebase.database.ServerValue.TIMESTAMP
                   let inboxCounter = 0
-                  inviteSnap.forEach(function(orgInvite) {
+                  invitesByEmailSnap.forEach(function(orgInvite) {
                     // update recipientId on invite
                     if (orgInvite.val()) {
                       orgInvite.forEach(function(inviteItem) {
@@ -154,7 +155,7 @@ export function signUpUser(email, password, fullName, verificationId, redirect, 
 
                   // if an orgId was passed, also add this user to the org
                   if (orgId) {
-                    Helpers.addUserToOrg(userId, email, orgId, null, userData, imageFile)  
+                    Helpers.addUserToOrg(userId, email, invite, null, userData, imageFile)  
                   }
 
                   // set account created date super property

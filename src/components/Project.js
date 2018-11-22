@@ -80,7 +80,7 @@ class Project extends React.Component {
     }
 
     this.onOrgInviteClick = ev => {
-      this.props.showOrgInviteModal(this.props.org)
+      this.props.showOrgInviteModal(this.props.org, this.props.projectList, this.props.projectNames)
     }
 
     this.openProjectSettings = ev => {
