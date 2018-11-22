@@ -84,14 +84,17 @@ const DeleteSection = props => {
 
   if (props.isDeleteMode) {
     return (
-      <div>
-        <div>Are you sure you want to delete this group? All threads will be permanently deleted.</div>
+      <div className="flx flx-col flx-align-start brdr-all pdding-all-md mrgn-top-sm">
+      
+        <div className="koi-type-body">Are you sure you want to delete this group? All threads will be permanently deleted.</div>
+        <div className="flx flx-row flx-align-start flx-just-center mrgn-top-sm">
         <input
             type="checkbox"
             checked={props.confirmedDelete}
             onChange={props.onToggleConfirm} />
-            Click this checkbox to confirm and then click the delete button
-        <button onClick={onDeleteClick}>Delete</button>
+            <div className=" mrgn-left-sm koi-type-caption">Click this checkbox to confirm and then click the delete button</div>
+        </div>
+        <button className="vb vb--sm brdr-all fill--tancho mrgn-top-sm color--white" onClick={onDeleteClick}>Delete</button>
       </div>
     )
   }
@@ -102,34 +105,36 @@ const ManageForm = props => {
   if (props.tab === Constants.MANAGE_TAB) {
     return (
       <div className="w-100">
-        <div className="w-100">
-          <Link onClick={props.onToggleDeleteText}>Delete this group</Link>
+        <form onSubmit={props.onSubmit}>
+          <label>Project Name</label>
+          <div className="flx flx-row flx-align-center flx-just-start">
+              <fieldset className="form-group mrgn-right-sm w-100">
+                <input
+                  className="form-control form-control-lg"
+                  type="text"
+                  placeholder="Project Name"
+                  required
+                  value={props.projectName}
+                  onChange={props.updateField('projectName')} />
+              </fieldset>
+              <button
+                className="vb fill--utsuri color--white ta-center mrgn-left-sm"
+                type="submit" >
+                Save Changes
+              </button>
+            </div>
+            <ListErrors errors={props.errors}></ListErrors>
+        </form>
+
+        <div className="w-100 mrgn-top-md">
+          <Link className="color--tancho koi-type-caption text-hover" onClick={props.onToggleDeleteText}>Delete this group</Link>
           <DeleteSection 
             isDeleteMode={props.isDeleteMode}
             confirmedDelete={props.confirmedDelete}
             onToggleConfirm={props.onToggleConfirm}
             onDelete={props.onDelete} />
         </div>
-        <form onSubmit={props.onSubmit}>
-            <fieldset className="form-group">
-              <label>Project Name</label>
-              <input
-                className="form-control form-control-lg"
-                type="text"
-                placeholder="Project Name"
-                required
-                value={props.projectName}
-                onChange={props.updateField('projectName')} />
-            </fieldset>
 
-            <ListErrors errors={props.errors}></ListErrors>
-
-            <button
-              className="vb fill--utsuri color--white ta-center mrgn-bottom-sm w-100"
-              type="submit" >
-              Save Changes
-            </button>
-        </form>
       </div>
     );
   }

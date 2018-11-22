@@ -161,6 +161,10 @@ body div.dialog--basic {
   text-transform: none !important;
   font-weight: 600 !important;
 }
+.form-group {
+  margin: 0 !important;
+  border: none !important; }
+
 .dialog--save__tip-name {
   padding-top: 0;
   font-size: 18px;
