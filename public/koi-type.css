@@ -146,10 +146,11 @@ p {
     line-height: 48px;
 }
 
-.co-type-h1 {
-    font-size: 14px;
+.co-type-h1,
+.koi-type-h1 {
+    font-size: 32px;
     font-weight: 600;
-    letter-spacing: .5px;
+    line-height: 120%;
 }
 .koi-type-h2 {
     font-size: 18px;

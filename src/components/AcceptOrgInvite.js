@@ -140,14 +140,21 @@ class AcceptOrgInvite extends React.Component {
       // if invite was sent to a registered email, tell the user to login
       if (emailRegistered) {
         return (
-          <div className="home-page page-common page-register fill--pond flx flx-col flx-just-start">
-            <div className="koi-view ta-left flx flx-col pdding-top-lg">
-                <div className="register-msg">
-                  <div className="koi-big-header mrgn-bottom-md color--utsuri opa-30">Hello!</div>
-                  <div className="co-post-title mrgn-bottom-md color--black">
-                    {sender.username} invited you to join their team "{invite.orgName}"
+          <div className="home-page page-common page-register fill--pond flx flx-col flx-align-center w-100">
+            <div className="koi-view ta-left flx flx-col flx-align-center pdding-top-lg w-100 w-max-600">
+                <div className="main-logo flx-hold mrgn-top-lg mrgn-bottom-md">
+                  <img className="center-img" src="/img/koi-logo_a.png"/>
+                </div>
+                  <div className="koi-big-header mrgn-bottom-md color--utsuri w-100 ta-center">Koi</div>
+                  <div className="koi-type-h1 mrgn-bottom-md color--black w-100 ta-center pdding-bottom-md">
+                    A place for deep discussion
                   </div>
-                  <Link className="text-hover color--seaweed mrgn-top-sm" to='/login'>Login to accept</Link>
+                  <div className="register-msg fill--white pdding-all-md bx-shadow">
+                  <div className="koi-type-body-lg color--black w-100 ta-center mrgn-top-lg mrgn-bottom-lg">
+                    <span className="koi-type-bold">{sender.username}</span> invited you to join their team "{invite.orgName}"
+                  </div>
+                  <Link className="vb fill--seaweed color--white mrgn-top-sm" to='/login'>Login to Accept</Link>
+                  
                 </div>
               </div>
           </div>
@@ -396,14 +403,20 @@ class AcceptOrgInvite extends React.Component {
                 <div className="register-msg">
                   <div className="koi-big-header mrgn-bottom-md color--utsuri opa-30">Oops</div>
                   <div className="co-post-title mrgn-bottom-md color--black">
-                    Sorry, this email was sent to {invite.recipientEmail} but you're currently logged in as {userInfo.email}. To accept this invite, please log out and log in or sign up as {invite.recipientEmail}.
-
+                    You're logged in to the wrong account
+                  </div>
+                  <div className="koi-type-body mrgn-bottom-md color--black">
+                    Sorry, this email was sent to <span className="koi-type-bold">{invite.recipientEmail}</span> but you're currently logged in as <span className="koi-type-bold">{userInfo.email}</span>.
+                    <br/>
                     We currently only allow one email address to be logged in at a time, but we'll be working to add multiple concurrent logins in the future.
+                    <br/><br/>
+                    To accept this invite, please log out and log in or sign up as <span className="koi-type-bold">{invite.recipientEmail}</span>.
                   </div>
                   <Link className="text-hover color--seaweed mrgn-top-sm" to='/'>Go to homepage</Link>
                 </div>
               </div>
           </div>
+          
         )
       }
     }
