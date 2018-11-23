@@ -106,7 +106,7 @@ class AddProject extends React.Component {
 		    this.props.unloadThreadCounts(this.props.authenticated, this.props.org.id)
 		    this.props.unloadProjectList(this.props.authenticated, this.props.org.id, Constants.ADD_PROJECT_PAGE)
 		    this.props.unloadOrgUser(this.props.authenticated, this.props.org.id, Constants.ADD_PROJECT_PAGE)
-		    this.props.unloadOrg(Constants.ADD_PROJECT_PAGE);
+		    this.props.unloadOrg(this.props.authenticated, this.props.org.id, Constants.ADD_PROJECT_PAGE);
 		}
 		this.props.onCreateUnload();
 	}

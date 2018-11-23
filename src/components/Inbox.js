@@ -138,7 +138,7 @@ class Inbox extends React.Component {
     this.props.unloadThreadCounts(this.props.authenticated, this.props.orgId)
     this.props.unloadProjectList(this.props.authenticated, this.props.orgId, Constants.INBOX_PAGE)
     this.props.unloadOrgUser(this.props.authenticated, this.props.orgId, Constants.INBOX_PAGE)
-    this.props.unloadOrg(Constants.INBOX_PAGE);
+    this.props.unloadOrg(this.props.authenticated, this.props.orgId, Constants.INBOX_PAGE);
     if (!this.props.authenticated) {
       this.props.setAuthRedirect(this.props.location.pathname);
     }

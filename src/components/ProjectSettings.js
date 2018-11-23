@@ -128,7 +128,7 @@ class ProjectSettings extends React.Component {
     this.props.unloadOrgList(this.props.authenticated, Constants.PROJECT_SETTINGS_PAGE)
     this.props.unloadThreadCounts(this.props.authenticated, this.props.params.orgname, Constants.PROJECT_SETTINGS_PAGE)
     this.props.unloadProjectList(this.props.authenticated, this.props.params.orgname, Constants.PROJECT_SETTINGS_PAGE)
-    this.props.unloadOrg(Constants.PROJECT_SETTINGS_PAGE, this.props.params.orgname);
+    this.props.unloadOrg(this.props.authenticated, this.props.org.id, Constants.PROJECT_SETTINGS_PAGE);
   }
 
   componentWillReceiveProps(nextProps) {

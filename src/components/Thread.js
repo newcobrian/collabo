@@ -230,7 +230,7 @@ class Thread extends React.Component {
       this.props.unloadThreadCounts(this.props.authenticated, this.props.org.id, Constants.THREAD_PAGE)
       this.props.unloadProjectList(this.props.authenticated, this.props.org.id, Constants.THREAD_PAGE)
       this.props.unloadOrgUser(this.props.authenticated, this.props.org.id, Constants.THREAD_PAGE)
-      this.props.unloadOrg(Constants.THREAD_PAGE);
+      this.props.unloadOrg(this.props.authenticated, this.props.org.id, Constants.THREAD_PAGE);
       this.props.loadOrgMembers(this.props.org.id,  Constants.THREAD_PAGE)
     }
     this.props.unloadThread(this.props.params.tid);
@@ -251,7 +251,7 @@ class Thread extends React.Component {
     }
     else if (nextProps.params.orgurl !== this.props.params.orgurl) {
       if (this.props.org && this.props.org.id) {
-        this.props.unloadOrg(Constants.THREAD_PAGE);
+        this.props.unloadOrg(this.props.authenticated, this.props.org.id, Constants.THREAD_PAGE);
         this.props.unloadOrgUser(this.props.authenticated, this.props.org.id, Constants.THREAD_PAGE)
         this.props.unloadProjectNames(this.props.org.id, Constants.THREAD_PAGE)
         this.props.unloadThreadCounts(this.props.authenticated, this.props.org.id, Constants.THREAD_PAGE)

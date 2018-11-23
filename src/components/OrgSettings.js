@@ -333,7 +333,7 @@ class OrgSettings extends React.Component {
       this.props.unloadThreadCounts(this.props.authenticated, this.props.org.id, Constants.ORG_SETTINGS_PAGE)
       this.props.unloadProjectList(this.props.authenticated, this.props.org.id, Constants.ORG_SETTINGS_PAGE)
       this.props.unloadOrgUser(this.props.authenticated, this.props.org.id, Constants.ORG_SETTINGS_PAGE)
-      this.props.unloadOrg(Constants.ORG_SETTINGS_PAGE);
+      this.props.unloadOrg(this.props.authenticated, this.props.org.id, Constants.ORG_SETTINGS_PAGE);
       this.props.unloadOrgMembers(this.props.org.id, Constants.ORG_SETTINGS_PAGE)
     }
   }

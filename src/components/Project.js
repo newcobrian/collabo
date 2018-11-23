@@ -128,7 +128,7 @@ class Project extends React.Component {
     this.props.unloadOrgList(this.props.authenticated, Constants.PROJECT_PAGE)
     this.props.unloadThreadCounts(this.props.authenticated, this.props.org.id)
     this.props.unloadProjectList(this.props.authenticated, this.props.org.id, Constants.PROJECT_PAGE)
-    this.props.unloadOrg(Constants.PROJECT_PAGE);
+    this.props.unloadOrg(this.props.authenticated, this.props.org.id, Constants.PROJECT_PAGE);
     this.props.unloadProjectMembers(this.props.params.pid, Constants.PROJECT_PAGE)
     this.props.unloadOrgMembers(this.props.org.id, Constants.PROJECT_PAGE)
     this.props.unloadProject(this.props.params.pid, this.props.org.id, Constants.PROJECT_PAGE);
@@ -154,7 +154,7 @@ class Project extends React.Component {
         this.props.unwatchThreadFeed(this.props.authenticated, this.props.org.id, this.props.params.pid, Constants.PROJECT_PAGE)
         this.props.unloadThreadCounts(this.props.authenticated, this.props.org.id)
         this.props.unloadProjectList(this.props.authenticated, this.props.org.id, Constants.PROJECT_PAGE)
-        this.props.unloadOrg(Constants.PROJECT_PAGE);  
+        this.props.unloadOrg(this.props.authenticated, this.props.org.id, Constants.PROJECT_PAGE);  
         this.props.unloadOrgMembers(this.props.org.id, Constants.PROJECT_PAGE)
         this.props.unloadProject(this.props.params.pid, this.props.org.id, Constants.PROJECT_PAGE);
       }

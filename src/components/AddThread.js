@@ -112,7 +112,7 @@ class AddThread extends React.Component {
 		    this.props.unloadProjectList(this.props.authenticated, this.props.org.id, Constants.ADD_THREAD_PAGE)
 		    this.props.unloadOrgMembers(this.props.org.id,  Constants.ADD_THREAD_PAGE)
 		    this.props.unloadOrgUser(this.props.authenticated, this.props.org.id, Constants.ADD_THREAD_PAGE)
-		    this.props.unloadOrg(Constants.ADD_THREAD_PAGE);
+		    this.props.unloadOrg(this.props.authenticated, this.props.org.id, Constants.ADD_THREAD_PAGE);
 		}
 	}
 

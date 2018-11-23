@@ -184,7 +184,7 @@ export function loadOrg(auth, orgId, orgURL, orgName, source) {
   return dispatch => {
     if (auth) {
       let lowercaseOrgURL = orgURL ? orgURL.toLowerCase() : ''
-      Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth + '/' + orgId).once('value', userSnap => {
+      Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth + '/' + orgId).on('value', userSnap => {
         if (!userSnap.exists()) {
           dispatch({
             type: ActionTypes.NOT_AN_ORG_USER,
@@ -203,8 +203,10 @@ export function loadOrg(auth, orgId, orgURL, orgName, source) {
   }
 }
 
-export function unloadOrg(source) {
+export function unloadOrg(auth, orgId, source) {
   return dispatch => {
+    Firebase.database().ref(Constants.ORGS_BY_USER_PATH + '/' + auth + '/' + orgId).off()
+
     dispatch({
       type: ActionTypes.UNLOAD_ORG,
       source: source

@@ -197,7 +197,7 @@ class Profile extends React.Component {
       this.props.unloadThreadCounts(this.props.authenticated, this.props.org.id)
       this.props.unloadProjectList(this.props.authenticated, this.props.org.id, Constants.PROFILE_PAGE)
       this.props.unloadOrgUser(this.props.authenticated, this.props.org.id, Constants.PROFILE_PAGE)
-      this.props.unloadOrg(Constants.PROFILE_PAGE);
+      this.props.unloadOrg(this.props.authenticated, this.props.org.id, Constants.PROFILE_PAGE);
     }
 
     if (!this.props.authenticated) {
