@@ -387,11 +387,13 @@ export function acceptOrgInvite(auth, email, inviteId, userData, imageFile) {
           else {
             Helpers.addUserToOrg(auth, email, inviteSnap.val(), inviteId, userData, imageFile);
 
-            Firebase.database().ref(Constants.ORGS_PATH + '/' + inviteSnap.val().orgId).once('value', orgURLSnap => {
+            Firebase.database().ref(Constants.ORGS_PATH + '/' + inviteSnap.val().orgId).once('value', orgSnap => {
+              Helpers.sendCollaboInboxMessage(auth, inviteSnap.val().senderId, Constants.ACCEPT_ORG_INVITE_MESSAGE, orgSnap.val(), null, null, null)
+
               dispatch({
                 type: ActionTypes.ORG_INVITE_ACCEPTED,
                 orgName: inviteSnap.val().orgName,
-                orgURL: orgURLSnap.val().url,
+                orgURL: orgSnap.val().url,
                 meta: {
                   mixpanel: {
                     event: 'Org invite accepted',

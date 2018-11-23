@@ -503,7 +503,6 @@ export function sendCollaboUpdateNotifs(senderId, messageType, org, project, thr
 }
 
 export function sendCollaboInboxMessage(senderId, recipientId, messageType, org, project, thread, sendObject) {
-	console.log('in send collabo inbox ')
 	const inboxObject = {
 		lastModified: Firebase.database.ServerValue.TIMESTAMP
 	};
@@ -570,6 +569,13 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 					emailData.link = Constants.COLLABO_URL + '/invitation/' + sendObject;
 					emailData.senderLink = Constants.COLLABO_URL + '/' + org.url + '/users/' + senderSnapshot.val().username
 					emailTemplateID = "0a991f3c-3079-4d45-90d2-eff7c64f9cc5"
+					break;
+				case Constants.ACCEPT_ORG_INVITE_MESSAGE:
+					inboxObject.senderId = senderId;
+					inboxObject.message = ' accepted your invite to the ' + org.name + ' team';
+					inboxObject.link = '/' + org.url;
+					inboxObject.type = Constants.INBOX_INVITE_TYPE
+					sendEmail = false
 					break;
 				// case Constants.NEW_THREAD_MESSAGE:
 				// 	inboxObject.senderId = senderId;
