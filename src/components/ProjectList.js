@@ -171,13 +171,14 @@ class ProjectList extends React.Component {
             {
               (this.props.projectList || []).map((projectItem, index) => {
                 let projectName = this.props.projectNames && this.props.projectNames[projectItem.id] ? this.props.projectNames[projectItem.id].name : ''
+                let isPublic = this.props.projectNames && this.props.projectNames[projectItem.id] ? this.props.projectNames[projectItem.id].isPublic : true
                 return (
 
                     <Link className={"sidebar-row group-row flx flx-row flx-align-center " + (this.props.projectId === projectItem.id ? 'active' : '')} key={projectItem.id} to={'/' + org.url + '/' + projectItem.id}>
                       <div className="sidebar-icon flx flx-center-all">
-                        <DotJewel threadCount={threadCounts[projectItem.id]} isPublic={projectItem.isPublic} />
+                        <DotJewel threadCount={threadCounts[projectItem.id]} isPublic={isPublic} />
                       </div>
-                      {<PrivateIcon threadCount={threadCounts[projectItem.id]} isPublic={projectItem.isPublic} />}
+                      {<PrivateIcon threadCount={threadCounts[projectItem.id]} isPublic={isPublic} />}
 
                       <div className="sidebar-project-name color--black">
                         {projectName}
