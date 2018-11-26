@@ -215,6 +215,7 @@ export const ENTER_EMAIL_PAGE = 'ENTER_EMAIL_PAGE'
 export const ACCEPT_ORG_INVITE_PAGE = 'ACCEPT_ORG_INVITE_PAGE'
 export const ACCEPT_PROJECT_INVITE_PAGE = 'ACCEPT_PROJECT_INVITE_PAGE'
 export const HOME_PAGE = 'HOME_PAGE'
+export const ACCEPT_INVITE_PAGE = 'ACCEPT_INVITE_PAGE'
 
 /*** Tab Constants ***/
 export const MEMBERS_TAB = 'members'
