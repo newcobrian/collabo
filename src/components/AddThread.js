@@ -152,7 +152,7 @@ class AddThread extends React.Component {
 							  		  <img className="center-img" src="/img/illu_newthread.png"/>
 							  		</div>
 							  		<div className="co-type-page-title mrgn-bottom-md">Compose a New Thread</div>
-							  		<div className="co-type-body color--black mrgn-bottom-md">
+							  		<div className="co-type-body color--black mrgn-bottom-md opa-60">
 							  		Share discussions, ideas, links to files, meeting notes, etc here.
 							  		<br/>
 							  		We'll keep them organized, updated and easily accessible for you.</div>

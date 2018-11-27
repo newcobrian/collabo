@@ -156,7 +156,7 @@ class CreateOrg extends React.Component {
 
 	                    <fieldset>
 		                  
-	                    	<div className="profile-image flx flx-center-all mrgn-top-md">
+	                    	<div className="profile-image flx flx-center-all mrgn-top-md mrgn-bottom-md">
 	                      		<ProfilePic src={this.props.imageFile ? URL.createObjectURL(this.props.imageFile) : (this.props.image ? this.props.image : '')} className="center-img" />
 	                      	</div>
 		                  
