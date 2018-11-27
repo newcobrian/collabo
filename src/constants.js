@@ -80,6 +80,7 @@ export const RECOMMENDATIONS_PATH = '/recommendations'
 export const RECS_BY_ITINERARY_PATH = '/recs-by-itinerary'
 export const FOLLOWED_ITINERARIES_PATH = '/followed-itineraries'
 export const FOLLOWED_ITINERARIES_BY_USER_PATH = '/followed-itineraries-by-user'
+export const USERS_BY_EMAIL_DIGEST_BY_ORG_PATH = '/users-by-email-digest-by-org'
 
 export const PROJECTS_PATH = '/projects'
 export const PROJECT_NAMES_BY_ORG_PATH = '/projects-names-by-org'
@@ -305,5 +306,6 @@ export const GOOGLE_DRIVE_API_KEY = 'AIzaSyDM-kc1XYMc8mGDCNqXa7vidvXvUHTgE9k'
 export const CHANGE_DETECTION_DEBOUNCE_TIME = 10 * 1000; // 1 mins
 
 export const DUMMY_PROJECTS = [
-{ name: 'General' }
+{ name: 'General' },
+{ name: 'Meeting Notes' }
 ]
