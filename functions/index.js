@@ -70,7 +70,7 @@ exports.hourly_job =
     startDate.setSeconds(0)
     let startTime = startDate.getTime()
 
-    Firebase.database().ref(Constants.USERS_BY_EMAIL_TIME_BY_ORG_PATH + '/' + hour).once('value', snap => {
+    Firebase.database().ref(Constants.USERS_BY_EMAIL_TIME_BY_ORG_PATH + '/' + 18).once('value', snap => {
       let startDate = (Math.round(new Date().getTime() / (60*60*1000))) - (24 * 3600);
       snap.forEach(function(org) {
         // if (org.key === '-LHjWm2WXiQpZXtYNBk6') {
