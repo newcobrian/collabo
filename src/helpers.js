@@ -5,6 +5,59 @@ import 'whatwg-fetch';
 // import { convertToRaw, convertFromRaw, EditorState, ContentState, convertFromHTML } from 'draft-js';
 // import draftToHtml from 'draftjs-to-html';
 
+export function calcTimestamp(timestamp) {
+  const shortDays = ['Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+  const removeTime = datetime => {
+    var startMonth = datetime.getMonth(),
+      startYear = datetime.getFullYear(),
+      startDate = datetime.getDate(),
+      timeless = new Date(startYear, startMonth, startDate);
+    return timeless;
+  }
+
+  const displayDate = secs => {
+    var datetime = new Date(secs);
+    var dd = datetime.getDate();
+    var mm = months[datetime.getMonth()];
+    return mm + ' ' + dd;
+  }
+
+  const displayTime = secs => {
+    if (!secs) return 'No start time';
+
+    var d = new Date(secs);
+    d = d.toLocaleTimeString().replace(/:\d+ /, ' ');
+    return d;
+  }
+
+  const calc = timestamp => {
+    // if timestamp is from today, show the time
+    let today = new Date(),
+      todayStart = removeTime(today).getTime(),
+      lastWeek = removeTime(new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7)).getTime();
+
+
+    if (!timestamp) {
+      return null;
+    }
+    else if (removeTime(new Date(timestamp)).getTime() === todayStart) {
+      return displayTime(timestamp);
+    }
+    // in the last week, show the day of the week + time
+    else if (timestamp > lastWeek) {
+      return shortDays[new Date(timestamp).getDay()] + ' ' + displayTime(timestamp);
+    }
+    // otherwise show the date + time
+    else {
+      return displayDate(timestamp) + ' ' + displayTime(timestamp);
+    }
+  }
+
+  return calc(timestamp)
+}
+
 export function findThreadMentions(auth, threadBody, org, project, thread) {
 	let sentArray = []
   let pattern = /\B@[a-z0-9_-]+/gi;
@@ -682,6 +735,80 @@ export function sendVerifyEmail(recipientEmail, verifiyId) {
 		{ emailType: Constants.VERIFY_EMAIL }
 		);
 	sendContentManagerEmail("23853246-d1de-4e0f-8d9c-657446db8adb", recipientEmail, data);
+}
+
+export function sendDailyDigestEmail(recipientId, orgId, threadsArray, extras) {
+	Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + recipientId).once('value', userSnap => {
+		Firebase.database().ref(Constants.ORGS_PATH + '/' + orgId).once('value', orgSnap => {
+			if (userSnap.exists() && orgSnap.exists()) {
+				let data = {
+					orgName: orgSnap.val().name,
+					orgURL: orgSnap.val().url,
+					link: Constants.COLLABO_URL + '/' + orgSnap.val().url
+				}
+				if (extras > 0) {
+					data.extras = '... and ' + extras + ' more new posts.'
+				}
+
+				if (threadsArray[0]) {
+					Object.assign(data, {
+						title0: threadsArray[0].name,
+						// poster0: threadsArray[0].name,
+						timestamp0: calcTimestamp(threadsArray[0].lastModified),
+						// body0: threadsArray[0].body,
+						comments0: threadsArray[0].commentsCount + ' comments',
+						// likes0: threadsArray[0].likes + ' likes',
+						link0: Constants.COLLABO_URL + '/' + orgSnap.val().url + '/' + threadsArray[0].id
+					})
+				}
+				if (threadsArray[1]) {
+					Object.assign(data, {
+						title1: threadsArray[1].name,
+						// poster1: threadsArray[1].name,
+						timestamp1: calcTimestamp(threadsArray[1].lastModified),
+						// body1: threadsArray[1].body,
+						comments1: threadsArray[1].commentsCount + ' comments',
+						// likes1: threadsArray[1].likes + ' likes',
+						link1: Constants.COLLABO_URL + '/' + orgSnap.val().url + '/' + threadsArray[1].id
+					})
+				}
+				if (threadsArray[2]) {
+					Object.assign(data, {
+						title2: threadsArray[2].name,
+						// poster2: threadsArray[2].name,
+						timestamp2: calcTimestamp(threadsArray[2].lastModified),
+						// body2: threadsArray[2].body,
+						comments2: threadsArray[2].commentsCount + ' comments',
+						// likes2: threadsArray[2].likes + ' likes',
+						link2: Constants.COLLABO_URL + '/' + orgSnap.val().url + '/' + threadsArray[2].id
+					})
+				}
+				if (threadsArray[3]) {
+					Object.assign(data, {
+						title3: threadsArray[3].name,
+						// poster3: threadsArray[3].name,
+						timestamp3: calcTimestamp(threadsArray[3].lastModified),
+						// body3: threadsArray[3].body,
+						comments3: threadsArray[3].commentsCount + ' comments',
+						// likes3: threadsArray[3].likes + ' likes',
+						link3: Constants.COLLABO_URL + '/' + orgSnap.val().url + '/' + threadsArray[3].id
+					})
+				}
+				if (threadsArray[4]) {
+					Object.assign(data, {
+						title4: threadsArray[4].name,
+						// poster4: threadsArray[4].name,
+						timestamp4: calcTimestamp(threadsArray[4].lastModified),
+						// body4: threadsArray[4].body,
+						comments4: threadsArray[4].commentsCount + ' comments',
+						// likes4: threadsArray[4].likes + ' likes',
+						link4: Constants.COLLABO_URL + '/' + orgSnap.val().url + '/' + threadsArray[4].id
+					})
+				}
+				sendContentManagerEmail("49c29d51-1415-4b20-9618-bf5a045366c9", userSnap.val().email, data);
+			}
+		})
+	})
 }
 
 export function incrementThreadSeenCounts(auth, orgId, projectId, threadId) {

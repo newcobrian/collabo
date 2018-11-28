@@ -1,3 +1,7 @@
+import Firebase from 'firebase';
+import * as Constants from '../constants'
+import * as Helpers from '../helpers'
+
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const { google } = require('googleapis');
@@ -60,6 +64,54 @@ exports.verify = functions.https.onRequest((request, response) => {
 exports.hourly_job =
   functions.pubsub.topic('hourly-tick').onPublish((event) => {
     console.log("This job is run every hour!")
+    let startDate = new Date();
+    startDate.setDate(startDate.getDate() - 10);
+    startDate.setMinutes(0)
+    startDate.setSeconds(0)
+    let startTime = startDate.getTime()
+
+    Firebase.database().ref(Constants.USERS_BY_EMAIL_TIME_BY_ORG_PATH + '/' + hour).once('value', snap => {
+      let startDate = (Math.round(new Date().getTime() / (60*60*1000))) - (24 * 3600);
+      snap.forEach(function(org) {
+        // if (org.key === '-LHjWm2WXiQpZXtYNBk6') {
+        Firebase.database().ref(Constants.THREADS_BY_ORG_PATH + '/' + org.key)
+        .orderByChild('lastModified')
+        .startAt(startTime)
+        .once('value', threadsSnap => {
+          Firebase.database().ref(Constants.PROJECTS_BY_ORG_BY_USER_PATH + '/' + org.key).once('value', projectsSnap => {
+            if (projectsSnap.exists()) {
+              org.forEach(function(user) {
+                let counter = 0;
+                let threadArray = []
+                if (user.key === 'puqKr2l42bS3lNMAGL9OpelAF122' || user.key === 'YbUBBVfof9YUM2DaC9SijrheTZ23') {
+                  let itemsProcessed = 0;
+                  threadsSnap.forEach(function(thread) {
+                    // check thread is in project
+
+                    if (thread.exists() && thread.val().projectId && projectsSnap.val()[user.key] 
+                      && projectsSnap.val()[user.key][thread.val().projectId]) {                     
+                      if (counter < 5) {
+                        threadArray.push(Object.assign({}, thread.val(), {id: thread.key}))
+                      }
+                      counter++;
+
+                      if (counter === threadsSnap.numChildren()) {
+                        let extras = threadsSnap.numChildren() - 5
+                        Helpers.sendDailyDigestEmail(user.key, org.key, threadArray, extras)
+                      }
+                    }
+                    else {
+                      counter++
+                    }
+                  })
+                }
+              })
+            }
+          })
+        })
+        // }
+      })
+    })
   });
 
 exports.daily_job =
