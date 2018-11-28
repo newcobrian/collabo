@@ -73,7 +73,7 @@ exports.hourly_job =
     Firebase.database().ref(Constants.USERS_BY_EMAIL_TIME_BY_ORG_PATH + '/' + 18).once('value', snap => {
       let startDate = (Math.round(new Date().getTime() / (60*60*1000))) - (24 * 3600);
       snap.forEach(function(org) {
-        // if (org.key === '-LHjWm2WXiQpZXtYNBk6') {
+        if (org.key === '-LHjWm2WXiQpZXtYNBk6') {
         Firebase.database().ref(Constants.THREADS_BY_ORG_PATH + '/' + org.key)
         .orderByChild('lastModified')
         .startAt(startTime)
@@ -109,7 +109,7 @@ exports.hourly_job =
             }
           })
         })
-        // }
+        }
       })
     })
   });
