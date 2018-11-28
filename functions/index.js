@@ -1,3 +1,4 @@
+import React from 'react';
 import Firebase from 'firebase';
 import * as Constants from '../constants'
 import * as Helpers from '../helpers'
