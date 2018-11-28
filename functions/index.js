@@ -79,7 +79,7 @@ exports.hourly_job =
         .startAt(startTime)
         .once('value', threadsSnap => {
           Firebase.database().ref(Constants.PROJECTS_BY_ORG_BY_USER_PATH + '/' + org.key).once('value', projectsSnap => {
-            if (projectsSnap.exists()) {
+            if (threadsSnap.exists() && threadsSnap.numChildren() > 0 && projectsSnap.exists()) {
               org.forEach(function(user) {
                 let counter = 0;
                 let threadArray = []
