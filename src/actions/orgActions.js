@@ -58,7 +58,7 @@ export function onCreateOrg(auth, org, userData, imageFile) {
             updates[`/${Constants.PROJECTS_BY_ORG_PATH}/${orgId}/${projectId}/`] = Object.assign({}, {name: project.name}, {isPublic: true})
 
             // add the project to the creators Project List
-            updates[`/${Constants.PROJECTS_BY_USER_BY_ORG_PATH}/${auth}/${orgId}/${projectId}/`] = Object.assign({}, {isPublic: true});
+            updates[`/${Constants.PROJECTS_BY_ORG_BY_USER_PATH}/${orgId}/${auth}/${projectId}/`] = Object.assign({}, {isPublic: true});
             updates[`/${Constants.USERS_BY_PROJECT_PATH}/${projectId}/${auth}/`] = Constants.PRIMARY_OWNER_ROLE
           })
 

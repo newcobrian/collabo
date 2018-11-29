@@ -36,7 +36,7 @@ export function loadProjectInvite(auth, inviteId) {
               Firebase.database().ref(Constants.PROJECTS_PATH + '/' + projectInviteSnap.val().projectId).once('value', projectSnap => {
                 Firebase.database().ref(Constants.ORGS_PATH + '/' + projectInviteSnap.val().orgId).once('value', orgSnap => {
                   let updates = {}
-                  updates[`/${Constants.PROJECTS_BY_USER_BY_ORG_PATH}/${auth}/${projectInviteSnap.val().orgId}/${projectInviteSnap.val().projectId}/`] = Object.assign({}, pick(projectSnap.val(), ['name', 'isPublic']));
+                  updates[`/${Constants.PROJECTS_BY_ORG_BY_USER_PATH}/${projectInviteSnap.val().orgId}/${auth}/${projectInviteSnap.val().projectId}/`] = Object.assign({}, pick(projectSnap.val(), ['name', 'isPublic']));
                   updates[`/${Constants.USERS_BY_PROJECT_PATH}/${projectInviteSnap.val().projectId}/${auth}/`] = true
 
                   // also remove them from pending invites list

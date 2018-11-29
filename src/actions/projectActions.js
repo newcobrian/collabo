@@ -45,7 +45,7 @@ export function onAddProject(auth, project, orgURL) {
               // updates[`/${Constants.PROJECTS_BY_USER_PATH}/${auth}/${projectId}/`] = { name: project.name };
 
               // add the project to the creators Project List
-              updates[`/${Constants.PROJECTS_BY_USER_BY_ORG_PATH}/${auth}/${orgSnap.val().orgId}/${projectId}/`] = Object.assign({}, {isPublic: project.isPublic});
+              updates[`/${Constants.PROJECTS_BY_ORG_BY_USER_PATH}/${orgSnap.val().orgId}/${auth}/${projectId}/`] = Object.assign({}, {isPublic: project.isPublic});
               updates[`/${Constants.USERS_BY_PROJECT_PATH}/${projectId}/${auth}/`] = true
 
               let usersList = []
@@ -55,7 +55,7 @@ export function onAddProject(auth, project, orgURL) {
               // if project is public, add it to everyone's project list
               if (project.isPublic) {
                 orgUsersSnap.forEach(function(user) {
-                  updates[`/${Constants.PROJECTS_BY_USER_BY_ORG_PATH}/${user.key}/${orgSnap.val().orgId}/${projectId}/`] = Object.assign({}, {isPublic: project.isPublic});
+                  updates[`/${Constants.PROJECTS_BY_ORG_BY_USER_PATH}/${orgSnap.val().orgId}/${user.key}/${projectId}/`] = Object.assign({}, {isPublic: project.isPublic});
                   updates[`/${Constants.USERS_BY_PROJECT_PATH}/${projectId}/${user.key}/`] = true
                 })
               }
@@ -390,7 +390,7 @@ export function loadProjectList(auth, orgId, projectId, source) {
       source: source
     })
 
-    Firebase.database().ref(Constants.PROJECTS_BY_USER_BY_ORG_PATH + '/' + auth + '/' +orgId).on('child_added', snap => {
+    Firebase.database().ref(Constants.PROJECTS_BY_ORG_BY_USER_PATH + '/' + orgId + '/' + auth).on('child_added', snap => {
       dispatch({ 
         type: ActionTypes.LIST_ADDED_ACTION,
         id: snap.key,
@@ -400,7 +400,7 @@ export function loadProjectList(auth, orgId, projectId, source) {
       })
     })
 
-    Firebase.database().ref(Constants.PROJECTS_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgId).on('child_changed', snap => {
+    Firebase.database().ref(Constants.PROJECTS_BY_ORG_BY_USER_PATH + '/' + orgId + '/' + auth).on('child_changed', snap => {
       dispatch({
         type: ActionTypes.LIST_CHANGED_ACTION,
         id: snap.key,
@@ -410,7 +410,7 @@ export function loadProjectList(auth, orgId, projectId, source) {
       })
     })
 
-    Firebase.database().ref(Constants.PROJECTS_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgId).on('child_removed', snap => {
+    Firebase.database().ref(Constants.PROJECTS_BY_ORG_BY_USER_PATH + '/' + orgId + '/' + auth).on('child_removed', snap => {
       dispatch({
         type: ActionTypes.LIST_REMOVED_ACTION,
         id: snap.key,
@@ -473,7 +473,7 @@ export function unloadThreadCounts(auth, orgId) {
 
 export function unloadProjectList(auth, orgId, source) {
   return dispatch => {
-     Firebase.database().ref(Constants.PROJECTS_BY_USER_BY_ORG_PATH + '/' + auth + '/' + orgId).off()
+     Firebase.database().ref(Constants.PROJECTS_BY_ORG_BY_USER_PATH + '/' + orgId + '/' + auth).off()
      dispatch({
       type: ActionTypes.UNLOAD_PROJECT_LIST,
       source
@@ -1511,7 +1511,7 @@ export function showProjectSettingsModal(projectId, project, projectMembers, org
 export function leaveProject(auth, userInfo, orgId, project) {
   return dispatch => {
     let updates = {}
-    updates[`/${Constants.PROJECTS_BY_USER_BY_ORG_PATH}/${auth}/${orgId}/${project.projectId}/`] = null
+    updates[`/${Constants.PROJECTS_BY_ORG_BY_USER_PATH}/${orgId}/${auth}/${project.projectId}/`] = null
     updates[`/${Constants.USERS_BY_PROJECT_PATH}/${project.projectId}/${auth}/`] = null
     
     Firebase.database().ref().update(updates)
@@ -1526,7 +1526,7 @@ export function joinProject(auth, userInfo, orgId, project) {
       }
       else {
         let updates = {}
-        updates[`/${Constants.PROJECTS_BY_USER_BY_ORG_PATH}/${auth}/${orgId}/${project.projectId}/`] = Object.assign({}, pick(project, ['name', 'isPublic']));
+        updates[`/${Constants.PROJECTS_BY_ORG_BY_USER_PATH}/${orgId}/${auth}/${project.projectId}/`] = Object.assign({}, pick(project, ['name', 'isPublic']));
         updates[`/${Constants.USERS_BY_PROJECT_PATH}/${project.projectId}/${auth}/`] = true
         // updates[`/${Constants.USERS_BY_PROJECT_PATH}/${project.projectId}/${auth}/`] = Object.assign({}, userInfo);
 
@@ -1622,9 +1622,9 @@ export function deleteProject(auth, projectId, project, orgURL) {
             }
             
             let itemsProcessed = 0
-            // loop through users by project, delete projects_by_user_by_org
+            // loop through users by project, delete projects_by_org_by_user
             usersSnap.forEach(function(user) {
-              updates[Constants.PROJECTS_BY_USER_BY_ORG_PATH + '/' +user.key + '/' + project.orgId + '/' + projectId] = null
+              updates[Constants.PROJECTS_BY_ORG_BY_USER_PATH + '/' + project.orgId + '/' + user.key + '/' + projectId] = null
               itemsProcessed++;
 
               if (itemsProcessed === usersSnap.numChildren()) {

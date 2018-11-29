@@ -151,7 +151,7 @@ const sendDailyDigestEmail = (recipientId, orgId, threadsArray, extras) => {
         let data = {
           orgName: orgSnap.val().name,
           orgURL: orgSnap.val().url,
-          link: Constants.COLLABO_URL + '/' + orgSnap.val().url
+          link: COLLABO_URL + '/' + orgSnap.val().url
         }
         console.log('send function in if, data = ' + JSON.stringify(data))
         if (extras > 0) {
