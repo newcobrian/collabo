@@ -146,12 +146,14 @@ const sendContentManagerEmail = (templateId, recipientEmail, data) => {
 const sendDailyDigestEmail = (recipientId, orgId, threadsArray, extras) => {
   admin.database().ref(USERS_BY_ORG_PATH + '/' + orgId + '/' + recipientId).once('value', userSnap => {
     admin.database().ref(ORGS_PATH + '/' + orgId).once('value', orgSnap => {
+      console.log('send function')
       if (userSnap.exists() && orgSnap.exists()) {
         let data = {
           orgName: orgSnap.val().name,
           orgURL: orgSnap.val().url,
           link: Constants.COLLABO_URL + '/' + orgSnap.val().url
         }
+        console.log('send function in if, data = ' + JSON.stringify(data))
         if (extras > 0) {
           data.extras = '... and ' + extras + ' more new posts.'
         }
@@ -228,13 +230,17 @@ exports.hourly_job =
 
     admin.database().ref(USERS_BY_EMAIL_TIME_BY_ORG_PATH + '/' + 18).once('value', snap => {
       let startDate = (Math.round(new Date().getTime() / (60*60*1000))) - (24 * 3600);
+      console.log('in first db call')
       snap.forEach(function(org) {
         if (org.key === '-LHjWm2WXiQpZXtYNBk6') {
+          console.log('in in org key = ' + org.key)
         admin.database().ref(THREADS_BY_ORG_PATH + '/' + org.key)
         .orderByChild('lastModified')
         .startAt(startTime)
         .once('value', threadsSnap => {
+          console.log('in 2nd firebase threads call')
           admin.database().ref(PROJECTS_BY_ORG_BY_USER_PATH + '/' + org.key).once('value', projectsSnap => {
+            console.log('in 3rd firebase threads call')
             if (threadsSnap.exists() && threadsSnap.numChildren() > 0 && projectsSnap.exists()) {
               org.forEach(function(user) {
                 let counter = 0;
@@ -252,6 +258,7 @@ exports.hourly_job =
                       counter++;
 
                       if (counter === threadsSnap.numChildren()) {
+                        console.log('in send')
                         let extras = threadsSnap.numChildren() - 5
                         sendDailyDigestEmail(user.key, org.key, threadArray, extras)
                       }
