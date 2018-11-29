@@ -435,7 +435,7 @@ export function onRegisterWithEmailClick(email) {
     Firebase.database().ref(Constants.USERS_BY_EMAIL_PATH + '/' + cleanedEmail).once('value', userSnap => {
       if (userSnap.exists()) {
         dispatch({
-          type: ActionTypes.EMAIL_ALREADY_REGISTERED
+          type: ActionTypes.EMAIL_ADDRESS_TAKEN
         })
       }
       else {
