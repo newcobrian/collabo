@@ -209,7 +209,7 @@ export function inviteUsersToOrg(auth, org, invites, role, projects) {
             meta: {
               mixpanel: {
                 event: 'Invite to org',
-                source: Constants.ORG_INVITE_PAGE,
+                source: Constants.ORG_INVITE_MODAL,
                 orgId: orgSnap.val().orgId,
                 numInvites: invitesSent
               }

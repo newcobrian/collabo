@@ -420,11 +420,6 @@ export function saveSettings(auth, user, currentUser, imageFile, orgURL, orgId) 
   }
 }
 
-function validateEmail(email) {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-}
-
 export function changeEmailAddress(email, password, oldEmail) {
   return dispatch => {
     // check for valid email?

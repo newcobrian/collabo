@@ -3,7 +3,7 @@ import * as Constants from '../constants';
 import * as Helpers from '../helpers';
 import { find, isEqual } from 'lodash';
 
-const initialState = { role: Constants.USERS_ROLE }
+const initialState = { role: Constants.USER_ROLE }
 
 export default (state = initialState, action) => {
   switch (action.type) {

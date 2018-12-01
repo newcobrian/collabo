@@ -3,7 +3,7 @@ import { GET_USER, GET_REVIEWS_BY_USER, GET_FOLLOWING_COUNT, GET_FOLLOWER_COUNT,
    PROFILE_USER_UNLOADED, PROFILE_FOLLOWING_UNLOADED } from '../actions';
 import * as ActionTypes from '../actions/types';
 import * as Constants from '../constants';
-import { isEqual } from 'lodash';
+import { isEqual, find } from 'lodash';
 import * as Helpers from '../helpers';
 
 const initialState = { usersData: {}, likesData: {}, subjectsData: {}, feedEndValue: null, isFeedLoading: false  }

@@ -219,7 +219,7 @@ export function onCreateRecsSubmit(auth, geo, title) {
         Helpers.fanOutToFollowersFeed(auth, itineraryId, serverTimestamp)
 
         // update Algolia index
-        Helpers.updateAlgloiaGeosIndex(itinerary.geo)
+        // Helpers.updateAlgoliaGeosIndex(itinerary.geo)
 
         mixpanel.people.increment("total itineraries");
         mixpanel.people.set({ "last itinerary created": (new Date()).toISOString() });

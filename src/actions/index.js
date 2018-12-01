@@ -197,7 +197,7 @@ export function followUser(authenticated, follower) {
       updates[`/${Constants.HAS_FOLLOWERS_PATH}/${follower}/${authenticated}`] = true;
       updates[`/${Constants.IS_FOLLOWING_PATH}/${authenticated}/${follower}`] = true;
     }
-    Helpers.sendInboxMessage(authenticated, follower, Constants.FOLLOW_MESSAGE, null, null, null);
+    // Helpers.sendInboxMessage(authenticated, follower, Constants.FOLLOW_MESSAGE, null, null, null);
     Firebase.database().ref().update(updates);
     // Helpers.fanOutFollowUser(authenticated, follower);
 
@@ -272,63 +272,7 @@ export function loadGoogleMaps(googleObject, mapObject, source) {
   }
 }
 
-export function onEditorLoad(authenticated, itineraryId) {
-  return dispatch => {
-    Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId).on('value', itinerarySnapshot => {
-      Firebase.database().ref(Constants.TIPS_BY_ITINERARY_PATH + '/' + itineraryId).on('value', reviewsListSnapshot => {
-        // make this is the authed user's itinerary
-        if (authenticated !== itinerarySnapshot.val().userId && Constants.SHARED_ITINERARIES.indexOf(itineraryId) === -1) {
-          dispatch ({
-            type: EDITOR_PAGE_NO_AUTH,
-            itineraryId: itineraryId
-          })
-        }
-        let itineraryObject = Object.assign({}, itinerarySnapshot.val(), {reviews: []});
-        if (itineraryObject && reviewsListSnapshot.exists()) {
-          let reviewsList = Object.assign({}, reviewsListSnapshot.val());
-          let reviewsLength = reviewsListSnapshot.numChildren();
-          for (let i = 0; i < reviewsLength; i++) {
-            Firebase.database().ref(Constants.SUBJECTS_PATH + '/' + reviewsList[i].subjectId).on('value', subjectSnapshot => {
-              Firebase.database().ref(Constants.REVIEWS_PATH + '/' + reviewsList[i].reviewId).on('value', reviewSnapshot => {
-                Firebase.database().ref(Constants.IMAGES_BY_USER_PATH + '/' + authenticated + '/' + reviewsList[i].subjectId).on('value', userImageSnapshot => {
-                  Firebase.database().ref(Constants.IMAGES_PATH + '/' + reviewsList[i].subjectId).on('value', imageSnapshot => {
-                    let imageList = (userImageSnapshot.exists() ? Helpers.getImagePath(userImageSnapshot.val()) : Helpers.getImagePath(imageSnapshot.val()) );
-                    Object.assign(reviewsList[i], subjectSnapshot.val(), reviewSnapshot.val(), 
-                      { images: imageList });
-                    itineraryObject.reviews = itineraryObject.reviews.concat(reviewsList[i])
-                    itineraryObject.reviews = itineraryObject.reviews.slice();
-                    
-                    if (i === reviewsLength - 1) {
-                      dispatch({
-                        type: EDITOR_PAGE_LOADED,
-                        itineraryId: itineraryId,
-                        searchLocation: itinerarySnapshot.val().geo.location,
-                        geoSuggest: itinerarySnapshot.val().geo.label,
-                        itineraryImages: itineraryObject.images,
-                        data: { itinerary: itineraryObject }
-                      })
-                    }
-                  })
-                })
-              })
-            })
-          }
-        }
-        else {
-          itineraryObject.reviews = [];
-          dispatch({
-            type: EDITOR_PAGE_LOADED,
-            itineraryId: itineraryId,
-            searchLocation: itinerarySnapshot.val().geo.location,
-            geoSuggest: itinerarySnapshot.val().geo.label,
-            itineraryImages: itineraryObject.images,
-            data: { itinerary: itineraryObject }
-          })
-        }
-      })
-    })
-  }
-}
+
 
 export function onEditorUnload(itineraryId) {
   return dispatch => {
@@ -498,7 +442,9 @@ export function loadCreateSubject(userId, result) {
 
 export function clearCreateSubject() {
   return dispatch => {
-    type: CREATE_SUBJECT_CLEARED
+    dispatch({
+      type: ActionTypes.CREATE_SUBJECT_CLEARED  
+    })
   }
 }
 
@@ -1162,122 +1108,122 @@ export function findCommentMentions(dispatch, authenticated, commentBody, org, p
 //   }
 // }
 
-export function onCommentSubmit(authenticated, userInfo, type, commentObject, body, itineraryId) {
-  return dispatch => {
-    if(!authenticated) {
-      dispatch({
-        type: ASK_FOR_AUTH
-      })
-    }
-    const comment = {
-      userId: authenticated,
-      username: userInfo.username,
-      body: body ? body : '',
-      lastModified: Firebase.database.ServerValue.TIMESTAMP
-    }
-    if (userInfo.image) comment.image = userInfo.image;
+// export function onCommentSubmit(authenticated, userInfo, type, commentObject, body, itineraryId) {
+//   return dispatch => {
+//     if(!authenticated) {
+//       dispatch({
+//         type: ASK_FOR_AUTH
+//       })
+//     }
+//     const comment = {
+//       userId: authenticated,
+//       username: userInfo.username,
+//       body: body ? body : '',
+//       lastModified: Firebase.database.ServerValue.TIMESTAMP
+//     }
+//     if (userInfo.image) comment.image = userInfo.image;
 
-    let inboxMessageType = ( type === Constants.ITINERARY_TYPE ? Constants.COMMENT_ON_ITINERARY_MESSAGE : Constants.COMMENT_ON_REVIEW_MESSAGE );
-    let commentOnCommentType = ( type === Constants.ITINERARY_TYPE ? Constants.COMMENT_ON_COMMENT_ITINERARY_MESSAGE : Constants.COMMENT_ON_COMMENT_REVIEW_MESSAGE );
-    let objectId = ( type === Constants.ITINERARY_TYPE ? commentObject.id : commentObject.key );
+//     let inboxMessageType = ( type === Constants.ITINERARY_TYPE ? Constants.COMMENT_ON_ITINERARY_MESSAGE : Constants.COMMENT_ON_REVIEW_MESSAGE );
+//     let commentOnCommentType = ( type === Constants.ITINERARY_TYPE ? Constants.COMMENT_ON_COMMENT_ITINERARY_MESSAGE : Constants.COMMENT_ON_COMMENT_REVIEW_MESSAGE );
+//     let objectId = ( type === Constants.ITINERARY_TYPE ? commentObject.id : commentObject.key );
 
-    if (objectId) {
-      // let commentId = Firebase.database().ref(Constants.COMMENTS_PATH + '/' + objectId).push(comment).key;
-      let commentId = '';
-      let path = '';
-      if (type === Constants.TIPS_TYPE) {
-        // Helpers.incrementReviewCount(Constants.COMMENTS_COUNT, objectId, commentObject.subjectId, commentObject.userId);
-        commentId = Firebase.database().ref(Constants.SUBJECTS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + objectId + '/comments').push(comment).key;
-        path = Constants.SUBJECTS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + objectId + '/comments';
+//     if (objectId) {
+//       // let commentId = Firebase.database().ref(Constants.COMMENTS_PATH + '/' + objectId).push(comment).key;
+//       let commentId = '';
+//       let path = '';
+//       if (type === Constants.TIPS_TYPE) {
+//         // Helpers.incrementReviewCount(Constants.COMMENTS_COUNT, objectId, commentObject.subjectId, commentObject.userId);
+//         commentId = Firebase.database().ref(Constants.SUBJECTS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + objectId + '/comments').push(comment).key;
+//         path = Constants.SUBJECTS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + objectId + '/comments';
 
-        Firebase.database().ref(Constants.SUBJECTS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + objectId + '/commentsCount').transaction(function (current_count) {
-          return (current_count || 0) + 1;
-        });
-      }
-      else if (type === Constants.RECOMMENDATIONS_TYPE) {
-        commentId = Firebase.database().ref(Constants.RECS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + objectId + '/comments').push(comment).key;
-        path = Constants.RECS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + objectId + '/comments';
+//         Firebase.database().ref(Constants.SUBJECTS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + objectId + '/commentsCount').transaction(function (current_count) {
+//           return (current_count || 0) + 1;
+//         });
+//       }
+//       else if (type === Constants.RECOMMENDATIONS_TYPE) {
+//         commentId = Firebase.database().ref(Constants.RECS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + objectId + '/comments').push(comment).key;
+//         path = Constants.RECS_BY_ITINERARY_PATH + '/' + itineraryId + '/' + objectId + '/comments';
 
-        inboxMessageType = Constants.COMMENT_ON_REC_MESSAGE;
-        commentOnCommentType = Constants.COMMENT_ON_COMMENT_REC_MESSAGE;
-      }
-      else if (type === Constants.ITINERARY_TYPE) {
-      // this is a comment on an itinerary
-        commentId = Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId + '/comments').push(comment).key;
-        path = Constants.ITINERARIES_PATH + '/' + itineraryId + '/comments';
+//         inboxMessageType = Constants.COMMENT_ON_REC_MESSAGE;
+//         commentOnCommentType = Constants.COMMENT_ON_COMMENT_REC_MESSAGE;
+//       }
+//       else if (type === Constants.ITINERARY_TYPE) {
+//       // this is a comment on an itinerary
+//         commentId = Firebase.database().ref(Constants.ITINERARIES_PATH + '/' + itineraryId + '/comments').push(comment).key;
+//         path = Constants.ITINERARIES_PATH + '/' + itineraryId + '/comments';
 
-        Helpers.incrementItineraryCount(Constants.COMMENTS_COUNT, objectId, commentObject.geo, commentObject.userId); 
+//         Helpers.incrementItineraryCount(Constants.COMMENTS_COUNT, objectId, commentObject.geo, commentObject.userId); 
 
-        // update lastComment on itinerary
-        let updates = {};
-        updates[Constants.ITINERARIES_BY_USER_PATH +'/' + commentObject.createdBy.userId + '/' + commentObject.id + '/lastComment'] = Object.assign({}, comment, {commentId: commentId});
-        updates[Constants.ITINERARIES_PATH +'/' + commentObject.id + '/lastComment'] = Object.assign({}, comment, {commentId: commentId});
-        updates[Constants.ITINERARIES_BY_GEO_BY_USER_PATH + '/' + commentObject.geo.placeId + '/' + commentObject.createdBy.userId + '/' + commentObject.id + '/lastComment'] = Object.assign({}, comment, {commentId: commentId});
-        updates[Constants.ITINERARIES_BY_GEO_PATH + '/' + commentObject.geo.placeId + '/' + commentObject.id + '/lastComment'] = Object.assign({}, comment, {commentId: commentId});
+//         // update lastComment on itinerary
+//         let updates = {};
+//         updates[Constants.ITINERARIES_BY_USER_PATH +'/' + commentObject.createdBy.userId + '/' + commentObject.id + '/lastComment'] = Object.assign({}, comment, {commentId: commentId});
+//         updates[Constants.ITINERARIES_PATH +'/' + commentObject.id + '/lastComment'] = Object.assign({}, comment, {commentId: commentId});
+//         updates[Constants.ITINERARIES_BY_GEO_BY_USER_PATH + '/' + commentObject.geo.placeId + '/' + commentObject.createdBy.userId + '/' + commentObject.id + '/lastComment'] = Object.assign({}, comment, {commentId: commentId});
+//         updates[Constants.ITINERARIES_BY_GEO_PATH + '/' + commentObject.geo.placeId + '/' + commentObject.id + '/lastComment'] = Object.assign({}, comment, {commentId: commentId});
 
-        Firebase.database().ref().update(updates);
-      }
+//         Firebase.database().ref().update(updates);
+//       }
 
-      // send message to original review poster if they are not the commentor
-      const sentArray = [];
-      if (authenticated !== commentObject.userId) {
-        Helpers.sendInboxMessage(authenticated, commentObject.userId, inboxMessageType, commentObject, itineraryId, Object.assign({commentId: commentId, message: body}));
-        sentArray.push(commentObject.userId);
-        dispatch({
-          type: MIXPANEL_EVENT,
-          mixpanel: {
-            event: SEND_INBOX_MESSAGE,
-            props: {
-              type: Constants.inboxMessageType
-            }
-          }
-        })
-      }
+//       // send message to original review poster if they are not the commentor
+//       const sentArray = [];
+//       if (authenticated !== commentObject.userId) {
+//         Helpers.sendInboxMessage(authenticated, commentObject.userId, inboxMessageType, commentObject, itineraryId, Object.assign({commentId: commentId, message: body}));
+//         sentArray.push(commentObject.userId);
+//         dispatch({
+//           type: MIXPANEL_EVENT,
+//           mixpanel: {
+//             event: SEND_INBOX_MESSAGE,
+//             props: {
+//               type: Constants.inboxMessageType
+//             }
+//           }
+//         })
+//       }
 
-      Firebase.database().ref(path + '/' + objectId).once('value', commentsSnapshot => {
-        commentsSnapshot.forEach(function(comment) {
-          let commenterId = comment.val().userId;
-          // if not commentor or in sent array, then send a message
-          if (commenterId !== authenticated && (sentArray.indexOf(commenterId) === -1)) {
-            Helpers.sendInboxMessage(authenticated, commenterId, commentOnCommentType, commentObject, itineraryId, Object.assign({commentId: commentId, message: body}));
-            sentArray.push(commenterId);
-            dispatch({
-              type: MIXPANEL_EVENT,
-              mixpanel: {
-                event: SEND_INBOX_MESSAGE,
-                props: {
-                  type: commentOnCommentType
-                }
-              }
-            })
-          }
-        })
-      })
+//       Firebase.database().ref(path + '/' + objectId).once('value', commentsSnapshot => {
+//         commentsSnapshot.forEach(function(comment) {
+//           let commenterId = comment.val().userId;
+//           // if not commentor or in sent array, then send a message
+//           if (commenterId !== authenticated && (sentArray.indexOf(commenterId) === -1)) {
+//             Helpers.sendInboxMessage(authenticated, commenterId, commentOnCommentType, commentObject, itineraryId, Object.assign({commentId: commentId, message: body}));
+//             sentArray.push(commenterId);
+//             dispatch({
+//               type: MIXPANEL_EVENT,
+//               mixpanel: {
+//                 event: SEND_INBOX_MESSAGE,
+//                 props: {
+//                   type: commentOnCommentType
+//                 }
+//               }
+//             })
+//           }
+//         })
+//       })
 
-      // send inbox messages to any usernames mentioned in the comment
-      findCommentMentions(dispatch, authenticated, body, commentObject, itineraryId, sentArray, commentId);
+//       // send inbox messages to any usernames mentioned in the comment
+//       findCommentMentions(dispatch, authenticated, body, commentObject, itineraryId, sentArray, commentId);
 
-      // update guide popularity score
-      Helpers.incrementGuideScore(itineraryId, Constants.COMMENT_GUIDE_SCORE);
+//       // update guide popularity score
+//       Helpers.incrementGuideScore(itineraryId, Constants.COMMENT_GUIDE_SCORE);
 
-      const mixpanelProps = ( (type === Constants.TIPS_TYPE ||  type === Constants.RECOMMENDATIONS_TYPE) ? {subjectId: commentObject.subjectId} : {itineraryId: commentObject.id});
-      dispatch({
-        type: ADD_COMMENT,
-        meta: {
-          mixpanel: {
-            event: 'Comment added',
-            dataType: type,
-            props: mixpanelProps
-          }
-        }
-      })
+//       const mixpanelProps = ( (type === Constants.TIPS_TYPE ||  type === Constants.RECOMMENDATIONS_TYPE) ? {subjectId: commentObject.subjectId} : {itineraryId: commentObject.id});
+//       dispatch({
+//         type: ADD_COMMENT,
+//         meta: {
+//           mixpanel: {
+//             event: 'Comment added',
+//             dataType: type,
+//             props: mixpanelProps
+//           }
+//         }
+//       })
 
-      mixpanel.people.increment("total comments");
-      mixpanel.people.set({ "last comment date": (new Date()).toISOString() });
-      mixpanel.identify(authenticated);
-    }
-  }
-}
+//       mixpanel.people.increment("total comments");
+//       mixpanel.people.set({ "last comment date": (new Date()).toISOString() });
+//       mixpanel.identify(authenticated);
+//     }
+//   }
+// }
 
 export function onDeleteComment(commentObject, commentId, itineraryId, type) {
   return dispatch => {
@@ -1956,8 +1902,8 @@ export function saveReview(authenticated, review) {
       const updates = {};
       updates[`/${Constants.SAVES_BY_USER_PATH}/${authenticated}/${review.id}`] = true;
       Firebase.database().ref().update(updates).then(response => {
-        Helpers.incrementCount(Constants.SAVES_COUNT, review.id, review.subjectId, review.reviewer.userId);
-        Helpers.sendInboxMessage(authenticated, review.reviewer.userId, Constants.SAVE_MESSAGE, review);
+        // Helpers.incrementCount(Constants.SAVES_COUNT, review.id, review.subjectId, review.reviewer.userId);
+        // Helpers.sendInboxMessage(authenticated, review.reviewer.userId, Constants.SAVE_MESSAGE, review);
 
         mixpanel.people.increment("total saves");
 
@@ -2001,7 +1947,7 @@ export function unSaveReview(authenticated, review) {
       const updates = {};
       updates[`/${Constants.SAVES_BY_USER_PATH}/${authenticated}/${review.id}`] = null;
       Firebase.database().ref().update(updates).then(response => {
-        Helpers.decrementCount(Constants.SAVES_COUNT, review.id, review.subjectId, review.reviewer.userId);
+        // Helpers.decrementCount(Constants.SAVES_COUNT, review.id, review.subjectId, review.reviewer.userId);
 
         mixpanel.people.increment("total saves", -1);
 
@@ -2190,7 +2136,7 @@ export function onFriendSelectorSubmit(authenticated, selectedFriends, review, p
     for (var i = 0; i < selectedFriends.length; i++) {
       recipientCount++;
       if (path === FORWARD_MODAL) {
-        Helpers.sendInboxMessage(authenticated, selectedFriends[i], Constants.FORWARD_MESSAGE, review);
+        // Helpers.sendInboxMessage(authenticated, selectedFriends[i], Constants.FORWARD_MESSAGE, review);
         dispatch({
           type: MIXPANEL_EVENT,
           mixpanel: {
@@ -2202,7 +2148,7 @@ export function onFriendSelectorSubmit(authenticated, selectedFriends, review, p
         })
       }
       else {
-        Helpers.sendInboxMessage(authenticated, selectedFriends[i], Constants.DIRECT_MESSAGE, review);
+        // Helpers.sendInboxMessage(authenticated, selectedFriends[i], Constants.DIRECT_MESSAGE, review);
         dispatch({
           type: MIXPANEL_EVENT,
           mixpanel: {
@@ -2414,7 +2360,7 @@ export function addToItinerary(auth, tip, itinerary, fromItineraryId) {
 
               let message = tip.subject.title + ' successfully added to ' + itinerary.title;
 
-              Helpers.sendInboxMessage(auth, tip.userId, Constants.SAVE_MESSAGE, Object.assign({}, itinerary, {id: itineraryId}), itineraryId)
+              // Helpers.sendInboxMessage(auth, tip.userId, Constants.SAVE_MESSAGE, Object.assign({}, itinerary, {id: itineraryId}), itineraryId)
 
               mixpanel.people.increment("total saves");
 

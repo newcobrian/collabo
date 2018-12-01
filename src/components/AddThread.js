@@ -118,7 +118,9 @@ class AddThread extends React.Component {
 
 	render() {
 		if(this.props.invalidOrgUser) {
-	      <InvalidOrg/>
+			return ( 
+				<InvalidOrg />
+			)
 	    }
 		return (
 			<div>

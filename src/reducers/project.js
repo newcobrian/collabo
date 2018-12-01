@@ -8,11 +8,6 @@ const initialState = { threadCounts: {}, feedEndValue: null, isFeedLoading: fals
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case ActionTypes.GET_THREAD_FEED:
-      return {
-        ...state,
-        feed: action.payload
-      }
     case ActionTypes.UNWATCH_THREAD_FEED:
       return {
         ...state,

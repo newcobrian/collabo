@@ -1,6 +1,6 @@
 import Firebase from 'firebase';
 import * as Constants from './constants';
-import { sendMixpanelEvent } from './actions/modalActions'
+import { sendMixpanelEvent } from './actions/loggingActions'
 import 'whatwg-fetch';
 // import { convertToRaw, convertFromRaw, EditorState, ContentState, convertFromHTML } from 'draft-js';
 // import draftToHtml from 'draftjs-to-html';
@@ -752,7 +752,7 @@ export function sendDailyDigestEmail(recipientId, orgId, threadsArray, extras) {
 
 				if (threadsArray[0]) {
 					Object.assign(data, {
-						title0: threadsArray[0].name,
+						title0: threadsArray[0].title,
 						// poster0: threadsArray[0].name,
 						timestamp0: calcTimestamp(threadsArray[0].lastModified),
 						// body0: threadsArray[0].body,
@@ -763,7 +763,7 @@ export function sendDailyDigestEmail(recipientId, orgId, threadsArray, extras) {
 				}
 				if (threadsArray[1]) {
 					Object.assign(data, {
-						title1: threadsArray[1].name,
+						title1: threadsArray[1].title,
 						// poster1: threadsArray[1].name,
 						timestamp1: calcTimestamp(threadsArray[1].lastModified),
 						// body1: threadsArray[1].body,
@@ -774,7 +774,7 @@ export function sendDailyDigestEmail(recipientId, orgId, threadsArray, extras) {
 				}
 				if (threadsArray[2]) {
 					Object.assign(data, {
-						title2: threadsArray[2].name,
+						title2: threadsArray[2].title,
 						// poster2: threadsArray[2].name,
 						timestamp2: calcTimestamp(threadsArray[2].lastModified),
 						// body2: threadsArray[2].body,
@@ -785,7 +785,7 @@ export function sendDailyDigestEmail(recipientId, orgId, threadsArray, extras) {
 				}
 				if (threadsArray[3]) {
 					Object.assign(data, {
-						title3: threadsArray[3].name,
+						title3: threadsArray[3].title,
 						// poster3: threadsArray[3].name,
 						timestamp3: calcTimestamp(threadsArray[3].lastModified),
 						// body3: threadsArray[3].body,
@@ -796,7 +796,7 @@ export function sendDailyDigestEmail(recipientId, orgId, threadsArray, extras) {
 				}
 				if (threadsArray[4]) {
 					Object.assign(data, {
-						title4: threadsArray[4].name,
+						title4: threadsArray[4].title,
 						// poster4: threadsArray[4].name,
 						timestamp4: calcTimestamp(threadsArray[4].lastModified),
 						// body4: threadsArray[4].body,
@@ -940,7 +940,7 @@ export function addUserToOrg(auth, email, invite, inviteId, userData, imageFile)
 	// if this is a guest, only add the projects they were added to    
     if (role === Constants.GUEST_ROLE) {
     	(invite.projects || []).forEach(function(projectId) {
-	        updates[`/${Constants.PROJECTS_BY_USER_BY_ORG_PATH}/${auth}/${orgId}/${projectId}/`] = role;
+	        updates[`/${Constants.PROJECTS_BY_ORG_BY_USER_PATH}/${orgId}/${auth}/${projectId}/`] = role;
 	        updates[`/${Constants.USERS_BY_PROJECT_PATH}/${projectId}/${auth}/`] = role
 	    })
     }
@@ -948,7 +948,7 @@ export function addUserToOrg(auth, email, invite, inviteId, userData, imageFile)
     else {
     	projectsSnap.forEach(function(projectItem) {
 	      if (projectItem.val().isPublic) {
-	        updates[`/${Constants.PROJECTS_BY_USER_BY_ORG_PATH}/${auth}/${orgId}/${projectItem.key}/`] = role;
+	        updates[`/${Constants.PROJECTS_BY_ORG_BY_USER_PATH}/${orgId}/${auth}/${projectItem.key}/`] = role;
 	        updates[`/${Constants.USERS_BY_PROJECT_PATH}/${projectItem.key}/${auth}/`] = role
 	      }
 	    })
