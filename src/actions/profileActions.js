@@ -2,7 +2,6 @@ import Firebase from 'firebase'
 import * as Constants from '../constants'
 import * as Helpers from '../helpers'
 import * as ActionTypes from './types'
-import { watchLikesByUser, unwatchLikesByUser, watchUser, unwatchUser, watchSubject } from './index'
 import { isEqual, pick } from 'lodash'
 import mixpanel from 'mixpanel-browser'
 
@@ -66,8 +65,8 @@ export function getProfileCounts(userId) {
 export function getReviewsByUser(auth, userId) {
   return dispatch => {
     // watch user
-    watchUser(dispatch, userId, Constants.PROFILE_PAGE);
-    watchLikesByUser(dispatch, auth, Constants.PROFILE_PAGE);
+    // watchUser(dispatch, userId, Constants.PROFILE_PAGE);
+    // watchLikesByUser(dispatch, auth, Constants.PROFILE_PAGE);
 
     Firebase.database().ref(Constants.REVIEWS_BY_USER_PATH + '/' + userId).on('child_added', addedSnap => {
     	// watchSubject(dispatch, null, addedSnap.val().subjectId, Constants.PROFILE_PAGE);
