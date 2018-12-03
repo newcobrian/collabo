@@ -18,6 +18,7 @@ const COLLABO_URL = 'https://joinkoi.com'
 const INBOX_SEND_EMAIL_URL = 'https://myviews.io/mail/send'
 
 const FormData = require('form-data');
+const fetch = require('node-fetch');
 
 const getChange = (data) => {
   clearTimeout(changeTimers[data.fileId + data.threadId]);
@@ -223,7 +224,7 @@ const sendDailyDigestEmail = (recipientId, orgId, threadsArray, extras) => {
 exports.hourly_job =
   functions.pubsub.topic('hourly-tick').onPublish((event) => {
     let startDate = new Date();
-    let hour = startDate.getHour()
+    let hour = startDate.getHours()
 
     console.log("This job is run every hour!! hour = " + hour)
     
