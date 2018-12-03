@@ -146,7 +146,6 @@ const sendContentManagerEmail = (templateId, recipientEmail, data) => {
 }
 
 const sendDailyDigestEmail = (recipientId, orgId, threadsArray, extras) => {
-  console.log('in sendddemail func')
   admin.database().ref(USERS_BY_ORG_PATH + '/' + orgId + '/' + recipientId).once('value', userSnap => {
     admin.database().ref(ORGS_PATH + '/' + orgId).once('value', orgSnap => {
       if (userSnap.exists() && orgSnap.exists()) {
@@ -155,7 +154,7 @@ const sendDailyDigestEmail = (recipientId, orgId, threadsArray, extras) => {
           orgURL: orgSnap.val().url,
           link: COLLABO_URL + '/' + orgSnap.val().url
         }
-        console.log('send DD function in if, data = ' + JSON.stringify(data))
+        console.log('send daily digest email function')
         if (extras > 0) {
           data.extras = '... and ' + extras + ' more new posts.'
         }
@@ -236,21 +235,18 @@ exports.hourly_job =
     admin.database().ref(USERS_BY_EMAIL_TIME_BY_ORG_PATH + '/' + 18).once('value', snap => {
       // let startDate = (Math.round(new Date().getTime() / (60*60*1000))) - (10 * 24 * 3600);
       snap.forEach(function(org) {
-        if (org.key === '-LHjWm2WXiQpZXtYNBk6') {
           console.log('in in org key = ' + org.key)
         admin.database().ref(THREADS_BY_ORG_PATH + '/' + org.key)
         .orderByChild('lastModified')
         .startAt(startTime)
         .once('value', threadsSnap => {
           admin.database().ref(PROJECTS_BY_ORG_BY_USER_PATH + '/' + org.key).once('value', projectsSnap => {
-            console.log('in 3rd firebase threads call threads = ' + JSON.stringify(threadsSnap.val()))
             if (threadsSnap.exists() && threadsSnap.numChildren() > 0 && projectsSnap.exists()) {
               console.log('in if - thread and projects snaps exist')
               org.forEach(function(user) {
                 let counter = 0;
                 let threadArray = []
                 if (user.key === 'puqKr2l42bS3lNMAGL9OpelAF122' || user.key === 'YbUBBVfof9YUM2DaC9SijrheTZ23') {
-                  console.log('in main func if user is me or jordan')
                   let itemsProcessed = 0;
                   threadsSnap.forEach(function(thread) {
                     // check thread is in project
@@ -264,7 +260,6 @@ exports.hourly_job =
 
                       if (counter === threadsSnap.numChildren()) {
                         let extras = threadsSnap.numChildren() - 5
-                        console.log('in send if main func threadarray = ' + JSON.stringify(threadArray))
                         sendDailyDigestEmail(user.key, org.key, threadArray, extras)
                       }
                     }
