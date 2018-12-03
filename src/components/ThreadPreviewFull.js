@@ -202,7 +202,7 @@ class ThreadPreviewFull extends React.Component {
   }
 
   render() {
-    const { authenticated, thread, lastUpdater, orgUserData, org, projectNames, userInfo, commentErrors, project, deleteComment } = this.props
+    const { authenticated, thread, lastUpdater, orgUserData, org, orgMembers, projectNames, userInfo, commentErrors, project, deleteComment } = this.props
     const createdBy = orgUserData && orgUserData[thread.userId] ? orgUserData[thread.userId] : { username: '' }
 
     return (
@@ -313,6 +313,7 @@ class ThreadPreviewFull extends React.Component {
                 thread={thread}
                 project={project}
                 org={org}
+                usersList={orgMembers}
                 orgUserData={orgUserData}
                 type={Constants.THREAD_TYPE}
                 deleteComment={deleteComment}
