@@ -51,7 +51,9 @@ class AddThread extends React.Component {
 	      	// console.log(delta)
 	      	// let storableBody = Helpers.convertEditorStateToStorable(this.props.body)
 	     //  	let bodyDelta = Helpers.convertEditorStateToStorable(this.props.body)
-		   	let thread = Object.assign({}, {title: this.props.title}, { body: this.props.body } )
+
+	     	let body = this.props.body ? this.props.body : ''
+		   	let thread = Object.assign({}, {title: this.props.title}, { body: body } )
 		    this.props.setInProgress();
 		    this.props.onAddThread(this.props.authenticated, this.props.projectId, thread, this.props.org);
 		  }
