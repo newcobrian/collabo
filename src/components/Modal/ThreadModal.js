@@ -87,7 +87,6 @@ class ThreadModal extends React.Component {
 
   render() {
     const handleClose = ev => {
-      ev.preventDefault();
       window.history.pushState( {} , null, '/' + this.props.org.url );
       this.props.hideModal();
     }

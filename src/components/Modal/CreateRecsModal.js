@@ -111,7 +111,6 @@ class CreateRecsModal extends React.Component {
     }
 
     const handleClose = ev => {
-      ev.preventDefault();
       this.props.hideModal();
     }
 

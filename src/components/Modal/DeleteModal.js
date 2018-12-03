@@ -19,7 +19,6 @@ class DeleteModal extends React.Component {
 
   render() {
     const handleClose = ev => {
-      ev.preventDefault();
       this.props.hideModal();
     }
 
