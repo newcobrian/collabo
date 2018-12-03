@@ -17,6 +17,8 @@ const ORGS_PATH = '/orgs'
 const COLLABO_URL = 'https://joinkoi.com'
 const INBOX_SEND_EMAIL_URL = 'https://myviews.io/mail/send'
 
+const FormData = require('form-data');
+
 const getChange = (data) => {
   clearTimeout(changeTimers[data.fileId + data.threadId]);
   changeTimers[data.fileId + data.threadId] = setTimeout(() => {
@@ -123,7 +125,7 @@ const sendContentManagerEmail = (templateId, recipientEmail, data) => {
     templateId: templateId,
     recipientEmail: recipientEmail
   }
-
+  console.log('in send content manager email func with data = ' + JSON.stringify(data))
   let formData = new FormData();
   formData.append("template-id", templateId);
   formData.append("recipient", recipientEmail);
@@ -134,33 +136,32 @@ const sendContentManagerEmail = (templateId, recipientEmail, data) => {
     body: formData
   })
   .catch(function(response) {
-    // sendMixpanelEvent(Constants.MIXPANEL_EMAIL_SENT, params); 
+    console.log('in successful send response')
     console.log(response)
   })
   .catch(function(error) {
-    // sendMixpanelEvent(Constants.MIXPANEL_EMAIL_FAILED, Object.assign({}, params, error)); 
       console.log('Content Manager email send request failed', error)
   })
 }
 
 const sendDailyDigestEmail = (recipientId, orgId, threadsArray, extras) => {
+  console.log('in sendddemail func')
   admin.database().ref(USERS_BY_ORG_PATH + '/' + orgId + '/' + recipientId).once('value', userSnap => {
     admin.database().ref(ORGS_PATH + '/' + orgId).once('value', orgSnap => {
-      console.log('send function')
       if (userSnap.exists() && orgSnap.exists()) {
         let data = {
           orgName: orgSnap.val().name,
           orgURL: orgSnap.val().url,
           link: COLLABO_URL + '/' + orgSnap.val().url
         }
-        console.log('send function in if, data = ' + JSON.stringify(data))
+        console.log('send DD function in if, data = ' + JSON.stringify(data))
         if (extras > 0) {
           data.extras = '... and ' + extras + ' more new posts.'
         }
 
         if (threadsArray[0]) {
           Object.assign(data, {
-            title0: threadsArray[0].name,
+            title0: threadsArray[0].title,
             // poster0: threadsArray[0].name,
             timestamp0: calcTimestamp(threadsArray[0].lastModified),
             // body0: threadsArray[0].body,
@@ -171,7 +172,7 @@ const sendDailyDigestEmail = (recipientId, orgId, threadsArray, extras) => {
         }
         if (threadsArray[1]) {
           Object.assign(data, {
-            title1: threadsArray[1].name,
+            title1: threadsArray[1].title,
             // poster1: threadsArray[1].name,
             timestamp1: calcTimestamp(threadsArray[1].lastModified),
             // body1: threadsArray[1].body,
@@ -182,7 +183,7 @@ const sendDailyDigestEmail = (recipientId, orgId, threadsArray, extras) => {
         }
         if (threadsArray[2]) {
           Object.assign(data, {
-            title2: threadsArray[2].name,
+            title2: threadsArray[2].title,
             // poster2: threadsArray[2].name,
             timestamp2: calcTimestamp(threadsArray[2].lastModified),
             // body2: threadsArray[2].body,
@@ -193,7 +194,7 @@ const sendDailyDigestEmail = (recipientId, orgId, threadsArray, extras) => {
         }
         if (threadsArray[3]) {
           Object.assign(data, {
-            title3: threadsArray[3].name,
+            title3: threadsArray[3].title,
             // poster3: threadsArray[3].name,
             timestamp3: calcTimestamp(threadsArray[3].lastModified),
             // body3: threadsArray[3].body,
@@ -204,7 +205,7 @@ const sendDailyDigestEmail = (recipientId, orgId, threadsArray, extras) => {
         }
         if (threadsArray[4]) {
           Object.assign(data, {
-            title4: threadsArray[4].name,
+            title4: threadsArray[4].title,
             // poster4: threadsArray[4].name,
             timestamp4: calcTimestamp(threadsArray[4].lastModified),
             // body4: threadsArray[4].body,
@@ -221,16 +222,18 @@ const sendDailyDigestEmail = (recipientId, orgId, threadsArray, extras) => {
 
 exports.hourly_job =
   functions.pubsub.topic('hourly-tick').onPublish((event) => {
-    console.log("This job is run every hour!")
     let startDate = new Date();
-    startDate.setDate(startDate.getDate() - 10);
+    let hour = startDate.getHour()
+
+    console.log("This job is run every hour!! hour = " + hour)
+    
+    startDate.setDate(startDate.getDate() - 30);
     startDate.setMinutes(0)
     startDate.setSeconds(0)
     let startTime = startDate.getTime()
 
     admin.database().ref(USERS_BY_EMAIL_TIME_BY_ORG_PATH + '/' + 18).once('value', snap => {
-      let startDate = (Math.round(new Date().getTime() / (60*60*1000))) - (24 * 3600);
-      console.log('in first db call')
+      // let startDate = (Math.round(new Date().getTime() / (60*60*1000))) - (10 * 24 * 3600);
       snap.forEach(function(org) {
         if (org.key === '-LHjWm2WXiQpZXtYNBk6') {
           console.log('in in org key = ' + org.key)
@@ -238,14 +241,15 @@ exports.hourly_job =
         .orderByChild('lastModified')
         .startAt(startTime)
         .once('value', threadsSnap => {
-          console.log('in 2nd firebase threads call')
           admin.database().ref(PROJECTS_BY_ORG_BY_USER_PATH + '/' + org.key).once('value', projectsSnap => {
-            console.log('in 3rd firebase threads call')
+            console.log('in 3rd firebase threads call threads = ' + JSON.stringify(threadsSnap.val()))
             if (threadsSnap.exists() && threadsSnap.numChildren() > 0 && projectsSnap.exists()) {
+              console.log('in if - thread and projects snaps exist')
               org.forEach(function(user) {
                 let counter = 0;
                 let threadArray = []
                 if (user.key === 'puqKr2l42bS3lNMAGL9OpelAF122' || user.key === 'YbUBBVfof9YUM2DaC9SijrheTZ23') {
+                  console.log('in main func if user is me or jordan')
                   let itemsProcessed = 0;
                   threadsSnap.forEach(function(thread) {
                     // check thread is in project
@@ -258,8 +262,8 @@ exports.hourly_job =
                       counter++;
 
                       if (counter === threadsSnap.numChildren()) {
-                        console.log('in send')
                         let extras = threadsSnap.numChildren() - 5
+                        console.log('in send if main func threadarray = ' + JSON.stringify(threadArray))
                         sendDailyDigestEmail(user.key, org.key, threadArray, extras)
                       }
                     }
