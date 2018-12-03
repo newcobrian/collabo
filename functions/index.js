@@ -235,7 +235,7 @@ exports.hourly_job =
     admin.database().ref(USERS_BY_EMAIL_TIME_BY_ORG_PATH + '/' + 18).once('value', snap => {
       // let startDate = (Math.round(new Date().getTime() / (60*60*1000))) - (10 * 24 * 3600);
       snap.forEach(function(org) {
-          console.log('in in org key = ' + org.key)
+        if (org.key === '-LHjWm2WXiQpZXtYNBk6') {
         admin.database().ref(THREADS_BY_ORG_PATH + '/' + org.key)
         .orderByChild('lastModified')
         .startAt(startTime)
