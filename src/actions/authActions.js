@@ -108,7 +108,7 @@ export function signUpUser(email, password, fullName, verificationId, redirect, 
             else {
               Firebase.auth().createUserWithEmailAndPassword(email, password)
               .then(response => {
-                let userId = response.uid;
+                let userId = response.user.uid;
                 let userData = Object.assign({}, { email: email}, {fullName: fullName })
                 if (username) userData.username = username
                 let updates = {};
@@ -120,7 +120,7 @@ export function signUpUser(email, password, fullName, verificationId, redirect, 
 
                   // save userId lookup from username
                   // updates[Constants.USERNAMES_TO_USERIDS_PATH + '/' + username] = {userId: userId }
-                  
+
                   // save email address lookup
                   updates[Constants.USERS_BY_EMAIL_PATH + '/' + cleanedEmail] = { userId: userId }
 
@@ -214,14 +214,12 @@ export function signInUser(email, password, redirect) {
         // set acount created date people property
         mixpanel.people.set({ "last login": (new Date()).toISOString() });
         mixpanel.people.increment("total logins");
-        mixpanel.identify(response.uid);
-
-        let auth = response.uid
+        mixpanel.identify(response.user.uid);
 
         dispatch({
           type: ActionTypes.AUTH_USER,
           redirect: redirect,
-          payload: auth,
+          authenticated: response.user.uid,
           meta: {
             mixpanel: {
               event: 'Log in'

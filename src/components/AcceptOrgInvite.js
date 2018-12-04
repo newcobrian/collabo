@@ -52,7 +52,7 @@ class AcceptOrgInvite extends React.Component {
 
         // if user is logged in, just accept the invite
         if (this.props.authenticated) {
-          let lowerCaseEmail = this.props.userInfo.email ? this.props.userInfo.email.toLowerCase() : ''
+          let lowerCaseEmail = (this.props.userInfo && this.props.userInfo.email) ? this.props.userInfo.email.toLowerCase() : ''
           this.props.acceptOrgInvite(this.props.authenticated, lowerCaseEmail, this.props.params.iid, userData, this.props.imageFile)
         }
         // else user isnt logged in, register and accept
@@ -412,7 +412,12 @@ class AcceptOrgInvite extends React.Component {
                     <br/><br/>
                     To accept this invite, please log out and log in or sign up as <span className="koi-type-bold">{invite.recipientEmail}</span>.
                   </div>
-                  <Link className="text-hover color--seaweed mrgn-top-sm" to='/'>Go to homepage</Link>
+                  <div>
+                    <Link className="text-hover color--seaweed mrgn-top-sm" onClick={this.props.signOutUser}>Log out</Link>
+                  </div>
+                  <div>
+                    <Link className="text-hover color--seaweed mrgn-top-sm" to='/'>or go to homepage</Link>
+                  </div>
                 </div>
               </div>
           </div>
