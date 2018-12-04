@@ -612,6 +612,18 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 					emailData.buttonText = 'GO TO TEAM'
 					emailData.buttonLink = Constants.COLLABO_URL + '/' + org.url
 					break;
+				case Constants.ACCEPT_PROJECT_INVITE_MESSAGE:
+					inboxObject.senderId = senderId;
+					inboxObject.message = ' accepted your invite to the \'' + project.name + '\' project.';
+					inboxObject.link = '/' + project.projectId;
+					inboxObject.type = Constants.INBOX_INVITE_TYPE
+					sendEmail = false;
+					// emailData.emailSubject = senderSnapshot.val().username + ' accepted your invite on Koi'
+					// emailData.bodyMessage = senderSnapshot.val().username + ' joined your team:'
+					// emailData.bodyHighlight = org.name
+					// emailData.buttonText = 'GO TO TEAM'
+					// emailData.buttonLink = Constants.COLLABO_URL + '/' + org.url
+					break;
 				case Constants.ORG_INVITE_MESSAGE:
 					inboxObject.senderId = senderId;
 					inboxObject.message = ' invited you join their team: ' + org.url;

@@ -47,6 +47,10 @@ export function loadProjectInvite(auth, inviteId) {
                   
                   Firebase.database().ref().update(updates)
 
+                  let org = Object.assign({}, {id: projectInviteSnap.val().orgId}, orgSnap.val())
+                  let project = Object.assign({}, {projectId: projectInviteSnap.val().projectId}, projectSnap.val())
+                  Helpers.sendCollaboInboxMessage(auth, projectInviteSnap.val().senderId, Constants.ACCEPT_PROJECT_INVITE_MESSAGE, org, project, null, null)
+
                   dispatch({
                     type: ActionTypes.PROJECT_INVITE_ACCEPTED,
                     orgURL: orgSnap.val().url,
