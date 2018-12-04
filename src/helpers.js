@@ -604,7 +604,7 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 				case Constants.ACCEPT_ORG_INVITE_MESSAGE:
 					inboxObject.senderId = senderId;
 					inboxObject.message = ' accepted your invite to the ' + org.name + ' team';
-					inboxObject.link = '/' + org.url;
+					inboxObject.link = '/user/' + senderSnapshot.val().username;
 					inboxObject.type = Constants.INBOX_INVITE_TYPE
 					emailData.emailSubject = senderSnapshot.val().username + ' accepted your invite on Koi'
 					emailData.bodyMessage = senderSnapshot.val().username + ' joined your team:'
