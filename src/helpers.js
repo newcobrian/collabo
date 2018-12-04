@@ -923,76 +923,79 @@ export function addUserToOrg(auth, email, invite, inviteId, userData, imageFile)
   let orgId = invite.orgId
   let role = invite.role ? invite.role : Constants.USER_ROLE
   Firebase.database().ref(Constants.PROJECTS_BY_ORG_PATH + '/' + orgId).once('value', projectsSnap => {
-    let cleanedEmail = cleanEmailToFirebase(email)
-    let lowerCaseName = userData && userData.username ? userData.username.toLowerCase() : ''
+  	Firebase.database().ref(Constants.ORGS_PATH + '/' + orgId).once('value', orgSnap => {
+  		let cleanedEmail = cleanEmailToFirebase(email)
+	    let lowerCaseName = userData && userData.username ? userData.username.toLowerCase() : ''
 
-    let updates = {}
-    // add user to the org and orgs-by-user
-    updates[Constants.USERNAMES_BY_ORG_PATH + '/' + orgId + '/' + lowerCaseName] = auth
-    updates[Constants.ORGS_BY_USER_PATH + '/' + auth + '/' + orgId] = true
+	    let updates = {}
+	    // add user to the org and orgs-by-user
+	    updates[Constants.USERNAMES_BY_ORG_PATH + '/' + orgId + '/' + lowerCaseName] = auth
+	    updates[Constants.ORGS_BY_USER_PATH + '/' + auth + '/' + orgId] = true
 
-    // update user's preferred username and fullName if necessary
-    updates[Constants.USERS_PATH + '/' + auth + '/username/'] = userData.username
-    if (userData.fullName) {
-      updates[Constants.USERS_PATH + '/' + auth + '/fullName/'] = userData.fullName
-    }
+	    // update user's preferred username and fullName if necessary
+	    updates[Constants.USERS_PATH + '/' + auth + '/username/'] = userData.username
+	    if (userData.fullName) {
+	      updates[Constants.USERS_PATH + '/' + auth + '/fullName/'] = userData.fullName
+	    }
 
-    // remove the invites
-    updates[Constants.INVITES_PATH + '/' + inviteId + '/status/'] = Constants.ACCEPTED_STATUS
-    updates[Constants.INVITED_USERS_BY_ORG_PATH + '/' + orgId + '/' + cleanedEmail] = null
+	    // remove the invites
+	    updates[Constants.INVITES_PATH + '/' + inviteId + '/status/'] = Constants.ACCEPTED_STATUS
+	    updates[Constants.INVITED_USERS_BY_ORG_PATH + '/' + orgId + '/' + cleanedEmail] = null
 
-	// if this is a guest, only add the projects they were added to    
-    if (role === Constants.GUEST_ROLE) {
-    	(invite.projects || []).forEach(function(projectId) {
-	        updates[`/${Constants.PROJECTS_BY_ORG_BY_USER_PATH}/${orgId}/${auth}/${projectId}/`] = role;
-	        updates[`/${Constants.USERS_BY_PROJECT_PATH}/${projectId}/${auth}/`] = role
-	    })
-    }
-    // else this is a member and add all public projects for the user
-    else {
-    	projectsSnap.forEach(function(projectItem) {
-	      if (projectItem.val().isPublic) {
-	        updates[`/${Constants.PROJECTS_BY_ORG_BY_USER_PATH}/${orgId}/${auth}/${projectItem.key}/`] = role;
-	        updates[`/${Constants.USERS_BY_PROJECT_PATH}/${projectItem.key}/${auth}/`] = role
+		// if this is a guest, only add the projects they were added to    
+	    if (role === Constants.GUEST_ROLE) {
+	    	(invite.projects || []).forEach(function(projectId) {
+		        updates[`/${Constants.PROJECTS_BY_ORG_BY_USER_PATH}/${orgId}/${auth}/${projectId}/`] = role;
+		        updates[`/${Constants.USERS_BY_PROJECT_PATH}/${projectId}/${auth}/`] = role
+		    })
+	    }
+	    // else this is a member and add all public projects for the user
+	    else {
+	    	projectsSnap.forEach(function(projectItem) {
+		      if (projectItem.val().isPublic) {
+		        updates[`/${Constants.PROJECTS_BY_ORG_BY_USER_PATH}/${orgId}/${auth}/${projectItem.key}/`] = role;
+		        updates[`/${Constants.USERS_BY_PROJECT_PATH}/${projectItem.key}/${auth}/`] = role
+		      }
+		    })
+	    }
+
+	    // if user uploaded an image, save it
+	    if (imageFile) {
+	      const storageRef = Firebase.storage().ref();
+	      const metadata = {
+	        contentType: 'image/jpeg'
 	      }
-	    })
-    }
+	      let fileName = generateImageFileName();
+	      const uploadTask = storageRef.child('images/' + fileName).put(imageFile, metadata);
+	      uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+	      function(snapshot) {
+	        }, function(error) {
+	          console.log(error.message)
+	      }, function() {
+	        const downloadURL = uploadTask.snapshot.downloadURL;
 
-    // if user uploaded an image, save it
-    if (imageFile) {
-      const storageRef = Firebase.storage().ref();
-      const metadata = {
-        contentType: 'image/jpeg'
-      }
-      let fileName = generateImageFileName();
-      const uploadTask = storageRef.child('images/' + fileName).put(imageFile, metadata);
-      uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-      function(snapshot) {
-        }, function(error) {
-          console.log(error.message)
-      }, function() {
-        const downloadURL = uploadTask.snapshot.downloadURL;
+	        // set user's image to the new downloadURL
+	        userData.image = downloadURL
 
-        // set user's image to the new downloadURL
-        userData.image = downloadURL
+	        // save image in users-by-org
+	        updates[Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + auth] = 
+	          Object.assign({}, userData, {email: email}, {role: role}, {status: Constants.ACTIVE_STATUS})
 
-        // save image in users-by-org
-        updates[Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + auth] = 
-          Object.assign({}, userData, {email: email}, {role: role}, {status: Constants.ACTIVE_STATUS})
+	        // save image in users-path
+	        updates[Constants.USERS_PATH + '/' + auth + '/image'] = downloadURL;
 
-        // save image in users-path
-        updates[Constants.USERS_PATH + '/' + auth + '/image'] = downloadURL;
+	        Firebase.database().ref().update(updates)
+	      })
+	    }
+	    // else no image, just save the user
+	    else {
+	      updates[Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + auth] = 
+	        Object.assign({}, userData, {email: email}, {role: role}, {status: Constants.ACTIVE_STATUS})
 
-        Firebase.database().ref().update(updates)
-      })
-    }
-    // else no image, just save the user
-    else {
-      updates[Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + auth] = 
-        Object.assign({}, userData, {email: email}, {role: role}, {status: Constants.ACTIVE_STATUS})
-
-      Firebase.database().ref().update(updates)
-    }
+	      Firebase.database().ref().update(updates)
+	    }
+	    sendCollaboInboxMessage(auth, invite.senderId, Constants.ACCEPT_ORG_INVITE_MESSAGE, Object.assign({}, {id: orgId}, orgSnap.val()), projectsSnap.val(), null, null)
+  	})
   })
 }
 
