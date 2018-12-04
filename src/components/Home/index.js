@@ -58,7 +58,13 @@ class Home extends React.Component {
     this.props.setSidebar(false)
 
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'homepage'});
-  } 
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.authenticated !== nextProps.authenticated) {
+      this.props.loadOrgList(this.props.authenticated, Constants.HOME_PAGE)
+    }
+  }
 
   componentWillUnmount() {
     this.props.unloadOrgList(this.props.authenticated, Constants.HOME_PAGE)

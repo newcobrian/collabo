@@ -216,10 +216,12 @@ export function signInUser(email, password, redirect) {
         mixpanel.people.increment("total logins");
         mixpanel.identify(response.uid);
 
+        let auth = response.uid
+
         dispatch({
           type: ActionTypes.AUTH_USER,
           redirect: redirect,
-          payload: response.uid,
+          payload: auth,
           meta: {
             mixpanel: {
               event: 'Log in'
