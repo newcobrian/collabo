@@ -596,7 +596,7 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 					inboxObject.message = ' upvoted your comment: "' + sendObject.body + '"';
 					inboxObject.link = '/' + thread.projectId + '/' + thread.threadId;
 					emailData.emailSubject = senderSnapshot.val().username + ' liked your comment on Koi'
-					emailData.bodyMessage = senderSnapshot.val().username + ' liked your comment in the post:'
+					emailData.bodyMessage = senderSnapshot.val().username + ' liked your comment in the post'
 					emailData.bodyHighlight = thread.title
 					emailData.buttonText = 'GO TO THREAD'
 					emailData.buttonLink = Constants.COLLABO_URL + '/' + org.url + '/' + thread.projectId + '/' + thread.threadId
