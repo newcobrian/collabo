@@ -126,7 +126,7 @@ const sendContentManagerEmail = (templateId, recipientEmail, data) => {
     templateId: templateId,
     recipientEmail: recipientEmail
   }
-  console.log('in send content manager email to ' + recipientEmail + ' with data = ' + JSON.stringify(data))
+  
   let formData = new FormData();
   formData.append("template-id", templateId);
   formData.append("recipient", recipientEmail);
@@ -137,7 +137,6 @@ const sendContentManagerEmail = (templateId, recipientEmail, data) => {
     body: formData
   })
   .catch(function(response) {
-    console.log('in successful send response')
     console.log(response)
   })
   .catch(function(error) {
@@ -154,7 +153,6 @@ const sendDailyDigestEmail = (recipientId, orgId, threadsArray, extras) => {
           orgURL: orgSnap.val().url,
           link: COLLABO_URL + '/' + orgSnap.val().url
         }
-        console.log('send daily digest email function')
         if (extras > 0) {
           data.extras = '... and ' + extras + ' more new posts.'
         }
@@ -223,30 +221,29 @@ const sendDailyDigestEmail = (recipientId, orgId, threadsArray, extras) => {
 exports.hourly_job =
   functions.pubsub.topic('hourly-tick').onPublish((event) => {
     let startDate = new Date();
-    let hour = startDate.getHours()
+    let startHour = startDate.getHours()
 
-    console.log("This job is run every hour!! hour = " + hour)
+    console.log("This job is run every hour!! hour = " + startHour)
     
-    startDate.setDate(startDate.getDate() - 30);
+    startDate.setDate(startDate.getDate() - 1);
     startDate.setMinutes(0)
     startDate.setSeconds(0)
     let startTime = startDate.getTime()
 
-    admin.database().ref(USERS_BY_EMAIL_TIME_BY_ORG_PATH + '/' + 18).once('value', snap => {
+    admin.database().ref(USERS_BY_EMAIL_TIME_BY_ORG_PATH + '/' + startHour).once('value', snap => {
       // let startDate = (Math.round(new Date().getTime() / (60*60*1000))) - (10 * 24 * 3600);
       snap.forEach(function(org) {
-        if (org.key === '-LHjWm2WXiQpZXtYNBk6') {
+        // if (org.key === '-LHjWm2WXiQpZXtYNBk6') {
         admin.database().ref(THREADS_BY_ORG_PATH + '/' + org.key)
         .orderByChild('lastModified')
         .startAt(startTime)
         .once('value', threadsSnap => {
           admin.database().ref(PROJECTS_BY_ORG_BY_USER_PATH + '/' + org.key).once('value', projectsSnap => {
             if (threadsSnap.exists() && threadsSnap.numChildren() > 0 && projectsSnap.exists()) {
-              console.log('in if - thread and projects snaps exist')
               org.forEach(function(user) {
                 let counter = 0;
                 let threadArray = []
-                if (user.key === 'puqKr2l42bS3lNMAGL9OpelAF122' || user.key === 'YbUBBVfof9YUM2DaC9SijrheTZ23') {
+                // if (user.key === 'puqKr2l42bS3lNMAGL9OpelAF122' || user.key === 'YbUBBVfof9YUM2DaC9SijrheTZ23') {
                   let itemsProcessed = 0;
                   threadsSnap.forEach(function(thread) {
                     // check thread is in project
@@ -267,12 +264,12 @@ exports.hourly_job =
                       counter++
                     }
                   })
-                }
+                // }
               })
             }
           })
         })
-        }
+        // }
       })
     })
   });
