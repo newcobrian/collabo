@@ -126,7 +126,6 @@ const sendContentManagerEmail = (templateId, recipientEmail, data) => {
     templateId: templateId,
     recipientEmail: recipientEmail
   }
-  
   let formData = new FormData();
   formData.append("template-id", templateId);
   formData.append("recipient", recipientEmail);
@@ -144,14 +143,15 @@ const sendContentManagerEmail = (templateId, recipientEmail, data) => {
   })
 }
 
-const sendDailyDigestEmail = (recipientId, orgId, threadsArray, extras) => {
+const sendDailyDigestEmail = (recipientId, orgId, threadsArray, extras, totalThreads) => {
   admin.database().ref(USERS_BY_ORG_PATH + '/' + orgId + '/' + recipientId).once('value', userSnap => {
     admin.database().ref(ORGS_PATH + '/' + orgId).once('value', orgSnap => {
       if (userSnap.exists() && orgSnap.exists()) {
         let data = {
           orgName: orgSnap.val().name,
           orgURL: orgSnap.val().url,
-          link: COLLABO_URL + '/' + orgSnap.val().url
+          link: COLLABO_URL + '/' + orgSnap.val().url,
+          totalThreads: totalThreads
         }
         if (extras > 0) {
           data.extras = '... and ' + extras + ' more new posts.'
@@ -163,7 +163,7 @@ const sendDailyDigestEmail = (recipientId, orgId, threadsArray, extras) => {
             // poster0: threadsArray[0].name,
             timestamp0: calcTimestamp(threadsArray[0].lastModified),
             // body0: threadsArray[0].body,
-            comments0: threadsArray[0].commentsCount + ' comments',
+            comments0: threadsArray[0].commentsCount ? (threadsArray[0].commentsCount + ' comments') : '0 comments',
             // likes0: threadsArray[0].likes + ' likes',
             link0: COLLABO_URL + '/' + orgSnap.val().url + '/' + threadsArray[0].id
           })
@@ -174,7 +174,7 @@ const sendDailyDigestEmail = (recipientId, orgId, threadsArray, extras) => {
             // poster1: threadsArray[1].name,
             timestamp1: calcTimestamp(threadsArray[1].lastModified),
             // body1: threadsArray[1].body,
-            comments1: threadsArray[1].commentsCount + ' comments',
+            comments1: threadsArray[1].commentsCount ? (threadsArray[1].commentsCount + ' comments') : '0 comments',
             // likes1: threadsArray[1].likes + ' likes',
             link1: COLLABO_URL + '/' + orgSnap.val().url + '/' + threadsArray[1].id
           })
@@ -185,7 +185,7 @@ const sendDailyDigestEmail = (recipientId, orgId, threadsArray, extras) => {
             // poster2: threadsArray[2].name,
             timestamp2: calcTimestamp(threadsArray[2].lastModified),
             // body2: threadsArray[2].body,
-            comments2: threadsArray[2].commentsCount + ' comments',
+            comments2: threadsArray[2].commentsCount ? (threadsArray[2].commentsCount + ' comments') : '0 comments',
             // likes2: threadsArray[2].likes + ' likes',
             link2: COLLABO_URL + '/' + orgSnap.val().url + '/' + threadsArray[2].id
           })
@@ -196,7 +196,7 @@ const sendDailyDigestEmail = (recipientId, orgId, threadsArray, extras) => {
             // poster3: threadsArray[3].name,
             timestamp3: calcTimestamp(threadsArray[3].lastModified),
             // body3: threadsArray[3].body,
-            comments3: threadsArray[3].commentsCount + ' comments',
+            comments3: threadsArray[3].commentsCount ? (threadsArray[3].commentsCount + ' comments') : '0 comments',
             // likes3: threadsArray[3].likes + ' likes',
             link3: COLLABO_URL + '/' + orgSnap.val().url + '/' + threadsArray[3].id
           })
@@ -207,7 +207,7 @@ const sendDailyDigestEmail = (recipientId, orgId, threadsArray, extras) => {
             // poster4: threadsArray[4].name,
             timestamp4: calcTimestamp(threadsArray[4].lastModified),
             // body4: threadsArray[4].body,
-            comments4: threadsArray[4].commentsCount + ' comments',
+            comments4: threadsArray[4].commentsCount ? (threadsArray[4].commentsCount + ' comments') : '0 comments',
             // likes4: threadsArray[4].likes + ' likes',
             link4: COLLABO_URL + '/' + orgSnap.val().url + '/' + threadsArray[4].id
           })
@@ -241,27 +241,29 @@ exports.hourly_job =
           admin.database().ref(PROJECTS_BY_ORG_BY_USER_PATH + '/' + org.key).once('value', projectsSnap => {
             if (threadsSnap.exists() && threadsSnap.numChildren() > 0 && projectsSnap.exists()) {
               org.forEach(function(user) {
-                let counter = 0;
+                let counter = 0;          // counts total threads
+                let bodyCounter = 0;      // counts up to 5 threads to include in email body
+                let projectCounter = 0;   // counts total threads in projects that user belongs to
                 let threadArray = []
-                // if (user.key === 'puqKr2l42bS3lNMAGL9OpelAF122' || user.key === 'YbUBBVfof9YUM2DaC9SijrheTZ23') {
+                // if (user.key === 'puqKr2l42bS3lNMAGL9OpelAF122') { //  || user.key === 'YbUBBVfof9YUM2DaC9SijrheTZ23'
                   let itemsProcessed = 0;
                   threadsSnap.forEach(function(thread) {
-                    // check thread is in project
-
-                    if (thread.exists() && thread.val().projectId && projectsSnap.val()[user.key] 
-                      && projectsSnap.val()[user.key][thread.val().projectId]) {                     
-                      if (counter < 5) {
-                        threadArray.push(Object.assign({}, thread.val(), {id: thread.key}))
+                    if (thread.exists()) {
+                      // check thread is in a project that user belongs to
+                      if (thread.val().projectId && projectsSnap.val()[user.key] && projectsSnap.val()[user.key][thread.val().projectId]) {
+                        if (bodyCounter < 5) {
+                          threadArray.push(Object.assign({}, thread.val(), {id: thread.key}))
+                          bodyCounter++;
+                        }
+                        projectCounter++;
                       }
+
                       counter++;
 
                       if (counter === threadsSnap.numChildren()) {
-                        let extras = threadsSnap.numChildren() - 5
-                        sendDailyDigestEmail(user.key, org.key, threadArray, extras)
+                        let extras = projectCounter - 5
+                        sendDailyDigestEmail(user.key, org.key, threadArray, extras, projectCounter)
                       }
-                    }
-                    else {
-                      counter++
                     }
                   })
                 // }
