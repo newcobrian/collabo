@@ -574,32 +574,44 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 					inboxObject.senderId = senderId;
 					inboxObject.message = ' mentioned you in the post: ' + thread.title;
 					inboxObject.link = '/' + project.projectId + '/' + thread.threadId;
-					emailData.emailSubject = senderSnapshot.val().username + ' mentioned you in a post'
-					emailData.body = sendObject
-					emailData.threadTitle = '"' + thread.title + '"'
+					emailData.emailSubject = senderSnapshot.val().username + ' mentioned you in a post on Koi'
+					emailData.bodyMessage = senderSnapshot.val().username + ' mentioned you in the post: "' + thread.title + '":'
+					emailData.bodyHighlight = sendObject
+					emailData.buttonText = 'GO TO THREAD'
+					emailData.buttonLink = Constants.COLLABO_URL + '/' + org.url + '/' + thread.projectId + '/' + thread.threadId
 					emailData.senderLink = Constants.COLLABO_URL + '/' + org.url + '/users/' + senderSnapshot.val().username
 					break;
 				case Constants.LIKE_THREAD_MESSAGE:
 					inboxObject.senderId = senderId;
 					inboxObject.message = ' upvoted your post "' + thread.title + '"';
 					inboxObject.link = '/' + thread.projectId + '/' + thread.threadId;
-					sendEmail = false
+					emailData.emailSubject = senderSnapshot.val().username + ' liked your post on Koi'
+					emailData.bodyMessage = senderSnapshot.val().username + ' liked your post:'
+					emailData.bodyHighlight = thread.title
+					emailData.buttonText = 'GO TO POST'
+					emailData.buttonLink = Constants.COLLABO_URL + '/' + org.url + '/' + thread.projectId + '/' + thread.threadId
 					break;
 				case Constants.LIKE_COMMENT_MESSAGE:
 					inboxObject.senderId = senderId;
 					inboxObject.message = ' upvoted your comment: "' + sendObject.body + '"';
 					inboxObject.link = '/' + thread.projectId + '/' + thread.threadId;
-					sendEmail = false
+					emailData.emailSubject = senderSnapshot.val().username + ' liked your comment on Koi'
+					emailData.bodyMessage = senderSnapshot.val().username + ' liked your comment in the post:'
+					emailData.bodyHighlight = thread.title
+					emailData.buttonText = 'GO TO THREAD'
+					emailData.buttonLink = Constants.COLLABO_URL + '/' + org.url + '/' + thread.projectId + '/' + thread.threadId
 					break;
-				// case Constants.COMMENT_ON_COMMENT_REVIEW_MESSAGE:
-				// 	inboxObject.senderId = senderId;
-				// 	inboxObject.message = ' also commented: ' + sendObject.message;
-				// 	inboxObject.link = threadId ? '/guide/' + itineraryId + '#comment' + sendObject.commentId : 
-				// 		'/review/' + sendObject.subjectId + '/' + sendObject.id;
-				// 	inboxObject.reviewTitle = '';
-				// 	emailMessage = senderSnapshot.val().username + 
-				// 		' also commented on a tip you commented on. Click here to check it out: https://myviews.io' + inboxObject.link;
-				// 	break;
+				case Constants.ACCEPT_ORG_INVITE_MESSAGE:
+					inboxObject.senderId = senderId;
+					inboxObject.message = ' accepted your invite to the ' + org.name + ' team';
+					inboxObject.link = '/' + org.url;
+					inboxObject.type = Constants.INBOX_INVITE_TYPE
+					emailData.emailSubject = senderSnapshot.val().username + ' accepted your invite on Koi'
+					emailData.bodyMessage = senderSnapshot.val().username + ' joined your team:'
+					emailData.bodyHighlight = org.name
+					emailData.buttonText = 'GO TO TEAM'
+					emailData.buttonLink = Constants.COLLABO_URL + '/' + org.url
+					break;
 				case Constants.ORG_INVITE_MESSAGE:
 					inboxObject.senderId = senderId;
 					inboxObject.message = ' invited you join their team: ' + org.url;
@@ -623,13 +635,6 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 					emailData.senderLink = Constants.COLLABO_URL + '/' + org.url + '/users/' + senderSnapshot.val().username
 					emailTemplateID = "0a991f3c-3079-4d45-90d2-eff7c64f9cc5"
 					break;
-				case Constants.ACCEPT_ORG_INVITE_MESSAGE:
-					inboxObject.senderId = senderId;
-					inboxObject.message = ' accepted your invite to the ' + org.name + ' team';
-					inboxObject.link = '/' + org.url;
-					inboxObject.type = Constants.INBOX_INVITE_TYPE
-					sendEmail = false
-					break;
 				// case Constants.NEW_THREAD_MESSAGE:
 				// 	inboxObject.senderId = senderId;
 				// 	inboxObject.message = org.name + ': ' + senderSnapshot.val().name + ' created a new thread "' + thread.title + '" in the ' + project.name + ' project';
@@ -645,7 +650,6 @@ export function sendCollaboInboxMessage(senderId, recipientId, messageType, org,
 		            return (current_count || 0) + 1;
 		        })
 	        	if (sendEmail && recipientSnapshot.exists() && recipientSnapshot.val().email) {
-	        		console.log('in if about to send')
 	        		let data = Object.assign({}, emailData, {senderName: senderSnapshot.val().username});
 	        		sendContentManagerEmail(emailTemplateID, recipientSnapshot.val().email, data);
 			    }
