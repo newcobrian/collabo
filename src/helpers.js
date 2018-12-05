@@ -939,10 +939,18 @@ export function addUserToOrg(auth, email, invite, inviteId, userData, imageFile)
   		let cleanedEmail = cleanEmailToFirebase(email)
 	    let lowerCaseName = userData && userData.username ? userData.username.toLowerCase() : ''
 
+	    // set hour for dailyDigest
+	    let offset = (new Date()).getTimezoneOffset()
+        let hr = 10 + offset/60
+        userData.emailDigestHour = hr
+
 	    let updates = {}
 	    // add user to the org and orgs-by-user
 	    updates[Constants.USERNAMES_BY_ORG_PATH + '/' + orgId + '/' + lowerCaseName] = auth
 	    updates[Constants.ORGS_BY_USER_PATH + '/' + auth + '/' + orgId] = true
+
+	    // add daily digest for user and org
+	    updates[Constants.USERS_BY_EMAIL_TIME_BY_ORG_PATH + '/' + offset + '/' + orgId + '/' + auth] = true
 
 	    // update user's preferred username and fullName if necessary
 	    updates[Constants.USERS_PATH + '/' + auth + '/username/'] = userData.username
