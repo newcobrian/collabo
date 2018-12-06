@@ -7,14 +7,14 @@ const initialState = { role: Constants.USER_ROLE }
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case ActionTypes.LOAD_ORG_USER: {
-      if (action.source === Constants.ORG_SETTINGS_PAGE) {
-        return {
-          ...state,
-          orgUser: action.orgUser
-        }
-      }
-    }
+    // case ActionTypes.LOAD_ORG_USER: {
+    //   if (action.source === Constants.ORG_SETTINGS_PAGE) {
+    //     return {
+    //       ...state,
+    //       orgUser: action.orgUser
+    //     }
+    //   }
+    // }
     case ActionTypes.CHANGE_ORG_SETTINGS_TAB: {
       return {
         ...state,

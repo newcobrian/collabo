@@ -33,16 +33,21 @@ const ManageTab = props => {
     props.onTabClick(Constants.MANAGE_TAB);
   };
 
-  return (
-    <li className="nav-item">
-      <a
-        href=""
-        className={ props.tab === Constants.MANAGE_TAB ? 'nav-link color--black brdr-color--primary active' : 'nav-link color--black' }
-        onClick={clickHandler}>
-        Manage Settings
-      </a>
-    </li>
-  );
+  if (props.orgUser && props.orgUser.role !== Constants.GUEST_ROLE) {
+    return (
+      <li className="nav-item">
+        <a
+          href=""
+          className={ props.tab === Constants.MANAGE_TAB ? 'nav-link color--black brdr-color--primary active' : 'nav-link color--black' }
+          onClick={clickHandler}>
+          Manage Settings
+        </a>
+      </li>
+    );
+  }
+  else {
+    return null
+  }
 };
 
 const MembersList = props => {
@@ -102,7 +107,7 @@ const DeleteSection = props => {
 }
 
 const ManageForm = props => {
-  if (props.tab === Constants.MANAGE_TAB) {
+  if (props.tab === Constants.MANAGE_TAB && props.orgUser && props.orgUser !== Constants.GUEST_ROLE) {
     return (
       <div className="w-100">
         <form onSubmit={props.onSubmit}>
@@ -144,7 +149,8 @@ const ManageForm = props => {
 const mapStateToProps = state => ({
   ...state.modal,
   ...state.projectSettings,
-  authenticated: state.common.authenticated
+  authenticated: state.common.authenticated,
+  orgUser: state.common.orgUser
 });
 
 class ProjectSettingsModal extends React.Component {
@@ -223,7 +229,7 @@ class ProjectSettingsModal extends React.Component {
       />
     ];
 
-    const { authenticated, tab, projectId, project, projectName, projectMembers, orgURL, errors, 
+    const { authenticated, tab, projectId, project, projectName, projectMembers, orgURL, errors, orgUser,
       isDeleteMode, confirmedDelete } = this.props
 
     return (
@@ -267,7 +273,7 @@ class ProjectSettingsModal extends React.Component {
          <div className="w-100">
             <ul className="nav nav-pills outline-active">
               <MembersTab tab={tab} onTabClick={this.onTabClick} />
-              <ManageTab tab={tab} onTabClick={this.onTabClick} />
+              <ManageTab tab={tab} onTabClick={this.onTabClick} orgUser={orgUser} />
             </ul>
           </div>
 
@@ -282,6 +288,7 @@ class ProjectSettingsModal extends React.Component {
             tab={tab}
             projectName={projectName}
             authenticated={authenticated}
+            orgUser={orgUser}
             updateField={this.updateField}
             isDeleteMode={isDeleteMode}
             onSubmit={this.onUpdateProjectSettings}

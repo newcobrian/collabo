@@ -74,16 +74,19 @@ const PendingTab = props => {
     ev.preventDefault();
     props.onTabClick(Constants.PENDING_TAB);
   };
-  return (
-    <li className="nav-item">
-      <a
-        href=""
-        className={ props.tab === Constants.PENDING_TAB ? 'nav-link color--black brdr-color--primary active' : 'nav-link color--black' }
-        onClick={clickHandler}>
-        Pending Invites
-      </a>
-    </li>
-  );
+  if (props.orgUser && props.orgUser.role !== Constants.GUEST_ROLE) {
+    return (
+      <li className="nav-item">
+        <a
+          href=""
+          className={ props.tab === Constants.PENDING_TAB ? 'nav-link color--black brdr-color--primary active' : 'nav-link color--black' }
+          onClick={clickHandler}>
+          Pending Invites
+        </a>
+      </li>
+    );
+  }
+  else return null
 };
 
 const ManageTab = props => {
@@ -207,61 +210,93 @@ const MembersList = props => {
   }
   // pending tab
   else if (props.tab === Constants.PENDING_TAB) {
-    return (
-      <div className="">
-        {
-          (props.payload || []).map((userItem, index) => {
-            return (
-              <div className="flx flx-col flx-align-start mrgn-bottom-sm brdr-bottom pdding-bottom-sm" key={userItem.email}>
-                <div className="koi-type-body koi-type-bold">{userItem.email}</div>
-                <div className="koi-type-caption opa-60">
-                  from <Link className="color--black" to={'/' + props.org.url + '/user/' + userItem.senderUsername}>{userItem.senderUsername}</Link> on&nbsp;
-                   <DisplayTimestamp timestamp={userItem.timestamp} />
+    if (props.orgUser && props.orgUser.role !== Constants.GUEST_ROLE) {
+      return (
+        <div className="">
+          {
+            (props.payload || []).map((userItem, index) => {
+              return (
+                <div className="flx flx-col flx-align-start mrgn-bottom-sm brdr-bottom pdding-bottom-sm" key={userItem.email}>
+                  <div className="koi-type-body koi-type-bold">{userItem.email}</div>
+                  <div className="koi-type-caption opa-60">
+                    from <Link className="color--black" to={'/' + props.org.url + '/user/' + userItem.senderUsername}>{userItem.senderUsername}</Link> on&nbsp;
+                     <DisplayTimestamp timestamp={userItem.timestamp} />
+                  </div>
                 </div>
-              </div>
-              )
-          })
-        }
-      </div>
-    )
+                )
+            })
+          }
+        </div>
+      )      
+    }
+    else {
+      return null
+    }
   }
   // lists tab
   else if (props.tab === Constants.LISTS_TAB) {
-    return (
-      <div className="">
-        {
-          (props.payload || []).map((projectItem, index) => {
+    if (props.orgUser && props.orgUser.role !== Constants.GUEST_ROLE) {
+      return (
+        <div className="">
+          {
+            (props.payload || []).map((projectItem, index) => {
 
-            if (projectItem.isPublic || props.usersProjects[projectItem.projectId]) {
-              return (
-                <div className="flx flx-row flx-align-center mrgn-bottom-sm" key={projectItem.projectId}>
-                  <JoinProjectButton 
-                    authenticated={props.authenticated}
-                    userInfo={props.userInfo}
-                    orgId={props.org.id}
-                    isJoined={props.usersProjects[projectItem.projectId]}
-                    leaveProject={props.leaveProject}
-                    joinProject={props.joinProject}
-                    project={projectItem} />
-                  <div className="koi-type-body">{projectItem.name}</div>
-                </div>
-                )
-            }
+              if (projectItem.isPublic || props.usersProjects[projectItem.projectId]) {
+                return (
+                  <div className="flx flx-row flx-align-center mrgn-bottom-sm" key={projectItem.projectId}>
+                    <JoinProjectButton 
+                      authenticated={props.authenticated}
+                      userInfo={props.userInfo}
+                      orgId={props.org.id}
+                      isJoined={props.usersProjects[projectItem.projectId]}
+                      leaveProject={props.leaveProject}
+                      joinProject={props.joinProject}
+                      project={projectItem} />
+                    <div className="koi-type-body">{projectItem.name}</div>
+                  </div>
+                  )
+              }
 
-          })
-        }
-        <Link to={'/' + props.org.url + '/createGroup'} className="flx flx-row flx-align-center mrgn-bottom-sm">
-          <div className="vb vb--xs vb--round flx flx-row flx-center-all fill--white mrgn-right-md">
-            <div className="koi-ico --24 ico--add ico-color--seaweed"></div> 
-          </div>
-          <div className="koi-type-body color--seaweed co-type-bold"> 
-            Add Group
-          </div>
-        </Link>
+            })
+          }
+          <Link to={'/' + props.org.url + '/createGroup'} className="flx flx-row flx-align-center mrgn-bottom-sm">
+            <div className="vb vb--xs vb--round flx flx-row flx-center-all fill--white mrgn-right-md">
+              <div className="koi-ico --24 ico--add ico-color--seaweed"></div> 
+            </div>
+            <div className="koi-type-body color--seaweed co-type-bold"> 
+              Add Group
+            </div>
+          </Link>
+        </div>
+      )
+    }
+    else {
+      return (
+        <div className="">
+          {
+            (props.payload || []).map((projectItem, index) => {
 
+              if (props.usersProjects[projectItem.projectId]) {
+                return (
+                  <div className="flx flx-row flx-align-center mrgn-bottom-sm" key={projectItem.projectId}>
+                    <JoinProjectButton 
+                      authenticated={props.authenticated}
+                      userInfo={props.userInfo}
+                      orgId={props.org.id}
+                      isJoined={props.usersProjects[projectItem.projectId]}
+                      leaveProject={props.leaveProject}
+                      joinProject={props.joinProject}
+                      project={projectItem} />
+                    <div className="koi-type-body">{projectItem.name}</div>
+                  </div>
+                  )
+              }
 
-      </div>
-    )
+            })
+          }
+        </div>
+      ) 
+    }
   }
   else return null
 }
@@ -271,6 +306,7 @@ const mapStateToProps = state => ({
   ...state.orgSettings,
   org: state.projectList.org,
   currentUser: state.common.currentUser,
+  orgUser: state.common.orgUser,
   userInfo: state.common.userInfo,
   authenticated: state.common.authenticated,
   invalidOrgUser: state.common.invalidOrgUser,
@@ -423,20 +459,23 @@ class OrgSettings extends React.Component {
                     <div className="flx flx-col flx-align-start flx-just-center w-100 mrgn-bottom-sm">
                       <div className="koi-type-page-title">{orgName} Team Directory</div>
 
-                      <Link onClick={this.onOrgInviteClick} className="flx flx-row flx-align-center vb vb--sm fill--utsuri mrgn-top-md mrgn-bottom-sm">
-                        <div className="mrgn-right-sm flx flx-center-all DN">
-                          <div className="koi-ico --24 ico--add--white"></div>              
-                        </div>
-                        <div className="koi-type-body koi-type-bold color--white">
-                          Invite Users
-                        </div>
-                      </Link>
+                      {
+                        orgUser && orgUser.role !== Constants.GUEST_ROLE &&
+                          <Link onClick={this.onOrgInviteClick} className="flx flx-row flx-align-center vb vb--sm fill--utsuri mrgn-top-md mrgn-bottom-sm">
+                            <div className="mrgn-right-sm flx flx-center-all DN">
+                              <div className="koi-ico --24 ico--add--white"></div>              
+                            </div>
+                            <div className="koi-type-body koi-type-bold color--white">
+                              Invite Users
+                            </div>
+                          </Link>
+                      }
                     </div>
                     <div className="w-100">
                       <ul className="nav nav-pills outline-active">
                         <ListsTab tab={tab} onTabClick={this.onTabClick} />
                         <MembersTab tab={tab} onTabClick={this.onTabClick} />
-                        <PendingTab tab={tab} onTabClick={this.onTabClick} />
+                        <PendingTab tab={tab} onTabClick={this.onTabClick} orgUser={orgUser} />
                         {/*=<ManageTab tab={tab} onTabClick={this.onTabClick} />*/}
                       </ul>
 

@@ -272,6 +272,7 @@ class Project extends React.Component {
                       projectMembers={this.props.projectMembers}
                       orgMembers={this.props.orgMembers}
                       openProjectSettings={this.openProjectSettings}
+                      orgUser={this.props.orgUser}
                     />
                     <div className="threadlist-outer fill--mist flx flx-row">              
                       <div className="threadlist-wrapper fill--mist flx flx-col flx-align-start w-100 h-100">

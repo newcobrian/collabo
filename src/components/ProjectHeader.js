@@ -26,9 +26,12 @@ const ProjectHeader = props => {
                   <Link onClick={props.openProjectSettings} className="koi-type-body--sm color--utsuri opa-100 mrgn-right-sm text-hover"> 
                     {(membersList || []).length + ' Members'}
                   </Link>
-                  <Link onClick={props.onProjectInviteClick} className="koi-type-body--sm text-hover color--utsuri opa-100"> 
-                      Add Member
-                  </Link>
+                  {
+                    props.orgUser && props.orgUser.role !== Constants.GUEST_ROLE && 
+                      <Link onClick={props.onProjectInviteClick} className="koi-type-body--sm text-hover color--utsuri opa-100"> 
+                          Add Member
+                      </Link>
+                  }
                 </div>
               </div>
             </div>

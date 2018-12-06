@@ -189,32 +189,38 @@ class ProjectList extends React.Component {
                 );
               })
             }
-            <Link to={'/' + org.url + '/createGroup'} className="sidebar-row group-row flx flx-row flx-align-center mrgn-top-sm">
-              <div className="sidebar-icon flx flx-center-all">
-                <div className="koi-ico --24 ico--add ico-color--seaweed"></div> 
-              </div>
-              <div className="lock-wrapper flx flx-center-all mrgn-right-xs">
-              </div>
-              <div className="sidebar-project-name color--seaweed co-type-bold"> 
-                Add Group
-              </div>
-            </Link>
+            { 
+              this.props.orgUser && this.props.orgUser.role !== Constants.GUEST_ROLE &&
+                <Link to={'/' + org.url + '/createGroup'} className="sidebar-row group-row flx flx-row flx-align-center mrgn-top-sm">
+                  <div className="sidebar-icon flx flx-center-all">
+                    <div className="koi-ico --24 ico--add ico-color--seaweed"></div> 
+                  </div>
+                  <div className="lock-wrapper flx flx-center-all mrgn-right-xs">
+                  </div>
+                  <div className="sidebar-project-name color--seaweed co-type-bold"> 
+                    Add Group
+                  </div>
+                </Link>
+            }
           </div>
 
 
 
           <div className="sidebar-footer flx flx-col">
             <div className="sidebar-row flx flx-row flx-center-all mrgn-bottom-sm">
-              <Link onClick={this.onOrgInviteClick}
-                className="flx flx-col flx-center-all koi-button-fancy-wrapper mrgn-right-lg mrgn-left-lg border--utsuri">
-                  <div className="koi-button-fancy-outer">
-                  </div>
-                  <div className="koi-button-fancy-inner">
-                  </div>
-                  <div className="koi-button-fancy-text color--utsuri">
-                    Invite Team Members
-                  </div>
-              </Link>
+              { 
+                this.props.orgUser && this.props.orgUser.role !== Constants.GUEST_ROLE &&
+                  <Link onClick={this.onOrgInviteClick}
+                    className="flx flx-col flx-center-all koi-button-fancy-wrapper mrgn-right-lg mrgn-left-lg border--utsuri">
+                      <div className="koi-button-fancy-outer">
+                      </div>
+                      <div className="koi-button-fancy-inner">
+                      </div>
+                      <div className="koi-button-fancy-text color--utsuri">
+                        Invite Team Members
+                      </div>
+                  </Link>
+              }
             </div>
 
            
