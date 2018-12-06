@@ -3,7 +3,7 @@ import * as Constants from '../constants';
 import * as Helpers from '../helpers';
 import { find, isEqual } from 'lodash';
 
-const initialState = { tab: 'members', isDeleteMode: false, confirmedDelete: false }
+const initialState = { tab: 'members', isDeleteMode: false, confirmedDelete: false, isMember: {} }
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -70,6 +70,36 @@ export default (state = initialState, action) => {
         ...state,
         [action.key]: !state[action.key] 
       }
+    case ActionTypes.PROJECT_MEMBER_ADDED: {
+      if (action.source === Constants.PROJECT_INVITE_MODAL) {
+        const newState = Object.assign({}, state);
+        
+        newState.isMember = Object.assign({}, state.isMember || {});
+        newState.isMember[action.userId] = true
+
+        return newState;
+      }
+      return state;
+    }
+    case ActionTypes.PROJECT_MEMBER_REMOVED: {
+      if (action.source === Constants.PROJECT_INVITE_MODAL) {
+        const newState = Object.assign({}, state);
+        
+        newState.isMember = Object.assign({}, state.isMember || {});
+        newState.isMember[action.userId] = null
+
+        return newState;
+      }
+      return state;
+    }
+    case ActionTypes.UNLOAD_PROJECT_MEMBERS:
+      if (action.source === Constants.PROJECT_INVITE_MODAL) {
+        return {
+          ...state,
+          isMember: {}
+        }
+      }
+      return state
     case ActionTypes.HIDE_MODAL:
     case ActionTypes.PROJECT_DELETED:
         return initialState

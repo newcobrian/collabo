@@ -48,17 +48,16 @@ const ProfileInfo = props => {
 
             <div className="co-type-page-title mrgn-top-sm">{profile.username}</div>
 
-            <div className="user-bio ta-left flx flx-col flx-align-center mrgn-top-sm DN">
+            <div className="user-bio ta-left flx flx-col flx-align-center mrgn-top-sm ">
 
 
               <div className="co-type-profile-status mrgn-top-xs mrgn-bottom-xs ta-center">
-                Coding up Prototype stage DOM and style for all pages, then testing more visual styles
-                {/*{profile.bio}*/}
+                {profile.email}
               </div>
               
-              <div className="thread-timestamp">
+              {/*<div className="thread-timestamp">
                 Status updated 2 hours ago
-              </div>
+              </div>*/}
               
 
             </div>

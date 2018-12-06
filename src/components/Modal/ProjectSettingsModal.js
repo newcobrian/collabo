@@ -10,6 +10,9 @@ import FlatButton from 'material-ui/FlatButton';
 import ProfilePic from './../ProfilePic'
 import ListErrors from './../ListErrors'
 
+const REMOVE_ACTION = 'REMOVE'
+const ADD_ACTION = 'ADD'
+
 const MembersTab = props => {
   const clickHandler = ev => {
     ev.preventDefault();
@@ -50,6 +53,33 @@ const ManageTab = props => {
   }
 };
 
+const RemoveFromProjectButton = props => {
+    const handleButtonClick = ev => {
+      ev.preventDefault()
+      if (props.isMember) {
+        props.removeFromProject(REMOVE_ACTION, props.teammate)
+      }
+      else {
+        props.removeFromProject(ADD_ACTION, props.teammate)
+      }
+    }
+    
+    // if user is Admin or higher
+    // AND teammate is not an owner or primary owner or Admin
+    // AND user is higher level than teammate
+    if (props.orgUser && props.orgUser.role <= Constants.ADMIN_ROLE &&
+        props.teammate.role >= Constants.USER_ROLE && props.orgUser.role < props.teammate.role) {
+      return (
+        <div className="flx flx-center-all mrgn-right-md">
+      <button onClick={handleButtonClick} className={"vb vb--xs vb--round flx flx-row flx-center-all " + (props.isMember ?  'fill--seaweed color--white': 'fill--mist color--black' )}>
+          { props.isMember ? 'Remove from List' : 'Add to List' }
+      </button>
+    </div>
+      )
+    }
+    else return null
+  }
+
 const MembersList = props => {
   if (props.tab === Constants.MEMBERS_TAB) {
     return (
@@ -69,6 +99,11 @@ const MembersList = props => {
                           <div className="thread-timestamp opa-60">{teammate.fullName}</div>
                     </div>
                 </Link>
+                <RemoveFromProjectButton 
+                  orgUser={props.orgUser} 
+                  teammate={teammate} 
+                  removeFromProject={props.removeFromProject}
+                  isMember={props.isMember[teammate.userId]} />
               </div>
               )
             })
@@ -150,7 +185,8 @@ const mapStateToProps = state => ({
   ...state.modal,
   ...state.projectSettings,
   authenticated: state.common.authenticated,
-  orgUser: state.common.orgUser
+  orgUser: state.common.orgUser,
+  org: state.projectList.org
 });
 
 class ProjectSettingsModal extends React.Component {
@@ -193,12 +229,23 @@ class ProjectSettingsModal extends React.Component {
       this.props.onToggleDeleteProjectMode('isDeleteMode')
     }
 
-     this.onToggleConfirm = ev => {
+    this.onToggleConfirm = ev => {
       this.props.onToggleDeleteProjectMode('confirmedDelete')
+    }
+
+    this.removeFromProject = (action, teammate) => {
+      let project = Object.assign({}, this.props.project, { projectId: this.props.projectId })
+      if (action === REMOVE_ACTION) {
+        this.props.leaveProject(teammate.userId, teammate, this.props.org.id, project)
+      }
+      else if (action === ADD_ACTION) {
+        this.props.joinProject(teammate.userId, teammate, this.props.org.id, project)
+      }
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    this.props.loadProjectMembers(this.props.projectId, Constants.PROJECT_INVITE_MODAL)
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project settings modal' });
   }
 
@@ -230,7 +277,7 @@ class ProjectSettingsModal extends React.Component {
     ];
 
     const { authenticated, tab, projectId, project, projectName, projectMembers, orgURL, errors, orgUser,
-      isDeleteMode, confirmedDelete } = this.props
+      isDeleteMode, confirmedDelete, isMember } = this.props
 
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
@@ -282,7 +329,10 @@ class ProjectSettingsModal extends React.Component {
           <MembersList
             tab={tab}
             projectMembers={projectMembers}
-            orgURL={orgURL} />
+            orgURL={orgURL}
+            orgUser={orgUser}
+            removeFromProject={this.removeFromProject}
+            isMember={isMember} />
             
           <ManageForm
             tab={tab}
