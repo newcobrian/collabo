@@ -1388,7 +1388,7 @@ export function changeOrgSettingsTab(tab, orgId) {
     if (orgId) {
       if (tab === Constants.MEMBERS_TAB) {
         // stop watching previous paths
-        Firebase.database().ref(Constants.INVITES_BY_ORG_PATH + '/' + orgId).off()
+        Firebase.database().ref(Constants.INVITED_USERS_BY_ORG_PATH + '/' + orgId).off()
         Firebase.database().ref(Constants.PROJECTS_BY_ORG_PATH + '/' + orgId).off()
 
         // then watch the members in this org
@@ -1424,7 +1424,7 @@ export function changeOrgSettingsTab(tab, orgId) {
       }
       else if (tab === Constants.LISTS_TAB) {
         // stop watching invites list
-        Firebase.database().ref(Constants.INVITES_BY_ORG_PATH + '/' + orgId).off()
+        Firebase.database().ref(Constants.INVITED_USERS_BY_ORG_PATH + '/' + orgId).off()
 
         // then watch the members in this org
         Firebase.database().ref(Constants.PROJECTS_BY_ORG_PATH + '/' + orgId).on('value', projectSnap => {
