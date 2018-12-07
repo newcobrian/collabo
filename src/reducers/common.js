@@ -1,5 +1,5 @@
 import { SIGN_OUT_USER, REVIEW_SUBMITTED, APP_USER_LOADED, EMPTY_FRIEND_SELECTOR,
-  GET_INBOX_COUNT, HOME_PAGE_NO_AUTH, ASK_FOR_AUTH, FRIEND_SELECTOR_SUBMIT, REVIEW_DELETED,
+  HOME_PAGE_NO_AUTH, ASK_FOR_AUTH, FRIEND_SELECTOR_SUBMIT, REVIEW_DELETED,
   FORWARD_MODAL, REVIEW_MODAL, ITINERARY_CREATED, ITINERARY_UPDATED, EDITOR_PAGE_NO_AUTH, ITINERARY_DELETED } from '../actions';
 import * as ActionTypes from '../actions/types'
 
@@ -33,11 +33,11 @@ export default (state = defaultState, action) => {
         ...state,
         userInfo: action.payload ? action.payload : null
       }
-    case GET_INBOX_COUNT:
-      return {
-        ...state,
-        unreadMessages: action.payload
-      }
+    // case ActionTypes.GET_INBOX_COUNT:
+    //   return {
+    //     ...state,
+    //     unreadMessages: action.payload
+    //   }
     case 'REDIRECT':
       return { ...state, redirectTo: null };
     case 'LOGOUT':
@@ -149,6 +149,33 @@ export default (state = defaultState, action) => {
         ...state,
         redirectTo: '/' + action.orgURL
       }
+        case ActionTypes.INBOX_COUNT_ADDED:
+    case ActionTypes.INBOX_COUNT_CHANGED: {
+      const newState = Object.assign({}, state);
+      newState.inboxCounters = Object.assign({}, (newState.inboxCounters || {}))
+      newState.inboxCounters[action.orgId] = action.count
+
+      let total = 0
+      Object.keys(newState.inboxCounters).forEach(function(orgId) {
+        total += newState.inboxCounters[orgId]
+      })
+
+      newState.totalInboxCount = total
+      return newState;
+    }
+    case ActionTypes.INBOX_COUNT_REMOVED: {
+      const newState = Object.assign({}, state);
+      newState.inboxCounters = Object.assign({}, (newState.inboxCounters || {}))
+      delete newState.inboxCounters[action.orgId]
+
+      let total = 0
+      Object.keys(newState.inboxCounters).forEach(function(orgId) {
+        total += newState.inboxCounters[orgId]
+      })
+
+      newState.totalInboxCount = total
+      return newState;
+    }
     default: 
       return state;
   }

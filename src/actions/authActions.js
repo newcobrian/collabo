@@ -151,7 +151,7 @@ export function signUpUser(email, password, fullName, verificationId, redirect, 
                       })
                     }
                   })
-                  Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + userId).update({messageCount: inboxCounter})
+                  Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + userId + '/' + orgInvite.key).update({messageCount: inboxCounter})
 
                   // if an orgId was passed, also add this user to the org
                   if (orgId) {

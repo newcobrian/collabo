@@ -6,7 +6,6 @@ import * as Constants from '../constants';
 import ProfilePic from './ProfilePic';
 import FirebaseSearchInput from './FirebaseSearchInput';
 
-
 const DotJewel = props => {
   if (props.threadCount > 0) {
     return (
@@ -68,7 +67,8 @@ const mapStateToProps = state => ({
   currentUser: state.common.currentUser,
   authenticated: state.common.authenticated,
   orgUser: state.common.orgUser,
-  unreadMessages: state.common.unreadMessages
+  inboxCounters: state.common.inboxCounters,
+  totalInboxCount: state.common.totalInboxCount
 });
 
 class ProjectList extends React.Component {
@@ -104,7 +104,8 @@ class ProjectList extends React.Component {
 
     let org = this.props.org
     let threadCounts = this.props.threadCounts || {}
-    let inboxCount = this.props.unreadMessages && this.props.unreadMessages[this.props.org.id] ? this.props.unreadMessages[this.props.org.id] : 0
+    let inboxCount = this.props.inboxCounters && this.props.inboxCounters[this.props.org.id] ? this.props.inboxCounters[this.props.org.id] : 0
+    let otherInboxes = (this.props.totalInboxCount || 0) - inboxCount
 
     return (
       <div className="co-sidebar flx-col flx-item-left h-100 fill--mist">
@@ -117,8 +118,9 @@ class ProjectList extends React.Component {
             <option value={org.url}>{org.name}</option>
             {(this.props.orgList || []).map((orgItem, index) => {
               if (orgItem && orgItem.name && orgItem.url && org.url && orgItem.url.toLowerCase() !== org.url.toLowerCase()) {
+                let count = this.props.inboxCounters && this.props.inboxCounters[orgItem.id] ? this.props.inboxCounters[orgItem.id] : 0
                 return (
-                  <option key={index} value={orgItem.url}>{orgItem.name}</option>  
+                  <option key={index} value={orgItem.url}>{orgItem.name} - {count}</option>  
                 )
               }
             })}

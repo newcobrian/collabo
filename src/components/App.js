@@ -68,7 +68,7 @@ class App extends React.Component {
         mixpanel.register({"User ID": user.uid});
         this.props.onLoad(user);
         // this.props.loadOrganizationList(user.uid)
-        // this.props.getInboxCount(user.uid);
+        this.props.getInboxCount(user.uid);
         this.props.sendMixpanelEvent('App loaded');
       } 
       else {

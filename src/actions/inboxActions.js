@@ -109,27 +109,60 @@ export function unloadInbox(userId, orgId) {
   }
 }
 
+// export function getInboxCount(userId, orgId) {
+//   return dispatch => {
+//     Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + userId).on('value', inboxSnapshot => {
+//       if (inboxSnapshot.exists()) {
+//         let unreadMessages = {}
+//         inboxSnapshot.forEach(function(org) {
+//           let messageCount = org.val().messageCount ? org.val().messageCount : 0;
+//           let messagesRead = org.val().messagesRead ? org.val().messagesRead : 0;
+
+//           unreadMessages[org.key] = messageCount - messagesRead
+//         })
+//         // const messageCount = inboxSnapshot.val().messageCount ? inboxSnapshot.val().messageCount : 0;
+//         // const messagesRead = inboxSnapshot.val().messagesRead ? inboxSnapshot.val().messagesRead : 0;
+//         dispatch({
+//           type: ActionTypes.GET_INBOX_COUNT,
+//           payload: unreadMessages
+//         })
+//       }
+//       else dispatch({
+//         type: ActionTypes.GET_INBOX_COUNT,
+//         payload: {}
+//       })
+//     })
+//   }
+// }
+
 export function getInboxCount(userId, orgId) {
   return dispatch => {
-    Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + userId).on('value', inboxSnapshot => {
-      if (inboxSnapshot.exists()) {
-        let unreadMessages = {}
-        inboxSnapshot.forEach(function(org) {
-          let messageCount = org.val().messageCount ? org.val().messageCount : 0;
-          let messagesRead = org.val().messagesRead ? org.val().messagesRead : 0;
+    Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + userId).on('child_added', addedSnap => {
+      let messageCount = addedSnap.val().messageCount ? addedSnap.val().messageCount : 0;
+      let messagesRead = addedSnap.val().messagesRead ? addedSnap.val().messagesRead : 0;
+      let count = messageCount - messagesRead
+      dispatch({
+        type: ActionTypes.INBOX_COUNT_ADDED,
+        orgId: addedSnap.key,
+        count: count > 0 ? count : 0
+      })
+    })
 
-          unreadMessages[org.key] = messageCount - messagesRead
-        })
-        // const messageCount = inboxSnapshot.val().messageCount ? inboxSnapshot.val().messageCount : 0;
-        // const messagesRead = inboxSnapshot.val().messagesRead ? inboxSnapshot.val().messagesRead : 0;
-        dispatch({
-          type: ActionTypes.GET_INBOX_COUNT,
-          payload: unreadMessages
-        })
-      }
-      else dispatch({
-        type: ActionTypes.GET_INBOX_COUNT,
-        payload: {}
+    Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + userId).on('child_changed', changedSnap => {
+      let messageCount = changedSnap.val().messageCount ? changedSnap.val().messageCount : 0;
+      let messagesRead = changedSnap.val().messagesRead ? changedSnap.val().messagesRead : 0;
+      let count = messageCount - messagesRead
+      dispatch({
+        type: ActionTypes.INBOX_COUNT_CHANGED,
+        orgId: changedSnap.key,
+        count: count > 0 ? count : 0
+      })
+    })
+
+    Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + userId).on('child_removed', removedSnap => {
+      dispatch({
+        type: ActionTypes.INBOX_COUNT_REMOVED,
+        orgId: removedSnap.key
       })
     })
   }
