@@ -154,13 +154,13 @@ class Comment extends React.Component {
             <div className="comment-inner-inner flx flx-col flx-just-start w-100">
               <div className="flx flx-row flx-just-start flx-align-center w-100">
                 <Link
-                  to={`/user/${commenter.username}`}
+                  to={`/${orgURL}/user/${commenter.username}`}
                   className="mrgn-right-sm">
                   <ProfilePic src={commenter.image} className="user-image user-image-sm center-img" />
                 </Link>
                 <div className="co-type-body flx flx-col flx-just-start mrgn-left-xs">
                   <Link
-                    to={`/user/${commenter.username}`}
+                    to={`/${orgURL}/user/${commenter.username}`}
                     className="co-type-bold color--black">
                     {commenter.username}
                   </Link>
