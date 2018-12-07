@@ -151,7 +151,7 @@ const sendDailyDigestEmail = (recipientId, orgId, threadsArray, extras, totalThr
           orgName: orgSnap.val().name,
           orgURL: orgSnap.val().url,
           link: COLLABO_URL + '/' + orgSnap.val().url,
-          totalThreads: totalThreads
+          totalThreads: totalThreads + (totalThreads > 1 ? ' highlights' : ' highlight'
         }
         if (extras > 0) {
           data.extras = '... and ' + extras + ' more new posts.'
