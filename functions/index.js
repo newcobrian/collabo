@@ -262,7 +262,9 @@ exports.hourly_job =
 
                       if (counter === threadsSnap.numChildren()) {
                         let extras = projectCounter - 5
-                        sendDailyDigestEmail(user.key, org.key, threadArray, extras, projectCounter)
+                        if (projectCounter > 0) {
+                          sendDailyDigestEmail(user.key, org.key, threadArray, extras, projectCounter)
+                        }
                       }
                     }
                   })
