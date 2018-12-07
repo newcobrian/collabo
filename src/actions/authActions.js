@@ -114,7 +114,7 @@ export function signUpUser(email, password, fullName, verificationId, redirect, 
                 let updates = {};
 
                 let cleanedEmail = Helpers.cleanEmailToFirebase(email)
-                Firebase.database().ref(Constants.INVITES_BY_EMAIL_BY_ORG_PATH + '/' + cleanedEmail).once('value', invitesByEmailSnap => {
+                // Firebase.database().ref(Constants.INVITES_BY_EMAIL_BY_ORG_PATH + '/' + cleanedEmail).once('value', invitesByEmailSnap => {
                   // need to save users profile info
                   updates[Constants.USERS_PATH + '/' + userId] = userData
 
@@ -133,25 +133,25 @@ export function signUpUser(email, password, fullName, verificationId, redirect, 
                   // migrate invites sent to user's email address to their inbox
                   let lastModified = Firebase.database.ServerValue.TIMESTAMP
                   let inboxCounter = 0
-                  invitesByEmailSnap.forEach(function(orgInvite) {
-                    // update recipientId on invite
-                    if (orgInvite.val()) {
-                      orgInvite.forEach(function(inviteItem) {
-                        Firebase.database().ref(Constants.ORGS_PATH + '/' + orgInvite.key).once('value', orgSnap => {
-                          let inviteObject = Object.assign({}, 
-                          { link: '/invitation/' + inviteItem.key }, 
-                          { message: ' invited you to join the "' + orgSnap.val().name + '" team.'}, 
-                          { senderId: inviteItem.val() }, 
-                          { type: Constants.INBOX_INVITE_TYPE }, 
-                          { lastModified: lastModified} );
+                  // invitesByEmailSnap.forEach(function(orgInvite) {
+                  //   // update recipientId on invite
+                  //   if (orgInvite.val()) {
+                  //     orgInvite.forEach(function(inviteItem) {
+                  //       Firebase.database().ref(Constants.ORGS_PATH + '/' + orgInvite.key).once('value', orgSnap => {
+                  //         let inviteObject = Object.assign({}, 
+                  //         { link: '/invitation/' + inviteItem.key }, 
+                  //         { message: ' invited you to join the "' + orgSnap.val().name + '" team.'}, 
+                  //         { senderId: inviteItem.val() }, 
+                  //         { type: Constants.INBOX_INVITE_TYPE }, 
+                  //         { lastModified: lastModified} );
                         
-                          Firebase.database().ref(Constants.INBOX_PATH + '/' + userId).push(inviteObject)
-                          inboxCounter++;
-                        })
-                      })
-                    }
-                  })
-                  Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + userId + '/' + orgInvite.key).update({messageCount: inboxCounter})
+                  //         Firebase.database().ref(Constants.INBOX_PATH + '/' + userId).push(inviteObject)
+                  //         inboxCounter++;
+                  //       })
+                  //     })
+                  //   }
+                  // })
+                  // Firebase.database().ref(Constants.INBOX_COUNTER_PATH + '/' + userId + '/' + orgInvite.key).update({messageCount: inboxCounter})
 
                   // if an orgId was passed, also add this user to the org
                   if (orgId) {
@@ -180,7 +180,7 @@ export function signUpUser(email, password, fullName, verificationId, redirect, 
                       }
                     }
                   })
-                })
+                // })
               })
               .catch(error => {
                 console.log(error);
