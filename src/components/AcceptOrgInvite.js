@@ -67,7 +67,8 @@ class AcceptOrgInvite extends React.Component {
           }
           else {
             // register user and accept invite
-            this.props.signUpUser(this.props.invite.recipientEmail, this.props.password, this.props.fullName, null, '/', this.props.invite, this.props.username, this.props.imageFile)
+            let invite = Object.assign({}, {id: this.props.params.iid}, this.props.invite)
+            this.props.signUpUser(this.props.invite.recipientEmail, this.props.password, this.props.fullName, null, '/', invite, this.props.username, this.props.imageFile)
           }
         }
       }

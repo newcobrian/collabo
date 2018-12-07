@@ -175,8 +175,7 @@ export function inviteUsersToOrg(auth, org, invites, role, projects) {
                     { senderUsername:  authUser.username },
                     { timestamp: Firebase.database.ServerValue.TIMESTAMP })
 
-                // add to invited list for the org
-                // updates[Constants.INVITES_BY_ORG_PATH + '/' + orgId + '/users/' + emailHashSnap.val()[cleanedEmail].userId + '/' + inviteId] = true;
+                // add to users invites
               }
               else {
                 let inviteId = Firebase.database().ref(Constants.INVITES_PATH).push(inviteObject).key
@@ -191,7 +190,7 @@ export function inviteUsersToOrg(auth, org, invites, role, projects) {
                     { timestamp: Firebase.database.ServerValue.TIMESTAMP })
 
                 // add to invited list for the org
-                // updates[Constants.INVITES_BY_ORG_PATH + '/' + orgId + '/emails/' + cleanedEmail + '/' + inviteId] = true
+                
                 
                 // send the email
                 Helpers.sendInviteEmail(auth, email, org, inviteId);

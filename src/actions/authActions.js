@@ -155,7 +155,7 @@ export function signUpUser(email, password, fullName, verificationId, redirect, 
 
                   // if an orgId was passed, also add this user to the org
                   if (orgId) {
-                    Helpers.addUserToOrg(userId, email, invite, null, userData, imageFile)  
+                    Helpers.addUserToOrg(userId, email, invite, invite.id, userData, imageFile)  
                   }
 
                   // set account created date super property
