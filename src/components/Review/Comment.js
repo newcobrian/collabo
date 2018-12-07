@@ -1,7 +1,9 @@
-import DeleteButton from './DeleteButton';
-import { Link } from 'react-router';
 import React from 'react';
 import * as Constants from '../../constants';
+import * as Actions from '../../actions';
+import { connect } from 'react-redux';
+import DeleteButton from './DeleteButton';
+import { Link } from 'react-router';
 import ProfilePic from './../ProfilePic';
 import GoogleDriveLink from './GoogleDriveLink';
 import DisplayTimestamp from './../DisplayTimestamp';
@@ -61,6 +63,10 @@ const EditButton = props => {
     )
   } 
   else return null
+}
+
+const mapDispatchToProps = {
+  hideModal: Actions.hideModal
 }
 
 class Comment extends React.Component {
@@ -155,12 +161,14 @@ class Comment extends React.Component {
               <div className="flx flx-row flx-just-start flx-align-center w-100">
                 <Link
                   to={`/${orgURL}/user/${commenter.username}`}
+                  onClick={this.props.hideModal}
                   className="mrgn-right-sm">
                   <ProfilePic src={commenter.image} className="user-image user-image-sm center-img" />
                 </Link>
                 <div className="co-type-body flx flx-col flx-just-start mrgn-left-xs">
                   <Link
                     to={`/${orgURL}/user/${commenter.username}`}
+                    onClick={this.props.hideModal}
                     className="co-type-bold color--black">
                     {commenter.username}
                   </Link>
@@ -269,4 +277,4 @@ class Comment extends React.Component {
 
 };
 
-export default Comment;
+export default connect(null, mapDispatchToProps)(Comment);

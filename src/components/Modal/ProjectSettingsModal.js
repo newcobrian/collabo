@@ -88,7 +88,10 @@ const MembersList = props => {
           (props.projectMembers || []).map(teammate => {
             return (
               <div key={teammate.userId}>
-                <Link to={'/' + props.orgURL + '/user/' + teammate.username} className="mrgn-bottom-sm pdding-all-sm w-100 flx flx-row flx-align-center">
+                <Link 
+                  to={'/' + props.orgURL + '/user/' + teammate.username} 
+                  onClick={props.hideModal}
+                  className="mrgn-bottom-sm pdding-all-sm w-100 flx flx-row flx-align-center">
 
                     <div className="reviewer-photo photo-lg mrgn-right-sm">
                       <ProfilePic src={teammate.image} />
@@ -332,7 +335,8 @@ class ProjectSettingsModal extends React.Component {
             orgURL={orgURL}
             orgUser={orgUser}
             removeFromProject={this.removeFromProject}
-            isMember={isMember} />
+            isMember={isMember}
+            hideModal={this.props.hideModal} />
             
           <ManageForm
             tab={tab}
