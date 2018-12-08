@@ -962,6 +962,9 @@ export function addUserToOrg(auth, email, invite, inviteId, userData, imageFile)
 	    updates[Constants.INVITES_PATH + '/' + inviteId + '/status/'] = Constants.ACCEPTED_STATUS
 	    updates[Constants.INVITED_USERS_BY_ORG_PATH + '/' + orgId + '/' + cleanedEmail] = null
 
+	    // remove all invites to the org from dashboard
+	    updates[Constants.INVITES_BY_EMAIL_BY_ORG_PATH + '/' + cleanedEmail + '/' + orgId] = null
+
 		// if this is a guest, only add the projects they were added to    
 	    if (role === Constants.GUEST_ROLE) {
 	    	(invite.projects || []).forEach(function(projectId) {
