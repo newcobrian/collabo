@@ -12,6 +12,7 @@ import ListErrors from './../ListErrors'
 
 const mapStateToProps = state => ({
   ...state.modal,
+  ...state.projectInvite,
   authenticated: state.common.authenticated
 });
 
@@ -20,7 +21,7 @@ class ProjectInviteModal extends React.Component {
     super()
 
     this.toggleCheckbox = label => ev => {
-      this.props.onUpdateFriendsCheckbox(label, this.props.selectedUsers, Constants.PROJECT_INVITE_MODAL)
+      this.props.onUpdateSelector(label, this.props.selectedUsers, Constants.PROJECT_INVITE_MODAL)
     }
   }
 
@@ -35,6 +36,7 @@ class ProjectInviteModal extends React.Component {
 
     const handleInvite = ev => {
       ev.preventDefault();
+      console.log(JSON.stringify(this.props.selectedUsers))
 
       if (!this.props.selectedUsers || this.props.selectedUsers.length < 1) {
         this.props.createSubmitError('Select at least one person to invite', Constants.PROJECT_INVITE_MODAL);

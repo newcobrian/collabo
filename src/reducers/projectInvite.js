@@ -10,11 +10,14 @@ import * as Helpers from '../helpers';
   			...state,
   			friends: action.payload
   		}
-  	case ActionTypes.UPDATE_FRIENDS_CHECKBOX:
-  		return {
-  			...state,
-        selectedUsers: action.payload
-  		}
+  	case ActionTypes.UPDATE_SELECTOR:
+      if (action.source === Constants.PROJECT_INVITE_MODAL) {
+        return {
+          ...state,
+          selectedUsers: action.payload
+        }
+      }
+      return state;
     case ActionTypes.FRIEND_SELECTOR_SUBMIT:
       return {
         ...state,
