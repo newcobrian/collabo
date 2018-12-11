@@ -11,6 +11,11 @@
         ".indexOn": "updatedAt"
       }
     },
+    "threads-by-org": {
+      "$orgId": {
+        ".indexOn": "lastModified"
+      }
+    },
 
     ".read": true,
     ".write": "auth != null"
