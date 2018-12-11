@@ -242,6 +242,14 @@ export const USER_ROLES_MAP = {
 	4: 'Guest'
 }
 
+export const USER_ROLES_ARRAY = [
+	'Primary Owner',
+	'Owner',
+	'Admin',
+	'User',
+	'Guest'
+]
+
 /*** USER STATUS ***/
 export const ACTIVE_STATUS = 'Active'
 export const DEACTIVE_STATUS = 'Deactivated'

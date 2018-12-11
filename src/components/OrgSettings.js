@@ -11,9 +11,32 @@ import ProfilePic from './ProfilePic';
 import DisplayTimestamp from './DisplayTimestamp';
 import InvalidOrg from './InvalidOrg'
 import LoggedOutMessage from './LoggedOutMessage';
-import { SplitButton, MenuItem } from 'react-bootstrap'
+import { DropdownButton, MenuItem } from 'react-bootstrap'
 
 const mql = window.matchMedia(`(min-width: 800px)`);
+
+const DeactivateButton = props => {
+  const {orgUser, teammate} = props
+
+  const onChange = () => {
+
+  }
+
+  // if org user is admin or better, and is same or higher level role than the user, they can activate/deactivate
+  if (orgUser.role <= Constants.ADMIN_ROLE && orgUser.role <= teammate.role) {
+    if (teammate.status === Constants.DEACTIVE_STATUS) {
+     return (
+        <MenuItem title='Deactivate' onSelect={onChange}>Activate user</MenuItem>  
+      )
+    }
+    else {
+      return (
+        <MenuItem title='Activate' onSelect={onChange}>Deactivate user</MenuItem>  
+      )
+    }
+  }
+  else return null
+}
 
 const JoinProjectButton = props => {
   const handleJoinClick = ev => {
@@ -108,40 +131,70 @@ const ManageTab = props => {
 };
 
 const EditUserRole = props => {
-  const { user, orgUser } = props
+  const { teammate, orgUser } = props
 
   const onChange = eventKey => {
-    props.onChangeUserRole(user, eventKey)
+    props.onChangeUserRole(teammate, eventKey)
   }
-  // check if org user's role is primary owner, owner, or admin
-  // user can't change their own role, and primary owner cant change their role
-  if (orgUser.role > Constants.ADMIN_ROLE || orgUser.userId === user.userId || user.role === Constants.PRIMARY_OWNER_ROLE) {
+  // auth can edit other users if:
+  // 1) auth is at least an admin, they aren't looking at themselves, teammate is not a primary owner
+  // 2) AND either: auth is a higher level than teammate OR they are both owners
+  if (orgUser.role <= Constants.ADMIN_ROLE && orgUser.userId !== teammate.userId && teammate.role !== Constants.PRIMARY_OWNER_ROLE &&
+    (orgUser.role < teammate.role || (orgUser.role === teammate.role && orgUser.role === Constants.OWNER_ROLE))) {
     return (
       <div className="koi-dropdown flx flx-row flx-align-center flx-hold color--utsuri">
-      </div>
-      )
-  }
-  
-  else {
-    return (
-    <div className="koi-dropdown flx flx-row flx-align-center flx-hold color--utsuri">
-      <SplitButton title='Edit' id={`split-button-basic`}>
-        {(props.roleArray || []).map((roleType, index) => {
-          if (orgUser.role < index) {
+        <DropdownButton title='Edit' id={`split-button-basic`}>
+        {(Constants.USER_ROLES_ARRAY || []).map((roleType, index) => {
+          
+          if (teammate.role == index) {
+            return (
+              <div key={index}>{roleType}</div>
+            )
+          }
+          else if (orgUser.role < index || 
+            (orgUser.role == index) && (orgUser.role == Constants.OWNER_ROLE || orgUser.role == Constants.ADMIN_ROLE)) {
             return (
               <MenuItem title='Edit' eventKey={index} key={index} onSelect={onChange}>Change to {roleType}</MenuItem>
             )
           }
-          else if ((orgUser.role === Constants.OWNER_ROLE || orgUser.role === Constants.ADMIN_ROLE) && orgUser.role == index) {
-            return (
-              <MenuItem title='Edit' eventKey={index} key={index} onSelect={onChange}>Change to {roleType}</MenuItem>  
-            )
-          }
+          else return null
         })}
-      </SplitButton>
-    </div> 
+          <MenuItem divider />
+          {/*<DeactivateButton teammate={teammate} orgUser={orgUser} />*/}
+        </DropdownButton>
+      </div> 
     )
   }
+  else return null
+  // if (orgUser.role > Constants.ADMIN_ROLE || orgUser.userId === user.userId || user.role === Constants.PRIMARY_OWNER_ROLE) {
+  //   return (
+  //     <div className="koi-dropdown flx flx-row flx-align-center flx-hold color--utsuri">
+  //     </div>
+  //     )
+  // }
+  
+  // else {
+  //   return (
+  //   <div className="koi-dropdown flx flx-row flx-align-center flx-hold color--utsuri">
+  //     <DropdownButton title='Edit' id={`split-button-basic`}>
+  //       {(props.roleArray || []).map((roleType, index) => {
+  //         if (orgUser.role < index) {
+  //           return (
+  //             <MenuItem title='Edit' eventKey={index} key={index} onSelect={onChange}>Change to {roleType}</MenuItem>
+  //           )
+  //         }
+  //         else if ((orgUser.role === Constants.OWNER_ROLE || orgUser.role === Constants.ADMIN_ROLE) && orgUser.role == index) {
+  //           return (
+  //             <MenuItem title='Edit' eventKey={index} key={index} onSelect={onChange}>Change to {roleType}</MenuItem>  
+  //           )
+  //         }
+  //       })}
+  //       <MenuItem divider />
+  //       <DeactivateButton user={user} orgUser={orgUser} />
+  //     </DropdownButton>
+  //   </div> 
+  //   )
+  // }
 }
 
 const RoleRender = props => {
@@ -197,8 +250,7 @@ const MembersList = props => {
                   </div>
                   <EditUserRole
                     orgUser={Object.assign({}, props.orgUser, {userId: props.authenticated})} 
-                    user={userItem}
-                    roleArray={props.roleArray}
+                    teammate={userItem}
                     onChangeUserRole={props.onChangeUserRole} />
                   </div>
                 </div>
@@ -419,14 +471,9 @@ class OrgSettings extends React.Component {
     const { payload, sidebarOpen, tab, usersProjects, org, authenticated, orgUser, userInfo } = this.props;
     const orgName = org && org.name ? org.name : ''
 
-    let roleArray = []
-    // for (let i = 0; i <= Constants.GUEST_ROLE; i++) {
-    //   roleArray = Constants.USER_ROLES_MAP[i]
-    // }
-
-    Object.keys(Constants.USER_ROLES_MAP).forEach(function(item) {
-      roleArray[item] = Constants.USER_ROLES_MAP[item]
-    })
+    // Object.keys(Constants.USER_ROLES_MAP).forEach(function(item) {
+    //   roleArray[item] = Constants.USER_ROLES_MAP[item]
+    // })
 
     return (
       <div>
@@ -491,7 +538,6 @@ class OrgSettings extends React.Component {
                         usersProjects={usersProjects || {}} 
                         joinProject={this.props.joinProject}
                         leaveProject={this.props.leaveProject}
-                        roleArray={roleArray}
                         onChangeUserRole={this.onChangeUserRole} />
                         {/*<ListErrors errors={this.props.errors}></ListErrors>*/}
 

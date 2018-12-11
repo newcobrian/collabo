@@ -69,13 +69,14 @@ const RemoveFromProjectButton = props => {
     // AND user is higher level than teammate
     if (props.orgUser && props.orgUser.role <= Constants.ADMIN_ROLE &&
         props.teammate.role >= Constants.USER_ROLE && props.orgUser.role < props.teammate.role) {
-      return (
-        <div className="flx flx-center-all mrgn-right-md">
-      <button onClick={handleButtonClick} className={"vb vb--xs vb--round flx flx-row flx-center-all " + (props.isMember ?  'fill--seaweed color--white': 'fill--mist color--black' )}>
-          { props.isMember ? 'Remove from List' : 'Add to List' }
-      </button>
-    </div>
-      )
+      return null
+    //   return (
+    //     <div className="flx flx-center-all mrgn-right-md">
+    //   <button onClick={handleButtonClick} className={"vb vb--xs vb--round flx flx-row flx-center-all " + (props.isMember ?  'fill--seaweed color--white': 'fill--mist color--black' )}>
+    //       { props.isMember ? 'Remove from List' : 'Add to List' }
+    //   </button>
+    // </div>
+    //   )
     }
     else return null
   }
