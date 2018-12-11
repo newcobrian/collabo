@@ -123,26 +123,32 @@ class Project extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.unwatchThreadFeed(this.props.authenticated, this.props.org.id, this.props.params.pid, Constants.PROJECT_PAGE)
-    this.props.unloadProjectNames(this.props.org.id, Constants.PROJECT_PAGE)
-    this.props.unloadOrgList(this.props.authenticated, Constants.PROJECT_PAGE)
-    this.props.unloadThreadCounts(this.props.authenticated, this.props.org.id)
-    this.props.unloadProjectList(this.props.authenticated, this.props.org.id, Constants.PROJECT_PAGE)
-    this.props.unloadOrg(this.props.authenticated, this.props.org.id, Constants.PROJECT_PAGE);
-    this.props.unloadProjectMembers(this.props.params.pid, Constants.PROJECT_PAGE)
-    this.props.unloadOrgMembers(this.props.org.id, Constants.PROJECT_PAGE)
-    this.props.unloadProject(this.props.params.pid, this.props.org.id, Constants.PROJECT_PAGE);
+    if (this.props.org && this.props.org.id) {
+      this.props.unwatchThreadFeed(this.props.authenticated, this.props.org.id, this.props.params.pid, Constants.PROJECT_PAGE)
+      this.props.unloadProjectNames(this.props.org.id, Constants.PROJECT_PAGE)
+      this.props.unloadOrgList(this.props.authenticated, Constants.PROJECT_PAGE)
+      this.props.unloadThreadCounts(this.props.authenticated, this.props.org.id)
+      this.props.unloadProjectList(this.props.authenticated, this.props.org.id, Constants.PROJECT_PAGE)
+      this.props.unloadOrg(this.props.authenticated, this.props.org.id, Constants.PROJECT_PAGE);
+      this.props.unloadProjectMembers(this.props.params.pid, Constants.PROJECT_PAGE)
+      this.props.unloadOrgMembers(this.props.org.id, Constants.PROJECT_PAGE)
+      this.props.unloadProject(this.props.params.pid, this.props.org.id, Constants.PROJECT_PAGE);
+    }
+
     if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.pid !== this.props.params.pid && nextProps.params.orgurl === this.props.params.orgurl) {
-      this.props.unwatchThreadFeed(this.props.authenticated, this.props.org.id, this.props.params.pid, Constants.PROJECT_PAGE)
-      this.props.unloadProjectMembers(this.props.params.pid, Constants.PROJECT_PAGE)
-      this.props.unloadProject(this.props.params.pid, this.props.org.id, Constants.PROJECT_PAGE);
+      if (this.props.org && this.props.org.id) {
+        this.props.unwatchThreadFeed(this.props.authenticated, this.props.org.id, this.props.params.pid, Constants.PROJECT_PAGE)
+        this.props.unloadProject(this.props.params.pid, this.props.org.id, Constants.PROJECT_PAGE);
+        this.props.unloadProjectMembers(this.props.params.pid, Constants.PROJECT_PAGE)
 
-      this.props.loadProject(nextProps.params.pid, this.props.org.id, Constants.PROJECT_PAGE);
-      this.props.loadProjectMembers(nextProps.params.pid, Constants.PROJECT_PAGE)
+        this.props.loadProject(nextProps.params.pid, this.props.org.id, Constants.PROJECT_PAGE);
+        this.props.loadProjectMembers(nextProps.params.pid, Constants.PROJECT_PAGE)
+      }
+      
       // this.props.watchThreadFeed(this.props.authenticated, this.props.params.orgURL, nextProps.params.pid, this.props.feedEndValue, Constants.PROJECT_PAGE)
       if (nextProps.params.pid) {
         this.props.markProjectRead(this.props.authenticated, nextProps.params.pid)
