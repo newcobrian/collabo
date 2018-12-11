@@ -253,9 +253,9 @@ export function changeUserRole(auth, orgId, user, role) {
   return dispatch => {
     Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + auth).once('value', authSnap => {
       Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + user.id).once('value', userSnap => {
-        if (authSnap.exists() && userSnap.exists()) {
-          if ((authSnap.val().role < userSnap.val().role) || 
-            ((authSnap.val().role === Constants.OWNER_ROLE || authSnap.val().role === Constants.ADMIN_ROLE) && authSnap.val().role === userSnap.val().role)) {
+        if (authSnap.exists() && userSnap.exists() && auth !== user.userId && user.role !== Constants.PRIMARY_OWNER_ROLE) {
+          if (!userSnap.val().role || (authSnap.val().role < userSnap.val().role && authSnap.val().role <= Constants.ADMIN_ROLE) || 
+            ((authSnap.val().role == Constants.OWNER_ROLE || authSnap.val().role == Constants.ADMIN_ROLE) && authSnap.val().role == userSnap.val().role)) {
             let updates = {}
             updates[Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + user.id + '/role'] = role
 

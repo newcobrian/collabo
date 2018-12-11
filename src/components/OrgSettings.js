@@ -18,20 +18,16 @@ const mql = window.matchMedia(`(min-width: 800px)`);
 const DeactivateButton = props => {
   const {orgUser, teammate} = props
 
-  const onChange = () => {
-
-  }
-
   // if org user is admin or better, and is same or higher level role than the user, they can activate/deactivate
   if (orgUser.role <= Constants.ADMIN_ROLE && orgUser.role <= teammate.role) {
     if (teammate.status === Constants.DEACTIVE_STATUS) {
      return (
-        <MenuItem title='Deactivate' onSelect={onChange}>Activate user</MenuItem>  
+        <MenuItem title='Deactivate' onSelect={props.onClickStatusChange(Constants.ACTIVE_STATUS)}>Activate user</MenuItem>  
       )
     }
     else {
       return (
-        <MenuItem title='Activate' onSelect={onChange}>Deactivate user</MenuItem>  
+        <MenuItem title='Activate' onSelect={props.onClickStatusChange(Constants.DEACTIVE_STATUS)}>Deactivate user</MenuItem>  
       )
     }
   }
@@ -136,16 +132,22 @@ const EditUserRole = props => {
   const onChange = eventKey => {
     props.onChangeUserRole(teammate, eventKey)
   }
+
+  const onClickStatusChange = status => ev => {
+    props.onChangeUserStatus(teammate, status)
+  }
   // auth can edit other users if:
   // 1) auth is at least an admin, they aren't looking at themselves, teammate is not a primary owner
-  // 2) AND either: auth is a higher level than teammate OR they are both owners
+  // 2) AND either: auth is a higher level than teammate and at least an admin
+  // 3) OR they are both owners
   if (orgUser.role <= Constants.ADMIN_ROLE && orgUser.userId !== teammate.userId && teammate.role !== Constants.PRIMARY_OWNER_ROLE &&
-    (orgUser.role < teammate.role || (orgUser.role === teammate.role && orgUser.role === Constants.OWNER_ROLE))) {
+    (!teammate.role || 
+      (orgUser.role < teammate.role && orgUser.role <= Constants.ADMIN_ROLE) || 
+      (orgUser.role == teammate.role && orgUser.role == Constants.OWNER_ROLE))) {
     return (
       <div className="koi-dropdown flx flx-row flx-align-center flx-hold color--utsuri">
         <DropdownButton title='Edit' id={`split-button-basic`}>
-        {(Constants.USER_ROLES_ARRAY || []).map((roleType, index) => {
-          
+        {(Constants.USER_ROLES_ARRAY || []).map((roleType, index) => {      
           if (teammate.role == index) {
             return (
               <div key={index}>{roleType}</div>
@@ -160,41 +162,12 @@ const EditUserRole = props => {
           else return null
         })}
           <MenuItem divider />
-          {/*<DeactivateButton teammate={teammate} orgUser={orgUser} />*/}
+          <DeactivateButton teammate={teammate} orgUser={orgUser} onClickStatusChange={onClickStatusChange} />
         </DropdownButton>
       </div> 
     )
   }
   else return null
-  // if (orgUser.role > Constants.ADMIN_ROLE || orgUser.userId === user.userId || user.role === Constants.PRIMARY_OWNER_ROLE) {
-  //   return (
-  //     <div className="koi-dropdown flx flx-row flx-align-center flx-hold color--utsuri">
-  //     </div>
-  //     )
-  // }
-  
-  // else {
-  //   return (
-  //   <div className="koi-dropdown flx flx-row flx-align-center flx-hold color--utsuri">
-  //     <DropdownButton title='Edit' id={`split-button-basic`}>
-  //       {(props.roleArray || []).map((roleType, index) => {
-  //         if (orgUser.role < index) {
-  //           return (
-  //             <MenuItem title='Edit' eventKey={index} key={index} onSelect={onChange}>Change to {roleType}</MenuItem>
-  //           )
-  //         }
-  //         else if ((orgUser.role === Constants.OWNER_ROLE || orgUser.role === Constants.ADMIN_ROLE) && orgUser.role == index) {
-  //           return (
-  //             <MenuItem title='Edit' eventKey={index} key={index} onSelect={onChange}>Change to {roleType}</MenuItem>  
-  //           )
-  //         }
-  //       })}
-  //       <MenuItem divider />
-  //       <DeactivateButton user={user} orgUser={orgUser} />
-  //     </DropdownButton>
-  //   </div> 
-  //   )
-  // }
 }
 
 const RoleRender = props => {
@@ -251,7 +224,8 @@ const MembersList = props => {
                   <EditUserRole
                     orgUser={Object.assign({}, props.orgUser, {userId: props.authenticated})} 
                     teammate={userItem}
-                    onChangeUserRole={props.onChangeUserRole} />
+                    onChangeUserRole={props.onChangeUserRole}
+                    onChangeUserStatus={props.onChangeUserStatus} />
                   </div>
                 </div>
               )
@@ -383,7 +357,12 @@ class OrgSettings extends React.Component {
     }
 
     this.onChangeUserRole = (user, role) => {
+      // console.log(JSON.stringify(user) + ' role = ' + role)
       this.props.changeUserRole(this.props.authenticated, this.props.org.id, user, role)
+    }
+
+    this.onChangeUserStatus = (user, status) => {
+      console.log(JSON.stringify(user) + ' status = ' + status)
     }
   }
 
@@ -538,7 +517,8 @@ class OrgSettings extends React.Component {
                         usersProjects={usersProjects || {}} 
                         joinProject={this.props.joinProject}
                         leaveProject={this.props.leaveProject}
-                        onChangeUserRole={this.onChangeUserRole} />
+                        onChangeUserRole={this.onChangeUserRole}
+                        onChangeUserStatus={this.onChangeUserStatus} />
                         {/*<ListErrors errors={this.props.errors}></ListErrors>*/}
 
                         
