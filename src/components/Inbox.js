@@ -15,21 +15,6 @@ import InvalidOrg from './InvalidOrg'
 
 const mql = window.matchMedia(`(min-width: 800px)`);
 
-const RightPic = props => {
-  if (props.image) {
-    return (
-      <Link
-      to={props.link}
-      className="">
-        <div className="bx-shadow bg-loading">
-          <ProxyImage src={props.image} className="image--basic center-img" />
-        </div>
-      </Link>
-    )
-  }
-  else return null;
-}
-
 const LeftSenderPic = props => {
   if (props.senderId && props.image) {
     return (
@@ -49,7 +34,6 @@ const LeftSenderPic = props => {
       </div>
     )
   }
-  return null;
 } 
 
 const RenderUsername = props => {

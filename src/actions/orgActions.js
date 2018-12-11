@@ -253,8 +253,13 @@ export function changeUserRole(auth, orgId, user, role) {
   return dispatch => {
     Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + auth).once('value', authSnap => {
       Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + user.id).once('value', userSnap => {
+        // auth can edit other users if:
+        // 1) auth is at least an admin, they aren't looking at themselves, teammate is not a primary owner
+        // 2) AND either: auth is a higher level than teammate and at least an admin
+        // 3) OR they are both owners
         if (authSnap.exists() && userSnap.exists() && auth !== user.userId && user.role !== Constants.PRIMARY_OWNER_ROLE) {
-          if (!userSnap.val().role || (authSnap.val().role < userSnap.val().role && authSnap.val().role <= Constants.ADMIN_ROLE) || 
+          if (!userSnap.val().role || 
+            (authSnap.val().role < userSnap.val().role && authSnap.val().role <= Constants.ADMIN_ROLE) || 
             ((authSnap.val().role == Constants.OWNER_ROLE || authSnap.val().role == Constants.ADMIN_ROLE) && authSnap.val().role == userSnap.val().role)) {
             let updates = {}
             updates[Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + user.id + '/role'] = role
@@ -267,6 +272,65 @@ export function changeUserRole(auth, orgId, user, role) {
             })
           }
         }
+      })
+    })
+  }
+}
+
+export function changeUserStatus(auth, orgId, user, status) {
+  return dispatch => {
+    Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + auth).once('value', authSnap => {
+      Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + user.id).once('value', userSnap => {
+        // Firebase.database().ref(Constants.PROJECTS_BY_ORG_BY_USER_PATH + '/' + orgId + '/' + user.id).once('value', projectsSnap => {
+          // auth can edit other users if:
+          // 1) auth is at least an admin, they aren't looking at themselves, teammate is not a primary owner
+          // 2) AND either: auth is a higher level than teammate and at least an admin
+          // 3) OR they are both owners
+          if (authSnap.exists() && userSnap.exists() && auth !== user.userId && user.role !== Constants.PRIMARY_OWNER_ROLE) {
+            if (!userSnap.val().status || 
+              (authSnap.val().role < userSnap.val().role && authSnap.val().role <= Constants.ADMIN_ROLE) || 
+              ((authSnap.val().role == Constants.OWNER_ROLE || authSnap.val().role == Constants.ADMIN_ROLE) && authSnap.val().role == userSnap.val().role)) {
+              let updates = {}
+              updates[Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + user.id + '/status'] = status
+
+              if (status === Constants.DEACTIVE_STATUS) {
+                // users-by-email-time-by-org
+                if (userSnap.val().emailDigestHour) {
+                  updates[Constants.USERS_BY_EMAIL_TIME_BY_ORG_PATH + '/' + userSnap.val().emailDigestHour + '/' + orgId + '/' + user.id] = null
+                }
+
+                // projects-by-org-by-user
+                // updates[Constants.PROJECTS_BY_ORG_BY_USER_PATH + '/' + orgId + '/' + user.id] = null
+
+                // users-by-project
+                // if (projectsSnap.exists()) {
+                //   projectsSnap.forEach(function(project) {
+                //     updates[Constants.USERS_BY_PROJECT_PATH + '/' + project.key + '/' + user.id] = null
+                //   })
+                // }
+
+                // orgs-by-user
+                updates[Constants.ORGS_BY_USER_PATH + '/' + user.id + '/' + orgId] = null
+
+                // usernames-by-org
+                // let lowercaseName = user.username ? user.username.toLowerCase() : ''
+                // updates[Constants.USERNAMES_BY_ORG_PATH + '/' + orgId + '/' + lowercaseName] = null
+              }
+              else if (status === Constants.ACTIVE_STATUS) {
+                if (userSnap.val().emailDigestHour) {
+                  updates[Constants.USERS_BY_EMAIL_TIME_BY_ORG_PATH + '/' + userSnap.val().emailDigestHour + '/' + orgId + '/' + user.id] = true
+                }
+              }
+
+              Firebase.database().ref().update(updates)
+
+              dispatch({
+                type: ActionTypes.USER_STATUS_UPDATED,
+                message: user.username + '\'s status changed to ' + status
+              })
+            }
+          }
+        // })
       })
     })
   }

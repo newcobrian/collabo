@@ -13,7 +13,7 @@ const ProxyImage = props => {
 
   // console.log(url)
   
-  if (url.indexOf('https://firebasestorage.googleapis.com') != -1) {
+  if (url.indexOf('https://firebasestorage.googleapis.com') !== -1) {
     url = decodeURIComponent(url)
     var withoutParams = url.split('?')[0]
     var bits = withoutParams.split('/')

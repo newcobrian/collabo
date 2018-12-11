@@ -41,6 +41,7 @@ export default function(state = initialState, action) {
         open: true
       }
     case ActionTypes.USER_ROLE_UPDATED:
+    case ActionTypes.USER_STATUS_UPDATED:
       return {
         ...state,
         message: action.message,
