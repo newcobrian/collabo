@@ -126,6 +126,9 @@ const sendContentManagerEmail = (templateId, recipientEmail, data) => {
     templateId: templateId,
     recipientEmail: recipientEmail
   }
+
+  console.log('send Content manager email recip = ' + recipientEmail)
+
   let formData = new FormData();
   formData.append("template-id", templateId);
   formData.append("recipient", recipientEmail);
