@@ -317,9 +317,13 @@ export function changeUserStatus(auth, orgId, user, status) {
                 // updates[Constants.USERNAMES_BY_ORG_PATH + '/' + orgId + '/' + lowercaseName] = null
               }
               else if (status === Constants.ACTIVE_STATUS) {
+                // users-by-email-time-by-org
                 if (userSnap.val().emailDigestHour) {
                   updates[Constants.USERS_BY_EMAIL_TIME_BY_ORG_PATH + '/' + userSnap.val().emailDigestHour + '/' + orgId + '/' + user.id] = true
                 }
+
+                // orgs-by-user
+                updates[Constants.ORGS_BY_USER_PATH + '/' + user.id + '/' + orgId] = true
               }
 
               Firebase.database().ref().update(updates)
