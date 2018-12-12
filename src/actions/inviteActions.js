@@ -173,7 +173,9 @@ export function inviteUsersToOrg(auth, org, invites, role, projects) {
                   Object.assign({}, 
                     { senderId: auth }, 
                     { senderUsername:  authUser.username },
-                    { timestamp: Firebase.database.ServerValue.TIMESTAMP })
+                    { timestamp: Firebase.database.ServerValue.TIMESTAMP },
+                    { role: role },
+                    { projects: projects })
 
                 // add to users invites
                 updates[Constants.INVITES_BY_EMAIL_BY_ORG_PATH + '/' + cleanedEmail + '/' + orgId + '/' + inviteId] = omit(inviteObject, ['recipientEmail'])
@@ -188,7 +190,9 @@ export function inviteUsersToOrg(auth, org, invites, role, projects) {
                   Object.assign({}, 
                     { senderId: auth }, 
                     { senderUsername:  authUser.username },
-                    { timestamp: Firebase.database.ServerValue.TIMESTAMP })
+                    { timestamp: Firebase.database.ServerValue.TIMESTAMP },
+                    { role: role },
+                    { projects: projects })
 
                 // add to users invites
                 updates[Constants.INVITES_BY_EMAIL_BY_ORG_PATH + '/' + cleanedEmail + '/' + orgId + '/' + inviteId] = omit(inviteObject, ['recipientEmail'])
@@ -221,6 +225,45 @@ export function inviteUsersToOrg(auth, org, invites, role, projects) {
           })
         })
       })
+    })
+  }
+}
+
+export function revokeOrgInvite(auth, org, email) {
+  return dispatch => {
+    Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + org.id + '/' + auth).once('value', authUser => {
+      console.log(JSON.stringify(authUser))
+      if (authUser.exists() && authUser.val().role <= Constants.ADMIN_ROLE) {
+        let cleanedEmail = Helpers.cleanEmailToFirebase(email)
+        let updates = {}
+        updates[Constants.INVITED_USERS_BY_ORG_PATH + '/' + org.id + '/' + cleanedEmail] = null
+        updates[Constants.INVITES_BY_EMAIL_BY_ORG_PATH + '/' + cleanedEmail + '/' + org.id] = null
+
+        Firebase.database().ref(Constants.INVITES_BY_EMAIL_BY_ORG_PATH + '/' + cleanedEmail + '/' + org.id).once('value', invitesSnap => {
+          if (invitesSnap.exists()) {
+            let counter = 0
+            invitesSnap.forEach(function(invite) {
+              updates[Constants.INVITES_PATH + '/' + invite.key] = null
+              counter++
+
+              if (counter === invitesSnap.numChildren()) {
+                Firebase.database().ref().update(updates)
+                
+                dispatch({
+                  type: ActionTypes.REVOKE_ORG_INVITE,
+                })
+              }
+            })
+          }
+          else {
+            Firebase.database().ref().update(updates)
+
+            dispatch({
+              type: ActionTypes.REVOKE_ORG_INVITE,
+            })
+          }
+        })
+      }
     })
   }
 }

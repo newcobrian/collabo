@@ -200,6 +200,20 @@ const SettingsForm = props => {
   else return null
 }
 
+const ResendRevokeButtons = props => {
+  if (props.orgUser &&  props.orgUser.role <= Constants.ADMIN_ROLE) {
+    return (
+      <div>
+        <button onClick={props.onResendInvitation(props.user)} className="vb vb--xs vb--round flx flx-row flx-center-all fill--mist color--black">Resend invitation</button>
+        <button onClick={props.onRevokeInvitation(props.user)} className="vb vb--xs vb--round flx flx-row flx-center-all fill--mist color--black">Revoke invitation</button>
+      </div>
+    )
+  }
+  else {
+    return null
+  }
+}
+
 const MembersList = props => {
   if (props.tab === Constants.MEMBERS_TAB) {
     return (
@@ -250,6 +264,13 @@ const MembersList = props => {
                   <div className="koi-type-caption opa-60">
                     from <Link className="color--black" to={'/' + props.org.url + '/user/' + userItem.senderUsername}>{userItem.senderUsername}</Link> on&nbsp;
                      <DisplayTimestamp timestamp={userItem.timestamp} />
+                  </div>
+                  <div>
+                    <ResendRevokeButtons
+                      orgUser={props.orgUser}
+                      onResendInvitation={props.onResendInvitation}
+                      onRevokeInvitation={props.onRevokeInvitation}
+                      user={userItem} />
                   </div>
                 </div>
                 )
@@ -365,6 +386,18 @@ class OrgSettings extends React.Component {
 
     this.onChangeUserStatus = (user, status) => {
       this.props.changeUserStatus(this.props.authenticated, this.props.org.id, user, status)
+    }
+
+    this.onRevokeInvitation = user => ev => {
+      this.props.revokeOrgInvite(this.props.authenticated, this.props.org, user.email)
+    }
+
+    this.onResendInvitation = user => ev => {
+      let email = user.email ? user.email.toLowerCase() : ''
+      let role = user.role ? user.role : Constants.USER_ROLE
+      let projects = user.projects ? user.projects : null
+      
+      this.props.inviteUsersToOrg(this.props.authenticated, this.props.org, email, role, projects)
     }
   }
 
@@ -520,7 +553,9 @@ class OrgSettings extends React.Component {
                         joinProject={this.props.joinProject}
                         leaveProject={this.props.leaveProject}
                         onChangeUserRole={this.onChangeUserRole}
-                        onChangeUserStatus={this.onChangeUserStatus} />
+                        onChangeUserStatus={this.onChangeUserStatus}
+                        onRevokeInvitation={this.onRevokeInvitation}
+                        onResendInvitation={this.onResendInvitation} />
                         {/*<ListErrors errors={this.props.errors}></ListErrors>*/}
 
                         

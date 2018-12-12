@@ -84,11 +84,11 @@ export default (state = defaultState, action) => {
         ...state,
         redirectTo: '/' + action.org.url
       }
-    case ActionTypes.USERS_INVITED_TO_ORG:
-      return {
-        ...state,
-        redirectTo: '/' + action.orgURL
-      }
+    // case ActionTypes.USERS_INVITED_TO_ORG:
+    //   return {
+    //     ...state,
+    //     redirectTo: '/' + action.orgURL
+    //   }
     case ActionTypes.ORG_INVITE_ACCEPTED:
       return {
         ...state,
