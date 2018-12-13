@@ -6,7 +6,7 @@ import * as Helpers from '../helpers';
 // const initialContentState = {"entityMap":{},"blocks":[{"key":"637gr","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}]}
 // const initialEditorState = EditorState.createEmpty()
 
-const initialQuillState = { text: '' }
+const initialQuillState = { text: '', attachments: [] }
 
 // export default (state = { body: initialEditorState, usersList: [] }, action) => {
 export default (state = { body: initialQuillState }, action) => {
@@ -223,6 +223,14 @@ export default (state = { body: initialQuillState }, action) => {
         }
       }
       return state
+    case ActionTypes.ADD_ATTACHMENTS:
+      if (action.source === Constants.ADD_THREAD_PAGE) {
+        return {
+          ...state,
+          attachments: (state.attachments || []).concat(action.payload)
+        }
+      }
+      return state;
     default:
       return state;
   }

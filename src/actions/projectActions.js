@@ -96,7 +96,7 @@ export function onAddProject(auth, project, orgURL) {
   }
 }
 
-export function onAddThread(auth, projectId, thread, org) {
+export function onAddThread(auth, org, projectId, thread, attachments) {
   return dispatch => {
     if (!auth) {
       dispatch({
@@ -141,6 +141,49 @@ export function onAddThread(auth, projectId, thread, org) {
 
           Helpers.incrementThreadSeenCounts(auth, projectSnapshot.val().orgId, projectId, threadId)
 
+          // upload attachments
+          if (attachments && attachments.length > 0) {
+            attachments.forEach(function(file) {
+              let attachmentId = Firebase.database().ref(Constants.ATTACHMENTS_PATH).push().key
+              const storageRef = Firebase.storage().ref();
+              const metadata = {
+                contentType: file.types
+              }
+              let fileName = file.name  // // eventually generate unique names per thread
+              const uploadTask = storageRef.child('attachments/' + attachmentId).put(file, metadata);
+              uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+              function(snapshot) {
+                }, function(error) {
+                  console.log(error.message)
+              }, function() {
+                uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                  let attachmentObject = {
+                    name: fileName,
+                    link: downloadURL,
+                    type: file.type,
+                    size: file.size,
+                    userId: auth,
+                    threadId: threadId,
+                    projectId: projectId,
+                    orgId: org.id,
+                    lastModified: Firebase.database.ServerValue.TIMESTAMP
+                  }
+
+                  let attachmentUpdates = {}
+                  let cleanedName = Helpers.cleanEmailToFirebase(fileName.toLowerCase())
+                  attachmentUpdates[Constants.ATTACHMENTS_PATH + '/' + attachmentId] = attachmentObject
+                  attachmentUpdates[Constants.ATTACHMENTS_BY_THREAD_PATH + '/' + threadId + '/' + attachmentId] = omit(attachmentObject, ['threadId'])
+                  attachmentUpdates[Constants.ATTACHMENTS_NAMES_BY_THREAD_PATH + '/' + cleanedName + '/' + threadId] = attachmentId
+                  attachmentUpdates[Constants.ATTACHMENTS_BY_PROJECT_PATH + '/' + projectId + '/' + attachmentId] = omit(attachmentObject, ['project'])
+                  attachmentUpdates[Constants.ATTACHMENTS_BY_ORG_PATH + '/' + org.id + '/' + attachmentId] = omit(attachmentObject, ['org'])
+
+                  Firebase.database().ref().update(attachmentUpdates)
+                });
+              })
+            })
+          }
+
+          // notify anyone mentioned in thread body
           let project = Object.assign({},  projectSnapshot.val(), {projectId: projectId})
           Helpers.findThreadMentions(auth, thread.body, org, project, Object.assign({}, thread, {threadId: threadId}))
           // Helpers.sendCollaboUpdateNotifs(auth, Constants.NEW_THREAD_MESSAGE, org ,project, Object.assign({}, thread, {threadId: threadId}, null))

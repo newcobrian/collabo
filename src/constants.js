@@ -114,6 +114,12 @@ export const EMAIL_VERIFICATION_PATH = '/email-verification'
 export const VERIFICATION_BY_EMAIL_PATH = '/verification-by-email'
 export const USERNAMES_BY_ORG_PATH = 'usernames-by-org'
 export const USERS_BY_EMAIL_TIME_BY_ORG_PATH = '/users-by-email-time-by-org'
+export const ATTACHMENTS_PATH = '/attachments'
+export const ATTACHMENTS_BY_THREAD_PATH = '/attachments-by-thread'
+export const ATTACHMENTS_BY_COMMENT_PATH = '/attachments-by-comment'
+export const ATTACHMENTS_NAMES_BY_THREAD_PATH = '/attachments-names-by-thread'
+export const ATTACHMENTS_BY_ORG_PATH = '/attachments-by-org'
+export const ATTACHMENTS_BY_PROJECT_PATH = '/attachments-by-project'
 
 /*** Counter Type Constants ***/
 export const LIKES_COUNT = 'likesCount'

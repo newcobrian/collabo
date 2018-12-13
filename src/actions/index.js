@@ -2632,3 +2632,13 @@ export function updateGoogleDocsPageToken(token) {
     })
   }
 }
+
+export function onAddAttachments(files, source) {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.ADD_ATTACHMENTS,
+      payload: files,
+      source
+    })
+  }
+}

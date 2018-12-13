@@ -12,9 +12,26 @@ import ProjectList from './ProjectList';
 import RichTextEditor from './RichTextEditor';
 import InvalidOrg from './InvalidOrg'
 import LoggedOutMessage from './LoggedOutMessage';
+import Dropzone from 'react-dropzone'
 // import { EditorState, convertFromRaw, convertToRaw } from 'draft-js';
 // import draftToHtml from 'draftjs-to-html';
  
+const AttachmentList = props => {
+	if (props.attachments) {
+		return (
+			<ul>
+				{
+					props.attachments.map((file, index) => (
+						<li key={index}>{file.name}</li>
+					))
+				}
+			</ul>
+		
+		)
+	}
+	else return null
+}
+
 const mql = window.matchMedia(`(min-width: 800px)`);
 
 const mapStateToProps = state => ({
@@ -55,7 +72,7 @@ class AddThread extends React.Component {
 	     	let body = this.props.body ? this.props.body : ''
 		   	let thread = Object.assign({}, {title: this.props.title}, { body: body } )
 		    this.props.setInProgress();
-		    this.props.onAddThread(this.props.authenticated, this.props.projectId, thread, this.props.org);
+		    this.props.onAddThread(this.props.authenticated, this.props.org, this.props.projectId, thread, this.props.attachments);
 		  }
     	}
 
@@ -71,6 +88,10 @@ class AddThread extends React.Component {
 	    this.onProjectChange = ev => {
 	    	ev.preventDefault();
 			this.props.changeAddThreadProject(ev.target.value, this.props.projectObject[ev.target.value])
+	    }
+
+	    this.onDrop = (acceptedFiles, rejectedFiles) => {
+	    	this.props.onAddAttachments(acceptedFiles, Constants.ADD_THREAD_PAGE);
 	    }
 	}
 
@@ -206,6 +227,12 @@ class AddThread extends React.Component {
 												        onChange={this.changeBody}
 												        usersList={this.props.orgMembers}
 													    />
+
+													<Dropzone onDrop={this.onDrop} className="h-100">
+												        <div>Attachments</div>
+												    </Dropzone>
+
+												    <AttachmentList attachments={this.props.attachments} />
 
 								                    </fieldset>
 
