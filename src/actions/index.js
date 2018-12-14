@@ -152,6 +152,7 @@ export * from './profileActions';
 export * from './projectActions';
 export * from './orgActions';
 export * from './inviteActions';
+export * from './threadActions';
 
 export function unloadProfileUser(uid, orgId) {
   return dispatch => {
