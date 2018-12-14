@@ -21,6 +21,7 @@ import OrgHeader from './OrgHeader';
 import LikeReviewButton from './LikeReviewButton';
 import RichTextEditor from './RichTextEditor';
 import InvalidOrg from './InvalidOrg'
+import AttachmentsList from './AttachmentsList'
 
 const BodySection = props => {
   if (!props.bodyText) return null;
@@ -112,7 +113,7 @@ const ThreadBody = props => {
   }
   else {
     const { authenticated, threadId, thread, project, comments, commentErrors, createdBy, canModify, org, 
-      orgMembers, orgUserData, bodyText, likes } = props
+      orgMembers, orgUserData, bodyText, likes, attachments } = props
 
     return (
       <div className={"thread-body left-text flx flx-col flx-align-center"}>
@@ -167,7 +168,7 @@ const ThreadBody = props => {
                     </div>
                     
                     {/* this.renderChanges(this.props.updates, this.props.userId, this.props.comments, this.props.params.tid, this.props.googleDocs) */}
-
+                    <AttachmentsList attachments={attachments} orgUserData={orgUserData} />
                   </div>
                 </div>
             </div>

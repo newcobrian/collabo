@@ -84,7 +84,9 @@ const mapDispatchToProps = {
   unloadThreadLikes: Actions.unloadThreadLikes,
   unwatchThreadComments: Actions.unwatchThreadComments,
   markThreadRead: Actions.markThreadRead,
-  onDeleteThreadComment: Actions.onDeleteThreadComment
+  onDeleteThreadComment: Actions.onDeleteThreadComment,
+  loadThreadAttachments: Actions.loadThreadAttachments,
+  unloadThreadAttachments: Actions.unloadThreadAttachments
 }
 
 class Thread extends React.Component {
@@ -215,6 +217,7 @@ class Thread extends React.Component {
         this.props.loadThread(this.props.params.tid);
         this.props.loadThreadLikes(this.props.params.tid, Constants.THREAD_PAGE);
         this.props.watchThreadComments(this.props.params.tid);
+        this.props.loadThreadAttachments(this.props.params.tid, Constants.THREAD_PAGE);
       }
     })
     
@@ -236,6 +239,7 @@ class Thread extends React.Component {
     this.props.unloadThread(this.props.params.tid);
     this.props.unloadThreadLikes(this.props.params.tid, Constants.THREAD_PAGE);
     this.props.unwatchThreadComments(this.props.params.tid);
+    this.props.unloadThreadAttachments(this.props.params.tid, Constants.THREAD_PAGE);
     if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
   }
 
@@ -244,10 +248,13 @@ class Thread extends React.Component {
       this.props.unloadThread(this.props.params.tid);
       this.props.unloadThreadLikes(this.props.params.tid, Constants.THREAD_PAGE);
       this.props.unwatchThreadComments(this.props.params.tid);
+      this.props.unloadThreadAttachments(this.props.params.tid, Constants.THREAD_PAGE);
       this.props.loadThread(nextProps.params.tid);
       this.props.loadThreadLikes(nextProps.params.tid, Constants.THREAD_PAGE);
       this.props.watchThreadComments(nextProps.params.tid);
+      this.props.loadThreadAttachments(nextProps.params.tid, Constants.THREAD_PAGE);
       this.props.markThreadRead(this.props.authenticated, nextProps.params.tid)
+
     }
     else if (nextProps.params.orgurl !== this.props.params.orgurl) {
       if (this.props.org && this.props.org.id) {
@@ -262,6 +269,7 @@ class Thread extends React.Component {
       this.props.unloadThread(this.props.params.tid);
       this.props.unloadThreadLikes(this.props.params.tid, Constants.THREAD_PAGE);
       this.props.unwatchThreadComments(this.props.params.tid);
+      this.props.unloadThreadAttachments(this.props.params.tid, Constants.THREAD_PAGE);
 
       let lowerCaseOrgURL = this.props.params.orgurl ? this.props.params.orgurl.toLowerCase() : ''
       Firebase.database().ref(Constants.ORGS_BY_URL_PATH + '/' + lowerCaseOrgURL).once('value', orgSnap => {
@@ -280,6 +288,7 @@ class Thread extends React.Component {
           this.props.loadThread(nextProps.params.tid);
           this.props.loadThreadLikes(nextProps.params.tid, Constants.THREAD_PAGE);
           this.props.watchThreadComments(nextProps.props.params.tid);
+          this.props.loadThreadAttachments(nextProps.params.tid, Constants.THREAD_PAGE);
           this.props.markThreadRead(this.props.authenticated, nextProps.params.tid)
         }
       })
@@ -376,6 +385,7 @@ class Thread extends React.Component {
                     commentErrors={this.props.commentErrors}
                     onDeleteThreadComment={this.props.onDeleteThreadComment}
                     onBackClick={this.onGoBackClick}
+                    attachments={this.props.attachments}
                    />
 
 

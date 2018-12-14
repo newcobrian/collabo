@@ -32,7 +32,9 @@ const mapDispatchToProps = {
   markThreadRead: Actions.markThreadRead,
   onDeleteThreadComment: Actions.onDeleteThreadComment,
   hideModal: Actions.hideModal,
-  unloadThreadModal: Actions.unloadThreadModal
+  unloadThreadModal: Actions.unloadThreadModal,
+  loadThreadAttachments: Actions.loadThreadAttachments,
+  unloadThreadAttachments: Actions.unloadThreadAttachments
 }
 
 
@@ -75,6 +77,7 @@ class ThreadModal extends React.Component {
   componentDidMount() {
     this.props.loadThreadLikes(this.props.thread.threadId, Constants.THREAD_MODAL);
     this.props.watchThreadComments(this.props.thread.threadId);
+    this.props.loadThreadAttachments(this.props.thread.threadId, Constants.THREAD_MODAL);
 
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'thread modal' });
   }
@@ -82,6 +85,7 @@ class ThreadModal extends React.Component {
   componentWillUnmount() {
     this.props.unloadThreadLikes(this.props.thread.threadId, Constants.THREAD_MODAL);
     this.props.unwatchThreadComments(this.props.thread.threadId);
+    this.props.unloadThreadAttachments(this.props.thread.threadId, Constants.THREAD_MODAL);
     this.props.unloadThreadModal()
   }
 
@@ -109,7 +113,7 @@ class ThreadModal extends React.Component {
     }
     else {
       const { authenticated, org, thread, project, orgMembers, orgUserData, bodyText, isEditMode, 
-        likes, comments, commentErrors } = this.props
+        likes, comments, commentErrors, attachments } = this.props
       // let createdBy = this.props.createdBy
       let createdBy = orgUserData && orgUserData[thread.userId] ? orgUserData[thread.userId] : 
         { username: '', image: '', fullName: ''}
@@ -175,6 +179,7 @@ class ThreadModal extends React.Component {
               commentErrors={commentErrors}
               onDeleteThreadComment={this.props.onDeleteThreadComment}
               onBackClick={handleClose}
+              attachments={attachments}
              />
           </Dialog>
         </MuiThemeProvider>

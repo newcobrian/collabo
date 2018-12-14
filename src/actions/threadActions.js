@@ -707,3 +707,43 @@ export function markThreadRead(auth, threadId) {
     })
   }
 }
+
+export function loadThreadAttachments(threadId, source) {
+  return dispatch => {
+    Firebase.database().ref(Constants.ATTACHMENTS_BY_THREAD_PATH + '/' + threadId).on('child_added', addedSnap => {
+      dispatch({
+        type: ActionTypes.LOAD_THREAD_ATTACHMENTS_ADDED,
+        attachmentId: addedSnap.key,
+        payload: addedSnap.val(),
+        source: source
+      })
+    })
+
+    Firebase.database().ref(Constants.ATTACHMENTS_BY_THREAD_PATH + '/' + threadId).on('child_changed', changedSnap => {
+      dispatch({
+        type: ActionTypes.LOAD_THREAD_ATTACHMENTS_CHANGED,
+        attachmentId: changedSnap.key,
+        payload: changedSnap.val(),
+        source: source
+      })
+    })
+
+    Firebase.database().ref(Constants.ATTACHMENTS_BY_THREAD_PATH + '/' + threadId).on('child_removed', removedSnap => {
+      dispatch({
+        type: ActionTypes.LOAD_THREAD_ATTACHMENTS_REMOVED,
+        attachmentId: removedSnap.key,
+        source: source
+      })
+    })
+  }
+}
+
+export function unloadThreadAttachments(threadId, source) {
+  return dispatch => {
+    Firebase.database().ref(Constants.ATTACHMENTS_BY_THREAD_PATH + '/' + threadId).off()
+
+    dispatch({
+      type: ActionTypes.UNLOAD_THREAD_ATTACHMENTS
+    })
+  }
+}

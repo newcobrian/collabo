@@ -251,6 +251,55 @@ export default (state = initialState, action) => {
       }
     case ActionTypes.UNLOAD_THREAD_MODAL:
       return initialState
+    case ActionTypes.LOAD_THREAD_ATTACHMENTS_ADDED: {
+      if (action.source === Constants.THREAD_PAGE || action.source === Constants.THREAD_MODAL) {
+        const newState = Object.assign({}, state);
+
+        // add to attachment list
+        newState.attachments = newState.attachments || [];
+        newState.attachments = newState.attachments.slice();
+        newState.attachments.push(Object.assign({}, { attachmentId: action.attachmentId }, action.payload))
+
+        return newState;
+      }
+      return state;
+    }
+    case ActionTypes.LOAD_THREAD_ATTACHMENTS_CHANGED: {
+      if (action.source === Constants.THREAD_PAGE || action.source === Constants.THREAD_MODAL) {
+        const newState = Object.assign({}, state);
+
+        // modify existing attachment in list if it exists
+        newState.attachments = newState.attachments || [];
+        newState.attachments = newState.attachments.slice();
+        for (let i = 0; i < newState.attachments.length; i++) {
+          if (newState.attachments[i].attachmentId === action.attachmentId) {
+            newState.attachments[i] = Object.assign({}, { attachmentId: action.attachmentId }, action.payload)
+            break;
+          }
+        }
+
+        return newState;
+      }
+      return state;
+    }
+    case ActionTypes.LOAD_THREAD_ATTACHMENTS_REMOVED: {
+      if (action.source === Constants.THREAD_PAGE || action.source === Constants.THREAD_MODAL) {
+        const newState = Object.assign({}, state);
+
+        // remove from attachments list
+        newState.attachments = newState.attachments || [];
+        newState.attachments = newState.attachments.slice();
+        for (let i = 0; i < newState.attachments.length; i++) {
+          if (newState.attachments[i].attachmentId === action.attachmentId) {
+            newState.attachments.splice(i, 1);
+            break;
+          }
+        }
+
+        return newState;
+      }
+      return state;
+    }
     default:
       return state;
   }
