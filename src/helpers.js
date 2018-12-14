@@ -310,12 +310,13 @@ export function findIndexByValue(arr, value, propertyName) {
 	return -1;
 }
 
-export function generateImageFileName()
+export function generateImageFileName(len)
 {
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let length = len ? len : 15
 
-    for( var i=0; i < 15; i++ )
+    for( var i=0; i < length; i++ )
         text += possible.charAt(Math.floor(Math.random() * possible.length));
 
     return text;

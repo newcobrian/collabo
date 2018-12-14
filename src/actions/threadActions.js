@@ -6,6 +6,25 @@ import mixpanel from 'mixpanel-browser'
 import 'whatwg-fetch';
 import { pick, omit, debounce } from 'lodash'
 
+function generateAttachmentName(fileName, takenNames) {
+  let cleanedName = Helpers.cleanEmailToFirebase(fileName)
+
+  if (!takenNames[cleanedName]) {
+    return fileName
+  }
+  else {
+    let n = fileName.indexOf('.')
+    if (n < 1) n = fileName.length
+    for (let i = 1; i < 100; i++) {
+      let tempName = fileName.slice(0, n) + ' (' + i + ')' + fileName.slice(n)
+      if (!takenNames[Helpers.cleanEmailToFirebase(tempName)]) {
+        return tempName
+      }
+    }
+    return fileName.slice(0, n) + ' (' + Helpers.generateImageFileName(10) + ')' + fileName.slice(n)
+  }
+}
+
 export function onAddThread(auth, org, projectId, thread, attachments) {
   return dispatch => {
     if (!auth) {
@@ -53,42 +72,49 @@ export function onAddThread(auth, org, projectId, thread, attachments) {
 
           // upload attachments
           if (attachments && attachments.length > 0) {
-            attachments.forEach(function(file) {
-              let attachmentId = Firebase.database().ref(Constants.ATTACHMENTS_PATH).push().key
-              const storageRef = Firebase.storage().ref();
-              const metadata = {
-                contentType: file.types
-              }
-              let fileName = file.name  // // eventually generate unique names per thread
-              const uploadTask = storageRef.child('attachments/' + attachmentId).put(file, metadata);
-              uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-              function(snapshot) {
-                }, function(error) {
-                  console.log(error.message)
-              }, function() {
-                uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-                  let attachmentObject = {
-                    name: fileName,
-                    link: downloadURL,
-                    type: file.type,
-                    size: file.size,
-                    userId: auth,
-                    threadId: threadId,
-                    projectId: projectId,
-                    orgId: org.id,
-                    lastModified: Firebase.database.ServerValue.TIMESTAMP
-                  }
+            Firebase.database().ref(Constants.ATTACHMENTS_NAMES_BY_THREAD_PATH + '/' + threadId).once('value', namesSnap => {
+              let takenNames = namesSnap.exists() ? namesSnap.val() : {}
+              attachments.forEach(function(file) {
+                let attachmentId = Firebase.database().ref(Constants.ATTACHMENTS_PATH).push().key
+                const storageRef = Firebase.storage().ref();
+                const metadata = {
+                  contentType: file.types
+                }
+                // generate a unique file name and add to list of taken names
+                let fileName = generateAttachmentName(file.name, takenNames)
+                let cleanedName = Helpers.cleanEmailToFirebase(fileName)
+                takenNames[cleanedName] = true;
 
-                  let attachmentUpdates = {}
-                  let cleanedName = Helpers.cleanEmailToFirebase(fileName.toLowerCase())
-                  attachmentUpdates[Constants.ATTACHMENTS_PATH + '/' + attachmentId] = attachmentObject
-                  attachmentUpdates[Constants.ATTACHMENTS_BY_THREAD_PATH + '/' + threadId + '/' + attachmentId] = omit(attachmentObject, ['threadId'])
-                  attachmentUpdates[Constants.ATTACHMENTS_NAMES_BY_THREAD_PATH + '/' + cleanedName + '/' + threadId] = attachmentId
-                  attachmentUpdates[Constants.ATTACHMENTS_BY_PROJECT_PATH + '/' + projectId + '/' + attachmentId] = omit(attachmentObject, ['project'])
-                  attachmentUpdates[Constants.ATTACHMENTS_BY_ORG_PATH + '/' + org.id + '/' + attachmentId] = omit(attachmentObject, ['org'])
+                const uploadTask = storageRef.child('attachments/' + attachmentId).put(file, metadata);
+                uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+                function(snapshot) {
+                  }, function(error) {
+                    console.log(error.message)
+                }, function() {
+                  uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                    let attachmentObject = {
+                      name: fileName,
+                      link: downloadURL,
+                      type: file.type,
+                      size: file.size,
+                      userId: auth,
+                      threadId: threadId,
+                      projectId: projectId,
+                      orgId: org.id,
+                      lastModified: Firebase.database.ServerValue.TIMESTAMP
+                    }
 
-                  Firebase.database().ref().update(attachmentUpdates)
-                });
+                    let attachmentUpdates = {}
+                    
+                    attachmentUpdates[Constants.ATTACHMENTS_PATH + '/' + attachmentId] = attachmentObject
+                    attachmentUpdates[Constants.ATTACHMENTS_BY_THREAD_PATH + '/' + threadId + '/' + attachmentId] = omit(attachmentObject, ['threadId'])
+                    attachmentUpdates[Constants.ATTACHMENTS_NAMES_BY_THREAD_PATH + '/' + cleanedName + '/' + threadId] = attachmentId
+                    attachmentUpdates[Constants.ATTACHMENTS_BY_PROJECT_PATH + '/' + projectId + '/' + attachmentId] = omit(attachmentObject, ['project'])
+                    attachmentUpdates[Constants.ATTACHMENTS_BY_ORG_PATH + '/' + org.id + '/' + attachmentId] = omit(attachmentObject, ['org'])
+
+                    Firebase.database().ref().update(attachmentUpdates)
+                  });
+                })
               })
             })
           }
