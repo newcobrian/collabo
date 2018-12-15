@@ -80,6 +80,10 @@ function uploadAttachmentsToFirebase(auth, attachments, org, projectId, threadId
               attachmentUpdates[Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId + '/' + parentCommentId + '/nestedComments/' + commentId + '/' + '/attachments/' + attachmentId] = commentObject
             }
           }
+          // otherwise this is an attachment on a thread
+          else {
+            attachmentUpdates[Constants.THREADS_PATH + '/' + threadId + '/attachments/' + attachmentId] = commentObject
+          }
 
           Firebase.database().ref().update(attachmentUpdates)
         });
