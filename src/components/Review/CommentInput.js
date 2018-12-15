@@ -7,6 +7,7 @@ import ProfilePic from './../ProfilePic';
 import ProxyImage from './../ProxyImage'
 import Textarea from 'react-textarea-autosize';
 import { MentionsInput, Mention } from 'react-mentions'
+import Dropzone from 'react-dropzone'
 // import { getLinks, isGoogleDocLink, getFileId } from '../../helpers';
 
 const mapStateToProps = state => ({
@@ -18,13 +19,18 @@ class CommentInput extends React.Component {
 
     this.state = {
       // body: toContentState('')
-      body: props.comment ? props.comment.body : ''
+      body: props.comment ? props.comment.body : '',
+      attachments: []
     };
     
     this.setBody = ev => {
       // this.setState({ body: editorState })
       this.setState({ body: ev.target.value })
     };
+
+    this.onDrop = (acceptedFiles, rejectedFiles) => {
+      this.setState({ attachments: this.state.attachments.concat(acceptedFiles) })
+    }
  
     this.createComment = ev => {
       ev.preventDefault();
@@ -32,7 +38,8 @@ class CommentInput extends React.Component {
         // clean the comment body for @ mentions markup
         let pattern = /\B@[$][|][{][a-z0-9_-]+(\1)[}][|][$]/gi;
         const commentBody = ''.concat(this.state.body.replace(/\B@[$][|][{]([a-z0-9_-]+)[}][|][$]/gi, "@$1"))
-        this.setState({ body: '' });
+        const commentAttachments = [].concat(this.state.attachments)
+        this.setState({ body: '', attachments: [] });
 
         // if theres a commentId already, then just update the comment
         if (this.props.commentId) {
@@ -41,7 +48,7 @@ class CommentInput extends React.Component {
         }
         // otherwise this is a new comment, create it
         else {
-          this.props.onThreadCommentSubmit(this.props.authenticated, this.props.type, this.props.commentObject, commentBody, this.props.threadId, this.props.project, this.props.org, this.props.parentId);
+          this.props.onThreadCommentSubmit(this.props.authenticated, this.props.type, this.props.commentObject, commentBody, this.props.threadId, this.props.project, this.props.org, this.props.parentId, commentAttachments);
         }
 
         // const links = getLinks(commentBody).filter((l) => isGoogleDocLink(l));
@@ -104,6 +111,10 @@ class CommentInput extends React.Component {
                   )}
                 />
             </MentionsInput>
+
+            <Dropzone onDrop={this.onDrop} className="h-100">
+              <div>Attachments</div>
+            </Dropzone>
 
             <button className="koi-comment-post-button flx-item-right fill--white color--seaweed brdr-color--seaweed" onClick={this.createComment}>
               Post

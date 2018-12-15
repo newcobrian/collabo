@@ -65,6 +65,28 @@ const EditButton = props => {
   else return null
 }
 
+const AttachmentsList = props => {
+  if (props.attachments) {
+    return (
+      <ul>
+        <h3>Attachments</h3>
+        {
+          Object.keys(props.attachments || {}).map(function (attachmentId) {
+            return  (
+            <li key={attachmentId}>
+              <div>{props.attachments[attachmentId].name}</div>
+              <a href={props.attachments[attachmentId].link}>Link</a>
+            </li>
+            )
+          })
+        }
+      </ul>
+    
+    )
+  }
+  else return null
+}
+
 const mapDispatchToProps = {
   hideModal: Actions.hideModal
 }
@@ -191,6 +213,8 @@ class Comment extends React.Component {
                   {processed(comment.body)}
                {/* </ShowMore>>*/}
               </div>
+
+              <AttachmentsList attachments={comment.attachments} />
 
               <div className="cta-wrapper flx flx-row flx-align-center mrgn-top-sm w-100">
                 <div className="koi-ico ico--bookmark mrgn-right-md opa-60 DN"></div>
