@@ -69,8 +69,8 @@ function uploadAttachmentsToFirebase(auth, attachments, org, projectId, threadId
           attachmentUpdates[Constants.ATTACHMENTS_BY_ORG_PATH + '/' + org.id + '/' + attachmentId] = omit(attachmentObject, ['org'])
 
           // if this attachment is on a comment, add to comments-by-thread
+          let commentObject = pick(attachmentObject, ['name', 'link', 'type'])
           if (commentId) {
-            let commentObject = pick(attachmentObject, ['name', 'link', 'type'])
             // if theres no parentCommentId, then this is an attachment on a regular comment
             if (!parentCommentId) {
               attachmentUpdates[Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId + '/' + commentId + '/attachments/' + attachmentId] = commentObject
