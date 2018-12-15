@@ -10,8 +10,21 @@ import { MentionsInput, Mention } from 'react-mentions'
 import Dropzone from 'react-dropzone'
 // import { getLinks, isGoogleDocLink, getFileId } from '../../helpers';
 
-const mapStateToProps = state => ({
-});
+const UploadList = props => {
+  if (props.attachments) {
+    return (
+      <ul>
+        {
+          props.attachments.map((file, index) => (
+            <li key={index}>{file.name}</li>
+          ))
+        }
+      </ul>
+    
+    )
+  }
+  else return null
+}
 
 class CommentInput extends React.Component {
   constructor(props) {
@@ -116,6 +129,10 @@ class CommentInput extends React.Component {
               <div>Attachments</div>
             </Dropzone>
 
+            <div>
+              <UploadList attachments={this.state.attachments} />
+            </div>
+
             <button className="koi-comment-post-button flx-item-right fill--white color--seaweed brdr-color--seaweed" onClick={this.createComment}>
               Post
             </button>
@@ -125,4 +142,4 @@ class CommentInput extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, Actions)(CommentInput);
+export default connect(null, Actions)(CommentInput);

@@ -16,7 +16,7 @@ import Dropzone from 'react-dropzone'
 // import { EditorState, convertFromRaw, convertToRaw } from 'draft-js';
 // import draftToHtml from 'draftjs-to-html';
  
-const AttachmentList = props => {
+const UploadList = props => {
 	if (props.attachments) {
 		return (
 			<ul>
@@ -232,7 +232,7 @@ class AddThread extends React.Component {
 												        <div>Attachments</div>
 												    </Dropzone>
 
-												    <AttachmentList attachments={this.props.attachments} />
+												    <UploadList attachments={this.props.attachments} />
 
 								                    </fieldset>
 
