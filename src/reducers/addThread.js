@@ -6,10 +6,11 @@ import * as Helpers from '../helpers';
 // const initialContentState = {"entityMap":{},"blocks":[{"key":"637gr","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}]}
 // const initialEditorState = EditorState.createEmpty()
 
-const initialQuillState = { text: '', attachments: [] }
+// const initialQuillState = { text: '' }
+const initialState = { body: '', attachments: [] }
 
 // export default (state = { body: initialEditorState, usersList: [] }, action) => {
-export default (state = { body: initialQuillState }, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
   	case ActionTypes.CREATE_PAGE_LOADED:
       return {

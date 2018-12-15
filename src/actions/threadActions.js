@@ -53,6 +53,7 @@ function uploadAttachmentsToFirebase(auth, attachments, org, projectId, threadId
             size: file.size,
             userId: auth,
             threadId: threadId,
+            commentId: commentId,
             projectId: projectId,
             orgId: org.id,
             lastModified: Firebase.database.ServerValue.TIMESTAMP
