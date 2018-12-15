@@ -25,6 +25,54 @@ function generateAttachmentName(fileName, takenNames) {
   }
 }
 
+function uploadAttachmentsToFirebase(auth, attachments, org, projectId, threadId, commentId) {
+  Firebase.database().ref(Constants.ATTACHMENTS_NAMES_BY_THREAD_PATH + '/' + threadId).once('value', namesSnap => {
+    let takenNames = namesSnap.exists() ? namesSnap.val() : {}
+    attachments.forEach(function(file) {
+      let attachmentId = Firebase.database().ref(Constants.ATTACHMENTS_PATH).push().key
+      const storageRef = Firebase.storage().ref();
+      const metadata = {
+        contentType: file.types
+      }
+      // generate a unique file name and add to list of taken names
+      let fileName = generateAttachmentName(file.name, takenNames)
+      let cleanedName = Helpers.cleanEmailToFirebase(fileName)
+      takenNames[cleanedName] = true;
+
+      const uploadTask = storageRef.child('attachments/' + attachmentId).put(file, metadata);
+      uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+      function(snapshot) {
+        }, function(error) {
+          console.log(error.message)
+      }, function() {
+        uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+          let attachmentObject = {
+            name: fileName,
+            link: downloadURL,
+            type: file.type,
+            size: file.size,
+            userId: auth,
+            threadId: threadId,
+            projectId: projectId,
+            orgId: org.id,
+            lastModified: Firebase.database.ServerValue.TIMESTAMP
+          }
+
+          let attachmentUpdates = {}
+          
+          attachmentUpdates[Constants.ATTACHMENTS_PATH + '/' + attachmentId] = attachmentObject
+          attachmentUpdates[Constants.ATTACHMENTS_BY_THREAD_PATH + '/' + threadId + '/' + attachmentId] = omit(attachmentObject, ['threadId'])
+          attachmentUpdates[Constants.ATTACHMENTS_NAMES_BY_THREAD_PATH + '/' + threadId + '/' + cleanedName] = attachmentId
+          attachmentUpdates[Constants.ATTACHMENTS_BY_PROJECT_PATH + '/' + projectId + '/' + attachmentId] = omit(attachmentObject, ['project'])
+          attachmentUpdates[Constants.ATTACHMENTS_BY_ORG_PATH + '/' + org.id + '/' + attachmentId] = omit(attachmentObject, ['org'])
+
+          Firebase.database().ref().update(attachmentUpdates)
+        });
+      })
+    })
+  })
+}
+
 export function onAddThread(auth, org, projectId, thread, attachments) {
   return dispatch => {
     if (!auth) {
@@ -72,51 +120,7 @@ export function onAddThread(auth, org, projectId, thread, attachments) {
 
           // upload attachments
           if (attachments && attachments.length > 0) {
-            Firebase.database().ref(Constants.ATTACHMENTS_NAMES_BY_THREAD_PATH + '/' + threadId).once('value', namesSnap => {
-              let takenNames = namesSnap.exists() ? namesSnap.val() : {}
-              attachments.forEach(function(file) {
-                let attachmentId = Firebase.database().ref(Constants.ATTACHMENTS_PATH).push().key
-                const storageRef = Firebase.storage().ref();
-                const metadata = {
-                  contentType: file.types
-                }
-                // generate a unique file name and add to list of taken names
-                let fileName = generateAttachmentName(file.name, takenNames)
-                let cleanedName = Helpers.cleanEmailToFirebase(fileName)
-                takenNames[cleanedName] = true;
-
-                const uploadTask = storageRef.child('attachments/' + attachmentId).put(file, metadata);
-                uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-                function(snapshot) {
-                  }, function(error) {
-                    console.log(error.message)
-                }, function() {
-                  uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-                    let attachmentObject = {
-                      name: fileName,
-                      link: downloadURL,
-                      type: file.type,
-                      size: file.size,
-                      userId: auth,
-                      threadId: threadId,
-                      projectId: projectId,
-                      orgId: org.id,
-                      lastModified: Firebase.database.ServerValue.TIMESTAMP
-                    }
-
-                    let attachmentUpdates = {}
-                    
-                    attachmentUpdates[Constants.ATTACHMENTS_PATH + '/' + attachmentId] = attachmentObject
-                    attachmentUpdates[Constants.ATTACHMENTS_BY_THREAD_PATH + '/' + threadId + '/' + attachmentId] = omit(attachmentObject, ['threadId'])
-                    attachmentUpdates[Constants.ATTACHMENTS_NAMES_BY_THREAD_PATH + '/' + cleanedName + '/' + threadId] = attachmentId
-                    attachmentUpdates[Constants.ATTACHMENTS_BY_PROJECT_PATH + '/' + projectId + '/' + attachmentId] = omit(attachmentObject, ['project'])
-                    attachmentUpdates[Constants.ATTACHMENTS_BY_ORG_PATH + '/' + org.id + '/' + attachmentId] = omit(attachmentObject, ['org'])
-
-                    Firebase.database().ref().update(attachmentUpdates)
-                  });
-                })
-              })
-            })
+            uploadAttachmentsToFirebase(auth, attachments, org, projectId, threadId, null)
           }
 
           // notify anyone mentioned in thread body
@@ -488,7 +492,7 @@ export function onThreadCommentUpdate(auth, thread, body, threadId, org, comment
   }
 }
 
-export function onThreadCommentSubmit(authenticated, type, thread, body, threadId, project, org, parentId) {
+export function onThreadCommentSubmit(authenticated, type, thread, body, threadId, project, org, parentId, attachments) {
   return dispatch => {
     if(!authenticated) {
       dispatch({

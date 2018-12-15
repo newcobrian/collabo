@@ -59,23 +59,25 @@ export function calcTimestamp(timestamp) {
 }
 
 export function findThreadMentions(auth, threadBody, org, project, thread) {
-	let sentArray = []
-  let pattern = /\B@[a-z0-9_-]+/gi;
-  let found = threadBody.match(pattern);
-  if (found) {
-    for (let i = 0; i < found.length; i++) {
-      let username = found[i].substr(1);
-      Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + username).once('value', snap => {
-        if (snap.exists()) {
-          if (snap.val().userId !== auth && sentArray.indexOf(snap.val().userId) === -1) {
-            // sendCollaboInboxMessage(auth, snap.val().userId, Constants.THREAD_MENTION_MESSAGE, org, project, thread, convertEditorStateToHTML(convertStoredToEditorState(threadBody)))
-            sendCollaboInboxMessage(auth, snap.val().userId, Constants.THREAD_MENTION_MESSAGE, org, project, thread, threadBody)
-            sentArray.push(snap.val().userId);
-          }
-        }
-      })    
-    }
-  }
+	if (threadBody && threadBody.length > 0) {
+		let sentArray = []
+	  	let pattern = /\B@[a-z0-9_-]+/gi;
+	  	let found = threadBody.match(pattern);
+	  	if (found) {
+		    for (let i = 0; i < found.length; i++) {
+		      let username = found[i].substr(1);
+		      Firebase.database().ref(Constants.USERNAMES_TO_USERIDS_PATH + '/' + username).once('value', snap => {
+		        if (snap.exists()) {
+		          if (snap.val().userId !== auth && sentArray.indexOf(snap.val().userId) === -1) {
+		            // sendCollaboInboxMessage(auth, snap.val().userId, Constants.THREAD_MENTION_MESSAGE, org, project, thread, convertEditorStateToHTML(convertStoredToEditorState(threadBody)))
+		            sendCollaboInboxMessage(auth, snap.val().userId, Constants.THREAD_MENTION_MESSAGE, org, project, thread, threadBody)
+		            sentArray.push(snap.val().userId);
+		          }
+		        }
+		      })
+		    }
+	  	}
+	}
 }
 
 export function cleanEmailToFirebase(email) {
@@ -891,8 +893,11 @@ export function sendItineraryUpdateEmails(auth, itinerary, lastUpdate) {
 }
 
 export function stripHTML(content) {
-	let noImages = content.replace(/<img .*?>/g,' ')
-	return noImages.replace(/<\/?\w+[^>]*\/?>/g, ' ')
+	if (content && content.length > 0) {
+		let noImages = content.replace(/<img .*?>/g,' ')
+		return noImages.replace(/<\/?\w+[^>]*\/?>/g, ' ')
+	}
+	else return content
 }
 
 export function getLinks (content) {
