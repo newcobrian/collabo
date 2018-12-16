@@ -84,8 +84,7 @@ const SubSection = props => {
 }
 
 const BodySection = props => {
-  if (!props.bodyText) return null;
-  else if (props.isEditMode && props.canModify) {
+  if (props.isEditMode && props.canModify) {
     // return (
     //   <div>
     //     <ReactQuill 
