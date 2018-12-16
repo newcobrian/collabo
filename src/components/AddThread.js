@@ -22,7 +22,9 @@ const UploadList = props => {
 			<ul>
 				{
 					props.attachments.map((file, index) => (
-						<li key={index}>{file.name}</li>
+						<li key={index}>
+							{file.name} <Link onClick={props.removeUpload(index)}>x</Link>
+						</li>
 					))
 				}
 			</ul>
@@ -92,6 +94,10 @@ class AddThread extends React.Component {
 
 	    this.onDrop = (acceptedFiles, rejectedFiles) => {
 	    	this.props.onAddAttachments(acceptedFiles, Constants.ADD_THREAD_PAGE);
+	    }
+
+	    this.removeUpload = index => ev => {
+	    	this.props.onRemoveAttachments(index, Constants.ADD_THREAD_PAGE)
 	    }
 	}
 
@@ -232,7 +238,7 @@ class AddThread extends React.Component {
 												        <div>Attachments</div>
 												    </Dropzone>
 
-												    <UploadList attachments={this.props.attachments} />
+												    <UploadList attachments={this.props.attachments} removeUpload={this.removeUpload} />
 
 								                    </fieldset>
 

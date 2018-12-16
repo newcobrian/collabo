@@ -232,6 +232,17 @@ export default (state = initialState, action) => {
         }
       }
       return state;
+    case ActionTypes.REMOVE_ATTACHMENTS:
+      if (action.source === Constants.ADD_THREAD_PAGE) {
+        let arr = (state.attachments || []).filter(function(item, index) { 
+            return index !== action.index
+        })
+        return {
+          ...state,
+          attachments: arr
+        }
+      }
+      return state;
     default:
       return state;
   }

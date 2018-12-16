@@ -2644,6 +2644,16 @@ export function onAddAttachments(files, source) {
   }
 }
 
+export function onRemoveAttachments(index, source) {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.REMOVE_ATTACHMENTS,
+      index,
+      source
+    })
+  }
+}
+
 export function changeTab(tab, source) {
   return dispatch => {
     dispatch({

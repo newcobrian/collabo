@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import { uniq } from 'lodash';
 import * as Actions from '../../actions';
 import { REVIEW_TYPE } from '../../constants'
@@ -16,7 +17,9 @@ const UploadList = props => {
       <ul>
         {
           props.attachments.map((file, index) => (
-            <li key={index}>{file.name}</li>
+            <li key={index}>
+              {file.name} <Link onClick={props.onRemove(index)}>x</Link>
+            </li>
           ))
         }
       </ul>
@@ -43,6 +46,13 @@ class CommentInput extends React.Component {
 
     this.onDrop = (acceptedFiles, rejectedFiles) => {
       this.setState({ attachments: this.state.attachments.concat(acceptedFiles) })
+    }
+
+    this.onRemove = removeIndex => ev => {
+      let arr = (this.state.attachments || []).filter(function(item, index) { 
+        return index !== removeIndex
+      })
+      this.setState({ attachments: arr })
     }
  
     this.createComment = ev => {
@@ -130,7 +140,7 @@ class CommentInput extends React.Component {
             </Dropzone>
 
             <div>
-              <UploadList attachments={this.state.attachments} />
+              <UploadList attachments={this.state.attachments} onRemove={this.onRemove} />
             </div>
 
             <button className="koi-comment-post-button flx-item-right fill--white color--seaweed brdr-color--seaweed" onClick={this.createComment}>
