@@ -114,6 +114,11 @@ class ProjectList extends React.Component {
           {/*<Link to='/'  className="co-logo flx-hold">
             <img className="center-img" src="/img/icon24_orgsettings_color.png"/>
           </Link>*/}
+          <div className="group-icon flx flx-col flx-center-all flx-hold ">
+            <Link to='/'  className="co-logo flx-hold flx flx-col flx-center-all">
+              <img className="center-img" src="/img/logo_a.png"/>
+            </Link>
+          </div>
           <select className="org-selector co-type-org color--utsuri opa-40" onChange={this.onOrgChange}>
             <option value={org.url}>{org.name}</option>
             {(this.props.orgList || []).map((orgItem, index) => {

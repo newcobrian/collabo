@@ -141,6 +141,26 @@
 }
 
 
+.koi-ico.ico--user {
+	background-image: url(img/icon-user.png);
+}
+
+.koi-ico.ico--toggle-full {
+	background-image: url(img/toggle-full.png);
+	opacity: .5;
+}
+.koi-ico.ico--toggle-list {
+	background-image: url(img/toggle-list.png);
+	opacity: .5;
+}
+.koi-ico.ico--toggle-full.active,
+.koi-ico.ico--toggle-list.active,
+.koi-ico.ico--toggle-full:hover,
+.koi-ico.ico--toggle-list:hover {
+	opacity: 1;
+	transition: all 0.23s ease-in-out 0s;
+
+}
 
 .koi-ico.--36 {
 	width: 36px;

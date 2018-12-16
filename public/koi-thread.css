@@ -32,6 +32,9 @@
 .threadlist-wrapper > div {
 	width: 100%;
 }
+.co-type-thread-body img {
+	width: 100%;
+}
 .tp-wrapper {
 	margin: 0;
 	width: 100%;
