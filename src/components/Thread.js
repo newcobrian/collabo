@@ -363,6 +363,7 @@ class Thread extends React.Component {
                       projectId={thread.projectId}
                       project={this.props.project}
                       onProjectInviteClick={this.onProjectInviteClick}
+                      threadId={this.props.params.tid}
                     />
 
                   <ThreadBody

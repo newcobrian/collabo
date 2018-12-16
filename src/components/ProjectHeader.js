@@ -37,42 +37,43 @@ const ProjectHeader = props => {
             </div>
 
           {/* View Toggle and Compose Button Wrapper */}
-          <div className="flx-item-right flx flx-row flx-center-all">
-            
-            {/* Toggle Wrapper */}
-            <div className="flx flx-row flx-center-all mrgn-right-lg">
+          { !props.threadId && 
+            <div className="flx-item-right flx flx-row flx-center-all">
+              
+              {/* Toggle Wrapper */}
+              <div className="flx flx-row flx-center-all mrgn-right-lg">
 
-              {/* Full View Icon Wrapper */}
-              <Link className="flx flx-col flx-center-all mrgn-right-sm" onClick={props.onToggleList(false)}>
-                <div className={"koi-ico ico--toggle-full" + (props.showListView ? '' : ' active')}></div>
-                <div className="koi-type-body--sm text-hover color--utsuri opa-50 mobile-hide">
-                  Full View
-                </div>
+                {/* Full View Icon Wrapper */}
+                <Link className="flx flx-col flx-center-all mrgn-right-sm" onClick={props.onToggleList(false)}>
+                  <div className={"koi-ico ico--toggle-full" + (props.showListView ? '' : ' active')}></div>
+                  <div className="koi-type-body--sm text-hover color--utsuri opa-50 mobile-hide">
+                    Full View
+                  </div>
+                </Link>
+
+                {/* List View Icon Wrapper */}
+                <Link className="flx flx-col flx-center-all" onClick={props.onToggleList(true)}>
+                  <div className={"koi-ico ico--toggle-list" + (props.showListView ? ' active' : '')}></div>
+                  <div className="koi-type-body--sm text-hover color--utsuri opa-50 mobile-hide">
+                    List View
+                  </div>
+                </Link>
+
+              </div>
+
+              <Link to={'/' + props.orgURL + '/addthread/' + props.projectId}
+                className="flx flx-col flx-center-all koi-button-fancy-wrapper flx-item-right mrgn-right-md border--seaweed">
+                  <div className="koi-button-fancy-outer">
+                  </div>
+                  <div className="koi-button-fancy-inner">
+                  </div>
+                  <div className="koi-button-fancy-text color--seaweed">
+                    <div className="mobile-hide">Compose Thread</div>
+                    <div className="mobile-show">New</div>
+                  </div>
               </Link>
-
-              {/* List View Icon Wrapper */}
-              <Link className="flx flx-col flx-center-all" onClick={props.onToggleList(true)}>
-                <div className={"koi-ico ico--toggle-list" + (props.showListView ? ' active' : '')}></div>
-                <div className="koi-type-body--sm text-hover color--utsuri opa-50 mobile-hide">
-                  List View
-                </div>
-              </Link>
-
             </div>
-
-            <Link to={'/' + props.orgURL + '/addthread/' + props.projectId}
-              className="flx flx-col flx-center-all koi-button-fancy-wrapper flx-item-right mrgn-right-md border--seaweed">
-                <div className="koi-button-fancy-outer">
-                </div>
-                <div className="koi-button-fancy-inner">
-                </div>
-                <div className="koi-button-fancy-text color--seaweed">
-                  <div className="mobile-hide">Compose Thread</div>
-                  <div className="mobile-show">New</div>
-                </div>
-            </Link>
-          </div>
-
+          }
         </div>
 
 
