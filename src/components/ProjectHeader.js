@@ -43,20 +43,20 @@ const ProjectHeader = props => {
             <div className="flx flx-row flx-center-all mrgn-right-lg">
 
               {/* Full View Icon Wrapper */}
-              <div className="flx flx-col flx-center-all mrgn-right-sm">
-                <div className="koi-ico ico--toggle-full active"></div>
+              <Link className="flx flx-col flx-center-all mrgn-right-sm" onClick={props.onToggleList(false)}>
+                <div className={"koi-ico ico--toggle-full" + (props.showListView ? '' : ' active')}></div>
                 <div className="koi-type-body--sm text-hover color--utsuri opa-50 mobile-hide">
                   Full View
                 </div>
-              </div>
+              </Link>
 
               {/* List View Icon Wrapper */}
-              <div className="flx flx-col flx-center-all">
-                <div className="koi-ico ico--toggle-list"></div>
+              <Link className="flx flx-col flx-center-all" onClick={props.onToggleList(true)}>
+                <div className={"koi-ico ico--toggle-list" + (props.showListView ? ' active' : '')}></div>
                 <div className="koi-type-body--sm text-hover color--utsuri opa-50 mobile-hide">
                   List View
                 </div>
-              </div>
+              </Link>
 
             </div>
 

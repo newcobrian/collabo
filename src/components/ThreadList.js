@@ -1,4 +1,5 @@
 import ThreadPreviewFull from './ThreadPreviewFull';
+import ThreadPreview from './ThreadPreview';
 import React from 'react';
 import * as Constants from '../constants';
 import { Link } from 'react-router'
@@ -55,27 +56,52 @@ const ThreadList = props => {
 
             let lastUpdater = props.orgUserData && props.orgUserData[threadItem.lastUpdater] ? props.orgUserData[threadItem.lastUpdater] : { username: '' }
 
-            return (
-              <ThreadPreviewFull
-                authenticated={props.authenticated}
-                userInfo={props.userInfo}
-                thread={threadItem}
-                org={props.org}
-                projectId={threadItem.projectId}
-                key={threadItem.threadId} 
-                authenticated={props.authenticated}
-                userInfo={props.userInfo}
-                deleteComment={props.deleteComment}
-                index={index+1}
-                projectNames={props.projectNames}
-                project={props.project}
-                deleteComment={props.deleteComment}
-                lastUpdater={lastUpdater}
-                orgMembers={props.orgMembers}
-                orgUserData={props.orgUserData}
-                showThreadModal={props.showThreadModal}
-              />
-            );
+            if (props.showListView) {
+              return (
+                <ThreadPreview
+                  authenticated={props.authenticated}
+                  userInfo={props.userInfo}
+                  thread={threadItem}
+                  org={props.org}
+                  projectId={threadItem.projectId}
+                  key={threadItem.threadId} 
+                  authenticated={props.authenticated}
+                  userInfo={props.userInfo}
+                  deleteComment={props.deleteComment}
+                  index={index+1}
+                  projectNames={props.projectNames}
+                  project={props.project}
+                  deleteComment={props.deleteComment}
+                  lastUpdater={lastUpdater}
+                  orgMembers={props.orgMembers}
+                  orgUserData={props.orgUserData}
+                  showThreadModal={props.showThreadModal}
+                />
+              );
+            }
+            else {
+              return (
+                <ThreadPreviewFull
+                  authenticated={props.authenticated}
+                  userInfo={props.userInfo}
+                  thread={threadItem}
+                  org={props.org}
+                  projectId={threadItem.projectId}
+                  key={threadItem.threadId} 
+                  authenticated={props.authenticated}
+                  userInfo={props.userInfo}
+                  deleteComment={props.deleteComment}
+                  index={index+1}
+                  projectNames={props.projectNames}
+                  project={props.project}
+                  deleteComment={props.deleteComment}
+                  lastUpdater={lastUpdater}
+                  orgMembers={props.orgMembers}
+                  orgUserData={props.orgUserData}
+                  showThreadModal={props.showThreadModal}
+                />
+              );
+            }
           }
           else return null
         })

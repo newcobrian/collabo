@@ -918,3 +918,12 @@ export function deleteProject(auth, projectId, project, orgURL) {
     })
   }
 }
+
+export function toggleListView(showListView) {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.TOGGLE_LIST_VIEW,
+      showListView
+    })
+  }
+}

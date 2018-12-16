@@ -58,7 +58,8 @@ const mapDispatchToProps = {
   notAnOrgUserError: Actions.notAnOrgUserError,
   showThreadModal: Actions.showThreadModal,
   onDeleteThreadComment: Actions.onDeleteThreadComment,
-  showProjectSettingsModal: Actions.showProjectSettingsModal
+  showProjectSettingsModal: Actions.showProjectSettingsModal,
+  toggleListView: Actions.toggleListView
 }
 
 class Project extends React.Component {
@@ -85,6 +86,10 @@ class Project extends React.Component {
 
     this.openProjectSettings = ev => {
       this.props.showProjectSettingsModal(this.props.params.pid, this.props.project, this.props.projectMembers, this.props.org.url, Constants.MEMBERS_TAB)
+    }
+
+    this.onToggleList = showList => ev => {
+      this.props.toggleListView(showList)
     }
   }
 
@@ -279,6 +284,8 @@ class Project extends React.Component {
                       orgMembers={this.props.orgMembers}
                       openProjectSettings={this.openProjectSettings}
                       orgUser={this.props.orgUser}
+                      onToggleList={this.onToggleList}
+                      showListView={this.props.showListView}
                     />
                     <div className="threadlist-outer fill--mist flx flx-row">              
                       <div className="threadlist-wrapper fill--mist flx flx-col flx-align-start w-100 h-100">
@@ -304,7 +311,8 @@ class Project extends React.Component {
                             orgMembers={this.props.orgMembers}
                             orgUserData={this.props.orgUserData}
                             showThreadModal={this.props.showThreadModal}
-                            className={"w-100 h-100"} />
+                            className={"w-100 h-100"}
+                            showListView={this.props.showListView} />
 
 
                         </InfiniteScroll>

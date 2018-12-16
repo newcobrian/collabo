@@ -420,6 +420,11 @@ export default (state = initialState, action) => {
     //   }
     //   return state;
     // }
+    case ActionTypes.TOGGLE_LIST_VIEW:
+      return {
+        ...state,
+        showListView: action.showListView
+      }
     default:
       return state;
   }
