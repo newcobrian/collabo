@@ -65,7 +65,7 @@ const EditButton = props => {
   else return null
 }
 
-const AttachmentsList = props => {
+const AttachmentsPreview = props => {
   if (props.attachments) {
     return (
       <ul>
@@ -214,7 +214,7 @@ class Comment extends React.Component {
                {/* </ShowMore>>*/}
               </div>
 
-              <AttachmentsList attachments={comment.attachments} />
+              <AttachmentsPreview attachments={comment.attachments} />
 
               <div className="cta-wrapper flx flx-row flx-align-center mrgn-top-sm w-100">
                 <div className="koi-ico ico--bookmark mrgn-right-md opa-60 DN"></div>

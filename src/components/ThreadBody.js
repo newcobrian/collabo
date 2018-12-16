@@ -166,6 +166,28 @@ const BodySection = props => {
   }
 }
 
+const AttachmentsPreview = props => {
+  if (props.attachments) {
+    return (
+      <ul>
+        <h3>Attachments</h3>
+        {
+          Object.keys(props.attachments || {}).map(function (attachmentId) {
+            return  (
+            <li key={attachmentId}>
+              <div>{props.attachments[attachmentId].name}</div>
+              <a href={props.attachments[attachmentId].link}>Link</a>
+            </li>
+            )
+          })
+        }
+      </ul>
+    
+    )
+  }
+  else return null
+}
+
 
 const ThreadBody = props => {
   if (!props.thread) {
@@ -228,7 +250,7 @@ const ThreadBody = props => {
                     </div>
                     
                     {/* this.renderChanges(this.props.updates, this.props.userId, this.props.comments, this.props.params.tid, this.props.googleDocs) */}
-                    
+                    <AttachmentsPreview attachments={thread.attachments} />
                   </div>
                 </div>
             </div>
