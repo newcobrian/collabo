@@ -183,7 +183,7 @@ class ThreadModal extends React.Component {
               attachments={attachments}
               tab={tab}
               changeTab={this.props.changeTab}
-              attachmentcount={attachmentCount}
+              attachmentCount={attachmentCount}
              />
           </Dialog>
         </MuiThemeProvider>
