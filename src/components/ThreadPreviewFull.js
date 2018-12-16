@@ -74,11 +74,11 @@ const ReplyCounter = props => {
 
   if (props.commentCount > 0) {
     return (
-      <div>{props.commentCount} Total Replies</div>
+      <span>{props.commentCount} </span>
     );
   }
   return (
-    <div>No replies yet</div>
+    <span>No </span>
   );
 }
 
@@ -271,10 +271,13 @@ class ThreadPreviewFull extends React.Component {
                 
 
             </div>
+
+            {/*
             <Link onClick={this.openThread} className="show-all-button fill--white co-type-body co-type-bold color--utsuri ta-center">
-              {/*to={`/${orgName}/${projectId}/${thread.threadId}`}*/}
               <span className="opa-30">Show full post</span>
             </Link>
+            */}
+
           </div>
 
           {/*<ThreadPreviewCommentSection
@@ -292,16 +295,19 @@ class ThreadPreviewFull extends React.Component {
             deleteComment={deleteComment} />*/}
 
           <div className="comment-row-wrapper flx flx-col">
-            <div className="koi-type-h2b color--utsuri mrgn-top-md mrgn-left-sm opa-50">
-              Discussion
-            </div>
-            <Link onClick={this.openThread} className="discussion-info color--utsuri thread-timestamp flx flx-row flx-align-center w-100 opa-50">
-              {/*<div>3 New&nbsp;&#xb7;&nbsp;</div>*/}
-              <ReplyCounter commentCount={this.props.thread.commentsCount} />
-              {/*<div> &nbsp;&#xb7;&nbsp;8 Participants</div>*/}
-              <div className="flx-item-right text-hover">View All</div>
+
+            {/* Replies Header Row */}
+            <Link onClick={this.openThread}  className="flx flx-row flx-align-end rgn-top-md mrgn-bottom-sm mrgn-top-lg pdding-top-sm w-100 opa-50">
+              <div className="koi-type-h2b color--utsuri mrgn-left-sm">
+                <ReplyCounter commentCount={this.props.thread.commentsCount} /> Replies
+              </div>
+              {/*<Link onClick={this.openThread} className="discussion-info color--utsuri thread-timestamp flx flx-row flx-align-center w-100 opa-50">
+                <ReplyCounter commentCount={this.props.thread.commentsCount} />
+              </Link>*/}
+              <div className="color--utsuri thread-timestamp flx-item-right text-hover">View All</div>
             </Link>
 
+            {/* Replies */}
             <div className="co-thread-reply-wrapper">
               <CommentContainer
                 authenticated={authenticated}
@@ -320,7 +326,10 @@ class ThreadPreviewFull extends React.Component {
                 openThread={this.openThread}
                 isFeed={true} />
             </div>
+
           </div>
+
+          
       </div>
       <div className="w-100 pdding-top-md pdding-bottom-md flx flx-row flx-center-all">
         <div className="brdr-bottom w-100 mrgn-right-sm"></div>

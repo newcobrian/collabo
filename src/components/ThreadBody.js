@@ -149,16 +149,26 @@ const BodySection = props => {
   }
   else {
     return (
-      <div>
-        <RichTextEditor
-            editorState={props.bodyText}
-            wrapperClass="demo-wrapper"
-            editorClass="demo-editor pdding-all-md brdr-all brdr--primary"
-            onChange={props.updateText}
-            usersList={props.usersList}
-            toolbarHidden={true}
-            readOnly={true}
-          />
+      <div className="flx flx-col">
+        <div className="w-100">
+          <RichTextEditor
+              editorState={props.bodyText}
+              wrapperClass="demo-wrapper"
+              editorClass="demo-editor pdding-all-md brdr-all brdr--primary"
+              onChange={props.updateText}
+              usersList={props.usersList}
+              toolbarHidden={true}
+              readOnly={true}
+            />
+        </div>
+          <div className="w-100 flx flx-row mrgn-top-md w-auto flx-item-right">
+            <div className="w-auto thread-timestamp color--black mrgn-right-md">
+              <Link onClick={props.onDeleteClick}>Delete</Link>
+            </div>
+            <div className="w-auto thread-timestamp color--secondary">
+              <Link onClick={props.onEditClick(true)}>Edit</Link>
+            </div>
+          </div>
       {/*<div dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(props.bodyText) || '' }}>
           </div>*/}
       </div>

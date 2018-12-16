@@ -338,9 +338,9 @@ textarea {
 }
 .tp-preview-full .thread-row-wrapper {
 	padding: 8px 18px;
-	min-height: 232px;
+	min-height: 148px;
 	height: auto;
-	padding-bottom: 70px;
+	padding-bottom: 20px;
 }
 .top-bar {
 

@@ -1,13 +1,49 @@
-.koi-type-count {
-	font-weight: 600;
-    font-size: 16px !important;
-    letter-spacing: 0;
-    line-height: 18px;
-    opacity: 1;
+
+
+.co-type-h1,
+.koi-type-h1 {
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 120%;
 }
+.koi-type-h2 {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0;
+}
+.koi-type-h2b {
+    font-weight: 600 !important;
+    color: inherit;
+    letter-spacing: 0;
+    font-size: 20px !important;
+    font-family: 'Karla';
+    line-height: 120%;
+}
+.co-type-h3,
+.koi-type-h3 {
+    font-weight: 600 !important;
+    color: inherit ;
+    letter-spacing: 1.2px !important;
+    font-size: 14px !important;
+    font-family: 'Karla';
+}
+
+.co-type-h4 {
+    /*font-family: 'Doppio One', sans-serif;*/
+    font-size: 22px;
+    font-weight: 500;
+}
+.co-type-h5 {
+    /*font-family: 'Doppio One', sans-serif;*/
+    font-size: 14px;
+    font-weight: 500;
+}
+
+
 .thread-timestamp,
-.koi-type-caption {
-	font-weight: 400;
+.koi-type-caption,
+.co-type-caption {
+    font-weight: 400;
     font-size: 14px;
     letter-spacing: .5px;
     line-height: 18px;
@@ -15,8 +51,20 @@
 }
 .co-type-data,
 .koi-type-data {
-	font-weight: 400;
+    font-weight: 400;
     font-size: 13px;
+    line-height: 18px;
+    opacity: 1;
+}
+
+
+
+
+
+.koi-type-count {
+	font-weight: 600;
+    font-size: 16px !important;
+    letter-spacing: 0;
     line-height: 18px;
     opacity: 1;
 }
@@ -44,13 +92,7 @@
     line-height: 20px;
     white-space: pre-line;
 }
-.co-type-caption {
-	font-weight: 400;
-	font-size: 12px;
-	letter-spacing: 1.1px;
-	line-height: 16px;
-	white-space: normal;
-}
+
 .co-post-title {
     font-weight: 600;
     font-size: 42px;
@@ -77,6 +119,7 @@
 	letter-spacing: 1.1px;
 	font-size: 14px;
 }
+
 
 .co-type-page-title,
 .koi-type-page-title {
@@ -120,6 +163,10 @@
 	font-weight: 600;
 }
 
+
+
+
+/* MODIFIERS */
 p {
 	margin-bottom: 0 !important;
 	white-space: normal
@@ -145,45 +192,6 @@ p {
     letter-spacing: 0;
     line-height: 48px;
 }
-
-.co-type-h1,
-.koi-type-h1 {
-    font-size: 32px;
-    font-weight: 600;
-    line-height: 120%;
-}
-.koi-type-h2 {
-    font-size: 18px;
-    font-weight: 600;
-    letter-spacing: 0;
-}
-.koi-type-h2b {
-    font-weight: 600 !important;
-    color: inherit;
-    letter-spacing: 0;
-    font-size: 24px !important;
-    font-family: 'Karla';
-    line-height: 30px;
-}
-.co-type-h3,
-.koi-type-h3 {
-    font-weight: 600 !important;
-    color: inherit ;
-    letter-spacing: 1.2px !important;
-    font-size: 14px !important;
-    font-family: 'Karla';
-}
-
-.co-type-h4 {
-	/*font-family: 'Doppio One', sans-serif;*/
-    font-size: 22px;
-    font-weight: 500;
-}
-.co-type-h5 {
-	/*font-family: 'Doppio One', sans-serif;*/
-    font-size: 14px;
-    font-weight: 500;
-}
 .co-type-thread-body {
     font-size: 16px;
     overflow: hidden;
@@ -193,9 +201,7 @@ p {
     text-overflow: ellipsis;
     overflow: hidden;
 }
-.co-type-thread-body img {
-	width: 100%;
-}
+
 .tp-full .co-type-thread-body {
 	height: auto;
 }
