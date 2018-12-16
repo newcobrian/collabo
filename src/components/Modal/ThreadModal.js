@@ -34,7 +34,8 @@ const mapDispatchToProps = {
   hideModal: Actions.hideModal,
   unloadThreadModal: Actions.unloadThreadModal,
   loadThreadAttachments: Actions.loadThreadAttachments,
-  unloadThreadAttachments: Actions.unloadThreadAttachments
+  unloadThreadAttachments: Actions.unloadThreadAttachments,
+  changeTab: Actions.changeTab
 }
 
 
@@ -113,7 +114,7 @@ class ThreadModal extends React.Component {
     }
     else {
       const { authenticated, org, thread, project, orgMembers, orgUserData, bodyText, isEditMode, 
-        likes, comments, commentErrors, attachments } = this.props
+        likes, comments, commentErrors, attachments, tab, attachmentCount } = this.props
       // let createdBy = this.props.createdBy
       let createdBy = orgUserData && orgUserData[thread.userId] ? orgUserData[thread.userId] : 
         { username: '', image: '', fullName: ''}
@@ -180,6 +181,9 @@ class ThreadModal extends React.Component {
               onDeleteThreadComment={this.props.onDeleteThreadComment}
               onBackClick={handleClose}
               attachments={attachments}
+              tab={tab}
+              changeTab={this.props.changeTab}
+              attachmentcount={attachmentCount}
              />
           </Dialog>
         </MuiThemeProvider>

@@ -2643,3 +2643,13 @@ export function onAddAttachments(files, source) {
     })
   }
 }
+
+export function changeTab(tab, source) {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.CHANGE_TAB,
+      source,
+      tab
+    })
+  }
+}

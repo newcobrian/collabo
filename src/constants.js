@@ -231,6 +231,8 @@ export const PENDING_TAB = 'pending'
 export const LISTS_TAB = 'lists'
 export const MANAGE_TAB = 'manage'
 export const SETTINGS_TAB= 'settings'
+export const DISCUSSION_TAB= 'discussion'
+export const FILES_TAB= 'files'
 
 /*** User Roles ***/
 export const PRIMARY_OWNER_ROLE = '0'

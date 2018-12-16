@@ -86,7 +86,8 @@ const mapDispatchToProps = {
   markThreadRead: Actions.markThreadRead,
   onDeleteThreadComment: Actions.onDeleteThreadComment,
   loadThreadAttachments: Actions.loadThreadAttachments,
-  unloadThreadAttachments: Actions.unloadThreadAttachments
+  unloadThreadAttachments: Actions.unloadThreadAttachments,
+  changeTab: Actions.changeTab
 }
 
 class Thread extends React.Component {
@@ -386,6 +387,9 @@ class Thread extends React.Component {
                     onDeleteThreadComment={this.props.onDeleteThreadComment}
                     onBackClick={this.onGoBackClick}
                     attachments={this.props.attachments}
+                    tab={this.props.tab}
+                    changeTab={this.props.changeTab}
+                    attachmentCount={this.props.attachmentCount}
                    />
 
 

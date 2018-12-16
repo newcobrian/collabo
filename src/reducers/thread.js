@@ -5,7 +5,7 @@ import { filter, omit, find } from 'lodash';
 
 // import { EditorState, ContentState, convertToRaw, convertFromRaw } from 'draft-js';
 
-const initialState = { threadCounts: {}, }
+const initialState = { threadCounts: {}, tab: Constants.DISCUSSION_TAB, attachmentCount: 0 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -259,6 +259,7 @@ export default (state = initialState, action) => {
         newState.attachments = newState.attachments || [];
         newState.attachments = newState.attachments.slice();
         newState.attachments.push(Object.assign({}, { attachmentId: action.attachmentId }, action.payload))
+        newState.attachmentCount = newState.attachmentCount + 1
 
         return newState;
       }
@@ -292,6 +293,7 @@ export default (state = initialState, action) => {
         for (let i = 0; i < newState.attachments.length; i++) {
           if (newState.attachments[i].attachmentId === action.attachmentId) {
             newState.attachments.splice(i, 1);
+            newState.attachmentCount = newState.attachmentCount - 1
             break;
           }
         }
@@ -299,6 +301,21 @@ export default (state = initialState, action) => {
         return newState;
       }
       return state;
+    }
+    case ActionTypes.UNLOAD_THREAD_ATTACHMENTS:
+      return {
+        ...state,
+        attachments: [],
+        attachmentCount: 0
+      }
+    case ActionTypes.CHANGE_TAB: {
+      if (action.source === Constants.THREAD_PAGE) {
+        return {
+          ...state,
+          tab: action.tab
+        }
+      }
+      else return state
     }
     default:
       return state;

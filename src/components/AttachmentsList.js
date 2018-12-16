@@ -6,7 +6,6 @@ const AttachmentsList = props => {
 	if (props.attachments && props.attachments.length > 0) {
 		return (
 			<div>
-				<h1>ATTACHMENTS</h1>
 			{
 				props.attachments.map((file, index) => (
 					<li key={index}>

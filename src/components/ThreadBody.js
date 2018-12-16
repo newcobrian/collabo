@@ -23,6 +23,66 @@ import RichTextEditor from './RichTextEditor';
 import InvalidOrg from './InvalidOrg'
 import AttachmentsList from './AttachmentsList'
 
+const DiscussionTab = props => {
+  const clickHandler = ev => {
+    ev.preventDefault();
+    props.changeTab(Constants.DISCUSSION_TAB, Constants.THREAD_PAGE);
+  }
+
+  return (
+    <li className="nav-item">
+      <a  href=""
+          className={ props.tab === Constants.DISCUSSION_TAB ? 'koi-type-h2b mrgn-top-md mrgn-left-xs mrgn-bottom-md opa-50 active' : 'koi-type-h2b color--utsuri' }
+          onClick={clickHandler}>
+        Discussion {props.count > 0 ? '(' + props.count + ')' : ''}
+      </a>
+    </li>
+  );
+};
+
+const FilesTab = props => {
+  const clickHandler = ev => {
+    ev.preventDefault();
+    props.changeTab(Constants.FILES_TAB, Constants.THREAD_PAGE);
+  }
+
+  return (
+    <li className="nav-item">
+      <a  href=""
+          className={ props.tab === Constants.FILES_TAB ? 'koi-type-h2b mrgn-top-md mrgn-left-xs mrgn-bottom-md opa-50 active' : 'koi-type-h2b color--utsuri' }
+          onClick={clickHandler}>
+        Files {props.count > 0 ? '(' + props.count + ')' : ''}
+      </a>
+    </li>
+  );
+};
+
+const SubSection = props => {
+  if (props.tab === Constants.DISCUSSION_TAB) {
+    return (
+      <CommentContainer
+        authenticated={props.authenticated}
+        comments={props.comments || {}}
+        errors={props.commentErrors}
+        commentObject={props.thread}
+        threadId={props.threadId}
+        thread={props.thread}
+        project={props.project}
+        org={props.org}
+        usersList={props.orgMembers}
+        orgUserData={props.orgUserData}
+        type={Constants.THREAD_TYPE}
+        deleteComment={props.deleteComment} />
+    )
+  }
+  else if (props.tab === Constants.FILES_TAB) {
+    return (
+      <AttachmentsList attachments={props.attachments} orgUserData={props.orgUserData} />
+    )
+  }
+  else return null
+}
+
 const BodySection = props => {
   if (!props.bodyText) return null;
   else if (props.isEditMode && props.canModify) {
@@ -113,7 +173,7 @@ const ThreadBody = props => {
   }
   else {
     const { authenticated, threadId, thread, project, comments, commentErrors, createdBy, canModify, org, 
-      orgMembers, orgUserData, bodyText, likes, attachments } = props
+      orgMembers, orgUserData, bodyText, likes, attachments, tab } = props
 
     return (
       <div className={"thread-body left-text flx flx-col flx-align-center"}>
@@ -168,37 +228,40 @@ const ThreadBody = props => {
                     </div>
                     
                     {/* this.renderChanges(this.props.updates, this.props.userId, this.props.comments, this.props.params.tid, this.props.googleDocs) */}
-                    <AttachmentsList attachments={attachments} orgUserData={orgUserData} />
+                    
                   </div>
                 </div>
             </div>
 
 
-              <div className="comment-row-wrapper brdr-left flx flx-col" id='guidecommentcontainer' name='guidecommentcontainer'>
-                <div className="koi-type-h2b color--utsuri mrgn-top-md mrgn-left-xs mrgn-bottom-md opa-50">
-                  Discussion
-                </div>
+              <div className="comment-row-wrapper brdr-left flx flx-col">
+                <DiscussionTab tab={tab} changeTab={props.changeTab} count={thread.commentsCount} />
+                <FilesTab tab={tab} changeTab={props.changeTab} count={props.attachmentCount} />
+
                 <div className="co-thread-reply-wrapper">
-                  <CommentContainer
-                    authenticated={authenticated}
-                    comments={comments || {}}
-                    errors={commentErrors}
-                    commentObject={thread}
-                    threadId={threadId}
-                    thread={thread}
-                    project={project}
-                    org={org}
-                    usersList={orgMembers}
-                    orgUserData={orgUserData}
-                    type={Constants.THREAD_TYPE}
-                    deleteComment={props.onDeleteThreadComment} />
-                    </div>
-                  </div>
+                  
+                    <SubSection
+                      tab={tab}
+                      authenticated={authenticated}
+                      comments={comments || {}}
+                      errors={commentErrors}
+                      commentObject={thread}
+                      threadId={threadId}
+                      thread={thread}
+                      project={project}
+                      org={org}
+                      usersList={orgMembers}
+                      orgUserData={orgUserData}
+                      deleteComment={props.onDeleteThreadComment}
+                      attachments={attachments} />
+
+                </div>
               </div>
+            </div>
 
          
-              </div>
           </div>
+      </div>
     )
   }
 }
