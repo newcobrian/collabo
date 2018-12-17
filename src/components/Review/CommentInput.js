@@ -135,9 +135,9 @@ class CommentInput extends React.Component {
                 />
             </MentionsInput>
 
-            <Dropzone onDrop={this.onDrop} className="h-100">
+            {/*<Dropzone onDrop={this.onDrop} className="h-100">
               <div>Attachments</div>
-            </Dropzone>
+            </Dropzone>*/}
 
             <div>
               <UploadList attachments={this.state.attachments} onRemove={this.onRemove} />

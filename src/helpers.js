@@ -1045,3 +1045,22 @@ export function deleteThreadData(threads) {
 	    Firebase.database().ref().update(updates)
 	}
 }
+
+export function generateAttachmentName(fileName, takenNames) {
+  let cleanedName = cleanEmailToFirebase(fileName)
+
+  if (!takenNames[cleanedName]) {
+    return fileName
+  }
+  else {
+    let n = fileName.indexOf('.')
+    if (n < 1) n = fileName.length
+    for (let i = 1; i < 100; i++) {
+      let tempName = fileName.slice(0, n) + ' (' + i + ')' + fileName.slice(n)
+      if (!takenNames[cleanEmailToFirebase(tempName)]) {
+        return tempName
+      }
+    }
+    return fileName.slice(0, n) + ' (' + generateImageFileName(10) + ')' + fileName.slice(n)
+  }
+}

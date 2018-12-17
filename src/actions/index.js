@@ -2634,12 +2634,70 @@ export function updateGoogleDocsPageToken(token) {
   }
 }
 
-export function onAddAttachments(files, source) {
+export function uploadFilesToFirebase(dispatch, auth, attachmentId, file, source) {
+  const storageRef = Firebase.storage().ref();
+  const metadata = {
+    contentType: file.type
+  }
+
+  const uploadTask = storageRef.child('attachments/' + attachmentId).put(file, metadata);
+  uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+  function(snapshot) {
+    let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      dispatch({
+        type: ActionTypes.ATTACHMENT_UPLOAD_PROGRESS,
+        progress: progress,
+        attachmentId: attachmentId,
+        source: source
+      })
+    }, 
+  function(error) {
+      console.log(error.message)
+      Firebase.database().ref(Constants.ATTACHMENTS_PATH + '/' + attachmentId).remove()
+
+      dispatch({
+        type: ActionTypes.ATTACHMENT_UPLOAD_ERROR,
+        attachmentId: attachmentId,
+        source: source
+      })
+  }, function() {
+    uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+      let attachmentObject = {
+        link: downloadURL,
+        type: file.type,
+        size: file.size,
+        userId: auth,
+        lastModified: Firebase.database.ServerValue.TIMESTAMP
+      }
+
+      let attachmentUpdates = {}
+      
+      attachmentUpdates[Constants.ATTACHMENTS_PATH + '/' + attachmentId] = attachmentObject
+
+      Firebase.database().ref().update(attachmentUpdates)
+
+      dispatch({
+        type: ActionTypes.ATTACHMENT_UPLOAD_COMPLETED,
+        attachmentId: attachmentId,
+        link: downloadURL,
+        source: source
+      })
+    });
+  })
+}
+
+export function onAddAttachments(auth, files, source) {
   return dispatch => {
-    dispatch({
-      type: ActionTypes.ADD_ATTACHMENTS,
-      payload: files,
-      source
+    files.forEach(function(file) {
+      let attachmentId = Firebase.database().ref(Constants.ATTACHMENTS_PATH).push().key
+      uploadFilesToFirebase(dispatch, auth, attachmentId, file, source)
+
+      dispatch({
+        type: ActionTypes.ADD_ATTACHMENT,
+        fileName: file.name,
+        attachmentId: attachmentId,
+        source
+      })
     })
   }
 }

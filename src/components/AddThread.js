@@ -23,7 +23,8 @@ const UploadList = props => {
 				{
 					props.attachments.map((file, index) => (
 						<li key={index}>
-							{file.name} <Link onClick={props.removeUpload(index)}>x</Link>
+							{file.name} - Progress: {file.progress}%
+							<div><Link onClick={props.removeUpload(index)}>x</Link></div>
 						</li>
 					))
 				}
@@ -57,6 +58,15 @@ class AddThread extends React.Component {
 	    	this.props.onUpdateCreateField('body', value, Constants.ADD_THREAD_PAGE)
 	    }
 
+	    const checkAttachmentsCompleted = attachments => {
+	    	for (let i = 0; i < attachments.length; i++) {
+	    		if (attachments[i].progress > -1 && attachments[i].progress < 100) {
+	    			return false
+	    		}
+	    	}
+	    	return true
+	    }
+
 		this.submitForm = ev => {
 	      ev.preventDefault();
 	      if (!this.props.title) {
@@ -64,6 +74,9 @@ class AddThread extends React.Component {
 	      }
 	      else if (!this.props.projectId) {
 	        this.props.createSubmitError('Please select a project', Constants.ADD_THREAD_PAGE);
+	      }
+	      else if (!checkAttachmentsCompleted(this.props.attachments)) {
+	      	this.props.createSubmitError('Please wait until all attachments are finished uploading', Constants.ADD_THREAD_PAGE);
 	      }
 	      else {
 	      	// let delta = new Delta(this.props.body)
@@ -93,7 +106,7 @@ class AddThread extends React.Component {
 	    }
 
 	    this.onDrop = (acceptedFiles, rejectedFiles) => {
-	    	this.props.onAddAttachments(acceptedFiles, Constants.ADD_THREAD_PAGE);
+	    	this.props.onAddAttachments(this.props.authenticated, acceptedFiles, Constants.ADD_THREAD_PAGE);
 	    }
 
 	    this.removeUpload = index => ev => {

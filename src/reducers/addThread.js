@@ -224,14 +224,84 @@ export default (state = initialState, action) => {
         }
       }
       return state
-    case ActionTypes.ADD_ATTACHMENTS:
+    // case ActionTypes.ADD_ATTACHMENTS:
+    //   if (action.source === Constants.ADD_THREAD_PAGE) {
+    //     return {
+    //       ...state,
+    //       attachments: (state.attachments || []).concat(action.payload)
+    //     }
+    //   }
+    //   return state;
+    case ActionTypes.ADD_ATTACHMENT: {
       if (action.source === Constants.ADD_THREAD_PAGE) {
-        return {
-          ...state,
-          attachments: (state.attachments || []).concat(action.payload)
-        }
+        const newState = Object.assign({}, state);
+        newState.attachments = newState.attachments || [];
+        newState.attachments = newState.attachments.slice();
+
+        // generate a good file name
+
+        // push to end of attachments array
+        newState.attachments = newState.attachments.concat(Object.assign({}, {name: action.fileName}, {attachmentId: action.attachmentId}))
+
+        return newState;
       }
       return state;
+    }
+    case ActionTypes.ATTACHMENT_UPLOAD_PROGRESS: {
+      if (action.source === Constants.ADD_THREAD_PAGE) {
+        const newState = Object.assign({}, state);
+        newState.attachments = newState.attachments || [];
+        newState.attachments = newState.attachments.slice();
+
+        // find attachment item and update the progress field
+        for (let i = 0; i < newState.attachments.length; i++) {
+          if (newState.attachments[i].attachmentId === action.attachmentId) {
+            newState.attachments[i].progress = action.progress
+            break;
+          }
+        }
+
+        return newState;
+      }
+      return state;
+    }
+    case ActionTypes.ATTACHMENT_UPLOAD_ERROR: {
+      if (action.source === Constants.ADD_THREAD_PAGE) {
+        const newState = Object.assign({}, state);
+        newState.attachments = newState.attachments || [];
+        newState.attachments = newState.attachments.slice();
+
+        // find attachment item and update the progress field
+        for (let i = 0; i < newState.attachments.length; i++) {
+          if (newState.attachments[i].attachmentId === action.attachmentId) {
+            newState.attachments[i].progress = -1
+            break;
+          }
+        }
+
+        return newState;
+      }
+      return state;
+    }
+    case ActionTypes.ATTACHMENT_UPLOAD_COMPLETED: {
+      if (action.source === Constants.ADD_THREAD_PAGE) {
+        const newState = Object.assign({}, state);
+        newState.attachments = newState.attachments || [];
+        newState.attachments = newState.attachments.slice();
+
+        // find attachment item and update the progress field to 100%
+        for (let i = 0; i < newState.attachments.length; i++) {
+          if (newState.attachments[i].attachmentId === action.attachmentId) {
+            newState.attachments[i].progress = 100
+            newState.attachments[i].link = action.link
+            break;
+          }
+        }
+
+        return newState;
+      }
+      return state;
+    }
     case ActionTypes.REMOVE_ATTACHMENTS:
       if (action.source === Constants.ADD_THREAD_PAGE) {
         let arr = (state.attachments || []).filter(function(item, index) { 

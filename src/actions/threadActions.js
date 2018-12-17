@@ -6,43 +6,31 @@ import mixpanel from 'mixpanel-browser'
 import 'whatwg-fetch';
 import { pick, omit, debounce } from 'lodash'
 
-function generateAttachmentName(fileName, takenNames) {
-  let cleanedName = Helpers.cleanEmailToFirebase(fileName)
-
-  if (!takenNames[cleanedName]) {
-    return fileName
-  }
-  else {
-    let n = fileName.indexOf('.')
-    if (n < 1) n = fileName.length
-    for (let i = 1; i < 100; i++) {
-      let tempName = fileName.slice(0, n) + ' (' + i + ')' + fileName.slice(n)
-      if (!takenNames[Helpers.cleanEmailToFirebase(tempName)]) {
-        return tempName
-      }
-    }
-    return fileName.slice(0, n) + ' (' + Helpers.generateImageFileName(10) + ')' + fileName.slice(n)
-  }
-}
-
-function uploadAttachmentsToFirebase(auth, attachments, org, projectId, threadId, commentId, parentCommentId) {
+function uploadAttachmentsToFirebase(dispatch, auth, attachments, org, projectId, threadId, commentId, parentCommentId) {
   Firebase.database().ref(Constants.ATTACHMENTS_NAMES_BY_THREAD_PATH + '/' + threadId).once('value', namesSnap => {
     let takenNames = namesSnap.exists() ? namesSnap.val() : {}
     attachments.forEach(function(file) {
       let attachmentId = Firebase.database().ref(Constants.ATTACHMENTS_PATH).push().key
       const storageRef = Firebase.storage().ref();
       const metadata = {
-        contentType: file.types
+        contentType: file.type
       }
       // generate a unique file name and add to list of taken names
-      let fileName = generateAttachmentName(file.name, takenNames)
+      let fileName = Helpers.generateAttachmentName(file.name, takenNames)
       let cleanedName = Helpers.cleanEmailToFirebase(fileName)
       takenNames[cleanedName] = true;
 
       const uploadTask = storageRef.child('attachments/' + attachmentId).put(file, metadata);
       uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
       function(snapshot) {
-        }, function(error) {
+        let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          dispatch({
+            type: ActionTypes.UPLOAD_FILE_PROGRESS_UPDATE,
+            progress: progress,
+            fileId: attachmentId
+          })
+        }, 
+      function(error) {
           console.log(error.message)
       }, function() {
         uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
@@ -88,6 +76,60 @@ function uploadAttachmentsToFirebase(auth, attachments, org, projectId, threadId
           Firebase.database().ref().update(attachmentUpdates)
         });
       })
+    })
+  })
+}
+
+export function updateAttachmentData(auth, attachments, org, projectId, threadId, commentId, parentCommentId) {
+  Firebase.database().ref(Constants.ATTACHMENTS_NAMES_BY_THREAD_PATH + '/' + threadId).once('value', namesSnap => {
+    let takenNames = namesSnap.exists() ? namesSnap.val() : {}
+    attachments.forEach(function(file) {
+      let attachmentId = file.attachmentId
+      // generate a unique file name and add to list of taken names
+      let fileName = Helpers.generateAttachmentName(file.name, takenNames)
+      let cleanedName = Helpers.cleanEmailToFirebase(fileName)
+      takenNames[cleanedName] = true;
+      
+      let attachmentObject = {
+        name: fileName,
+        link: file.link,
+        type: file.type,
+        size: file.size,
+        userId: auth,
+        threadId: threadId,
+        commentId: commentId ? commentId : null,
+        parentCommentId: parentCommentId ? parentCommentId : null,
+        projectId: projectId,
+        orgId: org.id,
+        lastModified: Firebase.database.ServerValue.TIMESTAMP
+      }
+
+      let attachmentUpdates = {}
+      
+      attachmentUpdates[Constants.ATTACHMENTS_PATH + '/' + attachmentId] = attachmentObject
+      attachmentUpdates[Constants.ATTACHMENTS_BY_THREAD_PATH + '/' + threadId + '/' + attachmentId] = omit(attachmentObject, ['threadId'])
+      attachmentUpdates[Constants.ATTACHMENTS_NAMES_BY_THREAD_PATH + '/' + threadId + '/' + cleanedName] = attachmentId
+      attachmentUpdates[Constants.ATTACHMENTS_BY_PROJECT_PATH + '/' + projectId + '/' + attachmentId] = omit(attachmentObject, ['project'])
+      attachmentUpdates[Constants.ATTACHMENTS_BY_ORG_PATH + '/' + org.id + '/' + attachmentId] = omit(attachmentObject, ['org'])
+
+      // if this attachment is on a comment, add to comments-by-thread
+      let commentObject = pick(attachmentObject, ['name', 'link', 'type'])
+      if (commentId) {
+        // if theres no parentCommentId, then this is an attachment on a regular comment
+        if (!parentCommentId) {
+          attachmentUpdates[Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId + '/' + commentId + '/attachments/' + attachmentId] = commentObject
+        }
+        // otherwise this is a nested comment
+        else {
+          attachmentUpdates[Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId + '/' + parentCommentId + '/nestedComments/' + commentId + '/' + '/attachments/' + attachmentId] = commentObject
+        }
+      }
+      // otherwise this is an attachment on a thread
+      else {
+        attachmentUpdates[Constants.THREADS_PATH + '/' + threadId + '/attachments/' + attachmentId] = commentObject
+      }
+
+      Firebase.database().ref().update(attachmentUpdates)
     })
   })
 }
@@ -139,7 +181,7 @@ export function onAddThread(auth, org, projectId, thread, attachments) {
 
           // upload attachments
           if (attachments && attachments.length > 0) {
-            uploadAttachmentsToFirebase(auth, attachments, org, projectId, threadId, null, null)
+            updateAttachmentData(auth, attachments, org, projectId, threadId, null, null)
           }
 
           // notify anyone mentioned in thread body
@@ -610,7 +652,7 @@ export function onThreadCommentSubmit(authenticated, type, thread, body, threadI
 
       // add attachments
       if (attachments && attachments.length > 0) {
-        uploadAttachmentsToFirebase(authenticated, attachments, org, thread.projectId, threadId, commentId, parentId)
+        uploadAttachmentsToFirebase(dispatch, authenticated, attachments, org, thread.projectId, threadId, commentId, parentId)
       }
 
       setTimeout(function() {
