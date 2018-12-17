@@ -355,12 +355,10 @@ export function saveSettings(auth, user, currentUser, imageFile, orgURL, orgId) 
               }, function(error) {
                 console.log(error.message)
             }, function() {
-              const downloadURL = uploadTask.snapshot.downloadURL;
-
-              // create the new user object to save
-              let userObject = makeUser(user, currentUser);
-              if (userObject) {
-                if (downloadURL) {
+              uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                // create the new user object to save
+                let userObject = makeUser(user, currentUser);
+                if (userObject) {
                   userObject.image = downloadURL;
 
                   // save the user
@@ -378,23 +376,7 @@ export function saveSettings(auth, user, currentUser, imageFile, orgURL, orgId) 
                     }
                   });
                 }
-                else {
-                  // no image, but still save the user 
-                  Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + auth + '/').set(userObject);
-
-                  dispatch({
-                    type: ActionTypes.SETTINGS_SAVED,
-                    username: user.username,
-                    message: 'Your profile has been saved.',
-                    orgURL: orgURL,
-                    meta: {
-                      mixpanel: {
-                        event: 'Settings saved'
-                      }
-                    }
-                  });
-                }
-              }
+              })
             })
           }
           else {

@@ -1001,19 +1001,19 @@ export function addUserToOrg(auth, email, invite, inviteId, userData, imageFile)
 	        }, function(error) {
 	          console.log(error.message)
 	      }, function() {
-	        const downloadURL = uploadTask.snapshot.downloadURL;
+	      	uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+		        // set user's image to the new downloadURL
+		        userData.image = downloadURL
 
-	        // set user's image to the new downloadURL
-	        userData.image = downloadURL
+		        // save image in users-by-org
+		        updates[Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + auth] = 
+		          Object.assign({}, userData, {email: email}, {role: role}, {status: Constants.ACTIVE_STATUS})
 
-	        // save image in users-by-org
-	        updates[Constants.USERS_BY_ORG_PATH + '/' + orgId + '/' + auth] = 
-	          Object.assign({}, userData, {email: email}, {role: role}, {status: Constants.ACTIVE_STATUS})
+		        // save image in users-path
+		        updates[Constants.USERS_PATH + '/' + auth + '/image'] = downloadURL;
 
-	        // save image in users-path
-	        updates[Constants.USERS_PATH + '/' + auth + '/image'] = downloadURL;
-
-	        Firebase.database().ref().update(updates)
+		        Firebase.database().ref().update(updates)
+		    })
 	      })
 	    }
 	    // else no image, just save the user
