@@ -22,15 +22,9 @@ var Element = Scroll.Element;
 var linkify = require('linkify-it')();
 
 const ReplyCounter = props => {
-
-  if (props.commentCount > 0) {
-    return (
-      <div className="koi-type-data color--black">{props.commentCount} </div>
-    );
-  }
   return (
-    <div className="koi-type-data color--black">0 </div>
-  );
+    <div className="koi-type-data color--black">{props.commentsCount ? props.commentsCount : 0} </div>
+  )
 }
 
 
@@ -209,7 +203,7 @@ const ThreadPreview = props => {
                       org={props.org} />
                       {/*<div className="koi-ico --24 ico--bookmark mrgn-left-md opa-20 no-click"></div>*/}
                       <div className="koi-ico --18 opa-80 ico--replies mrgn-left-sm mrgn-right-xs"></div>
-                      <ReplyCounter commentCount={this.props.thread.commentsCount} />
+                      <ReplyCounter commentsCount={thread.commentsCount} />
                   </div>
                 </div>
                 
@@ -226,7 +220,7 @@ const ThreadPreview = props => {
                   org={props.org} />
                   {/*<div className="koi-ico --24 ico--bookmark mrgn-left-md opa-20 no-click flx-item-right"></div>*/}
                   <div className="koi-ico --18 opa-80 ico--replies mrgn-left-sm mrgn-right-xs"></div>
-                  <ReplyCounter commentCount={this.props.thread.commentsCount} />
+                  <ReplyCounter commentsCount={thread.commentsCount} />
               </div>
           
               {/*<div className="DN color--black thread-timestamp flx flx-row flx-align-center mrgn-bottom-md">
