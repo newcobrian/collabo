@@ -20,8 +20,9 @@ const UploadList = props => {
       <ul className="w-100">
         {
           props.attachments.map((file, index) => (
-            <li className="attachment-row ta-left w-100 fill--white koi-type-caption flx flx-row flx-align-center flx-just-start" key={index}>
-              <Link onClick={props.onRemove(index)} className="koi-ico --16 icon--remove color--utsuri opa-50 mrgn-right-xs"></Link><div>{file.name} - progress: {file.progress}%</div>
+            <li className="attachment-row brdr-all ta-left w-100 fill--white flx flx-row flx-align-center flx-just-start" key={index}>
+              <Link onClick={props.onRemove(index)} className="koi-ico --16 icon--remove color--utsuri opa-80 mrgn-right-xs"></Link>
+              <div className="koi-type-caption color--black koi-type-caption">{file.name} - {file.progress}%</div>
             </li>
           ))
         }

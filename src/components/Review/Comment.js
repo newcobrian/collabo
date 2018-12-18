@@ -68,14 +68,14 @@ const EditButton = props => {
 const AttachmentsPreview = props => {
   if (props.attachments) {
     return (
-      <ul>
-        <h3>Attachments</h3>
+
+      <ul className="w-100 mrgn-top-sm">
         {
           Object.keys(props.attachments || {}).map(function (attachmentId) {
             return  (
-            <li key={attachmentId}>
-              <div>{props.attachments[attachmentId].name}</div>
-              <a href={props.attachments[attachmentId].link}>Link</a>
+            <li className="attachment-row brdr-all ta-left w-100 fill--white flx flx-row flx-align-center flx-just-start" key={attachmentId}>
+              <div className="koi-ico --24 ico--file color--utsuri opa-30 mrgn-right-xs"></div>
+              <Link onClick={props.attachments[attachmentId].link} target="_blank" className="koi-type-caption color--seaweed">{props.attachments[attachmentId].name}</Link>
             </li>
             )
           })

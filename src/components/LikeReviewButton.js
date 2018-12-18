@@ -19,7 +19,7 @@ class LikeReviewButton extends React.Component {
       classes += 'koi-ico --24 ico--like--active mrgn-right-sm opa-100';
     } else {
       // classes += ' btn-outline-secondary';
-      classes += 'koi-ico --24 ico--like mrgn-right-sm opa-60';
+      classes += 'koi-ico --24 ico--like mrgn-right-sm opa-100';
     }
 
     let likeText = '';

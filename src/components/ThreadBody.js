@@ -30,13 +30,13 @@ const DiscussionTab = props => {
   }
 
   return (
-    <li className="nav-item">
+    <div className="nav-item">
       <a  href=""
-          className={ props.tab === Constants.DISCUSSION_TAB ? 'koi-type-h2b mrgn-top-md mrgn-left-xs mrgn-bottom-md opa-50 active' : 'koi-type-h2b color--utsuri' }
+          className={ props.tab === Constants.DISCUSSION_TAB ? 'koi-type-h2b mrgn-right-md opa-100 color--utsuri active' : 'koi-type-h2b color--utsuri mrgn-right-md opa-50' }
           onClick={clickHandler}>
-        Discussion {props.count > 0 ? '(' + props.count + ')' : ''}
+        {props.count > 0 ? + props.count : ''} Replies
       </a>
-    </li>
+    </div>
   );
 };
 
@@ -47,13 +47,13 @@ const FilesTab = props => {
   }
 
   return (
-    <li className="nav-item">
+    <div className="nav-item">
       <a  href=""
-          className={ props.tab === Constants.FILES_TAB ? 'koi-type-h2b mrgn-top-md mrgn-left-xs mrgn-bottom-md opa-50 active' : 'koi-type-h2b color--utsuri' }
+          className={ props.tab === Constants.FILES_TAB ? 'koi-type-h2b color--utsuri mrgn-bottom-md opa-100 active' : 'koi-type-h2b color--utsuri mrgn-bottom-md opa-50' }
           onClick={clickHandler}>
-        Files {props.count > 0 ? '(' + props.count + ')' : ''}
+        {props.count > 0 ?  + props.count : ''} Files
       </a>
-    </li>
+    </div>
   );
 };
 
@@ -274,8 +274,10 @@ const ThreadBody = props => {
 
 
               <div className="comment-row-wrapper brdr-left flx flx-col">
-                <DiscussionTab tab={tab} changeTab={props.changeTab} count={thread.commentsCount} />
-                <FilesTab tab={tab} changeTab={props.changeTab} count={props.attachmentCount} />
+                <div className="flx flx-row flx-align-center flx-just-start w-100 mrgn-bottom-sm mrgn-top-lg">
+                  <DiscussionTab tab={tab} changeTab={props.changeTab} count={thread.commentsCount} />
+                  <FilesTab tab={tab} changeTab={props.changeTab} count={props.attachmentCount} />
+                </div>
 
                 <div className="co-thread-reply-wrapper">
                   
