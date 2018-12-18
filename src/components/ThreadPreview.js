@@ -143,6 +143,13 @@ const ThreadPreview = props => {
   const thread = props.thread;
   const lastUpdater = props.lastUpdater;
 
+  const openThread = ev => {
+    ev.preventDefault()
+    let threadURL = '/' + props.org.url + '/' + thread.projectId + '/' + thread.threadId
+    window.history.pushState( {} , null, threadURL );
+    props.showThreadModal(thread, props.project, props.org, props.orgMembers, props.orgUserData)
+  }
+
   // const postAuthor = thread.lastUpdate === Constants.COMMENT_TYPE ? 
   //   ( thread.lastUpdater ? thread.lastUpdater : { username: '', userId: null, image: '' } ) : thread.createdBy;
   // const lastUpdater = thread.lastUpdater ? thread.lastUpdater : { username: '', userId: null, firstName: '', lastName: '', image: '' }
@@ -181,7 +188,7 @@ const ThreadPreview = props => {
                     </div>
                   </div>
                   <Link className="color--black co-post-preview-title text-hover" 
-                        to={`/${props.org.url}/${props.projectId}/${thread.threadId}`}>
+                        onClick={openThread}>
                         {thread.title}
                   </Link>
                   {/*} <UpdateSection thread={thread} lastUpdater={lastUpdater} />*/}
