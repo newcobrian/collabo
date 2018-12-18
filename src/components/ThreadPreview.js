@@ -67,7 +67,7 @@ const ProjectLabel = props => {
   }
   else return (
     <div className="co-project-name">
-      <Link className="co-type-caption text-hover flx flx-row flx-align-center" to={'/' + props.orgName + '/' + props.projectId}>
+      <Link className="co-type-caption text-hover flx flx-row flx-align-center" to={'/' + props.org.url + '/' + props.projectId}>
         {props.projectNames[props.projectId] ? props.projectNames[props.projectId].name : ''}
       </Link>
     </div> 
@@ -82,7 +82,7 @@ const CommentPreview = props => {
   if (!props.thread) return null
   else if (props.thread.commentsCount) {
     return (
-      <Link to={`/${props.orgName}/${props.thread.projectId}/${props.thread.threadId}`}>
+      <Link to={`/${props.org.url}/${props.thread.projectId}/${props.thread.threadId}`}>
         <div className="cta-wrapper cta-wrapper-comment v2-type-body2 flx flx-row flx-align-center w-100">
           <div className="material-icons color--black md-18 opa-60 mrgn-right-sm">comment</div>
           {props.thread.commentsCount} Comments
@@ -156,13 +156,13 @@ const ThreadPreview = props => {
               <div className="flx flx-row flx-align-center w-100">
 
                 <div className="updater-col flx flx-row flx-align-center flx-hold">
-                  <Link to={'/' + props.orgName + '/user/' + lastUpdater.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
+                  <Link to={'/' + props.org.url + '/user/' + lastUpdater.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
                     <ProfilePic src={lastUpdater.image} className="user-image user-image-sm center-img" />
                   </Link>
 
                   <div className="flx flx-col flx-align-start mobile-hide">
                     <div className="flx flx-row co-type-caption mrgn-left-xs">
-                      <Link className="text-hover" to={'/' + props.orgName + '/user/' + lastUpdater.username}>{lastUpdater.username || ''}</Link> 
+                      <Link className="text-hover" to={'/' + props.org.url + '/user/' + lastUpdater.username}>{lastUpdater.username || ''}</Link> 
                       &nbsp;
                     </div>
                   </div>
@@ -170,13 +170,13 @@ const ThreadPreview = props => {
                 </div>
                 <div className="preview-content color--black flx flx-col flx-just-center">
                   <div className="w-100 flx flx-row flx-just-start flx-align-center">
-                    <ProjectLabel className="" projectNames={props.projectNames} projectId={thread.projectId} orgName={props.orgName} />
+                    <ProjectLabel className="" projectNames={props.projectNames} projectId={thread.projectId} org={props.org} />
                     <div className="koi-type-caption opa-60 ta-right color--black flx-item-right mobile-show">
                       <DisplayTimestamp timestamp={thread.lastModified} />
                     </div>
                   </div>
                   <Link className="color--black co-post-preview-title text-hover" 
-                        to={`/${props.orgName}/${props.projectId}/${thread.threadId}`}>
+                        to={`/${props.org.url}/${props.projectId}/${thread.threadId}`}>
                         {thread.title}
                   </Link>
                   {/*} <UpdateSection thread={thread} lastUpdater={lastUpdater} />*/}
@@ -195,7 +195,7 @@ const ThreadPreview = props => {
                       thread={thread}
                       likeObject={thread}
                       type={Constants.THREAD_TYPE}
-                      orgName={props.orgName} />
+                      org={props.org} />
                       {/*<div className="koi-ico --24 ico--bookmark mrgn-left-md opa-20 no-click"></div>*/}
 
                   </div>
@@ -211,7 +211,7 @@ const ThreadPreview = props => {
                   thread={thread}
                   likeObject={thread}
                   type={Constants.THREAD_TYPE}
-                  orgName={props.orgName} />
+                  org={props.org} />
                   {/*<div className="koi-ico --24 ico--bookmark mrgn-left-md opa-20 no-click flx-item-right"></div>*/}
               </div>
           
