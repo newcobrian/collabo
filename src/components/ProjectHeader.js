@@ -25,7 +25,7 @@ const ProjectHeader = props => {
                 <div className="flx flx-row flx-align-center">
                   <Link onClick={props.openProjectSettings} className="flx flx-row flx-center-all mrgn-right-xs"> 
                     <div className="koi-type-body--sm color--utsuri opa-100 mrgn-right-xs text-hover">{(membersList || []).length}</div>
-                    <div className="koi-ico --24 ico--user color--utsuri opa-50"></div>
+                    <div className="koi-ico --24 ico--user color--utsuri opa-30"></div>
                   </Link>
                   {
                     props.orgUser && props.orgUser.role !== Constants.GUEST_ROLE && 
@@ -59,7 +59,9 @@ const ProjectHeader = props => {
                   </div>
                 </Link>
 
+
               </div>
+
 
               <Link to={'/' + props.orgURL + '/addthread/' + props.projectId}
                 className="flx flx-col flx-center-all koi-button-fancy-wrapper flx-item-right mrgn-right-md border--seaweed">
@@ -85,26 +87,50 @@ const ProjectHeader = props => {
         <OrgHeader />
         <div className="project-bar-wrapper flx flx-row flx-align-center">
           <div className="project-header-row co-type-h1 flx flx-row flx-align-center color--black">
-            <div className="group-icon flx flx-col flx-center-all flx-hold">
-              <div className="co-logo flx-hold flx flx-col flx-center-all">
-                <img className="center-img" src="/img/logo_a.png"/>
-              </div>
-            </div>
             <div className="project-header-text">All Threads</div>
           </div>
 
-          <Link to={'/' + props.orgURL + '/addthread/'}
-            activeClassName="active"
-            className="flx flx-col flx-center-all koi-button-fancy-wrapper flx-item-right mrgn-right-md border--seaweed">
-              <div className="koi-button-fancy-outer">
-              </div>
-              <div className="koi-button-fancy-inner">
-              </div>
-              <div className="koi-button-fancy-text color--seaweed">
-                <div className="mobile-hide">Compose Thread</div>
-                <div className="mobile-show">New</div>
-              </div>
-          </Link>
+          {/* View Toggle and Compose Button Wrapper */}
+          <div className="flx-item-right flx flx-row flx-center-all">
+            
+            {/* Toggle Wrapper */}
+            <div className="flx flx-row flx-center-all mrgn-right-lg">
+
+              {/* Full View Icon Wrapper */}
+              <Link className="flx flx-col flx-center-all mrgn-right-sm" onClick={props.onToggleList(false)}>
+                <div className={"koi-ico ico--toggle-full" + (props.showListView ? '' : ' active')}></div>
+                <div className="koi-type-body--sm text-hover color--utsuri opa-50 mobile-hide">
+                  Full View
+                </div>
+              </Link>
+
+              {/* List View Icon Wrapper */}
+              <Link className="flx flx-col flx-center-all" onClick={props.onToggleList(true)}>
+                <div className={"koi-ico ico--toggle-list" + (props.showListView ? ' active' : '')}></div>
+                <div className="koi-type-body--sm text-hover color--utsuri opa-50 mobile-hide">
+                  List View
+                </div>
+              </Link>
+
+            </div>
+
+            <Link to={'/' + props.orgURL + '/addthread/'}
+              activeClassName="active"
+              className="flx flx-col flx-center-all koi-button-fancy-wrapper flx-item-right mrgn-right-md border--seaweed">
+                <div className="koi-button-fancy-outer">
+                </div>
+                <div className="koi-button-fancy-inner">
+                </div>
+                <div className="koi-button-fancy-text color--seaweed">
+                  <div className="mobile-hide">Compose Thread</div>
+                  <div className="mobile-show">New</div>
+                </div>
+            </Link>
+          </div>
+          {/* END: View Toggle and Compose Button Wrapper */}
+
+
+          
           
         </div>
         

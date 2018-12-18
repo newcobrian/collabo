@@ -50,7 +50,7 @@ const ThreadCountJewel = props => {
 const InboxCounter = props => {
   if (props.inboxCount > 0) {
     return (
-      <div className="group-badge fill--utsuri olor--black active koi-type-count">
+      <div className="group-badge fill--tancho color--white active koi-type-count">
         {props.inboxCount}
       </div>
     );

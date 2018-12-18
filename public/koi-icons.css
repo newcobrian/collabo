@@ -75,6 +75,14 @@
 	width: 24px;
 	height: 24px;
 }
+.koi-ico.--16 {
+	width: 16px;
+	height: 16px;
+}
+
+.koi-ico.icon--remove {
+	background-image: url(img/icon-remove.png);
+}
 
 .koi-ico.--24.ico--bookmark {
 	background-image: url(img/icon24_bookmark.png);
@@ -143,6 +151,14 @@
 
 .koi-ico.ico--user {
 	background-image: url(img/icon-user.png);
+}
+
+.koi-ico.ico--file {
+	background-image: url(img/icon-file.png);
+}
+
+.koi-ico.ico--addfile {
+	background-image: url(img/icon-addfile.png);
 }
 
 .koi-ico.ico--toggle-full {

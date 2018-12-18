@@ -520,8 +520,7 @@ textarea {
     padding: 3px;
 }
 .group-triplet .group-badge {
-	padding: 1px;
-	border: 2px solid black;
+	padding: 3px;
 	border-color: rgba(30,33,63,.2) !important;
 }
 

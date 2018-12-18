@@ -14,11 +14,11 @@ import Dropzone from 'react-dropzone'
 const UploadList = props => {
   if (props.attachments) {
     return (
-      <ul>
+      <ul className="w-100">
         {
           props.attachments.map((file, index) => (
-            <li key={index}>
-              {file.name} <Link onClick={props.onRemove(index)}>x</Link>
+            <li className="attachment-row ta-left w-100 fill--white koi-type-caption flx flx-row flx-align-center flx-just-start" key={index}>
+              <Link onClick={props.onRemove(index)} className="koi-ico --16 icon--remove color--utsuri opa-50 mrgn-right-xs"></Link><div>{file.name}</div>
             </li>
           ))
         }
@@ -102,51 +102,57 @@ class CommentInput extends React.Component {
 
   render() {
     return (
-      <form className="comment-wrapper comment-form flx flx-row flx-just-center" onSubmit={this.createComment}>
 
-            {/*<Textarea className="comment-input font--beta input--overline w-100"
-              placeholder="Add a comment..."
-              value={this.state.body}
-              onChange={this.setBody}
-              rows="1"
-              cols="10"
-              wrap="hard">
-            </Textarea>*/}
+      <div className="flx flx-col w-100">
+        <form className="comment-wrapper comment-form flx flx-row flx-just-center" onSubmit={this.createComment}>
 
-            <MentionsInput 
-              className="comment-input co-type-body input--overline w-100 fill--white"
-              rows="2"
-              cols="2"
-              wrap="hard"
-              placeholder="Reply..."
-              value={this.state.body} 
-              onChange={this.setBody}
-              displayTransform={id => `@${id}`}
-              markup='@$|{__display__}|$'
-              >
+              {/*<Textarea className="comment-input font--beta input--overline w-100"
+                placeholder="Add a comment..."
+                value={this.state.body}
+                onChange={this.setBody}
+                rows="1"
+                cols="10"
+                wrap="hard">
+              </Textarea>*/}
 
-                <Mention
-                  trigger="@"
-                  data={this.props.usersList || []}
-                  appendSpaceOnAdd={true}
-                  renderSuggestion={(suggestion, search, highlightedDisplay) => (
-                    <div className="user">@{highlightedDisplay}</div>
-                  )}
-                />
-            </MentionsInput>
+              <MentionsInput 
+                className="comment-input co-type-body input--overline w-100 fill--white"
+                rows="2"
+                cols="2"
+                wrap="hard"
+                placeholder="Reply..."
+                value={this.state.body} 
+                onChange={this.setBody}
+                displayTransform={id => `@${id}`}
+                markup='@$|{__display__}|$'
+                >
 
-            {/*<Dropzone onDrop={this.onDrop} className="h-100">
-              <div>Attachments</div>
-            </Dropzone>*/}
+                  <Mention
+                    trigger="@"
+                    data={this.props.usersList || []}
+                    appendSpaceOnAdd={true}
+                    renderSuggestion={(suggestion, search, highlightedDisplay) => (
+                      <div className="user">@{highlightedDisplay}</div>
+                    )}
+                  />
+              </MentionsInput>
 
-            <div>
-              <UploadList attachments={this.state.attachments} onRemove={this.onRemove} />
-            </div>
+              <div className="comment-attachment flx flx-row flx-align-center flx-just-end">
+                <Dropzone onDrop={this.onDrop} className="h-100">
+                    <div className="koi-ico --24 ico--addfile color--utsuri opa-50"></div>
+                </Dropzone>
 
-            <button className="koi-comment-post-button flx-item-right fill--white color--seaweed brdr-color--seaweed" onClick={this.createComment}>
-              Post
-            </button>
-      </form>
+              </div>
+
+              <button className="koi-comment-post-button flx-item-right fill--white color--seaweed brdr-color--seaweed" onClick={this.createComment}>
+                Post
+              </button>
+        </form>
+
+        <UploadList attachments={this.state.attachments} onRemove={this.onRemove} />
+      </div>
+
+
 
     );
   }
