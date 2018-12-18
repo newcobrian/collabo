@@ -5,7 +5,7 @@ import { Link } from 'react-router'
 
 const DeleteButton = props => {
 	const handleClick = attachmentId => ev => {
-		props.onDeleteClick(attachmentId)
+		props.onDeleteFile(attachmentId)
 	}
 
 	if (props.file && props.authenticated === props.file.userId) {
@@ -28,7 +28,7 @@ const AttachmentsList = props => {
 						<div>Uploader: {(props.orgUserData && props.orgUserData[file.userId] ? props.orgUserData[file.userId].username : '')}</div>
 						<div>Size: {file.size} bytes</div>
 						<div><a href={file.link}>Link</a></div>
-						<div><DeleteButton authenticated={props.authenticated} file={file} onDeleteClick={props.onDeleteClick} /></div>
+						<div><DeleteButton authenticated={props.authenticated} file={file} onDeleteFile={props.onDeleteFile} /></div>
 					</li>
 				))
 			}

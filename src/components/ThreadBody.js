@@ -81,7 +81,7 @@ const SubSection = props => {
         authenticated={props.authenticated}
         attachments={props.attachments} 
         orgUserData={props.orgUserData} 
-        onDeleteClick={props.onDeleteClick} />
+        onDeleteFile={props.onDeleteFile} />
     )
   }
   else return null
@@ -182,7 +182,7 @@ const BodySection = props => {
 const AttachmentsPreview = props => {
   const DeleteButton = props => {
     const handleClick = attachmentId => ev => {
-      props.onDeleteClick(attachmentId)
+      props.onDeleteFile(attachmentId)
     }
 
     if (props.file && props.authenticated === props.file.userId) {
@@ -203,7 +203,7 @@ const AttachmentsPreview = props => {
             <li key={attachmentId}>
               <div>{props.attachments[attachmentId].name}</div>
               <div><a href={props.attachments[attachmentId].link}>Link</a></div>
-              <DeleteButton attachmentId={attachmentId} file={props.attachments[attachmentId]} onDeleteClick={props.onDeleteClick} />
+              <DeleteButton attachmentId={attachmentId} file={props.attachments[attachmentId]} onDeleteFile={props.onDeleteFile} />
             </li>
             )
           })
@@ -224,7 +224,7 @@ const ThreadBody = props => {
     const { authenticated, threadId, thread, project, comments, commentErrors, createdBy, canModify, org, 
       orgMembers, orgUserData, bodyText, likes, attachments, tab } = props
 
-    const onDeleteClick = (attachmentId) => {
+    const onDeleteFile = (attachmentId) => {
       props.deleteAttachmentFile(authenticated, attachmentId)
     }
 
@@ -281,7 +281,7 @@ const ThreadBody = props => {
                     </div>
                     
                     {/* this.renderChanges(this.props.updates, this.props.userId, this.props.comments, this.props.params.tid, this.props.googleDocs) */}
-                    <AttachmentsPreview authenticated={authenticated} attachments={thread.attachments} onDeleteClick={onDeleteClick} />
+                    <AttachmentsPreview authenticated={authenticated} attachments={thread.attachments} onDeleteFile={onDeleteFile} />
                   </div>
                 </div>
             </div>
@@ -309,7 +309,7 @@ const ThreadBody = props => {
                       orgUserData={orgUserData}
                       deleteComment={props.onDeleteThreadComment}
                       attachments={attachments}
-                      onDeleteClick={onDeleteClick} />
+                      onDeleteFile={onDeleteFile} />
 
                 </div>
               </div>
