@@ -163,17 +163,17 @@
 
 .koi-ico.ico--toggle-full {
 	background-image: url(img/toggle-full.png);
-	opacity: .5;
+	opacity: .3;
 }
 .koi-ico.ico--toggle-list {
 	background-image: url(img/toggle-list.png);
-	opacity: .5;
+	opacity: .3;
 }
 .koi-ico.ico--toggle-full.active,
 .koi-ico.ico--toggle-list.active,
 .koi-ico.ico--toggle-full:hover,
 .koi-ico.ico--toggle-list:hover {
-	opacity: 1;
+	opacity: .8;
 	transition: all 0.23s ease-in-out 0s;
 
 }

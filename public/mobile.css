@@ -1221,6 +1221,9 @@ body .back-to-top {
   width: 100%;
 }
 
+.tp-small .thread-content-wrapper {
+  padding: 0;
+}
 
 
 

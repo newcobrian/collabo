@@ -68,7 +68,7 @@ const ProjectLabel = props => {
   else return (
     <div className="co-project-name">
       <Link className="co-type-caption text-hover flx flx-row flx-align-center" to={'/' + props.orgName + '/' + props.projectId}>
-        <div className="sidebar-dot fill--secondary mrgn-right-sm"></div> {props.projectNames[props.projectId] ? props.projectNames[props.projectId].name : ''}
+        {props.projectNames[props.projectId] ? props.projectNames[props.projectId].name : ''}
       </Link>
     </div> 
   )
@@ -148,9 +148,9 @@ const ThreadPreview = props => {
   return (
     <div className={"tp-wrapper tp-small fill--secondary--10 flx flx-col flx-col"}>
         
-        <div className="tp-container flx flx-col flx-align-start w-100">           
+        <div className="tp-container flx flx-col flx-align-start w-100 brdr-bottom">           
         
-          <div className="thread-row-wrapper flx flx-row brdr-bottom w-100">
+          <div className="thread-row-wrapper flx flx-row w-100">
             <div className="thread-content-wrapper flx flx-col w-100">
 
               <div className="flx flx-row flx-align-center w-100">
@@ -168,18 +168,18 @@ const ThreadPreview = props => {
                   </div>
 
                 </div>
-                <div className="preview-content color--black flx flx-col flx-just-center flx-hold">
+                <div className="preview-content color--black flx flx-col flx-just-center">
                   <div className="w-100 flx flx-row flx-just-start flx-align-center">
                     <ProjectLabel className="" projectNames={props.projectNames} projectId={thread.projectId} orgName={props.orgName} />
-                    <div className="thread-timestamp opa-60 ta-right color--black flx-item-right mobile-show">
+                    <div className="koi-type-caption opa-60 ta-right color--black flx-item-right mobile-show">
                       <DisplayTimestamp timestamp={thread.lastModified} />
                     </div>
                   </div>
-                  <Link className="color--black co-post-title text-hover" 
+                  <Link className="color--black co-post-preview-title text-hover" 
                         to={`/${props.orgName}/${props.projectId}/${thread.threadId}`}>
                         {thread.title}
                   </Link>
-                   <UpdateSection thread={thread} lastUpdater={lastUpdater} />
+                  {/*} <UpdateSection thread={thread} lastUpdater={lastUpdater} />*/}
                 </div>
 
                 <div className="flx-item-right flx flx-col flx-just-end flx-hold">
@@ -196,7 +196,7 @@ const ThreadPreview = props => {
                       likeObject={thread}
                       type={Constants.THREAD_TYPE}
                       orgName={props.orgName} />
-                      <div className="koi-ico --24 ico--bookmark mrgn-left-md opa-20 no-click"></div>
+                      {/*<div className="koi-ico --24 ico--bookmark mrgn-left-md opa-20 no-click"></div>*/}
 
                   </div>
                 </div>
@@ -212,7 +212,7 @@ const ThreadPreview = props => {
                   likeObject={thread}
                   type={Constants.THREAD_TYPE}
                   orgName={props.orgName} />
-                  <div className="koi-ico --24 ico--bookmark mrgn-left-md opa-20 no-click flx-item-right"></div>
+                  {/*<div className="koi-ico --24 ico--bookmark mrgn-left-md opa-20 no-click flx-item-right"></div>*/}
               </div>
           
               {/*<div className="DN color--black thread-timestamp flx flx-row flx-align-center mrgn-bottom-md">
