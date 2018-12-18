@@ -84,52 +84,54 @@ export function updateAttachmentData(auth, attachments, org, projectId, threadId
   Firebase.database().ref(Constants.ATTACHMENTS_NAMES_BY_THREAD_PATH + '/' + threadId).once('value', namesSnap => {
     let takenNames = namesSnap.exists() ? namesSnap.val() : {}
     attachments.forEach(function(file) {
-      let attachmentId = file.attachmentId
-      // generate a unique file name and add to list of taken names
-      let fileName = Helpers.generateAttachmentName(file.name, takenNames)
-      let cleanedName = Helpers.cleanEmailToFirebase(fileName)
-      takenNames[cleanedName] = true;
-      
-      let attachmentObject = {
-        name: fileName,
-        link: file.link,
-        type: file.type,
-        size: file.size,
-        userId: auth,
-        threadId: threadId,
-        commentId: commentId ? commentId : null,
-        parentCommentId: parentCommentId ? parentCommentId : null,
-        projectId: projectId,
-        orgId: org.id,
-        lastModified: Firebase.database.ServerValue.TIMESTAMP
-      }
-
-      let attachmentUpdates = {}
-      
-      attachmentUpdates[Constants.ATTACHMENTS_PATH + '/' + attachmentId] = attachmentObject
-      attachmentUpdates[Constants.ATTACHMENTS_BY_THREAD_PATH + '/' + threadId + '/' + attachmentId] = omit(attachmentObject, ['threadId'])
-      attachmentUpdates[Constants.ATTACHMENTS_NAMES_BY_THREAD_PATH + '/' + threadId + '/' + cleanedName] = attachmentId
-      attachmentUpdates[Constants.ATTACHMENTS_BY_PROJECT_PATH + '/' + projectId + '/' + attachmentId] = omit(attachmentObject, ['project'])
-      attachmentUpdates[Constants.ATTACHMENTS_BY_ORG_PATH + '/' + org.id + '/' + attachmentId] = omit(attachmentObject, ['org'])
-
-      // if this attachment is on a comment, add to comments-by-thread
-      let commentObject = pick(attachmentObject, ['name', 'link', 'type'])
-      if (commentId) {
-        // if theres no parentCommentId, then this is an attachment on a regular comment
-        if (!parentCommentId) {
-          attachmentUpdates[Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId + '/' + commentId + '/attachments/' + attachmentId] = commentObject
+      if (file.link && file.type && file.size) {
+        let attachmentId = file.attachmentId
+        // generate a unique file name and add to list of taken names
+        let fileName = Helpers.generateAttachmentName(file.name, takenNames)
+        let cleanedName = Helpers.cleanEmailToFirebase(fileName)
+        takenNames[cleanedName] = true;
+        
+        let attachmentObject = {
+          name: fileName,
+          link: file.link,
+          type: file.type,
+          size: file.size,
+          userId: auth,
+          threadId: threadId,
+          commentId: commentId ? commentId : null,
+          parentCommentId: parentCommentId ? parentCommentId : null,
+          projectId: projectId,
+          orgId: org.id,
+          lastModified: Firebase.database.ServerValue.TIMESTAMP
         }
-        // otherwise this is a nested comment
+
+        let attachmentUpdates = {}
+        
+        attachmentUpdates[Constants.ATTACHMENTS_PATH + '/' + attachmentId] = attachmentObject
+        attachmentUpdates[Constants.ATTACHMENTS_BY_THREAD_PATH + '/' + threadId + '/' + attachmentId] = omit(attachmentObject, ['threadId'])
+        attachmentUpdates[Constants.ATTACHMENTS_NAMES_BY_THREAD_PATH + '/' + threadId + '/' + cleanedName] = attachmentId
+        attachmentUpdates[Constants.ATTACHMENTS_BY_PROJECT_PATH + '/' + projectId + '/' + attachmentId] = omit(attachmentObject, ['project'])
+        attachmentUpdates[Constants.ATTACHMENTS_BY_ORG_PATH + '/' + org.id + '/' + attachmentId] = omit(attachmentObject, ['org'])
+
+        // if this attachment is on a comment, add to comments-by-thread
+        let commentObject = pick(attachmentObject, ['name', 'link', 'type'])
+        if (commentId) {
+          // if theres no parentCommentId, then this is an attachment on a regular comment
+          if (!parentCommentId) {
+            attachmentUpdates[Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId + '/' + commentId + '/attachments/' + attachmentId] = commentObject
+          }
+          // otherwise this is a nested comment
+          else {
+            attachmentUpdates[Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId + '/' + parentCommentId + '/nestedComments/' + commentId + '/' + '/attachments/' + attachmentId] = commentObject
+          }
+        }
+        // otherwise this is an attachment on a thread
         else {
-          attachmentUpdates[Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId + '/' + parentCommentId + '/nestedComments/' + commentId + '/' + '/attachments/' + attachmentId] = commentObject
+          attachmentUpdates[Constants.THREADS_PATH + '/' + threadId + '/attachments/' + attachmentId] = commentObject
         }
-      }
-      // otherwise this is an attachment on a thread
-      else {
-        attachmentUpdates[Constants.THREADS_PATH + '/' + threadId + '/attachments/' + attachmentId] = commentObject
-      }
 
-      Firebase.database().ref().update(attachmentUpdates)
+        Firebase.database().ref().update(attachmentUpdates)
+      }
     })
   })
 }
@@ -652,7 +654,7 @@ export function onThreadCommentSubmit(authenticated, type, thread, body, threadI
 
       // add attachments
       if (attachments && attachments.length > 0) {
-        uploadAttachmentsToFirebase(dispatch, authenticated, attachments, org, thread.projectId, threadId, commentId, parentId)
+        updateAttachmentData(authenticated, attachments, org, thread.projectId, threadId, commentId, parentId)
       }
 
       setTimeout(function() {

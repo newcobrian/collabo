@@ -58,15 +58,6 @@ class AddThread extends React.Component {
 	    	this.props.onUpdateCreateField('body', value, Constants.ADD_THREAD_PAGE)
 	    }
 
-	    const checkAttachmentsCompleted = attachments => {
-	    	for (let i = 0; i < attachments.length; i++) {
-	    		if (attachments[i].progress > -1 && attachments[i].progress < 100) {
-	    			return false
-	    		}
-	    	}
-	    	return true
-	    }
-
 		this.submitForm = ev => {
 	      ev.preventDefault();
 	      if (!this.props.title) {
@@ -75,7 +66,7 @@ class AddThread extends React.Component {
 	      else if (!this.props.projectId) {
 	        this.props.createSubmitError('Please select a project', Constants.ADD_THREAD_PAGE);
 	      }
-	      else if (!checkAttachmentsCompleted(this.props.attachments)) {
+	      else if (!Helpers.checkAttachmentsCompleted(this.props.attachments)) {
 	      	this.props.createSubmitError('Please wait until all attachments are finished uploading', Constants.ADD_THREAD_PAGE);
 	      }
 	      else {
