@@ -101,7 +101,9 @@ class AddThread extends React.Component {
 	    }
 
 	    this.removeUpload = index => ev => {
-	    	this.props.onRemoveAttachments(index, Constants.ADD_THREAD_PAGE)
+	    	let attachmentId = (this.props.attachments && this.props.attachments[index] && this.props.attachments[index].attachmentId) ?
+	    		this.props.attachments[index].attachmentId : null
+	    	this.props.onRemoveAttachments(index, attachmentId, Constants.ADD_THREAD_PAGE)
 	    }
 	}
 

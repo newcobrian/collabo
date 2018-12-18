@@ -2704,8 +2704,21 @@ export function onAddAttachments(auth, files, source) {
   }
 }
 
-export function onRemoveAttachments(index, source) {
+export function onRemoveAttachments(index, attachmentId, source) {
   return dispatch => {
+    if (attachmentId) {
+      const storageRef = Firebase.storage().ref();
+      // Create a reference to the file to delete
+      var deleteRef = storageRef.child('attachments/' + attachmentId);
+
+      // Delete the file
+      deleteRef.delete().then(function() {
+        // File deleted successfully
+      }).catch(function(error) {
+        // Uh-oh, an error occurred!
+      });
+    }
+
     dispatch({
       type: ActionTypes.REMOVE_ATTACHMENTS,
       index,
