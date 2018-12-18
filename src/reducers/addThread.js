@@ -241,7 +241,11 @@ export default (state = initialState, action) => {
         // generate a good file name
 
         // push to end of attachments array
-        newState.attachments = newState.attachments.concat(Object.assign({}, {name: action.fileName}, {attachmentId: action.attachmentId}))
+        newState.attachments = newState.attachments.concat(Object.assign({}, 
+          {name: action.fileName}, 
+          {attachmentId: action.attachmentId}, 
+          {type: action.fileType}, 
+          {size: action.fileSize}))
 
         return newState;
       }

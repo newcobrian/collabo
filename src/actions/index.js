@@ -2696,6 +2696,8 @@ export function onAddAttachments(auth, files, source) {
         type: ActionTypes.ADD_ATTACHMENT,
         fileName: file.name,
         attachmentId: attachmentId,
+        fileType: file.type,
+        fileSize: file.size,
         source
       })
     })
