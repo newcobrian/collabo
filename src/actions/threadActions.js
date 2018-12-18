@@ -150,6 +150,52 @@ export function updateAttachmentData(auth, attachments, org, projectId, threadId
   })
 }
 
+export function deleteAttachmentFile(auth, attachmentId) {
+  return dispatch => {
+    Firebase.database().ref(Constants.ATTACHMENTS_PATH + '/' + attachmentId).once('value', snap => {
+      if (snap.exists()) {
+        let attachmentUpdates = {}
+        let file = snap.val()
+        let cleanedName = Helpers.cleanEmailToFirebase(file.name)
+
+        attachmentUpdates[Constants.ATTACHMENTS_PATH + '/' + attachmentId] = null
+        attachmentUpdates[Constants.ATTACHMENTS_BY_THREAD_PATH + '/' + file.threadId + '/' + attachmentId] = null
+        attachmentUpdates[Constants.ATTACHMENTS_NAMES_BY_THREAD_PATH + '/' + file.threadId + '/' + cleanedName] = null
+        attachmentUpdates[Constants.ATTACHMENTS_BY_PROJECT_PATH + '/' + file.projectId + '/' + attachmentId] = null
+        attachmentUpdates[Constants.ATTACHMENTS_BY_ORG_PATH + '/' + file.orgId + '/' + attachmentId] = null
+
+        // also delete the comment from the thread
+        if (file.commentId) {
+          // if theres no parentCommentId, then this is an attachment on a regular comment
+          if (!file.parentCommentId) {
+            attachmentUpdates[Constants.COMMENTS_BY_THREAD_PATH + '/' + file.threadId + '/' + file.commentId + '/attachments/' + attachmentId] = null
+          }
+          // otherwise this is a nested comment
+          else {
+            attachmentUpdates[Constants.COMMENTS_BY_THREAD_PATH + '/' + file.threadId + '/' + file.parentCommentId + '/nestedComments/' + file.commentId + '/' + '/attachments/' + attachmentId] = null
+          }
+        }
+        // otherwise this is an attachment on a thread
+        else {
+          attachmentUpdates[Constants.THREADS_PATH + '/' + file.threadId + '/attachments/' + attachmentId] = null
+        }
+
+        const storageRef = Firebase.storage().ref();
+        // Create a reference to the file to delete
+        var deleteRef = storageRef.child('attachments/' + attachmentId);
+
+        // Delete the file
+        deleteRef.delete().then(function() {
+          // File deleted successfully
+          Firebase.database().ref().update(attachmentUpdates)
+        }).catch(function(error) {
+          // Uh-oh, an error occurred!
+        });
+      }
+    })
+  }
+}
+
 export function onAddThread(auth, org, projectId, thread, attachments) {
   return dispatch => {
     if (!auth) {

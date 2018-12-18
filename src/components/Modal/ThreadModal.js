@@ -35,7 +35,8 @@ const mapDispatchToProps = {
   unloadThreadModal: Actions.unloadThreadModal,
   loadThreadAttachments: Actions.loadThreadAttachments,
   unloadThreadAttachments: Actions.unloadThreadAttachments,
-  changeTab: Actions.changeTab
+  changeTab: Actions.changeTab,
+  deleteAttachmentFile: Actions.deleteAttachmentFile
 }
 
 
@@ -184,6 +185,7 @@ class ThreadModal extends React.Component {
               tab={tab}
               changeTab={this.props.changeTab}
               attachmentCount={attachmentCount}
+              deleteAttachmentFile={this.props.deleteAttachmentFile}
              />
           </Dialog>
         </MuiThemeProvider>

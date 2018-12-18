@@ -1,6 +1,20 @@
 import React from 'react';
 import * as Constants from '../constants';
 import DisplayTimestamp from './DisplayTimestamp';
+import { Link } from 'react-router'
+
+const DeleteButton = props => {
+	const handleClick = attachmentId => ev => {
+		props.onDeleteClick(attachmentId)
+	}
+
+	if (props.file && props.authenticated === props.file.userId) {
+		return (
+			<Link onClick={handleClick(props.file.attachmentId)}>Delete</Link>
+		)
+	}
+	else return null
+}
 
 const AttachmentsList = props => {
 	if (props.attachments && props.attachments.length > 0) {
@@ -13,7 +27,8 @@ const AttachmentsList = props => {
 						<DisplayTimestamp timestamp={file.lastModified} />
 						<div>Uploader: {(props.orgUserData && props.orgUserData[file.userId] ? props.orgUserData[file.userId].username : '')}</div>
 						<div>Size: {file.size} bytes</div>
-						<a href={file.link}>Link</a>
+						<div><a href={file.link}>Link</a></div>
+						<div><DeleteButton authenticated={props.authenticated} file={file} onDeleteClick={props.onDeleteClick} /></div>
 					</li>
 				))
 			}

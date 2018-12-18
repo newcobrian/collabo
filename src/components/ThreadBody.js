@@ -77,7 +77,11 @@ const SubSection = props => {
   }
   else if (props.tab === Constants.FILES_TAB) {
     return (
-      <AttachmentsList attachments={props.attachments} orgUserData={props.orgUserData} />
+      <AttachmentsList 
+        authenticated={props.authenticated}
+        attachments={props.attachments} 
+        orgUserData={props.orgUserData} 
+        onDeleteClick={props.onDeleteClick} />
     )
   }
   else return null
@@ -206,6 +210,10 @@ const ThreadBody = props => {
     const { authenticated, threadId, thread, project, comments, commentErrors, createdBy, canModify, org, 
       orgMembers, orgUserData, bodyText, likes, attachments, tab } = props
 
+    const onDeleteClick = (attachmentId) => {
+      props.deleteAttachmentFile(authenticated, attachmentId)
+    }
+
     return (
       <div className={"thread-body left-text flx flx-col flx-align-center"}>
           <div className="thread-view w-100">
@@ -284,7 +292,8 @@ const ThreadBody = props => {
                       usersList={orgMembers}
                       orgUserData={orgUserData}
                       deleteComment={props.onDeleteThreadComment}
-                      attachments={attachments} />
+                      attachments={attachments}
+                      onDeleteClick={onDeleteClick} />
 
                 </div>
               </div>
