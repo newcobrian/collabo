@@ -195,7 +195,7 @@ const ThreadPreview = props => {
                 </div>
 
                 <div className="flx-item-right flx flx-col flx-just-end flx-hold">
-                  <div className="thread-timestamp opa-60 ta-right color--black flx-item-right mrgn-bottom-sm mobile-hide">
+                  <div className="thread-timestamp opa-60 ta-right color--black flx-item-right mrgn-bottom-xs mobile-hide">
                     <DisplayTimestamp timestamp={thread.lastModified} />
                   </div>
                   <div className="cta-container flx flx-row flx-align-center flx-just-end flx-item-right mobile-hide">
@@ -209,8 +209,10 @@ const ThreadPreview = props => {
                       type={Constants.THREAD_TYPE}
                       org={props.org} />
                       {/*<div className="koi-ico --24 ico--bookmark mrgn-left-md opa-20 no-click"></div>*/}
-                      <div className="koi-ico --18 opa-80 ico--replies mrgn-left-sm mrgn-right-xs"></div>
-                      <ReplyCounter commentsCount={thread.commentsCount} />
+                      <div className="replies-counter-wrapper flx flx-row flx-just-start flx-align-center flx-hold">
+                        <div className="koi-ico --18 opa-80 ico--replies mrgn-left-xs mrgn-right-sm"></div>
+                        <ReplyCounter commentsCount={thread.commentsCount} />
+                      </div>
                   </div>
                 </div>
                 

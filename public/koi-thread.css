@@ -71,19 +71,19 @@
 .tp-small .tp-container  {
 	width: 100%;
 	margin-bottom: 0;
-	padding: 4px 0 !important;
+	padding: 8px 0 !important;
 }
 .tp-container {
 	width: 600px;
 	width: 50%;
 	border-left: none;
 	background-color: white;
-	padding: 20px 0 !important;
+	padding: 12px 0 !important;
     /*background-image: url(img/pixel-black.png);*/
 /*    background-repeat: repeat-y;
     background-position: 50px 0;*/
     position: relative;
-    margin-bottom: 60px;
+    margin-bottom: 0px;
 }
 .tp-preview-full .tp-container {
 	/*max-height: 460px;*/
@@ -135,6 +135,6 @@
 	z-index: 2;
 }
 .dialog--save__body .thread-body {
-	margin-top: 72px;
+	margin-top: 60px;
 }
 

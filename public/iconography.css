@@ -2,7 +2,8 @@
   font-size: 9px;
   width: 100%;
 }
-.like-review-wrapper {
+.like-review-wrapper,
+.replies-counter-wrapper {
   width: 50px;
 }
 .cta-wrapper {

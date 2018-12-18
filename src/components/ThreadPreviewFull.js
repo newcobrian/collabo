@@ -297,7 +297,7 @@ class ThreadPreviewFull extends React.Component {
           <div className="comment-row-wrapper flx flx-col">
 
             {/* Replies Header Row */}
-            <Link onClick={this.openThread}  className="flx flx-row flx-align-end rgn-top-md mrgn-bottom-sm mrgn-top-lg pdding-top-sm w-100 opa-50">
+            <Link onClick={this.openThread}  className="flx flx-row flx-align-end rgn-top-md mrgn-bottom-sm mrgn-top-sm pdding-top-sm w-100 opa-50">
               <div className="koi-type-h2b color--utsuri mrgn-left-sm">
                 <ReplyCounter commentCount={this.props.thread.commentsCount} /> Replies
               </div>

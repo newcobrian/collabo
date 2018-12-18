@@ -229,10 +229,10 @@ const ThreadBody = props => {
     }
 
     return (
-      <div className={"thread-body left-text flx flx-col flx-align-center"}>
+      <div className={"thread-body fill--mist left-text flx flx-col flx-align-center"}>
           <div className="thread-view w-100">
             <div className={"tp-wrapper flx flx-row flx-m-col"}>   
-              <div className="tp-container b--primary--10 flx flx-col flx-align-start">   
+              <div className="tp-container b--primary--10 flx flx-col flx-align-start mrgn-top-sm">   
                 <div className="thread-row-wrapper flx flx-row">
                   <div className="thread-content-wrapper w-100">
                     <div className="co-type-thread-title color--black mrgn-bottom-xs">{thread.title}</div>
@@ -287,7 +287,7 @@ const ThreadBody = props => {
             </div>
 
 
-              <div className="comment-row-wrapper brdr-left flx flx-col">
+              <div className="comment-row-wrapper flx flx-col">
                 <div className="flx flx-row flx-align-center flx-just-start w-100 mrgn-bottom-sm mrgn-top-lg">
                   <DiscussionTab tab={tab} changeTab={props.changeTab} count={thread.commentsCount} />
                   <FilesTab tab={tab} changeTab={props.changeTab} count={props.attachmentCount} />
