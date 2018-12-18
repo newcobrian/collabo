@@ -131,7 +131,10 @@ class CommentInput extends React.Component {
         // this.setState({ })
         this.setState({ errors: ['Please wait for all attachments to finish uploading']})
       }
-      else if (this.state.body !== '') {
+      else if (this.state.body === '' && this.state.attachments.length < 1) {
+        this.setState({ errors: ['Please add either a comment or attachment']})
+      }
+      else {
         // clean the comment body for @ mentions markup
         let pattern = /\B@[$][|][{][a-z0-9_-]+(\1)[}][|][$]/gi;
         const commentBody = ''.concat(this.state.body.replace(/\B@[$][|][{]([a-z0-9_-]+)[}][|][$]/gi, "@$1"))
@@ -145,7 +148,6 @@ class CommentInput extends React.Component {
         }
         // otherwise this is a new comment, create it
         else {
-          console.log(commentAttachments)
           this.props.onThreadCommentSubmit(this.props.authenticated, this.props.type, this.props.commentObject, commentBody, this.props.threadId, this.props.project, this.props.org, this.props.parentId, commentAttachments);
         }
 
