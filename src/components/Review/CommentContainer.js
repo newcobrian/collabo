@@ -24,7 +24,8 @@ const CommentContainer = props => {
 					type={props.type}
 					parentId={props.parentId}
 					openThread={props.openThread}
-					isFeed={props.isFeed} />
+					isFeed={props.isFeed}
+					onDeleteFile={props.onDeleteFile} />
 
 		          <div className="comment-indent main-reply">
 						<div className="comment-input-container">

@@ -49,6 +49,7 @@ const NestedCommentContainer = props => {
         parentId={props.commentId}
         deleteComment={props.deleteComment}
         hideCommentInput={props.hideCommentInput}
+        onDeleteFile={props.onDeleteFile}
       />
     )
   }
@@ -66,6 +67,18 @@ const EditButton = props => {
 }
 
 const AttachmentsPreview = props => {
+  const DeleteAttachment = props => {
+    const handleClick = attachmentId => ev => {
+      console.log(attachmentId)
+    }
+    if (props.file && props.file.userId === props.authenticated) {
+      return (
+        <Link onClick={handleClick(props.file.attachmentId)}>Delete</Link>
+      )
+    }
+    else return null
+  }
+
   if (props.attachments) {
     return (
       <ul className="w-100 mrgn-top-sm">
@@ -78,6 +91,7 @@ const AttachmentsPreview = props => {
                 <li className="attachment-row brdr-all ta-left w-100 fill--white flx flx-row flx-align-center flx-just-start" key={attachmentId}>
                   <div className="koi-ico --24 ico--file color--utsuri opa-30 mrgn-right-xs"></div>
                   <Link to={attachmentLink} target="_blank" className="koi-type-caption color--seaweed">{attachmentName}</Link>
+                  {/*<div><DeleteAttachment authenticated={props.authenticated} file={props.attachments[attachmentId]} onDeleteFile={props.onDeleteFile} /></div>*/}
                 </li>
               )
             }
@@ -217,7 +231,7 @@ class Comment extends React.Component {
                {/* </ShowMore>>*/}
               </div>
 
-              <AttachmentsPreview attachments={comment.attachments} />
+              <AttachmentsPreview authenticated={authenticated} attachments={comment.attachments} onDeleteClick={this.props.onDeleteClick} />
 
               <div className="cta-wrapper flx flx-row flx-align-center mrgn-top-sm w-100">
                 <div className="koi-ico ico--bookmark mrgn-right-md opa-60 DN"></div>
@@ -277,7 +291,8 @@ class Comment extends React.Component {
               deleteComment={deleteComment}
               hideCommentInput={hideCommentInput && (!comment.nestedComments || comment.nestedComments.length === 0)}
               parentId={parentId}
-              isFeed={isFeed} />
+              isFeed={isFeed}
+              onDeleteFile={this.props.onDeleteFile} />
                {/*</Link>*/}
             {/* !parentId && 
               <CommentContainer
