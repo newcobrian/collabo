@@ -158,10 +158,11 @@ export function deleteAlgoliaComment(objectId, commentId) {
 // 	});
 // }
 
-export function updateAlgoliaIndex(objectID, object) {
+export function updateAlgoliaIndex(objectID, object, indexChoice) {
 	const algoliasearch = require('algoliasearch');
 	const client = algoliasearch('NFI90PSOIY', '2bbae42da8376a35748f4817449e0b23', {protocol:'https:'});
-	const index = client.initIndex('posts');
+	indexChoice = indexChoice ? indexChoice : 'posts'
+	const index = client.initIndex(indexChoice);
 
 	Object.assign(object, {objectID: objectID}, {lastModified: new Date().getTime()})
 
@@ -175,10 +176,11 @@ export function updateAlgoliaIndex(objectID, object) {
 	});
 }
 
-export function deleteAlgoliaObject(objectID) {
+export function deleteAlgoliaObject(objectID, indexChoice) {
 	const algoliasearch = require('algoliasearch');
 	const client = algoliasearch('NFI90PSOIY', '2bbae42da8376a35748f4817449e0b23', {protocol:'https:'});
-	const index = client.initIndex('posts');
+	indexChoice = indexChoice ? indexChoice : 'posts'
+	const index = client.initIndex(indexChoice);
 	index.deleteObject(objectID, function(err, content) {
 	  // if (err) throw err;
 	  // console.log(content);
