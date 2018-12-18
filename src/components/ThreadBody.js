@@ -180,6 +180,19 @@ const BodySection = props => {
 }
 
 const AttachmentsPreview = props => {
+  const DeleteButton = props => {
+    const handleClick = attachmentId => ev => {
+      props.onDeleteClick(attachmentId)
+    }
+
+    if (props.file && props.authenticated === props.file.userId) {
+      return (
+        <Link onClick={handleClick(props.attachmentId)}>Delete</Link>
+      )
+    }
+    else return false
+  }
+
   if (props.attachments) {
     return (
       <ul>
@@ -189,7 +202,8 @@ const AttachmentsPreview = props => {
             return  (
             <li key={attachmentId}>
               <div>{props.attachments[attachmentId].name}</div>
-              <a href={props.attachments[attachmentId].link}>Link</a>
+              <div><a href={props.attachments[attachmentId].link}>Link</a></div>
+              <DeleteButton attachmentId={attachmentId} file={props.attachments[attachmentId]} onDeleteClick={props.onDeleteClick} />
             </li>
             )
           })
@@ -267,7 +281,7 @@ const ThreadBody = props => {
                     </div>
                     
                     {/* this.renderChanges(this.props.updates, this.props.userId, this.props.comments, this.props.params.tid, this.props.googleDocs) */}
-                    <AttachmentsPreview attachments={thread.attachments} />
+                    <AttachmentsPreview authenticated={authenticated} attachments={thread.attachments} onDeleteClick={onDeleteClick} />
                   </div>
                 </div>
             </div>
