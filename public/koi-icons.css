@@ -27,11 +27,11 @@
 	background-image: url(img/icon_hamburger.png);
 }
 .koi-ico.ico--like {
-	background-image: url(img/icon_like.png);
+	background-image: url(img/icon-like.png);
 }
 .koi-ico.ico--like--active,
 .koi-ico.ico--like:hover {
-	background-image: url(img/icon_like_chagoi.png);
+	background-image: url(img/icon-like-chagoi.png);
 	transition: all 0.23s ease-in-out 0s;
 }
 .koi-ico.ico--bookmark {
@@ -78,6 +78,11 @@
 .koi-ico.--16 {
 	width: 16px;
 	height: 16px;
+}
+
+.koi-ico.--18 {
+	width: 18px;
+	height: 18px;
 }
 
 .koi-ico.icon--remove {
@@ -151,6 +156,9 @@
 
 .koi-ico.ico--user {
 	background-image: url(img/icon-user.png);
+}
+.koi-ico.ico--replies {
+	background-image: url(img/icon-replies.png);
 }
 
 .koi-ico.ico--file {

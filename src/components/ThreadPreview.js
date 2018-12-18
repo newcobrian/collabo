@@ -21,8 +21,17 @@ var Scroll = require('react-scroll');
 var Element = Scroll.Element;
 var linkify = require('linkify-it')();
 
+const ReplyCounter = props => {
 
-
+  if (props.commentCount > 0) {
+    return (
+      <div className="koi-type-data color--black">{props.commentCount} </div>
+    );
+  }
+  return (
+    <div className="koi-type-data color--black">0 </div>
+  );
+}
 
 
 const UpdateIcon = props => {
@@ -139,11 +148,13 @@ const UpdateSection = props => {
 const ThreadPreview = props => {
   const thread = props.thread;
   const lastUpdater = props.lastUpdater;
+
   // const postAuthor = thread.lastUpdate === Constants.COMMENT_TYPE ? 
   //   ( thread.lastUpdater ? thread.lastUpdater : { username: '', userId: null, image: '' } ) : thread.createdBy;
   // const lastUpdater = thread.lastUpdater ? thread.lastUpdater : { username: '', userId: null, firstName: '', lastName: '', image: '' }
   // let title = tip.subject ? tip.subject.title : ''
   // let canModify = props.authenticated === tip.userId ? true : false;
+
 
   return (
     <div className={"tp-wrapper tp-small fill--secondary--10 flx flx-col flx-col"}>
@@ -186,7 +197,7 @@ const ThreadPreview = props => {
                   <div className="thread-timestamp opa-60 ta-right color--black flx-item-right mrgn-bottom-sm mobile-hide">
                     <DisplayTimestamp timestamp={thread.lastModified} />
                   </div>
-                  <div className="cta-container flx flx-row flx-just-end flx-item-right mobile-hide">
+                  <div className="cta-container flx flx-row flx-align-center flx-just-end flx-item-right mobile-hide">
                     <LikeReviewButton
                       authenticated={props.authenticated}
                       isLiked={thread.likes && thread.likes[props.authenticated] ? true : false}
@@ -197,12 +208,13 @@ const ThreadPreview = props => {
                       type={Constants.THREAD_TYPE}
                       org={props.org} />
                       {/*<div className="koi-ico --24 ico--bookmark mrgn-left-md opa-20 no-click"></div>*/}
-
+                      <div className="koi-ico --18 opa-80 ico--replies mrgn-left-sm mrgn-right-xs"></div>
+                      <ReplyCounter commentCount={this.props.thread.commentsCount} />
                   </div>
                 </div>
                 
               </div>
-              <div className="cta-container flx flx-row w-100 flx-align-start mobile-show">
+              <div className="cta-container flx flx-row flx-align-center w-100 flx-align-start mobile-show">
                 <LikeReviewButton
                   authenticated={props.authenticated}
                   isLiked={thread.likes && thread.likes[props.authenticated] ? true : false}
@@ -213,6 +225,8 @@ const ThreadPreview = props => {
                   type={Constants.THREAD_TYPE}
                   org={props.org} />
                   {/*<div className="koi-ico --24 ico--bookmark mrgn-left-md opa-20 no-click flx-item-right"></div>*/}
+                  <div className="koi-ico --18 opa-80 ico--replies mrgn-left-sm mrgn-right-xs"></div>
+                  <ReplyCounter commentCount={this.props.thread.commentsCount} />
               </div>
           
               {/*<div className="DN color--black thread-timestamp flx flx-row flx-align-center mrgn-bottom-md">
