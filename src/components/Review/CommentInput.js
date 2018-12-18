@@ -119,6 +119,20 @@ class CommentInput extends React.Component {
     }
 
     this.onRemove = removeIndex => ev => {
+      let attachmentId = (this.state.attachments && this.state.attachments[removeIndex] && this.state.attachments[removeIndex]) ?
+        this.state.attachments[removeIndex].attachmentId : null
+
+      if (attachmentId) {
+        const storageRef = Firebase.storage().ref();
+        var deleteRef = storageRef.child('attachments/' + attachmentId);
+        // Delete the file
+        deleteRef.delete().then(function() {
+          // File deleted successfully
+        }).catch(function(error) {
+          // Uh-oh, an error occurred!
+        });
+      }
+
       let arr = (this.state.attachments || []).filter(function(item, index) { 
         return index !== removeIndex
       })
