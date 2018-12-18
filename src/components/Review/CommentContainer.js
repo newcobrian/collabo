@@ -10,9 +10,6 @@ const CommentContainer = props => {
 	if (props.authenticated) {
 		return (
 			<div>
-		          
-		          
-
 		          <CommentList
 					comments={props.comments}
 					commentObject={props.commentObject}
