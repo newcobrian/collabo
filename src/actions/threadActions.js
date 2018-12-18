@@ -135,22 +135,7 @@ export function updateAttachmentData(auth, attachments, org, projectId, threadId
     })
   })
 
-  // update thread's algolia object to hold attachments
-  setTimeout(function() {
-    Firebase.database().ref(Constants.ATTACHMENTS_BY_THREAD_PATH + '/' + threadId).once('value', snap => {
-      if (snap.exists()) {
-        let count = 0;
-        let algoliaArray = []
-        snap.forEach(function(attachment) {
-          count++;
-          algoliaArray.push(Object.assign({}, {name: attachment.val().name}, {attachmentId: attachment.key}))
-          if (count >= snap.numChildren()) {
-            Helpers.updateAlgoliaIndex(threadId, {attachments: algoliaArray}, Constants.POSTS_INDEX)
-          }
-        })
-      }
-    })
-  },1000)
+  Helpers.updateAlgoliaAttachments(threadId)
 }
 
 export function deleteAttachmentFile(auth, attachmentId) {
@@ -194,6 +179,8 @@ export function deleteAttachmentFile(auth, attachmentId) {
         }).catch(function(error) {
           // Uh-oh, an error occurred!
         });
+
+        Helpers.updateAlgoliaAttachments(file.threadId)
       }
     })
   }

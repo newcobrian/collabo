@@ -158,6 +158,24 @@ export function deleteAlgoliaComment(objectId, commentId) {
 // 	});
 // }
 
+export function updateAlgoliaAttachments(threadId) {
+	setTimeout(function() {
+	    Firebase.database().ref(Constants.ATTACHMENTS_BY_THREAD_PATH + '/' + threadId).once('value', snap => {
+	      if (snap.exists()) {
+	        let count = 0;
+	        let algoliaArray = []
+	        snap.forEach(function(attachment) {
+	          count++;
+	          algoliaArray.push(Object.assign({}, {name: attachment.val().name}, {attachmentId: attachment.key}))
+	          if (count >= snap.numChildren()) {
+	            updateAlgoliaIndex(threadId, {attachments: algoliaArray}, Constants.POSTS_INDEX)
+	          }
+	        })
+	      }
+	    })
+  	},1000)
+}
+
 export function updateAlgoliaIndex(objectID, object, indexChoice) {
 	const algoliasearch = require('algoliasearch');
 	const client = algoliasearch('NFI90PSOIY', '2bbae42da8376a35748f4817449e0b23', {protocol:'https:'});
