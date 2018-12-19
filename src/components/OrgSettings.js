@@ -147,23 +147,25 @@ const EditUserRole = props => {
     return (
       <div className="koi-dropdown flx flx-row flx-align-center flx-hold color--utsuri">
         <DropdownButton title='Edit' id={`split-button-basic`}>
-        {(Constants.USER_ROLES_ARRAY || []).map((roleType, index) => {      
-          if (teammate.status === Constants.ACTIVE_STATUS) {
-            if (teammate.role == index) {
-              return (
-                <div key={index}>{roleType}</div>
-              )
-            }
-            else if (orgUser.role < index || 
-              (orgUser.role == index) && (orgUser.role == Constants.OWNER_ROLE || orgUser.role == Constants.ADMIN_ROLE)) {
-              return (
-                <MenuItem title='Edit' eventKey={index} key={index} onSelect={onChange}>Change to {roleType}</MenuItem>
-              )
+        {
+          (Constants.USER_ROLES_ARRAY || []).map((roleType, index) => {      
+            if (teammate.status === Constants.ACTIVE_STATUS) {
+              if (teammate.role == index) {
+                return (
+                  <div key={index}>{roleType}</div>
+                )
+              }
+              else if (orgUser.role < index || 
+                (orgUser.role == index) && (orgUser.role == Constants.OWNER_ROLE || orgUser.role == Constants.ADMIN_ROLE)) {
+                return (
+                  <MenuItem title='Edit' eventKey={index} key={index} onSelect={onChange}>Change to {roleType}</MenuItem>
+                )
+              }
+              else return null
             }
             else return null
-          }
-          else return null
-        })}
+          })
+        }
           <MenuItem divider />
           <DeactivateButton teammate={teammate} orgUser={orgUser} onClickStatusChange={onClickStatusChange} />
         </DropdownButton>
