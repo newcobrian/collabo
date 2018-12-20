@@ -1086,10 +1086,13 @@ export function generateAttachmentName(fileName, takenNames) {
 }
 
 export function checkAttachmentsCompleted (attachments) {
-	for (let i = 0; i < attachments.length; i++) {
-		if (attachments[i].progress > -1 && attachments[i].progress < 100) {
-			return false
+	if (attachments) {
+		for (let i = 0; i < attachments.length; i++) {
+			if (attachments[i].progress > -1 && attachments[i].progress < 100) {
+				return false
+			}
 		}
+		return true
 	}
-	return true
+	else return true
 }
