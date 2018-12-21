@@ -44,18 +44,7 @@ export default (state = initialState, action) => {
         newState.threads = newState.threads.slice();
         
         if (!find(newState.threads, ['threadId', action.threadId])) {
-          let threadObject = Object.assign({}, {threadId: action.threadId}, omit(action.thread, ['comments']))
-          if (action.thread.comments) {
-            let commentObject = {}
-            let keysArray = Object.keys(action.thread.comments)
-            for (let i = 0; i < keysArray.length; i++) {
-              if (i > keysArray.length - 4) {
-                commentObject[keysArray[i]] = action.thread.comments[keysArray[i]]
-              }
-            }
-            threadObject.comments = Object.assign({}, commentObject)
-          }
-
+          let threadObject = Object.assign({}, {threadId: action.threadId}, action.thread)
           newState.threads = newState.threads.concat(threadObject);
           newState.threads.sort(Helpers.lastModifiedDesc);
 
