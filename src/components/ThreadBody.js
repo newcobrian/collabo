@@ -76,12 +76,26 @@ const SubSection = props => {
     )
   }
   else if (props.tab === Constants.FILES_TAB) {
+    const handleChange = ev => {
+      props.onChangeFileSort(ev.target.value)
+    }
     return (
-      <AttachmentsList 
-        authenticated={props.authenticated}
-        attachments={props.attachments} 
-        orgUserData={props.orgUserData} 
-        onDeleteFile={props.onDeleteFile} />
+      <div>Sort by: 
+        <select className="org-selector co-type-org color--utsuri opa-40" onChange={handleChange}>
+            {
+              Object.keys(Constants.FILE_SORTING_OPTIONS).map(function(sort) {
+                return (
+                  <option key={sort} value={sort}> {Constants.FILE_SORTING_OPTIONS[sort]}</option>  
+                )
+              })
+            }
+          </select>
+        <AttachmentsList 
+          authenticated={props.authenticated}
+          attachments={props.attachments} 
+          orgUserData={props.orgUserData} 
+          onDeleteFile={props.onDeleteFile} />
+      </div>
     )
   }
   else return null
@@ -228,6 +242,10 @@ const ThreadBody = props => {
       props.deleteAttachmentFile(authenticated, attachmentId)
     }
 
+    const onChangeFileSort = method => {
+      props.sortFiles(method, Constants.THREAD_PAGE)
+    }
+
     return (
       <div className={"thread-body fill--mist left-text flx flx-col flx-align-center"}>
           <div className="thread-view w-100">
@@ -309,7 +327,8 @@ const ThreadBody = props => {
                       orgUserData={orgUserData}
                       deleteComment={props.onDeleteThreadComment}
                       attachments={attachments}
-                      onDeleteFile={onDeleteFile} />
+                      onDeleteFile={onDeleteFile}
+                      onChangeFileSort={onChangeFileSort} />
 
                 </div>
               </div>

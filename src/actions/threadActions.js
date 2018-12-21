@@ -895,3 +895,13 @@ export function unloadThreadAttachments(threadId, source) {
     })
   }
 }
+
+export function sortFiles(method, source) {
+  return dispatch => {
+    dispatch({
+      type: ActionTypes.SORT_FILES,
+      method: method,
+      source: source
+    })
+  }
+}

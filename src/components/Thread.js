@@ -88,7 +88,8 @@ const mapDispatchToProps = {
   loadThreadAttachments: Actions.loadThreadAttachments,
   unloadThreadAttachments: Actions.unloadThreadAttachments,
   changeTab: Actions.changeTab,
-  deleteAttachmentFile: Actions.deleteAttachmentFile
+  deleteAttachmentFile: Actions.deleteAttachmentFile,
+  sortFiles: Actions.sortFiles
 }
 
 class Thread extends React.Component {
@@ -393,6 +394,7 @@ class Thread extends React.Component {
                     changeTab={this.props.changeTab}
                     attachmentCount={this.props.attachmentCount}
                     deleteAttachmentFile={this.props.deleteAttachmentFile}
+                    sortFiles={this.props.sortFiles}
                    />
 
 

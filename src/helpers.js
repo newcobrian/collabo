@@ -253,6 +253,14 @@ export function byUsername(a, b) {
   return 0;
 }
 
+export function byName(a, b) {
+  if (a.name < b.name)
+    return -1;
+  if (a.name > b.name)
+    return 1;
+  return 0;
+}
+
 export function searchLikes(uid, likes) {
   for (var key in likes) {
     if (key === uid) {
@@ -261,6 +269,8 @@ export function searchLikes(uid, likes) {
   }
   return false;
 }
+
+
 
 export function getImagePath(imagesObject) {
 	let imagesArray = [];

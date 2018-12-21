@@ -331,3 +331,10 @@ export const DUMMY_PROJECTS = [
 { name: 'General' },
 { name: 'Meeting Notes' }
 ]
+
+export const FILE_SORTING_OPTIONS = {
+	LAST_MODIFIED_DESC: 'newest to oldest',
+	LAST_MODIFIED_ASC: 'oldest to newest',
+	FILENAME: 'file name',
+	USERNAME: 'uploader'
+}

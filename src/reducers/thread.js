@@ -258,7 +258,12 @@ export default (state = initialState, action) => {
         // add to attachment list
         newState.attachments = newState.attachments || [];
         newState.attachments = newState.attachments.slice();
-        newState.attachments.push(Object.assign({}, { attachmentId: action.attachmentId }, action.payload))
+        let attachmentObject = Object.assign({}, { attachmentId: action.attachmentId }, action.payload)
+        // add the username from orgUserData so we can sort attachments by username
+        if (newState.orgUserData && action.payload && action.payload.userId && newState.orgUserData[action.payload.userId]) {
+          attachmentObject.username = newState.orgUserData[action.payload.userId].username
+        }
+        newState.attachments.push(attachmentObject)
         newState.attachmentCount = newState.attachmentCount + 1
 
         return newState;
@@ -316,6 +321,35 @@ export default (state = initialState, action) => {
         }
       }
       else return state
+    }
+    case ActionTypes.SORT_FILES: {
+      if (action.source === Constants.THREAD_PAGE) {
+        const newState = Object.assign({}, state);
+
+        // remove from attachments list
+        newState.attachments = newState.attachments || [];
+        newState.attachments = newState.attachments.slice();
+
+        if (newState.sortMethod !== action.method) {
+          switch (action.method) {
+            case 'LAST_MODIFIED_DESC':
+              newState.attachments.sort(Helpers.lastModifiedDesc)
+              break;
+            case 'LAST_MODIFIED_ASC':
+              newState.attachments.sort(Helpers.lastModifiedAsc)
+              break;
+            case 'FILENAME':
+              newState.attachments.sort(Helpers.byName)
+              break;
+            case 'USERNAME':
+              newState.attachments.sort(Helpers.byUsername)
+              break;
+          }
+          newState.sortMethod = action.method
+        }
+        return newState
+      }
+      return state;
     }
     default:
       return state;
