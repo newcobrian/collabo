@@ -69,9 +69,9 @@ const EditButton = props => {
 const AttachmentsPreview = props => {
   const DeleteAttachment = props => {
     const handleClick = attachmentId => ev => {
-      console.log(attachmentId)
+      props.onDeleteFile(props.attachmentId)
     }
-    if (props.file && props.file.userId === props.authenticated) {
+    if (props.uploaderId === props.authenticated) {
       return (
         <Link className="flx-item-right koi-ico --16 icon--remove color--utsuri opa-60" onClick={handleClick(props.file.attachmentId)}></Link>
       )
@@ -91,7 +91,12 @@ const AttachmentsPreview = props => {
                 <li className="attachment-row brdr-all ta-left w-100 fill--white flx flx-row flx-align-center flx-just-start" key={attachmentId}>
                   <div className="koi-ico --24 ico--file color--utsuri opa-30 mrgn-right-xs"></div>
                   <Link to={attachmentLink} target="_blank" className="koi-type-caption color--seaweed">{attachmentName}</Link>
-                  <DeleteAttachment authenticated={props.authenticated} file={props.attachments[attachmentId]} onDeleteFile={props.onDeleteFile} />
+                  <DeleteAttachment 
+                    attachmentId={attachmentId}
+                    authenticated={props.authenticated} 
+                    uploaderId={props.uploaderId}
+                    file={props.attachments[attachmentId]} 
+                    onDeleteFile={props.onDeleteFile} />
                 </li>
               )
             }
@@ -231,7 +236,11 @@ class Comment extends React.Component {
                {/* </ShowMore>>*/}
               </div>
 
-              <AttachmentsPreview authenticated={authenticated} attachments={comment.attachments} onDeleteClick={this.props.onDeleteClick} />
+              <AttachmentsPreview 
+                authenticated={authenticated} 
+                uploaderId={comment.userId}
+                attachments={comment.attachments} 
+                onDeleteFile={this.props.onDeleteFile} />
 
               <div className="cta-wrapper flx flx-row flx-align-center mrgn-top-sm w-100">
                 <div className="koi-ico ico--bookmark mrgn-right-md opa-60 DN"></div>

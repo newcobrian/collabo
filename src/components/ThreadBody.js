@@ -72,7 +72,8 @@ const SubSection = props => {
         usersList={props.orgMembers}
         orgUserData={props.orgUserData}
         type={Constants.THREAD_TYPE}
-        deleteComment={props.deleteComment} />
+        deleteComment={props.deleteComment}
+        onDeleteFile={props.onDeleteFile} />
     )
   }
   else if (props.tab === Constants.FILES_TAB) {
