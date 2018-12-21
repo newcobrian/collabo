@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import AttachmentIcon from './AttachmentIcon';
 
 const AttachmentsPreview = props => {
   const DeleteAttachment = props => {
@@ -25,7 +26,7 @@ const AttachmentsPreview = props => {
               let attachmentName = (props.attachments && props.attachments[attachmentId] && props.attachments[attachmentId].name) ? props.attachments[attachmentId].name : ''
               return  (
                 <li className="attachment-row brdr-all ta-left w-100 fill--white flx flx-row flx-align-center flx-just-start" key={attachmentId}>
-                  <div className="koi-ico --24 ico--file color--utsuri opa-30 mrgn-right-xs"></div>
+                  <AttachmentIcon filename={attachmentName} />
                   <Link to={attachmentLink} target="_blank" className="koi-type-caption color--seaweed">{attachmentName}</Link>
                   <DeleteAttachment 
                     attachmentId={attachmentId}

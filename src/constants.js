@@ -338,3 +338,18 @@ export const FILE_SORTING_OPTIONS = {
 	FILENAME: 'file name',
 	USERNAME: 'uploader'
 }
+
+export const FILE_ICON_MAP = {
+	'jpeg': '/img\/flags\/AD.png',
+	'jpg': '/img\/flags\/AE.png',
+	'gif': '/img\/flags\/AE.png',
+	'png': '/img\/flags\/AE.png',
+	'doc': '/img\/flags\/AE.png',
+	'docx': '/img\/flags\/AE.png',
+	'xls': '/img\/flags\/AE.png',
+	'xlsx': '/img\/flags\/AE.png',
+	'ai': '/img\/flags\/AE.png',
+	'mov': '/img\/flags\/AE.png',
+	'pdf': '/img\/flags\/AE.png',
+	'default': '/img\/flags\/AF.png',
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import * as Constants from '../constants';
 import DisplayTimestamp from './DisplayTimestamp';
 import { Link } from 'react-router'
+import AttachmentIcon from './AttachmentIcon';
 
 const DeleteButton = props => {
 	const handleClick = attachmentId => ev => {
@@ -22,12 +23,12 @@ const AttachmentsList = props => {
 			<div>
 			{
 				props.attachments.map((file, index) => (
-					<li key={index}>
-						<div>{file.name}</div>
+					<li className="attachment-row brdr-all ta-left w-100 fill--white flx flx-row flx-align-center flx-just-start" key={index}>
+						<AttachmentIcon filename={file.name} />
+						<Link to={file.link} target="_blank" className="koi-type-caption color--seaweed">{file.name}</Link>
 						<DisplayTimestamp timestamp={file.lastModified} />
-						<div>Uploader: {(props.orgUserData && props.orgUserData[file.userId] ? props.orgUserData[file.userId].username : '')}</div>
-						<div>Size: {file.size} bytes</div>
-						<div><a href={file.link}>Link</a></div>
+						<div>{(props.orgUserData && props.orgUserData[file.userId] ? props.orgUserData[file.userId].username : '')}</div>
+						<div>{file.size} bytes</div>
 						<div><DeleteButton authenticated={props.authenticated} file={file} onDeleteFile={props.onDeleteFile} /></div>
 					</li>
 				))
