@@ -22,6 +22,7 @@ import LikeReviewButton from './LikeReviewButton';
 import RichTextEditor from './RichTextEditor';
 import InvalidOrg from './InvalidOrg'
 import AttachmentsList from './AttachmentsList'
+import AttachmentsPreview from './AttachmentsPreview'
 
 const DiscussionTab = props => {
   const clickHandler = ev => {
@@ -194,43 +195,6 @@ const BodySection = props => {
   }
 }
 
-const AttachmentsPreview = props => {
-  const DeleteButton = props => {
-    const handleClick = attachmentId => ev => {
-      props.onDeleteFile(attachmentId)
-    }
-
-    if (props.file && props.authenticated === props.file.userId) {
-      return (
-        <Link onClick={handleClick(props.attachmentId)}>Delete</Link>
-      )
-    }
-    else return false
-  }
-
-  if (props.attachments) {
-    return (
-      <ul>
-        <h3>Attachments</h3>
-        {
-          Object.keys(props.attachments || {}).map(function (attachmentId) {
-            return  (
-            <li key={attachmentId}>
-              <div>{props.attachments[attachmentId].name}</div>
-              <div><a href={props.attachments[attachmentId].link}>Link</a></div>
-              <DeleteButton attachmentId={attachmentId} file={props.attachments[attachmentId]} onDeleteFile={props.onDeleteFile} />
-            </li>
-            )
-          })
-        }
-      </ul>
-    
-    )
-  }
-  else return null
-}
-
-
 const ThreadBody = props => {
   if (!props.thread) {
     return null
@@ -300,7 +264,11 @@ const ThreadBody = props => {
                     </div>
                     
                     {/* this.renderChanges(this.props.updates, this.props.userId, this.props.comments, this.props.params.tid, this.props.googleDocs) */}
-                    <AttachmentsPreview authenticated={authenticated} attachments={thread.attachments} onDeleteFile={onDeleteFile} />
+                    <AttachmentsPreview 
+                      authenticated={authenticated} 
+                      uploaderId={thread.userId}
+                      attachments={thread.attachments} 
+                      onDeleteFile={onDeleteFile} />
                   </div>
                 </div>
             </div>
