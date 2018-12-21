@@ -36,7 +36,13 @@ const AttachmentsList = props => {
 			</div>
 		)
 	}
-	else return null
+	else {
+		return (
+			<div>
+			No files
+			</div>
+		)
+	}
 }
 
 export default AttachmentsList

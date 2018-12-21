@@ -59,7 +59,43 @@ const FilesTab = props => {
 };
 
 const SubSection = props => {
-  if (props.tab === Constants.DISCUSSION_TAB) {
+  if (props.tab === Constants.FILES_TAB) {
+    const handleChange = ev => {
+      props.onChangeFileSort(ev.target.value)
+    }
+
+    const SortDropdown = props => {
+      if (props.attachments && props.attachments.length > 1) {
+        return (
+          <div>
+            Sort by: 
+            <select className="org-selector co-type-org color--utsuri opa-40" onChange={handleChange}>
+              {
+                Object.keys(Constants.FILE_SORTING_OPTIONS).map(function(sort) {
+                  return (
+                    <option key={sort} value={sort}> {Constants.FILE_SORTING_OPTIONS[sort]}</option>  
+                  )
+                })
+              }
+            </select>
+          </div>
+        )
+      }
+      else return null
+    }
+
+    return (
+      <div>
+        <SortDropdown attachments={props.attachments} />
+        <AttachmentsList 
+          authenticated={props.authenticated}
+          attachments={props.attachments} 
+          orgUserData={props.orgUserData} 
+          onDeleteFile={props.onDeleteFile} />
+      </div>
+    )
+  }
+  else { // if (props.tab === Constants.DISCUSSION_TAB) {
     return (
       <CommentContainer
         authenticated={props.authenticated}
@@ -77,30 +113,6 @@ const SubSection = props => {
         onDeleteFile={props.onDeleteFile} />
     )
   }
-  else if (props.tab === Constants.FILES_TAB) {
-    const handleChange = ev => {
-      props.onChangeFileSort(ev.target.value)
-    }
-    return (
-      <div>Sort by: 
-        <select className="org-selector co-type-org color--utsuri opa-40" onChange={handleChange}>
-            {
-              Object.keys(Constants.FILE_SORTING_OPTIONS).map(function(sort) {
-                return (
-                  <option key={sort} value={sort}> {Constants.FILE_SORTING_OPTIONS[sort]}</option>  
-                )
-              })
-            }
-          </select>
-        <AttachmentsList 
-          authenticated={props.authenticated}
-          attachments={props.attachments} 
-          orgUserData={props.orgUserData} 
-          onDeleteFile={props.onDeleteFile} />
-      </div>
-    )
-  }
-  else return null
 }
 
 const BodySection = props => {
