@@ -99,6 +99,7 @@ const ThreadList = props => {
                   orgMembers={props.orgMembers}
                   orgUserData={props.orgUserData}
                   showThreadModal={props.showThreadModal}
+                  onDeleteFile={props.onDeleteFile}
                 />
               );
             }

@@ -5,7 +5,7 @@ import CommentContainer from './Review/CommentContainer';
 import DisplayTimestamp from './DisplayTimestamp';
 import LikeReviewButton from './LikeReviewButton';
 import ProfilePic from './ProfilePic';
-
+import AttachmentsPreview from './AttachmentsPreview';
 
 // const UpdateSection = props => {
 //   if (!props.thread) return null
@@ -268,9 +268,13 @@ class ThreadPreviewFull extends React.Component {
                 <div className="tip__caption mrgn-top-xs co-type-thread-body flx flx-col w-100 flx-align-start" dangerouslySetInnerHTML={{ __html: thread.body || '' }} />
                   {/*<div className="tip__caption color--gray ta-left flx flx-row" dangerouslySetInnerHTML={{ __html: Helpers.convertEditorStateToHTML(Helpers.convertStoredToEditorState(thread.body)) || '' }} />*/}
                 </div>
-                
-
             </div>
+
+            <AttachmentsPreview 
+              authenticated={authenticated} 
+              uploaderId={thread.userId}
+              attachments={thread.attachments} 
+              onDeleteFile={this.props.onDeleteFile} />
 
             {/*
             <Link onClick={this.openThread} className="show-all-button fill--white co-type-body co-type-bold color--utsuri ta-center">
@@ -324,7 +328,8 @@ class ThreadPreviewFull extends React.Component {
                 type={Constants.THREAD_TYPE}
                 deleteComment={deleteComment}
                 openThread={this.openThread}
-                isFeed={true} />
+                isFeed={true}
+                onDeleteFile={this.props.onDeleteFile} />
             </div>
 
           </div>

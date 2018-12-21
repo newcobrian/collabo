@@ -59,7 +59,8 @@ const mapDispatchToProps = {
   showThreadModal: Actions.showThreadModal,
   onDeleteThreadComment: Actions.onDeleteThreadComment,
   showProjectSettingsModal: Actions.showProjectSettingsModal,
-  toggleListView: Actions.toggleListView
+  toggleListView: Actions.toggleListView,
+  deleteAttachmentFile: Actions.deleteAttachmentFile
 }
 
 class Project extends React.Component {
@@ -90,6 +91,10 @@ class Project extends React.Component {
 
     this.onToggleList = showList => ev => {
       this.props.toggleListView(showList)
+    }
+
+    this.onDeleteFile = (attachmentId) => {
+      this.props.deleteAttachmentFile(this.props.authenticated, attachmentId)
     }
   }
 
@@ -312,7 +317,8 @@ class Project extends React.Component {
                             orgUserData={this.props.orgUserData}
                             showThreadModal={this.props.showThreadModal}
                             className={"w-100 h-100"}
-                            showListView={this.props.showListView} />
+                            showListView={this.props.showListView}
+                            onDeleteFile={this.onDeleteFile} />
 
 
                         </InfiniteScroll>

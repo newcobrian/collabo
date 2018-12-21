@@ -119,17 +119,23 @@ export function updateAttachmentData(auth, attachments, org, projectId, threadId
           // if theres no parentCommentId, then this is an attachment on a regular comment
           if (!parentCommentId) {
             attachmentUpdates[Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId + '/' + commentId + '/attachments/' + attachmentId] = commentObject
+            attachmentUpdates[Constants.THREADS_BY_ORG_PATH + '/' + org.id + '/' + threadId + '/comments/' + commentId + '/attachments/' + attachmentId] = commentObject
+            attachmentUpdates[Constants.THREADS_BY_PROJECT_PATH + '/' + projectId + '/' + threadId + '/comments/' + commentId + '/attachments/' + attachmentId] = commentObject
           }
           // otherwise this is a nested comment
           else {
             attachmentUpdates[Constants.COMMENTS_BY_THREAD_PATH + '/' + threadId + '/' + parentCommentId + '/nestedComments/' + commentId + '/' + '/attachments/' + attachmentId] = commentObject
+            attachmentUpdates[Constants.THREADS_BY_ORG_PATH + '/' + org.id + '/' + threadId + '/comments/' + parentCommentId + '/nestedComments/' + commentId + '/' + '/attachments/' + attachmentId] = commentObject
+            attachmentUpdates[Constants.THREADS_BY_PROJECT_PATH + '/' + projectId + '/' + threadId + '/comments/' + parentCommentId + '/nestedComments/' + commentId + '/' + '/attachments/' + attachmentId] = commentObject
           }
         }
         // otherwise this is an attachment on a thread
         else {
           attachmentUpdates[Constants.THREADS_PATH + '/' + threadId + '/attachments/' + attachmentId] = commentObject
+          attachmentUpdates[Constants.THREADS_BY_ORG_PATH + '/' + org.id + '/' + threadId + '/attachments/' + attachmentId] = commentObject
+          attachmentUpdates[Constants.THREADS_BY_PROJECT_PATH + '/' + projectId + '/' + threadId + '/attachments/' + attachmentId] = commentObject
         }
-
+console.log(JSON.stringify(attachmentUpdates))
         Firebase.database().ref().update(attachmentUpdates)
       }
     })
@@ -157,15 +163,21 @@ export function deleteAttachmentFile(auth, attachmentId) {
           // if theres no parentCommentId, then this is an attachment on a regular comment
           if (!file.parentCommentId) {
             attachmentUpdates[Constants.COMMENTS_BY_THREAD_PATH + '/' + file.threadId + '/' + file.commentId + '/attachments/' + attachmentId] = null
+            attachmentUpdates[Constants.THREADS_BY_ORG_PATH + '/' + file.orgId + '/' + file.threadId + '/comments/' + file.commentId + '/attachments/' + attachmentId] = null
+            attachmentUpdates[Constants.THREADS_BY_PROJECT_PATH + '/' + file.projectId + '/' + file.threadId + '/comments/' + file.commentId + '/attachments/' + attachmentId] = null
           }
           // otherwise this is a nested comment
           else {
             attachmentUpdates[Constants.COMMENTS_BY_THREAD_PATH + '/' + file.threadId + '/' + file.parentCommentId + '/nestedComments/' + file.commentId + '/' + '/attachments/' + attachmentId] = null
+            attachmentUpdates[Constants.THREADS_BY_ORG_PATH + '/' + file.orgId + '/' + file.threadId + '/comments/' + file.parentCommentId + '/nestedComments/' + file.commentId + '/' + '/attachments/' + attachmentId] = null
+            attachmentUpdates[Constants.THREADS_BY_PROJECT_PATH + '/' + file.projectId + '/' + file.threadId + '/comments/' + file.parentCommentId + '/nestedComments/' + file.commentId + '/' + '/attachments/' + attachmentId] = null
           }
         }
         // otherwise this is an attachment on a thread
         else {
           attachmentUpdates[Constants.THREADS_PATH + '/' + file.threadId + '/attachments/' + attachmentId] = null
+          attachmentUpdates[Constants.THREADS_BY_ORG_PATH + '/' + file.orgId + '/' + file.threadId + '/attachments/' + attachmentId] = null
+          attachmentUpdates[Constants.THREADS_BY_PROJECT_PATH + '/' + file.projectId + '/' + file.threadId + '/attachments/' + attachmentId] = null
         }
 
         const storageRef = Firebase.storage().ref();
