@@ -64,11 +64,29 @@ const SubSection = props => {
       props.onChangeFileSort(ev.target.value)
     }
 
-    const SortDropdown = props => {
-      if (props.attachments && props.attachments.length > 1) {
-        return (
-          <div>
-            Sort by: 
+    // const SortDropdown = props => {
+    //   if (props.attachments && props.attachments.length > 1) {
+    //     return (
+    //       <div>
+    //         Sort by: 
+    //         <select className="org-selector co-type-org color--utsuri opa-40" onChange={handleChange}>
+    //           {
+    //             Object.keys(Constants.FILE_SORTING_OPTIONS).map(function(sort) {
+    //               return (
+    //                 <option key={sort} value={sort}> {Constants.FILE_SORTING_OPTIONS[sort]}</option>  
+    //               )
+    //             })
+    //           }
+    //         </select>
+    //       </div>
+    //     )
+    //   }
+    //   else return null
+    // }
+
+    return (
+      <div>
+          Sort by: 
             <select className="org-selector co-type-org color--utsuri opa-40" onChange={handleChange}>
               {
                 Object.keys(Constants.FILE_SORTING_OPTIONS).map(function(sort) {
@@ -78,15 +96,7 @@ const SubSection = props => {
                 })
               }
             </select>
-          </div>
-        )
-      }
-      else return null
-    }
-
-    return (
-      <div>
-        <SortDropdown attachments={props.attachments} />
+        {/*<SortDropdown attachments={props.attachments} />*/}
         <AttachmentsList 
           authenticated={props.authenticated}
           attachments={props.attachments} 

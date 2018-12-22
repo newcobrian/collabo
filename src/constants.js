@@ -333,8 +333,8 @@ export const DUMMY_PROJECTS = [
 ]
 
 export const FILE_SORTING_OPTIONS = {
-	LAST_MODIFIED_DESC: 'newest to oldest',
 	LAST_MODIFIED_ASC: 'oldest to newest',
+	LAST_MODIFIED_DESC: 'newest to oldest',
 	FILENAME: 'file name',
 	USERNAME: 'uploader'
 }
