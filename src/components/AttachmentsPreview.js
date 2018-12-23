@@ -27,7 +27,7 @@ const AttachmentsPreview = props => {
               return  (
                 <li className="attachment-row brdr-all ta-left w-100 fill--white flx flx-row flx-align-center flx-just-start" key={attachmentId}>
                   <AttachmentIcon filename={attachmentName} />
-                  <Link to={attachmentLink} target="_blank" className="koi-type-caption color--seaweed">{attachmentName}</Link>
+                  <Link to={attachmentLink} target="_blank" className="mrgn-left-sm koi-type-caption color--seaweed">{attachmentName}</Link>
                   <DeleteAttachment 
                     attachmentId={attachmentId}
                     authenticated={props.authenticated} 

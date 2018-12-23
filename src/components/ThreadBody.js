@@ -85,18 +85,22 @@ const SubSection = props => {
     // }
 
     return (
-      <div>
-          Sort by: 
-            <select className="org-selector co-type-org color--utsuri opa-40" onChange={handleChange}>
-              {
-                Object.keys(Constants.FILE_SORTING_OPTIONS).map(function(sort) {
-                  return (
-                    <option key={sort} value={sort}> {Constants.FILE_SORTING_OPTIONS[sort]}</option>  
-                  )
-                })
-              }
-            </select>
+      <div className="koi-type-body flx flx-col w-100">
+        <div className="koi-type-body flx flx-row flx-align-start flx-just-start mrgn-bottom-sm">
+          <span>Sort by: &nbsp;</span>
+          <select className="org-selector co-type-org color--utsuri opa-80" onChange={handleChange}>
+            {
+              Object.keys(Constants.FILE_SORTING_OPTIONS).map(function(sort) {
+                return (
+                  <option key={sort} value={sort}> {Constants.FILE_SORTING_OPTIONS[sort]}</option>  
+                )
+              })
+            }
+          </select>
+        </div>
+
         {/*<SortDropdown attachments={props.attachments} />*/}
+
         <AttachmentsList 
           authenticated={props.authenticated}
           attachments={props.attachments} 
@@ -236,7 +240,7 @@ const ThreadBody = props => {
     return (
       <div className={"thread-body fill--mist left-text flx flx-col flx-align-center"}>
           <div className="thread-view w-100">
-            <div className={"tp-wrapper flx flx-row flx-m-col"}>   
+            <div className={"tp-wrapper flx flx-row flx-m-col fill--mist"}>   
               <div className="tp-container b--primary--10 flx flx-col flx-align-start mrgn-top-sm">   
                 <div className="thread-row-wrapper flx flx-row">
                   <div className="thread-content-wrapper w-100">

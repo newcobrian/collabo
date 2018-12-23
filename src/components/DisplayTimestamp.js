@@ -50,7 +50,7 @@ const DisplayTimestamp = props => {
     }
   }
 
-  return (<span className="opa-50">{calcTimestamp(props.timestamp)}</span>);
+  return (<span className="opa-100">{calcTimestamp(props.timestamp)}</span>);
 }
 
 

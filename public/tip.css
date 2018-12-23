@@ -427,7 +427,7 @@ select {
     text-align-last:left;
     margin-right: 0;
     cursor: pointer;
-    letter-spacing: 1px;
+    letter-spacing: .2px;
 }
 
 select:hover {

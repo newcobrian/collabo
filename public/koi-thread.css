@@ -48,6 +48,7 @@
 
 .tp-page .tp-wrapper {
 	padding: 12px;
+	min-height: 640px;
 }
 
 
