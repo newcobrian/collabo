@@ -11,7 +11,6 @@ import Sidebar from 'react-sidebar';
 import ProjectList from './ProjectList';
 import RichTextEditor from './RichTextEditor';
 import InvalidOrg from './InvalidOrg'
-import LoggedOutMessage from './LoggedOutMessage';
 import Dropzone from 'react-dropzone'
 // import { EditorState, convertFromRaw, convertToRaw } from 'draft-js';
 // import draftToHtml from 'draftjs-to-html';
