@@ -242,7 +242,7 @@ class ThreadPreviewFull extends React.Component {
                       <div><Link to={'/' + org.url + '/user/' + createdBy.username} className="text-hover color--black">{createdBy.username}</Link></div>
                       <div className="flx-item-right opa-80"><DisplayTimestamp timestamp={thread.lastModified} /></div>
                     </div>
-                    <Link className="color--black co-type-thread-title mrgn-bottom-xs text-hover" onClick={this.openThread} >
+                    <Link className={'color--black co-type-thread-title mrgn-bottom-xs text-hover' + (this.props.isRead ? ' isRead' : ' unRead')} onClick={this.openThread} >
                     {/*<Link className="color--black" to={'/' + org.url + '/' + thread.projectId + '/' + thread.threadId }>*/}
                           {thread.title}
                     </Link>
