@@ -3,6 +3,7 @@ import ThreadPreview from './ThreadPreview';
 import React from 'react';
 import * as Constants from '../constants';
 import { Link } from 'react-router'
+import VisibilitySensor from "react-visibility-sensor";
 
 const mapStateToProps = state => ({
   ...state.project,
@@ -12,6 +13,12 @@ const mapStateToProps = state => ({
 });
 
 const ThreadList = props => {
+  const onThreadVisible = (projectId, threadId, isRead) => isVisible => {
+    if (isVisible && !isRead) {
+      props.updateThreadLastSeen(props.authenticated, props.org.id, projectId, threadId)
+    }
+  }
+
   if (props.emptyThreadFeed) {
     return (
       <div className="threadlist brdr-right b--primary--20 threadlist-loading header-push w-100 flx flx-col flx-center-all ta-center color--black">
@@ -55,6 +62,7 @@ const ThreadList = props => {
             //   }
 
             let lastUpdater = props.orgUserData && props.orgUserData[threadItem.lastUpdater] ? props.orgUserData[threadItem.lastUpdater] : { username: '' }
+            let isRead = props.threadSeenTimes && props.threadSeenTimes[threadItem.threadId] && (props.threadSeenTimes[threadItem.threadId] > threadItem.lastModified)
 
             if (props.showListView) {
               return (
@@ -76,31 +84,35 @@ const ThreadList = props => {
                   orgMembers={props.orgMembers}
                   orgUserData={props.orgUserData}
                   showThreadModal={props.showThreadModal}
+                  isRead={isRead}
                 />
               );
             }
             else {
               return (
-                <ThreadPreviewFull
-                  authenticated={props.authenticated}
-                  userInfo={props.userInfo}
-                  thread={threadItem}
-                  org={props.org}
-                  projectId={threadItem.projectId}
-                  key={threadItem.threadId} 
-                  authenticated={props.authenticated}
-                  userInfo={props.userInfo}
-                  deleteComment={props.deleteComment}
-                  index={index+1}
-                  projectNames={props.projectNames}
-                  project={props.project}
-                  deleteComment={props.deleteComment}
-                  lastUpdater={lastUpdater}
-                  orgMembers={props.orgMembers}
-                  orgUserData={props.orgUserData}
-                  showThreadModal={props.showThreadModal}
-                  onDeleteFile={props.onDeleteFile}
-                />
+                <VisibilitySensor key={threadItem.threadId} onChange={onThreadVisible(threadItem.projectId, threadItem.threadId, isRead)}>
+                  <ThreadPreviewFull
+                    authenticated={props.authenticated}
+                    userInfo={props.userInfo}
+                    thread={threadItem}
+                    org={props.org}
+                    projectId={threadItem.projectId}
+                    key={threadItem.threadId} 
+                    authenticated={props.authenticated}
+                    userInfo={props.userInfo}
+                    deleteComment={props.deleteComment}
+                    index={index+1}
+                    projectNames={props.projectNames}
+                    project={props.project}
+                    deleteComment={props.deleteComment}
+                    lastUpdater={lastUpdater}
+                    orgMembers={props.orgMembers}
+                    orgUserData={props.orgUserData}
+                    showThreadModal={props.showThreadModal}
+                    onDeleteFile={props.onDeleteFile}
+                    isRead={isRead}
+                  />
+                </VisibilitySensor>
               );
             }
           }

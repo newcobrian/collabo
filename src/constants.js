@@ -120,6 +120,8 @@ export const ATTACHMENTS_BY_COMMENT_PATH = '/attachments-by-comment'
 export const ATTACHMENTS_NAMES_BY_THREAD_PATH = '/attachments-names-by-thread'
 export const ATTACHMENTS_BY_ORG_PATH = '/attachments-by-org'
 export const ATTACHMENTS_BY_PROJECT_PATH = '/attachments-by-project'
+export const THREAD_LAST_SEEN_BY_ORG_PATH = '/thread-last-seen-by-org'
+export const THREAD_LAST_SEEN_BY_PROJECT_PATH = '/thread-last-seen-by-project'
 
 /*** Algolia indexes ***/
 export const POSTS_INDEX = 'posts'

@@ -4,7 +4,7 @@ import * as Helpers from '../helpers';
 import { find, isEqual, omit } from 'lodash';
 
 const initialState = { threadCounts: {}, feedEndValue: null, isFeedLoading: false, 
-  projectNames: {}, invalidOrgUser: false, orgUserData: {}, orgMembers: [], projectMembers: [] }
+  projectNames: {}, invalidOrgUser: false, orgUserData: {}, orgMembers: [], projectMembers: [], threadSeenTimes: {} }
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -399,21 +399,34 @@ export default (state = initialState, action) => {
         }
       }
       return state
-    // case ActionTypes.LIKES_BY_USER_ADDED_ACTION: {
-    //   if (action.source === Constants.PROJECT_PAGE) {
-    //     const newState = Object.assign({}, state);
-    //     newState.likesByUser = newState.likesByUser || {};
-    //     newState.likesByUser = Object.assign({}, newState.likesByUser);
-    //     newState.likesByUser[action.id] = true
-    //     return newState;
-    //   }
-    //   return state;
-    // }
     case ActionTypes.TOGGLE_LIST_VIEW:
       return {
         ...state,
         showListView: action.showListView
       }
+    case ActionTypes.THREAD_SEEN_TIMES_ADDED: {
+      const newState = Object.assign({}, state);
+      newState.threadSeenTimes = Object.assign({}, state.threadSeenTimes || {});
+      newState.threadSeenTimes[action.threadId] = action.timestamp
+      return newState;
+    }
+    case ActionTypes.THREAD_SEEN_TIMES_CHANGED: {
+      const newState = Object.assign({}, state);
+      newState.threadSeenTimes = Object.assign({}, state.threadSeenTimes || {});
+      newState.threadSeenTimes[action.threadId] = action.timestamp
+      return newState;
+    }
+    case ActionTypes.THREAD_SEEN_TIMES_REMOVED: {
+      const newState = Object.assign({}, state);
+      newState.threadSeenTimes = Object.assign({}, state.threadSeenTimes || {});
+      delete newState.threadSeenTimes[action.threadId]
+      return newState;
+    }
+    case ActionTypes.THREAD_SEEN_TIMES_UNLOADED: {
+      const newState = Object.assign({}, state);
+      newState.threadSeenTimes = {}
+      return newState;
+    }
     default:
       return state;
   }

@@ -917,3 +917,80 @@ export function sortFiles(method, source) {
     })
   }
 }
+
+export function updateThreadLastSeen(auth, orgId, projectId, threadId) {
+  return dispatch => {
+    let updates = {}
+    updates[Constants.THREAD_LAST_SEEN_BY_ORG_PATH + '/' + auth + '/' + orgId + '/' + threadId] = Firebase.database.ServerValue.TIMESTAMP
+    updates[Constants.THREAD_LAST_SEEN_BY_PROJECT_PATH + '/' + auth + '/' + projectId + '/' + threadId] = Firebase.database.ServerValue.TIMESTAMP
+    Firebase.database().ref().update(updates)
+  }
+}
+
+export function loadThreadSeenTimes(auth, orgId, projectId) {
+  return dispatch => {
+    if (projectId) {
+      Firebase.database().ref(Constants.THREAD_LAST_SEEN_BY_PROJECT_PATH + '/' + auth + '/' + projectId).on('child_added', addedSnap => {
+        dispatch({
+          type: ActionTypes.THREAD_SEEN_TIMES_ADDED,
+          threadId: addedSnap.key,
+          timestamp: addedSnap.val()
+        })
+      })
+
+      Firebase.database().ref(Constants.THREAD_LAST_SEEN_BY_PROJECT_PATH + '/' + auth + '/' + projectId).on('child_changed', changedSnap => {
+        dispatch({
+          type: ActionTypes.THREAD_SEEN_TIMES_CHANGED,
+          threadId: changedSnap.key,
+          timestamp: changedSnap.val()
+        })
+      })
+
+      Firebase.database().ref(Constants.THREAD_LAST_SEEN_BY_PROJECT_PATH + '/' + auth + '/' + projectId).on('child_removed', removedSnap => {
+        dispatch({
+          type: ActionTypes.THREAD_SEEN_TIMES_REMOVED,
+          threadId: removedSnap.key
+        })
+      })
+    }
+    // else if no project id, get all threads from the org
+    else {
+      Firebase.database().ref(Constants.THREAD_LAST_SEEN_BY_ORG_PATH + '/' + auth + '/' + orgId).on('child_added', addedSnap => {
+        dispatch({
+          type: ActionTypes.THREAD_SEEN_TIMES_ADDED,
+          threadId: addedSnap.key,
+          timestamp: addedSnap.val()
+        })
+      })
+
+      Firebase.database().ref(Constants.THREAD_LAST_SEEN_BY_ORG_PATH + '/' + auth + '/' + orgId).on('child_changed', changedSnap => {
+        dispatch({
+          type: ActionTypes.THREAD_SEEN_TIMES_CHANGED,
+          threadId: changedSnap.key,
+          timestamp: changedSnap.val()
+        })
+      })
+
+      Firebase.database().ref(Constants.THREAD_LAST_SEEN_BY_ORG_PATH + '/' + auth + '/' + orgId).on('child_removed', removedSnap => {
+        dispatch({
+          type: ActionTypes.THREAD_SEEN_TIMES_REMOVED,
+          threadId: removedSnap.key
+        })
+      })
+    }
+  }
+}
+
+export function unloadThreadSeenTimes(auth, orgId, projectId) {
+  return dispatch => {
+    if (projectId) {
+      Firebase.database().ref(Constants.THREAD_LAST_SEEN_BY_PROJECT_PATH + '/' + auth + '/' + projectId).off()
+    }
+    else {
+      Firebase.database().ref(Constants.THREAD_LAST_SEEN_BY_ORG_PATH + '/' + auth + '/' + orgId).off()
+    }
+    dispatch({
+      type: ActionTypes.THREAD_SEEN_TIMES_UNLOADED
+    })
+  }
+}

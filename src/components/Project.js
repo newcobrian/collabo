@@ -60,7 +60,9 @@ const mapDispatchToProps = {
   onDeleteThreadComment: Actions.onDeleteThreadComment,
   showProjectSettingsModal: Actions.showProjectSettingsModal,
   toggleListView: Actions.toggleListView,
-  deleteAttachmentFile: Actions.deleteAttachmentFile
+  deleteAttachmentFile: Actions.deleteAttachmentFile,
+  updateThreadLastSeen: Actions.updateThreadLastSeen,
+  loadThreadSeenTimes: Actions.loadThreadSeenTimes
 }
 
 class Project extends React.Component {
@@ -116,7 +118,8 @@ class Project extends React.Component {
         this.props.loadThreadCounts(this.props.authenticated, orgId)
         this.props.loadOrgList(this.props.authenticated, Constants.PROJECT_PAGE)
         this.props.loadProjectNames(orgId, Constants.PROJECT_PAGE)
-        
+
+        this.props.loadThreadSeenTimes(this.props.authenticated, orgId, this.props.params.pid)
         this.props.loadProject(this.props.params.pid, orgId, Constants.PROJECT_PAGE);
         this.props.loadProjectMembers(this.props.params.pid, Constants.PROJECT_PAGE)
         this.props.loadOrgMembers(orgId,  Constants.PROJECT_PAGE)
@@ -127,9 +130,9 @@ class Project extends React.Component {
 
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project'});
 
-    if (this.props.params.pid) {
-      this.props.markProjectRead(this.props.authenticated, this.props.params.pid)
-    }
+    // if (this.props.params.pid) {
+      // this.props.markProjectRead(this.props.authenticated, this.props.params.pid)
+    // }
   }
 
   componentWillUnmount() {
@@ -143,6 +146,7 @@ class Project extends React.Component {
       this.props.unloadProjectMembers(this.props.params.pid, Constants.PROJECT_PAGE)
       this.props.unloadOrgMembers(this.props.org.id, Constants.PROJECT_PAGE)
       this.props.unloadProject(this.props.params.pid, this.props.org.id, Constants.PROJECT_PAGE);
+      this.props.unloadThreadSeenTimes(this.props.authenticated, this.props.org.id, this.props.params.pid)
     }
 
     if (!this.props.authenticated) this.props.setAuthRedirect(this.props.location.pathname);
@@ -154,15 +158,17 @@ class Project extends React.Component {
         this.props.unwatchThreadFeed(this.props.authenticated, this.props.org.id, this.props.params.pid, Constants.PROJECT_PAGE)
         this.props.unloadProject(this.props.params.pid, this.props.org.id, Constants.PROJECT_PAGE);
         this.props.unloadProjectMembers(this.props.params.pid, Constants.PROJECT_PAGE)
+        this.props.unloadThreadSeenTimes(this.props.authenticated, this.props.org.id, this.props.params.pid)
 
         this.props.loadProject(nextProps.params.pid, this.props.org.id, Constants.PROJECT_PAGE);
         this.props.loadProjectMembers(nextProps.params.pid, Constants.PROJECT_PAGE)
+        this.props.loadThreadSeenTimes(this.props.authenticated, this.props.org.id, nextProps.params.pid)
       }
       
       // this.props.watchThreadFeed(this.props.authenticated, this.props.params.orgURL, nextProps.params.pid, this.props.feedEndValue, Constants.PROJECT_PAGE)
-      if (nextProps.params.pid) {
-        this.props.markProjectRead(this.props.authenticated, nextProps.params.pid)
-      }
+      // if (nextProps.params.pid) {
+        // this.props.markProjectRead(this.props.authenticated, nextProps.params.pid)
+      // }
     }
     else if (nextProps.params.orgurl !== this.props.params.orgurl) {
       if (this.props.org && this.props.org.id) {
@@ -173,6 +179,7 @@ class Project extends React.Component {
         this.props.unloadOrg(this.props.authenticated, this.props.org.id, Constants.PROJECT_PAGE);  
         this.props.unloadOrgMembers(this.props.org.id, Constants.PROJECT_PAGE)
         this.props.unloadProject(this.props.params.pid, this.props.org.id, Constants.PROJECT_PAGE);
+        this.props.unloadThreadSeenTimes(this.props.authenticated, this.props.org.id, this.props.params.pid)
       }
       this.props.unloadProjectMembers(this.props.params.pid, Constants.PROJECT_PAGE)
 
@@ -186,18 +193,19 @@ class Project extends React.Component {
           let orgId = orgSnap.val().orgId
           let orgName = orgSnap.val().name
           this.props.loadOrg(this.props.authenticated, orgId, nextProps.params.orgurl, orgName, Constants.PROJECT_PAGE);
-          this.props.loadProjectList(this.props.authenticated, orgId, this.props.params.pid, Constants.PROJECT_PAGE)
+          this.props.loadProjectList(this.props.authenticated, orgId, nextProps.params.pid, Constants.PROJECT_PAGE)
           this.props.loadThreadCounts(this.props.authenticated, orgId)
           this.props.loadProjectNames(orgId, Constants.PROJECT_PAGE)
           this.props.loadProject(nextProps.params.pid, orgId, Constants.PROJECT_PAGE);
+          this.props.loadThreadSeenTimes(this.props.authenticated, orgId, nextProps.params.pid)
           this.props.loadProjectMembers(nextProps.params.pid, Constants.PROJECT_PAGE)
           this.props.loadOrgMembers(orgId, Constants.PROJECT_PAGE)
 
           // this.props.watchThreadFeed(this.props.authenticated, orgId, nextProps.params.pid, Constants.PROJECT_PAGE)
 
-          if (nextProps.params.pid) {
-            this.props.markProjectRead(this.props.authenticated, nextProps.params.pid)
-          }
+          // if (nextProps.params.pid) {
+            // this.props.markProjectRead(this.props.authenticated, nextProps.params.pid)
+          // }
         }
       })
     }
@@ -318,7 +326,9 @@ class Project extends React.Component {
                             showThreadModal={this.props.showThreadModal}
                             className={"w-100 h-100"}
                             showListView={this.props.showListView}
-                            onDeleteFile={this.onDeleteFile} />
+                            onDeleteFile={this.onDeleteFile}
+                            updateThreadLastSeen={this.props.updateThreadLastSeen}
+                            threadSeenTimes={this.props.threadSeenTimes} />
 
 
                         </InfiniteScroll>
