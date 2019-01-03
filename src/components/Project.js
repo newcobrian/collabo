@@ -62,7 +62,8 @@ const mapDispatchToProps = {
   toggleListView: Actions.toggleListView,
   deleteAttachmentFile: Actions.deleteAttachmentFile,
   updateThreadLastSeen: Actions.updateThreadLastSeen,
-  loadThreadSeenTimes: Actions.loadThreadSeenTimes
+  loadThreadSeenTimes: Actions.loadThreadSeenTimes,
+  unloadThreadSeenTimes: Actions.unloadThreadSeenTimes
 }
 
 class Project extends React.Component {
