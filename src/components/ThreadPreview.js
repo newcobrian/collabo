@@ -187,7 +187,7 @@ const ThreadPreview = props => {
                       <DisplayTimestamp timestamp={thread.lastModified} />
                     </div>
                   </div>
-                  <Link className={'color--black co-post-preview-title text-hover' + (this.props.isRead ? ' isRead' : ' unRead')}
+                  <Link className={'color--black co-post-preview-title text-hover' + (props.isRead ? ' isRead' : ' unRead')}
                         onClick={openThread}>
                         {thread.title}
                   </Link>
