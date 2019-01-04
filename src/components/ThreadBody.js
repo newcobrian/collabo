@@ -229,6 +229,19 @@ const mapStateToProps = state => ({
   invalidOrgUser: state.common.invalidOrgUser
 })
 
+const mapDispatchToProps = {
+  updateThreadField: Actions.updateThreadField,
+  onUpdateCreateField: Actions.onUpdateCreateField,
+  changeEditorState: Actions.changeEditorState,
+  setEditMode: Actions.setEditMode,
+  showDeleteModal: Actions.showDeleteModal,
+  onDeleteThreadComment: Actions.onDeleteThreadComment,
+  changeTab: Actions.changeTab,
+  deleteAttachmentFile: Actions.deleteAttachmentFile,
+  sortFiles: Actions.sortFiles,
+  updateThreadLastSeen: Actions.updateThreadLastSeen
+}
+
 class ThreadBody extends React.Component {
   constructor() {
     super()
@@ -267,6 +280,10 @@ class ThreadBody extends React.Component {
     this.onProjectInviteClick = (project) => {
       this.props.showProjectInviteModal(this.props.thread.projectId, this.props.project, this.props.org.id, this.props.org, this.props.orgMembers)
     }
+  }
+
+  componentDidMount() {
+    this.props.updateThreadLastSeen(this.props.authenticated, this.props.org.id, this.props.thread.projectId, this.props.threadId)
   }
 
   render() {
@@ -389,4 +406,4 @@ class ThreadBody extends React.Component {
 }
 
 // export default ThreadBody
-export default connect(mapStateToProps, Actions)(ThreadBody);
+export default connect(mapStateToProps, mapDispatchToProps)(ThreadBody);
