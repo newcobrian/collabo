@@ -221,119 +221,172 @@ const BodySection = props => {
   }
 }
 
-const ThreadBody = props => {
-  if (!props.thread) {
-    return null
+const mapStateToProps = state => ({
+  ...state.thread,
+  userInfo: state.common.userInfo,
+  org: state.projectList.org,
+  authenticated: state.common.authenticated,
+  invalidOrgUser: state.common.invalidOrgUser
+})
+
+class ThreadBody extends React.Component {
+  constructor() {
+    super()
+
+    const updateThreadFieldEvent = (field, value, thread) =>
+      this.props.updateThreadField(this.props.authenticated, this.props.threadId, thread, this.props.org, field, value)
+
+    this.saveBody = thread => ev => {
+      ev.preventDefault()
+      updateThreadFieldEvent('body', this.props.bodyText, thread)
+    }
+
+    this.updateText = value => {
+      this.props.onUpdateCreateField('bodyText', value, Constants.THREAD_PAGE)
+    }
+
+    this.onEditorStateChange = (editorState) => {
+      this.props.changeEditorState(editorState)
+    }
+
+    this.onEditClick = mode => ev => {
+      ev.preventDefault()
+      this.props.setEditMode(mode, Constants.THREAD_PAGE)
+    }
+
+    this.onDeleteClick = ev => {
+      ev.preventDefault()
+      this.props.showDeleteModal(this.props.threadId, this.props.thread, this.props.org.url, Constants.THREAD_PAGE)
+    }
+
+    this.onGoBackClick = ev => {
+      ev.preventDefault();
+      browserHistory.goBack()
+    }
+
+    this.onProjectInviteClick = (project) => {
+      this.props.showProjectInviteModal(this.props.thread.projectId, this.props.project, this.props.org.id, this.props.org, this.props.orgMembers)
+    }
   }
-  else {
-    const { authenticated, threadId, thread, project, comments, commentErrors, createdBy, canModify, org, 
-      orgMembers, orgUserData, bodyText, likes, attachments, tab } = props
 
-    const onDeleteFile = (attachmentId) => {
-      props.deleteAttachmentFile(authenticated, attachmentId)
+  render() {
+    if (!this.props.thread) {
+    return null
     }
+    else {
+      const { authenticated, threadId, thread, project, comments, commentErrors, org, 
+        orgMembers, orgUserData, bodyText, likes, attachments, tab } = this.props
 
-    const onChangeFileSort = method => {
-      props.sortFiles(method, Constants.THREAD_PAGE)
-    }
+      let createdBy = orgUserData && orgUserData[thread.userId] ? orgUserData[thread.userId] : { username: '', image: '', fullName: ''}
+      let canModify = authenticated === thread.userId ? true : false
 
-    return (
-      <div className={"thread-body fill--mist left-text flx flx-col flx-align-center"}>
-          <div className="thread-view w-100">
-            <div className={"tp-wrapper flx flx-row flx-m-col fill--mist"}>   
-              <div className="tp-container b--primary--10 flx flx-col flx-align-start mrgn-top-sm">   
-                <div className="thread-row-wrapper flx flx-row">
-                  <div className="thread-content-wrapper w-100">
-                    <div className="co-type-thread-title color--black mrgn-bottom-xs">{thread.title}</div>
-                    <div className="flx flx-row w-100 flx-align-center mrgn-bottom-xs">
-                      <span className="thread-timestamp">Posted by {createdBy.username}
-                        <Link
-                          to={'/' + org.url + '/user/' + createdBy.username}
-                          className="show-in-list">
-                        <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm">
-                            <div className="tip__author-photo flx-hold mrgn-right-sm">
-                              <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
-                            </div> 
-                            <div className="color--black">
-                              {createdBy.username}
-                            </div>
-                        </div>
-                      </Link> 
-                      </span>
-                      <span className="thread-timestamp mrgn-left-md">Last updated:&nbsp;
-                        <DisplayTimestamp timestamp={thread.lastModified} />
-                      </span>
+      const onDeleteFile = (attachmentId) => {
+        this.props.deleteAttachmentFile(authenticated, attachmentId)
+      }
+
+      const onChangeFileSort = method => {
+        this.props.sortFiles(method, Constants.THREAD_PAGE)
+      }
+
+      return (
+        <div className={"thread-body fill--mist left-text flx flx-col flx-align-center"}>
+            <div className="thread-view w-100">
+              <div className={"tp-wrapper flx flx-row flx-m-col fill--mist"}>   
+                <div className="tp-container b--primary--10 flx flx-col flx-align-start mrgn-top-sm">   
+                  <div className="thread-row-wrapper flx flx-row">
+                    <div className="thread-content-wrapper w-100">
+                      <div className="co-type-thread-title color--black mrgn-bottom-xs">{thread.title}</div>
+                      <div className="flx flx-row w-100 flx-align-center mrgn-bottom-xs">
+                        <span className="thread-timestamp">Posted by {createdBy.username}
+                          <Link
+                            to={'/' + org.url + '/user/' + createdBy.username}
+                            className="show-in-list">
+                          <div className="flx flx-row flx-just-start flx-align-center mrgn-bottom-sm">
+                              <div className="tip__author-photo flx-hold mrgn-right-sm">
+                                <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
+                              </div> 
+                              <div className="color--black">
+                                {createdBy.username}
+                              </div>
+                          </div>
+                        </Link> 
+                        </span>
+                        <span className="thread-timestamp mrgn-left-md">Last updated:&nbsp;
+                          <DisplayTimestamp timestamp={thread.lastModified} />
+                        </span>
+                      </div>
+                      <div className="cta-wrapper vb--outline--none flx flx-row flx-align-center brdr-bottom pdding-bottom-sm">
+                        <LikeReviewButton
+                          authenticated={authenticated}
+                          isLiked={likes && likes[authenticated] ? true : false}
+                          likesCount={Object.keys(likes || {}).length}
+                          objectId={threadId}
+                          thread={thread}
+                          likeObject={thread}
+                          type={Constants.THREAD_TYPE}
+                          org={org} />
+                      </div>
+                      <div className="co-type-body color--black w-100 mrgn-top-sm opa-90">
+                        <BodySection
+                          bodyText={bodyText}
+                          updateText={this.updateText}
+                          canModify={canModify}
+                          thread={thread}
+                          saveBody={this.saveBody}
+                          onEditClick={this.onEditClick}
+                          onDeleteClick={this.onDeleteClick}
+                          isEditMode={this.props.isEditMode}
+                          usersList={this.props.orgMembers}
+                            />
+                      </div>
+                      
+                      {/* this.renderChanges(this.props.updates, this.props.userId, this.props.comments, this.props.params.tid, this.props.googleDocs) */}
+                      <AttachmentsPreview 
+                        authenticated={authenticated} 
+                        uploaderId={thread.userId}
+                        attachments={thread.attachments} 
+                        onDeleteFile={onDeleteFile} />
                     </div>
-                    <div className="cta-wrapper vb--outline--none flx flx-row flx-align-center brdr-bottom pdding-bottom-sm">
-                      <LikeReviewButton
-                        authenticated={authenticated}
-                        isLiked={likes && likes[authenticated] ? true : false}
-                        likesCount={Object.keys(likes || {}).length}
-                        objectId={threadId}
-                        thread={thread}
-                        likeObject={thread}
-                        type={Constants.THREAD_TYPE}
-                        org={org} />
-                    </div>
-                    <div className="co-type-body color--black w-100 mrgn-top-sm opa-90">
-                      <BodySection
-                        bodyText={bodyText}
-                        updateText={props.updateText}
-                        canModify={canModify}
-                        thread={thread}
-                        saveBody={props.saveBody}
-                        onEditClick={props.onEditClick}
-                        onDeleteClick={props.onDeleteClick}
-                        isEditMode={props.isEditMode}
-                        usersList={props.orgMembers}
-                          />
-                    </div>
+                  </div>
+              </div>
+
+
+                <div className="comment-row-wrapper flx flx-col">
+                  <div className="flx flx-row flx-align-center flx-just-start w-100 mrgn-bottom-sm mrgn-top-lg">
+                    <DiscussionTab tab={tab} changeTab={this.props.changeTab} count={thread.commentsCount} />
+                    <FilesTab tab={tab} changeTab={this.props.changeTab} count={this.props.attachmentCount} />
+                  </div>
+
+                  <div className="co-thread-reply-wrapper">
                     
-                    {/* this.renderChanges(this.props.updates, this.props.userId, this.props.comments, this.props.params.tid, this.props.googleDocs) */}
-                    <AttachmentsPreview 
-                      authenticated={authenticated} 
-                      uploaderId={thread.userId}
-                      attachments={thread.attachments} 
-                      onDeleteFile={onDeleteFile} />
+                      <SubSection
+                        tab={tab}
+                        authenticated={authenticated}
+                        comments={comments || {}}
+                        errors={commentErrors}
+                        commentObject={thread}
+                        threadId={threadId}
+                        thread={thread}
+                        project={project}
+                        org={org}
+                        usersList={orgMembers}
+                        orgUserData={orgUserData}
+                        deleteComment={this.props.onDeleteThreadComment}
+                        attachments={attachments}
+                        onDeleteFile={onDeleteFile}
+                        onChangeFileSort={onChangeFileSort} />
+
                   </div>
                 </div>
-            </div>
-
-
-              <div className="comment-row-wrapper flx flx-col">
-                <div className="flx flx-row flx-align-center flx-just-start w-100 mrgn-bottom-sm mrgn-top-lg">
-                  <DiscussionTab tab={tab} changeTab={props.changeTab} count={thread.commentsCount} />
-                  <FilesTab tab={tab} changeTab={props.changeTab} count={props.attachmentCount} />
-                </div>
-
-                <div className="co-thread-reply-wrapper">
-                  
-                    <SubSection
-                      tab={tab}
-                      authenticated={authenticated}
-                      comments={comments || {}}
-                      errors={commentErrors}
-                      commentObject={thread}
-                      threadId={threadId}
-                      thread={thread}
-                      project={project}
-                      org={org}
-                      usersList={orgMembers}
-                      orgUserData={orgUserData}
-                      deleteComment={props.onDeleteThreadComment}
-                      attachments={attachments}
-                      onDeleteFile={onDeleteFile}
-                      onChangeFileSort={onChangeFileSort} />
-
-                </div>
               </div>
-            </div>
 
-         
-          </div>
-      </div>
-    )
+           
+            </div>
+        </div>
+      )
+    }
   }
 }
 
-export default ThreadBody
+// export default ThreadBody
+export default connect(mapStateToProps, Actions)(ThreadBody);

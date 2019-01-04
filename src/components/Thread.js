@@ -102,42 +102,42 @@ class Thread extends React.Component {
       }
     }
 
-    const updateThreadFieldEvent = (field, value, thread) =>
-      this.props.updateThreadField(this.props.authenticated, this.props.params.tid, thread, this.props.params.org, field, value)
+    // const updateThreadFieldEvent = (field, value, thread) =>
+    //   this.props.updateThreadField(this.props.authenticated, this.props.params.tid, thread, this.props.params.org, field, value)
 
-    this.saveBody = thread => ev => {
-      ev.preventDefault()
-      // let storableBody = Helpers.convertEditorStateToStorable(this.props.bodyText)
-      updateThreadFieldEvent('body', this.props.bodyText, thread)
-      // this.props.updateThreadField(this.props.authenticated, this.props.params.tid, thread, field, value)
-    }
+    // this.saveBody = thread => ev => {
+    //   ev.preventDefault()
+    //   // let storableBody = Helpers.convertEditorStateToStorable(this.props.bodyText)
+    //   updateThreadFieldEvent('body', this.props.bodyText, thread)
+    //   // this.props.updateThreadField(this.props.authenticated, this.props.params.tid, thread, field, value)
+    // }
 
-    this.updateText = value => {
-      this.props.onUpdateCreateField('bodyText', value, Constants.THREAD_PAGE)
-    }
+    // this.updateText = value => {
+    //   this.props.onUpdateCreateField('bodyText', value, Constants.THREAD_PAGE)
+    // }
 
-    this.onEditorStateChange = (editorState) => {
-      this.props.changeEditorState(editorState)
-    }
+    // this.onEditorStateChange = (editorState) => {
+    //   this.props.changeEditorState(editorState)
+    // }
 
-    this.onEditClick = mode => ev => {
-      ev.preventDefault()
-      this.props.setEditMode(mode, Constants.THREAD_PAGE)
-    }
+    // this.onEditClick = mode => ev => {
+    //   ev.preventDefault()
+    //   this.props.setEditMode(mode, Constants.THREAD_PAGE)
+    // }
 
-    this.onDeleteClick = ev => {
-      ev.preventDefault()
-      this.props.showDeleteModal(this.props.params.tid, this.props.thread, this.props.params.orgurl, Constants.THREAD_PAGE)
-    }
+    // this.onDeleteClick = ev => {
+    //   ev.preventDefault()
+    //   this.props.showDeleteModal(this.props.params.tid, this.props.thread, this.props.params.orgurl, Constants.THREAD_PAGE)
+    // }
 
-    this.onGoBackClick = ev => {
-      ev.preventDefault();
-      browserHistory.goBack()
-    }
+    // this.onGoBackClick = ev => {
+    //   ev.preventDefault();
+    //   browserHistory.goBack()
+    // }
 
-    this.onProjectInviteClick = (project) => {
-      this.props.showProjectInviteModal(this.props.thread.projectId, this.props.project, this.props.orgId, this.props.org, this.props.orgMembers)
-    }
+    // this.onProjectInviteClick = (project) => {
+    //   this.props.showProjectInviteModal(this.props.thread.projectId, this.props.project, this.props.orgId, this.props.org, this.props.orgMembers)
+    // }
 
     // this.renderState = (update) => {
     //   if (!update) {
@@ -327,8 +327,8 @@ class Thread extends React.Component {
     else {
       let thread = this.props.thread
       // let createdBy = this.props.createdBy
-      let createdBy = this.props.orgUserData && this.props.orgUserData[thread.userId] ? this.props.orgUserData[thread.userId] : { username: '', image: '', fullName: ''}
-      let canModify = this.props.authenticated === this.props.thread.userId ? true : false
+      // let createdBy = this.props.orgUserData && this.props.orgUserData[thread.userId] ? this.props.orgUserData[thread.userId] : { username: '', image: '', fullName: ''}
+      // let canModify = this.props.authenticated === this.props.thread.userId ? true : false
 
       return (
         <div>
@@ -369,32 +369,21 @@ class Thread extends React.Component {
                     />
 
                   <ThreadBody
-                    authenticated={this.props.authenticated}
-                    org={this.props.org}
-                    thread={thread}
+                    // thread={thread}
                     threadId={this.props.params.tid}
-                    project={this.props.project}
-                    createdBy={createdBy}
-                    orgMembers={this.props.orgMembers}
-                    orgUserData={this.props.orgUserData}
-                    canModify={canModify}
-                    bodyText={this.props.bodyText}
-                    isEditMode={this.props.isEditMode}
-                    updateText={this.updateText}
-                    saveBody={this.saveBody}
-                    onEditClick={this.onEditClick}
-                    onDeleteClick={this.onDeleteClick}
-                    likes={this.props.likes}
-                    comments={this.props.comments}
-                    commentErrors={this.props.commentErrors}
-                    onDeleteThreadComment={this.props.onDeleteThreadComment}
-                    onBackClick={this.onGoBackClick}
-                    attachments={this.props.attachments}
-                    tab={this.props.tab}
-                    changeTab={this.props.changeTab}
-                    attachmentCount={this.props.attachmentCount}
-                    deleteAttachmentFile={this.props.deleteAttachmentFile}
-                    sortFiles={this.props.sortFiles}
+                    // project={this.props.project}
+                    // createdBy={createdBy}
+                    // orgMembers={this.props.orgMembers}
+                    // orgUserData={this.props.orgUserData}
+                    // canModify={canModify}
+                    // bodyText={this.props.bodyText}
+                    // isEditMode={this.props.isEditMode}
+                    // likes={this.props.likes}
+                    // comments={this.props.comments}
+                    // commentErrors={this.props.commentErrors}
+                    // attachments={this.props.attachments}
+                    // tab={this.props.tab}
+                    // attachmentCount={this.props.attachmentCount}
                    />
 
 

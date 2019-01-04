@@ -45,36 +45,36 @@ class ThreadModal extends React.Component {
   constructor() {
     super()
 
-    const updateThreadFieldEvent = (field, value, thread) =>
-      this.props.updateThreadField(this.props.authenticated, this.props.thread.threadId, thread, this.props.org, field, value)
+    // const updateThreadFieldEvent = (field, value, thread) =>
+    //   this.props.updateThreadField(this.props.authenticated, this.props.thread.threadId, thread, this.props.org, field, value)
 
-    this.saveBody = thread => ev => {
-      ev.preventDefault()
-      updateThreadFieldEvent('body', this.props.bodyText, thread)
-    }
+    // this.saveBody = thread => ev => {
+    //   ev.preventDefault()
+    //   updateThreadFieldEvent('body', this.props.bodyText, thread)
+    // }
 
-    this.updateText = value => {
-      this.props.onUpdateCreateField('bodyText', value, Constants.THREAD_MODAL)
-    }
+    // this.updateText = value => {
+    //   this.props.onUpdateCreateField('bodyText', value, Constants.THREAD_MODAL)
+    // }
 
-    this.onEditorStateChange = (editorState) => {
-      this.props.changeEditorState(editorState)
-    }
+    // this.onEditorStateChange = (editorState) => {
+    //   this.props.changeEditorState(editorState)
+    // }
 
-    this.onEditClick = mode => ev => {
-      ev.preventDefault()
-      this.props.setEditMode(mode, Constants.THREAD_MODAL)
-    }
+    // this.onEditClick = mode => ev => {
+    //   ev.preventDefault()
+    //   this.props.setEditMode(mode, Constants.THREAD_MODAL)
+    // }
 
-    this.onDeleteClick = ev => {
-      ev.preventDefault()
-      this.props.showDeleteModal(this.props.thread.threadId, this.props.thread, this.props.org.url, Constants.THREAD_MODAL)
-    }
+    // this.onDeleteClick = ev => {
+    //   ev.preventDefault()
+    //   this.props.showDeleteModal(this.props.thread.threadId, this.props.thread, this.props.org.url, Constants.THREAD_MODAL)
+    // }
 
-    this.onGoBackClick = ev => {
-      ev.preventDefault();
-      browserHistory.goBack()
-    }
+    // this.onGoBackClick = ev => {
+    //   ev.preventDefault();
+    //   browserHistory.goBack()
+    // }
   }
 
   componentDidMount() {
@@ -118,9 +118,9 @@ class ThreadModal extends React.Component {
       const { authenticated, org, thread, project, orgMembers, orgUserData, bodyText, isEditMode, 
         likes, comments, commentErrors, attachments, tab, attachmentCount } = this.props
       // let createdBy = this.props.createdBy
-      let createdBy = orgUserData && orgUserData[thread.userId] ? orgUserData[thread.userId] : 
-        { username: '', image: '', fullName: ''}
-      let canModify = authenticated === thread.userId ? true : false
+      // let createdBy = orgUserData && orgUserData[thread.userId] ? orgUserData[thread.userId] : 
+        // { username: '', image: '', fullName: ''}
+      // let canModify = authenticated === thread.userId ? true : false
 
       return (
         <MuiThemeProvider muiTheme={getMuiTheme()}>
@@ -162,32 +162,32 @@ class ThreadModal extends React.Component {
             </div>
 
             <ThreadBody
-              authenticated={authenticated}
-              org={org}
-              thread={thread}
+              // authenticated={authenticated}
+              // org={org}
+              // thread={thread}
               threadId={thread.threadId}
-              project={project}
-              createdBy={createdBy}
-              orgMembers={orgMembers}
-              orgUserData={orgUserData}
-              canModify={canModify}
-              bodyText={this.props.bodyText}
-              isEditMode={this.props.isEditMode}
-              updateText={this.updateText}
-              saveBody={this.saveBody}
-              onEditClick={this.onEditClick}
-              onDeleteClick={this.onDeleteClick}
-              likes={likes}
-              comments={comments}
-              commentErrors={commentErrors}
-              onDeleteThreadComment={this.props.onDeleteThreadComment}
-              onBackClick={handleClose}
-              attachments={attachments}
-              tab={tab}
-              changeTab={this.props.changeTab}
-              attachmentCount={attachmentCount}
-              deleteAttachmentFile={this.props.deleteAttachmentFile}
-              sortFiles={this.props.sortFiles}
+              // project={project}
+              // createdBy={createdBy}
+              // orgMembers={orgMembers}
+              // orgUserData={orgUserData}
+              // canModify={canModify}
+              // bodyText={this.props.bodyText}
+              // isEditMode={this.props.isEditMode}
+              // updateText={this.updateText}
+              // saveBody={this.saveBody}
+              // onEditClick={this.onEditClick}
+              // onDeleteClick={this.onDeleteClick}
+              // likes={likes}
+              // comments={comments}
+              // commentErrors={commentErrors}
+              // onDeleteThreadComment={this.props.onDeleteThreadComment}
+              // onBackClick={handleClose}
+              // attachments={attachments}
+              // tab={tab}
+              // changeTab={this.props.changeTab}
+              // attachmentCount={attachmentCount}
+              // deleteAttachmentFile={this.props.deleteAttachmentFile}
+              // sortFiles={this.props.sortFiles}
              />
           </Dialog>
         </MuiThemeProvider>

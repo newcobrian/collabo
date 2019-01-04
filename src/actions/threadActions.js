@@ -135,7 +135,7 @@ export function updateAttachmentData(auth, attachments, org, projectId, threadId
           attachmentUpdates[Constants.THREADS_BY_ORG_PATH + '/' + org.id + '/' + threadId + '/attachments/' + attachmentId] = commentObject
           attachmentUpdates[Constants.THREADS_BY_PROJECT_PATH + '/' + projectId + '/' + threadId + '/attachments/' + attachmentId] = commentObject
         }
-console.log(JSON.stringify(attachmentUpdates))
+
         Firebase.database().ref().update(attachmentUpdates)
       }
     })
