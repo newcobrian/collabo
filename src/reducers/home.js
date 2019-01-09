@@ -3,7 +3,7 @@ import * as Constants from '../constants';
 import { createItineraryObject, findIndexByValue } from '../helpers';
 import { filter, find } from 'lodash';
 
-const initialState = {}
+const initialState = { globalInvites: {} }
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -50,6 +50,29 @@ export default (state = initialState, action) => {
           }
         }
         return newState;
+      }
+      return state;
+    }
+    case ActionTypes.GLOBAL_INVITE_BY_ORG_ADDED:
+    case ActionTypes.GLOBAL_INVITE_BY_ORG_CHANGED: {
+      if (action.source === Constants.HOME_PAGE) {
+        let invitesArray = []
+        Object.keys(action.payload || {}).forEach(function(inviteId) {
+          invitesArray = invitesArray.concat(Object.assign({}, action.payload[inviteId], { inviteId: inviteId }))
+        })
+        const newState = Object.assign({}, state);
+        newState.globalInvites = Object.assign({}, newState.globalInvites || {});
+        newState.globalInvites[action.orgId] = [].concat(invitesArray)
+        return newState
+      }
+      return state;
+    }
+    case ActionTypes.GLOBAL_INVITE_BY_ORG_REMOVED: {
+      if (action.source === Constants.HOME_PAGE) {
+        const newState = Object.assign({}, state);
+        newState.globalInvites = Object.assign({}, newState.globalInvites || {});
+        delete newState.globalInvites[action.orgId]
+        return newState
       }
       return state;
     }

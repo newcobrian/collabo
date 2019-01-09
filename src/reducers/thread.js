@@ -172,7 +172,7 @@ export default (state = initialState, action) => {
         const newState = Object.assign({}, state);
 
         // add user to orgUserData, which other lists can reference for all data for all users in org
-        newState.orgUserData = Object.assign({}, state.orgUserData || {});
+        newState.orgUserData = Object.assign({}, newState.orgUserData || {});
         newState.orgUserData[action.userId] = Object.assign({}, action.userData)
 
         // create array of org members sorted by username for displaying list of org members
@@ -190,7 +190,7 @@ export default (state = initialState, action) => {
         const newState = Object.assign({}, state);
 
         // update user info in global org user data
-        newState.orgUserData = Object.assign({}, state.orgUserData || {});
+        newState.orgUserData = Object.assign({}, newState.orgUserData || {});
         newState.orgUserData[action.userId] = Object.assign({}, action.userData)
 
         // update info for the user in the orgMembers array
@@ -213,7 +213,7 @@ export default (state = initialState, action) => {
         const newState = Object.assign({}, state);
 
         // remove user info in global org user data
-        newState.orgUserData = Object.assign({}, state.orgUserData || {});
+        newState.orgUserData = Object.assign({}, newState.orgUserData || {});
         delete newState.orgUserData[action.userId]
 
         // remove from orgMembers list

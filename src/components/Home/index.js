@@ -7,6 +7,7 @@ import { Link, browserHistory } from 'react-router';
 import UniversalSearchBar from '../UniversalSearchBar';
 import ProjectList from '../ProjectList';
 import LoggedOutMessage from '../LoggedOutMessage';
+import DisplayTimestamp from '../DisplayTimestamp';
 
 const SignOutButton = props => {
   return (
@@ -42,11 +43,65 @@ const OrgList = props => {
   }
 } 
 
+const OrgInvitesList = props => {
+  if (!props.invites) {
+    return null
+  }
+  else {
+    return (
+      <div>
+        {
+          (props.invites || []).map((inviteItem, index) => {
+            return (
+              <Link to={'/invitation/' + inviteItem.inviteId} className="w-100 flx flx-col flx-just-start" key={inviteItem.inviteId} >
+                <div className="koi-type-org color--black">{inviteItem.orgName}</div>
+                <div className="koi-type-org color--black">{inviteItem.senderEmail}</div>
+                <DisplayTimestamp timestamp={inviteItem.timestamp} />
+              </Link>
+            )
+          })
+        }
+      </div>
+    )
+  }
+}
+
+const GlobalInvitesList = props => {
+  if (!props.globalInvites) {
+    return null
+  }
+  else {
+    return (
+      <div className="flx flx-col flx-center-all">
+        <div>Invitations</div>
+        {
+          Object.keys(props.globalInvites || {}).map(function (orgId) {
+            return (
+              <OrgInvitesList invites={props.globalInvites[orgId]} key={orgId} />
+            )
+          })
+        }
+      </div>
+    )
+  }
+}
+
 const mapStateToProps = state => ({
   ...state.home,
   appName: state.common.appName,
-  authenticated: state.common.authenticated
+  authenticated: state.common.authenticated,
+  userInfo: state.common.userInfo
 });
+
+const mapDispatchToProps = {
+  loadOrgList: Actions.loadOrgList,
+  loadGlobalInvites: Actions.loadGlobalInvites,
+  unloadGlobalInvites: Actions.unloadGlobalInvites,
+  setSidebar: Actions.setSidebar,
+  sendMixpanelEvent: Actions.sendMixpanelEvent,
+  unloadOrgList: Actions.unloadOrgList,
+  signOutUser: Actions.signOutUser
+}
 
 class Home extends React.Component {
   constructor() {
@@ -55,6 +110,8 @@ class Home extends React.Component {
 
   componentDidMount() {
     this.props.loadOrgList(this.props.authenticated, Constants.HOME_PAGE)
+    let email = this.props.userInfo ? this.props.userInfo.email : ''
+    this.props.loadGlobalInvites(email, Constants.HOME_PAGE)
     this.props.setSidebar(false)
 
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'homepage'});
@@ -68,6 +125,8 @@ class Home extends React.Component {
 
   componentWillUnmount() {
     this.props.unloadOrgList(this.props.authenticated, Constants.HOME_PAGE)
+    let email = this.props.userInfo ? this.props.userInfo.email : ''
+    this.props.unloadGlobalInvites(email, Constants.HOME_PAGE)
     this.props.setSidebar(true)
   }
 
@@ -103,13 +162,17 @@ class Home extends React.Component {
                   </div>
                   <SignOutButton signOut={this.props.signOutUser}/>
                 </div>
-                <OrgList
-                  orgList={this.props.orgList} />
 
                 <Link to='/newteam' className="flx flx-row flx-center-all mrgn-top-md">
                     <i className="material-icons color--white md-24 mrgn-right-sm opa-80 DN">add</i>
-                  <div className="koi-type-org color--green">Create New Team</div>
+                  <div className="koi-type-org color--green">+Create New Team</div>
                 </Link>
+
+                <OrgList
+                  orgList={this.props.orgList} />
+
+                <GlobalInvitesList
+                  globalInvites={this.props.globalInvites} />
                 {/*<div className="guide-feed-wrapper w-100 flx flx-row flx-just-center flx-self-end flx-align-start flx-wrap">
                   <ProjectList />
                 </div>*/}
@@ -129,5 +192,5 @@ class Home extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, Actions)(Home);
-export { Home as Home, mapStateToProps as mapStateToProps };
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export { Home as Home, mapStateToProps as mapStateToProps, mapDispatchToProps as mapDispatchToProps };
