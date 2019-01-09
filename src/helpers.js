@@ -807,7 +807,7 @@ export function sendDailyDigestEmail(recipientId, orgId, threadsArray, extras) {
 						// body0: threadsArray[0].body,
 						comments0: threadsArray[0].commentsCount + ' comments',
 						// likes0: threadsArray[0].likes + ' likes',
-						link0: Constants.COLLABO_URL + '/' + orgSnap.val().url + '/' + threadsArray[0].id
+						link0: Constants.COLLABO_URL + '/' + orgSnap.val().url + '/' + threadsArray[0].projectId + '/' + threadsArray[0].id
 					})
 				}
 				if (threadsArray[1]) {
@@ -818,7 +818,7 @@ export function sendDailyDigestEmail(recipientId, orgId, threadsArray, extras) {
 						// body1: threadsArray[1].body,
 						comments1: threadsArray[1].commentsCount + ' comments',
 						// likes1: threadsArray[1].likes + ' likes',
-						link1: Constants.COLLABO_URL + '/' + orgSnap.val().url + '/' + threadsArray[1].id
+						link1: Constants.COLLABO_URL + '/' + orgSnap.val().url + '/' + threadsArray[1].projectId + '/'  + threadsArray[1].id
 					})
 				}
 				if (threadsArray[2]) {
@@ -829,7 +829,7 @@ export function sendDailyDigestEmail(recipientId, orgId, threadsArray, extras) {
 						// body2: threadsArray[2].body,
 						comments2: threadsArray[2].commentsCount + ' comments',
 						// likes2: threadsArray[2].likes + ' likes',
-						link2: Constants.COLLABO_URL + '/' + orgSnap.val().url + '/' + threadsArray[2].id
+						link2: Constants.COLLABO_URL + '/' + orgSnap.val().url + '/' + threadsArray[2].projectId + '/'  + threadsArray[2].id
 					})
 				}
 				if (threadsArray[3]) {
@@ -840,7 +840,7 @@ export function sendDailyDigestEmail(recipientId, orgId, threadsArray, extras) {
 						// body3: threadsArray[3].body,
 						comments3: threadsArray[3].commentsCount + ' comments',
 						// likes3: threadsArray[3].likes + ' likes',
-						link3: Constants.COLLABO_URL + '/' + orgSnap.val().url + '/' + threadsArray[3].id
+						link3: Constants.COLLABO_URL + '/' + orgSnap.val().url + '/' + threadsArray[3].projectId + '/'  + threadsArray[3].id
 					})
 				}
 				if (threadsArray[4]) {
@@ -851,7 +851,7 @@ export function sendDailyDigestEmail(recipientId, orgId, threadsArray, extras) {
 						// body4: threadsArray[4].body,
 						comments4: threadsArray[4].commentsCount + ' comments',
 						// likes4: threadsArray[4].likes + ' likes',
-						link4: Constants.COLLABO_URL + '/' + orgSnap.val().url + '/' + threadsArray[4].id
+						link4: Constants.COLLABO_URL + '/' + orgSnap.val().url + '/' + threadsArray[4].projectId + '/'  + threadsArray[4].id
 					})
 				}
 				sendContentManagerEmail("49c29d51-1415-4b20-9618-bf5a045366c9", userSnap.val().email, data);
