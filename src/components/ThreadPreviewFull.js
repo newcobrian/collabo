@@ -229,7 +229,7 @@ class ThreadPreviewFull extends React.Component {
                   <div className="thread-timestamp color--black flx-item-right DN">
                     <DisplayTimestamp timestamp={thread.lastModified} />
                   </div>
-
+ 
                 </div>*/}
 
                 <div className="flx flx-row">
@@ -240,9 +240,12 @@ class ThreadPreviewFull extends React.Component {
                     <div className="color--black thread-timestamp flx flx-row flx-align-center mrgn-bottom-xs w-100 opa-90">
                       <ProjectLabel className="color--black koi-type-bold" projectNames={projectNames} projectId={thread.projectId} orgURL={org.url} />&nbsp;&#xb7;&nbsp;
                       <div><Link to={'/' + org.url + '/user/' + createdBy.username} className="text-hover color--black">{createdBy.username}</Link></div>
-                      <div className="flx-item-right opa-80"><DisplayTimestamp timestamp={thread.lastModified} /></div>
+                      <div className="flx flx-row flx-align-center  flx-item-right opa-80">
+                        <DisplayTimestamp timestamp={thread.lastModified} />
+                        <div className={'new-badge mrgn-left-xs' + (this.props.isRead ? ' is-read' : ' un-read')}></div>
+                      </div>
                     </div>
-                    <Link className={'color--black co-type-thread-title mrgn-bottom-xs text-hover' + (this.props.isRead ? ' isRead' : ' unRead')} onClick={this.openThread} >
+                    <Link className="color--black co-type-thread-title mrgn-bottom-xs text-hover" onClick={this.openThread} >
                     {/*<Link className="color--black" to={'/' + org.url + '/' + thread.projectId + '/' + thread.threadId }>*/}
                           {thread.title}
                     </Link>

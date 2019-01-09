@@ -179,7 +179,7 @@ class Comment extends React.Component {
                   <div className="thread-timestamp inline-block">
                     <DisplayTimestamp timestamp={comment.lastModified} />
                   </div>
-                  <div className="new-badge active fill--tancho mrgn-left-xs"></div>
+                  <div className="new-badge active fill--tancho mrgn-left-xs DN"></div>
                 </div>
               </div>
 

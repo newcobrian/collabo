@@ -168,6 +168,8 @@ const ThreadPreview = props => {
               <div className="flx flx-row flx-align-center w-100">
 
                 <div className="updater-col flx flx-row flx-align-center flx-hold">
+                  <div className={'new-badge mrgn-right-sm' + (props.isRead ? ' is-read' : ' un-read')}></div>
+
                   <Link to={'/' + props.org.url + '/user/' + lastUpdater.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
                     <ProfilePic src={lastUpdater.image} className="user-image user-image-sm center-img" />
                   </Link>
