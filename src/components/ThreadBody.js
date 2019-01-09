@@ -23,6 +23,7 @@ import RichTextEditor from './RichTextEditor';
 import InvalidOrg from './InvalidOrg'
 import AttachmentsList from './AttachmentsList'
 import AttachmentsPreview from './AttachmentsPreview'
+import Select from 'react-select'
 
 const DiscussionTab = props => {
   const clickHandler = ev => {
@@ -60,43 +61,19 @@ const FilesTab = props => {
 
 const SubSection = props => {
   if (props.tab === Constants.FILES_TAB) {
-    const handleChange = ev => {
-      props.onChangeFileSort(ev.target.value)
+    const handleChange = selectedOption => {
+      props.onChangeFileSort(selectedOption.value)
     }
-
-    // const SortDropdown = props => {
-    //   if (props.attachments && props.attachments.length > 1) {
-    //     return (
-    //       <div>
-    //         Sort by: 
-    //         <select className="org-selector co-type-org color--utsuri opa-40" onChange={handleChange}>
-    //           {
-    //             Object.keys(Constants.FILE_SORTING_OPTIONS).map(function(sort) {
-    //               return (
-    //                 <option key={sort} value={sort}> {Constants.FILE_SORTING_OPTIONS[sort]}</option>  
-    //               )
-    //             })
-    //           }
-    //         </select>
-    //       </div>
-    //     )
-    //   }
-    //   else return null
-    // }
 
     return (
       <div className="koi-type-body flx flx-col w-100">
         <div className="koi-type-body flx flx-row flx-align-start flx-just-start mrgn-bottom-sm">
           <span>Sort by: &nbsp;</span>
-          <select className="org-selector co-type-org color--utsuri opa-80" onChange={handleChange}>
-            {
-              Object.keys(Constants.FILE_SORTING_OPTIONS).map(function(sort) {
-                return (
-                  <option key={sort} value={sort}> {Constants.FILE_SORTING_OPTIONS[sort]}</option>  
-                )
-              })
-            }
-          </select>
+          <Select
+            value={props.sortMethod}
+            onChange={handleChange}
+            options={Constants.FILE_SORTING_OPTIONS}
+          />
         </div>
 
         {/*<SortDropdown attachments={props.attachments} />*/}
@@ -292,7 +269,7 @@ class ThreadBody extends React.Component {
     }
     else {
       const { authenticated, threadId, thread, project, comments, commentErrors, org, 
-        orgMembers, orgUserData, bodyText, likes, attachments, tab } = this.props
+        orgMembers, orgUserData, bodyText, likes, attachments, tab, sortOption } = this.props
 
       let createdBy = orgUserData && orgUserData[thread.userId] ? orgUserData[thread.userId] : { username: '', image: '', fullName: ''}
       let canModify = authenticated === thread.userId ? true : false
@@ -391,7 +368,8 @@ class ThreadBody extends React.Component {
                         deleteComment={this.props.onDeleteThreadComment}
                         attachments={attachments}
                         onDeleteFile={onDeleteFile}
-                        onChangeFileSort={onChangeFileSort} />
+                        onChangeFileSort={onChangeFileSort}
+                        sortOption={sortOption} />
 
                   </div>
                 </div>

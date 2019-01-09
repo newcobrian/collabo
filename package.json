@@ -63,6 +63,7 @@
     "react-scroll": "^1.5.4",
     "react-scrollable-anchor": "^0.5.0",
     "react-scrollchor": "^4.2.1",
+    "react-select": "^2.2.0",
     "react-share": "^1.16.0",
     "react-sidebar": "^3.0.2",
     "react-sortable-hoc": "^0.6.7",

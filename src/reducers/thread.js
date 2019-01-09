@@ -5,7 +5,7 @@ import { filter, omit, find } from 'lodash';
 
 // import { EditorState, ContentState, convertToRaw, convertFromRaw } from 'draft-js';
 
-const initialState = { threadCounts: {}, tab: Constants.DISCUSSION_TAB, attachmentCount: 0 }
+const initialState = { threadCounts: {}, tab: Constants.DISCUSSION_TAB, attachmentCount: 0, sortMethod: 'LAST_MODIFIED_ASC' }
 
 export default (state = initialState, action) => {
   switch (action.type) {

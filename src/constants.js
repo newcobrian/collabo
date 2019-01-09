@@ -330,16 +330,16 @@ export const GOOGLE_DRIVE_API_KEY = 'AIzaSyDM-kc1XYMc8mGDCNqXa7vidvXvUHTgE9k'
 export const CHANGE_DETECTION_DEBOUNCE_TIME = 10 * 1000; // 1 mins
 
 export const DUMMY_PROJECTS = [
-{ name: 'General' },
-{ name: 'Meeting Notes' }
+	{ name: 'General' },
+	{ name: 'Meeting Notes' }
 ]
 
-export const FILE_SORTING_OPTIONS = {
-	LAST_MODIFIED_ASC: 'oldest to newest',
-	LAST_MODIFIED_DESC: 'newest to oldest',
-	FILENAME: 'file name',
-	USERNAME: 'uploader'
-}
+export const FILE_SORTING_OPTIONS = [
+  { value: 'LAST_MODIFIED_ASC', label: 'oldest to newest' },
+  { value: 'LAST_MODIFIED_DESC', label: 'newest to oldest' },
+  { value: 'FILENAME', label: 'file name' },
+  { value: 'USERNAME', label: 'uploader username' }
+]
 
 export const FILE_ICON_MAP = {
 	'jpeg': '/img\/flags\/AD.png',
