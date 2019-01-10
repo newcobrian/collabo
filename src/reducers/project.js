@@ -151,7 +151,7 @@ export default (state = initialState, action) => {
       }
     case ActionTypes.UPDATE_END_VALUE:
       if (action.source == Constants.PROJECT_PAGE) {
-        if (action.endValue < state.feedEndValue) {
+        if (!state.feedEndValue || action.endValue < state.feedEndValue) {
           return {
             ...state,
             feedEndValue: action.endValue

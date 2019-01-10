@@ -243,7 +243,7 @@ export default (state = initialState, action) => {
           newState.feed = newState.feed.concat(Object.assign({}, {activityId: action.activityId}, action.activity, createdBy));
           newState.feed.sort(Helpers.lastModifiedDesc);
 
-          newState.emptyThreadFeed = false;
+          newState.emptyActivityFeed = false;
 
           return newState;
         }
@@ -263,7 +263,7 @@ export default (state = initialState, action) => {
             newState.feed[i] = Object.assign({}, {activityId: action.activityId}, action.activity, createdBy);
             newState.feed.sort(Helpers.lastModifiedDesc);
             // return newState;
-            newState.emptyThreadFeed = false;
+            newState.emptyActivityFeed = false;
           }
         }
         return newState;
@@ -306,7 +306,7 @@ export default (state = initialState, action) => {
       }
     case ActionTypes.UPDATE_END_VALUE:
       if (action.source == Constants.PROFILE_PAGE) {
-        if (action.endValue < state.feedEndValue) {
+        if (!state.feedEndValue || action.endValue < state.feedEndValue) {
           return {
             ...state,
             feedEndValue: action.endValue

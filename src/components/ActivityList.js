@@ -10,7 +10,7 @@ const ActivityList = props => {
       </div>
     )
   }
-  else if (!props.activity) {
+  else if (!props.feed) {
     return (
       <div className="threadlist threadlist-loading w-100 flx flx-col flx-center-all ta-center h-100 fill--white color--black">
           <div className="loading-koi mrgn-bottom-md">

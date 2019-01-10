@@ -92,10 +92,10 @@ const mapDispatchToProps = {
   setAuthRedirect: Actions.setAuthRedirect,
   notAnOrgUserError: Actions.notAnOrgUserError,
   watchActivityFeed: Actions.watchActivityFeed,
+  unwatchActivityFeed: Actions.unwatchActivityFeed,
   getProfileUser: Actions.getProfileUser,
   userDoesntExist: Actions.userDoesntExist,
   unloadProfileUser: Actions.unloadProfileUser,
-  watchActivityFeed: Actions.watchActivityFeed,
   signOutUser: Actions.signOutUser,
   followUser: Actions.followUser
 }
@@ -122,7 +122,7 @@ class Profile extends React.Component {
     this.scrolledToBottom = () => {
       if (!this.props.isFeedLoading) {
         let userId = this.props.profile ? this.props.profile.userId : null
-        this.props.watchActivityFeed(userId, this.props.orgId, this.props.feedEndValue, Constants.PROFILE_PAGE)
+        this.props.watchActivityFeed(userId, this.props.org.id, this.props.feedEndValue, Constants.PROFILE_PAGE)
       }
     }
 
@@ -173,6 +173,7 @@ class Profile extends React.Component {
       else {
         let orgId = orgSnap.val().orgId
         let orgName = orgSnap.val().name
+
         this.props.loadOrg(this.props.authenticated, orgId, this.props.params.orgurl, orgName, Constants.PROFILE_PAGE);
         this.props.loadOrgUser(this.props.authenticated, orgId, Constants.PROFILE_PAGE)
         this.props.loadProjectList(this.props.authenticated, orgId, Constants.PROFILE_PAGE)
@@ -188,7 +189,7 @@ class Profile extends React.Component {
   }
 
   componentWillUnmount() {
-    if (this.props.userId && this.props.org && this.props.org.id) {
+    if (this.props.profile && this.props.profile.userId && this.props.org && this.props.org.id) {
       this.unloadUser(this.props.params.username, this.props.profile.userId, this.props.org.id);
     }
     if (this.props.org && this.props.org.id) {
@@ -372,12 +373,16 @@ class Profile extends React.Component {
                     <div className="flx flx-row flx-just-center w-100">
 
                     <InfiniteScroll
-                          pageStart={0}
-                          className="w-100"
-                          loadMore={this.scrolledToBottom}
-                          hasMore={true} >
+                      className="w-100"
+                      loadMore={this.scrolledToBottom}
+                      hasMore={true}
+                      useWindow={false} >
                     
-                      <ActivityList feed={this.props.feed} orgURL={this.props.org.url} emptyActivityFeed={this.props.emptyActivityFeed} profile={this.props.profile} />
+                      <ActivityList 
+                        feed={this.props.feed} 
+                        orgURL={this.props.org.url} 
+                        emptyActivityFeed={this.props.emptyActivityFeed} 
+                        profile={this.props.profile} />
 
                     </InfiniteScroll>
                       
