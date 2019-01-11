@@ -131,10 +131,10 @@ class AddThread extends React.Component {
 			    this.props.loadThreadCounts(this.props.authenticated, this.props.params.orgurl)
 			    this.props.loadOrgList(this.props.authenticated, Constants.ADD_THREAD_PAGE)
 			    this.props.loadProjectNames(orgId, Constants.ADD_THREAD_PAGE)
+
+			    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'add thread', 'orgId': orgId });
 			}
 		})
-
-	    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'add thread'});
 	}
 
 	componentWillUnmount() {

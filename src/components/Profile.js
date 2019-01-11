@@ -180,12 +180,12 @@ class Profile extends React.Component {
         this.props.loadThreadCounts(this.props.authenticated, orgId)
         this.props.loadProjectNames(orgId, Constants.PROFILE_PAGE)
         this.props.loadOrgList(this.props.authenticated, Constants.PROFILE_PAGE)
+
+        this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'profile', 'orgId': orgId });
       }
     })
     // look up userID from username and load profile
     this.loadUser(this.props.params.username, this.props.params.orgurl)
-
-    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'profile'});
   }
 
   componentWillUnmount() {
@@ -209,7 +209,10 @@ class Profile extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.username !== this.props.params.username) {
       let orgURL = nextProps.params.orgurl ? nextProps.params.orgurl : this.props.params.orgurl
-      this.unloadUser(this.props.params.username, this.props.profile.userId, this.props.orgId);
+      if (this.props.org) {
+        this.unloadUser(this.props.params.username, this.props.profile.userId, this.props.org.id);
+        this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'profile', 'orgId': this.props.org.id });
+      }
       this.loadUser(nextProps.params.username, orgURL);
     }
   }

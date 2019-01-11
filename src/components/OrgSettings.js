@@ -424,10 +424,10 @@ class OrgSettings extends React.Component {
         this.props.loadOrgMembers(orgId, Constants.ORG_SETTINGS_PAGE)
 
         this.props.changeOrgSettingsTab(this.props.tab ? this.props.tab : Constants.LISTS_TAB, orgId)
+
+        this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'org settings', 'orgId': orgId });
       }
     })
-
-    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'org settings'});
   }
 
   componentWillUnmount() {

@@ -120,7 +120,7 @@ class ProjectSettings extends React.Component {
 
     this.props.loadProject(this.props.params.pid, Constants.PROJECT_SETTINGS_PAGE);
     this.props.changeProjectSettingsTab(Constants.MEMBERS_TAB, this.props.params.pid)
-    // this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'settings'});
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project settings'});
   }
 
   componentWillUnmount() {

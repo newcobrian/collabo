@@ -52,10 +52,10 @@ class OrgInvite extends React.Component {
 			    this.props.loadThreadCounts(this.props.authenticated, orgId)
 			    this.props.loadProjectNames(orgId, Constants.ORG_SETTINGS_PAGE)
 			    this.props.loadOrgList(this.props.authenticated, Constants.ORG_SETTINGS_PAGE)
+
+			    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'org invite page', 'orgId': orgId });
 			}
 		})
-
-    	this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'org invite page'});
 	}
 
 	componentWillUnmount() {

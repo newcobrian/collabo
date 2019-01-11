@@ -171,8 +171,8 @@ class Home extends React.Component {
                 <OrgList
                   orgList={this.props.orgList} />
 
-                <GlobalInvitesList
-                  globalInvites={this.props.globalInvites} />
+                {/*<GlobalInvitesList
+                  globalInvites={this.props.globalInvites} />*/}
                 {/*<div className="guide-feed-wrapper w-100 flx flx-row flx-just-center flx-self-end flx-align-start flx-wrap">
                   <ProjectList />
                 </div>*/}

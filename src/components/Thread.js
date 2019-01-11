@@ -221,10 +221,10 @@ class Thread extends React.Component {
         this.props.loadThreadLikes(this.props.params.tid, Constants.THREAD_PAGE);
         this.props.watchThreadComments(this.props.params.tid);
         this.props.loadThreadAttachments(this.props.params.tid, Constants.THREAD_PAGE);
+
+        this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'thread', 'orgId': orgId });
       }
     })
-    
-    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'thread'});
     
     this.props.markThreadRead(this.props.authenticated, this.props.params.tid)
   }
@@ -257,6 +257,8 @@ class Thread extends React.Component {
       this.props.watchThreadComments(nextProps.params.tid);
       this.props.loadThreadAttachments(nextProps.params.tid, Constants.THREAD_PAGE);
       this.props.markThreadRead(this.props.authenticated, nextProps.params.tid)
+
+      this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'thread', 'orgId': this.props.org.id });
 
     }
     else if (nextProps.params.orgurl !== this.props.params.orgurl) {
@@ -293,6 +295,8 @@ class Thread extends React.Component {
           this.props.watchThreadComments(nextProps.props.params.tid);
           this.props.loadThreadAttachments(nextProps.params.tid, Constants.THREAD_PAGE);
           this.props.markThreadRead(this.props.authenticated, nextProps.params.tid)
+
+          this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'thread', 'orgId': orgId });
         }
       })
     }

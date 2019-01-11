@@ -107,10 +107,10 @@ class Inbox extends React.Component {
 
         this.props.getInbox(this.props.authenticated, null, null, this.props.params.orgurl);
         this.props.updateInboxCount(this.props.authenticated, orgId);
+
+        this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'inbox', 'orgId': orgId });
       }
     })
-
-    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'inbox'});
   }
 
   componentWillUnmount() {

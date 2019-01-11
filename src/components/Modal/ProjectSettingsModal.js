@@ -249,7 +249,7 @@ class ProjectSettingsModal extends React.Component {
 
   componentDidMount() {
     this.props.loadProjectMembers(this.props.projectId, Constants.PROJECT_INVITE_MODAL)
-    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project settings modal' });
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project settings modal', 'orgId': this.props.org.id, 'projectId': this.props.projectId });
   }
 
   render() {
