@@ -65,7 +65,7 @@ export default (state = initialState, action) => {
         for (let i = 0; i < newState.threads.length; i++) {
           if (newState.threads[i].threadId === action.threadId) {
             newState.threads[i] = Object.assign({}, {threadId: action.threadId}, action.thread);
-            newState.threads.sort(Helpers.lastModifiedDesc);
+            // newState.threads.sort(Helpers.lastModifiedDesc);
             newState.emptyThreadFeed = false;
             return newState;
           }

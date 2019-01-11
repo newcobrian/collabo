@@ -6,6 +6,7 @@ import DisplayTimestamp from './DisplayTimestamp';
 import LikeReviewButton from './LikeReviewButton';
 import ProfilePic from './ProfilePic';
 import AttachmentsPreview from './AttachmentsPreview';
+import VisibilitySensor from "react-visibility-sensor";
 
 // const UpdateSection = props => {
 //   if (!props.thread) return null
@@ -199,6 +200,12 @@ class ThreadPreviewFull extends React.Component {
       window.history.pushState( {} , null, threadURL );
       this.props.showThreadModal(this.props.thread, this.props.project, this.props.org, this.props.orgMembers, this.props.orgUserData)
     }
+
+    this.onThreadVisible = (projectId, threadId, isRead, title) => isVisible => {
+      if (isVisible && !isRead) {
+        this.props.updateThreadLastSeen(this.props.authenticated, this.props.org.id, projectId, threadId)
+      }
+    }
   }
 
   render() {
@@ -231,26 +238,27 @@ class ThreadPreviewFull extends React.Component {
                   </div>
  
                 </div>*/}
-
-                <div className="flx flx-row">
-                  <Link to={'/' + org.url + '/user/' + createdBy.username} className="thread-creator-image flx-hold mrgn-right-sm flx flx-row mrgn-right-sm">
-                    <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
-                  </Link>
-                  <div className="flx flx-col w-100">
-                    <div className="color--black thread-timestamp flx flx-row flx-align-center mrgn-bottom-xs w-100 opa-90">
-                      <ProjectLabel className="color--black koi-type-bold" projectNames={projectNames} projectId={thread.projectId} orgURL={org.url} />&nbsp;&#xb7;&nbsp;
-                      <div><Link to={'/' + org.url + '/user/' + createdBy.username} className="text-hover color--black">{createdBy.username}</Link></div>
-                      <div className="flx flx-row flx-align-center  flx-item-right opa-80">
-                        <DisplayTimestamp timestamp={thread.lastModified} />
-                        <div className={'new-badge mrgn-left-xs' + (this.props.isRead ? ' is-read' : ' un-read')}></div>
-                      </div>
-                    </div>
-                    <Link className="color--black co-type-thread-title mrgn-bottom-xs text-hover" onClick={this.openThread} >
-                    {/*<Link className="color--black" to={'/' + org.url + '/' + thread.projectId + '/' + thread.threadId }>*/}
-                          {thread.title}
+                <VisibilitySensor key={thread.threadId} onChange={this.onThreadVisible(thread.projectId, thread.threadId, this.props.isRead, thread.title)}>
+                  <div className="flx flx-row">
+                    <Link to={'/' + org.url + '/user/' + createdBy.username} className="thread-creator-image flx-hold mrgn-right-sm flx flx-row mrgn-right-sm">
+                      <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
                     </Link>
+                    <div className="flx flx-col w-100">
+                      <div className="color--black thread-timestamp flx flx-row flx-align-center mrgn-bottom-xs w-100 opa-90">
+                        <ProjectLabel className="color--black koi-type-bold" projectNames={projectNames} projectId={thread.projectId} orgURL={org.url} />&nbsp;&#xb7;&nbsp;
+                        <div><Link to={'/' + org.url + '/user/' + createdBy.username} className="text-hover color--black">{createdBy.username}</Link></div>
+                        <div className="flx flx-row flx-align-center  flx-item-right opa-80">
+                          <DisplayTimestamp timestamp={thread.lastModified} />
+                          <div className={'new-badge mrgn-left-xs' + (this.props.isRead ? ' is-read' : ' un-read')}></div>
+                        </div>
+                      </div>
+                      <Link className="color--black co-type-thread-title mrgn-bottom-xs text-hover" onClick={this.openThread} >
+                      {/*<Link className="color--black" to={'/' + org.url + '/' + thread.projectId + '/' + thread.threadId }>*/}
+                            {thread.title}
+                      </Link>
+                    </div>
                   </div>
-                </div>
+                </VisibilitySensor>
                 {/*<div className="co-type-thread-body DN" dangerouslySetInnerHTML={{ __html: thread.body || '' }}></div>*/}
 
                 
