@@ -825,7 +825,7 @@ export function onDeleteThreadComment(thread, commentId, threadId, parentId) {
 
     Helpers.deleteAlgoliaComment(threadId, commentId)
     
-    // Helpers.decrementThreadCount(Constants.COMMENTS_COUNT, threadId, thread, thread.userId);
+    Helpers.decrementThreadCount(Constants.COMMENTS_COUNT, threadId, thread, thread.userId);
 
     // change last comment to previous comment
     // Firebase.database().ref(Constants.THREADS_PATH + '/' + threadId).once('value', threadSnap => {
