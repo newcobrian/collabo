@@ -25,8 +25,8 @@ class ProjectInviteModal extends React.Component {
     }
   }
 
-  componentWillMount() {
-    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project invite modal' });
+  componentDidMount() {
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project invite modal', 'orgId': this.props.org.id });
   }
 
   render() {

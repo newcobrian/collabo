@@ -128,8 +128,8 @@ class OrgInviteModal extends React.Component {
     }
   }
 
-  componentWillMount() {
-    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'org invite modal' });
+  componentDidMount() {
+    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'org invite modal', 'orgId': this.props.org.id });
   }
 
   render() {

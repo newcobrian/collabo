@@ -124,12 +124,12 @@ class Project extends React.Component {
         this.props.loadProject(this.props.params.pid, orgId, Constants.PROJECT_PAGE);
         this.props.loadProjectMembers(this.props.params.pid, Constants.PROJECT_PAGE)
         this.props.loadOrgMembers(orgId,  Constants.PROJECT_PAGE)
+
+        this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project', 'orgId': orgId, 'projectId': this.props.params.pid });
       }
     })
     
     // this.props.loadLikesByUser(this.props.authenticated, this.props.params.orgurl)
-
-    this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project'});
 
     // if (this.props.params.pid) {
       // this.props.markProjectRead(this.props.authenticated, this.props.params.pid)
@@ -164,6 +164,8 @@ class Project extends React.Component {
         this.props.loadProject(nextProps.params.pid, this.props.org.id, Constants.PROJECT_PAGE);
         this.props.loadProjectMembers(nextProps.params.pid, Constants.PROJECT_PAGE)
         this.props.loadThreadSeenTimes(this.props.authenticated, this.props.org.id, nextProps.params.pid)
+
+        this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project', 'orgId': this.props.org.id, 'projectId': nextProps.params.pid });
       }
       
       // this.props.watchThreadFeed(this.props.authenticated, this.props.params.orgURL, nextProps.params.pid, this.props.feedEndValue, Constants.PROJECT_PAGE)
@@ -201,6 +203,8 @@ class Project extends React.Component {
           this.props.loadThreadSeenTimes(this.props.authenticated, orgId, nextProps.params.pid)
           this.props.loadProjectMembers(nextProps.params.pid, Constants.PROJECT_PAGE)
           this.props.loadOrgMembers(orgId, Constants.PROJECT_PAGE)
+
+          this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'project', 'orgId': orgId, 'projectId': nextProps.params.pid });
 
           // this.props.watchThreadFeed(this.props.authenticated, orgId, nextProps.params.pid, Constants.PROJECT_PAGE)
 
