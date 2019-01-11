@@ -97,7 +97,7 @@ const SubSection = props => {
         thread={props.thread}
         project={props.project}
         org={props.org}
-        usersList={props.orgMembers}
+        usersList={props.usersList}
         orgUserData={props.orgUserData}
         type={Constants.THREAD_TYPE}
         deleteComment={props.deleteComment}
