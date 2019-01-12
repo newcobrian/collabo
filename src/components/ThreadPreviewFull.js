@@ -6,7 +6,6 @@ import DisplayTimestamp from './DisplayTimestamp';
 import LikeReviewButton from './LikeReviewButton';
 import ProfilePic from './ProfilePic';
 import AttachmentsPreview from './AttachmentsPreview';
-import VisibilitySensor from "react-visibility-sensor";
 
 // const UpdateSection = props => {
 //   if (!props.thread) return null
@@ -200,12 +199,6 @@ class ThreadPreviewFull extends React.Component {
       window.history.pushState( {} , null, threadURL );
       this.props.showThreadModal(this.props.thread, this.props.project, this.props.org, this.props.orgMembers, this.props.orgUserData)
     }
-
-    this.onThreadVisible = (projectId, threadId, isRead, title) => isVisible => {
-      if (isVisible && !isRead) {
-        this.props.updateThreadLastSeen(this.props.authenticated, this.props.org.id, projectId, threadId)
-      }
-    }
   }
 
   render() {
@@ -238,7 +231,6 @@ class ThreadPreviewFull extends React.Component {
                   </div>
  
                 </div>*/}
-                <VisibilitySensor key={thread.threadId} onChange={this.onThreadVisible(thread.projectId, thread.threadId, this.props.isRead, thread.title)}>
                   <div className="flx flx-row">
                     <Link to={'/' + org.url + '/user/' + createdBy.username} className="thread-creator-image flx-hold mrgn-right-sm flx flx-row mrgn-right-sm">
                       <ProfilePic src={createdBy.image} className="user-image user-image-sm center-img" />
@@ -258,7 +250,6 @@ class ThreadPreviewFull extends React.Component {
                       </Link>
                     </div>
                   </div>
-                </VisibilitySensor>
                 {/*<div className="co-type-thread-body DN" dangerouslySetInnerHTML={{ __html: thread.body || '' }}></div>*/}
 
                 
