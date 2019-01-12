@@ -164,7 +164,7 @@ class ProjectList extends React.Component {
           </div>
 
           <Link className={"sidebar-row group-row flx flx-row flx-align-center " + (!this.props.projectId && this.props.source === Constants.PROJECT_PAGE ? 'active' : '')} onClick={this.onAllClick}>
-            <div className="sidebar-icon flx flx-center-all">
+            <div className="sidebar-icon flx flx-col flx-center-all">
               {/*<div className="koi-ico --24 ico--allupdates--primary"></div>*/}
               <div className="sidebar-dot fill--tertiary--10"></div>
             </div>

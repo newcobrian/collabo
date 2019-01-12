@@ -29,9 +29,10 @@ const OrgList = props => {
         {
           props.orgList.map((orgItem, index) => {
             return (
-              <Link to={'/' + orgItem.url} className="w-100 flx flx-col flx-just-start" key={index} >
+              <Link to={'/' + orgItem.url} className="flx flx-row flx-just-start w-100 mrgn-bottom-md" key={index} >
               {/*<a target="_blank" href={'/' + orgItem.url} className="w-100 flx flx-col flx-just-start" key={index}>*/}
-                <div className="org-logo mrgn-bottom-md DN">
+                <div className="sidebar-icon flx flx-col flx-center-all mrgn-right-sm">
+                  <div className="sidebar-dot fill--pond"></div>
                 </div>
                 <div className="koi-type-org color--black">{orgItem.name}</div>
               </Link>
@@ -49,14 +50,21 @@ const OrgInvitesList = props => {
   }
   else {
     return (
-      <div>
+      <div className="w-100">
         {
           (props.invites || []).map((inviteItem, index) => {
             return (
-              <Link to={'/invitation/' + inviteItem.inviteId} className="w-100 flx flx-col flx-just-start" key={inviteItem.inviteId} >
-                <div className="koi-type-org color--black">{inviteItem.orgName}</div>
-                <div className="koi-type-org color--black">{inviteItem.senderEmail}</div>
-                <DisplayTimestamp timestamp={inviteItem.timestamp} />
+              <Link to={'/invitation/' + inviteItem.inviteId} className="w-100 flx flx-row flx-just-start mrgn-bottom-sm" key={inviteItem.inviteId} >
+                <div className="sidebar-icon flx flx-col flx-center-all mrgn-right-sm">
+                  <div className="sidebar-dot fill--pond"></div>
+                </div>
+                <div className="w-100 flx flx-col flx-just-start">
+                  <div className="koi-type-org color--black">{inviteItem.orgName}</div>
+                  <div className="w-100 flx flx-row koi-type-caption color--black opa-30">
+                    <div className="">{inviteItem.senderEmail}</div>
+                    <DisplayTimestamp timestamp={inviteItem.timestamp} />
+                  </div>
+                </div>
               </Link>
             )
           })
@@ -72,8 +80,12 @@ const GlobalInvitesList = props => {
   }
   else {
     return (
-      <div className="flx flx-col flx-center-all">
-        <div>Invitations</div>
+      <div className="w-100 flx flx-col mrgn-top-md">
+        <div className="flx flx-row flx-just-start w-100 brdr-bottom mrgn-bottom-md pdding-bottom-sm">
+          <div className="koi-type-h2b w-100 color--black opa-20 ta-left">
+            Invitations
+          </div>
+        </div>
         {
           Object.keys(props.globalInvites || {}).map(function (orgId) {
             return (
@@ -156,23 +168,25 @@ class Home extends React.Component {
             </div>
             <div className="dash-right-wrapper flx flx-col fill--mist w-100">
               <div className="dash-inner flx flx-col flx-just-start fill--mist w-100">
-                <div className="flx flx-row flx-just-start w-100">
-                  <div className="koi-type-body koi-type-bold w-100 mrgn-bottom-lg color--black opa-20 ta-left">
+                <div className="flx flx-row flx-just-start w-100 brdr-bottom mrgn-bottom-md pdding-bottom-sm">
+                  <div className="koi-type-h2b koi-type-bold w-100 color--black opa-20 ta-left w-100">
                     My Teams
                   </div>
                   <SignOutButton signOut={this.props.signOutUser}/>
                 </div>
 
-                <Link to='/newteam' className="flx flx-row flx-center-all mrgn-top-md">
-                    <i className="material-icons color--white md-24 mrgn-right-sm opa-80 DN">add</i>
-                  <div className="koi-type-org color--green">+Create New Team</div>
-                </Link>
-
                 <OrgList
                   orgList={this.props.orgList} />
 
-                {/*<GlobalInvitesList
-                  globalInvites={this.props.globalInvites} />*/}
+                <Link to='/newteam' className="flx flx-row flx-center-all mrgn-bottom-md">
+                  <div className="sidebar-icon flx flx-center-all mrgn-right-sm">
+                    <div className="koi-ico --24 ico--add ico-color--seaweed"></div> 
+                  </div>
+                  <div className="koi-type-org color--seaweed">Create New Team</div>
+                </Link>
+
+                <GlobalInvitesList
+                  globalInvites={this.props.globalInvites} />
                 {/*<div className="guide-feed-wrapper w-100 flx flx-row flx-just-center flx-self-end flx-align-start flx-wrap">
                   <ProjectList />
                 </div>*/}

@@ -333,7 +333,7 @@ textarea {
 
 .thread-row-wrapper {
 	width: 100%;
-	/*padding: 0 10px;*/
+	padding: 0 10px;
 	overflow: hidden;
 }
 .tp-preview-full .thread-row-wrapper {
