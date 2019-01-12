@@ -67,13 +67,14 @@ const SubSection = props => {
 
     return (
       <div className="koi-type-body flx flx-col w-100">
-        <div className="koi-type-body flx flx-row flx-align-start flx-just-start mrgn-bottom-sm">
-          <span>Sort by: &nbsp;</span>
-          <Select
-            value={props.sortMethod}
-            onChange={handleChange}
-            options={Constants.FILE_SORTING_OPTIONS}
-          />
+        <div className="koi-type-body flx flx-row flx-align-center flx-just-start mrgn-bottom-sm w-100">
+          <span className="flx-hold koi-type-label">Sort by: &nbsp;</span>
+            <Select
+              className='koi-drop'
+              value={props.sortMethod}
+              onChange={handleChange}
+              options={Constants.FILE_SORTING_OPTIONS}
+            />
         </div>
 
         {/*<SortDropdown attachments={props.attachments} />*/}

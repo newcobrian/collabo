@@ -108,9 +108,14 @@ body div.dialog--basic {
   max-height: none !important;
   font-family: 'Karla';
 }
-
+.dialog--thread .dialog__overlay {
+  background: rgba(244,249,251) !important;
+}
 .dialog__overlay {
   background-color: white !important;
+}
+.css-10nd86i {
+    width: 100%;
 }
 .dialog--save__actions {
   position: fixed;

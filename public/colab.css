@@ -27,6 +27,7 @@
 .h-100 {
 	height: 100%;
 }
+
 .home-page.page-common {
     background-attachment: fixed;
     min-height: 820px;
@@ -789,4 +790,8 @@ textarea {
 }
 .ql-editor li.ql-indent-1:not(.ql-direction-rtl) {
     padding-left: 3.5em;
+}
+
+.koi-drop {
+	width: 100%;
 }

@@ -138,7 +138,7 @@ class ThreadModal extends React.Component {
             titleClassName="co-type-h3 color--black"
             titleStyle={{display: "none"}}
 
-            className="dialog dialog--save"
+            className="dialog dialog--save dialog--thread"
             style={{}}
 
             overlayClassName="dialog__overlay"
@@ -155,9 +155,10 @@ class ThreadModal extends React.Component {
             actionsContainerClassName="dialog--save__actions fill--pond DN"
             actionsContainerStyle={{}}
           >
-            <div className="threadmodal-header w-100 fill--white flx flx-row flx-align-center brdr-bottom pdding-all-sm pdding-right-md">
-              <div onClick={handleClose} className="koi-icon-wrapper color--utsuri flx-item-right link-pointer">
+            <div className="threadmodal-header w-100 fill--mist flx flx-row flx-align-center pdding-all-sm pdding-right-md">
+              <div onClick={handleClose} className="koi-icon-wrapper color--utsuri flx flx-col flx-center-all flx-item-right link-pointer">
                 <img className="center-img" src="/img/icon-close.png"/>
+                <div className="koi-type-body--sm text-hover color--utsuri opa-50 mobile-hide DN">Close</div>
               </div>
             </div>
 
