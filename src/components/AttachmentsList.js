@@ -47,7 +47,7 @@ const AttachmentsList = props => {
 	}
 	else {
 		return (
-			<div>
+			<div className="koi-type-body opa-50 mrgn-top-md">
 			No files
 			</div>
 		)

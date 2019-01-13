@@ -20,12 +20,14 @@ const MembersTab = props => {
   }
 
   return (
-    <li className="nav-item">
-      <a  href=""
-          className={ props.tab === Constants.MEMBERS_TAB ? 'nav-link color--black brdr-color--primary active' : 'nav-link color--black' }
-          onClick={clickHandler}>
+    <li onClick={clickHandler}
+    className={ props.tab === Constants.MEMBERS_TAB ? 'nav-link color--black brdr-color--primary active' : 'nav-link color--black' }
+    >
+      
+      <div className="koi-body-type">
         Members
-      </a>
+      </div>
+      <div className="nav-underline"></div>
     </li>
   );
 };
@@ -38,13 +40,12 @@ const ManageTab = props => {
 
   if (props.orgUser && props.orgUser.role !== Constants.GUEST_ROLE) {
     return (
-      <li className="nav-item">
-        <a
-          href=""
-          className={ props.tab === Constants.MANAGE_TAB ? 'nav-link color--black brdr-color--primary active' : 'nav-link color--black' }
+      <li className={ props.tab === Constants.MANAGE_TAB ? 'nav-link color--black brdr-color--primary active' : 'nav-link color--black' }
           onClick={clickHandler}>
+        <div className="koi-body-type">
           Manage Settings
-        </a>
+        </div>
+        <div className="nav-underline"></div>
       </li>
     );
   }
@@ -71,7 +72,7 @@ const RemoveFromProjectButton = props => {
         props.teammate.role >= Constants.USER_ROLE && props.orgUser.role < props.teammate.role) {
       return (
         <div className="flx flx-center-all mrgn-right-md">
-      <button onClick={handleButtonClick} className={"vb vb--xs vb--round flx flx-row flx-center-all " + (props.isMember ?  'fill--seaweed color--white': 'fill--mist color--black' )}>
+      <button onClick={handleButtonClick} className={"vb vb--xs vb--round flx flx-row flx-center-all " + (props.isMember ?  'fill--mist color--black': 'fill--mist color--black' )}>
           { props.isMember ? 'Remove from List' : 'Add to List' }
       </button>
     </div>
@@ -87,7 +88,7 @@ const MembersList = props => {
         {
           (props.projectMembers || []).map(teammate => {
             return (
-              <div key={teammate.userId}>
+              <div key={teammate.userId} className="flx flx-row w-100 flx-align-center">
                 <Link 
                   to={'/' + props.orgURL + '/user/' + teammate.username} 
                   onClick={props.hideModal}

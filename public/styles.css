@@ -856,20 +856,8 @@ width: 32px;
   font-size: 13px;
 }
 
-.nav-pills.outline-active .nav-link {
-  padding: 4px 0px;
-  margin-right: 0px;
-  color: #526166;
-  border-bottom: 4px solid transparent;
-  opacity: .5;
-}
-.nav-pills.outline-active .nav-link.brdr-color--primary.active,
-.nav-pills.outline-active .nav-link.brdr-color--primary:hover {
-    color: #0C111D !important;
-    font-weight: 600;
-    opacity: 1;
-    background-color: transparent !important;
-}
+
+
 .page-common .nav {
   margin-bottom: 20px;
 }

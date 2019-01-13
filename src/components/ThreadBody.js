@@ -291,8 +291,8 @@ class ThreadBody extends React.Component {
                   <div className="thread-row-wrapper flx flx-row">
                     <div className="thread-content-wrapper w-100">
                       <div className="co-type-thread-title color--black mrgn-bottom-xs">{thread.title}</div>
-                      <div className="flx flx-row w-100 flx-align-center mrgn-bottom-xs">
-                        <span className="thread-timestamp">Posted by {createdBy.username}
+                      <div className="flx flx-row w-100 flx-align-center mrgn-bottom-x color--black opa-50 mrgn-bottom-sm">
+                        <span className="koi-type-caption">Posted by {createdBy.username}
                           <Link
                             to={'/' + org.url + '/user/' + createdBy.username}
                             className="show-in-list">
@@ -306,7 +306,7 @@ class ThreadBody extends React.Component {
                           </div>
                         </Link> 
                         </span>
-                        <span className="thread-timestamp mrgn-left-md">Last updated:&nbsp;
+                        <span className="koi-type-caption mrgn-left-md">Last updated:&nbsp;
                           <DisplayTimestamp timestamp={thread.lastModified} />
                         </span>
                       </div>

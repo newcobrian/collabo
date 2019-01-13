@@ -795,3 +795,35 @@ textarea {
 .koi-drop {
 	width: 100%;
 }
+
+.nav-underline {
+	height: 4px;
+	width: 100%;
+	border-radius: 32px;
+	opacity: 1;
+	margin-top: 4px;
+	background-color: rgba(30,33,63) !important;
+	margin-bottom: 12px;
+}
+.nav-link.active,
+.nav-underline:hover {
+	opacity: 1;
+}
+.nav-pills.outline-active .nav-link {
+	  padding: 4px 0px;
+	  color: #000000;
+	  border-bottom: 4px solid transparent;
+	  opacity: .3;
+}
+.nav-pills .nav-link {
+    margin-right: 20px !important;
+    font-weight: 600;
+}
+.nav-pills.outline-active .nav-link.active,
+.nav-pills.outline-active .nav-link:hover {
+    color: black !important;
+    font-weight: 600;
+    opacity: 1;
+    cursor: pointer;
+    background-color: transparent !important;
+}

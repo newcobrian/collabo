@@ -4847,7 +4847,10 @@ ul.tag-list {
   border: none;
   /*border-bottom: 2px solid transparent;*/
   background: transparent;
-  color: #aaa; }
+  font-size: 15px;
+  letter-spacing: .5px;
+
+}
   .nav-pills.outline-active .nav-link:hover {
     color: #555; }
   .nav-pills.outline-active .nav-link.active {
