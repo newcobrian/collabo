@@ -97,6 +97,9 @@ const ThreadList = props => {
                 <VisibilitySensor 
                   key={threadItem.threadId} 
                   partialVisibility={true}
+                  minTopValue={200}
+                  delayedCall={true}
+                  intervalDelay={1000}
                   onChange={onThreadVisible(threadItem.projectId, threadItem.threadId, isRead, threadItem.title)}>
                   <ThreadPreviewFull
                     authenticated={props.authenticated}
