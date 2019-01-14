@@ -178,7 +178,8 @@ export function inviteUsersToOrg(auth, org, invites, role, projects) {
                     { projects: projects })
 
                 // add to users invites
-                updates[Constants.INVITES_BY_EMAIL_BY_ORG_PATH + '/' + cleanedEmail + '/' + orgId + '/' + inviteId] = omit(inviteObject, ['recipientEmail'])
+                updates[Constants.INVITES_BY_EMAIL_BY_ORG_PATH + '/' + cleanedEmail + '/' + orgId + '/' + inviteId] = 
+                  Object.assign({}, omit(inviteObject, ['recipientEmail']), { senderEmail: authUser.email })
               }
               else {
                 let inviteId = Firebase.database().ref(Constants.INVITES_PATH).push(inviteObject).key
@@ -526,32 +527,34 @@ export function pickGuestProjects() {
 
 export function loadGlobalInvites(email, source) {
   return dispatch => {
-    let cleanedEmail = Helpers.cleanEmailToFirebase(email)
-    Firebase.database().ref(Constants.INVITES_BY_EMAIL_BY_ORG_PATH + '/' + cleanedEmail).on('child_added', addedSnap => {
-      dispatch({
-        type: ActionTypes.GLOBAL_INVITE_BY_ORG_ADDED,
-        orgId: addedSnap.key,
-        payload: addedSnap.val(),
-        source: source
+    if (email.length >= 4) {
+      let cleanedEmail = Helpers.cleanEmailToFirebase(email)
+      Firebase.database().ref(Constants.INVITES_BY_EMAIL_BY_ORG_PATH + '/' + cleanedEmail).on('child_added', addedSnap => {
+        dispatch({
+          type: ActionTypes.GLOBAL_INVITE_BY_ORG_ADDED,
+          orgId: addedSnap.key,
+          payload: addedSnap.val(),
+          source: source
+        })
       })
-    })
 
-    Firebase.database().ref(Constants.INVITES_BY_EMAIL_BY_ORG_PATH + '/' + cleanedEmail).on('child_changed', changedSnap => {
-      dispatch({
-        type: ActionTypes.GLOBAL_INVITE_BY_ORG_CHANGED,
-        orgId: changedSnap.key,
-        payload: changedSnap.val(),
-        source: source
+      Firebase.database().ref(Constants.INVITES_BY_EMAIL_BY_ORG_PATH + '/' + cleanedEmail).on('child_changed', changedSnap => {
+        dispatch({
+          type: ActionTypes.GLOBAL_INVITE_BY_ORG_CHANGED,
+          orgId: changedSnap.key,
+          payload: changedSnap.val(),
+          source: source
+        })
       })
-    })
 
-    Firebase.database().ref(Constants.INVITES_BY_EMAIL_BY_ORG_PATH + '/' + cleanedEmail).on('child_removed', removedSnap => {
-      dispatch({
-        type: ActionTypes.GLOBAL_INVITE_BY_ORG_REMOVED,
-        orgId: removedSnap.key,
-        source: source
+      Firebase.database().ref(Constants.INVITES_BY_EMAIL_BY_ORG_PATH + '/' + cleanedEmail).on('child_removed', removedSnap => {
+        dispatch({
+          type: ActionTypes.GLOBAL_INVITE_BY_ORG_REMOVED,
+          orgId: removedSnap.key,
+          source: source
+        })
       })
-    })
+    }
   }
 }
 

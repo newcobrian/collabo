@@ -140,17 +140,23 @@ class Home extends React.Component {
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'homepage'});
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (this.props.authenticated !== nextProps.authenticated) {
-  //     this.props.loadOrgList(this.props.authenticated, Constants.HOME_PAGE)
-  //   }
-  // }
-
   componentWillUnmount() {
     this.props.unloadOrgList(this.props.authenticated, Constants.HOME_PAGE)
     let email = this.props.userInfo ? this.props.userInfo.email : ''
     this.props.unloadGlobalInvites(email, Constants.HOME_PAGE)
     this.props.setSidebar(true)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.userInfo !== this.props.userInfo) {
+      if (nextProps.userInfo && nextProps.userInfo.email && ((!this.props.userInfo || !this.props.userInfo.email) || this.props.userInfo.email !== nextProps.userInfo.email)) {
+        this.props.unloadOrgList(this.props.authenticated, Constants.HOME_PAGE)
+        let email = this.props.userInfo ? this.props.userInfo.email : ''
+        this.props.unloadGlobalInvites(email, Constants.HOME_PAGE)
+        this.props.loadOrgList(nextProps.authenticated, Constants.HOME_PAGE)
+        this.props.loadGlobalInvites(nextProps.userInfo.email, Constants.HOME_PAGE)  
+      }
+    }
   }
 
   render() {
