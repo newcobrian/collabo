@@ -63,8 +63,8 @@ const OrgInvitesList = props => {
                 <div className="w-100 flx flx-col flx-just-start">
                   <div className="koi-type-org color--black">{inviteItem.orgName}</div>
                   <div className="w-100 flx flx-row koi-type-caption color--black opa-30">
-                    <div className="">{inviteItem.senderEmail}</div>
-                    <DisplayTimestamp timestamp={inviteItem.timestamp} />
+                    <span>{inviteItem.senderEmail}</span>
+                    <span className="flx-item-right"><DisplayTimestamp timestamp={inviteItem.timestamp} /></span>
                   </div>
                 </div>
               </Link>
