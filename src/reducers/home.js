@@ -76,6 +76,16 @@ export default (state = initialState, action) => {
       }
       return state;
     }
+    case ActionTypes.GLOBAL_INVITE_BY_ORG_UNLOADED:
+      return {
+        ...state,
+        globalInvites: {}
+      }
+    case ActionTypes.UNLOAD_ORG_LIST:
+      return {
+        ...state,
+        orgList:  []
+      }
     default:
       return state;
   }

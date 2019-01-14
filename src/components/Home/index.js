@@ -28,15 +28,17 @@ const OrgList = props => {
       <div className="flx flx-col flx-center-all">
         {
           props.orgList.map((orgItem, index) => {
-            return (
-              <Link to={'/' + orgItem.url} className="flx flx-row flx-just-start w-100 mrgn-bottom-md" key={index} >
-              {/*<a target="_blank" href={'/' + orgItem.url} className="w-100 flx flx-col flx-just-start" key={index}>*/}
-                <div className="sidebar-icon flx flx-col flx-center-all mrgn-right-sm">
-                  <div className="sidebar-dot fill--pond"></div>
-                </div>
-                <div className="koi-type-org color--black">{orgItem.name}</div>
-              </Link>
+            if (orgItem.name && orgItem.url) {
+              return (
+                <Link to={'/' + orgItem.url} className="flx flx-row flx-just-start w-100 mrgn-bottom-md" key={index} >
+                {/*<a target="_blank" href={'/' + orgItem.url} className="w-100 flx flx-col flx-just-start" key={index}>*/}
+                  <div className="sidebar-icon flx flx-col flx-center-all mrgn-right-sm">
+                    <div className="sidebar-dot fill--pond"></div>
+                  </div>
+                  <div className="koi-type-org color--black">{orgItem.name}</div>
+                </Link>
               )
+            }
           })
         }
       </div>
@@ -75,8 +77,17 @@ const OrgInvitesList = props => {
 }
 
 const GlobalInvitesList = props => {
-  if (!props.globalInvites) {
-    return null
+  if (!props.globalInvites || Object.getOwnPropertyNames(props.globalInvites).length === 0) {
+    return (
+      <div className="w-100 flx flx-col mrgn-top-md">
+        <div className="flx flx-row flx-just-start w-100 brdr-bottom mrgn-bottom-md pdding-bottom-sm">
+          <div className="koi-type-h2b w-100 color--black opa-20 ta-left">
+            Invitations
+          </div>
+        </div>
+        <div className="koi-type-org color--black">You have no open invitations.</div>
+      </div>
+    )
   }
   else {
     return (
