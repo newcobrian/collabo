@@ -860,13 +860,15 @@ export function sendDailyDigestEmail(recipientId, orgId, threadsArray, extras) {
 	})
 }
 
-export function incrementThreadSeenCounts(auth, orgId, projectId, threadId) {
+export function incrementThreadLastUpdateTime(auth, orgId, projectId, threadId) {
 	Firebase.database().ref(Constants.USERS_BY_ORG_PATH + '/' + orgId).once('value', orgUsersSnap => {
 		let updates = {}
 		orgUsersSnap.forEach(function(user) {
 			// udpate the value for all 'read' actions, don't add an unread message for the user
 			if (user.key !== auth) {
-				updates[Constants.THREAD_SEEN_COUNTERS_PATH + '/' + user.key + '/' + orgId + '/' + projectId + '/' + threadId] = true
+				// updates[Constants.THREAD_SEEN_COUNTERS_PATH + '/' + user.key + '/' + orgId + '/' + projectId + '/' + threadId] = true
+				updates[Constants.THREAD_LAST_UPDATED_BY_PROJECT_PATH + '/' + user.key + '/' + projectId + '/' + threadId] = Firebase.database.ServerValue.TIMESTAMP
+				updates[Constants.THREAD_LAST_UPDATED_BY_ORG_PATH + '/' + user.key + '/' + orgId + '/' + threadId] = Firebase.database.ServerValue.TIMESTAMP
 			}
 		})
 

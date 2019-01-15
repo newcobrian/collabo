@@ -241,7 +241,7 @@ export function onAddThread(auth, org, projectId, thread, attachments) {
 
           Firebase.database().ref().update(updates);
 
-          Helpers.incrementThreadSeenCounts(auth, projectSnapshot.val().orgId, projectId, threadId)
+          Helpers.incrementThreadLastUpdateTime(auth, projectSnapshot.val().orgId, projectId, threadId)
 
           // upload attachments
           if (attachments && attachments.length > 0) {
@@ -473,7 +473,7 @@ export function updateThreadField(auth, threadId, thread, org, field, value) {
 
       Firebase.database().ref().update(updates);
 
-      Helpers.incrementThreadSeenCounts(auth, thread.orgId, thread.projectId, threadId)
+      Helpers.incrementThreadLastUpdateTime(auth, thread.orgId, thread.projectId, threadId)
 
       dispatch({
         type: ActionTypes.THREAD_UPDATED,
@@ -674,7 +674,7 @@ export function onThreadCommentSubmit(authenticated, type, thread, body, threadI
       let activityObject = Object.assign({}, pick(thread, ['title', 'projectId', 'createdOn']), pick(comment, ['body', 'lastModified']), { threadId: threadId }, { type: Constants.COMMENT_TYPE })
       Firebase.database().ref(Constants.ACTIVITY_BY_USER_BY_ORG_PATH + '/' + authenticated + '/' + thread.orgId).push(activityObject)
 
-      Helpers.incrementThreadSeenCounts(authenticated, thread.orgId, thread.projectId, threadId)
+      Helpers.incrementThreadLastUpdateTime(authenticated, thread.orgId, thread.projectId, threadId)
 
       // send message to original review poster if they are not the commentor
       let sentArray = [];

@@ -122,6 +122,8 @@ export const ATTACHMENTS_BY_ORG_PATH = '/attachments-by-org'
 export const ATTACHMENTS_BY_PROJECT_PATH = '/attachments-by-project'
 export const THREAD_LAST_SEEN_BY_ORG_PATH = '/thread-last-seen-by-org'
 export const THREAD_LAST_SEEN_BY_PROJECT_PATH = '/thread-last-seen-by-project'
+export const THREAD_LAST_UPDATED_BY_ORG_PATH = 'thread-last-updated-by-org'
+export const THREAD_LAST_UPDATED_BY_PROJECT_PATH = 'thread-last-updated-by-project'
 
 /*** Algolia indexes ***/
 export const POSTS_INDEX = 'posts'
