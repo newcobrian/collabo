@@ -870,7 +870,7 @@ export function incrementThreadLastUpdateTime(auth, orgId, projectId, threadId) 
 			// }
 		// })
 
-		updates[Constants.THREAD_LAST_UPDATED_BY_PROJECT_BY_ORG_PATH + '/' orgId + '/' + projectId + '/' + threadId] = Firebase.database.ServerValue.TIMESTAMP
+		updates[Constants.THREAD_LAST_UPDATED_BY_PROJECT_BY_ORG_PATH + '/' + orgId + '/' + projectId + '/' + threadId] = Firebase.database.ServerValue.TIMESTAMP
 		// updates[Constants.THREAD_LAST_UPDATED_BY_ORG_PATH + '/' + orgId + '/' + threadId] = Firebase.database.ServerValue.TIMESTAMP
 
 		Firebase.database().ref().update(updates);
