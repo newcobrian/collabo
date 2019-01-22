@@ -67,15 +67,28 @@ export default (state = initialState, action) => {
         ...state,
         orgList: []
       }
-    case ActionTypes.THREAD_COUNTS_LOADED:
-      return {
-        ...state,
-        threadCounts: action.threadCounts
-      }
+    // case ActionTypes.THREAD_COUNTS_LOADED:
+    //   return {
+    //     ...state,
+    //     unreadThreadCounts: action.unreadThreadCounts
+    //   }
+    case ActionTypes.THREAD_COUNTS_ADDED: 
+    case ActionTypes.THREAD_COUNTS_CHANGED: {
+      const newState = Object.assign({}, state);
+      newState.unreadThreadCounts = Object.assign({}, newState.unreadThreadCounts || {});
+      newState.unreadThreadCounts[action.projectId] = action.count
+      return newState;
+    }
+    case ActionTypes.THREAD_COUNTS_REMOVED: {
+      const newState = Object.assign({}, state);
+      newState.unreadThreadCounts = Object.assign({}, newState.unreadThreadCounts || {});
+      delete newState.unreadThreadCounts[action.projectId]
+      return newState;
+    }
     case ActionTypes.THREAD_COUNTS_UNLOADED:
       return {
         ...state,
-        threadCounts: {},
+        unreadThreadCounts: {},
         projectNotFoundError: false,
         emptyThreadFeed: false
       }
@@ -105,6 +118,29 @@ export default (state = initialState, action) => {
         ...state,
         projectNames: {}
       }
+    // case ActionTypes.GET_UNREADS_THREAD_ADDED:
+    // case ActionTypes.GET_UNREADS_THREAD_CHANGED: {
+    //   const newState = Object.assign({}, state);
+    //   newState[action.objectName] = Object.assign({}, newState[action.objectName] || {});
+    //   newState[action.objectName][action.projectId] = Object.assign({}, newState[action.objectName][action.projectId] || {});
+    //   newState[action.objectName][action.projectId][action.threadId] = action.lastUpdated
+      
+    //   newState.unreadThreadCounts = Object.assign({}, newState.unreadThreadCounts || {});
+    //   newState.unreadThreadCounts[action.projectId] = calculateUnreads(newState.threadsLastUpdatedTimes, newState.threadsLastSeenTimes, action.projectId)
+
+    //   return newState;
+    // }
+    // case ActionTypes.GET_UNREADS_THREAD_REMOVED: {
+    //   const newState = Object.assign({}, state);
+    //   newState[action.objectName] = Object.assign({}, newState[action.objectName] || {});
+    //   newState[action.objectName][action.projectId] = Object.assign({}, newState[action.objectName][action.projectId] || {});
+    //   delete newState[action.objectName][action.projectId][action.threadId];
+
+    //   newState.unreadThreadCounts = Object.assign({}, newState.unreadThreadCounts || {});
+    //   newState.unreadThreadCounts[action.projectId] = calculateUnreads(newState.threadsLastUpdatedTimes, newState.threadsLastSeenTimes, action.projectId)
+
+    //   return newState;
+    // }
     default:
       return state;
   }

@@ -226,7 +226,7 @@ class Thread extends React.Component {
       }
     })
     
-    this.props.markThreadRead(this.props.authenticated, this.props.params.tid)
+    // this.props.markThreadRead(this.props.authenticated, this.props.params.tid)
   }
 
   componentWillUnmount() {
@@ -247,6 +247,10 @@ class Thread extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (nextProps.thread !== this.props.thread) {
+      let threadId = nextProps.params.tid ? nextProps.params.tid : this.props.params.tid
+      this.props.markThreadRead(this.props.authenticated, nextProps.thread.orgId, nextProps.thread.projectId, threadId);
+    }
     if (nextProps.params.tid !== this.props.params.tid && this.props.params.orgurl === nextProps.params.orgurl) {
       this.props.unloadThread(this.props.params.tid);
       this.props.unloadThreadLikes(this.props.params.tid, Constants.THREAD_PAGE);
@@ -256,7 +260,7 @@ class Thread extends React.Component {
       this.props.loadThreadLikes(nextProps.params.tid, Constants.THREAD_PAGE);
       this.props.watchThreadComments(nextProps.params.tid);
       this.props.loadThreadAttachments(nextProps.params.tid, Constants.THREAD_PAGE);
-      this.props.markThreadRead(this.props.authenticated, nextProps.params.tid)
+      // this.props.markThreadRead(this.props.authenticated, nextProps.params.tid)
 
       this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'thread', 'orgId': this.props.org.id });
 
@@ -294,7 +298,7 @@ class Thread extends React.Component {
           this.props.loadThreadLikes(nextProps.params.tid, Constants.THREAD_PAGE);
           this.props.watchThreadComments(nextProps.props.params.tid);
           this.props.loadThreadAttachments(nextProps.params.tid, Constants.THREAD_PAGE);
-          this.props.markThreadRead(this.props.authenticated, nextProps.params.tid)
+          // this.props.markThreadRead(this.props.authenticated, nextProps.params.tid)
 
           this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'thread', 'orgId': orgId });
         }

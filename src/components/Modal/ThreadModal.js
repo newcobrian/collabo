@@ -82,6 +82,7 @@ class ThreadModal extends React.Component {
     this.props.watchThreadComments(this.props.thread.threadId);
     this.props.loadThreadAttachments(this.props.thread.threadId, Constants.THREAD_MODAL);
 
+    this.props.markThreadRead(this.props.authenticated, this.props.thread.orgId, this.props.thread.projectId, this.props.thread.threadId);
     this.props.sendMixpanelEvent(Constants.MIXPANEL_PAGE_VIEWED, { 'page name' : 'thread modal', 'orgId': this.props.org.id });
   }
 

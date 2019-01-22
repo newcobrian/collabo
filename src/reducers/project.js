@@ -404,27 +404,37 @@ export default (state = initialState, action) => {
         ...state,
         showListView: action.showListView
       }
-    case ActionTypes.THREAD_SEEN_TIMES_ADDED: {
+    case ActionTypes.UNREAD_THREADS_ADDED:
+    case ActionTypes.UNREAD_THREADS_CHANGED: {
       const newState = Object.assign({}, state);
-      newState.threadSeenTimes = Object.assign({}, state.threadSeenTimes || {});
-      newState.threadSeenTimes[action.threadId] = action.timestamp
+      newState.unreadThreads = Object.assign({}, newState.unreadThreads || {});
+      newState.unreadThreads[action.projectId] = Object.assign({}, newState.unreadThreads[action.projectId] || {})
+
+      if (action.threadId) {
+        newState.unreadThreads[action.projectId][action.threadId] = true
+      }
+      else {
+        Object.keys(action.payload || {}).forEach(function(threadId) {
+          newState.unreadThreads[action.projectId][threadId] = true 
+        })
+      }
+      return newState
+    }
+    case ActionTypes.UNREAD_THREADS_REMOVED: {
+      const newState = Object.assign({}, state);
+      newState.unreadThreads = Object.assign({}, newState.unreadThreads || {});
+      newState.unreadThreads[action.projectId] = Object.assign({}, newState.unreadThreads[action.projectId] || {})
+      if (action.threadId) {
+        delete newState.unreadThreads[action.projectId][action.threadId]
+      }
+      else {
+        delete newState.unreadThreads[action.projectId]
+      }
       return newState;
     }
-    case ActionTypes.THREAD_SEEN_TIMES_CHANGED: {
+    case ActionTypes.UNREAD_THREADS_UNLOADED: {
       const newState = Object.assign({}, state);
-      newState.threadSeenTimes = Object.assign({}, state.threadSeenTimes || {});
-      newState.threadSeenTimes[action.threadId] = action.timestamp
-      return newState;
-    }
-    case ActionTypes.THREAD_SEEN_TIMES_REMOVED: {
-      const newState = Object.assign({}, state);
-      newState.threadSeenTimes = Object.assign({}, state.threadSeenTimes || {});
-      delete newState.threadSeenTimes[action.threadId]
-      return newState;
-    }
-    case ActionTypes.THREAD_SEEN_TIMES_UNLOADED: {
-      const newState = Object.assign({}, state);
-      newState.threadSeenTimes = {}
+      newState.unreadThreads = {}
       return newState;
     }
     default:

@@ -168,7 +168,7 @@ const ThreadPreview = props => {
               <div className="flx flx-row flx-align-center w-100">
 
                 <div className="updater-col flx flx-row flx-align-center flx-hold">
-                  <div className={'new-badge mrgn-right-sm' + (props.isRead ? ' is-read' : ' un-read')}></div>
+                  <div className={'new-badge mrgn-right-sm' + (props.isUnread ? ' un-read' : ' is-read')}></div>
 
                   <Link to={'/' + props.org.url + '/user/' + lastUpdater.username} className="tip__author-photo flx-hold mrgn-right-sm flx flx-row">
                     <ProfilePic src={lastUpdater.image} className="user-image user-image-sm center-img" />
@@ -189,7 +189,7 @@ const ThreadPreview = props => {
                       <DisplayTimestamp timestamp={thread.lastModified} />
                     </div>
                   </div>
-                  <Link className={'color--black co-post-preview-title text-hover' + (props.isRead ? ' isRead' : ' unRead')}
+                  <Link className={'color--black co-post-preview-title text-hover' + (props.isUnread ? ' unRead' : ' isRead')}
                         onClick={openThread}>
                         {thread.title}
                   </Link>

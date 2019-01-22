@@ -13,13 +13,10 @@ const mapStateToProps = state => ({
 });
 
 const ThreadList = props => {
-  const onThreadVisible = (projectId, threadId, isRead, title) => isVisible => {
-    // if (isVisible) {
-      // console.log(title + (isRead ? ' read' : ' unread'))
-    // }
-    if (isVisible && !isRead) {
+  const onThreadVisible = (projectId, threadId, isUnread, title) => isVisible => {
+    if (isVisible && isUnread) {
       // console.log('updating ' + title)
-      props.updateThreadLastSeen(props.authenticated, props.org.id, projectId, threadId)
+      props.markThreadRead(props.authenticated, props.org.id, projectId, threadId)
     }
   }
 
@@ -66,7 +63,7 @@ const ThreadList = props => {
             //   }
 
             let lastUpdater = props.orgUserData && props.orgUserData[threadItem.lastUpdater] ? props.orgUserData[threadItem.lastUpdater] : { username: '' }
-            let isRead = props.threadSeenTimes && props.threadSeenTimes[threadItem.threadId] && (props.threadSeenTimes[threadItem.threadId] > threadItem.lastModified)
+            let isUnread = props.unreadThreads && props.unreadThreads[threadItem.projectId] && props.unreadThreads[threadItem.projectId][threadItem.threadId]
 
             if (props.showListView) {
               return (
@@ -88,7 +85,7 @@ const ThreadList = props => {
                   orgMembers={props.orgMembers}
                   orgUserData={props.orgUserData}
                   showThreadModal={props.showThreadModal}
-                  isRead={isRead}
+                  isUnread={isUnread}
                 />
               );
             }
@@ -100,7 +97,7 @@ const ThreadList = props => {
                   minTopValue={200}
                   delayedCall={true}
                   intervalDelay={1000}
-                  onChange={onThreadVisible(threadItem.projectId, threadItem.threadId, isRead, threadItem.title)}>
+                  onChange={onThreadVisible(threadItem.projectId, threadItem.threadId, isUnread, threadItem.title)}>
                   <ThreadPreviewFull
                     authenticated={props.authenticated}
                     userInfo={props.userInfo}
@@ -120,7 +117,7 @@ const ThreadList = props => {
                     orgUserData={props.orgUserData}
                     showThreadModal={props.showThreadModal}
                     onDeleteFile={props.onDeleteFile}
-                    isRead={isRead} />
+                    isUnread={isUnread} />
                 </VisibilitySensor>
               );
             }

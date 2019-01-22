@@ -7,7 +7,7 @@ import ProfilePic from './ProfilePic';
 import FirebaseSearchInput from './FirebaseSearchInput';
 
 const DotJewel = props => {
-  if (props.threadCount > 0) {
+  if (props.unreadCount > 0) {
     return (
       <div className="sidebar-dot fill--tancho active">
       </div>
@@ -23,7 +23,7 @@ const DotJewel = props => {
 }
 
 const PrivateIcon = props => {
-  if (props.threadCount > 0) {
+  if (props.unreadCount > 0) {
     return (
       <div className={'lock-wrapper flx flx-center-all mrgn-right-xs ' + (props.isPublic === true ? ' listname--public' : 'listname--private')}>
         <img className="center-img" src="/img/lock-icon.png"/>
@@ -38,9 +38,9 @@ const PrivateIcon = props => {
 }
 
 const ThreadCountJewel = props => {
-  if (props.threadCount > 0) {
+  if (props.unreadCount > 0) {
     return (
-      <div className="group-badge badge-on color--black flx-item-right koi-type-count ta-right">{props.threadCount}</div>
+      <div className="group-badge badge-on color--black flx-item-right koi-type-count ta-right">{props.unreadCount}</div>
     );
   }
   return (
@@ -103,7 +103,7 @@ class ProjectList extends React.Component {
     }
 
     let org = this.props.org
-    let threadCounts = this.props.threadCounts || {}
+    let unreadThreadCounts = this.props.unreadThreadCounts || {}
     let inboxCount = this.props.inboxCounters && this.props.inboxCounters[this.props.org.id] ? this.props.inboxCounters[this.props.org.id] : 0
     let otherInboxes = (this.props.totalInboxCount || 0) - inboxCount
 
@@ -183,14 +183,14 @@ class ProjectList extends React.Component {
 
                     <Link className={"sidebar-row group-row flx flx-row flx-align-center " + (this.props.projectId === projectItem.id ? 'active' : '')} key={projectItem.id} to={'/' + org.url + '/' + projectItem.id}>
                       <div className="sidebar-icon flx flx-center-all">
-                        <DotJewel threadCount={threadCounts[projectItem.id]} isPublic={isPublic} />
+                        <DotJewel unreadCount={unreadThreadCounts[projectItem.id]} isPublic={isPublic} />
                       </div>
-                      {<PrivateIcon threadCount={threadCounts[projectItem.id]} isPublic={isPublic} />}
+                      {<PrivateIcon unreadCount={unreadThreadCounts[projectItem.id]} isPublic={isPublic} />}
 
                       <div className="sidebar-project-name color--black">
                         {projectName}
                       </div>
-                      {<ThreadCountJewel threadCount={threadCounts[projectItem.id]} />}
+                      {<ThreadCountJewel unreadCount={unreadThreadCounts[projectItem.id]} />}
                     </Link>
 
                 );

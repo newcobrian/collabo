@@ -385,7 +385,7 @@ export function markProjectRead(auth, projectId) {
       let updates = {}
       Firebase.database().ref(Constants.PROJECTS_PATH + '/' + projectId).once('value', snap => {
         if (snap.exists()) {
-          updates[Constants.THREAD_SEEN_COUNTERS_PATH + '/' + auth + '/' + snap.val().orgId + '/' + projectId] = null
+          updates[Constants.UNREAD_THREAD_COUNTERS_PATH + '/' + auth + '/' + snap.val().orgId + '/' + projectId] = null
           Firebase.database().ref().update(updates);
         }
       })
