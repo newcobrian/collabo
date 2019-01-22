@@ -788,6 +788,9 @@ export function leaveProject(auth, userInfo, orgId, project) {
     let updates = {}
     updates[`/${Constants.PROJECTS_BY_ORG_BY_USER_PATH}/${orgId}/${auth}/${project.projectId}/`] = null
     updates[`/${Constants.USERS_BY_PROJECT_PATH}/${project.projectId}/${auth}/`] = null
+
+    // remove unread thread counts for the project
+    updates[`/${Constants.UNREAD_THREAD_COUNTERS_PATH}/${auth}/${orgId}/${project.projectId}/`] = null
     
     Firebase.database().ref().update(updates)
   }

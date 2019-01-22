@@ -315,6 +315,9 @@ export function changeUserStatus(auth, orgId, user, status) {
                 // usernames-by-org
                 // let lowercaseName = user.username ? user.username.toLowerCase() : ''
                 // updates[Constants.USERNAMES_BY_ORG_PATH + '/' + orgId + '/' + lowercaseName] = null
+
+                // remove unread thread counters
+                updates[`/${Constants.UNREAD_THREAD_COUNTERS_PATH}/${user.id}/${orgId}/`] = null
               }
               else if (status === Constants.ACTIVE_STATUS) {
                 // users-by-email-time-by-org
