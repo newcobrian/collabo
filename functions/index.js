@@ -222,63 +222,63 @@ const sendDailyDigestEmail = (recipientId, orgId, threadsArray, extras, totalThr
 }
 
 exports.hourly_job =
-  functions.pubsub.topic('hourly-tick').onPublish((event) => {
-    let startDate = new Date();
-    let startHour = startDate.getHours()
+  // functions.pubsub.topic('hourly-tick').onPublish((event) => {
+  //   let startDate = new Date();
+  //   let startHour = startDate.getHours()
 
-    console.log("This job is run every hour!! hour = " + startHour)
+  //   console.log("This job is run every hour!! hour = " + startHour)
     
-    startDate.setDate(startDate.getDate() - 1);
-    startDate.setMinutes(0)
-    startDate.setSeconds(0)
-    let startTime = startDate.getTime()
+  //   startDate.setDate(startDate.getDate() - 1);
+  //   startDate.setMinutes(0)
+  //   startDate.setSeconds(0)
+  //   let startTime = startDate.getTime()
 
-    admin.database().ref(USERS_BY_EMAIL_TIME_BY_ORG_PATH + '/' + startHour).once('value', snap => {
-      // let startDate = (Math.round(new Date().getTime() / (60*60*1000))) - (10 * 24 * 3600);
-      snap.forEach(function(org) {
-        // if (org.key === '-LHjWm2WXiQpZXtYNBk6') {
-        admin.database().ref(THREADS_BY_ORG_PATH + '/' + org.key)
-        .orderByChild('lastModified')
-        .startAt(startTime)
-        .once('value', threadsSnap => {
-          admin.database().ref(PROJECTS_BY_ORG_BY_USER_PATH + '/' + org.key).once('value', projectsSnap => {
-            if (threadsSnap.exists() && threadsSnap.numChildren() > 0 && projectsSnap.exists()) {
-              org.forEach(function(user) {
-                let counter = 0;          // counts total threads
-                let bodyCounter = 0;      // counts up to 5 threads to include in email body
-                let projectCounter = 0;   // counts total threads in projects that user belongs to
-                let threadArray = []
-                // if (user.key === 'puqKr2l42bS3lNMAGL9OpelAF122') { //  || user.key === 'YbUBBVfof9YUM2DaC9SijrheTZ23'
-                  let itemsProcessed = 0;
-                  threadsSnap.forEach(function(thread) {
-                    if (thread.exists()) {
-                      // check thread is in a project that user belongs to
-                      if (thread.val().projectId && projectsSnap.val()[user.key] && projectsSnap.val()[user.key][thread.val().projectId]) {
-                        if (bodyCounter < 5) {
-                          threadArray.push(Object.assign({}, thread.val(), {id: thread.key}))
-                          bodyCounter++;
-                        }
-                        projectCounter++;
-                      }
+  //   admin.database().ref(USERS_BY_EMAIL_TIME_BY_ORG_PATH + '/' + startHour).once('value', snap => {
+  //     // let startDate = (Math.round(new Date().getTime() / (60*60*1000))) - (10 * 24 * 3600);
+  //     snap.forEach(function(org) {
+  //       // if (org.key === '-LHjWm2WXiQpZXtYNBk6') {
+  //       admin.database().ref(THREADS_BY_ORG_PATH + '/' + org.key)
+  //       .orderByChild('lastModified')
+  //       .startAt(startTime)
+  //       .once('value', threadsSnap => {
+  //         admin.database().ref(PROJECTS_BY_ORG_BY_USER_PATH + '/' + org.key).once('value', projectsSnap => {
+  //           if (threadsSnap.exists() && threadsSnap.numChildren() > 0 && projectsSnap.exists()) {
+  //             org.forEach(function(user) {
+  //               let counter = 0;          // counts total threads
+  //               let bodyCounter = 0;      // counts up to 5 threads to include in email body
+  //               let projectCounter = 0;   // counts total threads in projects that user belongs to
+  //               let threadArray = []
+  //               // if (user.key === 'puqKr2l42bS3lNMAGL9OpelAF122') { //  || user.key === 'YbUBBVfof9YUM2DaC9SijrheTZ23'
+  //                 let itemsProcessed = 0;
+  //                 threadsSnap.forEach(function(thread) {
+  //                   if (thread.exists()) {
+  //                     // check thread is in a project that user belongs to
+  //                     if (thread.val().projectId && projectsSnap.val()[user.key] && projectsSnap.val()[user.key][thread.val().projectId]) {
+  //                       if (bodyCounter < 5) {
+  //                         threadArray.push(Object.assign({}, thread.val(), {id: thread.key}))
+  //                         bodyCounter++;
+  //                       }
+  //                       projectCounter++;
+  //                     }
 
-                      counter++;
+  //                     counter++;
 
-                      if (counter === threadsSnap.numChildren()) {
-                        let extras = projectCounter - 5
-                        if (projectCounter > 0) {
-                          sendDailyDigestEmail(user.key, org.key, threadArray, extras, projectCounter)
-                        }
-                      }
-                    }
-                  })
-                // }
-              })
-            }
-          })
-        })
-        // }
-      })
-    })
+  //                     if (counter === threadsSnap.numChildren()) {
+  //                       let extras = projectCounter - 5
+  //                       if (projectCounter > 0) {
+  //                         sendDailyDigestEmail(user.key, org.key, threadArray, extras, projectCounter)
+  //                       }
+  //                     }
+  //                   }
+  //                 })
+  //               // }
+  //             })
+  //           }
+  //         })
+  //       })
+  //       // }
+  //     })
+  //   })
   });
 
 exports.daily_job =
